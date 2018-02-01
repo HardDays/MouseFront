@@ -25,9 +25,6 @@ export class MainService{
         this.me = new UserModel();
     }
 
-    Test(){
-        return this.http.GetData('/accounts.json',""); 
-    }
 
     /* Authentication BLOCK START */
     IsLogedIn():boolean{
@@ -41,12 +38,26 @@ export class MainService{
         return this.http.GetToken();
     }
 
-    UserLogin(email:string, password:string){
+    UserLogin(username:string, password:string){
         let params = {
-            email: email,
+            user_name: username,
             password: password
         };
-        return this.http.PostData('/auth/login',JSON.stringify(params));
+        return this.http.PostData('/auth/login.json',JSON.stringify(params));
+    }
+
+    UserLoginByGoogle(token:string){
+        let params = {
+            access_token: token
+        };
+        return this.http.PostData('/auth/google.json',JSON.stringify(params));
+    }
+
+    UserLoginByFacebook(token:string){
+        let params = {
+            access_token: token
+        };
+        return this.http.PostData('/auth/facebook.json',JSON.stringify(params));
     }
 
     SetupLocalUserStatus(status){
@@ -149,7 +160,7 @@ export class MainService{
     }
 
    
-
+    
     // UserModelToCreateUserModel(input:UserModel){
     //     let result = new CreateUserModel();
     //     if(input){
