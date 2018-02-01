@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
+import { LocationStrategy, PlatformLocation, Location } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +8,17 @@ import { Component } from '@angular/core';
 })
 
 
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'app';
+  constructor(){}
+  ngOnInit(){
+    // this.service.onAuthChange$.subscribe(bool => {
+    //   this.isLoggedIn = bool;
+    //   if(this.isLoggedIn)
+    //       this.service.GetMe().subscribe(it =>{
+    //         }
+    //       );
+    // });
+    // this.service.TryToLoginWithToken();
+  }
 }
