@@ -3,28 +3,28 @@
     <section class="login-register">
         <div class="register">
             <div class="m-v-reg">
-                <form class="reg-wr">
+                <form class="reg-wr" #signUpForm="ngForm" (ngSubmit)="onSubmitSignUp(signUpForm)">
                     <h3>General info</h3>
                     <div class="for-flex">
                         <div class="photo-wr-1">
                             <label class="file_upload">
                                 <div class="bg-image"></div>
                                 <p>Add photo</p>
-                                <input accept=".jpg, .jpeg, .png" type="file">
+                                <input name="photo" ngModel accept=".jpg, .jpeg, .png" type="file">
                             </label>
                             <!--появляется этот блок если загружена фотка и в стайл бекграунд имейдж ебануть-->
                             <!--<div class="bg-image uploaded"></div>-->
                             <!---->
                         </div>
                         <div class="side left-side">
-                            <input class="inp-style-2" type="text" placeholder="Phone">
-                            <input class="inp-style-2" type="text" placeholder="Location">
+                            <input name="phone" ngModel class="inp-style-2" type="text" placeholder="Phone">
+                            <input name="location" ngModel class="inp-style-2" type="text" placeholder="Location">
                         </div>
                         <div class="side right-side">
-                            <input class="inp-style-2" type="text" placeholder="Username">
-                            <input class="inp-style-2" type="text" placeholder="Email address">
-                            <input class="inp-style-2" type="password" placeholder="Password">
-                            <input class="inp-style-2" type="password" placeholder="Verify password">
+                            <input name="username" ngModel class="inp-style-2" type="text" placeholder="Username">
+                            <input name="email" ngModel class="inp-style-2" type="text" placeholder="Email address">
+                            <input name="password" ngModel class="inp-style-2" type="password" placeholder="Password">
+                            <input name="verify_password" ngModel class="inp-style-2" type="password" placeholder="Verify password">
                         </div>
                     </div>
                     

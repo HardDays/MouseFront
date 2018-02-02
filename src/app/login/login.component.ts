@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { NgForm} from '@angular/forms';
 import { MainService } from '../core/services/main.service';
-import { AuthService } from "angular2-social-login";
+
+import { BaseComponent } from '../core/base/base.component';
+import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
   selector: 'login',
@@ -10,47 +12,24 @@ import { AuthService } from "angular2-social-login";
 })
 
 
-export class LoginComponent {
+export class LoginComponent extends BaseComponent implements OnInit {
 
-  private socToken:any;
-  private sub:any;
-
-  constructor(private service:MainService, public _auth: AuthService){}
+ 
+  ngOnInit(){
+    if(this.isLoggedIn)  this.router.navigate(['/system','open']);
+  }
 
   onSubmitSignIn(form: NgForm){
     let username = form.controls.username.value, password = form.controls.password.value;
-    this.service.UserLogin(username,password).subscribe((res)=>{
-      console.log(res);
-    });
+    this.Login(username,password,(err)=>{console.log(err)});
   }
 
   signInGoFb(provider){
-    this.sub = this._auth.login(provider).subscribe(
-      (data) => {
-                  console.log(data);
-                  this.socToken = data;
-                  //user data 
-                  //name, image, uid, provider, uid, email, token (accessToken for Facebook & google, no token for linkedIn), idToken(only for google)
-                  if (provider=="google")
-                    this.service.UserLoginByGoogle(this.socToken.token).
-                      subscribe((res)=>{
-                          console.log(`g:`,res);
-                      });
-
-                  else if (provider=="facebook")
-                    this.service.UserLoginByFacebook(this.socToken.token).
-                    subscribe((res)=>{
-                        console.log(`f:`,res);
-                    });
-                }
-    )
+   this.SocialLogin(provider);
   }
 
   logoutGoFb(){
-    this._auth.logout().subscribe(
-      (data)=>{//return a boolean value.
-      } 
-    );
+    this.SocialLogout('gf');
   }
 
 }

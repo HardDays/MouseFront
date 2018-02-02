@@ -33,18 +33,33 @@ export class MainService{
             return false;
         return true;
     }
+
     getToken()
     {
         return this.http.GetToken();
     }
 
-    UserLogin(username:string, password:string){
-        let params = {
-            user_name: username,
+    UserLogin(user:string, password:string){
+
+        let paramsUserName = {
+            user_name: user,
             password: password
         };
+
+        let paramsEmail = {
+            email: user,
+            password: password
+        };
+
+        let params;
+        if(user.search('@')>0) 
+            params = paramsEmail;
+        else params = paramsUserName;
+
         return this.http.PostData('/auth/login.json',JSON.stringify(params));
     }
+
+
 
     UserLoginByGoogle(token:string){
         let params = {
@@ -82,11 +97,11 @@ export class MainService{
     BaseInitAfterLogin(data:TokenModel){
         localStorage.setItem('token',data.token);
         this.http.BaseInitByToken(data.token);
-        this.GetMe()
-            .subscribe((user:UserModel)=>{
-                    this.me = user;
-                    this.onAuthChange$.next(true);
-                });
+        // this.GetMe()
+        //     .subscribe((user:UserModel)=>{
+        //             this.me = user;
+        //             this.onAuthChange$.next(true);
+        //         });
     }
 
     TryToLoginWithToken()
@@ -107,7 +122,7 @@ export class MainService{
     }
 
     Logout(){
-        return this.http.PostData("/auth/logout","")
+        return this.http.PostData("/auth/logout.json","")
             .subscribe((res:any)=>{
                 this.ClearSession();
                // this.SetupLocalUserStatus(UserEnumStatus.None);
@@ -132,32 +147,33 @@ export class MainService{
     // }
 
     GetMe(){
-        return this.http.GetData('/users/get_me',"");
+        return this.http.GetData('/users/me.json',"");
     }
 
-    ChangeUserPassword(params:any){
-        return this.http.PostData('/users/change_password',JSON.stringify(params));
+
+
+
+    /* Registration BLOCK Start */
+
+
+    CreateUser(email,password,phone?){
+        let params ={
+            email:email,
+            password:password
+        };
+        return this.http.PostData('/users.json',JSON.stringify(params));
     }
 
-    DeleteMe(){
-        return this.http.DeleteData('/users/delete_me');
+    CreateAccount(username,location?,image?){
+        let params ={
+            user_name:username,
+            account_type:'fan'
+        };
+
+        return this.http.PostData('/accounts.json',JSON.stringify(params));
     }
 
-    GetUserById(id:number){
-        return this.http.GetData('/users/get/'+id,"");
-    }
-    GetMyAccess(){
-        return this.http.GetData('/access/get_my_access',"");
-    }
-    GetMyAccessStatus(){
-        let status:string =`guest`;
-        this.GetMyAccess()
-        .subscribe((res)=>{
-            status = res.role;
-            return status;
-        });
-      return status;
-    }
+     /* Registration BLOCK END */
 
    
     

@@ -13,15 +13,13 @@ import { AppRoutingModule } from './app.routing';
 
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from '../app/registration/registration.component';
+import { SystemComponent } from './systemModule/system.component';
 
 import { Angular2SocialLoginModule } from "angular2-social-login";
 
 let providers = {
   "google": {
     "clientId": "318975976374-aibqel7otlqho284pfc62iofel2e6s58.apps.googleusercontent.com"
-  },
-  "linkedin": {
-    "clientId": "LINKEDIN_CLIENT_ID"
   },
   "facebook": {
     "clientId": "187849948634661",
