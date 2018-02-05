@@ -14,9 +14,19 @@ import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 
 export class LoginComponent extends BaseComponent implements OnInit {
 
+  stupidAccessShow: boolean = true;
  
   ngOnInit(){
     if(this.isLoggedIn)  this.router.navigate(['/system','open']);
+    this.stupidAccessShow = this.service.stupidAccessShow;
+  }
+
+  StupidAccess(form:NgForm){
+    let pass = form.controls.access.value;
+    if(pass=="PASSWORD") {
+      this.service.stupidAccessShow = false;
+      this.stupidAccessShow = false;
+    }
   }
 
   onSubmitSignIn(form: NgForm){

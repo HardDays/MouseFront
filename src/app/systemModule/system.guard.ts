@@ -2,7 +2,7 @@ import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot} from "@angular
 import {Observable} from "rxjs/Rx";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { Injectable } from '@angular/core';
-import { UserModel } from './../core/models/user.model';
+import { UserCreateModel } from './../core/models/user-create.model';
 import { MainService } from './../core/services/main.service';
 import { BaseComponent } from '../core/base/base.component';
 

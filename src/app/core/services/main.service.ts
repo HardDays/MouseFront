@@ -9,20 +9,21 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/Rx';
 import {Subject} from 'rxjs/Subject';
 import {TokenModel} from "./../models/token.model";
-import {UserModel} from "./../models/user.model";
+import {UserCreateModel} from "./../models/user-create.model";
 
 @Injectable()
 export class MainService{
     public onAuthChange$: Subject<boolean>;
-    public me: UserModel;
+    public me: UserCreateModel;
     public onLoadingChange$: Subject<boolean>;
+    public stupidAccessShow:boolean = true;
     //public pushNotif:NotificationsComponent = new NotificationsComponent();
     constructor(private http: HttpService, private router: Router){
         this.onAuthChange$ = new Subject();
         this.onAuthChange$.next(false);
         this.onLoadingChange$ = new Subject();
         this.onLoadingChange$.next(false);
-        this.me = new UserModel();
+        this.me = new UserCreateModel();
     }
 
 

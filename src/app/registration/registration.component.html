@@ -1,5 +1,15 @@
-<section class="main-router-outlet">
+<div *ngIf="stupidAccessShow">
+        <form #accessForm="ngForm" (ngSubmit)="StupidAccess(accessForm)">
+         <input autocomplete="off" type="text" name="access" ngModel placeholder="PASSWORD">
+         <button type="submit" ><span>Ok</span></button>
+        </form>
+</div>
+
+
+
+<section *ngIf="!stupidAccessShow" class="main-router-outlet">
     <!---->
+
     <section class="login-register">
         <div class="register">
             <div class="m-v-reg">
@@ -10,10 +20,10 @@
                             <label class="file_upload">
                                 <div class="bg-image"></div>
                                 <p>Add photo</p>
-                                <input name="photo" ngModel accept=".jpg, .jpeg, .png" type="file">
+                                <input *ngIf="!User.image" name="photo" accept=".jpg, .jpeg, .png" type="file" (change)="loadLogo($event)"> 
                             </label>
                             <!--появляется этот блок если загружена фотка и в стайл бекграунд имейдж ебануть-->
-                            <!--<div class="bg-image uploaded"></div>-->
+                            <!-- <div *ngIf="User.image" class="bg-image uploaded"></div> -->
                             <!---->
                         </div>
                         <div class="side left-side">

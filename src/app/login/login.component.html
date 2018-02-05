@@ -1,5 +1,12 @@
 
-<section class="main-router-outlet">
+<div *ngIf="stupidAccessShow">
+        <form #accessForm="ngForm" (ngSubmit)="StupidAccess(accessForm)">
+         <input autocomplete="off" type="text" name="access" ngModel placeholder="PASSWORD">
+         <button type="submit" ><span>Ok</span></button>
+        </form>
+</div>
+
+<section *ngIf="!stupidAccessShow" class="main-router-outlet">
     <section class="login-register">
         <div class="login">
             <div class="m-w-log">

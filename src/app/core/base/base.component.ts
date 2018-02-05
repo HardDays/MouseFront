@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { error } from 'util';
 import { GUID } from '../models/guide.model';
-import { UserModel } from '../models/user.model';
+import { UserCreateModel } from '../models/user-create.model';
 import { TokenModel } from '../models/token.model';
 import { Base64ImageModel } from '../models/base64image.model';
 import { AuthService } from "angular2-social-login";
@@ -19,7 +19,7 @@ export class BaseComponent{
     public isLoading:boolean = false;
     public isLoggedIn:boolean = false;
     public userStatus:number = 0;
-    public Me:UserModel = new UserModel();
+    public Me:UserCreateModel = new UserCreateModel();
     public MyLogo:string = '';
 
     public NewErrForUser:boolean = false;
@@ -55,18 +55,18 @@ export class BaseComponent{
     }
 
 
-    CreateUserAcc(username,email,password,location,phone,image?){
+    CreateUserAcc(user:UserCreateModel, password){
         this.WaitBeforeLoading(
-            ()=>this.service.CreateUser(email,password,phone),
+            ()=>this.service.CreateUser(user.email,password,user.phone),
                 (res)=>{
-                    
+
                     console.log(res.token);
                     let token:TokenModel = new TokenModel();
                     token.token = res.token;
                     this.service.BaseInitAfterLogin(token);
                     //this.service.BaseInitAfterLogin
 
-                    this.service.CreateAccount(username,location,image).
+                    this.service.CreateAccount(user.user_name,location,user.image).
                     subscribe((acc)=>{
                         console.log('ok acc:',acc);
                         this.router.navigate(['/system','open']);

@@ -4,6 +4,7 @@ import { MainService } from '../core/services/main.service';
 
 import { BaseComponent } from '../core/base/base.component';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
+import { UserCreateModel } from '../core/models/user-create.model';
 
 @Component({
   selector: 'register',
@@ -13,20 +14,43 @@ import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 
 
 export class RegistrationComponent extends BaseComponent implements OnInit {
-  ngOnInit(){
 
+  User:UserCreateModel = new UserCreateModel();
+
+  stupidAccessShow: boolean = true;
+
+  ngOnInit(){
+    this.stupidAccessShow = this.service.stupidAccessShow;
+  }
+
+  StupidAccess(form:NgForm){
+    let pass = form.controls.access.value;
+    if(pass=="PASSWORD") {
+      this.service.stupidAccessShow = false;
+      this.stupidAccessShow = false;
+    }
   }
 
   onSubmitSignUp(form: NgForm){
     console.log(form);
+   
+    let password = form.controls.password.value;
+    this.User.user_name = form.controls.username.value;
+    this.User.email = form.controls.email.value;
+    this.User.phone = form.controls.phone.value;
 
-    let username = form.controls.username.value,
-        email = form.controls.email.value,
-        password = form.controls.password.value,
-        phone = form.controls.phone.value;
-        //image = form.controls.image.value;
-
-    this.CreateUserAcc(username,email,password,location,phone);
+    this.CreateUserAcc(this.User,password);
 
   }
+
+  loadLogo($event:any):void{
+    console.log($event);
+    this.ReadImages(
+        $event.target.files,
+        (res:string)=>{
+          console.log(`r`,res);
+            this.User.image = res;
+        }
+    );
+}
 }
