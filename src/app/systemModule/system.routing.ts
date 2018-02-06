@@ -7,13 +7,15 @@ import { SystemAccessGuard } from './system.guard';
 import { SystemComponent } from './system.component';
 
 import {OpenComponent} from './test-open/open.component';
+import { EditUserComponent } from './editUser/editUser.component';
 
 
 const routes: Routes =
 [
   {path:'',component:SystemComponent, children:
     [
-      { path: 'open', component: OpenComponent, canActivate: [SystemAccessGuard] }
+      { path: 'open', component: OpenComponent, canActivate: [SystemAccessGuard] },
+      { path: 'edit', component: EditUserComponent, canActivate: [SystemAccessGuard] }
     ]
   }
 ];

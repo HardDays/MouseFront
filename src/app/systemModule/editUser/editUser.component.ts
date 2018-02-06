@@ -1,18 +1,13 @@
 import { Component, ViewChild } from "@angular/core";
-import { UserModel } from "../core/models/user.model";
-import { MainService } from "../core/services/main.service";
 import { Router } from "@angular/router";
 import { NgForm } from "@angular/forms";
-import { Base64ImageModel } from "../core/models/base64image.model";
+import { UserModel } from "../../core/models/user.model";
+import { MainService } from "../../core/services/main.service";
+import { Base64ImageModel } from "../../core/models/base64image.model";
 
 
 
 
-@Component({
-  selector: 'app-edit-user',
-  templateUrl: './editUser.component.html',
-  styleUrls: ['./st-form.css']
-})
 export class EditUserComponent{
     RegistrationErr = false;
     isLoading = true;
@@ -36,18 +31,22 @@ export class EditUserComponent{
         
     }
 
-    InitByUser(usr:UserModel){
-        // console.log(usr);
-        // this.User = this.service.UserModelToCreateUserModel(usr);
-        // this.oldEmail = usr.email?usr.email:'';
-        // this.UserId = usr.id?usr.id:0;
-        // if(usr.image_id){
-        //     this.service.GetImageById(usr.image_id)
-        //         .subscribe((res:Base64ImageModel)=>{
-        //             this.User.image = res.base64;
-        //         });
-        // }
-    }
+    InitByUser(res:any){
+          this.service.GetImage(res.cover_id)
+              .subscribe((res:Base64ImageModel)=>{
+                  console.log("image");
+                  console.log(res);
+                  this.image = res.base64;
+              });
+       this.User.user_name = res.user_name?res.user_name:'';
+        this.User.display_name = res.display_name?res.display_name:'';
+        this.User.phone = res.phone?res.phone:'';
+        this.User.bio = res.bio?res.bio:'';
+        this.User.address = res.address?res.address:'';
+        this.User.lat = res.lat?res.lat:'';
+        this.User.lng = res.lng?res.lng:'';
+      
+      }
 
     changeListener($event: any) : void {
         this.readThis($event.target);

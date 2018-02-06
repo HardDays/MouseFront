@@ -39,6 +39,11 @@ export class MainService{
     {
         return this.http.GetToken();
     }
+    
+    GetImage(id:string){
+    
+        return this.http.GetData('/accounts/'+id+'/images','');
+    }
 
     UserLogin(user:string, password:string){
 
