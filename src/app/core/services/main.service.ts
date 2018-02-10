@@ -13,6 +13,7 @@ import {UserCreateModel} from "./../models/user-create.model";
 
 @Injectable()
 export class MainService{
+
     public onAuthChange$: Subject<boolean>;
     public me: UserCreateModel;
     public onLoadingChange$: Subject<boolean>;

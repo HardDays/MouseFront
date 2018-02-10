@@ -10,8 +10,7 @@ const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch:'full'},
     { path: 'login',component: LoginComponent, canActivate: [AppAccessGuard]},
     { path: 'register',component: RegistrationComponent, canActivate: [AppAccessGuard]},
-    { path: 'system', loadChildren: './systemModule/system.module#SystemModule'},
-
+    { path: 'system', loadChildren: './systemModule/system.module#SystemModule'}
 
     { path: '**', redirectTo: 'login'}
 ];
