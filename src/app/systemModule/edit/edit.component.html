@@ -1,0 +1,124 @@
+<section class="login-register">
+    <div class="register">
+        <div class="m-v-reg">
+            <form class="reg-wr">
+                <h3>Edit profile</h3>
+                <div class="for-flex">
+                    <div class="photo-wr-1" [ngStyle]="{'background-image': 'url('+Account.image+')'}">
+                        <label class="file_upload">
+                            <div class="bg-image"></div>
+                            <p>Add photo</p>
+                            <input *ngIf="!Account.image" name="photo" accept=".jpg, .jpeg, .png" type="file" (change)="loadLogo($event)"> 
+                        </label>
+                    </div>
+                    <div class="side left-side">
+                        <input name="phone" class="inp-style-2" type="text" placeholder="Phone">
+                        <input name="address" class="inp-style-2" type="text" placeholder="Address">
+                        <input name="capacity" class="inp-style-2" type="number" min="0" placeholder="Capacity">
+                        <input name="number_of_bathrooms" ngModel class="inp-style-2" type="number" min="0" placeholder="Number of bathrooms">
+                        <input name="min_age" ngModel class="inp-style-2" type="number" min="0" placeholder="Minimal age">
+                        <p>Choose your account type</p>
+                        <select name="account_type" [ngModel]="SelectedAccount" (ngModelChange)="SelectedAccount = $event">
+                            <option *ngFor="let item of AccountTypes" [value]="item.value">{{item.name}}</option>
+                        </select>
+                        <p>Choose your venue type</p>
+                        <select name="venue_type" [ngModel]="SelectedVenue" (ngModelChange)="SelectedVenue = $event">
+                            <option *ngFor="let item of VenueTypes" [value]="item.value">{{item.name}}</option>
+                        </select>
+                        <p>Location</p>
+                        <select name="location_type" [ngModel]="SelectedLocation" (ngModelChange)="SelectedLocation = $event">
+                            <option *ngFor="let item of LocationTypes" [value]="item.value">{{item.name}}</option>
+                        </select>
+                        <input name="lat" class="inp-style-2" type="number" min="0" placeholder="Latitude">
+                        <input name="lng" class="inp-style-2" type="number" min="0" placeholder="Longitude">
+                        <input name="about" class="inp-style-2" type="text" placeholder="About">
+                        <p>Operating hours</p>
+                        <ng-container  *ngFor="let item of OperatingDays;let i = index">
+                            <div class="one-checkbox">
+                                <div class="check-style">
+                                    <input type="checkbox" class="checkbox" [name]="'workingday'+i" [id]="'checkboxOr-day-'+i" [ngModel]="item.checked" (ngModelChange)="item.checked = $event">
+                                    <label [for]="'checkboxOr-day-'+i"></label>
+                                </div>
+                            <p>{{item.name}}</p>
+                            </div>
+                            <!-- <input class="inp-style-2 time-mask" [textMask]="getMask(item)"  autocomplete="off" type="text" [name]="'from-time-'+i" placeholder="From" [ngModel]="item.begin_time" (ngModelChange)="item.begin_time = $event"> -->
+                            <!-- <input class="inp-style-2 time-mask" [textMask]="getMaskEnd(item)"  autocomplete="off" type="text" [name]="'to-time-'+i" placeholder="To" [ngModel]="item.end_time" (ngModelChange)="item.end_time = $event"> -->
+                        </ng-container>
+                    </div>
+
+                    <div class="side right-side">
+                        <p>Contacts</p>
+                        <div *ngFor="let item of Account.emails; let i = index">
+                            <input type="text" class="inp-style-2" [name]="'email-name-'+i" placeholder="Name" [ngModel]="Account.emails[i].name" (ngModelChange)="Account.emails[i].name = $event">
+                            <input type="text" class="inp-style-2" [name]="'email-value-'+i" placeholder="Email" [ngModel]="Account.emails[i].email" (ngModelChange)="Account.emails[i].email = $event">
+                            <button class ="butt-style-1" type="button" (click)="DeleteEmail(i)">Delete</button>
+                        </div>
+                        <button class ="butt-style-1" type="button" (click)="AddEmail()">Add new contact</button>
+                        <p>Venue dates</p>
+                        <div *ngFor="let item of Account.dates; let i = index">
+                            <!-- <input class="inp-style-2" type="text" placeholder="From" [name]="'from-'+i" [ngModel]="Account.dates[i].begin_date" (ngModelChange)="Account.dates[i].begin_date = $event" -->
+                            <!-- #dp="bsDaterangepicker" -->
+                            <!-- bsDaterangepicker [(bsValue)]="date"> -->
+                            <!-- <input class="inp-style-2" type="text" placeholder="Till" [name]="'till-'+i" [ngModel]="Account.dates[i].end_date" (ngModelChange)="Account.dates[i].end_date = $event" -->
+                            <!-- #dp="bsDaterangepicker" -->
+                            <!-- bsDaterangepicker [(bsValue)]="date"> -->
+                            <div class="one-checkbox">
+                                <div class="check-style">
+                                    <input type="checkbox" class="checkbox" name="is_avaliable" id="checkbox-2" [ngModel]="Account.dates[i].isAvailable" (ngModelChange)="Account.dates[i].is_Available = $event">
+                                    <label for="checkbox-2"></label>
+                                </div>
+                                <p>Is available</p>
+                            </div>
+                            <input type="text" class="inp-style-2" [name]="'price-'+i" placeholder="Price" [ngModel]="Account.dates[i].price" (ngModelChange)="Account.dates[i].price = $event">
+                            <input type="text" class="inp-style-2" [name]="'booking_notice-'+i" placeholder="Booking notice" [ngModel]="Account.dates[i].booking_notice" (ngModelChange)="Account.dates[i].booking_notice = $event">
+                            <button class ="butt-style-1" type="button" (click)="DeleteVenueDate(i)">Delete</button>
+                        </div>
+                        <button class ="butt-style-1" type="button" (click)="AddVenueDate()">Add new venue date</button>
+                        <p>Office hours</p>
+                        <ng-container  *ngFor="let item of OfficeDays;let i = index">
+                            <div class="one-checkbox">
+                                <div class="check-style">
+                                    <input type="checkbox" class="checkbox" name="'workingday'+i" id="'checkboxOr-day-'+i" [ngModel]="item.checked" (ngModelChange)="item.checked = $event">
+                                    <label for="'checkboxOr-day-'+i"></label>
+                                </div>
+                                <p>{{item.name}}</p>
+                            </div> 
+                            <!-- <input class="inp-style-2 time-mask" [textMask]="getMask(item)"  autocomplete="off" type="text" [name]="'from-time-'+i" placeholder="From" [ngModel]="item.begin_time" (ngModelChange)="item.begin_time = $event"> -->
+                            <!-- <input class="inp-style-2 time-mask" [textMask]="getMaskEnd(item)"  autocomplete="off" type="text" [name]="'to-time-'+i" placeholder="To" [ngModel]="item.end_time" (ngModelChange)="item.end_time = $event"> -->
+                        </ng-container>
+                    </div>
+
+                    <div class="side right-side">
+                        <input name="username" ngModel class="inp-style-2" type="text" placeholder="Username">
+                        <input name="displayname" ngModel class="inp-style-2" type="text" placeholder="Displayed name">
+                        <input name="phone" ngModel class="inp-style-2" type="text" placeholder="Phone">
+                        <input name="bio" ngModel class="inp-style-2" type="text" placeholder="Bio">
+                        <input name="description" ngModel class="inp-style-2" type="text" placeholder="Description">
+                        <input name="fax" ngModel class="inp-style-2" type="text" placeholder="Fax">
+                        <input name="bank_name" ngModel class="inp-style-2" type="text" placeholder="Bank name">
+                        <input name="account_bank_number" ngModel class="inp-style-2" type="text" placeholder="Bank number">
+                        <input name="account_bank_routing_number" ngModel class="inp-style-2" type="text" placeholder="Bank routing number">
+                        <input name="dress_code" ngModel class="inp-style-2" type="text" placeholder="Dress code">
+                        <input name="audio_description" ngModel class="inp-style-2" type="text" placeholder="Audio description">
+                        <input name="lighting_description" ngModel class="inp-style-2" type="text" placeholder="Lighting description">
+                        <input name="stage_description" ngModel class="inp-style-2" type="text" placeholder="Stage description">
+                        <div class="one-checkbox">
+                            <div class="check-style">
+                                <input type="checkbox" class="checkbox" name="has_bar" id="checkbox-2" [ngModel]="hasBar" (ngModelChange)="hasBar = $event">
+                                <label for="checkbox-2"></label>
+                            </div>
+                            <p>Has bar</p>
+                        </div>
+                        <div class="one-checkbox">
+                            <div class="check-style">
+                                <input type="checkbox" class="checkbox" name="has_vr" id="checkbox-2" [ngModel]="hasVr" (ngModelChange)="hasVr = $event">
+                                <label for="checkbox-2"></label>
+                            </div>
+                            <p>Has vr</p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

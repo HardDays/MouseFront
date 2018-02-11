@@ -10,12 +10,10 @@ export class AppAccessGuard extends BaseComponent implements CanActivate{
     canActivate(router:ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>|boolean{
 
         switch(router.routeConfig.path){
-            case "login":{
+            case "access":{
                 return this.LoginHandler(router,state);
             }
-            case "register":{
-                return this.LoginHandler(router,state);
-            }
+           
             default:{
                 return true;
             }
@@ -24,11 +22,11 @@ export class AppAccessGuard extends BaseComponent implements CanActivate{
 
     private LoginHandler(router:ActivatedRouteSnapshot, state: RouterStateSnapshot):boolean{
 
-       // this.router.navigate(['/system','table']);
-        if(this.isLoggedIn){
-             this.router.navigate(['/system','open']);
-            return false;
-        }
+        if(localStorage.getItem('access')=='true')
+        {
+            this.router.navigate(['/system','shows']);
+                return false;
+        }       
         
         return true;
         

@@ -4,16 +4,18 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
-import { MainService } from './core/services/main.service';
+import { AuthMainService } from './core/services/auth.service';
+import { TypeService } from './core/services/type.service';
+import { ImagesService } from './core/services/images.service';
+import { AccountService } from './core/services/account.service';
 import { HttpService } from './core/services/http.service';
 
 import { AppComponent } from './app.component';
 import { AppAccessGuard } from './app.guard';
 import { AppRoutingModule } from './app.routing';
 
-import { LoginComponent } from './login/login.component';
-import { RegistrationComponent } from '../app/registration/registration.component';
 import { SystemComponent } from './systemModule/system.component';
+import { StupidAccessComponent } from './stupidAccess/stupidAccess.component';
 
 import { Angular2SocialLoginModule } from "angular2-social-login";
 
@@ -30,8 +32,7 @@ let providers = {
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    RegistrationComponent
+    StupidAccessComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +42,12 @@ let providers = {
     AppRoutingModule,
     Angular2SocialLoginModule
   ],
-  providers: [AppAccessGuard, MainService, HttpModule, HttpService],
+  providers: [AppAccessGuard, 
+    AuthMainService,
+    TypeService, 
+    ImagesService,
+    AccountService,
+    HttpModule, HttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

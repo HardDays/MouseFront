@@ -1,5 +1,8 @@
 import { Component, OnInit, ElementRef, ViewChild, NgZone, Injectable } from '@angular/core';
-import { MainService } from '../services/main.service';
+import { AuthMainService } from '../services/auth.service';
+import { TypeService } from '../services/type.service';
+import { ImagesService } from '../services/images.service';
+import { AccountService } from '../services/account.service';
 import { Router, Params } from '@angular/router';
 
 import { Subject } from 'rxjs/Subject';
@@ -8,10 +11,12 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { error } from 'util';
 import { GUID } from '../models/guide.model';
-import { UserCreateModel } from '../models/user-create.model';
+import { AccountCreateModel } from '../models/accountCreate.model';
 import { TokenModel } from '../models/token.model';
 import { Base64ImageModel } from '../models/base64image.model';
 import { AuthService } from "angular2-social-login";
+import { UserCreateModel } from '../models/userCreate.model';
+import { UserGetModel } from '../models/userGet.model';
 
 @Injectable()
 export class BaseComponent{
@@ -19,31 +24,35 @@ export class BaseComponent{
     public isLoading:boolean = false;
     public isLoggedIn:boolean = false;
     public userStatus:number = 0;
-    public Me:UserCreateModel = new UserCreateModel();
+    public Me:AccountCreateModel = new AccountCreateModel();
     public MyLogo:string = '';
 
     public NewErrForUser:boolean = false;
     
-    constructor(protected service: MainService, protected router: Router,public _auth: AuthService) {
+    constructor(protected authService: AuthMainService,
+                protected accService:AccountService,
+                protected imgService:ImagesService,
+                protected typeService:TypeService,
+                protected router: Router,public _auth: AuthService) {
         
-        this.isLoggedIn = this.service.IsLogedIn();
+        this.isLoggedIn = this.authService.IsLogedIn();
 
         if(this.isLoggedIn){
             this.GetMyData();
         }
 
-        this.service.onAuthChange$
+        this.authService.onAuthChange$
             .subscribe((res:boolean)=>{
                 this.isLoggedIn = res;
                 if(this.isLoggedIn){
                     this.GetMyData();
                 }
                 else
-                    this.router.navigate(['/login']);
+                    this.router.navigate(['/system','shows']);
             });
         
         
-        this.service.onLoadingChange$
+        this.authService.onLoadingChange$
             .subscribe((val:boolean)=>{
                 if(this.ActiveProcesses.length == 0){
                     this.isLoading = false;
@@ -55,42 +64,41 @@ export class BaseComponent{
     }
 
 
-    CreateUserAcc(user:UserCreateModel, password){
+    CreateUserAcc(user:UserCreateModel, account:AccountCreateModel){
         this.WaitBeforeLoading(
-            ()=>this.service.CreateUser(user.email,password,user.phone),
-                (res)=>{
-
-                    console.log(res.token);
+            ()=>this.authService.CreateUser(user),
+                (res:UserGetModel)=>{
+                    console.log('ok usr:',res,);
                     let token:TokenModel = new TokenModel();
                     token.token = res.token;
-                    this.service.BaseInitAfterLogin(token);
-                    //this.service.BaseInitAfterLogin
+                    this.authService.BaseInitAfterLogin(token);
 
-                    this.service.CreateAccount(user.user_name,location,user.image).
-                    subscribe((acc)=>{
-                        console.log('ok acc:',acc);
-                        this.router.navigate(['/system','open']);
-                    },
-                (err)=>{
-                    console.log('err',err);
-                }
+                    this.authService.CreateAccount(account).
+                    subscribe(
+                        (acc)=>{
+                            console.log('ok acc:',acc);
+                            this.router.navigate(['/system','shows']);
+                        },
+                        (err)=>{
+                            console.log('err',err);
+                        }
                     );
 
                 },
                 (err)=>{
-
-                });
+                    console.log('err',err);
+                }
+        );
         
-
     }
 
     
     protected Login(email:string,password:string,callback:(error)=>any){
         this.WaitBeforeLoading(
-            ()=>this.service.UserLogin(email,password),
+            ()=>this.authService.UserLogin(email,password),
             (res:TokenModel)=>{
-                this.service.BaseInitAfterLogin(res);
-                this.router.navigate(['/system','open']);
+                this.authService.BaseInitAfterLogin(res);
+                this.router.navigate(['/system','shows']);
             },
             (err)=>{
                 callback(err);
@@ -107,19 +115,19 @@ export class BaseComponent{
                         let socToken:any;
                         socToken = data;
                         if (provider=="google")
-                            this.service.UserLoginByGoogle(socToken.token).
+                            this.authService.UserLoginByGoogle(socToken.token).
                             subscribe((res)=>{
                                 console.log(`g:`,res);
-                                this.service.BaseInitAfterLogin(res);
-                                    this.router.navigate(['/system','open']);
+                                this.authService.BaseInitAfterLogin(res);
+                                    this.router.navigate(['/system','shows']);
                             });
         
                         else if (provider=="facebook")
-                            this.service.UserLoginByFacebook(socToken.token).
+                            this.authService.UserLoginByFacebook(socToken.token).
                             subscribe((res)=>{
                                 console.log(`f:`,res);
-                                this.service.BaseInitAfterLogin(res);
-                                this.router.navigate(['/system','open']);
+                                this.authService.BaseInitAfterLogin(res);
+                                this.router.navigate(['/system','shows']);
                             });
                         }
             )
@@ -154,33 +162,33 @@ export class BaseComponent{
         this.GetMe();
     }
 
-    protected GetImageById(id:number,callback:(res:any)=>any, errCallback?:(obj?:any)=>void){
-        if(id){
-            this.WaitBeforeLoading(
-                ()=>this.service.GetImageById(id),
-                (res:Base64ImageModel)=>{
-                    if(callback && typeof callback == "function"){
-                        callback(res);
-                    }
-                },
-                (err)=>{
-                    console.log(err);
+    // protected GetImageById(id:number,callback:(res:any)=>any, errCallback?:(obj?:any)=>void){
+    //     if(id){
+    //         this.WaitBeforeLoading(
+    //             ()=>this.service.GetImageById(id),
+    //             (res:Base64ImageModel)=>{
+    //                 if(callback && typeof callback == "function"){
+    //                     callback(res);
+    //                 }
+    //             },
+    //             (err)=>{
+    //                 console.log(err);
 
-                    if(callback && typeof callback == "function"){
-                        callback(false);
-                    }
-                    if(errCallback && typeof errCallback == "function"){
-                        errCallback();
-                    }
-                }
-            );
-        }
-        else{
-            if(callback && typeof callback == "function"){
-                callback(false);
-            }
-        }
-    }
+    //                 if(callback && typeof callback == "function"){
+    //                     callback(false);
+    //                 }
+    //                 if(errCallback && typeof errCallback == "function"){
+    //                     errCallback();
+    //                 }
+    //             }
+    //         );
+    //     }
+    //     else{
+    //         if(callback && typeof callback == "function"){
+    //             callback(false);
+    //         }
+    //     }
+    // }
 
     // protected GetMyImage(callback?:()=>any){
     //     this.GetImageById(
@@ -211,7 +219,7 @@ export class BaseComponent{
 
     protected GetMe(callback?:()=>any){
         this.WaitBeforeLoading(
-            ()=>this.service.GetMe(),
+            ()=>this.authService.GetMe(),
             (res)=>{
                 this.Me = res;
                 //this.GetMyImage(callback);
@@ -269,8 +277,7 @@ export class BaseComponent{
     // }
 
     public Logout(){
-        this.service.Logout();
-       
+        this.authService.Logout();
     }
     
 
@@ -297,7 +304,7 @@ export class BaseComponent{
     }
 
     protected SetLoading = () => {
-        this.service.onLoadingChange$.next(true);
+        this.authService.onLoadingChange$.next(true);
     }
 
 }

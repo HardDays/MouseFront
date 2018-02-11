@@ -23,12 +23,15 @@
         "assets/css/bootstrap.min.css",
         "assets/css/slick.css",
         "assets/css/style.css",
-        "assets/css/media.css"
+        "assets/css/media.css",
+        "assets/css/ion.rangeSlider.css",
+        "assets/css/ion.rangeSlider.skinFlat.css"
       ],
       "scripts": [
         "assets/js/scripts.js",
         "assets/js/bootstrap.min.js",
-        "assets/js/slick.min.js"
+        "assets/js/slick.min.js",
+        "assets/js/ion.rangeSlider.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

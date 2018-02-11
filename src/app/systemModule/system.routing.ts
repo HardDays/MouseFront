@@ -6,14 +6,20 @@ import { Routes, RouterModule } from '@angular/router';
 import { SystemAccessGuard } from './system.guard';
 import { SystemComponent } from './system.component';
 
-import {OpenComponent} from './test-open/open.component';
-
+import { ShowsComponent } from './shows/shows.component';
+import { LoginComponent } from './login/login.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { EditComponent } from './edit/edit.component';
 
 const routes: Routes =
 [
-  {path:'',component:SystemComponent, children:
+  { path: '', redirectTo: 'shows', pathMatch:'full'},
+  { path:'',component:SystemComponent, children:
     [
-      { path: 'open', component: OpenComponent, canActivate: [SystemAccessGuard] }
+      { path: 'shows', component: ShowsComponent, canActivate: [SystemAccessGuard] },
+      { path: 'login', component: LoginComponent, canActivate: [SystemAccessGuard] },
+      { path: 'register', component: RegistrationComponent, canActivate: [SystemAccessGuard] },
+      { path: 'edit', component: EditComponent, canActivate: [SystemAccessGuard] }
     ]
   }
 ];

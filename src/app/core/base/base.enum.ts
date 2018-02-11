@@ -9,3 +9,8 @@ export enum UserEnumRole{
     Receptionist = "receptionist",
     Creator = "creator"
 }
+export enum AccountType{
+    Fan = "fan",
+    Venue = "venue",
+    Artist = "artist"
+}

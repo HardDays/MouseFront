@@ -1,6 +1,6 @@
 import { Component,OnInit } from '@angular/core';
 import { LocationStrategy, PlatformLocation, Location } from '@angular/common';
-import { MainService } from './core/services/main.service';
+import { AuthMainService } from './core/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,7 @@ import { MainService } from './core/services/main.service';
 
 export class AppComponent implements OnInit {
   isLoggedIn:boolean = false;
-  constructor(private service:MainService){}
+  constructor(private service:AuthMainService){}
   ngOnInit(){
     this.service.onAuthChange$.subscribe(bool => {
       this.isLoggedIn = bool;

@@ -11,11 +11,19 @@ import { SystemAccessGuard } from './system.guard';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import {SystemComponent} from './system.component';
-import {OpenComponent} from './test-open/open.component';
+
+import {ShowsComponent} from './shows/shows.component';
+import { LoginComponent } from './login/login.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { EditComponent } from './edit/edit.component';
+
 @NgModule({
   declarations: [
     SystemComponent,
-    OpenComponent
+    ShowsComponent,
+    LoginComponent,
+    RegistrationComponent,
+    EditComponent
   ],
   imports: [
     CommonModule,
