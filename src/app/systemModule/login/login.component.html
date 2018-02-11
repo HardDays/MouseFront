@@ -12,12 +12,14 @@
                         <div class="forgot-password-wr">
                             <span>Forgot your password?</span>
                         </div>
+                        <p *ngIf="isErrorLogin" style="color:white;">Uncorrect login-password!</p>
                         <button type="submit" class="butt-style-1"><span>Sign In</span></button>
                     </form>
                     <div class="outher-butt">
                         <a routerLink="/system/register">Create account</a>
                         <p>or</p>
                         <p>Sign in with</p>
+                        
                         <div class="socials">
                             <span class="soc">
                                 <img src="../../assets/img/goo.svg" (click)="signInGoFb('google')" class="img-responsive" alt="">

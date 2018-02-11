@@ -97,6 +97,7 @@ export class BaseComponent{
         this.WaitBeforeLoading(
             ()=>this.authService.UserLogin(email,password),
             (res:TokenModel)=>{
+                console.log('res token');
                 this.authService.BaseInitAfterLogin(res);
                 this.router.navigate(['/system','shows']);
             },
@@ -297,7 +298,9 @@ export class BaseComponent{
                     }
                     this.DeleteProcess(process);
                     if(error.status == 401){
-                        this.Logout();
+
+                        //  this.Logout();
+
                         return;
                     }
                 });
