@@ -17,6 +17,7 @@ import { Base64ImageModel } from '../models/base64image.model';
 import { AuthService } from "angular2-social-login";
 import { UserCreateModel } from '../models/userCreate.model';
 import { UserGetModel } from '../models/userGet.model';
+import { LoginModel } from '../models/login.model';
 
 @Injectable()
 export class BaseComponent{
@@ -93,9 +94,10 @@ export class BaseComponent{
     }
 
     
-    protected Login(email:string,password:string,callback:(error)=>any){
+    protected Login(user:LoginModel,callback:(error)=>any){
+
         this.WaitBeforeLoading(
-            ()=>this.authService.UserLogin(email,password),
+            ()=>this.authService.UserLogin(user),
             (res:TokenModel)=>{
                 console.log('res token');
                 this.authService.BaseInitAfterLogin(res);

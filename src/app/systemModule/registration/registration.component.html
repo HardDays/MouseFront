@@ -8,13 +8,13 @@
                     <h3>General info</h3>
                     <div class="for-flex">
                         <div class="photo-wr-1">
-                            <label  *ngIf="!Account.image" class="file_upload">
+                            <label  *ngIf="!Account.image_base64" class="file_upload">
                                 <div class="bg-image"></div>
                                 <p>Add photo</p>
                                 <input name="photo" accept=".jpg, .jpeg, .png" type="file" (change)="loadLogo($event)"> 
                             </label>
                            
-                            <div (click)="Account.image=''" *ngIf="Account.image" class="bg-image uploaded" [ngStyle]="{'background-image': 'url('+Account.image+')'}"></div>
+                            <div (click)="Account.image_base64=''" *ngIf="Account.image_base64" class="bg-image uploaded" [ngStyle]="{'background-image': 'url('+Account.image_base64+')'}"></div>
                            
                         </div>
                         <div class="side left-side">

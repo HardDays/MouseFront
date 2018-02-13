@@ -6,13 +6,15 @@
                 <div class="login-form">
                     <img src="../../assets/img/mouse-big-logo.png" class="img-responsive mouse-logo-1" alt="">
                     <img src="../../assets/img/text-mouse.png" class="img-responsive mouse-logo-2" alt="">
-                    <form #signInForm="ngForm" (ngSubmit)="onSubmitSignIn(signInForm)">
-                        <input autocomplete="off" type="text" name="username" ngModel class="inp-style-1" placeholder="Username">
-                        <input autocomplete="off" type="password" name="password" ngModel class="inp-style-1" placeholder="Password">
-                        <div class="forgot-password-wr">
+                    <form (ngSubmit)="onSubmitSignIn()">
+                        <input autocomplete="off" type="text" name="username" [ngModel]="userLogin.user" (ngModelChange)="userLogin.user = $event" required  class="inp-style-1" placeholder="Username">
+                        <input autocomplete="off" type="password" name="password" [ngModel]="userLogin.password" (ngModelChange)="userLogin.password = $event" required  class="inp-style-1" placeholder="Password">
+                        <div (click)="ForgotPassword()" class="forgot-password-wr">
                             <span>Forgot your password?</span>
                         </div>
                         <p *ngIf="isErrorLogin" style="color:white;">Uncorrect login-password!</p>
+                        <p *ngIf="isForgotPassSend" style="color:white;">Send password!</p>
+                      
                         <button type="submit" class="butt-style-1"><span>Sign In</span></button>
                     </form>
                     <div class="outher-butt">

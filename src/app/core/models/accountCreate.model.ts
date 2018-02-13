@@ -33,6 +33,8 @@ export class AccountCreateModel{
         public emails?: ContactModel[],
         public office_hours?: WorkingTimeModel[],
         public operating_hours?: WorkingTimeModel[],
-        public about?: string
+        public about?: string,
+        public image_base64?:string
+
 ){}
 }
