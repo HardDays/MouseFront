@@ -26,13 +26,18 @@ export class AccountService{
             result.account_type = input.account_type;
             result.image = '';
         }
-
-
         return result;
-
     }
 
     GetMyAccount(){
         return this.http.GetData('/accounts/my.json',"");
+    }
+
+    AccountFollow(id:number,follower_id:number){
+    let params={
+        id:id,
+        follower_id:follower_id
+    }
+    return this.http.PostData('/accounts/+'+id+'/follow.json',JSON.stringify(params));
     }
 }

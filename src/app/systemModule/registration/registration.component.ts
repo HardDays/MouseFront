@@ -7,6 +7,7 @@ import { BaseComponent } from '../../core/base/base.component';
 import { AccountCreateModel } from '../../core/models/accountCreate.model';
 import { UserCreateModel } from '../../core/models/userCreate.model';
 import { GengreModel } from '../../core/models/genres.model';
+import { AccountGetModel } from '../../core/models/accountGet.model';
 
 @Component({
   selector: 'register',
@@ -18,6 +19,9 @@ import { GengreModel } from '../../core/models/genres.model';
 export class RegistrationComponent extends BaseComponent implements OnInit {
 
   genres:GengreModel[] = [];
+  genresSelected:GengreModel[] = [];
+  artists:AccountGetModel[] = [];
+  followsId:number[] = [];
   seeMore:boolean = false;
   firstPage:boolean = true;
   Account:AccountCreateModel = new AccountCreateModel();
@@ -30,14 +34,22 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
   }
 
 
-  onSubmitSignUp(){
-
-    this.Account.account_type = 'fan';
-
-    console.log(this.User, this.Account);
+  firstPageComp(){
+    this.genreService.GetArtists(this.genres).
+      subscribe((res:AccountGetModel[])=>{
     
-    this.CreateUserAcc(this.User,this.Account);
+      this.artists = res;
+      console.log(`artists`, this.artists);
+      this.firstPage = false;
+     
+    });  
+  }
 
+
+  onSubmitSignUp(){
+    this.Account.account_type = 'fan';
+    console.log(this.User, this.Account);
+    this.CreateUserAcc(this.User,this.Account,this.followsId);
   }
 
   loadLogo($event:any):void{
@@ -53,9 +65,10 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
 
   seeMoreGenres(){
     this.seeMore = true;
-
     this.genres = this.genreService.GetAll();
     console.log(this.genres);
   }
+
+
 
 }

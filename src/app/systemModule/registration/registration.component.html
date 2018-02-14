@@ -5,7 +5,7 @@
       
         <div *ngIf="firstPage" class="register">
             <div class="m-v-reg">
-                <form class="reg-wr" (ngSubmit)="firstPage=false;" >
+                <form class="reg-wr" (ngSubmit)="firstPageComp()" >
                     <h3>General info</h3>
                     <div class="for-flex">
                         <div class="photo-wr-1">
@@ -36,22 +36,13 @@
                         <input type="text" class="inp-style-1" placeholder="Search">
                     </div>
                     <div class="flex-checkboxes">
-                        <!--при for обращаем внимания на for у label и id у инпута-->
-
-                        <!-- <div class="one-checkbox">
-                            <div class="check-style">
-                                <input type="checkbox" class="checkbox" name="" id="checkbox-1">
-                                <label for="checkbox-1"></label>
-                            </div>
-                            <p>hip hop</p>
-                        </div> -->
                         
-                        <div *ngFor="let g of genres; let i = index" class="one-checkbox">
+                        <div *ngFor="let item of genres; let i = index" class="one-checkbox">
                             <div class="check-style">
-                                <input type="checkbox" class="checkbox" name="" id='checkbox-{{i}}'>
+                                        <input type="checkbox"  [ngModel]="item.checked" (ngModelChange)="item.checked = $event" class="checkbox" name="genre-{{i}}" id='checkbox-{{i}}'>
                                 <label for='checkbox-{{i}}'></label>
                             </div>
-                            <p>{{g.genre_show}}</p>
+                            <p>{{item.genre_show}}</p>
                         </div> 
 
 

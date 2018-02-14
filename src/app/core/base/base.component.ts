@@ -67,7 +67,7 @@ export class BaseComponent{
     }
 
 
-    CreateUserAcc(user:UserCreateModel, account:AccountCreateModel){
+    CreateUserAcc(user:UserCreateModel, account:AccountCreateModel,follows_id:number[]){
         this.WaitBeforeLoading(
             ()=>this.authService.CreateUser(user),
                 (res:UserGetModel)=>{
@@ -80,6 +80,12 @@ export class BaseComponent{
                     subscribe(
                         (acc)=>{
                             console.log('ok acc:',acc);
+                         
+                            let id:number = acc.id;
+                            for(let follow of follows_id){
+                                this.accService.AccountFollow(id,follow);
+                            }
+                            
                             this.router.navigate(['/system','shows']);
                         },
                         (err)=>{

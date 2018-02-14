@@ -10,8 +10,21 @@ import { GengreModel } from "../models/genres.model";
 export class GenresService{
 
     genres:GengreModel[] = [];
-    constructor(private http: HttpService, private router: Router){
-       
+    
+    constructor(private http: HttpService, private router: Router){}
+
+    GetArtists(genres:GengreModel[]){
+        
+        let genr:string[] = [];
+        for(let g of genres) 
+            if(g.checked) genr.push(g.genre);
+        
+        let params = {
+            genres:genr
+        };
+
+        console.log('genres',params);
+        return this.http.GetData('/genres/artists.json',JSON.stringify(params));
     }
 
     GetAllGenres(){
@@ -24,7 +37,7 @@ export class GenresService{
             for(let g of res){
                 let genre:string = g;
                 let genre_show:string = this.convertToShow(genre);
-                this.genres.push({genre,genre_show})
+                this.genres.push({genre,genre_show,})
             }
         });
        return this.genres;
@@ -33,23 +46,26 @@ export class GenresService{
         this.genres = [
             {
                 genre:'hip_hop',
-                genre_show:'HIP HOP'
+                genre_show:'HIP HOP',
+                checked:false
             },
             {
                 genre:'rnb',
-                genre_show:'RNB'
+                genre_show:'RNB',
+                checked:false
             },
             {
                 genre:'blues',
-                genre_show:'BLUES'
+                genre_show:'BLUES',
+                checked:false
             }
         ];
         return this.genres;
     }
+    
     convertToShow(genre:string):string{
         let genre_show = '';
         genre_show = genre.replace('_',' ').toUpperCase();
-        // for(let g of gnrs) genre_show+=g.charAt(0).toUpperCase() + g.substr(1).toLowerCase()+" ";
         return genre_show;
     }
 
