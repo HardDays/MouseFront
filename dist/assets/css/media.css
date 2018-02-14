@@ -1,0 +1,51 @@
+@media (max-width: 1199px) {
+  .choose-to-follow .follow-m-w {
+    padding: 65px 40px 125px 40px; }
+
+  .choose-to-follow .follow-m-w .flex-bands .one-band .label-wr .descr {
+    padding: 7px 55px 7px 13px; }
+
+  .choose-to-follow .follow-m-w .flex-bands .one-band .label-wr .descr .checkbox-style-2 {
+    right: 11px; } }
+@media (max-width: 991px) {
+  .choose-to-follow .follow-m-w .flex-bands .one-band {
+    width: 50%; }
+
+  .choose-to-follow .follow-m-w {
+    max-width: 700px; } }
+@media (max-width: 767px) {
+  .register .m-v-reg .reg-wr .for-flex {
+    flex-direction: column-reverse;
+    padding-top: 120px; }
+
+  .register .m-v-reg .reg-wr .for-flex .side {
+    width: 100%; }
+
+  .register .m-v-reg .reg-wr .for-flex .side.left-side {
+    padding-top: 0; }
+
+  .register .m-v-reg .reg-wr .for-flex .photo-wr-1 {
+    top: 0;
+    width: 100%; }
+
+  .register .m-v-reg .reg-wr h3 {
+    padding: 0 15px;
+    font-size: 26px; }
+
+  .register .m-v-reg .reg-wr .flex-checkboxes .one-checkbox {
+    width: 50%; }
+
+  .choose-to-follow .follow-m-w {
+    padding: 65px 15px 125px 15px; }
+
+  .choose-to-follow .butt-to-continue {
+    padding: 12px; }
+
+  .choose-to-follow .follow-m-w .flex-bands .one-band {
+    width: 100%; }
+
+  .choose-to-follow .follow-m-w .flex-bands {
+    max-width: 272px;
+    margin: 0 auto; } }
+
+/*# sourceMappingURL=media.css.map */

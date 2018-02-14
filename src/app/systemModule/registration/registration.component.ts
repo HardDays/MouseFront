@@ -6,6 +6,7 @@ import { BaseComponent } from '../../core/base/base.component';
 
 import { AccountCreateModel } from '../../core/models/accountCreate.model';
 import { UserCreateModel } from '../../core/models/userCreate.model';
+import { GengreModel } from '../../core/models/genres.model';
 
 @Component({
   selector: 'register',
@@ -16,13 +17,16 @@ import { UserCreateModel } from '../../core/models/userCreate.model';
 
 export class RegistrationComponent extends BaseComponent implements OnInit {
 
-
+  genres:GengreModel[] = [];
+  seeMore:boolean = false;
+  firstPage:boolean = true;
   Account:AccountCreateModel = new AccountCreateModel();
   User:UserCreateModel = new UserCreateModel();
 
 
   ngOnInit(){
-   
+   this.genres = this.genreService.GetMin();
+   console.log(this.genres);
   }
 
 
@@ -45,6 +49,13 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
             
         }
     );
+  }
+
+  seeMoreGenres(){
+    this.seeMore = true;
+
+    this.genres = this.genreService.GetAll();
+    console.log(this.genres);
   }
 
 }

@@ -3,6 +3,7 @@ import { AuthMainService } from '../services/auth.service';
 import { TypeService } from '../services/type.service';
 import { ImagesService } from '../services/images.service';
 import { AccountService } from '../services/account.service';
+import { GenresService} from '../services/genres.service';
 import { Router, Params } from '@angular/router';
 
 import { Subject } from 'rxjs/Subject';
@@ -34,6 +35,7 @@ export class BaseComponent{
                 protected accService:AccountService,
                 protected imgService:ImagesService,
                 protected typeService:TypeService,
+                protected genreService:GenresService,
                 protected router: Router,public _auth: AuthService) {
         
         this.isLoggedIn = this.authService.IsLogedIn();

@@ -2,9 +2,10 @@
     <!---->
 
     <section class="login-register">
-        <div class="register">
+      
+        <div *ngIf="firstPage" class="register">
             <div class="m-v-reg">
-                <form class="reg-wr" (ngSubmit)="onSubmitSignUp()">
+                <form class="reg-wr" (ngSubmit)="firstPage=false;" >
                     <h3>General info</h3>
                     <div class="for-flex">
                         <div class="photo-wr-1">
@@ -36,34 +37,99 @@
                     </div>
                     <div class="flex-checkboxes">
                         <!--при for обращаем внимания на for у label и id у инпута-->
-                        <div class="one-checkbox">
+
+                        <!-- <div class="one-checkbox">
                             <div class="check-style">
                                 <input type="checkbox" class="checkbox" name="" id="checkbox-1">
                                 <label for="checkbox-1"></label>
                             </div>
                             <p>hip hop</p>
-                        </div>
-                        <div class="one-checkbox">
+                        </div> -->
+                        
+                        <div *ngFor="let g of genres; let i = index" class="one-checkbox">
                             <div class="check-style">
-                                <input type="checkbox" class="checkbox" name="" id="checkbox-2">
-                                <label for="checkbox-2"></label>
+                                <input type="checkbox" class="checkbox" name="" id='checkbox-{{i}}'>
+                                <label for='checkbox-{{i}}'></label>
                             </div>
-                            <p>hip hop</p>
-                        </div>
-                        <div class="one-checkbox">
-                            <div class="check-style">
-                                <input type="checkbox" class="checkbox" name="" id="checkbox-3">
-                                <label for="checkbox-3"></label>
-                            </div>
-                            <p>hip hop</p>
-                        </div>
+                            <p>{{g.genre_show}}</p>
+                        </div> 
+
+
                     </div>
-                    <p class="more"><span>See more</span></p>
+                    <p class="more" *ngIf="!seeMore" (click)="seeMoreGenres()"><span>See more</span></p>
                     <div class="continue-wr">
                         <button class="butt-style-1" type="submit"><span>Continue</span></button>
                     </div>
                 </form>
             </div>
         </div>
+
+
+        <form *ngIf="!firstPage" (ngSubmit)="onSubmitSignUp()" class="choose-to-follow">
+            <div class="bg-gradient-1"></div>
+            <div class="follow-m-w">
+                <h3>Choose who to follow</h3>
+                <div class="search-wr"> 
+                    <input type="text" class="inp-style-1" placeholder="Search">
+                </div>
+                <div class="flex-bands">
+                    <div class="one-band">
+                        <input type="checkbox" class="checkbox" name="" id="checkbox-1">
+                        <label class="label-wr" for="checkbox-1">
+                            <div class="photo-band-wrapp">
+                                <div class="photo-band" style="background-image: url(../../../assets/img/layer-7.jpg)"></div>
+                            </div>
+                            <div class="descr">
+                                <p class="name">ADELE</p>
+                                <p class="genre">Pop</p>
+                                <div class="checkbox-style-2"></div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="one-band">
+                        <input type="checkbox" class="checkbox" name="" id="checkbox-2">
+                        <label class="label-wr" for="checkbox-2">
+                            <div class="photo-band-wrapp">
+                                <div class="photo-band" style="background-image: url(../../../assets/img/layer-7.jpg)"></div>
+                            </div>
+                            <div class="descr">
+                                <p class="name">ADELE</p>
+                                <p class="genre">Pop</p>
+                                <div class="checkbox-style-2"></div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="one-band">
+                        <input type="checkbox" class="checkbox" name="" id="checkbox-3">
+                        <label class="label-wr" for="checkbox-3">
+                            <div class="photo-band-wrapp">
+                                <div class="photo-band" style="background-image: url(../../../assets/img/layer-7.jpg)"></div>
+                            </div>
+                            <div class="descr">
+                                <p class="name">ADEsdfg sdfg jsdfg ljs;ldf hglkhsdfg LE</p>
+                                <p class="genre">Posdf gsdfg sdpfgj ;sdj fgpjsd;fgj ;lsdkj fg;ljp</p>
+                                <div class="checkbox-style-2"></div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="one-band">
+                        <input type="checkbox" class="checkbox" name="" id="checkbox-4">
+                        <label class="label-wr" for="checkbox-4">
+                            <div class="photo-band-wrapp">
+                                <div class="photo-band" style="background-image: url(../../../assets/img/layer-7.jpg)"></div>
+                            </div>
+                            <div class="descr">
+                                <p class="name">ADEsdfg sdfg jsdfg ljs;ldf hglkhsdfg LE</p>
+                                <p class="genre">Posdf gsdfg sdpfgj ;sdj fgpjsd;fgj ;lsdkj fg;ljp</p>
+                                <div class="checkbox-style-2"></div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="butt-to-continue">
+                <button class="butt-style-1" type="submit"><span>Сomplete</span></button>  
+            </div>
+        </form>
     </section>
 </section>
