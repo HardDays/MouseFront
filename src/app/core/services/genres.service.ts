@@ -15,29 +15,28 @@ export class GenresService{
 
     GetArtists(genres:GengreModel[]){
         
-        let genr:string[] = [];
+        let params:string = '';
         for(let g of genres) 
-            if(g.checked) genr.push(g.genre);
-        
-        let params = {
-            genres:genr
-        };
-
-        console.log('genres',params);
-        return this.http.GetData('/genres/artists.json',JSON.stringify(params));
+            if(g.checked) params+="genres[]="+g.genre+"&";
+    
+        console.log('genres',params,JSON.stringify(params));
+        return this.http.GetData('/genres/artists.json/',params);
     }
 
     GetAllGenres(){
         return this.http.GetData('/genres/all.json',"");
     }
 
-    GetAll(){
+    GetAll(check:GengreModel[]){
         this.genres = [];
         this.GetAllGenres().subscribe((res)=>{
             for(let g of res){
                 let genre:string = g;
+                let checked = false;
+                for(let x of check) if (x.genre == genre)
+                    checked = x.checked;
                 let genre_show:string = this.convertToShow(genre);
-                this.genres.push({genre,genre_show,})
+                this.genres.push({genre,genre_show,checked})
             }
         });
        return this.genres;
@@ -50,13 +49,18 @@ export class GenresService{
                 checked:false
             },
             {
-                genre:'rnb',
-                genre_show:'RNB',
+                genre:'pop',
+                genre_show:'POP',
                 checked:false
             },
             {
                 genre:'blues',
                 genre_show:'BLUES',
+                checked:false
+            },
+            {
+                genre:'jazz',
+                genre_show:'JAZZ',
                 checked:false
             }
         ];

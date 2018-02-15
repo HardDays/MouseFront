@@ -64,7 +64,7 @@
                     <input type="text" class="inp-style-1" placeholder="Search">
                 </div>
                 <div class="flex-bands">
-                    <div class="one-band">
+                    <!-- <div class="one-band">
                         <input type="checkbox" class="checkbox" name="" id="checkbox-1">
                         <label class="label-wr" for="checkbox-1">
                             <div class="photo-band-wrapp">
@@ -76,42 +76,16 @@
                                 <div class="checkbox-style-2"></div>
                             </div>
                         </label>
-                    </div>
-                    <div class="one-band">
-                        <input type="checkbox" class="checkbox" name="" id="checkbox-2">
-                        <label class="label-wr" for="checkbox-2">
+                    </div> -->
+                    <div *ngFor="let item of artists; let i = index" class="one-band">
+                        <input type="checkbox" class="checkbox" name="" id="checkbox-{{i}}">
+                        <label class="label-wr" for="checkbox-{{i}}">
                             <div class="photo-band-wrapp">
                                 <div class="photo-band" style="background-image: url(../../../assets/img/layer-7.jpg)"></div>
                             </div>
                             <div class="descr">
-                                <p class="name">ADELE</p>
+                                <p class="name">{{item.display_name?item.display_name:"No name"}}</p>
                                 <p class="genre">Pop</p>
-                                <div class="checkbox-style-2"></div>
-                            </div>
-                        </label>
-                    </div>
-                    <div class="one-band">
-                        <input type="checkbox" class="checkbox" name="" id="checkbox-3">
-                        <label class="label-wr" for="checkbox-3">
-                            <div class="photo-band-wrapp">
-                                <div class="photo-band" style="background-image: url(../../../assets/img/layer-7.jpg)"></div>
-                            </div>
-                            <div class="descr">
-                                <p class="name">ADEsdfg sdfg jsdfg ljs;ldf hglkhsdfg LE</p>
-                                <p class="genre">Posdf gsdfg sdpfgj ;sdj fgpjsd;fgj ;lsdkj fg;ljp</p>
-                                <div class="checkbox-style-2"></div>
-                            </div>
-                        </label>
-                    </div>
-                    <div class="one-band">
-                        <input type="checkbox" class="checkbox" name="" id="checkbox-4">
-                        <label class="label-wr" for="checkbox-4">
-                            <div class="photo-band-wrapp">
-                                <div class="photo-band" style="background-image: url(../../../assets/img/layer-7.jpg)"></div>
-                            </div>
-                            <div class="descr">
-                                <p class="name">ADEsdfg sdfg jsdfg ljs;ldf hglkhsdfg LE</p>
-                                <p class="genre">Posdf gsdfg sdpfgj ;sdj fgpjsd;fgj ;lsdkj fg;ljp</p>
                                 <div class="checkbox-style-2"></div>
                             </div>
                         </label>

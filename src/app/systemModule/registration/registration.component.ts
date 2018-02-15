@@ -19,7 +19,6 @@ import { AccountGetModel } from '../../core/models/accountGet.model';
 export class RegistrationComponent extends BaseComponent implements OnInit {
 
   genres:GengreModel[] = [];
-  genresSelected:GengreModel[] = [];
   artists:AccountGetModel[] = [];
   followsId:number[] = [];
   seeMore:boolean = false;
@@ -65,8 +64,9 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
 
   seeMoreGenres(){
     this.seeMore = true;
-    this.genres = this.genreService.GetAll();
-    console.log(this.genres);
+    let checked = this.genres;
+    this.genres = this.genreService.GetAll(checked);
+
   }
 
 
