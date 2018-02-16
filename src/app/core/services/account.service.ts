@@ -170,4 +170,11 @@ export class AccountService{
         return split && split[1]?split[1].substring(0,5):null;
     }
 
+    AccountFollow(id:number,follower_id:number){
+    let params={
+        // id:id,
+        follower_id:follower_id
+    }
+    return this.http.PostData('/accounts/+'+id+'/follow.json',JSON.stringify(params));
+    }
 }

@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { TokenModel } from '../models/token.model';
+import { empty } from "rxjs/observable/empty";
 
 @Injectable()
 export class HttpService
@@ -34,13 +35,20 @@ export class HttpService
         return this.token;
     }
 
-    
+    validResp(resp){
+        // console.log(`resp`,resp);
+        let body = resp._body;
+        // console.log(`body = `,body);
+        if(body==" ")return false;
+        return true;
+    }
+
     PostData(method:string,data:string)
     {
         if(!this.headers.has('Content-Type'))
             this.headers.append('Content-Type','application/json');
         return this.http.post(this.serverUrl + method,data, {headers:this.headers})
-            .map((resp:Response)=>resp.json())
+            .map((resp:Response)=>this.validResp(resp)?resp.json():"")
             .catch((error:any) =>{return Observable.throw(error);});
     }
 
@@ -59,7 +67,7 @@ export class HttpService
         if(!this.headers.has('Content-Type'))
             this.headers.append('Content-Type','application/json');
         return this.http.get(this.serverUrl + method + "?"+ params,{headers:this.headers})
-            .map((resp:Response)=>resp.json())
+            .map((resp:Response)=>this.validResp(resp)?resp.json():"")
             .catch((error:any) =>{return Observable.throw(error);});
     }
 
@@ -67,14 +75,14 @@ export class HttpService
         if(!this.headers.has('Content-Type'))
             this.headers.append('Content-Type','application/json');
         return this.http.put(this.serverUrl + method,data,{headers:this.headers})
-            .map((resp:Response)=>resp.json())
+            .map((resp:Response)=>this.validResp(resp)?resp.json():"")
             .catch((error:any) =>{return Observable.throw(error);});
     }
     DeleteData(method:string){
         if(!this.headers.has('Content-Type'))
             this.headers.append('Content-Type','application/json');
         return this.http.delete(this.serverUrl + method,{headers:this.headers})
-            .map((resp:Response)=>resp.json())
+            .map((resp:Response)=>this.validResp(resp)?resp.json():"")
             .catch((error:any) =>{return Observable.throw(error);});
     }
 

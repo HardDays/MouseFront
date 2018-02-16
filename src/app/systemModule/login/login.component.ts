@@ -5,6 +5,7 @@ import { AuthMainService } from '../../core/services/auth.service';
 import { BaseComponent } from '../../core/base/base.component';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { isError } from 'util';
+import { LoginModel } from '../../core/models/login.model';
 
 @Component({
   selector: 'login',
@@ -16,15 +17,17 @@ import { isError } from 'util';
 export class LoginComponent extends BaseComponent implements OnInit {
 
   isErrorLogin:boolean = false;
+  isForgotPassSend:boolean = false;
+  userLogin:LoginModel = new LoginModel();
 
   ngOnInit(){
     // if (this.isLoggedIn)
     //   this.router.navigate(['/system','shows']);
   }
 
-  onSubmitSignIn(form: NgForm){
-    let username = form.controls.username.value, password = form.controls.password.value;
-    this.Login(username,password,(err)=>{
+  onSubmitSignIn(){
+    // let username = form.controls.username.value, password = form.controls.password.value;
+    this.Login(this.userLogin,(err)=>{
       console.log(err);
       if(err.status==401) {
         this.isErrorLogin = true;
@@ -40,4 +43,11 @@ export class LoginComponent extends BaseComponent implements OnInit {
     this.SocialLogout('gf');
   }
 
+  ForgotPassword(){
+    this.authService.ForgotPassword(this.userLogin.user)
+    .subscribe(()=>{
+      console.log(`forgot pass send!`);
+      this.isForgotPassSend = true;
+    })
+  }
 }

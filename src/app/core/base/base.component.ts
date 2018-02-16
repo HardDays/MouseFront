@@ -3,6 +3,7 @@ import { AuthMainService } from '../services/auth.service';
 import { TypeService } from '../services/type.service';
 import { ImagesService } from '../services/images.service';
 import { AccountService } from '../services/account.service';
+import { GenresService} from '../services/genres.service';
 import { Router, Params } from '@angular/router';
 
 import { Subject } from 'rxjs/Subject';
@@ -17,6 +18,7 @@ import { Base64ImageModel } from '../models/base64image.model';
 import { AuthService } from "angular2-social-login";
 import { UserCreateModel } from '../models/userCreate.model';
 import { UserGetModel } from '../models/userGet.model';
+import { LoginModel } from '../models/login.model';
 
 @Injectable()
 export class BaseComponent{
@@ -33,6 +35,7 @@ export class BaseComponent{
                 protected accService:AccountService,
                 protected imgService:ImagesService,
                 protected typeService:TypeService,
+                protected genreService:GenresService,
                 protected router: Router,public _auth: AuthService) {
         
         this.isLoggedIn = this.authService.IsLogedIn();
@@ -64,7 +67,7 @@ export class BaseComponent{
     }
 
 
-    CreateUserAcc(user:UserCreateModel, account:AccountCreateModel){
+    CreateUserAcc(user:UserCreateModel, account:AccountCreateModel,follows_id:number[]){
         this.WaitBeforeLoading(
             ()=>this.authService.CreateUser(user),
                 (res:UserGetModel)=>{
@@ -77,6 +80,14 @@ export class BaseComponent{
                     subscribe(
                         (acc)=>{
                             console.log('ok acc:',acc);
+                         
+                            let id:number = acc.id;
+                            for(let follow of follows_id){
+                                this.accService.AccountFollow(id,follow).subscribe(()=>{
+                                    console.log('ok flw',id);
+                                });
+                            }
+                            
                             this.router.navigate(['/system','shows']);
                         },
                         (err)=>{
@@ -93,9 +104,10 @@ export class BaseComponent{
     }
 
     
-    protected Login(email:string,password:string,callback:(error)=>any){
+    protected Login(user:LoginModel,callback:(error)=>any){
+
         this.WaitBeforeLoading(
-            ()=>this.authService.UserLogin(email,password),
+            ()=>this.authService.UserLogin(user),
             (res:TokenModel)=>{
                 console.log('res token');
                 this.authService.BaseInitAfterLogin(res);

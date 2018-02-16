@@ -9,6 +9,7 @@ import { TypeService } from './core/services/type.service';
 import { ImagesService } from './core/services/images.service';
 import { AccountService } from './core/services/account.service';
 import { HttpService } from './core/services/http.service';
+import { GenresService } from './core/services/genres.service';
 
 import { AppComponent } from './app.component';
 import { AppAccessGuard } from './app.guard';
@@ -49,6 +50,7 @@ let providers = {
     TypeService, 
     ImagesService,
     AccountService,
+    GenresService,
     HttpModule, HttpService],
   bootstrap: [AppComponent]
 })

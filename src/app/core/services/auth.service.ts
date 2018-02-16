@@ -12,6 +12,7 @@ import {TokenModel} from "./../models/token.model";
 import { AccountCreateModel } from "./../models/accountCreate.model";
 import { UserCreateModel } from "../models/userCreate.model";
 import { UserGetModel } from "../models/userGet.model";
+import { LoginModel } from "../models/login.model";
 
 @Injectable()
 export class AuthMainService{
@@ -43,20 +44,20 @@ export class AuthMainService{
     }
 
 
-    UserLogin(user:string, password:string){
+    UserLogin(user:LoginModel){
 
         let paramsUserName = {
-            user_name: user,
-            password: password
+            user_name: user.user,
+            password: user.password
         };
 
         let paramsEmail = {
-            email: user,
-            password: password
+            email: user.user,
+            password: user.password
         };
 
         let params;
-        if(user.search('@')>0) 
+        if(user.user.search('@')>0) 
             params = paramsEmail;
         else params = paramsUserName;
 
@@ -130,8 +131,8 @@ export class AuthMainService{
 
 
     Logout(){
-        return this.http.PostData("/auth/logout.json","")
-            .subscribe((res:any)=>{
+        return this.http.PostData("/auth/logout.json","{}")
+            .subscribe(()=>{
                 this.ClearSession();
             });            
     }
@@ -147,6 +148,23 @@ export class AuthMainService{
 
     CreateAccount(acc:AccountCreateModel){
         return this.http.PostData('/accounts.json',JSON.stringify(acc));
+    }
+
+    ForgotPassword(user:string){
+        let paramsUserName = {
+            user_name: user
+        };
+
+        let paramsEmail = {
+            email: user
+        };
+        let params;
+        if(user.search('@')>0) 
+            params = paramsEmail;
+        else params = paramsUserName;
+
+        console.log('params',params);
+        return this.http.PostData('/auth/forgot_password.json',JSON.stringify(params));
     }
 
 
