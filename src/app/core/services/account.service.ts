@@ -35,7 +35,7 @@ export class AccountService{
 
     AccountFollow(id:number,follower_id:number){
     let params={
-        id:id,
+        // id:id,
         follower_id:follower_id
     }
     return this.http.PostData('/accounts/+'+id+'/follow.json',JSON.stringify(params));

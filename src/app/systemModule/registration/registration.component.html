@@ -78,7 +78,7 @@
                         </label>
                     </div> -->
                     <div *ngFor="let item of artists; let i = index" class="one-band">
-                        <input type="checkbox" class="checkbox" name="" id="checkbox-{{i}}">
+                        <input type="checkbox" [ngModel]="artistsChecked[i]" (ngModelChange)="artistsChecked[i] = $event" class="checkbox" name="artist-{{i}}" id="checkbox-{{i}}">
                         <label class="label-wr" for="checkbox-{{i}}">
                             <div class="photo-band-wrapp">
                                 <div class="photo-band" style="background-image: url(../../../assets/img/layer-7.jpg)"></div>

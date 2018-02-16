@@ -131,8 +131,8 @@ export class AuthMainService{
 
 
     Logout(){
-        return this.http.PostData("/auth/logout.json","")
-            .subscribe((res:any)=>{
+        return this.http.PostData("/auth/logout.json","{}")
+            .subscribe(()=>{
                 this.ClearSession();
             });            
     }

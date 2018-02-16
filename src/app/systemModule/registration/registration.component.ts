@@ -21,6 +21,7 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
   genres:GengreModel[] = [];
   artists:AccountGetModel[] = [];
   followsId:number[] = [];
+  artistsChecked:boolean[]=[];
   seeMore:boolean = false;
   firstPage:boolean = true;
   Account:AccountCreateModel = new AccountCreateModel();
@@ -38,7 +39,11 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
       subscribe((res:AccountGetModel[])=>{
     
       this.artists = res;
-      console.log(`artists`, this.artists);
+      
+      for(let i=0;i<this.artists.length;i++)
+        this.artistsChecked.push(false)
+      
+        console.log(`artists`, this.artists);
       this.firstPage = false;
      
     });  
@@ -46,8 +51,10 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
 
 
   onSubmitSignUp(){
+    for(let i=0;i<this.artistsChecked.length;i++)
+      if(this.artistsChecked[i]) this.followsId.push(this.artists[i].id);
     this.Account.account_type = 'fan';
-    console.log(this.User, this.Account);
+    console.log(this.User, this.Account,this.followsId);
     this.CreateUserAcc(this.User,this.Account,this.followsId);
   }
 

@@ -83,7 +83,9 @@ export class BaseComponent{
                          
                             let id:number = acc.id;
                             for(let follow of follows_id){
-                                this.accService.AccountFollow(id,follow);
+                                this.accService.AccountFollow(id,follow).subscribe(()=>{
+                                    console.log('ok flw',id);
+                                });
                             }
                             
                             this.router.navigate(['/system','shows']);
