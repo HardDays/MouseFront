@@ -9,7 +9,6 @@ export class AccountCreateModel{
         public display_name?: string,
         public phone?: string,	
         public account_type?: string,
-        public image_base64?: string,
         public bio?: string,
         public address?: string,
         public description?: string,

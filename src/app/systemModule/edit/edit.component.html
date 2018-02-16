@@ -1,7 +1,7 @@
 <section class="login-register">
     <div class="register">
         <div class="m-v-reg">
-            <form class="reg-wr" (ngSubmit)="UpdateUser(submitFormUsr)" #submitFormUsr="ngForm">
+            <form class="reg-wr" (ngSubmit)="UpdateUser()" #submitFormUsr="ngForm">
                 <h3>Edit profile</h3>
                 <div class="for-flex">
                     <div class="photo-wr-1">
@@ -40,7 +40,7 @@
 
 
                     <div class="side right-side">
-                        <input name="username" ngModel class="inp-style-2" type="text" placeholder="Username" [ngModel]="Account.username" (ngModelChange)="Account.username = $event">
+                        <input name="username" ngModel class="inp-style-2" type="text" placeholder="Username" [ngModel]="Account.user_name" (ngModelChange)="Account.user_name = $event">
                         <input name="displayname" ngModel class="inp-style-2" type="text" placeholder="Displayed name" [ngModel]="Account.display_name" (ngModelChange)="Account.display_name = $event">
                         <input name="bio" *ngIf="Account.account_type == Roles.Fan" ngModel class="inp-style-2" type="text" placeholder="Bio" [ngModel]="Account.bio" (ngModelChange)="Account.bio = $event">
                         <input name="description" *ngIf="Account.account_type == Roles.Venue" ngModel class="inp-style-2" type="text" placeholder="Description" [ngModel]="Account.description" (ngModelChange)="Account.description = $event">
