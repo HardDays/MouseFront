@@ -18,8 +18,8 @@ export class ImagesService{
      
     }
 
-    GetImageById(id:number){
-        return this.http.GetData('/accounts'+id+'/images',"");
+    GetImageById(id:number, imageId:number){
+        return this.http.GetData('/images/'+imageId,"");
     }
 
 

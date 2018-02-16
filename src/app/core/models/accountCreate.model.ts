@@ -2,13 +2,14 @@ import { AccountType } from '../base/base.enum';
 import { EventDateModel } from './eventDate.model';
 import { ContactModel } from './contact.model';
 import { WorkingTimeModel } from './workingTime.model';
+import { Base64ImageModel } from './base64image.model';
 export class AccountCreateModel{
     constructor(
         public user_name?: string,	
         public display_name?: string,
         public phone?: string,	
         public account_type?: string,
-        public image?: string,
+        public image_base64?: string,
         public bio?: string,
         public address?: string,
         public description?: string,

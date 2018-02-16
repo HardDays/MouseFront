@@ -41,7 +41,7 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
     this.ReadImages(
         $event.target.files,
         (res:string)=>{
-            this.Account.image = res;
+            this.Account.image_base64 = res;
             
         }
     );

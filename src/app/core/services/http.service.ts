@@ -44,6 +44,16 @@ export class HttpService
             .catch((error:any) =>{return Observable.throw(error);});
     }
 
+    PatchData(method:string,data:any)
+    {
+        if(!this.headers.has('Content-Type'))
+            this.headers.append('Content-Type','application/json');
+
+        return this.http.patch(this.serverUrl + method,data, {headers:this.headers})
+            .map((resp:Response)=>resp.json())
+            .catch((error:any) =>{return Observable.throw(error);});
+    }
+
     GetData(method:string,params:string)
     {
         if(!this.headers.has('Content-Type'))
