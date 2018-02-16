@@ -33,7 +33,18 @@
                     <h3 class="marg30">select your favourite genres</h3>
                     <div class="search-wr">
                        
-                        <input type="text" class="inp-style-1" placeholder="Search">
+                        <!-- <div ngui-auto-complete autocomplete="off" 
+                        [max-num-list]="7" 
+                        [auto-select-first-item]="false" 
+                        [select-on-blur]="true" 
+                        [source]="allGenres"  
+                        [list-formatter]="autocompleListFormatter" 
+                        value-property-name="genre" 
+                        display-property-name="genre_show" 
+                        name="category" 
+                        (valueChanged)="CategoryChanged($event)" > -->
+                        <input type="text" class="inp-style-1" (input)="CategoryChanged($event.target.value)"  placeholder="Search">
+                        <!-- </div> -->
                     </div>
                     <div class="flex-checkboxes">
                         

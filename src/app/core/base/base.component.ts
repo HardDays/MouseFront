@@ -19,6 +19,7 @@ import { AuthService } from "angular2-social-login";
 import { UserCreateModel } from '../models/userCreate.model';
 import { UserGetModel } from '../models/userGet.model';
 import { LoginModel } from '../models/login.model';
+import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 
 @Injectable()
 export class BaseComponent{
@@ -36,6 +37,7 @@ export class BaseComponent{
                 protected imgService:ImagesService,
                 protected typeService:TypeService,
                 protected genreService:GenresService,
+                protected _sanitizer: DomSanitizer,
                 protected router: Router,public _auth: AuthService) {
         
         this.isLoggedIn = this.authService.IsLogedIn();

@@ -11,7 +11,9 @@ export class GenresService{
 
     genres:GengreModel[] = [];
     
-    constructor(private http: HttpService, private router: Router){}
+    constructor(private http: HttpService, private router: Router){
+        // this.genres = this.GetAll();
+    }
 
     GetArtists(genres:GengreModel[]){
         
@@ -27,13 +29,13 @@ export class GenresService{
         return this.http.GetData('/genres/all.json',"");
     }
 
-    GetAll(check:GengreModel[]){
+    GetAll(check?:GengreModel[]){
         this.genres = [];
         this.GetAllGenres().subscribe((res)=>{
             for(let g of res){
                 let genre:string = g;
                 let checked = false;
-                for(let x of check) if (x.genre == genre)
+                if(check)for(let x of check) if (x.genre == genre)
                     checked = x.checked;
                 let genre_show:string = this.convertToShow(genre);
                 this.genres.push({genre,genre_show,checked})
@@ -41,8 +43,9 @@ export class GenresService{
         });
        return this.genres;
     }
+    
     GetMin(){
-        this.genres = [
+        return [
             {
                 genre:'hip_hop',
                 genre_show:'HIP HOP',
@@ -64,7 +67,6 @@ export class GenresService{
                 checked:false
             }
         ];
-        return this.genres;
     }
     
     convertToShow(genre:string):string{

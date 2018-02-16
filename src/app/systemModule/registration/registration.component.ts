@@ -8,6 +8,7 @@ import { AccountCreateModel } from '../../core/models/accountCreate.model';
 import { UserCreateModel } from '../../core/models/userCreate.model';
 import { GengreModel } from '../../core/models/genres.model';
 import { AccountGetModel } from '../../core/models/accountGet.model';
+import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'register',
@@ -19,6 +20,8 @@ import { AccountGetModel } from '../../core/models/accountGet.model';
 export class RegistrationComponent extends BaseComponent implements OnInit {
 
   genres:GengreModel[] = [];
+  allGenres:GengreModel[] = [];
+  search:string = '';
   artists:AccountGetModel[] = [];
   followsId:number[] = [];
   artistsChecked:boolean[]=[];
@@ -28,9 +31,11 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
   User:UserCreateModel = new UserCreateModel();
 
 
+
   ngOnInit(){
    this.genres = this.genreService.GetMin();
-   console.log(this.genres);
+    this.allGenres = this.genreService.GetAll();
+   console.log(this.genres,this.genreService.genres);
   }
 
 
@@ -43,7 +48,7 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
       for(let i=0;i<this.artists.length;i++)
         this.artistsChecked.push(false)
       
-        console.log(`artists`, this.artists);
+      console.log(`artists`, this.artists);
       this.firstPage = false;
      
     });  
@@ -76,6 +81,23 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
 
   }
 
+  autocompleListFormatter = (data: GengreModel) : SafeHtml => {
+    let html =  `<span style="margin-left:40px;"><b>${data.genre_show}</b></span>`;
+    // if(data.parent)html = `<span>${data.parent} : <b>${data.name}</b></span>`;
+    return this._sanitizer.bypassSecurityTrustHtml(html);
+}
 
+CategoryChanged($event:string){
+   // this.ParamsSearch.category = $event.parent?$event.parent:$event.value;
+  //  this.ParamsSearch.sub_category = $event.parent?$event.parent+":"+$event.name:'';
+   this.search = $event;
+    console.log($event);
+    if(this.search.length>0) {
+      console.log(`CHANGE`);
+    }
+    else {
+      console.log(`NOT`);
+    }
+}
 
 }

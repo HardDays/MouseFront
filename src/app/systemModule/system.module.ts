@@ -17,6 +17,8 @@ import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { EditComponent } from './edit/edit.component';
 
+import { NguiAutoCompleteModule } from '@ngui/auto-complete';
+
 @NgModule({
   declarations: [
     SystemComponent,
@@ -31,6 +33,7 @@ import { EditComponent } from './edit/edit.component';
     HttpModule,
     ReactiveFormsModule,
     SystemRoutingModule,
+    NguiAutoCompleteModule
   ],
   providers: [ SystemAccessGuard]
 })
