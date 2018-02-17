@@ -101,7 +101,7 @@ CategoryChanged($event:string){
    this.search = $event;
     if(this.search.length>0) {
       for(let g of this.genres)
-         if(g.genre_show.indexOf(this.search)>=0)
+         if(g.genre_show.indexOf(this.search.toUpperCase())>=0)
           g.show = true;
          else
           g.show = false;
