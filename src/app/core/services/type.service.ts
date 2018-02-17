@@ -51,19 +51,50 @@ export class TypeService{
         ];
     }
 
-    public GetAllDays(){
-        //Zachem ???????????ты сказал сделай
+    GetAllBookingNotices()
+    {
         return [
-            new FrontWorkingTimeModel('Monday'),
-            new FrontWorkingTimeModel('Tuesday'),
-            new FrontWorkingTimeModel('Wednesday'),
-            new FrontWorkingTimeModel('Thursday'),
-            new FrontWorkingTimeModel('Friday'),
-            new FrontWorkingTimeModel('Saturday'),
-            new FrontWorkingTimeModel('Sunday')
+            new SelectModel("Same day", "same_day"),
+            new SelectModel("One day", "one_day"),
+            new SelectModel("Two seven days", "two_seven_days")
         ];
     }
+
+    public GetAllDays(){
+        return [
+            new FrontWorkingTimeModel('monday'),
+            new FrontWorkingTimeModel('tuesday'),
+            new FrontWorkingTimeModel('wednesday'),
+            new FrontWorkingTimeModel('thursday'),
+            new FrontWorkingTimeModel('friday'),
+            new FrontWorkingTimeModel('saturday'),
+            new FrontWorkingTimeModel('sunday')
+        ];
+    }
+
+    public ValidateArray(array:any[])
+    {
+        return (array.length > 0 && array[0].length > 0)?array:null;
+    }
     
+    ParamsToUrlSearchParams(params:any):string{
+        let options = new URLSearchParams();
+
+        for(let key in params){
+            let prop:any = params[key];
+            if(prop){
+                if( prop instanceof Array){
+                    for(let i in prop){
+                        if(prop[i])
+                            options.append(key+"[]",prop[i]);
+                    }
+                }
+                else
+                    options.set(key,params[key]);
+            }
+        }
+        return options.toString();
+    }
 
 
 

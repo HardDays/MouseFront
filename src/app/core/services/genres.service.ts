@@ -29,6 +29,21 @@ export class GenresService{
         return this.http.GetData('/genres/all.json',"");
     }
 
+    GetAllGM(){
+        this.genres = [];
+        this.GetAllGenres().subscribe((res)=>{
+            for(let g of res){
+                let genre:string = g;
+                let checked = false,show = false;
+                let genre_show:string = this.convertToShow(genre);
+                this.genres.push({genre,genre_show,checked,show})
+            }
+            this.genres[0].show=true;this.genres[1].show=true;
+            this.genres[2].show=true;this.genres[3].show=true;
+        });
+       return this.genres;
+    }
+
     GetAll(check?:GengreModel[]){
         this.genres = [];
         this.GetAllGenres().subscribe((res)=>{

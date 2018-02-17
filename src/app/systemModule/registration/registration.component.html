@@ -48,13 +48,15 @@
                     </div>
                     <div class="flex-checkboxes">
                         
-                        <div *ngFor="let item of genres; let i = index" class="one-checkbox">
-                            <div class="check-style">
-                                        <input type="checkbox"  [ngModel]="item.checked" (ngModelChange)="item.checked = $event" class="checkbox" name="genre-{{i}}" id='checkbox-{{i}}'>
-                                <label for='checkbox-{{i}}'></label>
-                            </div>
-                            <p>{{item.genre_show}}</p>
-                        </div> 
+                        <ng-container *ngFor="let item of genres; let i = index">
+                            <div *ngIf="item.show" class="one-checkbox" >
+                                    <div  class="check-style">
+                                                <input type="checkbox"  [ngModel]="item.checked" (ngModelChange)="item.checked = $event" class="checkbox" name="genre-{{i}}" id='checkbox-{{i}}'>
+                                        <label for='checkbox-{{i}}'></label>
+                                    </div>
+                                    <p>{{item.genre_show}}</p>
+                            </div> 
+                       </ng-container>
 
 
                     </div>

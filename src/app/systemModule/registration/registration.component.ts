@@ -20,6 +20,7 @@ import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 export class RegistrationComponent extends BaseComponent implements OnInit {
 
   genres:GengreModel[] = [];
+  genresShow:GengreModel[] = [];
   allGenres:GengreModel[] = [];
   search:string = '';
   artists:AccountGetModel[] = [];
@@ -33,9 +34,9 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
 
 
   ngOnInit(){
-   this.genres = this.genreService.GetMin();
-    this.allGenres = this.genreService.GetAll();
-   console.log(this.genres,this.genreService.genres);
+   this.genres = this.genreService.GetAllGM();
+    
+   console.log(this.genres);
   }
 
 
@@ -74,11 +75,20 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
     );
   }
 
+  seeFirstGenres(){
+    for(let g of this.genres) g.show = false;
+    this.genres[0].show = true;
+    this.genres[1].show = true;
+    this.genres[2].show = true;
+    this.genres[3].show = true;
+    this.seeMore = false;
+  }
+
   seeMoreGenres(){
     this.seeMore = true;
-    let checked = this.genres;
-    this.genres = this.genreService.GetAll(checked);
-
+    // let checked = this.genres;
+    // this.genres = this.genreService.GetAll(checked);
+    for(let g of this.genres) g.show = true;
   }
 
   autocompleListFormatter = (data: GengreModel) : SafeHtml => {
@@ -88,15 +98,16 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
 }
 
 CategoryChanged($event:string){
-   // this.ParamsSearch.category = $event.parent?$event.parent:$event.value;
-  //  this.ParamsSearch.sub_category = $event.parent?$event.parent+":"+$event.name:'';
    this.search = $event;
-    console.log($event);
     if(this.search.length>0) {
-      console.log(`CHANGE`);
+      for(let g of this.genres)
+         if(g.genre_show.indexOf(this.search)>=0)
+          g.show = true;
+         else
+          g.show = false;
     }
     else {
-      console.log(`NOT`);
+      this.seeFirstGenres();
     }
 }
 
