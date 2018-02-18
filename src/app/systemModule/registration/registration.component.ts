@@ -1,6 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { NgForm} from '@angular/forms';
 import { AuthMainService } from '../../core/services/auth.service';
+import { AccountService } from '../../core/services/account.service';
+import { ImagesService } from '../../core/services/images.service';
+import { TypeService } from '../../core/services/type.service';
+import { GenresService } from '../../core/services/genres.service';
+import { Router, Params } from '@angular/router';
+import { AuthService } from "angular2-social-login";
 
 import { BaseComponent } from '../../core/base/base.component';
 
@@ -9,6 +15,10 @@ import { UserCreateModel } from '../../core/models/userCreate.model';
 import { GengreModel } from '../../core/models/genres.model';
 import { AccountGetModel } from '../../core/models/accountGet.model';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
+
+import { FormControl } from '@angular/forms';
+import { } from 'googlemaps';
+import { MapsAPILoader } from '@agm/core';
 
 @Component({
   selector: 'register',
@@ -30,14 +40,63 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
   firstPage:boolean = true;
   Account:AccountCreateModel = new AccountCreateModel();
   User:UserCreateModel = new UserCreateModel();
+  place: string='';
 
+  @ViewChild('search') public searchElementFrom: ElementRef;
 
+  constructor(protected authService: AuthMainService,
+              protected accService:AccountService,
+              protected imgService:ImagesService,
+              protected typeService:TypeService,
+              protected genreService:GenresService,
+              protected _sanitizer: DomSanitizer,
+              protected router: Router,public _auth: AuthService,
+              private mapsAPILoader: MapsAPILoader, 
+              private ngZone: NgZone){
+    super(authService,accService,imgService,typeService,genreService,_sanitizer,router,_auth);
+  }
 
   ngOnInit(){
    this.genres = this.genreService.GetAllGM();
-    
+   this.CreateAutocomplete();
    console.log(this.genres);
   }
+
+
+
+  CreateAutocomplete(){
+    this.mapsAPILoader.load().then(
+        () => {
+           
+         let autocomplete = new google.maps.places.Autocomplete(this.searchElementFrom.nativeElement, {types:[`(cities)`]});
+        
+          autocomplete.addListener("place_changed", () => {
+           this.ngZone.run(() => {
+           let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
+           if(place.geometry === undefined || place.geometry === null ){
+            
+            return;
+           }
+           else {
+            console.log(autocomplete.getPlace().formatted_address);
+              this.Account.address = autocomplete.getPlace().formatted_address;
+              console.log(`ACC`,this.Account);
+           // this.Params.public_lat=autocomplete.getPlace().geometry.location.toJSON().lat;
+           // this.Params.public_lng=autocomplete.getPlace().geometry.location.toJSON().lng;
+           // this.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
+            //this.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
+            console.log( autocomplete.getPlace().geometry.location.toJSON().lat, autocomplete.getPlace().geometry.location.toJSON().lng);
+          //  this.Params.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
+          //  this.Params.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
+           }
+          });
+          });
+        }
+           );
+
+
+  }
+
 
 
   firstPageComp(){

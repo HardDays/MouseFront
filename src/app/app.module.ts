@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
@@ -19,6 +19,7 @@ import { SystemComponent } from './systemModule/system.component';
 import { StupidAccessComponent } from './stupidAccess/stupidAccess.component';
 
 import { Angular2SocialLoginModule } from "angular2-social-login";
+import { AgmCoreModule } from '@agm/core';
 
 let providers = {
   "google": {
@@ -43,7 +44,12 @@ let providers = {
     HttpModule,
     RouterModule,
     AppRoutingModule,
-    Angular2SocialLoginModule
+    Angular2SocialLoginModule,
+    AgmCoreModule.forRoot({
+      apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",
+      libraries: ["places"]
+    }),
+     ReactiveFormsModule
   ],
   providers: [AppAccessGuard, 
     AuthMainService,

@@ -20,7 +20,7 @@
                         </div>
                         <div class="side left-side">
                             <input name="phone" class="inp-style-2" type="text" placeholder="Phone" [ngModel]="Account.phone" (ngModelChange)="Account.phone = $event">
-                            <input name="location" class="inp-style-2" type="text" placeholder="Location" [ngModel]="Account.address" (ngModelChange)="Account.address = $event">
+                            <input name="location" class="inp-style-2" type="text" placeholder="Location" #search>
                         </div>
                         <div class="side right-side">
                             <input name="username" class="inp-style-2" type="text" placeholder="Username" [ngModel]="Account.user_name" (ngModelChange)="Account.user_name = $event" required>
