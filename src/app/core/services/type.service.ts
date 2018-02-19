@@ -74,6 +74,7 @@ export class TypeService{
 
     public ValidateArray(array:any[])
     {
+        if(array)
         return (array.length > 0 && array[0].length > 0)?array:null;
     }
     

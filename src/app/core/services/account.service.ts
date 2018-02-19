@@ -57,6 +57,7 @@ export class AccountService{
             result.lng = input.lng?input.lng:null;
             result.about = input.about?input.about:null;
             }
+            console.log("RES", result);
         return result;
     }
 

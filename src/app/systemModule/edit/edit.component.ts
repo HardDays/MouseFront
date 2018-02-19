@@ -81,6 +81,7 @@ export class EditComponent extends BaseComponent implements OnInit {
                   this.Account.image_base64 = res.base64;
               });
       }
+
   }
 
 
