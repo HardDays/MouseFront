@@ -1,8 +1,8 @@
 <section class="main-router-outlet">
     <!---->
-
+    
     <section class="login-register">
-      
+     
         <div *ngIf="firstPage" class="register">
             <div class="m-v-reg">
                 <form class="reg-wr" (ngSubmit)="firstPageComp()" >
@@ -19,32 +19,20 @@
                            
                         </div>
                         <div class="side left-side">
-                            <input name="phone" class="inp-style-2" type="text" placeholder="Phone" [ngModel]="Account.phone" (ngModelChange)="Account.phone = $event">
+                            <input name="phone"  [textMask]="MaskTelephone()" class="inp-style-2" type="text" placeholder="Phone" [ngModel]="Account.phone" (ngModelChange)="Account.phone = $event" />
                             <input name="location" class="inp-style-2" type="text" placeholder="Location" #search>
                         </div>
                         <div class="side right-side">
                             <input name="username" class="inp-style-2" type="text" placeholder="Username" [ngModel]="Account.user_name" (ngModelChange)="Account.user_name = $event" required>
-                            <input name="email" class="inp-style-2" type="text" placeholder="Email address" [ngModel]="User.email" (ngModelChange)="User.email = $event" required>
-                            <input name="password" class="inp-style-2" type="password" placeholder="Password" [ngModel]="User.password" (ngModelChange)="User.password = $event" required>
+                            <input name="email" class="inp-style-2" type="email" placeholder="Email address" [ngModel]="User.email" (ngModelChange)="User.email = $event" required email>
+                            <input name="password" class="inp-style-2" minlength="6" type="password" placeholder="Password" [ngModel]="User.password" (ngModelChange)="User.password = $event" required>
                             <input name="verify_password" class="inp-style-2" type="password" placeholder="Verify password" [ngModel]="User.password_confirmation" (ngModelChange)="User.password_confirmation = $event" required>
                         </div>
                     </div>
                     
                     <h3 class="marg30">select your favourite genres</h3>
                     <div class="search-wr">
-                       
-                        <!-- <div ngui-auto-complete autocomplete="off" 
-                        [max-num-list]="7" 
-                        [auto-select-first-item]="false" 
-                        [select-on-blur]="true" 
-                        [source]="allGenres"  
-                        [list-formatter]="autocompleListFormatter" 
-                        value-property-name="genre" 
-                        display-property-name="genre_show" 
-                        name="category" 
-                        (valueChanged)="CategoryChanged($event)" > -->
                         <input type="text" class="inp-style-1" (input)="CategoryChanged($event.target.value)"  placeholder="Search">
-                        <!-- </div> -->
                     </div>
                     <div class="flex-checkboxes">
                         
@@ -61,6 +49,7 @@
 
                     </div>
                     <p class="more" *ngIf="!seeMore" (click)="seeMoreGenres()"><span>See more</span></p>
+                    <p style="color:white;">{{Error}}</p>
                     <div class="continue-wr">
                         <button class="butt-style-1" type="submit"><span>Continue</span></button>
                     </div>

@@ -28,6 +28,7 @@ export class BaseComponent{
     public isLoggedIn:boolean = false;
     public userStatus:number = 0;
     public Me:AccountCreateModel = new AccountCreateModel();
+    public accId:number = 0;
     public MyLogo:string = '';
 
     public NewErrForUser:boolean = false;
@@ -69,7 +70,7 @@ export class BaseComponent{
     }
 
 
-    CreateUserAcc(user:UserCreateModel, account:AccountCreateModel,follows_id:number[]){
+    CreateUserAcc(user:UserCreateModel, account:AccountCreateModel,callback:(error)=>any){
         this.WaitBeforeLoading(
             ()=>this.authService.CreateUser(user),
                 (res:UserGetModel)=>{
@@ -81,25 +82,16 @@ export class BaseComponent{
                     this.authService.CreateAccount(account).
                     subscribe(
                         (acc)=>{
-                            console.log('ok acc:',acc);
-                         
-                            let id:number = acc.id;
-                            for(let follow of follows_id){
-                                this.accService.AccountFollow(id,follow).subscribe(()=>{
-                                    console.log('ok flw',id);
-                                });
-                            }
-                            
-                            this.router.navigate(['/system','shows']);
+                           this.accId = acc.id;
                         },
                         (err)=>{
-                            console.log('err',err);
+                            callback(err);
                         }
                     );
 
                 },
                 (err)=>{
-                    console.log('err',err);
+                    callback(err);
                 }
         );
         
@@ -293,6 +285,7 @@ export class BaseComponent{
 
     public Logout(){
         this.authService.Logout();
+        this.SocialLogout(`gf`);
     }
     
 

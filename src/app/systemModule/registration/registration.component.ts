@@ -29,6 +29,7 @@ import { MapsAPILoader } from '@agm/core';
 
 export class RegistrationComponent extends BaseComponent implements OnInit {
 
+  Error:string = '';
   genres:GengreModel[] = [];
   genresShow:GengreModel[] = [];
   allGenres:GengreModel[] = [];
@@ -41,6 +42,7 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
   Account:AccountCreateModel = new AccountCreateModel();
   User:UserCreateModel = new UserCreateModel();
   place: string='';
+  createAccSucc:boolean = true;
 
   @ViewChild('search') public searchElementFrom: ElementRef;
 
@@ -100,27 +102,52 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
 
 
   firstPageComp(){
-    this.genreService.GetArtists(this.genres).
+    if(!this.Account.user_name||!this.User.email||!this.User.password)
+      this.Error = 'Entry fields name, email, password!';
+    else if (this.User.password.length<6)
+      this.Error = 'Short password!';
+    else{
+      this.Account.account_type = 'fan';
+      console.log(`account`,this.Account);
+      this.createAccSucc = true;
+
+      this.genreService.GetArtists(this.genres).
       subscribe((res:AccountGetModel[])=>{
     
       this.artists = res;
       
       for(let i=0;i<this.artists.length;i++)
-        this.artistsChecked.push(false)
-      
+        this.artistsChecked.push(false);
       console.log(`artists`, this.artists);
-      this.firstPage = false;
-     
-    });  
+        if(this.createAccSucc) this.firstPage = false;
+      });  
+
+
+      this.CreateUserAcc(this.User,this.Account,(err)=>{
+            this.firstPage = true;   
+            this.createAccSucc = false;    
+            console.log(`er`,err);            
+            if(err.status==422) this.Error = err._body;
+      });
+    }
+
   }
 
 
   onSubmitSignUp(){
     for(let i=0;i<this.artistsChecked.length;i++)
       if(this.artistsChecked[i]) this.followsId.push(this.artists[i].id);
-    this.Account.account_type = 'fan';
-    console.log(this.User, this.Account,this.followsId);
-    this.CreateUserAcc(this.User,this.Account,this.followsId);
+   
+                         
+    let id:number = this.accId;
+    for(let follow of this.followsId){
+        this.accService.AccountFollow(id,follow).subscribe(()=>{
+            console.log('ok flw',id);
+        });
+    }
+    
+    this.router.navigate(['/system','shows']);
+
   }
 
   loadLogo($event:any):void{
@@ -168,6 +195,15 @@ CategoryChanged($event:string){
     else {
       this.seeFirstGenres();
     }
+}
+
+MaskTelephone(){
+  return {
+      // mask: ['+',/[1-9]/,' (', /[1-9]/, /\d/, /\d/, ') ',/\d/, /\d/, /\d/, '-', /\d/, /\d/,'-', /\d/, /\d/],
+      mask: ['+',/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/],
+      keepCharPositions: true,
+      guide:false
+    };
 }
 
 }
