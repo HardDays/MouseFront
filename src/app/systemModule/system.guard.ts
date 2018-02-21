@@ -42,7 +42,7 @@ export class SystemAccessGuard extends BaseComponent implements CanActivate{
                     return true;
                 }
             }
-            case "me":{
+            case "profile":{
                 if(!login){
                     return this.LoginNavigate();
                 }
