@@ -20,6 +20,10 @@ import { FormControl } from '@angular/forms';
 import { } from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
 
+
+declare var $:any;
+
+
 @Component({
   selector: 'register',
   templateUrl: './registration.component.html',
@@ -57,12 +61,37 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
               private ngZone: NgZone){
     super(authService,accService,imgService,typeService,genreService,_sanitizer,router,_auth);
   }
+    
+
 
   ngOnInit(){
+
+ 
+    $(document).ready(function () {
+    
+      //страница signUp-2.html
+     $('.label-wr').mousedown(function(){
+         $(this).addClass('scaled');
+         //alert('ok');
+     });
+      $('.label-wr').mouseup(function(){
+         $(this).removeClass('scaled');
+     });
+      //страница signUp-2.html
+      
+    });  
+      
+      
+      
+      
+  
+    
    this.genres = this.genreService.GetAllGM();
    this.CreateAutocomplete();
    console.log(this.genres);
-  }
+  
+ 
+}
 
 
 
@@ -176,12 +205,6 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
     // this.genres = this.genreService.GetAll(checked);
     for(let g of this.genres) g.show = true;
   }
-
-  autocompleListFormatter = (data: GengreModel) : SafeHtml => {
-    let html =  `<span style="margin-left:40px;"><b>${data.genre_show}</b></span>`;
-    // if(data.parent)html = `<span>${data.parent} : <b>${data.name}</b></span>`;
-    return this._sanitizer.bypassSecurityTrustHtml(html);
-}
 
 CategoryChanged($event:string){
    this.search = $event;

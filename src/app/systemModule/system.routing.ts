@@ -10,7 +10,7 @@ import { ShowsComponent } from './shows/shows.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { EditComponent } from './edit/edit.component';
-
+import { MeComponent } from './me/me.component';
 const routes: Routes =
 [
   { path: '', redirectTo: 'shows', pathMatch:'full'},
@@ -19,7 +19,8 @@ const routes: Routes =
       { path: 'shows', component: ShowsComponent, canActivate: [SystemAccessGuard] },
       { path: 'login', component: LoginComponent, canActivate: [SystemAccessGuard] },
       { path: 'register', component: RegistrationComponent, canActivate: [SystemAccessGuard] },
-      { path: 'edit', component: EditComponent, canActivate: [SystemAccessGuard] }
+      { path: 'edit', component: EditComponent, canActivate: [SystemAccessGuard] },
+      { path: 'me', component: MeComponent, canActivate: [SystemAccessGuard] }
     ]
   }
 ];

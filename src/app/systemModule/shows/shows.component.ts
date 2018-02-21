@@ -17,6 +17,7 @@ export class ShowsComponent extends BaseComponent {
     localStorage.removeItem('access');
     this.router.navigate(['/access']);
   }
+  
   login(){
     this.router.navigate(['/system','login']);
   }

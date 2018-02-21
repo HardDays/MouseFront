@@ -17,6 +17,7 @@ import {ShowsComponent} from './shows/shows.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { EditComponent } from './edit/edit.component';
+import { MeComponent } from './me/me.component';
 import { TextMaskModule } from 'angular2-text-mask';
 
 import { NguiAutoCompleteModule } from '@ngui/auto-complete';
@@ -27,7 +28,8 @@ import { NguiAutoCompleteModule } from '@ngui/auto-complete';
     ShowsComponent,
     LoginComponent,
     RegistrationComponent,
-    EditComponent
+    EditComponent,
+    MeComponent
   ],
   imports: [
     CommonModule,
