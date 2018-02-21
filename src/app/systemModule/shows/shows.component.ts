@@ -25,6 +25,12 @@ export class ShowsComponent extends BaseComponent {
     console.log('logout');
     this.Logout();
   }
- 
+
+  edit(){
+    this.router.navigate(['/system','edit']);
+  }
+  profile(){
+    this.router.navigate(['/system','profile']);
+  }
 
 }

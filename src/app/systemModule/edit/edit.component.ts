@@ -49,6 +49,7 @@ export class EditComponent extends BaseComponent implements OnInit {
     {
       this.accService.GetMyAccount({extended:true})
         .subscribe((user:any[])=>{
+            console.log("GET", user);
             this.InitByUser(user[0]);
         })
       this.VenueTypes = this.typeService.GetAllVenueTypes();
@@ -66,12 +67,11 @@ export class EditComponent extends BaseComponent implements OnInit {
   
     InitByUser(usr:any){
       this.Account = this.accService.AccountModelToCreateAccountModel(usr);
-      console.log("emails",this.Account.emails);
-      console.log("DDD", this.Account.dates);
       for(let i in this.Account.dates) {
         this.bsValue_start[i] = new Date(this.Account.dates[i].begin_date);
         this.bsValue_end[i] = new Date(this.Account.dates[i].end_date);
       }
+      console.log("OH", usr);
       this.OfficeDays = usr.office_hours?this.accService.GetFrontWorkingTimeFromTimeModel(usr.office_hours):this.typeService.GetAllDays();
       this.OperatingDays = usr.operating_hours?this.accService.GetFrontWorkingTimeFromTimeModel(usr.operating_hours):this.typeService.GetAllDays();
       this.UserId = usr.id?usr.id:0;

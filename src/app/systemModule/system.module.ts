@@ -3,13 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-
 import { SystemRoutingModule } from './system.routing';
-
 import { SystemAccessGuard } from './system.guard';
-
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-
 import {SystemComponent} from './system.component';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { TimepickerModule } from 'ngx-bootstrap';
@@ -20,6 +16,7 @@ import { EditComponent } from './edit/edit.component';
 import { TextMaskModule } from 'angular2-text-mask';
 
 import { NguiAutoCompleteModule } from '@ngui/auto-complete';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +24,8 @@ import { NguiAutoCompleteModule } from '@ngui/auto-complete';
     ShowsComponent,
     LoginComponent,
     RegistrationComponent,
-    EditComponent
+    EditComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,
