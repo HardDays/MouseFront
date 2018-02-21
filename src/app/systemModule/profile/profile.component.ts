@@ -21,13 +21,13 @@ import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 
 
 @Component({
-  selector: 'me',
-  templateUrl: './me.component.html',
-  styleUrls: ['./me.component.css']
+  selector: 'profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css']
 })
 
 
-export class MeComponent extends BaseComponent implements OnInit {
+export class ProfileComponent extends BaseComponent implements OnInit {
 
 
 MyAcc:AccountGetModel;
