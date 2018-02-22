@@ -16,6 +16,8 @@ import { UserCreateModel } from '../../core/models/userCreate.model';
 import { GengreModel } from '../../core/models/genres.model';
 import { AccountGetModel } from '../../core/models/accountGet.model';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
+import { AccountType } from '../../core/base/base.enum';
+import { Base64ImageModel } from '../../core/models/base64image.model';
 
 
 
@@ -28,25 +30,40 @@ import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 
 
 export class ProfileComponent extends BaseComponent implements OnInit {
-
-
-MyAcc:AccountGetModel;
+    UserId:number;
+    Roles = AccountType;
+    Account:AccountCreateModel = new AccountCreateModel();
 
 
 ngOnInit(){
+  this.accService.GetMyAccount({extended:true})
+  .subscribe((user:any[])=>{
+    console.log("UserArr",user);
+      this.InitByUser(user[0]);
+  })
+}
+  InitByUser(usr:any){
+    console.log("USR",usr);
+    this.Account = usr;
+    this.Account.office_hours = this.accService.ParseWorkingTimeModelArr(this.Account.office_hours);
+    this.Account.operating_hours = this.accService.ParseWorkingTimeModelArr(this.Account.operating_hours);
+    this.UserId = usr.id?usr.id:0;
 
-  this.GetMyAcc();
+    console.log("GET", this.UserId);
+    if(usr.image_id){
+        this.imgService.GetImageById(this.UserId, usr.image_id)
+            .subscribe((res:Base64ImageModel)=>{
+                this.Account.image_base64 = res.base64;
+            });
+    }
  
 }
 
-
-GetMyAcc(){
-    this.accService.GetMyAccount().
-    subscribe((acc:AccountGetModel)=>{
-      this.MyAcc = acc;
-      console.log(this.MyAcc);
-    });
+edit(){
+  this.router.navigate(['/system','edit']);
 }
+
+
 
   
 

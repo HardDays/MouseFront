@@ -30,8 +30,5 @@ export class ShowsComponent extends BaseComponent {
   edit(){
     this.router.navigate(['/system','edit']);
   }
-  profile(){
-    this.router.navigate(['/system','profile']);
-  }
 
 }

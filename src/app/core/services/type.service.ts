@@ -74,10 +74,7 @@ export class TypeService{
 
     public ValidateArray(array:any[])
     {
-        if(array)
-            return (array.length > 0 && array[0].length > 0)?array:null;
-        else
-            return null;
+        return (array.length > 0 && array[0] != null)?array:null;
     }
     
     ParamsToUrlSearchParams(params:any):string{

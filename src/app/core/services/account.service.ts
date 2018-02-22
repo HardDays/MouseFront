@@ -5,10 +5,11 @@ import { AccountGetModel } from "../models/accountGet.model";
 import { AccountCreateModel } from "../models/accountCreate.model";
 import { Subject } from "rxjs";
 import { FrontWorkingTimeModel } from "../models/frontWorkingTime.model";
-import { WorkingTimeModel } from "../models/workingTime.model";
+import { WorkingTimeModel } from '../models/workingTime.model';
 import { EventDateModel } from "../models/eventDate.model";
 import { ContactModel } from "../models/contact.model";
 import { TypeService } from './type.service';
+import { Base64ImageModel } from '../models/base64image.model';
 
 @Injectable()
 export class AccountService{
@@ -37,6 +38,7 @@ export class AccountService{
             result.office_hours = this.typeService.ValidateArray(input.office_hours)?input.office_hours:[new WorkingTimeModel()];
             result.operating_hours = this.typeService.ValidateArray(input.operating_hours)?input.operating_hours:[new WorkingTimeModel()];
             result.bio = input.bio?input.bio:null;
+            result.about = input.about?input.about:null;
             result.address = input.address?input.address:null;
             result.description = input.description?input.description:null;
             result.fax = input.fax?input.fax:null;
@@ -162,6 +164,22 @@ export class AccountService{
             }
         }
         return frontDays;
+    }
+
+    public ParseWorkingTimeModelArr(days:WorkingTimeModel[]):WorkingTimeModel[]
+    {
+        let result:WorkingTimeModel[] = [];
+        for(let i of days)
+        {
+            result.push(
+                new WorkingTimeModel(
+                    this.GetTimeFromString(i.begin_time),
+                    this.GetTimeFromString(i.end_time),
+                    i.day[0].toUpperCase() + i.day.substr(1,2)
+                )
+            );
+        }
+        return result;
     }
 
     GetTimeFromString(str:string)

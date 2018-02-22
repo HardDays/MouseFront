@@ -2,7 +2,7 @@
     <!---->
 
     <!-- Venue -->
-    <section class="main_content">
+    <section *ngIf="Account.account_type == Roles.Venue" class="main_content">
         <div class="for-flex-height">
             <header>
                 <div class="main-mw">
@@ -114,11 +114,11 @@
                     <div class="venue-main-info">
                         <div class="name-venue">
                            
-                            <h2>The LA Room</h2>
-                            <a href="#" class="settings"></a>
+                            <h2>{{Account.user_name}}</h2>
+                            <a [routerLink]="['/system','edit']" class="settings"></a>
                         </div>
                         <div class="oficial-page">
-                            <span class="of-p">@laroom</span>
+                            <span class="of-p">@{{Account.display_name}}</span>
                             <div class="ok-image">
                                 <img class="img-responsive" src="../../assets/img/ok.png" alt="">
                             </div>
@@ -137,7 +137,7 @@
                                 <div class="flex--info">
                                     <div class="side side-info side-about">
                                         <h6>About</h6>
-                                        <p class="about-text">The most intimate club on the Strip, the 250-person capacity venue dissolves the barrier between musicians and their fans, and is often where prominent hometown heroes have been known to mingle with the crowd. If the main room starts feeling claustrophobic, there’s a downstairs lounge to retreat to.</p>
+                                        <p class="about-text">{{Account.description}}</p>
                                     </div>
                                     <div class="side side-info side-contact">
                                         <h6>Contact info</h6>
@@ -145,28 +145,39 @@
                                             <div class="column-cont">
                                                 <div class="one-cont">
                                                     <p class="head-cont">PHONE:</p>
-                                                    <span>310-358-1881</span>
+                                                    <span>{{Account.phone}}</span>
                                                 </div>
-                                                <div class="one-cont">
-                                                    <p class="head-cont">OFFICE HOURS:</p>
-                                                    <span>10am - 6pm, Mon - Fri</span>
+                                                <div class="one-cont" *ngIf="Account.office_hours">
+                                                    <p class="head-cont" >OFFICE HOURS:</p>
+                                                    <ng-container *ngFor="let item of Account.office_hours;let i = index">
+                                                        
+                                                        <span>{{item.begin_time}} - {{item.end_time}}, {{item.day}}</span>
+                                                    </ng-container>
                                                 </div>
                                             </div>
                                             <div class="column-cont">
-                                                <div class="one-cont">
-                                                    <p class="head-cont">PHONE:</p>
-                                                    <span>310-358-1881</span>
+                                                <div class="one-cont">    
+                                                    <div class="one-cont" *ngIf="Account.emails">
+                                                            <p class="head-cont">CONTACTS:</p>
+                                                            <ng-container *ngFor="let item of Account.emails;let i = index">
+                                                                <span>{{item.name}},</span>
+                                                                <span>{{item.email}}</span>
+                                                            </ng-container>
+                                                    </div>
                                                 </div>
-                                                <div class="one-cont">
-                                                    <p class="head-cont">OFFICE HOURS:</p>
-                                                    <span>10am - 6pm, Mon - Fri</span>
+                                                <div class="one-cont" *ngIf="Account.office_hours">
+                                                        <p class="head-cont" >OPERATING HOURS:</p>
+                                                        <ng-container *ngFor="let item of Account.operating_hours;let i = index">
+                                                            
+                                                            <span>{{item.begin_time}} - {{item.end_time}}, {{item.day}}</span>
+                                                        </ng-container>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="side side-info side-map">
                                         <h6>Location</h6>
-                                        <p class="about-text">8888 Sunset Blvd, West Hollywood, CA 90069</p>
+                                        <p class="about-text">{{Account.address}}</p>
                                         <div class="map" id="map">
                                             карта тут
                                         </div>
@@ -467,7 +478,7 @@
 
     <!-- FAN -->
         <!---->
-        <section class="main_content">
+        <section *ngIf="Account.account_type == Roles.Fan" class="main_content">
             <div class="for-flex-height">
                 <header>
                     <div class="main-mw">
@@ -563,7 +574,7 @@
                                         <!--авторизован-->
                                         
                                         <div class="name-and-ava">
-                                            <p>Jardson<br>Almeida</p>
+                                            <p>{{Account.user_name}}<br></p>
                                             <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
                                         </div>
                                         
@@ -579,23 +590,23 @@
                         <div class="head-info-profile">
                             <div class="side side-1">
                                 <div class="mouse-bg-image">
-                                    <div class="big-avatar" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                                    <div class="big-avatar" [ngStyle]="{'background-image': 'url('+Account.image_base64+')'}"></div>
                                 </div>
                             </div>
                             <div class="side side-2">
                                 <h3 class="big-name">
-                                    <span>Jardson</span>
-                                    <span>Almeida</span>
+                                    <span>{{Account.user_name}}</span>
+                                    <span></span>
                                 </h3>
-                                <a href="#" class="insta-link-sp">@cooljardson</a>
+                                <a href="#" class="insta-link-sp">@{{Account.display_name}}</a>
                             </div>
                             <div class="side side-3">
                                 <div class="edit-and-settings">
-                                    <a href="#" class="edit-profile">Edit profile</a>
-                                    <a href="#" class="settings"></a>
+                                    <a [routerLink]="['/system','edit']" class="edit-profile">Edit profile</a>
+                                    <a [routerLink]="['/system','edit']" class="settings"></a>
                                 </div>
                                 <div class="desc-wr">
-                                    <p class="description">A native New Yorker living in Los Angeles as a DJ  and actor. Check out my instagram @cooljardson.</p>
+                                    <p class="description">{{Account.bio}}</p>
                                 </div>
                             </div>
                         </div>

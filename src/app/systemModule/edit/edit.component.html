@@ -16,14 +16,14 @@
                     </div>
                     <div class="side left-side">
                         <input name="phone" class="inp-style-2" type="text" placeholder="Phone" [ngModel]="Account.phone" (ngModelChange)="Account.phone = $event">
-                        <input name="address" *ngIf="Account.account_type == Roles.Fan" class="inp-style-2" type="text" placeholder="Address" [ngModel]="Account.address" (ngModelChange)="Account.address = $event">
+                        <input name="address" class="inp-style-2" type="text" placeholder="Address" [ngModel]="Account.address" (ngModelChange)="Account.address = $event">
                         <input name="capacity" *ngIf="Account.account_type == Roles.Venue" class="inp-style-2" type="number" min="0" placeholder="Capacity" [ngModel]="Account.capacity" (ngModelChange)="Account.capacity = $event">
                         <input name="number_of_bathrooms" *ngIf="Account.account_type == Roles.Venue" ngModel class="inp-style-2" type="number" min="0" placeholder="Number of bathrooms" [ngModel]="Account.num_of_bathrooms" (ngModelChange)="Account.num_of_bathrooms = $event">
                         <input name="min_age" *ngIf="Account.account_type == Roles.Venue" ngModel class="inp-style-2" type="number" min="0" placeholder="Minimal age" [ngModel]="Account.min_age" (ngModelChange)="Account.min_age = $event">
-                        <p>Choose your account type</p>
+                        <!-- <p>Choose your account type</p>
                         <select name="account_type" [ngModel]="Account.account_type" (ngModelChange)="Account.account_type = $event">
                             <option *ngFor="let item of AccountTypes" [value]="item.value">{{item.name}}</option>
-                        </select>
+                        </select> -->
                         <p *ngIf="Account.account_type == Roles.Venue">Choose your venue type</p>
                         <select name="venue_type" *ngIf="Account.account_type == Roles.Venue" [ngModel]="Account.vanue_type" (ngModelChange)="Account.vanue_type = $event">
                             <option *ngFor="let item of VenueTypes" [value]="item.value">{{item.name}}</option>
