@@ -88,9 +88,7 @@ export class EditComponent extends BaseComponent implements OnInit {
     if(this.form.valid){
       this.Account.office_hours = this.accService.GetWorkingTimeFromFront(this.OfficeDays);
       this.Account.operating_hours = this.accService.GetWorkingTimeFromFront(this.OperatingDays);
-      console.log("before",this.Account.emails);
       this.Account.emails = this.typeService.ValidateArray(this.Account.emails);
-      console.log("after",this.Account.emails);
       for(let i in this.Account.dates){
         this.Account.dates[i].begin_date = this.bsValue_start[i].getFullYear()+`-`+this.incr(this.bsValue_start[i].getMonth())+`-`+this.bsValue_start[i].getDate();
         this.Account.dates[i].end_date = this.bsValue_end[i].getFullYear()+`-`+this.incr(this.bsValue_end[i].getMonth())+`-`+this.bsValue_end[i].getDate();

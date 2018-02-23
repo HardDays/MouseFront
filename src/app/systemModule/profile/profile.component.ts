@@ -38,18 +38,18 @@ export class ProfileComponent extends BaseComponent implements OnInit {
 ngOnInit(){
   this.accService.GetMyAccount({extended:true})
   .subscribe((user:any[])=>{
-    console.log("UserArr",user);
       this.InitByUser(user[0]);
   })
 }
   InitByUser(usr:any){
-    console.log("USR",usr);
     this.Account = usr;
-    this.Account.office_hours = this.accService.ParseWorkingTimeModelArr(this.Account.office_hours);
-    this.Account.operating_hours = this.accService.ParseWorkingTimeModelArr(this.Account.operating_hours);
+    if(this.Account.account_type == this.Roles.Venue)
+    {
+      this.Account.office_hours = this.accService.ParseWorkingTimeModelArr(this.Account.office_hours);
+      this.Account.operating_hours = this.accService.ParseWorkingTimeModelArr(this.Account.operating_hours);
+    }
     this.UserId = usr.id?usr.id:0;
 
-    console.log("GET", this.UserId);
     if(usr.image_id){
         this.imgService.GetImageById(this.UserId, usr.image_id)
             .subscribe((res:Base64ImageModel)=>{
@@ -59,10 +59,19 @@ ngOnInit(){
  
 }
 
-edit(){
-  this.router.navigate(['/system','edit']);
+LOGOUT_STUPID(){
+  localStorage.removeItem('access');
+  this.router.navigate(['/access']);
 }
 
+login(){
+  this.router.navigate(['/system','login']);
+}
+
+logout(){
+  console.log('logout');
+  this.Logout();
+}
 
 
   

@@ -74,7 +74,28 @@ export class TypeService{
 
     public ValidateArray(array:any[])
     {
-        return (array.length > 0 && array[0] != null)?array:null;
+        if(array) {
+            let result:any[] = [];
+            let objValid = true;
+            for(let obj of array)
+            {
+                if(obj){
+                    for(let key in obj)
+                    {
+                        if(!obj[key])
+                            objValid = false;
+                    }
+
+                    if(objValid)
+                        result.push(obj);
+
+                    objValid = true;
+                }
+            }
+            return result.length > 0 ? result : null;
+            
+        }
+        return null;
     }
     
     ParamsToUrlSearchParams(params:any):string{

@@ -38,6 +38,9 @@
                     </div>
 
 
+                    <div class="edit-and-settings">
+                            <button [routerLink]="['/system','profile']" class="butt-style-1">Back to profile</button>
+                        </div>
 
                     <div class="side right-side">
                         <input name="username" ngModel class="inp-style-2" type="text" placeholder="Username" [ngModel]="Account.user_name" (ngModelChange)="Account.user_name = $event">

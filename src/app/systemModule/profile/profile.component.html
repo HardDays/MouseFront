@@ -98,7 +98,9 @@
                                     <!--авторизован-->
                                     
                                     <div class="name-and-ava">
-                                        <p>Jardson<br>Almeida</p>
+                                        <p>{{Account.user_name}}</p>
+                                        <button *ngIf="!isLoggedIn" class="butt-style-1" type="button" (click)="login()"><span  style="padding:8px;">IN</span></button>
+                                        <button *ngIf="isLoggedIn" class="butt-style-1" type="button" (click)="logout()"><span style="padding:8px;">OUT</span></button>
                                         <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
                                     </div>
                                     
@@ -112,6 +114,11 @@
             <section class="second-router-outlet">
                 <div class="head-info-profile-wr">
                     <div class="venue-main-info">
+                        <div class="side side-1">
+                            <div class="mouse-bg-image">
+                                <div class="big-avatar" [ngStyle]="{'background-image': 'url('+Account.image_base64+')'}"></div>
+                            </div>
+                        </div>
                         <div class="name-venue">
                            
                             <h2>{{Account.user_name}}</h2>
@@ -575,6 +582,8 @@
                                         
                                         <div class="name-and-ava">
                                             <p>{{Account.user_name}}<br></p>
+                                            <button *ngIf="!isLoggedIn" class="butt-style-1" type="button" (click)="login()"><span  style="padding:8px;">IN</span></button>
+                                            <button *ngIf="isLoggedIn" class="butt-style-1" type="button" (click)="logout()"><span style="padding:8px;">OUT</span></button>
                                             <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
                                         </div>
                                         
