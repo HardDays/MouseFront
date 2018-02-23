@@ -135,6 +135,8 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
       this.Error = 'Entry fields name, email, password!';
     else if (this.User.password.length<6)
       this.Error = 'Short password!';
+    else if (this.User.email.search('@')<=0)
+      this.Error = 'Uncorrect email!';
     else{
       this.Account.account_type = 'fan';
       console.log(`account`,this.Account);
