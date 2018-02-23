@@ -55,6 +55,9 @@
                         <input name="audio_description" *ngIf="Account.account_type == Roles.Venue" ngModel class="inp-style-2" type="text" placeholder="Audio description" [ngModel]="Account.audio_description" (ngModelChange)="Account.audio_description = $event">
                         <input name="lighting_description" *ngIf="Account.account_type == Roles.Venue" ngModel class="inp-style-2" type="text" placeholder="Lighting description" [ngModel]="Account.lighting_description" (ngModelChange)="Account.lighting_description = $event">
                         <input name="stage_description" *ngIf="Account.account_type == Roles.Venue" ngModel class="inp-style-2" type="text" placeholder="Stage description" [ngModel]="Account.stage_descrition" (ngModelChange)="Account.stage_description = $event">
+
+
+
                         <div class="one-checkbox" *ngIf="Account.account_type == Roles.Venue">
                             <div class="check-style">
                                 <input type="checkbox" class="checkbox" name="has_bar" id="checkbox-2" [ngModel]="hasBar" (ngModelChange)="hasBar = $event">
@@ -71,6 +74,27 @@
                         </div>
                     </div>
                     
+                </div>
+                <h3 class="marg30">select your favourite genres</h3>
+                <div class="search-wr">
+                        <input type="text" class="inp-style-1" (input)="CategoryChanged($event.target.value)"  placeholder="Search">
+                    </div>
+                <div *ngIf="Account.account_type == Roles.Fan" class="flex-checkboxes">
+                        
+                    <ng-container *ngFor="let item of genres; let i = index">
+                        <div *ngIf="item.show" class="one-checkbox" >
+                                <div  class="check-style">
+                                            <input type="checkbox"  [ngModel]="item.checked" (ngModelChange)="item.checked = $event" class="checkbox" name="genre-{{i}}" id='checkbox-{{i}}'>
+                                    <label for='checkbox-{{i}}'></label>
+                                </div>
+                                <p>{{item.genre_show}}</p>
+                        </div> 
+                </ng-container>
+                </div>
+                <p class="more" *ngIf="!seeMore" (click)="seeMoreGenres()"><span>See more</span></p>
+                <p style="color:white;">{{Error}}</p>
+                <div class="continue-wr">
+                    <button class="butt-style-1" type="submit"><span>Continue</span></button>
                 </div>
                 <div *ngIf="Account.account_type == Roles.Venue">
                     <p>Contacts</p>

@@ -4,3 +4,9 @@ p{
 bs-datepicker-container, bs-daterangepicker-container {
     -webkit-transform: translateX(-90px);
             transform: translateX(-90px); }
+
+.dropdown{
+    color: red;
+    background: black;
+}
+            

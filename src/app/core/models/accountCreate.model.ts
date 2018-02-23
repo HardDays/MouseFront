@@ -3,6 +3,7 @@ import { EventDateModel } from './eventDate.model';
 import { ContactModel } from './contact.model';
 import { WorkingTimeModel } from './workingTime.model';
 import { Base64ImageModel } from './base64image.model';
+import { GengreModel } from './genres.model';
 export class AccountCreateModel{
     constructor(
         public user_name?: string,	
@@ -10,6 +11,7 @@ export class AccountCreateModel{
         public phone?: string,	
         public account_type?: string,
         public bio?: string,
+        public genres?: GengreModel[],
         public address?: string,
         public description?: string,
         public fax?: string,

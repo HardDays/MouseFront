@@ -14,6 +14,7 @@ import { ContactModel } from '../../core/models/contact.model';
 import { AccountGetModel } from '../../core/models/accountGet.model';
 import { Base64ImageModel } from '../../core/models/base64image.model';
 import { AccountType } from '../../core/base/base.enum';
+import { GengreModel } from '../../core/models/genres.model';
 
 
 @Component({
@@ -25,6 +26,10 @@ import { AccountType } from '../../core/base/base.enum';
 
 export class EditComponent extends BaseComponent implements OnInit {
     Roles = AccountType;
+    genres:GengreModel[] = [];
+    genresShow:GengreModel[] = [];
+    allGenres:GengreModel[] = [];
+    seeMore:boolean = false;
     VenueTypes:SelectModel[] = [];
     SelectedVenue:number = 1;
     hasBar:boolean = true;
@@ -37,11 +42,12 @@ export class EditComponent extends BaseComponent implements OnInit {
     Days:FrontWorkingTimeModel[] = [];
     minDate: Date = new Date();
     date:Date;
+    search:string = '';
     UserId:number;
     Account:AccountCreateModel = new AccountCreateModel();
     bsValue_start: Date[];
     bsValue_end: Date[];
-
+    Error:string = '';
   
     @ViewChild('submitFormUsr') form: NgForm;
     
@@ -61,7 +67,7 @@ export class EditComponent extends BaseComponent implements OnInit {
       this.bsValue_end = [new Date()];
       this.Account.dates = [new EventDateModel()];
       this.Account.office_hours = [new WorkingTimeModel()];
-      
+      this.genres = this.genreService.GetAllGM();
     }
    
   
@@ -196,7 +202,35 @@ export class EditComponent extends BaseComponent implements OnInit {
   }
 
   
-   
+  seeFirstGenres(){
+    for(let g of this.genres) g.show = false;
+    this.genres[0].show = true;
+    this.genres[1].show = true;
+    this.genres[2].show = true;
+    this.genres[3].show = true;
+    this.seeMore = false;
+  }
+
+  seeMoreGenres(){
+    this.seeMore = true;
+    // let checked = this.genres;
+    // this.genres = this.genreService.GetAll(checked);
+    for(let g of this.genres) g.show = true;
+  }
+
+CategoryChanged($event:string){
+   this.search = $event;
+    if(this.search.length>0) {
+      for(let g of this.genres)
+         if(g.genre_show.indexOf(this.search.toUpperCase())>=0)
+          g.show = true;
+         else
+          g.show = false;
+    }
+    else {
+      this.seeFirstGenres();
+    }
+}
 
   logChanged($event){
     console.log("event",$event);

@@ -2,12 +2,14 @@ import { AccountType } from '../base/base.enum';
 import { EventDateModel } from './eventDate.model';
 import { ContactModel } from './contact.model';
 import { WorkingTimeModel } from './workingTime.model';
+import { GengreModel } from './genres.model';
 export class AccountGetModel{
     constructor(
         public id?: number,
         public user_name?: string,
         public display_name?: string,
         public phone?: string,
+        public genres?: GengreModel[],
         public created_at?: string,
         public updated_at?: string,
         public image_id?: number,
