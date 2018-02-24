@@ -151,9 +151,14 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
         this.artistsChecked.push(false);
       console.log(`artists`, this.artists);
         if(this.createAccSucc) this.firstPage = false;
-      });  
+      });
+
+      this.Account.genres = [];
+      for(let g of this.genres)
+        if(g.checked) this.Account.genres.push(g.genre);
 
 
+      
       this.CreateUserAcc(this.User,this.Account,(err)=>{
             this.firstPage = true;   
             this.createAccSucc = false;    
