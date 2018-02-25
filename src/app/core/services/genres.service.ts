@@ -84,6 +84,23 @@ export class GenresService{
         ];
     }
     
+    public GetGendreModelFromString(genres:string[]):GengreModel[]{
+        let result:GengreModel[] = [];
+        result = this.GetAllGM();
+        for(let i of genres)
+        {
+            for(let j of result) {
+                console.log("Gen", i);
+                console.log("Res", j.genre);
+                console.log("Comp", i == j.genre);
+                if(i == j.genre)
+                    j.checked = true;
+                    j.show = true;
+            }
+        }
+        return result;
+    }
+
     convertToShow(genre:string):string{
         let genre_show = '';
         genre_show = genre.replace('_',' ').toUpperCase();

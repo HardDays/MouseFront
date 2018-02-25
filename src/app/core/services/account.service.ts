@@ -10,6 +10,7 @@ import { EventDateModel } from "../models/eventDate.model";
 import { ContactModel } from "../models/contact.model";
 import { TypeService } from './type.service';
 import { Base64ImageModel } from '../models/base64image.model';
+import { GengreModel } from '../models/genres.model';
 
 @Injectable()
 export class AccountService{
@@ -35,6 +36,9 @@ export class AccountService{
             result.image_base64 = null;
             result.emails = this.typeService.ValidateArray(input.emails)?input.emails:[new ContactModel()];
             result.dates = input.dates;
+            console.log("BEFORE", input.genres);
+            result.genres = input.genres?input.genres:null;
+            console.log("AFTER", result.genres);
             result.office_hours = this.typeService.ValidateArray(input.office_hours)?input.office_hours:[new WorkingTimeModel()];
             result.operating_hours = this.typeService.ValidateArray(input.operating_hours)?input.operating_hours:[new WorkingTimeModel()];
             result.bio = input.bio?input.bio:null;
@@ -165,6 +169,7 @@ export class AccountService{
         }
         return frontDays;
     }
+
 
     public ParseWorkingTimeModelArr(days:WorkingTimeModel[]):WorkingTimeModel[]
     {

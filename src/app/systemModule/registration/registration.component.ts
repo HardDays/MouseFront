@@ -88,7 +88,6 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
     
    this.genres = this.genreService.GetAllGM();
    this.CreateAutocomplete();
-   console.log(this.genres);
   
  
 }
@@ -109,14 +108,11 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
             return;
            }
            else {
-            console.log(autocomplete.getPlace().formatted_address);
               this.Account.address = autocomplete.getPlace().formatted_address;
-              console.log(`ACC`,this.Account);
            // this.Params.public_lat=autocomplete.getPlace().geometry.location.toJSON().lat;
            // this.Params.public_lng=autocomplete.getPlace().geometry.location.toJSON().lng;
            // this.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
             //this.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
-            console.log( autocomplete.getPlace().geometry.location.toJSON().lat, autocomplete.getPlace().geometry.location.toJSON().lng);
           //  this.Params.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
           //  this.Params.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
            }
@@ -139,7 +135,6 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
       this.Error = 'Uncorrect email!';
     else{
       this.Account.account_type = 'fan';
-      console.log(`account`,this.Account);
       this.createAccSucc = true;
 
       this.genreService.GetArtists(this.genres).
@@ -149,15 +144,18 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
       
       for(let i=0;i<this.artists.length;i++)
         this.artistsChecked.push(false);
-      console.log(`artists`, this.artists);
         if(this.createAccSucc) this.firstPage = false;
-      });  
+      });
+
+      this.Account.genres = [];
+      for(let g of this.genres)
+        if(g.checked) this.Account.genres.push(g.genre);
 
 
+      
       this.CreateUserAcc(this.User,this.Account,(err)=>{
             this.firstPage = true;   
             this.createAccSucc = false;    
-            console.log(`er`,err);            
             if(err.status==422) this.Error = err._body;
       });
     }
@@ -173,7 +171,6 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
     let id:number = this.accId;
     for(let follow of this.followsId){
         this.accService.AccountFollow(id,follow).subscribe(()=>{
-            console.log('ok flw',id);
         });
     }
     
@@ -182,7 +179,6 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
   }
 
   loadLogo($event:any):void{
-    console.log($event.target.files[0]);
     this.ReadImages(
         $event.target.files,
         (res:string)=>{

@@ -11,7 +11,7 @@ export class AccountCreateModel{
         public phone?: string,	
         public account_type?: string,
         public bio?: string,
-        public genres?: GengreModel[],
+        public genres?: string[],
         public address?: string,
         public description?: string,
         public fax?: string,

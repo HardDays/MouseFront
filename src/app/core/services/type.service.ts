@@ -117,6 +117,30 @@ export class TypeService{
         return options.toString();
     }
 
+    StringJSON(params) {
+        let options = "";
+        options += "{";
+        for(let key in params){
+            let prop:any = params[key];
+            if(prop){
+                if( prop instanceof Array){
+                    for(let i in prop){
+                        if(prop[i]){
+                            options += '"' + key + '[]"' + ':' + '"' + prop[i] + '"' + ',';
+                        }
+                    }
+                }
+                else{
+                    options += '"' + key + '":' + '"' + params[key] + '"' + ','; 
+                }
+            }
+        }
+        options = options.slice(0, options.length - 1);
+        options += "}";
+        // console.log(`options`,options);
+        return options;
+    }
+
 
 
 }

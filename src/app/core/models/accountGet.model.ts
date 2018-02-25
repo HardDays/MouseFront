@@ -9,7 +9,7 @@ export class AccountGetModel{
         public user_name?: string,
         public display_name?: string,
         public phone?: string,
-        public genres?: GengreModel[],
+        public genres?: string[],
         public created_at?: string,
         public updated_at?: string,
         public image_id?: number,
