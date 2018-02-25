@@ -198,10 +198,7 @@ export class AuthMainService{
     }
 
     CreateAccount(acc:AccountCreateModel){
-     //   acc = this.AccountModelToCreateAccountModel(acc);
-        // console.log(`req`,JSON.stringify(acc));
-        console.log(`req2`,this.typeService.StringJSON(acc));
-        return this.http.PostData('/accounts.json',this.typeService.StringJSON(acc));
+        return this.http.PostData('/accounts.json',JSON.stringify(acc));
     }
 
     ForgotPassword(user:string){
