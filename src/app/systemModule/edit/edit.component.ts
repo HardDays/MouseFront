@@ -26,9 +26,9 @@ import { GengreModel } from '../../core/models/genres.model';
 
 export class EditComponent extends BaseComponent implements OnInit {
     Roles = AccountType;
-    genres:GengreModel[] = [];
-    genresShow:GengreModel[] = [];
+    Genres:GengreModel[] = [];
     allGenres:GengreModel[] = [];
+    genresShow:GengreModel[] = [];
     seeMore:boolean = false;
     VenueTypes:SelectModel[] = [];
     SelectedVenue:number = 1;
@@ -53,6 +53,10 @@ export class EditComponent extends BaseComponent implements OnInit {
     
     ngOnInit()
     {
+      this.bsValue_start = [new Date()];
+      this.bsValue_end = [new Date()];
+      this.Account.dates = [new EventDateModel()];
+      this.Account.office_hours = [new WorkingTimeModel()];
       this.accService.GetMyAccount({extended:true})
         .subscribe((user:any[])=>{
             console.log("GET", user);
@@ -63,23 +67,23 @@ export class EditComponent extends BaseComponent implements OnInit {
       this.LocationTypes = this.typeService.GetAllLocationTypes();
       this.BookingNotice = this.typeService.GetAllBookingNotices();
       //this.Account.emails = [new ContactModel()];
-      this.bsValue_start = [new Date()];
-      this.bsValue_end = [new Date()];
-      this.Account.dates = [new EventDateModel()];
-      this.Account.office_hours = [new WorkingTimeModel()];
     }
    
   
-    InitByUser(usr:any){
+    InitByUser(usr:any){  
       this.Account = this.accService.AccountModelToCreateAccountModel(usr);
       for(let i in this.Account.dates) {
         this.bsValue_start[i] = new Date(this.Account.dates[i].begin_date);
         this.bsValue_end[i] = new Date(this.Account.dates[i].end_date);
       }
-      this.genres = this.genreService.GetGendreModelFromString(this.Account.genres);
       this.OfficeDays = usr.office_hours?this.accService.GetFrontWorkingTimeFromTimeModel(usr.office_hours):this.typeService.GetAllDays();
       this.OperatingDays = usr.operating_hours?this.accService.GetFrontWorkingTimeFromTimeModel(usr.operating_hours):this.typeService.GetAllDays();
       this.UserId = usr.id?usr.id:0;
+      this.genreService.GetAllGenres()
+        .subscribe((genres:string[])=> {
+          this.Genres = this.genreService.GetGendreModelFromString(this.Account.genres, this.genreService.StringArrayToGanreModelArray(genres));
+        });
+      
       if(usr.image_id){
           this.imgService.GetImageById(this.UserId, usr.image_id)
               .subscribe((res:Base64ImageModel)=>{
@@ -95,7 +99,8 @@ export class EditComponent extends BaseComponent implements OnInit {
       this.Account.office_hours = this.accService.GetWorkingTimeFromFront(this.OfficeDays);
       this.Account.operating_hours = this.accService.GetWorkingTimeFromFront(this.OperatingDays);
       this.Account.emails = this.typeService.ValidateArray(this.Account.emails);
-      for(let g of this.genres)
+      this.Account.genres = [];
+      for(let g of this.Genres)
         if(g.checked) this.Account.genres.push(g.genre);
       for(let i in this.Account.dates){
         this.Account.dates[i].begin_date = this.bsValue_start[i].getFullYear()+`-`+this.incr(this.bsValue_start[i].getMonth())+`-`+this.bsValue_start[i].getDate();
@@ -205,11 +210,11 @@ export class EditComponent extends BaseComponent implements OnInit {
 
   
   seeFirstGenres(){
-    for(let g of this.genres) g.show = false;
-    this.genres[0].show = true;
-    this.genres[1].show = true;
-    this.genres[2].show = true;
-    this.genres[3].show = true;
+    for(let i in this.Genres) this.Genres[i].show = +i < 4;
+    /*this.Genres[0].show = true;
+    this.Genres[1].show = true;
+    this.Genres[2].show = true;
+    this.Genres[3].show = true;*/
     this.seeMore = false;
   }
 
@@ -217,13 +222,13 @@ export class EditComponent extends BaseComponent implements OnInit {
     this.seeMore = true;
     // let checked = this.genres;
     // this.genres = this.genreService.GetAll(checked);
-    for(let g of this.genres) g.show = true;
+    for(let g of this.Genres) g.show = true;
   }
 
 CategoryChanged($event:string){
    this.search = $event;
     if(this.search.length>0) {
-      for(let g of this.genres)
+      for(let g of this.Genres)
          if(g.genre_show.indexOf(this.search.toUpperCase())>=0)
           g.show = true;
          else

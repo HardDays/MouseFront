@@ -3,7 +3,7 @@ import { Http, URLSearchParams } from '@angular/http';
 import { HttpService } from './http.service';
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import {Observable} from 'rxjs/Observable';
-import { GengreModel } from "../models/genres.model";
+import { GengreModel } from '../models/genres.model';
 
 
 @Injectable()
@@ -32,6 +32,7 @@ export class GenresService{
     GetAllGM(){
         this.genres = [];
         this.GetAllGenres().subscribe((res)=>{
+            console.log("PAR", res);
             for(let g of res){
                 let genre:string = g;
                 let checked = false,show = false;
@@ -42,6 +43,16 @@ export class GenresService{
             this.genres[2].show=true;this.genres[3].show=true;
         });
        return this.genres;
+    }
+
+    StringArrayToGanreModelArray(input: string[]):GengreModel[]
+    {
+        let result:GengreModel[] = [];
+        for(let i in input)
+        {
+            result.push(new GengreModel(input[i],this.convertToShow(input[i]),false,+i<4));
+        }
+        return result;
     }
 
     GetAll(check?:GengreModel[]){
@@ -84,20 +95,18 @@ export class GenresService{
         ];
     }
     
-    public GetGendreModelFromString(genres:string[]):GengreModel[]{
-        let result:GengreModel[] = [];
-        result = this.GetAllGM();
-        for(let i of genres)
+    public GetGendreModelFromString(newGenres:string[], allGenres:GengreModel[]):GengreModel[]{
+        let result:GengreModel[] = allGenres;
+        console.log("Input", allGenres);
+        for(let i of newGenres)
         {
             for(let j of result) {
-                console.log("Gen", i);
-                console.log("Res", j.genre);
-                console.log("Comp", i == j.genre);
                 if(i == j.genre)
                     j.checked = true;
                     j.show = true;
             }
         }
+        console.log("Output", result);
         return result;
     }
 

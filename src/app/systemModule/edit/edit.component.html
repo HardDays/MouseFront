@@ -75,26 +75,22 @@
                     </div>
                     
                 </div>
-                <h3 class="marg30">select your favourite genres</h3>
-                <div class="search-wr">
-                        <input type="text" class="inp-style-1" (input)="CategoryChanged($event.target.value)"  placeholder="Search">
+                <div *ngIf="Account.account_type == Roles.Fan">
+                    <h3 class="marg30">select your favourite genres</h3>
+                    <div class="search-wr">
+                            <input type="text" class="inp-style-1" (input)="CategoryChanged($event.target.value)"  placeholder="Search">
+                        </div>
+                    <div class="flex-checkboxes">
+                        <ng-container *ngFor="let item of Genres; let i = index">
+                            <div *ngIf="item.show" class="one-checkbox" >
+                                    <div  class="check-style">
+                                                <input type="checkbox"  [ngModel]="item.checked" (ngModelChange)="item.checked = $event" class="checkbox" name="genre-{{i}}" id='checkbox-{{i}}'>
+                                        <label for='checkbox-{{i}}'></label>
+                                    </div>
+                                    <p>{{item.genre_show}}</p>
+                            </div> 
+                    </ng-container>
                     </div>
-                <div *ngIf="Account.account_type == Roles.Fan" class="flex-checkboxes">
-                        
-                    <ng-container *ngFor="let item of genres; let i = index">
-                        <div *ngIf="item.show" class="one-checkbox" >
-                                <div  class="check-style">
-                                            <input type="checkbox"  [ngModel]="item.checked" (ngModelChange)="item.checked = $event" class="checkbox" name="genre-{{i}}" id='checkbox-{{i}}'>
-                                    <label for='checkbox-{{i}}'></label>
-                                </div>
-                                <p>{{item.genre_show}}</p>
-                        </div> 
-                </ng-container>
-                </div>
-                <p class="more" *ngIf="!seeMore" (click)="seeMoreGenres()"><span>See more</span></p>
-                <p style="color:white;">{{Error}}</p>
-                <div class="continue-wr">
-                    <button class="butt-style-1" type="submit"><span>Continue</span></button>
                 </div>
                 <div *ngIf="Account.account_type == Roles.Venue">
                     <p>Contacts</p>

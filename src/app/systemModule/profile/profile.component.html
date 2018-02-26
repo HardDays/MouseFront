@@ -646,13 +646,9 @@
                                     <div class="genres-info">
                                         <h3>Genres</h3>
                                         <div class="flex-genres">
-                                            <span class="one-genre">HIP HOP</span>
-                                            <span class="one-genre">HIP HOP</span>
-                                            <span class="one-genre">HIP HOP</span>
-                                            <span class="one-genre">HIP HOP</span>
-                                            <span class="one-genre">HIP HOP</span>
-                                            <span class="one-genre">HIP HOP</span>
-                                            <span class="one-genre">HIP HOP</span>
+                                            <ng-container *ngFor="let item of Account.genres;let i = index">
+                                                <span class="one-genre">{{item}}</span>
+                                            </ng-container>
                                         </div>
                                     </div>
                                 </div>

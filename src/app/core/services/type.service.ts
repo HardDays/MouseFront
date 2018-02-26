@@ -126,7 +126,7 @@ export class TypeService{
                 if( prop instanceof Array){
                     for(let i in prop){
                         if(prop[i]){
-                            options += '"' + key + '[]"' + ':' + '"' + prop[i] + '"' + ',';
+                            options += '"' + key + '"' + ':' + '["' + prop[i] + '"]' + ',';
                         }
                     }
                 }

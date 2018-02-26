@@ -82,11 +82,14 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
     });  
       
       
-      
+     this.genreService.GetAllGenres()
+      .subscribe((res:string[])=>{
+        this.genres = this.genreService.StringArrayToGanreModelArray(res);
+      }) 
       
   
     
-   this.genres = this.genreService.GetAllGM();
+   //this.genres = this.genreService.GetAllGM();
    this.CreateAutocomplete();
   
  
