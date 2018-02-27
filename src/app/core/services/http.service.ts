@@ -48,7 +48,7 @@ export class HttpService
 
     CommonRequestWithBody(fun:()=>Observable<Response>)
     {
-        this.BaseHeadersInit()
+        this.BaseHeadersInit();
 
         return fun()
             .map(
