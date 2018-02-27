@@ -63,32 +63,12 @@ export class HttpService
 
     GetData(method:string,params:string)
     {
-        //this.BaseHeadersInit();
-
         return this.http.get(this.serverUrl + method + "?"+ params,{headers:this.headers})
-           /* .map(
-                (resp:Response)=>this.validResp(resp)?resp.json():""
-            )
-            .catch(
-                (error:any) =>{
-                        return Observable.throw(error);
-                    }
-            )*/;
     }
     
     DeleteData(method:string)
     {
-        //this.BaseHeadersInit();
-
         return this.http.delete(this.serverUrl + method,{headers:this.headers})
-           /* .map(
-                (resp:Response)=>this.validResp(resp)?resp.json():""
-            )
-            .catch(
-                (error:any) =>{
-                        return Observable.throw(error);
-                    }
-            )*/;
     }
 
     PostData(method:string,data:string)
