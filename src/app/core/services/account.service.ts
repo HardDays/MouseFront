@@ -63,8 +63,8 @@ export class AccountService{
             result.lat = input.lat?input.lat:null;
             result.lng = input.lng?input.lng:null;
             result.about = input.about?input.about:null;
-            }
-            console.log("RES", result);
+        }
+
         return result;
     }
 
@@ -90,58 +90,36 @@ export class AccountService{
         options = options.slice(0, options.length - 1 );
         options += "}";
         return options;
-    // if(input){
-    //     let result = {
-    //     "user_name": input.user_name,	
-    //     "display_name": input.display_name,
-    //     "phone": input.phone,	
-    //     "account_type": input.account_type,
-    //     "image": input.image,
-    //     "bio": input.bio,
-    //     "address": input.address,
-    //     "description": input.description,
-    //     "fax": input.fax,
-    //     "bank_name": input.bank_name,
-    //     "account_bank_number": input.account_bank_number,
-    //     "account_bank_routing_number": input.account_bank_routing_number,
-    //     "capacity": input.capacity,
-    //     "num_of_bathrooms": input.num_of_bathrooms,
-    //     "min_age": input.min_age,
-    //     "venue_type": input.venue_type,
-    //     "has_bar": input.has_bar,
-    //     "located": input.located,
-    //     "dress_code": input.dress_code,
-    //     "has_vr": input.has_vr,
-    //     "audio_description": input.audio_description,
-    //     "lighting_description": input.lighting_description,
-    //     "stage_description": input.stage_description,
-    //     "lat": input.lat,
-    //     "lng": input.lng,
-    //     "dates": input.dates, 
-    //     "emails": input.emails,
-    //     "office_hours": input.office_hours,
-    //     "operating_hours": input.operating_hours,
-    //     "about": input.about
-    //     }
-    // return result;
     
     }
 
     GetMyAccount(params?:any){
-        return this.http.GetData('/accounts/my.json', this.typeService.ParamsToUrlSearchParams(params));
+        return this.http.CommonRequestWithBody(
+            ()=> this.http.GetData('/accounts/my.json', this.typeService.ParamsToUrlSearchParams(params))
+        );
+        //return this.http.GetData('/accounts/my.json', this.typeService.ParamsToUrlSearchParams(params));
     }
 
     UpdateMyAccount(id:number, data: any){
-        return this.http.PatchData('/accounts/' + id + ".json",data);
+        return this.http.CommonRequestWithBody(
+            ()=> this.http.PatchData('/accounts/' + id + ".json",data)
+        );
+        //return this.http.PatchData('/accounts/' + id + ".json",data);
     }
 
     FollowAccountById(me:number,target:number)
     {
-        return this.http.PostData("/accounts/" + me + "/follow.json",JSON.stringify({"follower_id":target}));
+        return this.http.CommonRequestWithBody(
+            ()=> this.http.PostData("/accounts/" + me + "/follow.json",JSON.stringify({"follower_id":target}))
+        );
+        //return this.http.PostData("/accounts/" + me + "/follow.json",JSON.stringify({"follower_id":target}));
     }
 
     DeleteMe(id:number){
-        return this.http.DeleteData('/accounts/' + id);
+        return this.http.CommonRequestWithBody(
+            ()=> this.http.DeleteData('/accounts/' + id)
+        );
+        //return this.http.DeleteData('/accounts/' + id);
     }
 
     public GetWorkingTimeFromFront(days:FrontWorkingTimeModel[]):WorkingTimeModel[]{
@@ -196,10 +174,13 @@ export class AccountService{
     }
 
     AccountFollow(id:number,follower_id:number){
-    let params={
-        // id:id,
-        follower_id:follower_id
-    }
-    return this.http.PostData('/accounts/+'+id+'/follow.json',JSON.stringify(params));
+        let params={
+            // id:id,
+            follower_id:follower_id
+        }
+        return this.http.CommonRequestWithBody(
+            ()=> this.http.PostData('/accounts/+'+id+'/follow.json',JSON.stringify(params))
+        );
+        //return this.http.PostData('/accounts/+'+id+'/follow.json',JSON.stringify(params));
     }
 }

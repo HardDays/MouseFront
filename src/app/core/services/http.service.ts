@@ -16,8 +16,7 @@ export class HttpService
     public headers:Headers = new Headers([]);
     public token: TokenModel = new TokenModel('');
     constructor(private http: Http){
-        if(!this.headers.has('Content-Type'))
-            this.headers.append('Content-Type','application/json');
+        this.BaseHeadersInit();
     }
 
     BaseInitByToken(data:string)
@@ -29,6 +28,12 @@ export class HttpService
             this.token = new TokenModel(data);
         }
     }
+
+    BaseHeadersInit()
+    {
+        if(!this.headers.has('Content-Type'))
+            this.headers.append('Content-Type','application/json');
+    }
     
 
     GetToken():TokenModel{
@@ -36,55 +41,71 @@ export class HttpService
     }
 
     validResp(resp){
-        // console.log(`resp`,resp);
         let body = resp._body;
-        // console.log(`body = `,body);
         if(body==" ")return false;
         return true;
     }
 
-    PostData(method:string,data:string)
+    CommonRequestWithBody(fun:()=>Observable<Response>)
     {
-        if(!this.headers.has('Content-Type'))
-            this.headers.append('Content-Type','application/json');
-        return this.http.post(this.serverUrl + method,data, {headers:this.headers})
-            .map((resp:Response)=>this.validResp(resp)?resp.json():"")
-            .catch((error:any) =>{return Observable.throw(error);});
-    }
+        this.BaseHeadersInit()
 
-    PatchData(method:string,data:any)
-    {
-        if(!this.headers.has('Content-Type'))
-            this.headers.append('Content-Type','application/json');
-
-        return this.http.patch(this.serverUrl + method,data, {headers:this.headers})
-            .map((resp:Response)=>resp.json())
-            .catch((error:any) =>{return Observable.throw(error);});
+        return fun()
+            .map(
+                (resp:Response)=>this.validResp(resp)?resp.json():""
+            )
+            .catch(
+                (error:any) =>{
+                        return Observable.throw(error);
+                    }
+            );
     }
 
     GetData(method:string,params:string)
     {
-        if(!this.headers.has('Content-Type'))
-            this.headers.append('Content-Type','application/json');
+        //this.BaseHeadersInit();
+
         return this.http.get(this.serverUrl + method + "?"+ params,{headers:this.headers})
-            .map((resp:Response)=>this.validResp(resp)?resp.json():"")
-            .catch((error:any) =>{return Observable.throw(error);});
+           /* .map(
+                (resp:Response)=>this.validResp(resp)?resp.json():""
+            )
+            .catch(
+                (error:any) =>{
+                        return Observable.throw(error);
+                    }
+            )*/;
+    }
+    
+    DeleteData(method:string)
+    {
+        //this.BaseHeadersInit();
+
+        return this.http.delete(this.serverUrl + method,{headers:this.headers})
+           /* .map(
+                (resp:Response)=>this.validResp(resp)?resp.json():""
+            )
+            .catch(
+                (error:any) =>{
+                        return Observable.throw(error);
+                    }
+            )*/;
     }
 
-    PutData(method:string,data:string){
-        if(!this.headers.has('Content-Type'))
-            this.headers.append('Content-Type','application/json');
-        return this.http.put(this.serverUrl + method,data,{headers:this.headers})
-            .map((resp:Response)=>this.validResp(resp)?resp.json():"")
-            .catch((error:any) =>{return Observable.throw(error);});
+    PostData(method:string,data:string)
+    {
+        return this.http.post(this.serverUrl + method,data, {headers:this.headers});
     }
-    DeleteData(method:string){
-        if(!this.headers.has('Content-Type'))
-            this.headers.append('Content-Type','application/json');
-        return this.http.delete(this.serverUrl + method,{headers:this.headers})
-            .map((resp:Response)=>this.validResp(resp)?resp.json():"")
-            .catch((error:any) =>{return Observable.throw(error);});
+
+    PatchData(method:string,data:any)
+    {
+        return this.http.patch(this.serverUrl + method,data, {headers:this.headers});
     }
+
+    PutData(method:string,data:string)
+    {
+        return this.http.put(this.serverUrl + method,data,{headers:this.headers});
+    }
+
 
 
 
