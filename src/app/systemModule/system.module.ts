@@ -17,6 +17,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { TextMaskModule } from 'angular2-text-mask';
 
 import { NguiAutoCompleteModule } from '@ngui/auto-complete';
+import { AccountCreateComponent } from './accountCreate/accountCreate.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { NguiAutoCompleteModule } from '@ngui/auto-complete';
     LoginComponent,
     RegistrationComponent,
     EditComponent,
-    ProfileComponent
+    ProfileComponent,
+    AccountCreateComponent
   ],
   imports: [
     CommonModule,

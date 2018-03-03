@@ -6,7 +6,7 @@ import { AccountService } from '../../core/services/account.service';
 import { ImagesService } from '../../core/services/images.service';
 import { TypeService } from '../../core/services/type.service';
 import { GenresService } from '../../core/services/genres.service';
-import { Router, Params } from '@angular/router';
+import { Router, Params, ActivatedRoute } from '@angular/router';
 import { AuthService } from "angular2-social-login";
 
 import { BaseComponent } from '../../core/base/base.component';
@@ -18,6 +18,7 @@ import { AccountGetModel } from '../../core/models/accountGet.model';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { AccountType } from '../../core/base/base.enum';
 import { Base64ImageModel } from '../../core/models/base64image.model';
+import { MapsAPILoader } from '@agm/core';
 
 
 
@@ -29,13 +30,28 @@ import { Base64ImageModel } from '../../core/models/base64image.model';
 })
 
 
+
 export class ProfileComponent extends BaseComponent implements OnInit {
     UserId:number;
     Roles = AccountType;
     Account:AccountCreateModel = new AccountCreateModel();
-
+    
+    constructor(protected authService: AuthMainService,
+      protected accService:AccountService,
+      protected imgService:ImagesService,
+      protected typeService:TypeService,
+      protected genreService:GenresService,
+      protected _sanitizer: DomSanitizer,
+      protected router: Router,public _auth: AuthService,
+      private activatedRoute: ActivatedRoute,
+      private ngZone: NgZone){
+super(authService,accService,imgService,typeService,genreService,_sanitizer,router,_auth);
+}
 
 ngOnInit(){
+  this.activatedRoute.params.forEach((params) => {
+    this.UserId = params["id"];
+  });
   this.accService.GetMyAccount({extended:true})
   .subscribe((user:any[])=>{
       this.InitByUser(user[0]);
@@ -48,7 +64,6 @@ ngOnInit(){
       this.Account.office_hours = this.accService.ParseWorkingTimeModelArr(this.Account.office_hours);
       this.Account.operating_hours = this.accService.ParseWorkingTimeModelArr(this.Account.operating_hours);
     }
-    this.UserId = usr.id?usr.id:0;
 
     if(usr.image_id){
         this.imgService.GetImageById(this.UserId, usr.image_id)

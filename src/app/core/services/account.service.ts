@@ -135,6 +135,11 @@ export class AccountService{
         return this.http.PatchData('/accounts/' + id + ".json",data);
     }
 
+    CreateAccount(data:any)
+    {
+        return this.http.PostData("/accounts.json", data);
+    }
+
     FollowAccountById(me:number,target:number)
     {
         return this.http.PostData("/accounts/" + me + "/follow.json",JSON.stringify({"follower_id":target}));
