@@ -10,8 +10,7 @@ import {SystemComponent} from './system.component';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { TimepickerModule } from 'ngx-bootstrap';
 import {ShowsComponent} from './shows/shows.component';
-import { LoginComponent } from './login/login.component';
-import { RegistrationComponent } from './registration/registration.component';
+
 import { EditComponent } from './edit/edit.component';
 import { ProfileComponent } from './profile/profile.component';
 import { TextMaskModule } from 'angular2-text-mask';
@@ -26,8 +25,6 @@ import { FooterModule } from '../shared/footer/footer.module';
   declarations: [
     SystemComponent,
     ShowsComponent,
-    LoginComponent,
-    RegistrationComponent,
     EditComponent,
     ProfileComponent,
     AccountCreateComponent

@@ -20,7 +20,7 @@
                             <input type="text" class="inp-style-1" placeholder="Search">
                         </div>
                         <ul>
-                            <li>
+                            <li *ngIf="isLoggedIn">
                                 <a class="icon-1" [class.active]="curNav=='profile'">
                                     <div class="dropdown">
                                         <div class="img-menu">
@@ -29,7 +29,7 @@
                                             </svg>
                                             <span>Profile</span>
                                             <div class="dropdown-content">
-                                                <a *ngFor="let item of Accounts" [routerLink]="['/system/profile',item.id]"><pre>{{item.account_type.substr(0,1).toUpperCase()}}   {{item.user_name}}</pre></a>
+                                                <a *ngFor="let item of Accounts" (click)="curNav = 'profile'" [routerLink]="['/system/profile',item.id]"><pre>{{item.account_type.substr(0,1).toUpperCase()}}   {{item.user_name}}</pre></a>
                                                 <a *ngIf="isShown" [routerLink]="['/system','accountCreate']">Add new account</a>
                                             </div>
                                         </div>
@@ -37,7 +37,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#edit" class="icon-2" [class.active]="curNav=='events'">
+                                <a href="#edit" (click)="curNav = 'events'" class="icon-2" [class.active]="curNav=='events'">
                                     <div class="img-menu">
                                         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35;" xml:space="preserve">
                                         
@@ -66,19 +66,19 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="icon-3" [class.active]="curNav=='shows'">
+                                <a [routerLink]="['/system','shows']" class="icon-3" (click)="curNav = 'shows'" [class.active]="curNav=='shows'">
                                     <div class="img-menu"></div>
                                     <span>Shows</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="icon-4" [class.active]="curNav=='feed'">
+                                <a href="#"  (click)="curNav = 'feed'" class="icon-4" [class.active]="curNav=='feed'">
                                     <div class="img-menu"></div>
                                     <span>Feed</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="icon-5" [class.active]="curNav=='profile'">
+                                <a href="#" class="icon-5" (click)="curNav = 'tickets'" [class.active]="curNav=='tickets'">
                                     <div class="img-menu"></div>
                                     <span>Tickets</span>
                                 </a>
@@ -86,10 +86,10 @@
                         </ul>
                         <div class="name-and-ava-wr">
                                 <div class="name-and-ava">
-                                        <p>{{Accounts[0]&&Accounts[0].user_name?Accounts[0].user_name:''}}</p>
-                                        <button *ngIf="!isLoggedIn" class="butt-style-1" type="button" (click)="login()"><span  style="padding:8px;">IN</span></button>
+                                        <p *ngIf="isLoggedIn">{{Accounts[0]&&Accounts[0].user_name?Accounts[0].user_name:''}}</p>
+                                        <div *ngIf="isLoggedIn" class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                                        <button *ngIf="!isLoggedIn" class="butt-style-1" type="button" (click)="login()"><span  style="padding:8px;">LOGIN</span></button>
                                         <button *ngIf="isLoggedIn" class="butt-style-1" type="button" (click)="logout()"><span style="padding:8px;">OUT</span></button>
-                                        <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
                                 </div>
                         </div>
                     </div>

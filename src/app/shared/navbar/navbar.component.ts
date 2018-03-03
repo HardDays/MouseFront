@@ -42,7 +42,7 @@ export class NavbarComponent extends BaseComponent implements OnInit{
     LOGOUT_STUPID(){
         localStorage.removeItem('access');
         this.router.navigate(['/access']);
-      }
+    }
       
       login(){
         this.router.navigate(['/login']);
@@ -52,6 +52,7 @@ export class NavbarComponent extends BaseComponent implements OnInit{
         console.log('logout');
         this.Logout();
         this.initUser();
+        this.curNav = 'shows';
       }
     
       edit(){

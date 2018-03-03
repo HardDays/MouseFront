@@ -18,22 +18,6 @@ export class SystemAccessGuard extends BaseComponent implements CanActivate{
         let login = this.authService.IsLogedIn();
 
         switch(router.routeConfig.path){
-            case "login":{
-                if(login){
-                    return this.LoginNavigate();
-                }
-                else{
-                    return true;
-                }
-            }
-            case "register":{
-                if(login){
-                    return this.LoginNavigate();
-                }
-                else{
-                    return true;
-                }
-            }
             case "edit":{
                 if(!login){
                     return this.LoginNavigate();

@@ -9,11 +9,31 @@ export class AppAccessGuard extends BaseComponent implements CanActivate{
     
     canActivate(router:ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>|boolean{
 
+        let login = this.authService.IsLogedIn();
+
         switch(router.routeConfig.path){
             case "access":{
                 return this.LoginHandler(router,state);
             }
+
+            case "login":{
+                if(login){
+                    return this.LoginNavigate();
+                }
+                else{
+                    return true;
+                }
+            }
            
+            case "register":{
+                if(login){
+                    return this.LoginNavigate();
+                }
+                else{
+                    return true;
+                }
+            }
+
             default:{
                 return true;
             }
@@ -26,9 +46,13 @@ export class AppAccessGuard extends BaseComponent implements CanActivate{
         {
             this.router.navigate(['/system','shows']);
                 return false;
-        }       
-        
+        }
         return true;
         
+    }
+
+    LoginNavigate(){
+        this.router.navigate(['/system','shows']);
+        return false;
     }
 }

@@ -10,8 +10,8 @@ import { RegistrationComponent } from './access/registration/registration.compon
 const routes: Routes = [
     { path: '', redirectTo: 'access', pathMatch:'full'},
     { path: 'access',component: StupidAccessComponent, canActivate: [AppAccessGuard]},
-    { path: 'login',component: LoginComponent},
-    { path: 'register',component: RegistrationComponent},
+    { path: 'login',component: LoginComponent, canActivate: [AppAccessGuard]},
+    { path: 'register',component: RegistrationComponent, canActivate: [AppAccessGuard]},
     { path: 'system', loadChildren: './systemModule/system.module#SystemModule'},
     { path: '**', redirectTo: 'access'}
 ];
