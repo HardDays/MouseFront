@@ -37,7 +37,7 @@
                                                     <span>Profile</span>
                                                     <div class="dropdown-content">
                                                         <a *ngFor="let item of Accounts" [routerLink]="['/system/profile',item.id]"><pre>{{item.account_type.substr(0,1).toUpperCase()}}   {{item.user_name}}</pre></a>
-                                                        <a [routerLink]="['/system','accountCreate']">Add new account</a>
+                                                        <a *ngIf="isShown" [routerLink]="['/system','accountCreate']">Add new account</a>
                                                     </div>
                                                 </div>
                                             </div>

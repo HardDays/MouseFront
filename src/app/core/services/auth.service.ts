@@ -66,7 +66,11 @@ export class AuthMainService{
             params = paramsEmail;
         else params = paramsUserName;
 
-        return this.http.PostData('/auth/login.json',JSON.stringify(params));
+        return this.http.CommonRequestWithBody(
+            ()=> this.http.PostData('/auth/login.json',JSON.stringify(params))
+        );
+
+        //return this.http.PostData('/auth/login.json',JSON.stringify(params));
     }
 
 
@@ -75,7 +79,10 @@ export class AuthMainService{
         let params = {
             access_token: token
         };
-        return this.http.PostData('/auth/google.json',JSON.stringify(params));
+        return this.http.CommonRequestWithBody(
+            ()=> this.http.PostData('/auth/google.json',JSON.stringify(params))
+        );
+        //return this.http.PostData('/auth/google.json',JSON.stringify(params));
     }
 
 
@@ -83,7 +90,10 @@ export class AuthMainService{
         let params = {
             access_token: token
         };
-        return this.http.PostData('/auth/facebook.json',JSON.stringify(params));
+        return this.http.CommonRequestWithBody(
+            ()=> this.http.PostData('/auth/facebook.json',JSON.stringify(params))
+        );
+        //return this.http.PostData('/auth/facebook.json',JSON.stringify(params));
     }
 
 
@@ -96,24 +106,9 @@ export class AuthMainService{
         }
     }
 
-    // GetLocalUserStatus():number{
-    //     try{
-    //         return +localStorage.getItem('userStatus');
-    //     }
-    //     catch(err){
-    //         console.log(err);
-    //         return UserEnumStatus.None;
-    //     }
-    // }
-
     BaseInitAfterLogin(data:TokenModel){
         localStorage.setItem('token',data.token);
         this.http.BaseInitByToken(data.token);
-        // this.GetMe()
-        //     .subscribe((user:UserGetModel)=>{
-        //         this.me = user;
-        //         this.onAuthChange$.next(true);
-        //     });
     }
 
     TryToLoginWithToken()
@@ -136,19 +131,30 @@ export class AuthMainService{
 
 
     Logout(){
-        return this.http.PostData("/auth/logout.json","{}")
-            .subscribe(()=>{
-                this.ClearSession();
-            });            
+        return this.http.CommonRequestWithBody(
+            ()=> this.http.PostData("/auth/logout.json","{}")
+        ).subscribe(()=>{
+            this.ClearSession();
+        });
+        // return this.http.PostData("/auth/logout.json","{}")
+        //     .subscribe(()=>{
+        //         this.ClearSession();
+        //     });            
     }
 
     
     GetMe(){
-        return this.http.GetData('/users/me.json',"");
+        return this.http.CommonRequestWithBody(
+            ()=> this.http.GetData('/users/me.json',"")
+        );
+        // return this.http.GetData('/users/me.json',"");
     }
 
     CreateUser(user:UserCreateModel){
-        return this.http.PostData('/users.json',JSON.stringify(user));
+        return this.http.CommonRequestWithBody(
+            ()=> this.http.PostData('/users.json',JSON.stringify(user))
+        );
+        // return this.http.PostData('/users.json',JSON.stringify(user));
     }
 
 
@@ -198,7 +204,10 @@ export class AuthMainService{
     }
 
     CreateAccount(acc:AccountCreateModel){
-        return this.http.PostData('/accounts.json',JSON.stringify(acc));
+        return this.http.CommonRequestWithBody(
+            ()=> this.http.PostData('/accounts.json',JSON.stringify(acc))
+        );
+        // return this.http.PostData('/accounts.json',JSON.stringify(acc));
     }
 
     ForgotPassword(user:string){
@@ -215,7 +224,10 @@ export class AuthMainService{
         else params = paramsUserName;
 
         console.log('params',params);
-        return this.http.PostData('/auth/forgot_password.json',JSON.stringify(params));
+        return this.http.CommonRequestWithBody(
+            ()=> this.http.PostData('/auth/forgot_password.json',JSON.stringify(params))
+        );
+        // return this.http.PostData('/auth/forgot_password.json',JSON.stringify(params));
     }
 
 

@@ -91,6 +91,7 @@
                                 </div> 
                         </ng-container>
                         </div>
+                        <p class="more" *ngIf="!seeMore" (click)="seeMoreGenres()"><span>See more</span></p>
                     </div>
                     <div *ngIf="Account.account_type == Roles.Venue">
                         <p>Contacts</p>

@@ -52,9 +52,9 @@ ngOnInit(){
   this.activatedRoute.params.forEach((params) => {
     this.UserId = params["id"];
   });
-  this.accService.GetMyAccount({extended:true})
-  .subscribe((user:any[])=>{
-      this.InitByUser(user[0]);
+  this.accService.GetAccountById(this.UserId, {extended:true})
+  .subscribe((user:any)=>{
+      this.InitByUser(user);
   })
 }
   InitByUser(usr:any){

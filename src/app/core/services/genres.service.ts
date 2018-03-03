@@ -4,6 +4,7 @@ import { HttpService } from './http.service';
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import {Observable} from 'rxjs/Observable';
 import { GengreModel } from '../models/genres.model';
+import { TypeService } from "./type.service";
 
 
 @Injectable()
@@ -11,22 +12,29 @@ export class GenresService{
 
     genres:GengreModel[] = [];
     
-    constructor(private http: HttpService, private router: Router){
+    constructor(private http: HttpService, private router: Router, private types:TypeService){
         // this.genres = this.GetAll();
     }
 
     GetArtists(genres:GengreModel[]){
         
-        let params:string = '';
-        for(let g of genres) 
-            if(g.checked) params+="genres[]="+g.genre+"&";
+        let params = {
+            genres:this.GenreModelArrToStringArr(genres)
+        };
+        // for(let g of genres) 
+        //     if(g.checked) params+="genres[]="+g.genre+"&";
     
-        console.log('genres',params,JSON.stringify(params));
-        return this.http.GetData('/genres/artists.json/',params);
+            return this.http.CommonRequestWithBody(
+                ()=> this.http.GetData('/genres/artists.json/',this.types.ParamsToUrlSearchParams(params))
+            );
+        // return this.http.GetData('/genres/artists.json/',params);
     }
 
     GetAllGenres(){
-        return this.http.GetData('/genres/all.json',"");
+        return this.http.CommonRequestWithBody(
+            ()=> this.http.GetData('/genres/all.json',"")
+        );
+        // return this.http.GetData('/genres/all.json',"");
     }
 
     GetAllGM(){
@@ -114,6 +122,18 @@ export class GenresService{
         let genre_show = '';
         genre_show = genre.replace('_',' ').toUpperCase();
         return genre_show;
+    }
+
+    GenreModelArrToStringArr(genres:GengreModel[])
+    {
+        let result = [];
+        for(let i of genres)
+        {
+            if(i.checked)
+                result.push(i.genre);
+        }
+
+        return result;
     }
 
 

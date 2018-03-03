@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
-import { Http, URLSearchParams } from '@angular/http';
+import { Http} from '@angular/http';
 import { HttpService } from './http.service';
-import { Router, ActivatedRoute, Params } from "@angular/router";
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -14,12 +13,15 @@ import {Subject} from 'rxjs/Subject';
 export class ImagesService{
 
     
-    constructor(private http: HttpService, private router: Router){
+    constructor(private http: HttpService){
      
     }
 
     GetImageById(id:number, imageId:number){
-        return this.http.GetData('/images/'+imageId,"");
+        return this.http.CommonRequestWithBody(
+            ()=> this.http.GetData('/images/'+imageId,"")
+        );
+        // return this.http.GetData('/images/'+imageId,"");
     }
 
 

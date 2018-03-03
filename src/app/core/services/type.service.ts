@@ -137,7 +137,6 @@ export class TypeService{
         }
         options = options.slice(0, options.length - 1);
         options += "}";
-        // console.log(`options`,options);
         return options;
     }
 
