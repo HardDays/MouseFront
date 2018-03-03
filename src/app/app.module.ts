@@ -17,9 +17,12 @@ import { AppRoutingModule } from './app.routing';
 
 import { SystemComponent } from './systemModule/system.component';
 import { StupidAccessComponent } from './stupidAccess/stupidAccess.component';
+import { TextMaskModule } from 'angular2-text-mask';
 
 import { Angular2SocialLoginModule } from "angular2-social-login";
 import { AgmCoreModule } from '@agm/core';
+import { LoginComponent } from './access/login/login.component';
+import { RegistrationComponent } from './access/registration/registration.component';
 
 let providers = {
   "google": {
@@ -36,7 +39,9 @@ let providers = {
 @NgModule({
   declarations: [
     AppComponent,
-    StupidAccessComponent
+    StupidAccessComponent,
+    LoginComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +54,8 @@ let providers = {
       apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",
       libraries: ["places"]
     }),
-     ReactiveFormsModule
+     ReactiveFormsModule,
+     TextMaskModule
   ],
   providers: [AppAccessGuard, 
     AuthMainService,

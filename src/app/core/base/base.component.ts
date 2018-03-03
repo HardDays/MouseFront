@@ -103,6 +103,7 @@ export class BaseComponent{
         this.WaitBeforeLoading(
             ()=>this.authService.UserLogin(user),
             (res:TokenModel)=>{
+                this.isLoggedIn = true;
                 console.log('res token');
                 this.authService.BaseInitAfterLogin(res);
                 this.router.navigate(['/system','shows']);

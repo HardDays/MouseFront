@@ -19,6 +19,8 @@ import { TextMaskModule } from 'angular2-text-mask';
 import { NguiAutoCompleteModule } from '@ngui/auto-complete';
 import { AccountCreateComponent } from './accountCreate/accountCreate.component';
 
+import { NavbarModule } from '../shared/navbar/navbar.module';
+import { FooterModule } from '../shared/footer/footer.module';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { AccountCreateComponent } from './accountCreate/accountCreate.component'
     TimepickerModule.forRoot(),
     ReactiveFormsModule,
     SystemRoutingModule,
-    NguiAutoCompleteModule
+    NguiAutoCompleteModule,
+    NavbarModule,
+    FooterModule
   ],
   providers: [ SystemAccessGuard]
 })

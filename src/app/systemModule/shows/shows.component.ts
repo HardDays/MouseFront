@@ -14,34 +14,9 @@ import { AccountGetModel } from '../../core/models/accountGet.model';
 
 export class ShowsComponent extends BaseComponent {
 
-  isShown:boolean = true;
-  Accounts:AccountGetModel[] = [];
-  maxNumberOfProfiles:number = 5;
-
 
   ngOnInit(){
-    this.accService.GetMyAccount({extended:true})
-    .subscribe((users:any[])=>{
-        if(users.length >= this.maxNumberOfProfiles)
-          this.isShown = false;
-        this.Accounts = users;
-    })
-  }
-  LOGOUT_STUPID(){
-    localStorage.removeItem('access');
-    this.router.navigate(['/access']);
+    
   }
   
-  login(){
-    this.router.navigate(['/system','login']);
-  }
-
-  logout(){
-    console.log('logout');
-    this.Logout();
-  }
-
-  edit(){
-    this.router.navigate(['/system','edit']);
-  }
 }
