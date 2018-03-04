@@ -3,6 +3,7 @@ import { NgForm} from '@angular/forms';
 import { AuthMainService } from '../../core/services/auth.service';
 import { AuthService } from "angular2-social-login";
 import { BaseComponent } from '../../core/base/base.component';
+import { AccountGetModel } from '../../core/models/accountGet.model';
 
 @Component({
   selector: 'shows',
@@ -13,22 +14,9 @@ import { BaseComponent } from '../../core/base/base.component';
 
 export class ShowsComponent extends BaseComponent {
 
-  LOGOUT_STUPID(){
-    localStorage.removeItem('access');
-    this.router.navigate(['/access']);
+
+  ngOnInit(){
+    
   }
   
-  login(){
-    this.router.navigate(['/system','login']);
-  }
-
-  logout(){
-    console.log('logout');
-    this.Logout();
-  }
-
-  edit(){
-    this.router.navigate(['/system','edit']);
-  }
-
 }

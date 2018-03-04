@@ -10,23 +10,24 @@ import {SystemComponent} from './system.component';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { TimepickerModule } from 'ngx-bootstrap';
 import {ShowsComponent} from './shows/shows.component';
-import { LoginComponent } from './login/login.component';
-import { RegistrationComponent } from './registration/registration.component';
+
 import { EditComponent } from './edit/edit.component';
 import { ProfileComponent } from './profile/profile.component';
 import { TextMaskModule } from 'angular2-text-mask';
 
 import { NguiAutoCompleteModule } from '@ngui/auto-complete';
+import { AccountCreateComponent } from './accountCreate/accountCreate.component';
 
+import { NavbarModule } from '../shared/navbar/navbar.module';
+import { FooterModule } from '../shared/footer/footer.module';
 
 @NgModule({
   declarations: [
     SystemComponent,
     ShowsComponent,
-    LoginComponent,
-    RegistrationComponent,
     EditComponent,
-    ProfileComponent
+    ProfileComponent,
+    AccountCreateComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +38,9 @@ import { NguiAutoCompleteModule } from '@ngui/auto-complete';
     TimepickerModule.forRoot(),
     ReactiveFormsModule,
     SystemRoutingModule,
-    NguiAutoCompleteModule
+    NguiAutoCompleteModule,
+    NavbarModule,
+    FooterModule
   ],
   providers: [ SystemAccessGuard]
 })

@@ -8,9 +8,11 @@ import { BaseComponent } from '../core/base/base.component';
 })
 export class SystemComponent extends BaseComponent implements OnInit {
 
+  // curPage:string = '';
 
   ngOnInit() {
-    
+    // this.curPage = this.router.url;
   }
+
 
 }
