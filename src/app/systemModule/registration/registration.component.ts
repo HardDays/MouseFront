@@ -12,7 +12,7 @@ import { BaseComponent } from '../../core/base/base.component';
 
 import { AccountCreateModel } from '../../core/models/accountCreate.model';
 import { UserCreateModel } from '../../core/models/userCreate.model';
-import { GengreModel } from '../../core/models/genres.model';
+import { GenreModel } from '../../core/models/genres.model';
 import { AccountGetModel } from '../../core/models/accountGet.model';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 
@@ -34,9 +34,9 @@ declare var $:any;
 export class RegistrationComponent extends BaseComponent implements OnInit {
 
   Error:string = '';
-  genres:GengreModel[] = [];
-  genresShow:GengreModel[] = [];
-  allGenres:GengreModel[] = [];
+  genres:GenreModel[] = [];
+  genresShow:GenreModel[] = [];
+  allGenres:GenreModel[] = [];
   search:string = '';
   artists:AccountGetModel[] = [];
   followsId:number[] = [];
@@ -66,9 +66,7 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
 
   ngOnInit(){
 
- 
     $(document).ready(function () {
-    
       //страница signUp-2.html
      $('.label-wr').mousedown(function(){
          $(this).addClass('scaled');
@@ -86,16 +84,9 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
       .subscribe((res:string[])=>{
         this.genres = this.genreService.StringArrayToGanreModelArray(res);
       }) 
-      
-  
     
-   //this.genres = this.genreService.GetAllGM();
    this.CreateAutocomplete();
-  
- 
 }
-
-
 
   CreateAutocomplete(){
     this.mapsAPILoader.load().then(

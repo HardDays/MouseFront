@@ -13,7 +13,7 @@ import { BaseComponent } from '../../core/base/base.component';
 
 import { AccountCreateModel } from '../../core/models/accountCreate.model';
 import { UserCreateModel } from '../../core/models/userCreate.model';
-import { GengreModel } from '../../core/models/genres.model';
+import { GenreModel } from '../../core/models/genres.model';
 import { AccountGetModel } from '../../core/models/accountGet.model';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { AccountType } from '../../core/base/base.enum';

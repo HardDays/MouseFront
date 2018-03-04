@@ -10,7 +10,7 @@ import { EventDateModel } from "../models/eventDate.model";
 import { ContactModel } from "../models/contact.model";
 import { TypeService } from './type.service';
 import { Base64ImageModel } from '../models/base64image.model';
-import { GengreModel } from '../models/genres.model';
+import { GenreModel } from '../models/genres.model';
 
 @Injectable()
 export class AccountService{
