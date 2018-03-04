@@ -20,16 +20,19 @@ import { UserCreateModel } from '../models/userCreate.model';
 import { UserGetModel } from '../models/userGet.model';
 import { LoginModel } from '../models/login.model';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
+import { AccountGetModel } from '../models/accountGet.model';
 
 @Injectable()
 export class BaseComponent{
+
     private ActiveProcesses:string[] = [];
     public isLoading:boolean = false;
     public isLoggedIn:boolean = false;
     public userStatus:number = 0;
-    public Me:AccountCreateModel = new AccountCreateModel();
+    public MyAccounts: AccountGetModel[] = [];
     public accId:number = 0;
     public MyLogo:string = '';
+    public userCreated:boolean = false;
 
     public NewErrForUser:boolean = false;
     
@@ -44,14 +47,14 @@ export class BaseComponent{
         this.isLoggedIn = this.authService.IsLogedIn();
 
         if(this.isLoggedIn){
-            this.GetMyData();
+            this.GetMyAccounts();
         }
 
         this.authService.onAuthChange$
             .subscribe((res:boolean)=>{
                 this.isLoggedIn = res;
                 if(this.isLoggedIn){
-                    this.GetMyData();
+                    this.GetMyAccounts();
                 }
                 else
                     this.router.navigate(['/system','shows']);
@@ -70,40 +73,76 @@ export class BaseComponent{
     }
 
 
-    CreateUserAcc(user:UserCreateModel, account:AccountCreateModel,callback:(error)=>any){
-        this.WaitBeforeLoading(
-            ()=>this.authService.CreateUser(user),
-                (res:UserGetModel)=>{
-                    console.log('ok usr:',res,);
-                    let token:TokenModel = new TokenModel();
-                    token.token = res.token;
-                    this.authService.BaseInitAfterLogin(token);
+    /* PROCESS BLOCK */
 
-                    this.authService.CreateAccount(account).
-                    subscribe(
-                        (acc)=>{
-                           this.accId = acc.id;
-                        },
-                        (err)=>{
-                            callback(err);
-                        }
-                    );
-
-                },
-                (err)=>{
-                    callback(err);
-                }
-        );
-        
+    private GenerateProcessID(){
+        let id:string = GUID.GetNewGUID();
+        this.ActiveProcesses.push(id);
+        this.SetLoading();
+        return id;
     }
 
+    private DeleteProcess(str:string){
+        let index = this.ActiveProcesses.findIndex(x=>x == str);
+        this.ActiveProcesses.splice(index,1);
+        this.SetLoading();
+    }
     
+    public WaitBeforeLoading = (fun:()=>Observable<any>,success:(result?:any)=>void, err?:(obj?:any)=>void)=>{
+        let process = this.GenerateProcessID();
+        
+        fun()
+            .subscribe(
+                res=>{
+                    success(res);
+                    this.DeleteProcess(process);
+                },
+                error=>{
+                    
+                    if(err && typeof err == "function"){
+                        err(error); 
+                    }
+                    this.DeleteProcess(process);
+                    if(error.status == 401){
+
+                        //  this.Logout();
+
+                        return;
+                    }
+                });
+    }
+
+    protected SetLoading = () => {
+        this.authService.onLoadingChange$.next(true);
+    }
+
+    /* PROCESS BLOCK END */
+
+
+
+    /* ME BLOCK */
+
+    protected GetMyAccounts(callback?:()=>any){
+        this.WaitBeforeLoading(
+            ()=>this.authService.GetMe(),
+            (res)=>{
+                this.MyAccounts = res;
+                //this.GetMyImage(callback);
+            },
+            (err)=>{
+                if(callback && typeof callback == "function"){
+                    callback();
+                }
+            }
+        );
+    }
+
     protected Login(user:LoginModel,callback:(error)=>any){
 
         this.WaitBeforeLoading(
             ()=>this.authService.UserLogin(user),
             (res:TokenModel)=>{
-                console.log('res token');
+                this.isLoggedIn = true;
                 this.authService.BaseInitAfterLogin(res);
                 this.router.navigate(['/system','shows']);
             },
@@ -111,6 +150,11 @@ export class BaseComponent{
                 callback(err);
             }
         );
+    }
+
+    public Logout(){
+        this.authService.Logout();
+        this.SocialLogout(`gf`);
     }
 
     protected SocialLogin(provider){
@@ -149,25 +193,95 @@ export class BaseComponent{
           );
     }
 
+
+    CreateUserAcc(user:UserCreateModel, account:AccountCreateModel,callback:(error)=>any){
+        this.WaitBeforeLoading(
+            ()=>this.authService.CreateUser(user),
+                (res:UserGetModel)=>{
+                    console.log('ok usr:',res,);
+                    let token:TokenModel = new TokenModel();
+                    token.token = res.token;
+                    this.authService.BaseInitAfterLogin(token);
+
+                    this.authService.CreateAccount(account).
+                    subscribe(
+                        (acc)=>{
+                           this.accId = acc.id;
+                        },
+                        (err)=>{
+                            callback(err);
+                        }
+                    );
+
+                },
+                (err)=>{
+                    callback(err);
+                }
+        );
+        
+    }
+
+
+
+    CreateUser(user:UserCreateModel, callback:(error)=>any){
+        this.userCreated = false;
+        this.WaitBeforeLoading(
+            ()=>this.authService.CreateUser(user),
+                (res:UserGetModel)=>{
+                    console.log('user create ok: ',res);
+                    let token:TokenModel = new TokenModel();
+                    token.token = res.token;
+                    this.authService.BaseInitAfterLogin(token);
+                    this.userCreated = true;
+                },
+                (err)=>{
+                    callback(err);
+                }
+        );
+
+    }
+
+    CreateAcc(account:AccountCreateModel,callback:(error)=>any){
+        this.authService.CreateAccount(account).
+                    subscribe(
+                        (acc)=>{
+                           console.log('acc create ok: ',acc);
+                           this.accId = acc.id;
+                        },
+                        (err)=>{
+                            callback(err);
+                        }
+                    );
+    }
+
+
+
+    /* ME BLOCK END */
+
+    
     
 
-    private GenerateProcessID(){
-        let id:string = GUID.GetNewGUID();
-        this.ActiveProcesses.push(id);
-        this.SetLoading();
-        return id;
+    /* Service Process BLOCK */
+    
+    protected ReadImages(files:any,callback?:(params?)=>any){
+        for(let f of files){
+            let file:File = f;
+            if(!file){
+               break;
+            }
+            let myReader:FileReader = new FileReader();
+            myReader.onloadend = (e) => {
+                callback(myReader.result);
+            }
+            myReader.readAsDataURL(file);
+        }
     }
 
-    private DeleteProcess(str:string){
-        let index = this.ActiveProcesses.findIndex(x=>x == str);
-        this.ActiveProcesses.splice(index,1);
-        this.SetLoading();
-    }
+    /* Service Process BLOCK END */
 
-    protected GetMyData(){
-        //this.GetMyAccess();     
-        this.GetMe();
-    }
+   
+
+   
 
     // protected GetImageById(id:number,callback:(res:any)=>any, errCallback?:(obj?:any)=>void){
     //     if(id){
@@ -208,37 +322,8 @@ export class BaseComponent{
     //         }
     //     ); 
     // }
-
-    protected ReadImages(files:any,callback?:(params?)=>any){
-        for(let f of files){
-            let file:File = f;
-            if(!file){
-               break;
-            }
-            let myReader:FileReader = new FileReader();
-            myReader.onloadend = (e) => {
-                callback(myReader.result);
-            }
-            myReader.readAsDataURL(file);
-        }
-    }
-
-
-    protected GetMe(callback?:()=>any){
-        this.WaitBeforeLoading(
-            ()=>this.authService.GetMe(),
-            (res)=>{
-                this.Me = res;
-                //this.GetMyImage(callback);
-            },
-            (err)=>{
-                if(callback && typeof callback == "function"){
-                    callback();
-                }
-            }
-        );
-
-    }
+    
+    
     
     // protected GetMyAccess(callback?:(params:any)=>void){
     //     this.WaitBeforeLoading(
@@ -283,38 +368,6 @@ export class BaseComponent{
 
     // }
 
-    public Logout(){
-        this.authService.Logout();
-        this.SocialLogout(`gf`);
-    }
     
-
-    public WaitBeforeLoading = (fun:()=>Observable<any>,success:(result?:any)=>void, err?:(obj?:any)=>void)=>{
-        let process = this.GenerateProcessID();
-        
-        fun()
-            .subscribe(
-                res=>{
-                    success(res);
-                    this.DeleteProcess(process);
-                },
-                error=>{
-                    
-                    if(err && typeof err == "function"){
-                        err(error); 
-                    }
-                    this.DeleteProcess(process);
-                    if(error.status == 401){
-
-                        //  this.Logout();
-
-                        return;
-                    }
-                });
-    }
-
-    protected SetLoading = () => {
-        this.authService.onLoadingChange$.next(true);
-    }
 
 }

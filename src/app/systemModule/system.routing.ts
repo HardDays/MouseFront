@@ -7,8 +7,6 @@ import { SystemAccessGuard } from './system.guard';
 import { SystemComponent } from './system.component';
 
 import { ShowsComponent } from './shows/shows.component';
-import { LoginComponent } from './login/login.component';
-import { RegistrationComponent } from './registration/registration.component';
 import { EditComponent } from './edit/edit.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AccountCreateComponent } from './accountCreate/accountCreate.component';
@@ -18,8 +16,6 @@ const routes: Routes =
   { path:'',component:SystemComponent, children:
     [
       { path: 'shows', component: ShowsComponent, canActivate: [SystemAccessGuard] },
-      { path: 'login', component: LoginComponent, canActivate: [SystemAccessGuard] },
-      { path: 'register', component: RegistrationComponent, canActivate: [SystemAccessGuard] },
       { path: 'edit', component: EditComponent, canActivate: [SystemAccessGuard] },
       { path: 'profile/:id', component: ProfileComponent, canActivate: [SystemAccessGuard] },
       { path: 'accountCreate', component: AccountCreateComponent, canActivate: [SystemAccessGuard] },
