@@ -94,14 +94,14 @@ export class AccountService{
     }
 
     GetMyAccount(params?:any){
-        return this.http.CommonRequestWithBody(
+        return this.http.CommonRequest(
             ()=> this.http.GetData('/accounts/my.json', this.typeService.ParamsToUrlSearchParams(params))
         );
         //return this.http.GetData('/accounts/my.json', this.typeService.ParamsToUrlSearchParams(params));
     }
 
     UpdateMyAccount(id:number, data: any){
-        return this.http.CommonRequestWithBody(
+        return this.http.CommonRequest(
             ()=> this.http.PatchData('/accounts/' + id + ".json",data)
         );
         //return this.http.PatchData('/accounts/' + id + ".json",data);
@@ -109,31 +109,38 @@ export class AccountService{
 
     CreateAccount(data:any)
     {
-        return this.http.CommonRequestWithBody(
+        return this.http.CommonRequest(
             ()=> this.http.PostData("/accounts.json", data)
         );
     }
 
     FollowAccountById(me:number,target:number)
     {
-        return this.http.CommonRequestWithBody(
+        return this.http.CommonRequest(
             ()=> this.http.PostData("/accounts/" + me + "/follow.json",JSON.stringify({"follower_id":target}))
         );
         //return this.http.PostData("/accounts/" + me + "/follow.json",JSON.stringify({"follower_id":target}));
     }
 
     GetAccountById(id:number, params?:any){
-        return this.http.CommonRequestWithBody(
+        return this.http.CommonRequest(
             ()=> this.http.GetData('/accounts/' + id + ".json", this.typeService.ParamsToUrlSearchParams(params))
         );
         //return this.http.DeleteData('/accounts/' + id);
     }
 
     DeleteMe(id:number){
-        return this.http.CommonRequestWithBody(
+        return this.http.CommonRequest(
             ()=> this.http.DeleteData('/accounts/' + id)
         );
         //return this.http.DeleteData('/accounts/' + id);
+    }
+
+    AccountsSearch(params:any)
+    {
+        return this.http.CommonRequest(
+            () => this.http.GetData("/accounts/search.json",this.typeService.ParamsToUrlSearchParams(params))
+        );
     }
 
     public GetWorkingTimeFromFront(days:FrontWorkingTimeModel[]):WorkingTimeModel[]{
@@ -192,7 +199,7 @@ export class AccountService{
             // id:id,
             follower_id:follower_id
         }
-        return this.http.CommonRequestWithBody(
+        return this.http.CommonRequest(
             ()=> this.http.PostData('/accounts/+'+id+'/follow.json',JSON.stringify(params))
         );
         //return this.http.PostData('/accounts/+'+id+'/follow.json',JSON.stringify(params));

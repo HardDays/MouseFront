@@ -21,13 +21,13 @@ export class GenresService{
         let params = {
             genres:this.GenreModelArrToStringArr(genres)
         };
-        return this.http.CommonRequestWithBody(
+        return this.http.CommonRequest(
             ()=> this.http.GetData('/genres/artists.json/',this.types.ParamsToUrlSearchParams(params))
         );
     }
 
     GetAllGenres(){
-        return this.http.CommonRequestWithBody(
+        return this.http.CommonRequest(
             ()=> this.http.GetData('/genres/all.json',"")
         );
     }

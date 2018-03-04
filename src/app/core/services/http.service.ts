@@ -46,7 +46,7 @@ export class HttpService
         return true;
     }
 
-    CommonRequestWithBody(fun:()=>Observable<Response>)
+    CommonRequest(fun:()=>Observable<Response>)
     {
         this.BaseHeadersInit();
 

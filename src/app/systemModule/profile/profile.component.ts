@@ -51,11 +51,14 @@ super(authService,accService,imgService,typeService,genreService,_sanitizer,rout
 ngOnInit(){
   this.activatedRoute.params.forEach((params) => {
     this.UserId = params["id"];
+    console.log(this.UserId);
+    this.accService.GetAccountById(this.UserId, {extended:true})
+      .subscribe((user:any)=>{
+        console.log(user);
+          this.InitByUser(user);
+      })
   });
-  this.accService.GetAccountById(this.UserId, {extended:true})
-  .subscribe((user:any)=>{
-      this.InitByUser(user);
-  })
+  
 }
   InitByUser(usr:any){
     this.Account = usr;
@@ -66,7 +69,7 @@ ngOnInit(){
     }
 
     if(usr.image_id){
-        this.imgService.GetImageById(this.UserId, usr.image_id)
+        this.imgService.GetImageById(usr.image_id)
             .subscribe((res:Base64ImageModel)=>{
                 this.Account.image_base64 = res.base64;
             });
