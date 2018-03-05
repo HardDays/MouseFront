@@ -86,6 +86,7 @@ export class ShowsComponent extends BaseComponent implements OnInit {
 
   GetAccounts()
   {
+    this.PaseSearchParams();
     this.accService.AccountsSearch(this.SearchParams)
     .subscribe((res:AccountGetModel[])=>{
       this.Accounts = res;
@@ -116,8 +117,6 @@ export class ShowsComponent extends BaseComponent implements OnInit {
       this.SearchParams.price_from = data.from;
     if(data.to && this.SearchParams.price_to != data.to)  
       this.SearchParams.price_to = data.to;
-
-    console.log(this.SearchParams);
   }
 
   CapacityChanged(data:any)
@@ -126,8 +125,44 @@ export class ShowsComponent extends BaseComponent implements OnInit {
       this.SearchParams.capacity_from = data.from;
     if(data.from && this.SearchParams.capacity_to != data.from)
       this.SearchParams.capacity_to = data.to;
+  }
 
-    console.log(this.SearchParams);
+  PaseSearchParams()
+  {
+    if(this.SearchParams.type)
+    {
+      let search:AccountSearchParams = new AccountSearchParams();
+      search.limit = this.SearchParams.limit;
+      search.offset = this.SearchParams.offset;
+      if(this.SearchParams.text)
+          search.text = this.SearchParams.text;
+      if(this.SearchParams.genres)
+        search.genres = this.SearchParams.genres;
+
+      if(this.SearchParams.type != this.Roles.Fan)
+      {
+        if(this.SearchParams.price_from)
+          search.price_from = this.SearchParams.price_from;
+        
+        if(this.SearchParams.price_to)
+          search.price_to = this.SearchParams.price_to;
+      }
+
+      if(this.SearchParams.type == this.Roles.Venue)
+      {
+        if(this.SearchParams.address)
+          search.address = this.SearchParams.address;
+
+        if(this.SearchParams.capacity_from)
+          search.capacity_from = this.SearchParams.capacity_from;
+
+        if(this.SearchParams.capacity_to)
+          search.capacity_to = this.SearchParams.capacity_to;
+
+        if(this.SearchParams.type_of_space)
+          search.type_of_space = this.SearchParams.type_of_space;
+      }
+    }
   }
   
 }

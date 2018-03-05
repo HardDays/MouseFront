@@ -65,26 +65,30 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
 
 
   ngOnInit(){
-
-    $(document).ready(function () {
-      //страница signUp-2.html
-     $('.label-wr').mousedown(function(){
-         $(this).addClass('scaled');
-         //alert('ok');
-     });
-      $('.label-wr').mouseup(function(){
-         $(this).removeClass('scaled');
-     });
-      //страница signUp-2.html
-      
-    });  
-      
       
      this.genreService.GetAllGenres()
       .subscribe((res:string[])=>{
         this.genres = this.genreService.StringArrayToGanreModelArray(res);
-      }) 
+      });
+
+      $(document).ready(function () {
+        //страница signUp-2.html
+       $('.label-wr').mousedown(function(){
+           $(this).addClass('scaled');
+           alert('ok');
+       });
+        $('.label-wr').mouseup(function(){
+           $(this).removeClass('scaled');
+       });
+        //страница signUp-2.html
+        
+      });  
+
+      // this.genreService.GetArtists(this.genres).
+      // subscribe((res:AccountGetModel[])=>{
     
+      // this.artists = res;});
+          
    this.CreateAutocomplete();
 }
 
@@ -138,7 +142,25 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
       
       for(let i=0;i<this.artists.length;i++)
         this.artistsChecked.push(false);
-        if(this.createAccSucc) this.firstPage = false;
+        
+        if (this.createAccSucc) {
+          this.firstPage = false;
+
+          $(document).ready(function () {
+            //страница signUp-2.html
+           $('.label-wr').mousedown(function(){
+               $(this).addClass('scaled');
+              //  alert('ok');
+           });
+            $('.label-wr').mouseup(function(){
+               $(this).removeClass('scaled');
+           });
+            //страница signUp-2.html
+            
+          });  
+        
+        }
+        
       });
 
       this.Account.genres = [];
@@ -152,6 +174,20 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
             this.createAccSucc = false;    
             if(err.status==422) this.Error = err._body;
       });
+
+      $(document).ready(function () {
+        //страница signUp-2.html
+       $('.label-wr').mousedown(function(){
+           $(this).addClass('scaled');
+           alert('ok');
+       });
+        $('.label-wr').mouseup(function(){
+           $(this).removeClass('scaled');
+       });
+        //страница signUp-2.html
+        
+      }); 
+      
     }
 
   }
@@ -219,6 +255,19 @@ MaskTelephone(){
       keepCharPositions: true,
       guide:false
     };
+}
+
+
+clickItem(index:number){
+  console.log(index);
+     var ch = "#checkbox-"+index+"-"+index;
+     $(ch).addClass('scaled');
+
+    setTimeout(()=>{
+      $(ch).removeClass('scaled');
+    },120)
+
+
 }
 
 }
