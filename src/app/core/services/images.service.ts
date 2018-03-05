@@ -17,8 +17,8 @@ export class ImagesService{
      
     }
 
-    GetImageById(id:number, imageId:number){
-        return this.http.CommonRequestWithBody(
+    GetImageById(imageId:number){
+        return this.http.CommonRequest(
             ()=> this.http.GetData('/images/'+imageId,"")
         );
         // return this.http.GetData('/images/'+imageId,"");

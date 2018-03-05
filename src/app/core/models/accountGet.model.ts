@@ -2,7 +2,7 @@ import { AccountType } from '../base/base.enum';
 import { EventDateModel } from './eventDate.model';
 import { ContactModel } from './contact.model';
 import { WorkingTimeModel } from './workingTime.model';
-import { GengreModel } from './genres.model';
+import { GenreModel } from './genres.model';
 export class AccountGetModel{
     constructor(
         public id?: number,

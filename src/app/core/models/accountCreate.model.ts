@@ -3,7 +3,7 @@ import { EventDateModel } from './eventDate.model';
 import { ContactModel } from './contact.model';
 import { WorkingTimeModel } from './workingTime.model';
 import { Base64ImageModel } from './base64image.model';
-import { GengreModel } from './genres.model';
+import { GenreModel } from './genres.model';
 export class AccountCreateModel{
     constructor(
         public user_name?: string,	

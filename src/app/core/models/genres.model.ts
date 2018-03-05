@@ -1,4 +1,4 @@
-export class GengreModel{
+export class GenreModel{
     constructor(
         public genre?:string,
         public genre_show?:string,

@@ -14,7 +14,7 @@ import { ContactModel } from '../../core/models/contact.model';
 import { AccountGetModel } from '../../core/models/accountGet.model';
 import { Base64ImageModel } from '../../core/models/base64image.model';
 import { AccountType } from '../../core/base/base.enum';
-import { GengreModel } from '../../core/models/genres.model';
+import { GenreModel } from '../../core/models/genres.model';
 
 
 @Component({
@@ -26,9 +26,9 @@ import { GengreModel } from '../../core/models/genres.model';
 
 export class EditComponent extends BaseComponent implements OnInit {
     Roles = AccountType;
-    Genres:GengreModel[] = [];
-    allGenres:GengreModel[] = [];
-    genresShow:GengreModel[] = [];
+    Genres:GenreModel[] = [];
+    allGenres:GenreModel[] = [];
+    genresShow:GenreModel[] = [];
     seeMore:boolean = false;
     VenueTypes:SelectModel[] = [];
     SelectedVenue:number = 1;
@@ -85,7 +85,7 @@ export class EditComponent extends BaseComponent implements OnInit {
         });
       
       if(usr.image_id){
-          this.imgService.GetImageById(this.UserId, usr.image_id)
+          this.imgService.GetImageById(usr.image_id)
               .subscribe((res:Base64ImageModel)=>{
                   this.Account.image_base64 = res.base64;
               });

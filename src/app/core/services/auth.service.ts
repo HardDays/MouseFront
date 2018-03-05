@@ -66,7 +66,7 @@ export class AuthMainService{
             params = paramsEmail;
         else params = paramsUserName;
 
-        return this.http.CommonRequestWithBody(
+        return this.http.CommonRequest(
             ()=> this.http.PostData('/auth/login.json',JSON.stringify(params))
         );
 
@@ -79,7 +79,7 @@ export class AuthMainService{
         let params = {
             access_token: token
         };
-        return this.http.CommonRequestWithBody(
+        return this.http.CommonRequest(
             ()=> this.http.PostData('/auth/google.json',JSON.stringify(params))
         );
         //return this.http.PostData('/auth/google.json',JSON.stringify(params));
@@ -90,7 +90,7 @@ export class AuthMainService{
         let params = {
             access_token: token
         };
-        return this.http.CommonRequestWithBody(
+        return this.http.CommonRequest(
             ()=> this.http.PostData('/auth/facebook.json',JSON.stringify(params))
         );
         //return this.http.PostData('/auth/facebook.json',JSON.stringify(params));
@@ -131,7 +131,7 @@ export class AuthMainService{
 
 
     Logout(){
-        return this.http.CommonRequestWithBody(
+        return this.http.CommonRequest(
             ()=> this.http.PostData("/auth/logout.json","{}")
         ).subscribe(()=>{
             this.ClearSession();
@@ -144,14 +144,14 @@ export class AuthMainService{
 
     
     GetMe(){
-        return this.http.CommonRequestWithBody(
+        return this.http.CommonRequest(
             ()=> this.http.GetData('/users/me.json',"")
         );
         // return this.http.GetData('/users/me.json',"");
     }
 
     CreateUser(user:UserCreateModel){
-        return this.http.CommonRequestWithBody(
+        return this.http.CommonRequest(
             ()=> this.http.PostData('/users.json',JSON.stringify(user))
         );
         // return this.http.PostData('/users.json',JSON.stringify(user));
@@ -204,7 +204,7 @@ export class AuthMainService{
     }
 
     CreateAccount(acc:AccountCreateModel){
-        return this.http.CommonRequestWithBody(
+        return this.http.CommonRequest(
             ()=> this.http.PostData('/accounts.json',JSON.stringify(acc))
         );
         // return this.http.PostData('/accounts.json',JSON.stringify(acc));
@@ -224,7 +224,7 @@ export class AuthMainService{
         else params = paramsUserName;
 
         console.log('params',params);
-        return this.http.CommonRequestWithBody(
+        return this.http.CommonRequest(
             ()=> this.http.PostData('/auth/forgot_password.json',JSON.stringify(params))
         );
         // return this.http.PostData('/auth/forgot_password.json',JSON.stringify(params));
