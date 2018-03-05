@@ -173,7 +173,12 @@ body {
         opacity: 1; }
 
 .login-register {
-  height: 100vh; }
+  height: 100vh; 
+}
+.login-register2 {
+  height: auto; 
+  width: 100%;
+}
   .login-register .login {
     min-height: 100%;
     display: flex;

@@ -1,4 +1,4 @@
-<section class="login-register">
+<section class="login-register login-register2">
     <div class="register">
         <div class="m-v-reg">
             <form class="reg-wr" (ngSubmit)="UpdateUser()" #submitFormUsr="ngForm">
@@ -173,11 +173,13 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
 
+                <!-- <br><br><br><br><br><br> -->
                 <button class="butt-style-1" type="submit" [disabled]="!submitFormUsr.valid">Save</button>
                 <button class="butt-style-1" type="button" (click)="DeleteMe()">Delete profile</button>
-
+                <br><br><br><br><br><br>
                 
             </form>
         </div>
