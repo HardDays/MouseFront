@@ -67,6 +67,7 @@
                     <input type="text" class="inp-style-1" placeholder="Search">
                 </div>
                 <div class="flex-bands">
+            
                     <!-- <div class="one-band">
                         <input type="checkbox" class="checkbox" name="" id="checkbox-1">
                         <label class="label-wr" for="checkbox-1">
@@ -80,9 +81,10 @@
                             </div>
                         </label>
                     </div> -->
+
                     <div *ngFor="let item of artists; let i = index" class="one-band">
                         <input type="checkbox" [ngModel]="artistsChecked[i]" (ngModelChange)="artistsChecked[i] = $event" class="checkbox" name="artist-{{i}}" id="checkbox-{{i}}">
-                        <label class="label-wr" for="checkbox-{{i}}">
+                        <label class="label-wr" for="checkbox-{{i}}" id="checkbox-{{i}}-{{i}}" (click)="clickItem(i)">
                             <div class="photo-band-wrapp">
                                 <div class="photo-band" style="background-image: url(../../../assets/img/layer-7.jpg)"></div>
                             </div>

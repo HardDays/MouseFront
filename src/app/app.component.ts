@@ -2,6 +2,8 @@ import { Component,OnInit } from '@angular/core';
 import { LocationStrategy, PlatformLocation, Location } from '@angular/common';
 import { AuthMainService } from './core/services/auth.service';
 
+declare var $:any;
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -21,5 +23,9 @@ export class AppComponent implements OnInit {
           );
     });
     this.service.TryToLoginWithToken();
+
+    $("#test").text("Hello world!");
   }
+
+ 
 }
