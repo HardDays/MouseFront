@@ -19,6 +19,7 @@ import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { AccountType } from '../../core/base/base.enum';
 import { Base64ImageModel } from '../../core/models/base64image.model';
 import { MapsAPILoader } from '@agm/core';
+import { AccountSearchParams } from '../../core/models/accountSearchParams.model';
 
 
 
@@ -34,7 +35,10 @@ import { MapsAPILoader } from '@agm/core';
 export class ProfileComponent extends BaseComponent implements OnInit {
     UserId:number;
     Roles = AccountType;
+    SearchParams: AccountSearchParams = new AccountSearchParams();
     Account:AccountCreateModel = new AccountCreateModel();
+    Accounts:AccountGetModel[] = [];
+    isMyAccount = false;
     
     constructor(protected authService: AuthMainService,
       protected accService:AccountService,
@@ -51,7 +55,11 @@ super(authService,accService,imgService,typeService,genreService,_sanitizer,rout
 ngOnInit(){
   this.activatedRoute.params.forEach((params) => {
     this.UserId = params["id"];
-    console.log(this.UserId);
+    this.GetAccounts();
+    for(let acc of this.Accounts) {
+        if(acc.id == this.UserId)
+            this.isMyAccount = true;
+    }
     this.accService.GetAccountById(this.UserId, {extended:true})
       .subscribe((user:any)=>{
         console.log(user);
@@ -77,6 +85,15 @@ ngOnInit(){
  
 }
 
+GetAccounts()
+{
+  this.accService.AccountsSearch(this.SearchParams)
+  .subscribe((res:AccountGetModel[])=>{
+    this.Accounts = res;
+    console.log(this.Accounts);
+  })
+}
+
 LOGOUT_STUPID(){
   localStorage.removeItem('access');
   this.router.navigate(['/access']);
@@ -91,7 +108,9 @@ logout(){
   this.Logout();
 }
 
-
+FollowProfile() {
+  this.accService.FollowAccountById(this.Accounts[0].id, this.UserId);
+}
   
 
 }
