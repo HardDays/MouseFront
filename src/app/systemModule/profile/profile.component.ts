@@ -53,19 +53,24 @@ super(authService,accService,imgService,typeService,genreService,_sanitizer,rout
 }
 
 ngOnInit(){
-  this.activatedRoute.params.forEach((params) => {
-    this.UserId = params["id"];
-    this.GetAccounts();
-    for(let acc of this.Accounts) {
-        if(acc.id == this.UserId)
-            this.isMyAccount = true;
-    }
-    this.accService.GetAccountById(this.UserId, {extended:true})
-      .subscribe((user:any)=>{
-        console.log(user);
-          this.InitByUser(user);
-      })
-  });
+  this.accService.GetMyAccount()
+  .subscribe((res:AccountGetModel[])=>{
+      this.isMyAccount = false;
+      this.activatedRoute.params.forEach((params) => {
+      this.UserId = params["id"];
+      this.Accounts = res;
+      for(let acc of this.Accounts) {
+          if(acc.id == this.UserId) {
+              this.isMyAccount = true;
+          }
+      }
+      this.accService.GetAccountById(this.UserId, {extended:true})
+        .subscribe((user:any)=>{
+          console.log(user);
+            this.InitByUser(user);
+        })
+    });
+  })
   
 }
   InitByUser(usr:any){
@@ -83,15 +88,6 @@ ngOnInit(){
             });
     }
  
-}
-
-GetAccounts()
-{
-  this.accService.AccountsSearch(this.SearchParams)
-  .subscribe((res:AccountGetModel[])=>{
-    this.Accounts = res;
-    console.log(this.Accounts);
-  })
 }
 
 LOGOUT_STUPID(){

@@ -17,7 +17,7 @@
                         <div class="name-venue">
                            
                             <h2>{{Account.user_name}}</h2>
-                            <a *ngIf="!isMyAccount" [routerLink]="['/system','edit']" class="settings"></a>
+                            <a *ngIf="isMyAccount" [routerLink]="['/system','edit']" class="settings"></a>
                         </div>
                         <div class="oficial-page">
                             <span class="of-p">@{{Account.display_name}}</span>
@@ -26,7 +26,7 @@
                             </div>
                         </div>
                         <form class="follow-wr">
-                            <button *ngIf="isMyAccount" class="butt-style-1" type="submit" (click)="FollowAccount()">
+                            <button *ngIf="!isMyAccount" class="butt-style-1" type="submit" (click)="FollowAccount()">
                                 <span>Follow</span>
                             </button>
                         </form>
@@ -263,7 +263,7 @@
                                 <a href="#" class="insta-link-sp">@{{Account.display_name}}</a>
                             </div>
                             <div class="side side-3">
-                                <div *ngIf="!isMyAccount" class="edit-and-settings">
+                                <div *ngIf="isMyAccount" class="edit-and-settings">
                                     <a [routerLink]="['/system','edit']" class="edit-profile">Edit profile</a>
                                 </div>
                                 <div class="desc-wr">
@@ -433,7 +433,7 @@
                                 <h6 class="name">{{Account.user_name}}</h6>
                                 <div class="oficial-page">
                                     <span class="page">@{{Account.display_name}}</span>
-                                    <div *ngIf="!isMyAccount" class="edit-and-settings">
+                                    <div *ngIf="isMyAccount" class="edit-and-settings">
                                         <a [routerLink]="['/system','edit']" class="edit-profile">Edit profile</a>
                                     </div>
                                 </div>
@@ -441,7 +441,7 @@
                                     {{Account.about}}
                                 </p>
                                 <form class="follow-wr">
-                                    <button *ngIf="isMyAccount" class="butt-style-1" type="submit" (click)="FollowAccount()">
+                                    <button *ngIf="!isMyAccount" class="butt-style-1" type="submit" (click)="FollowAccount()">
                                         <span>Follow</span>
                                     </button>
                                 </form>

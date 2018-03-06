@@ -9,7 +9,7 @@ export class AccountSearchParams{
         public capacity_to?:number,
         public genres?: string[],
         public limit?: number,
-        public offste?: number,
+        public offset?: number,
         public type_of_space?: string,
         public extended?: boolean
     ){
