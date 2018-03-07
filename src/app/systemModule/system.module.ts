@@ -20,6 +20,7 @@ import { AccountCreateComponent } from './accountCreate/accountCreate.component'
 
 import { NavbarModule } from '../shared/navbar/navbar.module';
 import { FooterModule } from '../shared/footer/footer.module';
+import { YoutubePlayerModule } from 'ng2-youtube-player';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { FooterModule } from '../shared/footer/footer.module';
     SystemRoutingModule,
     NguiAutoCompleteModule,
     NavbarModule,
-    FooterModule
+    FooterModule,
+    YoutubePlayerModule
   ],
   providers: [ SystemAccessGuard]
 })

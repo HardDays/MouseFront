@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, NgZone } from '@angular/core';
 import { NgForm,FormControl} from '@angular/forms';
 import { AuthMainService } from '../../core/services/auth.service';
 
@@ -15,6 +15,13 @@ import { AccountGetModel } from '../../core/models/accountGet.model';
 import { Base64ImageModel } from '../../core/models/base64image.model';
 import { AccountType } from '../../core/base/base.enum';
 import { GenreModel } from '../../core/models/genres.model';
+import { AccountService } from '../../core/services/account.service';
+import { ImagesService } from '../../core/services/images.service';
+import { TypeService } from '../../core/services/type.service';
+import { GenresService } from '../../core/services/genres.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from 'angular2-social-login';
 
 
 @Component({
@@ -25,6 +32,8 @@ import { GenreModel } from '../../core/models/genres.model';
 
 
 export class EditComponent extends BaseComponent implements OnInit {
+    Accounts: AccountGetModel[] = [];
+    isMyAccount: boolean = false;
     Roles = AccountType;
     Genres:GenreModel[] = [];
     allGenres:GenreModel[] = [];
@@ -51,17 +60,50 @@ export class EditComponent extends BaseComponent implements OnInit {
   
     @ViewChild('submitFormUsr') form: NgForm;
     
+    constructor(protected authService: AuthMainService,
+      protected accService:AccountService,
+      protected imgService:ImagesService,
+      protected typeService:TypeService,
+      protected genreService:GenresService,
+      protected _sanitizer: DomSanitizer,
+      protected router: Router,public _auth: AuthService,
+      private activatedRoute: ActivatedRoute,
+      private ngZone: NgZone){
+super(authService,accService,imgService,typeService,genreService,_sanitizer,router,_auth);
+}
+
     ngOnInit()
     {
       this.bsValue_start = [new Date()];
       this.bsValue_end = [new Date()];
       this.Account.dates = [new EventDateModel()];
       this.Account.office_hours = [new WorkingTimeModel()];
-      this.accService.GetMyAccount({extended:true})
-        .subscribe((user:any[])=>{
-            console.log("GET", user);
-            this.InitByUser(user[0]);
-        })
+      this.isMyAccount = false;
+      this.accService.GetMyAccount()
+      .subscribe((res:AccountGetModel[])=>{
+          this.activatedRoute.params.forEach((params) => {
+          this.UserId = params["id"];
+          this.Accounts = res;
+          for(let acc of this.Accounts) {
+              if(acc.id == this.UserId) {
+                  this.isMyAccount = true;
+              }
+          }
+          if(!this.isMyAccount) {
+            this.authService.ClearSession();
+            this.router.navigate(['/shows']);
+          }
+          this.accService.GetAccountById(this.UserId, {extended:true})
+            .subscribe((user:any)=>{
+              console.log(user);
+                this.InitByUser(user);
+            })
+        });
+      },
+      (err:any)=>{
+        console.log(err);
+          
+      })
       this.VenueTypes = this.typeService.GetAllVenueTypes();
       this.AccountTypes = this.typeService.GetAllAccountTypes();
       this.LocationTypes = this.typeService.GetAllLocationTypes();
@@ -177,13 +219,9 @@ export class EditComponent extends BaseComponent implements OnInit {
   
     DeleteVenueDate(i:number)
     {
-      console.log("aa", i);
-      console.log("aaa", this.bsValue_start);
       this.Account.dates.splice(i, 1);
-      console.log("dates",this.Account.dates);
       this.bsValue_start.splice(i, 1);
       this.bsValue_end.splice(i, 1);
-      console.log("aaa", this.bsValue_start);
     }
   
     AddVenueTime()

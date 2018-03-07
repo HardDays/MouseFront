@@ -117,6 +117,8 @@ export class AccountCreateComponent extends BaseComponent implements OnInit {
           this.accService.onAuthChange$.next(true);
       },
       (err:any)=>{
+        if(err = 422)
+            
         console.log(err);
           
       })

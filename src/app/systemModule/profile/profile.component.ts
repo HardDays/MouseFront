@@ -21,14 +21,16 @@ import { Base64ImageModel } from '../../core/models/base64image.model';
 import { MapsAPILoader } from '@agm/core';
 import { AccountSearchParams } from '../../core/models/accountSearchParams.model';
 
-
+declare var $:any;
+declare var PhotoSwipeUI_Default:any;
+declare var PhotoSwipe:any;
 
 
 @Component({
   selector: 'profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
-})
+  styleUrls: ['./profile.component.css'],
+  })
 
 
 
@@ -73,6 +75,52 @@ ngOnInit(){
   })
   
 }
+
+Gallery() {
+$('.gallery-main-wrapp').each(function () {
+    var pic = $(this)
+        , getItems = function () {
+            var items = [];
+            console.log("1");
+            pic.find('.for-gallery-item').each(function () {
+                var href = $(this).attr('data-hreff')
+                    , size = $(this).data('size').split('x')
+                    , width = size[0]
+                    , height = size[1];
+                var item = {
+                    src: href
+                    , w: width
+                    , h: height
+                }
+                items.push(item);
+            });
+            return items;
+        }
+    var items = getItems();
+    var pswp = $('.pswp')[0];
+    pic.on('click', '.one-block', function (event) {
+        event.preventDefault();
+        var index = $(this).index();
+        var options = {
+                index: parseInt(index),
+                bgOpacity: 1,
+                showHideOpacity: true,
+                history: false,
+                getThumbBoundsFn: function(index) {
+                  var thumbnail = document.querySelectorAll('.for-gallery-item')[index];
+                  var pageYScroll = window.pageYOffset || document.documentElement.scrollTop; 
+                  var rect = thumbnail.getBoundingClientRect(); 
+                  return {x:rect.left, y:rect.top + pageYScroll, w:rect.width};
+              }
+            }
+            // Initialize PhotoSwipe
+        console.log(options);
+        var lightBox = new PhotoSwipe(pswp, PhotoSwipeUI_Default, items, options);
+        lightBox.init();
+    });
+});
+}
+
   InitByUser(usr:any){
     this.Account = usr;
     if(this.Account.account_type == this.Roles.Venue)
@@ -89,6 +137,7 @@ ngOnInit(){
     }
  
 }
+
 
 LOGOUT_STUPID(){
   localStorage.removeItem('access');

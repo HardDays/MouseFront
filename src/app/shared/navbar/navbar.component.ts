@@ -24,9 +24,15 @@ export class NavbarComponent extends BaseComponent implements OnInit{
   
     ngOnInit(){
       this.initUser();
+      this.accService.onAuthChange$
+      .subscribe((res:boolean)=>{
+          if(res)
+            this.initUser();
+      });
     }
 
     initUser(){
+
         this.accService.GetMyAccount({extended:true})
         .subscribe((users:any[])=>{
             if(users.length >= this.maxNumberOfProfiles)

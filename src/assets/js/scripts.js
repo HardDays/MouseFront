@@ -58,11 +58,11 @@ $(document).ready(function () {
     
     
     
-    $('.galary-main-wrapp').each(function () {
+    $('.gallery-main-wrapp').each(function () {
         var pic = $(this)
             , getItems = function () {
                 var items = [];
-                pic.find('.for-galary-item').each(function () {
+                pic.find('.for-gallery-item').each(function () {
                     var href = $(this).attr('data-hreff')
                         , size = $(this).data('size').split('x')
                         , width = size[0]
@@ -98,7 +98,7 @@ $(document).ready(function () {
             options.getThumbBoundsFn = function(index) {
 
    
-                var thumbnail = document.querySelectorAll('.for-galary-item')[index];
+                var thumbnail = document.querySelectorAll('.for-gallery-item')[index];
 
 
                 var pageYScroll = window.pageYOffset || document.documentElement.scrollTop; 

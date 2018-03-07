@@ -17,7 +17,7 @@
                         <div class="name-venue">
                            
                             <h2>{{Account.user_name}}</h2>
-                            <a *ngIf="isMyAccount" [routerLink]="['/system','edit']" class="settings"></a>
+                            <a *ngIf="isMyAccount" [routerLink]="['/system/edit',UserId]" class="settings"></a>
                         </div>
                         <div class="oficial-page">
                             <span class="of-p">@{{Account.display_name}}</span>
@@ -92,15 +92,15 @@
                                 <div class="flex--info">
                                     <div class="side scroller flex-header">
                                         <div class="for-scroll-padd">
-                                            <h6>Galery(4)</h6>
+                                            <h6>Gallery(4)</h6>
                                             <input type="text" class="search-profile-inp-style"  placeholder="Search">
                                         </div>
                                         <div class="new-scroll-wr">
-                                            <div class="blocks galary-main-wrapp">
-                                                <div class="one-block for-galary-item" data-size="290x354" data-hreff="../../assets/img/layer-7.jpg" style="background-image: url(../../assets/img/layer-7.jpg)"></div>
-                                                <div class="one-block for-galary-item" data-size="290x354" data-hreff="../../assets/img/layer-7.jpg" style="background-image: url(../../assets/img/layer-7.jpg)"></div>
-                                                <div class="one-block for-galary-item" data-size="290x354" data-hreff="../../assets/img/layer-7.jpg" style="background-image: url(../../assets/img/layer-7.jpg)"></div>
-                                                <div class="one-block for-galary-item"  data-size="290x354" data-hreff="../../assets/img/layer-7.jpg" style="background-image: url(../../assets/img/layer-7.jpg)"></div>
+                                            <div (click)="Gallery()" class="blocks gallery-main-wrapp">
+                                                <div class="one-block for-gallery-item" data-size="290x354" data-hreff="../../assets/img/layer-7.jpg" style="background-image: url(../../assets/img/layer-7.jpg)"></div>
+                                                <div class="one-block for-gallery-item" data-size="290x354" data-hreff="../../assets/img/layer-7.jpg" style="background-image: url(../../assets/img/layer-7.jpg)"></div>
+                                                <div class="one-block for-gallery-item" data-size="290x354" data-hreff="../../assets/img/layer-7.jpg" style="background-image: url(../../assets/img/layer-7.jpg)"></div>
+                                                <div class="one-block for-gallery-item"  data-size="290x354" data-hreff="../../assets/img/layer-7.jpg" style="background-image: url(../../assets/img/layer-7.jpg)"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -264,11 +264,16 @@
                             </div>
                             <div class="side side-3">
                                 <div *ngIf="isMyAccount" class="edit-and-settings">
-                                    <a [routerLink]="['/system','edit']" class="edit-profile">Edit profile</a>
+                                    <a [routerLink]="['/system/edit',UserId]" class="edit-profile">Edit profile</a>
                                 </div>
                                 <div class="desc-wr">
                                     <p class="description">{{Account.bio}}</p>
                                 </div>
+                                <form class="follow-wr">
+                                    <button *ngIf="!isMyAccount" class="butt-style-1" type="submit" (click)="FollowAccount()">
+                                        <span>Follow</span>
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -434,7 +439,7 @@
                                 <div class="oficial-page">
                                     <span class="page">@{{Account.display_name}}</span>
                                     <div *ngIf="isMyAccount" class="edit-and-settings">
-                                        <a [routerLink]="['/system','edit']" class="edit-profile">Edit profile</a>
+                                        <a [routerLink]="['/system/edit',UserId]" class="edit-profile">Edit profile</a>
                                     </div>
                                 </div>
                                 <p class="desc">
