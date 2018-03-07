@@ -101,6 +101,8 @@ super(authService,accService,imgService,typeService,genreService,_sanitizer,rout
         });
       },
       (err:any)=>{
+        if(err == 422)
+          this.Error = "This user name is already taken!";
         console.log(err);
           
       })
@@ -121,11 +123,12 @@ super(authService,accService,imgService,typeService,genreService,_sanitizer,rout
       this.OfficeDays = usr.office_hours?this.accService.GetFrontWorkingTimeFromTimeModel(usr.office_hours):this.typeService.GetAllDays();
       this.OperatingDays = usr.operating_hours?this.accService.GetFrontWorkingTimeFromTimeModel(usr.operating_hours):this.typeService.GetAllDays();
       this.UserId = usr.id?usr.id:0;
-      this.genreService.GetAllGenres()
-        .subscribe((genres:string[])=> {
-          this.Genres = this.genreService.GetGendreModelFromString(this.Account.genres, this.genreService.StringArrayToGanreModelArray(genres));
-        });
-      
+      if(this.Account.account_type != this.Roles.Venue) {
+        this.genreService.GetAllGenres()
+          .subscribe((genres:string[])=> {
+            this.Genres = this.genreService.GetGendreModelFromString(this.Account.genres, this.genreService.StringArrayToGanreModelArray(genres));
+          });
+      }
       if(usr.image_id){
           this.imgService.GetImageById(usr.image_id)
               .subscribe((res:Base64ImageModel)=>{
@@ -142,8 +145,10 @@ super(authService,accService,imgService,typeService,genreService,_sanitizer,rout
       this.Account.operating_hours = this.accService.GetWorkingTimeFromFront(this.OperatingDays);
       this.Account.emails = this.typeService.ValidateArray(this.Account.emails);
       this.Account.genres = [];
-      for(let g of this.Genres)
-        if(g.checked) this.Account.genres.push(g.genre);
+      if(this.Account.account_type != this.Roles.Venue) {
+        for(let g of this.Genres)
+          if(g.checked) this.Account.genres.push(g.genre);
+      }
       for(let i in this.Account.dates){
         this.Account.dates[i].begin_date = this.bsValue_start[i].getFullYear()+`-`+this.incr(this.bsValue_start[i].getMonth())+`-`+this.bsValue_start[i].getDate();
         this.Account.dates[i].end_date = this.bsValue_end[i].getFullYear()+`-`+this.incr(this.bsValue_end[i].getMonth())+`-`+this.bsValue_end[i].getDate();
