@@ -24,10 +24,11 @@
         "assets/css/slick.css",
         "assets/css/style.css",
         "assets/css/media.css",
+        "assets/css/default-skin.css",
         "assets/css/ion.rangeSlider.css",
         "assets/css/ion.rangeSlider.skinFlat.css",
-        "assets/css/photoswipe.css",
-        "assets/css/default-skin.css"
+        "assets/css/photoswipe.css"
+        
       ],
       "scripts": [
         "assets/js/jquery.js",

@@ -1,0 +1,1228 @@
+<section class="second-router-outlet">
+    <div class="create-event-nav-tabs">
+        <div class="for-header-shadow">
+            <div class="main-mw">
+                <div class="create-event-header">
+                    <h1>Create Event</h1>
+                    <ul>
+                        <!--нужным li даем классы active и started."хз нахрена это надо. узнавайте у писателя"-->
+                        <li class="active">
+                            <a href="#" class="nav-second-outlet">about</a>
+                        </li>
+                        <li class="started">
+                            <a href="#" class="nav-second-outlet">artist</a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-second-outlet">venues</a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-second-outlet">funding</a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-second-outlet">tickets</a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-second-outlet">preview</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="create-event-body-1">
+            <div class="main-mw">
+                <div class="create-event-body">
+                   <div class="head-ev-body">
+                        <h2>About</h2>
+                        <p>Please fill in all required fields <br>to proceed to the Next Step</p>
+                    </div>
+                    <div class="flex-body-1">
+                        <div class="side">
+                            <div class="input-groupe-1 lbl-1">
+                                
+                                <input id="inp-create-1" name="" type="text">
+                                <label for="inp-create-1">Event name<span>*</span></label>
+                            </div>
+                            <div class="input-groupe-1">
+                                <input id="inp-create-2" name="" type="text">
+                                <label for="inp-create-2">Hashtag<span>*</span></label>
+                                
+                            </div>
+                            <div class="input-groupe-1">
+                                <input id="inp-create-3" name="" type="text">
+                                <label for="inp-create-3">Tagline<span>*</span></label>
+                               
+                            </div>
+                            <div class="flex-mac-checkbox">
+                                <p>Crowdfunding  Event?</p>
+                                <div class="yes-no">
+                                    <span>Yes</span>
+                                    <div class="mac-checkbox">
+                                        <input class="checkbox" checked type="checkbox" id="mac-checkbox-1">
+                                        <label for="mac-checkbox-1"></label>
+                                    </div>
+                                    <span>No</span>
+                                </div>
+                            </div>
+                            <div class="flex-input-groupes">
+                                <div class="input-groupe-1">
+                                    <!--тут пока селекты. но если вы найдете норм плагин таких селектов которые можно будет стилизовать и которые работают с ангуларом - буду очень признателен-->
+                                    <select id="inp-create-4" >
+                                        <option>None</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6</option>
+                                        
+                                    </select>
+                                    <label for="inp-create-4">Number of Artists<span>*</span></label>
+
+                                </div>
+                                <div class="input-groupe-1">
+                                    
+                                    <div class="rel-wr">
+                                        <span class="abs-backs">$</span>
+                                        <input id="inp-create-5" class="dollar" name="" type="text">
+                                    </div>
+                                    <label for="inp-create-5">Funding Goal</label>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="side">
+                            <div class="input-groupe-1 whithout-label">
+                                <span class="head-groupe">Genre</span>
+                                <div class="flex-genres">
+                                    <span class="one-genre">HIP HOP</span>
+                                    <span class="one-genre">HIP HOP</span>
+                                    <span class="one-genre">HIP HOP</span>
+                                    <span class="one-genre">HIP HOP</span>
+                                    <span class="one-genre">HIP HOP</span>
+                                    <span class="one-genre">HIP HOP</span>
+                                    <span class="one-genre">HIP HOP</span>
+                                    <div class="add-to-genres">
+                                        
+                                        <span class="plus"></span>
+                                        <!--клик на плюсик добавляем absgenres-pick-wr класс showed-->
+                                        <div class="absgenres-pick-wr ">
+                                            <input class="search" type="text" placeholder="Search">
+                                            <div class="flex-genres for-pick">
+                                                <!--Добавляем класс picked-->
+                                                <span class="one-genre picked">HIP HOP</span>
+                                                <span class="one-genre picked">HIP HOP</span>
+                                                <span class="one-genre">HIP HOP</span>
+                                                <span class="one-genre">HIP HOP</span>
+                                                <span class="one-genre">HIP HOP</span>
+                                                <span class="one-genre">HIP HOP</span>
+                                                <span class="one-genre">HIP HOP</span>
+                                                <span class="one-genre">HIP HOP</span>
+                                                <span class="one-genre">HIP HOP</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-input-groupes">
+                                <div class="input-groupe-1">
+                                    <select id="inp-create-5" >
+                                        <option>Spring</option>
+                                        <option>Spring</option>
+                                        <option>Spring</option>
+                                        <option>Spring</option>
+                                        <option>Spring</option>
+                                        
+                                    </select>
+                                    <label for="inp-create-5">Event Date<span>*</span></label>
+
+                                </div>
+                                <div class="input-groupe-1">
+                                    <select id="inp-create-6" >
+                                        <option>2018</option>
+                                        <option>2019</option>
+                                        <option>2020</option>
+                                        <option>2021</option>
+                                        <option>2022</option>
+                                        
+                                    </select>
+                                    
+
+                                </div>
+                            </div>
+                            <div class="flex-input-groupes">
+                                <div class="input-groupe-1">
+                                    <select id="inp-create-7" >
+                                        <option>Morning</option>
+                                        <option>Morning</option>
+                                        <option>Morning</option>
+                                        
+                                        
+                                    </select>
+                                    <label for="inp-create-7">Event Time Range<span>*</span></label>
+
+                                </div>
+                                <div class="input-groupe-1">
+                                    <select id="inp-create-8" >
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        
+                                    </select>
+                                    <label for="inp-create-8">Event Length<span>*</span></label>
+
+                                </div>
+                            </div>
+                            <div class="location-wr">
+                                <div class="mark"></div>
+                                <input type="text" class="location-inp" placeholder="location">
+                            </div>
+                        </div>
+                        <div class="side">
+                            <div class="input-groupe-1 whithout-label">
+                                
+                                <textarea id="inp-create-9"></textarea>
+                                <label for="inp-create-9" class="head-groupe">Short Description<span>*</span></label>
+                                
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="scroll-wrapp">
+                        <div class="circle-scroll"></div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="create-event-body-1">
+            <div class="main-mw">
+                <div class="create-event-body">
+                    <div class="head-ev-body">
+                        <h2>Artist</h2>
+                        <p>Please fill in all required fields in the Artist Screen<br>to Add a Venue. (You can add only 6 artists)</p>
+                    </div>
+                    
+                </div>
+            
+            </div>
+            
+        </div>
+        <div class="tabs-artist-wrapp">
+            <div class="main-mw">
+                <ul class="tabs-menu-active-decline">
+                    <li>
+                        <!--Добавляем active табу или удаляем "p.s. наш любимый ngClass"-->
+                        <span class="active">Active</span>
+                    </li>
+                    <li>
+                        <span>declined</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="bg-wr-tabs">
+                <div class="main-mw">
+                    <!-- "p.s. наш любимый *ngIf"-->
+                    <div class="tab-artist">
+                        <div class="flex-wrapp-cards">
+                            <div class="one-card">
+                                <div class="card">
+                                    <div class="delete-card"></div>
+                                    <div class="left-side">
+                                        <!--если есть галочка - добавляем класс checked-->
+                                        <div class="ava checked" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                                        <p class="desc-head-info">status</p>
+                                        <p class="status">Accepted by Artist and Event owner</p>
+                                    </div>
+                                    <div class="right-side">
+                                        <p class="name">Drake</p>
+                                        <p class="desc-head-info">Genre</p>
+                                        <p class="info">Baroque pop, dream pop, trip hop, indie</p>
+                                        <p class="desc-head-info">Location</p>
+                                        <p class="info">Los Angeles, California USA</p>
+                                        <div class="flex-buttons">
+                                            <span class="button-card">accept</span>
+                                            <span class="button-card">Decline</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="one-card">
+                                <div class="card">
+                                    <div class="delete-card"></div>
+                                    <div class="left-side">
+                                        <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                                        <p class="desc-head-info">status</p>
+                                        <p class="status">Accepted by Artist and Event owner</p>
+                                    </div>
+                                    <div class="right-side">
+                                        <p class="name">Drake</p>
+                                        <p class="desc-head-info">Genre</p>
+                                        <p class="info">Baroque pop, dream pop, trip hop, indie</p>
+                                        <p class="desc-head-info">Location</p>
+                                        <p class="info">Los Angeles, California USA</p>
+                                        <div class="flex-buttons">
+                                            <span class="button-card">accept</span>
+                                            <span class="button-card">Decline</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!--для добавления артиста-->
+                            <div class="one-card">
+                                <div class="add-artist-block artist-modal-open">
+                                    <div (click)="addNewArtist()" class="plus"></div>
+                                    <span class="add">Add New Artist</span>
+                                    <span class="or">or</span>
+                                    <span class="invite">Artist Invite</span>
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                    </div>
+                    <!-- "p.s. наш любимый *ngIf"-->
+                    <div class="tab-artist">
+                        <div class="flex-wrapp-cards">
+                            <!--сюда копипастим "one-card" c "tab-artist" который выше-->
+                        
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="scroll-wrapp">
+            <div class="circle-scroll"></div>
+        </div>
+        <div class="create-event-body-1">
+            <div class="main-mw">
+                <div class="create-event-body">
+                    <div class="head-ev-body">
+                        <h2>Venue</h2>
+                        <p>Please fill in all required fields in<br>the Venue Screen to Add a Funding</p>
+                    </div>
+                  
+                    <div class="flex-tabs-menu-venue">
+                        <p class="some-text">At first choose residence :)</p>
+                        <ul class="v-tabs-menu">
+                            <!--теже табы-->
+                            <li>Public Venue</li>
+                            <li class="active">Private Residence</li>
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="main-mw-5">
+                <div class="tabs-venue-wrapp">
+                    <!--теже табы для ngif-->
+                    <!--Public Venue-->
+                    <!--
+                    <div class="one-tab">
+                        <div class="one-tab-flex alighn-items">
+                            <div class="side">
+                                <div class="filter-venue">
+                                    <div class="content-bodal input-groupe-1">
+                                        <input class="search" type="text" placeholder="Search Venue">
+                                        <span class="head-type-inp">Type of place</span>
+                                        <div class="flex-genres for-pick">
+
+                                            <span class="one-genre picked">SMALL CLUB</span>
+                                            <span class="one-genre">CONCERT HALL</span>
+                                            <span class="one-genre">FESTIVAL</span>
+                                        </div>
+                                        <span class="head-type-inp">Price</span>
+                                        <div class="for-range-slider">
+                                            <input type="text" class="current-slider-price-venue" value="">
+                                        </div>
+                                        <span class="head-type-inp">Capacity</span>
+                                        <div class="for-range-slider">
+                                            <input type="text" class="current-slider-capacity-venue" value="">
+                                        </div>
+
+                                        <div class="location-wr">
+                                            <div class="mark"></div>
+                                            <input type="text" class="location-inp" placeholder="location">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="side width-66">
+                                <div class="for-padd-cards-art">
+                                    <div class="scroll-cards-art">
+                                        <div class="one-card">
+                                            <div class="l-s">
+                                                <div class="ava" style="background-image: url(img/drake.jpg)"></div>
+                                                <div class="desc">
+                                                    <a class="name" href="#">Burn Room</a>
+                                                    <p class="genres">Small club</p>
+                                                    <p class="where">New York, NY USA</p>
+                                                </div>
+                                            </div>
+                                            <div class="r-s">
+                                               <div class="circle-checkbox gray-border">
+                                                    <input type="checkbox" class="checkbox" name="" id="checkbox-500">
+                                                    <label class="label-wr" for="checkbox-500"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="one-card">
+                                            <div class="l-s">
+                                                <div class="ava" style="background-image: url(img/drake.jpg)"></div>
+                                                <div class="desc">
+                                                    <a class="name" href="#">Burn Room</a>
+                                                    <p class="genres">Small club</p>
+                                                    <p class="where">New York, NY USA</p>
+                                                </div>
+                                            </div>
+                                            <div class="r-s">
+                                                <div class="circle-checkbox gray-border">
+                                                    <input type="checkbox" class="checkbox" name="" id="checkbox-501">
+                                                    <label class="label-wr" for="checkbox-501"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="one-card">
+                                            <div class="l-s">
+                                                <div class="ava" style="background-image: url(img/drake.jpg)"></div>
+                                                <div class="desc">
+                                                    <a class="name" href="#">Burn Room</a>
+                                                    <p class="genres">Small club</p>
+                                                    <p class="where">New York, NY USA</p>
+                                                </div>
+                                            </div>
+                                            <div class="r-s">
+                                                <div class="circle-checkbox gray-border">
+                                                    <input type="checkbox" class="checkbox" name="" id="checkbox-502">
+                                                    <label class="label-wr" for="checkbox-502"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="one-card">
+                                            <div class="l-s">
+                                                <div class="ava" style="background-image: url(img/drake.jpg)"></div>
+                                                <div class="desc">
+                                                   <a class="name" href="#">Burn Room</a>
+                                                    <p class="genres">Small club</p>
+                                                    <p class="where">New York, NY USA</p>
+                                                </div>
+                                            </div>
+                                            <div class="r-s">
+                                                <div class="circle-checkbox gray-border">
+                                                    <input type="checkbox" class="checkbox" name="" id="checkbox-503">
+                                                    <label class="label-wr" for="checkbox-503"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="one-card">
+                                            <div class="l-s">
+                                                <div class="ava" style="background-image: url(img/drake.jpg)"></div>
+                                                <div class="desc">
+                                                    <a class="name" href="#">Burn Room</a>
+                                                    <p class="genres">Small club</p>
+                                                    <p class="where">New York, NY USA</p>
+                                                </div>
+                                            </div>
+                                            <div class="r-s">
+                                                <div class="circle-checkbox gray-border">
+                                                    <input type="checkbox" class="checkbox" name="" id="checkbox-504">
+                                                    <label class="label-wr" for="checkbox-504"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="one-card">
+                                            <div class="l-s">
+                                                <div class="ava" style="background-image: url(img/drake.jpg)"></div>
+                                                <div class="desc">
+                                                    <a class="name" href="#">Burn Room</a>
+                                                    <p class="genres">Small club</p>
+                                                    <p class="where">New York, NY USA</p>
+                                                </div>
+                                            </div>
+                                            <div class="r-s">
+                                                <div class="circle-checkbox gray-border">
+                                                    <input type="checkbox" class="checkbox" name="" id="checkbox-505">
+                                                    <label class="label-wr" for="checkbox-505"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="one-card">
+                                            <div class="l-s">
+                                                <div class="ava" style="background-image: url(img/drake.jpg)"></div>
+                                                <div class="desc">
+                                                   <a class="name" href="#">Burn Room</a>
+                                                    <p class="genres">Small club</p>
+                                                    <p class="where">New York, NY USA</p>
+                                                </div>
+                                            </div>
+                                            <div class="r-s">
+                                                <div class="circle-checkbox gray-border">
+                                                    <input type="checkbox" class="checkbox" name="" id="checkbox-506">
+                                                    <label class="label-wr" for="checkbox-506"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    -->
+                    
+                    <!--Private Residence-->
+                    <div class="one-tab">
+                        <div class="one-tab-flex">
+                            <div class="side">
+                                <div class="input-groupe-1 lbl-1">
+                                    <input id="inp-private-v-1" name="" type="text">
+                                    <label for="inp-private-v-1">Venue Name</label>
+
+                                </div>
+                                <div class="input-groupe-1">
+                                    <input id="inp-private-v-2" name="" type="text">
+                                    <label for="inp-private-v-2">Phone number</label>
+
+                                </div>
+                                <div class="input-groupe-1">
+                                    <input id="inp-private-v-3" name="" type="text">
+                                    <label for="inp-private-v-3">Capacity</label>
+
+                                </div>
+                                <div class="flex-mac-checkbox">
+                                    <p>VR Ready?</p>
+                                    <div class="yes-no">
+                                        <span>Yes</span>
+                                        <div class="mac-checkbox">
+                                            <input class="checkbox" checked="" type="checkbox" id="mac-checkbox-2">
+                                            <label for="mac-checkbox-2"></label>
+                                        </div>
+                                        <span>No</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="side">
+                                <div class="input-groupe-1 lbl-1">
+                                    <input id="inp-private-v-4" name="" type="text">
+                                    <label for="inp-private-v-4">Country</label>
+
+                                </div>
+                                <div class="input-groupe-1">
+                                    <input id="inp-private-v-5" name="" type="text">
+                                    <label for="inp-private-v-5">City</label>
+
+                                </div>
+                                <div class="input-groupe-1">
+                                    <input id="inp-private-v-6" name="" type="text">
+                                    <label for="inp-private-v-6">Address</label>
+
+                                </div>
+                                <div class="input-groupe-1 small-textarea whithout-label">
+
+                                    <textarea id="inp-desc-1"></textarea>
+                                    <label for="inp-desc-1" class="head-groupe">Short Description</label>
+
+                                </div>
+                            </div>
+                            <div class="side">
+                                <span class="head-black">Photos</span>
+                                <div class="flex-photos">
+
+                                    <div class="photo" style="background-image:url(../../assets/img/drake.jpg)"></div>
+                                    <div class="photo" style="background-image:url(../../assets/img/drake.jpg)"></div>
+
+                                    <!--для добавления фото-->
+                                    <div class="photo-wr-1">
+                                        <label class="file_upload">
+                                            <div class="bg-image"></div>
+                                            <input accept=".jpg, .jpeg, .png" type="file">
+                                        </label>
+                                    </div>
+                                    <!--/для добавления фото-->
+                                </div>
+                                <span class="head-black">Videos</span>
+                                <div class="input-groupe-1">
+                                    <input id="inp-private-link-1" name="" type="text">
+                                    <label for="inp-private-link-1">Link</label>
+
+                                </div>
+                                <div class="input-groupe-1">
+                                    <input id="inp-private-link-2" name="" type="text">
+                                    <label for="inp-private-link-2">Link</label>
+
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="add-to-active-b">
+                            <button class="butt-style-1" type="submit">
+                                <span>Add to Active</span>
+                            </button>
+                        </div>
+                    </div>
+                    <!--//Private Residence-->
+                </div>
+            </div>
+        </div>
+        <div class="tabs-artist-wrapp">
+            <div class="main-mw">
+                <ul class="tabs-menu-active-decline">
+                    <li>
+                        <!--Добавляем active табу или удаляем "p.s. наш любимый ngClass"-->
+                        <span class="active">Active</span>
+                    </li>
+                    <li>
+                        <span>declined</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="bg-wr-tabs">
+                <div class="main-mw">
+                    <!-- "p.s. наш любимый *ngIf"-->
+                    <div class="tab-artist">
+                        <div class="flex-wrapp-cards">
+                            <div class="one-card">
+                                <div class="card">
+                                    <div class="delete-card"></div>
+                                    <div class="left-side">
+                                        <!--если есть галочка - добавляем класс checked-->
+                                        <div class="ava checked" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                                        <p class="desc-head-info">status</p>
+                                        <p class="status">Accepted by Artist and Event owner</p>
+                                    </div>
+                                    <div class="right-side">
+                                        <p class="name">Drake</p>
+                                        <p class="desc-head-info">Genre</p>
+                                        <p class="info">Baroque pop, dream pop, trip hop, indie</p>
+                                        <p class="desc-head-info">Location</p>
+                                        <p class="info">Los Angeles, California USA</p>
+                                        <div class="flex-buttons">
+                                            <span class="button-card">accept</span>
+                                            <span class="button-card">Decline</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="one-card">
+                                <div class="card">
+                                    <div class="delete-card"></div>
+                                    <div class="left-side">
+                                        <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                                        <p class="desc-head-info">status</p>
+                                        <p class="status">Accepted by Artist and Event owner</p>
+                                    </div>
+                                    <div class="right-side">
+                                        <p class="name">Drake</p>
+                                        <p class="desc-head-info">Genre</p>
+                                        <p class="info">Baroque pop, dream pop, trip hop, indie</p>
+                                        <p class="desc-head-info">Location</p>
+                                        <p class="info">Los Angeles, California USA</p>
+                                        <div class="flex-buttons">
+                                            <span class="button-card send-request-modal" (click)="sendRequest()">send request</span>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!--для добавления артиста-->
+                            <div class="one-card">
+                                <div class="add-artist-block venue-modal-open">
+                                    <div class="plus"></div>
+                                    <span class="add">Add New Venue</span>
+                                    <span class="or">or</span>
+                                    <span class="invite">Venue Invite</span>
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                    </div>
+                    <!-- "p.s. наш любимый *ngIf"-->
+                    <div class="tab-artist">
+                        <div class="flex-wrapp-cards">
+                            <!--сюда копипастим "one-card" c "tab-artist" который выше но это venue-->
+                        
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="scroll-wrapp">
+            <div class="circle-scroll"></div>
+        </div>
+        <div class="create-event-body-1">
+            
+            <div class="main-mw">
+                <div class="create-event-body">
+                    <div class="head-ev-body">
+                        <h2>Funding</h2>
+                        <p>Please fill in all required fields in<br>the About Screen to Add Tickets</p>
+                    </div>
+                </div>
+            </div>
+            <div class="main-mw-5">
+                <div class="flex-funding-columns">
+                    <div class="side">
+                        <div class="top-gum">
+                            <h6 class="bordered">Choose Active Artists</h6>
+                            <!--если пустой-->
+                            <!--
+                            <p class="empty-side">You have no Active Artists.<br>Choose Active Artists.</p>
+                            -->
+                            <!--/если пустой-->
+                            <!--если не пустой-->
+                            <div class="artists-venue-wrapp">
+                                <div class="one-block">
+                                    <div class="ava-l">
+                                        <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                                        <a href="#" class="name">Adele</a>
+                                    </div>
+                                    <div class="price-r">
+                                        <span class="price">$50000</span>
+                                        <span class="delete-block"></span>
+                                    </div>
+                                </div>
+                                <div class="one-block">
+                                    <div class="ava-l">
+                                        <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                                        <a href="#" class="name">Adele</a>
+                                    </div>
+                                    <div class="price-r">
+                                        <span class="price">$50000</span>
+                                        <span class="delete-block"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/если не пустой-->
+                        </div>
+                        <div class="bottom-expression">
+                            <p class="t">Price (Plus Additional Costs)</p>
+                            <p class="exp-price">$0</p>
+                        </div>
+                    </div>
+                    <div class="side">
+                        <div class="top-gum">
+                            <h6>Choose Active Venue</h6>
+                            <!--если пустой-->
+                            <!--
+                            <p class="empty-side">You Have no Active Venues.<br>Choose Active Venue./p>
+                            -->
+                            <!--/если пустой-->
+                            <!--если не пустой-->
+                            <div class="artists-venue-wrapp">
+                                <div class="one-block">
+                                    <div class="ava-l">
+                                        <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                                        <a href="#" class="name">The LA Room</a>
+                                    </div>
+                                    <div class="price-r">
+                                        <span class="price">$50000</span>
+                                        <span class="delete-block"></span>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <!--/если не пустой-->
+                        </div>
+                        <div class="bottom-expression">
+                            <p class="t">Price (Plus Additional Costs)</p>
+                            <p class="exp-price">$0</p>
+                        </div>
+                    </div>
+                    <div class="side">
+                        <div class="top-gum">
+                            <h6>Event Funding Status</h6>
+                            <p class="some-text">When this Event is Successfully Completed, your Status will change to Approved.</p>
+                            <p class="some-text">Go to Settings/Financial Info to transfer your money.</p>
+                            <p class="status">Status: <span>Pending</span></p>
+                            
+                        </div>
+                        <div class="bottom-expression">
+                            <p class="t total">Total</p>
+                            <p class="exp-price">$0</p>
+                        </div>
+                    
+                    
+                    </div>
+                </div>
+               
+                <h4 class="padd-head-event">Amounts</h4>
+                <div class="flex-funding-columns no-marg">
+                    <div class="side no-border">
+                        <div class="top-gum">
+                            <h6 class="lower-case-t">Breakeven Amount</h6>
+                            <div class="second-funding-info">
+                                <p class="info-text">Artists Price</p>
+                                <span class="price">$0</span>
+                            </div>
+                            <div class="second-funding-info">
+                                <p class="info-text">Venue Price</p>
+                                <span class="price">$0</span>
+                            </div>
+                            <div class="additional-costs">
+                                <p class="addit-t">Additional Costs</p>
+                                <p class="price">$50,000</p>
+                            </div>
+                            
+                            
+                            <div class="second-funding-info">
+                                <p class="info-text">Amount to Mouse (10%)</p>
+                                <span class="price">$0</span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="side no-border">
+                        <div class="top-gum">
+                            <h6 class="lower-case-t">Family and Friends Amount</h6>
+                            <div class="input-groupe-1">
+                                <select>
+                                    <option>None</option>
+                                    <option>5%</option>
+                                    <option>10%</option>
+                                </select>
+                                
+                            </div>
+                            <div class="second-funding-info">
+                                <p class="info-text">Amount</p>
+                                <span class="price">$0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="side no-border">
+                        <div class="top-gum">
+                            <h6 class="lower-case-t">Min Amount per Ticket</h6>
+                            <div class="second-funding-info">
+                                <p class="info-text">Capacity</p>
+                                <span class="price">7000</span>
+                            </div>
+                            <div class="second-funding-info">
+                                <p class="info-text">Price Per Ticket</p>
+                                <span class="price">$0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="flex-funding-columns no-marg">
+                    <div class="side">
+                        <div class="bottom-expression">
+                            <p class="t total">Total</p>
+                            <p class="exp-price">$0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="scroll-wrapp">
+                    <div class="circle-scroll"></div>
+                </div>
+            </div>
+            
+            <div class="main-mw">
+                <div class="create-event-body">
+                    <div class="head-ev-body">
+                        <h2>Tickets</h2>
+                        <p>Сongratulations!<br>This is the last step.</p>
+                    </div>
+                </div>
+                <div class="tickets-flex-body">
+                    <div class="left-ticket">
+                        <div class="tickets-left-info">
+                            <p class="info-text">In Person Tickets Available</p>
+                            <span class="price">20/100</span>
+                        </div>
+                        <div class="tickets-left-info">
+                            <p class="info-text">VR Tickets Available</p>
+                            <span class="price">200/200</span>
+                        </div>
+                        <!--если нажали на нижний butt-style-1-->
+                        <div class="pick-tickets-wr">
+                            <div class="one-tickets-iteration">
+                                <div class="one-ticket active">Ticket 1</div>
+                                <div class="one-ticket">Ticket 2</div>
+                           </div>
+                            <div class="add-ticket">
+                                <span class="butt-style-1" type="submit">
+                                    <span>Add Tickets</span>
+                                </span>
+                            </div>
+                        </div>
+                        <!--/если нажали на нижний butt-style-1-->
+                    </div>
+                    <div class="right-ticket">
+                        <div class="doted"></div>
+                        <div class="shadow-wr">
+                            <!--если нет билетов-->
+                            <!--
+                            <div class="havent-tickets">
+                                <img src="img/smile.svg" class="img-responsive" alt="">
+                                <p class="p-1">You have no tickets yet</p>
+                                <div class="add-ticket">
+                                    <span class="butt-style-1">
+                                        <span>Add Tickets</span>
+                                    </span>
+                                </div>
+                            </div>
+                            -->
+                            <!--/если нет билетов-->
+                            <!--если есть билеты-->
+                            <div class="ticket-options active">
+                                <div class="l-s"> 
+                                    <h5 class="head-ticket-settings">Ticket 1</h5>
+                                    <div class="flex-mac-checkbox">
+                                        <p>Ticket Type</p>
+                                        <div class="yes-no">
+                                            <span>In person</span>
+                                            <div class="mac-checkbox">
+                                                <input class="checkbox" checked="" type="checkbox" id="checkbox-set-tick-1">
+                                                <label for="checkbox-set-tick-1"></label>
+                                            </div>
+                                            <span>VR</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex-mac-checkbox">
+                                        <p>For Personal <br>Use/Distribution</p>
+                                        <div class="yes-no">
+                                            <span>Yes</span>
+                                            <div class="mac-checkbox">
+                                                <input class="checkbox" checked="" type="checkbox" id="checkbox-set-tick-2">
+                                                <label for="checkbox-set-tick-2"></label>
+                                            </div>
+                                            <span>No</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex-mac-checkbox">
+                                        <p>Promotional<br>Ticket?</p>
+                                        <div class="yes-no">
+                                            <span>Yes</span>
+                                            <div class="mac-checkbox">
+                                                <input class="checkbox" checked="" type="checkbox" id="checkbox-set-tick-3">
+                                                <label for="checkbox-set-tick-3"></label>
+                                            </div>
+                                            <span>No</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="r-s">
+                                    <div class="input-groupe-1 small-textarea whithout-label">
+                                        <textarea id="area-desc-tick-1"></textarea>
+                                        <label for="area-desc-tick-1" class="head-groupe">Short Description</label>
+                                    </div>
+                                    
+                                    <!--этот блок может быть, а может не быть. хз от чего это зависит. уточняйте у @pisatel-->
+                                    <div class="flex-date-inputs">
+                                        <div class="one-date-block">
+                                            <div class="date-icon"></div>
+                                            <div class="rr">
+                                                <span class="desc-date">Start Date</span>
+                                                <!--тут дейт пикер.убрать placeholder-->
+                                                <input type="text" class="input-date" placeholder="14.01.2020">
+                                            </div>
+                                        </div>
+                                        <div class="one-date-block">
+                                            <div class="date-icon"></div>
+                                            <div class="rr">
+                                                <span class="desc-date">End Date</span>
+                                                <!--тут дейт пикер.убрать placeholder-->
+                                                <input type="text" class="input-date" placeholder="14.01.2020">
+                                            </div>
+                                        </div>
+                                        
+                                    
+                                    </div>
+                                    <!--///этот блок может быть, а может не быть. хз от чего это зависит. уточняйте у @pisatel-->
+
+                                    <div class="flex-input-groupes">
+                                        <div class="input-groupe-1">
+                                            <div class="rel-wr">
+                                                <span class="abs-backs">$</span>
+                                                <input id="inp-price-id-1" class="dollar" name="" type="text">
+                                            </div>
+                                            <label for="inp-price-id-1">Price</label>
+                                        </div>
+                                        <div class="input-groupe-1 none-padd-my">
+                                            <span class="desc-num">Number Available</span>
+                                            <p class="num">200/200</p>
+                                        </div>
+                                    </div> 
+                                </div>
+                            </div>
+                            <!--/если есть билеты-->
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--модалка для кликов на send request-->
+    <div class="modal fade modal-send-request" id="modal-send-request">
+        <div class="modal-dialog">
+            <div class="modal-body">
+                <h6 class="head-m-p-a">Event Request</h6>
+                
+                <div class="name-and-ava">
+                    <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                    <div class="n-h">
+                        <p class="name">Dylan Davis</p>
+                        <p class="hash"><span>@</span>pixope</p>
+                    </div>
+                </div>
+                <div class="content-modal">
+                    <p class="e-n">Event Name</p>
+                    <div class="flex-input-groupes">
+                        <div class="input-groupe-1">
+                            <select id="inp-modal-req-1">
+                                <option>Fall 2018</option>
+                                <option>Fall 2018</option>
+                                <option>Fall 2018</option>
+                                <option>Fall 2018</option>
+                            </select>
+                            <label for="inp-modal-req-1">Date Range</label>
+                        </div>
+                        <div class="input-groupe-1">
+                            <select id="inp-modal-req-2">
+                                <option>3 hrs</option>
+                                <option>3 hrs</option>
+                                <option>3 hrs</option>
+                                <option>3 hrs</option>
+                            </select>
+                            <label for="inp-modal-req-2">Performance Time</label>
+                           
+                        </div>
+                    </div>
+                    <div class="flex-input-groupes">
+                        <div class="input-groupe-1 more-padd">
+                            <select id="inp-modal-req-3">
+                                <option>1 week</option>
+                                <option>1 week</option>
+                                
+                            </select>
+                            <label for="inp-modal-req-3">Time Frame we expect an answer</label>
+                        </div>
+                        <div class="input-groupe-1 more-padd">
+                            <div class="rel-wr">
+                                <span class="abs-backs">$</span>
+                                <input id="inp-modal-req-4" class="dollar" name="" type="text">
+                            </div>
+                            <label for="inp-modal-req-4">Estimated Price to<br> Perform</label>
+                           
+                        </div>
+                    </div>
+                    <div class="flex-mac-checkbox">
+                        <p>Crowdfunding  Event?</p>
+                        <div class="yes-no">
+                            <span>Yes</span>
+                            <div class="mac-checkbox">
+                                <input class="checkbox" type="checkbox" id="crowdfunding-1-check">
+                                <label for="crowdfunding-1-check"></label>
+                            </div>
+                            <span>No</span>
+                        </div>
+                    </div>
+                    <div class="location-wr">
+                        <div class="mark"></div>
+                        <input type="text" class="location-inp" placeholder="location">
+                    </div>
+                    <div class="input-groupe-1 small-textarea whithout-label">
+
+                        <textarea id="inp-desc-1-modal"></textarea>
+                        <label for="inp-desc-1-modal" class="head-groupe">Description</label>
+
+                    </div>
+                    <div class="input-groupe-1 small-textarea whithout-label">
+
+                        <textarea id="inp-desc-2-modal"></textarea>
+                        <label for="inp-desc-2-modal" class="head-groupe">Message</label>
+
+                    </div>
+                     <div class="send-request-b">
+                        <button class="butt-style-1" type="submit">
+                            <span>Send Request</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--//конец модалки для кликов на плюс и текст-->
+    <!--модалка для кликов на плюс и текст-->
+    <div class="modal fade modal-pick-artist" id="modal-pick-artist">
+        <div class="modal-dialog">
+            <div class="modal-body">
+
+                <h3 class="head-m-p-a">Add Artist</h3>
+                <div class="for-slideing-wr">
+                    <div class="content-bodal input-groupe-1">
+                        <input class="search" type="text" placeholder="Search">
+                        <div class="flex-genres for-pick">
+                            <!--Добавляем класс picked-->
+                            <span class="one-genre picked">HIP HOP</span>
+                            <span class="one-genre picked">HIP HOP</span>
+                            <span class="one-genre">HIP HOP</span>
+                            <span class="one-genre">HIP HOP</span>
+                            <span class="one-genre">HIP HOP</span>
+                            <span class="one-genre">HIP HOP</span>
+                            <span class="one-genre">HIP HOP</span>
+                            <span class="one-genre">HIP HOP</span>
+                            <span class="one-genre">HIP HOP</span>
+                        </div>
+                    </div>
+                    <div class="flex-range-slider">
+                        <span class="d-l-s">Price</span>
+                        <div class="left-side">
+
+                            <div class="for-range-slider">
+                                <input type="text" class="current-slider" value="">
+                            </div>
+                        </div>
+                        <div class="right-side">
+                            <div class="location-wr">
+                                <div class="mark"></div>
+                                <input type="text" class="location-inp" placeholder="location">
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+                <div class="more-padd">
+                    <div class="for-hide-filter">
+                        <span>Roll up</span>
+                    </div>
+
+                </div>
+                <div class="for-padd-cards-art">
+                    <div class="scroll-cards-art">
+                        <div class="one-card">
+                            <div class="l-s">
+                                <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                                <div class="desc">
+                                    <a class="name" href="#">Stanislav Galynya</a>
+                                    <p class="genres">Pop, singer/song writer</p>
+                                    <p class="where">New York, NY USA</p>
+                                </div>
+                            </div>
+                            <div class="r-s">
+                               <div class="circle-checkbox gray-border">
+                                    <input type="checkbox" class="checkbox" name="" id="checkbox-1">
+                                    <label class="label-wr" for="checkbox-1"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="one-card">
+                            <div class="l-s">
+                                <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                                <div class="desc">
+                                    <a class="name" href="#">Stanislav Galynya</a>
+                                    <p class="genres">Pop, singer/song writer</p>
+                                    <p class="where">New York, NY USA</p>
+                                </div>
+                            </div>
+                            <div class="r-s">
+                                <div class="circle-checkbox gray-border">
+                                    <input type="checkbox" class="checkbox" name="" id="checkbox-2">
+                                    <label class="label-wr" for="checkbox-2"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="one-card">
+                            <div class="l-s">
+                                <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                                <div class="desc">
+                                    <a class="name" href="#">Stanislav Galynya</a>
+                                    <p class="genres">Pop, singer/song writer</p>
+                                    <p class="where">New York, NY USA</p>
+                                </div>
+                            </div>
+                            <div class="r-s">
+                                <div class="circle-checkbox gray-border">
+                                    <input type="checkbox" class="checkbox" name="" id="checkbox-3">
+                                    <label class="label-wr" for="checkbox-3"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="one-card">
+                            <div class="l-s">
+                                <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                                <div class="desc">
+                                    <a class="name" href="#">Stanislav Galynya</a>
+                                    <p class="genres">Pop, singer/song writer</p>
+                                    <p class="where">New York, NY USA</p>
+                                </div>
+                            </div>
+                            <div class="r-s">
+                                <div class="circle-checkbox gray-border">
+                                    <input type="checkbox" class="checkbox" name="" id="checkbox-4">
+                                    <label class="label-wr" for="checkbox-4"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="one-card">
+                            <div class="l-s">
+                                <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                                <div class="desc">
+                                    <a class="name" href="#">Stanislav Galynya</a>
+                                    <p class="genres">Pop, singer/song writer</p>
+                                    <p class="where">New York, NY USA</p>
+                                </div>
+                            </div>
+                            <div class="r-s">
+                                <div class="circle-checkbox gray-border">
+                                    <input type="checkbox" class="checkbox" name="" id="checkbox-5">
+                                    <label class="label-wr" for="checkbox-5"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="one-card">
+                            <div class="l-s">
+                                <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                                <div class="desc">
+                                    <a class="name" href="#">Stanislav Galynya</a>
+                                    <p class="genres">Pop, singer/song writer</p>
+                                    <p class="where">New York, NY USA</p>
+                                </div>
+                            </div>
+                            <div class="r-s">
+                                <div class="circle-checkbox gray-border">
+                                    <input type="checkbox" class="checkbox" name="" id="checkbox-6">
+                                    <label class="label-wr" for="checkbox-6"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="one-card">
+                            <div class="l-s">
+                                <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                                <div class="desc">
+                                    <a class="name" href="#">Stanislav Galynya</a>
+                                    <p class="genres">Pop, singer/song writer</p>
+                                    <p class="where">New York, NY USA</p>
+                                </div>
+                            </div>
+                            <div class="r-s">
+                                <div class="circle-checkbox gray-border">
+                                    <input type="checkbox" class="checkbox" name="" id="checkbox-7">
+                                    <label class="label-wr" for="checkbox-7"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="buttons-wrapp-add-inv">
+                    <!--можете баттоном или span. как удобнее-->
+                    <button class="butt-style-1" type="submit">
+                        <span>Add to Active</span>
+                    </button>
+                    <span class="second-button-inv">Artist Invite</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--//конец модалки для кликов на плюс и текст-->
+</section>
