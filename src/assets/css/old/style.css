@@ -175,6 +175,11 @@ body {
 
 .login-register {
   height: 100vh; }
+  
+  .login-register2 {
+    height: auto; 
+  }
+
   .login-register .login {
     min-height: 100%;
     display: flex;
