@@ -13,6 +13,8 @@ import {ShowsComponent} from './shows/shows.component';
 
 import { EditComponent } from './edit/edit.component';
 import { ProfileComponent } from './profile/profile.component';
+import { EventCreateComponent } from './eventCreate/eventCreate.component';
+
 import { TextMaskModule } from 'angular2-text-mask';
 
 import { NguiAutoCompleteModule } from '@ngui/auto-complete';
@@ -28,7 +30,8 @@ import { YoutubePlayerModule } from 'ng2-youtube-player';
     ShowsComponent,
     EditComponent,
     ProfileComponent,
-    AccountCreateComponent
+    AccountCreateComponent,
+    EventCreateComponent
   ],
   imports: [
     CommonModule,
