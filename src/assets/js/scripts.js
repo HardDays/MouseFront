@@ -66,7 +66,6 @@ $(document).ready(function () {
     ///страница shows.html
 
     //страница profile-venue
-<<<<<<< HEAD
     
     
     
@@ -80,21 +79,6 @@ $(document).ready(function () {
                         , size = $(this).data('size').split('x')
                         , width = size[0]
                         , height = size[1];
-=======
-
-
-
-
-    $('.galary-main-wrapp').each(function () {
-        var pic = $(this),
-            getItems = function () {
-                var items = [];
-                pic.find('.for-galary-item').each(function () {
-                    var href = $(this).attr('data-hreff'),
-                        size = $(this).data('size').split('x'),
-                        width = size[0],
-                        height = size[1];
->>>>>>> c53ece497ab39f3e04844ab591755e08a91a1778
                     var item = {
                         src: href,
                         w: width,
@@ -123,15 +107,10 @@ $(document).ready(function () {
 
             options.history = false;
 
-<<<<<<< HEAD
-   
-                var thumbnail = document.querySelectorAll('.for-gallery-item')[index];
-=======
             options.getThumbBoundsFn = function (index) {
 
 
-                var thumbnail = document.querySelectorAll('.for-galary-item')[index];
->>>>>>> c53ece497ab39f3e04844ab591755e08a91a1778
+                var thumbnail = document.querySelectorAll('.for-gallery-item')[index];
 
 
                 var pageYScroll = window.pageYOffset || document.documentElement.scrollTop;
