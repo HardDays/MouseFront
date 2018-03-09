@@ -42,6 +42,9 @@ export class SystemAccessGuard extends BaseComponent implements CanActivate{
                     return true;
                 }
             }
+            case "events":{
+                    return true;
+            }
             default:{
                 return true;
             }

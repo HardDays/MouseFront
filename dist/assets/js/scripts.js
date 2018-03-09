@@ -66,19 +66,19 @@ $(document).ready(function () {
     ///страница shows.html
 
     //страница profile-venue
-    
-    
-    
-    
-    $('.gallery-main-wrapp').each(function () {
-        var pic = $(this)
-            , getItems = function () {
+
+
+
+
+    $('.galary-main-wrapp').each(function () {
+        var pic = $(this),
+            getItems = function () {
                 var items = [];
-                pic.find('.for-gallery-item').each(function () {
-                    var href = $(this).attr('data-hreff')
-                        , size = $(this).data('size').split('x')
-                        , width = size[0]
-                        , height = size[1];
+                pic.find('.for-galary-item').each(function () {
+                    var href = $(this).attr('data-hreff'),
+                        size = $(this).data('size').split('x'),
+                        width = size[0],
+                        height = size[1];
                     var item = {
                         src: href,
                         w: width,
@@ -110,7 +110,7 @@ $(document).ready(function () {
             options.getThumbBoundsFn = function (index) {
 
 
-                var thumbnail = document.querySelectorAll('.for-gallery-item')[index];
+                var thumbnail = document.querySelectorAll('.for-galary-item')[index];
 
 
                 var pageYScroll = window.pageYOffset || document.documentElement.scrollTop;
@@ -179,7 +179,7 @@ $(document).ready(function () {
         prettify_separator: ',',
         grid_num: 5,
         onChange: function () {
-
+            
         }
     });
 
@@ -224,5 +224,25 @@ $(document).ready(function () {
 
 
     ///страница create-event-1
-
+    
+    
+    //страница events-page
+        
+    
+    $('.abs-analytics').click(function(){
+        $('#modal-analytics').modal('show');
+        
+        
+    })
+    
+    
+    
+    
+    
+    ///страница events-page
+    
+    
+    
+    
+    
 });

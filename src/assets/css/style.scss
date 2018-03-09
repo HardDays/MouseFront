@@ -922,10 +922,59 @@ header {
 }
 
 .shows-main-wrapp {
+    &.grey-bg {
+        background: #f3f3f3;
+    }
     .head-shows {
         padding: 30px 0 22px 0;
         display: flex;
         align-items: center;
+        .add-event-butt {
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ee2862;
+            transition: 0.3s;
+            box-shadow: 0px 3px 10px 0 rgba(255, 41, 103, 0.61);
+            cursor: pointer;
+            outline: none;
+            border-radius: 55px;
+            padding: 0 25px;
+            margin-left: 50px;
+            &:hover {
+                box-shadow: 0px 3px 10px 0 rgba(255, 41, 103, 0.1);
+            }
+            span {
+                display: block;
+                font-size: 16px;
+                text-transform: uppercase;
+                position: relative;
+                padding-left: 28px;
+                color: #fff;
+                &:before {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    background-color: #ebebeb;
+                    width: 20px;
+                    height: 2px;
+                    left: 0;
+                    top: calc(50% - 1px);
+
+                }
+                &:after {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    background-color: #ebebeb;
+                    width: 2px;
+                    height: 20px;
+                    left: 9px;
+                    top: 2px;
+                }
+            }
+        }
         .ham-ham {
             display: block;
             width: 55px;
@@ -3335,6 +3384,45 @@ footer {
     }
 }
 
+.closee-modal {
+    position: absolute;
+        top: 14px;
+    right: 13px;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+        width: 2px;
+        height: 16px;
+        background: #000;
+        -webkit-transition: 0.3s;
+        transition: 0.3s;
+        -webkit-transform-origin: center;
+        transform-origin: center;
+    }
+    &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+        width: 16px;
+        height: 2px;
+        background: #000;
+        -webkit-transition: 0.3s;
+        transition: 0.3s;
+        -webkit-transform-origin: center;
+        transform-origin: center;
+    }
+}
+
 .input-groupe-1 {
     &.small-textarea {
         textarea {
@@ -3344,6 +3432,143 @@ footer {
 }
 
 .modal-send-request {
+    &.analytics {
+
+        .modal-dialog {
+            max-width: 365px;
+            .modal-body {
+                position: relative;
+            }
+            .head-m-p-a {
+                display: flex;
+                margin-bottom: 0;
+                span {
+                    display: block;
+                    position: relative;
+                    padding-right: 39px;
+                    background-image: url(../img/wave.svg);
+                    background-repeat: no-repeat;
+                    background-position: top 3px right;
+                }
+            }
+            .bg-analytics-cover{
+                height: 230px;
+                background-position: center;
+                background-size: cover;
+            }
+            .top-side{
+                padding: 15px 21px 0 21px;
+                border-bottom: 1px solid #efefef;
+                .f-t-i{
+                    color: #aaaaaa;
+                    margin-bottom: 12px;
+                    font-family: AvenirLTStdMedium;
+                    font-size: 16px;
+                }
+                
+                .when,
+                .where {
+                    color: #232021;
+                    margin-bottom: 0;
+                    font-size: 16px;
+                    font-weight: bold;
+                }
+                .funded-bar {
+                    position: relative;
+                    height: 5px;
+                    border-radius: 2.3px;
+                    background-color: #e2e2e2;
+                    margin: 14px 0;
+                    .funded {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        background-color: $main_color;
+                        height: 100%;
+                        border-radius: 2.3px;
+                    }
+                }
+                .funded-desc{
+                    display: flex;
+                    align-items: flex-start;
+                    .count{
+                        margin-right: auto;
+                        color: $main_color;
+                        font-size: 14px;
+                    }
+                    .marg{
+                        margin-left: auto;
+                        display: flex;
+                        .style-text-2 {
+                            font-size: 14px;
+                            color: #262626;
+                            margin-bottom: 12px;
+                            text-align: center;
+                            span {
+                                color: #000;
+                                font-family: AvenirLTStdBlack;
+                            }
+                            &:last-child{
+                                text-align: right;
+                                margin-left: 50px;
+                            }
+                        }    
+                    }
+                }
+                .goal{
+                    font-size: 14px;
+                    color: #000;
+                    margin-bottom: 10px;
+                    span{
+                        color: $main_color;
+                        font-family: AvenirLTStdBlack;
+                    }
+                    
+                }                           
+            }
+            .bottom-side{
+                padding: 15px 21px 0 21px;
+                .f-t-i{
+                    color: #aaaaaa;
+                    margin-bottom: 12px;
+                    font-family: AvenirLTStdMedium;
+                    font-size: 16px;
+                }
+                .flex-info-bottom-side{
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 15px;
+                    p{
+                        font-size: 16px;
+                        margin-bottom: 0;
+                        .show-t{
+                            color: #c2c2c2;
+                        }
+                        &.count{
+                            font-family: AvenirLTStdBlack;
+                            color: #232021;
+                            
+                        }
+                        &.redd{
+                            color: $main_color;
+                        }
+                    }
+                }
+                .print-wr{
+                    display: flex;
+                    justify-content: center;
+                    padding: 15px 0 25px 0;
+                    .butt-style-1{
+                        max-width: 105px;
+                        span{
+                            text-transform: uppercase;
+                            font-size: 18px;
+                        }
+                    }
+                }
+            } 
+        }
+    }
     .modal-dialog {
         max-width: 470px;
         margin: 50px auto;
@@ -3751,17 +3976,17 @@ footer {
                     }
                 }
             }
-            .ticket-options{
+            .ticket-options {
                 display: none;
                 width: 100%;
                 height: 100%;
-                &.active{
+                &.active {
                     display: flex;
                 }
-                .l-s{
+                .l-s {
                     width: 50%;
                     padding-right: 20px;
-                    .head-ticket-settings{
+                    .head-ticket-settings {
                         font-size: 25px;
                         text-transform: uppercase;
                         padding-bottom: 15px;
@@ -3770,57 +3995,58 @@ footer {
                         margin-bottom: 25px;
                     }
                 }
-                .r-s{
+                .r-s {
                     width: 50%;
                     padding-left: 20px;
-                    .input-groupe-1.whithout-label{
+                    .input-groupe-1.whithout-label {
                         padding-top: 37px;
-                        
+
                     }
-                    .input-groupe-1.small-textarea textarea{
+                    .input-groupe-1.small-textarea textarea {
                         padding: 7px;
                         height: 70px;
                     }
-                    .input-groupe-1.none-padd-my{
+                    .input-groupe-1.none-padd-my {
                         padding-top: 0;
                     }
-                    .desc-num{
+                    .desc-num {
                         font-size: 14px;
                         color: rgba(0, 0, 0, 0.5);
                         display: block;
                         font-weight: bold;
                     }
-                    .num{
-                     
+                    .num {
+
                         border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
                         padding: 10px 0;
                         font-size: 16px;
-                 
+
                     }
                 }
             }
-            
-            
-            
+
+
+
         }
     }
 }
-.flex-date-inputs{
+
+.flex-date-inputs {
     display: flex;
-        margin-bottom: 15px;
-    .one-date-block{
+    margin-bottom: 15px;
+    .one-date-block {
         width: 50%;
         display: flex;
         align-items: center;
-        .date-icon{
+        .date-icon {
             width: 45px;
             height: 45px;
             flex-shrink: 0;
             margin-right: 16px;
             border: none;
             border-radius: 50%;
-           
-            
+
+
             background-image: url(../img/date-img.png);
             background-repeat: no-repeat;
             background-position: center;
@@ -3828,13 +4054,13 @@ footer {
             transition: 0.3s;
             box-shadow: 0px 3px 10px 0 rgba(255, 41, 103, 0.61);
         }
-        .desc-date{
+        .desc-date {
             color: #a1a1a1;
             font-size: 14px;
             display: block;
             margin-bottom: 3px;
         }
-        .input-date{
+        .input-date {
             display: block;
             width: 100%;
             border: none;
@@ -3842,6 +4068,160 @@ footer {
             background: transparent;
             font-size: 16px;
             font-family: AvenirLTStdMedium;
+        }
+    }
+}
+
+.main-mw-6 {
+    max-width: 1395px;
+    margin: 0 auto;
+    padding-top: 50px;
+    padding-bottom: 50px;
+
+}
+
+.for-flex-all-events {
+    display: flex;
+    flex-wrap: wrap;
+    .one-event-wr {
+        padding: 0 17.5px;
+        width: 25%;
+        margin-bottom: 25px;
+        .one-event {
+            background: #fff;
+            .cover-event {
+                position: relative;
+                height: 175px;
+
+                background-position: center;
+                background-size: cover;
+                .icons-vr-t {
+                    position: absolute;
+                    top: 15px;
+                    right: 12px;
+                    display: flex;
+                    .vr {
+                        width: 29px;
+                        height: 29px;
+                        background-image: url(../img/vr.svg);
+                        margin-left: 9px;
+                        background-size: 29px;
+                    }
+                    .ticket-icon {
+                        width: 29px;
+                        height: 29px;
+                        margin-left: 9px;
+                        border-radius: 50%;
+                        background-color: $main_color;
+                        background-image: url(../img/ticket-icon.png);
+                        background-repeat: no-repeat;
+                        background-position: center;
+
+                    }
+                }
+            }
+            .white-desc-event {
+                position: relative;
+                min-height: 250px;
+                padding: 20px 15px;
+                display: flex;
+                flex-direction: column;
+                .name-artist {
+                    display: block;
+                    font-family: AvenirLTStdMedium;
+                    color: $main_color;
+                    font-size: 20px;
+                    margin-bottom: 10px;
+                }
+                .when,
+                .where {
+                    color: #232021;
+                    margin-bottom: 0;
+                    font-size: 16px;
+                    font-weight: bold;
+                }
+                .funded-bar {
+                    position: relative;
+                    height: 5px;
+                    border-radius: 2.3px;
+                    background-color: #e2e2e2;
+                    margin: 14px 0;
+                    .funded {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        background-color: $main_color;
+                        height: 100%;
+                        border-radius: 2.3px;
+                    }
+                }
+                .funded-desc {
+                    display: flex;
+                    margin-bottom: 12px;
+                    p {
+                        margin: 0;
+
+                    }
+                    .finded-proc {
+                        margin-right: auto;
+                        font-size: 14px;
+                        color: #262626;
+                        span {
+                            font-family: AvenirLTStdBlack;
+                            color: $main_color;
+                        }
+                    }
+                    .comlete-t {
+                        font-size: 14px;
+                        color: #9b9b9b;
+                    }
+                }
+                .style-text-2 {
+                    font-size: 14px;
+                    color: #262626;
+                    margin-bottom: 12px;
+                    span {
+                        color: #000;
+                        font-family: AvenirLTStdBlack;
+
+                    }
+                }
+                .last-flex-info {
+                    display: flex;
+                    align-items: center;
+                    min-height: 21px;
+                    .style-text-2 {
+                        margin-bottom: 0;
+                        margin-right: auto;
+                    }
+                    .not-active {
+                        font-size: 14px;
+                        color: #9b9b9b;
+
+                    }
+                }
+                .abs-analytics {
+                    position: absolute;
+                    bottom: 20px;
+                    right: 15px;
+                    padding-left: 40px;
+                    font-size: 17px;
+                    color: $main_color;
+                    font-family: AvenirLTStdMedium;
+                    background-image: url(../img/wave.svg);
+                    background-repeat: no-repeat;
+                    background-position: top 5px left;
+                    cursor: pointer;
+
+                }
+                .types {
+                    font-size: 16px;
+                    color: #9b9b9b;
+                    margin-top: auto;
+                    margin-bottom: auto;
+
+                }
+            }
         }
     }
 }

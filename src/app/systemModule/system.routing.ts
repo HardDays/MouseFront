@@ -11,6 +11,7 @@ import { EditComponent } from './edit/edit.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AccountCreateComponent } from './accountCreate/accountCreate.component';
 import { EventCreateComponent } from './eventCreate/eventCreate.component';
+import { EventsComponent } from './events/events.component';
 
 const routes: Routes =
 [
@@ -21,6 +22,7 @@ const routes: Routes =
       { path: 'edit/:id', component: EditComponent, canActivate: [SystemAccessGuard] },
       { path: 'profile/:id', component: ProfileComponent, canActivate: [SystemAccessGuard] },
       { path: 'accountCreate', component: AccountCreateComponent, canActivate: [SystemAccessGuard] },
+      { path: 'events', component: EventsComponent, canActivate: [SystemAccessGuard] },
       { path: 'eventCreate', component: EventCreateComponent, canActivate: [SystemAccessGuard] }
     ]
   }
