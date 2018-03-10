@@ -14,6 +14,7 @@ import {ShowsComponent} from './shows/shows.component';
 import { EditComponent } from './edit/edit.component';
 import { ProfileComponent } from './profile/profile.component';
 import { EventCreateComponent } from './eventCreate/eventCreate.component';
+import { EventsComponent } from './events/events.component';
 
 import { TextMaskModule } from 'angular2-text-mask';
 
@@ -31,7 +32,8 @@ import { YoutubePlayerModule } from 'ng2-youtube-player';
     EditComponent,
     ProfileComponent,
     AccountCreateComponent,
-    EventCreateComponent
+    EventCreateComponent,
+    EventsComponent
   ],
   imports: [
     CommonModule,

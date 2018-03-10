@@ -17,6 +17,7 @@ import { AccountType } from '../../core/base/base.enum';
 import { GenreModel } from '../../core/models/genres.model';
 
 declare var $:any;
+declare var ionRangeSlider:any;
 
 @Component({
   selector: 'eventCreate',

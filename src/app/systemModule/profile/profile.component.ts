@@ -30,7 +30,7 @@ declare var PhotoSwipe:any;
   selector: 'profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
-  })
+})
 
 
 

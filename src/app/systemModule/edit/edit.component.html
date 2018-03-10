@@ -32,8 +32,6 @@
                         <select name="location_type" *ngIf="Account.account_type == Roles.Venue" [ngModel]="Account.location" (ngModelChange)="Account.location = $event">
                             <option *ngFor="let item of LocationTypes" [value]="item.value">{{item.name}}</option>
                         </select>
-                        <input name="lat" *ngIf="Account.account_type == Roles.Venue" class="inp-style-2" type="number" min="0" placeholder="Latitude" [ngModel]="Account.lat" (ngModelChange)="Account.lat = $event">
-                        <input name="lng" *ngIf="Account.account_type == Roles.Venue" class="inp-style-2" type="number" min="0" placeholder="Longitude" [ngModel]="Account.lng" (ngModelChange)="Account.lng = $event">
                         <input name="about" *ngIf="Account.account_type == Roles.Artist" class="inp-style-2" type="text" placeholder="About" [ngModel]="Account.about" (ngModelChange)="Account.about = $event">
                     </div>
 
