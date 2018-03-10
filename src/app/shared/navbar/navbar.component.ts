@@ -24,9 +24,32 @@ export class NavbarComponent extends BaseComponent implements OnInit{
   
     ngOnInit(){
       this.initUser();
+      this.accService.onAuthChange$
+      .subscribe((res:boolean)=>{
+          if(res)
+            this.initUser();
+      });
+      this.curNav = this.getThisPage();
+    
+    }
+
+    getThisPage():string{
+      var page:string = 'shows';
+      var url = this.router.routerState.snapshot.url;
+
+      if(url){
+        var url_comp = url.split('/');
+        page = url_comp[2];
+      }
+
+      if (page == 'eventCreate')
+        page = 'events';
+
+      return page;
     }
 
     initUser(){
+
         this.accService.GetMyAccount({extended:true})
         .subscribe((users:any[])=>{
             if(users.length >= this.maxNumberOfProfiles)

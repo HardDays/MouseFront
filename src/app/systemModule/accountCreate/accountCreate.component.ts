@@ -60,6 +60,12 @@ export class AccountCreateComponent extends BaseComponent implements OnInit {
       this.accService.GetMyAccount({extended:true})
         .subscribe((user:any[])=>{
             this.InitByUser(user[0]);
+        },
+        (err:any)=>{
+          if(err == 422)
+            this.Error = "This user name is already taken!";
+          console.log(err);
+            
         })
       this.VenueTypes = this.typeService.GetAllVenueTypes();
       this.AccountTypes = this.typeService.GetAllAccountTypes();
@@ -117,6 +123,8 @@ export class AccountCreateComponent extends BaseComponent implements OnInit {
           this.accService.onAuthChange$.next(true);
       },
       (err:any)=>{
+        if(err = 422)
+            
         console.log(err);
           
       })

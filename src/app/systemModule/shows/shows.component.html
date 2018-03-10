@@ -13,7 +13,7 @@
                     </div>
                     <div [ngStyle]="{'display': (SearchParams.type && SearchParams.type == Roles.Venue)?'block':'none'}" class="groupe-form">
                         <p class="head-input-groupe">Address</p>
-                        <input type="text" class="date-picker-inp" name="search-params-address" [ngModel]="SearchParams.address" (ngModelChange)="SearchParams.address = $event">
+                        <input type="text" class="date-picker-inp" name="search-params-address" autocorrect="off" autocapitalize="off" spellcheck="off" placeholder=""  #search>
                     </div>
                     <div [ngStyle]="{'display': (SearchParams.type && SearchParams.type != Roles.Fan)?'block':'none'}" class="groupe-form">
                         <p class="head-input-groupe">Price</p>
@@ -28,7 +28,7 @@
                         </div>
                     </div>
                     <div class="groupe-form">
-                        <button (click)="GetAccounts()" class="butt-style-1"><span>Search</span></button>
+                        <button (click)="ShowSearchResults()" class="butt-style-1"><span>Search</span></button>
                     </div>
                     <!-- <div class="groupe-form">
                         <p class="head-input-groupe">Genre</p>

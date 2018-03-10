@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core';
 import { NgForm} from '@angular/forms';
 import { AuthMainService } from '../../core/services/auth.service';
 import { AuthService } from "angular2-social-login";
@@ -8,6 +8,13 @@ import { AccountSearchParams } from '../../core/models/accountSearchParams.model
 import { SelectModel } from '../../core/models/select.model';
 import { Base64ImageModel } from '../../core/models/base64image.model';
 import { AccountType } from '../../core/base/base.enum';
+import { MapsAPILoader } from '@agm/core';
+import { AccountService } from '../../core/services/account.service';
+import { ImagesService } from '../../core/services/images.service';
+import { TypeService } from '../../core/services/type.service';
+import { GenresService } from '../../core/services/genres.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 declare var $:any;
 
@@ -28,6 +35,22 @@ export class ShowsComponent extends BaseComponent implements OnInit {
   AccountTypes:SelectModel[] = [];
   Accounts:AccountGetModel[] = [];
   Images:string[] = [];
+  place: string='';
+
+
+  @ViewChild('search') public searchElement: ElementRef;
+  
+  constructor(protected authService: AuthMainService,
+    protected accService:AccountService,
+    protected imgService:ImagesService,
+    protected typeService:TypeService,
+    protected genreService:GenresService,
+    protected _sanitizer: DomSanitizer,
+    protected router: Router,public _auth: AuthService,
+    private mapsAPILoader: MapsAPILoader, 
+    private ngZone: NgZone){
+super(authService,accService,imgService,typeService,genreService,_sanitizer,router,_auth);
+}
 
   ngOnInit(){
 
@@ -45,7 +68,7 @@ export class ShowsComponent extends BaseComponent implements OnInit {
         $(".nav-holder-3").removeClass("is-active");
         $(".mask-nav-3").removeClass("is-active");
     });
-    let _this = this;
+    let _the = this;
     var price_slider = $(".price-slider").ionRangeSlider({
       type:"double",
       min: this.MIN_PRICE,
@@ -59,7 +82,7 @@ export class ShowsComponent extends BaseComponent implements OnInit {
       grid_num: 5,
       onChange: function(data)
       {
-        _this.PriceChanged(data);
+        _the.PriceChanged(data);
       }
   });
   var capacity_slider = $(".capacity-slider").ionRangeSlider({
@@ -75,13 +98,14 @@ export class ShowsComponent extends BaseComponent implements OnInit {
     grid_num: 5,
     onChange: function(data)
     {
-      _this.CapacityChanged(data);
+      _the.CapacityChanged(data);
     }
 });
 
     this.AccountTypes = this.typeService.GetAllAccountTypes();
     this.GetAccounts();
 
+    this.CreateAutocomplete();
   }
 
   GetAccounts()
@@ -92,6 +116,15 @@ export class ShowsComponent extends BaseComponent implements OnInit {
       this.Accounts = res;
       console.log(this.Accounts);
     })
+  }
+
+  ShowSearchResults() {
+    this.GetAccounts();
+    $("body").removeClass("has-active-menu");
+    $(".mainWrapper").removeClass("has-push-left");
+    $(".nav-holder-3").removeClass("is-active");
+    $(".mask-nav-3").removeClass("is-active")
+
   }
 
   GetImages()
@@ -163,6 +196,30 @@ export class ShowsComponent extends BaseComponent implements OnInit {
           search.type_of_space = this.SearchParams.type_of_space;
       }
     }
+  }
+
+  CreateAutocomplete(){
+    this.mapsAPILoader.load().then(
+        () => {
+           
+         let autocomplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement, {types:[`(cities)`]});
+        
+          autocomplete.addListener("place_changed", () => {
+           this.ngZone.run(() => {
+           let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
+           if(place.geometry === undefined || place.geometry === null ){
+            
+            return;
+           }
+           else {
+              this.SearchParams.address = autocomplete.getPlace().formatted_address;
+           }
+          });
+        });
+      }
+    );
+
+
   }
   
 }

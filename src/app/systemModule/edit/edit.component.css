@@ -9,4 +9,7 @@ bs-datepicker-container, bs-daterangepicker-container {
     color: red;
     background: black;
 }
-            
+
+.login-register2{
+    height: auto;
+}

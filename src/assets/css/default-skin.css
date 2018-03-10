@@ -1,4 +1,18 @@
-
+/*! PhotoSwipe Default UI CSS by Dmitry Semenov | photoswipe.com | MIT license */
+/*
+	Contents:
+	1. Buttons
+	2. Share modal and links
+	3. Index indicator ("1 of X" counter)
+	4. Caption
+	5. Loading indicator
+	6. Additional styles (root element, top bar, idle state, hidden state, etc.)
+*/
+/*
+	
+	1. Buttons
+ */
+/* <button> css reset */
 button{
     outline: none;
 }
@@ -47,7 +61,8 @@ button{
   .pswp--svg .pswp__button,
   .pswp--svg .pswp__button--arrow--left:before,
   .pswp--svg .pswp__button--arrow--right:before {
-    background-image: url(../img/default-skin.png); }
+     /*! background-image: url(default-skin.svg);  */
+  } 
   .pswp--svg .pswp__button--arrow--left,
   .pswp--svg .pswp__button--arrow--right {
     background: none; } }
@@ -293,8 +308,7 @@ a.pswp__share--download:hover {
   opacity: 1; }
   .pswp__preloader--active .pswp__preloader__icn {
     /* We use .gif in browsers that don't support CSS animation */
-  
-    /*! background: url(../img/preloader.gif) 0 0 no-repeat;  */
+    /* background: url(preloader.gif) 0 0 no-repeat;  */
   }
 
 .pswp--css_animation .pswp__preloader--active {

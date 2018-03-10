@@ -13,6 +13,9 @@ import {ShowsComponent} from './shows/shows.component';
 
 import { EditComponent } from './edit/edit.component';
 import { ProfileComponent } from './profile/profile.component';
+import { EventCreateComponent } from './eventCreate/eventCreate.component';
+import { EventsComponent } from './events/events.component';
+
 import { TextMaskModule } from 'angular2-text-mask';
 
 import { NguiAutoCompleteModule } from '@ngui/auto-complete';
@@ -20,6 +23,7 @@ import { AccountCreateComponent } from './accountCreate/accountCreate.component'
 
 import { NavbarModule } from '../shared/navbar/navbar.module';
 import { FooterModule } from '../shared/footer/footer.module';
+import { YoutubePlayerModule } from 'ng2-youtube-player';
 
 @NgModule({
   declarations: [
@@ -27,7 +31,9 @@ import { FooterModule } from '../shared/footer/footer.module';
     ShowsComponent,
     EditComponent,
     ProfileComponent,
-    AccountCreateComponent
+    AccountCreateComponent,
+    EventCreateComponent,
+    EventsComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +46,8 @@ import { FooterModule } from '../shared/footer/footer.module';
     SystemRoutingModule,
     NguiAutoCompleteModule,
     NavbarModule,
-    FooterModule
+    FooterModule,
+    YoutubePlayerModule
   ],
   providers: [ SystemAccessGuard]
 })
