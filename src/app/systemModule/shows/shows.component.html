@@ -11,7 +11,7 @@
                             <option *ngFor="let item of AccountTypes" [value]="item.value">{{item.name}}</option>
                         </select>
                     </div>
-                    <div [ngStyle]="{'display': (SearchParams.type && SearchParams.type != Roles.Fan)?'block':'none'}" class="groupe-form">
+                    <div [ngStyle]="{'display': (SearchParams.type && SearchParams.type == Roles.Venue)?'block':'none'}" class="groupe-form">
                         <p class="head-input-groupe">Address</p>
                         <input type="text" class="date-picker-inp" name="search-params-address" [ngModel]="SearchParams.address" (ngModelChange)="SearchParams.address = $event">
                     </div>

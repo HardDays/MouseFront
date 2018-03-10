@@ -43,7 +43,7 @@ export class ShowsComponent extends BaseComponent implements OnInit {
         $("body").removeClass("has-active-menu");
         $(".mainWrapper").removeClass("has-push-left");
         $(".nav-holder-3").removeClass("is-active");
-        $(".mask-nav-3").removeClass("is-active")
+        $(".mask-nav-3").removeClass("is-active");
     });
     let _this = this;
     var price_slider = $(".price-slider").ionRangeSlider({
@@ -86,7 +86,7 @@ export class ShowsComponent extends BaseComponent implements OnInit {
 
   GetAccounts()
   {
-    this.PaseSearchParams();
+    this.ParseSearchParams();
     this.accService.AccountsSearch(this.SearchParams)
     .subscribe((res:AccountGetModel[])=>{
       this.Accounts = res;
@@ -127,7 +127,7 @@ export class ShowsComponent extends BaseComponent implements OnInit {
       this.SearchParams.capacity_to = data.to;
   }
 
-  PaseSearchParams()
+  ParseSearchParams()
   {
     if(this.SearchParams.type)
     {
