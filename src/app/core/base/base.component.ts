@@ -197,22 +197,21 @@ export class BaseComponent{
 
 
     CreateUserAcc(user:UserCreateModel, account:AccountCreateModel,callback:(error)=>any){
-       if(!this.userCreated) this.WaitBeforeLoading(
+        if(!this.userCreated) this.WaitBeforeLoading(
             ()=>this.authService.CreateUser(user),
                 (res:UserGetModel)=>{
                     console.log('ok usr:',res,);
                     let token:TokenModel = new TokenModel();
                     token.token = res.token;
                     this.authService.BaseInitAfterLogin(token);
-
+                    this.userCreated = true;
                     this.CreateAcc(account,callback);
-        
                 },
                 (err)=>{
                     callback(err);
                 }
         );
-        else  this.CreateAcc(account,callback);
+        else this.CreateAcc(account,callback);
     }
 
 
