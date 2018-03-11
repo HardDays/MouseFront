@@ -21,6 +21,7 @@ import { UserGetModel } from '../models/userGet.model';
 import { LoginModel } from '../models/login.model';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { AccountGetModel } from '../models/accountGet.model';
+import { EventService } from '../services/event.service';
 
 @Injectable()
 export class BaseComponent{
@@ -41,6 +42,7 @@ export class BaseComponent{
                 protected imgService:ImagesService,
                 protected typeService:TypeService,
                 protected genreService:GenresService,
+                protected eventService:EventService,
                 protected _sanitizer: DomSanitizer,
                 protected router: Router,public _auth: AuthService) {
         

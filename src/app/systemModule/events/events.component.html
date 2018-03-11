@@ -129,7 +129,7 @@
         </div>
         <div class="main-mw-6">
             <div class="for-flex-all-events">
-                <div class="one-event-wr">
+                <div *ngFor="let item of Events" class="one-event-wr">
                     <div class="one-event">
                         <div class="cover-event" style="background-image: url(../../assets/img/drake.jpg)">
                             <div class="icons-vr-t">
@@ -138,92 +138,22 @@
                             </div>
                         </div>
                         <div class="white-desc-event">
-                            <a href="#" class="name-artist">Marilyn Manson</a>
-                            <p class="when">November 30, 2017</p>
-                            <p class="where">Madison Square Garden, NY</p>
+                            <a href="#" class="name-artist">{{item.name}}</a>
+                            <p *ngIf="item.date_from && item.date_to" class="when">{{item.date_from}} - {{item.date_to}}</p>
+                            <p class="where">{{item.address}}</p>
                             <div class="funded-bar">
                                 <div class="funded" style="width: 14%"></div>
                             </div>
                             <div class="funded-desc">
-                                <p class="finded-proc"><span>14%</span> Funded</p>
+                                <p class="finded-proc"><span>{{item.founded}}</span> Funded</p>
                                 <p class="comlete-t">0% Complete</p>
                             </div>
                             <p class="style-text-2"><span>60</span> Days to go</p>
                             <div class="last-flex-info">
-                                <p class="style-text-2"><span>0</span> Backers</p>
-                                <p class="not-active">Not Active</p>
+                                <p class="style-text-2"><span>{{item.backers}}</span> Backers</p>
+                                <p class="not-active">{{item.is_active}}</p>
                             </div>
                             
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="one-event-wr">
-                    <div class="one-event">
-                        <div class="cover-event" style="background-image: url(../../assets/img/drake.jpg)">
-                            <div class="icons-vr-t">
-                                <div class="vr"></div>
-                                <div class="ticket-icon"></div>
-                            </div>
-                        </div>
-                        <div class="white-desc-event">
-                            <a href="#" class="name-artist">Marilyn Manson</a>
-                            <p class="when">November 30, 2017</p>
-                            <p class="where">Madison Square Garden, NY</p>
-                            <div class="funded-bar">
-                                <div class="funded" style="width: 50%"></div>
-                            </div>
-                            <div class="funded-desc">
-                                <p class="finded-proc"><span>50%</span> Funded</p>
-                                <p class="comlete-t">0% Complete</p>
-                            </div>
-                            <p class="style-text-2"><span>60</span> Days to go</p>
-                            <div class="last-flex-info">
-                                <p class="style-text-2"><span>0</span> Backers</p>
-                                
-                            </div>
-                            <div (click)="analiticsClick()" class="abs-analytics">Analytics</div>
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="one-event-wr">
-                    <div class="one-event">
-                        <div class="cover-event" style="background-image: url(../../assets/img/drake.jpg)">
-                            <div class="icons-vr-t">
-                                <div class="vr"></div>
-                                <div class="ticket-icon"></div>
-                            </div>
-                        </div>
-                        <div class="white-desc-event">
-                            <a href="#" class="name-artist">Marilyn Manson</a>
-                            <p class="when">November 30, 2017</p>
-                            <p class="where">Madison Square Garden, NY</p>
-                            <p class="types">Number of ticket types: 2</p>
-                            <div class="last-flex-info"></div>
-                            <div (click)="analiticsClick()" class="abs-analytics">Analytics</div>
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="one-event-wr">
-                    <div class="one-event">
-                        <div class="cover-event" style="background-image: url(../../assets/img/drake.jpg)">
-                            <div class="icons-vr-t">
-                                <div class="vr"></div>
-                                <div class="ticket-icon"></div>
-                            </div>
-                        </div>
-                        <div class="white-desc-event">
-                            <a href="#" class="name-artist">Marilyn Manson</a>
-                            <p class="when">November 30, 2017</p>
-                            <p class="where">Madison Square Garden, NY</p>
-                            <p class="types">Number of ticket types: 2</p>
-                            <div class="last-flex-info">
-                                <p class="style-text-2"><span>95%</span> Complete</p>
-                                <p class="not-active">Not Active</p>
-                            </div>
-                           
                         </div>
                         
                     </div>

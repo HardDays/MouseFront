@@ -19,6 +19,7 @@ import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { FormControl } from '@angular/forms';
 import { } from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
+import { EventService } from '../../core/services/event.service';
 
 
 declare var $:any;
@@ -55,11 +56,12 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
               protected imgService:ImagesService,
               protected typeService:TypeService,
               protected genreService:GenresService,
+              protected eventService:EventService,
               protected _sanitizer: DomSanitizer,
               protected router: Router,public _auth: AuthService,
               private mapsAPILoader: MapsAPILoader, 
               private ngZone: NgZone){
-    super(authService,accService,imgService,typeService,genreService,_sanitizer,router,_auth);
+    super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,_auth);
   }
     
 

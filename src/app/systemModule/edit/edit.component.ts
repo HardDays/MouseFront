@@ -23,6 +23,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'angular2-social-login';
 import { MapsAPILoader } from '@agm/core';
+import { EventService } from '../../core/services/event.service';
 
 
 @Component({
@@ -67,12 +68,13 @@ export class EditComponent extends BaseComponent implements OnInit {
       protected imgService:ImagesService,
       protected typeService:TypeService,
       protected genreService:GenresService,
+      protected eventService:EventService,
       protected _sanitizer: DomSanitizer,
       protected router: Router,public _auth: AuthService,
       private mapsAPILoader: MapsAPILoader, 
       private activatedRoute: ActivatedRoute,
       private ngZone: NgZone){
-  super(authService,accService,imgService,typeService,genreService,_sanitizer,router,_auth);
+  super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,_auth);
   }
 
     ngOnInit()

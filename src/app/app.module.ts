@@ -23,6 +23,7 @@ import { Angular2SocialLoginModule } from "angular2-social-login";
 import { AgmCoreModule } from '@agm/core';
 import { LoginComponent } from './access/login/login.component';
 import { RegistrationComponent } from './access/registration/registration.component';
+import { EventService } from './core/services/event.service';
 
 let providers = {
   "google": {
@@ -63,6 +64,7 @@ let providers = {
     ImagesService,
     AccountService,
     GenresService,
+    EventService,
     HttpModule, HttpService],
   bootstrap: [AppComponent]
 })
