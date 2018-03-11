@@ -20,6 +20,7 @@ import { AccountType } from '../../core/base/base.enum';
 import { Base64ImageModel } from '../../core/models/base64image.model';
 import { MapsAPILoader } from '@agm/core';
 import { AccountSearchParams } from '../../core/models/accountSearchParams.model';
+import { EventService } from '../../core/services/event.service';
 
 declare var $:any;
 declare var PhotoSwipeUI_Default:any;
@@ -47,11 +48,12 @@ export class ProfileComponent extends BaseComponent implements OnInit {
       protected imgService:ImagesService,
       protected typeService:TypeService,
       protected genreService:GenresService,
+      protected eventService:EventService,
       protected _sanitizer: DomSanitizer,
       protected router: Router,public _auth: AuthService,
       private activatedRoute: ActivatedRoute,
       private ngZone: NgZone){
-super(authService,accService,imgService,typeService,genreService,_sanitizer,router,_auth);
+super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,_auth);
 }
 
 ngOnInit(){

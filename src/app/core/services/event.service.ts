@@ -1,0 +1,25 @@
+import { Injectable } from "@angular/core";
+import { Subject } from "rxjs";
+import { HttpService } from "./http.service";
+import { Router } from "@angular/router";
+import { TypeService } from "./type.service";
+
+@Injectable()
+export class EventService{
+    public onAuthChange$: Subject<boolean>;
+    public onLoadingChange$: Subject<boolean>;
+    //public pushNotif:NotificationsComponent = new NotificationsComponent();
+    constructor(private http: HttpService, private router: Router, private typeService: TypeService){
+        this.onAuthChange$ = new Subject();
+        this.onAuthChange$.next(false);
+        this.onLoadingChange$ = new Subject();
+        this.onLoadingChange$.next(false);
+    }
+
+    GetAllEvents(){
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/events.json',"")
+        );
+    }
+
+}

@@ -1,4 +1,4 @@
-import { Component, ViewChild, NgZone } from '@angular/core';
+import { Component, ViewChild, NgZone, ElementRef } from '@angular/core';
 import { NgForm,FormControl} from '@angular/forms';
 import { AuthMainService } from '../../core/services/auth.service';
 
@@ -22,6 +22,8 @@ import { GenresService } from '../../core/services/genres.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'angular2-social-login';
+import { MapsAPILoader } from '@agm/core';
+import { EventService } from '../../core/services/event.service';
 
 
 @Component({
@@ -59,18 +61,21 @@ export class EditComponent extends BaseComponent implements OnInit {
     Error:string = '';
   
     @ViewChild('submitFormUsr') form: NgForm;
+    @ViewChild('search') public searchElement: ElementRef;
     
     constructor(protected authService: AuthMainService,
       protected accService:AccountService,
       protected imgService:ImagesService,
       protected typeService:TypeService,
       protected genreService:GenresService,
+      protected eventService:EventService,
       protected _sanitizer: DomSanitizer,
       protected router: Router,public _auth: AuthService,
+      private mapsAPILoader: MapsAPILoader, 
       private activatedRoute: ActivatedRoute,
       private ngZone: NgZone){
-super(authService,accService,imgService,typeService,genreService,_sanitizer,router,_auth);
-}
+  super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,_auth);
+  }
 
     ngOnInit()
     {
@@ -111,6 +116,7 @@ super(authService,accService,imgService,typeService,genreService,_sanitizer,rout
       this.LocationTypes = this.typeService.GetAllLocationTypes();
       this.BookingNotice = this.typeService.GetAllBookingNotices();
       //this.Account.emails = [new ContactModel()];
+      this.CreateAutocomplete();
     }
    
   
@@ -286,4 +292,27 @@ CategoryChanged($event:string){
     console.log("event",$event);
   }
 
+  CreateAutocomplete(){
+    this.mapsAPILoader.load().then(
+        () => {
+           
+         let autocomplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement, {types:[`(cities)`]});
+        
+          autocomplete.addListener("place_changed", () => {
+           this.ngZone.run(() => {
+           let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
+           if(place.geometry === undefined || place.geometry === null ){
+            
+            return;
+           }
+           else {
+              this.Account.address = autocomplete.getPlace().formatted_address;
+           }
+          });
+        });
+      }
+    );
+
+
+  }
 }

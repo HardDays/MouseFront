@@ -16,7 +16,7 @@
                     </div>
                     <div class="side left-side">
                         <input name="phone" class="inp-style-2" type="text" placeholder="Phone" [ngModel]="Account.phone" (ngModelChange)="Account.phone = $event">
-                        <input name="address" class="inp-style-2" type="text" placeholder="Address" [ngModel]="Account.address" (ngModelChange)="Account.address = $event">
+                        <input type="text" class="date-picker-inp" name="search-params-address" autocorrect="off" autocapitalize="off" spellcheck="off" placeholder=""  #search>
                         <input name="capacity" *ngIf="Account.account_type == Roles.Venue" class="inp-style-2" type="number" min="0" placeholder="Capacity" [ngModel]="Account.capacity" (ngModelChange)="Account.capacity = $event">
                         <input name="number_of_bathrooms" *ngIf="Account.account_type == Roles.Venue" ngModel class="inp-style-2" type="number" min="0" placeholder="Number of bathrooms" [ngModel]="Account.num_of_bathrooms" (ngModelChange)="Account.num_of_bathrooms = $event">
                         <input name="min_age" *ngIf="Account.account_type == Roles.Venue" ngModel class="inp-style-2" type="number" min="0" placeholder="Minimal age" [ngModel]="Account.min_age" (ngModelChange)="Account.min_age = $event">
@@ -32,8 +32,6 @@
                         <select name="location_type" *ngIf="Account.account_type == Roles.Venue" [ngModel]="Account.location" (ngModelChange)="Account.location = $event">
                             <option *ngFor="let item of LocationTypes" [value]="item.value">{{item.name}}</option>
                         </select>
-                        <input name="lat" *ngIf="Account.account_type == Roles.Venue" class="inp-style-2" type="number" min="0" placeholder="Latitude" [ngModel]="Account.lat" (ngModelChange)="Account.lat = $event">
-                        <input name="lng" *ngIf="Account.account_type == Roles.Venue" class="inp-style-2" type="number" min="0" placeholder="Longitude" [ngModel]="Account.lng" (ngModelChange)="Account.lng = $event">
                         <input name="about" *ngIf="Account.account_type == Roles.Artist" class="inp-style-2" type="text" placeholder="About" [ngModel]="Account.about" (ngModelChange)="Account.about = $event">
                     </div>
 

@@ -19,6 +19,11 @@ export class LoginComponent extends BaseComponent implements OnInit {
   isErrorLogin:boolean = false;
   isForgotPassSend:boolean = false;
   userLogin:LoginModel = new LoginModel();
+  curPage:number = 1;
+  emailPhone:string = '';
+  forgotCode:string = '';
+  newPass:string = '';
+  newPassComfirm:string = '';
 
   ngOnInit(){
     // if (this.isLoggedIn)
@@ -43,11 +48,22 @@ export class LoginComponent extends BaseComponent implements OnInit {
     this.SocialLogout('gf');
   }
 
-  ForgotPassword(){
-    this.authService.ForgotPassword(this.userLogin.user)
+  forgotPassword(){
+    this.curPage = 2;
+  }
+
+  sendCode(){
+    this.curPage = 3;
+     this.authService.ForgotPassword(this.emailPhone)
     .subscribe(()=>{
       console.log(`forgot pass send!`);
-      this.isForgotPassSend = true;
     })
+  }
+  analisCode(){
+    this.curPage = 4;
+  }
+
+  changePass(){
+    this.curPage = 1;
   }
 }

@@ -21,6 +21,7 @@ import { UserGetModel } from '../models/userGet.model';
 import { LoginModel } from '../models/login.model';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { AccountGetModel } from '../models/accountGet.model';
+import { EventService } from '../services/event.service';
 
 @Injectable()
 export class BaseComponent{
@@ -41,6 +42,7 @@ export class BaseComponent{
                 protected imgService:ImagesService,
                 protected typeService:TypeService,
                 protected genreService:GenresService,
+                protected eventService:EventService,
                 protected _sanitizer: DomSanitizer,
                 protected router: Router,public _auth: AuthService) {
         
@@ -195,7 +197,7 @@ export class BaseComponent{
 
 
     CreateUserAcc(user:UserCreateModel, account:AccountCreateModel,callback:(error)=>any){
-        this.WaitBeforeLoading(
+       if(!this.userCreated) this.WaitBeforeLoading(
             ()=>this.authService.CreateUser(user),
                 (res:UserGetModel)=>{
                     console.log('ok usr:',res,);
@@ -203,22 +205,14 @@ export class BaseComponent{
                     token.token = res.token;
                     this.authService.BaseInitAfterLogin(token);
 
-                    this.authService.CreateAccount(account).
-                    subscribe(
-                        (acc)=>{
-                           this.accId = acc.id;
-                        },
-                        (err)=>{
-                            callback(err);
-                        }
-                    );
-
+                    this.CreateAcc(account,callback);
+        
                 },
                 (err)=>{
                     callback(err);
                 }
         );
-        
+        else  this.CreateAcc(account,callback);
     }
 
 
@@ -238,11 +232,10 @@ export class BaseComponent{
                     callback(err);
                 }
         );
-
     }
 
     CreateAcc(account:AccountCreateModel,callback:(error)=>any){
-        this.authService.CreateAccount(account).
+            this.authService.CreateAccount(account).
                     subscribe(
                         (acc)=>{
                            console.log('acc create ok: ',acc);

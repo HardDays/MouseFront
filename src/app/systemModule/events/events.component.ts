@@ -15,6 +15,8 @@ import { AccountGetModel } from '../../core/models/accountGet.model';
 import { Base64ImageModel } from '../../core/models/base64image.model';
 import { AccountType } from '../../core/base/base.enum';
 import { GenreModel } from '../../core/models/genres.model';
+import { AccountSearchParams } from '../../core/models/accountSearchParams.model';
+import { EventGetModel } from '../../core/models/eventGet.model';
 
 declare var $:any;
 declare var ionRangeSlider:any;
@@ -27,13 +29,27 @@ declare var ionRangeSlider:any;
 
 
 export class EventsComponent extends BaseComponent implements OnInit {
-    
+    Events:EventGetModel[] = [];
+
     
     ngOnInit()
-    {
+    {   
+        this.GetEvents();
   
         this.openSearch();
     }
+
+    GetEvents()
+    {
+      this.eventService.GetAllEvents()
+      .subscribe((res:EventGetModel[])=>{
+        this.Events = res;
+        console.log(this.Events);
+      })
+    }
+
+    
+
 
     analiticsClick(){
         $('#modal-analytics').modal('show');
