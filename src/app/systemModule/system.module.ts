@@ -23,6 +23,7 @@ import { AccountCreateComponent } from './accountCreate/accountCreate.component'
 
 import { NavbarModule } from '../shared/navbar/navbar.module';
 import { FooterModule } from '../shared/footer/footer.module';
+import { PreloaderComponent } from '../shared/preloader/preloader.component';
 import { YoutubePlayerModule } from 'ng2-youtube-player';
 
 @NgModule({
@@ -33,7 +34,8 @@ import { YoutubePlayerModule } from 'ng2-youtube-player';
     ProfileComponent,
     AccountCreateComponent,
     EventCreateComponent,
-    EventsComponent
+    EventsComponent,
+    PreloaderComponent
   ],
   imports: [
     CommonModule,

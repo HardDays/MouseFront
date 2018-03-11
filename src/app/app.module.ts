@@ -25,6 +25,7 @@ import { LoginComponent } from './access/login/login.component';
 import { RegistrationComponent } from './access/registration/registration.component';
 import { EventService } from './core/services/event.service';
 
+
 let providers = {
   "google": {
 
