@@ -84,16 +84,16 @@ export class GenresService{
     
     public GetGendreModelFromString(newGenres:string[], allGenres:GenreModel[]):GenreModel[]{
         let result:GenreModel[] = allGenres;
-        console.log("Input", allGenres);
-        for(let i of newGenres)
-        {
-            for(let j of result) {
-                if(i == j.genre)
-                    j.checked = true;
-                    j.show = true;
+        if(newGenres) {
+            for(let i of newGenres)
+            {
+                for(let j of result) {
+                    if(i == j.genre)
+                        j.checked = true;
+                        j.show = true;
+                }
             }
         }
-        console.log("Output", result);
         return result;
     }
 
