@@ -19,6 +19,7 @@ import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { FormControl } from '@angular/forms';
 import { } from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
+import { EventService } from '../../core/services/event.service';
 
 
 declare var $:any;
@@ -55,11 +56,12 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
               protected imgService:ImagesService,
               protected typeService:TypeService,
               protected genreService:GenresService,
+              protected eventService:EventService,
               protected _sanitizer: DomSanitizer,
               protected router: Router,public _auth: AuthService,
               private mapsAPILoader: MapsAPILoader, 
               private ngZone: NgZone){
-    super(authService,accService,imgService,typeService,genreService,_sanitizer,router,_auth);
+    super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,_auth);
   }
     
 
@@ -70,27 +72,9 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
       .subscribe((res:string[])=>{
         this.genres = this.genreService.StringArrayToGanreModelArray(res);
       });
-
-      $(document).ready(function () {
-        //страница signUp-2.html
-       $('.label-wr').mousedown(function(){
-           $(this).addClass('scaled');
-           alert('ok');
-       });
-        $('.label-wr').mouseup(function(){
-           $(this).removeClass('scaled');
-       });
-        //страница signUp-2.html
-        
-      });  
-
-      // this.genreService.GetArtists(this.genres).
-      // subscribe((res:AccountGetModel[])=>{
-    
-      // this.artists = res;});
           
    this.CreateAutocomplete();
-}
+  }
 
   CreateAutocomplete(){
     this.mapsAPILoader.load().then(
@@ -124,80 +108,68 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
 
 
 
-  firstPageComp(){
-    if(!this.Account.user_name||!this.User.email||!this.User.password)
-      this.Error = 'Entry fields name, email, password!';
+  registerUserAcc(){
+    if(!this.User.email||!this.User.password)
+      this.Error = 'Entry fields email and password!';
     else if (this.User.password.length<6)
       this.Error = 'Short password!';
     else if (this.User.email.search('@')<=0)
       this.Error = 'Uncorrect email!';
-    else{
+    else {
+
       this.Account.account_type = 'fan';
       this.createAccSucc = true;
-
-      this.genreService.GetArtists(this.genres).
-      subscribe((res:AccountGetModel[])=>{
-    
-      this.artists = res;
-      
-      for(let i=0;i<this.artists.length;i++)
-        this.artistsChecked.push(false);
-        
-        if (this.createAccSucc) {
-          this.firstPage = false;
-
-          $(document).ready(function () {
-            //страница signUp-2.html
-           $('.label-wr').mousedown(function(){
-               $(this).addClass('scaled');
-              //  alert('ok');
-           });
-            $('.label-wr').mouseup(function(){
-               $(this).removeClass('scaled');
-           });
-            //страница signUp-2.html
-            
-          });  
-        
-        }
-        
-      });
 
       this.Account.genres = [];
       for(let g of this.genres)
         if(g.checked) this.Account.genres.push(g.genre);
 
+      
+      
+      // this.CreateUserAcc(this.User,this.Account,(err)=>{
+      //       this.firstPage = true;   
+      //       this.createAccSucc = false;    
+      //       if(err.status==422) this.Error = err._body;
+      // });
 
       
-      this.CreateUserAcc(this.User,this.Account,(err)=>{
-            this.firstPage = true;   
-            this.createAccSucc = false;    
-            if(err.status==422) this.Error = err._body;
-      });
+      // if(!this.userCreated)
+        this.CreateUserAcc(this.User,this.Account,(err)=>{
+                this.firstPage = true;   
+                this.createAccSucc = false;    
+                if(err.status==422) this.Error = err._body;
+        });
+      // this.CreateAcc(this.Account,(err)=>{  
+      //         this.createAccSucc = false;    
+      //         if(err.status==422) this.Error = err._body;
+      // });
 
-      $(document).ready(function () {
-        //страница signUp-2.html
-       $('.label-wr').mousedown(function(){
-           $(this).addClass('scaled');
-           alert('ok');
-       });
-        $('.label-wr').mouseup(function(){
-           $(this).removeClass('scaled');
-       });
-        //страница signUp-2.html
-        
-      }); 
-      
+      this.getArtists();
     }
 
   }
 
+  getArtists(){
+    this.genreService.GetArtists(this.genres).
+    subscribe((res:AccountGetModel[])=>{
+  
+    this.artists = res;
+    
+    for(let i=0;i<this.artists.length;i++)
+      this.artistsChecked.push(false);
 
-  onSubmitSignUp(){
+      if (this.createAccSucc) {
+        this.firstPage = false;
+
+      }
+      
+    });
+  }
+
+  followArtists(){
     for(let i=0;i<this.artistsChecked.length;i++)
       if(this.artistsChecked[i]) this.followsId.push(this.artists[i].id);
-   
-                         
+             
     let id:number = this.accId;
     for(let follow of this.followsId){
         this.accService.AccountFollow(id,follow).subscribe(()=>{
@@ -207,6 +179,8 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
     this.router.navigate(['/system','shows']);
 
   }
+
+  
 
   loadLogo($event:any):void{
     this.ReadImages(
@@ -229,12 +203,10 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
 
   seeMoreGenres(){
     this.seeMore = true;
-    // let checked = this.genres;
-    // this.genres = this.genreService.GetAll(checked);
     for(let g of this.genres) g.show = true;
   }
 
-CategoryChanged($event:string){
+  CategoryChanged($event:string){
    this.search = $event;
     if(this.search.length>0) {
       for(let g of this.genres)
@@ -246,28 +218,25 @@ CategoryChanged($event:string){
     else {
       this.seeFirstGenres();
     }
-}
+  }
 
-MaskTelephone(){
-  return {
+  MaskTelephone(){
+    return {
       // mask: ['+',/[1-9]/,' (', /[1-9]/, /\d/, /\d/, ') ',/\d/, /\d/, /\d/, '-', /\d/, /\d/,'-', /\d/, /\d/],
       mask: ['+',/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/],
       keepCharPositions: true,
       guide:false
     };
-}
+  }
 
-
-clickItem(index:number){
-  console.log(index);
+  clickItem(index:number){
+    console.log(index);
      var ch = "#checkbox-"+index+"-"+index;
      $(ch).addClass('scaled');
 
     setTimeout(()=>{
       $(ch).removeClass('scaled');
     },120)
-
-
-}
+  }
 
 }

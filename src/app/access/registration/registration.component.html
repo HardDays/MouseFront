@@ -5,7 +5,7 @@
      
         <div *ngIf="firstPage" class="register">
             <div class="m-v-reg">
-                <form class="reg-wr" (ngSubmit)="firstPageComp()" >
+                <form class="reg-wr" (ngSubmit)="registerUserAcc()" >
                     <h3>General info</h3>
                     <div class="for-flex">
                         <div class="photo-wr-1">
@@ -59,7 +59,7 @@
         </div>
 
 
-        <form *ngIf="!firstPage" (ngSubmit)="onSubmitSignUp()" class="choose-to-follow">
+        <form *ngIf="!firstPage" (ngSubmit)="followArtists()" class="choose-to-follow">
             <div class="bg-gradient-1"></div>
             <div class="follow-m-w">
                 <h3>Choose who to follow</h3>

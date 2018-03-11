@@ -6,16 +6,29 @@
                 <div class="login-form">
                     <img src="../../assets/img/mouse-big-logo.png" class="img-responsive mouse-logo-1" alt="">
                     <img src="../../assets/img/text-mouse.png" class="img-responsive mouse-logo-2" alt="">
-                    <form (ngSubmit)="onSubmitSignIn()">
+                    <form *ngIf="curPage==1" (ngSubmit)="onSubmitSignIn()">
                         <input autocomplete="off" type="text" name="username" [ngModel]="userLogin.user" (ngModelChange)="userLogin.user = $event" required  class="inp-style-1" placeholder="Username">
                         <input autocomplete="off" type="password" name="password" [ngModel]="userLogin.password" (ngModelChange)="userLogin.password = $event" required  class="inp-style-1" placeholder="Password">
-                        <div (click)="ForgotPassword()" class="forgot-password-wr">
+                        <div (click)="forgotPassword()" class="forgot-password-wr">
                             <span>Forgot your password?</span>
                         </div>
                         <p *ngIf="isErrorLogin" style="color:white;">Uncorrect login-password!</p>
                         <p *ngIf="isForgotPassSend" style="color:white;">Send password!</p>
                       
                         <button type="submit" class="butt-style-1"><span>Sign In</span></button>
+                    </form>
+                    <form *ngIf="curPage==2">
+                        <input autocomplete="off" type="text" name="emailPhone" [ngModel]="emailPhone" (ngModelChange)="emailPhone = $event" required  class="inp-style-1" placeholder="Email or phone">
+                        <button type="button" (click)="sendCode()" class="butt-style-1"><span>Next</span></button>
+                    </form>
+                    <form *ngIf="curPage==3">
+                        <input autocomplete="off" type="text" name="forgotCode" [ngModel]="forgotCode" (ngModelChange)="forgotCode = $event" required  class="inp-style-1" placeholder="Code">
+                        <button type="button" (click)="analisCode()" class="butt-style-1"><span>Next</span></button>
+                    </form>
+                    <form *ngIf="curPage==4">
+                        <input autocomplete="off" type="password" name="newPass" [ngModel]="newPass" (ngModelChange)="newPass = $event" required  class="inp-style-1" placeholder="New password">
+                        <input autocomplete="off" type="password" name="newPassComfirm" [ngModel]="newPassComfirm" (ngModelChange)="newPassComfirm = $event" required  class="inp-style-1" placeholder="Comfirm new password">
+                        <button type="button" (click)="changePass()" class="butt-style-1"><span>Sign in</span></button>
                     </form>
                     <div class="outher-butt">
                         <a routerLink="/register">Create account</a>
