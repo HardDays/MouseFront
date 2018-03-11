@@ -28,8 +28,6 @@ import { EventService } from './core/services/event.service';
 
 let providers = {
   "google": {
-
-    //"clientId": "318975976374-aibqel7otlqho284pfc62iofel2e6s58.apps.googleusercontent.com"
     "clientId": "318975976374-kgoi5u5qrao13e6u7o2sjinleh5c86vj.apps.googleusercontent.com"
   },
   "facebook": {

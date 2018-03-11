@@ -30,6 +30,7 @@
         </div>
         <div class="create-event-body-1">
             <div class="main-mw">
+                <form [formGroup]="aboutForm">
                 <div class="create-event-body">
                    <div class="head-ev-body">
                         <h2>About</h2>
@@ -39,16 +40,16 @@
                         <div class="side">
                             <div class="input-groupe-1 lbl-1">
                                 
-                                <input id="inp-create-1" name="" type="text">
+                                <input id="inp-create-1" name="" type="text" formControlName="name">
                                 <label for="inp-create-1">Event name<span>*</span></label>
                             </div>
                             <div class="input-groupe-1">
-                                <input id="inp-create-2" name="" type="text">
+                                <input id="inp-create-2" name="" type="text" >
                                 <label for="inp-create-2">Hashtag<span>*</span></label>
                                 
                             </div>
                             <div class="input-groupe-1">
-                                <input id="inp-create-3" name="" type="text">
+                                <input id="inp-create-3" name="" type="text" formControlName="tagline">
                                 <label for="inp-create-3">Tagline<span>*</span></label>
                                
                             </div>
@@ -57,7 +58,7 @@
                                 <div class="yes-no">
                                     <span>Yes</span>
                                     <div class="mac-checkbox">
-                                        <input class="checkbox" checked type="checkbox" id="mac-checkbox-1">
+                                        <input class="checkbox" type="checkbox" id="mac-checkbox-1" formControlName="is_crowdfunding_event">
                                         <label for="mac-checkbox-1"></label>
                                     </div>
                                     <span>No</span>
@@ -66,8 +67,7 @@
                             <div class="flex-input-groupes">
                                 <div class="input-groupe-1">
                                     <!--тут пока селекты. но если вы найдете норм плагин таких селектов которые можно будет стилизовать и которые работают с ангуларом - буду очень признателен-->
-                                    <select id="inp-create-4" >
-                                        <option>None</option>
+                                    <select formControlName="artists_number" id="inp-create-4" >
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>
@@ -83,7 +83,7 @@
                                     
                                     <div class="rel-wr">
                                         <span class="abs-backs">$</span>
-                                        <input id="inp-create-5" class="dollar" name="" type="text">
+                                        <input formControlName="funding_goal" id="inp-create-5" class="dollar" name="" type="text">
                                     </div>
                                     <label for="inp-create-5">Funding Goal</label>
                                     
@@ -94,30 +94,21 @@
                             <div class="input-groupe-1 whithout-label">
                                 <span class="head-groupe">Genre</span>
                                 <div class="flex-genres">
-                                    <span class="one-genre">HIP HOP</span>
-                                    <span class="one-genre">HIP HOP</span>
-                                    <span class="one-genre">HIP HOP</span>
-                                    <span class="one-genre">HIP HOP</span>
-                                    <span class="one-genre">HIP HOP</span>
-                                    <span class="one-genre">HIP HOP</span>
-                                    <span class="one-genre">HIP HOP</span>
+                                        <ng-container *ngFor="let item of genres; let i = index">
+                                            <span *ngIf="item.checked"  class="one-genre">{{item.genre_show}}</span>
+                                        </ng-container>
                                     <div class="add-to-genres">
                                         
-                                        <span class="plus"></span>
+                                        <span class="plus" (click)="showMoreGenres = !showMoreGenres"></span>
                                         <!--клик на плюсик добавляем absgenres-pick-wr класс showed-->
-                                        <div class="absgenres-pick-wr ">
-                                            <input class="search" type="text" placeholder="Search">
+                                        <div class="absgenres-pick-wr" [ngClass]="{showed:showMoreGenres}">
+                                            <input class="search" (input)="GengeSearch($event.target.value)" type="text" placeholder="Search">
                                             <div class="flex-genres for-pick">
                                                 <!--Добавляем класс picked-->
-                                                <span class="one-genre picked">HIP HOP</span>
-                                                <span class="one-genre picked">HIP HOP</span>
-                                                <span class="one-genre">HIP HOP</span>
-                                                <span class="one-genre">HIP HOP</span>
-                                                <span class="one-genre">HIP HOP</span>
-                                                <span class="one-genre">HIP HOP</span>
-                                                <span class="one-genre">HIP HOP</span>
-                                                <span class="one-genre">HIP HOP</span>
-                                                <span class="one-genre">HIP HOP</span>
+                                                <ng-container *ngFor="let item of genres; let i = index">
+                                                    <span *ngIf="item.show" (click)="item.checked = !item.checked" class="one-genre" [ngClass]="{picked:item.checked}">{{item.genre_show}}</span>
+                                                </ng-container>
+                
                                             </div>
                                         </div>
                                     </div>
@@ -151,10 +142,10 @@
                             </div>
                             <div class="flex-input-groupes">
                                 <div class="input-groupe-1">
-                                    <select id="inp-create-7" >
+                                    <select id="inp-create-7" formControlName="event_time">
                                         <option>Morning</option>
-                                        <option>Morning</option>
-                                        <option>Morning</option>
+                                        <option>Afternoon</option>
+                                        <option>Evening</option>
                                         
                                         
                                     </select>
@@ -162,7 +153,7 @@
 
                                 </div>
                                 <div class="input-groupe-1">
-                                    <select id="inp-create-8" >
+                                    <select formControlName="event_length" id="inp-create-8" >
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>
@@ -176,13 +167,13 @@
                             </div>
                             <div class="location-wr">
                                 <div class="mark"></div>
-                                <input type="text" class="location-inp" placeholder="location">
+                                <input type="text" class="location-inp" placeholder="Location" #search> 
                             </div>
                         </div>
                         <div class="side">
                             <div class="input-groupe-1 whithout-label">
                                 
-                                <textarea id="inp-create-9"></textarea>
+                                <textarea formControlName="description" id="inp-create-9"></textarea>
                                 <label for="inp-create-9" class="head-groupe">Short Description<span>*</span></label>
                                 
                             </div>
@@ -190,10 +181,11 @@
                         </div>
                     </div>
                     <div class="scroll-wrapp">
-                        <div class="circle-scroll"></div>
+                        <div class="circle-scroll" (click)="createEventFromAbout()"></div>
                     </div>
                     
                 </div>
+                </form>
             </div>
         </div>
         
@@ -274,7 +266,7 @@
                             <!--для добавления артиста-->
                             <div class="one-card">
                                 <div class="add-artist-block artist-modal-open">
-                                    <div (click)="addNewArtist()" class="plus"></div>
+                                    <div (click)="addNewArtistOpenModal()" class="plus"></div>
                                     <span class="add">Add New Artist</span>
                                     <span class="or">or</span>
                                     <span class="invite">Artist Invite</span>
@@ -623,7 +615,7 @@
                                         <p class="desc-head-info">Location</p>
                                         <p class="info">Los Angeles, California USA</p>
                                         <div class="flex-buttons">
-                                            <span class="button-card send-request-modal" (click)="sendRequest()">send request</span>
+                                            <span class="button-card send-request-modal" (click)="sendRequestOpenModal()">send request</span>
                                            
                                         </div>
                                     </div>
