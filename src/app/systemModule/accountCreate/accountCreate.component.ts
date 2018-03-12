@@ -57,21 +57,17 @@ export class AccountCreateComponent extends BaseComponent implements OnInit {
       this.bsValue_end = [new Date()];
       this.Account.dates = [new EventDateModel()];
       this.Account.office_hours = [new WorkingTimeModel()];
-      this.accService.GetMyAccount({extended:true})
-        .subscribe((user:any[])=>{
-            this.InitByUser(user[0]);
-        },
-        (err:any)=>{
-          if(err == 422)
-            this.Error = "This user name is already taken!";
-          console.log(err);
-            
-        })
       this.VenueTypes = this.typeService.GetAllVenueTypes();
       this.AccountTypes = this.typeService.GetAllAccountTypes();
       this.LocationTypes = this.typeService.GetAllLocationTypes();
       this.BookingNotice = this.typeService.GetAllBookingNotices();
       //this.Account.emails = [new ContactModel()];
+      if(this.Account.account_type != this.Roles.Venue) {
+        this.genreService.GetAllGenres()
+          .subscribe((genres:string[])=> {
+            this.Genres = this.genreService.GetGendreModelFromString(this.Account.genres, this.genreService.StringArrayToGanreModelArray(genres));
+          });
+      }
     }
    
   

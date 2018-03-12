@@ -124,25 +124,11 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
       for(let g of this.genres)
         if(g.checked) this.Account.genres.push(g.genre);
 
-      
-      
-      // this.CreateUserAcc(this.User,this.Account,(err)=>{
-      //       this.firstPage = true;   
-      //       this.createAccSucc = false;    
-      //       if(err.status==422) this.Error = err._body;
-      // });
-
-      
-      // if(!this.userCreated)
         this.CreateUserAcc(this.User,this.Account,(err)=>{
                 this.firstPage = true;   
                 this.createAccSucc = false;    
                 if(err.status==422) this.Error = err._body;
         });
-      // this.CreateAcc(this.Account,(err)=>{  
-      //         this.createAccSucc = false;    
-      //         if(err.status==422) this.Error = err._body;
-      // });
 
       this.getArtists();
     }
@@ -180,7 +166,6 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
 
   }
 
-  
 
   loadLogo($event:any):void{
     this.ReadImages(
