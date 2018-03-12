@@ -28,6 +28,8 @@ import { MapsAPILoader } from '@agm/core';
 import { Router, Params } from '@angular/router';
 import { AuthService } from "angular2-social-login";
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
+import { ArtistAddToEventModel } from '../../core/models/artistAddToEvent.model';
+import { EventGetModel } from '../../core/models/eventGet.model';
 
 
 
@@ -43,6 +45,8 @@ declare var ionRangeSlider:any;
 
 export class EventCreateComponent extends BaseComponent implements OnInit {
     
+    step:number = 1;
+
     aboutForm : FormGroup = new FormGroup({        
         "name": new FormControl("", [Validators.required]),
         "tagline": new FormControl("", [Validators.required]),
@@ -56,8 +60,17 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     });
 
     newEvent:EventCreateModel = new EventCreateModel();
+    Event:EventGetModel = new EventGetModel();
     genres:GenreModel[] = [];
     showMoreGenres:boolean = false;
+
+    
+
+    addArtist:ArtistAddToEventModel = new ArtistAddToEventModel();
+    genresSearchArtist:GenreModel[] = [];
+    artistsList:AccountGetModel[] = [];
+    searchArtist:string='';
+    checkArtists:number[] = [];
 
     @ViewChild('search') public searchElementFrom: ElementRef;
 
@@ -113,6 +126,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         this.accService.GetMyAccount({extended:true})
         .subscribe((users:any[])=>{
             this.newEvent.account_id = users[0].id;
+            this.addArtist.account_id = users[0].id;
         });
     }
 
@@ -121,15 +135,21 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         .subscribe((res:string[])=>{
           this.genres = this.genreService.StringArrayToGanreModelArray(res);
           for(let i of this.genres) i.show = true;
+          this.genresSearchArtist = this.genreService.StringArrayToGanreModelArray(res);
+          for(let i of this.genresSearchArtist) i.show = true;
         });
        
     }
 
     initSlider(){
+        
+        let _the = this;
+
         var hu_2 = $(".current-slider").ionRangeSlider({
             min: 0,
             max: 100000,
             from: 20000,
+            step: 10,
             type: "single",
             hide_min_max: false,
             prefix: "$ ",
@@ -137,10 +157,12 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             prettify_enabled: true,
             prettify_separator: ',',
             grid_num: 5,
-            onChange: function () {
-    
+            onChange: function (data) {
+                _the.PriceArtistChanged(data);
             }
         });
+
+        this.addArtist.estimated_price = 20000;
     
         var hu_3 = $(".current-slider-price-venue").ionRangeSlider({
             min: 0,
@@ -195,7 +217,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
          else {
             for(let i of this.genres) i.show = true;
          }
-       }
+    }
 
     createEventFromAbout(){
         if(!this.aboutForm.invalid){
@@ -220,7 +242,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
             this.eventService.CreateEvent(this.newEvent)
                 .subscribe((res)=>{
-                        console.log(`create`,res);
+                        this.Event = res;
+                        console.log(`create`,this.Event);
                     },
                     (err)=>{
                         console.log(`err`,err);
@@ -232,13 +255,91 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         }
     }
 
+    addNewArtist(){
+        this.addArtist.id = this.Event.id;
+        console.log(`new artist: `,this.addArtist);
+        console.log(`checked`,this.checkArtists);
+
+        for(let item of this.checkArtists){
+            this.addArtist.artist_id = item;
+            this.eventService.AddArtist(this.Event.id,this.addArtist).
+                subscribe((res)=>{
+                    console.log(`add artist`,item);
+                });
+        }
+        
+    }
+
+    addArtistCheck(id){
+        let index = this.checkArtists.indexOf(id);
+        if (index < 0)
+            this.checkArtists.push(id);
+        else 
+            this.checkArtists.splice(index,1);
+        console.log(this.checkArtists);
+    }
+
+    ifCheckedArtist(id){
+        if(this.checkArtists.indexOf(id)<0) return false;
+            else return true;
+    }
+
     maskNumbers(){
         return {
           mask: [/[1-9]/,/[0-9]/,/[0-9]/,/[0-9]/,/[0-9]/,/[0-9]/,/[0-9]/,/[0-9]/,/[0-9]/,/[0-9]/],
           keepCharPositions: true,
           guide:false
         };
-      }
+    }
+
+
+    artistSearch($event?:string){
+       if($event) this.searchArtist = $event;
+
+        this.accService.AccountsSearch({'type':'artist','text':this.searchArtist,'genres':this.genreService.GenreModelArrToStringArr(this.genresSearchArtist)}).
+            subscribe((res)=>{
+                this.artistsList = this.deleteDuplicateArtists(res);
+                console.log(`artists`,this.artistsList);
+                this.getArtistListImages();
+        });
+    }
+
+    deleteDuplicateArtists(a:AccountGetModel[]){
+        for (var q=1, i=1; q<a.length; ++q) {
+            if (a[q].id !== a[q-1].id) {
+              a[i++] = a[q];
+            }
+          }
+        
+          a.length = i;
+          return a;
+    }
+
+    getArtistListImages(){
+        for(let item of this.artistsList)
+            if(item.image_id){
+                this.imgService.GetImageById(item.image_id)
+                    .subscribe((res:Base64ImageModel)=>{
+                        item.image_base64_not_given = res.base64;
+                });
+            }
+    }
+
+
+    PriceArtistChanged(data:any){
+        this.addArtist.estimated_price = data.from;
+    }
+
+    sliceName(text:string){
+        if(text)
+            if(text.length<15) return text;
+            else return text.slice(0,14)+'...';
+    }
+    sliceGenres(mas:string[]){
+        if(mas)
+            if(mas.length<4)return mas;
+            else return mas.slice(0,3)+'...';
+    }
   
 
     

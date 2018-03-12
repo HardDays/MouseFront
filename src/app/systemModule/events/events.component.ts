@@ -48,7 +48,7 @@ export class EventsComponent extends BaseComponent implements OnInit {
             max: 10000,
             from: 0,
             hide_min_max: false,
-            prefix: "$ ",
+            prefix: " ",
             grid: false,
             prettify_enabled: true,
             prettify_separator: ',',

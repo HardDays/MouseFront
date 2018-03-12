@@ -1054,18 +1054,12 @@
                 <h3 class="head-m-p-a">Add Artist</h3>
                 <div class="for-slideing-wr">
                     <div class="content-bodal input-groupe-1">
-                        <input class="search" type="text" placeholder="Search">
+                        <input class="search" (input)="artistSearch($event.target.value)" type="text" placeholder="Search">
                         <div class="flex-genres for-pick">
-                            <!--Добавляем класс picked-->
-                            <span class="one-genre picked">HIP HOP</span>
-                            <span class="one-genre picked">HIP HOP</span>
-                            <span class="one-genre">HIP HOP</span>
-                            <span class="one-genre">HIP HOP</span>
-                            <span class="one-genre">HIP HOP</span>
-                            <span class="one-genre">HIP HOP</span>
-                            <span class="one-genre">HIP HOP</span>
-                            <span class="one-genre">HIP HOP</span>
-                            <span class="one-genre">HIP HOP</span>
+                             <!--Добавляем класс picked-->
+                             <ng-container *ngFor="let item of genresSearchArtist; let i = index">
+                                <span *ngIf="item.show" (click)="item.checked = !item.checked; artistSearch()" class="one-genre" [ngClass]="{picked:item.checked}">{{item.genre_show}}</span>
+                            </ng-container>
                         </div>
                     </div>
                     <div class="flex-range-slider">
@@ -1092,23 +1086,25 @@
                 </div>
                 <div class="for-padd-cards-art">
                     <div class="scroll-cards-art">
-                        <div class="one-card">
+
+                        <div *ngFor="let item of artistsList; let i = index" class="one-card">
                             <div class="l-s">
-                                <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                                <div class="ava"  [ngStyle]="{'background-image': item.image_base64_not_given?'url('+item.image_base64_not_given+')':''}"></div>
                                 <div class="desc">
-                                    <a class="name" href="#">Stanislav Galynya</a>
-                                    <p class="genres">Pop, singer/song writer</p>
-                                    <p class="where">New York, NY USA</p>
+                                    <a class="name" [routerLink]="['/system/profile',item.id]">{{item.display_name?sliceName(item.display_name):sliceName(item.user_name)}}</a>
+                                    <p class="genres">{{sliceGenres(item.genres)}}</p>
+                                    <p class="where">{{item.address}}</p>
                                 </div>
                             </div>
                             <div class="r-s">
                                <div class="circle-checkbox gray-border">
-                                    <input type="checkbox" class="checkbox" name="" id="checkbox-1">
-                                    <label class="label-wr" for="checkbox-1"></label>
+                                    <input type="checkbox" [checked]="ifCheckedArtist(item.id)" class="checkbox" (click)="addArtistCheck(item.id)" name="" id="checkbox-{{i}}">
+                                    <label class="label-wr" for="checkbox-{{i}}"></label>
                                 </div>
                             </div>
                         </div>
-                        <div class="one-card">
+
+                        <!-- <div class="one-card">
                             <div class="l-s">
                                 <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
                                 <div class="desc">
@@ -1203,15 +1199,15 @@
                                     <label class="label-wr" for="checkbox-7"></label>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="buttons-wrapp-add-inv">
                     <!--можете баттоном или span. как удобнее-->
-                    <button class="butt-style-1" type="submit">
+                    <button class="butt-style-1" type="submit" (click)="addNewArtist()">
                         <span>Add to Active</span>
                     </button>
-                    <span class="second-button-inv">Artist Invite</span>
+                    <!-- <span class="second-button-inv">Artist Invite</span> -->
                 </div>
 
             </div>
