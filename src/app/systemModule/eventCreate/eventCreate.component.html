@@ -83,7 +83,8 @@
                                     
                                     <div class="rel-wr">
                                         <span class="abs-backs">$</span>
-                                        <input formControlName="funding_goal" id="inp-create-5" class="dollar" name="" type="text">
+    
+                                        <input formControlName="funding_goal" [textMask]="maskNumbers()" id="inp-create-5" class="dollar" name="" type="text">
                                     </div>
                                     <label for="inp-create-5">Funding Goal</label>
                                     

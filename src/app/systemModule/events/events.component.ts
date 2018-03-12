@@ -35,8 +35,38 @@ export class EventsComponent extends BaseComponent implements OnInit {
     ngOnInit()
     {   
         this.GetEvents();
-  
+
         this.openSearch();
+        this.initSlider();
+    }
+
+    initSlider(){
+        let _the = this;
+        var price_slider = $(".current-slider").ionRangeSlider({
+            type:"double",
+            min: 10,
+            max: 10000,
+            from: 0,
+            hide_min_max: false,
+            prefix: "$ ",
+            grid: false,
+            prettify_enabled: true,
+            prettify_separator: ',',
+            grid_num: 5,
+            onChange: function(data)
+            {
+              _the.PriceChanged(data);
+            }
+        });
+    }
+
+    PriceChanged(data:any)
+    {
+    //   if(data.from && this.SearchParams.price_from != data.from)
+    //     this.SearchParams.price_from = data.from;
+    //   if(data.to && this.SearchParams.price_to != data.to)  
+    //     this.SearchParams.price_to = data.to;
+        console.log(`data`,data);
     }
 
     GetEvents()

@@ -1,5 +1,4 @@
-<!-- если кол-во артистов меньше 4 - добавить style="padding-bottom:250px"  -->
-<div class="nav-holder-3" id="nav-holder" >
+<div class="nav-holder-3" id="nav-holder" [ngClass]="{padding250:Events.length<=3}">
     <div class="wrapp-for-filter">
         <form>
             <input type="text" class="inp-style-1" placeholder="Search">

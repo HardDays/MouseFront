@@ -233,6 +233,14 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             console.log(`Invalid About Form!`);
         }
     }
+
+    maskNumbers(){
+        return {
+          mask: [/[1-9]/,/[0-9]/,/[0-9]/,/[0-9]/,/[0-9]/,/[0-9]/,/[0-9]/,/[0-9]/,/[0-9]/,/[0-9]/],
+          keepCharPositions: true,
+          guide:false
+        };
+      }
   
 
     
