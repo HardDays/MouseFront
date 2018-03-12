@@ -88,24 +88,23 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                
              let autocomplete = new google.maps.places.Autocomplete(this.searchElementFrom.nativeElement, {types:[`(cities)`]});
             
-              autocomplete.addListener("place_changed", () => {
-               this.ngZone.run(() => {
-               let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
-               if(place.geometry === undefined || place.geometry === null ){
-                
-                return;
-               }
-               else {
-                  this.newEvent.address = autocomplete.getPlace().formatted_address;
-
-                // this.newEvent.city_lat=autocomplete.getPlace().geometry.location.toJSON().lat;
-                // this.newEvent.city_lng=autocomplete.getPlace().geometry.location.toJSON().lng;
-
-               }
-              });
-              });
+                autocomplete.addListener("place_changed", () => {
+                    this.ngZone.run(() => {
+                        let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
+                        if(place.geometry === undefined || place.geometry === null )
+                        {             
+                            return;
+                        }
+                        else 
+                        {
+                            this.newEvent.address = autocomplete.getPlace().formatted_address;
+                            // this.newEvent.city_lat=autocomplete.getPlace().geometry.location.toJSON().lat;
+                            // this.newEvent.city_lng=autocomplete.getPlace().geometry.location.toJSON().lng;
+                        }
+                    });
+                });
             }
-               );
+        );
     
     
     }
@@ -212,22 +211,21 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                 this.newEvent.is_crowdfunding_event = false;
 
             
-            this.newEvent.genres = [];
-                for(let g of this.genres)
-                    if(g.checked) this.newEvent.genres.push(g.genre);
+            this.newEvent.genres = this.genreService.GenreModelArrToStringArr(this.genres);
+            // for(let g of this.genres)
+            //     if(g.checked) this.newEvent.genres.push(g.genre);
 
 
             console.log(`newEvent`,this.newEvent);
 
-            this.eventService.CreateEvent(this.newEvent).
-                subscribe((res)=>{
+            this.eventService.CreateEvent(this.newEvent)
+                .subscribe((res)=>{
                         console.log(`create`,res);
                     },
                     (err)=>{
                         console.log(`err`,err);
                     }
                 );
-
         }
         else {
             console.log(`Invalid About Form!`);
