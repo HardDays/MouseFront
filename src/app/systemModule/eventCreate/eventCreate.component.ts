@@ -30,6 +30,7 @@ import { AuthService } from "angular2-social-login";
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { ArtistAddToEventModel } from '../../core/models/artistAddToEvent.model';
 import { EventGetModel } from '../../core/models/eventGet.model';
+import { AccountSearchModel } from '../../core/models/accountSearch.model';
 
 
 
@@ -295,8 +296,13 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
     artistSearch($event?:string){
        if($event) this.searchArtist = $event;
+        
+       var accSearch:AccountSearchModel = new AccountSearchModel();
+       accSearch.type = 'artist';
+       accSearch.text = this.searchArtist;
+       accSearch.genres = this.genreService.GenreModelArrToStringArr(this.genresSearchArtist);
 
-        this.accService.AccountsSearch({'type':'artist','text':this.searchArtist,'genres':this.genreService.GenreModelArrToStringArr(this.genresSearchArtist)}).
+        this.accService.AccountsSearch(accSearch).
             subscribe((res)=>{
                 this.artistsList = this.deleteDuplicateArtists(res);
                 console.log(`artists`,this.artistsList);
