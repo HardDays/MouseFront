@@ -220,12 +220,42 @@
                     <!-- "p.s. наш любимый *ngIf"-->
                     <div class="tab-artist">
                         <div class="flex-wrapp-cards">
-                            <div class="one-card">
+
+
+
+
+                                <div *ngFor="let item of showsArtists; let i = index" class="one-card">
+                                        <div class="card">
+                                            <div class="delete-card"></div>
+                                            <div class="left-side">
+                                                <!--если есть галочка - добавляем класс checked   [class.checked]="Event.artist[item.id].status == 'pending'"-->
+                                                <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                                                <p class="desc-head-info">status</p>
+                                                <p class="status">Accepted by Artist and Event owner</p>
+                                            </div>
+                                            <div class="right-side">
+                                                <p class="name">{{item.user_name}}</p>
+                                                <p class="desc-head-info">Genre</p>
+                                                <p class="info">{{item.genres}}</p>
+                                                <p class="desc-head-info">Location</p>
+                                                <p class="info">{{item.address}}</p>
+                                                <div class="flex-buttons">
+                                                    <span class="button-card">accept</span>
+                                                    <span class="button-card">Decline</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                            <!-- <div class="one-card">
                                 <div class="card">
                                     <div class="delete-card"></div>
                                     <div class="left-side">
-                                        <!--если есть галочка - добавляем класс checked-->
-                                        <div class="ava checked" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                                        если есть галочка - добавляем класс checked
+                                         <div class="ava checked" style="background-image: url(../../assets/img/drake.jpg)"></div>
                                         <p class="desc-head-info">status</p>
                                         <p class="status">Accepted by Artist and Event owner</p>
                                     </div>
@@ -240,9 +270,9 @@
                                             <span class="button-card">Decline</span>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="one-card">
+                                </div> -->
+                            <!-- </div> --> 
+                            <!-- <div class="one-card">
                                 <div class="card">
                                     <div class="delete-card"></div>
                                     <div class="left-side">
@@ -262,7 +292,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             
                             <!--для добавления артиста-->
                             <div class="one-card">

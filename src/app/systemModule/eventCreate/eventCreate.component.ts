@@ -66,7 +66,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     showMoreGenres:boolean = false;
 
     
-
+    showsArtists:AccountGetModel[] = [];
     addArtist:ArtistAddToEventModel = new ArtistAddToEventModel();
     genresSearchArtist:GenreModel[] = [];
     artistsList:AccountGetModel[] = [];
@@ -94,6 +94,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         this.initSlider();
         this.getGenres();
         this.initUser();
+        // this.updateEvent();
     }
 
     CreateAutocomplete(){
@@ -258,17 +259,63 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
     addNewArtist(){
         this.addArtist.id = this.Event.id;
+
         console.log(`new artist: `,this.addArtist);
         console.log(`checked`,this.checkArtists);
 
+        this.addArtist.id = 32;
         for(let item of this.checkArtists){
             this.addArtist.artist_id = item;
             this.eventService.AddArtist(this.Event.id,this.addArtist).
                 subscribe((res)=>{
                     console.log(`add artist`,item);
+                    this.updateEvent();
                 });
         }
         
+    }
+
+    updateEvent(){
+        // this.Event.id = 32;
+        this.eventService.GetEventById(this.Event.id).
+            subscribe((res:EventGetModel)=>{
+                this.Event = res;
+                
+                this.getShowsArtists();
+        });
+    }
+
+    getShowsArtists(){
+        this.showsArtists = [];
+        for(let artist of this.Event.artist){
+
+            this.accService.GetAccountById(artist.artist_id).
+                subscribe((res:AccountGetModel)=>{
+                   if(this.isNewArtist( this.showsArtists,res))
+                        this.showsArtists.push(res)
+                    // this.showsArtists = this.deleteDuplicateArtists(this.showsArtists);
+                    console.log(`SHOW ARTISTS`, this.showsArtists);
+            });
+            
+        }
+    }
+    isNewArtist(mas:any[],val:any){
+        for(let i=0;i<mas.length;i++)
+            if(mas[i].id==val.id) return false;
+        return true;
+    }
+
+    getShowsArtistsTEST(){
+       
+        this.showsArtists = [];
+        for(let artist of this.Event.artist){
+            this.accService.GetAccountById(artist.artist_id).
+                subscribe((res:AccountGetModel)=>{
+                     this.showsArtists.push(res);
+                    console.log(`SHOW ARTISTS`, this.showsArtists);
+                });
+        }
+         this.showsArtists = this.deleteDuplicateArtists(this.showsArtists);
     }
 
     addArtistCheck(id){
