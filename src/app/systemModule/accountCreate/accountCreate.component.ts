@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { NgForm,FormControl} from '@angular/forms';
 import { AuthMainService } from '../../core/services/auth.service';
 
@@ -15,6 +15,15 @@ import { AccountGetModel } from '../../core/models/accountGet.model';
 import { Base64ImageModel } from '../../core/models/base64image.model';
 import { AccountType } from '../../core/base/base.enum';
 import { GenreModel } from '../../core/models/genres.model';
+import { AccountService } from '../../core/services/account.service';
+import { ImagesService } from '../../core/services/images.service';
+import { TypeService } from '../../core/services/type.service';
+import { GenresService } from '../../core/services/genres.service';
+import { EventService } from '../../core/services/event.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from 'angular2-social-login';
+import { MapsAPILoader } from '@agm/core';
 
 
 @Component({
@@ -50,24 +59,42 @@ export class AccountCreateComponent extends BaseComponent implements OnInit {
     Error:string = '';
   
     @ViewChild('submitFormUsr') form: NgForm;
+    @ViewChild('search') public searchElement: ElementRef;
     
+    constructor(protected authService: AuthMainService,
+      protected accService:AccountService,
+      protected imgService:ImagesService,
+      protected typeService:TypeService,
+      protected genreService:GenresService,
+      protected eventService:EventService,
+      protected _sanitizer: DomSanitizer,
+      protected router: Router,public _auth: AuthService,
+      private mapsAPILoader: MapsAPILoader, 
+      private activatedRoute: ActivatedRoute,
+      private ngZone: NgZone){
+  super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,_auth);
+  }
+  
     ngOnInit()
     {
       this.bsValue_start = [new Date()];
       this.bsValue_end = [new Date()];
       this.Account.dates = [new EventDateModel()];
+      this.Account.emails = [new ContactModel()];
       this.Account.office_hours = [new WorkingTimeModel()];
       this.VenueTypes = this.typeService.GetAllVenueTypes();
       this.AccountTypes = this.typeService.GetAllAccountTypes();
       this.LocationTypes = this.typeService.GetAllLocationTypes();
       this.BookingNotice = this.typeService.GetAllBookingNotices();
+      this.OfficeDays = this.Account.office_hours?this.accService.GetFrontWorkingTimeFromTimeModel(this.Account.office_hours):this.typeService.GetAllDays();
+      this.OperatingDays = this.Account.operating_hours?this.accService.GetFrontWorkingTimeFromTimeModel(this.Account.operating_hours):this.typeService.GetAllDays();
       //this.Account.emails = [new ContactModel()];
-      if(this.Account.account_type != this.Roles.Venue) {
-        this.genreService.GetAllGenres()
-          .subscribe((genres:string[])=> {
-            this.Genres = this.genreService.GetGendreModelFromString(this.Account.genres, this.genreService.StringArrayToGanreModelArray(genres));
-          });
-      }
+      this.genreService.GetAllGenres()
+        .subscribe((genres:string[])=> {
+          this.Genres = this.genreService.GetGendreModelFromString(this.Account.genres, this.genreService.StringArrayToGanreModelArray(genres));
+        });
+
+      this.CreateAutocomplete();
     }
    
   
@@ -80,12 +107,10 @@ export class AccountCreateComponent extends BaseComponent implements OnInit {
       this.OfficeDays = usr.office_hours?this.accService.GetFrontWorkingTimeFromTimeModel(usr.office_hours):this.typeService.GetAllDays();
       this.OperatingDays = usr.operating_hours?this.accService.GetFrontWorkingTimeFromTimeModel(usr.operating_hours):this.typeService.GetAllDays();
       this.UserId = usr.id?usr.id:0;
-      if(this.Account.account_type != this.Roles.Venue) {
-        this.genreService.GetAllGenres()
-          .subscribe((genres:string[])=> {
-            this.Genres = this.genreService.GetGendreModelFromString(this.Account.genres, this.genreService.StringArrayToGanreModelArray(genres));
-          });
-      }
+      this.genreService.GetAllGenres()
+        .subscribe((genres:string[])=> {
+          this.Genres = this.genreService.GetGendreModelFromString(this.Account.genres, this.genreService.StringArrayToGanreModelArray(genres));
+        });
       if(usr.image_id){
           this.imgService.GetImageById(usr.image_id)
               .subscribe((res:Base64ImageModel)=>{
@@ -114,13 +139,15 @@ export class AccountCreateComponent extends BaseComponent implements OnInit {
       console.log("CR", this.Account);
       this.accService.CreateAccount(JSON.stringify(this.Account))
       .subscribe((res:any)=>{
+          console.log("res", res);
           this.InitByUser(res);
           this.isLoading = false;
           this.accService.onAuthChange$.next(true);
       },
       (err:any)=>{
+        console.log(err);
         if(err = 422)
-            
+
         console.log(err);
           
       })
@@ -135,6 +162,29 @@ export class AccountCreateComponent extends BaseComponent implements OnInit {
     }
   }
 
+  CreateAutocomplete(){
+    this.mapsAPILoader.load().then(
+        () => {
+           
+         let autocomplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement, {types:[`(cities)`]});
+        
+          autocomplete.addListener("place_changed", () => {
+           this.ngZone.run(() => {
+           let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
+           if(place.geometry === undefined || place.geometry === null ){
+            
+            return;
+           }
+           else {
+              this.Account.address = autocomplete.getPlace().formatted_address;
+           }
+          });
+        });
+      }
+    );
+
+
+  }
   getMask(item:WorkingTimeModel){
       return {
           mask: [/[0-2]/, item && item.begin_time && parseInt(item.begin_time.toString()) > 1 ? /[0-3]/ : /\d/, ':', /[0-5]/, /\d/],
@@ -236,4 +286,14 @@ CategoryChanged($event:string){
     console.log("event",$event);
   }
 
+
+
+  MaskTelephone(){
+    return {
+      // mask: ['+',/[1-9]/,' (', /[1-9]/, /\d/, /\d/, ') ',/\d/, /\d/, /\d/, '-', /\d/, /\d/,'-', /\d/, /\d/],
+      mask: ['+',/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/],
+      keepCharPositions: true,
+      guide:false
+    };
+  }
 }

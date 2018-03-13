@@ -2,7 +2,7 @@
         <div class="register">
             <div class="m-v-reg">
                 <form class="reg-wr" (ngSubmit)="CreateUser()" #submitFormUsr="ngForm">
-                    <h3>Edit profile</h3>
+                    <h3>Create Account</h3>
                     <div class="for-flex">
                         <div class="photo-wr-1">
                             <label  *ngIf="!Account.image_base64" class="file_upload">
@@ -15,8 +15,8 @@
                            
                         </div>
                         <div class="side left-side">
-                            <input name="phone" class="inp-style-2" type="text" placeholder="Phone" [ngModel]="Account.phone" (ngModelChange)="Account.phone = $event">
-                            <input name="address" class="inp-style-2" type="text" placeholder="Address" [ngModel]="Account.address" (ngModelChange)="Account.address = $event">
+                            <input name="phone" [textMask]="MaskTelephone()" class="inp-style-2" type="text" placeholder="Phone" [ngModel]="Account.phone" (ngModelChange)="Account.phone = $event">
+                            <input type="text" class="date-picker-inp" name="search-params-address" autocorrect="off" autocapitalize="off" spellcheck="off" placeholder=""  #search>
                             <input name="capacity" *ngIf="Account.account_type == Roles.Venue" class="inp-style-2" type="number" min="0" placeholder="Capacity" [ngModel]="Account.capacity" (ngModelChange)="Account.capacity = $event">
                             <input name="number_of_bathrooms" *ngIf="Account.account_type == Roles.Venue" ngModel class="inp-style-2" type="number" min="0" placeholder="Number of bathrooms" [ngModel]="Account.num_of_bathrooms" (ngModelChange)="Account.num_of_bathrooms = $event">
                             <input name="min_age" *ngIf="Account.account_type == Roles.Venue" ngModel class="inp-style-2" type="number" min="0" placeholder="Minimal age" [ngModel]="Account.min_age" (ngModelChange)="Account.min_age = $event">
@@ -37,7 +37,7 @@
     
     
                         <div class="edit-and-settings">
-                                <button [routerLink]="['/system','profile']" class="butt-style-1">Back to profile</button>
+                                <button [routerLink]="['/system','shows']" class="butt-style-1">Back to the main menu</button>
                             </div>
     
                         <div class="side right-side">
@@ -73,8 +73,8 @@
                         </div>
                         
                     </div>
-                    <div *ngIf="Account.account_type == Roles.Fan">
-                        <h3 class="marg30">select your favourite genres</h3>
+                    <div>
+                        <h3 class="marg30">Select your favourite genres</h3>
                         <div class="search-wr">
                                 <input type="text" class="inp-style-1" (input)="CategoryChanged($event.target.value)"  placeholder="Search">
                             </div>

@@ -21,7 +21,7 @@ export class AccountCreateModel{
         public capacity?: number,
         public num_of_bathrooms?: number,
         public min_age?: number,
-        public venue_type?: number,
+        public venue_type?: string,
         public has_bar?: boolean,
         public located?: string,
         public dress_code?: string,

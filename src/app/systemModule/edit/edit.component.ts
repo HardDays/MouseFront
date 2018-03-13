@@ -100,7 +100,7 @@ export class EditComponent extends BaseComponent implements OnInit {
           }
           this.accService.GetAccountById(this.UserId, {extended:true})
             .subscribe((user:any)=>{
-              console.log(user);
+              console.log("A", user);
                 this.InitByUser(user);
             })
         });
@@ -122,6 +122,7 @@ export class EditComponent extends BaseComponent implements OnInit {
   
     InitByUser(usr:any){  
       this.Account = this.accService.AccountModelToCreateAccountModel(usr);
+      this.Account.venue_type = "public_venue";
       for(let i in this.Account.dates) {
         this.bsValue_start[i] = new Date(this.Account.dates[i].begin_date);
         this.bsValue_end[i] = new Date(this.Account.dates[i].end_date);
@@ -129,12 +130,10 @@ export class EditComponent extends BaseComponent implements OnInit {
       this.OfficeDays = usr.office_hours?this.accService.GetFrontWorkingTimeFromTimeModel(usr.office_hours):this.typeService.GetAllDays();
       this.OperatingDays = usr.operating_hours?this.accService.GetFrontWorkingTimeFromTimeModel(usr.operating_hours):this.typeService.GetAllDays();
       this.UserId = usr.id?usr.id:0;
-      if(this.Account.account_type != this.Roles.Venue) {
-        this.genreService.GetAllGenres()
-          .subscribe((genres:string[])=> {
-            this.Genres = this.genreService.GetGendreModelFromString(this.Account.genres, this.genreService.StringArrayToGanreModelArray(genres));
-          });
-      }
+      this.genreService.GetAllGenres()
+        .subscribe((genres:string[])=> {
+          this.Genres = this.genreService.GetGendreModelFromString(this.Account.genres, this.genreService.StringArrayToGanreModelArray(genres));
+        });
       if(usr.image_id){
           this.imgService.GetImageById(usr.image_id)
               .subscribe((res:Base64ImageModel)=>{
@@ -151,10 +150,8 @@ export class EditComponent extends BaseComponent implements OnInit {
       this.Account.operating_hours = this.accService.GetWorkingTimeFromFront(this.OperatingDays);
       this.Account.emails = this.typeService.ValidateArray(this.Account.emails);
       this.Account.genres = [];
-      if(this.Account.account_type != this.Roles.Venue) {
-        for(let g of this.Genres)
-          if(g.checked) this.Account.genres.push(g.genre);
-      }
+      for(let g of this.Genres)
+        if(g.checked) this.Account.genres.push(g.genre);
       for(let i in this.Account.dates){
         this.Account.dates[i].begin_date = this.bsValue_start[i].getFullYear()+`-`+this.incr(this.bsValue_start[i].getMonth())+`-`+this.bsValue_start[i].getDate();
         this.Account.dates[i].end_date = this.bsValue_end[i].getFullYear()+`-`+this.incr(this.bsValue_end[i].getMonth())+`-`+this.bsValue_end[i].getDate();
@@ -162,6 +159,7 @@ export class EditComponent extends BaseComponent implements OnInit {
       //this.Account.dates = this.typeService.ValidateArray(this.Account.dates);
       this.accService.UpdateMyAccount(this.UserId, JSON.stringify(this.Account))
       .subscribe((res:any)=>{
+          console.log("res", res);
           this.InitByUser(res);
           this.isLoading = false;
           this.accService.onAuthChange$.next(true);
@@ -314,5 +312,13 @@ CategoryChanged($event:string){
     );
 
 
+  }
+  MaskTelephone(){
+    return {
+      // mask: ['+',/[1-9]/,' (', /[1-9]/, /\d/, /\d/, ') ',/\d/, /\d/, /\d/, '-', /\d/, /\d/,'-', /\d/, /\d/],
+      mask: ['+',/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/],
+      keepCharPositions: true,
+      guide:false
+    };
   }
 }
