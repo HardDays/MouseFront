@@ -68,7 +68,7 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
         $("body").removeClass("has-active-menu");
         $(".mainWrapper").removeClass("has-push-left");
         $(".nav-holder-3").removeClass("is-active");
-        $(".mask-nav-3").removeClass("is-active")
+        $(".mask-nav-3").removeClass("is-active");
     });
     let _the = this;
     var price_slider = $(".price-slider").ionRangeSlider({
@@ -112,7 +112,7 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
 
   GetAccounts()
   {
-    this.PaseSearchParams();
+    this.ParseSearchParams();
     this.accService.AccountsSearch(this.SearchParams)
     .subscribe((res:AccountGetModel[])=>{
       this.Accounts = res;
@@ -162,7 +162,7 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
       this.SearchParams.capacity_to = data.to;
   }
 
-  PaseSearchParams()
+  ParseSearchParams()
   {
     if(this.SearchParams.type)
     {

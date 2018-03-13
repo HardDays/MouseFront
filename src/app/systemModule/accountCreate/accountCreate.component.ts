@@ -135,17 +135,17 @@ export class AccountCreateComponent extends BaseComponent implements OnInit {
         this.Account.dates[i].begin_date = this.bsValue_start[i].getFullYear()+`-`+this.incr(this.bsValue_start[i].getMonth())+`-`+this.bsValue_start[i].getDate();
         this.Account.dates[i].end_date = this.bsValue_end[i].getFullYear()+`-`+this.incr(this.bsValue_end[i].getMonth())+`-`+this.bsValue_end[i].getDate();
       }
+      //this.Account.venue_type = "public_venue";
       //this.Account.dates = this.typeService.ValidateArray(this.Account.dates);
       console.log("CR", this.Account);
       this.accService.CreateAccount(JSON.stringify(this.Account))
       .subscribe((res:any)=>{
-          console.log("res", res);
+          console.log("RES", res);
           this.InitByUser(res);
           this.isLoading = false;
           this.accService.onAuthChange$.next(true);
       },
       (err:any)=>{
-        console.log(err);
         if(err = 422)
 
         console.log(err);

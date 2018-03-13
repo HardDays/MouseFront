@@ -3,6 +3,9 @@ import { Subject } from "rxjs";
 import { HttpService } from "./http.service";
 import { Router } from "@angular/router";
 import { TypeService } from "./type.service";
+import { AccountCreateModel } from "../models/accountCreate.model";
+import { EventCreateModel } from "../models/eventCreate.model";
+import { ArtistAddToEventModel } from "../models/artistAddToEvent.model";
 
 @Injectable()
 export class EventService{
@@ -19,6 +22,18 @@ export class EventService{
     GetAllEvents(){
         return this.http.CommonRequest(
             ()=> this.http.GetData('/events.json',"")
+        );
+    }
+    
+    CreateEvent(params:EventCreateModel){
+        return this.http.CommonRequest(
+            () => this.http.PostData('/events.json',JSON.stringify(params))
+        );
+    }
+
+    AddArtist(id:number,artist:ArtistAddToEventModel){
+        return this.http.CommonRequest(
+            () => this.http.PostData('/events/'+id+'/artist.json',JSON.stringify(artist))
         );
     }
 
