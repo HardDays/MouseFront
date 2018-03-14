@@ -228,15 +228,15 @@
                                         <div class="card">
                                             <div class="delete-card"></div>
                                             <div class="left-side">
-                                                <!--если есть галочка - добавляем класс checked   [class.checked]="Event.artist[item.id].status == 'pending'"-->
-                                                <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                                                <p class="desc-head-info">status</p>
+                                                <!--если есть галочка - добавляем класс checked   -->
+                                                <div class="ava" [class.checked]="getStatusArtistEventById(item.id) != 'pending'" [ngStyle]="{'background-image': item.image_base64_not_given?'url('+item.image_base64_not_given+')':''}"></div>
+                                                <p class="desc-head-info">{{getStatusArtistEventById(item.id)}}</p>
                                                 <p class="status">Accepted by Artist and Event owner</p>
                                             </div>
                                             <div class="right-side">
                                                 <p class="name">{{item.user_name}}</p>
                                                 <p class="desc-head-info">Genre</p>
-                                                <p class="info">{{item.genres}}</p>
+                                                <p class="info">{{ toBeatyShowsList(item.genres)}}</p>
                                                 <p class="desc-head-info">Location</p>
                                                 <p class="info">{{item.address}}</p>
                                                 <div class="flex-buttons">

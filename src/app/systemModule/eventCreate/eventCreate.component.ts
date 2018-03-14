@@ -60,18 +60,26 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                                             Validators.pattern("[0-9]+")])
     });
 
-    newEvent:EventCreateModel = new EventCreateModel();
+    // general
     Event:EventGetModel = new EventGetModel();
     genres:GenreModel[] = [];
+
+    // about
+    newEvent:EventCreateModel = new EventCreateModel();
     showMoreGenres:boolean = false;
 
+
+    //artists
+
+    showsArtists:AccountGetModel[] = []; // список артистов, которым отправлен запрос
+
+    addArtist:ArtistAddToEventModel = new ArtistAddToEventModel(); // артист, которому отправляется запрос
+    genresSearchArtist:GenreModel[] = []; // список жанров для поиска артистов
+    searchArtist:string=''; // имя артиста для поиска
+    artistsList:AccountGetModel[] = []; // артисты, которые удовлятворяют поиску
+    checkArtists:number[] = []; // id чекнутых артистов, т.е. тех, которым мы отправим запрос
+   
     
-    showsArtists:AccountGetModel[] = [];
-    addArtist:ArtistAddToEventModel = new ArtistAddToEventModel();
-    genresSearchArtist:GenreModel[] = [];
-    artistsList:AccountGetModel[] = [];
-    searchArtist:string='';
-    checkArtists:number[] = [];
 
     @ViewChild('search') public searchElementFrom: ElementRef;
 
@@ -94,7 +102,6 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         this.initSlider();
         this.getGenres();
         this.initUser();
-        // this.updateEvent();
     }
 
     CreateAutocomplete(){
@@ -236,8 +243,6 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
             
             this.newEvent.genres = this.genreService.GenreModelArrToStringArr(this.genres);
-            // for(let g of this.genres)
-            //     if(g.checked) this.newEvent.genres.push(g.genre);
 
 
             console.log(`newEvent`,this.newEvent);
@@ -257,13 +262,13 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         }
     }
 
+
     addNewArtist(){
         this.addArtist.id = this.Event.id;
 
         console.log(`new artist: `,this.addArtist);
         console.log(`checked`,this.checkArtists);
 
-        this.addArtist.id = 32;
         for(let item of this.checkArtists){
             this.addArtist.artist_id = item;
             this.eventService.AddArtist(this.Event.id,this.addArtist).
@@ -275,8 +280,9 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         
     }
 
+
+
     updateEvent(){
-        // this.Event.id = 32;
         this.eventService.GetEventById(this.Event.id).
             subscribe((res:EventGetModel)=>{
                 this.Event = res;
@@ -292,32 +298,54 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             this.accService.GetAccountById(artist.artist_id).
                 subscribe((res:AccountGetModel)=>{
                    if(this.isNewArtist( this.showsArtists,res))
-                        this.showsArtists.push(res)
-                    // this.showsArtists = this.deleteDuplicateArtists(this.showsArtists);
-                    console.log(`SHOW ARTISTS`, this.showsArtists);
+                        {
+                            this.showsArtists.push(res);
+                            console.log(`SHOW ARTISTS`, this.showsArtists);
+
+                            if(res.image_id){
+                                console.log(`get image `, res.image_id);
+                                this.imgService.GetImageById(res.image_id)
+                                    .subscribe((img:Base64ImageModel)=>{
+                                        console.log(`get image success`, img.base64);
+                                        res.image_base64_not_given = img.base64;
+                                    },
+                                    (err)=>{
+                                        console.log(`err img`,err);
+                                    });
+                            }
+                    }
+
             });
             
         }
+
     }
+
+    getStatusArtistEventById(id:number){
+        
+        for(let art of this.Event.artist)
+            if(art.artist_id == id) return art.status;
+        
+        return 'not found artist';
+    }
+
+    getShowsArtistsImages(){
+        for(let item of this.showsArtists)
+            if(item.image_id){
+                this.imgService.GetImageById(item.image_id)
+                    .subscribe((res:Base64ImageModel)=>{
+                        item.image_base64_not_given = res.base64;
+                });
+            }
+    }
+
     isNewArtist(mas:any[],val:any){
         for(let i=0;i<mas.length;i++)
             if(mas[i].id==val.id) return false;
         return true;
     }
 
-    getShowsArtistsTEST(){
-       
-        this.showsArtists = [];
-        for(let artist of this.Event.artist){
-            this.accService.GetAccountById(artist.artist_id).
-                subscribe((res:AccountGetModel)=>{
-                     this.showsArtists.push(res);
-                    console.log(`SHOW ARTISTS`, this.showsArtists);
-                });
-        }
-         this.showsArtists = this.deleteDuplicateArtists(this.showsArtists);
-    }
-
+    
     addArtistCheck(id){
         let index = this.checkArtists.indexOf(id);
         if (index < 0)
@@ -392,6 +420,17 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         if(mas)
             if(mas.length<4)return mas;
             else return mas.slice(0,3)+'...';
+    }
+
+    toBeatyShowsList( mas:any[]){
+        let list: string = '';
+        for(let item of mas)
+            list+= item.toUpperCase()+", ";
+        let answer = '';
+        for(let i=0;i<list.length-2;i++)
+            if(list[i]!="_") answer += list[i];
+            else answer += " ";
+        return answer;
     }
   
 
