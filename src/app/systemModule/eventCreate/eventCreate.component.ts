@@ -273,7 +273,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
         for(let item of this.checkArtists){
             this.addArtist.artist_id = item;
-            this.eventService.AddArtist(this.Event.id,this.addArtist).
+            this.eventService.AddArtist(this.addArtist).
                 subscribe((res)=>{
                     console.log(`add artist`,item);
                     this.updateEvent();
@@ -315,11 +315,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                                     });
                             }
                     }
-
             });
-            
         }
-
     }
 
     getStatusArtistEventById(id:number){

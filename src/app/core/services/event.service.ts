@@ -36,9 +36,9 @@ export class EventService{
         );
     }
 
-    AddArtist(id:number,artist:ArtistAddToEventModel){
+    AddArtist(artist:ArtistAddToEventModel){
         return this.http.CommonRequest(
-            () => this.http.PostData('/events/'+id+'/artist.json',JSON.stringify(artist))
+            () => this.http.PostData('/events/'+artist.id+'/artist.json',JSON.stringify(artist))
         );
     }
 
