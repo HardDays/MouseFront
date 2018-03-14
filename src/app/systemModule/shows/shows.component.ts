@@ -70,7 +70,7 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
         $(".nav-holder-3").removeClass("is-active");
         $(".mask-nav-3").removeClass("is-active");
     });
-    let _the = this;
+    let _that = this;
     var price_slider = $(".price-slider").ionRangeSlider({
       type:"double",
       min: this.MIN_PRICE,
@@ -84,7 +84,7 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
       grid_num: 5,
       onChange: function(data)
       {
-        _the.PriceChanged(data);
+        _that.PriceChanged(data);
       }
   });
   var capacity_slider = $(".capacity-slider").ionRangeSlider({
@@ -100,7 +100,7 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
     grid_num: 5,
     onChange: function(data)
     {
-      _the.CapacityChanged(data);
+      _that.CapacityChanged(data);
     }
 });
 

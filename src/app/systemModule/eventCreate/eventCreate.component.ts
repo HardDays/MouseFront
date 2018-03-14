@@ -263,8 +263,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             console.log(`Invalid About Form!`);
         }
     }
-
-
+    
     addNewArtist(){
         this.addArtist.id = this.Event.id;
 
@@ -281,8 +280,6 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         }
         
     }
-
-
 
     updateEvent(){
         this.eventService.GetEventById(this.Event.id).
