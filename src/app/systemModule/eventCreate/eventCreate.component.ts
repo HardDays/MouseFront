@@ -46,7 +46,8 @@ declare var ionRangeSlider:any;
 
 export class EventCreateComponent extends BaseComponent implements OnInit {
     
-    step:number = 1;
+    currentPage:string = 'about';
+    showAllPages:boolean = false;
 
     aboutForm : FormGroup = new FormGroup({        
         "name": new FormControl("", [Validators.required]),
@@ -251,6 +252,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                 .subscribe((res)=>{
                         this.Event = res;
                         console.log(`create`,this.Event);
+                        this.currentPage = 'artist';
                     },
                     (err)=>{
                         console.log(`err`,err);
@@ -306,7 +308,6 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                                 console.log(`get image `, res.image_id);
                                 this.imgService.GetImageById(res.image_id)
                                     .subscribe((img:Base64ImageModel)=>{
-                                        console.log(`get image success`, img.base64);
                                         res.image_base64_not_given = img.base64;
                                     },
                                     (err)=>{

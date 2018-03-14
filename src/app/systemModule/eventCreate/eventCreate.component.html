@@ -24,11 +24,14 @@
                         <li>
                             <a href="#" class="nav-second-outlet">preview</a>
                         </li>
+                        <li>
+                            <a (click)="showAllPages = !showAllPages" class="nav-second-outlet">show_all_pages</a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="create-event-body-1">
+        <div  class="create-event-body-1">
             <div class="main-mw">
                 <form [formGroup]="aboutForm">
                 <div class="create-event-body">
@@ -36,7 +39,7 @@
                         <h2>About</h2>
                         <p>Please fill in all required fields <br>to proceed to the Next Step</p>
                     </div>
-                    <div class="flex-body-1">
+                    <div *ngIf="currentPage=='about'||showAllPages" class="flex-body-1">
                         <div class="side">
                             <div class="input-groupe-1 lbl-1">
                                 
@@ -203,7 +206,7 @@
             </div>
             
         </div>
-        <div class="tabs-artist-wrapp">
+        <div *ngIf="currentPage=='artist'||showAllPages" class="tabs-artist-wrapp">
             <div class="main-mw">
                 <ul class="tabs-menu-active-decline">
                     <li>
@@ -330,7 +333,7 @@
                         <p>Please fill in all required fields in<br>the Venue Screen to Add a Funding</p>
                     </div>
                   
-                    <div class="flex-tabs-menu-venue">
+                    <div *ngIf="currentPage=='venue'||showAllPages" class="flex-tabs-menu-venue">
                         <p class="some-text">At first choose residence :)</p>
                         <ul class="v-tabs-menu">
                             <!--теже табы-->
@@ -341,7 +344,7 @@
                 </div>
                 
             </div>
-            <div class="main-mw-5">
+            <div *ngIf="currentPage=='venue'||showAllPages" class="main-mw-5">
                 <div class="tabs-venue-wrapp">
                     <!--теже табы для ngif-->
                     <!--Public Venue-->
@@ -592,7 +595,7 @@
                 </div>
             </div>
         </div>
-        <div class="tabs-artist-wrapp">
+        <div *ngIf="currentPage=='venue'||showAllPages"  class="tabs-artist-wrapp">
             <div class="main-mw">
                 <ul class="tabs-menu-active-decline">
                     <li>
@@ -691,7 +694,7 @@
                     </div>
                 </div>
             </div>
-            <div class="main-mw-5">
+            <div *ngIf="currentPage=='funding'||showAllPages"  class="main-mw-5">
                 <div class="flex-funding-columns">
                     <div class="side">
                         <div class="top-gum">
@@ -854,7 +857,7 @@
                         <p>Сongratulations!<br>This is the last step.</p>
                     </div>
                 </div>
-                <div class="tickets-flex-body">
+                <div  *ngIf="currentPage=='tickets'||showAllPages" class="tickets-flex-body">
                     <div class="left-ticket">
                         <div class="tickets-left-info">
                             <p class="info-text">In Person Tickets Available</p>
