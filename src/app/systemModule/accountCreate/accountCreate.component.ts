@@ -127,15 +127,13 @@ export class AccountCreateComponent extends BaseComponent implements OnInit {
       this.Account.operating_hours = this.accService.GetWorkingTimeFromFront(this.OperatingDays);
       this.Account.emails = this.typeService.ValidateArray(this.Account.emails);
       this.Account.genres = [];
-      if(this.Account.account_type != this.Roles.Venue) {
-        for(let g of this.Genres)
-            if(g.checked) this.Account.genres.push(g.genre);
-      }
+      for(let g of this.Genres)
+          if(g.checked) this.Account.genres.push(g.genre);
       for(let i in this.Account.dates){
         this.Account.dates[i].begin_date = this.bsValue_start[i].getFullYear()+`-`+this.incr(this.bsValue_start[i].getMonth())+`-`+this.bsValue_start[i].getDate();
         this.Account.dates[i].end_date = this.bsValue_end[i].getFullYear()+`-`+this.incr(this.bsValue_end[i].getMonth())+`-`+this.bsValue_end[i].getDate();
       }
-      //this.Account.venue_type = "public_venue";
+      this.Account.venue_type = "public_venue";
       //this.Account.dates = this.typeService.ValidateArray(this.Account.dates);
       console.log("CR", this.Account);
       this.accService.CreateAccount(JSON.stringify(this.Account))
@@ -147,10 +145,7 @@ export class AccountCreateComponent extends BaseComponent implements OnInit {
           this.accService.onAuthChange$.next(true);
       },
       (err:any)=>{
-        if(err = 422)
-
-        console.log(err);
-          
+        this.Error = err;       
       })
     }
   }

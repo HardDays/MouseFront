@@ -100,7 +100,6 @@ export class EditComponent extends BaseComponent implements OnInit {
           }
           this.accService.GetAccountById(this.UserId, {extended:true})
             .subscribe((user:any)=>{
-              console.log("A", user);
                 this.InitByUser(user);
             })
         });

@@ -30,10 +30,15 @@ export class EventService{
             () => this.http.PostData('/events.json',JSON.stringify(params))
         );
     }
-
-    AddArtist(id:number,artist:ArtistAddToEventModel){
+    GetEventById(id:number){
         return this.http.CommonRequest(
-            () => this.http.PostData('/events/'+id+'/artist.json',JSON.stringify(artist))
+            () => this.http.GetData('/events/'+id+'.json',this.typeService.ParamsToUrlSearchParams({'id':id}))
+        );
+    }
+
+    AddArtist(artist:ArtistAddToEventModel){
+        return this.http.CommonRequest(
+            () => this.http.PostData('/events/'+artist.id+'/artist.json',JSON.stringify(artist))
         );
     }
 

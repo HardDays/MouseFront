@@ -7,7 +7,7 @@ export class EventGetModel{
         public funding_from?: string,
         public funding_to?: string,
         public funding_goal?: string,
-        public creator_id?: 42,
+        public creator_id?: number,
         public created_at?: string,
         public updated_at?: string,
         public is_active?: boolean,
@@ -34,9 +34,18 @@ export class EventGetModel{
         public founded?: number,
         public collaborators?: string[],
         public genres?: string[],
-        public artist?: string[],
+        public artist?: GetArtists[],
         public venue?: string[],
         public tickets?: string[]
+    )
+    {}
+}
+
+export class GetArtists{
+    constructor(
+        public artist_id?: number,
+        public reason?: string,
+        public status?: string
     )
     {}
 }
