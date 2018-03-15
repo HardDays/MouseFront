@@ -1,3 +1,8 @@
 .login-register2{
     height: auto;
 }
+
+#user_name {
+    max-width: 400px;
+    word-wrap: break-word;
+}

@@ -16,7 +16,7 @@
                         </div>
                         <div class="name-venue">
                            
-                            <h2>{{Account.user_name}}</h2>
+                            <h2 >{{Account.user_name}}</h2>
                             <a *ngIf="isMyAccount" [routerLink]="['/system/edit',UserId]" class="settings"></a>
                         </div>
                         <div class="oficial-page">
@@ -257,17 +257,17 @@
                             </div>
                             <div class="side side-2">
                                 <h3 class="big-name">
-                                    <span>{{Account.user_name}}</span>
+                                    <span id="lines_view">{{Account.user_name}}</span>
                                     <span></span>
                                 </h3>
-                                <a href="#" class="insta-link-sp">@{{Account.display_name}}</a>
+                                <a href="#" class="insta-link-sp" id="user_name">@{{Account.display_name}}</a>
                             </div>
                             <div class="side side-3">
                                 <div *ngIf="isMyAccount" class="edit-and-settings">
                                     <a [routerLink]="['/system/edit',UserId]" class="edit-profile">Edit profile</a>
                                 </div>
                                 <div class="desc-wr">
-                                    <p class="description">{{Account.bio}}</p>
+                                    <p id="lines_view" class="description">{{Account.bio}}</p>
                                 </div>
                                 <form class="follow-wr">
                                     <button *ngIf="!isMyAccount" class="butt-style-1" type="submit" (click)="FollowAccount()">

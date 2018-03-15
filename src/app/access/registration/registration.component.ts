@@ -49,6 +49,7 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
   place: string='';
   createAccSucc:boolean = true;
 
+  @ViewChild('submitFormUsr') form: NgForm;
   @ViewChild('search') public searchElementFrom: ElementRef;
 
   constructor(protected authService: AuthMainService,

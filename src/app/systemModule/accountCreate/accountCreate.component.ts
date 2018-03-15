@@ -93,7 +93,7 @@ export class AccountCreateComponent extends BaseComponent implements OnInit {
         .subscribe((genres:string[])=> {
           this.Genres = this.genreService.GetGendreModelFromString(this.Account.genres, this.genreService.StringArrayToGanreModelArray(genres));
         });
-
+      this.Account.account_type = this.Roles.Fan;
       this.CreateAutocomplete();
     }
    
@@ -143,6 +143,7 @@ export class AccountCreateComponent extends BaseComponent implements OnInit {
           console.log("RES", res);
           this.InitByUser(res);
           this.isLoading = false;
+          this.router.navigate(['/system','profile',res.id]);
           this.accService.onAuthChange$.next(true);
       },
       (err:any)=>{

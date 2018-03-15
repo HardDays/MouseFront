@@ -5,7 +5,7 @@
      
         <div *ngIf="firstPage" class="register">
             <div class="m-v-reg">
-                <form class="reg-wr" (ngSubmit)="registerUserAcc()" >
+                <form class="reg-wr" (ngSubmit)="registerUserAcc()" #submitFormUsr="ngForm">
                     <h3>General info</h3>
                     <div class="for-flex">
                         <div class="photo-wr-1">
@@ -23,7 +23,7 @@
                             <input name="location" class="inp-style-2" type="text" placeholder="Location" #search>
                         </div>
                         <div class="side right-side">
-                            <input name="username" class="inp-style-2" type="text" placeholder="Username" [ngModel]="Account.user_name" (ngModelChange)="Account.user_name = $event" required>
+                            <input name="username" class="inp-style-2" type="text" pattern="^[A-Za-z0-9_]{1,30}$" placeholder="Username" [ngModel]="Account.user_name" (ngModelChange)="Account.user_name = $event" required>
                             <input name="email" class="inp-style-2"  type="email" placeholder="Email address" #email="ngModel" [ngModel]="User.email" (ngModelChange)="User.email = $event" email required >
                             <p *ngIf="email.invalid && email.touched" style="color:red;">Invalid Email</p>
                             <input name="password" class="inp-style-2" minlength="6" type="password" placeholder="Password" [ngModel]="User.password" (ngModelChange)="User.password = $event" required>
@@ -98,7 +98,7 @@
                 </div>
             </div>
             <div class="butt-to-continue">
-                <button class="butt-style-1" type="submit"><span>Сomplete</span></button>  
+                <button class="butt-style-1" type="submit" [disabled]="!submitFormUsr.valid"><span>Сomplete</span></button>  
             </div>
         </form>
     </section>
