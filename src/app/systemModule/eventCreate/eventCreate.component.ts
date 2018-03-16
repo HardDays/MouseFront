@@ -205,6 +205,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     
             }
         });
+
     }
    
     addNewArtistOpenModal(){
