@@ -267,7 +267,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     }
     
     addNewArtist(){
-        this.addArtist.id = this.Event.id;
+        this.addArtist.event_id = this.Event.id;
 
         console.log(`new artist: `,this.addArtist);
         console.log(`checked`,this.checkArtists);
