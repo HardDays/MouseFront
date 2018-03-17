@@ -171,8 +171,8 @@
                                 </div>
                             </div>
                             <div class="location-wr">
-                                <div class="mark"></div>
-                                <input type="text" class="location-inp" placeholder="Location" #search> 
+                                <div (click)="aboutOpenMapModal()" class="mark"></div>
+                                <input type="text" class="location-inp" placeholder="Location" #searchAbout id="aboutAddress"> 
                             </div>
                         </div>
                         <div class="side">
@@ -1010,7 +1010,9 @@
                 <h6 class="head-m-p-a">Location</h6>
                 <span class="closee-modal" data-dismiss="modal"></span>
                 <div class="for-map-init-modal-1">
-                    для инита карты
+                        <agm-map  style="height:450px" [latitude]="aboutMapCoords.lat" [longitude]="aboutMapCoords.lng">
+                                <agm-marker (dragEnd)="aboutDragMarker($event)" [markerDraggable] = "true" [latitude]="aboutMapCoords.lat" [longitude]="aboutMapCoords.lng"></agm-marker>
+                        </agm-map>
                 </div>
             </div>
         </div>

@@ -25,6 +25,8 @@ import { NavbarModule } from '../shared/navbar/navbar.module';
 import { FooterModule } from '../shared/footer/footer.module';
 import { PreloaderComponent } from '../shared/preloader/preloader.component';
 import { YoutubePlayerModule } from 'ng2-youtube-player';
+import { BrowserModule } from '@angular/platform-browser';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,14 @@ import { YoutubePlayerModule } from 'ng2-youtube-player';
     NguiAutoCompleteModule,
     NavbarModule,
     FooterModule,
-    YoutubePlayerModule
+    YoutubePlayerModule,
+    
+    AgmCoreModule.forRoot({
+      apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",
+      libraries: ["places"]
+    }),
+      CommonModule,
+      FormsModule
   ],
   providers: [ SystemAccessGuard]
 })
