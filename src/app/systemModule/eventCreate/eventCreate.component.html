@@ -32,7 +32,7 @@
             </div>
         </div>
         
-        <div [ngStyle]="{'display': (currentPage=='about'||showAllPages)?'block':'none'}" class="create-event-body-1">
+        <div [ngStyle]="{'display': (pages[currentPage]>=pages.about||showAllPages)?'block':'none'}" class="create-event-body-1">
             <div class="main-mw">
                 <form [formGroup]="aboutForm">
                 <div class="create-event-body">
@@ -194,7 +194,7 @@
             </div>
         </div>
         
-        <div [ngStyle]="{'display': (currentPage=='artist'||showAllPages)?'block':'none'}">
+        <div [ngStyle]="{'display': (pages[currentPage]>=pages.artist||showAllPages)?'block':'none'}">
             <div class="create-event-body-1">
                 <div class="main-mw">
                     <div class="create-event-body">
@@ -342,8 +342,8 @@
                             <p class="some-text">At first choose residence :)</p>
                             <ul class="v-tabs-menu">
                                 <!--теже табы-->
-                                <li>Public Venue</li>
-                                <li class="active">Private Residence</li>
+                                <li [ngClass]="{active:!isPrivateVenue}" (click)="isPrivateVenue = false">Public Venue</li>
+                                <li [ngClass]="{active:isPrivateVenue}" (click)="isPrivateVenue = true">Private Residence</li>
                             </ul>
                         </div>
                     </div>
@@ -353,8 +353,8 @@
                     <div class="tabs-venue-wrapp">
                         <!--теже табы для ngif-->
                         <!--Public Venue-->
-                        <!--
-                        <div class="one-tab">
+                        
+                        <div  [ngStyle]="{'display': !isPrivateVenue?'block':'none'}" class="one-tab">
                             <div class="one-tab-flex alighn-items">
                                 <div class="side">
                                     <div class="filter-venue">
@@ -504,10 +504,10 @@
                                 </div>
                             </div>
                         </div>
-                        -->
+                       
                         
                         <!--Private Residence-->
-                        <div class="one-tab">
+                        <div [ngStyle]="{'display': isPrivateVenue?'block':'none'}" class="one-tab">
                             <div class="one-tab-flex">
                                 <div class="side">
                                     <div class="input-groupe-1 lbl-1">
@@ -600,6 +600,7 @@
                     </div>
                 </div>
             </div>
+            
             <div    class="tabs-artist-wrapp">
                 <div class="main-mw">
                     <ul class="tabs-menu-active-decline">
@@ -686,6 +687,8 @@
                 </div>
                 
             </div>
+
+
             <div class="scroll-wrapp">
                 <div class="circle-scroll"></div>
             </div>
@@ -693,7 +696,7 @@
 
         <div class="create-event-body-1">
             
-            <div [ngStyle]="{'display': (currentPage=='funding'||showAllPages)?'block':'none'}">
+            <div [ngStyle]="{'display': (pages[currentPage]>=pages.funding||showAllPages)?'block':'none'}">
                 <div class="main-mw">
                     <div class="create-event-body">
                         <div class="head-ev-body">
@@ -859,7 +862,7 @@
                 </div>
             </div>
             
-            <div [ngStyle]="{'display': (currentPage=='tickets'||showAllPages)?'block':'none'}">
+            <div [ngStyle]="{'display': (pages[currentPage]>=pages.tickets||showAllPages)?'block':'none'}">
                 <div class="main-mw">
                     <div class="create-event-body">
                         <div class="head-ev-body">

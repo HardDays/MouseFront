@@ -45,11 +45,15 @@ declare var ionRangeSlider:any;
 })
 
 
+
+
 export class EventCreateComponent extends BaseComponent implements OnInit {
     
+    pages = Pages;
     currentPage:string = 'about';
     showAllPages:boolean = false;
 
+    
     aboutForm : FormGroup = new FormGroup({        
         "name": new FormControl("", [Validators.required]),
         "tagline": new FormControl("", [Validators.required]),
@@ -82,7 +86,21 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     checkArtists:number[] = []; // id чекнутых артистов, т.е. тех, которым мы отправим запрос
    
     
+    // venue
 
+    isPrivateVenue:boolean = true;
+    
+    privateVenueForm : FormGroup = new FormGroup({        
+        "venue_name": new FormControl("", [Validators.required]),
+        "phone_number": new FormControl(""),
+        "capacity": new FormControl(),
+        "country": new FormControl(""),
+        "city": new FormControl(""),
+        "address":new FormControl(),
+        "description": new FormControl("")
+    });
+
+    
     @ViewChild('search') public searchElementFrom: ElementRef;
 
     constructor(protected authService: AuthMainService,
@@ -262,7 +280,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                 );
         }
         else {
-            console.log(`Invalid About Form!`);
+            console.log(`Invalid About Form!`, this.aboutForm);
         }
     }
     
@@ -433,4 +451,12 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
     
 
+}
+
+export enum Pages {
+    about = 0,
+    artist = 1,
+    venue = 2,
+    funding = 3,
+    tickets = 4
 }
