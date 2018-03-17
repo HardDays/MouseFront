@@ -96,6 +96,19 @@ export class AuthMainService{
         //return this.http.PostData('/auth/facebook.json',JSON.stringify(params));
     }
 
+    UserLoginByVk(token:string){
+        let params = {
+            access_token: token
+        };
+        return this.http.CommonRequest(
+            ()=> this.http.PostData('/auth/vk.json',JSON.stringify(params))
+        );
+        //return this.http.PostData('/auth/facebook.json',JSON.stringify(params));
+    }
+    GetDataFromVk(){
+        return this.http.GetDataFromOtherUrl('https://oauth.vk.com/authorize?client_id=6412516&display=page&response_type=token&v=5.73&state=123456');
+    }
+
 
     SetupLocalUserStatus(status){
         try{

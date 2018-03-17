@@ -31,6 +31,7 @@ import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { ArtistAddToEventModel } from '../../core/models/artistAddToEvent.model';
 import { EventGetModel } from '../../core/models/eventGet.model';
 import { AccountSearchModel } from '../../core/models/accountSearch.model';
+import { Http } from '@angular/http';
 
 
 
@@ -93,8 +94,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         protected _sanitizer: DomSanitizer,
         protected router: Router,public _auth: AuthService,
         private mapsAPILoader: MapsAPILoader, 
-        private ngZone: NgZone){
-        super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,_auth);
+        private ngZone: NgZone, protected h:Http){
+        super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
     }
 
     ngOnInit()

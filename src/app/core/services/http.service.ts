@@ -86,6 +86,10 @@ export class HttpService
         return this.http.put(this.serverUrl + method,data,{headers:this.headers});
     }
 
+    GetDataFromOtherUrl(url:string){
+        return this.http.get(url,{headers:this.headers})
+    }
+
 
 
 

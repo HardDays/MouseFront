@@ -7,6 +7,7 @@ import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { isError } from 'util';
 import { LoginModel } from '../../core/models/login.model';
 
+
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
@@ -25,9 +26,22 @@ export class LoginComponent extends BaseComponent implements OnInit {
   newPass:string = '';
   newPassComfirm:string = '';
 
+  accessVkToken:string = '';
+
   ngOnInit(){
     // if (this.isLoggedIn)
     //   this.router.navigate(['/system','shows']);
+
+
+
+      var params: string[] = location.href.slice(location.href.indexOf('#')+1,location.href.length).split('&');
+      for(let p of params) if(p.split('=')[0] == 'access_token') this.accessVkToken = p.split('=')[1];
+      console.log(this.accessVkToken);
+      if(this.accessVkToken.length>0) this.authService.UserLoginByVk(this.accessVkToken).
+                                      subscribe((res)=>{
+                                        console.log(`vk ok`);
+                                        this.router.navigate(['/system','shows']);
+                                      });
   }
 
   onSubmitSignIn(){
@@ -44,6 +58,11 @@ export class LoginComponent extends BaseComponent implements OnInit {
    this.SocialLogin(provider);
   }
 
+  signInVK(){
+    window.close();
+    window.open("https://oauth.vk.com/authorize?client_id=6412516&redirect_uri=http://localhost:4200/login&display=page&response_type=token&v=5.73&state=123456");
+   }
+
   logoutGoFb(){
     this.SocialLogout('gf');
   }
@@ -59,6 +78,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
       console.log(`forgot pass send!`);
     })
   }
+
   analisCode(){
     this.curPage = 4;
   }
