@@ -146,8 +146,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                         }
                         else 
                         {
-                            //this.newEvent.address = autocomplete.getPlace().formatted_address;
-                            
+                            this.newEvent.address = autocomplete.getPlace().formatted_address;
 
                             this.aboutMapCoords.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
                             this.aboutMapCoords.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
@@ -170,6 +169,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
               console.log(results[1]);
               let id = "#"+id_map;
               $(id).val(results[1].formatted_address);
+              this.newEvent.address = results[1].formatted_address;
             } else {
               alert('No results found');
             }
@@ -319,16 +319,16 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             
             console.log(`newEvent`,this.newEvent);
 
-            // this.eventService.CreateEvent(this.newEvent)
-            //     .subscribe((res)=>{
-            //             this.Event = res;
-            //             console.log(`create`,this.Event);
-            //             this.currentPage = 'artist';
-            //         },
-            //         (err)=>{
-            //             console.log(`err`,err);
-            //         }
-            //     );
+            this.eventService.CreateEvent(this.newEvent)
+                .subscribe((res)=>{
+                        this.Event = res;
+                        console.log(`create`,this.Event);
+                        this.currentPage = 'artist';
+                    },
+                    (err)=>{
+                        console.log(`err`,err);
+                    }
+                );
         }
         else {
             console.log(`Invalid About Form!`, this.aboutForm);
