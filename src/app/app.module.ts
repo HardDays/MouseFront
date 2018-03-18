@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ApplicationRef  } from '@angular/core';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
@@ -24,6 +24,7 @@ import { AgmCoreModule } from '@agm/core';
 import { LoginComponent } from './access/login/login.component';
 import { RegistrationComponent } from './access/registration/registration.component';
 import { EventService } from './core/services/event.service';
+import { CommonModule } from '@angular/common';
 
 
 let providers = {
@@ -50,12 +51,12 @@ let providers = {
     RouterModule,
     AppRoutingModule,
     Angular2SocialLoginModule,
+    ReactiveFormsModule,
+    TextMaskModule,
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",
       libraries: ["places"]
-    }),
-     ReactiveFormsModule,
-     TextMaskModule
+    })
   ],
   providers: [AppAccessGuard, 
     AuthMainService,
@@ -65,7 +66,8 @@ let providers = {
     GenresService,
     EventService,
     HttpModule, HttpService],
-  bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    
 })
 export class AppModule { }
 

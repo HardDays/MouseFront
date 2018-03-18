@@ -16,6 +16,7 @@ import { GenresService } from '../../core/services/genres.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { EventService } from '../../core/services/event.service';
+import { Http } from '@angular/http';
 
 declare var $:any;
 
@@ -49,9 +50,9 @@ export class ShowsComponent extends BaseComponent implements OnInit {
     protected eventService:EventService,
     protected _sanitizer: DomSanitizer,
     protected router: Router,public _auth: AuthService,
-    private mapsAPILoader: MapsAPILoader, 
+    private mapsAPILoader: MapsAPILoader, protected h:Http,
     private ngZone: NgZone){
-super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,_auth);
+super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
 }
 
   ngOnInit(){

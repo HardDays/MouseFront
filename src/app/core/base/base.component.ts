@@ -22,6 +22,7 @@ import { LoginModel } from '../models/login.model';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { AccountGetModel } from '../models/accountGet.model';
 import { EventService } from '../services/event.service';
+import { Http, Headers } from '@angular/http';
 
 @Injectable()
 export class BaseComponent{
@@ -44,7 +45,7 @@ export class BaseComponent{
                 protected genreService:GenresService,
                 protected eventService:EventService,
                 protected _sanitizer: DomSanitizer,
-                protected router: Router,public _auth: AuthService) {
+                protected router: Router, protected h:Http, public _auth: AuthService) {
         
         this.isLoggedIn = this.authService.IsLogedIn();
 
@@ -184,6 +185,10 @@ export class BaseComponent{
                             });
                         }
             )
+        }
+        else if(provider=='vk'){        
+            
+
         }
     }
 

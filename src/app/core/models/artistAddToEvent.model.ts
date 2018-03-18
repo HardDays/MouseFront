@@ -1,6 +1,6 @@
 export class ArtistAddToEventModel{
     constructor(
-        public id?:number,
+        public event_id?:number,
         public account_id?:number,
         public artist_id?:number,
         public time_frame?:string,

@@ -36,9 +36,19 @@ export class EventService{
         );
     }
 
-    AddArtist(artist:ArtistAddToEventModel){
+    AddArtist(event:ArtistAddToEventModel){
         return this.http.CommonRequest(
-            () => this.http.PostData('/events/'+artist.id+'/artist.json',JSON.stringify(artist))
+            () => this.http.PostData('/events/'+event.event_id+'/artists.json',JSON.stringify(event))
+        );
+    }
+    ArtistAccept(event:ArtistAddToEventModel){
+        return this.http.CommonRequest(
+            () => this.http.PostData('/events/'+event.event_id+'/artists/'+event.artist_id+'/accept.json',JSON.stringify(event))
+        );
+    }
+    ArtistDecline(event:ArtistAddToEventModel){
+        return this.http.CommonRequest(
+            () =>this.http.PostData('/events/'+event.event_id+'/artists/'+event.artist_id+'/decline.json',JSON.stringify(event))
         );
     }
 

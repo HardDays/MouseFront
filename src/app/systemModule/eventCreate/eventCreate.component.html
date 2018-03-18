@@ -32,7 +32,7 @@
             </div>
         </div>
         
-        <div [ngStyle]="{'display': (currentPage=='about'||showAllPages)?'block':'none'}" class="create-event-body-1">
+        <div [ngStyle]="{'display': (pages[currentPage]>=pages.about||showAllPages)?'block':'none'}" class="create-event-body-1">
             <div class="main-mw">
                 <form [formGroup]="aboutForm">
                 <div class="create-event-body">
@@ -171,8 +171,8 @@
                                 </div>
                             </div>
                             <div class="location-wr">
-                                <div class="mark"></div>
-                                <input type="text" class="location-inp" placeholder="Location" #search> 
+                                <div (click)="aboutOpenMapModal()" class="mark"></div>
+                                <input type="text" class="location-inp" placeholder="Location" #searchAbout id="aboutAddress"> 
                             </div>
                         </div>
                         <div class="side">
@@ -194,7 +194,7 @@
             </div>
         </div>
         
-        <div [ngStyle]="{'display': (currentPage=='artist'||showAllPages)?'block':'none'}">
+        <div [ngStyle]="{'display': (pages[currentPage]>=pages.artist||showAllPages)?'block':'none'}">
             <div class="create-event-body-1">
                 <div class="main-mw">
                     <div class="create-event-body">
@@ -342,8 +342,8 @@
                             <p class="some-text">At first choose residence :)</p>
                             <ul class="v-tabs-menu">
                                 <!--теже табы-->
-                                <li>Public Venue</li>
-                                <li class="active">Private Residence</li>
+                                <li [ngClass]="{active:!isPrivateVenue}" (click)="isPrivateVenue = false">Public Venue</li>
+                                <li [ngClass]="{active:isPrivateVenue}" (click)="isPrivateVenue = true">Private Residence</li>
                             </ul>
                         </div>
                     </div>
@@ -353,8 +353,8 @@
                     <div class="tabs-venue-wrapp">
                         <!--теже табы для ngif-->
                         <!--Public Venue-->
-                        <!--
-                        <div class="one-tab">
+                        
+                        <div  [ngStyle]="{'display': !isPrivateVenue?'block':'none'}" class="one-tab">
                             <div class="one-tab-flex alighn-items">
                                 <div class="side">
                                     <div class="filter-venue">
@@ -504,10 +504,10 @@
                                 </div>
                             </div>
                         </div>
-                        -->
+                       
                         
                         <!--Private Residence-->
-                        <div class="one-tab">
+                        <div [ngStyle]="{'display': isPrivateVenue?'block':'none'}" class="one-tab">
                             <div class="one-tab-flex">
                                 <div class="side">
                                     <div class="input-groupe-1 lbl-1">
@@ -600,6 +600,7 @@
                     </div>
                 </div>
             </div>
+            
             <div    class="tabs-artist-wrapp">
                 <div class="main-mw">
                     <ul class="tabs-menu-active-decline">
@@ -686,6 +687,8 @@
                 </div>
                 
             </div>
+
+
             <div class="scroll-wrapp">
                 <div class="circle-scroll"></div>
             </div>
@@ -693,7 +696,7 @@
 
         <div class="create-event-body-1">
             
-            <div [ngStyle]="{'display': (currentPage=='funding'||showAllPages)?'block':'none'}">
+            <div [ngStyle]="{'display': (pages[currentPage]>=pages.funding||showAllPages)?'block':'none'}">
                 <div class="main-mw">
                     <div class="create-event-body">
                         <div class="head-ev-body">
@@ -859,7 +862,7 @@
                 </div>
             </div>
             
-            <div [ngStyle]="{'display': (currentPage=='tickets'||showAllPages)?'block':'none'}">
+            <div [ngStyle]="{'display': (pages[currentPage]>=pages.tickets||showAllPages)?'block':'none'}">
                 <div class="main-mw">
                     <div class="create-event-body">
                         <div class="head-ev-body">
@@ -999,6 +1002,66 @@
         </div>
 
     </div>
+
+     <!--новая первая модалка с картой-->
+     <div class="modal fade modal-send-request map-1-modal" id="modal-map-1">
+        <div class="modal-dialog">
+            <div class="modal-body">
+                <h6 class="head-m-p-a">Location</h6>
+                <span class="closee-modal" data-dismiss="modal"></span>
+                <div class="for-map-init-modal-1">
+                        <agm-map  style="height:450px" [latitude]="aboutMapCoords.lat" [longitude]="aboutMapCoords.lng">
+                                <agm-marker (dragEnd)="aboutDragMarker($event)" [markerDraggable] = "true" [latitude]="aboutMapCoords.lat" [longitude]="aboutMapCoords.lng"></agm-marker>
+                        </agm-map>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--//новая первая модалка с картой-->
+
+     <!--модалка send request c картой-->
+    <div class="modal fade modal-send-request modal-send-request-map" id="modal-send-request-map">
+        <div class="modal-dialog">
+            <div class="modal-body">
+                <h6 class="head-m-p-a">Event Request</h6>
+                
+                <div class="name-and-ava">
+                    <div class="ava" style="background-image: url(img/drake.jpg)"></div>
+                    <div class="n-h">
+                        <p class="name">Dylan Davis</p>
+                        <p class="hash"><span>@</span>pixope</p>
+                    </div>
+                </div>
+                <div class="content-modal">
+                    <p class="e-n">Event Name</p>
+                    
+                     <div class="flex-range-slider">
+                        <div class="left-arrow">
+                            <img src="img/left-arr-black.png" class="img-responsive" alt="">
+                        </div>
+                        <div class="right-side">
+                            <div class="location-wr">
+                                <div class="mark"></div>
+                                <input type="text" class="location-inp" placeholder="location">
+                            </div>
+                        </div>
+                    </div>  
+                   
+                    <div class="for-map-init-2">
+                        Инит карты
+                    </div>
+                    
+                     <div class="send-request-b">
+                        <button class="butt-style-1" type="submit">
+                            <span>Send Request</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- конец новой модалки send request c картой-->
+
     <!--модалка для кликов на send request-->
     <div class="modal fade modal-send-request" id="modal-send-request">
         <div class="modal-dialog">
@@ -1089,7 +1152,60 @@
             </div>
         </div>
     </div>
-    <!--//конец модалки для кликов на плюс и текст-->
+    <!--//конец модалки для кликов на send request-->
+
+
+    <!--новая модалка с картой 2-->
+    <div class="modal fade modal-pick-artist" id="modal-pick-artist-map">
+        <div class="modal-dialog">
+            <div class="modal-body">
+
+                <h3 class="head-m-p-a">Add Artist</h3>
+                <div class="for-slideing-wr">
+                    <div class="content-bodal input-groupe-1">
+                        <input class="search" type="text" placeholder="Search">
+                        <div class="flex-genres for-pick">
+                            <!--Добавляем класс picked-->
+                            <span class="one-genre picked">HIP HOP</span>
+                            <span class="one-genre picked">HIP HOP</span>
+                            <span class="one-genre">HIP HOP</span>
+                            <span class="one-genre">HIP HOP</span>
+                            <span class="one-genre">HIP HOP</span>
+                            <span class="one-genre">HIP HOP</span>
+                            <span class="one-genre">HIP HOP</span>
+                            <span class="one-genre">HIP HOP</span>
+                            <span class="one-genre">HIP HOP</span>
+                        </div>
+                    </div>
+                    <div class="flex-range-slider">
+                        <div class="left-arrow">
+                            <img src="img/left-arr-black.png" class="img-responsive" alt="">
+                        </div>
+                        <div class="right-side">
+                            <div class="location-wr">
+                                <div class="mark"></div>
+                                <input type="text" class="location-inp" placeholder="location">
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+                <div class="for-map-init-2">
+                    Инит карты
+                </div>
+                
+                <div class="buttons-wrapp-add-inv">
+                    <!--можете баттоном или span. как удобнее-->
+                    <button class="butt-style-1" type="submit">
+                        <span>Add to Active</span>
+                    </button>
+                    <span class="second-button-inv">Artist Invite</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--//новая модалка с картой 2-->
+
     <!--модалка для кликов на плюс и текст-->
     <div class="modal fade modal-pick-artist" id="modal-pick-artist">
         <div class="modal-dialog">
