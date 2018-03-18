@@ -23,6 +23,7 @@ import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { AccountGetModel } from '../models/accountGet.model';
 import { EventService } from '../services/event.service';
 import { Http, Headers } from '@angular/http';
+import { CheckModel } from '../models/check.model';
 
 @Injectable()
 export class BaseComponent{
@@ -365,6 +366,15 @@ export class BaseComponent{
 
     // }
 
-    
+
+    convertToCheckModel(model:any){
+        let checkModel:CheckModel = new CheckModel(model);
+        return checkModel;
+    }
+    convertArrToCheckModel(model:any[]){
+        let arrCheck: CheckModel[] = [];
+        for(let i of model) arrCheck.push(this.convertToCheckModel(i)); 
+        return arrCheck;
+    }
 
 }

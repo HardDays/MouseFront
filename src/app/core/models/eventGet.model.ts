@@ -35,7 +35,7 @@ export class EventGetModel{
         public collaborators?: string[],
         public genres?: string[],
         public artist?: GetArtists[],
-        public venue?: string[],
+        public venue?: GetVenue[],
         public tickets?: string[]
     )
     {}
@@ -44,6 +44,14 @@ export class EventGetModel{
 export class GetArtists{
     constructor(
         public artist_id?: number,
+        public reason?: string,
+        public status?: string
+    )
+    {}
+}
+export class GetVenue{
+    constructor(
+        public venue_id?: number,
         public reason?: string,
         public status?: string
     )
