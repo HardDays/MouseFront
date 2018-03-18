@@ -2,7 +2,18 @@
     word-wrap: break-word;
     word-break: break-all;
 }
+
 #lines_view {
+    max-width: 400px;
+    word-wrap: break-word;
+}
+
+#d_lines_view {
+    max-width: 400px;
+    word-wrap: break-word;
+}
+
+#b_lines_view {
     max-width: 400px;
     word-wrap: break-word;
 }

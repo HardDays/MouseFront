@@ -16,11 +16,11 @@
                         </div>
                         <div class="name-venue">
                            
-                            <h2 >{{Account.user_name}}</h2>
+                            <h2 id="lines_view">{{Account.user_name}}</h2>
                             <a *ngIf="isMyAccount" [routerLink]="['/system/edit',UserId]" class="settings"></a>
                         </div>
                         <div class="oficial-page">
-                            <span class="of-p">@{{Account.display_name}}</span>
+                            <span id="d_lines_view" class="of-p">@{{Account.display_name}}</span>
                             <div class="ok-image">
                                 <img class="img-responsive" src="../../assets/img/ok.png" alt="">
                             </div>
@@ -259,15 +259,15 @@
                                 <h3 class="big-name">
                                     <span id="lines_view">{{Account.user_name}}</span>
                                     <span></span>
+                                    <span id="d_lines_view" class="insta-link-sp">@{{Account.display_name}}</span>
                                 </h3>
-                                <a href="#" class="insta-link-sp" id="user_name">@{{Account.display_name}}</a>
                             </div>
                             <div class="side side-3">
                                 <div *ngIf="isMyAccount" class="edit-and-settings">
                                     <a [routerLink]="['/system/edit',UserId]" class="edit-profile">Edit profile</a>
                                 </div>
                                 <div class="desc-wr">
-                                    <p id="lines_view" class="description">{{Account.bio}}</p>
+                                    <p id="b_lines_view" class="description">{{Account.bio}}</p>
                                 </div>
                                 <form class="follow-wr">
                                     <button *ngIf="!isMyAccount" class="butt-style-1" type="submit" (click)="FollowAccount()">
@@ -435,14 +435,14 @@
                     <div class="main-mw">
                         <div class="flex-artist-main-info">
                             <div class="side left-side">
-                                <h6 class="name">{{Account.user_name}}</h6>
+                                <h6 id="lines_view" class="name">{{Account.user_name}}</h6>
                                 <div class="oficial-page">
-                                    <span class="page">@{{Account.display_name}}</span>
+                                    <span id="d_lines_view" class="page">@{{Account.display_name}}</span>
                                     <div *ngIf="isMyAccount" class="edit-and-settings">
                                         <a [routerLink]="['/system/edit',UserId]" class="edit-profile">Edit profile</a>
                                     </div>
                                 </div>
-                                <p class="desc">
+                                <p id="b_lines_view" class="desc">
                                     {{Account.about}}
                                 </p>
                                 <form class="follow-wr">

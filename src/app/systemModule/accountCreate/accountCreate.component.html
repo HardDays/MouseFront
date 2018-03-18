@@ -46,7 +46,7 @@
     
                         <div class="side right-side">
                             <input autocomplete="off" name="username" ngModel class="inp-style-2" pattern="^[A-Za-z0-9_]{1,30}$" type="text" placeholder="Username" maxlength="30" [ngModel]="Account.user_name" (ngModelChange)="Account.user_name = $event">
-                            <input autocomplete="off" name="displayname" ngModel class="inp-style-2" pattern="^[A-Za-z0-9_]{1,75}$" type="text" placeholder="Displayed name" maxlength="30" [ngModel]="Account.display_name" (ngModelChange)="Account.display_name = $event">
+                            <input autocomplete="off" name="displayname" ngModel class="inp-style-2" pattern="^[A-Za-z0-9_]{1,75}$" type="text" placeholder="Displayed name" maxlength="75" [ngModel]="Account.display_name" (ngModelChange)="Account.display_name = $event">
                             <input autocomplete="off" name="bio" *ngIf="Account.account_type == Roles.Fan" pattern="^[A-Za-z0-9_\s]{1,30}$" ngModel class="inp-style-2" type="text" placeholder="Bio" [ngModel]="Account.bio" (ngModelChange)="Account.bio = $event">
                             <input autocomplete="off" name="description" *ngIf="Account.account_type == Roles.Venue" ngModel class="inp-style-2" type="text" placeholder="Description" [ngModel]="Account.description" (ngModelChange)="Account.description = $event">
                             <input autocomplete="off" name="fax" *ngIf="Account.account_type == Roles.Venue" ngModel class="inp-style-2" type="text" placeholder="Fax" [ngModel]="Account.fax" (ngModelChange)="Account.fax = $event">
