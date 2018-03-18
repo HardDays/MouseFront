@@ -40,8 +40,8 @@ export class EditComponent extends BaseComponent implements OnInit {
     Genres:GenreModel[] = [];
     allGenres:GenreModel[] = [];
     genresShow:GenreModel[] = [];
-    seeMore:boolean = false;
     VenueTypes:SelectModel[] = [];
+    TypesOfSpace:SelectModel[] = [];
     SelectedVenue:number = 1;
     hasBar:boolean = true;
     hasVr:boolean = true;
@@ -110,6 +110,7 @@ export class EditComponent extends BaseComponent implements OnInit {
         console.log(err);
           
       })
+      this.TypesOfSpace = this.typeService.GetAllSpaceTypes();
       this.VenueTypes = this.typeService.GetAllVenueTypes();
       this.AccountTypes = this.typeService.GetAllAccountTypes();
       this.LocationTypes = this.typeService.GetAllLocationTypes();
@@ -156,6 +157,7 @@ export class EditComponent extends BaseComponent implements OnInit {
         this.Account.dates[i].end_date = this.bsValue_end[i].getFullYear()+`-`+this.incr(this.bsValue_end[i].getMonth())+`-`+this.bsValue_end[i].getDate();
       }
       //this.Account.dates = this.typeService.ValidateArray(this.Account.dates);
+          console.log("res", this.Account);
       this.accService.UpdateMyAccount(this.UserId, JSON.stringify(this.Account))
       .subscribe((res:any)=>{
           console.log("res", res);
@@ -261,11 +263,9 @@ export class EditComponent extends BaseComponent implements OnInit {
     this.Genres[1].show = true;
     this.Genres[2].show = true;
     this.Genres[3].show = true;*/
-    this.seeMore = false;
   }
 
   seeMoreGenres(){
-    this.seeMore = true;
     // let checked = this.genres;
     // this.genres = this.genreService.GetAll(checked);
     for(let g of this.Genres) g.show = true;
