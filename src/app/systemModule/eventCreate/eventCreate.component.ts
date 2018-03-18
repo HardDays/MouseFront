@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, ViewChild, ElementRef, NgZone, Input, ViewContainerRef, ComponentFactory } from '@angular/core';
 import { NgForm,FormControl,FormGroup,Validators} from '@angular/forms';
 import { AuthMainService } from '../../core/services/auth.service';
 
@@ -56,8 +56,8 @@ declare var ionRangeSlider:any;
 export class EventCreateComponent extends BaseComponent implements OnInit {
     
     pages = Pages;
-    currentPage:string = 'about';
-    showAllPages:boolean = false;
+    currentPage:string = 'artist';
+    showAllPages:boolean = true;
 
     
     aboutForm : FormGroup = new FormGroup({        
@@ -88,13 +88,20 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     addArtist:ArtistAddToEventModel = new ArtistAddToEventModel(); // артист, которому отправляется запрос
     genresSearchArtist:GenreModel[] = []; // список жанров для поиска артистов
     searchArtist:string=''; // имя артиста для поиска
+    searchArtistAddress:string = '';
     artistsList:AccountGetModel[] = []; // артисты, которые удовлятворяют поиску
     checkArtists:number[] = []; // id чекнутых артистов, т.е. тех, которым мы отправим запрос
    
-    
+    artistMapCoords = {lat:0, lng:0};
+
     // venue
 
-    isPrivateVenue:boolean = true;
+    isPrivateVenue:boolean = false;
+    venueMapCoords = {lat:0, lng:0};
+
+    searchVenue:string='';
+    venueList:AccountGetModel[] = [];
+
     
     privateVenueForm : FormGroup = new FormGroup({        
         "venue_name": new FormControl("", [Validators.required]),
@@ -106,8 +113,13 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         "description": new FormControl("")
     });
 
+
+
     
     @ViewChild('searchAbout') public searchElementAbout: ElementRef;
+    @ViewChild('searchArtist') public searchElementArtist: ElementRef;
+    @ViewChild('searchVenue') public searchElementVenue: ElementRef;
+
 
     constructor(protected authService: AuthMainService,
         protected accService:AccountService,
@@ -120,15 +132,20 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         private mapsAPILoader: MapsAPILoader, 
         private ngZone: NgZone, protected h:Http){
         super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
+            // this.contentFactory = this.cfr.resolveComponentFactory(DynComponent);
     }
 
     ngOnInit()
-    {
+    {    
+       
         this.CreateAutocompleteAbout();
+        this.CreateAutocompleteArtist();
+        this.CreateAutocompleteVenue();
         this.initSlider();
         this.getGenres();
         this.initUser();
     }
+    
 
     CreateAutocompleteAbout(){
         this.mapsAPILoader.load().then(
@@ -156,27 +173,85 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             }
         );
     }
+    CreateAutocompleteArtist(){
+        this.mapsAPILoader.load().then(
+            () => {
+              
+             let autocomplete = new google.maps.places.Autocomplete(this.searchElementArtist.nativeElement, {types:[`(cities)`]});
+            
+            
+                autocomplete.addListener("place_changed", () => {
+                    this.ngZone.run(() => {
+                        let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
+                        if(place.geometry === undefined || place.geometry === null )
+                        {             
+                            return;
+                        }
+                        else 
+                        {
+                            this.searchArtistAddress = autocomplete.getPlace().formatted_address;
+                            this.artistSearch();
+                            this.artistMapCoords.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
+                            this.artistMapCoords.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
+                        }
+                    });
+                });
+            }
+        );
+    }
+    CreateAutocompleteVenue(){
+        this.mapsAPILoader.load().then(
+            () => {
+               
+             let autocomplete = new google.maps.places.Autocomplete(this.searchElementVenue.nativeElement, {types:[`(cities)`]});
+            
+            
+                autocomplete.addListener("place_changed", () => {
+                    this.ngZone.run(() => {
+                        let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
+                        if(place.geometry === undefined || place.geometry === null )
+                        {             
+                            return;
+                        }
+                        else 
+                        {
+                            // this.newEvent.address = autocomplete.getPlace().formatted_address;
 
+                            this.venueMapCoords.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
+                            this.venueMapCoords.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
+                        }
+                    });
+                });
+            }
+        );
+    }
 
-    
     codeLatLng(lat, lng, id_map) {
         let geocoder = new google.maps.Geocoder();
         let latlng = new google.maps.LatLng(lat, lng);
-        geocoder.geocode(
-            {'location': latlng}, function (results, status) {
-          if (status === google.maps.GeocoderStatus.OK) {
-            if (results[1]) {
-              console.log(results[1]);
-              let id = "#"+id_map;
-              $(id).val(results[1].formatted_address);
-              this.newEvent.address = results[1].formatted_address;
-            } else {
-              alert('No results found');
-            }
-          } else {
-            alert('Geocoder failed due to: ' + status);
-          }
-        });
+        geocoder.geocode({
+            'location': latlng }, 
+             (results, status) => {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    if (results[1]) {
+                    //   console.log(results[1]);
+                    let id = "#"+id_map;
+                    $(id).val(results[1].formatted_address);
+                    
+                    if(id_map=='aboutAddress')
+                        this.newEvent.address = results[1].formatted_address;
+                    else if(id_map=='artistAddress'){
+                        this.searchArtistAddress = results[1].formatted_address;
+                        this.artistSearch();
+                    }
+                        
+                    } else {
+                    alert('No results found');
+                    }
+                } else {
+                    alert('Geocoder failed due to: ' + status);
+                }
+            });
     }
 
     initUser(){
@@ -256,7 +331,10 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     }
    
     addNewArtistOpenModal(){
+
         $('#modal-pick-artist').modal('show');
+       
+        // this.changeDetector.detectChanges();
     }
 
     sendRequestOpenModal(){
@@ -268,11 +346,12 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     }
 
     artistOpenMapModal(){
-        $('#modal-pick-artist').modal('show');
+        $('#modal-map-2').modal('show');
+        this.artistSearch();
     }
 
     venueOpenMapModal(){
-        $('#modal-pick-artist').modal('show');
+        $('#modal-map-3').modal('show');
     }
 
     GengeSearch($event:string){
@@ -294,6 +373,20 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         this.aboutMapCoords.lat = $event.coords.lat;
         this.aboutMapCoords.lng = $event.coords.lng;
         this.codeLatLng( this.aboutMapCoords.lat, this.aboutMapCoords.lng, "aboutAddress");
+    }
+
+    artistDragMarker($event){
+        console.log($event);
+        this.artistMapCoords.lat = $event.coords.lat;
+        this.artistMapCoords.lng = $event.coords.lng;
+        this.codeLatLng( this.artistMapCoords.lat, this.artistMapCoords.lng, "artistAddress");
+    }
+
+    venueDragMarker($event){
+        console.log($event);
+        this.venueMapCoords.lat = $event.coords.lat;
+        this.venueMapCoords.lng = $event.coords.lng;
+        this.codeLatLng( this.venueMapCoords.lat, this.venueMapCoords.lng, "venueAddress");
     }
 
     createEventFromAbout(){
@@ -444,12 +537,14 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
        accSearch.type = 'artist';
        accSearch.text = this.searchArtist;
        accSearch.genres = this.genreService.GenreModelArrToStringArr(this.genresSearchArtist);
-
+       accSearch.address = this.searchArtistAddress;
         this.accService.AccountsSearch(accSearch).
             subscribe((res)=>{
-                this.artistsList = this.deleteDuplicateArtists(res);
-                console.log(`artists`,this.artistsList);
-                this.getArtistListImages();
+                if(res.length>0){
+                    this.artistsList = this.deleteDuplicateArtists(res);
+                    console.log(`artists`,this.artistsList);
+                    this.getArtistListImages();
+                }
         });
     }
 
@@ -499,6 +594,45 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             if(list[i]!="_") answer += list[i];
             else answer += " ";
         return answer;
+    }
+
+
+
+
+    // venue
+
+
+
+
+
+    venueSearch($event?:string){
+        if($event) this.searchVenue = $event;
+         
+        var venueSearch:AccountSearchModel = new AccountSearchModel();
+        venueSearch.type = 'venue';
+        venueSearch.text = this.searchVenue;
+        // venueSearch.genres = this.genreService.GenreModelArrToStringArr(this.genresSearchArtist);
+        //venueSearch.address = this.searchArtistAddress;
+
+        
+         this.accService.AccountsSearch(venueSearch).
+             subscribe((res)=>{
+                 if(res.length>0){
+                     this.venueList = this.deleteDuplicateArtists(res);
+                     console.log(`venue`,venueSearch,this.venueList);
+                     this.getArtistListImages();
+                 }
+         });
+    }
+
+    getVenueListImages(){
+        for(let item of this.venueList)
+            if(item.image_id){
+                this.imgService.GetImageById(item.image_id)
+                    .subscribe((res:Base64ImageModel)=>{
+                        item.image_base64_not_given = res.base64;
+                });
+            }
     }
   
 

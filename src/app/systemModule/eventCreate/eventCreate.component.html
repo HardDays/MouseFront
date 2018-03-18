@@ -325,11 +325,11 @@
                 
             </div>
             <div class="scroll-wrapp">
-                <div class="circle-scroll"></div>
+                <div class="circle-scroll" (click)="currentPage = 'venue'"></div>
             </div>
         </div>
 
-        <div [ngStyle]="{'display': (currentPage=='venue'||showAllPages)?'block':'none'}">
+        <div [ngStyle]="{'display': (pages[currentPage]>=pages.venue||showAllPages)?'block':'none'}">
             <div class="create-event-body-1">
                 <div class="main-mw">
                     <div class="create-event-body">
@@ -359,7 +359,7 @@
                                 <div class="side">
                                     <div class="filter-venue">
                                         <div class="content-bodal input-groupe-1">
-                                            <input class="search" type="text" placeholder="Search Venue">
+                                            <input class="search" (input)="venueSearch($event.target.value)" type="text" placeholder="Search Venue">
                                             <span class="head-type-inp">Type of place</span>
                                             <div class="flex-genres for-pick">
 
@@ -377,8 +377,8 @@
                                             </div>
 
                                             <div class="location-wr">
-                                                <div class="mark"></div>
-                                                <input type="text" class="location-inp" placeholder="location">
+                                                <div (click)="venueOpenMapModal()" class="mark"></div>
+                                                <input type="text" class="location-inp" placeholder="Location" #searchVenue id="venueAddress">
                                             </div>
                                         </div>
                                     </div>
@@ -386,11 +386,12 @@
                                 <div class="side width-66">
                                     <div class="for-padd-cards-art">
                                         <div class="scroll-cards-art">
+                                            <ng-container *ngFor="let item of venueList">
                                             <div class="one-card">
                                                 <div class="l-s">
-                                                    <div class="ava" style="background-image: url(img/drake.jpg)"></div>
+                                                    <div class="ava" [ngStyle]="{'background-image': item.image_base64_not_given?'url('+item.image_base64_not_given+')':''}"></div>
                                                     <div class="desc">
-                                                        <a class="name" href="#">Burn Room</a>
+                                                        <a class="name" href="#">{{item.user_name}}</a>
                                                         <p class="genres">Small club</p>
                                                         <p class="where">New York, NY USA</p>
                                                     </div>
@@ -402,7 +403,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="one-card">
+                                            </ng-container>
+                                            
+                                            <!-- <div class="one-card">
                                                 <div class="l-s">
                                                     <div class="ava" style="background-image: url(img/drake.jpg)"></div>
                                                     <div class="desc">
@@ -497,7 +500,7 @@
                                                         <label class="label-wr" for="checkbox-506"></label>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
 
@@ -601,7 +604,7 @@
                 </div>
             </div>
             
-            <div    class="tabs-artist-wrapp">
+            <div  [ngStyle]="{'display': !isPrivateVenue?'block':'none'}"   class="tabs-artist-wrapp">
                 <div class="main-mw">
                     <ul class="tabs-menu-active-decline">
                         <li>
@@ -690,7 +693,7 @@
 
 
             <div class="scroll-wrapp">
-                <div class="circle-scroll"></div>
+                <div class="circle-scroll" (click)="currentPage = 'funding'"></div>
             </div>
         </div>
 
@@ -857,7 +860,7 @@
                         </div>
                     </div>
                     <div class="scroll-wrapp">
-                        <div class="circle-scroll"></div>
+                        <div class="circle-scroll" (click)="currentPage = 'tickets'"></div>
                     </div>
                 </div>
             </div>
@@ -1003,21 +1006,8 @@
 
     </div>
 
-     <!--новая первая модалка с картой-->
-     <div class="modal fade modal-send-request map-1-modal" id="modal-map-1">
-        <div class="modal-dialog">
-            <div class="modal-body">
-                <h6 class="head-m-p-a">Location</h6>
-                <span class="closee-modal" data-dismiss="modal"></span>
-                <div class="for-map-init-modal-1">
-                        <agm-map  style="height:450px" [latitude]="aboutMapCoords.lat" [longitude]="aboutMapCoords.lng">
-                                <agm-marker (dragEnd)="aboutDragMarker($event)" [markerDraggable] = "true" [latitude]="aboutMapCoords.lat" [longitude]="aboutMapCoords.lng"></agm-marker>
-                        </agm-map>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--//новая первая модалка с картой-->
+    
+
 
      <!--модалка send request c картой-->
     <div class="modal fade modal-send-request modal-send-request-map" id="modal-send-request-map">
@@ -1207,7 +1197,7 @@
     <!--//новая модалка с картой 2-->
 
     <!--модалка для кликов на плюс и текст-->
-    <div class="modal fade modal-pick-artist" id="modal-pick-artist">
+    <div class="modal fade modal-pick-artist"   id="modal-pick-artist">
         <div class="modal-dialog">
             <div class="modal-body">
 
@@ -1232,8 +1222,8 @@
                         </div>
                         <div class="right-side">
                             <div class="location-wr">
-                                <div class="mark"></div>
-                                <input type="text" class="location-inp" placeholder="location">
+                                <div (click)="artistOpenMapModal()" class="mark"></div>
+                                <input type="text" class="location-inp" placeholder="Location" #searchArtist id="artistAddress">
                             </div>
                         </div>
                     </div>  
@@ -1374,4 +1364,60 @@
         </div>
     </div>
     <!--//конец модалки для кликов на плюс и текст-->
+
+
+     <!--новая первая модалка с картой-->
+     <div class="modal fade modal-send-request map-1-modal" id="modal-map-1">
+        <div class="modal-dialog">
+            <div class="modal-body">
+                <h6 class="head-m-p-a">Location</h6>
+                <span class="closee-modal" data-dismiss="modal"></span>
+                <div class="for-map-init-modal-1">
+                        <agm-map  style="height:450px" [latitude]="aboutMapCoords.lat" [longitude]="aboutMapCoords.lng">
+                                <agm-marker (dragEnd)="aboutDragMarker($event)" [markerDraggable] = "true" [latitude]="aboutMapCoords.lat" [longitude]="aboutMapCoords.lng"></agm-marker>
+                        </agm-map>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--//новая первая модалка с картой-->
+
+    <!--новая вторая модалка с картой-->
+    <div class="modal fade modal-send-request map-1-modal" id="modal-map-2">
+        <div class="modal-dialog">
+            <div class="modal-body">
+                <h6 class="head-m-p-a">Location</h6>
+                <span class="closee-modal" data-dismiss="modal"></span>
+                <div class="for-map-init-modal-1">
+                        <agm-map  style="height:450px" [latitude]="artistMapCoords.lat" [longitude]="artistMapCoords.lng">
+                                <agm-marker (dragEnd)="artistDragMarker($event)" [markerDraggable] = "true" [latitude]="artistMapCoords.lat" [longitude]="artistMapCoords.lng"></agm-marker>
+                        </agm-map>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--//новая вторая модалка с картой-->
+
+    <!--новая третья модалка с картой-->
+    <div class="modal fade modal-send-request map-1-modal" id="modal-map-3">
+        <div class="modal-dialog">
+            <div class="modal-body">
+                <h6 class="head-m-p-a">Location</h6>
+                <span class="closee-modal" data-dismiss="modal"></span>
+                <div class="for-map-init-modal-1">
+                        <agm-map  style="height:450px" [latitude]="venueMapCoords.lat" [longitude]="venueMapCoords.lng">
+                                <agm-marker (dragEnd)="venueDragMarker($event)" [markerDraggable] = "true" [latitude]="venueMapCoords.lat" [longitude]="venueMapCoords.lng"></agm-marker>
+                        </agm-map>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--//новая третья модалка с картой-->
+
+
+
+
+
+
+
 </section>

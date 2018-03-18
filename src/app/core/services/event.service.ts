@@ -35,7 +35,11 @@ export class EventService{
             () => this.http.GetData('/events/'+id+'.json',this.typeService.ParamsToUrlSearchParams({'id':id}))
         );
     }
-
+    EventsSearch(params){
+        return this.http.CommonRequest(
+            () => this.http.GetData('/events/search.json',JSON.stringify(params))
+        );
+    }
     AddArtist(event:ArtistAddToEventModel){
         return this.http.CommonRequest(
             () => this.http.PostData('/events/'+event.event_id+'/artists.json',JSON.stringify(event))

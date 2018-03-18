@@ -196,7 +196,7 @@ button{
     .pswp__share-tooltip a:last-child {
       border-radius: 0 0 2px 2px; }
 
-.pswp__share-modal--fade-in {
+.pswp__share-modal--modal show-in {
   opacity: 1; }
   .pswp__share-modal--fade-in .pswp__share-tooltip {
     -webkit-transform: translateY(0);

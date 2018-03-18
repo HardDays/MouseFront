@@ -6,3 +6,5 @@ p{
     word-wrap: break-word;
     word-break: break-all; 
 }
+
+.pac-container { z-index: 100000; }
