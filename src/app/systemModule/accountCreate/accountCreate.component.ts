@@ -41,6 +41,7 @@ export class AccountCreateComponent extends BaseComponent implements OnInit {
     genresShow:GenreModel[] = [];
     seeMore:boolean = false;
     VenueTypes:SelectModel[] = [];
+    TypesOfSpace:SelectModel[] = [];
     SelectedVenue:number = 1;
     hasBar:boolean = true;
     hasVr:boolean = true;
@@ -83,6 +84,7 @@ export class AccountCreateComponent extends BaseComponent implements OnInit {
       this.Account.dates = [new EventDateModel()];
       this.Account.emails = [new ContactModel()];
       this.Account.office_hours = [new WorkingTimeModel()];
+      this.TypesOfSpace = this.typeService.GetAllSpaceTypes();
       this.VenueTypes = this.typeService.GetAllVenueTypes();
       this.AccountTypes = this.typeService.GetAllAccountTypes();
       this.LocationTypes = this.typeService.GetAllLocationTypes();

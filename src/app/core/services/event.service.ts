@@ -5,7 +5,7 @@ import { Router } from "@angular/router";
 import { TypeService } from "./type.service";
 import { AccountCreateModel } from "../models/accountCreate.model";
 import { EventCreateModel } from "../models/eventCreate.model";
-import { ArtistAddToEventModel } from "../models/artistAddToEvent.model";
+import { AccountAddToEventModel } from "../models/artistAddToEvent.model";
 
 @Injectable()
 export class EventService{
@@ -40,19 +40,25 @@ export class EventService{
             () => this.http.GetData('/events/search.json',JSON.stringify(params))
         );
     }
-    AddArtist(event:ArtistAddToEventModel){
+    AddArtist(event:AccountAddToEventModel){
         return this.http.CommonRequest(
             () => this.http.PostData('/events/'+event.event_id+'/artists.json',JSON.stringify(event))
         );
     }
-    ArtistAccept(event:ArtistAddToEventModel){
+    ArtistAccept(event:AccountAddToEventModel){
         return this.http.CommonRequest(
             () => this.http.PostData('/events/'+event.event_id+'/artists/'+event.artist_id+'/accept.json',JSON.stringify(event))
         );
     }
-    ArtistDecline(event:ArtistAddToEventModel){
+    ArtistDecline(event:AccountAddToEventModel){
         return this.http.CommonRequest(
             () =>this.http.PostData('/events/'+event.event_id+'/artists/'+event.artist_id+'/decline.json',JSON.stringify(event))
+        );
+    }
+
+    AddVenue(event:AccountAddToEventModel){
+        return this.http.CommonRequest(
+            () => this.http.PostData('/events/'+event.event_id+'/venue.json',JSON.stringify(event))
         );
     }
 

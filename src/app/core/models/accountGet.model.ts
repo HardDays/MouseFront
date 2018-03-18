@@ -25,6 +25,7 @@ export class AccountGetModel{
         public num_of_bathrooms?: number,
         public min_age?: number,
         public venue_type?: string,
+        public type_of_space?: string,
         public has_bar?: boolean,
         public located?: string,
         public dress_code?: string,

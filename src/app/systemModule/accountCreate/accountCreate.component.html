@@ -25,8 +25,12 @@
                                 <option *ngFor="let item of AccountTypes" [value]="item.value">{{item.name}}</option>
                             </select> 
                             <p *ngIf="Account.account_type == Roles.Venue">Choose your venue type</p>
-                            <select name="venue_type" *ngIf="Account.account_type == Roles.Venue" [ngModel]="Account.vanue_type" (ngModelChange)="Account.vanue_type = $event">
+                            <select name="venue_type" *ngIf="Account.account_type == Roles.Venue" [ngModel]="Account.venue_type" (ngModelChange)="Account.venue_type = $event">
                                 <option *ngFor="let item of VenueTypes" [value]="item.value">{{item.name}}</option>
+                            </select>
+                            <p *ngIf="Account.venue_type == 'public_venue'" >Choose your type of space</p>
+                            <select name="type_of_space" *ngIf="Account.venue_type == 'public_venue'" [ngModel]="Account.type_of_space" (ngModelChange)="Account.type_of_space = $event">
+                                <option *ngFor="let item of TypesOfSpace" [value]="item.value">{{item.name}}</option>
                             </select>
                             <p *ngIf="Account.account_type == Roles.Venue">Location</p>
                             <select name="location_type" *ngIf="Account.account_type == Roles.Venue" [ngModel]="Account.location" (ngModelChange)="Account.location = $event">

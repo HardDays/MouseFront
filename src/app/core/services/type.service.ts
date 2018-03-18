@@ -18,18 +18,25 @@ export class TypeService{
     constructor(private http: HttpService, private router: Router){     
     }
 
+    GetAllSpaceTypes()
+    {
+        return [
+            new SelectModel("Night club", "night_club"),
+            new SelectModel("Concert hall", "concert_hall"),
+            new SelectModel("Event space", "event_space"),
+            new SelectModel("Theatre", "theatre"),
+            new SelectModel("Additional room", "additional_room"),
+            new SelectModel("Stadium arena", "stadium_arena"),
+            new SelectModel("Outdoor space", "outdoor_space"),
+            new SelectModel("Other", "other")
+        ];
+    }
+
     GetAllVenueTypes()
     {
         return [
-            new SelectModel("Night club",1),
-            new SelectModel("Concert hall",2),
-            new SelectModel("Event space",3),
-            new SelectModel("Theatre",4),
-            new SelectModel("Additional room",5),
-            new SelectModel("Stadium arena",6),
-            new SelectModel("Outdoor space",7),
-            new SelectModel("Private residence",8),
-            new SelectModel("Other",9)
+            new SelectModel("Public venue", "public_venue"),
+            new SelectModel("Private residence", "private_residence")
         ];
     }
 
