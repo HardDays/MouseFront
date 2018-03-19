@@ -245,8 +245,8 @@
                                                     <p class="desc-head-info">Location</p>
                                                     <p class="info">{{item.address}}</p>
                                                     <div class="flex-buttons">
-                                                        <span class="button-card">accept</span>
-                                                        <span class="button-card">Decline</span>
+                                                        <span class="button-card" (click)="acceptArtist(item.id)">accept</span>
+                                                        <span class="button-card"(click)="declineArtist(item.id)">Decline</span>
                                                     </div>
                                                 </div>
                                             </div>

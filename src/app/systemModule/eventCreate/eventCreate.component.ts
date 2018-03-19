@@ -60,8 +60,6 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     currentPage:string = 'about';
     showAllPages:boolean = true;
 
-    
-   
 
     // general
     /////////////////////////////////////////////////
@@ -632,6 +630,25 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         return answer;
     }
 
+    acceptArtist(idArtist:number){
+        console.log(idArtist);
+        let accept:AccountAddToEventModel = this.addArtist;
+        accept.artist_id = idArtist;
+        this.eventService.ArtistAccept(accept).
+            subscribe((res)=>{
+                console.log(`ok accept artist`,res);
+            });
+    }
+
+    declineArtist(idArtist:number){
+        console.log(idArtist);
+        let accept:AccountAddToEventModel = this.addArtist;
+        accept.artist_id = idArtist;
+        this.eventService.ArtistDecline(accept).
+            subscribe((res)=>{
+                console.log(`ok decline artist`,res);
+            });
+    }
 
 
 
