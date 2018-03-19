@@ -1,6 +1,6 @@
-export class CheckModel{
+export class CheckModel<T>{
     constructor(
-        public object?:any,
+        public object?:T,
         public checked?:boolean
     ){
         if(!checked) this.checked = false;

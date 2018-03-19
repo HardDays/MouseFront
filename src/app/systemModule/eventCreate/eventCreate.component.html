@@ -1399,8 +1399,8 @@
                 <h6 class="head-m-p-a">Location</h6>
                 <span class="closee-modal" data-dismiss="modal"></span>
                 <div class="for-map-init-modal-1">
-                        <agm-map  style="height:450px" [latitude]="aboutMapCoords.lat" [longitude]="aboutMapCoords.lng">
-                                <agm-marker (dragEnd)="aboutDragMarker($event)" [markerDraggable] = "true" [latitude]="aboutMapCoords.lat" [longitude]="aboutMapCoords.lng"></agm-marker>
+                        <agm-map  style="height:450px" [latitude]="mapCoords.about.lat" [longitude]="mapCoords.about.lng">
+                                <agm-marker (dragEnd)="aboutDragMarker($event)" [markerDraggable] = "true" [latitude]="mapCoords.about.lat" [longitude]="mapCoords.about.lng"></agm-marker>
                         </agm-map>
                 </div>
             </div>
@@ -1415,8 +1415,8 @@
                 <h6 class="head-m-p-a">Location</h6>
                 <span class="closee-modal" data-dismiss="modal"></span>
                 <div class="for-map-init-modal-1">
-                        <agm-map  style="height:450px" [latitude]="artistMapCoords.lat" [longitude]="artistMapCoords.lng">
-                                <agm-marker (dragEnd)="artistDragMarker($event)" [markerDraggable] = "true" [latitude]="artistMapCoords.lat" [longitude]="artistMapCoords.lng"></agm-marker>
+                        <agm-map  style="height:450px" [latitude]="mapCoords.artist.lat" [longitude]="mapCoords.artist.lng">
+                                <agm-marker (dragEnd)="artistDragMarker($event)" [markerDraggable] = "true" [latitude]="mapCoords.artist.lat" [longitude]="mapCoords.artist.lng"></agm-marker>
                         </agm-map>
                 </div>
             </div>
@@ -1431,8 +1431,8 @@
                 <h6 class="head-m-p-a">Location</h6>
                 <span class="closee-modal" data-dismiss="modal"></span>
                 <div class="for-map-init-modal-1">
-                        <agm-map  style="height:450px" [latitude]="venueMapCoords.lat" [longitude]="venueMapCoords.lng">
-                                <agm-marker (dragEnd)="venueDragMarker($event)" [markerDraggable] = "true" [latitude]="venueMapCoords.lat" [longitude]="venueMapCoords.lng"></agm-marker>
+                        <agm-map  style="height:450px" [latitude]="mapCoords.venue.lat" [longitude]="mapCoords.venue.lng">
+                                <agm-marker (dragEnd)="venueDragMarker($event)" [markerDraggable] = "true" [latitude]="mapCoords.venue.lat" [longitude]="mapCoords.venue.lng"></agm-marker>
                         </agm-map>
                 </div>
             </div>
