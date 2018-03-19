@@ -78,6 +78,18 @@ ngOnInit(){
   })
   
 }
+Wrapper() {
+    $('.iframe-slider-wrapp').slick({
+        dots: false,
+        arrows: true,
+        infinite: false,
+        slidesToShow: 1
+
+    });
+    $('.iframe-slider-wrapp').on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+        //тут выполняется код при смене слайда.
+    });
+}
 
 Gallery() {
 $('.gallery-main-wrapp').each(function () {

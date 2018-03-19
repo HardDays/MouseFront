@@ -16,6 +16,7 @@
                         </div>
                         <div class="side left-side">
                             <input autocomplete="off" name="phone" [textMask]="MaskTelephone()" class="inp-style-2" type="text" placeholder="Phone" [ngModel]="Account.phone" (ngModelChange)="Account.phone = $event">
+                            <p>Address</p>
                             <input autocomplete="off" type="text" class="date-picker-inp" name="search-params-address" autocorrect="off" autocapitalize="off" spellcheck="off" placeholder=""  #search>
                             <input autocomplete="off" name="capacity" *ngIf="Account.account_type == Roles.Venue" class="inp-style-2" type="number" min="0" placeholder="Capacity" [ngModel]="Account.capacity" (ngModelChange)="Account.capacity = $event">
                             <input autocomplete="off" name="number_of_bathrooms" *ngIf="Account.account_type == Roles.Venue" ngModel class="inp-style-2" type="number" min="0" placeholder="Number of bathrooms" [ngModel]="Account.num_of_bathrooms" (ngModelChange)="Account.num_of_bathrooms = $event">
@@ -28,8 +29,8 @@
                             <select name="venue_type" *ngIf="Account.account_type == Roles.Venue" [ngModel]="Account.venue_type" (ngModelChange)="Account.venue_type = $event">
                                 <option *ngFor="let item of VenueTypes" [value]="item.value">{{item.name}}</option>
                             </select>
-                            <p *ngIf="Account.venue_type == 'public_venue'" >Choose your type of space</p>
-                            <select name="type_of_space" *ngIf="Account.venue_type == 'public_venue'" [ngModel]="Account.type_of_space" (ngModelChange)="Account.type_of_space = $event">
+                            <p *ngIf="Account.venue_type == 'public_venue' && Account.account_type == Roles.Venue" >Choose your type of space</p>
+                            <select name="type_of_space" *ngIf="Account.venue_type == 'public_venue' && Account.account_type == Roles.Venue" [ngModel]="Account.type_of_space" (ngModelChange)="Account.type_of_space = $event">
                                 <option *ngFor="let item of TypesOfSpace" [value]="item.value">{{item.name}}</option>
                             </select>
                             <p *ngIf="Account.account_type == Roles.Venue">Location</p>
@@ -47,7 +48,7 @@
                         <div class="side right-side">
                             <input autocomplete="off" name="username" ngModel class="inp-style-2" pattern="^[A-Za-z0-9_]{1,30}$" type="text" placeholder="Username" maxlength="30" [ngModel]="Account.user_name" (ngModelChange)="Account.user_name = $event">
                             <input autocomplete="off" name="displayname" ngModel class="inp-style-2" pattern="^[A-Za-z0-9_]{1,75}$" type="text" placeholder="Displayed name" maxlength="75" [ngModel]="Account.display_name" (ngModelChange)="Account.display_name = $event">
-                            <input autocomplete="off" name="bio" *ngIf="Account.account_type == Roles.Fan" pattern="^[A-Za-z0-9_\s]{1,30}$" ngModel class="inp-style-2" type="text" placeholder="Bio" [ngModel]="Account.bio" (ngModelChange)="Account.bio = $event">
+                            <input autocomplete="off" name="bio" *ngIf="Account.account_type == Roles.Fan" pattern="^[A-Za-z0-9_\s]{1,210}$" maxlength="210" ngModel class="inp-style-2" type="text" placeholder="Bio" [ngModel]="Account.bio" (ngModelChange)="Account.bio = $event">
                             <input autocomplete="off" name="description" *ngIf="Account.account_type == Roles.Venue" ngModel class="inp-style-2" type="text" placeholder="Description" [ngModel]="Account.description" (ngModelChange)="Account.description = $event">
                             <input autocomplete="off" name="fax" *ngIf="Account.account_type == Roles.Venue" ngModel class="inp-style-2" type="text" placeholder="Fax" [ngModel]="Account.fax" (ngModelChange)="Account.fax = $event">
                             <input autocomplete="off" name="bank_name" *ngIf="Account.account_type == Roles.Venue" ngModel class="inp-style-2" type="text" placeholder="Bank name" [ngModel]="Account.bank_name" (ngModelChange)="Account.bank_name = $event">

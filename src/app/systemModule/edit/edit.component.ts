@@ -168,7 +168,9 @@ export class EditComponent extends BaseComponent implements OnInit {
           this.accService.onAuthChange$.next(true);
       },
       (err:any)=>{
-        console.log(err);
+        if(err.status == 422) {
+          this.Error = "Incorrect type of input name!"; 
+         }     
           
       })
     }

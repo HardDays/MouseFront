@@ -148,7 +148,9 @@ export class AccountCreateComponent extends BaseComponent implements OnInit {
           this.accService.onAuthChange$.next(true);
       },
       (err:any)=>{
-        this.Error = err;       
+        if(err.status == 422) {
+          this.Error = "Incorrect type of input name!"; 
+         }     
       })
     }
   }
