@@ -56,26 +56,28 @@ declare var ionRangeSlider:any;
 
 export class EventCreateComponent extends BaseComponent implements OnInit {
     
-    pages = Pages;
-    currentPage:string = 'about';
-    showAllPages:boolean = true;
-
     
-   
-
     // general
     /////////////////////////////////////////////////
 
     Event:EventGetModel = new EventGetModel();
+
+    pages = Pages;
+    currentPage:string = 'about';
+    showAllPages:boolean = true;
+
+    mapCoords = {
+        'about': {lat:0, lng:0},
+        'artist': {lat:0, lng:0},
+        'venue': {lat:0, lng:0}
+    }
+    genres:GenreModel[] = [];
+    typesSpace:CheckModel<SelectModel>[] = [];
     
 
     // about
     /////////////////////////////////////////////////
-    
     newEvent:EventCreateModel = new EventCreateModel();
-    showMoreGenres:boolean = false;
-    aboutMapCoords = {lat:0, lng:0};
-    genres:GenreModel[] = [];
     aboutForm : FormGroup = new FormGroup({        
         "name": new FormControl("", [Validators.required]),
         "tagline": new FormControl("", [Validators.required]),
@@ -87,42 +89,37 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         "funding_goal":new FormControl("", [Validators.required,
                                             Validators.pattern("[0-9]+")])
     });
+
+    showMoreGenres:boolean = false;
+
+   
     
-
-
     //artists
     /////////////////////////////////////////////////
-
     showsArtists:AccountGetModel[] = []; // список артистов, которым отправлен запрос
 
     addArtist:AccountAddToEventModel = new AccountAddToEventModel(); // артист, которому отправляется запрос
+    artistSearchParams:AccountSearchModel = new AccountSearchModel(); // параметры поиска
     genresSearchArtist:GenreModel[] = []; // список жанров для поиска артистов
-    searchArtist:string=''; // имя артиста для поиска
-    searchArtistAddress:string = '';
     artistsList:AccountGetModel[] = []; // артисты, которые удовлятворяют поиску
     checkArtists:number[] = []; // id чекнутых артистов, т.е. тех, которым мы отправим запрос
    
-    artistMapCoords = {lat:0, lng:0};
-
 
 
     // venue
     /////////////////////////////////////////////////
 
     isPrivateVenue:boolean = false;
-    venueMapCoords = {lat:0, lng:0};
 
-    searchVenue:string='';
-    searchVenueAddress:string='';
+        //public
+    venueSearchParams:AccountSearchModel = new AccountSearchModel(); // параметры поиска
     venueList:AccountGetModel[] = [];
-    typesSpace:CheckModel[] = [];
     
-    venuePrice:number = 20000;
-    venueCapacity:number = 10000;
     checkVenue:number[] = [];
     addVenue:AccountAddToEventModel = new AccountAddToEventModel();
     showsVenues:AccountGetModel[] = [];
 
+        //private
     privateVenueForm : FormGroup = new FormGroup({        
         "user_name": new FormControl("", [Validators.required]),
         "phone": new FormControl(""),
@@ -135,7 +132,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         "link_two": new FormControl(""),
         "has_vr": new FormControl("")
     });
-    privateVenueAcc:AccountCreateModel = new AccountCreateModel();
+    privateVenueCreate:AccountCreateModel = new AccountCreateModel();
     privateVenue:AccountGetModel = new AccountGetModel();
 
     /////////////////////////////////////////////////
@@ -143,6 +140,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     @ViewChild('searchAbout') public searchElementAbout: ElementRef;
     @ViewChild('searchArtist') public searchElementArtist: ElementRef;
     @ViewChild('searchVenue') public searchElementVenue: ElementRef;
+
 
 
     constructor(protected authService: AuthMainService,
@@ -193,8 +191,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                         {
                             this.newEvent.address = autocomplete.getPlace().formatted_address;
 
-                            this.aboutMapCoords.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
-                            this.aboutMapCoords.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
+                            this.mapCoords.about.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
+                            this.mapCoords.about.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
                         }
                     });
                 });
@@ -217,10 +215,10 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                         }
                         else 
                         {
-                            this.searchArtistAddress = autocomplete.getPlace().formatted_address;
+                            this.artistSearchParams.address = autocomplete.getPlace().formatted_address;
                             this.artistSearch();
-                            this.artistMapCoords.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
-                            this.artistMapCoords.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
+                            this.mapCoords.artist.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
+                            this.mapCoords.artist.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
                         }
                     });
                 });
@@ -243,10 +241,10 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                         }
                         else 
                         {
-                            this.searchVenueAddress = autocomplete.getPlace().formatted_address;
+                            this.venueSearchParams.address = autocomplete.getPlace().formatted_address;
                             this.venueSearch();
-                            this.venueMapCoords.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
-                            this.venueMapCoords.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
+                            this.mapCoords.venue.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
+                            this.mapCoords.venue.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
                         }
                     });
                 });
@@ -269,11 +267,11 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                     if(id_map=='aboutAddress')
                         this.newEvent.address = results[1].formatted_address;
                     else if(id_map=='artistAddress'){
-                        this.searchArtistAddress = results[1].formatted_address;
+                        this.artistSearchParams.address = results[1].formatted_address;
                         this.artistSearch();
                     }
                     else if(id_map=='venueAddress'){
-                        this.searchVenueAddress = results[1].formatted_address;
+                        this.venueSearchParams.address = results[1].formatted_address;
                         this.venueSearch();
                     }
                         
@@ -405,23 +403,23 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
     aboutDragMarker($event){
         console.log($event);
-        this.aboutMapCoords.lat = $event.coords.lat;
-        this.aboutMapCoords.lng = $event.coords.lng;
-        this.codeLatLng( this.aboutMapCoords.lat, this.aboutMapCoords.lng, "aboutAddress");
+        this.mapCoords.about.lat = $event.coords.lat;
+        this.mapCoords.about.lng = $event.coords.lng;
+        this.codeLatLng( this.mapCoords.about.lat, this.mapCoords.about.lng, "aboutAddress");
     }
 
     artistDragMarker($event){
         console.log($event);
-        this.artistMapCoords.lat = $event.coords.lat;
-        this.artistMapCoords.lng = $event.coords.lng;
-        this.codeLatLng( this.artistMapCoords.lat, this.artistMapCoords.lng, "artistAddress");
+        this.mapCoords.artist.lat = $event.coords.lat;
+        this.mapCoords.artist.lng = $event.coords.lng;
+        this.codeLatLng( this.mapCoords.artist.lat, this.mapCoords.artist.lng, "artistAddress");
     }
 
     venueDragMarker($event){
         console.log($event);
-        this.venueMapCoords.lat = $event.coords.lat;
-        this.venueMapCoords.lng = $event.coords.lng;
-        this.codeLatLng( this.venueMapCoords.lat, this.venueMapCoords.lng, "venueAddress");
+        this.mapCoords.venue.lat = $event.coords.lat;
+        this.mapCoords.venue.lng = $event.coords.lng;
+        this.codeLatLng( this.mapCoords.venue.lat, this.mapCoords.venue.lng, "venueAddress");
     }
 
     createEventFromAbout(){
@@ -441,8 +439,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             this.newEvent.genres = this.genreService.GenreModelArrToStringArr(this.genres);
 
 
-            this.newEvent.city_lat = this.aboutMapCoords.lat;
-            this.newEvent.city_lng = this.aboutMapCoords.lng;
+            this.newEvent.city_lat = this.mapCoords.about.lat;
+            this.newEvent.city_lng = this.mapCoords.about.lng;
 
             
             console.log(`newEvent`,this.newEvent);
@@ -567,14 +565,14 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
 
     artistSearch($event?:string){
-       if($event) this.searchArtist = $event;
-        
-       var accSearch:AccountSearchModel = new AccountSearchModel();
-       accSearch.type = 'artist';
-       accSearch.text = this.searchArtist;
-       accSearch.genres = this.genreService.GenreModelArrToStringArr(this.genresSearchArtist);
-       accSearch.address = this.searchArtistAddress;
-        this.accService.AccountsSearch(accSearch).
+    
+       
+       if($event) this.artistSearchParams.text = $event;
+
+       this.artistSearchParams.type = 'artist';
+       this.artistSearchParams.genres = this.genreService.GenreModelArrToStringArr(this.genresSearchArtist);
+   
+        this.accService.AccountsSearch(this.artistSearchParams).
             subscribe((res)=>{
                 if(res.length>0){
                     this.artistsList = this.deleteDuplicateArtists(res);
@@ -632,6 +630,25 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         return answer;
     }
 
+    acceptArtist(idArtist:number){
+        console.log(idArtist);
+        let accept:AccountAddToEventModel = this.addArtist;
+        accept.artist_id = idArtist;
+        this.eventService.ArtistAccept(accept).
+            subscribe((res)=>{
+                console.log(`ok accept artist`,res);
+            });
+    }
+
+    declineArtist(idArtist:number){
+        console.log(idArtist);
+        let accept:AccountAddToEventModel = this.addArtist;
+        accept.artist_id = idArtist;
+        this.eventService.ArtistDecline(accept).
+            subscribe((res)=>{
+                console.log(`ok decline artist`,res);
+            });
+    }
 
 
 
@@ -639,33 +656,32 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
     getAllSpaceTypes(){
         let types:SelectModel[] = this.typeService.GetAllSpaceTypes();
-         this.typesSpace = this.convertArrToCheckModel(types);
+         this.typesSpace = this.convertArrToCheckModel<SelectModel>(types);
         console.log(`spaces`,types);
         console.log(`spaces`,this.typesSpace);
     }
 
     venueSearch($event?:string){
         this.venueList = [];
-        if($event) this.searchVenue = $event;
-         
-        var venueSearch:AccountSearchModel = new AccountSearchModel();
         
-        venueSearch.type = 'venue';
-        venueSearch.text = this.searchVenue;
-        venueSearch.type_of_space = [];
-        venueSearch.capacity_from = this.venueCapacity;
-        venueSearch.price_from = this.venuePrice;
-        venueSearch.address = this.searchVenueAddress;
+        // var venueSearch:AccountSearchModel = new AccountSearchModel();
+        
+        this.venueSearchParams.type = 'venue';
+        if($event) this.venueSearchParams.text = $event;
+        this.venueSearchParams.type_of_space = [];
+        // this.venueSearchParams.capacity_from = this.venueCapacity;
+        // this.venueSearchParams.price_from = this.venuePrice;
+        // venueSearch.address = this.searchVenueAddress;
 
         for(let space of this.typesSpace)
-            if(space.checked) venueSearch.type_of_space.push(space.object.value)
+            if(space.checked)  this.venueSearchParams.type_of_space.push(space.object.value)
 
         
-         this.accService.AccountsSearch(venueSearch).
+         this.accService.AccountsSearch( this.venueSearchParams).
              subscribe((res)=>{
                  if(res.length>0){
                      this.venueList = this.deleteDuplicateArtists(res);
-                     console.log(`venue`,venueSearch,this.venueList);
+                     console.log(`venue`, this.venueSearchParams,this.venueList);
                      this.getVenueListImages();
                  }
          });
@@ -682,13 +698,13 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     }
   
     VenuePriceChanged(data){
-        this.venuePrice = data.from;
+        this.venueSearchParams.price_from  = data.from;
         this.venueSearch();
 
     }
 
     VenueCapacityChanged(data){
-        this.venueCapacity = data.from;
+        this.venueSearchParams.capacity_from = data.from;
         this.venueSearch();
     }
 
@@ -776,26 +792,26 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
            
             for (let key in this.privateVenueForm.value) {
                 if (this.privateVenueForm.value.hasOwnProperty(key)) {
-                        this.privateVenueAcc[key] = this.privateVenueForm.value[key];
+                        this.privateVenueCreate[key] = this.privateVenueForm.value[key];
                 }
             }
 
 
-            if(this.privateVenueAcc.has_vr != true)
-                this.privateVenueAcc.has_vr = false;
+            if(this.privateVenueCreate.has_vr != true)
+                this.privateVenueCreate.has_vr = false;
 
-            this.privateVenueAcc.account_type = 'venue';
+            this.privateVenueCreate.account_type = 'venue';
 
-            this.privateVenueAcc.video_links = [];
+            this.privateVenueCreate.video_links = [];
             if(this.privateVenueForm.value['link_one'])
-                this.privateVenueAcc.video_links.push(this.privateVenueForm.value['link_one']);
+                this.privateVenueCreate.video_links.push(this.privateVenueForm.value['link_one']);
             if(this.privateVenueForm.value['link_two'])
-                this.privateVenueAcc.video_links.push(this.privateVenueForm.value['link_two']);
+                this.privateVenueCreate.video_links.push(this.privateVenueForm.value['link_two']);
             
             
-            console.log(`newPrivateEvent`,this.privateVenueAcc);
+            console.log(`newPrivateEvent`,this.privateVenueCreate);
 
-            this.accService.CreateAccount(this.privateVenueAcc)
+            this.accService.CreateAccount(this.privateVenueCreate)
                 .subscribe((acc:AccountGetModel)=>{
                         this.privateVenue = acc;
                         console.log(`create`,this.privateVenue);

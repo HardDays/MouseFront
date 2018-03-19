@@ -367,12 +367,13 @@ export class BaseComponent{
     // }
 
 
-    convertToCheckModel(model:any){
-        let checkModel:CheckModel = new CheckModel(model);
+    convertToCheckModel<T>(model){
+
+        let checkModel:CheckModel<T> = new CheckModel(model);
         return checkModel;
     }
-    convertArrToCheckModel(model:any[]){
-        let arrCheck: CheckModel[] = [];
+    convertArrToCheckModel<T>(model:T[]){
+        let arrCheck: CheckModel<T>[] = [];
         for(let i of model) arrCheck.push(this.convertToCheckModel(i)); 
         return arrCheck;
     }
