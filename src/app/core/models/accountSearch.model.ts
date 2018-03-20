@@ -8,7 +8,7 @@ export class AccountSearchModel{
         public address?: string,
         public capacity_from?: number,
         public capacity_to?: number,
-        public type_of_space?: string[],
+        public types_of_space?: string[],
         public extended?: boolean,
         public sort_by_popularity?: boolean,
         public limit?: number,

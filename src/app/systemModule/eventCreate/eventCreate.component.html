@@ -234,7 +234,7 @@
                                                 <div class="delete-card"></div>
                                                 <div class="left-side">
                                                     <!--если есть галочка - добавляем класс checked   -->
-                                                    <div class="ava" [class.checked]="getStatusArtistEventById(item.id) != 'pending'" [ngStyle]="{'background-image': item.image_base64_not_given?'url('+item.image_base64_not_given+')':''}"></div>
+                                                    <div class="ava" [class.checked]="true" [ngStyle]="{'background-image': item.image_base64_not_given?'url('+item.image_base64_not_given+')':''}"></div>
                                                     <p class="desc-head-info">{{getStatusArtistEventById(item.id)}}</p>
                                                     <p class="status">Accepted by Artist and Event owner</p>
                                                 </div>
@@ -386,6 +386,8 @@
                                 <div class="side width-66">
                                     <div class="for-padd-cards-art">
                                         <div class="scroll-cards-art">
+
+
                                             <ng-container *ngFor="let item of venueList; let i = index">
                                                 <div class="one-card">
                                                     <div class="l-s">
@@ -398,7 +400,7 @@
                                                     </div>
                                                     <div class="r-s">
                                                     <div class="circle-checkbox gray-border">
-                                                            <input type="checkbox" [checked]="ifCheckedVenue(item.id)" class="checkbox" (click)="addVenueCheck(item.id)" name="" id="checkbox-venue-{{i}}">
+                                                            <input type="checkbox" [checked]="ifCheckedVenue(item.id)" class="checkbox" (click)="addVenueCheck(item)" name="" id="checkbox-venue-{{i}}">
                                                             <label class="label-wr" for="checkbox-venue-{{i}}"></label>
                                                         </div>
                                                     </div>
@@ -625,17 +627,18 @@
                         <!-- "p.s. наш любимый *ngIf"-->
                         <div class="tab-artist">
                             <div class="flex-wrapp-cards">
-                                <div class="one-card">
+
+                                <div *ngFor="let shows of requestVenues" class="one-card">
                                     <div class="card">
                                         <div class="delete-card"></div>
                                         <div class="left-side">
                                             <!--если есть галочка - добавляем класс checked-->
-                                            <div class="ava checked" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                                            <div class="ava checked" [ngStyle]="{'background-image': shows.image_base64_not_given?'url('+shows.image_base64_not_given+')':''}"></div>
                                             <p class="desc-head-info">status</p>
                                             <p class="status">Accepted by Artist and Event owner</p>
                                         </div>
                                         <div class="right-side">
-                                            <p class="name">Drake</p>
+                                            <p class="name">{{shows.id}} {{shows.user_name}}</p>
                                             <p class="desc-head-info">Genre</p>
                                             <p class="info">Baroque pop, dream pop, trip hop, indie</p>
                                             <p class="desc-head-info">Location</p>
@@ -647,44 +650,23 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="one-card">
-                                    <div class="card">
-                                        <div class="delete-card"></div>
-                                        <div class="left-side">
-                                            <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                                            <p class="desc-head-info">status</p>
-                                            <p class="status">Accepted by Artist and Event owner</p>
-                                        </div>
-                                        <div class="right-side">
-                                            <p class="name">Drake</p>
-                                            <p class="desc-head-info">Genre</p>
-                                            <p class="info">Baroque pop, dream pop, trip hop, indie</p>
-                                            <p class="desc-head-info">Location</p>
-                                            <p class="info">Los Angeles, California USA</p>
-                                            <div class="flex-buttons">
-                                                <span class="button-card send-request-modal" (click)="sendRequestOpenModal()">send request</span>
-                                            
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div *ngFor="let shows of showsVenues" class="one-card">
+                                <div *ngFor="let shows of venueShowsList" class="one-card">
                                         <div class="card">
-                                            <div class="delete-card"></div>
+                                            <div class="delete-card" (click)="addVenueCheck(shows)"></div>
                                             <div class="left-side">
                                                 <div class="ava" [ngStyle]="{'background-image': shows.image_base64_not_given?'url('+shows.image_base64_not_given+')':''}"></div>
                                                 <p class="desc-head-info">status</p>
                                                 <p class="status">Accepted by Artist and Event owner</p>
                                             </div>
                                             <div class="right-side">
-                                                <p class="name">{{shows.user_name}}</p>
+                                                <p class="name">{{shows.id}} {{shows.user_name}}</p>
                                                 <p class="desc-head-info">Genre</p>
                                                 <p class="info">Baroque pop, dream pop, trip hop, indie</p>
                                                 <p class="desc-head-info">Location</p>
                                                 <p class="info">Los Angeles, California USA</p>
                                                 <div class="flex-buttons">
-                                                    <span class="button-card send-request-modal" (click)="sendRequestOpenModal()">send request</span>
+                                                    <span class="button-card send-request-modal" (click)="sendRequestOpenModal(shows)">send request</span>
                                                 
                                                 </div>
                                             </div>
@@ -1100,9 +1082,9 @@
                 <h6 class="head-m-p-a">Event Request</h6>
                 
                 <div class="name-and-ava">
-                    <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                    <div class="ava" [ngStyle]="{'background-image': eventForRequest.image_base64_not_given?'url('+eventForRequest.image_base64_not_given+')':''}"></div>
                     <div class="n-h">
-                        <p class="name">Dylan Davis</p>
+                        <p class="name">{{eventForRequest.user_name}}</p>
                         <p class="hash"><span>@</span>pixope</p>
                     </div>
                 </div>
@@ -1175,7 +1157,7 @@
 
                     </div>
                      <div class="send-request-b">
-                        <button class="butt-style-1" type="submit">
+                        <button class="butt-style-1" type="submit" (click)="addVenueById(eventForRequest.id)">
                             <span>Send Request</span>
                         </button>
                     </div>
