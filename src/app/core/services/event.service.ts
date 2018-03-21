@@ -45,14 +45,14 @@ export class EventService{
             () => this.http.PostData('/events/'+event.event_id+'/artists.json',JSON.stringify(event))
         );
     }
-    ArtistAccept(event:AccountAddToEventModel){
+    ArtistAcceptOwner(event:AccountAddToEventModel){
         return this.http.CommonRequest(
-            () => this.http.PostData('/events/'+event.event_id+'/artists/'+event.artist_id+'/accept.json',JSON.stringify(event))
+            () => this.http.PostData('/events/'+event.event_id+'/artists/'+event.artist_id+'/owner_accept.json',JSON.stringify(event))
         );
     }
-    ArtistDecline(event:AccountAddToEventModel){
+    ArtistDeclineOwner(event:AccountAddToEventModel){
         return this.http.CommonRequest(
-            () =>this.http.PostData('/events/'+event.event_id+'/artists/'+event.artist_id+'/decline.json',JSON.stringify(event))
+            () =>this.http.PostData('/events/'+event.event_id+'/artists/'+event.artist_id+'/owner_decline.json',JSON.stringify(event))
         );
     }
 

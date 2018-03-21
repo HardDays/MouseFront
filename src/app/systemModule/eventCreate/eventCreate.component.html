@@ -209,16 +209,18 @@
                 
             </div>
             <div  class="tabs-artist-wrapp">
-                <div class="main-mw">
-                    <ul class="tabs-menu-active-decline">
-                        <li>
-                            <!--Добавляем active табу или удаляем "p.s. наш любимый ngClass"-->
-                            <span class="active">Active</span>
-                        </li>
-                        <li>
-                            <span>declined</span>
-                        </li>
-                    </ul>
+                <div class="new-padd-wrapper-m-w">
+                    <div class="main-mw">
+                        <ul class="tabs-menu-active-decline">
+                            <li>
+                                <!--Добавляем active табу или удаляем "p.s. наш любимый ngClass"-->
+                                <span class="active">Active</span>
+                            </li>
+                            <li>
+                                <span>declined</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="bg-wr-tabs">
                     <div class="main-mw">
@@ -400,7 +402,7 @@
                                                     </div>
                                                     <div class="r-s">
                                                     <div class="circle-checkbox gray-border">
-                                                            <input type="checkbox" [checked]="ifCheckedVenue(item.id)" class="checkbox" (click)="addVenueCheck(item)" name="" id="checkbox-venue-{{i}}">
+                                                            <input type="checkbox" [checked]="ifCheckedVenue(item.id)" class="checkbox" (click)="!ifRequestVenue(item.id)?addVenueCheck(item):''" name="" id="checkbox-venue-{{i}}">
                                                             <label class="label-wr" for="checkbox-venue-{{i}}"></label>
                                                         </div>
                                                     </div>
@@ -611,16 +613,18 @@
             </div>
             
             <div  [ngStyle]="{'display': !isPrivateVenue?'block':'none'}"   class="tabs-artist-wrapp">
-                <div class="main-mw">
-                    <ul class="tabs-menu-active-decline">
-                        <li>
-                            <!--Добавляем active табу или удаляем "p.s. наш любимый ngClass"-->
-                            <span class="active">Active</span>
-                        </li>
-                        <li>
-                            <span>declined</span>
-                        </li>
-                    </ul>
+                <div class="new-padd-wrapper-m-w">
+                    <div class="main-mw">
+                        <ul class="tabs-menu-active-decline">
+                            <li>
+                                <!--Добавляем active табу или удаляем "p.s. наш любимый ngClass"-->
+                                <span class="active">Active</span>
+                            </li>
+                            <li>
+                                <span>declined</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="bg-wr-tabs">
                     <div class="main-mw">
@@ -1167,6 +1171,107 @@
     </div>
     <!--//конец модалки для кликов на send request-->
 
+
+                            <!--модалки для сообщений-->
+                            <div class="modal fade modal-messege" id="message-1">
+                                <div class="modal-dialog">
+                                    <div class="modal-body">
+                                        <p class="message-t">Mouse sent an email to Muse, we’ll let you know when they join</p>
+                                        <div class="send-request-b">
+                                            <span class="butt-style-1" data-dismiss="modal">
+                                                <span>ok</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade modal-messege" id="message-2">
+                                <div class="modal-dialog">
+                                    <div class="modal-body">
+                                        <p class="message-t">Mouse will try to contact Drake but we do not guarantee they will join</p>
+                                        <div class="send-request-b">
+                                            <span class="butt-style-1" data-dismiss="modal">
+                                                <span>ok</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade modal-messege" id="message-3">
+                                <div class="modal-dialog">
+                                    <div class="modal-body">
+                                        <p class="message-t">Request to Perform was sent to Adele. You will be notified when they respond</p>
+                                        <div class="send-request-b">
+                                            <span class="butt-style-1" data-dismiss="modal">
+                                                <span>ok</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--//модалки для сообщений-->
+
+                        <!--модалка для кликов на decline-->
+                        <div class="modal fade modal-send-request" id="modal-decline">
+                            <div class="modal-dialog">
+                                <div class="modal-body">
+                                    <h6 class="head-m-p-a">Decline Request</h6>
+                                
+                                    <div class="content-modal">
+                                        <div class="padd-left-right">
+                                            <p class="gray-some-t-13">You declined the offer because of...</p>
+                                            <div class="checkboxes-decline-wrapp">
+                                                <div class="checkbox-decline">
+                                                    <div class="one-checkbox">
+                                                        <div class="check-style">
+                                                            <input type="checkbox" class="checkbox" name="" id="checkbox-decline-1">
+                                                            <label for="checkbox-decline-1"></label>
+                                                        </div>
+                                                    </div>
+                                                    <p class="desc-decil">Price</p>
+                                                </div>
+                                                <div class="checkbox-decline">
+                                                    <div class="one-checkbox">
+                                                        <div class="check-style">
+                                                            <input type="checkbox" class="checkbox" name="" id="checkbox-decline-2">
+                                                            <label for="checkbox-decline-2"></label>
+                                                        </div>
+                                                    </div>
+                                                    <p class="desc-decil">Location</p>
+                                                </div>
+                                                <div class="checkbox-decline">
+                                                    <div class="one-checkbox">
+                                                        <div class="check-style">
+                                                            <input type="checkbox" class="checkbox" name="" id="checkbox-decline-3">
+                                                            <label for="checkbox-decline-3"></label>
+                                                        </div>
+                                                    </div>
+                                                    <p class="desc-decil">Time</p>
+                                                </div>
+                                                <div class="checkbox-decline">
+                                                    <div class="one-checkbox">
+                                                        <div class="check-style">
+                                                            <input type="checkbox" class="checkbox" name="" id="checkbox-decline-4">
+                                                            <label for="checkbox-decline-4"></label>
+                                                        </div>
+                                                    </div>
+                                                    <p class="desc-decil">Other</p>
+                                                </div>
+                                            </div>
+                                            <div class="input-groupe-1 small-textarea whithout-label">
+                                                <textarea id="inp-desc-1-modal"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="send-request-b">
+                                            <button class="butt-style-1" type="submit">
+                                                <span>Decline</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--//модалка для кликов на decline-->
 
     <!--новая модалка с картой 2-->
     <div class="modal fade modal-pick-artist" id="modal-pick-artist-map">

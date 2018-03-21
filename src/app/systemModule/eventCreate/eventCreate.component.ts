@@ -179,6 +179,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         this.getAllSpaceTypes();
         this.artistSearch();
         this.venueSearch();
+
+        $('#modal-decline').modal('show');
     }
     
 
@@ -664,9 +666,10 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         console.log(idArtist);
         let accept:AccountAddToEventModel = this.addArtist;
         accept.artist_id = idArtist;
-        this.eventService.ArtistAccept(accept).
+        this.eventService.ArtistAcceptOwner(accept).
             subscribe((res)=>{
                 console.log(`ok accept artist`,res);
+                this.updateEvent();
             });
     }
 
@@ -674,7 +677,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         console.log(idArtist);
         let accept:AccountAddToEventModel = this.addArtist;
         accept.artist_id = idArtist;
-        this.eventService.ArtistDecline(accept).
+        this.eventService.ArtistDeclineOwner(accept).
             subscribe((res)=>{
                 console.log(`ok decline artist`,res);
             });
@@ -720,19 +723,20 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
 
     addVenueCheck(venue:AccountGetModel){
-        let index = this.checkVenue.indexOf(venue.id);
-    
-        if (index < 0)
-        {
-            this.checkVenue.push(venue.id);
-            this.venueShowsList.push(venue);
-        }
-        else {
-            this.checkVenue.splice(index,1);
-            this.venueShowsList.splice(index,1);
-        }
-        console.log(this.checkVenue);
-
+        // if(!this.ifRequestVenue(venue.id)){
+            let index = this.checkVenue.indexOf(venue.id);
+        
+            if (index < 0)
+            {
+                this.checkVenue.push(venue.id);
+                this.venueShowsList.push(venue);
+            }
+            else {
+                this.checkVenue.splice(index,1);
+                this.venueShowsList.splice(index,1);
+            }
+            console.log(this.checkVenue);
+        // }
         // this.addNewVenue();
     }
 
@@ -743,8 +747,21 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     
     ifRequestVenue(id){
         for(let v of this.requestVenues)
-            if(v.id==id) return true;
-        else return false;
+            if(v.id==id) {
+                // console.log(`IN Request`, id);
+                return true;
+            }
+        // console.log(`NO in Request`, id);
+        return false;
+    }
+    ifShowsVenue(id){
+        for(let v of this.venueShowsList)
+            if(v.id==id) {
+                // console.log(`IN Request`, id);
+                return true;
+            }
+        // console.log(`NO in Request`, id);
+        return false;
     }
 
     
@@ -755,7 +772,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                 subscribe((res:AccountGetModel)=>{
                    if(this.isNewAccById(this.requestVenues,res)){
                             this.requestVenues.push(res);
-                            this.addVenueCheck(res);
+                            if(this.ifShowsVenue(res.id))
+                                this.addVenueCheck(res);
                             if(res.image_id){
                                 this.imgService.GetImageById(res.image_id)
                                     .subscribe((img:Base64ImageModel)=>{
