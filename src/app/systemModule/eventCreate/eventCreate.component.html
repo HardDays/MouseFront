@@ -121,19 +121,25 @@
                             </div>
                             <div class="flex-input-groupes">
                                 <div class="input-groupe-1">
-                                    <select id="inp-create-5" >
-                                        <option>Spring</option>
-                                        <option>Spring</option>
-                                        <option>Spring</option>
-                                        <option>Spring</option>
-                                        <option>Spring</option>
-                                        
+                                    <select formControlName="event_month" id="inp-create-5" >
+                                        <option>jan</option>
+                                        <option>feb</option>
+                                        <option>mar</option>
+                                        <option>apr</option>
+                                        <option>may</option>
+                                        <option>jun</option>
+                                        <option>jul</option>
+                                        <option>aug</option>
+                                        <option>sep</option>
+                                        <option>oct</option>
+                                        <option>nov</option>
+                                        <option>dec</option>
                                     </select>
                                     <label for="inp-create-5">Event Date<span>*</span></label>
 
                                 </div>
                                 <div class="input-groupe-1">
-                                    <select id="inp-create-6" >
+                                    <select formControlName="event_year" id="inp-create-6" >
                                         <option>2018</option>
                                         <option>2019</option>
                                         <option>2020</option>
@@ -1082,7 +1088,9 @@
     <!--модалка для кликов на send request-->
     <div class="modal fade modal-send-request" id="modal-send-request">
         <div class="modal-dialog">
+                <form [formGroup]="requestVenueForm">
             <div class="modal-body">
+                
                 <h6 class="head-m-p-a">Event Request</h6>
                 
                 <div class="name-and-ava">
@@ -1093,7 +1101,7 @@
                     </div>
                 </div>
                 <div class="content-modal">
-                    <p class="e-n">Event Name</p>
+                    <p class="e-n">{{Event.name}}</p>
                     <div class="flex-input-groupes">
                         <div class="input-groupe-1">
                             <select id="inp-modal-req-1">
@@ -1106,10 +1114,9 @@
                         </div>
                         <div class="input-groupe-1">
                             <select id="inp-modal-req-2">
-                                <option>3 hrs</option>
-                                <option>3 hrs</option>
-                                <option>3 hrs</option>
-                                <option>3 hrs</option>
+                                    <option>2 hrs</option>
+                                    <option>2 hrs</option>
+                                    <option>2 hrs</option>
                             </select>
                             <label for="inp-modal-req-2">Performance Time</label>
                            
@@ -1117,9 +1124,10 @@
                     </div>
                     <div class="flex-input-groupes">
                         <div class="input-groupe-1 more-padd">
-                            <select id="inp-modal-req-3">
-                                <option>1 week</option>
-                                <option>1 week</option>
+                            <select formControlName="time_frame"  id="inp-modal-req-3">
+                                    <option>two_hours</option>
+                                    <option>tho_days</option>
+                                    <option>one_week</option>
                                 
                             </select>
                             <label for="inp-modal-req-3">Time Frame we expect an answer</label>
@@ -1127,7 +1135,7 @@
                         <div class="input-groupe-1 more-padd">
                             <div class="rel-wr">
                                 <span class="abs-backs">$</span>
-                                <input id="inp-modal-req-4" class="dollar" name="" type="text">
+                                <input  formControlName="estimated_price" id="inp-modal-req-4" class="dollar" name="" type="text">
                             </div>
                             <label for="inp-modal-req-4">Estimated Price to<br> Perform</label>
                            
@@ -1156,7 +1164,7 @@
                     </div>
                     <div class="input-groupe-1 small-textarea whithout-label">
 
-                        <textarea id="inp-desc-2-modal"></textarea>
+                        <textarea formControlName="message" id="inp-desc-2-modal"></textarea>
                         <label for="inp-desc-2-modal" class="head-groupe">Message</label>
 
                     </div>
@@ -1167,6 +1175,7 @@
                     </div>
                 </div>
             </div>
+            </form>
         </div>
     </div>
     <!--//конец модалки для кликов на send request-->

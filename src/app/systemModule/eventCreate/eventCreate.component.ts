@@ -84,6 +84,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         "is_crowdfunding_event": new FormControl(),
         "event_time": new FormControl("", [Validators.required]),
         "event_length": new FormControl("", [Validators.required]),
+        "event_year": new FormControl("", [Validators.required]),
+        "event_month": new FormControl("", [Validators.required]),
         "artists_number":new FormControl(),
         "description": new FormControl("", [Validators.required]),
         "funding_goal":new FormControl("", [Validators.required,
@@ -122,7 +124,12 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     addVenue:AccountAddToEventModel = new AccountAddToEventModel(); // модель для отправление запроса
 
     requestVenues:AccountGetModel[] = []; // список тех, кому отправлен запрос, брать из Event
-
+    requestVenueForm : FormGroup = new FormGroup({        
+        "time_frame": new FormControl(""),
+        "is_personal": new FormControl(""),
+        "estimated_price": new FormControl(),
+        "message": new FormControl("")
+    });
 
 
 
@@ -179,8 +186,6 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         this.getAllSpaceTypes();
         this.artistSearch();
         this.venueSearch();
-
-        $('#modal-decline').modal('show');
     }
     
 
@@ -800,14 +805,28 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
 
     addVenueById(id:number){
-        this.addVenue.event_id = this.Event.id;
-        this.addVenue.venue_id = id;
 
-            console.log(`add venue`,this.addVenue);
-            this.eventService.AddVenue(this.addVenue).
-                subscribe((res)=>{
-                    this.updateEvent();
-            }); 
+            if(!this.requestVenueForm.invalid){
+
+                for (let key in this.requestVenueForm.value) {
+                    if (this.requestVenueForm.value.hasOwnProperty(key)) {
+                        this.addVenue[key] = this.aboutForm.value[key];
+                    }
+                }
+    
+                this.addVenue.event_id = this.Event.id;
+                this.addVenue.venue_id = id;
+                
+                console.log(`add venue`,this.addVenue);
+                this.eventService.AddVenue(this.addVenue).
+                    subscribe((res)=>{
+                        this.updateEvent();
+                });
+        
+            }
+            else {
+                console.log(`Invalid Request Form!`, this.aboutForm);
+            }
     }
 
 
