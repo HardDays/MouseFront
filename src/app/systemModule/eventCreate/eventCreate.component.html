@@ -220,10 +220,10 @@
                         <ul class="tabs-menu-active-decline">
                             <li>
                                 <!--Добавляем active табу или удаляем "p.s. наш любимый ngClass"-->
-                                <span class="active">Active</span>
+                                <span [ngClass]="{active:isAcceptedShow}" (click)="isAcceptedShow = true">Active</span>
                             </li>
                             <li>
-                                <span>declined</span>
+                                <span [ngClass]="{active:!isAcceptedShow}" (click)="isAcceptedShow = false">declined</span>
                             </li>
                         </ul>
                     </div>
@@ -231,14 +231,12 @@
                 <div class="bg-wr-tabs">
                     <div class="main-mw">
                         <!-- "p.s. наш любимый *ngIf"-->
-                        <div class="tab-artist">
+                        <div *ngIf="isAcceptedShow" class="tab-artist">
                             <div class="flex-wrapp-cards">
 
-
-
-
                                     <div *ngFor="let item of showsArtists; let i = index" class="one-card">
-                                            <div class="card">
+                                       
+                                            <div *ngIf="getStatusArtistEventById(item.id)!='owner_declined'&&getStatusArtistEventById(item.id)!='declined'" class="card">
                                                 <div class="delete-card"></div>
                                                 <div class="left-side">
                                                     <!--если есть галочка - добавляем класс checked   -->
@@ -253,59 +251,19 @@
                                                     <p class="desc-head-info">Location</p>
                                                     <p class="info">{{item.address}}</p>
                                                     <div class="flex-buttons">
-                                                        <span class="button-card" (click)="acceptArtist(item.id)">accept</span>
-                                                        <span class="button-card"(click)="declineArtist(item.id)">Decline</span>
+                                                        <span *ngIf="getStatusArtistEventById(item.id)=='pending'" class="button-card" (click)="updateEvent()">check</span>
+                                                        <span *ngIf="getStatusArtistEventById(item.id)=='accepted'" class="button-card" (click)="acceptArtist(item.id)">accept</span>
+                                                        <span *ngIf="getStatusArtistEventById(item.id)!='owner_accepted'" class="button-card"(click)="declineArtist(item.id)">Decline</span>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-
-
-
-
-                                <!-- <div class="one-card">
-                                    <div class="card">
-                                        <div class="delete-card"></div>
-                                        <div class="left-side">
-                                            если есть галочка - добавляем класс checked
-                                            <div class="ava checked" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                                            <p class="desc-head-info">status</p>
-                                            <p class="status">Accepted by Artist and Event owner</p>
-                                        </div>
-                                        <div class="right-side">
-                                            <p class="name">Drake</p>
-                                            <p class="desc-head-info">Genre</p>
-                                            <p class="info">Baroque pop, dream pop, trip hop, indie</p>
-                                            <p class="desc-head-info">Location</p>
-                                            <p class="info">Los Angeles, California USA</p>
-                                            <div class="flex-buttons">
-                                                <span class="button-card">accept</span>
-                                                <span class="button-card">Decline</span>
-                                            </div>
-                                        </div>
-                                    </div> -->
-                                <!-- </div> --> 
-                                <!-- <div class="one-card">
-                                    <div class="card">
-                                        <div class="delete-card"></div>
-                                        <div class="left-side">
-                                            <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                                            <p class="desc-head-info">status</p>
-                                            <p class="status">Accepted by Artist and Event owner</p>
-                                        </div>
-                                        <div class="right-side">
-                                            <p class="name">Drake</p>
-                                            <p class="desc-head-info">Genre</p>
-                                            <p class="info">Baroque pop, dream pop, trip hop, indie</p>
-                                            <p class="desc-head-info">Location</p>
-                                            <p class="info">Los Angeles, California USA</p>
-                                            <div class="flex-buttons">
-                                                <span class="button-card">accept</span>
-                                                <span class="button-card">Decline</span>
-                                            </div>
-                                        </div>
+                                       
                                     </div>
-                                </div> -->
+
+
+
+
+                               
                                 
                                 <!--для добавления артиста-->
                                 <div class="one-card">
@@ -321,11 +279,30 @@
                             </div>
                         </div>
                         <!-- "p.s. наш любимый *ngIf"-->
-                        <div class="tab-artist">
+                        <div *ngIf="!isAcceptedShow" class="tab-artist">
                             <div class="flex-wrapp-cards">
                                 <!--сюда копипастим "one-card" c "tab-artist" который выше-->
-                            
-                            
+                                <div *ngFor="let item of showsArtists; let i = index" class="one-card">
+                                    
+                                        <div *ngIf="getStatusArtistEventById(item.id)=='owner_declined'||getStatusArtistEventById(item.id)=='declined'" class="card">
+                                            <div class="delete-card"></div>
+                                            <div class="left-side">
+                                                <!--если есть галочка - добавляем класс checked   -->
+                                                <div class="ava" [class.checked]="true" [ngStyle]="{'background-image': item.image_base64_not_given?'url('+item.image_base64_not_given+')':''}"></div>
+                                                <p class="desc-head-info">!!!{{getStatusArtistEventById(item.id)}}</p>
+                                                <p class="status">Accepted by Artist and Event owner</p>
+                                            </div>
+                                            <div class="right-side">
+                                                <p class="name">{{item.user_name}}</p>
+                                                <p class="desc-head-info">Genre</p>
+                                                <p class="info">{{ toBeatyShowsList(item.genres)}}</p>
+                                                <p class="desc-head-info">Location</p>
+                                                <p class="info">{{item.address}}</p>
+                                                
+                                            </div>
+                                        </div>
+                                   
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -99,6 +99,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     //artists
     /////////////////////////////////////////////////
     showsArtists:AccountGetModel[] = []; // список артистов, которым отправлен запрос
+    isAcceptedShow:boolean = true;
 
     addArtist:AccountAddToEventModel = new AccountAddToEventModel(); // артист, которому отправляется запрос
     artistSearchParams:AccountSearchModel = new AccountSearchModel(); // параметры поиска
@@ -685,6 +686,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         this.eventService.ArtistDeclineOwner(accept).
             subscribe((res)=>{
                 console.log(`ok decline artist`,res);
+                this.updateEvent();
             });
     }
 
