@@ -71,6 +71,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         'artist': {lat:0, lng:0},
         'venue': {lat:0, lng:0}
     }
+
     genres:GenreModel[] = [];
     typesSpace:CheckModel<SelectModel>[] = [];
     
@@ -99,7 +100,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     //artists
     /////////////////////////////////////////////////
     showsArtists:AccountGetModel[] = []; // список артистов, которым отправлен запрос
-    isAcceptedShow:boolean = true;
+    isAcceptedArtistShow:boolean = true;
 
     addArtist:AccountAddToEventModel = new AccountAddToEventModel(); // артист, которому отправляется запрос
     artistSearchParams:AccountSearchModel = new AccountSearchModel(); // параметры поиска
@@ -118,6 +119,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     venueSearchParams:AccountSearchModel = new AccountSearchModel(); // параметры поиска
     venueList:AccountGetModel[] = []; //все, что удовлетворяют поиску
 
+    isAcceptedVenueShow:boolean = true;
     venueShowsList:AccountGetModel[] = []; // чекнутые
     checkVenue:number[] = []; // список чекнутых - мб не нужно
 
@@ -150,6 +152,13 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     privateVenueCreate:AccountCreateModel = new AccountCreateModel();
     privateVenue:AccountGetModel = new AccountGetModel();
 
+
+
+    /////////////////////////////////////////////////
+
+    //funding
+    activeArtist:CheckModel<AccountGetModel> [] = [];
+    activeVenue:CheckModel<AccountGetModel>[] = [];
 
 
 
@@ -433,7 +442,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     }
     getAllSpaceTypes(){
         let types:SelectModel[] = this.typeService.GetAllSpaceTypes();
-         this.typesSpace = this.convertArrToCheckModel<SelectModel>(types);
+        this.typesSpace = this.convertArrToCheckModel<SelectModel>(types);
         console.log(`spaces`,types);
         console.log(`spaces`,this.typesSpace);
     }
@@ -601,6 +610,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         
         return 'not found artist';
     }
+    
 
    
    
@@ -796,15 +806,6 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     }
 
 
-    getStatusVenueEventById(id:number){
-        
-        for(let v of this.Event.venue)
-            if(v.venue_id == id) return v.status;
-        
-        return 'not found artist';
-    }
-
-
 
     addVenueById(id:number){
 
@@ -831,7 +832,35 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             }
     }
 
+    getStatusVenueEventById(id:number){
+        
+        for(let v of this.Event.venue)
+            if(v.venue_id == id) return v.status;
+        
+        return 'not found artist';
+    }
 
+    acceptVenue(idV:number){
+        console.log(idV);
+        let accept:AccountAddToEventModel = this.addVenue;
+        accept.venue_id = idV;
+        this.eventService.VenueAcceptOwner(accept).
+            subscribe((res)=>{
+                console.log(`ok accept venue`,res);
+                this.updateEvent();
+            });
+    }
+
+    declineVenue(idV:number){
+        console.log(idV);
+        let accept:AccountAddToEventModel = this.addVenue;
+        accept.venue_id = idV;
+        this.eventService.VenueDeclineOwner(accept).
+            subscribe((res)=>{
+                console.log(`ok decline venue`,res);
+                this.updateEvent();
+            });
+    }
 
 
 
@@ -856,6 +885,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                 this.privateVenueCreate.has_vr = false;
 
             this.privateVenueCreate.account_type = 'venue';
+            this.privateVenueCreate.venue_type = 'private_residence';
 
             this.privateVenueCreate.video_links = [];
             if(this.privateVenueForm.value['link_one'])
@@ -890,6 +920,39 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             console.log(`Invalid About Form!`, this.privateVenueForm);
         }
     }
+
+
+
+
+    // funding
+
+
+    // ЗАМЕНИТЬ pending на ?? (accepted, owner_accepted)
+    getActiveArtVen(){
+
+        let artist:AccountGetModel[] = [], venue:AccountGetModel[] = [];
+
+        for(let v of this.requestVenues)
+            if(this.getStatusVenueEventById(v.id)=='pending')
+                venue.push(v);
+        
+            
+        for(let art of this.showsArtists)
+            if(this.getStatusArtistEventById(art.id)=='pending')
+                artist.push(art);
+
+
+        this.activeArtist = this.convertArrToCheckModel<AccountGetModel>(artist);
+        this.activeVenue = this.convertArrToCheckModel<AccountGetModel>(venue);
+
+        this.getListImages(this.activeArtist);
+        this.getListImages(this.activeVenue);
+
+        console.log(`active`,this.activeArtist,this.activeVenue);
+    }
+
+
+    
 
 
     

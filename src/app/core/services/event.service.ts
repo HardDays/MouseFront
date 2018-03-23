@@ -61,5 +61,15 @@ export class EventService{
             () => this.http.PostData('/events/'+event.event_id+'/venue.json',JSON.stringify(event))
         );
     }
+    VenueAcceptOwner(event:AccountAddToEventModel){
+        return this.http.CommonRequest(
+            () => this.http.PostData('/events/'+event.event_id+'/venue/'+event.venue_id+'/owner_accept.json',JSON.stringify(event))
+        );
+    }
+    VenueDeclineOwner(event:AccountAddToEventModel){
+        return this.http.CommonRequest(
+            () =>this.http.PostData('/events/'+event.event_id+'/venue/'+event.venue_id+'/owner_decline.json',JSON.stringify(event))
+        );
+    }
 
 }

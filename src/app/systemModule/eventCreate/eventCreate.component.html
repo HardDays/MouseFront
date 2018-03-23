@@ -220,10 +220,10 @@
                         <ul class="tabs-menu-active-decline">
                             <li>
                                 <!--Добавляем active табу или удаляем "p.s. наш любимый ngClass"-->
-                                <span [ngClass]="{active:isAcceptedShow}" (click)="isAcceptedShow = true">Active</span>
+                                <span [ngClass]="{active:isAcceptedArtistShow}" (click)="isAcceptedArtistShow = true">Active</span>
                             </li>
                             <li>
-                                <span [ngClass]="{active:!isAcceptedShow}" (click)="isAcceptedShow = false">declined</span>
+                                <span [ngClass]="{active:!isAcceptedArtistShow}" (click)="isAcceptedArtistShow = false">declined</span>
                             </li>
                         </ul>
                     </div>
@@ -231,12 +231,12 @@
                 <div class="bg-wr-tabs">
                     <div class="main-mw">
                         <!-- "p.s. наш любимый *ngIf"-->
-                        <div *ngIf="isAcceptedShow" class="tab-artist">
+                        <div *ngIf="isAcceptedArtistShow" class="tab-artist">
                             <div class="flex-wrapp-cards">
-
-                                    <div *ngFor="let item of showsArtists; let i = index" class="one-card">
+                                <ng-container *ngFor="let item of showsArtists; let i = index">
+                                    <div *ngIf="getStatusArtistEventById(item.id)!='owner_declined'&&getStatusArtistEventById(item.id)!='declined'" class="one-card">
                                        
-                                            <div *ngIf="getStatusArtistEventById(item.id)!='owner_declined'&&getStatusArtistEventById(item.id)!='declined'" class="card">
+                                            <div  class="card">
                                                 <div class="delete-card"></div>
                                                 <div class="left-side">
                                                     <!--если есть галочка - добавляем класс checked   -->
@@ -259,7 +259,7 @@
                                             </div>
                                        
                                     </div>
-
+                                </ng-container>
 
 
 
@@ -279,30 +279,32 @@
                             </div>
                         </div>
                         <!-- "p.s. наш любимый *ngIf"-->
-                        <div *ngIf="!isAcceptedShow" class="tab-artist">
+                        <div *ngIf="!isAcceptedArtistShow" class="tab-artist">
                             <div class="flex-wrapp-cards">
                                 <!--сюда копипастим "one-card" c "tab-artist" который выше-->
-                                <div *ngFor="let item of showsArtists; let i = index" class="one-card">
+                                <ng-container *ngFor="let item of showsArtists; let i = index">
+                                    <div *ngIf="getStatusArtistEventById(item.id)=='owner_declined'||getStatusArtistEventById(item.id)=='declined'" class="one-card">
+                                        
+                                            <div  class="card">
+                                                <div class="delete-card"></div>
+                                                <div class="left-side">
+                                                    <!--если есть галочка - добавляем класс checked   -->
+                                                    <div class="ava" [class.checked]="true" [ngStyle]="{'background-image': item.image_base64_not_given?'url('+item.image_base64_not_given+')':''}"></div>
+                                                    <p class="desc-head-info">{{getStatusArtistEventById(item.id)}}</p>
+                                                    <p class="status">Accepted by Artist and Event owner</p>
+                                                </div>
+                                                <div class="right-side">
+                                                    <p class="name">{{item.user_name}}</p>
+                                                    <p class="desc-head-info">Genre</p>
+                                                    <p class="info">{{ toBeatyShowsList(item.genres)}}</p>
+                                                    <p class="desc-head-info">Location</p>
+                                                    <p class="info">{{item.address}}</p>
+                                                    
+                                                </div>
+                                            </div>
                                     
-                                        <div *ngIf="getStatusArtistEventById(item.id)=='owner_declined'||getStatusArtistEventById(item.id)=='declined'" class="card">
-                                            <div class="delete-card"></div>
-                                            <div class="left-side">
-                                                <!--если есть галочка - добавляем класс checked   -->
-                                                <div class="ava" [class.checked]="true" [ngStyle]="{'background-image': item.image_base64_not_given?'url('+item.image_base64_not_given+')':''}"></div>
-                                                <p class="desc-head-info">!!!{{getStatusArtistEventById(item.id)}}</p>
-                                                <p class="status">Accepted by Artist and Event owner</p>
-                                            </div>
-                                            <div class="right-side">
-                                                <p class="name">{{item.user_name}}</p>
-                                                <p class="desc-head-info">Genre</p>
-                                                <p class="info">{{ toBeatyShowsList(item.genres)}}</p>
-                                                <p class="desc-head-info">Location</p>
-                                                <p class="info">{{item.address}}</p>
-                                                
-                                            </div>
-                                        </div>
-                                   
-                                </div>
+                                    </div>
+                                </ng-container>
                             </div>
                         </div>
                     </div>
@@ -601,10 +603,10 @@
                         <ul class="tabs-menu-active-decline">
                             <li>
                                 <!--Добавляем active табу или удаляем "p.s. наш любимый ngClass"-->
-                                <span class="active">Active</span>
+                                <span [ngClass]="{active:isAcceptedVenueShow}" (click)="isAcceptedVenueShow = true">Active</span>
                             </li>
                             <li>
-                                <span>declined</span>
+                                <span [ngClass]="{active:!isAcceptedVenueShow}" (click)="isAcceptedVenueShow = false">declined</span>
                             </li>
                         </ul>
                     </div>
@@ -612,31 +614,37 @@
                 <div class="bg-wr-tabs">
                     <div class="main-mw">
                         <!-- "p.s. наш любимый *ngIf"-->
-                        <div class="tab-artist">
+                        <div *ngIf="isAcceptedVenueShow"  class="tab-artist">
                             <div class="flex-wrapp-cards">
 
-                                <div *ngFor="let shows of requestVenues" class="one-card">
-                                    <div class="card">
-                                        <div class="delete-card"></div>
-                                        <div class="left-side">
-                                            <!--если есть галочка - добавляем класс checked-->
-                                            <div class="ava checked" [ngStyle]="{'background-image': shows.image_base64_not_given?'url('+shows.image_base64_not_given+')':''}"></div>
-                                            <p class="desc-head-info">status</p>
-                                            <p class="status">Accepted by Artist and Event owner</p>
-                                        </div>
-                                        <div class="right-side">
-                                            <p class="name">{{shows.id}} {{shows.user_name}}</p>
-                                            <p class="desc-head-info">Genre</p>
-                                            <p class="info">Baroque pop, dream pop, trip hop, indie</p>
-                                            <p class="desc-head-info">Location</p>
-                                            <p class="info">Los Angeles, California USA</p>
-                                            <div class="flex-buttons">
-                                                <span class="button-card">accept</span>
-                                                <span class="button-card">Decline</span>
+                                <ng-container *ngFor="let shows of requestVenues">
+                                    <div *ngIf="getStatusVenueEventById(shows.id)!='owner_declined'&&getStatusVenueEventById(shows.id)!='declined'" class="one-card">
+                                        <div class="card">
+                                            <div class="delete-card"></div>
+                                            <div class="left-side">
+                                                <!--если есть галочка - добавляем класс checked-->
+                                                <div class="ava checked" [ngStyle]="{'background-image': shows.image_base64_not_given?'url('+shows.image_base64_not_given+')':''}"></div>
+                                                <p class="desc-head-info">{{getStatusVenueEventById(shows.id)}}</p>
+                                                <p class="status">Accepted by Artist and Event owner</p>
+                                            </div>
+                                            <div class="right-side">
+                                                <p class="name">{{shows.id}} {{shows.user_name}}</p>
+                                                <p class="desc-head-info">Genre</p>
+                                                <p class="info">Baroque pop, dream pop, trip hop, indie</p>
+                                                <p class="desc-head-info">Location</p>
+                                                <p class="info">Los Angeles, California USA</p>
+                                                <div class="flex-buttons">
+                                
+                                                    <span *ngIf="getStatusVenueEventById(shows.id)=='pending'" class="button-card" (click)="updateEvent()">check</span>
+                                                    <span *ngIf="getStatusVenueEventById(shows.id)=='accepted'" class="button-card" (click)="acceptVenue(shows.id)">accept</span>
+                                                    <span *ngIf="getStatusVenueEventById(shows.id)!='owner_accepted'" class="button-card" (click)="declineVenue(shows.id)">Decline</span>
+
+
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </ng-container>
 
                                 <div *ngFor="let shows of venueShowsList" class="one-card">
                                         <div class="card">
@@ -674,10 +682,40 @@
                             </div>
                         </div>
                         <!-- "p.s. наш любимый *ngIf"-->
-                        <div class="tab-artist">
+                        <div *ngIf="!isAcceptedVenueShow" class="tab-artist">
                             <div class="flex-wrapp-cards">
                                 <!--сюда копипастим "one-card" c "tab-artist" который выше но это venue-->
                             
+                                <ng-container *ngFor="let shows of requestVenues">
+                                    <div *ngIf="getStatusVenueEventById(shows.id)=='owner_declined'||getStatusVenueEventById(shows.id)=='declined'" class="one-card">
+                                        <div class="card">
+                                            <div class="delete-card"></div>
+                                            <div class="left-side">
+                                                <!--если есть галочка - добавляем класс checked-->
+                                                <div class="ava checked" [ngStyle]="{'background-image': shows.image_base64_not_given?'url('+shows.image_base64_not_given+')':''}"></div>
+                                                <p class="desc-head-info">{{getStatusVenueEventById(shows.id)}}</p>
+                                                <p class="status">Accepted by Artist and Event owner</p>
+                                            </div>
+                                            <div class="right-side">
+                                                <p class="name">{{shows.id}} {{shows.user_name}}</p>
+                                                <p class="desc-head-info">Genre</p>
+                                                <p class="info">Baroque pop, dream pop, trip hop, indie</p>
+                                                <p class="desc-head-info">Location</p>
+                                                <p class="info">Los Angeles, California USA</p>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+
+
+
+
+
+
+
+
+
                             
                             </div>
                         </div>
@@ -688,7 +726,7 @@
 
 
             <div class="scroll-wrapp">
-                <div class="circle-scroll" (click)="currentPage = 'funding'"></div>
+                <div class="circle-scroll" (click)="getActiveArtVen(); currentPage = 'funding'"></div>
             </div>
         </div>
 
@@ -708,29 +746,30 @@
                         <div class="side">
                             <div class="top-gum">
                                 <h6 class="bordered">Choose Active Artists</h6>
+                                
                                 <!--если пустой-->
-                                <!--
-                                <p class="empty-side">You have no Active Artists.<br>Choose Active Artists.</p>
-                                -->
+                                
+                                <p *ngIf="activeArtist.length==0" class="empty-side">You have no Active Artists.<br>Choose Active Artists.</p>
+                               
                                 <!--/если пустой-->
                                 <!--если не пустой-->
-                                <div class="artists-venue-wrapp">
-                                    <div class="one-block">
+                                <div *ngIf="activeArtist.length>0" class="artists-venue-wrapp">
+                                    <div *ngFor="let artist of activeArtist; let i = index" class="one-block">
                                         <div class="ava-l">
-                                            <div class="ava" style="background-image: url(img/drake.jpg)"></div>
-                                            <a href="#" class="name">Adele</a>
+                                            <div class="ava" [ngStyle]="{'background-image': artist.object.image_base64_not_given?'url('+artist.object.image_base64_not_given+')':''}"></div>
+                                            <a href="#" class="name">{{artist.object.user_name}}</a>
                                         </div>
                                         <div class="price-r">
                                             <span class="price">$50000</span>
                                             <div class="one-checkbox">
                                                 <div class="check-style">
-                                                    <input type="checkbox" class="checkbox" name="" id="new-checkbox-1">
-                                                    <label for="new-checkbox-1"></label>
+                                                    <input [checked]="activeArtist[i].checked" (click)="activeArtist[i].checked = !activeArtist[i].checked" type="checkbox" class="checkbox" name="" id="new-checkbox-artist-{{i}}">
+                                                    <label for="new-checkbox-artist-{{i}}"></label>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="one-block">
+                                    <!-- <div class="one-block">
                                         <div class="ava-l">
                                             <div class="ava" style="background-image: url(img/drake.jpg)"></div>
                                             <a href="#" class="name">Adele</a>
@@ -744,7 +783,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <!--/если не пустой-->
                             </div>
@@ -757,28 +796,27 @@
                             <div class="top-gum">
                                 <h6>Choose Active Venue</h6>
                                 <!--если пустой-->
-                                <!--
-                                <p class="empty-side">You Have no Active Venues.<br>Choose Active Venue./p>
-                                -->
+                                
+                                <p  *ngIf="activeVenue.length==0" class="empty-side">You Have no Active Venues.<br>Choose Active Venue. </p>
+                                
                                 <!--/если пустой-->
                                 <!--если не пустой-->
-                                <div class="artists-venue-wrapp">
-                                    <div class="one-block">
+                                <div *ngIf="activeVenue.length>0" class="artists-venue-wrapp">
+                                    <div *ngFor="let venue of activeVenue; let i = index" class="one-block">
                                         <div class="ava-l">
-                                            <div class="ava" style="background-image: url(img/drake.jpg)"></div>
-                                            <a href="#" class="name">The LA Room</a>
+                                            <div class="ava" [ngStyle]="{'background-image': venue.object.image_base64_not_given?'url('+venue.object.image_base64_not_given+')':''}"></div>
+                                            <a href="#" class="name">{{venue.object.user_name}}</a>
                                         </div>
                                         <div class="price-r">
                                             <span class="price">$50000</span>
                                             <div class="one-checkbox">
                                                 <div class="check-style">
-                                                    <input type="checkbox" class="checkbox" name="" id="new-checkbox-40">
-                                                    <label for="new-checkbox-40"></label>
+                                                    <input [checked]="venue.checked" (click)="venue.checked = !venue.checked" type="checkbox" class="checkbox" name="" id="new-checkbox-venue-{{i}}">
+                                                    <label for="new-checkbox-venue-{{i}}"></label>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    
                                 </div>
                                 <!--/если не пустой-->
                             </div>
@@ -870,7 +908,7 @@
                         </div>
                     </div>
                     <div class="scroll-wrapp">
-                        <div class="circle-scroll"></div>
+                        <div class="circle-scroll" (click)="currentPage = 'tickets'"></div>
                     </div>
                 </div>
             </div>
