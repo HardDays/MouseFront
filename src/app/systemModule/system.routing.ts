@@ -24,6 +24,7 @@ const routes: Routes =
       { path: 'profile/:id', component: ProfileComponent, canActivate: [SystemAccessGuard] },
       { path: 'accountCreate', component: AccountCreateComponent, canActivate: [SystemAccessGuard] },
       { path: 'events', component: EventsComponent, canActivate: [SystemAccessGuard] },
+      { path: 'eventCreate/:id', component: EventCreateComponent, canActivate: [SystemAccessGuard] },
       { path: 'eventCreate', component: EventCreateComponent, canActivate: [SystemAccessGuard] },
       { path: 'artistCreate', component: ArtistCreateComponent, canActivate: [SystemAccessGuard] }
     ]

@@ -25,7 +25,7 @@ import { EventService } from '../../core/services/event.service';
 
 import { } from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
-import { Router, Params } from '@angular/router';
+import { Router, Params,ActivatedRoute  } from '@angular/router';
 import { AuthService } from "angular2-social-login";
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { AccountAddToEventModel } from '../../core/models/artistAddToEvent.model';
@@ -60,6 +60,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     // general
     /////////////////////////////////////////////////
 
+    isNewEvent:boolean = true;
     Event:EventGetModel = new EventGetModel();
 
     pages = Pages;
@@ -75,7 +76,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     genres:GenreModel[] = [];
     typesSpace:CheckModel<SelectModel>[] = [];
     
-
+    
     // about
     /////////////////////////////////////////////////
     newEvent:EventCreateModel = new EventCreateModel();
@@ -135,7 +136,6 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     });
 
 
-
         //private
     privateVenueForm : FormGroup = new FormGroup({        
         "user_name": new FormControl("", [Validators.required]),
@@ -178,14 +178,21 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         protected _sanitizer: DomSanitizer,
         protected router: Router,public _auth: AuthService,
         private mapsAPILoader: MapsAPILoader, 
-        private ngZone: NgZone, protected h:Http){
+        private ngZone: NgZone, protected h:Http,
+        private activatedRoute: ActivatedRoute){
         super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
             // this.contentFactory = this.cfr.resolveComponentFactory(DynComponent);
     }
 
     ngOnInit()
     {    
-       
+        
+        this.activatedRoute.params.forEach((params) => {
+            console.log( params["id"]);
+            if(params["id"])this.getThisEvent(+params["id"]);
+        });
+
+
         this.CreateAutocompleteAbout();
         this.CreateAutocompleteArtist();
         this.CreateAutocompleteVenue();
@@ -198,6 +205,30 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         this.venueSearch();
     }
     
+    getThisEvent(id:number){
+        
+        this.accService.GetMyAccount({extended:true})
+        .subscribe((users:any[])=>{
+            this.eventService.GetMyEvents(users[0].id)
+            .subscribe((res:EventGetModel[])=>{
+                for(let v of res) if(v.id == id){
+                        this.isNewEvent = false;
+                        this.Event = v;
+                        this.updateEvent();
+                        // this.getEventToEventCreateModel(v);
+                        
+                }
+                if(this.isNewEvent)this.router.navigate(['/system/eventCreate']);
+            })
+        });
+        
+
+    }
+    getEventToEventCreateModel(event:EventGetModel){
+        // console.log(`get event`, event);
+        //  console.log(`newEvent (create)`, this.newEvent);
+        //  console.log(`Event (get)`, this.Event);
+    }
 
 
     //  автокомплиты
@@ -397,6 +428,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     initUser(){
         this.accService.GetMyAccount({extended:true})
         .subscribe((users:any[])=>{
+            // this.accountId = users[0].id;
             this.newEvent.account_id = users[0].id;
             this.addArtist.account_id = users[0].id;
             this.addVenue.account_id = users[0].id;
@@ -492,11 +524,29 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             subscribe((res:EventGetModel)=>{
                 
                 this.Event = res;
-                console.log(`EVENT`,this.Event);
+                console.log(`EVENT after update (get)`,this.Event);
+                    
+                    for (let key in res) {
+                        if (res.hasOwnProperty(key)) {
+                            this.newEvent[key] = res[key];
+                        }
+                    }
+                    this.codeLatLng( this.newEvent.city_lat, this.newEvent.city_lng, "aboutAddress");
+                    this.mapCoords.about.lat = this.newEvent.city_lat;
+                    this.mapCoords.about.lng = this.newEvent.city_lng;
+                    this.genreFromModelToVar();
+                    console.log(`newEVENT after update (create)`,this.newEvent);
 
                 this.getShowsArtists();
                 this.getRequestVenue();
         });
+    }
+
+    genreFromModelToVar(){
+        for(let g of  this.newEvent.genres)
+            for(let gnr of this.genres)
+                if(g == gnr.genre)
+                    gnr.checked = true;
     }
 
     //////////////////////////////////////////////////////////
@@ -540,15 +590,28 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             
             console.log(`newEvent`,this.newEvent);
 
-            this.eventService.CreateEvent(this.newEvent)
+            if(this.isNewEvent)
+                this.eventService.CreateEvent(this.newEvent)
                 .subscribe((res)=>{
-                        this.Event = res;
-                        console.log(`create`,this.Event);
-                        this.currentPage = 'artist';
-                    },
-                    (err)=>{
-                        console.log(`err`,err);
-                    }
+                    this.Event = res;
+                    console.log(`create`,this.Event);
+                    this.currentPage = 'artist';
+                },
+                (err)=>{
+                    console.log(`err`,err);
+                }
+                );
+            else
+                this.eventService.UpdateEvent(this.newEvent, this.Event.id)
+                // this.eventService.CreateEvent(this.newEvent)
+                    .subscribe((res)=>{
+                            this.Event = res;
+                            console.log(`create`,this.Event);
+                            this.currentPage = 'artist';
+                        },
+                        (err)=>{
+                            console.log(`err`,err);
+                        }
                 );
         }
         else {
