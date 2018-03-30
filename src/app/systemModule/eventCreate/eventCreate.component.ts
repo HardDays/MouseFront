@@ -186,49 +186,26 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
     ngOnInit()
     {    
-        
+        this.CreateAutocompleteAbout();
+        this.CreateAutocompleteArtist();
+        this.CreateAutocompleteVenue();
+        this.initSlider();
+      
+        this.initUser();
+
         this.activatedRoute.params.forEach((params) => {
             console.log( params["id"]);
             if(params["id"])this.getThisEvent(+params["id"]);
         });
 
 
-        this.CreateAutocompleteAbout();
-        this.CreateAutocompleteArtist();
-        this.CreateAutocompleteVenue();
-        this.initSlider();
         this.getGenres();
-        this.initUser();
-
         this.getAllSpaceTypes();
         this.artistSearch();
         this.venueSearch();
     }
     
-    getThisEvent(id:number){
-        
-        this.accService.GetMyAccount({extended:true})
-        .subscribe((users:any[])=>{
-            this.eventService.GetMyEvents(users[0].id)
-            .subscribe((res:EventGetModel[])=>{
-                for(let v of res) if(v.id == id){
-                        this.isNewEvent = false;
-                        this.Event = v;
-                        this.updateEvent();
-                        // this.getEventToEventCreateModel(v);
-                        
-                }
-                if(this.isNewEvent)this.router.navigate(['/system/eventCreate']);
-            })
-        });
-        
 
-    }
-    getEventToEventCreateModel(event:EventGetModel){
-        // console.log(`get event`, event);
-        //  console.log(`newEvent (create)`, this.newEvent);
-        //  console.log(`Event (get)`, this.Event);
-    }
 
 
     //  автокомплиты
@@ -519,6 +496,24 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
     //////////////////////////////////////////////////////////
 
+    getThisEvent(id:number){
+        
+        this.accService.GetMyAccount({extended:true})
+        .subscribe((users:any[])=>{
+            this.eventService.GetMyEvents(users[0].id)
+            .subscribe((res:EventGetModel[])=>{
+                for(let v of res) if(v.id == id){
+                        this.isNewEvent = false;
+                        this.Event = v;
+                        this.updateEvent();                     
+                }
+                if(this.isNewEvent)this.router.navigate(['/system/eventCreate']);
+            })
+        });
+        
+
+    }
+
     updateEvent(){
         this.eventService.GetEventById(this.Event.id).
             subscribe((res:EventGetModel)=>{
@@ -531,6 +526,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                             this.newEvent[key] = res[key];
                         }
                     }
+                    
                     this.codeLatLng( this.newEvent.city_lat, this.newEvent.city_lng, "aboutAddress");
                     this.mapCoords.about.lat = this.newEvent.city_lat;
                     this.mapCoords.about.lng = this.newEvent.city_lng;
@@ -622,11 +618,12 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     addNewArtist(){
         this.addArtist.event_id = this.Event.id;
 
-        console.log(`new artist: `,this.addArtist);
+        
         console.log(`checked`,this.checkArtists);
 
         for(let item of this.checkArtists){
             this.addArtist.artist_id = item;
+            console.log(`new artist: `,this.addArtist);
             this.eventService.AddArtist(this.addArtist).
                 subscribe((res)=>{
                     console.log(`add artist`,item);
@@ -755,7 +752,9 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     declineArtist(idArtist:number){
         console.log(idArtist);
         let accept:AccountAddToEventModel = this.addArtist;
+        accept.event_id = this.Event.id;
         accept.artist_id = idArtist;
+        accept.message_id = 1;
         this.eventService.ArtistDeclineOwner(accept).
             subscribe((res)=>{
                 console.log(`ok decline artist`,res);

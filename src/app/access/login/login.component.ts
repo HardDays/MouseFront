@@ -36,10 +36,12 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
       var params: string[] = location.href.slice(location.href.indexOf('#')+1,location.href.length).split('&');
       for(let p of params) if(p.split('=')[0] == 'access_token') this.accessVkToken = p.split('=')[1];
-      console.log(this.accessVkToken);
+      // console.log(`vk_token`,this.accessVkToken);
       if(this.accessVkToken.length>0) this.authService.UserLoginByVk(this.accessVkToken).
                                       subscribe((res)=>{
-                                        console.log(`vk ok`);
+                                        console.log(`vk ok`,res);
+                                        this.authService.BaseInitAfterLogin(res);
+                                        // this.router.navigate(['/system','shows']);
                                         this.router.navigate(['/system','shows']);
                                       });
   }
@@ -60,8 +62,9 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
   signInVK(){
     window.close();
-    window.open("https://oauth.vk.com/authorize?client_id=6412516&redirect_uri=http://localhost:4200/login&display=page&response_type=token&v=5.73&state=123456");
-   }
+    //window.open("https://oauth.vk.com/authorize?client_id=6412516&redirect_uri=http://localhost:4200/login&display=page&response_type=token&v=5.73&state=123456");
+    window.open("https://oauth.vk.com/authorize?client_id=6326995&display=page&redirect_uri=https://mouse-web.herokuapp.com/login&scope=friends&response_type=token&v=5.73&scope=offline");
+  }
 
   logoutGoFb(){
     this.SocialLogout('gf');
