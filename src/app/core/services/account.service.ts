@@ -11,13 +11,15 @@ import { ContactModel } from "../models/contact.model";
 import { TypeService } from './type.service';
 import { Base64ImageModel } from '../models/base64image.model';
 import { GenreModel } from '../models/genres.model';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class AccountService{
     public onAuthChange$: Subject<boolean>;
     public onLoadingChange$: Subject<boolean>;
     //public pushNotif:NotificationsComponent = new NotificationsComponent();
-    constructor(private http: HttpService, private router: Router, private typeService: TypeService){
+    constructor(private http: HttpService, private router: Router, private typeService: TypeService, public sanitizer:DomSanitizer){
         this.onAuthChange$ = new Subject();
         this.onAuthChange$.next(false);
         this.onLoadingChange$ = new Subject();
@@ -97,6 +99,22 @@ export class AccountService{
             ()=> this.http.GetData('/accounts/my.json', this.typeService.ParamsToUrlSearchParams(params))
         );
         //return this.http.GetData('/accounts/my.json', this.typeService.ParamsToUrlSearchParams(params));
+    }
+
+    SanitizeUrl(url)
+    {
+        return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    }
+
+    //нужен только id video
+    GetVideo():SafeResourceUrl[] {
+        return [this.SanitizeUrl("https://www.youtube.com/embed/tndftV42k7w?enablejsapi=1"), this.SanitizeUrl("https://www.youtube.com/embed/iQyLSvxX_KQ?enablejsapi=1")];
+    }
+
+    GetVideoArr(callback1:(data:any)=>void,callback2?:()=>void)
+    {
+        callback1(this.GetVideo());
+        setTimeout(callback2,500);
     }
 
     UpdateMyAccount(id:number, data: any){

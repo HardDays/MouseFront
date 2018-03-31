@@ -1,7 +1,87 @@
 <section class="main_content">
     <div class="for-flex-height">
-        
-        <div class="nav-holder-3 scroller" id="nav-holder">
+            <div class="nav-holder-3" id="nav-holder">
+                <div class="wrapp-for-filter">
+                    <form>
+                        <input type="text" class="inp-style-1" placeholder="Search">
+                        <div class="groupe-form">
+                            <p class="head-input-groupe">Date</p>
+                            <div class="wrapp-for-triangle">
+                                <input type="text" class="date-picker-inp">
+                            </div>
+                        </div>
+                         <!--новая первая модалка с картой-->
+                        <div class="modal fade modal-send-request map-1-modal" id="modal-map-1">
+                            <div class="modal-dialog">
+                                <div class="modal-body">
+                                    <h6 class="head-m-p-a">Location</h6>
+                                    <span class="closee-modal" data-dismiss="modal"></span>
+                                    <div class="for-map-init-modal-1">
+                                            <agm-map  style="height:450px" [latitude]="mapCoords.about.lat" [longitude]="mapCoords.about.lng">
+                                                <agm-marker (dragEnd)="aboutDragMarker($event)" [markerDraggable] = "true" [latitude]="mapCoords.about.lat" [longitude]="mapCoords.about.lng"></agm-marker>
+                                            </agm-map>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div [ngStyle]="{'display': (SearchParams.distance)?'block':'none'}" class="groupe-form">
+                            <p class="head-input-groupe">Distance</p>
+                            <div class="for-range-slider">
+                                <input type="text" class="current-slider distance-slider" value="">
+                            </div>
+                        </div>
+                        <div class="groupe-form">
+                            <p class="head-input-groupe">Genres</p>
+                            <div class="flex-genres">
+                                <div class="one-checkbox">
+                                    <div class="flex-checkboxes">
+                                        <ng-container *ngFor="let item of Genres; let i = index">
+                                            <div  class="one-checkbox" >
+                                                <div class="check-style">
+                                                    <input type="checkbox"  [ngModel]="item.checked" (ngModelChange)="item.checked = $event" class="checkbox" name="genre-{{i}}" id='checkbox-{{i}}'>
+                                                    <label for='checkbox-{{i}}'></label>
+                                                </div>
+                                                <p>{{item.genre_show}}</p>
+                                            </div> 
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="groupe-form">
+                            <p class="head-input-groupe">Ticket type</p>
+                            <div class="flex-radio">
+                                <div class="one-radio">
+                                    <div class="radio-style">
+                                        <input type="radio" class="radio-b" id="radio-1"  name="group1" value="VR" checked>
+                                        <label for="radio-1"></label>
+                                    </div>
+                                    <p>VR</p>
+                                </div>
+                                <div class="one-radio">
+                                    <div class="radio-style">
+                                        <input type="radio" class="radio-b" id="radio-2" name="group1" value="Attend">
+                                        <label for="radio-2"></label>
+                                    </div>
+                                    <p>Attend</p>
+                                </div>
+                            </div>
+                        
+                        </div>
+                        <div class="groupe-form">
+                            <p class="head-input-groupe">Size</p>
+                            <select class="form-control">
+                                <option>Size 1</option>
+                                <option>Size 2</option>
+                                <option>Size 3</option>
+                                <option>Size 4</option>
+                            </select>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+        <!-- <div class="nav-holder-3 scroller" id="nav-holder">
             <div class="wrapp-for-filter">
                 <form>
                     <input type="text" class="inp-style-1" name="search-params-text" [ngModel]="SearchParams.text" (ngModelChange)="SearchParams.text = $event" placeholder="Search">
@@ -42,10 +122,10 @@
                             </div>
                         </div>
                         <p class="more"><span>See more</span></p>
-                    </div> -->
+                    </div>
                 </form>
             </div>
-        </div>
+        </div> -->
         <section class="second-router-outlet">
             
             
@@ -66,16 +146,44 @@
                         <h1>Shows</h1>
                     </div>
                     <div class="flex-shows">
-                        <div *ngFor="let item of Accounts" class="one-show-wr">
-                            <!--если продается то класс buy-ticket добавляем-->
-                            <div class="one-show buy-ticket" [routerLink]="['/system','profile',item.id]">
+                        <div *ngFor="let item of Events" class="one-show-wr">
+                            <div class="one-show">
                                 <div class="img-show" [ngStyle]="{'background-image':'url(' + (Images[item.id]?Images[item.id]:'../../assets/img/drake.jpg') + ')'}"></div>
                                 <div class="description">
                                     <div class="top-info">
                                         <div class="side side-1">
                                             <!--весртка красной фиговины-->
-                                            <div class="sale">
+                                            <div *ngIf="item.is_active" class="sale">
                                                 <p>BUY 1<br>GET 1<br>TICKET</p>
+                                            </div>
+                                            <div *ngIf="!item.is_active" class="funded">
+                                                <!-- тут ебошим высоту, скок собрали баблища-->
+                                                <div class="complete" style="height: 68%"></div>
+                                                <p>12 days<br>to go<br><span>68%<br>funded</span></p>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                                <div class="new-shows-desc">
+                                    <a href="#" class="name-show">Part of me</a>
+                                    <p class="name-artist">Katy Parry</p>
+                                    <div class="where">23 FEB, 2017 - Madison Square Garden - NY</div>
+                                </div>
+                            </div>
+                            <!--если продается то класс buy-ticket добавляем-->
+                            <!-- <div class="one-show buy-ticket" [routerLink]="['/system','profile',item.id]">
+                                <div class="img-show" [ngStyle]="{'background-image':'url(' + (Images[item.id]?Images[item.id]:'../../assets/img/drake.jpg') + ')'}"></div>
+                                <div class="description">
+                                    <div class="top-info">
+                                        <div class="side side-1">
+                                            <div *ngIf="item.account_type == Roles.Venue" class="sale">
+                                                <p>BUY 1<br>GET 1<br>TICKET</p>
+                                            </div>
+                                            <div *ngIf="item.account_type == Roles.Artist" class="funded">
+                                                <div class="complete" style="height: 68%"></div>
+                                                <p>12 days<br>to go<br><span>68%<br>funded</span></p>
                                             </div>
                                         </div>
                                         <div class="side side-2">
@@ -85,13 +193,13 @@
                                     <div class="bott-info">
                                         <p class="name">{{item.user_name}}</p>
                                         <p></p><p></p>
-                                        <!--<p class="when">SAT, DEC 8, 2017 - MADISON SQUARE GARDEN - NY</p>
+                                        <p class="when">SAT, DEC 8, 2017 - MADISON SQUARE GARDEN - NY</p>
                                         <p class="genre">RAP/R&B</p> -->
                                         <!--кнопка. хз чито она делает-->
-                                        <!--<span class="butt-by-or-f">buy ticket</span>-->
+                                        <!--<span class="butt-by-or-f">buy ticket</span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>

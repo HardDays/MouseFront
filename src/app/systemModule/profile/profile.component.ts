@@ -15,13 +15,14 @@ import { AccountCreateModel } from '../../core/models/accountCreate.model';
 import { UserCreateModel } from '../../core/models/userCreate.model';
 import { GenreModel } from '../../core/models/genres.model';
 import { AccountGetModel } from '../../core/models/accountGet.model';
-import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
+import { SafeHtml, DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { AccountType } from '../../core/base/base.enum';
 import { Base64ImageModel } from '../../core/models/base64image.model';
 import { MapsAPILoader } from '@agm/core';
 import { AccountSearchParams } from '../../core/models/accountSearchParams.model';
 import { EventService } from '../../core/services/event.service';
 import { Http } from '@angular/http';
+import { UserGetModel } from '../../core/models/userGet.model';
 
 declare var $:any;
 declare var PhotoSwipeUI_Default:any;
@@ -43,6 +44,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     Account:AccountCreateModel = new AccountCreateModel();
     Accounts:AccountGetModel[] = [];
     isMyAccount = false;
+    Videos:SafeResourceUrl[] = [];
     
     constructor(protected authService: AuthMainService,
       protected accService:AccountService,
@@ -58,27 +60,60 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
 }
 
 ngOnInit(){
-  this.accService.GetMyAccount()
-  .subscribe((res:AccountGetModel[])=>{
-      this.isMyAccount = false;
-      this.activatedRoute.params.forEach((params) => {
-      this.UserId = params["id"];
-      this.Accounts = res;
-      for(let acc of this.Accounts) {
-          if(acc.id == this.UserId) {
-              this.isMyAccount = true;
-          }
-      }
-      this.accService.GetAccountById(this.UserId, {extended:true})
-        .subscribe((user:any)=>{
-          console.log(user);
-            this.InitByUser(user);
-        })
-    });
-  })
+
+    //this.Videos = this.accService.GetVideo();
+    
+    this.activatedRoute.params.forEach((params)=>{
+        this.UserId = params["id"];
+        this.accService.GetAccountById(this.UserId,{extended:true})
+            .subscribe(
+                (resAccount:AccountGetModel)=>
+                {
+                    this.InitByUser(resAccount);
+                    this.accService.GetVideoArr(
+                        (data:SafeResourceUrl[]) => {
+                            this.Videos = data;
+                        },
+                        ()=>{
+                            this.InitSliderWrapp();
+                        }
+                    );
+
+                    this.accService.GetMyAccount()
+                        .subscribe((resMy:AccountGetModel[])=>
+                        {
+                            this.Accounts = resMy;
+
+                            this.isMyAccount = this.Accounts.find(obj => obj.id == this.UserId) != null;
+                        })
+                })
+    })
+//   this.accService.GetMyAccount()
+//   .subscribe((res:AccountGetModel[])=>{
+//       this.isMyAccount = false;
+//       this.activatedRoute.params.forEach((params) => {
+//       this.UserId = params["id"];
+//       this.Accounts = res;
+//       this.accService.GetAccountById(this.UserId, {extended:true})
+//         .subscribe((user:any)=>{
+
+//             for(let acc of this.Accounts) {
+//                 if(acc.id == this.UserId) {
+//                     this.isMyAccount = true;
+//                     break;
+//                 }
+//             }
+//             this.InitByUser(user);
+//         })
+//     });
+    // setTimeout(()=>{
+    //     this.Wrapper();
+    // },500);
+//   })
   
 }
-Wrapper() {
+InitSliderWrapp() {
+    let that = this;
     $('.iframe-slider-wrapp').slick({
         dots: false,
         arrows: true,
@@ -87,8 +122,21 @@ Wrapper() {
 
     });
     $('.iframe-slider-wrapp').on('beforeChange', function (event, slick, currentSlide, nextSlide) {
-        //тут выполняется код при смене слайда.
+        //that.StopThisShit(currentSlide);
+        console.log(event);
+        console.log(slick);
+        currentSlide = nextSlide;
     });
+}
+
+StopThisShit(index:number)
+{
+    //let player = window.document.getElementById('#video-iframe-'+index);
+    //let player = window.document.getElementById('video-iframe-0');
+    let player = $('#video-iframe-0');
+    
+    console.log(player);
+    //$('#video-iframe-'+index).pauseVideo();
 }
 
 Gallery() {

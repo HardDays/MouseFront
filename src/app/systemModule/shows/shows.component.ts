@@ -1,22 +1,45 @@
-import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core';
-import { NgForm} from '@angular/forms';
+import { Component, ViewChild, ElementRef, NgZone, Input, ViewContainerRef, ComponentFactory } from '@angular/core';
+import { NgForm,FormControl,FormGroup,Validators} from '@angular/forms';
 import { AuthMainService } from '../../core/services/auth.service';
-import { AuthService } from "angular2-social-login";
+
 import { BaseComponent } from '../../core/base/base.component';
-import { AccountGetModel } from '../../core/models/accountGet.model';
-import { AccountSearchParams } from '../../core/models/accountSearchParams.model';
+import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
+
 import { SelectModel } from '../../core/models/select.model';
+import { FrontWorkingTimeModel } from '../../core/models/frontWorkingTime.model';
+import { WorkingTimeModel } from '../../core/models/workingTime.model';
+import { AccountCreateModel } from '../../core/models/accountCreate.model';
+import { EventDateModel } from '../../core/models/eventDate.model';
+import { ContactModel } from '../../core/models/contact.model';
+import { AccountGetModel } from '../../core/models/accountGet.model';
 import { Base64ImageModel } from '../../core/models/base64image.model';
 import { AccountType } from '../../core/base/base.enum';
-import { MapsAPILoader } from '@agm/core';
+import { GenreModel } from '../../core/models/genres.model';
+import { EventCreateModel } from '../../core/models/eventCreate.model';
+
 import { AccountService } from '../../core/services/account.service';
 import { ImagesService } from '../../core/services/images.service';
 import { TypeService } from '../../core/services/type.service';
 import { GenresService } from '../../core/services/genres.service';
-import { DomSanitizer } from '@angular/platform-browser';
-import { Router } from '@angular/router';
 import { EventService } from '../../core/services/event.service';
+
+import { } from 'googlemaps';
+import { MapsAPILoader } from '@agm/core';
+import { Router, Params } from '@angular/router';
+import { AuthService } from "angular2-social-login";
+import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
+import { AccountAddToEventModel } from '../../core/models/artistAddToEvent.model';
+import { EventGetModel } from '../../core/models/eventGet.model';
+import { AccountSearchModel } from '../../core/models/accountSearch.model';
 import { Http } from '@angular/http';
+import { Point } from '@agm/core/services/google-maps-types';
+
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AgmCoreModule } from '@agm/core';
+import { CheckModel } from '../../core/models/check.model';
+import { EventSearchParams } from '../../core/models/eventSearchParams';
 
 declare var $:any;
 
@@ -33,12 +56,16 @@ export class ShowsComponent extends BaseComponent implements OnInit {
   MIN_CAPACITY:number = 0;
   MAX_CAPACITY:number = 70000;
   Roles = AccountType;
-  SearchParams: AccountSearchParams = new AccountSearchParams();
+  SearchParams: EventSearchParams = new EventSearchParams();
   AccountTypes:SelectModel[] = [];
-  Accounts:AccountGetModel[] = [];
+  Events:EventGetModel[] = [];
   Images:string[] = [];
+  Genres:GenreModel[] = [];
   place: string='';
 
+  mapCoords = {
+    'about': {lat:0, lng:0}
+}
 
   @ViewChild('search') public searchElement: ElementRef;
   
@@ -57,6 +84,11 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
 
   ngOnInit(){
 
+    this.genreService.GetAllGenres()
+    .subscribe((genres:string[])=> {
+      this.Genres = this.genreService.GetAll();
+      console.log("Gen", this.Genres);
+  });
     $(".nav-button").on("click", function (e) {
       e.preventDefault();
       $("body").addClass("has-active-menu");
@@ -85,7 +117,7 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
       grid_num: 5,
       onChange: function(data)
       {
-        _that.PriceChanged(data);
+        _that.DistanceChanged(data);
       }
   });
   var capacity_slider = $(".capacity-slider").ionRangeSlider({
@@ -98,31 +130,30 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
     grid: false,
     prettify_enabled: true,
     prettify_separator: ',',
-    grid_num: 5,
-    onChange: function(data)
-    {
-      _that.CapacityChanged(data);
-    }
+    grid_num: 5
+    // onChange: function(data)
+    // {
+    //   _that.CapacityChanged(data);
+    // }
 });
 
-    this.AccountTypes = this.typeService.GetAllAccountTypes();
-    this.GetAccounts();
+    this.GetEvents();
 
     this.CreateAutocomplete();
   }
 
-  GetAccounts()
+  GetEvents()
   {
     this.ParseSearchParams();
-    this.accService.AccountsSearch(this.SearchParams)
-    .subscribe((res:AccountGetModel[])=>{
-      this.Accounts = res;
-      console.log(this.Accounts);
+    this.eventService.EventsSearch(this.SearchParams)
+    .subscribe((res:EventGetModel[])=>{
+      this.Events = res;
+      console.log(this.Events);
     })
   }
 
   ShowSearchResults() {
-    this.GetAccounts();
+    this.GetEvents();
     $("body").removeClass("has-active-menu");
     $(".mainWrapper").removeClass("has-push-left");
     $(".nav-holder-3").removeClass("is-active");
@@ -133,7 +164,7 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
   GetImages()
   {
     this.Images = [];
-    for(let item of this.Accounts)
+    for(let item of this.Events)
     {
       this.Images[item.id] = "";
       if(item.image_id)
@@ -147,60 +178,61 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
 
   }
 
-  PriceChanged(data:any)
+  DistanceChanged(data:any)
   {
-    if(data.from && this.SearchParams.price_from != data.from)
-      this.SearchParams.price_from = data.from;
-    if(data.to && this.SearchParams.price_to != data.to)  
-      this.SearchParams.price_to = data.to;
+      this.SearchParams.distance = data;
   }
 
-  CapacityChanged(data:any)
-  {
-    if(data.from && this.SearchParams.capacity_from != data.from)
-      this.SearchParams.capacity_from = data.from;
-    if(data.from && this.SearchParams.capacity_to != data.from)
-      this.SearchParams.capacity_to = data.to;
-  }
+  // CapacityChanged(data:any)
+  // {
+  //   if(data.from && this.SearchParams.capacity_from != data.from)
+  //     this.SearchParams.capacity_from = data.from;
+  //   if(data.from && this.SearchParams.capacity_to != data.from)
+  //     this.SearchParams.capacity_to = data.to;
+  // }
 
   ParseSearchParams()
   {
-    if(this.SearchParams.type)
-    {
-      let search:AccountSearchParams = new AccountSearchParams();
-      search.limit = this.SearchParams.limit;
-      search.offset = this.SearchParams.offset;
-      if(this.SearchParams.text)
-          search.text = this.SearchParams.text;
-      if(this.SearchParams.genres)
-        search.genres = this.SearchParams.genres;
+    let search:EventSearchParams = new EventSearchParams();
+    search.limit = this.SearchParams.limit;
+    search.offset = this.SearchParams.offset;
+    if(this.SearchParams.text)
+        search.text = this.SearchParams.text;
+    if(this.SearchParams.genres)
+      search.genres = this.SearchParams.genres;
+    if(this.SearchParams.from_date)
+      search.from_date = this.SearchParams.from_date;
+    
+    if(this.SearchParams.to_date)
+      search.to_date = this.SearchParams.to_date;
 
-      if(this.SearchParams.type != this.Roles.Fan)
-      {
-        if(this.SearchParams.price_from)
-          search.price_from = this.SearchParams.price_from;
-        
-        if(this.SearchParams.price_to)
-          search.price_to = this.SearchParams.price_to;
-      }
+    if(this.SearchParams.distance)
+      search.distance = this.SearchParams.distance;
 
-      if(this.SearchParams.type == this.Roles.Venue)
-      {
-        if(this.SearchParams.address)
-          search.address = this.SearchParams.address;
+    if(this.SearchParams.is_active)
+      search.is_active = this.SearchParams.is_active;
 
-        if(this.SearchParams.capacity_from)
-          search.capacity_from = this.SearchParams.capacity_from;
+    if(this.SearchParams.ticket_types)
+      search.ticket_types = this.SearchParams.ticket_types;
 
-        if(this.SearchParams.capacity_to)
-          search.capacity_to = this.SearchParams.capacity_to;
+    if(this.SearchParams.location)
+      search.location = this.SearchParams.location;
+    
+    if(this.SearchParams.lat)
+      search.lat = this.SearchParams.lat;
 
-        if(this.SearchParams.type_of_space)
-          search.type_of_space = this.SearchParams.type_of_space;
-      }
-    }
+    if(this.SearchParams.lng)
+      search.lat = this.SearchParams.lng;
+
   }
 
+    aboutDragMarker($event){
+      console.log($event);
+      this.mapCoords.about.lat = $event.coords.lat;
+      this.mapCoords.about.lng = $event.coords.lng;
+      this.codeLatLng( this.mapCoords.about.lat, this.mapCoords.about.lng, "aboutAddress");
+  }
+  
   CreateAutocomplete(){
     this.mapsAPILoader.load().then(
         () => {
@@ -215,14 +247,38 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
             return;
            }
            else {
-              this.SearchParams.address = autocomplete.getPlace().formatted_address;
+              this.SearchParams.location = autocomplete.getPlace().formatted_address;
+              this.mapCoords.about.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
+              this.mapCoords.about.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
            }
           });
         });
       }
     );
-
-
+    
   }
-  
+
+
+  codeLatLng(lat, lng, id_map) {
+    let geocoder = new google.maps.Geocoder();
+    let latlng = new google.maps.LatLng(lat, lng);
+    geocoder.geocode({
+        'location': latlng }, 
+         (results, status) => {
+            if (status === google.maps.GeocoderStatus.OK) {
+                if (results[1]) {
+                //   console.log(results[1]);
+                let id = "#"+id_map;
+                $(id).val(results[1].formatted_address);
+                
+                if(id_map=='aboutAddress')
+                    this.SearchParams.location = results[1].formatted_address;
+                }
+            } else {
+                alert('Geocoder failed due to: ' + status);
+            }
+        });
+  }
+
 }
+  

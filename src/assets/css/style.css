@@ -3998,5 +3998,11 @@ footer {
               text-transform: uppercase;
               text-align: center;
               padding: 6px 11px; }
-
+              .nav-holder-3 {
+                position: fixed;
+            }
+            .nav-holder-3 {
+              position: fixed;
+              padding-top: 125px;
+          }
 /*# sourceMappingURL=style.css.map */

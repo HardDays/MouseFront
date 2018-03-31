@@ -28,7 +28,7 @@ export class EventGetModel{
         public city_lng?: string,
         public artists_number?: number,
         public address?: string,
-        public image_id?: string,
+        public image_id?: number,
         public video_link?: string,
         public backers?: number,
         public founded?: number,
