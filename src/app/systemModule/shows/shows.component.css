@@ -34,10 +34,24 @@
     display: block;
 }
 
-.nav-holder-3{
-    padding-top:24px;
+.theme-green .bs-datepicker-head{
+    background-color: rgb(255, 0, 88);
 }
-.butt-style-1{
-    
+.dtp div.dtp-date, .dtp div.dtp-time {
+    background-color: rgb(255, 0, 88);
 }
 
+.for-data-picker {
+    margin-top: 10px;
+}
+
+.circle-scroll{
+    cursor: pointer;
+}
+
+p{
+    word-wrap: break-word;
+    word-break: break-all; 
+}
+
+.pac-container { z-index: 100000; }

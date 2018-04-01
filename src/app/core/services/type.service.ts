@@ -11,6 +11,7 @@ import {Subject} from 'rxjs/Subject';
 import {TokenModel} from "./../models/token.model";
 import { SelectModel } from './../models/select.model';
 import { FrontWorkingTimeModel } from './../models/frontWorkingTime.model';
+import { TicketTypeModel } from '../models/ticketType.model';
 
 @Injectable()
 export class TypeService{
@@ -37,6 +38,14 @@ export class TypeService{
         return [
             new SelectModel("Public venue", "public_venue"),
             new SelectModel("Private residence", "private_residence")
+        ];
+    }
+
+    GetAllTicketTypes()
+    {
+        return [
+            new TicketTypeModel("In person", "in_person", false),
+            new TicketTypeModel("VIP", "vip", false)
         ];
     }
 

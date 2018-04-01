@@ -455,16 +455,13 @@
                                 <div class="bg-slider">
                                     <div class="iframe-slider-wrapp">
                                         <!-- надо подключить youtube api и тем самым вставлять видео вместо iframe ибо у iframe нет норм функций для остановки видео, либо я хреново покопался.-->
-                                        <div class="slide">
-                                            <div class="iframe-wr">
-                                                <iframe class="youtube-video" src="https://www.youtube.com/embed/tndftV42k7w" allowfullscreen></iframe>
+                                        <li *ngFor="let item of Videos;let i = index" >
+                                            <div class="slide">
+                                                <div class="iframe-wr">
+                                                    <iframe [id]="'video-iframe-'+i" class="youtube-video" enablejsapi="1" [src]="item" allowfullscreen></iframe>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="slide">
-                                            <div class="iframe-wr">
-                                                <iframe class="youtube-video" src="https://www.youtube.com/embed/tndftV42k7w" allowfullscreen></iframe>
-                                            </div>
-                                        </div>
+                                        </li>
                                     </div>
                                 </div>
                             </div>
