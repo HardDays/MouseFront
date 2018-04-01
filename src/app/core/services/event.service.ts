@@ -6,6 +6,8 @@ import { TypeService } from "./type.service";
 import { AccountCreateModel } from "../models/accountCreate.model";
 import { EventCreateModel } from "../models/eventCreate.model";
 import { AccountAddToEventModel } from "../models/artistAddToEvent.model";
+import { EventPatchModel } from "../models/eventPatch.model";
+import { EventGetModel } from "../models/eventGet.model";
 
 @Injectable()
 export class EventService{
@@ -24,10 +26,27 @@ export class EventService{
             ()=> this.http.GetData('/events.json',"")
         );
     }
+    GetMyEvents(id:number){
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/events/my.json',this.typeService.ParamsToUrlSearchParams({'account_id':id}))
+        );
+    }
     
     CreateEvent(params:EventCreateModel){
         return this.http.CommonRequest(
             () => this.http.PostData('/events.json',JSON.stringify(params))
+        );
+    }
+    UpdateEvent(params:EventCreateModel,id:number){
+        var patchModel:EventPatchModel = new EventPatchModel();
+        patchModel.id = id;
+        for (let key in params) {
+            if (params.hasOwnProperty(key)) {
+                patchModel[key] = params[key];
+            }
+        }
+        return this.http.CommonRequest(
+            () => this.http.PatchData('/events/'+patchModel.id+'.json',JSON.stringify(patchModel))
         );
     }
     GetEventById(id:number){

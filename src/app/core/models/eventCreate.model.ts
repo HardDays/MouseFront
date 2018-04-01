@@ -9,6 +9,8 @@ export class EventCreateModel{
         public funding_goal?:number,
         public event_length?:number,
         public event_time?:string,
+        public event_month?:number,
+        public event_year?:string,
         public is_crowdfunding_event?:boolean,
         public city_lat?:number,
         public city_lng?:number,

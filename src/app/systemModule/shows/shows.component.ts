@@ -40,6 +40,7 @@ import { NgModule } from '@angular/core';
 import { AgmCoreModule } from '@agm/core';
 import { CheckModel } from '../../core/models/check.model';
 import { EventSearchParams } from '../../core/models/eventSearchParams';
+import { TicketTypeModel } from '../../core/models/ticketType.model';
 
 declare var $:any;
 
@@ -51,10 +52,8 @@ declare var $:any;
 
 
 export class ShowsComponent extends BaseComponent implements OnInit {
-  MIN_PRICE:number = 0;
-  MAX_PRICE:number = 100000;
-  MIN_CAPACITY:number = 0;
-  MAX_CAPACITY:number = 70000;
+  MIN_DISTANCE:number = 0;
+  MAX_DISTANCE:number = 100000;
   Roles = AccountType;
   SearchParams: EventSearchParams = new EventSearchParams();
   AccountTypes:SelectModel[] = [];
@@ -62,6 +61,11 @@ export class ShowsComponent extends BaseComponent implements OnInit {
   Images:string[] = [];
   Genres:GenreModel[] = [];
   place: string='';
+  VenueTypes:SelectModel[] = [];
+  bsValue_start: Date;
+  bsValue_end: Date;
+  TicketTypes:TicketTypeModel[] = [];
+  
 
   mapCoords = {
     'about': {lat:0, lng:0}
@@ -87,7 +91,6 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
     this.genreService.GetAllGenres()
     .subscribe((genres:string[])=> {
       this.Genres = this.genreService.GetAll();
-      console.log("Gen", this.Genres);
   });
     $(".nav-button").on("click", function (e) {
       e.preventDefault();
@@ -104,13 +107,13 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
         $(".mask-nav-3").removeClass("is-active");
     });
     let _that = this;
-    var price_slider = $(".price-slider").ionRangeSlider({
+    var distance_slider = $(".distance-slider").ionRangeSlider({
       type:"double",
-      min: this.MIN_PRICE,
-      max: this.MAX_PRICE,
+      min: this.MIN_DISTANCE,
+      max: this.MAX_DISTANCE,
       from: 0,
       hide_min_max: false,
-      prefix: "$ ",
+      postfix: " km",
       grid: false,
       prettify_enabled: true,
       prettify_separator: ',',
@@ -120,23 +123,28 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
         _that.DistanceChanged(data);
       }
   });
-  var capacity_slider = $(".capacity-slider").ionRangeSlider({
-    type:"double",
-    min: this.MIN_CAPACITY,
-    max: this.MAX_CAPACITY,
-    from: 0,
-    hide_min_max: false,
-    prefix: "",
-    grid: false,
-    prettify_enabled: true,
-    prettify_separator: ',',
-    grid_num: 5
-    // onChange: function(data)
-    // {
-    //   _that.CapacityChanged(data);
-    // }
-});
+//   var capacity_slider = $(".capacity-slider").ionRangeSlider({
+//     type:"double",
+//     min: this.MIN_CAPACITY,
+//     max: this.MAX_CAPACITY,
+//     from: 0,
+//     hide_min_max: false,
+//     prefix: "",
+//     grid: false,
+//     prettify_enabled: true,
+//     prettify_separator: ',',
+//     grid_num: 5
+//     // onChange: function(data)
+//     // {
+//     //   _that.CapacityChanged(data);
+//     // }
+// });
+    this.bsValue_start = new Date();
+    this.bsValue_end = new Date();
 
+
+    this.VenueTypes = this.typeService.GetAllVenueTypes();
+    this.TicketTypes = this.typeService.GetAllTicketTypes();
     this.GetEvents();
 
     this.CreateAutocomplete();
@@ -152,6 +160,10 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
     })
   }
 
+  aboutOpenMapModal(){
+    $('#modal-map-1').modal('show');
+  }
+  
   ShowSearchResults() {
     this.GetEvents();
     $("body").removeClass("has-active-menu");
@@ -180,7 +192,7 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
 
   DistanceChanged(data:any)
   {
-      this.SearchParams.distance = data;
+    this.SearchParams.distance = data.from;
   }
 
   // CapacityChanged(data:any)
@@ -198,8 +210,7 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
     search.offset = this.SearchParams.offset;
     if(this.SearchParams.text)
         search.text = this.SearchParams.text;
-    if(this.SearchParams.genres)
-      search.genres = this.SearchParams.genres;
+
     if(this.SearchParams.from_date)
       search.from_date = this.SearchParams.from_date;
     
@@ -212,9 +223,6 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
     if(this.SearchParams.is_active)
       search.is_active = this.SearchParams.is_active;
 
-    if(this.SearchParams.ticket_types)
-      search.ticket_types = this.SearchParams.ticket_types;
-
     if(this.SearchParams.location)
       search.location = this.SearchParams.location;
     
@@ -224,6 +232,26 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
     if(this.SearchParams.lng)
       search.lat = this.SearchParams.lng;
 
+    if(this.SearchParams.size)
+    search.size = this.SearchParams.size;
+
+    if(this.bsValue_start)
+      search.from_date = this.bsValue_start.getFullYear()+`-`+this.incr(this.bsValue_start.getMonth())+`-`+this.bsValue_start.getDate();
+    if(this.bsValue_end)
+      search.to_date = this.bsValue_end.getFullYear()+`-`+this.incr(this.bsValue_end.getMonth())+`-`+this.bsValue_end.getDate();
+
+    if(this.TicketTypes) {
+      for(let item of this.TicketTypes) {
+        if(item.checked)
+          search.ticket_types.push(item.value);
+      }
+    }
+
+    if(this.Genres)
+    for(let item of this.Genres) {
+      if(item.checked)
+        search.ticket_types.push(item.genre);
+    }
   }
 
     aboutDragMarker($event){
@@ -279,6 +307,8 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
             }
         });
   }
-
+  incr(n:number){
+    return n+1;
+  }
 }
   

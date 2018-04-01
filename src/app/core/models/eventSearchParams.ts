@@ -11,6 +11,7 @@ export class EventSearchParams{
         public genres?: string[],
         public ticket_types?:string[],
         public limit?: number,
+        public size?: string,
         public offset?: number
     ){
         if(!limit)

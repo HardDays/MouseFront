@@ -71,11 +71,16 @@ export class EventsComponent extends BaseComponent implements OnInit {
 
     GetEvents()
     {
-      this.eventService.GetAllEvents()
-      .subscribe((res:EventGetModel[])=>{
-        this.Events = res;
-        console.log(this.Events);
+        this.accService.GetMyAccount({extended:true})
+        .subscribe((users:any[])=>{
+            console.log(users);
+            this.eventService.GetMyEvents(users[0].id)
+            .subscribe((res:EventGetModel[])=>{
+                this.Events = res;
+                console.log(this.Events);
       })
+        });
+        
     }
 
     

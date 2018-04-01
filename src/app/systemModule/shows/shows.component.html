@@ -3,15 +3,32 @@
             <div class="nav-holder-3" id="nav-holder">
                 <div class="wrapp-for-filter">
                     <form>
-                        <input type="text" class="inp-style-1" placeholder="Search">
+                        <input type="text" class="inp-style-1" placeholder="Search" [ngModel]="SearchParams.text" (ngModelChange)="SearchParams.text = $event" name="search-text" id='search-text'>
                         <div class="groupe-form">
                             <p class="head-input-groupe">Date</p>
-                            <div class="wrapp-for-triangle">
-                                <input type="text" class="date-picker-inp">
-                            </div>
+                            <div class="add-day">
+                                    <input type="text"
+                                    readonly style="background-color:white; cursor: pointer;"
+                                    class="for-data-picker"
+                                    [minDate]="minDate"
+                                    #dp="bsDatepicker"
+                                    dateDisabled = "{date:new Date(); mode:disable;}"
+                                    bsDatepicker [(bsValue)]="bsValue_start[i]"
+                                    (bsValueChange)="logChanged($event)">
+                                </div>
+                                <div class="add-day">
+                                    <input type="text"
+                                    readonly style="background-color:white; cursor: pointer;"
+                                    class="for-data-picker"
+                                    [minDate]="bsValue_start[i]"
+                                    #dp="bsDatepicker"
+                                    dateDisabled = "{date:new Date(); mode:disable;}"
+                                    bsDatepicker [(bsValue)]="bsValue_end[i]"
+                                    (bsValueChange)="logChanged()">
+                                </div>
                         </div>
                          <!--новая первая модалка с картой-->
-                        <div class="modal fade modal-send-request map-1-modal" id="modal-map-1">
+                        <div class="modal map-1-modal" id="modal-map-1">
                             <div class="modal-dialog">
                                 <div class="modal-body">
                                     <h6 class="head-m-p-a">Location</h6>
@@ -24,7 +41,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div [ngStyle]="{'display': (SearchParams.distance)?'block':'none'}" class="groupe-form">
+                        <div class="groupe-form">
                             <p class="head-input-groupe">Distance</p>
                             <div class="for-range-slider">
                                 <input type="text" class="current-slider distance-slider" value="">
@@ -33,49 +50,39 @@
                         <div class="groupe-form">
                             <p class="head-input-groupe">Genres</p>
                             <div class="flex-genres">
-                                <div class="one-checkbox">
-                                    <div class="flex-checkboxes">
-                                        <ng-container *ngFor="let item of Genres; let i = index">
-                                            <div  class="one-checkbox" >
-                                                <div class="check-style">
-                                                    <input type="checkbox"  [ngModel]="item.checked" (ngModelChange)="item.checked = $event" class="checkbox" name="genre-{{i}}" id='checkbox-{{i}}'>
-                                                    <label for='checkbox-{{i}}'></label>
-                                                </div>
-                                                <p>{{item.genre_show}}</p>
-                                            </div> 
-                                        </ng-container>
-                                    </div>
-                                </div>
+                                <ng-container *ngFor="let item of Genres; let i = index">
+                                    <div  class="one-checkbox" >
+                                        <div class="check-style">
+                                            <input type="checkbox"  [ngModel]="item.checked" (ngModelChange)="item.checked = $event" class="checkbox" name="genre-{{i}}" id='checkbox-genre-{{i}}'>
+                                            <label for='checkbox-genres-{{i}}'></label>
+                                        </div>
+                                        <p>{{item.genre_show}}</p>
+                                    </div> 
+                                </ng-container>
                             </div>
                         </div>
                         <div class="groupe-form">
-                            <p class="head-input-groupe">Ticket type</p>
-                            <div class="flex-radio">
-                                <div class="one-radio">
-                                    <div class="radio-style">
-                                        <input type="radio" class="radio-b" id="radio-1"  name="group1" value="VR" checked>
-                                        <label for="radio-1"></label>
-                                    </div>
-                                    <p>VR</p>
-                                </div>
-                                <div class="one-radio">
-                                    <div class="radio-style">
-                                        <input type="radio" class="radio-b" id="radio-2" name="group1" value="Attend">
-                                        <label for="radio-2"></label>
-                                    </div>
-                                    <p>Attend</p>
-                                </div>
+                            <p class="head-input-groupe">Ticket types</p>
+                            <div class="flex-genres">
+                                <ng-container *ngFor="let item of TicketTypes; let i = index">
+                                    <div class="one-checkbox" >
+                                        <div class="check-style">
+                                            <input type="checkbox"  [ngModel]="item.checked" (ngModelChange)="item.checked = $event" class="checkbox" name="ticket-{{i}}" id='checkbox-ticket-{{i}}'>
+                                            <label for='checkbox-tickets-{{i}}'></label>
+                                        </div>
+                                        <p>{{item.name}}</p>
+                                    </div> 
+                                </ng-container>
                             </div>
-                        
                         </div>
                         <div class="groupe-form">
-                            <p class="head-input-groupe">Size</p>
-                            <select class="form-control">
-                                <option>Size 1</option>
-                                <option>Size 2</option>
-                                <option>Size 3</option>
-                                <option>Size 4</option>
+                            <p class="head-input-groupe">Venue type</p>
+                            <select class="form-control" [ngModel]="SearchParams.size" (ngModelChange)="SearchParams.size = $event">
+                                <option *ngFor="let item of VenueTypes" [value]="item.value">{{item.name}}</option>
                             </select>
+                        </div>
+                        <div class="groupe-form">
+                            <button (click)="ShowSearchResults()" class="butt-style-1"><span>Search</span></button>
                         </div>
                     </form>
                     

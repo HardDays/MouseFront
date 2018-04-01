@@ -27,6 +27,7 @@ import { PreloaderComponent } from '../shared/preloader/preloader.component';
 import { YoutubePlayerModule } from 'ng2-youtube-player';
 import { BrowserModule } from '@angular/platform-browser';
 import { AgmCoreModule } from '@agm/core';
+import { ArtistCreateComponent } from './artistCreate/artistCreate.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { AgmCoreModule } from '@agm/core';
     ProfileComponent,
     AccountCreateComponent,
     EventCreateComponent,
+    ArtistCreateComponent,
     EventsComponent,
     PreloaderComponent
   ],
