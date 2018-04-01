@@ -1,4 +1,3 @@
-import { GenreModel } from './genres.model';
 export class EventSearchModel{
     constructor(
         public text?: string,
@@ -9,7 +8,7 @@ export class EventSearchModel{
         public from_date?: string,
         public to_date?: string,
         public is_active?: boolean,
-        public genres?: GenreModel[],
+        public genres?: string[],
         public ticket_types?:string[],
         public limit?:number,
         public offset?:number
