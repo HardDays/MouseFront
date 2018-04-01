@@ -176,10 +176,15 @@
                                 </a>
                             </li>
                             <li>
-                                <a [routerLink]="['/system','tikets']" class="icon-5" (click)="curNav = 'tickets'" [class.active]="curNav=='tickets'">
+                                <a class="icon-5">
                                     <div class="img-menu"></div>
                                     <span>Tickets</span>
                                 </a>
+
+                                <!-- <a [routerLink]="['/system','tikets']" class="icon-5" (click)="curNav = 'tickets'" [class.active]="curNav=='tickets'">
+                                    <div class="img-menu"></div>
+                                    <span>Tickets</span>
+                                </a> -->
                             </li>
                         </ul>
                         <div class="name-and-ava-wr">
@@ -192,7 +197,9 @@
                             
                             <div *ngIf="isLoggedIn" class="name-and-ava">
                                 <p>{{Accounts[0]&&Accounts[0].user_name?Accounts[0].user_name:''}}</p>
-                                <div (click)="logout()" class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                                <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                                <button *ngIf="isLoggedIn" class="butt-style-1" type="button" (click)="logout()"><span style="padding:8px;">OUT</span></button>
+                            
                             </div>
                             
                         </div>

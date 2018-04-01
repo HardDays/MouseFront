@@ -28,6 +28,7 @@ import { YoutubePlayerModule } from 'ng2-youtube-player';
 import { BrowserModule } from '@angular/platform-browser';
 import { AgmCoreModule } from '@agm/core';
 import { ArtistCreateComponent } from './artistCreate/artistCreate.component';
+import { FeedComponent } from './feed/feed.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ArtistCreateComponent } from './artistCreate/artistCreate.component';
     EventCreateComponent,
     ArtistCreateComponent,
     EventsComponent,
-    PreloaderComponent
+    PreloaderComponent,
+    FeedComponent
   ],
   imports: [
     CommonModule,
