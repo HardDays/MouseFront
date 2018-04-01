@@ -6,7 +6,7 @@
              <div class="nav-holder-3" id="nav-holder">
                     <div class="wrapp-for-filter">
                         <form>
-                            <input type="text" class="inp-style-1" placeholder="Search">
+                            <input type="text" class="inp-style-1" name="search-params-text" [ngModel]="SearchParams.text" (ngModelChange)="SearchParams.text = $event" placeholder="Search">
                             <div class="groupe-form">
                                 <p class="head-input-groupe">Date</p>
                                 <div class="wrapp-for-triangle">
