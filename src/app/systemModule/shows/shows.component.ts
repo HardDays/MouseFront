@@ -238,12 +238,17 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
     if(this.SearchParams.size)
     search.size = this.SearchParams.size;
 
+    if(this.SearchParams.is_active)
+    search.is_active = this.SearchParams.is_active;
+
     if(this.bsValue_start)
       search.from_date = this.bsValue_start.getFullYear()+`-`+this.incr(this.bsValue_start.getMonth())+`-`+this.bsValue_start.getDate();
     if(this.bsValue_end)
       search.to_date = this.bsValue_end.getFullYear()+`-`+this.incr(this.bsValue_end.getMonth())+`-`+this.bsValue_end.getDate();
 
     if(this.TicketTypes) {
+      search.ticket_types = [];
+      console.log("tick", search.ticket_types);
       for(let item of this.TicketTypes) {
         if(item.checked)
           search.ticket_types.push(item.value);
@@ -251,10 +256,12 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
     }
 
     if(this.Genres)
+    search.genres = [];
     for(let item of this.Genres) {
       if(item.checked)
-        search.ticket_types.push(item.genre);
+        search.genres.push(item.genre);
     }
+    console.log("search", search);
   }
 
     aboutDragMarker($event){

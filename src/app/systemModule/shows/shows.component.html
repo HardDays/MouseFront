@@ -59,30 +59,42 @@
                                     </ng-container>
                                 </div>
                             </div>
-                                <div class="groupe-form">
-                                    <p class="head-input-groupe">Ticket types</p>
-                                    <div class="flex-genres">
-                                        <ng-container *ngFor="let item of TicketTypes; let i = index">
-                                            <div class="one-checkbox" >
-                                                <div class="check-style">
-                                                    <input type="checkbox"  [ngModel]="item.checked" (ngModelChange)="item.checked = $event" class="checkbox" name="ticket-{{i}}" id='checkbox-ticket-{{i}}'>
-                                                    <label for='checkbox-ticket-{{i}}'></label>
-                                                </div>
-                                                <p>{{item.name}}</p>
-                                            </div> 
-                                        </ng-container>
-                                    </div>
+                            <div class="groupe-form">
+                                <p class="head-input-groupe">Ticket types</p>
+                                <div class="flex-genres">
+                                    <ng-container *ngFor="let item of TicketTypes; let i = index">
+                                        <div class="one-checkbox" >
+                                            <div class="check-style">
+                                                <input type="checkbox"  [ngModel]="item.checked" (ngModelChange)="item.checked = $event" class="checkbox" name="ticket-{{i}}" id='checkbox-ticket-{{i}}'>
+                                                <label for='checkbox-ticket-{{i}}'></label>
+                                            </div>
+                                            <p>{{item.name}}</p>
+                                        </div> 
+                                    </ng-container>
                                 </div>
-                                <div class="groupe-form">
-                                        <p class="head-input-groupe">Venue type</p>
-                                        <select class="form-control" [ngModel]="SearchParams.size" (ngModelChange)="SearchParams.size = $event">
-                                            <option *ngFor="let item of VenueTypes" [value]="item.value">{{item.name}}</option>
-                                        </select>
-                                    </div>
-                                    <div class="groupe-form">
-                                        <button (click)="ShowSearchResults()" class="butt-style-1"><span>Search</span></button>
-                                    </div>
-                                </form>
+                            </div>
+                            <div class="groupe-form">
+                                <p class="head-input-groupe">Process of funding</p>
+                                <div class="flex-genres">
+                                        <div class="one-checkbox" >
+                                            <div class="check-style">
+                                                <input type="checkbox"  [ngModel]="SearchParams.is_active" (ngModelChange)="SearchParams.is_active = $event" class="checkbox" name="check" id='checkbox-check'>
+                                                <label for='checkbox-check'></label>
+                                            </div>
+                                            <p>Is active</p>
+                                        </div> 
+                                </div>
+                            </div>
+                            <div class="groupe-form">
+                                <p class="head-input-groupe">Venue type</p>
+                                <select class="form-control" [ngModel]="SearchParams.size" (ngModelChange)="SearchParams.size = $event">
+                                    <option *ngFor="let item of VenueTypes" [value]="item.value">{{item.name}}</option>
+                                </select>
+                            </div>
+                            <div class="groupe-form">
+                                <button (click)="ShowSearchResults()" class="butt-style-1"><span>Search</span></button>
+                            </div>
+                        </form>
                         
                     </div>
                 </div>
