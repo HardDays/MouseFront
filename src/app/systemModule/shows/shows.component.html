@@ -13,18 +13,18 @@
                                     [minDate]="minDate"
                                     #dp="bsDatepicker"
                                     dateDisabled = "{date:new Date(); mode:disable;}"
-                                    bsDatepicker [(bsValue)]="bsValue_start[i]"
+                                    bsDatepicker [(bsValue)]="bsValue_start"
                                     (bsValueChange)="logChanged($event)">
                                 </div>
                                 <div class="add-day">
                                     <input type="text"
                                     readonly style="background-color:white; cursor: pointer;"
                                     class="for-data-picker"
-                                    [minDate]="bsValue_start[i]"
+                                    [minDate]="bsValue_start"
                                     #dp="bsDatepicker"
                                     dateDisabled = "{date:new Date(); mode:disable;}"
-                                    bsDatepicker [(bsValue)]="bsValue_end[i]"
-                                    (bsValueChange)="logChanged()">
+                                    bsDatepicker [(bsValue)]="bsValue_end"
+                                    (bsValueChange)="logChanged($event)">
                                 </div>
                         </div>
                          <!--новая первая модалка с картой-->

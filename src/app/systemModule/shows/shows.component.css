@@ -41,12 +41,6 @@
     background-color: rgb(255, 0, 88);
 }
 
-.bs-datepicker > .bs-datepicker-content > .bs-datepicker-date-view > header.bs-datepicker-header {
-    background-color: rgb(255, 0, 88);
-    color: #fff;
-    text-align: center;
-    padding: 3px;
-}
 .for-data-picker {
     margin-top: 10px;
 }

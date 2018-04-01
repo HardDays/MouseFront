@@ -66,6 +66,7 @@ export class ShowsComponent extends BaseComponent implements OnInit {
   bsValue_end: Date;
   TicketTypes:TicketTypeModel[] = [];
   
+  minDate: Date = new Date();
 
   mapCoords = {
     'about': {lat:0, lng:0}
@@ -309,6 +310,9 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
   }
   incr(n:number){
     return n+1;
+  }
+  logChanged($event){
+    console.log("event",$event);
   }
 }
   
