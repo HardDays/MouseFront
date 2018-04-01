@@ -52,7 +52,7 @@
                                         <div  class="one-checkbox" >
                                             <div class="check-style">
                                                 <input type="checkbox"  [ngModel]="item.checked" (ngModelChange)="item.checked = $event" class="checkbox" name="genre-{{i}}" id='checkbox-genre-{{i}}'>
-                                                <label for='checkbox-genres-{{i}}'></label>
+                                                <label for='checkbox-genre-{{i}}'></label>
                                             </div>
                                             <p>{{item.genre_show}}</p>
                                         </div> 
@@ -66,7 +66,7 @@
                                             <div class="one-checkbox" >
                                                 <div class="check-style">
                                                     <input type="checkbox"  [ngModel]="item.checked" (ngModelChange)="item.checked = $event" class="checkbox" name="ticket-{{i}}" id='checkbox-ticket-{{i}}'>
-                                                    <label for='checkbox-tickets-{{i}}'></label>
+                                                    <label for='checkbox-ticket-{{i}}'></label>
                                                 </div>
                                                 <p>{{item.name}}</p>
                                             </div> 
@@ -129,7 +129,7 @@
                                     </div>
                                 </div>
                                 <div class="new-shows-desc">
-                                    <a href="#" class="name-show">Part of me</a>
+                                    <a href="#" class="name-show">{{item.name}}</a>
                                     <p class="name-artist">Katy Parry</p>
                                     <div class="where">23 FEB, 2017 - Madison Square Garden - NY</div>
                                 </div>
@@ -141,6 +141,7 @@
             </section>
         </div>
    
+        
     </section>
     
 </section>
