@@ -7,22 +7,22 @@
                     <ul>
                         <!--нужным li даем классы active и started."хз нахрена это надо. узнавайте у писателя"-->
                         <li class="active">
-                            <a href="#" class="nav-second-outlet">about</a>
+                            <a [routerLink]="['/system','eventCreate']" class="nav-second-outlet">about</a>
                         </li>
                         <li class="started">
-                            <a href="#" class="nav-second-outlet">artist</a>
+                            <a [routerLink]="['/system','eventCreate']" class="nav-second-outlet">artist</a>
                         </li>
                         <li>
-                            <a href="#" class="nav-second-outlet">venues</a>
+                            <a [routerLink]="['/system','eventCreate']" class="nav-second-outlet">venues</a>
                         </li>
                         <li>
-                            <a href="#" class="nav-second-outlet">funding</a>
+                            <a [routerLink]="['/system','eventCreate']" class="nav-second-outlet">funding</a>
                         </li>
                         <li>
-                            <a href="#" class="nav-second-outlet">tickets</a>
+                            <a [routerLink]="['/system','eventCreate']" class="nav-second-outlet">tickets</a>
                         </li>
                         <li>
-                            <a href="#" class="nav-second-outlet">preview</a>
+                            <a [routerLink]="['/system','eventCreate']" class="nav-second-outlet">preview</a>
                         </li>
                         <li>
                             <a (click)="showAllPages = !showAllPages" class="nav-second-outlet">show_all_pages</a>
@@ -757,7 +757,7 @@
                                     <div *ngFor="let artist of activeArtist; let i = index" class="one-block">
                                         <div class="ava-l">
                                             <div class="ava" [ngStyle]="{'background-image': artist.object.image_base64_not_given?'url('+artist.object.image_base64_not_given+')':''}"></div>
-                                            <a href="#" class="name">{{artist.object.user_name}}</a>
+                                            <a [routerLink]="['/system/profile',artist.object.id]" class="name">{{artist.object.user_name}}</a>
                                         </div>
                                         <div class="price-r">
                                             <span class="price">$50000</span>
@@ -805,7 +805,7 @@
                                     <div *ngFor="let venue of activeVenue; let i = index" class="one-block">
                                         <div class="ava-l">
                                             <div class="ava" [ngStyle]="{'background-image': venue.object.image_base64_not_given?'url('+venue.object.image_base64_not_given+')':''}"></div>
-                                            <a href="#" class="name">{{venue.object.user_name}}</a>
+                                            <a [routerLink]="['/system/profile',venue.object.id]" class="name">{{venue.object.user_name}}</a>
                                         </div>
                                         <div class="price-r">
                                             <span class="price">$50000</span>

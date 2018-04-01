@@ -72,13 +72,13 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#"  (click)="curNav = 'feed'" class="icon-4" [class.active]="curNav=='feed'">
+                                <a [routerLink]="['/system','feed']"  (click)="curNav = 'feed'" class="icon-4" [class.active]="curNav=='feed'">
                                     <div class="img-menu"></div>
                                     <span>Feed</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="icon-5" (click)="curNav = 'tickets'" [class.active]="curNav=='tickets'">
+                                <a [routerLink]="['/system','tikets']" class="icon-5" (click)="curNav = 'tickets'" [class.active]="curNav=='tickets'">
                                     <div class="img-menu"></div>
                                     <span>Tickets</span>
                                 </a>
