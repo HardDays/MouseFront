@@ -6,104 +6,83 @@
              <div class="nav-holder-3" id="nav-holder">
                     <div class="wrapp-for-filter">
                         <form>
-                            <input type="text" class="inp-style-1" name="search-params-text" [ngModel]="SearchParams.text" (ngModelChange)="SearchParams.text = $event" placeholder="Search">
+                            <input type="text" class="inp-style-1" placeholder="Search" [ngModel]="SearchParams.text" (ngModelChange)="SearchParams.text = $event" name="search-text" id='search-text'>
                             <div class="groupe-form">
                                 <p class="head-input-groupe">Date</p>
-                                <div class="wrapp-for-triangle">
-                                    <input type="text" class="date-picker-inp">
+                                <div class="add-day">
+                                        <input type="text"
+                                        readonly style="background-color:white; cursor: pointer;"
+                                        class="for-data-picker"
+                                        [minDate]="minDate"
+                                        #dp="bsDatepicker"
+                                        dateDisabled = "{date:new Date(); mode:disable;}"
+                                        bsDatepicker [(bsValue)]="bsValue_start"
+                                        (bsValueChange)="logChanged($event)">
+                                    </div>
+                                    <div class="add-day">
+                                        <input type="text"
+                                        readonly style="background-color:white; cursor: pointer;"
+                                        class="for-data-picker"
+                                        [minDate]="bsValue_start"
+                                        #dp="bsDatepicker"
+                                        dateDisabled = "{date:new Date(); mode:disable;}"
+                                        bsDatepicker [(bsValue)]="bsValue_end"
+                                        (bsValueChange)="logChanged($event)">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="groupe-form">
-                                <p class="head-input-groupe">Location</p>
-                                <div class="location-wr">
-                                    <div class="mark"></div>
-                                    <input type="text" class="location-inp" name="search-params-address" autocorrect="off" autocapitalize="off" spellcheck="off" placeholder=""  #search>
-                                </div>
-                            </div>
+        
+                                <div class="groupe-form">
+                                        <p class="head-input-groupe">Location</p>
+                                        <div class="location-wr">
+                                            <div class="mark"></div>
+                                            <input type="text" class="location-inp" name="search-params-address" autocorrect="off" autocapitalize="off" spellcheck="off" placeholder=""  #search>
+                                        </div>
+                                    </div>
+        
                             <div class="groupe-form">
                                 <p class="head-input-groupe">Distance</p>
                                 <div class="for-range-slider">
-                                    <input type="text" class="current-slider" value="">
+                                    <input type="text" class="current-slider distance-slider" value="">
                                 </div>
                             </div>
                             <div class="groupe-form">
-                                <p class="head-input-groupe">Genre</p>
+                                <p class="head-input-groupe">Genres</p>
                                 <div class="flex-genres">
-                                    <div class="one-checkbox">
-                                        <div class="check-style">
-                                            <input type="checkbox" class="checkbox" name="" id="checkbox-1">
-                                            <label for="checkbox-1"></label>
-                                        </div>
-                                        <p>hip hop</p>
-                                    </div>
-                                    <div class="one-checkbox">
-                                        <div class="check-style">
-                                            <input type="checkbox" class="checkbox" name="" id="checkbox-2">
-                                            <label for="checkbox-2"></label>
-                                        </div>
-                                        <p>hip hop</p>
-                                    </div>
-                                    <div class="one-checkbox">
-                                        <div class="check-style">
-                                            <input type="checkbox" class="checkbox" name="" id="checkbox-3">
-                                            <label for="checkbox-3"></label>
-                                        </div>
-                                        <p>hip hop</p>
-                                    </div>
-                                    <div class="one-checkbox">
-                                        <div class="check-style">
-                                            <input type="checkbox" class="checkbox" name="" id="checkbox-4">
-                                            <label for="checkbox-4"></label>
-                                        </div>
-                                        <p>hip hop</p>
-                                    </div>
-                                    <div class="one-checkbox">
-                                        <div class="check-style">
-                                            <input type="checkbox" class="checkbox" name="" id="checkbox-5">
-                                            <label for="checkbox-5"></label>
-                                        </div>
-                                        <p>hip hop</p>
-                                    </div>
-                                    <div class="one-checkbox">
-                                        <div class="check-style">
-                                            <input type="checkbox" class="checkbox" name="" id="checkbox-6">
-                                            <label for="checkbox-6"></label>
-                                        </div>
-                                        <p>hip hop</p>
+                                    <ng-container *ngFor="let item of Genres; let i = index">
+                                        <div  class="one-checkbox" >
+                                            <div class="check-style">
+                                                <input type="checkbox"  [ngModel]="item.checked" (ngModelChange)="item.checked = $event" class="checkbox" name="genre-{{i}}" id='checkbox-genre-{{i}}'>
+                                                <label for='checkbox-genres-{{i}}'></label>
+                                            </div>
+                                            <p>{{item.genre_show}}</p>
+                                        </div> 
+                                    </ng-container>
+                                </div>
+                            </div>
+                                <div class="groupe-form">
+                                    <p class="head-input-groupe">Ticket types</p>
+                                    <div class="flex-genres">
+                                        <ng-container *ngFor="let item of TicketTypes; let i = index">
+                                            <div class="one-checkbox" >
+                                                <div class="check-style">
+                                                    <input type="checkbox"  [ngModel]="item.checked" (ngModelChange)="item.checked = $event" class="checkbox" name="ticket-{{i}}" id='checkbox-ticket-{{i}}'>
+                                                    <label for='checkbox-tickets-{{i}}'></label>
+                                                </div>
+                                                <p>{{item.name}}</p>
+                                            </div> 
+                                        </ng-container>
                                     </div>
                                 </div>
-                                <p class="more"><span>See more</span></p>
-                            </div>
-                            <div class="groupe-form">
-                                <p class="head-input-groupe">Ticket type</p>
-                                <div class="flex-radio">
-                                    <div class="one-radio">
-                                        <div class="radio-style">
-                                            <input type="radio" class="radio-b" id="radio-1"  name="group1" value="VR" checked>
-                                            <label for="radio-1"></label>
-                                        </div>
-                                        <p>VR</p>
+                                <div class="groupe-form">
+                                        <p class="head-input-groupe">Venue type</p>
+                                        <select class="form-control" [ngModel]="SearchParams.size" (ngModelChange)="SearchParams.size = $event">
+                                            <option *ngFor="let item of VenueTypes" [value]="item.value">{{item.name}}</option>
+                                        </select>
                                     </div>
-                                    <div class="one-radio">
-                                        <div class="radio-style">
-                                            <input type="radio" class="radio-b" id="radio-2" name="group1" value="Attend">
-                                            <label for="radio-2"></label>
-                                        </div>
-                                        <p>Attend</p>
+                                    <div class="groupe-form">
+                                        <button (click)="ShowSearchResults()" class="butt-style-1"><span>Search</span></button>
                                     </div>
-                                </div>
-                            
-                            </div>
-                            <div class="groupe-form">
-                                <p class="head-input-groupe">Size</p>
-                                <select class="form-control">
-                                    <option>Size 1</option>
-                                    <option>Size 2</option>
-                                    <option>Size 3</option>
-                                    <option>Size 4</option>
-                                </select>
-                            </div>
-                        </form>
+                                </form>
                         
                     </div>
                 </div>
@@ -127,17 +106,22 @@
                             <h1>Shows</h1>
                         </div>
                         <div class="flex-shows">
-                            <div class="one-show-wr">
-                               
+                            <div class="one-show-wr" *ngFor="let item of Events">
                                 <div class="one-show">
                                     <div class="img-show" style="background-image: url(../../assets/img/drake.jpg)"></div>
                                     <div class="description">
                                         <div class="top-info">
                                             <div class="side side-1">
                                                 <!--весртка красной фиговины-->
-                                                <div class="sale">
-                                                    <p>BUY 1<br>GET 1<br>TICKET</p>
+                                                <div *ngIf="item.is_active" class="sale">
+                                                        <p>BUY 1<br>GET 1<br>TICKET</p>
                                                 </div>
+                                                <div *ngIf="!item.is_active" class="funded">
+                                                    <!-- тут ебошим высоту, скок собрали баблища-->
+                                                    <div class="complete" style="height: 68%"></div>
+                                                    <p>12 days<br>to go<br><span>68%<br>funded</span></p>
+                                                </div>
+        
                                             </div>
                                             
                                         </div>
@@ -151,73 +135,7 @@
                                 </div>
                             </div>
                            
-                            <div class="one-show-wr">
-                                <div class="one-show">
-                                    <div class="img-show" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                                    <div class="description">
-                                        <div class="top-info">
-                                            <div class="side side-1">
-                                                <div class="funded">
-                                                    <div class="complete" style="height: 68%"></div>
-                                                    <p>12 days<br>to go<br><span>68%<br>funded</span></p>
-                                                </div>
-                                            </div>
-                                    
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                                <div class="new-shows-desc">
-                                    <a href="#" class="name-show">Part of me</a>
-                                    <p class="name-artist">Katy Parry</p>
-                                    <div class="where">23 FEB, 2017 - Madison Square Garden - NY</div>
-                                </div>
-                            </div>
-                            <div class="one-show-wr">
-                                <div class="one-show">
-                                    <div class="img-show" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                                    <div class="description">
-                                        <div class="top-info">
-                                            <div class="side side-1">
-                                                <div class="funded">
-                                                    <div class="complete" style="height: 68%"></div>
-                                                    <p>12 days<br>to go<br><span>68%<br>funded</span></p>
-                                                </div>
-                                            </div>
-                                    
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                                <div class="new-shows-desc">
-                                    <a href="#" class="name-show">Part of me</a>
-                                    <p class="name-artist">Katy Parry</p>
-                                    <div class="where">23 FEB, 2017 - Madison Square Garden - NY</div>
-                                </div>
-                            </div>
-                            <div class="one-show-wr">
-                                <div class="one-show">
-                                    <div class="img-show" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                                    <div class="description">
-                                        <div class="top-info">
-                                            <div class="side side-1">
-                                                <div class="funded">
-                                                    <div class="complete" style="height: 68%"></div>
-                                                    <p>12 days<br>to go<br><span>68%<br>funded</span></p>
-                                                </div>
-                                            </div>
-                                    
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                                <div class="new-shows-desc">
-                                    <a href="#" class="name-show">Part of me</a>
-                                    <p class="name-artist">Katy Parry</p>
-                                    <div class="where">23 FEB, 2017 - Madison Square Garden - NY</div>
-                                </div>
-                            </div>
-                        </div>
+                           </div>
                     </div>
                 </div>
             </section>

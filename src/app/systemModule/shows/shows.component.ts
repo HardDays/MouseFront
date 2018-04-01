@@ -65,6 +65,8 @@ export class ShowsComponent extends BaseComponent implements OnInit {
   bsValue_start: Date;
   bsValue_end: Date;
   TicketTypes:TicketTypeModel[] = [];
+  Artist:AccountGetModel[] = [];
+  Venue:AccountGetModel[] = [];
   
   minDate: Date = new Date();
 
@@ -157,7 +159,7 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
     this.eventService.EventsSearch(this.SearchParams)
     .subscribe((res:EventGetModel[])=>{
       this.Events = res;
-      console.log(this.Events);
+      console.log("1", this.Events);
     })
   }
 
