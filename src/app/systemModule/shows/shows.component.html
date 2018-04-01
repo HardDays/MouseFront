@@ -34,8 +34,8 @@
                                 <div class="groupe-form">
                                         <p class="head-input-groupe">Location</p>
                                         <div class="location-wr">
-                                            <div class="mark"></div>
-                                            <input type="text" class="location-inp" name="search-params-address" autocorrect="off" autocapitalize="off" spellcheck="off" placeholder=""  #search>
+                                            <div (click)="aboutOpenMapModal()" class="mark"></div>
+                                            <input type="text" class="location-inp" name="search-params-address" autocorrect="off" autocapitalize="off" spellcheck="off" placeholder=""  #search id="searchAddress">
                                         </div>
                                     </div>
         
@@ -150,11 +150,29 @@
                            </div>
                     </div>
                 </div>
+
+                <div class="modal fade modal-send-request map-1-modal" id="modal-map">
+                    <div class="modal-dialog">
+                        <div class="modal-body">
+                            <h6 class="head-m-p-a">Location</h6>
+                            <span class="closee-modal" data-dismiss="modal"></span>
+                            <div class="for-map-init-modal-1">
+                                    <agm-map  style="height:100%" [latitude]="mapCoords.lat" [longitude]="mapCoords.lng">
+                                            <agm-marker (dragEnd)="aboutDragMarker($event)" [markerDraggable] = "true" [latitude]="mapCoords.lat" [longitude]="mapCoords.lng"></agm-marker>
+                                    </agm-map>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </section>
         </div>
    
         
     </section>
+
+    
     
 </section>
         

@@ -70,9 +70,7 @@ export class ShowsComponent extends BaseComponent implements OnInit {
   
   minDate: Date = new Date();
 
-  mapCoords = {
-    'about': {lat:0, lng:0}
-}
+  mapCoords = {lat:0, lng:0};
 
   @ViewChild('search') public searchElement: ElementRef;
   
@@ -164,7 +162,7 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
   }
 
   aboutOpenMapModal(){
-    $('#modal-map-1').modal('show');
+    $('#modal-map').modal('show');
   }
   
   ShowSearchResults() {
@@ -266,9 +264,9 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
 
     aboutDragMarker($event){
       console.log($event);
-      this.mapCoords.about.lat = $event.coords.lat;
-      this.mapCoords.about.lng = $event.coords.lng;
-      this.codeLatLng( this.mapCoords.about.lat, this.mapCoords.about.lng, "aboutAddress");
+      this.mapCoords.lat = $event.coords.lat;
+      this.mapCoords.lng = $event.coords.lng;
+      this.codeLatLng( this.mapCoords.lat, this.mapCoords.lng);
   }
   
   CreateAutocomplete(){
@@ -285,9 +283,10 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
             return;
            }
            else {
+               /* LOCATION - изменение в автокомплите autocomplete.getPlace().formatted_address */
               this.SearchParams.location = autocomplete.getPlace().formatted_address;
-              this.mapCoords.about.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
-              this.mapCoords.about.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
+              this.mapCoords.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
+              this.mapCoords.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
            }
           });
         });
@@ -297,7 +296,7 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
   }
 
 
-  codeLatLng(lat, lng, id_map) {
+  codeLatLng(lat, lng) {
     let geocoder = new google.maps.Geocoder();
     let latlng = new google.maps.LatLng(lat, lng);
     geocoder.geocode({
@@ -305,12 +304,11 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
          (results, status) => {
             if (status === google.maps.GeocoderStatus.OK) {
                 if (results[1]) {
-                //   console.log(results[1]);
-                let id = "#"+id_map;
-                $(id).val(results[1].formatted_address);
+              
+                $("#searchAddress").val(results[1].formatted_address);
                 
-                if(id_map=='aboutAddress')
-                    this.SearchParams.location = results[1].formatted_address;
+                /* LOCATION - сдвиг точки на карте results[1].formatted_address */
+                this.SearchParams.location = results[1].formatted_address;
                 }
             } else {
                 alert('Geocoder failed due to: ' + status);
