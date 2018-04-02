@@ -121,6 +121,7 @@ export class AuthMainService{
 
     BaseInitAfterLogin(data:TokenModel){
         localStorage.setItem('token',data.token);
+        // localStorage.setItem('activeUserId','0');
         this.http.BaseInitByToken(data.token);
     }
 
@@ -139,7 +140,8 @@ export class AuthMainService{
         this.http.headers.delete('Authorization');
         this.onAuthChange$.next(false);
         localStorage.removeItem('token');
-        console.log('localStorage.removeItem deleted');
+        localStorage.removeItem('activeUserId');
+        console.log('localStorage deleted');
     }
 
 

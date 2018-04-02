@@ -59,11 +59,13 @@ export class BaseComponent{
                 console.log(`AUTH: base, onAuthChange$`);
                 this.isLoggedIn = res;
                 if(this.isLoggedIn){
-                    this.GetMyAccounts();
-                     
+                    this.GetMyAccounts();      
                 }
-                else
+                else{
+                    this.MyAccounts = [];
                     this.router.navigate(['/system','shows']);
+                }
+                
             });
         
         
@@ -135,6 +137,7 @@ export class BaseComponent{
                 this.MyAccounts = res;
                 //this.GetMyImage(callback);
                 console.log(`AUTH: base, GetMyAccounts`,this.MyAccounts);
+                localStorage.setItem('activeUserId',this.MyAccounts[0]?''+this.MyAccounts[0].id:'none');
             },
             (err)=>{
                 if(callback && typeof callback == "function"){
@@ -152,6 +155,7 @@ export class BaseComponent{
                 this.isLoggedIn = true;
                 this.authService.BaseInitAfterLogin(res);
                 this.router.navigate(['/system','shows']);
+                
             },
             (err)=>{
                 callback(err);

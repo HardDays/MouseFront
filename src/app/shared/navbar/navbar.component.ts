@@ -29,6 +29,7 @@ export class NavbarComponent extends BaseComponent implements OnInit{
           if(res)
             this.initUser();
       });
+      
       this.curNav = this.getThisPage();
     
     }
@@ -74,7 +75,7 @@ export class NavbarComponent extends BaseComponent implements OnInit{
       logout(){
         console.log('logout');
         this.Logout();
-        this.initUser();
+        // this.initUser();
         this.curNav = 'shows';
       }
     

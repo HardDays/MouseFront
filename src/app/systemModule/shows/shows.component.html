@@ -50,7 +50,7 @@
                                 <div class="flex-genres">
                                         <div class="one-checkbox" >
                                             <div class="check-style">
-                                                <input type="checkbox" name="is-active-checkbox"  id="is-active-checkbox" [ngModel]="SearchParams.is_active" (ngModelChange)="SearchParams.is_active = $event" class="checkbox">
+                                                <input type="checkbox" [ngModel]="SearchParams.is_active"  (ngModelChange)="SearchParams.is_active = $event" class="checkbox" name='is-active-checkbox'  id='is-active-checkbox'>
                                                 <label for="is-active-checkbox"></label>
                                             </div>
                                             <p>Is active</p>
@@ -59,7 +59,7 @@
                             </div>
                             <div class="groupe-form">
                                 <p class="head-input-groupe">Venue type</p>
-                                <select class="form-control" [ngModel]="SearchParams.size" (ngModelChange)="SearchParams.size = $event">
+                                <select name="selectSize" class="form-control" [ngModel]="SearchParams.size" (ngModelChange)="SearchParams.size = $event">
                                     <option *ngFor="let item of VenueTypes" [value]="item.value">{{item.name}}</option>
                                 </select>
                             </div>
@@ -95,7 +95,6 @@
                                 <button type="submit"  class="butt-style-1"><span>Search</span></button>
                             </div>
                         </form>
-                        
                     </div>
                 </div>
             <section class="second-router-outlet">

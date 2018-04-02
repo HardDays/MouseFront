@@ -146,6 +146,7 @@ export class AccountCreateComponent extends BaseComponent implements OnInit {
           this.isLoading = false;
           this.router.navigate(['/system','profile',res.id]);
           this.accService.onAuthChange$.next(true);
+          this.GetMyAccounts();
       },
       (err:any)=>{
         if(err.status == 422) {
