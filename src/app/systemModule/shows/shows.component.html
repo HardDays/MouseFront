@@ -5,7 +5,7 @@
 
              <div class="nav-holder-3" id="nav-holder">
                     <div class="wrapp-for-filter">
-                        <form>
+                        <form (ngSubmit)="ShowSearchResults()" #SearchForm="ngForm">
                             <input type="text" class="inp-style-1" placeholder="Search" [ngModel]="SearchParams.text" (ngModelChange)="SearchParams.text = $event" name="search-text" id='search-text'>
                             <div class="groupe-form">
                                 <p class="head-input-groupe">Date</p>
@@ -78,8 +78,8 @@
                                 <div class="flex-genres">
                                         <div class="one-checkbox" >
                                             <div class="check-style">
-                                                <input type="checkbox"  [ngModel]="SearchParams.is_active" (ngModelChange)="SearchParams.is_active = $event" class="checkbox" name="check" id='checkbox-check'>
-                                                <label for='checkbox-check'></label>
+                                                <input type="checkbox" name="is-active-checkbox"  id="is-active-checkbox" [ngModel]="SearchParams.is_active" (ngModelChange)="SearchParams.is_active = $event" class="checkbox">
+                                                <label for="is-active-checkbox"></label>
                                             </div>
                                             <p>Is active</p>
                                         </div> 
@@ -92,7 +92,7 @@
                                 </select>
                             </div>
                             <div class="groupe-form">
-                                <button (click)="ShowSearchResults()" class="butt-style-1"><span>Search</span></button>
+                                <button type="submit"  class="butt-style-1"><span>Search</span></button>
                             </div>
                         </form>
                         

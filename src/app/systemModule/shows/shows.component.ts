@@ -73,6 +73,7 @@ export class ShowsComponent extends BaseComponent implements OnInit {
   mapCoords = {lat:0, lng:0};
 
   @ViewChild('search') public searchElement: ElementRef;
+  @ViewChild('SearchForm') form: NgForm;
   
   constructor(protected authService: AuthMainService,
     protected accService:AccountService,
@@ -84,8 +85,8 @@ export class ShowsComponent extends BaseComponent implements OnInit {
     protected router: Router,public _auth: AuthService,
     private mapsAPILoader: MapsAPILoader, protected h:Http,
     private ngZone: NgZone){
-super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
-}
+      super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
+  }
 
   ngOnInit(){
 
@@ -155,10 +156,10 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
   {
     this.ParseSearchParams();
     this.eventService.EventsSearch(this.SearchParams)
-    .subscribe((res:EventGetModel[])=>{
-      this.Events = res;
-      console.log("1", this.Events);
-    })
+      .subscribe((res:EventGetModel[])=>{
+        this.Events = res;
+        console.log("1", this.Events);
+      })
   }
 
   aboutOpenMapModal(){
@@ -166,6 +167,7 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
   }
   
   ShowSearchResults() {
+    //this.ParseSearchParams();
     this.GetEvents();
     $("body").removeClass("has-active-menu");
     $(".mainWrapper").removeClass("has-push-left");
