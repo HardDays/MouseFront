@@ -137,7 +137,8 @@ export class BaseComponent{
                 this.MyAccounts = res;
                 //this.GetMyImage(callback);
                 console.log(`AUTH: base, GetMyAccounts`,this.MyAccounts);
-                localStorage.setItem('activeUserId',this.MyAccounts[0]?''+this.MyAccounts[0].id:'none');
+                if(!localStorage.getItem('activeUserId'))
+                    localStorage.setItem('activeUserId',this.MyAccounts[0]?''+this.MyAccounts[0].id:'0');
             },
             (err)=>{
                 if(callback && typeof callback == "function"){

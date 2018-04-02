@@ -18,6 +18,7 @@ import { AccountGetModel } from '../../core/models/accountGet.model';
 export class NavbarComponent extends BaseComponent implements OnInit{
 
     isShown:boolean = true;
+    idProfile:number = 0;
     Accounts:AccountGetModel[] = [];
     maxNumberOfProfiles:number = 5;
     curNav:string = 'shows';
@@ -56,6 +57,7 @@ export class NavbarComponent extends BaseComponent implements OnInit{
             if(users.length >= this.maxNumberOfProfiles)
               this.isShown = false;
             this.Accounts = users;
+            this.idProfile = +localStorage.getItem('activeUserId');
         });
     }
 
@@ -82,5 +84,21 @@ export class NavbarComponent extends BaseComponent implements OnInit{
       edit(){
         this.router.navigate(['/system','edit']);
       }
+
+      setProfile(id:number){
+        this.curNav = 'profile';
+        this.router.navigate(['/system/profile',id]);
+        localStorage.setItem('activeUserId',''+id);
+        this.idProfile = id;
+      }
+
+      getProfileNameById(){
+        for(let profile of this.MyAccounts)
+          if(profile.id==this.idProfile)
+            return profile.user_name;
+        return '';
+      }
+
+
 
 }
