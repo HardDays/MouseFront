@@ -29,6 +29,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AgmCoreModule } from '@agm/core';
 import { ArtistCreateComponent } from './artistCreate/artistCreate.component';
 import { FeedComponent } from './feed/feed.component';
+import { TicketsComponent } from './tickets/tickets.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { FeedComponent } from './feed/feed.component';
     ArtistCreateComponent,
     EventsComponent,
     PreloaderComponent,
-    FeedComponent
+    FeedComponent,
+    TicketsComponent
   ],
   imports: [
     CommonModule,

@@ -39,6 +39,8 @@ import { NgModule } from '@angular/core';
 
 import { AgmCoreModule } from '@agm/core';
 import { CheckModel } from '../../core/models/check.model';
+import { TicketModel } from '../../core/models/ticket.model';
+import { TicketGetParamsModel } from '../../core/models/ticketGetParams.model';
 
 
 
@@ -160,6 +162,10 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     activeArtist:CheckModel<AccountGetModel> [] = [];
     activeVenue:CheckModel<AccountGetModel>[] = [];
 
+
+
+    //tickets
+    tickets:TicketModel[] = [];
 
 
     /////////////////////////////////////////////////
@@ -535,6 +541,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
                 this.getShowsArtists();
                 this.getRequestVenue();
+                this.getTickets();
         });
     }
 
@@ -617,8 +624,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     
     addNewArtist(){
         this.addArtist.event_id = this.Event.id;
-
-        
+        this.addArtist.time_frame = 'one_week';
         console.log(`checked`,this.checkArtists);
 
         for(let item of this.checkArtists){
@@ -1011,6 +1017,30 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         this.getListImages(this.activeVenue);
 
         console.log(`active`,this.activeArtist,this.activeVenue);
+    }
+
+
+
+
+    // TICKETS
+    getTickets(){
+        let params:TicketGetParamsModel = new TicketGetParamsModel();
+        params.account_id = this.Event.creator_id;
+        params.event_id = this.Event.id;
+        for(let t of this.Event.tickets){
+            params.id = t.id;
+            this.eventService.GetTickets(params).
+                subscribe((res)=>{
+                    
+                    this.tickets.push(res);
+                    console.log(`tickets`,this.tickets);
+                });
+        }
+    }
+
+    addTicket(){
+        let newTicket:TicketModel = new TicketModel();
+
     }
 
 

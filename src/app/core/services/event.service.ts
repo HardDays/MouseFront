@@ -8,6 +8,8 @@ import { EventCreateModel } from "../models/eventCreate.model";
 import { AccountAddToEventModel } from "../models/artistAddToEvent.model";
 import { EventPatchModel } from "../models/eventPatch.model";
 import { EventGetModel } from "../models/eventGet.model";
+import { TicketGetParamsModel } from "../models/ticketGetParams.model";
+import { TicketModel } from "../models/ticket.model";
 
 @Injectable()
 export class EventService{
@@ -88,6 +90,17 @@ export class EventService{
     VenueDeclineOwner(event:AccountAddToEventModel){
         return this.http.CommonRequest(
             () =>this.http.PostData('/events/'+event.event_id+'/venue/'+event.venue_id+'/owner_decline.json',JSON.stringify(event))
+        );
+    }
+
+    GetTickets(params:TicketGetParamsModel){
+        return this.http.CommonRequest(
+            () => this.http.GetData('/events/'+params.event_id+'/tickets/'+params.id+'.json',this.typeService.ParamsToUrlSearchParams(params))
+        );
+    }
+    AddTicket(ticket:TicketModel){
+        return this.http.CommonRequest(
+            () =>this.http.PostData('/events/'+ticket.event_id+'/tickets.json',JSON.stringify(ticket))
         );
     }
 
