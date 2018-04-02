@@ -16,5 +16,6 @@ export class EventSearchParams{
     ){
         if(!limit)
             this.limit = 21;
+
     }
 }

@@ -56,9 +56,11 @@ export class BaseComponent{
 
         this.authService.onAuthChange$
             .subscribe((res:boolean)=>{
+                console.log(`AUTH: base, onAuthChange$`);
                 this.isLoggedIn = res;
                 if(this.isLoggedIn){
                     this.GetMyAccounts();
+                     
                 }
                 else
                     this.router.navigate(['/system','shows']);
@@ -128,10 +130,11 @@ export class BaseComponent{
 
     protected GetMyAccounts(callback?:()=>any){
         this.WaitBeforeLoading(
-            ()=>this.authService.GetMe(),
+            ()=>this.accService.GetMyAccount(),
             (res)=>{
                 this.MyAccounts = res;
                 //this.GetMyImage(callback);
+                console.log(`AUTH: base, GetMyAccounts`,this.MyAccounts);
             },
             (err)=>{
                 if(callback && typeof callback == "function"){
