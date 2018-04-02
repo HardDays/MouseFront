@@ -6,71 +6,43 @@
              <div class="nav-holder-3" id="nav-holder">
                     <div class="wrapp-for-filter">
                         <form (ngSubmit)="ShowSearchResults()" #SearchForm="ngForm">
-                            <input type="text" class="inp-style-1" placeholder="Search" [ngModel]="SearchParams.text" (ngModelChange)="SearchParams.text = $event" name="search-text" id='search-text'>
+                            <input type="text" class="inp-style-1" placeholder="Search" autocomplete="off" [ngModel]="SearchParams.text" (ngModelChange)="SearchParams.text = $event" name="search-text" id='search-text'>
                             <div class="groupe-form">
                                 <p class="head-input-groupe">Date</p>
                                 <div class="add-day">
-                                        <input type="text"
-                                        readonly style="background-color:white; cursor: pointer;"
-                                        class="for-data-picker"
-                                        [minDate]="minDate"
-                                        #dp="bsDatepicker"
-                                        dateDisabled = "{date:new Date(); mode:disable;}"
-                                        bsDatepicker [(bsValue)]="bsValue_start"
-                                        (bsValueChange)="logChanged($event)">
-                                    </div>
-                                    <div class="add-day">
-                                        <input type="text"
-                                        readonly style="background-color:white; cursor: pointer;"
-                                        class="for-data-picker"
-                                        [minDate]="bsValue_start"
-                                        #dp="bsDatepicker"
-                                        dateDisabled = "{date:new Date(); mode:disable;}"
-                                        bsDatepicker [(bsValue)]="bsValue_end"
-                                        (bsValueChange)="logChanged($event)">
-                                    </div>
+                                    <input type="text"
+                                    readonly style="background-color:white; cursor: pointer;"
+                                    class="for-data-picker"
+                                    [minDate]="minDate"
+                                    #dp="bsDatepicker"
+                                    dateDisabled = "{date:new Date(); mode:disable;}"
+                                    bsDatepicker [(bsValue)]="bsValue_start"
+                                    (bsValueChange)="logChanged($event)">
                                 </div>
+                                <div class="add-day">
+                                    <input type="text"
+                                    readonly style="background-color:white; cursor: pointer;"
+                                    class="for-data-picker"
+                                    [minDate]="bsValue_start"
+                                    #dp="bsDatepicker"
+                                    dateDisabled = "{date:new Date(); mode:disable;}"
+                                    bsDatepicker [(bsValue)]="bsValue_end"
+                                    (bsValueChange)="logChanged($event)">
+                                </div>
+                            </div>
         
-                                <div class="groupe-form">
-                                        <p class="head-input-groupe">Location</p>
-                                        <div class="location-wr">
-                                            <div (click)="aboutOpenMapModal()" class="mark"></div>
-                                            <input type="text" class="location-inp" name="search-params-address" autocorrect="off" autocapitalize="off" spellcheck="off" placeholder=""  #search id="searchAddress">
-                                        </div>
-                                    </div>
+                            <div class="groupe-form">
+                                <p class="head-input-groupe">Location</p>
+                                <div class="location-wr">
+                                    <div (click)="aboutOpenMapModal()" class="mark"></div>
+                                    <input type="text" class="location-inp" name="search-params-address" autocorrect="off" autocapitalize="off" spellcheck="off" placeholder=""  #search id="searchAddress">
+                                </div>
+                            </div>
         
                             <div class="groupe-form">
                                 <p class="head-input-groupe">Distance</p>
                                 <div class="for-range-slider">
                                     <input type="text" class="current-slider distance-slider" value="">
-                                </div>
-                            </div>
-                            <div class="groupe-form">
-                                <p class="head-input-groupe">Genres</p>
-                                <div class="flex-genres">
-                                    <ng-container *ngFor="let item of Genres; let i = index">
-                                        <div  class="one-checkbox" >
-                                            <div class="check-style">
-                                                <input type="checkbox"  [ngModel]="item.checked" (ngModelChange)="item.checked = $event" class="checkbox" name="genre-{{i}}" id='checkbox-genre-{{i}}'>
-                                                <label for='checkbox-genre-{{i}}'></label>
-                                            </div>
-                                            <p>{{item.genre_show}}</p>
-                                        </div> 
-                                    </ng-container>
-                                </div>
-                            </div>
-                            <div class="groupe-form">
-                                <p class="head-input-groupe">Ticket types</p>
-                                <div class="flex-genres">
-                                    <ng-container *ngFor="let item of TicketTypes; let i = index">
-                                        <div class="one-checkbox" >
-                                            <div class="check-style">
-                                                <input type="checkbox"  [ngModel]="item.checked" (ngModelChange)="item.checked = $event" class="checkbox" name="ticket-{{i}}" id='checkbox-ticket-{{i}}'>
-                                                <label for='checkbox-ticket-{{i}}'></label>
-                                            </div>
-                                            <p>{{item.name}}</p>
-                                        </div> 
-                                    </ng-container>
                                 </div>
                             </div>
                             <div class="groupe-form">
@@ -90,6 +62,34 @@
                                 <select class="form-control" [ngModel]="SearchParams.size" (ngModelChange)="SearchParams.size = $event">
                                     <option *ngFor="let item of VenueTypes" [value]="item.value">{{item.name}}</option>
                                 </select>
+                            </div>
+                            <div class="groupe-form">
+                                <p class="head-input-groupe">Ticket types</p>
+                                <div class="flex-genres">
+                                    <ng-container *ngFor="let item of TicketTypes; let i = index">
+                                        <div class="one-checkbox" >
+                                            <div class="check-style">
+                                                <input type="checkbox"  [ngModel]="item.checked" (ngModelChange)="item.checked = $event" class="checkbox" name="ticket-{{i}}" id='checkbox-ticket-{{i}}'>
+                                                <label for='checkbox-ticket-{{i}}'></label>
+                                            </div>
+                                            <p>{{item.name}}</p>
+                                        </div> 
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div class="groupe-form">
+                                <p class="head-input-groupe">Genres</p>
+                                <div class="flex-genres">
+                                    <ng-container *ngFor="let item of Genres; let i = index">
+                                        <div  class="one-checkbox" >
+                                            <div class="check-style">
+                                                <input type="checkbox"  [ngModel]="item.checked" (ngModelChange)="item.checked = $event" class="checkbox" name="genre-{{i}}" id='checkbox-genre-{{i}}'>
+                                                <label for='checkbox-genre-{{i}}'></label>
+                                            </div>
+                                            <p>{{item.genre_show}}</p>
+                                        </div> 
+                                    </ng-container>
+                                </div>
                             </div>
                             <div class="groupe-form">
                                 <button type="submit"  class="butt-style-1"><span>Search</span></button>
@@ -112,7 +112,7 @@
                                 <div class="ham"></div>
                                 <div class="ham"></div>
                             </button>
-                            <a href="#" class="ham-ham at-map">
+                            <a class="ham-ham at-map">
                                 
                             </a>
                             <h1>Shows</h1>
@@ -141,7 +141,7 @@
                                     </div>
                                 </div>
                                 <div class="new-shows-desc">
-                                    <a href="#" class="name-show">{{item.name}}</a>
+                                    <a class="name-show">{{item.name}}</a>
                                     <p class="name-artist">Katy Parry</p>
                                     <div class="where">23 FEB, 2017 - Madison Square Garden - NY</div>
                                 </div>

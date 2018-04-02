@@ -933,9 +933,9 @@
                             </div>
                             <!--если нажали на нижний butt-style-1-->
                             <div class="pick-tickets-wr">
-                                <div class="one-tickets-iteration">
-                                    <div class="one-ticket active">Ticket 1</div>
-                                    <div class="one-ticket">Ticket 2</div>
+                                <div  class="one-tickets-iteration">
+                                    <div  *ngFor="let t of tickets; let i = index" class="one-ticket active">Ticket {{i+1}}</div>
+                                    <!-- <div class="one-ticket">Ticket 2</div> -->
                             </div>
                                 <div class="add-ticket">
                                     <span class="butt-style-1" type="submit">
@@ -949,8 +949,8 @@
                             <div class="doted"></div>
                             <div class="shadow-wr">
                                 <!--если нет билетов-->
-                                <!--
-                                <div class="havent-tickets">
+                                
+                                <div *ngIf="tickets.length<=0" class="havent-tickets">
                                     <img src="img/smile.svg" class="img-responsive" alt="">
                                     <p class="p-1">You have no tickets yet</p>
                                     <div class="add-ticket">
@@ -959,10 +959,10 @@
                                         </span>
                                     </div>
                                 </div>
-                                -->
+                                
                                 <!--/если нет билетов-->
                                 <!--если есть билеты-->
-                                <div class="ticket-options active">
+                                <div *ngIf="tickets.length>0" class="ticket-options active">
                                     <div class="l-s"> 
                                         <h5 class="head-ticket-settings">Ticket 1</h5>
                                         <div class="flex-mac-checkbox">

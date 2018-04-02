@@ -1,3 +1,5 @@
+import { TicketModel } from "./ticket.model";
+
 export class EventGetModel{
     constructor(
         public id?: number,
@@ -36,7 +38,7 @@ export class EventGetModel{
         public genres?: string[],
         public artist?: GetArtists[],
         public venue?: GetVenue[],
-        public tickets?: string[]
+        public tickets?: TicketModel[]
     )
     {}
 }

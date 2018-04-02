@@ -14,6 +14,7 @@ import { EventCreateComponent } from './eventCreate/eventCreate.component';
 import { ArtistCreateComponent } from './artistCreate/artistCreate.component';
 import { EventsComponent } from './events/events.component';
 import { FeedComponent } from './feed/feed.component';
+import { TicketsComponent } from './tickets/tickets.component';
 
 const routes: Routes =
 [
@@ -28,7 +29,8 @@ const routes: Routes =
       { path: 'eventCreate/:id', component: EventCreateComponent, canActivate: [SystemAccessGuard] },
       { path: 'eventCreate', component: EventCreateComponent, canActivate: [SystemAccessGuard] },
       { path: 'artistCreate', component: ArtistCreateComponent, canActivate: [SystemAccessGuard] },
-      { path: 'feed', component: FeedComponent, canActivate: [SystemAccessGuard] }
+      { path: 'feed', component: FeedComponent, canActivate: [SystemAccessGuard] },
+      { path: 'tickets', component: TicketsComponent, canActivate: [SystemAccessGuard] }
     ]
   }
 ];

@@ -101,16 +101,16 @@ export class ShowsComponent extends BaseComponent implements OnInit {
       $(".nav-holder-3").addClass("is-active");
       $(".mask-nav-3").addClass("is-active")
     });
-    $(".menu-close, .mask-nav-3").on("click", function (e) {
-        e.preventDefault();
-        $("body").removeClass("has-active-menu");
-        $(".mainWrapper").removeClass("has-push-left");
-        $(".nav-holder-3").removeClass("is-active");
-        $(".mask-nav-3").removeClass("is-active");
-    });
+    
     let _that = this;
+
+    $(".menu-close, .mask-nav-3").on("click", function (e) {
+      e.preventDefault();
+      _that.CloseSearchWindow();
+  });
+
     var distance_slider = $(".distance-slider").ionRangeSlider({
-      type:"double",
+      type:"single",
       min: this.MIN_DISTANCE,
       max: this.MAX_DISTANCE,
       from: 0,
@@ -152,12 +152,21 @@ export class ShowsComponent extends BaseComponent implements OnInit {
     this.CreateAutocomplete();
   }
 
+  CloseSearchWindow()
+  {
+    $("body").removeClass("has-active-menu");
+    $(".mainWrapper").removeClass("has-push-left");
+    $(".nav-holder-3").removeClass("is-active");
+    $(".mask-nav-3").removeClass("is-active")
+  }
+
   GetEvents()
   {
     this.ParseSearchParams();
     this.eventService.EventsSearch(this.SearchParams)
       .subscribe((res:EventGetModel[])=>{
         this.Events = res;
+        //TODO: Из списка артистов по каждому ивенту
         console.log("1", this.Events);
       })
   }
@@ -169,10 +178,7 @@ export class ShowsComponent extends BaseComponent implements OnInit {
   ShowSearchResults() {
     //this.ParseSearchParams();
     this.GetEvents();
-    $("body").removeClass("has-active-menu");
-    $(".mainWrapper").removeClass("has-push-left");
-    $(".nav-holder-3").removeClass("is-active");
-    $(".mask-nav-3").removeClass("is-active")
+    this.CloseSearchWindow();
 
   }
 
@@ -256,10 +262,12 @@ export class ShowsComponent extends BaseComponent implements OnInit {
     }
 
     if(this.Genres)
-    search.genres = [];
-    for(let item of this.Genres) {
-      if(item.checked)
-        search.genres.push(item.genre);
+    {
+      search.genres = [];
+      for(let item of this.Genres) {
+        if(item.checked)
+          search.genres.push(item.genre);
+      }
     }
     console.log("search", search);
   }
