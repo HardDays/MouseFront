@@ -934,12 +934,13 @@
                             <!--если нажали на нижний butt-style-1-->
                             <div class="pick-tickets-wr">
                                 <div  class="one-tickets-iteration">
-                                    <div  *ngFor="let t of tickets; let i = index" [ngClass]="{active:currentTicket.id==t.id}" (click)="currentTicket = t" class="one-ticket">Ticket {{i+1}}</div>
+                                    <div  *ngFor="let t of tickets; let i = index" [ngClass]="{active:!isCurTicketNew&&currentTicket.id==t.id}" (click)="currentTicket = t; isCurTicketNew = false;" class="one-ticket">Ticket {{i+1}}</div>
+                                    <div  *ngFor="let t of ticketsNew; let i = index" [ngClass]="{active:isCurTicketNew&&currentTicket.id==t.id}" (click)="currentTicket = t; isCurTicketNew = true;" class="one-ticket">New Ticket {{i+1}}</div>
                                     <!-- <div class="one-ticket">Ticket 2</div> -->
                             </div>
                                 <div class="add-ticket">
                                     <span class="butt-style-1" type="submit">
-                                        <span>Add Tickets</span>
+                                        <span (click)="addTicket()">Add Tickets</span>
                                     </span>
                                 </div>
                             </div>
@@ -950,7 +951,7 @@
                             <div class="shadow-wr">
                                 <!--если нет билетов-->
                                 
-                                <div *ngIf="tickets.length<=0" class="havent-tickets">
+                                <div *ngIf="tickets.length<=0&&ticketsNew.length<=0" class="havent-tickets">
                                     <img src="../../assets/img/smile.svg" class="img-responsive" alt="">
                                     <p class="p-1">You have no tickets yet</p>
                                     <div class="add-ticket">
@@ -962,7 +963,7 @@
                                 
                                 <!--/если нет билетов-->
                                 <!--если есть билеты-->
-                                <div *ngIf="tickets.length>0" class="ticket-options active">
+                                <div *ngIf="tickets.length>0||ticketsNew.length>0" class="ticket-options active">
                                     <div class="l-s"> 
                                         <h5 class="head-ticket-settings">{{currentTicket.name}}</h5>
                                         <div class="flex-mac-checkbox">
@@ -970,7 +971,7 @@
                                             <div class="yes-no">
                                                 <span>In person</span>
                                                 <div class="mac-checkbox">
-                                                    <input class="checkbox" [checked]="currentTicket.type=='in_person'" (change)="currentTicket.type = !currentTicket.type" type="checkbox" id="checkbox-set-tick-1" >
+                                                    <input class="checkbox" [checked]="currentTicket.type=='in_person'" (change)="currentTicket.in_person = !currentTicket.in_person" type="checkbox" id="checkbox-set-tick-1" >
                                                     <label for="checkbox-set-tick-1"></label>
                                                 </div>
                                                 <span>VR</span>
@@ -1032,7 +1033,7 @@
                                             <div class="input-groupe-1">
                                                 <div class="rel-wr">
                                                     <span class="abs-backs">$</span>
-                                                    <input id="inp-price-id-1" class="dollar" name="" type="text" [ngModel]="currentTicket.price">
+                                                    <input id="inp-price-id-1" class="dollar" name="" type="text" [(ngModel)]="currentTicket.price">
                                                 </div>
                                                 <label for="inp-price-id-1">Price</label>
                                             </div>
@@ -1044,7 +1045,7 @@
                                         </div> 
 
                                         <div class="scroll-wrapp" style="float:left">
-                                                <div class="circle-scroll" (click)="currentPage = 'tickets'"></div>
+                                                <div class="circle-scroll" (click)="updateTicket()"></div>
                                         </div>
                                     </div>
                                    
@@ -1533,7 +1534,7 @@
                 <h6 class="head-m-p-a">Location</h6>
                 <span class="closee-modal" data-dismiss="modal"></span>
                 <div class="for-map-init-modal-1">
-                        <agm-map  style="height:450px" [latitude]="mapCoords.about.lat" [longitude]="mapCoords.about.lng">
+                        <agm-map  style="height:100%" [latitude]="mapCoords.about.lat" [longitude]="mapCoords.about.lng">
                                 <agm-marker (dragEnd)="aboutDragMarker($event)" [markerDraggable] = "true" [latitude]="mapCoords.about.lat" [longitude]="mapCoords.about.lng"></agm-marker>
                         </agm-map>
                 </div>
@@ -1549,7 +1550,7 @@
                 <h6 class="head-m-p-a">Location</h6>
                 <span class="closee-modal" data-dismiss="modal"></span>
                 <div class="for-map-init-modal-1">
-                        <agm-map  style="height:450px" [latitude]="mapCoords.artist.lat" [longitude]="mapCoords.artist.lng">
+                        <agm-map  style="height:100%" [latitude]="mapCoords.artist.lat" [longitude]="mapCoords.artist.lng">
                                 <agm-marker (dragEnd)="artistDragMarker($event)" [markerDraggable] = "true" [latitude]="mapCoords.artist.lat" [longitude]="mapCoords.artist.lng"></agm-marker>
                         </agm-map>
                 </div>
@@ -1565,7 +1566,7 @@
                 <h6 class="head-m-p-a">Location</h6>
                 <span class="closee-modal" data-dismiss="modal"></span>
                 <div class="for-map-init-modal-1">
-                        <agm-map  style="height:450px" [latitude]="mapCoords.venue.lat" [longitude]="mapCoords.venue.lng">
+                        <agm-map  style="height:100%" [latitude]="mapCoords.venue.lat" [longitude]="mapCoords.venue.lng">
                                 <agm-marker (dragEnd)="venueDragMarker($event)" [markerDraggable] = "true" [latitude]="mapCoords.venue.lat" [longitude]="mapCoords.venue.lng"></agm-marker>
                         </agm-map>
                 </div>

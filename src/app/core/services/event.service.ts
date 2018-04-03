@@ -103,5 +103,10 @@ export class EventService{
             () =>this.http.PostData('/events/'+ticket.event_id+'/tickets.json',JSON.stringify(ticket))
         );
     }
+    UpdateTicket(ticket:TicketModel){
+        return this.http.CommonRequest(
+            () =>this.http.PatchData('/events/'+ticket.event_id+'/tickets/'+ticket.id+'.json',JSON.stringify(ticket))
+        );
+    }
 
 }

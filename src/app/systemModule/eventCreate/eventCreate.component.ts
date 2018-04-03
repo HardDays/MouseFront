@@ -166,7 +166,9 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
     //tickets
     tickets:TicketModel[] = [];
+    ticketsNew:TicketModel[] = [];
     currentTicket:TicketModel = new TicketModel();
+    isCurTicketNew:boolean = false;
 
     /////////////////////////////////////////////////
 
@@ -492,6 +494,15 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
           a.length = i;
           return a;
     }
+    deleteDuplicateTickets(t:TicketModel[]){
+        for (var q=1, i=1; q<t.length; ++q) {
+            if (t[q].id !== t[q-1].id) {
+              t[i++] = t[q];
+            }
+          }
+          t.length = i;
+          return t;
+    }
 
     isNewAccById(mas:any[],val:any){
         for(let i=0;i<mas.length;i++)
@@ -751,6 +762,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         console.log(idArtist);
         let accept:AccountAddToEventModel = this.addArtist;
         accept.artist_id = idArtist;
+        accept.event_id = this.Event.id;
+        accept.message_id = 1;
         this.eventService.ArtistAcceptOwner(accept).
             subscribe((res)=>{
                 console.log(`ok accept artist`,res);
@@ -763,6 +776,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         let accept:AccountAddToEventModel = this.addArtist;
         accept.event_id = this.Event.id;
         accept.artist_id = idArtist;
+        accept.event_id = this.Event.id;
         accept.message_id = 1;
         this.eventService.ArtistDeclineOwner(accept).
             subscribe((res)=>{
@@ -1004,12 +1018,12 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         let artist:AccountGetModel[] = [], venue:AccountGetModel[] = [];
 
         for(let v of this.requestVenues)
-            if(this.getStatusVenueEventById(v.id)=='pending')
+            if(this.getStatusVenueEventById(v.id)=='owner_accepted')
                 venue.push(v);
         
             
         for(let art of this.showsArtists)
-            if(this.getStatusArtistEventById(art.id)=='pending')
+            if(this.getStatusArtistEventById(art.id)=='owner_accepted')
                 artist.push(art);
 
 
@@ -1027,6 +1041,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
     // TICKETS
     getTickets(){
+        this.tickets = [];
         let params:TicketGetParamsModel = new TicketGetParamsModel();
         params.account_id = this.Event.creator_id;
         params.event_id = this.Event.id;
@@ -1034,19 +1049,38 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         for(let t of this.Event.tickets){
             params.id = t.id;
             this.eventService.GetTickets(params).
-                subscribe((res)=>{
+                subscribe((res:TicketModel)=>{
                     this.tickets.push(res);
                     this.currentTicket = this.tickets[0];
                     console.log(`tickets`,this.tickets);
-                });
+                }); 
         }
+        // this.tickets = this.deleteDuplicateTickets(this.tickets);
     }
 
     addTicket(){
         let newTicket:TicketModel = new TicketModel();
+        newTicket.id = this.ticketsNew.length;
 
+        this.ticketsNew.push(newTicket);
     }
 
+    updateTicket(){
+        if(this.isCurTicketNew) {
+            // this.currentTicket.id = null
+            console.log(`new create`,this.currentTicket);
+
+        }
+        else {
+            this.currentTicket.account_id = this.Event.creator_id;
+            console.log(`update old`,this.currentTicket);
+            this.eventService.UpdateTicket(this.currentTicket)
+                .subscribe((res)=>{
+                    console.log(`update`,res);
+                    this.updateEvent();
+                });
+        }
+    }
 
     
 
