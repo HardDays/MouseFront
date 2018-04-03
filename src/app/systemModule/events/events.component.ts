@@ -74,7 +74,9 @@ export class EventsComponent extends BaseComponent implements OnInit {
         this.accService.GetMyAccount({extended:true})
         .subscribe((users:any[])=>{
             console.log(users);
-            this.eventService.GetMyEvents(users[0].id)
+            let id = +localStorage.getItem('activeUserId');
+            console.log(`id`,id);
+            this.eventService.GetMyEvents(id)
             .subscribe((res:EventGetModel[])=>{
                 this.Events = res;
                 console.log(this.Events);

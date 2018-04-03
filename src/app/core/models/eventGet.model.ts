@@ -37,7 +37,7 @@ export class EventGetModel{
         public collaborators?: string[],
         public genres?: string[],
         public artist?: GetArtists[],
-        public venue?: GetVenue[],
+        public venues?: GetVenue[],
         public tickets?: TicketModel[]
     )
     {}

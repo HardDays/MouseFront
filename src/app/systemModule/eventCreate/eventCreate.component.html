@@ -934,7 +934,7 @@
                             <!--если нажали на нижний butt-style-1-->
                             <div class="pick-tickets-wr">
                                 <div  class="one-tickets-iteration">
-                                    <div  *ngFor="let t of tickets; let i = index" class="one-ticket active">Ticket {{i+1}}</div>
+                                    <div  *ngFor="let t of tickets; let i = index" [ngClass]="{active:currentTicket.id==t.id}" (click)="currentTicket = t" class="one-ticket">Ticket {{i+1}}</div>
                                     <!-- <div class="one-ticket">Ticket 2</div> -->
                             </div>
                                 <div class="add-ticket">
@@ -951,11 +951,11 @@
                                 <!--если нет билетов-->
                                 
                                 <div *ngIf="tickets.length<=0" class="havent-tickets">
-                                    <img src="img/smile.svg" class="img-responsive" alt="">
+                                    <img src="../../assets/img/smile.svg" class="img-responsive" alt="">
                                     <p class="p-1">You have no tickets yet</p>
                                     <div class="add-ticket">
                                         <span class="butt-style-1">
-                                            <span>Add Tickets</span>
+                                            <span >Add Tickets</span>
                                         </span>
                                     </div>
                                 </div>
@@ -964,13 +964,13 @@
                                 <!--если есть билеты-->
                                 <div *ngIf="tickets.length>0" class="ticket-options active">
                                     <div class="l-s"> 
-                                        <h5 class="head-ticket-settings">Ticket 1</h5>
+                                        <h5 class="head-ticket-settings">{{currentTicket.name}}</h5>
                                         <div class="flex-mac-checkbox">
                                             <p>Ticket Type</p>
                                             <div class="yes-no">
                                                 <span>In person</span>
                                                 <div class="mac-checkbox">
-                                                    <input class="checkbox" checked="" type="checkbox" id="checkbox-set-tick-1">
+                                                    <input class="checkbox" [checked]="currentTicket.type=='in_person'" (change)="currentTicket.type = !currentTicket.type" type="checkbox" id="checkbox-set-tick-1" >
                                                     <label for="checkbox-set-tick-1"></label>
                                                 </div>
                                                 <span>VR</span>
@@ -1001,7 +1001,7 @@
                                     </div>
                                     <div class="r-s">
                                         <div class="input-groupe-1 small-textarea whithout-label">
-                                            <textarea id="area-desc-tick-1"></textarea>
+                                            <textarea id="area-desc-tick-1">{{currentTicket.description}}</textarea>
                                             <label for="area-desc-tick-1" class="head-groupe">Short Description</label>
                                         </div>
                                         
@@ -1032,19 +1032,27 @@
                                             <div class="input-groupe-1">
                                                 <div class="rel-wr">
                                                     <span class="abs-backs">$</span>
-                                                    <input id="inp-price-id-1" class="dollar" name="" type="text">
+                                                    <input id="inp-price-id-1" class="dollar" name="" type="text" [ngModel]="currentTicket.price">
                                                 </div>
                                                 <label for="inp-price-id-1">Price</label>
                                             </div>
                                             <div class="input-groupe-1 none-padd-my">
                                                 <span class="desc-num">Number Available</span>
-                                                <p class="num">200/200</p>
+                                                <p class="num">{{currentTicket.count}}</p>
                                             </div>
+                                            
                                         </div> 
+
+                                        <div class="scroll-wrapp" style="float:left">
+                                                <div class="circle-scroll" (click)="currentPage = 'tickets'"></div>
+                                        </div>
                                     </div>
+                                   
                                 </div>
                                 <!--/если есть билеты-->
+                            
                             </div>
+                            
                         
                         </div>
                     </div>

@@ -166,7 +166,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
     //tickets
     tickets:TicketModel[] = [];
-
+    currentTicket:TicketModel = new TicketModel();
 
     /////////////////////////////////////////////////
 
@@ -339,10 +339,10 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                     }
                         
                     } else {
-                    alert('No results found');
+                    // alert('No results found');
                     }
                 } else {
-                    alert('Geocoder failed due to: ' + status);
+                    // alert('Geocoder failed due to: ' + status);
                 }
             });
     }
@@ -412,9 +412,12 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         this.accService.GetMyAccount({extended:true})
         .subscribe((users:any[])=>{
             // this.accountId = users[0].id;
-            this.newEvent.account_id = users[0].id;
-            this.addArtist.account_id = users[0].id;
-            this.addVenue.account_id = users[0].id;
+            for(let u of users)
+            if(u.id==+localStorage.getItem('activeUserId')){
+            this.newEvent.account_id = u.id;
+            this.addArtist.account_id = u.id;
+            this.addVenue.account_id = u.id;
+            }
         });
     }
        
@@ -506,7 +509,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         
         this.accService.GetMyAccount({extended:true})
         .subscribe((users:any[])=>{
-            this.eventService.GetMyEvents(users[0].id)
+            this.eventService.GetMyEvents(+localStorage.getItem('activeUserId'))
             .subscribe((res:EventGetModel[])=>{
                 for(let v of res) if(v.id == id){
                         this.isNewEvent = false;
@@ -852,7 +855,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     
     getRequestVenue(){
         this.requestVenues = [];
-        for(let venue of this.Event.venue){
+        for(let venue of this.Event.venues){
             this.accService.GetAccountById(venue.venue_id).
                 subscribe((res:AccountGetModel)=>{
                    if(this.isNewAccById(this.requestVenues,res)){
@@ -902,7 +905,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
     getStatusVenueEventById(id:number){
         
-        for(let v of this.Event.venue)
+        for(let v of this.Event.venues)
             if(v.venue_id == id) return v.status;
         
         return 'not found artist';
@@ -1027,12 +1030,13 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         let params:TicketGetParamsModel = new TicketGetParamsModel();
         params.account_id = this.Event.creator_id;
         params.event_id = this.Event.id;
+       
         for(let t of this.Event.tickets){
             params.id = t.id;
             this.eventService.GetTickets(params).
                 subscribe((res)=>{
-                    
                     this.tickets.push(res);
+                    this.currentTicket = this.tickets[0];
                     console.log(`tickets`,this.tickets);
                 });
         }
