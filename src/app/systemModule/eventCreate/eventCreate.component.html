@@ -965,13 +965,14 @@
                                 <!--если есть билеты-->
                                 <div *ngIf="tickets.length>0||ticketsNew.length>0" class="ticket-options active">
                                     <div class="l-s"> 
-                                        <h5 class="head-ticket-settings">{{currentTicket.name}}</h5>
+                                        <h5 class="head-ticket-settings"><input class="nameTicket"  name="" type="text" [(ngModel)]="currentTicket.name"></h5>
+                                        
                                         <div class="flex-mac-checkbox">
                                             <p>Ticket Type</p>
                                             <div class="yes-no">
                                                 <span>In person</span>
                                                 <div class="mac-checkbox">
-                                                    <input class="checkbox" [checked]="currentTicket.type=='in_person'" (change)="currentTicket.in_person = !currentTicket.in_person" type="checkbox" id="checkbox-set-tick-1" >
+                                                    <input class="checkbox" [checked]="currentTicket.type=='in_person'" (change)="currentTicket.type=='in_person'?currentTicket.type=currentTicket.type=='vr':currentTicket.type='in_person'" type="checkbox" id="checkbox-set-tick-1" >
                                                     <label for="checkbox-set-tick-1"></label>
                                                 </div>
                                                 <span>VR</span>
@@ -1002,7 +1003,7 @@
                                     </div>
                                     <div class="r-s">
                                         <div class="input-groupe-1 small-textarea whithout-label">
-                                            <textarea id="area-desc-tick-1">{{currentTicket.description}}</textarea>
+                                            <textarea id="area-desc-tick-1" [(ngModel)]="currentTicket.description"></textarea>
                                             <label for="area-desc-tick-1" class="head-groupe">Short Description</label>
                                         </div>
                                         
@@ -1039,7 +1040,8 @@
                                             </div>
                                             <div class="input-groupe-1 none-padd-my">
                                                 <span class="desc-num">Number Available</span>
-                                                <p class="num">{{currentTicket.count}}</p>
+                                                <input  class="num" name="" type="text" [(ngModel)]="currentTicket.count">
+                                                <!-- <p class="num">{{currentTicket.count}}</p> -->
                                             </div>
                                             
                                         </div> 

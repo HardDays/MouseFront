@@ -1060,15 +1060,39 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
     addTicket(){
         let newTicket:TicketModel = new TicketModel();
-        newTicket.id = this.ticketsNew.length;
-
+        newTicket.id = this.getNewId();
+        newTicket.event_id = this.Event.id;
+        newTicket.account_id = this.Event.creator_id;
+        newTicket.name = 'New Name';
         this.ticketsNew.push(newTicket);
+    }
+    getNewId(){
+        let id = 1;
+        for(let t of this.ticketsNew)
+            id+=t.id;
+        return id;
     }
 
     updateTicket(){
         if(this.isCurTicketNew) {
-            // this.currentTicket.id = null
+
+            let index:number = -1;
+            for(let i in this.ticketsNew)
+                if(this.ticketsNew[i].id == this.currentTicket.id) 
+                    index = +i;
+            console.log(`index`,index);
+
+            this.currentTicket.id = null;
             console.log(`new create`,this.currentTicket);
+            this.eventService.AddTicket(this.currentTicket)
+                .subscribe((res)=>{
+                    console.log(`create`,res);
+                    this.isCurTicketNew = false;
+
+                    this.ticketsNew.splice(index,1);
+
+                    this.updateEvent();
+                });
 
         }
         else {
