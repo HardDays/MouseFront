@@ -1046,9 +1046,15 @@
                                             
                                         </div> 
 
-                                        <div class="scroll-wrapp" style="float:left">
+                                        <!-- <div class="scroll-wrapp" style="float:left">
                                                 <div class="circle-scroll" (click)="updateTicket()"></div>
-                                        </div>
+                                        </div> -->
+                                        
+                                    </div>
+                                    <div class="add-to-active-b">
+                                        <button class="butt-style-1" type="submit">
+                                            <span (click)="updateTicket()">{{isCurTicketNew?'add':'update'}}</span>
+                                        </button>
                                     </div>
                                    
                                 </div>

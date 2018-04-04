@@ -117,7 +117,7 @@
                             <h1>Shows</h1>
                         </div>
                         <div class="flex-shows">
-                            <div class="one-show-wr" *ngFor="let item of Events">
+                            <div class="one-show-wr" *ngFor="let item of Events" (click)="router.navigate(['/system','event',item.id])">
                                 <div class="one-show">
                                     <div class="img-show" style="background-image: url(../../assets/img/drake.jpg)"></div>
                                     <div class="description">
@@ -145,8 +145,9 @@
                                     <div class="where">23 FEB, 2017 - Madison Square Garden - NY</div>
                                 </div>
                             </div>
+                            
                            
-                           </div>
+                        </div>
                     </div>
                 </div>
 

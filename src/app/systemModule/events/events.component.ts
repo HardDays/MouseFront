@@ -38,7 +38,24 @@ export class EventsComponent extends BaseComponent implements OnInit {
 
         this.openSearch();
         this.initSlider();
+        this.setHeightSearch();
     }
+
+    setHeightSearch(){
+        console.log($('.main-router-outlet .main-router-outlet').height(),$(window).height());
+        if($('.main-router-outlet .main-router-outlet').height() < $(window).height()){
+          $('.wrapp-for-filter').css({
+             "height": $('.for-flex-height').height()-150
+          });
+          console.log(`one`);
+        }
+      else{
+         $('.wrapp-for-filter').css({
+             "height": '100%'
+          }); 
+          console.log(`two`);
+      }
+      }
 
     initSlider(){
         let _the = this;
@@ -93,7 +110,9 @@ export class EventsComponent extends BaseComponent implements OnInit {
     }
 
     openSearch(){
+        let _that = this;
         $(".nav-button").on("click", function (e) {
+            _that.setHeightSearch();
             e.preventDefault();
             $("body").addClass("has-active-menu");
             $(".mainWrapper").addClass("has-push-left");

@@ -94,15 +94,18 @@ export class ShowsComponent extends BaseComponent implements OnInit {
     .subscribe((genres:string[])=> {
       this.Genres = this.genreService.GetAll();
   });
+  let _that = this;
     $(".nav-button").on("click", function (e) {
+      _that.setHeightSearch();
       e.preventDefault();
       $("body").addClass("has-active-menu");
       $(".mainWrapper").addClass("has-push-left");
       $(".nav-holder-3").addClass("is-active");
-      $(".mask-nav-3").addClass("is-active")
+      $(".mask-nav-3").addClass("is-active");
+     
     });
     
-    let _that = this;
+   
 
     $(".menu-close, .mask-nav-3").on("click", function (e) {
       e.preventDefault();
@@ -150,6 +153,23 @@ export class ShowsComponent extends BaseComponent implements OnInit {
     this.GetEvents();
 
     this.CreateAutocomplete();
+    this.setHeightSearch();
+  }
+
+  setHeightSearch(){
+    console.log($('.main-router-outlet .main-router-outlet').height(),$(window).height());
+    if($('.main-router-outlet .main-router-outlet').height() < $(window).height()){
+      $('.wrapp-for-filter').css({
+         "height": $('.for-flex-height').height()-150
+      });
+      console.log(`one`);
+    }
+  else{
+     $('.wrapp-for-filter').css({
+         "height": '100%'
+      }); 
+      console.log(`two`);
+  }
   }
 
   CloseSearchWindow()
@@ -168,7 +188,9 @@ export class ShowsComponent extends BaseComponent implements OnInit {
         this.Events = res;
         //TODO: Из списка артистов по каждому ивенту
         console.log("1", this.Events);
+        this.setHeightSearch();
       })
+      
   }
 
   aboutOpenMapModal(){

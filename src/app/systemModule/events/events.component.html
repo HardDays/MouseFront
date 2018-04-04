@@ -1,3 +1,4 @@
+<section class="main-router-outlet">
 <div class="nav-holder-3" id="nav-holder" [ngClass]="{padding250:Events.length<=3}">
     <div class="wrapp-for-filter">
         <form>
@@ -129,7 +130,7 @@
         </div>
         <div class="main-mw-6">
             <div class="for-flex-all-events">
-                <div *ngFor="let item of Events" class="one-event-wr">
+                <div *ngFor="let item of Events" class="one-event-wr" (click)="router.navigate(['/system','eventCreate',item.id])">
                     <div class="one-event">
                         <div class="cover-event" style="background-image: url(../../assets/img/drake.jpg)">
                             <div class="icons-vr-t">
@@ -282,3 +283,4 @@
         </div>
     </div>
 </div>
+</section>

@@ -1195,12 +1195,10 @@ footer {
   right: 100%;
   transform: translateX(-470px);
   padding-top: 125px;
-  padding-bottom:125px; 
   height: 100%;
   box-shadow: 0px -7px 40px 0 rgba(0, 0, 0, 0.23); }
   .nav-holder-3.is-active {
-    transform: translateX(80px);
-   }
+    transform: translateX(80px); }
   .nav-holder-3:before {
     content: '';
     display: block;
@@ -1216,8 +1214,7 @@ footer {
     position: relative;
     overflow: auto;
     height: 100%;
-    padding: 0 40px;
-     }
+    padding: 0 40px; }
     .nav-holder-3 .wrapp-for-filter .inp-style-1 {
       background: #e2e2e2;
       color: #898989;
@@ -3250,7 +3247,21 @@ footer {
       .tickets-flex-body .right-ticket .shadow-wr .ticket-options {
         display: none;
         width: 100%;
+        position: relative;
+        padding-bottom: 35px;
         height: 100%; }
+        .tickets-flex-body .right-ticket .shadow-wr .ticket-options .add-to-active-b {
+          position: absolute;
+          width: 100%;
+          bottom: -20px;
+          left: 0; }
+          .tickets-flex-body .right-ticket .shadow-wr .ticket-options .add-to-active-b .butt-style-1 {
+            max-width: 110px;
+            margin: 0 auto;
+            border-width: 5px; }
+            .tickets-flex-body .right-ticket .shadow-wr .ticket-options .add-to-active-b .butt-style-1 span {
+              padding: 7px 21px;
+              text-transform: uppercase; }
         .tickets-flex-body .right-ticket .shadow-wr .ticket-options.active {
           display: flex; }
         .tickets-flex-body .right-ticket .shadow-wr .ticket-options .l-s {
@@ -4625,5 +4636,35 @@ footer {
     .flex-date-selets-wr .form-side-date:last-child {
       padding-right: 0;
       width: 30%; }
+
+.head-col-add-venue {
+  font-size: 18px;
+  font-family: AvenirLTStdMedium;
+  font-weight: normal;
+  text-transform: uppercase;
+  margin-bottom: 15px; }
+  .head-col-add-venue span {
+    color: #eb2d64; }
+
+.status-information .status-t {
+  font-family: AvenirLTStdBlack;
+  text-transform: uppercase;
+  font-size: 18px; }
+  .status-information .status-t span {
+    color: #eb2d64;
+    padding-left: 10px; }
+
+.padd-emeils-generate .one-email {
+  position: relative;
+  padding-left: 30px; }
+  .padd-emeils-generate .one-email .count {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #eb2d64;
+    font-family: AvenirLTStdBlack; }
+  .padd-emeils-generate .one-email .input-groupe-1 {
+    margin-bottom: 16px; }
 
 /*# sourceMappingURL=style.css.map */
