@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef, NgZone, Input, ViewContainerRef, ComponentFactory } from '@angular/core';
-import { NgForm,FormControl,FormGroup,Validators} from '@angular/forms';
+import { NgForm,FormControl,FormGroup,Validators, FormArray} from '@angular/forms';
 import { AuthMainService } from '../../core/services/auth.service';
 
 import { BaseComponent } from '../../core/base/base.component';
@@ -139,22 +139,10 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
 
         //private
-    privateVenueForm : FormGroup = new FormGroup({        
-        "user_name": new FormControl("", [Validators.required]),
-        "phone": new FormControl(""),
-        "capacity": new FormControl(),
-        "country": new FormControl(""),
-        "city": new FormControl(""),
-        "address":new FormControl(),
-        "description": new FormControl(""),
-        "link_one": new FormControl(""),
-        "link_two": new FormControl(""),
-        "has_vr": new FormControl("")
-    });
+    privateVenueForm : FormGroup ;
     privateVenueCreate:AccountCreateModel = new AccountCreateModel();
     privateVenue:AccountGetModel = new AccountGetModel();
-
-
+    
 
     /////////////////////////////////////////////////
 
@@ -190,6 +178,22 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         private activatedRoute: ActivatedRoute){
         super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
             // this.contentFactory = this.cfr.resolveComponentFactory(DynComponent);
+
+
+             this.privateVenueForm = new FormGroup({        
+        "user_name": new FormControl("", [Validators.required]),
+        "phone": new FormControl(""),
+        "capacity": new FormControl(),
+        "country": new FormControl(""),
+        "city": new FormControl(""),
+        "address":new FormControl(),
+        "description": new FormControl(""),
+        "video_links": new FormArray([
+            new FormControl("http://")
+          ]),
+        "link_two": new FormControl(""),
+        "has_vr": new FormControl("")
+    }); 
     }
 
     ngOnInit()
@@ -972,11 +976,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             this.privateVenueCreate.account_type = 'venue';
             this.privateVenueCreate.venue_type = 'private_residence';
 
-            this.privateVenueCreate.video_links = [];
-            if(this.privateVenueForm.value['link_one'])
-                this.privateVenueCreate.video_links.push(this.privateVenueForm.value['link_one']);
-            if(this.privateVenueForm.value['link_two'])
-                this.privateVenueCreate.video_links.push(this.privateVenueForm.value['link_two']);
+          
+            
             
             
             console.log(`newPrivateEvent`,this.privateVenueCreate);
@@ -1004,6 +1005,10 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         else {
             console.log(`Invalid About Form!`, this.privateVenueForm);
         }
+    }
+
+    addPhone(){
+        (<FormArray>this.privateVenueForm.controls["video_links"]).push(new FormControl("http://", Validators.required));
     }
 
 
