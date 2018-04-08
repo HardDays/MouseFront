@@ -27,6 +27,8 @@ export class LoginComponent extends BaseComponent implements OnInit {
   newPassComfirm:string = '';
 
   accessVkToken:string = '';
+  accessTwitterToken:string = '923927835315785728-iAyJ85E2HwDLIdmBJ8ca1VBIdlGBd9W';
+  accessTwitterSecretToken:string = 'jH56gmOmhtodHnttk65J5Mo6f9pVJyIZkm7xvtYPmuEDG';
 
   ngOnInit(){
     // if (this.isLoggedIn)
@@ -36,10 +38,19 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
       var params: string[] = location.href.slice(location.href.indexOf('#')+1,location.href.length).split('&');
       for(let p of params) if(p.split('=')[0] == 'access_token') this.accessVkToken = p.split('=')[1];
-      // console.log(`vk_token`,this.accessVkToken);
+      
       if(this.accessVkToken.length>0) this.authService.UserLoginByVk(this.accessVkToken).
                                       subscribe((res)=>{
                                         console.log(`vk ok`,res);
+                                        this.authService.BaseInitAfterLogin(res);
+                                        // this.router.navigate(['/system','shows']);
+                                        this.router.navigate(['/system','shows']);
+                                      });
+      console.log("tw_token", this.accessTwitterToken);
+      console.log("secret", this.accessTwitterSecretToken);
+      if(this.accessTwitterToken.length>0) this.authService.UserLoginByTwitter(this.accessTwitterToken, this.accessTwitterSecretToken).
+                                      subscribe((res)=>{
+                                        console.log(`twitter ok`,res);
                                         this.authService.BaseInitAfterLogin(res);
                                         // this.router.navigate(['/system','shows']);
                                         this.router.navigate(['/system','shows']);
@@ -66,6 +77,11 @@ export class LoginComponent extends BaseComponent implements OnInit {
     window.open("https://oauth.vk.com/authorize?client_id=6326995&display=page&redirect_uri=https://mouse-web.herokuapp.com/login&scope=friends&response_type=token&v=5.73&scope=offline");
   }
 
+  signInTwitter(){
+    window.close();
+    //window.open("https://oauth.vk.com/authorize?client_id=6412516&redirect_uri=http://localhost:4200/login&display=page&response_type=token&v=5.73&state=123456");
+    window.open("https://api.twitter.com/oauth/authorize?client_id=923927835315785728&display=page&redirect_uri=https://mouse-web.herokuapp.com/login&scope=friends&response_type=token&v=5.73&scope=offline");
+  }
   logoutGoFb(){
     this.SocialLogout('gf');
   }

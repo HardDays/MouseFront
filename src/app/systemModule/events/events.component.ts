@@ -39,6 +39,7 @@ export class EventsComponent extends BaseComponent implements OnInit {
         this.openSearch();
         this.initSlider();
         this.setHeightSearch();
+
     }
 
     setHeightSearch(){

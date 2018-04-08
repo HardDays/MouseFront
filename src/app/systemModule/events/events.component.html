@@ -140,7 +140,7 @@
                         </div>
                         <div class="white-desc-event">
                             <a [routerLink]="['/system','eventCreate',item.id]" class="name-artist">{{item.name}}</a>
-                            <p *ngIf="item.event_month && item.event_year" class="when">{{item.event_month}}, {{item.event_year}}</p>
+                            <p *ngIf="item.event_month && item.event_year"  class="when">{{item.event_month}}, {{item.event_year}}</p>
                             <p class="where">{{item.address}}</p>
                             <div class="funded-bar">
                                 <div class="funded" style="width: 14%"></div>

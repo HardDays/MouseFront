@@ -570,16 +570,13 @@
                                             <!--/для добавления фото-->
                                         </div>
                                         <span class="head-black">Videos</span>
-                                        <div class="input-groupe-1">
-                                            <input id="inp-private-link-1" name="" type="text" formControlName="link_one">
-                                            <label for="inp-private-link-1">Link</label>
-
+                                        <ng-container formArrayName="video_links">
+                                        <div  *ngFor="let item of privateVenueForm.controls['video_links']['controls']; let i = index" class="input-groupe-1">
+                                            <input id="inp-private-link-{{i}}" type="text" formControlName="{{i}}">
+                                            <label for="inp-private-link-{{i}}">Link</label>
                                         </div>
-                                        <div class="input-groupe-1">
-                                            <input id="inp-private-link-2" name="" type="text" formControlName="link_two">
-                                            <label for="inp-private-link-2">Link</label>
-
-                                        </div>
+                                    </ng-container>
+                                        <span class="add-to-active-b" style="cursor: pointer;" (click)="addPhone()">ADD LINK</span>
                                     </div>
                                     
                                 </div>

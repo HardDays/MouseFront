@@ -35,7 +35,6 @@
                                 <p class="head-input-groupe">Location</p>
                                 <div class="location-wr">
                                     <div (click)="aboutOpenMapModal()" class="mark">
-                                        <agm-map  (mapClick)="mapClick($event)" [latitude]="mapLat" [longitude]="mapLng"> <agm-marker [visible]="isMarkerVisible" [latitude]="markerLat" [longitude]="markerLng"></agm-marker></agm-map>
                                     </div>
                                     <input type="text" class="location-inp" name="search-params-address" autocorrect="off" autocapitalize="off" spellcheck="off" placeholder=""  #search id="searchAddress">
                                 </div>
@@ -160,9 +159,7 @@
                             <h6 class="head-m-p-a">Location</h6>
                             <span class="closee-modal" data-dismiss="modal"></span>
                             <div class="for-map-init-modal-1">
-                                    <agm-map  style="height:100%" [latitude]="mapCoords.lat" [longitude]="mapCoords.lng">
-                                            <agm-marker (dragEnd)="aboutDragMarker($event)" [markerDraggable] = "true" [latitude]="mapCoords.lat" [longitude]="mapCoords.lng"></agm-marker>
-                                    </agm-map>
+                                    <agm-map  (mapClick)="mapClick($event)" [latitude]="mapLat" [longitude]="mapLng"> <agm-marker [visible]="isMarkerVisible"></agm-marker></agm-map>
                             </div>
                         </div>
                     </div>

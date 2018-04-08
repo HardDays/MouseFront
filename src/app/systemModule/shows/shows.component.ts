@@ -52,10 +52,10 @@ declare var $:any;
 
 
 export class ShowsComponent extends BaseComponent implements OnInit {
+  mapLat: any;
+  mapLng: any;
   seeMore: boolean = false;
   isMarkerVisible: boolean;
-  markerLng: any;
-  markerLat: any;
   MIN_DISTANCE:number = 0;
   MAX_DISTANCE:number = 100000;
   Roles = AccountType;
@@ -354,8 +354,8 @@ export class ShowsComponent extends BaseComponent implements OnInit {
   }
 
   mapClick($event){
-    this.markerLat = $event.coords.lat;
-    this.markerLng = $event.coords.lng;
+    this.mapLat = $event.coords.lat;
+    this.mapLng = $event.coords.lng;
     this.isMarkerVisible = true;
   }
 
