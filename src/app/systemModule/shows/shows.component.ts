@@ -52,6 +52,10 @@ declare var $:any;
 
 
 export class ShowsComponent extends BaseComponent implements OnInit {
+  seeMore: boolean = false;
+  isMarkerVisible: boolean;
+  markerLng: any;
+  markerLat: any;
   MIN_DISTANCE:number = 0;
   MAX_DISTANCE:number = 100000;
   Roles = AccountType;
@@ -93,6 +97,7 @@ export class ShowsComponent extends BaseComponent implements OnInit {
     this.genreService.GetAllGenres()
     .subscribe((genres:string[])=> {
       this.Genres = this.genreService.GetAll();
+      this.seeFirstGenres();
   });
   let _that = this;
     $(".nav-button").on("click", function (e) {
@@ -346,6 +351,26 @@ export class ShowsComponent extends BaseComponent implements OnInit {
                 alert('Geocoder failed due to: ' + status);
             }
         });
+  }
+
+  mapClick($event){
+    this.markerLat = $event.coords.lat;
+    this.markerLng = $event.coords.lng;
+    this.isMarkerVisible = true;
+  }
+
+  seeFirstGenres(){
+    for(let g of this.Genres) g.show = false;
+    this.Genres[0].show = true;
+    this.Genres[1].show = true;
+    this.Genres[2].show = true;
+    this.Genres[3].show = true;
+    this.seeMore = false;
+  }
+
+  seeMoreGenres(){
+    this.seeMore = true;
+    for(let g of this.Genres) g.show = true;
   }
   incr(n:number){
     return n+1;

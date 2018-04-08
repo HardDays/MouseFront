@@ -34,7 +34,9 @@
                             <div class="groupe-form">
                                 <p class="head-input-groupe">Location</p>
                                 <div class="location-wr">
-                                    <div (click)="aboutOpenMapModal()" class="mark"></div>
+                                    <div (click)="aboutOpenMapModal()" class="mark">
+                                        <agm-map  (mapClick)="mapClick($event)" [latitude]="mapLat" [longitude]="mapLng"> <agm-marker [visible]="isMarkerVisible" [latitude]="markerLat" [longitude]="markerLng"></agm-marker></agm-map>
+                                    </div>
                                     <input type="text" class="location-inp" name="search-params-address" autocorrect="off" autocapitalize="off" spellcheck="off" placeholder=""  #search id="searchAddress">
                                 </div>
                             </div>
@@ -81,7 +83,7 @@
                                 <p class="head-input-groupe">Genres</p>
                                 <div class="flex-genres">
                                     <ng-container *ngFor="let item of Genres; let i = index">
-                                        <div  class="one-checkbox" >
+                                        <div *ngIf="item.show" class="one-checkbox" >
                                             <div class="check-style">
                                                 <input type="checkbox"  [ngModel]="item.checked" (ngModelChange)="item.checked = $event" class="checkbox" name="genre-{{i}}" id='checkbox-genre-{{i}}'>
                                                 <label for='checkbox-genre-{{i}}'></label>
@@ -90,6 +92,7 @@
                                         </div> 
                                     </ng-container>
                                 </div>
+                                <p class="more" *ngIf="!seeMore" (click)="seeMoreGenres()"><span>See more</span></p>
                             </div>
                             <div class="groupe-form">
                                 <button type="submit"  class="butt-style-1"><span>Search</span></button>
