@@ -96,8 +96,9 @@ export class HttpService
     var finalheader = 'Basic ' + encheader;
     console.log(finalheader);
     var headers = new Headers();
-    // headers.append('Content-Type','application/json');
-    headers.append('Content-Type', 'application/X-www-form-urlencoded');
+    headers.append('Content-Type','application/json');
+    headers.append('Access-Control-Allow-Origin', '*');
+    // headers.append('Content-Type', 'application/X-www-form-urlencoded');
     headers.append('Authorization',finalheader);
     return this.http.post('https://api.twitter.com/oauth2/token',{'grant_type': 'client_credentials'},{ 
                         headers: headers});
