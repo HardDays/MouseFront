@@ -78,9 +78,13 @@ export class LoginComponent extends BaseComponent implements OnInit {
   }
 
   signInTwitter(){
-    window.close();
+    // window.close();
     //window.open("https://oauth.vk.com/authorize?client_id=6412516&redirect_uri=http://localhost:4200/login&display=page&response_type=token&v=5.73&state=123456");
-    window.open("https://api.twitter.com/oauth/authorize?client_id=923927835315785728&display=page&redirect_uri=https://mouse-web.herokuapp.com/login&scope=friends&response_type=token&v=5.73&scope=offline");
+    // window.open("https://api.twitter.com/oauth/authenticate?oauth_token=jH56gmOmhtodHnttk65J5Mo6f9pVJyIZkm7xvtYPmuEDG");
+    this.authService.Twitter().subscribe((res)=>{
+      console.log(`twitter`,res)
+    },(err)=>{console.log(`tw err`,err)});
+    
   }
   logoutGoFb(){
     this.SocialLogout('gf');

@@ -7,7 +7,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { TokenModel } from '../models/token.model';
 import { empty } from "rxjs/observable/empty";
-
+declare var Buffer: any;
 @Injectable()
 export class HttpService
 {
@@ -90,6 +90,18 @@ export class HttpService
         return this.http.get(url,{headers:this.headers})
     }
 
+    Twitter(){
+    var header = 'NyrgI10oqxoONmcXukFfpLFuN' + ':' +'FUsXhlpmh62zHlnlrxGX1pnMOIrg2JNdrSU5XKqLnjATE6fC2q';
+    var encheader = new Buffer(header).toString('base64');
+    var finalheader = 'Basic ' + encheader;
+    console.log(finalheader);
+    var headers = new Headers();
+    // headers.append('Content-Type','application/json');
+    headers.append('Content-Type', 'application/X-www-form-urlencoded');
+    headers.append('Authorization',finalheader);
+    return this.http.post('https://api.twitter.com/oauth2/token',{'grant_type': 'client_credentials'},{ 
+                        headers: headers});
+    }
 
 
 

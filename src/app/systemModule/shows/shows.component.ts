@@ -52,10 +52,10 @@ declare var $:any;
 
 
 export class ShowsComponent extends BaseComponent implements OnInit {
-  mapLat: any;
-  mapLng: any;
+  mapLat: number = 0;
+  mapLng: number = 0;
   seeMore: boolean = false;
-  isMarkerVisible: boolean;
+  isMarkerVisible: boolean = false;
   MIN_DISTANCE:number = 0;
   MAX_DISTANCE:number = 100000;
   Roles = AccountType;
@@ -322,8 +322,8 @@ export class ShowsComponent extends BaseComponent implements OnInit {
            else {
                /* LOCATION - изменение в автокомплите autocomplete.getPlace().formatted_address */
               this.SearchParams.location = autocomplete.getPlace().formatted_address;
-              this.mapCoords.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
-              this.mapCoords.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
+              this.mapLat = autocomplete.getPlace().geometry.location.toJSON().lat;
+              this.mapLng = autocomplete.getPlace().geometry.location.toJSON().lng;
            }
           });
         });
@@ -357,13 +357,18 @@ export class ShowsComponent extends BaseComponent implements OnInit {
     this.mapLat = $event.coords.lat;
     this.mapLng = $event.coords.lng;
     this.isMarkerVisible = true;
+    this.codeLatLng(this.mapLat,this.mapLng);
   }
 
   seeFirstGenres(){
     for(let g of this.Genres) g.show = false;
+    if(this.Genres[0])
     this.Genres[0].show = true;
+    if(this.Genres[1])
     this.Genres[1].show = true;
+    if(this.Genres[2])
     this.Genres[2].show = true;
+    if(this.Genres[3])
     this.Genres[3].show = true;
     this.seeMore = false;
   }
