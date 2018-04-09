@@ -107,7 +107,7 @@
                                     <span>{{getProfileNameById()}}</span>
                                     <a >Messages (3)</a>
                                     <span (click)="curNav = 'profile'" [routerLink]="['/system','artistCreate']">Create Artist</span>
-                                    <a >Create Venue</a>
+                                    <a (click)="curNav = 'profile'" [routerLink]="['/system','venueCreate']">Create Venue</a>
                                 </div>
                                 
                                 <div class="dropdown-items-wr">

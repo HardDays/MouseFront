@@ -30,6 +30,7 @@ import { AgmCoreModule } from '@agm/core';
 import { ArtistCreateComponent } from './artistCreate/artistCreate.component';
 import { FeedComponent } from './feed/feed.component';
 import { TicketsComponent } from './tickets/tickets.component';
+import { VenueCreateComponent } from './venueCreate/venueCreate.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { TicketsComponent } from './tickets/tickets.component';
     EventsComponent,
     PreloaderComponent,
     FeedComponent,
-    TicketsComponent
+    TicketsComponent,
+    VenueCreateComponent
   ],
   imports: [
     CommonModule,

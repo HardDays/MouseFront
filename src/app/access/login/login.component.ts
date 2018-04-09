@@ -46,15 +46,15 @@ export class LoginComponent extends BaseComponent implements OnInit {
                                         // this.router.navigate(['/system','shows']);
                                         this.router.navigate(['/system','shows']);
                                       });
-      console.log("tw_token", this.accessTwitterToken);
-      console.log("secret", this.accessTwitterSecretToken);
-      if(this.accessTwitterToken.length>0) this.authService.UserLoginByTwitter(this.accessTwitterToken, this.accessTwitterSecretToken).
-                                      subscribe((res)=>{
-                                        console.log(`twitter ok`,res);
-                                        this.authService.BaseInitAfterLogin(res);
-                                        // this.router.navigate(['/system','shows']);
-                                        this.router.navigate(['/system','shows']);
-                                      });
+      // console.log("tw_token", this.accessTwitterToken);
+      // console.log("secret", this.accessTwitterSecretToken);
+      // if(this.accessTwitterToken.length>0) this.authService.UserLoginByTwitter(this.accessTwitterToken, this.accessTwitterSecretToken).
+      //                                 subscribe((res)=>{
+      //                                   console.log(`twitter ok`,res);
+      //                                   this.authService.BaseInitAfterLogin(res);
+      //                                   // this.router.navigate(['/system','shows']);
+      //                                   this.router.navigate(['/system','shows']);
+      //                                 });
   }
 
   onSubmitSignIn(){

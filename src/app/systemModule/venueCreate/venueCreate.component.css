@@ -1,0 +1,20 @@
+.circle-scroll{
+    cursor: pointer;
+}
+
+p{
+    word-wrap: break-word;
+    word-break: break-all; 
+}
+
+.pac-container { z-index: 100000; }
+
+.nameTicket{
+    width: 100%;
+    font-size: 25px;
+    text-transform: uppercase;
+    padding: 0;
+    font-family: AvenirLTStdBlack;
+    border-width:0px;
+    border:none;
+}

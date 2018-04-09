@@ -1,3 +1,56 @@
+@media (max-width: 1560px) {
+    .create-event-body-1{
+            padding: 40px 80px;
+    }
+    .new-padd-wrapper-m-w{
+        padding: 0 80px;
+    }
+    .venue-week-cal-style .week-day-time-wr .from-to:last-child {
+    padding-left: 0;
+}
+    .venue-week-cal-style .week-day-time-wr{
+        display: block;
+    }
+    .venue-week-cal-style .week-day-time-wr .from-to{
+        width: 100%;
+        margin-bottom: 7px;
+    }
+    .venue-week-cal-style .week-day-time-wr .from-to select{
+        width: 100px;
+        
+    }
+    .venue-week-cal-style .week-day-time-wr .from-to span{
+        margin-right: auto;
+    }
+    
+}
+@media (max-width: 1500px) {
+    .flex-radio .one-radio{
+        margin-right: 14px;
+    }
+    .media-flex-sides .right-side{
+        padding-left: 55px;
+    }
+    .slider-2-albums .one-slide .wrapp-card .cover-image{
+        height: 185px;
+    }
+    .flex-mac-checkbox.on-add-artist-page .quetion-radio-text{
+        max-width: 187px;
+    }
+    .flex-mac-checkbox.on-add-artist-page .quetion-radio-text.none-max-width{
+        max-width: 100%;
+    }
+    
+    
+    
+}
+@media (max-width: 1460px) {
+    .create-event-body-1 .create-event-body .flex-body-1 .side.two-sides-w{
+            padding: 0 20px;
+    }
+}
+
+
 @media (max-width: 1400px) {
     header .main-mw .left-side .logo-wr{
         width: 250px;
@@ -16,6 +69,63 @@
         height: 280px;
     }
     
+    
+}
+@media (max-width: 1350px) {
+    .media-flex-sides .right-side .slider-audio-wrapp .one-audio{
+        width: 100%;
+    }
+    .media-flex-sides .right-side .slider-audio-wrapp .one-slide{
+        padding-left: 20px;
+    }
+    .media-flex-sides .left-side .head-of-left-side.albums-t-s {
+    font-size: 69px;
+    margin-bottom: -37px;
+}
+    .media-flex-sides .left-side .head-of-left-side{
+            font-size: 70.1px;
+            margin-bottom: -36px;
+    }
+    .media-flex-sides .left-side .gradient-box .head-of-gradient-box{
+        font-size: 23px;
+    }
+    .flex-funding-columns .side{
+        padding: 0 15px;
+        .flex-radio{
+            flex-wrap: nowrap;
+        }
+    }
+    .flex-radio .one-radio{
+        margin-bottom: 10px;
+    }
+    .flex-mac-checkbox.on-add-artist-page .quetion-radio-text{
+        max-width: 100%;
+    }
+    .main-feed-wrapp .middle-feed .feed-text{
+        font-size: 60px;
+        right: calc(100% + 20px);
+    }
+    
+    .create-event-body-1 .create-event-body .flex-body-1 .side.two-sides-w .shadow-days-wr .checkboxes-days{
+        width: 105px;
+        padding-right: 13px;
+    }
+    
+    
+}
+
+@media (max-width: 1300px) {
+    .create-event-body-1 .create-event-body .flex-body-1 .side.two-sides-w{
+        &:first-child{
+            padding-left: 0;
+        }
+        &:last-child{
+            padding-right: 0;
+        }
+    }
+    .create-event-body-1 .create-event-body .flex-body-1 .side.two-sides-w .shadow-days-wr .times-days .some-times-days .week-day-time-wr .from-to:last-child {
+        padding-left: 10px;
+    }
 }
 
 @media (max-width: 1199px) {
