@@ -66,14 +66,14 @@ export class EventService{
             () => this.http.PostData('/events/'+event.event_id+'/artists.json',JSON.stringify(event))
         );
     }
-    ArtistAcceptOwner(event:AccountAddToEventModel){
+    ArtistAcceptOwner(params){
         return this.http.CommonRequest(
-            () => this.http.PostData('/events/'+event.event_id+'/artists/'+event.artist_id+'/owner_accept.json',JSON.stringify(event))
+            () => this.http.PostData('/events/'+params.event_id+'/artists/'+params.id+'/owner_accept.json',JSON.stringify(params))
         );
     }
-    ArtistDeclineOwner(event:AccountAddToEventModel){
+    ArtistDeclineOwner(params){
         return this.http.CommonRequest(
-            () =>this.http.PostData('/events/'+event.event_id+'/artists/'+event.artist_id+'/owner_decline.json',JSON.stringify(event))
+            () =>this.http.PostData('/events/'+params.event_id+'/artists/'+params.id+'/owner_decline.json',JSON.stringify(params))
         );
     }
 

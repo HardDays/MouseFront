@@ -6,11 +6,11 @@ export class TicketModel{
         public description?:string,
         public price?:number,
         public count?:number,
-        public is_special?:boolean,
+        public is_promotional?:boolean,
         public event_id?:number,
         public type?:string,
         public category?:string,
-        public in_person?:boolean
+        public is_for_personal_use?:boolean
         
 ){}
 }

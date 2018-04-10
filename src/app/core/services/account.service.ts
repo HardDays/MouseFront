@@ -130,6 +130,7 @@ export class AccountService{
             ()=> this.http.PostData("/accounts.json", data)
         );
     }
+    
 
     FollowAccountById(me:number,target:number)
     {
@@ -220,5 +221,30 @@ export class AccountService{
             ()=> this.http.PostData('/accounts/+'+id+'/follow.json',JSON.stringify(params))
         );
         //return this.http.PostData('/accounts/+'+id+'/follow.json',JSON.stringify(params));
+    }
+
+    PostAccountImages(acc_id:number,image:string){
+        let params={
+            id:acc_id,
+            image_base64:image
+        }
+        return this.http.CommonRequest(
+            ()=> this.http.PostData('/accounts/'+acc_id+'/images.json',JSON.stringify(params))
+        );
+    }
+
+    GetInboxMessages(acc_id:number){
+        return this.http.CommonRequest(
+            () => this.http.GetData("/accounts/"+acc_id+"/inbox_messages.json",this.typeService.ParamsToUrlSearchParams({account_id:acc_id}))
+        );
+    }
+    GetInboxMessageById(acc_id:number, id:number){
+        let params = {
+            account_id: acc_id,
+            id: id
+        }
+        return this.http.CommonRequest(
+            () => this.http.GetData("/accounts/"+acc_id+"/inbox_messages/"+id+".json",this.typeService.ParamsToUrlSearchParams(params))
+        );
     }
 }

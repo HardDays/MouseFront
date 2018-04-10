@@ -99,6 +99,11 @@ export class NavbarComponent extends BaseComponent implements OnInit{
         return '';
       }
 
+      updateProfiles(){
+        console.log(`update profiles`);
+        this.initUser();
+      }
+
 
 
 }

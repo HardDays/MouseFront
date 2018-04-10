@@ -38,6 +38,7 @@ export class AccountCreateModel{
             public operating_hours?: WorkingTimeModel[],
         public about?: string, //artist
             public video_links?: string[],
+            public venue_video_links?: string[],
             public image_base64?:string
 
 ){}
