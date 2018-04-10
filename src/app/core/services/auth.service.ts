@@ -259,6 +259,9 @@ export class AuthMainService{
         // return this.http.PostData('/auth/forgot_password.json',JSON.stringify(params));
     }
 
+    Twitter(){
+        return this.http.Twitter();
+    }
 
 
 }

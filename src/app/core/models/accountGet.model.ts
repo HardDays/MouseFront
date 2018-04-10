@@ -16,6 +16,7 @@ export class AccountGetModel{
         public account_type?: AccountType,
         public bio?: string,
         public address?: string,
+        public prefered_address?: string,
         public description?: string,
         public fax?: string,
         public bank_name?: string,

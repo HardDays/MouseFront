@@ -754,13 +754,13 @@
                                     <div *ngFor="let artist of activeArtist; let i = index" class="one-block">
                                         <div class="ava-l">
                                             <div class="ava" [ngStyle]="{'background-image': artist.object.image_base64_not_given?'url('+artist.object.image_base64_not_given+')':''}"></div>
-                                            <a [routerLink]="['/system/profile',artist.object.id]" class="name">{{artist.object.user_name}}</a>
+                                            <a [routerLink]="['/system/profile',artist.object.artist_id]" class="name">{{artist['object']['user_name_not_given']}}</a>
                                         </div>
                                         <div class="price-r">
-                                            <span class="price">$50000</span>
+                                            <span class="price">${{artist['object']['agreement']['price']}}</span>
                                             <div class="one-checkbox">
                                                 <div class="check-style">
-                                                    <input [checked]="activeArtist[i].checked" (click)="activeArtist[i].checked = !activeArtist[i].checked" type="checkbox" class="checkbox" name="" id="new-checkbox-artist-{{i}}">
+                                                    <input [checked]="activeArtist[i].checked" (click)="setActiveArtist(i)" type="checkbox" class="checkbox" name="" id="new-checkbox-artist-{{i}}">
                                                     <label for="new-checkbox-artist-{{i}}"></label>
                                                 </div>
                                             </div>
@@ -786,7 +786,7 @@
                             </div>
                             <div class="bottom-expression">
                                 <p class="t">Price (Plus Additional Costs)</p>
-                                <p class="exp-price">$0</p>
+                                <p class="exp-price">${{artistSum}}</p>
                             </div>
                         </div>
                         <div class="side">
@@ -802,13 +802,13 @@
                                     <div *ngFor="let venue of activeVenue; let i = index" class="one-block">
                                         <div class="ava-l">
                                             <div class="ava" [ngStyle]="{'background-image': venue.object.image_base64_not_given?'url('+venue.object.image_base64_not_given+')':''}"></div>
-                                            <a [routerLink]="['/system/profile',venue.object.id]" class="name">{{venue.object.user_name}}</a>
+                                            <a [routerLink]="['/system/profile',venue.object.venue_id]" class="name">{{venue['object']['user_name_not_given']}}</a>
                                         </div>
                                         <div class="price-r">
-                                            <span class="price">$50000</span>
+                                            <span class="price">${{venue['object']['agreement']['price']}}</span>
                                             <div class="one-checkbox">
                                                 <div class="check-style">
-                                                    <input [checked]="venue.checked" (click)="venue.checked = !venue.checked" type="checkbox" class="checkbox" name="" id="new-checkbox-venue-{{i}}">
+                                                    <input [checked]="activeVenue[i].checked" (click)="setActiveVenue(i)" type="checkbox" class="checkbox" name="" id="new-checkbox-venue-{{i}}">
                                                     <label for="new-checkbox-venue-{{i}}"></label>
                                                 </div>
                                             </div>
@@ -819,7 +819,7 @@
                             </div>
                             <div class="bottom-expression">
                                 <p class="t">Price (Plus Additional Costs)</p>
-                                <p class="exp-price">$0</p>
+                                <p class="exp-price">${{venueSum}}</p>
                             </div>
                         </div>
                         <div class="side">
@@ -846,11 +846,11 @@
                                 <h6 class="lower-case-t">Breakeven Amount</h6>
                                 <div class="second-funding-info">
                                     <p class="info-text">Artists Price</p>
-                                    <span class="price">$0</span>
+                                    <span class="price">${{artistSum}}</span>
                                 </div>
                                 <div class="second-funding-info">
                                     <p class="info-text">Venue Price</p>
-                                    <span class="price">$0</span>
+                                    <span class="price">${{venueSum}}</span>
                                 </div>
                                 <div class="additional-costs">
                                     <p class="addit-t">Additional Costs</p>
@@ -860,7 +860,7 @@
                                 
                                 <div class="second-funding-info">
                                     <p class="info-text">Amount to Mouse (10%)</p>
-                                    <span class="price">$0</span>
+                                    <span class="price">${{0.1*(artistSum+venueSum+50000)}}</span>
                                 </div>
                             </div>
                             

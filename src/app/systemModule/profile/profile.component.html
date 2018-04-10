@@ -62,8 +62,8 @@
                                                     <div class="one-cont" *ngIf="Account.emails">
                                                             <p class="head-cont">CONTACTS:</p>
                                                             <ng-container *ngFor="let item of Account.emails;let i = index">
-                                                                <span>{{item.name}},</span>
-                                                                <span>{{item.email}}</span>
+                                                                <span id="contacts_view">{{item.name}},</span>
+                                                                <span id="contacts_view">{{item.email}}</span>
                                                             </ng-container>
                                                     </div>
                                                 </div>

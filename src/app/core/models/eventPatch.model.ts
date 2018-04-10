@@ -46,7 +46,10 @@ export class GetArtists{
     constructor(
         public artist_id?: number,
         public reason?: string,
-        public status?: string
+        public status?: string,
+        public image_base64_not_given?: string,
+        public user_name_not_given?: string,
+        public agreement?:any
     )
     {}
 }
@@ -54,7 +57,10 @@ export class GetVenue{
     constructor(
         public venue_id?: number,
         public reason?: string,
-        public status?: string
+        public status?: string,
+        public image_base64_not_given?: string,
+        public user_name_not_given?: string,
+        public agreement?:any
     )
     {}
 }

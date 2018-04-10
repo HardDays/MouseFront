@@ -13,6 +13,7 @@ export class AccountCreateModel{
         public bio?: string, // fan
             public genres?: string[],
             public address?: string,
+            public prefered_address?: string,
             public description?: string,
             public fax?: string,
             public bank_name?: string,

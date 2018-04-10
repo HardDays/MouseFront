@@ -61,6 +61,7 @@ export class EditComponent extends BaseComponent implements OnInit {
     bsValue_start: Date[];
     bsValue_end: Date[];
     Error:string = '';
+    Address:string = '';
   
     @ViewChild('submitFormUsr') form: NgForm;
     @ViewChild('search') public searchElement: ElementRef;
@@ -135,6 +136,7 @@ export class EditComponent extends BaseComponent implements OnInit {
       this.genreService.GetAllGenres()
         .subscribe((genres:string[])=> {
           this.Genres = this.genreService.GetGendreModelFromString(this.Account.genres, this.genreService.StringArrayToGanreModelArray(genres));
+          this.seeFirstGenres();
         });
       if(usr.image_id){
           this.imgService.GetImageById(usr.image_id)
@@ -149,9 +151,14 @@ export class EditComponent extends BaseComponent implements OnInit {
   UpdateUser(){
     if(this.form.valid){
       this.Account.office_hours = this.accService.GetWorkingTimeFromFront(this.OfficeDays);
+      console.log("days", this.OperatingDays);
       this.Account.operating_hours = this.accService.GetWorkingTimeFromFront(this.OperatingDays);
       this.Account.emails = this.typeService.ValidateArray(this.Account.emails);
       this.Account.genres = [];
+      if(this.Account.account_type == this.Roles.Artist)
+        this.Account.prefered_address = this.Address;
+      else 
+        this.Account.address = this.Address;
       for(let g of this.Genres)
         if(g.checked) this.Account.genres.push(g.genre);
       for(let i in this.Account.dates){
@@ -309,7 +316,7 @@ CategoryChanged($event:string){
             return;
            }
            else {
-              this.Account.address = autocomplete.getPlace().formatted_address;
+                this.Address = autocomplete.getPlace().formatted_address;
            }
           });
         });

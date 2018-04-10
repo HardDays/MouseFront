@@ -41,6 +41,7 @@ import { AgmCoreModule } from '@agm/core';
 import { CheckModel } from '../../core/models/check.model';
 import { TicketModel } from '../../core/models/ticket.model';
 import { TicketGetParamsModel } from '../../core/models/ticketGetParams.model';
+import { GetArtists, GetVenue } from '../../core/models/eventPatch.model';
 
 
 
@@ -147,9 +148,11 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     /////////////////////////////////////////////////
 
     //funding
-    activeArtist:CheckModel<AccountGetModel> [] = [];
-    activeVenue:CheckModel<AccountGetModel>[] = [];
-
+    activeArtist:CheckModel<GetArtists> [] = [];
+    activeVenue:CheckModel<GetVenue>[] = [];
+    
+    artistSum:number = 0;
+    venueSum:number = 0;
 
 
     //tickets
@@ -1015,32 +1018,77 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
 
     // funding
+    getNumInArtistOrVenueById(id:number,list:any[]){
+        if(id)
+            for(let i=0; i<list.length; i++)
+                if(list[i].id==id)
+                    return i;          
+    }
+    
 
-
-    // ЗАМЕНИТЬ pending на ?? (accepted, owner_accepted)
+    
     getActiveArtVen(){
 
-        let artist:AccountGetModel[] = [], venue:AccountGetModel[] = [];
+        let artist:GetArtists[] = [], venue:GetVenue[] = [];
 
-        for(let v of this.requestVenues)
-            if(this.getStatusVenueEventById(v.id)=='owner_accepted')
-                venue.push(v);
-        
-            
-        for(let art of this.showsArtists)
-            if(this.getStatusArtistEventById(art.id)=='owner_accepted')
+         for(let art of this.Event.artist)
+            if(art.status=='owner_accepted'){
+                let num = this.getNumInArtistOrVenueById(art.artist_id,this.showsArtists);
+                art.image_base64_not_given = this.showsArtists[num].image_base64_not_given;
+                art.user_name_not_given =  this.showsArtists[num].user_name;
+
+                    //заглушка на старые запросы
+                    if(!art.agreement.price) art.agreement.price = 100;
+
                 artist.push(art);
+            }
+        for(let v of this.Event.venues)
+            if(v.status=='owner_accepted'){
+                let num = this.getNumInArtistOrVenueById(v.venue_id,this.requestVenues);
+                v.image_base64_not_given = this.requestVenues[num].image_base64_not_given;
+                v.user_name_not_given =  this.requestVenues[num].user_name;
 
+                //заглушка на старые запросы
+                if(!v.agreement.price) v.agreement.price = 100;
+                
+                venue.push(v);
+        }
+        
 
-        this.activeArtist = this.convertArrToCheckModel<AccountGetModel>(artist);
-        this.activeVenue = this.convertArrToCheckModel<AccountGetModel>(venue);
+        this.activeArtist = this.convertArrToCheckModel<GetArtists>(artist);
+        this.activeVenue = this.convertArrToCheckModel<GetVenue>(venue);
 
         this.getListImages(this.activeArtist);
         this.getListImages(this.activeVenue);
 
-        console.log(`active`,this.activeArtist,this.activeVenue);
+        console.log(`active: `,this.activeArtist,this.activeVenue);
     }
 
+    setActiveArtist(index:number){
+        if(!this.activeArtist[index].checked){
+            this.activeArtist[index].checked = true;
+            this.artistSum += this.activeArtist[index].object.agreement.price;
+        }
+        else {
+            this.activeArtist[index].checked = false;
+            this.artistSum -= this.activeArtist[index].object.agreement.price;
+        }
+        console.log(this.activeArtist);
+
+    }
+
+    setActiveVenue(index:number){
+        if(!this.activeVenue[index].checked){
+            this.activeVenue[index].checked = true;
+            this.venueSum += this.activeVenue[index].object.agreement.price;
+        }
+        else {
+            this.activeVenue[index].checked = false;
+            this.venueSum -= this.activeVenue[index].object.agreement.price;
+        }
+        console.log(this.activeVenue);
+
+    }
 
 
 

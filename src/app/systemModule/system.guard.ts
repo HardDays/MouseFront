@@ -66,6 +66,14 @@ export class SystemAccessGuard extends BaseComponent implements CanActivate{
                     return true;
                 }
             }
+            case "venueCreate":{
+                if(!login){
+                    return this.LoginNavigate();
+                }
+                else{
+                    return true;
+                }
+            }
             case "events":{
                     return true;
             }

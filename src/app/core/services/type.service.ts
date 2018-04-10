@@ -78,13 +78,13 @@ export class TypeService{
 
     public GetAllDays(){
         return [
-            new FrontWorkingTimeModel('monday'),
-            new FrontWorkingTimeModel('tuesday'),
-            new FrontWorkingTimeModel('wednesday'),
-            new FrontWorkingTimeModel('thursday'),
-            new FrontWorkingTimeModel('friday'),
-            new FrontWorkingTimeModel('saturday'),
-            new FrontWorkingTimeModel('sunday')
+            new FrontWorkingTimeModel('monday', null, null, false),
+            new FrontWorkingTimeModel('tuesday', null, null, false),
+            new FrontWorkingTimeModel('wednesday', null, null, false),
+            new FrontWorkingTimeModel('thursday', null, null, false),
+            new FrontWorkingTimeModel('friday', null, null, false),
+            new FrontWorkingTimeModel('saturday', null, null, false),
+            new FrontWorkingTimeModel('sunday', null, null, false)
         ];
     }
 

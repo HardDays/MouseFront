@@ -17,7 +17,7 @@
                     <div class="side left-side">
                         <input autocomplete="off" name="phone" [textMask]="MaskTelephone()" class="inp-style-2" type="text" placeholder="Phone" [ngModel]="Account.phone" (ngModelChange)="Account.phone = $event">
                         <p>Address</p>
-                        <input autocomplete="off" type="text" class="date-picker-inp" name="search-params-address" autocorrect="off" autocapitalize="off" spellcheck="off" placeholder=""  #search>
+                        <input autocomplete="off" type="text" class="date-picker-inp" name="search-params-address-1" [ngModel]="Address" (ngModelChange)="Address = $event" autocorrect="off" autocapitalize="off" spellcheck="off" placeholder=""  #search>
                         <input autocomplete="off" name="capacity" *ngIf="Account.account_type == Roles.Venue" class="inp-style-2" type="number" min="0" placeholder="Capacity" [ngModel]="Account.capacity" (ngModelChange)="Account.capacity = $event">
                         <input autocomplete="off" name="number_of_bathrooms" *ngIf="Account.account_type == Roles.Venue" ngModel class="inp-style-2" type="number" min="0" placeholder="Number of bathrooms" [ngModel]="Account.num_of_bathrooms" (ngModelChange)="Account.num_of_bathrooms = $event">
                         <input autocomplete="off" name="min_age" *ngIf="Account.account_type == Roles.Venue" ngModel class="inp-style-2" type="number" min="0" placeholder="Minimal age" [ngModel]="Account.min_age" (ngModelChange)="Account.min_age = $event">
@@ -95,12 +95,13 @@
                     </ng-container>
                     </div>
                     <p class="more" *ngIf="!seeMore" (click)="seeMoreGenres()"><span>See more</span></p>
+                    <p class="more" *ngIf="seeMore" (click)="seeFirstGenres()"><span>Hide</span></p>
                 </div>
                 <div *ngIf="Account.account_type == Roles.Venue">
                     <p>Contacts</p>
                     <div *ngFor="let item of Account.emails; let i = index">
                         <!--<input class="inp-style-2" [ngModel]="Account.emails[i].name" (ngModelChange)="Account.emails[i].name =  $event">-->
-                        <input type="text" class="inp-style-2" [name]="'email-name-'+i" placeholder="Name" [ngModel]="Account.emails[i].name" (ngModelChange)="Account.emails[i].name = $event">
+                        <input type="text" class="inp-style-2" [name]="'email-name-'+i" placeholder="Name" maxLength="30" [ngModel]="Account.emails[i].name" (ngModelChange)="Account.emails[i].name = $event">
                         <input type="text" class="inp-style-2" [name]="'email-value-'+i" placeholder="Email" [ngModel]="Account.emails[i].email" (ngModelChange)="Account.emails[i].email = $event">
                         <button class ="butt-style-1" type="button" (click)="DeleteEmail(i)">Delete</button>
                     </div>
