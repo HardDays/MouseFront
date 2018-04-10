@@ -178,7 +178,7 @@
                             </div>
                             <div class="location-wr">
                                 <div (click)="aboutOpenMapModal()" class="mark"></div>
-                                <input type="text" class="location-inp"  placeholder="Location" #searchAbout id="aboutAddress"> 
+                                <input type="text" class="location-inp"  value="Location" #searchAbout id="aboutAddress"> 
                             </div>
                         </div>
                         <div class="side">
@@ -250,6 +250,7 @@
                                                     <p class="info">{{ toBeatyShowsList(item.genres)}}</p>
                                                     <p class="desc-head-info">Location</p>
                                                     <p class="info">{{item.address}}</p>
+                                                    <p class="info">{{getStatusArtistEventById(item.id)!='pending'?'Price $'+getPriceAtMsg(item.id):''}}</p>
                                                     <div class="flex-buttons">
                                                         <span *ngIf="getStatusArtistEventById(item.id)=='pending'" class="button-card" (click)="updateEvent()">check</span>
                                                         <span *ngIf="getStatusArtistEventById(item.id)=='accepted'" class="button-card" (click)="acceptArtist(item.id)">accept</span>
@@ -557,21 +558,31 @@
                                         <span class="head-black">Photos</span>
                                         <div class="flex-photos">
 
-                                            <div class="photo" style="background-image:url(../../assets/img/drake.jpg)"></div>
-                                            <div class="photo" style="background-image:url(../../assets/img/drake.jpg)"></div>
+
+                            
+                                           
+                                            <!-- <div (click)="Account.image_base64=''" *ngIf="Account.image_base64" class="bg-image uploaded" [ngStyle]="{'background-image': 'url('+Account.image_base64+')'}"></div> -->
+                                           
+
+
+
+
+
+                                            <div *ngFor=" let img of imagesListPrivateRes; let i = index" class="photo" [ngStyle]="{'background-image': 'url('+img+')'}"></div>
+                                            <!-- <div class="photo" style="background-image:url(../../assets/img/drake.jpg)"></div> -->
 
                                             <!--для добавления фото-->
                                             <div class="photo-wr-1">
                                                 <label class="file_upload">
                                                     <div class="bg-image"></div>
-                                                    <input accept=".jpg, .jpeg, .png" type="file">
+                                                    <input accept=".jpg, .jpeg, .png" type="file" (change)="loadPhoto($event)">
                                                 </label>
                                             </div>
                                             <!--/для добавления фото-->
                                         </div>
                                         <span class="head-black">Videos</span>
-                                        <ng-container formArrayName="video_links">
-                                        <div  *ngFor="let item of privateVenueForm.controls['video_links']['controls']; let i = index" class="input-groupe-1">
+                                        <ng-container formArrayName="venue_video_links">
+                                        <div  *ngFor="let item of privateVenueForm.controls['venue_video_links']['controls']; let i = index" class="input-groupe-1">
                                             <input id="inp-private-link-{{i}}" type="text" formControlName="{{i}}">
                                             <label for="inp-private-link-{{i}}">Link</label>
                                         </div>
@@ -832,7 +843,7 @@
                             </div>
                             <div class="bottom-expression">
                                 <p class="t total">Total</p>
-                                <p class="exp-price">$0</p>
+                                <p class="exp-price">${{Event.founded}}</p>
                             </div>
                         
                         
@@ -854,13 +865,13 @@
                                 </div>
                                 <div class="additional-costs">
                                     <p class="addit-t">Additional Costs</p>
-                                    <p class="price">$50,000</p>
+                                    <p class="price">$ <input class="additionalCosts"  name="" type="number" [(ngModel)]="additionalCosts"></p>
                                 </div>
                                 
                                 
                                 <div class="second-funding-info">
                                     <p class="info-text">Amount to Mouse (10%)</p>
-                                    <span class="price">${{0.1*(artistSum+venueSum+50000)}}</span>
+                                    <span class="price">${{0.1*(artistSum+venueSum+additionalCosts)}}</span>
                                 </div>
                             </div>
                             
@@ -869,8 +880,8 @@
                             <div class="top-gum">
                                 <h6 class="lower-case-t">Family and Friends Amount</h6>
                                 <div class="input-groupe-1">
-                                    <select>
-                                        <option>None</option>
+                                    <select type="number" [(ngModel)]="familyAndFriendAmount">
+                                        <option>0%</option>
                                         <option>5%</option>
                                         <option>10%</option>
                                     </select>
@@ -878,7 +889,7 @@
                                 </div>
                                 <div class="second-funding-info">
                                     <p class="info-text">Amount</p>
-                                    <span class="price">$0</span>
+                                    <span class="price">${{getFamilyAndFriendAmount()}}</span>
                                 </div>
                             </div>
                         </div>
@@ -887,11 +898,11 @@
                                 <h6 class="lower-case-t">Min Amount per Ticket</h6>
                                 <div class="second-funding-info">
                                     <p class="info-text">Capacity</p>
-                                    <span class="price">7000</span>
+                                    <span class="price">{{Event.venue?Event.venue.capacity:'1000 (NaN)'}}</span>
                                 </div>
                                 <div class="second-funding-info">
                                     <p class="info-text">Price Per Ticket</p>
-                                    <span class="price">$0</span>
+                                    <span class="price">${{Event.venue?0.1*(artistSum+venueSum+additionalCosts)+(artistSum+venueSum+additionalCosts) / Event.venue.capacity:(0.1*(artistSum+venueSum+additionalCosts)+(artistSum+venueSum+additionalCosts))/1000}}</span>
                                 </div>
                             </div>
                         </div>
@@ -900,7 +911,7 @@
                         <div class="side">
                             <div class="bottom-expression">
                                 <p class="t total">Total</p>
-                                <p class="exp-price">$0</p>
+                                <p class="exp-price">${{0.1*(artistSum+venueSum+additionalCosts)+(artistSum+venueSum+additionalCosts) }}</p>
                             </div>
                         </div>
                     </div>
@@ -953,7 +964,7 @@
                                     <p class="p-1">You have no tickets yet</p>
                                     <div class="add-ticket">
                                         <span class="butt-style-1">
-                                            <span >Add Tickets</span>
+                                            <span (click)="addTicket()">Add Tickets</span>
                                         </span>
                                     </div>
                                 </div>
@@ -980,7 +991,7 @@
                                             <div class="yes-no">
                                                 <span>Yes</span>
                                                 <div class="mac-checkbox">
-                                                    <input class="checkbox" checked="" type="checkbox" id="checkbox-set-tick-2">
+                                                    <input class="checkbox" [checked]="currentTicket.is_for_personal_use" (change)="currentTicket.is_for_personal_use=!currentTicket.is_for_personal_use" type="checkbox" id="checkbox-set-tick-2">
                                                     <label for="checkbox-set-tick-2"></label>
                                                 </div>
                                                 <span>No</span>
@@ -991,7 +1002,7 @@
                                             <div class="yes-no">
                                                 <span>Yes</span>
                                                 <div class="mac-checkbox">
-                                                    <input class="checkbox" checked="" type="checkbox" id="checkbox-set-tick-3">
+                                                    <input class="checkbox" [checked]="currentTicket.is_promotional" (change)="currentTicket.is_promotional=!currentTicket.is_promotional" type="checkbox" id="checkbox-set-tick-3">
                                                     <label for="checkbox-set-tick-3"></label>
                                                 </div>
                                                 <span>No</span>
@@ -1005,12 +1016,12 @@
                                         </div>
                                         
                                         <!--этот блок может быть, а может не быть. хз от чего это зависит. уточняйте у @pisatel-->
-                                        <div class="flex-date-inputs">
+                                        <!-- <div class="flex-date-inputs">
                                             <div class="one-date-block">
                                                 <div class="date-icon"></div>
                                                 <div class="rr">
                                                     <span class="desc-date">Start Date</span>
-                                                    <!--тут дейт пикер.убрать placeholder-->
+                                                    тут дейт пикер.убрать placeholder
                                                     <input type="text" class="input-date" placeholder="14.01.2020">
                                                 </div>
                                             </div>
@@ -1018,13 +1029,13 @@
                                                 <div class="date-icon"></div>
                                                 <div class="rr">
                                                     <span class="desc-date">End Date</span>
-                                                    <!--тут дейт пикер.убрать placeholder-->
+                                                    тут дейт пикер.убрать placeholder
                                                     <input type="text" class="input-date" placeholder="14.01.2020">
                                                 </div>
                                             </div>
                                             
                                         
-                                        </div>
+                                        </div> -->
                                         <!--///этот блок может быть, а может не быть. хз от чего это зависит. уточняйте у @pisatel-->
 
                                         <div class="flex-input-groupes">

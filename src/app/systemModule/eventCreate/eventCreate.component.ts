@@ -42,6 +42,8 @@ import { CheckModel } from '../../core/models/check.model';
 import { TicketModel } from '../../core/models/ticket.model';
 import { TicketGetParamsModel } from '../../core/models/ticketGetParams.model';
 import { GetArtists, GetVenue } from '../../core/models/eventPatch.model';
+import { MessageInfoModel, InboxMessageModel } from '../../core/models/inboxMessage.model';
+import { NumberSymbol } from '@angular/common';
 
 
 
@@ -100,7 +102,9 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     showMoreGenres:boolean = false;
 
    
-    
+    messagesList:InboxMessageModel[] = [];
+
+
     //artists
     /////////////////////////////////////////////////
     showsArtists:AccountGetModel[] = []; // список артистов, которым отправлен запрос
@@ -112,7 +116,14 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     artistsList:AccountGetModel[] = []; // артисты, которые удовлятворяют поиску
     checkArtists:number[] = []; // id чекнутых артистов, т.е. тех, которым мы отправим запрос
 
-
+    ownerAcceptDecline = {
+        event_id:0,
+        id:0,
+        message_id:0,
+        account_id:0,
+        datetime_from:'',
+        datetime_to:''
+    }
 
     // venue
     /////////////////////////////////////////////////
@@ -143,7 +154,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     privateVenueForm : FormGroup ;
     privateVenueCreate:AccountCreateModel = new AccountCreateModel();
     privateVenue:AccountGetModel = new AccountGetModel();
-    
+    imagesListPrivateRes:string[] = [];
 
     /////////////////////////////////////////////////
 
@@ -153,6 +164,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     
     artistSum:number = 0;
     venueSum:number = 0;
+    additionalCosts:number = 50000;
+    familyAndFriendAmount:string = '0%';
 
 
     //tickets
@@ -180,23 +193,21 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         private ngZone: NgZone, protected h:Http,
         private activatedRoute: ActivatedRoute){
         super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
-            // this.contentFactory = this.cfr.resolveComponentFactory(DynComponent);
 
-
-             this.privateVenueForm = new FormGroup({        
-        "user_name": new FormControl("", [Validators.required]),
-        "phone": new FormControl(""),
-        "capacity": new FormControl(),
-        "country": new FormControl(""),
-        "city": new FormControl(""),
-        "address":new FormControl(),
-        "description": new FormControl(""),
-        "video_links": new FormArray([
-            new FormControl("http://")
-          ]),
-        "link_two": new FormControl(""),
-        "has_vr": new FormControl("")
-    }); 
+        this.privateVenueForm = new FormGroup({        
+            "user_name": new FormControl("", [Validators.required]),
+            "phone": new FormControl(""),
+            "capacity": new FormControl(),
+            "country": new FormControl(""),
+            "city": new FormControl(""),
+            "address":new FormControl(),
+            "description": new FormControl(""),
+            "venue_video_links": new FormArray([
+                new FormControl("http://")
+            ]),
+            "link_two": new FormControl(""),
+            "has_vr": new FormControl("")
+        }); 
     }
 
     ngOnInit()
@@ -426,6 +437,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             this.newEvent.account_id = u.id;
             this.addArtist.account_id = u.id;
             this.addVenue.account_id = u.id;
+            this.getMessages(u.id);
             }
         });
     }
@@ -518,6 +530,42 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     }
 
 
+    getMessages(id?:number){
+        let crId = id?id:this.Event.creator_id;
+        this.messagesList = [];
+        this.accService.GetInboxMessages(crId).
+        subscribe((res)=>{
+            
+            for(let m of res)
+            this.accService.GetInboxMessageById(crId, m.id).
+                subscribe((msg)=>{
+                    this.messagesList.push(msg);
+                    console.log(`msg`,this.messagesList);
+            }); 
+        },
+    (err)=>{console.log(err)});
+    }
+
+    getPriceAtMsg(sender:number){
+        for(let m of this.messagesList){
+            if( m.sender_id == sender && 
+                m.receiver_id == this.Event.creator_id &&
+                m.message_info.event_info.id == this.Event.id){
+                   return m.message_info.price;
+            }
+        }
+    }
+
+    getIdAtMsg(sender:number){
+        for(let m of this.messagesList){
+            if( m.sender_id == sender && 
+                m.receiver_id == this.Event.creator_id &&
+                m.message_info.event_info.id == this.Event.id){
+                   return m.id;
+            }
+        }
+    }
+
     
    
 
@@ -546,6 +594,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             subscribe((res:EventGetModel)=>{
                 
                 this.Event = res;
+                this.getMessages();
                 console.log(`EVENT after update (get)`,this.Event);
                     
                     for (let key in res) {
@@ -767,34 +816,38 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
     acceptArtist(idArtist:number){
         console.log(idArtist);
-        let accept:AccountAddToEventModel = this.addArtist;
-        accept.artist_id = idArtist;
-        accept.event_id = this.Event.id;
-        accept.message_id = 1;
-        this.eventService.ArtistAcceptOwner(accept).
+
+        this.ownerAcceptDecline.account_id = this.Event.creator_id;
+        this.ownerAcceptDecline.id = idArtist;
+        this.ownerAcceptDecline.event_id = this.Event.id;
+        this.ownerAcceptDecline.message_id = this.getIdAtMsg(idArtist);
+        this.ownerAcceptDecline.datetime_from = new Date().toString();
+        this.ownerAcceptDecline.datetime_to =  new Date().setFullYear( new Date().getFullYear() + 1).toString();
+
+        this.eventService.ArtistAcceptOwner(this.ownerAcceptDecline).
             subscribe((res)=>{
                 console.log(`ok accept artist`,res);
                 this.updateEvent();
             });
+
     }
 
     declineArtist(idArtist:number){
-        console.log(idArtist);
-        let accept:AccountAddToEventModel = this.addArtist;
-        accept.event_id = this.Event.id;
-        accept.artist_id = idArtist;
-        accept.event_id = this.Event.id;
-        accept.message_id = 1;
-        this.eventService.ArtistDeclineOwner(accept).
+
+        this.ownerAcceptDecline.account_id = this.Event.creator_id;
+        this.ownerAcceptDecline.id = idArtist;
+        this.ownerAcceptDecline.event_id = this.Event.id;
+        this.ownerAcceptDecline.message_id = 1;
+        this.ownerAcceptDecline.datetime_from = new Date().toString();
+        this.ownerAcceptDecline.datetime_to =  new Date().setFullYear( new Date().getFullYear() + 1).toString();
+
+        this.eventService.ArtistDeclineOwner(this.ownerAcceptDecline).
             subscribe((res)=>{
                 console.log(`ok decline artist`,res);
                 this.updateEvent();
             });
+
     }
-
-
-
-
 
 
 
@@ -934,24 +987,38 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
     acceptVenue(idV:number){
         console.log(idV);
-        let accept:AccountAddToEventModel = this.addVenue;
-        accept.venue_id = idV;
-        this.eventService.VenueAcceptOwner(accept).
-            subscribe((res)=>{
-                console.log(`ok accept venue`,res);
-                this.updateEvent();
-            });
+
+            this.ownerAcceptDecline.account_id = this.Event.creator_id;
+            this.ownerAcceptDecline.id = idV;
+            this.ownerAcceptDecline.event_id = this.Event.id;
+            this.ownerAcceptDecline.message_id = this.getIdAtMsg(idV);
+            this.ownerAcceptDecline.datetime_from = new Date().toString();
+            this.ownerAcceptDecline.datetime_to =  new Date().setFullYear( new Date().getFullYear() + 1).toString();
+    
+            this.eventService.VenueAcceptOwner(this.ownerAcceptDecline).
+                subscribe((res)=>{
+                    console.log(`ok accept artist`,res);
+                    this.updateEvent();
+                });
+    
+            console.log(this.ownerAcceptDecline);   
     }
 
     declineVenue(idV:number){
-        console.log(idV);
-        let accept:AccountAddToEventModel = this.addVenue;
-        accept.venue_id = idV;
-        this.eventService.VenueDeclineOwner(accept).
-            subscribe((res)=>{
-                console.log(`ok decline venue`,res);
-                this.updateEvent();
-            });
+        this.ownerAcceptDecline.account_id = this.Event.creator_id;
+            this.ownerAcceptDecline.id = idV;
+            this.ownerAcceptDecline.event_id = this.Event.id;
+            this.ownerAcceptDecline.message_id = 1;
+            this.ownerAcceptDecline.datetime_from = new Date().toString();
+            this.ownerAcceptDecline.datetime_to =  new Date().setFullYear( new Date().getFullYear() + 1).toString();
+    
+            this.eventService.VenueDeclineOwner(this.ownerAcceptDecline).
+                subscribe((res)=>{
+                    console.log(`ok accept artist`,res);
+                    this.updateEvent();
+                });
+    
+            console.log(this.ownerAcceptDecline); 
     }
 
 
@@ -989,7 +1056,10 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                 .subscribe((acc:AccountGetModel)=>{
                         this.privateVenue = acc;
                         console.log(`create`,this.privateVenue);
-
+                        for(let img of this.imagesListPrivateRes){
+                           this.accService.PostAccountImages(acc.id,img)
+                            .subscribe((res)=>{console.log(`add`,img)}); 
+                        }
                         this.addVenue.venue_id = acc.id;
                         console.log(`add venue`,this.addVenue);
                         this.eventService.AddVenue(this.addVenue).
@@ -1011,8 +1081,22 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     }
 
     addPhone(){
-        (<FormArray>this.privateVenueForm.controls["video_links"]).push(new FormControl("http://", Validators.required));
+        (<FormArray>this.privateVenueForm.controls["venue_video_links"]).push(new FormControl("http://", Validators.required));
     }
+    loadPhoto($event:any):void{
+        this.ReadImages(
+            $event.target.files,
+            (res:string)=>{
+                this.imagesListPrivateRes.push(res);
+                
+            }
+        );
+    }
+    getFamilyAndFriendAmount(){
+        let sum =  parseFloat(this.familyAndFriendAmount)/100;
+        return sum*(0.1*(this.artistSum+this.venueSum+this.additionalCosts)+(this.artistSum+this.venueSum+this.additionalCosts));
+    }
+
 
 
 
@@ -1029,6 +1113,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     
     getActiveArtVen(){
 
+        this.artistSum = 0;
+        this.venueSum = 0;
         let artist:GetArtists[] = [], venue:GetVenue[] = [];
 
          for(let art of this.Event.artist)
@@ -1068,10 +1154,28 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         if(!this.activeArtist[index].checked){
             this.activeArtist[index].checked = true;
             this.artistSum += this.activeArtist[index].object.agreement.price;
+            this.eventService.ArtistSetActive({
+                id:this.activeArtist[index].object.artist_id,
+                event_id:this.Event.id,
+                account_id:this.Event.creator_id
+            }).
+                subscribe((res)=>{
+                    console.log(`active set ok`,res);
+                    this.updateEvent();
+                });
         }
         else {
             this.activeArtist[index].checked = false;
             this.artistSum -= this.activeArtist[index].object.agreement.price;
+            this.eventService.ArtistRemoveActive({
+                id:this.activeArtist[index].object.artist_id,
+                event_id:this.Event.id,
+                account_id:this.Event.creator_id
+            }).
+                subscribe((res)=>{
+                    console.log(`active remove ok`,res);
+                    this.updateEvent();
+                });
         }
         console.log(this.activeArtist);
 
@@ -1092,6 +1196,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
 
 
+
+
     // TICKETS
     getTickets(){
         this.tickets = [];
@@ -1108,7 +1214,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                     console.log(`tickets`,this.tickets);
                 }); 
         }
-        // this.tickets = this.deleteDuplicateTickets(this.tickets);
+        
     }
 
     addTicket(){
@@ -1117,7 +1223,12 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         newTicket.event_id = this.Event.id;
         newTicket.account_id = this.Event.creator_id;
         newTicket.name = 'New Name';
+        newTicket.type = 'vr';
+        newTicket.is_promotional = false;
+        newTicket.is_for_personal_use = false;
         this.ticketsNew.push(newTicket);
+        this.currentTicket = this.ticketsNew[this.ticketsNew.length-1];
+        this.isCurTicketNew = true;
     }
     getNewId(){
         let id = 1;

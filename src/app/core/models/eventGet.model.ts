@@ -1,4 +1,5 @@
 import { TicketModel } from "./ticket.model";
+import { AccountGetModel } from "./accountGet.model";
 
 export class EventGetModel{
     constructor(
@@ -38,6 +39,7 @@ export class EventGetModel{
         public genres?: string[],
         public artist?: GetArtists[],
         public venues?: GetVenue[],
+        public venue?: AccountGetModel,
         public tickets?: TicketModel[]
     )
     {}
@@ -50,7 +52,16 @@ export class GetArtists{
         public status?: string,
         public image_base64_not_given?: string,
         public user_name_not_given?: string,
-        public agreement?:any
+        public agreement?:{
+             id?:number,
+             price?:number,
+             datetime_from?:string,
+             datetime_to?:string,
+             venue_event_id?:number,
+             artist_event_id?:number,
+             created_at?:string,
+             updated_at?:string,
+        }
     )
     {}
 }
@@ -61,7 +72,16 @@ export class GetVenue{
         public status?: string,
         public image_base64_not_given?: string,
         public user_name_not_given?: string,
-        public agreement?:any
+        public agreement?:{
+            id?:number,
+            price?:number,
+            datetime_from?:string,
+            datetime_to?:string,
+            venue_event_id?:number,
+            artist_event_id?:number,
+            created_at?:string,
+            updated_at?:string,
+       }
     )
     {}
 }
