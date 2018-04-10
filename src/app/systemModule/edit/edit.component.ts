@@ -149,8 +149,12 @@ export class EditComponent extends BaseComponent implements OnInit {
 
 
   UpdateUser(){
+
     if(this.form.valid){
+      console.log(`form valid`);
+      
       this.Account.office_hours = this.accService.GetWorkingTimeFromFront(this.OfficeDays);
+
       console.log("days", this.OperatingDays);
       this.Account.operating_hours = this.accService.GetWorkingTimeFromFront(this.OperatingDays);
       this.Account.emails = this.typeService.ValidateArray(this.Account.emails);
@@ -167,6 +171,8 @@ export class EditComponent extends BaseComponent implements OnInit {
       }
       //this.Account.dates = this.typeService.ValidateArray(this.Account.dates);
           console.log("res", this.Account);
+      if( this.Account.office_hours == null)  this.Account.office_hours = [];
+      if( this.Account.operating_hours == null)  this.Account.operating_hours = [];
       this.accService.UpdateMyAccount(this.UserId, JSON.stringify(this.Account))
       .subscribe((res:any)=>{
           console.log("res", res);
@@ -180,6 +186,9 @@ export class EditComponent extends BaseComponent implements OnInit {
          }     
           
       })
+    }
+    else{
+      console.log(`invalid input`);
     }
   }
 
