@@ -193,23 +193,21 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         private ngZone: NgZone, protected h:Http,
         private activatedRoute: ActivatedRoute){
         super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
-            // this.contentFactory = this.cfr.resolveComponentFactory(DynComponent);
-
 
         this.privateVenueForm = new FormGroup({        
-        "user_name": new FormControl("", [Validators.required]),
-        "phone": new FormControl(""),
-        "capacity": new FormControl(),
-        "country": new FormControl(""),
-        "city": new FormControl(""),
-        "address":new FormControl(),
-        "description": new FormControl(""),
-        "venue_video_links": new FormArray([
-            new FormControl("http://")
-          ]),
-        "link_two": new FormControl(""),
-        "has_vr": new FormControl("")
-    }); 
+            "user_name": new FormControl("", [Validators.required]),
+            "phone": new FormControl(""),
+            "capacity": new FormControl(),
+            "country": new FormControl(""),
+            "city": new FormControl(""),
+            "address":new FormControl(),
+            "description": new FormControl(""),
+            "venue_video_links": new FormArray([
+                new FormControl("http://")
+            ]),
+            "link_two": new FormControl(""),
+            "has_vr": new FormControl("")
+        }); 
     }
 
     ngOnInit()
@@ -818,15 +816,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
     acceptArtist(idArtist:number){
         console.log(idArtist);
-        // let accept:AccountAddToEventModel = this.addArtist;
-        // accept.artist_id = idArtist;
-        // accept.event_id = this.Event.id;
-        // accept.message_id = 1;
-        // this.eventService.ArtistAcceptOwner(accept).
-        //     subscribe((res)=>{
-        //         console.log(`ok accept artist`,res);
-        //         this.updateEvent();
-        //     });
+
         this.ownerAcceptDecline.account_id = this.Event.creator_id;
         this.ownerAcceptDecline.id = idArtist;
         this.ownerAcceptDecline.event_id = this.Event.id;
@@ -840,26 +830,24 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                 this.updateEvent();
             });
 
-        console.log(this.ownerAcceptDecline);
     }
 
     declineArtist(idArtist:number){
-        console.log(idArtist);
-        let accept:AccountAddToEventModel = this.addArtist;
-        accept.event_id = this.Event.id;
-        accept.artist_id = idArtist;
-        accept.event_id = this.Event.id;
-        accept.message_id = 1;
-        this.eventService.ArtistDeclineOwner(accept).
+
+        this.ownerAcceptDecline.account_id = this.Event.creator_id;
+        this.ownerAcceptDecline.id = idArtist;
+        this.ownerAcceptDecline.event_id = this.Event.id;
+        this.ownerAcceptDecline.message_id = 1;
+        this.ownerAcceptDecline.datetime_from = new Date().toString();
+        this.ownerAcceptDecline.datetime_to =  new Date().setFullYear( new Date().getFullYear() + 1).toString();
+
+        this.eventService.ArtistDeclineOwner(this.ownerAcceptDecline).
             subscribe((res)=>{
                 console.log(`ok decline artist`,res);
                 this.updateEvent();
             });
+
     }
-
-
-
-
 
 
 
@@ -999,24 +987,38 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
     acceptVenue(idV:number){
         console.log(idV);
-        let accept:AccountAddToEventModel = this.addVenue;
-        accept.venue_id = idV;
-        this.eventService.VenueAcceptOwner(accept).
-            subscribe((res)=>{
-                console.log(`ok accept venue`,res);
-                this.updateEvent();
-            });
+
+            this.ownerAcceptDecline.account_id = this.Event.creator_id;
+            this.ownerAcceptDecline.id = idV;
+            this.ownerAcceptDecline.event_id = this.Event.id;
+            this.ownerAcceptDecline.message_id = this.getIdAtMsg(idV);
+            this.ownerAcceptDecline.datetime_from = new Date().toString();
+            this.ownerAcceptDecline.datetime_to =  new Date().setFullYear( new Date().getFullYear() + 1).toString();
+    
+            this.eventService.VenueAcceptOwner(this.ownerAcceptDecline).
+                subscribe((res)=>{
+                    console.log(`ok accept artist`,res);
+                    this.updateEvent();
+                });
+    
+            console.log(this.ownerAcceptDecline);   
     }
 
     declineVenue(idV:number){
-        console.log(idV);
-        let accept:AccountAddToEventModel = this.addVenue;
-        accept.venue_id = idV;
-        this.eventService.VenueDeclineOwner(accept).
-            subscribe((res)=>{
-                console.log(`ok decline venue`,res);
-                this.updateEvent();
-            });
+        this.ownerAcceptDecline.account_id = this.Event.creator_id;
+            this.ownerAcceptDecline.id = idV;
+            this.ownerAcceptDecline.event_id = this.Event.id;
+            this.ownerAcceptDecline.message_id = 1;
+            this.ownerAcceptDecline.datetime_from = new Date().toString();
+            this.ownerAcceptDecline.datetime_to =  new Date().setFullYear( new Date().getFullYear() + 1).toString();
+    
+            this.eventService.VenueDeclineOwner(this.ownerAcceptDecline).
+                subscribe((res)=>{
+                    console.log(`ok accept artist`,res);
+                    this.updateEvent();
+                });
+    
+            console.log(this.ownerAcceptDecline); 
     }
 
 
@@ -1152,10 +1154,28 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         if(!this.activeArtist[index].checked){
             this.activeArtist[index].checked = true;
             this.artistSum += this.activeArtist[index].object.agreement.price;
+            this.eventService.ArtistSetActive({
+                id:this.activeArtist[index].object.artist_id,
+                event_id:this.Event.id,
+                account_id:this.Event.creator_id
+            }).
+                subscribe((res)=>{
+                    console.log(`active set ok`,res);
+                    this.updateEvent();
+                });
         }
         else {
             this.activeArtist[index].checked = false;
             this.artistSum -= this.activeArtist[index].object.agreement.price;
+            this.eventService.ArtistRemoveActive({
+                id:this.activeArtist[index].object.artist_id,
+                event_id:this.Event.id,
+                account_id:this.Event.creator_id
+            }).
+                subscribe((res)=>{
+                    console.log(`active remove ok`,res);
+                    this.updateEvent();
+                });
         }
         console.log(this.activeArtist);
 
@@ -1173,6 +1193,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         console.log(this.activeVenue);
 
     }
+
+
 
 
 

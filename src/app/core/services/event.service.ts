@@ -82,14 +82,14 @@ export class EventService{
             () => this.http.PostData('/events/'+event.event_id+'/venue.json',JSON.stringify(event))
         );
     }
-    VenueAcceptOwner(event:AccountAddToEventModel){
+    VenueAcceptOwner(params){
         return this.http.CommonRequest(
-            () => this.http.PostData('/events/'+event.event_id+'/venue/'+event.venue_id+'/owner_accept.json',JSON.stringify(event))
+            () => this.http.PostData('/events/'+params.event_id+'/venue/'+params.id+'/owner_accept.json',JSON.stringify(params))
         );
     }
-    VenueDeclineOwner(event:AccountAddToEventModel){
+    VenueDeclineOwner(params){
         return this.http.CommonRequest(
-            () =>this.http.PostData('/events/'+event.event_id+'/venue/'+event.venue_id+'/owner_decline.json',JSON.stringify(event))
+            () =>this.http.PostData('/events/'+params.event_id+'/venue/'+params.id+'/owner_decline.json',JSON.stringify(params))
         );
     }
 
@@ -108,5 +108,28 @@ export class EventService{
             () =>this.http.PatchData('/events/'+ticket.event_id+'/tickets/'+ticket.id+'.json',JSON.stringify(ticket))
         );
     }
+
+    ArtistSetActive(params){
+        return this.http.CommonRequest(
+            () => this.http.PostData('/events/'+params.event_id+'/artists/'+params.id+'/set_active.json',JSON.stringify(params))
+        );
+    }
+    ArtistRemoveActive(params){
+        return this.http.CommonRequest(
+            () => this.http.PostData('/events/'+params.event_id+'/artists/'+params.id+'/remove_active.json',JSON.stringify(params))
+        );
+    }
+
+    VenueSetActive(params){
+        return this.http.CommonRequest(
+            () => this.http.PostData('/events/'+params.event_id+'/venue/'+params.id+'/set_active.json',JSON.stringify(params))
+        );
+    }
+    VenueRemoveActive(params){
+        return this.http.CommonRequest(
+            () => this.http.PostData('/events/'+params.event_id+'/venue/'+params.id+'/remove_active.json',JSON.stringify(params))
+        );
+    }
+
 
 }
