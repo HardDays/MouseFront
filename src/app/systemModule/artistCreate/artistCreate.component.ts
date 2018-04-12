@@ -59,20 +59,27 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
   // general
   accountId:number;
   Artist:AccountGetModel = new AccountGetModel();
-
+  isNewArtist:boolean = true;
+  
   pages = Pages;
   currentPage:string = 'about';
-  
-  genres:GenreModel[] = [];
+  showAllPages:boolean = false;
+
+ 
 
   // about
   createArtist:AccountCreateModel = new AccountCreateModel();
   aboutForm : FormGroup = new FormGroup({        
     "user_name": new FormControl("", [Validators.required]),
-    "display_name": new FormControl("", [Validators.required])
+    "display_name": new FormControl("", [Validators.required]),
+    "stage_name": new FormControl("", [Validators.required]),
+    "manager_name": new FormControl("", [Validators.required]),
+    "email": new FormControl("", [Validators.required]),
+    "about": new FormControl("", [Validators.required]),
+    
   });
+  genres:GenreModel[] = [];
   showMoreGenres:boolean = false;
-
 
 
   ngOnInit(){
@@ -152,31 +159,6 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
 
     });
   }
-  
-  getGenres(){
-    this.genreService.GetAllGenres()
-    .subscribe((res:string[])=>{
-      this.genres = this.genreService.StringArrayToGanreModelArray(res);
-      for(let i of this.genres) i.show = true;
-      // this.genresSearchArtist = this.genreService.StringArrayToGanreModelArray(res);
-      // for(let i of this.genresSearchArtist) i.show = true;
-    });
-   
-}
-GengeSearch($event:string){
-  var search = $event;
-   if(search.length>0) {
-     for(let g of this.genres)
-        if(g.genre_show.indexOf(search.toUpperCase())>=0)
-         g.show = true;
-        else
-         g.show = false;
-   }
-   else {
-      for(let i of this.genres) i.show = true;
-   }
-}
-
   initUser(){
     this.accService.GetMyAccount({extended:true})
     .subscribe((users:any[])=>{
@@ -186,6 +168,79 @@ GengeSearch($event:string){
         }
     });
   }
+
+
+  //about form
+  getGenres(){
+    this.genreService.GetAllGenres()
+    .subscribe((res:string[])=>{
+      this.genres = this.genreService.StringArrayToGanreModelArray(res);
+      for(let i of this.genres) i.show = true;
+      // this.genresSearchArtist = this.genreService.StringArrayToGanreModelArray(res);
+      // for(let i of this.genresSearchArtist) i.show = true;
+    });
+   
+  }
+  GengeSearch($event:string){
+    var search = $event;
+    if(search.length>0) {
+      for(let g of this.genres)
+          if(g.genre_show.indexOf(search.toUpperCase())>=0)
+          g.show = true;
+          else
+          g.show = false;
+    }
+    else {
+        for(let i of this.genres) i.show = true;
+    }
+  }
+
+  createEventFromAbout(){
+        if(!this.aboutForm.invalid){
+
+            for (let key in this.aboutForm.value) {
+                if (this.aboutForm.value.hasOwnProperty(key)) {
+                    this.createArtist[key] = this.aboutForm.value[key];
+                }
+            }
+            this.createArtist.account_type = AccountType.Artist;
+          
+            this.createArtist.genres = this.genreService.GenreModelArrToStringArr(this.genres);
+
+            console.log(`create artist`,this.createArtist);
+            this.currentPage = 'calendar';
+            // if(this.isNewArtist)
+            //   this.accService.CreateAccount(this.createArtist)
+            //   .subscribe((res:any)=>{
+            //       this.Artist = res;
+            //       this.currentPage = 'calendar';
+            //       console.log(`this artist`,this.Artist);
+            //   });
+           
+            // else
+            //     this.eventService.UpdateEvent(this.newEvent, this.Event.id)
+            //     // this.eventService.CreateEvent(this.newEvent)
+            //         .subscribe((res)=>{
+            //                 this.Event = res;
+            //                 console.log(`create`,this.Event);
+            //                 this.currentPage = 'artist';
+            //             },
+            //             (err)=>{
+            //                 console.log(`err`,err);
+            //             }
+            //     );
+        }
+        else {
+            console.log(`Invalid About Form!`, this.aboutForm);
+        }
+  }
+
+  
+
+
+
+
+
 
 }
 

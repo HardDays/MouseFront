@@ -8,29 +8,30 @@
                                     <ul>
                                         <!--нужным li даем классы active и started."хз нахрена это надо. узнавайте у писателя"-->
                                         <li class="active">
-                                            <a [routerLink]="['/system','artistCreate']" class="nav-second-outlet">about</a>
+                                            <a  class="nav-second-outlet">about</a>
                                         </li>
                                         <li class="started">
-                                            <a [routerLink]="['/system','artistCreate']" class="nav-second-outlet">Calendar</a>
+                                            <a  class="nav-second-outlet">Calendar</a>
                                         </li>
                                         <li>
-                                            <a [routerLink]="['/system','artistCreate']" class="nav-second-outlet">media</a>
+                                            <a  class="nav-second-outlet">media</a>
                                         </li>
                                         <li>
-                                            <a [routerLink]="['/system','artistCreate']" class="nav-second-outlet">Booking</a>
+                                            <a  class="nav-second-outlet">Booking</a>
                                         </li>
                                         <li>
-                                            <a [routerLink]="['/system','artistCreate']" class="nav-second-outlet">Riders</a>
+                                            <a  class="nav-second-outlet">Riders</a>
                                         </li>
                                         <li>
-                                            <a [routerLink]="['/system','artistCreate']" class="nav-second-outlet">Preview</a>
+                                            <a  class="nav-second-outlet">Preview</a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="create-event-body-1">
+                        <div [ngStyle]="{'display': (pages[currentPage]>=pages.about||showAllPages)?'block':'none'}" class="create-event-body-1">
                             <div class="main-mw">
+                                <form [formGroup]="aboutForm">
                                 <div class="create-event-body">
                                    <div class="head-ev-body">
                                         <h2>About</h2>
@@ -40,16 +41,16 @@
                                         <div class="side">
                                             <div class="input-groupe-1">
                                                 
-                                                <input id="inp-create-1" name="" type="text">
+                                                <input id="inp-create-1" formControlName="user_name" name="" type="text">
                                                 <label for="inp-create-1">Username<span>*</span></label>
                                             </div>
                                             <div class="input-groupe-1">
-                                                <input id="inp-create-2" name="" type="text">
+                                                <input id="inp-create-2" formControlName="display_name" name="" type="text">
                                                 <label for="inp-create-2">Full Name<span>*</span></label>
                                                 
                                             </div>
                                             <div class="input-groupe-1">
-                                                <input id="inp-create-3" name="" type="text">
+                                                <input id="inp-create-3" formControlName="stage_name" name="" type="text">
                                                 <label for="inp-create-3">Stage name</label>
                                                
                                             </div>
@@ -57,12 +58,12 @@
                                         <div class="side">
                                             <div class="input-groupe-1">
                                                 
-                                                <input id="inp-create-4" name="" type="text">
+                                                <input id="inp-create-4" formControlName="email" name="" type="text">
                                                 <label for="inp-create-4">Email Address<span>*</span></label>
                                             </div>
                                             <div class="input-groupe-1">
                                                 
-                                                <input id="inp-create-5" name="" type="text">
+                                                <input id="inp-create-5" formControlName="manager_name" name="" type="text">
                                                 <label for="inp-create-5">Manager Name</label>
                                             </div>
                                             
@@ -93,7 +94,7 @@
                                         <div class="side">
                                             <div class="input-groupe-1 whithout-label small-textarea max-500">
                                                 
-                                                <textarea id="inp-create-9"></textarea>
+                                                <textarea formControlName="about" id="inp-create-9"></textarea>
                                                 <label for="inp-create-9" class="head-groupe">Short Description<span>*</span></label>
                                                 <span class="max-count">500 max</span>
                                             </div>
@@ -101,14 +102,15 @@
                                         </div>
                                     </div>
                                     <div class="scroll-wrapp">
-                                        <div class="circle-scroll"></div>
+                                        <div class="circle-scroll" (click)="createEventFromAbout()"></div>
                                     </div>
                                     
                                 </div>
+                                </form>
                             </div>
                         </div>
                         
-                        <div class="create-event-body-1">
+                        <div [ngStyle]="{'display': (pages[currentPage]>=pages.calendar||showAllPages)?'block':'none'}" class="create-event-body-1">
                             <div class="main-mw">
                                 <div class="create-event-body">
                                     <div class="head-ev-body">
@@ -120,1046 +122,1057 @@
                             
                             </div>
                             
-                        </div>
-                        <div class="calendar-add-artist">
-                            <div class="one-calendar-block">
-                                Сюда надо ангуларный календарь какой нибудь
-                            </div>
-                            <div class="bg-doted-cal"></div>
-                            
                         
-                        </div>
-                        
-                        
-                        
-                        <div class="scroll-wrapp">
-                            <div class="circle-scroll"></div>
-                        </div>
-                        <div class="create-event-body-1">
-                            <div class="main-mw">
-                                <div class="create-event-body">
-                                    <div class="head-ev-body">
-                                        <h2>Media</h2>
-                                        <p>Please fill in all required fields<br>to proceed to the Next Step</p>
-                                    </div>
+                            <div class="calendar-add-artist">
+                                <div class="one-calendar-block">
+                                    Сюда надо ангуларный календарь какой нибудь
                                 </div>
+                                <div class="bg-doted-cal"></div>
                                 
+                            
                             </div>
-                            <div class="main-mw">
-                                <div class="media-flex-sides">
-                                    <div class="left-side">
-                                        <h6 class="head-of-left-side">Songs</h6>
-                                        <div class="gradient-box gradient-1">
-                                            <h6 class="head-of-gradient-box">Add new Song</h6>
-                                            <div class="input-groupe-1">
-                                                <input id="inp-box-1" name="" type="text">
-                                                <label for="inp-box-1">Song Name</label>
-                                            </div>
-                                            <div class="input-groupe-1">
-                                                <input id="inp-box-2" name="" type="text">
-                                                <label for="inp-box-2">Album Name</label>
-                                            </div>
-                                            <div class="input-groupe-1">
-                                                <input id="inp-box-3" name="" type="text">
-                                                <label for="inp-box-3">Link</label>
-                                            </div>
-                                            <div class="butt-wrapp-grad">
-                                                <button class="butt-style-1" type="submit">
-                                                    <span>Add to List</span>
-                                                </button>   
-                                            </div>
-                                            
+                        
+                        
+                        
+                            <div class="scroll-wrapp">
+                                <div class="circle-scroll"></div>
+                            </div>
+                        </div>
+
+                        <div  class="create-event-body-1">
+                            
+                            <div  [ngStyle]="{'display': (pages[currentPage]>=pages.media||showAllPages)?'block':'none'}">
+                                <div class="main-mw">
+                                    <div class="create-event-body">
+                                        <div class="head-ev-body">
+                                            <h2>Media</h2>
+                                            <p>Please fill in all required fields<br>to proceed to the Next Step</p>
                                         </div>
                                     </div>
-                                    <div class="right-side">
-                                        <div class="head-of-right-side">
-                                            <p class="head-text-r">SONGS UPLOADED</p>
-                                            <p class="limit">Limit of 20 Songs</p>
-                                        </div>
-                                        <!--если пустой-->
-                                        <!--
-                                        <div class="empty-info">
-                                            <img src="img/smile.svg" class="img-responsive" alt="">
-                                            <p>No Songs Yet</p>
-                                        </div>
-                                        -->
-                                        <!---->
-                                        <!--если не пустой. это слайдер-->
-                                        <div class="slider-audio-wrapp">
-                                            <!--это слайд. в нем не более 12 треков-->
-                                            <div class="one-slide">
-                                                <div class="one-audio">
-                                                    <div class="delete-track"></div>
-                                                    <span class="name-track">Soulcall</span>
-                                                    <audio src="../../../assets/mp3/lalala.mp3" preload="auto" ></audio>
-                                                    
+                                    
+                                </div>
+                                <div class="main-mw">
+                                    <div class="media-flex-sides">
+                                        <div class="left-side">
+                                            <h6 class="head-of-left-side">Songs</h6>
+                                            <div class="gradient-box gradient-1">
+                                                <h6 class="head-of-gradient-box">Add new Song</h6>
+                                                <div class="input-groupe-1">
+                                                    <input id="inp-box-1" name="" type="text">
+                                                    <label for="inp-box-1">Song Name</label>
                                                 </div>
-                                                <div class="one-audio">
-                                                    <div class="delete-track"></div>
-                                                    <span class="name-track">Soulcallqweqwe qwe qwe qwe qwe qwe qwe qwe qwe qwe qwe qwe </span>
-                                                    
-                                                    <audio src="../../../assets/mp3/lalala.mp3" preload="auto" ></audio>
-                                                    
+                                                <div class="input-groupe-1">
+                                                    <input id="inp-box-2" name="" type="text">
+                                                    <label for="inp-box-2">Album Name</label>
                                                 </div>
-                                                <div class="one-audio">
-                                                    <div class="delete-track"></div>
-                                                    <span class="name-track">Soulcall</span>
-                                                    <audio src="../../../assets/mp3/lalala.mp3" preload="auto" ></audio>
-                                                    
+                                                <div class="input-groupe-1">
+                                                    <input id="inp-box-3" name="" type="text">
+                                                    <label for="inp-box-3">Link</label>
                                                 </div>
+                                                <div class="butt-wrapp-grad">
+                                                    <button class="butt-style-1" type="submit">
+                                                        <span>Add to List</span>
+                                                    </button>   
+                                                </div>
+                                                
                                             </div>
-                                            <!--это типо второй слайд
-                                             <div class="one-slide">
-                                                <div class="one-audio">
-                                                    <div class="delete-track"></div>
-                                                    <span class="name-track">Soulcall</span>
-                                                    <audio src="mp3/lalala.mp3" preload="auto" />
-                                                    
-                                                </div>
+                                        </div>
+                                        <div class="right-side">
+                                            <div class="head-of-right-side">
+                                                <p class="head-text-r">SONGS UPLOADED</p>
+                                                <p class="limit">Limit of 20 Songs</p>
+                                            </div>
+                                            <!--если пустой-->
+                                            <!--
+                                            <div class="empty-info">
+                                                <img src="img/smile.svg" class="img-responsive" alt="">
+                                                <p>No Songs Yet</p>
                                             </div>
                                             -->
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="media-flex-sides">
-                                    <div class="left-side">
-                                        <h6 class="head-of-left-side albums-t-s">Albums</h6>
-                                        <div class="gradient-box gradient-2">
-                                            <h6 class="head-of-gradient-box">Add new album</h6>
-                                            <div class="input-groupe-1">
-                                                <input id="inp-box-4" name="" type="text">
-                                                <label for="inp-box-4">Album Name</label>
-                                            </div>
-                                            <div class="input-groupe-1">
-                                                <input id="inp-box-5" name="" type="text">
-                                                <label for="inp-box-5">Album Artwork</label>
-                                            </div>
-                                            <div class="input-groupe-1">
-                                                <input id="inp-box-6" name="" type="text">
-                                                <label for="inp-box-6">Link</label>
-                                            </div>
-                                            <div class="butt-wrapp-grad">
-                                                <button class="butt-style-1" type="submit">
-                                                    <span>Add to List</span>
-                                                </button>   
-                                            </div>
-                                            
-                                        </div>
-                                    </div>
-                                    <div class="right-side albums">
-                                        <div class="head-of-right-side">
-                                            <p class="head-text-r">Albums UPLOADED</p>
-                                            <p class="limit">Limit of 20 Albums</p>
-                                        </div>
-                                        <!--если пустой-->
-                                        <!--
-                                        <div class="empty-info">
-                                            <img src="img/smile.svg" class="img-responsive" alt="">
-                                            <p>No Songs Yet</p>
-                                        </div>
-                                        -->
-                                        <!---->
-                                        <!--если не пустой.-->
-                                            
-                                        <div class="slider-2-albums slider-2-init">
-                                            <div class="one-slide">
-                                                <div class="wrapp-card">
-                                                    <div class="delete-track"></div>
-                                                    <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)"></div>
-                                                    <div class="descr">
-                                                        <p class="name">Maiden Voyage</p>
-                                                        <p class="date">2015</p>
-                                                       
-                                                        <span class="butt-style-1">
-                                                            <span>play</span>
-                                                        </span>   
-                                                       
+                                            <!---->
+                                            <!--если не пустой. это слайдер-->
+                                            <div class="slider-audio-wrapp">
+                                                <!--это слайд. в нем не более 12 треков-->
+                                                <div class="one-slide">
+                                                    <div class="one-audio">
+                                                        <div class="delete-track"></div>
+                                                        <span class="name-track">Soulcall</span>
+                                                        <audio src="../../../assets/mp3/lalala.mp3" preload="auto" ></audio>
+                                                        
+                                                    </div>
+                                                    <div class="one-audio">
+                                                        <div class="delete-track"></div>
+                                                        <span class="name-track">Soulcallqweqwe qwe qwe qwe qwe qwe qwe qwe qwe qwe qwe qwe </span>
+                                                        
+                                                        <audio src="../../../assets/mp3/lalala.mp3" preload="auto" ></audio>
+                                                        
+                                                    </div>
+                                                    <div class="one-audio">
+                                                        <div class="delete-track"></div>
+                                                        <span class="name-track">Soulcall</span>
+                                                        <audio src="../../../assets/mp3/lalala.mp3" preload="auto" ></audio>
+                                                        
                                                     </div>
                                                 </div>
+                                                <!--это типо второй слайд
+                                                <div class="one-slide">
+                                                    <div class="one-audio">
+                                                        <div class="delete-track"></div>
+                                                        <span class="name-track">Soulcall</span>
+                                                        <audio src="mp3/lalala.mp3" preload="auto" />
+                                                        
+                                                    </div>
+                                                </div>
+                                                -->
                                             </div>
-                                            <div class="one-slide">
-                                                <div class="wrapp-card">
-                                                    <div class="delete-track"></div>
-                                                    <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)"></div>
+                                        </div>
+                                    </div>
+                                    <div class="media-flex-sides">
+                                        <div class="left-side">
+                                            <h6 class="head-of-left-side albums-t-s">Albums</h6>
+                                            <div class="gradient-box gradient-2">
+                                                <h6 class="head-of-gradient-box">Add new album</h6>
+                                                <div class="input-groupe-1">
+                                                    <input id="inp-box-4" name="" type="text">
+                                                    <label for="inp-box-4">Album Name</label>
+                                                </div>
+                                                <div class="input-groupe-1">
+                                                    <input id="inp-box-5" name="" type="text">
+                                                    <label for="inp-box-5">Album Artwork</label>
+                                                </div>
+                                                <div class="input-groupe-1">
+                                                    <input id="inp-box-6" name="" type="text">
+                                                    <label for="inp-box-6">Link</label>
+                                                </div>
+                                                <div class="butt-wrapp-grad">
+                                                    <button class="butt-style-1" type="submit">
+                                                        <span>Add to List</span>
+                                                    </button>   
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="right-side albums">
+                                            <div class="head-of-right-side">
+                                                <p class="head-text-r">Albums UPLOADED</p>
+                                                <p class="limit">Limit of 20 Albums</p>
+                                            </div>
+                                            <!--если пустой-->
+                                            <!--
+                                            <div class="empty-info">
+                                                <img src="img/smile.svg" class="img-responsive" alt="">
+                                                <p>No Songs Yet</p>
+                                            </div>
+                                            -->
+                                            <!---->
+                                            <!--если не пустой.-->
+                                                
+                                            <div class="slider-2-albums slider-2-init">
+                                                <div class="one-slide">
+                                                    <div class="wrapp-card">
+                                                        <div class="delete-track"></div>
+                                                        <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)"></div>
+                                                        <div class="descr">
+                                                            <p class="name">Maiden Voyage</p>
+                                                            <p class="date">2015</p>
+                                                        
+                                                            <span class="butt-style-1">
+                                                                <span>play</span>
+                                                            </span>   
+                                                        
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="one-slide">
+                                                    <div class="wrapp-card">
+                                                        <div class="delete-track"></div>
+                                                        <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)"></div>
+                                                        
+                                                        <!--добавляем или убираем класс playing-->
+                                                        <div class="descr playing">
+                                                            <p class="name">Maiden Voyage</p>
+                                                            <p class="date">2015</p>
+                                                        
+                                                            <span class="butt-style-1">
+                                                                <span>stop</span>
+                                                            </span>   
                                                     
-                                                    <!--добавляем или убираем класс playing-->
-                                                    <div class="descr playing">
-                                                        <p class="name">Maiden Voyage</p>
-                                                        <p class="date">2015</p>
-                                                       
-                                                        <span class="butt-style-1">
-                                                            <span>stop</span>
-                                                        </span>   
-                                                  
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="one-slide">
+                                                    <div class="wrapp-card">
+                                                        <div class="delete-track"></div>
+                                                        <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)"></div>
+                                                        <div class="descr">
+                                                            <p class="name">Maiden Voyage</p>
+                                                            <p class="date">2015</p>
+                                                            
+                                                            <span class="butt-style-1">
+                                                                <span>play</span>
+                                                            </span>   
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="one-slide">
+                                                    <div class="wrapp-card">
+                                                        <div class="delete-track"></div>
+                                                        <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)"></div>
+                                                        <div class="descr">
+                                                            <p class="name">Maiden Voyage</p>
+                                                            <p class="date">2015</p>
+                                                            
+                                                            <span class="butt-style-1">
+                                                                <span>play</span>
+                                                            </span>   
+                                                            
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="one-slide">
-                                                <div class="wrapp-card">
-                                                    <div class="delete-track"></div>
-                                                    <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)"></div>
-                                                    <div class="descr">
-                                                        <p class="name">Maiden Voyage</p>
-                                                        <p class="date">2015</p>
+                                            
+                                            
+                                            
+                                            <!--/если не пустой.-->
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    <div class="media-flex-sides">
+                                        <div class="left-side">
+                                            <h6 class="head-of-left-side albums-t-s">Videos</h6>
+                                            <div class="gradient-box gradient-3">
+                                                <h6 class="head-of-gradient-box">Add new Video</h6>
+                                                <div class="input-groupe-1">
+                                                    <input id="inp-box-4" name="" type="text">
+                                                    <label for="inp-box-4">Song Name</label>
+                                                </div>
+                                                <div class="input-groupe-1">
+                                                    <input id="inp-box-5" name="" type="text">
+                                                    <label for="inp-box-5">Album Name</label>
+                                                </div>
+                                                <div class="input-groupe-1">
+                                                    <input id="inp-box-6" name="" type="text">
+                                                    <label for="inp-box-6">Link</label>
+                                                </div>
+                                                <div class="butt-wrapp-grad">
+                                                    <button class="butt-style-1" type="submit">
+                                                        <span>Add to List</span>
+                                                    </button>   
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="right-side albums">
+                                            <div class="head-of-right-side">
+                                                <p class="head-text-r">Videos UPLOADED</p>
+                                                <p class="limit">Limit of 20 Videos</p>
+                                            </div>
+                                            <!--если пустой-->
+                                            <!--
+                                            <div class="empty-info">
+                                                <img src="img/smile.svg" class="img-responsive" alt="">
+                                                <p>No Songs Yet</p>
+                                            </div>
+                                            -->
+                                            <!---->
+                                            <!--если не пустой.-->
+                                                
+                                            <div class="slider-2-albums slider-3-init">
+                                                <div class="one-slide">
+                                                    <div class="wrapp-card">
+                                                        <div class="delete-track"></div>
+                                                        <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)">
+                                                            <div class="butt-play-video">
+                                                                <div class="pl"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="descr">
+                                                            <p class="name">Maiden Voyage</p>
+                                                            <p class="date">2015</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="one-slide">
+                                                    <div class="wrapp-card">
+                                                        <div class="delete-track"></div>
+                                                        <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)">
+                                                            <div class="butt-play-video">
+                                                                <div class="pl"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="descr playing">
+                                                            <p class="name">Maiden Voyage</p>
+                                                            <p class="date">2015</p>
                                                         
-                                                        <span class="butt-style-1">
-                                                            <span>play</span>
-                                                        </span>   
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="one-slide">
+                                                    <div class="wrapp-card">
+                                                        <div class="delete-track"></div>
+                                                        <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)">
+                                                            <div class="butt-play-video">
+                                                                <div class="pl"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="descr">
+                                                            <p class="name">Maiden Voyage</p>
+                                                            <p class="date">2015</p>
                                                         
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="one-slide">
+                                                    <div class="wrapp-card">
+                                                        <div class="delete-track"></div>
+                                                        <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)">
+                                                            <div class="butt-play-video">
+                                                                <div class="pl"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="descr">
+                                                            <p class="name">Maiden Voyage</p>
+                                                            <p class="date">2015</p>
+                                                            
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="one-slide">
-                                                <div class="wrapp-card">
-                                                    <div class="delete-track"></div>
-                                                    <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)"></div>
-                                                    <div class="descr">
-                                                        <p class="name">Maiden Voyage</p>
-                                                        <p class="date">2015</p>
-                                                        
-                                                        <span class="butt-style-1">
-                                                            <span>play</span>
-                                                        </span>   
-                                                        
+                                            <!--/если не пустой.-->
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="media-flex-sides">
+                                        <div class="left-side">
+                                            <h6 class="head-of-left-side albums-t-s">Photos</h6>
+                                            <div class="gradient-box gradient-4">
+                                                <h6 class="head-of-gradient-box">Add new photo</h6>
+                                                <div class="photo-wr-1">
+                                                    <label class="file_upload">
+                                                        <div class="bg-image"></div>
+                                                
+                                                        <input accept=".jpg, .jpeg, .png" type="file">
+                                                    </label>
+                                                    <!--появляется этот блок если загружена фотка и в стайл бекграунд имейдж ебануть-->
+                                                    <!--<div class="bg-image uploaded"></div>-->
+                                                    <!---->
+                                                </div>
+                                                <div class="input-groupe-1 small-textarea whithout-label">
+                                                    <textarea id="inp-desc-1"></textarea>
+                                                    <label for="inp-desc-1" class="head-groupe">Description</label>
+                                                </div>
+                                                
+                                                <div class="butt-wrapp-grad">
+                                                    <button class="butt-style-1 thot-butt" type="submit">
+                                                        <span>Add to Photos</span>
+                                                    </button>   
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="right-side albums">
+                                            <div class="head-of-right-side">
+                                                <p class="head-text-r">Photos UPLOADED</p>
+                                                <p class="limit">Limit of 20 Videos</p>
+                                            </div>
+                                            <!--если пустой-->
+                                            <!--
+                                            <div class="empty-info">
+                                                <img src="img/smile.svg" class="img-responsive" alt="">
+                                                <p>No Songs Yet</p>
+                                            </div>
+                                            -->
+                                            <!---->
+                                            <!--если не пустой.-->
+                                            
+                                            <div class="slider-2-albums slider-4-photos slider-4-init">
+                                                <div class="one-slide">
+                                                    <div class="wrapp-card">
+                                                        <div class="delete-track"></div>
+                                                        <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)"></div>
+                                                        <div class="descr">
+                                                            <p class="name">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuminim veniam, quis nostrud</p>
+                                                        </div>
                                                     </div>
+                                                </div>
+                                                <div class="one-slide">
+                                                    <div class="wrapp-card">
+                                                        <div class="delete-track"></div>
+                                                        <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)"></div>
+                                                        <div class="descr">
+                                                            <p class="name">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuminim veniam, quis nostrud </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="one-slide">
+                                                    <div class="wrapp-card">
+                                                        <div class="delete-track"></div>
+                                                        <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)"></div>
+                                                        <div class="descr">
+                                                            <p class="name">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuminim veniam, quis nostrud </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            
+                                            </div>
+                                            
+                                            <!--/если не пустой.-->
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+
+                            <div [ngStyle]="{'display': (pages[currentPage]>=pages.booking||showAllPages)?'block':'none'}">
+                                <div class="main-mw">
+                                    <div class="create-event-body">
+                                        <div class="head-ev-body">
+                                            <h2>Booking</h2>
+                                            <p>Please fill in all required fields<br>to proceed to the Next Step</p>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="main-mw-5 unique-padd-mw">
+                                    <div class="flex-funding-columns">
+                                        <div class="side">
+                                            <h6>Performance</h6>
+                                            <div class="flex-input-groupes">
+                                                <div class="input-groupe-1">
+                                                    <select id="inp-perf-req-1">
+                                                        <option>1 hr</option>
+                                                        <option>2 hr</option>
+                                                    </select>
+                                                    <label for="inp-perf-req-1">Min Time</label>
+                                                </div>
+                                                <div class="input-groupe-1">
+                                                    <select id="inp-perf-req-2">
+                                                        <option>3 hrs</option>
+                                                        <option>4 hrs</option>
+                                                    </select>
+                                                    <label for="inp-perf-req-2">Max Time</label>
+                                                </div>
+                                            </div>
+                                            <p class="price-t-t">Price</p>
+                                            <div class="flex-input-groupes">
+                                                <div class="input-groupe-1 from-to-style">
+                                                    <span class="f-t">From</span>
+                                                    <input type="text">
+                                                    <span class="t-f">/hr</span>
+                                                </div>
+                                                <div class="input-groupe-1 from-to-style">
+                                                    <span class="f-t">To</span>
+                                                    <input type="text">
+                                                    <span class="t-f">/hr</span>                           
+                                                </div>
+                                            </div>
+                                            <div class="flex-input-groupes">
+                                                <div class="input-groupe-1 from-to-style">
+                                                <p class="hours-label">Price for additional Hours:</p>
+                                                </div>
+                                                <div class="input-groupe-1 from-to-style hours-label-groupe">
+                                                
+                                                    <input type="text">
+                                                    <span class="t-f">/hr</span>                           
+                                                </div>
+                                            </div>
+                                            <div class="flex-mac-checkbox">
+                                                <p>Hide Pricing from Profile?</p>
+                                                <div class="yes-no">
+                                                    <span>Yes</span>
+                                                    <div class="mac-checkbox">
+                                                        <input class="checkbox" checked="" type="checkbox" id="checkbox-set-option-1">
+                                                        <label for="checkbox-set-option-1"></label>
+                                                    </div>
+                                                    <span>No</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex-mac-checkbox">
+                                                <p>Hide Pricing from Search?</p>
+                                                <div class="yes-no">
+                                                    <span>Yes</span>
+                                                    <div class="mac-checkbox">
+                                                        <input class="checkbox" checked="" type="checkbox" id="checkbox-set-option-2">
+                                                        <label for="checkbox-set-option-2"></label>
+                                                    </div>
+                                                    <span>No</span>
                                                 </div>
                                             </div>
                                         </div>
-                                        
-                                        
-                                        
-                                        <!--/если не пустой.-->
-                                        
+                                        <div class="side">
+                                            <h6>Band</h6>
+                                            <div class="flex-mac-checkbox on-add-artist-page">
+                                                <p class="quetion-radio-text">Do you perform with a Band?</p>
+                                                <div class="flex-radio">
+                                                    <div class="one-radio">
+                                                        <div class="radio-style">
+                                                            <input type="radio" class="radio-b" id="radio-1" name="group1" value="VR" checked="">
+                                                            <label for="radio-1"></label>
+                                                        </div>
+                                                        <p>Yes</p>
+                                                    </div>
+                                                    <div class="one-radio">
+                                                        <div class="radio-style">
+                                                            <input type="radio" class="radio-b" id="radio-2" name="group1" value="Attend">
+                                                            <label for="radio-2"></label>
+                                                        </div>
+                                                        <p>No</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-mac-checkbox on-add-artist-page">
+                                                <p class="quetion-radio-text">Can you perform without a Band?</p>
+                                                <div class="flex-radio">
+                                                    <div class="one-radio">
+                                                        <div class="radio-style">
+                                                            <input type="radio" class="radio-b" id="radio-3" name="group2" value="VR" checked="">
+                                                            <label for="radio-3"></label>
+                                                        </div>
+                                                        <p>Yes</p>
+                                                    </div>
+                                                    <div class="one-radio">
+                                                        <div class="radio-style">
+                                                            <input type="radio" class="radio-b" id="radio-4" name="group2" value="Attend">
+                                                            <label for="radio-4"></label>
+                                                        </div>
+                                                        <p>No</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-mac-checkbox on-add-artist-page">
+                                                <p class="quetion-radio-text">Do you perform with Backing Vocals?</p>
+                                                <div class="flex-radio">
+                                                    <div class="one-radio">
+                                                        <div class="radio-style">
+                                                            <input type="radio" class="radio-b" id="radio-5" name="group3" value="VR" checked="">
+                                                            <label for="radio-5"></label>
+                                                        </div>
+                                                        <p>Yes</p>
+                                                    </div>
+                                                    <div class="one-radio">
+                                                        <div class="radio-style">
+                                                            <input type="radio" class="radio-b" id="radio-6" name="group3" value="Attend">
+                                                            <label for="radio-6"></label>
+                                                        </div>
+                                                        <p>No</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-mac-checkbox on-add-artist-page">
+                                                <p class="quetion-radio-text">Can you perform without Backing Vocals?</p>
+                                                <div class="flex-radio">
+                                                    <div class="one-radio">
+                                                        <div class="radio-style">
+                                                            <input type="radio" class="radio-b" id="radio-7" name="group4" value="VR" checked="">
+                                                            <label for="radio-7"></label>
+                                                        </div>
+                                                        <p>Yes</p>
+                                                    </div>
+                                                    <div class="one-radio">
+                                                        <div class="radio-style">
+                                                            <input type="radio" class="radio-b" id="radio-8" name="group4" value="Attend">
+                                                            <label for="radio-8"></label>
+                                                        </div>
+                                                        <p>No</p>
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                        <div class="side">
+                                            <h6>Preferred Venue</h6>
+                                            <div class="flex-genres style-on-add-artist-g">
+                                                <div class="one-checkbox">
+                                                    <div class="check-style">
+                                                        <input type="checkbox" class="checkbox" name="" id="checkbox-1">
+                                                        <label for="checkbox-1"></label>
+                                                    </div>
+                                                    <p>Night Club</p>
+                                                </div>
+                                                <div class="one-checkbox">
+                                                    <div class="check-style">
+                                                        <input type="checkbox" class="checkbox" name="" id="checkbox-2">
+                                                        <label for="checkbox-2"></label>
+                                                    </div>
+                                                    <p>Bar</p>
+                                                </div>
+                                                <div class="one-checkbox">
+                                                    <div class="check-style">
+                                                        <input type="checkbox" class="checkbox" name="" id="checkbox-3">
+                                                        <label for="checkbox-3"></label>
+                                                    </div>
+                                                    <p>Restaurant</p>
+                                                </div>
+                                                <div class="one-checkbox">
+                                                    <div class="check-style">
+                                                        <input type="checkbox" class="checkbox" name="" id="checkbox-4">
+                                                        <label for="checkbox-4"></label>
+                                                    </div>
+                                                    <p>Concert Hall</p>
+                                                </div>
+                                                <div class="one-checkbox">
+                                                    <div class="check-style">
+                                                        <input type="checkbox" class="checkbox" name="" id="checkbox-5">
+                                                        <label for="checkbox-5"></label>
+                                                    </div>
+                                                    <p>Event Space</p>
+                                                </div>
+                                                <div class="one-checkbox">
+                                                    <div class="check-style">
+                                                        <input type="checkbox" class="checkbox" name="" id="checkbox-6">
+                                                        <label for="checkbox-6"></label>
+                                                    </div>
+                                                    <p>Outdoor Space</p>
+                                                </div>
+                                                <div class="one-checkbox">
+                                                    <div class="check-style">
+                                                        <input type="checkbox" class="checkbox" name="" id="checkbox-7">
+                                                        <label for="checkbox-7"></label>
+                                                    </div>
+                                                    <p>Theatre</p>
+                                                </div>
+                                                <div class="one-checkbox">
+                                                    <div class="check-style">
+                                                        <input type="checkbox" class="checkbox" name="" id="checkbox-8">
+                                                        <label for="checkbox-8"></label>
+                                                    </div>
+                                                    <p>Private Residence</p>
+                                                </div>
+                                                <div class="one-checkbox">
+                                                    <div class="check-style">
+                                                        <input type="checkbox" class="checkbox" name="" id="checkbox-9">
+                                                        <label for="checkbox-9"></label>
+                                                    </div>
+                                                    <p>Other</p>
+                                                </div>
+                                            </div>
+                                            <div class="input-groupe-1 whithout-label small-textarea max-500 max-100">  
+                                                <textarea></textarea>
+                                                <span class="max-count">100 max</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex-funding-columns">
+                                        <div class="side">
+                                            <h6>Preferred Location</h6>
+                                            <div class="location-wr">
+                                                <div class="mark"></div>
+                                                <input type="text" class="location-inp" placeholder="location">
+                                            </div>
+                                            <div class="flex-input-groupes">
+                                                <div class="input-groupe-1 p-style-10">
+                                                <p class="hours-label">How many days notice do you need to travel?</p>
+                                                </div>
+                                                <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
+                                                    <select>
+                                                        <option>30 days</option>
+                                                        <option>40 days</option>
+                                                    </select>                                                         
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="side">
+                                            <h6>Video Streaming Preference</h6>
+                                            <div class="flex-mac-checkbox on-add-artist-page">
+                                                <p class="quetion-radio-text">Do you give permission to the Venue/Event Organizer to stream your performance? </p>
+                                                <div class="flex-radio">
+                                                    <div class="one-radio">
+                                                        <div class="radio-style">
+                                                            <input type="radio" class="radio-b" id="radio-9" name="group5" value="VR" checked="">
+                                                            <label for="radio-9"></label>
+                                                        </div>
+                                                        <p>Yes</p>
+                                                    </div>
+                                                    <div class="one-radio">
+                                                        <div class="radio-style">
+                                                            <input type="radio" class="radio-b" id="radio-10" name="group5" value="Attend">
+                                                            <label for="radio-10"></label>
+                                                        </div>
+                                                        <p>No</p>
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                            <div class="flex-mac-checkbox on-add-artist-page">
+                                                <p class="quetion-radio-text">Do you give permission to the Venue/Event Organizer to have advertisements over your streaming performance?</p>
+                                                <div class="flex-radio">
+                                                    <div class="one-radio">
+                                                        <div class="radio-style">
+                                                            <input type="radio" class="radio-b" id="radio-11" name="group6" value="VR" checked="">
+                                                            <label for="radio-11"></label>
+                                                        </div>
+                                                        <p>Yes</p>
+                                                    </div>
+                                                    <div class="one-radio">
+                                                        <div class="radio-style">
+                                                            <input type="radio" class="radio-b" id="radio-12" name="group6" value="Attend">
+                                                            <label for="radio-12"></label>
+                                                        </div>
+                                                        <p>No</p>
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                            <div class="flex-mac-checkbox on-add-artist-page">
+                                                <p class="quetion-radio-text">Do you have contracts with any Brands that may conflict with advertisements?</p>
+                                                <div class="flex-radio">
+                                                    <div class="one-radio">
+                                                        <div class="radio-style">
+                                                            <input type="radio" class="radio-b" id="radio-13" name="group7" value="VR" checked="">
+                                                            <label for="radio-13"></label>
+                                                        </div>
+                                                        <p>Yes</p>
+                                                    </div>
+                                                    <div class="one-radio">
+                                                        <div class="radio-style">
+                                                            <input type="radio" class="radio-b" id="radio-14" name="group7" value="Attend">
+                                                            <label for="radio-14"></label>
+                                                        </div>
+                                                        <p>No</p>
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                            <div class="input-groupe-1">
+                                                <input id="if-yes-1" name="" type="text" placeholder="Company name">
+                                                <label for="if-yes-1">If yes, with what companies?</label>
+
+                                            </div>
+                                        </div>
+                                        <div class="side">
+                                            <h6>Other</h6>
+                                            <div class="flex-input-groupes">
+                                                <div class="input-groupe-1 ">
+                                                <p class="hours-label">Minimum Time needed to book before a Concert?</p>
+                                                </div>
+                                                <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
+                                                    <select>
+                                                        <option>30 days</option>
+                                                        <option>40 days</option>
+                                                    </select>                                                         
+                                                </div>
+                                            </div>
+                                            <div class="flex-input-groupes">
+                                                <div class="input-groupe-1">
+                                                <p class="hours-label">How much time is needed to cancel before you charge a cancellation fee?</p>
+                                                </div>
+                                                <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
+                                                    <select>
+                                                        <option>30 days</option>
+                                                        <option>40 days</option>
+                                                    </select>                                                         
+                                                </div>
+                                            </div>
+                                            <div class="flex-input-groupes">
+                                                <div class="input-groupe-1">
+                                                <p class="hours-label">Fee for last minute сancellation</p>
+                                                </div>
+                                                <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
+                                                    <input type="text" class="whithout-padd">                                                      
+                                                </div>
+                                            </div>
+                                            <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">
+                                                <textarea id="inp-create-9"></textarea>
+                                                <label for="inp-create-9" class="head-groupe">Refund Policy</label>
+                                                <span class="max-count">100 max</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                
-                                
-                                <div class="media-flex-sides">
-                                    <div class="left-side">
-                                        <h6 class="head-of-left-side albums-t-s">Videos</h6>
-                                        <div class="gradient-box gradient-3">
-                                            <h6 class="head-of-gradient-box">Add new Video</h6>
-                                            <div class="input-groupe-1">
-                                                <input id="inp-box-4" name="" type="text">
-                                                <label for="inp-box-4">Song Name</label>
-                                            </div>
-                                            <div class="input-groupe-1">
-                                                <input id="inp-box-5" name="" type="text">
-                                                <label for="inp-box-5">Album Name</label>
-                                            </div>
-                                            <div class="input-groupe-1">
-                                                <input id="inp-box-6" name="" type="text">
-                                                <label for="inp-box-6">Link</label>
-                                            </div>
-                                            <div class="butt-wrapp-grad">
-                                                <button class="butt-style-1" type="submit">
-                                                    <span>Add to List</span>
-                                                </button>   
-                                            </div>
-                                            
+                            </div>
+
+                            <div [ngStyle]="{'display': (pages[currentPage]>=pages.riders||showAllPages)?'block':'none'}">
+                                <div class="main-mw">
+                                    <div class="create-event-body">
+                                        <div class="head-ev-body">
+                                            <h2>Riders</h2>
+                                            <p>Please fill in all required fields<br>to proceed to the Next Step</p>
                                         </div>
-                                    </div>
-                                    <div class="right-side albums">
-                                        <div class="head-of-right-side">
-                                            <p class="head-text-r">Videos UPLOADED</p>
-                                            <p class="limit">Limit of 20 Videos</p>
-                                        </div>
-                                        <!--если пустой-->
-                                        <!--
-                                        <div class="empty-info">
-                                            <img src="img/smile.svg" class="img-responsive" alt="">
-                                            <p>No Songs Yet</p>
-                                        </div>
-                                        -->
-                                        <!---->
-                                        <!--если не пустой.-->
-                                            
-                                        <div class="slider-2-albums slider-3-init">
-                                            <div class="one-slide">
-                                                <div class="wrapp-card">
-                                                    <div class="delete-track"></div>
-                                                    <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)">
-                                                        <div class="butt-play-video">
-                                                            <div class="pl"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="descr">
-                                                        <p class="name">Maiden Voyage</p>
-                                                        <p class="date">2015</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="one-slide">
-                                                <div class="wrapp-card">
-                                                    <div class="delete-track"></div>
-                                                    <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)">
-                                                        <div class="butt-play-video">
-                                                            <div class="pl"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="descr playing">
-                                                        <p class="name">Maiden Voyage</p>
-                                                        <p class="date">2015</p>
-                                                     
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="one-slide">
-                                                <div class="wrapp-card">
-                                                    <div class="delete-track"></div>
-                                                    <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)">
-                                                        <div class="butt-play-video">
-                                                            <div class="pl"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="descr">
-                                                        <p class="name">Maiden Voyage</p>
-                                                        <p class="date">2015</p>
-                                                       
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="one-slide">
-                                                <div class="wrapp-card">
-                                                    <div class="delete-track"></div>
-                                                    <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)">
-                                                        <div class="butt-play-video">
-                                                            <div class="pl"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="descr">
-                                                        <p class="name">Maiden Voyage</p>
-                                                        <p class="date">2015</p>
-                                                        
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--/если не пустой.-->
-                                        
                                     </div>
                                 </div>
-                                
-                                 <div class="media-flex-sides">
-                                    <div class="left-side">
-                                        <h6 class="head-of-left-side albums-t-s">Photos</h6>
-                                        <div class="gradient-box gradient-4">
-                                            <h6 class="head-of-gradient-box">Add new photo</h6>
-                                            <div class="photo-wr-1">
-                                                <label class="file_upload">
-                                                    <div class="bg-image"></div>
-                                            
-                                                    <input accept=".jpg, .jpeg, .png" type="file">
-                                                </label>
-                                                <!--появляется этот блок если загружена фотка и в стайл бекграунд имейдж ебануть-->
-                                                <!--<div class="bg-image uploaded"></div>-->
-                                                <!---->
+                                <div class="main-mw-7">
+                                    <div class="riders-flex-wrapp">
+                                        <div class="side">
+                                            <p class="head-side-riders">Stage Rider</p>
+                                            <p class="desc-riders">Type or Upload your requirements for the Stage (Stage, Audio, Video, Lighting)</p>
+                                            <div class="download-upload">
+                                                <!--до загрузки файла-->
+                                                <!--
+                                                <div class="side-dwn">
+                                                    <a class="dd-ff" href="#">
+                                                        <img src="img/download.png" class="img-responsive" alt="">
+                                                    </a>
+                                                    <p class="desc-side-dwn">Press to Downlod Templete</p>
+                                                </div>
+                                                <div class="side-dwn">
+                                                    <div class="photo-wr-1 on-riders">
+                                                        <label class="file_upload">
+                                                            <div class="bg-image"></div>
+
+                                                            <input accept=".jpg, .jpeg, .png" type="file">
+                                                        </label>
+                                                    </div>
+                                                    <p class="desc-side-dwn">Press to Upload filled Templete</p>
+                                                </div>
+                                                -->
+                                                <!--после загрузки файла-->
+                                                <div class="side-dwn">
+                                                    <div class="file-uploaded">
+                                                        <div class="delete-file"></div>    
+                                                    </div>
+                                                    <p class="desc-side-dwn">File uploded</p>
+                                                </div>
+                                                <!--//после загрузки файла-->
+                                                
                                             </div>
-                                            <div class="input-groupe-1 small-textarea whithout-label">
-                                                <textarea id="inp-desc-1"></textarea>
-                                                <label for="inp-desc-1" class="head-groupe">Description</label>
+                                            <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">
+                                                <textarea id="textarea-rider-1"></textarea>
+                                                <label for="textarea-rider-1" class="head-groupe">Description</label>
+                                                <span class="max-count">2000 max</span>
                                             </div>
-                                            
+                                            <div class="flex-mac-checkbox direction-column on-add-artist-page">
+                                                <p class="quetion-radio-text">How flexible are you for your preferences?</p>
+                                                <div class="flex-radio">
+                                                    <div class="one-radio">
+                                                        <div class="radio-style">
+                                                            <input type="radio" class="radio-b" id="radio-555" name="grope-rider-1" checked="">
+                                                            <label for="radio-555"></label>
+                                                        </div>
+                                                        <p>Flexible</p>
+                                                    </div>
+                                                    <div class="one-radio">
+                                                        <div class="radio-style">
+                                                            <input type="radio" class="radio-b" id="radio-556" name="grope-rider-1">
+                                                            <label for="radio-556"></label>
+                                                        </div>
+                                                        <p>Not Flexible</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--походу эта кнопка когдато появлятся должна-->
                                             <div class="butt-wrapp-grad">
                                                 <button class="butt-style-1 thot-butt" type="submit">
-                                                    <span>Add to Photos</span>
+                                                    <span>confirm</span>
                                                 </button>   
                                             </div>
-                                            
+                                            <!--//походу эта кнопка когдато появлятся должна-->
                                         </div>
-                                    </div>
-                                    <div class="right-side albums">
-                                        <div class="head-of-right-side">
-                                            <p class="head-text-r">Photos UPLOADED</p>
-                                            <p class="limit">Limit of 20 Videos</p>
-                                        </div>
-                                        <!--если пустой-->
-                                        <!--
-                                        <div class="empty-info">
-                                            <img src="img/smile.svg" class="img-responsive" alt="">
-                                            <p>No Songs Yet</p>
-                                        </div>
-                                        -->
-                                        <!---->
-                                        <!--если не пустой.-->
-                                        
-                                        <div class="slider-2-albums slider-4-photos slider-4-init">
-                                            <div class="one-slide">
-                                                <div class="wrapp-card">
-                                                    <div class="delete-track"></div>
-                                                    <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)"></div>
-                                                    <div class="descr">
-                                                        <p class="name">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuminim veniam, quis nostrud</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="one-slide">
-                                                <div class="wrapp-card">
-                                                    <div class="delete-track"></div>
-                                                    <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)"></div>
-                                                    <div class="descr">
-                                                        <p class="name">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuminim veniam, quis nostrud </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="one-slide">
-                                                <div class="wrapp-card">
-                                                    <div class="delete-track"></div>
-                                                    <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)"></div>
-                                                    <div class="descr">
-                                                        <p class="name">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuminim veniam, quis nostrud </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                           
-                                        </div>
-                                        
-                                        <!--/если не пустой.-->
-                                        
-                                    </div>
-                                </div>
-                                
-                            </div>
-                            <div class="main-mw">
-                                <div class="create-event-body">
-                                    <div class="head-ev-body">
-                                        <h2>Booking</h2>
-                                        <p>Please fill in all required fields<br>to proceed to the Next Step</p>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                            <div class="main-mw-5 unique-padd-mw">
-                                <div class="flex-funding-columns">
-                                    <div class="side">
-                                        <h6>Performance</h6>
-                                        <div class="flex-input-groupes">
-                                            <div class="input-groupe-1">
-                                                <select id="inp-perf-req-1">
-                                                    <option>1 hr</option>
-                                                    <option>2 hr</option>
-                                                </select>
-                                                <label for="inp-perf-req-1">Min Time</label>
-                                            </div>
-                                            <div class="input-groupe-1">
-                                                <select id="inp-perf-req-2">
-                                                    <option>3 hrs</option>
-                                                    <option>4 hrs</option>
-                                                </select>
-                                                <label for="inp-perf-req-2">Max Time</label>
-                                            </div>
-                                        </div>
-                                        <p class="price-t-t">Price</p>
-                                        <div class="flex-input-groupes">
-                                            <div class="input-groupe-1 from-to-style">
-                                                <span class="f-t">From</span>
-                                                <input type="text">
-                                                <span class="t-f">/hr</span>
-                                            </div>
-                                            <div class="input-groupe-1 from-to-style">
-                                                <span class="f-t">To</span>
-                                                <input type="text">
-                                                <span class="t-f">/hr</span>                           
-                                            </div>
-                                        </div>
-                                        <div class="flex-input-groupes">
-                                            <div class="input-groupe-1 from-to-style">
-                                               <p class="hours-label">Price for additional Hours:</p>
-                                            </div>
-                                            <div class="input-groupe-1 from-to-style hours-label-groupe">
-                                             
-                                                <input type="text">
-                                                <span class="t-f">/hr</span>                           
-                                            </div>
-                                        </div>
-                                        <div class="flex-mac-checkbox">
-                                            <p>Hide Pricing from Profile?</p>
-                                            <div class="yes-no">
-                                                <span>Yes</span>
-                                                <div class="mac-checkbox">
-                                                    <input class="checkbox" checked="" type="checkbox" id="checkbox-set-option-1">
-                                                    <label for="checkbox-set-option-1"></label>
-                                                </div>
-                                                <span>No</span>
-                                            </div>
-                                        </div>
-                                        <div class="flex-mac-checkbox">
-                                            <p>Hide Pricing from Search?</p>
-                                            <div class="yes-no">
-                                                <span>Yes</span>
-                                                <div class="mac-checkbox">
-                                                    <input class="checkbox" checked="" type="checkbox" id="checkbox-set-option-2">
-                                                    <label for="checkbox-set-option-2"></label>
-                                                </div>
-                                                <span>No</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="side">
-                                        <h6>Band</h6>
-                                        <div class="flex-mac-checkbox on-add-artist-page">
-                                            <p class="quetion-radio-text">Do you perform with a Band?</p>
-                                            <div class="flex-radio">
-                                                <div class="one-radio">
-                                                    <div class="radio-style">
-                                                        <input type="radio" class="radio-b" id="radio-1" name="group1" value="VR" checked="">
-                                                        <label for="radio-1"></label>
-                                                    </div>
-                                                    <p>Yes</p>
-                                                </div>
-                                                <div class="one-radio">
-                                                    <div class="radio-style">
-                                                        <input type="radio" class="radio-b" id="radio-2" name="group1" value="Attend">
-                                                        <label for="radio-2"></label>
-                                                    </div>
-                                                    <p>No</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="flex-mac-checkbox on-add-artist-page">
-                                            <p class="quetion-radio-text">Can you perform without a Band?</p>
-                                            <div class="flex-radio">
-                                                <div class="one-radio">
-                                                    <div class="radio-style">
-                                                        <input type="radio" class="radio-b" id="radio-3" name="group2" value="VR" checked="">
-                                                        <label for="radio-3"></label>
-                                                    </div>
-                                                    <p>Yes</p>
-                                                </div>
-                                                <div class="one-radio">
-                                                    <div class="radio-style">
-                                                        <input type="radio" class="radio-b" id="radio-4" name="group2" value="Attend">
-                                                        <label for="radio-4"></label>
-                                                    </div>
-                                                    <p>No</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                         <div class="flex-mac-checkbox on-add-artist-page">
-                                            <p class="quetion-radio-text">Do you perform with Backing Vocals?</p>
-                                            <div class="flex-radio">
-                                                <div class="one-radio">
-                                                    <div class="radio-style">
-                                                        <input type="radio" class="radio-b" id="radio-5" name="group3" value="VR" checked="">
-                                                        <label for="radio-5"></label>
-                                                    </div>
-                                                    <p>Yes</p>
-                                                </div>
-                                                <div class="one-radio">
-                                                    <div class="radio-style">
-                                                        <input type="radio" class="radio-b" id="radio-6" name="group3" value="Attend">
-                                                        <label for="radio-6"></label>
-                                                    </div>
-                                                    <p>No</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                         <div class="flex-mac-checkbox on-add-artist-page">
-                                            <p class="quetion-radio-text">Can you perform without Backing Vocals?</p>
-                                            <div class="flex-radio">
-                                                <div class="one-radio">
-                                                    <div class="radio-style">
-                                                        <input type="radio" class="radio-b" id="radio-7" name="group4" value="VR" checked="">
-                                                        <label for="radio-7"></label>
-                                                    </div>
-                                                    <p>Yes</p>
-                                                </div>
-                                                <div class="one-radio">
-                                                    <div class="radio-style">
-                                                        <input type="radio" class="radio-b" id="radio-8" name="group4" value="Attend">
-                                                        <label for="radio-8"></label>
-                                                    </div>
-                                                    <p>No</p>
-                                                </div>
-                                            </div>
-                                        </div> 
-                                    </div>
-                                    <div class="side">
-                                        <h6>Preferred Venue</h6>
-                                        <div class="flex-genres style-on-add-artist-g">
-                                            <div class="one-checkbox">
-                                                <div class="check-style">
-                                                    <input type="checkbox" class="checkbox" name="" id="checkbox-1">
-                                                    <label for="checkbox-1"></label>
-                                                </div>
-                                                <p>Night Club</p>
-                                            </div>
-                                            <div class="one-checkbox">
-                                                <div class="check-style">
-                                                    <input type="checkbox" class="checkbox" name="" id="checkbox-2">
-                                                    <label for="checkbox-2"></label>
-                                                </div>
-                                                <p>Bar</p>
-                                            </div>
-                                            <div class="one-checkbox">
-                                                <div class="check-style">
-                                                    <input type="checkbox" class="checkbox" name="" id="checkbox-3">
-                                                    <label for="checkbox-3"></label>
-                                                </div>
-                                                <p>Restaurant</p>
-                                            </div>
-                                            <div class="one-checkbox">
-                                                <div class="check-style">
-                                                    <input type="checkbox" class="checkbox" name="" id="checkbox-4">
-                                                    <label for="checkbox-4"></label>
-                                                </div>
-                                                <p>Concert Hall</p>
-                                            </div>
-                                            <div class="one-checkbox">
-                                                <div class="check-style">
-                                                    <input type="checkbox" class="checkbox" name="" id="checkbox-5">
-                                                    <label for="checkbox-5"></label>
-                                                </div>
-                                                <p>Event Space</p>
-                                            </div>
-                                            <div class="one-checkbox">
-                                                <div class="check-style">
-                                                    <input type="checkbox" class="checkbox" name="" id="checkbox-6">
-                                                    <label for="checkbox-6"></label>
-                                                </div>
-                                                <p>Outdoor Space</p>
-                                            </div>
-                                            <div class="one-checkbox">
-                                                <div class="check-style">
-                                                    <input type="checkbox" class="checkbox" name="" id="checkbox-7">
-                                                    <label for="checkbox-7"></label>
-                                                </div>
-                                                <p>Theatre</p>
-                                            </div>
-                                            <div class="one-checkbox">
-                                                <div class="check-style">
-                                                    <input type="checkbox" class="checkbox" name="" id="checkbox-8">
-                                                    <label for="checkbox-8"></label>
-                                                </div>
-                                                <p>Private Residence</p>
-                                            </div>
-                                            <div class="one-checkbox">
-                                                <div class="check-style">
-                                                    <input type="checkbox" class="checkbox" name="" id="checkbox-9">
-                                                    <label for="checkbox-9"></label>
-                                                </div>
-                                                <p>Other</p>
-                                            </div>
-                                        </div>
-                                        <div class="input-groupe-1 whithout-label small-textarea max-500 max-100">  
-                                            <textarea></textarea>
-                                            <span class="max-count">100 max</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                 <div class="flex-funding-columns">
-                                    <div class="side">
-                                        <h6>Preferred Location</h6>
-                                        <div class="location-wr">
-                                            <div class="mark"></div>
-                                            <input type="text" class="location-inp" placeholder="location">
-                                        </div>
-                                        <div class="flex-input-groupes">
-                                            <div class="input-groupe-1 p-style-10">
-                                               <p class="hours-label">How many days notice do you need to travel?</p>
-                                            </div>
-                                            <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
-                                                <select>
-                                                    <option>30 days</option>
-                                                    <option>40 days</option>
-                                                </select>                                                         
-                                            </div>
-                                        </div>
-                                        
-                                    </div>
-                                    <div class="side">
-                                        <h6>Video Streaming Preference</h6>
-                                        <div class="flex-mac-checkbox on-add-artist-page">
-                                            <p class="quetion-radio-text">Do you give permission to the Venue/Event Organizer to stream your performance? </p>
-                                            <div class="flex-radio">
-                                                <div class="one-radio">
-                                                    <div class="radio-style">
-                                                        <input type="radio" class="radio-b" id="radio-9" name="group5" value="VR" checked="">
-                                                        <label for="radio-9"></label>
-                                                    </div>
-                                                    <p>Yes</p>
-                                                </div>
-                                                <div class="one-radio">
-                                                    <div class="radio-style">
-                                                        <input type="radio" class="radio-b" id="radio-10" name="group5" value="Attend">
-                                                        <label for="radio-10"></label>
-                                                    </div>
-                                                    <p>No</p>
-                                                </div>
-                                            </div>
-                                        </div> 
-                                        <div class="flex-mac-checkbox on-add-artist-page">
-                                            <p class="quetion-radio-text">Do you give permission to the Venue/Event Organizer to have advertisements over your streaming performance?</p>
-                                            <div class="flex-radio">
-                                                <div class="one-radio">
-                                                    <div class="radio-style">
-                                                        <input type="radio" class="radio-b" id="radio-11" name="group6" value="VR" checked="">
-                                                        <label for="radio-11"></label>
-                                                    </div>
-                                                    <p>Yes</p>
-                                                </div>
-                                                <div class="one-radio">
-                                                    <div class="radio-style">
-                                                        <input type="radio" class="radio-b" id="radio-12" name="group6" value="Attend">
-                                                        <label for="radio-12"></label>
-                                                    </div>
-                                                    <p>No</p>
-                                                </div>
-                                            </div>
-                                        </div> 
-                                        <div class="flex-mac-checkbox on-add-artist-page">
-                                            <p class="quetion-radio-text">Do you have contracts with any Brands that may conflict with advertisements?</p>
-                                            <div class="flex-radio">
-                                                <div class="one-radio">
-                                                    <div class="radio-style">
-                                                        <input type="radio" class="radio-b" id="radio-13" name="group7" value="VR" checked="">
-                                                        <label for="radio-13"></label>
-                                                    </div>
-                                                    <p>Yes</p>
-                                                </div>
-                                                <div class="one-radio">
-                                                    <div class="radio-style">
-                                                        <input type="radio" class="radio-b" id="radio-14" name="group7" value="Attend">
-                                                        <label for="radio-14"></label>
-                                                    </div>
-                                                    <p>No</p>
-                                                </div>
-                                            </div>
-                                        </div> 
-                                        <div class="input-groupe-1">
-                                            <input id="if-yes-1" name="" type="text" placeholder="Company name">
-                                            <label for="if-yes-1">If yes, with what companies?</label>
+                                        <div class="side">
+                                            <p class="head-side-riders">Backstage Rider</p>
+                                            <p class="desc-riders">Type or Upload your requirements for the Backstage (Dressing Room/Makeup Room/Bathroom)</p>
 
+                                            <div class="download-upload">
+                                                <!--до загрузки файла-->
+                                            
+                                                <div class="side-dwn">
+                                                    <a class="dd-ff" [routerLink]="['/system','artistCreate']">
+                                                        <img src="../../../assets/img/download.png" class="img-responsive" alt="">
+                                                    </a>
+                                                    <p class="desc-side-dwn">Press to Downlod Templete</p>
+                                                </div>
+                                                <div class="side-dwn">
+                                                    <div class="photo-wr-1 on-riders">
+                                                        <label class="file_upload">
+                                                            <div class="bg-image"></div>
+
+                                                            <input accept=".jpg, .jpeg, .png" type="file">
+                                                        </label>
+                                                    </div>
+                                                    <p class="desc-side-dwn">Press to Upload filled Templete</p>
+                                                </div>
+                                            
+                                                <!--после загрузки файла-->
+                                                <!--
+                                                <div class="side-dwn">
+                                                    <div class="file-uploaded">
+                                                        <div class="delete-file"></div>    
+                                                    </div>
+                                                    <p class="desc-side-dwn">File uploded</p>
+                                                </div>
+                                                -->
+                                                <!--//после загрузки файла-->
+                                                
+                                            </div>
+                                            <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">
+                                                <textarea id="textarea-rider-2"></textarea>
+                                                <label for="textarea-rider-2" class="head-groupe">Description</label>
+                                                <span class="max-count">2000 max</span>
+                                            </div>
+                                            <div class="flex-mac-checkbox direction-column on-add-artist-page">
+                                                <p class="quetion-radio-text">How flexible are you for your preferences?</p>
+                                                <div class="flex-radio">
+                                                    <div class="one-radio">
+                                                        <div class="radio-style">
+                                                            <input type="radio" class="radio-b" id="radio-556" name="grope-rider-2" checked="">
+                                                            <label for="radio-556"></label>
+                                                        </div>
+                                                        <p>Flexible</p>
+                                                    </div>
+                                                    <div class="one-radio">
+                                                        <div class="radio-style">
+                                                            <input type="radio" class="radio-b" id="radio-557" name="grope-rider-2">
+                                                            <label for="radio-557"></label>
+                                                        </div>
+                                                        <p>Not Flexible</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--походу эта кнопка когдато появлятся должна-->
+                                            <div class="butt-wrapp-grad">
+                                                <button class="butt-style-1 thot-butt" type="submit">
+                                                    <span>confirm</span>
+                                                </button>   
+                                            </div>
+                                            <!--//походу эта кнопка когдато появлятся должна-->
                                         </div>
-                                    </div>
-                                    <div class="side">
-                                        <h6>Other</h6>
-                                        <div class="flex-input-groupes">
-                                            <div class="input-groupe-1 ">
-                                               <p class="hours-label">Minimum Time needed to book before a Concert?</p>
+                                        <div class="side">
+                                            <p class="head-side-riders">Hospitality Rider</p>
+                                            <p class="desc-riders">Type or Upload your preference for Hospitality (Food and Drinks)</p>
+                                            <div class="download-upload">
+                                                <!--до загрузки файла-->
+                                            
+                                                <div class="side-dwn">
+                                                    <a class="dd-ff" [routerLink]="['/system','artistCreate']">
+                                                        <img src="../../../assets/img/download.png" class="img-responsive" alt="">
+                                                    </a>
+                                                    <p class="desc-side-dwn">Press to Downlod Templete</p>
+                                                </div>
+                                                <div class="side-dwn">
+                                                    <div class="photo-wr-1 on-riders">
+                                                        <label class="file_upload">
+                                                            <div class="bg-image"></div>
+
+                                                            <input accept=".jpg, .jpeg, .png" type="file">
+                                                        </label>
+                                                    </div>
+                                                    <p class="desc-side-dwn">Press to Upload filled Templete</p>
+                                                </div>
+                                            
+                                                <!--после загрузки файла-->
+                                                <!--
+                                                <div class="side-dwn">
+                                                    <div class="file-uploaded">
+                                                        <div class="delete-file"></div>    
+                                                    </div>
+                                                    <p class="desc-side-dwn">File uploded</p>
+                                                </div>
+                                                -->
+                                                <!--//после загрузки файла-->
+                                                
                                             </div>
-                                            <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
-                                                <select>
-                                                    <option>30 days</option>
-                                                    <option>40 days</option>
-                                                </select>                                                         
+                                            <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">
+                                                <textarea id="textarea-rider-3"></textarea>
+                                                <label for="textarea-rider-3" class="head-groupe">Description</label>
+                                                <span class="max-count">2000 max</span>
                                             </div>
+                                            <div class="flex-mac-checkbox direction-column on-add-artist-page">
+                                                <p class="quetion-radio-text">How flexible are you for your preferences?</p>
+                                                <div class="flex-radio">
+                                                    <div class="one-radio">
+                                                        <div class="radio-style">
+                                                            <input type="radio" class="radio-b" id="radio-557" name="grope-rider-3" checked="">
+                                                            <label for="radio-557"></label>
+                                                        </div>
+                                                        <p>Flexible</p>
+                                                    </div>
+                                                    <div class="one-radio">
+                                                        <div class="radio-style">
+                                                            <input type="radio" class="radio-b" id="radio-558" name="grope-rider-3">
+                                                            <label for="radio-558"></label>
+                                                        </div>
+                                                        <p>Not Flexible</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--походу эта кнопка когдато появлятся должна-->
+                                            <div class="butt-wrapp-grad">
+                                                <button class="butt-style-1 thot-butt" type="submit">
+                                                    <span>confirm</span>
+                                                </button>   
+                                            </div>
+                                            <!--//походу эта кнопка когдато появлятся должна-->
                                         </div>
-                                        <div class="flex-input-groupes">
-                                            <div class="input-groupe-1">
-                                               <p class="hours-label">How much time is needed to cancel before you charge a cancellation fee?</p>
+                                        <div class="side">
+                                            <p class="head-side-riders">Technical Rider</p>
+                                            <p class="desc-riders">Type or Upload your requirements for Musical Instruments and Equipment</p>
+                                            <div class="download-upload">
+                                                <!--до загрузки файла-->
+                                            
+                                                <div class="side-dwn">
+                                                    <a class="dd-ff" [routerLink]="['/system','artistCreate']">
+                                                        <img src="../../../assets/img/download.png" class="img-responsive" alt="">
+                                                    </a>
+                                                    <p class="desc-side-dwn">Press to Downlod Templete</p>
+                                                </div>
+                                                <div class="side-dwn">
+                                                    <div class="photo-wr-1 on-riders">
+                                                        <label class="file_upload">
+                                                            <div class="bg-image"></div>
+
+                                                            <input accept=".jpg, .jpeg, .png" type="file">
+                                                        </label>
+                                                    </div>
+                                                    <p class="desc-side-dwn">Press to Upload filled Templete</p>
+                                                </div>
+                                            
+                                                <!--после загрузки файла-->
+                                                <!--
+                                                <div class="side-dwn">
+                                                    <div class="file-uploaded">
+                                                        <div class="delete-file"></div>    
+                                                    </div>
+                                                    <p class="desc-side-dwn">File uploded</p>
+                                                </div>
+                                                -->
+                                                <!--//после загрузки файла-->
+                                                
                                             </div>
-                                            <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
-                                                <select>
-                                                    <option>30 days</option>
-                                                    <option>40 days</option>
-                                                </select>                                                         
+                                            <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">
+                                                <textarea id="textarea-rider-4"></textarea>
+                                                <label for="textarea-rider-4" class="head-groupe">Description</label>
+                                                <span class="max-count">2000 max</span>
                                             </div>
+                                            <div class="flex-mac-checkbox direction-column on-add-artist-page">
+                                                <p class="quetion-radio-text">How flexible are you for your preferences?</p>
+                                                <div class="flex-radio">
+                                                    <div class="one-radio">
+                                                        <div class="radio-style">
+                                                            <input type="radio" class="radio-b" id="radio-559" name="grope-rider-4" checked="">
+                                                            <label for="radio-559"></label>
+                                                        </div>
+                                                        <p>Flexible</p>
+                                                    </div>
+                                                    <div class="one-radio">
+                                                        <div class="radio-style">
+                                                            <input type="radio" class="radio-b" id="radio-560" name="grope-rider-4">
+                                                            <label for="radio-560"></label>
+                                                        </div>
+                                                        <p>Not Flexible</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--походу эта кнопка когдато появлятся должна-->
+                                            <div class="butt-wrapp-grad">
+                                                <button class="butt-style-1 thot-butt" type="submit">
+                                                    <span>confirm</span>
+                                                </button>   
+                                            </div>
+                                            <!--//походу эта кнопка когдато появлятся должна-->
                                         </div>
-                                        <div class="flex-input-groupes">
-                                            <div class="input-groupe-1">
-                                               <p class="hours-label">Fee for last minute сancellation</p>
-                                            </div>
-                                            <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
-                                                <input type="text" class="whithout-padd">                                                      
-                                            </div>
-                                        </div>
-                                        <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">
-                                            <textarea id="inp-create-9"></textarea>
-                                            <label for="inp-create-9" class="head-groupe">Refund Policy</label>
-                                            <span class="max-count">100 max</span>
-                                        </div>
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
                                     </div>
                                 </div>
                             </div>
-                            <div class="main-mw">
-                                <div class="create-event-body">
-                                    <div class="head-ev-body">
-                                        <h2>Riders</h2>
-                                        <p>Please fill in all required fields<br>to proceed to the Next Step</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="main-mw-7">
-                                <div class="riders-flex-wrapp">
-                                    <div class="side">
-                                        <p class="head-side-riders">Stage Rider</p>
-                                        <p class="desc-riders">Type or Upload your requirements for the Stage (Stage, Audio, Video, Lighting)</p>
-                                        <div class="download-upload">
-                                            <!--до загрузки файла-->
-                                            <!--
-                                            <div class="side-dwn">
-                                                <a class="dd-ff" href="#">
-                                                    <img src="img/download.png" class="img-responsive" alt="">
-                                                </a>
-                                                <p class="desc-side-dwn">Press to Downlod Templete</p>
-                                            </div>
-                                            <div class="side-dwn">
-                                                <div class="photo-wr-1 on-riders">
-                                                    <label class="file_upload">
-                                                        <div class="bg-image"></div>
-
-                                                        <input accept=".jpg, .jpeg, .png" type="file">
-                                                    </label>
-                                                </div>
-                                                <p class="desc-side-dwn">Press to Upload filled Templete</p>
-                                            </div>
-                                            -->
-                                            <!--после загрузки файла-->
-                                            <div class="side-dwn">
-                                                <div class="file-uploaded">
-                                                    <div class="delete-file"></div>    
-                                                </div>
-                                                <p class="desc-side-dwn">File uploded</p>
-                                            </div>
-                                            <!--//после загрузки файла-->
-                                            
-                                        </div>
-                                        <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">
-                                            <textarea id="textarea-rider-1"></textarea>
-                                            <label for="textarea-rider-1" class="head-groupe">Description</label>
-                                            <span class="max-count">2000 max</span>
-                                        </div>
-                                        <div class="flex-mac-checkbox direction-column on-add-artist-page">
-                                            <p class="quetion-radio-text">How flexible are you for your preferences?</p>
-                                            <div class="flex-radio">
-                                                <div class="one-radio">
-                                                    <div class="radio-style">
-                                                        <input type="radio" class="radio-b" id="radio-555" name="grope-rider-1" checked="">
-                                                        <label for="radio-555"></label>
-                                                    </div>
-                                                    <p>Flexible</p>
-                                                </div>
-                                                <div class="one-radio">
-                                                    <div class="radio-style">
-                                                        <input type="radio" class="radio-b" id="radio-556" name="grope-rider-1">
-                                                        <label for="radio-556"></label>
-                                                    </div>
-                                                    <p>Not Flexible</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--походу эта кнопка когдато появлятся должна-->
-                                        <div class="butt-wrapp-grad">
-                                            <button class="butt-style-1 thot-butt" type="submit">
-                                                <span>confirm</span>
-                                            </button>   
-                                        </div>
-                                        <!--//походу эта кнопка когдато появлятся должна-->
-                                    </div>
-                                    <div class="side">
-                                        <p class="head-side-riders">Backstage Rider</p>
-                                        <p class="desc-riders">Type or Upload your requirements for the Backstage (Dressing Room/Makeup Room/Bathroom)</p>
-
-                                        <div class="download-upload">
-                                            <!--до загрузки файла-->
-                                           
-                                            <div class="side-dwn">
-                                                <a class="dd-ff" [routerLink]="['/system','artistCreate']">
-                                                    <img src="../../../assets/img/download.png" class="img-responsive" alt="">
-                                                </a>
-                                                <p class="desc-side-dwn">Press to Downlod Templete</p>
-                                            </div>
-                                            <div class="side-dwn">
-                                                <div class="photo-wr-1 on-riders">
-                                                    <label class="file_upload">
-                                                        <div class="bg-image"></div>
-
-                                                        <input accept=".jpg, .jpeg, .png" type="file">
-                                                    </label>
-                                                </div>
-                                                <p class="desc-side-dwn">Press to Upload filled Templete</p>
-                                            </div>
-                                          
-                                            <!--после загрузки файла-->
-                                            <!--
-                                            <div class="side-dwn">
-                                                <div class="file-uploaded">
-                                                    <div class="delete-file"></div>    
-                                                </div>
-                                                <p class="desc-side-dwn">File uploded</p>
-                                            </div>
-                                            -->
-                                            <!--//после загрузки файла-->
-                                            
-                                        </div>
-                                        <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">
-                                            <textarea id="textarea-rider-2"></textarea>
-                                            <label for="textarea-rider-2" class="head-groupe">Description</label>
-                                            <span class="max-count">2000 max</span>
-                                        </div>
-                                        <div class="flex-mac-checkbox direction-column on-add-artist-page">
-                                            <p class="quetion-radio-text">How flexible are you for your preferences?</p>
-                                            <div class="flex-radio">
-                                                <div class="one-radio">
-                                                    <div class="radio-style">
-                                                        <input type="radio" class="radio-b" id="radio-556" name="grope-rider-2" checked="">
-                                                        <label for="radio-556"></label>
-                                                    </div>
-                                                    <p>Flexible</p>
-                                                </div>
-                                                <div class="one-radio">
-                                                    <div class="radio-style">
-                                                        <input type="radio" class="radio-b" id="radio-557" name="grope-rider-2">
-                                                        <label for="radio-557"></label>
-                                                    </div>
-                                                    <p>Not Flexible</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--походу эта кнопка когдато появлятся должна-->
-                                        <div class="butt-wrapp-grad">
-                                            <button class="butt-style-1 thot-butt" type="submit">
-                                                <span>confirm</span>
-                                            </button>   
-                                        </div>
-                                        <!--//походу эта кнопка когдато появлятся должна-->
-                                    </div>
-                                    <div class="side">
-                                        <p class="head-side-riders">Hospitality Rider</p>
-                                        <p class="desc-riders">Type or Upload your preference for Hospitality (Food and Drinks)</p>
-                                        <div class="download-upload">
-                                            <!--до загрузки файла-->
-                                           
-                                            <div class="side-dwn">
-                                                <a class="dd-ff" [routerLink]="['/system','artistCreate']">
-                                                    <img src="../../../assets/img/download.png" class="img-responsive" alt="">
-                                                </a>
-                                                <p class="desc-side-dwn">Press to Downlod Templete</p>
-                                            </div>
-                                            <div class="side-dwn">
-                                                <div class="photo-wr-1 on-riders">
-                                                    <label class="file_upload">
-                                                        <div class="bg-image"></div>
-
-                                                        <input accept=".jpg, .jpeg, .png" type="file">
-                                                    </label>
-                                                </div>
-                                                <p class="desc-side-dwn">Press to Upload filled Templete</p>
-                                            </div>
-                                          
-                                            <!--после загрузки файла-->
-                                            <!--
-                                            <div class="side-dwn">
-                                                <div class="file-uploaded">
-                                                    <div class="delete-file"></div>    
-                                                </div>
-                                                <p class="desc-side-dwn">File uploded</p>
-                                            </div>
-                                            -->
-                                            <!--//после загрузки файла-->
-                                            
-                                        </div>
-                                        <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">
-                                            <textarea id="textarea-rider-3"></textarea>
-                                            <label for="textarea-rider-3" class="head-groupe">Description</label>
-                                            <span class="max-count">2000 max</span>
-                                        </div>
-                                        <div class="flex-mac-checkbox direction-column on-add-artist-page">
-                                            <p class="quetion-radio-text">How flexible are you for your preferences?</p>
-                                            <div class="flex-radio">
-                                                <div class="one-radio">
-                                                    <div class="radio-style">
-                                                        <input type="radio" class="radio-b" id="radio-557" name="grope-rider-3" checked="">
-                                                        <label for="radio-557"></label>
-                                                    </div>
-                                                    <p>Flexible</p>
-                                                </div>
-                                                <div class="one-radio">
-                                                    <div class="radio-style">
-                                                        <input type="radio" class="radio-b" id="radio-558" name="grope-rider-3">
-                                                        <label for="radio-558"></label>
-                                                    </div>
-                                                    <p>Not Flexible</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--походу эта кнопка когдато появлятся должна-->
-                                        <div class="butt-wrapp-grad">
-                                            <button class="butt-style-1 thot-butt" type="submit">
-                                                <span>confirm</span>
-                                            </button>   
-                                        </div>
-                                        <!--//походу эта кнопка когдато появлятся должна-->
-                                    </div>
-                                    <div class="side">
-                                        <p class="head-side-riders">Technical Rider</p>
-                                        <p class="desc-riders">Type or Upload your requirements for Musical Instruments and Equipment</p>
-                                        <div class="download-upload">
-                                            <!--до загрузки файла-->
-                                           
-                                            <div class="side-dwn">
-                                                <a class="dd-ff" [routerLink]="['/system','artistCreate']">
-                                                    <img src="../../../assets/img/download.png" class="img-responsive" alt="">
-                                                </a>
-                                                <p class="desc-side-dwn">Press to Downlod Templete</p>
-                                            </div>
-                                            <div class="side-dwn">
-                                                <div class="photo-wr-1 on-riders">
-                                                    <label class="file_upload">
-                                                        <div class="bg-image"></div>
-
-                                                        <input accept=".jpg, .jpeg, .png" type="file">
-                                                    </label>
-                                                </div>
-                                                <p class="desc-side-dwn">Press to Upload filled Templete</p>
-                                            </div>
-                                          
-                                            <!--после загрузки файла-->
-                                            <!--
-                                            <div class="side-dwn">
-                                                <div class="file-uploaded">
-                                                    <div class="delete-file"></div>    
-                                                </div>
-                                                <p class="desc-side-dwn">File uploded</p>
-                                            </div>
-                                            -->
-                                            <!--//после загрузки файла-->
-                                            
-                                        </div>
-                                        <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">
-                                            <textarea id="textarea-rider-4"></textarea>
-                                            <label for="textarea-rider-4" class="head-groupe">Description</label>
-                                            <span class="max-count">2000 max</span>
-                                        </div>
-                                        <div class="flex-mac-checkbox direction-column on-add-artist-page">
-                                            <p class="quetion-radio-text">How flexible are you for your preferences?</p>
-                                            <div class="flex-radio">
-                                                <div class="one-radio">
-                                                    <div class="radio-style">
-                                                        <input type="radio" class="radio-b" id="radio-559" name="grope-rider-4" checked="">
-                                                        <label for="radio-559"></label>
-                                                    </div>
-                                                    <p>Flexible</p>
-                                                </div>
-                                                <div class="one-radio">
-                                                    <div class="radio-style">
-                                                        <input type="radio" class="radio-b" id="radio-560" name="grope-rider-4">
-                                                        <label for="radio-560"></label>
-                                                    </div>
-                                                    <p>Not Flexible</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--походу эта кнопка когдато появлятся должна-->
-                                        <div class="butt-wrapp-grad">
-                                            <button class="butt-style-1 thot-butt" type="submit">
-                                                <span>confirm</span>
-                                            </button>   
-                                        </div>
-                                        <!--//походу эта кнопка когдато появлятся должна-->
-                                    </div>
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                </div>
-                            </div> 
                         </div>
                     </div>
                     <!--иодалка для открытия видосов-->
