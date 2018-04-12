@@ -70,12 +70,12 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
     pages = Pages;
     currentPage:string = 'about';
-    showAllPages:boolean = true;
+    showAllPages:boolean = false;
 
     mapCoords = {
-        'about': {lat:0, lng:0},
-        'artist': {lat:0, lng:0},
-        'venue': {lat:0, lng:0}
+        'about': {lat:55.755826, lng:37.6172999},
+        'artist': {lat:55.755826, lng:37.6172999},
+        'venue': {lat:55.755826, lng:37.6172999}
     }
 
     genres:GenreModel[] = [];
@@ -229,6 +229,15 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         this.getAllSpaceTypes();
         this.artistSearch();
         this.venueSearch();
+    }
+
+    navigateTo(path:string){
+      
+    $('body, html').animate({
+        scrollTop: $('#'+path).offset().top
+    }, 800);
+             
+       
     }
     
 
@@ -580,7 +589,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                 for(let v of res) if(v.id == id){
                         this.isNewEvent = false;
                         this.Event = v;
-                        this.updateEvent();                     
+                        this.updateEvent();  
+                        this.showAllPages = true;                   
                 }
                 if(this.isNewEvent)this.router.navigate(['/system/eventCreate']);
             })
