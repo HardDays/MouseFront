@@ -69,30 +69,21 @@
                                             <div class="input-groupe-1 whithout-label">
                                                 <span class="head-groupe">Genre</span>
                                                 <div class="flex-genres">
-                                                    <span class="one-genre">HIP HOP</span>
-                                                    <span class="one-genre">HIP HOP</span>
-                                                    <span class="one-genre">HIP HOP</span>
-                                                    <span class="one-genre">HIP HOP</span>
-                                                    <span class="one-genre">HIP HOP</span>
-                                                    <span class="one-genre">HIP HOP</span>
-                                                    <span class="one-genre">HIP HOP</span>
+                                                    <ng-container *ngFor="let item of genres; let i = index">
+                                                        <span *ngIf="item.checked"  class="one-genre">{{item.genre_show}}</span>
+                                                    </ng-container>
                                                     <div class="add-to-genres">
                                                         
-                                                        <span class="plus"></span>
+                                                        <span class="plus" (click)="showMoreGenres = !showMoreGenres"></span>
                                                         <!--клик на плюсик добавляем absgenres-pick-wr класс showed-->
-                                                        <div class="absgenres-pick-wr ">
-                                                            <input class="search" type="text" placeholder="Search">
+                                                        <div class="absgenres-pick-wr" [ngClass]="{showed:showMoreGenres}">
+                                                            <input class="search" (input)="GengeSearch($event.target.value)" type="text" placeholder="Search">
                                                             <div class="flex-genres for-pick">
                                                                 <!--Добавляем класс picked-->
-                                                                <span class="one-genre picked">HIP HOP</span>
-                                                                <span class="one-genre picked">HIP HOP</span>
-                                                                <span class="one-genre">HIP HOP</span>
-                                                                <span class="one-genre">HIP HOP</span>
-                                                                <span class="one-genre">HIP HOP</span>
-                                                                <span class="one-genre">HIP HOP</span>
-                                                                <span class="one-genre">HIP HOP</span>
-                                                                <span class="one-genre">HIP HOP</span>
-                                                                <span class="one-genre">HIP HOP</span>
+                                                                <ng-container *ngFor="let item of genres; let i = index">
+                                                                    <span *ngIf="item.show" (click)="item.checked = !item.checked" class="one-genre" [ngClass]="{picked:item.checked}">{{item.genre_show}}</span>
+                                                                </ng-container>
+                                
                                                             </div>
                                                         </div>
                                                     </div>
@@ -200,20 +191,20 @@
                                                 <div class="one-audio">
                                                     <div class="delete-track"></div>
                                                     <span class="name-track">Soulcall</span>
-                                                    <!-- <audio src="../../../assets/mp3/lalala.mp3" preload="auto" /> -->
+                                                    <audio src="../../../assets/mp3/lalala.mp3" preload="auto" ></audio>
                                                     
                                                 </div>
                                                 <div class="one-audio">
                                                     <div class="delete-track"></div>
                                                     <span class="name-track">Soulcallqweqwe qwe qwe qwe qwe qwe qwe qwe qwe qwe qwe qwe </span>
                                                     
-                                                    <!-- <audio src="../../../assets/mp3/lalala.mp3" preload="auto" /> -->
+                                                    <audio src="../../../assets/mp3/lalala.mp3" preload="auto" ></audio>
                                                     
                                                 </div>
                                                 <div class="one-audio">
                                                     <div class="delete-track"></div>
                                                     <span class="name-track">Soulcall</span>
-                                                    <!-- <audio src="../../../assets/mp3/lalala.mp3" preload="auto" /> -->
+                                                    <audio src="../../../assets/mp3/lalala.mp3" preload="auto" ></audio>
                                                     
                                                 </div>
                                             </div>

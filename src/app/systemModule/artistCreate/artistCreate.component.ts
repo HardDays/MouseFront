@@ -55,15 +55,35 @@ declare var ionRangeSlider:any;
 
 
 export class ArtistCreateComponent extends BaseComponent implements OnInit {
-    
-    
-    ngOnInit(){
-        this.initJS();
-    }
+  
+  // general
+  accountId:number;
+  Artist:AccountGetModel = new AccountGetModel();
+
+  pages = Pages;
+  currentPage:string = 'about';
+  
+  genres:GenreModel[] = [];
+
+  // about
+  createArtist:AccountCreateModel = new AccountCreateModel();
+  aboutForm : FormGroup = new FormGroup({        
+    "user_name": new FormControl("", [Validators.required]),
+    "display_name": new FormControl("", [Validators.required])
+  });
+  showMoreGenres:boolean = false;
 
 
-    initJS(){
-        
+
+  ngOnInit(){
+    this.initJS();
+    this.initUser();
+    this.getGenres();
+  }
+
+
+  initJS(){
+  
     var as = audiojs.createAll();
    
     //слайдер аудио, в слайде 12 песен
@@ -131,15 +151,48 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
          ]
 
     });
-    }
-    
+  }
+  
+  getGenres(){
+    this.genreService.GetAllGenres()
+    .subscribe((res:string[])=>{
+      this.genres = this.genreService.StringArrayToGanreModelArray(res);
+      for(let i of this.genres) i.show = true;
+      // this.genresSearchArtist = this.genreService.StringArrayToGanreModelArray(res);
+      // for(let i of this.genresSearchArtist) i.show = true;
+    });
+   
+}
+GengeSearch($event:string){
+  var search = $event;
+   if(search.length>0) {
+     for(let g of this.genres)
+        if(g.genre_show.indexOf(search.toUpperCase())>=0)
+         g.show = true;
+        else
+         g.show = false;
+   }
+   else {
+      for(let i of this.genres) i.show = true;
+   }
+}
+
+  initUser(){
+    this.accService.GetMyAccount({extended:true})
+    .subscribe((users:any[])=>{
+        for(let u of users)
+        if(u.id==+localStorage.getItem('activeUserId')){
+          this.accountId = u.id;
+        }
+    });
+  }
 
 }
 
 export enum Pages {
     about = 0,
-    artist = 1,
-    venue = 2,
-    funding = 3,
-    tickets = 4
+    calendar = 1,
+    media = 2,
+    booking = 3,
+    riders = 4
 }
