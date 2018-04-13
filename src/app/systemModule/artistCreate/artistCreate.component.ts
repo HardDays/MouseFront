@@ -8,10 +8,10 @@ import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { SelectModel } from '../../core/models/select.model';
 import { FrontWorkingTimeModel } from '../../core/models/frontWorkingTime.model';
 import { WorkingTimeModel } from '../../core/models/workingTime.model';
-import { AccountCreateModel } from '../../core/models/accountCreate.model';
+import { AccountCreateModel, Album, Video } from '../../core/models/accountCreate.model';
 import { EventDateModel } from '../../core/models/eventDate.model';
 import { ContactModel } from '../../core/models/contact.model';
-import { AccountGetModel } from '../../core/models/accountGet.model';
+import { AccountGetModel, Audio } from '../../core/models/accountGet.model';
 import { Base64ImageModel } from '../../core/models/base64image.model';
 import { AccountType } from '../../core/base/base.enum';
 import { GenreModel } from '../../core/models/genres.model';
@@ -84,10 +84,24 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
   genres:GenreModel[] = [];
   showMoreGenres:boolean = false;
 
-  songName:string ='';
-  songAlbum:string ='';
-  songLink:string ='';
-  showSongs:boolean[] = [];
+  addSongForm: FormGroup = new FormGroup({        
+    "song_name": new FormControl("", [Validators.required]),
+    "album_name": new FormControl("", [Validators.required]),
+    "audio_link": new FormControl("", [Validators.required])
+  });
+  updateAudio:boolean = false;
+  addAlbumForm: FormGroup = new FormGroup({        
+    "album_artwork": new FormControl("", [Validators.required]),
+    "album_name": new FormControl("", [Validators.required]),
+    "album_link": new FormControl("", [Validators.required])
+  });
+  addVideoForm: FormGroup = new FormGroup({        
+    "album_name": new FormControl("", [Validators.required]),
+    "name": new FormControl("", [Validators.required]),
+    "link": new FormControl("", [Validators.required])
+  });
+  
+
 
 
   constructor(protected authService: AuthMainService,
@@ -106,7 +120,10 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
 
 
   ngOnInit(){
-    this.Artist.audio_links = [];
+    this.createArtist.audio_links = [];
+    this.createArtist.artist_videos = [];
+    this.createArtist.artist_albums = [];
+    // this.Artist.im
     this.initJS();
     this.initUser();
     this.Init()
@@ -220,7 +237,10 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
         .subscribe((res)=>{
                 this.Artist = res;
                 // var as = audiojs.createAll();
-                 this.getAudio();
+                // if(this.updateAudio){
+                this.getAudio();
+                  // this.updateAudio=false;
+                // }
                 this.currentPage = 'calendar';
                 console.log(`updated artist `,this.Artist);
             },
@@ -314,19 +334,27 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
 
   
   addAudio(){
-    // this.createArtist.audio_links = [];
-    this.createArtist.audio_links.push({
-      song_name:this.songName,album_name:this.songAlbum,
-      audio_link:this.songLink
+    if(!this.addSongForm.invalid){
+      let params:Audio = new Audio();
+      for (let key in this.addSongForm.value) {
+        if (this.addSongForm.value.hasOwnProperty(key)) {
+            params[key] = this.addSongForm.value[key];
+        }
+      }
+      this.createArtist.audio_links.push(params);
       // 'http://d.zaix.ru/6yut.mp3'
-    });
-    this.updateArtist();
+      this.updateAudio = true;
+      this.updateArtist();
+    }
+    else {
+      console.log(`Invalid Audio Form!`, this.aboutForm);
+    }
     
   }
-
   getAudio(){
     setTimeout(() => {
       var as2 = audiojs.createAll();
+      if(this.Artist.audio_links.length>12)
        $('.slider-audio-wrapp').slick({
         dots: false,
         arrows: true,
@@ -338,6 +366,46 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
   }
 
 
+
+  addAlbum(){
+    if(!this.addAlbumForm.invalid){
+      let params:Album = new Album();
+      for (let key in this.addAlbumForm.value) {
+        if (this.addAlbumForm.value.hasOwnProperty(key)) {
+            params[key] = this.addAlbumForm.value[key];
+        }
+      }
+      this.createArtist.artist_albums.push(params);
+      // 'http://d.zaix.ru/6yut.mp3'
+      this.updateArtist();
+    }
+    else {
+      console.log(`Invalid Audio Form!`, this.aboutForm);
+    }
+    
+  }
+  addVideo(){
+    if(!this.addVideoForm.invalid){
+      let params:Video = new Video();
+      for (let key in this.addVideoForm.value) {
+        if (this.addVideoForm.value.hasOwnProperty(key)) {
+            params[key] = this.addVideoForm.value[key];
+        }
+      }
+      console.log(`!`,params,this.createArtist.artist_videos);
+      this.createArtist.artist_videos.push(params);
+      // 'http://d.zaix.ru/6yut.mp3'
+       this.updateArtist();
+    }
+    else {
+      console.log(`Invalid Video Form!`, this.aboutForm);
+    }
+  }
+  addPhoto(){
+
+  }
+
+  
 
 
 

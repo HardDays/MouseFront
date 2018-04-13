@@ -38,8 +38,10 @@ export class AccountCreateModel{
             public emails?: ContactModel[],
             public office_hours?: WorkingTimeModel[],
             public operating_hours?: WorkingTimeModel[],
-        public about?: string, //artist
+            public about?: string, //artist
             public video_links?: string[],
+            public artist_albums?: Album[],
+            public artist_videos?: Video[],
             public venue_video_links?: string[],
             public image_base64?:string
 
@@ -51,5 +53,21 @@ export class Audio{
     public song_name?:string,
     public album_name?:string,
     public audio_link?:string,
+){}
+}
+
+export class Album{
+    constructor(
+    public album_artwork?:string,
+    public album_name?:string,
+    public album_link?:string,
+){}
+}
+
+export class Video{
+    constructor(
+    public album_name?:string,
+    public name?:string,
+    public link?:string,
 ){}
 }

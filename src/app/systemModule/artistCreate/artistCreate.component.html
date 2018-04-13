@@ -157,24 +157,25 @@
                                             <h6 class="head-of-left-side">Songs</h6>
                                             <div class="gradient-box gradient-1">
                                                 <h6 class="head-of-gradient-box">Add new Song</h6>
-                                                <div class="input-groupe-1">
-                                                    <input id="inp-box-1" [(ngModel)]="songName" name="" type="text">
-                                                    <label for="inp-box-1">Song Name</label>
-                                                </div>
-                                                <div class="input-groupe-1">
-                                                    <input id="inp-box-2" [(ngModel)]="songAlbum" name="" type="text">
-                                                    <label for="inp-box-2">Album Name</label>
-                                                </div>
-                                                <div class="input-groupe-1">
-                                                    <input id="inp-box-3" [(ngModel)]="songLink" name="" type="text">
-                                                    <label for="inp-box-3">Link</label>
-                                                </div>
-                                                <div class="butt-wrapp-grad">
-                                                    <button (click)="addAudio()" class="butt-style-1" type="submit">
-                                                        <span>Add to List</span>
-                                                    </button>   
-                                                </div>
-                                                
+                                                <form [formGroup]="addSongForm">
+                                                    <div class="input-groupe-1">
+                                                        <input id="inp-box-1" formControlName="song_name" name="" type="text">
+                                                        <label for="inp-box-1">Song Name</label>
+                                                    </div>
+                                                    <div class="input-groupe-1">
+                                                        <input id="inp-box-2" formControlName="album_name" name="" type="text">
+                                                        <label for="inp-box-2">Album Name</label>
+                                                    </div>
+                                                    <div class="input-groupe-1">
+                                                        <input id="inp-box-3" formControlName="audio_link" name="" type="text">
+                                                        <label for="inp-box-3">Link</label>
+                                                    </div>
+                                                    <div class="butt-wrapp-grad">
+                                                        <button (click)="addAudio()" class="butt-style-1" type="submit">
+                                                            <span>Add to List</span>
+                                                        </button>   
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                         <div class="right-side">
@@ -238,24 +239,25 @@
                                             <h6 class="head-of-left-side albums-t-s">Albums</h6>
                                             <div class="gradient-box gradient-2">
                                                 <h6 class="head-of-gradient-box">Add new album</h6>
-                                                <div class="input-groupe-1">
-                                                    <input id="inp-box-4" name="" type="text">
-                                                    <label for="inp-box-4">Album Name</label>
-                                                </div>
-                                                <div class="input-groupe-1">
-                                                    <input id="inp-box-5" name="" type="text">
-                                                    <label for="inp-box-5">Album Artwork</label>
-                                                </div>
-                                                <div class="input-groupe-1">
-                                                    <input id="inp-box-6" name="" type="text">
-                                                    <label for="inp-box-6">Link</label>
-                                                </div>
-                                                <div class="butt-wrapp-grad">
-                                                    <button class="butt-style-1" type="submit">
-                                                        <span>Add to List</span>
-                                                    </button>   
-                                                </div>
-                                                
+                                                <form [formGroup]="addAlbumForm">
+                                                    <div class="input-groupe-1">
+                                                        <input formControlName="album_name" id="inp-box-4" name="" type="text">
+                                                        <label for="inp-box-4">Album Name</label>
+                                                    </div>
+                                                    <div class="input-groupe-1">
+                                                        <input formControlName="album_artwork" id="inp-box-5" name="" type="text">
+                                                        <label for="inp-box-5">Album Artwork</label>
+                                                    </div>
+                                                    <div class="input-groupe-1">
+                                                        <input formControlName="album_link" id="inp-box-6" name="" type="text">
+                                                        <label for="inp-box-6">Link</label>
+                                                    </div>
+                                                    <div class="butt-wrapp-grad">
+                                                        <button class="butt-style-1" type="submit">
+                                                            <span (click)="addAlbum()">Add to List</span>
+                                                        </button>   
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                         <div class="right-side albums">
@@ -351,24 +353,25 @@
                                             <h6 class="head-of-left-side albums-t-s">Videos</h6>
                                             <div class="gradient-box gradient-3">
                                                 <h6 class="head-of-gradient-box">Add new Video</h6>
-                                                <div class="input-groupe-1">
-                                                    <input id="inp-box-4" name="" type="text">
-                                                    <label for="inp-box-4">Song Name</label>
-                                                </div>
-                                                <div class="input-groupe-1">
-                                                    <input id="inp-box-5" name="" type="text">
-                                                    <label for="inp-box-5">Album Name</label>
-                                                </div>
-                                                <div class="input-groupe-1">
-                                                    <input id="inp-box-6" name="" type="text">
-                                                    <label for="inp-box-6">Link</label>
-                                                </div>
-                                                <div class="butt-wrapp-grad">
-                                                    <button class="butt-style-1" type="submit">
-                                                        <span>Add to List</span>
-                                                    </button>   
-                                                </div>
-                                                
+                                                <form [formGroup]="addVideoForm">
+                                                    <div class="input-groupe-1">
+                                                        <input formControlName="name" id="inp-box-4" name="" type="text">
+                                                        <label for="inp-box-4">Song Name</label>
+                                                    </div>
+                                                    <div class="input-groupe-1">
+                                                        <input formControlName="album_name" id="inp-box-5" name="" type="text">
+                                                        <label for="inp-box-5">Album Name</label>
+                                                    </div>
+                                                    <div class="input-groupe-1">
+                                                        <input formControlName="link" id="inp-box-6" name="" type="text">
+                                                        <label for="inp-box-6">Link</label>
+                                                    </div>
+                                                    <div class="butt-wrapp-grad">
+                                                        <button class="butt-style-1" type="submit">
+                                                            <span (click)="addVideo()">Add to List</span>
+                                                        </button>   
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                         <div class="right-side albums">
