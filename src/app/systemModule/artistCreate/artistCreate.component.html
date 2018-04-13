@@ -464,20 +464,20 @@
                                                     <label class="file_upload">
                                                         <div class="bg-image"></div>
                                                 
-                                                        <input accept=".jpg, .jpeg, .png" type="file">
+                                                        <input accept=".jpg, .jpeg, .png" type="file" (change)="loadPhoto($event)">
                                                     </label>
                                                     <!--появляется этот блок если загружена фотка и в стайл бекграунд имейдж ебануть-->
-                                                    <!--<div class="bg-image uploaded"></div>-->
+                                                    <div *ngIf="addImage" (click)="addImage=''" class="bg-image uploaded" [ngStyle]="{'background-image': 'url('+addImage+')'}"></div>
                                                     <!---->
                                                 </div>
                                                 <div class="input-groupe-1 small-textarea whithout-label">
-                                                    <textarea id="inp-desc-1"></textarea>
+                                                    <textarea [(ngModel)]="imageInfo" id="inp-desc-1"></textarea>
                                                     <label for="inp-desc-1" class="head-groupe">Description</label>
                                                 </div>
                                                 
                                                 <div class="butt-wrapp-grad">
                                                     <button class="butt-style-1 thot-butt" type="submit">
-                                                        <span>Add to Photos</span>
+                                                        <span (click)="addPhoto()">Add to Photos</span>
                                                     </button>   
                                                 </div>
                                                 

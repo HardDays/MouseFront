@@ -100,6 +100,8 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
     "name": new FormControl("", [Validators.required]),
     "link": new FormControl("", [Validators.required])
   });
+  addImage:string = '';
+  imageInfo:string = '';
   
 
 
@@ -402,9 +404,20 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
     }
   }
   addPhoto(){
-
+    this.accService.PostAccountImages(this.accountId,this.addImage)
+    .subscribe((res)=>{
+      console.log(`add`,this.addImage, this.imageInfo);
+      this.updateArtist();
+    }); 
   }
-
+  loadPhoto($event:any):void{
+    this.ReadImages(
+        $event.target.files,
+        (res:string)=>{
+           this.addImage = res;
+        }
+    );
+}
   
 
 
