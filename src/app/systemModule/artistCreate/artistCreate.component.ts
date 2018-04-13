@@ -125,13 +125,13 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
      var as = audiojs.createAll();
    
     //слайдер аудио, в слайде 12 песен
-    $('.slider-audio-wrapp').slick({
-        dots: false,
-        arrows: true,
-        infinite: false,
-        slidesToShow: 1
+    // $('.slider-audio-wrapp').slick({
+    //     dots: false,
+    //     arrows: true,
+    //     infinite: false,
+    //     slidesToShow: 1
 
-    });
+    // });
     
     
     
@@ -327,7 +327,13 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
   getAudio(){
     setTimeout(() => {
       var as2 = audiojs.createAll();
+       $('.slider-audio-wrapp').slick({
+        dots: false,
+        arrows: true,
+        infinite: false,
+        slidesToShow: 1
 
+    });
     }, 100);    
   }
 
