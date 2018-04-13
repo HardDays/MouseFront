@@ -41,16 +41,16 @@
                                         <div class="side">
                                             <div class="input-groupe-1">
                                                 
-                                                <input id="inp-create-1" formControlName="user_name" name="" type="text">
+                                                <input id="inp-create-1" [(ngModel)]="Artist.user_name" formControlName="user_name" name="" type="text">
                                                 <label for="inp-create-1">Username<span>*</span></label>
                                             </div>
                                             <div class="input-groupe-1">
-                                                <input id="inp-create-2" formControlName="display_name" name="" type="text">
+                                                <input id="inp-create-2"  [(ngModel)]="Artist.display_name" formControlName="display_name" name="" type="text">
                                                 <label for="inp-create-2">Full Name<span>*</span></label>
                                                 
                                             </div>
                                             <div class="input-groupe-1">
-                                                <input id="inp-create-3" formControlName="stage_name" name="" type="text">
+                                                <input id="inp-create-3" [(ngModel)]="Artist.stage_name" formControlName="stage_name" name="" type="text">
                                                 <label for="inp-create-3">Stage name</label>
                                                
                                             </div>
@@ -58,12 +58,12 @@
                                         <div class="side">
                                             <div class="input-groupe-1">
                                                 
-                                                <input id="inp-create-4" formControlName="email" name="" type="text">
+                                                <input id="inp-create-4" [(ngModel)]="Artist.email" formControlName="email" name="" type="text">
                                                 <label for="inp-create-4">Email Address<span>*</span></label>
                                             </div>
                                             <div class="input-groupe-1">
                                                 
-                                                <input id="inp-create-5" formControlName="manager_name" name="" type="text">
+                                                <input id="inp-create-5" [(ngModel)]="Artist.manager_name" formControlName="manager_name" name="" type="text">
                                                 <label for="inp-create-5">Manager Name</label>
                                             </div>
                                             
@@ -94,7 +94,7 @@
                                         <div class="side">
                                             <div class="input-groupe-1 whithout-label small-textarea max-500">
                                                 
-                                                <textarea formControlName="about" id="inp-create-9"></textarea>
+                                                <textarea [(ngModel)]="Artist.about" formControlName="about" id="inp-create-9"></textarea>
                                                 <label for="inp-create-9" class="head-groupe">Short Description<span>*</span></label>
                                                 <span class="max-count">500 max</span>
                                             </div>
@@ -158,19 +158,19 @@
                                             <div class="gradient-box gradient-1">
                                                 <h6 class="head-of-gradient-box">Add new Song</h6>
                                                 <div class="input-groupe-1">
-                                                    <input id="inp-box-1" name="" type="text">
+                                                    <input id="inp-box-1" [(ngModel)]="songName" name="" type="text">
                                                     <label for="inp-box-1">Song Name</label>
                                                 </div>
                                                 <div class="input-groupe-1">
-                                                    <input id="inp-box-2" name="" type="text">
+                                                    <input id="inp-box-2" [(ngModel)]="songAlbum" name="" type="text">
                                                     <label for="inp-box-2">Album Name</label>
                                                 </div>
                                                 <div class="input-groupe-1">
-                                                    <input id="inp-box-3" name="" type="text">
+                                                    <input id="inp-box-3" [(ngModel)]="songLink" name="" type="text">
                                                     <label for="inp-box-3">Link</label>
                                                 </div>
                                                 <div class="butt-wrapp-grad">
-                                                    <button class="butt-style-1" type="submit">
+                                                    <button (click)="addAudio()" class="butt-style-1" type="submit">
                                                         <span>Add to List</span>
                                                     </button>   
                                                 </div>
@@ -183,24 +183,30 @@
                                                 <p class="limit">Limit of 20 Songs</p>
                                             </div>
                                             <!--если пустой-->
-                                            <!--
-                                            <div class="empty-info">
-                                                <img src="img/smile.svg" class="img-responsive" alt="">
+                                            
+                                            <div [ngStyle]="{'display': Artist.audio_links.length<=0?'block':'none'}" class="empty-info">
+                                                <img src="./../../../assets/img/smile.svg" class="img-responsive" alt="">
                                                 <p>No Songs Yet</p>
                                             </div>
-                                            -->
+                                           
+
                                             <!---->
                                             <!--если не пустой. это слайдер-->
-                                            <div class="slider-audio-wrapp">
+                                            <div [ngStyle]="{'display': Artist.audio_links.length>0?'block':'none'}" class="slider-audio-wrapp">
                                                 <!--это слайд. в нем не более 12 треков-->
                                                 <div class="one-slide">
-                                                    <div class="one-audio">
+                                                    
+                                                        <ng-container *ngFor="let item of Artist.audio_links; let i = index">
+                                                            
+                                                    <div   class="one-audio">
                                                         <div class="delete-track"></div>
-                                                        <span class="name-track">Soulcall</span>
-                                                        <audio src="../../../assets/mp3/lalala.mp3" preload="auto" ></audio>
+                                                        <span id="track-{{i}}" class="name-track">{{item.song_name}}</span>
+                                                        <audio src="{{item.audio_link}}" preload="none" ></audio>
                                                         
                                                     </div>
-                                                    <div class="one-audio">
+                                                
+                                                    </ng-container>
+                                                    <!-- <div class="one-audio">
                                                         <div class="delete-track"></div>
                                                         <span class="name-track">Soulcallqweqwe qwe qwe qwe qwe qwe qwe qwe qwe qwe qwe qwe </span>
                                                         
@@ -212,7 +218,7 @@
                                                         <span class="name-track">Soulcall</span>
                                                         <audio src="../../../assets/mp3/lalala.mp3" preload="auto" ></audio>
                                                         
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                                 <!--это типо второй слайд
                                                 <div class="one-slide">

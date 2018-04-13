@@ -95,7 +95,7 @@ export class AccountCreateComponent extends BaseComponent implements OnInit {
       this.genreService.GetAllGenres()
         .subscribe((genres:string[])=> {
           this.Genres = this.genreService.GetGendreModelFromString(this.Account.genres, this.genreService.StringArrayToGanreModelArray(genres));
-        });
+      });
       this.Account.account_type = this.Roles.Fan;
       this.CreateAutocomplete();
     }

@@ -191,6 +191,7 @@ export class EditComponent extends BaseComponent implements OnInit {
       console.log(`invalid input`);
     }
   }
+  
 
   Replace(key,value)
   {

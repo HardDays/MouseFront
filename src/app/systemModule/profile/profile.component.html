@@ -439,7 +439,9 @@
                                 <div class="oficial-page">
                                     <span id="d_lines_view" class="page">@{{Account.display_name}}</span>
                                     <div *ngIf="isMyAccount" class="edit-and-settings">
-                                        <a [routerLink]="['/system/edit',UserId]" class="edit-profile">Edit profile</a>
+                                        <!-- <a [routerLink]="['/system/edit',UserId]" class="edit-profile">Edit profile</a> -->
+                                        <a [routerLink]="['/system/artistCreate',UserId]" class="edit-profile">Edit profile</a>
+
                                     </div>
                                 </div>
                                 <p id="b_lines_view" class="desc">

@@ -29,6 +29,7 @@ export class AccountCreateModel{
             public dress_code?: string,
             public has_vr?: boolean,
             public audio_description?: string,
+            public audio_links?: Audio[],
             public lighting_description?: string,
             public stage_description?: string,
             public lat?: number,
@@ -42,5 +43,13 @@ export class AccountCreateModel{
             public venue_video_links?: string[],
             public image_base64?:string
 
+){}
+}
+
+export class Audio{
+    constructor(
+    public song_name?:string,
+    public album_name?:string,
+    public audio_link?:string,
 ){}
 }

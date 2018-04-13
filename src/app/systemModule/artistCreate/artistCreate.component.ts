@@ -25,7 +25,7 @@ import { EventService } from '../../core/services/event.service';
 
 import { } from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
-import { Router, Params } from '@angular/router';
+import { Router, Params, ActivatedRoute } from '@angular/router';
 import { AuthService } from "angular2-social-login";
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { AccountAddToEventModel } from '../../core/models/artistAddToEvent.model';
@@ -57,41 +57,72 @@ declare var ionRangeSlider:any;
 export class ArtistCreateComponent extends BaseComponent implements OnInit {
   
   // general
-  accountId:number;
-  Artist:AccountGetModel = new AccountGetModel();
-  isNewArtist:boolean = true;
-  
   pages = Pages;
   currentPage:string = 'about';
-  showAllPages:boolean = false;
+  showAllPages:boolean = true;
 
+  accountId:number;
+  isNewArtist:boolean = true;
+  Artist:AccountGetModel = new AccountGetModel();
+  createArtist:AccountCreateModel = new AccountCreateModel();
+  
+  
+  
  
 
   // about
-  createArtist:AccountCreateModel = new AccountCreateModel();
+  
   aboutForm : FormGroup = new FormGroup({        
     "user_name": new FormControl("", [Validators.required]),
     "display_name": new FormControl("", [Validators.required]),
     "stage_name": new FormControl("", [Validators.required]),
     "manager_name": new FormControl("", [Validators.required]),
-    "email": new FormControl("", [Validators.required]),
+    "email": new FormControl(""),
     "about": new FormControl("", [Validators.required]),
     
   });
   genres:GenreModel[] = [];
   showMoreGenres:boolean = false;
 
+  songName:string ='';
+  songAlbum:string ='';
+  songLink:string ='';
+  showSongs:boolean[] = [];
 
-  ngOnInit(){
-    this.initJS();
-    this.initUser();
-    this.getGenres();
+
+  constructor(protected authService: AuthMainService,
+    protected accService:AccountService,
+    protected imgService:ImagesService,
+    protected typeService:TypeService,
+    protected genreService:GenresService,
+    protected eventService:EventService,
+    protected _sanitizer: DomSanitizer,
+    protected router: Router,public _auth: AuthService,
+    private mapsAPILoader: MapsAPILoader, 
+    private ngZone: NgZone, protected h:Http,
+    private activatedRoute: ActivatedRoute){
+    super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
   }
 
 
+  ngOnInit(){
+    this.Artist.audio_links = [];
+    this.initJS();
+    this.initUser();
+    this.Init()
+    this.activatedRoute.params.forEach((params) => {
+      if(params["id"])this.getThisArtist(+params["id"]);
+  });
+ 
+    this.getGenres();
+  }
+
+  Init(){
+    this.Artist.audio_links = [];
+  }
   initJS(){
-  
-    var as = audiojs.createAll();
+   
+     var as = audiojs.createAll();
    
     //слайдер аудио, в слайде 12 песен
     $('.slider-audio-wrapp').slick({
@@ -169,6 +200,59 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
     });
   }
 
+  getThisArtist(id:number){
+        
+    this.accService.GetMyAccount({extended:true})
+    .subscribe((users:any[])=>{
+            for(let art of users) if(art.id == id){
+                    this.accountId = art.id;
+                    this.isNewArtist = false;
+                    
+                    this.getUpdatedArtist();  
+                    this.showAllPages = true;                   
+            }
+            if(this.isNewArtist)this.router.navigate(['/system/artistCreate']);
+        });  
+  }
+
+  updateArtist(){
+    this.accService.UpdateMyAccount(this.accountId, JSON.stringify(this.createArtist))
+        .subscribe((res)=>{
+                this.Artist = res;
+                // var as = audiojs.createAll();
+                 this.getAudio();
+                this.currentPage = 'calendar';
+                console.log(`updated artist `,this.Artist);
+            },
+            (err)=>{
+                console.log(`err`,err);
+            }
+    );
+  }
+  getUpdatedArtist(){
+
+  
+  this.accService.GetAccountById(this.accountId, {extended:true})
+            .subscribe((user:any)=>{
+                this.Artist = user;
+                this.getAudio();
+                console.log(this.Artist);
+                for (let key in user) {
+                    if (user.hasOwnProperty(key)) {
+                        this.createArtist[key] = user[key];
+                    }
+                }
+                // var as = audiojs.createAll();
+                this.genreFromModelToVar();
+  })
+
+  }
+  genreFromModelToVar(){
+  for(let g of  this.createArtist.genres)
+      for(let gnr of this.genres)
+          if(g == gnr.genre)
+              gnr.checked = true;
+}
 
   //about form
   getGenres(){
@@ -207,28 +291,21 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
           
             this.createArtist.genres = this.genreService.GenreModelArrToStringArr(this.genres);
 
-            console.log(`create artist`,this.createArtist);
-            this.currentPage = 'calendar';
-            // if(this.isNewArtist)
-            //   this.accService.CreateAccount(this.createArtist)
-            //   .subscribe((res:any)=>{
-            //       this.Artist = res;
-            //       this.currentPage = 'calendar';
-            //       console.log(`this artist`,this.Artist);
-            //   });
            
-            // else
-            //     this.eventService.UpdateEvent(this.newEvent, this.Event.id)
-            //     // this.eventService.CreateEvent(this.newEvent)
-            //         .subscribe((res)=>{
-            //                 this.Event = res;
-            //                 console.log(`create`,this.Event);
-            //                 this.currentPage = 'artist';
-            //             },
-            //             (err)=>{
-            //                 console.log(`err`,err);
-            //             }
-            //     );
+            console.log(`create artist`,this.createArtist);
+           
+
+            if(this.isNewArtist)
+
+                this.accService.CreateAccount(this.createArtist)
+                .subscribe((res:any)=>{
+                    this.Artist = res;
+                    this.getAudio();
+                    this.currentPage = 'calendar';
+                    console.log(`new this artist`,this.Artist);
+                });
+           
+            else this.updateArtist();
         }
         else {
             console.log(`Invalid About Form!`, this.aboutForm);
@@ -236,6 +313,23 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
   }
 
   
+  addAudio(){
+    // this.createArtist.audio_links = [];
+    this.createArtist.audio_links.push({
+      song_name:this.songName,album_name:this.songAlbum,
+      audio_link:this.songLink
+      // 'http://d.zaix.ru/6yut.mp3'
+    });
+    this.updateArtist();
+    
+  }
+
+  getAudio(){
+    setTimeout(() => {
+      var as2 = audiojs.createAll();
+
+    }, 100);    
+  }
 
 
 

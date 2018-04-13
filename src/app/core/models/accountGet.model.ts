@@ -32,6 +32,7 @@ export class AccountGetModel{
         public dress_code?: string,
         public has_vr?: boolean,
         public audio_description?: string,
+        public audio_links?: Audio[],
         public lighting_description?: string,
         public stage_description?: string,
         public lat?: number,
@@ -41,6 +42,17 @@ export class AccountGetModel{
         public office_hours?: WorkingTimeModel[],
         public operating_hours?: WorkingTimeModel[],
         public about?: string,
+        public stage_name?: string,
+        public email?: string,
+        public manager_name?: string,
         public image_base64_not_given?: string
+){}
+}
+
+export class Audio{
+    constructor(
+    public song_name?:string,
+    public album_name?:string,
+    public audio_link?:string,
 ){}
 }

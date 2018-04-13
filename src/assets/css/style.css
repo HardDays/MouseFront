@@ -4248,7 +4248,8 @@ footer {
     .media-flex-sides .right-side .slider-audio-wrapp .one-audio {
       width: 50%;
       margin-bottom: 25px;
-      position: relative; }
+      position: relative;
+     }
       .media-flex-sides .right-side .slider-audio-wrapp .one-audio .name-track {
         position: absolute;
         top: 0;
