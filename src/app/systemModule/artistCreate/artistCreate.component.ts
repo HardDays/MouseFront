@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef, NgZone, Input, ViewContainerRef, ComponentFactory } from '@angular/core';
-import { NgForm,FormControl,FormGroup,Validators} from '@angular/forms';
+import { NgForm,FormControl,FormGroup,Validators, FormArray, FormArrayName} from '@angular/forms';
 import { AuthMainService } from '../../core/services/auth.service';
 
 import { BaseComponent } from '../../core/base/base.component';
@@ -103,7 +103,43 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
   addImage:string = '';
   imageInfo:string = '';
   
+  // bookingForm: FormGroup = new FormGroup({        
+  //   "performance_min_time": new FormControl("", [Validators.required]),
+  //   "performance_max_time": new FormControl("", [Validators.required]),
+  //   "price_from": new FormControl("", [Validators.required]),
+  //   "price_to": new FormControl("", [Validators.required]),
+  //   "additional_hours_price": new FormControl("", [Validators.required]),
+  //   "is_hide_pricing_from_profile": new FormControl("", [Validators.required]),
+  //   "is_hide_pricing_from_search": new FormControl("", [Validators.required]),
+  //   "is_perform_with_band": new FormControl("", [Validators.required]),
+  //   "can_perform_without_band": new FormControl("", [Validators.required]),
+  //   "is_perform_with_backing_vocals": new FormControl("", [Validators.required]),
+  //   "can_perform_without_backing_vocals": new FormControl("", [Validators.required]),
+  //   "preferred_venues": new FormArray([
+  //     new FormControl("night_club"),
+  //     new FormControl("bar"),
+  //     new FormControl("restaurant"),
+  //     new FormControl("concert_hall"),
+  //     new FormControl("event_space"),
+  //     new FormControl("outdoor_space"),
+  //     new FormControl("theatre"),
+  //     new FormControl("private_residence"),
+  //     new FormControl("other")
+  //    ]),
+  //   "location": new FormControl("", [Validators.required]),
+  //   "preferred_venue_text": new FormControl("", [Validators.required]),
+  //   "days_to_travel": new FormControl("", [Validators.required]),
+  //   "is_permitted_to_stream": new FormControl("", [Validators.required]),
+  //   "is_permitted_to_advertisement": new FormControl("", [Validators.required]),
+  //   "has_conflict_contracts": new FormControl("", [Validators.required]),
+  //   "conflict_companies_names": new FormControl("", [Validators.required]),
+  //   "min_time_to_book": new FormControl("", [Validators.required]),
+  //   "min_time_to_free_cancel": new FormControl("", [Validators.required]),
+  //   "late_cancellation_fee": new FormControl("", [Validators.required]),
+  //   "refund_policy": new FormControl("", [Validators.required])
+  // });
 
+  preferredVenues:CheckModel<{type:string, type_show:string}>[] = []; 
 
 
   constructor(protected authService: AuthMainService,
@@ -122,23 +158,30 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
 
 
   ngOnInit(){
-    this.createArtist.audio_links = [];
-    this.createArtist.artist_videos = [];
-    this.createArtist.artist_albums = [];
+   
     // this.Artist.im
     this.initJS();
     this.initUser();
     this.Init()
     this.activatedRoute.params.forEach((params) => {
       if(params["id"])this.getThisArtist(+params["id"]);
-  });
+    });
  
     this.getGenres();
+    this.preferredVenues = this.getVenuesTypes();
   }
 
   Init(){
+    this.createArtist.audio_links = [];
+    this.createArtist.artist_videos = [];
+    this.createArtist.artist_albums = [];
+    this.createArtist.preferred_venues = [];
+
     this.Artist.audio_links = [];
+    this.Artist.artist_albums = [];
+    this.Artist.videos = [];
   }
+
   initJS(){
    
      var as = audiojs.createAll();
@@ -154,43 +197,43 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
     
     
     
-    $('.slider-2-init').slick({
-        dots: false,
-        arrows: true,
-        infinite: false,
-        slidesToShow: 3,
-         responsive: [
-            {
-              breakpoint: 1301,
-              settings: {
-                slidesToShow: 2,
-                slidesToScroll: 2
+    // $('.slider-2-init').slick({
+    //     dots: false,
+    //     arrows: true,
+    //     infinite: false,
+    //     slidesToShow: 3,
+    //      responsive: [
+    //         {
+    //           breakpoint: 1301,
+    //           settings: {
+    //             slidesToShow: 2,
+    //             slidesToScroll: 2
                
-              }
-            }
-         ]
+    //           }
+    //         }
+    //      ]
 
-    });
+    // });
     
     
-     $('.slider-3-init').slick({
-        dots: false,
-        arrows: true,
-        infinite: false,
-        slidesToShow: 3,
-         responsive: [
-            {
-              breakpoint: 1301,
-              settings: {
-                slidesToShow: 2,
-                slidesToScroll: 2
+    //  $('.slider-3-init').slick({
+    //     dots: false,
+    //     arrows: true,
+    //     infinite: false,
+    //     slidesToShow: 3,
+    //      responsive: [
+    //         {
+    //           breakpoint: 1301,
+    //           settings: {
+    //             slidesToShow: 2,
+    //             slidesToScroll: 2
                
-              }
-            }
-         ]
+    //           }
+    //         }
+    //      ]
          
 
-    });
+    // });
     $('.slider-4-init').slick({
         dots: false,
         arrows: true,
@@ -219,6 +262,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
     });
   }
 
+
   getThisArtist(id:number){
         
     this.accService.GetMyAccount({extended:true})
@@ -227,53 +271,66 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
                     this.accountId = art.id;
                     this.isNewArtist = false;
                     
-                    this.getUpdatedArtist();  
+                    this.getUpdatedArtistById();  
                     this.showAllPages = true;                   
             }
             if(this.isNewArtist)this.router.navigate(['/system/artistCreate']);
         });  
   }
 
-  updateArtist(){
+  updateArtistByCreateArtist(){
     this.accService.UpdateMyAccount(this.accountId, JSON.stringify(this.createArtist))
         .subscribe((res)=>{
                 this.Artist = res;
-                // var as = audiojs.createAll();
-                // if(this.updateAudio){
+                
                 this.getAudio();
-                  // this.updateAudio=false;
-                // }
-                this.currentPage = 'calendar';
-                console.log(`updated artist `,this.Artist);
+                this.getAlbumSlider();
+                this.getVideosSlider();
+            
+                console.log(`updated artist `,this.Artist);    
             },
             (err)=>{
                 console.log(`err`,err);
             }
     );
   }
-  getUpdatedArtist(){
 
-  
-  this.accService.GetAccountById(this.accountId, {extended:true})
-            .subscribe((user:any)=>{
-                this.Artist = user;
-                this.getAudio();
-                console.log(this.Artist);
-                for (let key in user) {
-                    if (user.hasOwnProperty(key)) {
-                        this.createArtist[key] = user[key];
-                    }
-                }
-                // var as = audiojs.createAll();
-                this.genreFromModelToVar();
-  })
+  // get Artist && createArtist by ID
+  getUpdatedArtistById(){
+    this.accService.GetAccountById(this.accountId, {extended:true})
+              .subscribe((user:any)=>{
+                  this.Artist = user;
+                  this.getAudio();
+                  this.getAlbumSlider();
+                  this.getVideosSlider();
+                  this.createArtist.artist_videos = this.Artist.videos;
+                  this.createArtist.performance_min_time += +' hr';
+                  this.createArtist.performance_max_time += +' hr';
+                  console.log(this.Artist);
+                  for (let key in user) {
+                      if (user.hasOwnProperty(key)) {
+                          this.createArtist[key] = user[key];
+                      }
+                  }
+                  this.genreFromModelToVar();
+                  this.venueTypeFromModelToVar();
+              })
 
   }
+
+
+
   genreFromModelToVar(){
-  for(let g of  this.createArtist.genres)
+  for(let g of this.createArtist.genres)
       for(let gnr of this.genres)
           if(g == gnr.genre)
               gnr.checked = true;
+  }
+venueTypeFromModelToVar(){
+  for(let t of this.createArtist.preferred_venues)
+  for(let type of this.preferredVenues)
+      if(t == type.object.type)
+          type.checked = true;
 }
 
   //about form
@@ -301,6 +358,8 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
     }
   }
 
+
+
   createEventFromAbout(){
         if(!this.aboutForm.invalid){
 
@@ -323,11 +382,13 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
                 .subscribe((res:any)=>{
                     this.Artist = res;
                     this.getAudio();
+                    this.getAlbumSlider();
+                    this.getVideosSlider();
                     this.currentPage = 'calendar';
                     console.log(`new this artist`,this.Artist);
                 });
            
-            else this.updateArtist();
+            else this.updateArtistByCreateArtist();
         }
         else {
             console.log(`Invalid About Form!`, this.aboutForm);
@@ -346,7 +407,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
       this.createArtist.audio_links.push(params);
       // 'http://d.zaix.ru/6yut.mp3'
       this.updateAudio = true;
-      this.updateArtist();
+      this.updateArtistByCreateArtist();
     }
     else {
       console.log(`Invalid Audio Form!`, this.aboutForm);
@@ -379,13 +440,36 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
       }
       this.createArtist.artist_albums.push(params);
       // 'http://d.zaix.ru/6yut.mp3'
-      this.updateArtist();
+      this.updateArtistByCreateArtist();
+      
     }
     else {
       console.log(`Invalid Audio Form!`, this.aboutForm);
     }
     
   }
+  getAlbumSlider(){
+    setTimeout(() => {
+    $('.slider-2-init').slick({
+      dots: false,
+      arrows: true,
+      infinite: false,
+      slidesToShow: 3,
+       responsive: [
+          {
+            breakpoint: 1301,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2
+             
+            }
+          }
+       ]
+
+      }),100
+    })
+  }
+  
   addVideo(){
     if(!this.addVideoForm.invalid){
       let params:Video = new Video();
@@ -394,20 +478,44 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
             params[key] = this.addVideoForm.value[key];
         }
       }
-      console.log(`!`,params,this.createArtist.artist_videos);
+      this.createArtist.artist_videos = this.Artist.videos;
       this.createArtist.artist_videos.push(params);
+      console.log(`!`,params,this.createArtist.artist_videos);
       // 'http://d.zaix.ru/6yut.mp3'
-       this.updateArtist();
+       this.updateArtistByCreateArtist();
     }
     else {
       console.log(`Invalid Video Form!`, this.aboutForm);
     }
   }
+  getVideosSlider(){
+    setTimeout(() => {
+    $('.slider-3-init').slick({
+      dots: false,
+      arrows: true,
+      infinite: false,
+      slidesToShow: 3,
+       responsive: [
+          {
+            breakpoint: 1301,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2
+             
+            }
+          }
+       ]
+
+      }),100
+    })
+  }
+
+
   addPhoto(){
     this.accService.PostAccountImages(this.accountId,this.addImage)
     .subscribe((res)=>{
       console.log(`add`,this.addImage, this.imageInfo);
-      this.updateArtist();
+      this.updateArtistByCreateArtist();
     }); 
   }
   loadPhoto($event:any):void{
@@ -417,6 +525,96 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
            this.addImage = res;
         }
     );
+}
+
+
+getVenuesTypes(){
+  return this.convertArrToCheckModel(
+    [
+      {
+        type:'night_club',
+        type_show:'Night Club'
+      },
+      {
+        type:'bar',
+        type_show:'Bar'
+      },
+      {
+        type:'restaurant',
+        type_show:'Restaurant'
+      },
+      {
+        type:'concert_hall',
+        type_show:'Concert Hall'
+      },
+      {
+        type:'event_space',
+        type_show:'Event Space'
+      },
+      {
+        type:'outdoor_space',
+        type_show:'Outdoor Space'
+      },
+      {
+        type:'theatre',
+        type_show:'Theatre'
+      },
+      {
+        type:'private_residence',
+        type_show:'Private Residence'
+      },
+      {
+        type:'other',
+        type_show:'Other'
+      }
+    ]
+  );
+  
+}
+
+setPreferedVenue(index:number){
+
+    if(!this.preferredVenues[index].checked){
+        this.preferredVenues[index].checked = true;
+      }
+    else{
+      this.preferredVenues[index].checked = false;
+    }
+}
+addBooking(){
+
+  this.createArtist.performance_min_time = +((this.Artist.performance_min_time+'').split(' ')[0]);
+  this.createArtist.performance_max_time =  +((this.Artist.performance_max_time+'').split(' ')[0]);
+  this.createArtist.price_from = this.Artist.price_from; 
+  this.createArtist.price_to = this.Artist.price_to;
+  this.createArtist.additional_hours_price = this.Artist.additional_hours_price;
+  this.createArtist.is_hide_pricing_from_profile = this.Artist.is_hide_pricing_from_profile;
+  this.createArtist.is_hide_pricing_from_search = this.Artist.is_hide_pricing_from_search;
+  this.createArtist.is_perform_with_band = this.Artist.is_perform_with_band;
+  this.createArtist.can_perform_without_band = this.Artist.can_perform_without_band;
+  this.createArtist.is_perform_with_backing_vocals = this.Artist.is_perform_with_backing_vocals;
+  this.createArtist.can_perform_without_backing_vocals = this.Artist.can_perform_without_backing_vocals;
+ 
+  // this.createArtist.location = this.Artist.location;
+  this.createArtist.preferred_venue_text = this.Artist.preferred_venue_text;
+  this.createArtist.days_to_travel = this.Artist.days_to_travel;
+  this.createArtist.is_permitted_to_stream = this.Artist.is_permitted_to_stream;
+  this.createArtist.is_permitted_to_advertisement = this.Artist.is_permitted_to_advertisement;
+  this.createArtist.has_conflict_contracts = this.Artist.has_conflict_contracts;
+  this.createArtist.conflict_companies_names = this.Artist.conflict_companies_names;
+  this.createArtist.min_time_to_book = this.Artist.min_time_to_book;
+  this.createArtist.min_time_to_free_cancel = this.Artist.min_time_to_free_cancel;
+  this.createArtist.late_cancellation_fee = this.Artist.late_cancellation_fee;
+  this.createArtist.refund_policy = this.Artist.refund_policy;
+
+  this.createArtist.preferred_venues = [];
+  for(let type of this.preferredVenues)
+    if(type.checked)
+      this.createArtist.preferred_venues.push(type.object.type);
+
+  console.log(this.createArtist);
+
+  this.updateArtistByCreateArtist();
 }
   
 

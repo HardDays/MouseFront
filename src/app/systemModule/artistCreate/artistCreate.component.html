@@ -266,78 +266,34 @@
                                                 <p class="limit">Limit of 20 Albums</p>
                                             </div>
                                             <!--если пустой-->
-                                            <!--
-                                            <div class="empty-info">
-                                                <img src="img/smile.svg" class="img-responsive" alt="">
+                                            
+                                            <div [ngStyle]="{'display': Artist.artist_albums.length<=0?'block':'none'}" class="empty-info">
+                                                <img src="../../../assets/img/smile.svg" class="img-responsive" alt="">
                                                 <p>No Songs Yet</p>
                                             </div>
-                                            -->
+                                           
                                             <!---->
                                             <!--если не пустой.-->
                                                 
-                                            <div class="slider-2-albums slider-2-init">
-                                                <div class="one-slide">
-                                                    <div class="wrapp-card">
-                                                        <div class="delete-track"></div>
-                                                        <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)"></div>
-                                                        <div class="descr">
-                                                            <p class="name">Maiden Voyage</p>
-                                                            <p class="date">2015</p>
-                                                        
-                                                            <span class="butt-style-1">
-                                                                <span>play</span>
-                                                            </span>   
-                                                        
+                                            <div [ngStyle]="{'display': Artist.artist_albums.length>0?'block':'none'}" class="slider-2-albums slider-2-init">
+                                                <ng-container *ngFor="let item of Artist.artist_albums; let i = index">
+                                                    <div class="one-slide">
+                                                        <div class="wrapp-card">
+                                                            <div class="delete-track"></div>
+                                                            <div class="cover-image" [ngStyle]="{'background-image': 'url('+item.album_artwork+')'}"></div>
+                                                            <div class="descr playing">
+                                                                <p class="name">{{item.album_name}}</p>
+                                                                <p class="date">2015</p>
+                                                            
+                                                                <span class="butt-style-1">
+                                                                    <span>play</span>
+                                                                </span>   
+                                                            
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="one-slide">
-                                                    <div class="wrapp-card">
-                                                        <div class="delete-track"></div>
-                                                        <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)"></div>
-                                                        
-                                                        <!--добавляем или убираем класс playing-->
-                                                        <div class="descr playing">
-                                                            <p class="name">Maiden Voyage</p>
-                                                            <p class="date">2015</p>
-                                                        
-                                                            <span class="butt-style-1">
-                                                                <span>stop</span>
-                                                            </span>   
-                                                    
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="one-slide">
-                                                    <div class="wrapp-card">
-                                                        <div class="delete-track"></div>
-                                                        <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)"></div>
-                                                        <div class="descr">
-                                                            <p class="name">Maiden Voyage</p>
-                                                            <p class="date">2015</p>
-                                                            
-                                                            <span class="butt-style-1">
-                                                                <span>play</span>
-                                                            </span>   
-                                                            
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="one-slide">
-                                                    <div class="wrapp-card">
-                                                        <div class="delete-track"></div>
-                                                        <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)"></div>
-                                                        <div class="descr">
-                                                            <p class="name">Maiden Voyage</p>
-                                                            <p class="date">2015</p>
-                                                            
-                                                            <span class="butt-style-1">
-                                                                <span>play</span>
-                                                            </span>   
-                                                            
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                </ng-container>
+
                                             </div>
                                             
                                             
@@ -380,75 +336,32 @@
                                                 <p class="limit">Limit of 20 Videos</p>
                                             </div>
                                             <!--если пустой-->
-                                            <!--
-                                            <div class="empty-info">
-                                                <img src="img/smile.svg" class="img-responsive" alt="">
+                                            
+                                            <div [ngStyle]="{'display': Artist.videos.length<=0?'block':'none'}" class="empty-info">
+                                                <img src="../../../assets/img/smile.svg" class="img-responsive" alt="">
                                                 <p>No Songs Yet</p>
                                             </div>
-                                            -->
+                                           
                                             <!---->
                                             <!--если не пустой.-->
                                                 
-                                            <div class="slider-2-albums slider-3-init">
-                                                <div class="one-slide">
-                                                    <div class="wrapp-card">
-                                                        <div class="delete-track"></div>
-                                                        <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)">
-                                                            <div class="butt-play-video">
-                                                                <div class="pl"></div>
+                                            <div [ngStyle]="{'display': Artist.videos.length>0?'block':'none'}" class="slider-2-albums slider-3-init">
+                                                <ng-container *ngFor="let item of Artist.videos; let i = index">
+                                                    <div class="one-slide">
+                                                        <div class="wrapp-card">
+                                                            <div class="delete-track"></div>
+                                                            <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)">
+                                                                <div class="butt-play-video">
+                                                                    <div class="pl"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="descr playing">
+                                                                <p class="name">{{item.name}}</p>
+                                                                <p class="date">2015</p>
                                                             </div>
                                                         </div>
-                                                        <div class="descr">
-                                                            <p class="name">Maiden Voyage</p>
-                                                            <p class="date">2015</p>
-                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="one-slide">
-                                                    <div class="wrapp-card">
-                                                        <div class="delete-track"></div>
-                                                        <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)">
-                                                            <div class="butt-play-video">
-                                                                <div class="pl"></div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="descr playing">
-                                                            <p class="name">Maiden Voyage</p>
-                                                            <p class="date">2015</p>
-                                                        
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="one-slide">
-                                                    <div class="wrapp-card">
-                                                        <div class="delete-track"></div>
-                                                        <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)">
-                                                            <div class="butt-play-video">
-                                                                <div class="pl"></div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="descr">
-                                                            <p class="name">Maiden Voyage</p>
-                                                            <p class="date">2015</p>
-                                                        
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="one-slide">
-                                                    <div class="wrapp-card">
-                                                        <div class="delete-track"></div>
-                                                        <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)">
-                                                            <div class="butt-play-video">
-                                                                <div class="pl"></div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="descr">
-                                                            <p class="name">Maiden Voyage</p>
-                                                            <p class="date">2015</p>
-                                                            
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                </ng-container>
                                             </div>
                                             <!--/если не пустой.-->
                                             
@@ -548,347 +461,352 @@
                                     
                                 </div>
                                 <div class="main-mw-5 unique-padd-mw">
-                                    <div class="flex-funding-columns">
-                                        <div class="side">
-                                            <h6>Performance</h6>
-                                            <div class="flex-input-groupes">
-                                                <div class="input-groupe-1">
-                                                    <select id="inp-perf-req-1">
-                                                        <option>1 hr</option>
-                                                        <option>2 hr</option>
-                                                    </select>
-                                                    <label for="inp-perf-req-1">Min Time</label>
+                                        <div class="flex-funding-columns">
+                                            <div class="side">
+                                                <h6>Performance</h6>
+                                                <div class="flex-input-groupes">
+                                                    <div class="input-groupe-1">
+                                                        <select [(ngModel)]="Artist.performance_min_time" id="inp-perf-req-1">
+                                                            <option>1</option>
+                                                            <option>2</option>
+                                                        </select>
+                                                        <label for="inp-perf-req-1">Min Time (hr)</label>
+                                                    </div>
+                                                    <div class="input-groupe-1">
+                                                        <select [(ngModel)]="Artist.performance_max_time" id="inp-perf-req-2">
+                                                            <option>3</option>
+                                                            <option>4</option>
+                                                        </select>
+                                                        <label for="inp-perf-req-2">Max Time (hr)</label>
+                                                    </div>
                                                 </div>
-                                                <div class="input-groupe-1">
-                                                    <select id="inp-perf-req-2">
-                                                        <option>3 hrs</option>
-                                                        <option>4 hrs</option>
-                                                    </select>
-                                                    <label for="inp-perf-req-2">Max Time</label>
+                                                <p class="price-t-t">Price</p>
+                                                <div class="flex-input-groupes">
+                                                    <div class="input-groupe-1 from-to-style">
+                                                        <span class="f-t">From</span>
+                                                        <input [(ngModel)]="Artist.price_from" type="text">
+                                                        <span class="t-f">/hr</span>
+                                                    </div>
+                                                    <div class="input-groupe-1 from-to-style">
+                                                        <span class="f-t">To</span>
+                                                        <input [(ngModel)]="Artist.price_to" type="text">
+                                                        <span class="t-f">/hr</span>                           
+                                                    </div>
+                                                </div>
+                                                <div class="flex-input-groupes">
+                                                    <div class="input-groupe-1 from-to-style">
+                                                    <p class="hours-label">Price for additional Hours:</p>
+                                                    </div>
+                                                    <div class="input-groupe-1 from-to-style hours-label-groupe">
+                                                    
+                                                        <input [(ngModel)]="Artist.additional_hours_price" type="text">
+                                                        <span class="t-f">/hr</span>                           
+                                                    </div>
+                                                </div>
+                                                <div class="flex-mac-checkbox">
+                                                    <p>Hide Pricing from Profile?</p>
+                                                    <div class="yes-no">
+                                                        <span>Yes</span>
+                                                        <div class="mac-checkbox">
+                                                            <input  [(ngModel)]="Artist.is_hide_pricing_from_profile" class="checkbox" checked="" type="checkbox" id="checkbox-set-option-1">
+                                                            <label for="checkbox-set-option-1"></label>
+                                                        </div>
+                                                        <span>No</span>
+                                                    </div>
+                                                </div>
+                                                <div class="flex-mac-checkbox">
+                                                    <p>Hide Pricing from Search?</p>
+                                                    <div class="yes-no">
+                                                        <span>Yes</span>
+                                                        <div class="mac-checkbox">
+                                                            <input [(ngModel)]="Artist.is_hide_pricing_from_search" class="checkbox" checked="" type="checkbox" id="checkbox-set-option-2">
+                                                            <label for="checkbox-set-option-2"></label>
+                                                        </div>
+                                                        <span>No</span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <p class="price-t-t">Price</p>
-                                            <div class="flex-input-groupes">
-                                                <div class="input-groupe-1 from-to-style">
-                                                    <span class="f-t">From</span>
-                                                    <input type="text">
-                                                    <span class="t-f">/hr</span>
+                                            <div class="side">
+                                                <h6>Band</h6>
+                                                <div class="flex-mac-checkbox on-add-artist-page">
+                                                    <p class="quetion-radio-text">Do you perform with a Band?</p>
+                                                    <div class="flex-radio">
+                                                        <div class="one-radio">
+                                                            <div class="radio-style">
+                                                                <input [(ngModel)]="Artist.is_perform_with_band" type="radio" class="radio-b" id="radio-1" name="group1" value="true" checked>
+                                                                <label for="radio-1"></label>
+                                                            </div>
+                                                            <p>Yes</p>
+                                                        </div>
+                                                        <div class="one-radio">
+                                                            <div class="radio-style">
+                                                                <input [(ngModel)]="Artist.is_perform_with_band" type="radio" class="radio-b" id="radio-2" name="group1" [value]="false">
+                                                                <label for="radio-2"></label>
+                                                            </div>
+                                                            <p>No</p>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="input-groupe-1 from-to-style">
-                                                    <span class="f-t">To</span>
-                                                    <input type="text">
-                                                    <span class="t-f">/hr</span>                           
+                                                <div class="flex-mac-checkbox on-add-artist-page">
+                                                    <p class="quetion-radio-text">Can you perform without a Band?</p>
+                                                    <div class="flex-radio">
+                                                        <div class="one-radio">
+                                                            <div class="radio-style">
+                                                                <input [(ngModel)]="Artist.can_perform_without_band" type="radio" class="radio-b" id="radio-3" name="group2" [value]="true" checked="">
+                                                                <label for="radio-3"></label>
+                                                            </div>
+                                                            <p>Yes</p>
+                                                        </div>
+                                                        <div class="one-radio">
+                                                            <div class="radio-style">
+                                                                <input [(ngModel)]="Artist.can_perform_without_band" type="radio" class="radio-b" id="radio-4" name="group2" [value]="false">
+                                                                <label for="radio-4"></label>
+                                                            </div>
+                                                            <p>No</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="flex-mac-checkbox on-add-artist-page">
+                                                    <p class="quetion-radio-text">Do you perform with Backing Vocals?</p>
+                                                    <div class="flex-radio">
+                                                        <div class="one-radio">
+                                                            <div class="radio-style">
+                                                                <input [(ngModel)]="Artist.is_perform_with_backing_vocals" type="radio" class="radio-b" id="radio-5" name="group3" [value]="true" checked="">
+                                                                <label for="radio-5"></label>
+                                                            </div>
+                                                            <p>Yes</p>
+                                                        </div>
+                                                        <div class="one-radio">
+                                                            <div class="radio-style">
+                                                                <input [(ngModel)]="Artist.is_perform_with_backing_vocals" type="radio" class="radio-b" id="radio-6" name="group3" [value]="false">
+                                                                <label for="radio-6"></label>
+                                                            </div>
+                                                            <p>No</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="flex-mac-checkbox on-add-artist-page">
+                                                    <p class="quetion-radio-text">Can you perform without Backing Vocals?</p>
+                                                    <div class="flex-radio">
+                                                        <div class="one-radio">
+                                                            <div class="radio-style">
+                                                                <input [(ngModel)]="Artist.can_perform_without_backing_vocals" type="radio" class="radio-b" id="radio-7" name="group4" [value]="true" checked="">
+                                                                <label for="radio-7"></label>
+                                                            </div>
+                                                            <p>Yes</p>
+                                                        </div>
+                                                        <div class="one-radio">
+                                                            <div class="radio-style">
+                                                                <input [(ngModel)]="Artist.can_perform_without_backing_vocals" type="radio" class="radio-b" id="radio-8" name="group4" [value]="false">
+                                                                <label for="radio-8"></label>
+                                                            </div>
+                                                            <p>No</p>
+                                                        </div>
+                                                    </div>
+                                                </div> 
+                                            </div>
+                                            <div class="side">
+                                                <h6>Preferred Venue</h6>
+                                                <div  class="flex-genres style-on-add-artist-g">
+                                                    <!-- <ng-container  > -->
+                                                    <div *ngFor="let type of preferredVenues; let i = index" class="one-checkbox">
+                                                        <div class="check-style">
+                                                            <input [checked]="preferredVenues[i].checked" type="checkbox" (click)="setPreferedVenue(i)" class="checkbox" name="" id="checkbox-{{i}}">
+                                                            <label for="checkbox-{{i}}"></label>
+                                                        </div>
+                                                        <p>{{type.object.type_show}}</p>
+                                                    </div>
+                                                    <!-- </ng-container> -->
+                                                    <!-- <div class="one-checkbox">
+                                                        <div class="check-style">
+                                                            <input [checked]="false" type="checkbox" class="checkbox" name="" id="checkbox-2">
+                                                            <label for="checkbox-2"></label>
+                                                        </div>
+                                                        <p>Bar</p>
+                                                    </div>
+                                                    <div class="one-checkbox">
+                                                        <div class="check-style">
+                                                            <input  type="checkbox" class="checkbox" name="" id="checkbox-3">
+                                                            <label for="checkbox-3"></label>
+                                                        </div>
+                                                        <p>Restaurant</p>
+                                                    </div>
+                                                    <div class="one-checkbox">
+                                                        <div class="check-style">
+                                                            <input  type="checkbox" class="checkbox" name="" id="checkbox-4">
+                                                            <label for="checkbox-4"></label>
+                                                        </div>
+                                                        <p>Concert Hall</p>
+                                                    </div>
+                                                    <div class="one-checkbox">
+                                                        <div class="check-style">
+                                                            <input  type="checkbox" class="checkbox" name="" id="checkbox-5">
+                                                            <label for="checkbox-5"></label>
+                                                        </div>
+                                                        <p>Event Space</p>
+                                                    </div>
+                                                    <div class="one-checkbox">
+                                                        <div class="check-style">
+                                                            <input  type="checkbox" class="checkbox" name="" id="checkbox-6">
+                                                            <label for="checkbox-6"></label>
+                                                        </div>
+                                                        <p>Outdoor Space</p>
+                                                    </div>
+                                                    <div class="one-checkbox">
+                                                        <div class="check-style">
+                                                            <input  type="checkbox" class="checkbox" name="" id="checkbox-7">
+                                                            <label for="checkbox-7"></label>
+                                                        </div>
+                                                        <p>Theatre</p>
+                                                    </div>
+                                                    <div class="one-checkbox">
+                                                        <div class="check-style">
+                                                            <input  type="checkbox" class="checkbox" name="" id="checkbox-8">
+                                                            <label for="checkbox-8"></label>
+                                                        </div>
+                                                        <p>Private Residence</p>
+                                                    </div>
+                                                    <div class="one-checkbox">
+                                                        <div class="check-style">
+                                                            <input  type="checkbox" class="checkbox" name="" id="checkbox-9">
+                                                            <label for="checkbox-9"></label>
+                                                        </div>
+                                                        <p>Other</p>
+                                                    </div> -->
+                                                </div>
+                                                <div class="input-groupe-1 whithout-label small-textarea max-500 max-100">  
+                                                    <textarea [(ngModel)]="Artist.preferred_venue_text"></textarea>
+                                                    <span class="max-count">100 max</span>
                                                 </div>
                                             </div>
-                                            <div class="flex-input-groupes">
-                                                <div class="input-groupe-1 from-to-style">
-                                                <p class="hours-label">Price for additional Hours:</p>
+                                        </div>
+                                        <div class="flex-funding-columns">
+                                            <div class="side">
+                                                <h6>Preferred Location</h6>
+                                                <div class="location-wr">
+                                                    <div class="mark"></div>
+                                                    <input [(ngModel)]="Artist.location" type="text" class="location-inp" placeholder="location">
                                                 </div>
-                                                <div class="input-groupe-1 from-to-style hours-label-groupe">
+                                                <div class="flex-input-groupes">
+                                                    <div class="input-groupe-1 p-style-10">
+                                                    <p class="hours-label">How many days notice do you need to travel?</p>
+                                                    </div>
+                                                    <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
+                                                        <select [(ngModel)]="Artist.days_to_travel">
+                                                            <option>30 days</option>
+                                                            <option>40 days</option>
+                                                        </select>                                                         
+                                                    </div>
+                                                </div>
                                                 
-                                                    <input type="text">
-                                                    <span class="t-f">/hr</span>                           
-                                                </div>
                                             </div>
-                                            <div class="flex-mac-checkbox">
-                                                <p>Hide Pricing from Profile?</p>
-                                                <div class="yes-no">
-                                                    <span>Yes</span>
-                                                    <div class="mac-checkbox">
-                                                        <input class="checkbox" checked="" type="checkbox" id="checkbox-set-option-1">
-                                                        <label for="checkbox-set-option-1"></label>
-                                                    </div>
-                                                    <span>No</span>
-                                                </div>
-                                            </div>
-                                            <div class="flex-mac-checkbox">
-                                                <p>Hide Pricing from Search?</p>
-                                                <div class="yes-no">
-                                                    <span>Yes</span>
-                                                    <div class="mac-checkbox">
-                                                        <input class="checkbox" checked="" type="checkbox" id="checkbox-set-option-2">
-                                                        <label for="checkbox-set-option-2"></label>
-                                                    </div>
-                                                    <span>No</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="side">
-                                            <h6>Band</h6>
-                                            <div class="flex-mac-checkbox on-add-artist-page">
-                                                <p class="quetion-radio-text">Do you perform with a Band?</p>
-                                                <div class="flex-radio">
-                                                    <div class="one-radio">
-                                                        <div class="radio-style">
-                                                            <input type="radio" class="radio-b" id="radio-1" name="group1" value="VR" checked="">
-                                                            <label for="radio-1"></label>
+                                            <div class="side">
+                                                <h6>Video Streaming Preference</h6>
+                                                <div class="flex-mac-checkbox on-add-artist-page">
+                                                    <p class="quetion-radio-text">Do you give permission to the Venue/Event Organizer to stream your performance? </p>
+                                                    <div class="flex-radio">
+                                                        <div class="one-radio">
+                                                            <div class="radio-style">
+                                                                <input [(ngModel)]="Artist.is_permitted_to_stream" type="radio" class="radio-b" id="radio-9" name="group5" [value]="true" checked="">
+                                                                <label for="radio-9"></label>
+                                                            </div>
+                                                            <p>Yes</p>
                                                         </div>
-                                                        <p>Yes</p>
-                                                    </div>
-                                                    <div class="one-radio">
-                                                        <div class="radio-style">
-                                                            <input type="radio" class="radio-b" id="radio-2" name="group1" value="Attend">
-                                                            <label for="radio-2"></label>
+                                                        <div class="one-radio">
+                                                            <div class="radio-style">
+                                                                <input [(ngModel)]="Artist.is_permitted_to_stream" type="radio" class="radio-b" id="radio-10" name="group5" [value]="false">
+                                                                <label for="radio-10"></label>
+                                                            </div>
+                                                            <p>No</p>
                                                         </div>
-                                                        <p>No</p>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="flex-mac-checkbox on-add-artist-page">
-                                                <p class="quetion-radio-text">Can you perform without a Band?</p>
-                                                <div class="flex-radio">
-                                                    <div class="one-radio">
-                                                        <div class="radio-style">
-                                                            <input type="radio" class="radio-b" id="radio-3" name="group2" value="VR" checked="">
-                                                            <label for="radio-3"></label>
+                                                </div> 
+                                                <div class="flex-mac-checkbox on-add-artist-page">
+                                                    <p class="quetion-radio-text">Do you give permission to the Venue/Event Organizer to have advertisements over your streaming performance?</p>
+                                                    <div class="flex-radio">
+                                                        <div class="one-radio">
+                                                            <div class="radio-style">
+                                                                <input [(ngModel)]="Artist.is_permitted_to_advertisement" type="radio" class="radio-b" id="radio-11" name="group6" [value]="true" checked="">
+                                                                <label for="radio-11"></label>
+                                                            </div>
+                                                            <p>Yes</p>
                                                         </div>
-                                                        <p>Yes</p>
-                                                    </div>
-                                                    <div class="one-radio">
-                                                        <div class="radio-style">
-                                                            <input type="radio" class="radio-b" id="radio-4" name="group2" value="Attend">
-                                                            <label for="radio-4"></label>
+                                                        <div class="one-radio">
+                                                            <div class="radio-style">
+                                                                <input [(ngModel)]="Artist.is_permitted_to_advertisement" type="radio" class="radio-b" id="radio-12" name="group6" [value]="false">
+                                                                <label for="radio-12"></label>
+                                                            </div>
+                                                            <p>No</p>
                                                         </div>
-                                                        <p>No</p>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="flex-mac-checkbox on-add-artist-page">
-                                                <p class="quetion-radio-text">Do you perform with Backing Vocals?</p>
-                                                <div class="flex-radio">
-                                                    <div class="one-radio">
-                                                        <div class="radio-style">
-                                                            <input type="radio" class="radio-b" id="radio-5" name="group3" value="VR" checked="">
-                                                            <label for="radio-5"></label>
+                                                </div> 
+                                                <div class="flex-mac-checkbox on-add-artist-page">
+                                                    <p class="quetion-radio-text">Do you have contracts with any Brands that may conflict with advertisements?</p>
+                                                    <div class="flex-radio">
+                                                        <div class="one-radio">
+                                                            <div class="radio-style">
+                                                                <input [(ngModel)]="Artist.has_conflict_contracts" type="radio" class="radio-b" id="radio-13" name="group7" [value]="true" checked="">
+                                                                <label for="radio-13"></label>
+                                                            </div>
+                                                            <p>Yes</p>
                                                         </div>
-                                                        <p>Yes</p>
-                                                    </div>
-                                                    <div class="one-radio">
-                                                        <div class="radio-style">
-                                                            <input type="radio" class="radio-b" id="radio-6" name="group3" value="Attend">
-                                                            <label for="radio-6"></label>
+                                                        <div class="one-radio">
+                                                            <div class="radio-style">
+                                                                <input [(ngModel)]="Artist.has_conflict_contracts" type="radio" class="radio-b" id="radio-14" name="group7" [value]="false">
+                                                                <label for="radio-14"></label>
+                                                            </div>
+                                                            <p>No</p>
                                                         </div>
-                                                        <p>No</p>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="flex-mac-checkbox on-add-artist-page">
-                                                <p class="quetion-radio-text">Can you perform without Backing Vocals?</p>
-                                                <div class="flex-radio">
-                                                    <div class="one-radio">
-                                                        <div class="radio-style">
-                                                            <input type="radio" class="radio-b" id="radio-7" name="group4" value="VR" checked="">
-                                                            <label for="radio-7"></label>
-                                                        </div>
-                                                        <p>Yes</p>
-                                                    </div>
-                                                    <div class="one-radio">
-                                                        <div class="radio-style">
-                                                            <input type="radio" class="radio-b" id="radio-8" name="group4" value="Attend">
-                                                            <label for="radio-8"></label>
-                                                        </div>
-                                                        <p>No</p>
-                                                    </div>
-                                                </div>
-                                            </div> 
-                                        </div>
-                                        <div class="side">
-                                            <h6>Preferred Venue</h6>
-                                            <div class="flex-genres style-on-add-artist-g">
-                                                <div class="one-checkbox">
-                                                    <div class="check-style">
-                                                        <input type="checkbox" class="checkbox" name="" id="checkbox-1">
-                                                        <label for="checkbox-1"></label>
-                                                    </div>
-                                                    <p>Night Club</p>
-                                                </div>
-                                                <div class="one-checkbox">
-                                                    <div class="check-style">
-                                                        <input type="checkbox" class="checkbox" name="" id="checkbox-2">
-                                                        <label for="checkbox-2"></label>
-                                                    </div>
-                                                    <p>Bar</p>
-                                                </div>
-                                                <div class="one-checkbox">
-                                                    <div class="check-style">
-                                                        <input type="checkbox" class="checkbox" name="" id="checkbox-3">
-                                                        <label for="checkbox-3"></label>
-                                                    </div>
-                                                    <p>Restaurant</p>
-                                                </div>
-                                                <div class="one-checkbox">
-                                                    <div class="check-style">
-                                                        <input type="checkbox" class="checkbox" name="" id="checkbox-4">
-                                                        <label for="checkbox-4"></label>
-                                                    </div>
-                                                    <p>Concert Hall</p>
-                                                </div>
-                                                <div class="one-checkbox">
-                                                    <div class="check-style">
-                                                        <input type="checkbox" class="checkbox" name="" id="checkbox-5">
-                                                        <label for="checkbox-5"></label>
-                                                    </div>
-                                                    <p>Event Space</p>
-                                                </div>
-                                                <div class="one-checkbox">
-                                                    <div class="check-style">
-                                                        <input type="checkbox" class="checkbox" name="" id="checkbox-6">
-                                                        <label for="checkbox-6"></label>
-                                                    </div>
-                                                    <p>Outdoor Space</p>
-                                                </div>
-                                                <div class="one-checkbox">
-                                                    <div class="check-style">
-                                                        <input type="checkbox" class="checkbox" name="" id="checkbox-7">
-                                                        <label for="checkbox-7"></label>
-                                                    </div>
-                                                    <p>Theatre</p>
-                                                </div>
-                                                <div class="one-checkbox">
-                                                    <div class="check-style">
-                                                        <input type="checkbox" class="checkbox" name="" id="checkbox-8">
-                                                        <label for="checkbox-8"></label>
-                                                    </div>
-                                                    <p>Private Residence</p>
-                                                </div>
-                                                <div class="one-checkbox">
-                                                    <div class="check-style">
-                                                        <input type="checkbox" class="checkbox" name="" id="checkbox-9">
-                                                        <label for="checkbox-9"></label>
-                                                    </div>
-                                                    <p>Other</p>
-                                                </div>
-                                            </div>
-                                            <div class="input-groupe-1 whithout-label small-textarea max-500 max-100">  
-                                                <textarea></textarea>
-                                                <span class="max-count">100 max</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="flex-funding-columns">
-                                        <div class="side">
-                                            <h6>Preferred Location</h6>
-                                            <div class="location-wr">
-                                                <div class="mark"></div>
-                                                <input type="text" class="location-inp" placeholder="location">
-                                            </div>
-                                            <div class="flex-input-groupes">
-                                                <div class="input-groupe-1 p-style-10">
-                                                <p class="hours-label">How many days notice do you need to travel?</p>
-                                                </div>
-                                                <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
-                                                    <select>
-                                                        <option>30 days</option>
-                                                        <option>40 days</option>
-                                                    </select>                                                         
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="side">
-                                            <h6>Video Streaming Preference</h6>
-                                            <div class="flex-mac-checkbox on-add-artist-page">
-                                                <p class="quetion-radio-text">Do you give permission to the Venue/Event Organizer to stream your performance? </p>
-                                                <div class="flex-radio">
-                                                    <div class="one-radio">
-                                                        <div class="radio-style">
-                                                            <input type="radio" class="radio-b" id="radio-9" name="group5" value="VR" checked="">
-                                                            <label for="radio-9"></label>
-                                                        </div>
-                                                        <p>Yes</p>
-                                                    </div>
-                                                    <div class="one-radio">
-                                                        <div class="radio-style">
-                                                            <input type="radio" class="radio-b" id="radio-10" name="group5" value="Attend">
-                                                            <label for="radio-10"></label>
-                                                        </div>
-                                                        <p>No</p>
-                                                    </div>
-                                                </div>
-                                            </div> 
-                                            <div class="flex-mac-checkbox on-add-artist-page">
-                                                <p class="quetion-radio-text">Do you give permission to the Venue/Event Organizer to have advertisements over your streaming performance?</p>
-                                                <div class="flex-radio">
-                                                    <div class="one-radio">
-                                                        <div class="radio-style">
-                                                            <input type="radio" class="radio-b" id="radio-11" name="group6" value="VR" checked="">
-                                                            <label for="radio-11"></label>
-                                                        </div>
-                                                        <p>Yes</p>
-                                                    </div>
-                                                    <div class="one-radio">
-                                                        <div class="radio-style">
-                                                            <input type="radio" class="radio-b" id="radio-12" name="group6" value="Attend">
-                                                            <label for="radio-12"></label>
-                                                        </div>
-                                                        <p>No</p>
-                                                    </div>
-                                                </div>
-                                            </div> 
-                                            <div class="flex-mac-checkbox on-add-artist-page">
-                                                <p class="quetion-radio-text">Do you have contracts with any Brands that may conflict with advertisements?</p>
-                                                <div class="flex-radio">
-                                                    <div class="one-radio">
-                                                        <div class="radio-style">
-                                                            <input type="radio" class="radio-b" id="radio-13" name="group7" value="VR" checked="">
-                                                            <label for="radio-13"></label>
-                                                        </div>
-                                                        <p>Yes</p>
-                                                    </div>
-                                                    <div class="one-radio">
-                                                        <div class="radio-style">
-                                                            <input type="radio" class="radio-b" id="radio-14" name="group7" value="Attend">
-                                                            <label for="radio-14"></label>
-                                                        </div>
-                                                        <p>No</p>
-                                                    </div>
-                                                </div>
-                                            </div> 
-                                            <div class="input-groupe-1">
-                                                <input id="if-yes-1" name="" type="text" placeholder="Company name">
-                                                <label for="if-yes-1">If yes, with what companies?</label>
+                                                </div> 
+                                                <div class="input-groupe-1">
+                                                    <input [(ngModel)]="Artist.conflict_companies_names" id="if-yes-1" name="" type="text" placeholder="Company name">
+                                                    <label for="if-yes-1">If yes, with what companies?</label>
 
+                                                </div>
+                                            </div>
+                                            <div class="side">
+                                                <h6>Other</h6>
+                                                <div class="flex-input-groupes">
+                                                    <div class="input-groupe-1 ">
+                                                    <p class="hours-label">Minimum Time needed to book before a Concert?</p>
+                                                    </div>
+                                                    <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
+                                                        <select [(ngModel)]="Artist.min_time_to_book">
+                                                            <option>30 days</option>
+                                                            <option>40 days</option>
+                                                        </select>                                                         
+                                                    </div>
+                                                </div>
+                                                <div class="flex-input-groupes">
+                                                    <div class="input-groupe-1">
+                                                    <p class="hours-label">How much time is needed to cancel before you charge a cancellation fee?</p>
+                                                    </div>
+                                                    <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
+                                                        <select [(ngModel)]="Artist.min_time_to_free_cancel">
+                                                            <option>30 days</option>
+                                                            <option>40 days</option>
+                                                        </select>                                                         
+                                                    </div>
+                                                </div>
+                                                <div class="flex-input-groupes">
+                                                    <div class="input-groupe-1">
+                                                    <p class="hours-label">Fee for last minute сancellation</p>
+                                                    </div>
+                                                    <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
+                                                        <input [(ngModel)]="Artist.late_cancellation_fee" type="text" class="whithout-padd">                                                      
+                                                    </div>
+                                                </div>
+                                                <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">
+                                                    <textarea [(ngModel)]="Artist.refund_policy" id="inp-create-9"></textarea>
+                                                    <label for="inp-create-9" class="head-groupe">Refund Policy</label>
+                                                    <span class="max-count">100 max</span>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="side">
-                                            <h6>Other</h6>
-                                            <div class="flex-input-groupes">
-                                                <div class="input-groupe-1 ">
-                                                <p class="hours-label">Minimum Time needed to book before a Concert?</p>
-                                                </div>
-                                                <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
-                                                    <select>
-                                                        <option>30 days</option>
-                                                        <option>40 days</option>
-                                                    </select>                                                         
-                                                </div>
-                                            </div>
-                                            <div class="flex-input-groupes">
-                                                <div class="input-groupe-1">
-                                                <p class="hours-label">How much time is needed to cancel before you charge a cancellation fee?</p>
-                                                </div>
-                                                <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
-                                                    <select>
-                                                        <option>30 days</option>
-                                                        <option>40 days</option>
-                                                    </select>                                                         
-                                                </div>
-                                            </div>
-                                            <div class="flex-input-groupes">
-                                                <div class="input-groupe-1">
-                                                <p class="hours-label">Fee for last minute сancellation</p>
-                                                </div>
-                                                <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
-                                                    <input type="text" class="whithout-padd">                                                      
-                                                </div>
-                                            </div>
-                                            <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">
-                                                <textarea id="inp-create-9"></textarea>
-                                                <label for="inp-create-9" class="head-groupe">Refund Policy</label>
-                                                <span class="max-count">100 max</span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                </div>
+                                <div class="scroll-wrapp">
+                                        <div class="circle-scroll" (click)="addBooking()"></div>
                                 </div>
                             </div>
 
