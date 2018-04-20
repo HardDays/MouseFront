@@ -41,6 +41,7 @@ import { AgmCoreModule } from '@agm/core';
 import { CheckModel } from '../../core/models/check.model';
 import { TicketModel } from '../../core/models/ticket.model';
 import { TicketGetParamsModel } from '../../core/models/ticketGetParams.model';
+import { Observable } from 'rxjs/Observable';
 
 
 
@@ -56,7 +57,101 @@ declare var ionRangeSlider:any;
 
 
 
-export class VenueCreateComponent extends BaseComponent implements OnInit {
-    ngOnInit(){}   
+export class VenueCreateComponent extends BaseComponent implements OnInit 
+{
+  Venue:AccountCreateModel = new AccountCreateModel();
+  VenueId:number = 0;
+
+  aboutForm : FormGroup = new FormGroup({        
+    "venue_name": new FormControl("", [Validators.required]),
+    "mouse_name": new FormControl("", [Validators.required]),
+    "short_desc": new FormControl("", [Validators.required]),
+    "phone": new FormControl("", [Validators.required]),
+    "fax": new FormControl("", []),
+    "country": new FormControl("", [Validators.required]),
+    "address": new FormControl("", [Validators.required]),
+    "city": new FormControl("", [Validators.required]),
+    "state": new FormControl("", [Validators.required]),
+    "zipcode": new FormControl("", [Validators.required]),
+  });
+
+  constructor(protected authService: AuthMainService,
+    protected accService:AccountService,
+    protected imgService:ImagesService,
+    protected typeService:TypeService,
+    protected genreService:GenresService,
+    protected eventService:EventService,
+    protected _sanitizer: DomSanitizer,
+    protected router: Router,public _auth: AuthService,
+    private mapsAPILoader: MapsAPILoader, 
+    private ngZone: NgZone, protected h:Http,
+    private activatedRoute: ActivatedRoute){
+    super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
+  }
+
+    ngOnInit()
+    {
+      this.activatedRoute.params.forEach((params) => {
+        if(params["id"] == 'new')
+        {;
+          this.DisplayVenueParams(null);
+        }
+        else
+        {
+          this.accService.GetAccountById(params["id"],{extended:true})
+            .subscribe
+            (
+              (res:AccountGetModel) => 
+              {
+                this.DisplayVenueParams(res);
+              }
+            );
+        }
+      });
+
+
+    }
+
+    DisplayVenueParams($venue?:AccountGetModel)
+    {
+      if($venue && $venue.id){
+        this.VenueId = $venue.id;
+        this.router.navigateByUrl("/system/venueCreate/"+this.VenueId);
+      }
+        
+      this.Venue = $venue ? this.accService.AccountModelToCreateAccountModel($venue) : new AccountCreateModel();
+      this.Venue.account_type = AccountType.Venue;
+    }
+
+    SaveVenue()
+    {
+      this.WaitBeforeLoading
+      (
+        () => this.VenueId == 0 ? this.accService.CreateAccount(this.Venue) : this.accService.UpdateMyAccount(this.VenueId,this.Venue),
+        (res) => 
+        {
+          console.log(res);
+          this.DisplayVenueParams(res);
+        },
+        (err) =>
+        {
+          console.log(err);
+        }
+      )
+    }
+
+  //   ServiceSaveVenue = (fun:()=>Observable<any>,success:(result?:any)=>void, err?:(obj?:any)=>void)=>{
+  //     fun()
+  //       .subscribe(
+  //         res=>{
+  //             success(res);
+  //         },
+  //         error=>{
+  //           if(err && typeof err == "function"){
+  //               err(error); 
+  //           }
+  //         }
+  //       );
+  // }
     
 }

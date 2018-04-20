@@ -56,7 +56,7 @@ export class BaseComponent{
 
         this.authService.onAuthChange$
             .subscribe((res:boolean)=>{
-                console.log(`AUTH: base, onAuthChange$`);
+                //console.log(`AUTH: base, onAuthChange$`);
                 this.isLoggedIn = res;
                 if(this.isLoggedIn){
                     this.GetMyAccounts();      
@@ -136,7 +136,7 @@ export class BaseComponent{
             (res)=>{
                 this.MyAccounts = res;
                 //this.GetMyImage(callback);
-                console.log(`AUTH: base, GetMyAccounts`,this.MyAccounts);
+                // console.log(`AUTH: base, GetMyAccounts`,this.MyAccounts);
                 if(!localStorage.getItem('activeUserId'))
                     localStorage.setItem('activeUserId',this.MyAccounts[0]?''+this.MyAccounts[0].id:'0');
             },
@@ -174,13 +174,13 @@ export class BaseComponent{
             let sub:any;
             sub = this._auth.login(provider).subscribe(
             (data) => {
-                        console.log(data);
+                        // console.log(data);
                         let socToken:any;
                         socToken = data;
                         if (provider=="google")
                             this.authService.UserLoginByGoogle(socToken.token).
                             subscribe((res)=>{
-                                console.log(`g:`,res);
+                                // console.log(`g:`,res);
                                 this.authService.BaseInitAfterLogin(res);
                                     this.router.navigate(['/system','shows']);
                             });
@@ -188,7 +188,7 @@ export class BaseComponent{
                         else if (provider=="facebook")
                             this.authService.UserLoginByFacebook(socToken.token).
                             subscribe((res)=>{
-                                console.log(`f:`,res);
+                                // console.log(`f:`,res);
                                 this.authService.BaseInitAfterLogin(res);
                                 this.router.navigate(['/system','shows']);
                             });
@@ -214,7 +214,7 @@ export class BaseComponent{
         if(!this.userCreated) this.WaitBeforeLoading(
             ()=>this.authService.CreateUser(user),
                 (res:UserGetModel)=>{
-                    console.log('ok usr:',res,);
+                    // console.log('ok usr:',res,);
                     let token:TokenModel = new TokenModel();
                     token.token = res.token;
                     this.authService.BaseInitAfterLogin(token);
@@ -235,7 +235,7 @@ export class BaseComponent{
         this.WaitBeforeLoading(
             ()=>this.authService.CreateUser(user),
                 (res:UserGetModel)=>{
-                    console.log('user create ok: ',res);
+                    // console.log('user create ok: ',res);
                     let token:TokenModel = new TokenModel();
                     token.token = res.token;
                     this.authService.BaseInitAfterLogin(token);
@@ -251,7 +251,7 @@ export class BaseComponent{
             this.authService.CreateAccount(account).
                     subscribe(
                         (acc)=>{
-                           console.log('acc create ok: ',acc);
+                        //    console.log('acc create ok: ',acc);
                            this.accId = acc.id;
                         },
                         (err)=>{
