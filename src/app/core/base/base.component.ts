@@ -219,19 +219,20 @@ export class BaseComponent{
                     token.token = res.token;
                     this.authService.BaseInitAfterLogin(token);
                     this.userCreated = true;
-                    this.CreateAcc(account,callback);
+                    // this.CreateAcc(account,callback);
                 },
                 (err)=>{
                     callback(err);
                 }
         );
-        else this.CreateAcc(account,callback);
+        // else this.CreateAcc(account,callback);
     }
 
 
 
-    CreateUser(user:UserCreateModel, callback:(error)=>any){
+    CreateUser(user:UserCreateModel, callbackOk:(res)=>any, callbackErr:(error)=>any){
         this.userCreated = false;
+        //console.log(user);
         this.WaitBeforeLoading(
             ()=>this.authService.CreateUser(user),
                 (res:UserGetModel)=>{
@@ -240,19 +241,22 @@ export class BaseComponent{
                     token.token = res.token;
                     this.authService.BaseInitAfterLogin(token);
                     this.userCreated = true;
+                    callbackOk(res);
                 },
                 (err)=>{
-                    callback(err);
+                    callbackErr(err);
                 }
         );
     }
 
-    CreateAcc(account:AccountCreateModel,callback:(error)=>any){
+    CreateAcc(account:AccountCreateModel,callbackOk:(res)=>any,callback:(error)=>any){
             this.authService.CreateAccount(account).
                     subscribe(
                         (acc)=>{
                         //    console.log('acc create ok: ',acc);
                            this.accId = acc.id;
+                           localStorage.setItem('activeUserId',acc.id);
+                           callbackOk(acc);
                         },
                         (err)=>{
                             callback(err);
@@ -385,5 +389,14 @@ export class BaseComponent{
         for(let i of model) arrCheck.push(this.convertToCheckModel(i)); 
         return arrCheck;
     }
+
+    MaskTelephone(){
+        return {
+          // mask: ['+',/[1-9]/,' (', /[1-9]/, /\d/, /\d/, ') ',/\d/, /\d/, /\d/, '-', /\d/, /\d/,'-', /\d/, /\d/],
+          mask: ['+',/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/],
+          keepCharPositions: true,
+          guide:false
+        };
+      }
 
 }

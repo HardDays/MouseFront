@@ -1,0 +1,64 @@
+
+      <div class="register">
+           <a (click)="backTo()" class="abs-arr-left-reg">
+              <svg xmlns="http://www.w3.org/2000/svg" width="34" height="29" viewBox="0 0 34 29">
+                <path fill="#fff" id="Forma_1_copy_3" data-name="Forma 1 copy 3" class="cls-1" d="M857,946.183H828.082L839.5,934.862,837.62,933,823,947.5,837.62,962l1.877-1.862-11.415-11.322H857v-2.633Z" transform="translate(-823 -933)"/>
+              </svg>
+              <span>BAck</span>
+          </a>
+          <div class="m-v-reg">
+              <form [formGroup]="accForm" class="reg-wr">
+                  <h3>General info</h3>
+                  <div class="for-flex">
+                    <div class="photo-wr-1">
+                        <label  *ngIf="!Account.image_base64" class="file_upload">
+                            <div class="bg-image"></div>
+                            <p>Add photo</p>
+                            <input name="photo" accept=".jpg, .jpeg, .png" type="file" (change)="loadLogo($event)"> 
+                        </label>
+                       
+                        <div (click)="Account.image_base64=''" *ngIf="Account.image_base64" class="bg-image uploaded" [ngStyle]="{'background-image': 'url('+Account.image_base64+')'}"></div>
+                       
+                    </div>
+                      <div class="side left-side">
+                          
+                      </div>
+                      <div class="side right-side">
+                          <div class="rel-dog">
+                              <span>@</span>
+                              <input class="inp-style-2" type="text" formControlName="user_name" placeholder="MouseUsername">
+                          </div>
+                          <input class="inp-style-2" type="text" formControlName="first_name" placeholder="First Name">
+                          <input class="inp-style-2" type="text" formControlName="last_name" placeholder="Last Name">
+                          <div class="location-wr">
+                              <div class="mark"></div>
+                              <input type="text" class="location-inp" placeholder="location" #search>
+                          </div>
+                          <p class="grey-sm-tt">MOUSE needs to know your location to help you discover shows around you</p>
+                      </div>
+                  </div>
+                  
+                  <h3 class="marg30">select your genres</h3>
+                  <div class="search-wr">
+                     
+                    <input type="text" class="inp-style-1" (input)="CategoryChanged($event.target.value)"  placeholder="Search">
+                  </div>
+                  <div class="flex-checkboxes">
+                      <!--при for обращаем внимания на for у label и id у инпута-->
+                      <ng-container *ngFor="let item of genres; let i = index">
+                        <div *ngIf="item.show" class="one-checkbox" >
+                                <div class="check-style">
+                                    <input type="checkbox" [ngModelOptions]="{standalone: true}" [ngModel]="item.checked" (ngModelChange)="item.checked = $event" class="checkbox" name="genre-{{i}}" id='genre-{{i}}'>
+                                    <label for='genre-{{i}}'></label>
+                                </div>
+                                <p>{{item.genre_show}}</p>
+                        </div> 
+                   </ng-container>
+                  </div>
+                  <p class="more" *ngIf="!seeMore" (click)="seeMoreGenres()"><span>See more</span></p>
+                  <div class="continue-wr">
+                      <button class="butt-style-1" (click)="registerAcc()" type="submit"><span>Continue</span></button>
+                  </div>
+              </form>
+          </div>
+      </div>

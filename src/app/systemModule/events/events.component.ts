@@ -43,18 +43,18 @@ export class EventsComponent extends BaseComponent implements OnInit {
     }
 
     setHeightSearch(){
-        console.log($('.main-router-outlet .main-router-outlet').height(),$(window).height());
+        //console.log($('.main-router-outlet .main-router-outlet').height(),$(window).height());
         if($('.main-router-outlet .main-router-outlet').height() < $(window).height()){
           $('.wrapp-for-filter').css({
              "height": $('.for-flex-height').height()-150
           });
-          console.log(`one`);
+          //console.log(`one`);
         }
       else{
          $('.wrapp-for-filter').css({
              "height": '100%'
           }); 
-          console.log(`two`);
+          //console.log(`two`);
       }
       }
 
@@ -84,20 +84,20 @@ export class EventsComponent extends BaseComponent implements OnInit {
     //     this.SearchParams.price_from = data.from;
     //   if(data.to && this.SearchParams.price_to != data.to)  
     //     this.SearchParams.price_to = data.to;
-        console.log(`data`,data);
+        //console.log(`data`,data);
     }
 
     GetEvents()
     {
         this.accService.GetMyAccount({extended:true})
         .subscribe((users:any[])=>{
-            console.log(users);
+            //console.log(users);
             let id = +localStorage.getItem('activeUserId');
-            console.log(`id`,id);
+            //console.log(`id`,id);
             this.eventService.GetMyEvents(id)
             .subscribe((res:EventGetModel[])=>{
                 this.Events = res;
-                console.log(this.Events);
+                //console.log(this.Events);
       })
         });
         

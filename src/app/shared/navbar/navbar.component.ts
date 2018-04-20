@@ -75,7 +75,7 @@ export class NavbarComponent extends BaseComponent implements OnInit{
       }
     
       logout(){
-        console.log('logout');
+        //console.log('logout');
         this.Logout();
         // this.initUser();
         this.curNav = 'shows';
@@ -100,7 +100,7 @@ export class NavbarComponent extends BaseComponent implements OnInit{
       }
 
       updateProfiles(){
-        console.log(`update profiles`);
+        //console.log(`update profiles`);
         this.initUser();
       }
 

@@ -162,18 +162,18 @@ export class ShowsComponent extends BaseComponent implements OnInit {
   }
 
   setHeightSearch(){
-    console.log($('.main-router-outlet .main-router-outlet').height(),$(window).height());
+    //console.log($('.main-router-outlet .main-router-outlet').height(),$(window).height());
     if($('.main-router-outlet .main-router-outlet').height() < $(window).height()){
       $('.wrapp-for-filter').css({
          "height": $('.for-flex-height').height()-150
       });
-      console.log(`one`);
+      //console.log(`one`);
     }
   else{
      $('.wrapp-for-filter').css({
          "height": '100%'
       }); 
-      console.log(`two`);
+      //console.log(`two`);
   }
   }
 
@@ -192,7 +192,7 @@ export class ShowsComponent extends BaseComponent implements OnInit {
       .subscribe((res:EventGetModel[])=>{
         this.Events = res;
         //TODO: Из списка артистов по каждому ивенту
-        console.log("1", this.Events);
+        //console.log("1", this.Events);
         this.setHeightSearch();
       })
       
@@ -281,7 +281,7 @@ export class ShowsComponent extends BaseComponent implements OnInit {
 
     if(this.TicketTypes) {
       search.ticket_types = [];
-      console.log("tick", search.ticket_types);
+      //console.log("tick", search.ticket_types);
       for(let item of this.TicketTypes) {
         if(item.checked)
           search.ticket_types.push(item.value);
@@ -296,11 +296,11 @@ export class ShowsComponent extends BaseComponent implements OnInit {
           search.genres.push(item.genre);
       }
     }
-    console.log("search", search);
+    //console.log("search", search);
   }
 
     aboutDragMarker($event){
-      console.log($event);
+      //console.log($event);
       this.mapCoords.lat = $event.coords.lat;
       this.mapCoords.lng = $event.coords.lng;
       this.codeLatLng( this.mapCoords.lat, this.mapCoords.lng);
@@ -381,7 +381,7 @@ export class ShowsComponent extends BaseComponent implements OnInit {
     return n+1;
   }
   logChanged($event){
-    console.log("event",$event);
+    //console.log("event",$event);
   }
 }
   

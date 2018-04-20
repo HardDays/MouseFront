@@ -138,10 +138,10 @@ export class AccountCreateComponent extends BaseComponent implements OnInit {
       }
       this.Account.venue_type = "public_venue";
       //this.Account.dates = this.typeService.ValidateArray(this.Account.dates);
-      console.log("CR", this.Account);
+      //console.log("CR", this.Account);
       this.accService.CreateAccount(JSON.stringify(this.Account))
       .subscribe((res:any)=>{
-          console.log("RES", res);
+          //console.log("RES", res);
           this.InitByUser(res);
           this.isLoading = false;
           this.router.navigate(['/system','profile',res.id]);
@@ -223,13 +223,13 @@ export class AccountCreateComponent extends BaseComponent implements OnInit {
   
     DeleteVenueDate(i:number)
     {
-      console.log("aa", i);
-      console.log("aaa", this.bsValue_start);
+      //console.log("aa", i);
+      //console.log("aaa", this.bsValue_start);
       this.Account.dates.splice(i, 1);
-      console.log("dates",this.Account.dates);
+      //console.log("dates",this.Account.dates);
       this.bsValue_start.splice(i, 1);
       this.bsValue_end.splice(i, 1);
-      console.log("aaa", this.bsValue_start);
+      //console.log("aaa", this.bsValue_start);
     }
   
     AddVenueTime()
@@ -286,7 +286,7 @@ CategoryChanged($event:string){
 }
 
   logChanged($event){
-    console.log("event",$event);
+    //console.log("event",$event);
   }
 
 

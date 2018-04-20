@@ -25,6 +25,9 @@ import { LoginComponent } from './access/login/login.component';
 import { RegistrationComponent } from './access/registration/registration.component';
 import { EventService } from './core/services/event.service';
 import { CommonModule } from '@angular/common';
+import { RegisterUserComponent } from './access/registration/register-user/register-user.component';
+import { RegisterAccComponent } from './access/registration/register-acc/register-acc.component';
+import { RegisterFollowComponent } from './access/registration/register-follow/register-follow.component';
 
 
 let providers = {
@@ -42,7 +45,10 @@ let providers = {
     AppComponent,
     StupidAccessComponent,
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    RegisterUserComponent,
+    RegisterAccComponent,
+    RegisterFollowComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +62,8 @@ let providers = {
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",
       libraries: ["places"]
-    })
+    }),
+     
   ],
   providers: [AppAccessGuard, 
     AuthMainService,

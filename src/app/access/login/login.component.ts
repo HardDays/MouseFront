@@ -41,12 +41,12 @@ export class LoginComponent extends BaseComponent implements OnInit {
       
       if(this.accessVkToken.length>0) this.authService.UserLoginByVk(this.accessVkToken).
                                       subscribe((res)=>{
-                                        console.log(`vk ok`,res);
+                                        //console.log(`vk ok`,res);
                                         this.authService.BaseInitAfterLogin(res);
                                         // this.router.navigate(['/system','shows']);
                                         this.router.navigate(['/system','shows']);
                                       });
-      // console.log("tw_token", this.accessTwitterToken);
+      // //console.log("tw_token", this.accessTwitterToken);
       // console.log("secret", this.accessTwitterSecretToken);
       // if(this.accessTwitterToken.length>0) this.authService.UserLoginByTwitter(this.accessTwitterToken, this.accessTwitterSecretToken).
       //                                 subscribe((res)=>{
@@ -60,7 +60,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
   onSubmitSignIn(){
     // let username = form.controls.username.value, password = form.controls.password.value;
     this.Login(this.userLogin,(err)=>{
-      console.log(err);
+      //console.log(err);
       if(err.status==401) {
         this.isErrorLogin = true;
       }
@@ -82,8 +82,9 @@ export class LoginComponent extends BaseComponent implements OnInit {
     //window.open("https://oauth.vk.com/authorize?client_id=6412516&redirect_uri=http://localhost:4200/login&display=page&response_type=token&v=5.73&state=123456");
     // window.open("https://api.twitter.com/oauth/authenticate?oauth_token=jH56gmOmhtodHnttk65J5Mo6f9pVJyIZkm7xvtYPmuEDG");
     this.authService.Twitter().subscribe((res)=>{
-      console.log(`twitter`,res)
-    },(err)=>{console.log(`tw err`,err)});
+      // console.log(`twitter`,res)
+    },(err)=>{//console.log(`tw err`,err)
+  });
     
   }
   logoutGoFb(){
@@ -98,7 +99,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
     this.curPage = 3;
      this.authService.ForgotPassword(this.emailPhone)
     .subscribe(()=>{
-      console.log(`forgot pass send!`);
+      //console.log(`forgot pass send!`);
     })
   }
 
