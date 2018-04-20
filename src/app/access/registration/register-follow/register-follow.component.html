@@ -1,0 +1,28 @@
+
+      <form class="choose-to-follow">
+          <div class="bg-gradient-1"></div>
+          <div class="follow-m-w">
+              <h3>Choose who to follow</h3>
+              <div class="search-wr"> 
+                  <input type="text" class="inp-style-1" placeholder="Search">
+              </div>
+              <div class="flex-bands">
+                <div *ngFor="let item of artists; let i = index" class="one-band">
+                    <input type="checkbox" [ngModel]="artistsChecked[i]" (ngModelChange)="artistsChecked[i] = $event" class="checkbox" name="artist-{{i}}" id="checkbox-{{i}}">
+                    <label class="label-wr" for="checkbox-{{i}}" id="checkbox-{{i}}-{{i}}" (click)="clickItem(i)">
+                        <div class="photo-band-wrapp">
+                            <div class="photo-band" style="background-image: url(../../../assets/img/layer-7.jpg)"></div>
+                        </div>
+                        <div class="descr">
+                            <p class="name">{{item.display_name?item.display_name:"No name"}}</p>
+                            <p class="genre">Pop</p>
+                            <div class="checkbox-style-2"></div>
+                        </div>
+                    </label>
+                </div>
+              </div>
+          </div>
+          <div class="butt-to-continue">
+              <button class="butt-style-1" (click)="followArtists()" type="submit"><span>Сomplete</span></button>  
+          </div>
+      </form>

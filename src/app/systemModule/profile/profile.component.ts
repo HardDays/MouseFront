@@ -123,8 +123,8 @@ InitSliderWrapp() {
     });
     $('.iframe-slider-wrapp').on('beforeChange', function (event, slick, currentSlide, nextSlide) {
         //that.StopThisShit(currentSlide);
-        console.log(event);
-        console.log(slick);
+        //console.log(event);
+        //console.log(slick);
         currentSlide = nextSlide;
     });
 }
@@ -135,7 +135,7 @@ StopThisShit(index:number)
     //let player = window.document.getElementById('video-iframe-0');
     let player = $('#video-iframe-0');
     
-    console.log(player);
+    //console.log(player);
     //$('#video-iframe-'+index).pauseVideo();
 }
 
@@ -144,7 +144,7 @@ $('.gallery-main-wrapp').each(function () {
     var pic = $(this)
         , getItems = function () {
             var items = [];
-            console.log("1");
+            //console.log("1");
             pic.find('.for-gallery-item').each(function () {
                 var href = $(this).attr('data-hreff')
                     , size = $(this).data('size').split('x')
@@ -177,7 +177,7 @@ $('.gallery-main-wrapp').each(function () {
               }
             }
             // Initialize PhotoSwipe
-        console.log(options);
+        //console.log(options);
         var lightBox = new PhotoSwipe(pswp, PhotoSwipeUI_Default, items, options);
         lightBox.init();
     });
@@ -212,7 +212,7 @@ login(){
 }
 
 logout(){
-  console.log('logout');
+  //console.log('logout');
   this.Logout();
 }
 

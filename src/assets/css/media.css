@@ -19,7 +19,10 @@
     width: 100px; }
 
   .venue-week-cal-style .week-day-time-wr .from-to span {
-    margin-right: auto; } }
+    margin-right: auto; }
+
+  .flex-ticket-wrapp .sides .scrolled-wrapp .one-wr-tick .one-tick p.c {
+    line-height: 41px; } }
 @media (max-width: 1500px) {
   .flex-radio .one-radio {
     margin-right: 14px; }
@@ -34,7 +37,20 @@
     max-width: 187px; }
 
   .flex-mac-checkbox.on-add-artist-page .quetion-radio-text.none-max-width {
-    max-width: 100%; } }
+    max-width: 100%; }
+
+  .flex-ticket-wrapp .sides .scrolled-wrapp .one-wr-tick .one-tick p.t {
+    font-size: 12px; }
+
+  .body-tabs-datails-pages .for-flex-contant-d .left-side-tickets {
+    width: 50%; }
+
+  .body-tabs-datails-pages .for-flex-contant-d .right-side-tickets {
+    width: 50%; }
+
+  .show-datails-wr .flex-artist-main-info .right-side {
+    width: 69%;
+    padding-left: 66px; } }
 @media (max-width: 1460px) {
   .create-event-body-1 .create-event-body .flex-body-1 .side.two-sides-w {
     padding: 0 20px; } }
@@ -43,8 +59,7 @@
     width: 250px; }
 
   header .main-mw .left-side {
-    -ms-flex-negative: 0;
-        flex-shrink: 0; }
+    flex-shrink: 0; }
 
   header .main-mw .right-side {
     width: 100%; }
@@ -53,7 +68,10 @@
     height: 80px; }
 
   .all-info-profile .uniq-padd-2 .flex--info .side .blocks .one-block {
-    height: 280px; } }
+    height: 280px; }
+
+  .content-and-tabs-datails .tabslinks-and-goings .left-s ul li {
+    padding: 0 25px; } }
 @media (max-width: 1350px) {
   .media-flex-sides .right-side .slider-audio-wrapp .one-audio {
     width: 100%; }
@@ -75,8 +93,7 @@
   .flex-funding-columns .side {
     padding: 0 15px; }
     .flex-funding-columns .side .flex-radio {
-      -ms-flex-wrap: nowrap;
-          flex-wrap: nowrap; }
+      flex-wrap: nowrap; }
 
   .flex-radio .one-radio {
     margin-bottom: 10px; }
@@ -90,7 +107,23 @@
 
   .create-event-body-1 .create-event-body .flex-body-1 .side.two-sides-w .shadow-days-wr .checkboxes-days {
     width: 105px;
-    padding-right: 13px; } }
+    padding-right: 13px; }
+
+  .flex-ticket-wrapp .sides .scrolled-wrapp .one-wr-tick .one-tick p.c {
+    font-size: 25px;
+    line-height: 29px; }
+
+  .flex-ticket-wrapp .sides .scrolled-wrapp .one-wr-tick .one-tick p.t {
+    margin-bottom: 17px; }
+
+  .show-datails-wr .flex-artist-main-info .left-side .bg-gradient-info {
+    padding: 51px 25px 35px 25px; }
+
+  .show-datails-wr .flex-artist-main-info .left-side {
+    width: 315px; }
+
+  .content-and-tabs-datails .payment-body .one-collapsed-block .flex-top-cart img {
+    margin-right: 5px; } }
 @media (max-width: 1300px) {
   .create-event-body-1 .create-event-body .flex-body-1 .side.two-sides-w:first-child {
     padding-left: 0; }
@@ -98,7 +131,13 @@
     padding-right: 0; }
 
   .create-event-body-1 .create-event-body .flex-body-1 .side.two-sides-w .shadow-days-wr .times-days .some-times-days .week-day-time-wr .from-to:last-child {
-    padding-left: 10px; } }
+    padding-left: 10px; }
+
+  .content-and-tabs-datails .tabslinks-and-goings .left-s ul li a {
+    font-size: 16px; } }
+@media (max-width: 1250px) {
+  .content-and-tabs-datails {
+    padding: 0 40px; } }
 @media (max-width: 1199px) {
   .choose-to-follow .follow-m-w {
     padding: 65px 40px 125px 40px; }
@@ -143,8 +182,7 @@
     font-size: 21px; }
 
   .all-info-profile .uniq-padd-2 .flex--info {
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap; }
+    flex-wrap: wrap; }
 
   .all-info-profile .uniq-padd-2 .flex--info .side .blocks .one-block {
     height: 250px; }
@@ -178,18 +216,13 @@
       width: 100%;
       margin-bottom: 40px; }
       footer .for-flex-footer .side.side-1 ul {
-        display: -webkit-box;
-        display: -ms-flexbox;
         display: flex;
-        -webkit-box-pack: justify;
-            -ms-flex-pack: justify;
-                justify-content: space-between; }
+        justify-content: space-between; }
       footer .for-flex-footer .side.side-1 div {
         width: 100%; }
 
   footer .for-flex-footer {
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap; }
+    flex-wrap: wrap; }
 
   header .main-mw .right-side .search-inp .inp-style-1 {
     padding: 9px 3px; }
@@ -214,8 +247,7 @@
     width: 25%; }
 
   .head-info-profile-wr .head-info-profile {
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap; }
+    flex-wrap: wrap; }
 
   .head-info-profile-wr .head-info-profile .side-1 {
     width: 100%; }
@@ -236,10 +268,7 @@
     max-height: 532px; } }
 @media (max-width: 767px) {
   .register .m-v-reg .reg-wr .for-flex {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: reverse;
-        -ms-flex-direction: column-reverse;
-            flex-direction: column-reverse;
+    flex-direction: column-reverse;
     padding-top: 120px; }
 
   .register .m-v-reg .reg-wr .for-flex .side {
@@ -290,8 +319,7 @@
     padding-top: 20px; }
 
   .navbar-collapse {
-    -webkit-box-shadow: none;
-            box-shadow: none; }
+    box-shadow: none; }
 
   header .main-mw .right-side .flex-menu-items .name-and-ava-wr .name-and-ava {
     display: none; }
@@ -325,11 +353,8 @@
 
   header .main-mw .right-side .flex-menu-items ul {
     width: auto;
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center; }
+    flex-wrap: wrap;
+    justify-content: center; }
 
   header .main-mw .right-side .flex-menu-items ul li {
     width: 50%; }
@@ -358,12 +383,10 @@
     width: 250px; }
 
   .mainWrapper.has-push-left {
-    -webkit-transform: translateX(250px);
-            transform: translateX(250px); }
+    transform: translateX(250px); }
 
   .nav-holder-3.is-active {
-    -webkit-transform: translateX(0);
-            transform: translateX(0); }
+    transform: translateX(0); }
 
   .nav-holder-3:before {
     top: 122px; }

@@ -53,6 +53,10 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
   @ViewChild('submitFormUsr') form: NgForm;
   @ViewChild('search') public searchElementFrom: ElementRef;
 
+  typeUser:string;
+
+  currentPage:string = 'user';
+
   constructor(protected authService: AuthMainService,
               protected accService:AccountService,
               protected imgService:ImagesService,
@@ -66,6 +70,23 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
     super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
   }
     
+  onSuccesCreateUser(type:string){
+    if(type){
+      this.currentPage = 'acc';
+       this.typeUser = type;
+      }
+  }
+  onSuccesCreateAcc(status:boolean){
+    //console.log(`create ok`);
+    if(status){
+      this.currentPage = 'follow';
+      
+    }
+  }
+
+  backToPage(s:string){
+    this.currentPage = s;
+  }
 
 
   ngOnInit(){
@@ -219,7 +240,7 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
   }
 
   clickItem(index:number){
-    console.log(index);
+    //console.log(index);
      var ch = "#checkbox-"+index+"-"+index;
      $(ch).addClass('scaled');
 
@@ -228,4 +249,10 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
     },120)
   }
 
+}
+
+export enum Pages {
+  user = 0,
+  acc = 1,
+  follow = 2
 }

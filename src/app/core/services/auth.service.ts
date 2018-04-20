@@ -129,7 +129,7 @@ export class AuthMainService{
             localStorage.setItem('userStatus',status+"");
         }
         catch(err){
-            console.log(err);
+            //console.log(err);
         }
     }
 
@@ -155,7 +155,7 @@ export class AuthMainService{
         this.onAuthChange$.next(false);
         localStorage.removeItem('token');
         localStorage.removeItem('activeUserId');
-        console.log('localStorage deleted');
+        //console.log('localStorage deleted');
     }
 
 
@@ -180,6 +180,8 @@ export class AuthMainService{
     }
 
     CreateUser(user:UserCreateModel){
+
+        //console.log(JSON.stringify(user));
         return this.http.CommonRequest(
             ()=> this.http.PostData('/users.json',JSON.stringify(user))
         );
@@ -228,7 +230,7 @@ export class AuthMainService{
             result.lng = input.lng?input.lng:null;
             result.about = input.about?input.about:null;
             }
-            console.log("RES", result);
+            //console.log("RES", result);
         return result;
     }
 
@@ -252,7 +254,7 @@ export class AuthMainService{
             params = paramsEmail;
         else params = paramsUserName;
 
-        console.log('params',params);
+        //console.log('params',params);
         return this.http.CommonRequest(
             ()=> this.http.PostData('/auth/forgot_password.json',JSON.stringify(params))
         );

@@ -59,7 +59,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
   // general
   pages = Pages;
   currentPage:string = 'about';
-  showAllPages:boolean = true;
+  showAllPages:boolean = false;
 
   accountId:number;
   isNewArtist:boolean = true;
@@ -287,10 +287,10 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
                 this.getAlbumSlider();
                 this.getVideosSlider();
             
-                console.log(`updated artist `,this.Artist);    
+                //console.log(`updated artist `,this.Artist);    
             },
             (err)=>{
-                console.log(`err`,err);
+                //console.log(`err`,err);
             }
     );
   }
@@ -304,9 +304,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
                   this.getAlbumSlider();
                   this.getVideosSlider();
                   this.createArtist.artist_videos = this.Artist.videos;
-                  this.createArtist.performance_min_time += +' hr';
-                  this.createArtist.performance_max_time += +' hr';
-                  console.log(this.Artist);
+                  //console.log(this.Artist);
                   for (let key in user) {
                       if (user.hasOwnProperty(key)) {
                           this.createArtist[key] = user[key];
@@ -373,7 +371,7 @@ venueTypeFromModelToVar(){
             this.createArtist.genres = this.genreService.GenreModelArrToStringArr(this.genres);
 
            
-            console.log(`create artist`,this.createArtist);
+            //console.log(`create artist`,this.createArtist);
            
 
             if(this.isNewArtist)
@@ -384,14 +382,14 @@ venueTypeFromModelToVar(){
                     this.getAudio();
                     this.getAlbumSlider();
                     this.getVideosSlider();
-                    this.currentPage = 'calendar';
-                    console.log(`new this artist`,this.Artist);
+                    this.currentPage = 'riders';
+                    //console.log(`new this artist`,this.Artist);
                 });
            
             else this.updateArtistByCreateArtist();
         }
         else {
-            console.log(`Invalid About Form!`, this.aboutForm);
+            //console.log(`Invalid About Form!`, this.aboutForm);
         }
   }
 
@@ -410,7 +408,7 @@ venueTypeFromModelToVar(){
       this.updateArtistByCreateArtist();
     }
     else {
-      console.log(`Invalid Audio Form!`, this.aboutForm);
+      //console.log(`Invalid Audio Form!`, this.aboutForm);
     }
     
   }
@@ -444,7 +442,7 @@ venueTypeFromModelToVar(){
       
     }
     else {
-      console.log(`Invalid Audio Form!`, this.aboutForm);
+      //console.log(`Invalid Audio Form!`, this.aboutForm);
     }
     
   }
@@ -480,12 +478,12 @@ venueTypeFromModelToVar(){
       }
       this.createArtist.artist_videos = this.Artist.videos;
       this.createArtist.artist_videos.push(params);
-      console.log(`!`,params,this.createArtist.artist_videos);
+      //console.log(`!`,params,this.createArtist.artist_videos);
       // 'http://d.zaix.ru/6yut.mp3'
        this.updateArtistByCreateArtist();
     }
     else {
-      console.log(`Invalid Video Form!`, this.aboutForm);
+      //console.log(`Invalid Video Form!`, this.aboutForm);
     }
   }
   getVideosSlider(){
@@ -514,7 +512,7 @@ venueTypeFromModelToVar(){
   addPhoto(){
     this.accService.PostAccountImages(this.accountId,this.addImage)
     .subscribe((res)=>{
-      console.log(`add`,this.addImage, this.imageInfo);
+      //console.log(`add`,this.addImage, this.imageInfo);
       this.updateArtistByCreateArtist();
     }); 
   }
@@ -583,8 +581,10 @@ setPreferedVenue(index:number){
 }
 addBooking(){
 
-  this.createArtist.performance_min_time = +((this.Artist.performance_min_time+'').split(' ')[0]);
-  this.createArtist.performance_max_time =  +((this.Artist.performance_max_time+'').split(' ')[0]);
+  // this.createArtist.performance_min_time = +((this.Artist.performance_min_time+'').split(' ')[0]);
+  // this.createArtist.performance_max_time =  +((this.Artist.performance_max_time+'').split(' ')[0]);
+  this.createArtist.performance_min_time = this.Artist.performance_min_time;
+  this.createArtist.performance_max_time = this.Artist.performance_max_time;
   this.createArtist.price_from = this.Artist.price_from; 
   this.createArtist.price_to = this.Artist.price_to;
   this.createArtist.additional_hours_price = this.Artist.additional_hours_price;
@@ -612,7 +612,7 @@ addBooking(){
     if(type.checked)
       this.createArtist.preferred_venues.push(type.object.type);
 
-  console.log(this.createArtist);
+  //console.log(this.createArtist);
 
   this.updateArtistByCreateArtist();
 }

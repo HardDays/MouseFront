@@ -1,6 +1,5 @@
-<section class="main-router-outlet">
-    <!---->
-    
+<!-- <section class="main-router-outlet">
+
     <section class="login-register">
      
         <div *ngIf="firstPage" class="register">
@@ -67,20 +66,7 @@
                     <input type="text" class="inp-style-1" placeholder="Search">
                 </div>
                 <div class="flex-bands">
-            
-                    <!-- <div class="one-band">
-                        <input type="checkbox" class="checkbox" name="" id="checkbox-1">
-                        <label class="label-wr" for="checkbox-1">
-                            <div class="photo-band-wrapp">
-                                <div class="photo-band" style="background-image: url(../../../assets/img/layer-7.jpg)"></div>
-                            </div>
-                            <div class="descr">
-                                <p class="name">ADELE</p>
-                                <p class="genre">Pop</p>
-                                <div class="checkbox-style-2"></div>
-                            </div>
-                        </label>
-                    </div> -->
+        
 
                     <div *ngFor="let item of artists; let i = index" class="one-band">
                         <input type="checkbox" [ngModel]="artistsChecked[i]" (ngModelChange)="artistsChecked[i] = $event" class="checkbox" name="artist-{{i}}" id="checkbox-{{i}}">
@@ -101,5 +87,26 @@
                 <button class="butt-style-1" type="submit" [disabled]="!submitFormUsr.valid"><span>Сomplete</span></button>  
             </div>
         </form>
+    </section>
+</section> -->
+<section class="main-router-outlet">
+    <section class="login-register">
+
+        <app-register-user 
+                [ngStyle]="{display:currentPage=='user'?'block':'none'}" 
+                (createUser)="onSuccesCreateUser($event)"       
+        ></app-register-user>
+
+        <app-register-acc  
+                *ngIf="currentPage=='acc'"
+                (back)="backToPage($event)"
+                (createStatus)="onSuccesCreateAcc($event)"
+                [typeUser]="typeUser"
+        ></app-register-acc>
+
+        <app-register-follow 
+                *ngIf="currentPage=='follow'"
+        ></app-register-follow>
+
     </section>
 </section>

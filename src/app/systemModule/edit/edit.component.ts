@@ -110,7 +110,7 @@ export class EditComponent extends BaseComponent implements OnInit {
       (err:any)=>{
         if(err == 422)
           this.Error = "This user name is already taken!";
-        console.log(err);
+        //console.log(err);
           
       })
       this.TypesOfSpace = this.typeService.GetAllSpaceTypes();
@@ -151,11 +151,11 @@ export class EditComponent extends BaseComponent implements OnInit {
   UpdateUser(){
 
     if(this.form.valid){
-      console.log(`form valid`);
+      //console.log(`form valid`);
       
       this.Account.office_hours = this.accService.GetWorkingTimeFromFront(this.OfficeDays);
 
-      console.log("days", this.OperatingDays);
+      //console.log("days", this.OperatingDays);
       this.Account.operating_hours = this.accService.GetWorkingTimeFromFront(this.OperatingDays);
       this.Account.emails = this.typeService.ValidateArray(this.Account.emails);
       this.Account.genres = [];
@@ -170,12 +170,12 @@ export class EditComponent extends BaseComponent implements OnInit {
         this.Account.dates[i].end_date = this.bsValue_end[i].getFullYear()+`-`+this.incr(this.bsValue_end[i].getMonth())+`-`+this.bsValue_end[i].getDate();
       }
       //this.Account.dates = this.typeService.ValidateArray(this.Account.dates);
-          console.log("res", this.Account);
+          //console.log("res", this.Account);
       if( this.Account.office_hours == null)  this.Account.office_hours = [];
       if( this.Account.operating_hours == null)  this.Account.operating_hours = [];
       this.accService.UpdateMyAccount(this.UserId, JSON.stringify(this.Account))
       .subscribe((res:any)=>{
-          console.log("res", res);
+          //console.log("res", res);
           this.InitByUser(res);
           this.isLoading = false;
           this.accService.onAuthChange$.next(true);
@@ -188,7 +188,7 @@ export class EditComponent extends BaseComponent implements OnInit {
       })
     }
     else{
-      console.log(`invalid input`);
+      //console.log(`invalid input`);
     }
   }
   
@@ -210,8 +210,8 @@ export class EditComponent extends BaseComponent implements OnInit {
     },
     (err:any)=>{
         this.isLoading = false;
-        console.log('delete err');
-        console.log(err);
+        //console.log('delete err');
+        //console.log(err);
     });
   }
 
@@ -309,7 +309,7 @@ CategoryChanged($event:string){
 }
 
   logChanged($event){
-    console.log("event",$event);
+    //console.log("event",$event);
   }
 
   CreateAutocomplete(){

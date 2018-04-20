@@ -22,6 +22,9 @@
     .venue-week-cal-style .week-day-time-wr .from-to span{
         margin-right: auto;
     }
+    .flex-ticket-wrapp .sides .scrolled-wrapp .one-wr-tick .one-tick p.c{
+        line-height: 41px;
+    }
     
 }
 @media (max-width: 1500px) {
@@ -40,8 +43,19 @@
     .flex-mac-checkbox.on-add-artist-page .quetion-radio-text.none-max-width{
         max-width: 100%;
     }
-    
-    
+    .flex-ticket-wrapp .sides .scrolled-wrapp .one-wr-tick .one-tick p.t{
+        font-size: 12px;
+    }
+    .body-tabs-datails-pages .for-flex-contant-d .left-side-tickets{
+        width: 50%;
+    }
+    .body-tabs-datails-pages .for-flex-contant-d .right-side-tickets{
+        width: 50%;
+    }
+    .show-datails-wr .flex-artist-main-info .right-side {
+    width: 69%;
+    padding-left: 66px;
+}
     
 }
 @media (max-width: 1460px) {
@@ -68,7 +82,9 @@
     .all-info-profile .uniq-padd-2 .flex--info .side .blocks .one-block {
         height: 280px;
     }
-    
+    .content-and-tabs-datails .tabslinks-and-goings .left-s ul li {
+        padding: 0 25px;
+    }
     
 }
 @media (max-width: 1350px) {
@@ -110,8 +126,22 @@
         width: 105px;
         padding-right: 13px;
     }
-    
-    
+    .flex-ticket-wrapp .sides .scrolled-wrapp .one-wr-tick .one-tick p.c{
+        font-size: 25px;
+        line-height: 29px;
+    }
+    .flex-ticket-wrapp .sides .scrolled-wrapp .one-wr-tick .one-tick p.t{
+        margin-bottom: 17px;
+    }
+    .show-datails-wr .flex-artist-main-info .left-side .bg-gradient-info{
+        padding: 51px 25px 35px 25px;
+    }
+    .show-datails-wr .flex-artist-main-info .left-side{
+        width: 315px;
+    }
+    .content-and-tabs-datails .payment-body .one-collapsed-block .flex-top-cart img {
+        margin-right: 5px;
+    }
 }
 
 @media (max-width: 1300px) {
@@ -126,8 +156,15 @@
     .create-event-body-1 .create-event-body .flex-body-1 .side.two-sides-w .shadow-days-wr .times-days .some-times-days .week-day-time-wr .from-to:last-child {
         padding-left: 10px;
     }
+    .content-and-tabs-datails .tabslinks-and-goings .left-s ul li a{
+        font-size: 16px;
+    }
 }
-
+@media (max-width: 1250px) {
+    .content-and-tabs-datails{
+        padding: 0 40px;
+    }
+}
 @media (max-width: 1199px) {
     .choose-to-follow .follow-m-w{
         padding: 65px 40px 125px 40px;

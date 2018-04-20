@@ -137,16 +137,7 @@ $(document).ready(function () {
     ///страница profile-venue
 
     //страница profile-artist
-    $('.iframe-slider-wrapp').slick({
-        dots: false,
-        arrows: true,
-        infinite: false,
-        slidesToShow: 1
-
-    });
-    $('.iframe-slider-wrapp').on('beforeChange', function (event, slick, currentSlide, nextSlide) {
-        //тут выполняется код при смене слайда.
-    });
+   
 
 
 
@@ -315,6 +306,35 @@ $(document).ready(function () {
     
     ///страница add-artist
    
+    
+    
+    
+    //страница show-datails-1
+    
+    $('.nav-iframe-slider-wrapp .one-slide').click(function(){
+        $('.nav-iframe-slider-wrapp .one-slide').removeClass('active');
+        $(this).addClass('active');
+        $('.iframe-slider-wrapp').slick('slickGoTo',$(this).index());
+        return;
+       
+    })
+    
+    
+     $('.iframe-slider-wrapp').slick({
+        dots: false,
+        arrows: true,
+        infinite: false,
+        slidesToShow: 1,
+        speed: 200
+
+    });
+    $('.iframe-slider-wrapp').on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+        $('.nav-iframe-slider-wrapp .one-slide').removeClass('active');
+        $('.nav-iframe-slider-wrapp .one-slide').eq(nextSlide).addClass('active');
+       
+    });
+    
+    
     
 });
 

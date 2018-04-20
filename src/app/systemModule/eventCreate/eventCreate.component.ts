@@ -220,7 +220,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         this.initUser();
 
         this.activatedRoute.params.forEach((params) => {
-            console.log( params["id"]);
+            //////console.log( params["id"]);
             if(params["id"])this.getThisEvent(+params["id"]);
         });
 
@@ -325,19 +325,19 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
     // маркер на карте
     aboutDragMarker($event){
-        console.log($event);
+        //console.log($event);
         this.mapCoords.about.lat = $event.coords.lat;
         this.mapCoords.about.lng = $event.coords.lng;
         this.codeLatLng( this.mapCoords.about.lat, this.mapCoords.about.lng, "aboutAddress");
     }
     artistDragMarker($event){
-        console.log($event);
+        //console.log($event);
         this.mapCoords.artist.lat = $event.coords.lat;
         this.mapCoords.artist.lng = $event.coords.lng;
         this.codeLatLng( this.mapCoords.artist.lat, this.mapCoords.artist.lng, "artistAddress");
     }
     venueDragMarker($event){
-        console.log($event);
+        //console.log($event);
         this.mapCoords.venue.lat = $event.coords.lat;
         this.mapCoords.venue.lng = $event.coords.lng;
         this.codeLatLng( this.mapCoords.venue.lat, this.mapCoords.venue.lng, "venueAddress");
@@ -352,7 +352,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
              (results, status) => {
                 if (status === google.maps.GeocoderStatus.OK) {
                     if (results[1]) {
-                    //   console.log(results[1]);
+                    //   //console.log(results[1]);
                     let id = "#"+id_map;
                     $(id).val(results[1].formatted_address);
                     
@@ -463,7 +463,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         $('#modal-send-request').modal('show');
         this.eventForRequest = venue;
         // this.eventForRequest.user_name
-        console.log(this.eventForRequest);
+        //console.log(this.eventForRequest);
     }
     aboutOpenMapModal(){
         $('#modal-map-1').modal('show');
@@ -491,8 +491,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     getAllSpaceTypes(){
         let types:SelectModel[] = this.typeService.GetAllSpaceTypes();
         this.typesSpace = this.convertArrToCheckModel<SelectModel>(types);
-        console.log(`spaces`,types);
-        console.log(`spaces`,this.typesSpace);
+        //console.log(`spaces`,types);
+        //console.log(`spaces`,this.typesSpace);
     }
     maskNumbers(){
         return {
@@ -549,10 +549,11 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             this.accService.GetInboxMessageById(crId, m.id).
                 subscribe((msg)=>{
                     this.messagesList.push(msg);
-                    console.log(`msg`,this.messagesList);
+                    //console.log(`msg`,this.messagesList);
             }); 
         },
-    (err)=>{console.log(err)});
+    (err)=>{//console.log(err)
+    });
     }
 
     getPriceAtMsg(sender:number){
@@ -596,7 +597,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             })
         });
         
-
+    
     }
 
     updateEvent(){
@@ -605,7 +606,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                 
                 this.Event = res;
                 this.getMessages();
-                console.log(`EVENT after update (get)`,this.Event);
+                //console.log(`EVENT after update (get)`,this.Event);
                     
                     for (let key in res) {
                         if (res.hasOwnProperty(key)) {
@@ -617,7 +618,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                     this.mapCoords.about.lat = this.newEvent.city_lat;
                     this.mapCoords.about.lng = this.newEvent.city_lng;
                     this.genreFromModelToVar();
-                    console.log(`newEVENT after update (create)`,this.newEvent);
+                    //console.log(`newEVENT after update (create)`,this.newEvent);
 
                 this.getShowsArtists();
                 this.getRequestVenue();
@@ -671,48 +672,48 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             this.newEvent.city_lng = this.mapCoords.about.lng;
 
             
-            console.log(`newEvent`,this.newEvent);
+            //console.log(`newEvent`,this.newEvent);
 
             if(this.isNewEvent)
                 this.eventService.CreateEvent(this.newEvent)
                 .subscribe((res)=>{
                     this.Event = res;
-                    console.log(`create`,this.Event);
+                    //console.log(`create`,this.Event);
                     this.currentPage = 'artist';
                 },
                 (err)=>{
-                    console.log(`err`,err);
+                    //console.log(`err`,err);
                 }
                 );
             else
                 this.eventService.UpdateEvent(this.newEvent, this.Event.id)
-                // this.eventService.CreateEvent(this.newEvent)
+                 this.eventService.CreateEvent(this.newEvent)
                     .subscribe((res)=>{
                             this.Event = res;
-                            console.log(`create`,this.Event);
+                            //console.log(`create`,this.Event);
                             this.currentPage = 'artist';
                         },
                         (err)=>{
-                            console.log(`err`,err);
+                            //console.log(`err`,err);
                         }
                 );
         }
         else {
-            console.log(`Invalid About Form!`, this.aboutForm);
+            //console.log(`Invalid About Form!`, this.aboutForm);
         }
     }
     
     addNewArtist(){
         this.addArtist.event_id = this.Event.id;
         this.addArtist.time_frame = 'one_week';
-        console.log(`checked`,this.checkArtists);
+        //console.log(`checked`,this.checkArtists);
 
         for(let item of this.checkArtists){
             this.addArtist.artist_id = item;
-            console.log(`new artist: `,this.addArtist);
+            //console.log(`new artist: `,this.addArtist);
             this.eventService.AddArtist(this.addArtist).
                 subscribe((res)=>{
-                    console.log(`add artist`,item);
+                    //console.log(`add artist`,item);
                     this.updateEvent();
                 });
         }
@@ -730,16 +731,16 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                    if(this.isNewAccById( this.showsArtists,res))
                         {
                             this.showsArtists.push(res);
-                            console.log(`SHOW ARTISTS`, this.showsArtists);
+                            //console.log(`SHOW ARTISTS`, this.showsArtists);
 
                             if(res.image_id){
-                                console.log(`get image `, res.image_id);
+                                //console.log(`get image `, res.image_id);
                                 this.imgService.GetImageById(res.image_id)
                                     .subscribe((img:Base64ImageModel)=>{
                                         res.image_base64_not_given = img.base64;
                                     },
                                     (err)=>{
-                                        console.log(`err img`,err);
+                                        //console.log(`err img`,err);
                                     });
                             }
                     }
@@ -768,7 +769,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             this.checkArtists.push(id);
         else 
             this.checkArtists.splice(index,1);
-        console.log(this.checkArtists);
+        //console.log(this.checkArtists);
     }
 
     ifCheckedArtist(id){
@@ -790,7 +791,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             subscribe((res)=>{
                 if(res.length>0){
                     this.artistsList = this.deleteDuplicateAccounts(res);
-                    console.log(`artists`,this.artistsList);
+                    //console.log(`artists`,this.artistsList);
                     this.getListImages(this.artistsList);
                 }
         });
@@ -825,7 +826,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     }
 
     acceptArtist(idArtist:number){
-        console.log(idArtist);
+        //console.log(idArtist);
 
         this.ownerAcceptDecline.account_id = this.Event.creator_id;
         this.ownerAcceptDecline.id = idArtist;
@@ -836,7 +837,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
         this.eventService.ArtistAcceptOwner(this.ownerAcceptDecline).
             subscribe((res)=>{
-                console.log(`ok accept artist`,res);
+                //console.log(`ok accept artist`,res);
                 this.updateEvent();
             });
 
@@ -853,7 +854,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
         this.eventService.ArtistDeclineOwner(this.ownerAcceptDecline).
             subscribe((res)=>{
-                console.log(`ok decline artist`,res);
+                //console.log(`ok decline artist`,res);
                 this.updateEvent();
             });
 
@@ -895,7 +896,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
 
     addVenueCheck(venue:AccountGetModel){
-        // if(!this.ifRequestVenue(venue.id)){
+         if(!this.ifRequestVenue(venue.id)){
             let index = this.checkVenue.indexOf(venue.id);
         
             if (index < 0)
@@ -907,9 +908,9 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                 this.checkVenue.splice(index,1);
                 this.venueShowsList.splice(index,1);
             }
-            console.log(this.checkVenue);
-        // }
-        // this.addNewVenue();
+            //console.log(this.checkVenue);
+         }
+        //*this.addNewVenue();
     }
 
     ifCheckedVenue(id){
@@ -920,19 +921,19 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     ifRequestVenue(id){
         for(let v of this.requestVenues)
             if(v.id==id) {
-                // console.log(`IN Request`, id);
+                // //console.log(`IN Request`, id);
                 return true;
             }
-        // console.log(`NO in Request`, id);
+        // //console.log(`NO in Request`, id);
         return false;
     }
     ifShowsVenue(id){
         for(let v of this.venueShowsList)
             if(v.id==id) {
-                // console.log(`IN Request`, id);
+                // //console.log(`IN Request`, id);
                 return true;
             }
-        // console.log(`NO in Request`, id);
+        // //console.log(`NO in Request`, id);
         return false;
     }
 
@@ -952,7 +953,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                                         res.image_base64_not_given = img.base64;
                                     },
                                     (err)=>{
-                                        console.log(`err img`,err);
+                                        //console.log(`err img`,err);
                                     });
                             }
                     }
@@ -975,7 +976,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                 this.addVenue.event_id = this.Event.id;
                 this.addVenue.venue_id = id;
                 
-                console.log(`add venue`,this.addVenue);
+                //console.log(`add venue`,this.addVenue);
                 this.eventService.AddVenue(this.addVenue).
                     subscribe((res)=>{
                         this.updateEvent();
@@ -983,7 +984,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         
             }
             else {
-                console.log(`Invalid Request Form!`, this.aboutForm);
+                //console.log(`Invalid Request Form!`, this.aboutForm);
             }
     }
 
@@ -996,7 +997,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     }
 
     acceptVenue(idV:number){
-        console.log(idV);
+        //console.log(idV);
 
             this.ownerAcceptDecline.account_id = this.Event.creator_id;
             this.ownerAcceptDecline.id = idV;
@@ -1007,11 +1008,11 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     
             this.eventService.VenueAcceptOwner(this.ownerAcceptDecline).
                 subscribe((res)=>{
-                    console.log(`ok accept artist`,res);
+                    //console.log(`ok accept artist`,res);
                     this.updateEvent();
                 });
     
-            console.log(this.ownerAcceptDecline);   
+            //console.log(this.ownerAcceptDecline);   
     }
 
     declineVenue(idV:number){
@@ -1024,11 +1025,11 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     
             this.eventService.VenueDeclineOwner(this.ownerAcceptDecline).
                 subscribe((res)=>{
-                    console.log(`ok accept artist`,res);
+                    //console.log(`ok accept artist`,res);
                     this.updateEvent();
                 });
     
-            console.log(this.ownerAcceptDecline); 
+            //console.log(this.ownerAcceptDecline); 
     }
 
 
@@ -1060,33 +1061,34 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             
             
             
-            console.log(`newPrivateEvent`,this.privateVenueCreate);
+            //console.log(`newPrivateEvent`,this.privateVenueCreate);
 
             this.accService.CreateAccount(this.privateVenueCreate)
                 .subscribe((acc:AccountGetModel)=>{
                         this.privateVenue = acc;
-                        console.log(`create`,this.privateVenue);
+                        //console.log(`create`,this.privateVenue);
                         for(let img of this.imagesListPrivateRes){
                            this.accService.PostAccountImages(acc.id,img)
-                            .subscribe((res)=>{console.log(`add`,img)}); 
+                            .subscribe((res)=>{//console.log(`add`,img)
+                        }); 
                         }
                         this.addVenue.venue_id = acc.id;
-                        console.log(`add venue`,this.addVenue);
+                        //console.log(`add venue`,this.addVenue);
                         this.eventService.AddVenue(this.addVenue).
                             subscribe((res)=>{
-                                console.log(`add ok`,acc);
+                                //console.log(`add ok`,acc);
                                 this.updateEvent();
                                 this.currentPage = 'funding';
                             });
                         
                     },
                     (err)=>{
-                        console.log(`err`,err);
+                        //console.log(`err`,err);
                     }
                 );
         }
         else {
-            console.log(`Invalid About Form!`, this.privateVenueForm);
+            //console.log(`Invalid About Form!`, this.privateVenueForm);
         }
     }
 
@@ -1157,7 +1159,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         this.getListImages(this.activeArtist);
         this.getListImages(this.activeVenue);
 
-        console.log(`active: `,this.activeArtist,this.activeVenue);
+        //console.log(`active: `,this.activeArtist,this.activeVenue);
     }
 
     setActiveArtist(index:number){
@@ -1170,7 +1172,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                 account_id:this.Event.creator_id
             }).
                 subscribe((res)=>{
-                    console.log(`active set ok`,res);
+                    //console.log(`active set ok`,res);
                     this.updateEvent();
                 });
         }
@@ -1183,11 +1185,11 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                 account_id:this.Event.creator_id
             }).
                 subscribe((res)=>{
-                    console.log(`active remove ok`,res);
+                    //console.log(`active remove ok`,res);
                     this.updateEvent();
                 });
         }
-        console.log(this.activeArtist);
+        //console.log(this.activeArtist);
 
     }
 
@@ -1200,7 +1202,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             this.activeVenue[index].checked = false;
             this.venueSum -= this.activeVenue[index].object.agreement.price;
         }
-        console.log(this.activeVenue);
+        //console.log(this.activeVenue);
 
     }
 
@@ -1221,7 +1223,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                 subscribe((res:TicketModel)=>{
                     this.tickets.push(res);
                     this.currentTicket = this.tickets[0];
-                    console.log(`tickets`,this.tickets);
+                    //console.log(`tickets`,this.tickets);
                 }); 
         }
         
@@ -1254,13 +1256,13 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             for(let i in this.ticketsNew)
                 if(this.ticketsNew[i].id == this.currentTicket.id) 
                     index = +i;
-            console.log(`index`,index);
+            //console.log(`index`,index);
 
             this.currentTicket.id = null;
-            console.log(`new create`,this.currentTicket);
+            //console.log(`new create`,this.currentTicket);
             this.eventService.AddTicket(this.currentTicket)
                 .subscribe((res)=>{
-                    console.log(`create`,res);
+                    //console.log(`create`,res);
                     this.isCurTicketNew = false;
 
                     this.ticketsNew.splice(index,1);
@@ -1271,10 +1273,10 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         }
         else {
             this.currentTicket.account_id = this.Event.creator_id;
-            console.log(`update old`,this.currentTicket);
+            //console.log(`update old`,this.currentTicket);
             this.eventService.UpdateTicket(this.currentTicket)
                 .subscribe((res)=>{
-                    console.log(`update`,res);
+                    //console.log(`update`,res);
                     this.updateEvent();
                 });
         }
