@@ -135,10 +135,6 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
     for(let g of this.genres) g.show = true;
   }
 
-  checkGenre(item:GenreModel){
-    // item.checked = !item.checked;
-    console.log('click');
-  }
 
   CategoryChanged($event:string){
    this.search = $event;
