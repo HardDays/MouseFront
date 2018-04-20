@@ -47,9 +47,9 @@
                       <!--при for обращаем внимания на for у label и id у инпута-->
                       <ng-container *ngFor="let item of genres; let i = index">
                         <div *ngIf="item.show" class="one-checkbox" >
-                                <div  class="check-style">
-                                            <input type="checkbox" [ngModelOptions]="{standalone: true}" [ngModel]="item.checked" (ngModelChange)="item.checked = $event" class="checkbox" name="genre-{{i}}" id='checkbox-{{i}}'>
-                                    <label for='checkbox-{{i}}'></label>
+                                <div class="check-style">
+                                    <input type="checkbox" [ngModelOptions]="{standalone: true}" [ngModel]="item.checked" (ngModelChange)="item.checked = $event" class="checkbox" name="genre-{{i}}" id='genre-{{i}}'>
+                                    <label for='genre-{{i}}'></label>
                                 </div>
                                 <p>{{item.genre_show}}</p>
                         </div> 

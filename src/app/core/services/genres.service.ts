@@ -37,6 +37,7 @@ export class GenresService{
         let result:GenreModel[] = [];
         for(let i in input)
         {
+            console.log(i,input[i]);
             result.push(new GenreModel(input[i],this.convertToShow(input[i]),false,+i<4));
         }
         return result;
@@ -60,12 +61,12 @@ export class GenresService{
     GetMin(){
         return [
             {
-                genre:'hip_hop',
+                genre:'children_music',
                 genre_show:'HIP HOP',
                 checked:false
             },
             {
-                genre:'pop',
+                genre:'classical',
                 genre_show:'POP',
                 checked:false
             },
@@ -75,7 +76,7 @@ export class GenresService{
                 checked:false
             },
             {
-                genre:'jazz',
+                genre:'country',
                 genre_show:'JAZZ',
                 checked:false
             }

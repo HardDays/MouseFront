@@ -63,11 +63,14 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
     private ngZone: NgZone){
 super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
 } 
+
   ngOnInit(){
       
     this.genreService.GetAllGenres()
      .subscribe((res:string[])=>{
-       this.genres = this.genreService.StringArrayToGanreModelArray(res);
+      //  console.log(res);
+       this.genres = this.genreService.StringArrayToGanreModelArray(res);     
+       this.seeFirstGenres(); 
      });
          
   this.CreateAutocomplete();
@@ -132,6 +135,11 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
     for(let g of this.genres) g.show = true;
   }
 
+  checkGenre(item:GenreModel){
+    // item.checked = !item.checked;
+    console.log('click');
+  }
+
   CategoryChanged($event:string){
    this.search = $event;
     if(this.search.length>0) {
@@ -156,14 +164,14 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
     this.Account.user_name = this.accForm.value['user_name'];
     this.Account.display_name = this.accForm.value['first_name']+" "+this.accForm.value['last_name'];
 
-    //console.log(this.Account);
-        this.CreateAcc(this.Account,(res)=>{
-          //console.log(`ok`);
-          this.createStatus.emit(true);
-        },
-          (err)=>{
-              //console.log(err);
-        });
+    console.log(this.Account);
+    //     this.CreateAcc(this.Account,(res)=>{
+    //       //console.log(`ok`);
+    //       this.createStatus.emit(true);
+    //     },
+    //       (err)=>{
+    //           //console.log(err);
+    // });
 
    
     
