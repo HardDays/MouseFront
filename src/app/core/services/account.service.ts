@@ -65,9 +65,26 @@ export class AccountService{
             result.lat = input.lat?input.lat:null;
             result.lng = input.lng?input.lng:null;
             result.about = input.about?input.about:null;
+
+            result.country = input.country?input.country:null;
+            result.city = input.city?input.city:null;
+            result.state = this.DefaultCheck(input.state);
+            result.zipcode = this.DefaultCheck(input.zipcode);
+
+            result.minimum_notice = this.DefaultCheck(input.minimum_notice);
+            result.is_flexible = this.DefaultCheck(input.is_flexible);
+            result.price_for_daytime = this.DefaultCheck(input.price_for_daytime);
+            result.price_for_nighttime = this.DefaultCheck(input.price_for_nighttime);
+            result.performance_time_from = this.DefaultCheck(input.performance_time_from);
+            result.perfomance_time_to = this.DefaultCheck(input.perfomance_time_to);
         }
 
         return result;
+    }
+
+    DefaultCheck(val:any)
+    {
+        return val?val:null;
     }
 
     MyOwnJSON(params: AccountCreateModel) {
