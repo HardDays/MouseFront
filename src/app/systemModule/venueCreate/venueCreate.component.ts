@@ -369,11 +369,11 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
     let formData: FormData = new FormData();
     //
     formData.append('image',this.ImageFile,this.ImageFile.name);
-    console.log(this.ImageFile);
+    // console.log(this.ImageFile);
     this.imgService.PostAccountImage(this.VenueId,{image:this.ImageFile})
       .subscribe(
         (res:any) => {
-          console.log(res);
+          // console.log(res);
         }
       );
   }
