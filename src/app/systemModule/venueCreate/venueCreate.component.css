@@ -19,7 +19,7 @@ p{
     border:none;
 }
 
-.some-times-days:last-child{
+.some-times-days .week-day-time-wr:last-child{
     margin-bottom: 0px !important;
 }
 .inp-style-3
@@ -27,11 +27,78 @@ p{
     display: block;
     position: relative;
     z-index: 10;
-    width: 40%;
+    width: 60%;
     border: none;
     background: transparent;
     border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
     padding: 10px 0;
     font-size: 16px;
     outline: none;
+}
+.nav-second-outlet{
+    cursor: pointer;
+}
+
+.padd-emeils-generate{
+    
+}
+.padd-emeils-generate .one-email{
+    position: relative;
+    padding-right: 50px;
+}
+.emeil-gen-butt-add{
+    padding-left: 30px;
+    display: flex;
+    justify-content: center;
+    padding-right: 50px;
+}
+.emeil-gen-butt-add .butt-style-1{
+    max-width: 170px;
+    text-align: center;
+    text-transform: uppercase;
+}
+.emeil-gen-butt-add .butt-style-1 span{
+    padding: 10px 10px;
+}
+.delete-email{
+    cursor: pointer;
+    position: absolute;
+    top: 4px;
+    right: 0;
+    width: 16px;
+    height: 16px;
+    
+}
+.delete-email:before{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: 2px;
+    height: 16px;
+    background: #eb2d64;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    -webkit-transform-origin: center;
+    transform-origin: center;
+}
+.one-email{
+    margin-bottom: 30px;
+}
+.delete-email:after{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: 16px;
+    height: 2px;
+    background: #eb2d64;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    -webkit-transform-origin: center;
+    transform-origin: center;
 }
