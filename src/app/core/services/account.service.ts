@@ -75,8 +75,8 @@ export class AccountService{
             result.is_flexible = this.DefaultCheck(input.is_flexible);
             result.price_for_daytime = this.DefaultCheck(input.price_for_daytime);
             result.price_for_nighttime = this.DefaultCheck(input.price_for_nighttime);
-            result.performance_time_from = this.DefaultCheck(input.performance_time_from);
-            result.perfomance_time_to = this.DefaultCheck(input.perfomance_time_to);
+            result.performance_time_from = input.performance_time_from?this.GetTimeFromString(input.performance_time_from):null;
+            result.performance_time_to = input.performance_time_to?this.GetTimeFromString(input.performance_time_to):null;
         }
 
         return result;

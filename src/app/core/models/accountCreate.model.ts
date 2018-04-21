@@ -47,7 +47,7 @@ export class AccountCreateModel{
             public price_for_daytime?:number,
             public price_for_nighttime?:number,
             public performance_time_from?: string,
-            public perfomance_time_to?:string,
+            public performance_time_to?:string,
 
             public office_hours?: WorkingTimeModel[],
             public operating_hours?: WorkingTimeModel[],

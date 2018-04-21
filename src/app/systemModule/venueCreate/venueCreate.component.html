@@ -60,7 +60,6 @@
                                     
                                 </div>
                                 <div class="input-groupe-1 whithout-label small-textarea max-500">
-                                    
                                     <textarea id="inp-create-9" autocomplete="foo"  [(ngModel)]="Venue.description" formControlName="short_desc"></textarea>
                                     <label for="inp-create-9" class="head-groupe">Short Description<span>*</span></label>
                                     <span class="max-count">1000 max</span>
@@ -95,14 +94,19 @@
                                                 <label for="inp-create-venue-email-{{+i+1}}">Email {{+i+1}} </label>
                                             </div>
                                         </ng-container>
+                                        <div class="delete-email" *ngIf="Venue.emails.length > 1" (click)="deleteEmail(i)"></div>
                                     </div>
-                                    <span class="add-to-active-b" style="cursor: pointer;" (click)="addEmail()">ADD LINK</span>
+                                    <div class="emeil-gen-butt-add">
+                                        <span class="butt-style-1" (click)="addEmail()">
+                                            <span>ADD Email</span>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="side">
                                 <h6 class="head-col-add-venue hidden-lg hidden-md hidden-sm hidden-xs">Address</h6>
                                 <div class="input-groupe-1">
-                                    <input id="inp-create-venue-adr-1" autocomplete="foo" name="" type="text">
+                                    <input id="inp-create-venue-adr-1" autocomplete="foo" [(ngModel)]="Venue.country" formControlName="country" name="" type="text">
                                     <label for="inp-create-venue-adr-1">Country<span>*</span></label>
                                 </div>
                                 <div class="input-groupe-1">
@@ -110,15 +114,15 @@
                                     <label for="inp-create-venue-adr-2">Address<span>*</span></label>
                                 </div>
                                 <div class="input-groupe-1">
-                                    <input id="inp-create-venue-adr-3" autocomplete="foo" name="" type="text">
+                                    <input id="inp-create-venue-adr-3" autocomplete="foo" [(ngModel)]="Venue.city" formControlName="city" name="" type="text">
                                     <label for="inp-create-venue-adr-3">City<span>*</span></label>
                                 </div>
                                 <div class="input-groupe-1">
-                                    <input id="inp-create-venue-adr-4" autocomplete="foo" name="" type="text">
+                                    <input id="inp-create-venue-adr-4" autocomplete="foo" [(ngModel)]="Venue.state" formControlName="state" name="" type="text">
                                     <label for="inp-create-venue-adr-4">State<span>*</span></label>
                                 </div>
                                 <div class="input-groupe-1">
-                                    <input id="inp-create-venue-adr-5" autocomplete="foo" name="" type="text">
+                                    <input id="inp-create-venue-adr-5" autocomplete="foo" [(ngModel)]="Venue.zipcode" formControlName="zipcode" name="" type="text">
                                     <label for="inp-create-venue-adr-5">Zipcode</label>
                                 </div>
                             </div>
@@ -220,11 +224,15 @@
                     </div>
                     <div class="flex-body-1 more-padding">
                         <div class="side">
-                            <div class="input-groupe-1">
-                                <select id="option-datails-type-of-space" [(ngModel)]="Venue.type_of_space" formControlName="venue_type">
-                                    <option *ngFor="let item of TypesOfSpace" [value]="item.value">{{item.name}}</option>
-                                </select>
-                                <label for="option-datails-type-of-space">Preferred Venue is a<span>*</span>:</label>
+                            <h6 class="head-col-add-venue">Preferred Venue is a:</h6>
+                            <div class="flex-genres style-on-add-artist-g">
+                                <div class="one-checkbox" *ngFor="let item of TypesOfSpace;let i = index">
+                                    <div class="check-style">
+                                        <input type="radio" class="checkbox" id="ccc-radio-556{{i}}" name="" [value]="item.value" [(ngModel)]="Venue.type_of_space" formControlName="venue_type" >
+                                        <label for="ccc-radio-556{{i}}"></label>
+                                    </div>
+                                    <p>{{item.name}}</p>
+                                </div>
                             </div>
                             <div class="input-groupe-1 whithout-label small-textarea max-500 max-100">  
                                 <textarea></textarea>
@@ -334,6 +342,7 @@
                             <h6 class="head-of-gradient-box">Add new photo</h6>
                             <div class="photos-wr-flex-venue">
                                 <div class="photo-wr-1">
+
                                     <label *ngIf="!ImageToLoad" class="file_upload">
                                         <div class="bg-image"></div>
 
@@ -440,7 +449,7 @@
                                 <div class="one-slide" *ngIf="VenueImages[i]">
                                     <div class="wrapp-card">
                                         <div class="delete-track"></div>
-                                        <div class="cover-image" [ngStyle]="{'background-image': SanitizeImage(img)}"></div>
+                                        <div class="cover-image" [ngStyle]="{'background-image': 'url('+ img.toString() +')'}"></div>
                                         <div class="descr">
                                             <h6>Night club</h6>
                                             <p class="name">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuminim veniam, quis nostrud</p>
@@ -475,72 +484,72 @@
                     
                     <div class="one-tab">
                         <div class="one-tab-flex alighn-items">
-                            <div class="side">
+                            <div [formGroup]="dateForm" class="side">
                                 <div class="filter-venue">
                                     <div class="content-bodal input-groupe-1">
                                         <span class="head-type-inp">Advance Notice</span>
                                         <span class="head-type-inp grey">Minimum advance notice you prefer before booking an event date?</span>
-                                        <select>
+                                        <input id="venue-dateform-1" [(ngModel)]="Venue.minimum_notice" formControlName="minimum_notice" name="" type="text">
+                                        <span class="days-span-label">Days</span>
+                                        <!-- <select>
                                             <option>2 weeks</option>
                                             <option>2 weeks</option>
                                             <option>2 weeks</option>
-                                        </select>
+                                        </select> -->
                                         
                                     </div>
                                     <div class="content-bodal input-groupe-1">
-                                         <span class="head-type-inp grey">is this Flexible?</span>
-                                        <select>
+                                        <div class="flex-mac-checkbox">
+                                            <span class="head-type-inp grey">Is this Flexible?</span>
+                                            <div class="yes-no">
+                                                <span>Yes</span>
+                                                <div class="mac-checkbox">
+                                                    <input class="checkbox" [(ngModel)]="Venue.is_flexible" formControlName="is_flexible" checked="" type="checkbox" id="checkbox-set-flexible">
+                                                    <label for="checkbox-set-flexible"></label>
+                                                </div>
+                                                <span>No</span>
+                                            </div>
+                                        </div>
+                                        <!-- <select>
                                             <option>Yes</option>
                                             <option>No</option>
                                           
-                                        </select>
+                                        </select> -->
                                     </div>
                                     <div class="input-groupe-1">
                                         <div class="rel-wr">
                                             <span class="abs-backs black">$</span>
-                                            <input id="inp-calendar-1" class="dollar" name="" type="text">
+                                            <input id="inp-calendar-1" class="dollar" [(ngModel)]="Venue.price_for_daytime" formControlName="price_for_daytime" name="" type="text">
                                         </div>
                                         <label id="inp-calendar-1">Price for Daytime (7AM - 7PM)</label>
                                     </div>
                                     <div class="input-groupe-1">
                                         <div class="rel-wr">
                                             <span class="abs-backs black">$</span>
-                                            <input id="inp-calendar-2" class="dollar" name="" type="text">
+                                            <input id="inp-calendar-2" class="dollar" [(ngModel)]="Venue.price_for_nighttime" formControlName="price_for_nighttime" name="" type="text">
                                         </div>
                                         <label id="inp-calendar-2">Price for Nighttime (7PM - 7AM)</label>
                                     </div>
                                     <div class="input-groupe-1 venue-week-cal-style">
                                         <div class="week-day-time-wr">
+                                           
                                             <div class="from-to">
                                                 <span>From</span>
-                                                <select>
-                                                    <option>10:00</option>
-                                                    <option>11:00</option>
-                                                </select>
-                                                <select>
-                                                    <option>PM</option>
-                                                    <option>AM</option>
-                                                </select>
+                                                <input class="inp-style-3 time-mask" [textMask]="GetPerformanceMask(Venue.performance_time_from)"  autocomplete="off" type="text" [(ngModel)]="Venue.performance_time_from" formControlName="performance_time_from">
                                             </div>
-                                             <div class="from-to">
+                                            <div class="from-to">
                                                 <span>To</span>
-                                                <select>
-                                                    <option>10:00</option>
-                                                    <option>11:00</option>
-                                                </select>
-                                                <select>
-                                                    <option>PM</option>
-                                                    <option>AM</option>
-                                                </select>
+                                                <input class="inp-style-3 time-mask" [textMask]="GetPerformanceMask(Venue.performance_time_to)"   autocomplete="off" type="text" [(ngModel)]="Venue.performance_time_to" formControlName="performance_time_to">
                                             </div>
+                                           
                                         </div>
+                                        
                                         <label>Performance time</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="side width-66">
-                               
-                                
+                            
                                 Место для календаря
                                 
                                 

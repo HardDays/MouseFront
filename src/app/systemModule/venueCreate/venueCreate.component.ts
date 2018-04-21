@@ -128,6 +128,20 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
     "stage_description" : new FormControl("",[Validators.required])
   }); 
 
+  dateForm : FormGroup = new FormGroup(
+    {
+      "minimum_notice": new FormControl("",[Validators.pattern("[0-9]+"),
+                              Validators.min(0),Validators.max(120)]),
+      "is_flexible": new FormControl("",[]),
+      "price_for_daytime": new FormControl("",[Validators.pattern("[0-9]+"),
+                              Validators.min(0),Validators.max(1000000)]),
+      "price_for_nighttime": new FormControl("",[Validators.pattern("[0-9]+"),
+                              Validators.min(0),Validators.max(1000000)]),
+      "performance_time_from": new FormControl("",[]),
+      "performance_time_to": new FormControl("",[])
+    }
+  );
+
   
 
   constructor(protected authService: AuthMainService,
@@ -241,26 +255,34 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
       this.imgService.GetImageById(id)
         .subscribe(
           (res:Base64ImageModel) =>{
-            this.VenueImages[saveIndex] = res.base64;
+            this.VenueImages[saveIndex] = (res.base64.indexOf('&quot;data:image/jpeg;base64') < 0? '&quot;data:image/jpeg;base64':'') + res.base64;
           }
         );
     }
 
     SanitizeImage(image: string)
     {
+   
       return this._sanitizer.bypassSecurityTrustStyle(`url(${image})`);
     }
 
     SaveVenue()
     {
+      if(!this.CheckFormForValid())
+      {
+        //console.log("Form invalid!");
+        return;
+      }
       this.Venue.office_hours = this.accService.GetWorkingTimeFromFront(this.OfficeHours);
       this.Venue.operating_hours = this.accService.GetWorkingTimeFromFront(this.OperatingHours);
 
+      // console.log("send",this.Venue);
       this.WaitBeforeLoading
       (
         () => this.VenueId == 0 ? this.accService.CreateAccount(this.Venue) : this.accService.UpdateMyAccount(this.VenueId,this.Venue),
         (res) => 
         {
+          // console.log("recieve",res);
           this.DisplayVenueParams(res);
           this.NextPart();
         },
@@ -269,6 +291,28 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
           console.log(err);
         }
       )
+    }
+
+    CheckFormForValid()
+    {
+      switch(this.CurrentPart)
+      {
+        case this.Parts.About:{
+          return !this.aboutForm.invalid;
+        }
+        case this.Parts.Listing:{
+          return !this.detailsForm.invalid;
+        }
+        case this.Parts.Media:{
+          return !this.mediaForm.invalid;
+        }
+        case this.Parts.Dates:{
+          return !this.dateForm.invalid;
+        }
+        default:{
+            return true;
+        }
+      } 
     }
 
   NextPart()
@@ -297,6 +341,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
     this.Venue.emails.push(new ContactModel());
     (<FormArray>this.aboutForm.controls["emails"]).push(this.GetContactFormGroup());
   }
+  
 
   deleteEmail(index:number)
   {
@@ -345,6 +390,14 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
         keepCharPositions: true
       };
   }
+  GetPerformanceMask(str:string)
+  {
+    return {
+      mask: [/[0-2]/, str && (+str[0]) > 1 ? /[0-3]/ : /\d/, ':', /[0-5]/, /\d/],
+      keepCharPositions: true
+    };
+  }
+
   loadImage($event:any):void{
     let target = $event.target;
     //let file:File = target.files[0];

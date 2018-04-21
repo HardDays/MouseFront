@@ -39,7 +39,7 @@ export class AccountGetModel{
         public lng?: number,
         public dates?: EventDateModel[], 
         public emails?: ContactModel[],
-        
+
         public country?: string,
         public city?:string,
         public state?:string,
@@ -50,7 +50,7 @@ export class AccountGetModel{
         public price_for_daytime?:number,
         public price_for_nighttime?:number,
         public performance_time_from?: string,
-        public perfomance_time_to?:string,
+        public performance_time_to?:string,
 
         public office_hours?: WorkingTimeModel[],
         public operating_hours?: WorkingTimeModel[],
