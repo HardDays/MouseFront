@@ -160,14 +160,14 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
     this.Account.user_name = this.accForm.value['user_name'];
     this.Account.display_name = this.accForm.value['first_name']+" "+this.accForm.value['last_name'];
 
-    console.log(this.Account);
-    //     this.CreateAcc(this.Account,(res)=>{
-    //       //console.log(`ok`);
-    //       this.createStatus.emit(true);
-    //     },
-    //       (err)=>{
-    //           //console.log(err);
-    // });
+    // console.log(this.Account);
+        this.CreateAcc(this.Account,(res)=>{
+          //console.log(`ok`);
+          this.createStatus.emit(true);
+        },
+          (err)=>{
+              //console.log(err);
+    });
 
    
     

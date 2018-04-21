@@ -28,6 +28,8 @@ import { CommonModule } from '@angular/common';
 import { RegisterUserComponent } from './access/registration/register-user/register-user.component';
 import { RegisterAccComponent } from './access/registration/register-acc/register-acc.component';
 import { RegisterFollowComponent } from './access/registration/register-follow/register-follow.component';
+import { RegisterPhoneComponent } from './access/registration/register-phone/register-phone.component';
+import { PhoneService } from './core/services/phone.service';
 
 
 let providers = {
@@ -48,7 +50,8 @@ let providers = {
     RegistrationComponent,
     RegisterUserComponent,
     RegisterAccComponent,
-    RegisterFollowComponent
+    RegisterFollowComponent,
+    RegisterPhoneComponent
   ],
   imports: [
     BrowserModule,
@@ -72,6 +75,7 @@ let providers = {
     AccountService,
     GenresService,
     EventService,
+    PhoneService,
     HttpModule, HttpService],
     bootstrap: [AppComponent],
     

@@ -55,7 +55,9 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
 
   typeUser:string;
 
-  currentPage:string = 'user';
+  currentPage:string = 'phone';
+
+  phone:string;
 
   constructor(protected authService: AuthMainService,
               protected accService:AccountService,
@@ -77,10 +79,16 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
       }
   }
   onSuccesCreateAcc(status:boolean){
-    //console.log(`create ok`);
+   
     if(status){
       this.currentPage = 'follow';
       
+    }
+  }
+  onSuccesValidatePhone(res:{status:boolean,phone:string}){
+    if(res.status){
+      this.currentPage = 'user';
+      this.phone = res.phone;
     }
   }
 
@@ -90,169 +98,15 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
 
 
   ngOnInit(){
-      
-  //    this.genreService.GetAllGenres()
-  //     .subscribe((res:string[])=>{
-  //       this.genres = this.genreService.StringArrayToGanreModelArray(res);
-  //     });
-          
-  //  this.CreateAutocomplete();
+    
   }
 
-  // CreateAutocomplete(){
-  //   this.mapsAPILoader.load().then(
-  //       () => {
-           
-  //        let autocomplete = new google.maps.places.Autocomplete(this.searchElementFrom.nativeElement, {types:[`(cities)`]});
-        
-  //         autocomplete.addListener("place_changed", () => {
-  //          this.ngZone.run(() => {
-  //          let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
-  //          if(place.geometry === undefined || place.geometry === null ){
-            
-  //           return;
-  //          }
-  //          else {
-  //             this.Account.address = autocomplete.getPlace().formatted_address;
-  //          // this.Params.public_lat=autocomplete.getPlace().geometry.location.toJSON().lat;
-  //          // this.Params.public_lng=autocomplete.getPlace().geometry.location.toJSON().lng;
-  //          // this.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
-  //           //this.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
-  //         //  this.Params.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
-  //         //  this.Params.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
-  //          }
-  //         });
-  //         });
-  //       }
-  //          );
-
-
-  // }
-
-
-
-  // registerUserAcc(){
-  //   if(!this.User.email||!this.User.password)
-  //     this.Error = 'Entry fields email and password!';
-  //   else if (this.User.password.length<6)
-  //     this.Error = 'Short password!';
-  //   else if (this.User.password!=this.User.password_confirmation)
-  //     this.Error = 'Passwords not confirm!';
-  //   else if (this.User.email.search('@')<=0)
-  //     this.Error = 'Uncorrect email!';
-  //   else {
-
-  //     this.Account.account_type = 'fan';
-  //     this.createAccSucc = true;
-
-  //     this.Account.genres = [];
-  //     for(let g of this.genres)
-  //       if(g.checked) this.Account.genres.push(g.genre);
-
-  //       this.CreateUserAcc(this.User,this.Account,(err)=>{
-  //               this.firstPage = true;   
-  //               this.createAccSucc = false;    
-  //               if(err.status==422) this.Error = err._body;
-  //       });
-
-  //     this.getArtists();
-  //   }
-
-  // }
-
-  // getArtists(){
-  //   this.genreService.GetArtists(this.genres).
-  //   subscribe((res:AccountGetModel[])=>{
-  
-  //   this.artists = res;
-    
-  //   for(let i=0;i<this.artists.length;i++)
-  //     this.artistsChecked.push(false);
-
-  //     if (this.createAccSucc) {
-  //       this.firstPage = false;
-
-  //     }
-      
-  //   });
-  // }
-
-  // followArtists(){
-  //   for(let i=0;i<this.artistsChecked.length;i++)
-  //     if(this.artistsChecked[i]) this.followsId.push(this.artists[i].id);
-             
-  //   let id:number = this.accId;
-  //   for(let follow of this.followsId){
-  //       this.accService.AccountFollow(id,follow).subscribe(()=>{
-  //       });
-  //   }
-    
-  //   this.router.navigate(['/system','shows']);
-
-  // }
-
-
-  // loadLogo($event:any):void{
-  //   this.ReadImages(
-  //       $event.target.files,
-  //       (res:string)=>{
-  //           this.Account.image_base64 = res;
-            
-  //       }
-  //   );
-  // }
-
-  // seeFirstGenres(){
-  //   for(let g of this.genres) g.show = false;
-  //   this.genres[0].show = true;
-  //   this.genres[1].show = true;
-  //   this.genres[2].show = true;
-  //   this.genres[3].show = true;
-  //   this.seeMore = false;
-  // }
-
-  // seeMoreGenres(){
-  //   this.seeMore = true;
-  //   for(let g of this.genres) g.show = true;
-  // }
-
-  // CategoryChanged($event:string){
-  //  this.search = $event;
-  //   if(this.search.length>0) {
-  //     for(let g of this.genres)
-  //        if(g.genre_show.indexOf(this.search.toUpperCase())>=0)
-  //         g.show = true;
-  //        else
-  //         g.show = false;
-  //   }
-  //   else {
-  //     this.seeFirstGenres();
-  //   }
-  // }
-
-  // MaskTelephone(){
-  //   return {
-  //     // mask: ['+',/[1-9]/,' (', /[1-9]/, /\d/, /\d/, ') ',/\d/, /\d/, /\d/, '-', /\d/, /\d/,'-', /\d/, /\d/],
-  //     mask: ['+',/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/],
-  //     keepCharPositions: true,
-  //     guide:false
-  //   };
-  // }
-
-  // clickItem(index:number){
-  //   //console.log(index);
-  //    var ch = "#checkbox-"+index+"-"+index;
-  //    $(ch).addClass('scaled');
-
-  //   setTimeout(()=>{
-  //     $(ch).removeClass('scaled');
-  //   },120)
-  // }
 
 }
 
 export enum Pages {
-  user = 0,
-  acc = 1,
-  follow = 2
+  phone = 0,
+  user = 1,
+  acc = 2,
+  follow = 3
 }

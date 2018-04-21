@@ -1,0 +1,49 @@
+<div class="register">
+    <a href="#" class="abs-arr-left-reg">
+        <svg xmlns="http://www.w3.org/2000/svg" width="34" height="29" viewBox="0 0 34 29">
+          <path fill="#fff" id="Forma_1_copy_3" data-name="Forma 1 copy 3" class="cls-1" d="M857,946.183H828.082L839.5,934.862,837.62,933,823,947.5,837.62,962l1.877-1.862-11.415-11.322H857v-2.633Z" transform="translate(-823 -933)"/>
+        </svg>
+        <span>BAck</span>
+    </a>
+    <div class="m-v-reg">
+        <form class="reg-wr">
+            <h3 class="less-margin">ENTER YOUR PHONE NUMBER</h3>
+            <p class="some-small-text-after-head">Enter your number to receive a verification code. Carrier rates may apply.</p>
+            <div class="sigh-up-3-m-w">
+                <select #t (change)="phoneCode = t.value" class="inp-style-2">
+                    <option *ngFor="let code of codes" [value]="code.dial_code">{{code.name}} ({{code.dial_code}})</option>
+                </select>
+                <input (input)="phone = $event.target.value" class="inp-style-2" type="text" placeholder="Tel. Number">
+            </div>
+
+            <div *ngIf="!isRequestCodeSend">
+              <div class="continue-wr more-margin">
+                  <button class="butt-style-1" type="submit" (click)="sendCode()"><span>Sent Text</span></button>
+              </div>
+              <p class="text-link-to-login">Already have an account?</p>
+              <p class="al-c"><a href="#" class="link-link-to-login">Log In</a></p>
+            </div>            
+
+            <div *ngIf="isRequestCodeSend">
+              <h3 class="more-padd less-margin">ENTER VALIDATION CODE</h3>
+              <div class="inp-code-wrapp">
+                  <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="codeRequest[0]" id="code1" maxlength="1" (input)="inputCode($event,1)" >
+                  <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="codeRequest[1]" id="code2" maxlength="1" (input)="inputCode($event,2)">
+                  <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="codeRequest[2]" id="code3" maxlength="1" (input)="inputCode($event,3)">
+                  <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="codeRequest[3]" id="code4" maxlength="1" (input)="inputCode($event,4)">
+                  <div class="lines">
+                      <div class="line"></div>
+                      <div class="line"></div>
+                      <div class="line"></div>
+                  </div>
+              </div>
+              <p class="some-small-text-after-head">Please enter the verification code</p>
+              <span (click)="sendCode()" class="resend-reg">Resend</span>
+              <div class="continue-wr more-margin">
+                  <button (click)="sendRequest()" class="butt-style-1" type="submit"><span>Continue</span></button>
+              </div>
+            </div>
+
+        </form>
+    </div>
+</div>

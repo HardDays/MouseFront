@@ -1,100 +1,16 @@
-<!-- <section class="main-router-outlet">
-
-    <section class="login-register">
-     
-        <div *ngIf="firstPage" class="register">
-            <div class="m-v-reg">
-                <form class="reg-wr" (ngSubmit)="registerUserAcc()" #submitFormUsr="ngForm">
-                    <h3>General info</h3>
-                    <div class="for-flex">
-                        <div class="photo-wr-1">
-                            <label  *ngIf="!Account.image_base64" class="file_upload">
-                                <div class="bg-image"></div>
-                                <p>Add photo</p>
-                                <input name="photo" accept=".jpg, .jpeg, .png" type="file" (change)="loadLogo($event)"> 
-                            </label>
-                           
-                            <div (click)="Account.image_base64=''" *ngIf="Account.image_base64" class="bg-image uploaded" [ngStyle]="{'background-image': 'url('+Account.image_base64+')'}"></div>
-                           
-                        </div>
-                        <div class="side left-side">
-                            <input name="phone"  [textMask]="MaskTelephone()" class="inp-style-2" type="text" placeholder="Phone" [ngModel]="Account.phone" (ngModelChange)="Account.phone = $event" />
-                            <input name="location" class="inp-style-2" type="text" placeholder="Location" #search>
-                        </div>
-                        <div class="side right-side">
-                            <input name="username" autocomplete="off" class="inp-style-2" type="text" pattern="^[A-Za-z0-9_]{1,30}$" placeholder="Username" [ngModel]="Account.user_name" (ngModelChange)="Account.user_name = $event" required>
-                            <input name="email" class="inp-style-2"  type="email" placeholder="Email address" #email="ngModel" [ngModel]="User.email" (ngModelChange)="User.email = $event" email required >
-                            <p *ngIf="email.invalid && email.touched" style="color:red;">Invalid Email</p>
-                            <input name="password" class="inp-style-2" minlength="6" type="password" placeholder="Password" [ngModel]="User.password" (ngModelChange)="User.password = $event" required>
-                            <input name="verify_password" class="inp-style-2" type="password" placeholder="Verify password" [ngModel]="User.password_confirmation" (ngModelChange)="User.password_confirmation = $event" required>
-                        </div>
-                    </div>
-                    
-                    <h3 class="marg30">select your favourite genres</h3>
-                    <div class="search-wr">
-                        <input type="text" class="inp-style-1" (input)="CategoryChanged($event.target.value)"  placeholder="Search">
-                    </div>
-                    <div class="flex-checkboxes">
-                        
-                        <ng-container *ngFor="let item of genres; let i = index">
-                            <div *ngIf="item.show" class="one-checkbox" >
-                                    <div  class="check-style">
-                                                <input type="checkbox"  [ngModel]="item.checked" (ngModelChange)="item.checked = $event" class="checkbox" name="genre-{{i}}" id='checkbox-{{i}}'>
-                                        <label for='checkbox-{{i}}'></label>
-                                    </div>
-                                    <p>{{item.genre_show}}</p>
-                            </div> 
-                       </ng-container>
-
-
-                    </div>
-                    <p class="more" *ngIf="!seeMore" (click)="seeMoreGenres()"><span>See more</span></p>
-                    <p style="color:white;">{{Error}}</p>
-                    <div class="continue-wr">
-                        <button class="butt-style-1" type="submit"><span>Continue</span></button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-
-        <form *ngIf="!firstPage" (ngSubmit)="followArtists()" class="choose-to-follow">
-            <div class="bg-gradient-1"></div>
-            <div class="follow-m-w">
-                <h3>Choose who to follow</h3>
-                <div class="search-wr"> 
-                    <input type="text" class="inp-style-1" placeholder="Search">
-                </div>
-                <div class="flex-bands">
-        
-
-                    <div *ngFor="let item of artists; let i = index" class="one-band">
-                        <input type="checkbox" [ngModel]="artistsChecked[i]" (ngModelChange)="artistsChecked[i] = $event" class="checkbox" name="artist-{{i}}" id="checkbox-{{i}}">
-                        <label class="label-wr" for="checkbox-{{i}}" id="checkbox-{{i}}-{{i}}" (click)="clickItem(i)">
-                            <div class="photo-band-wrapp">
-                                <div class="photo-band" style="background-image: url(../../../assets/img/layer-7.jpg)"></div>
-                            </div>
-                            <div class="descr">
-                                <p class="name">{{item.display_name?item.display_name:"No name"}}</p>
-                                <p class="genre">Pop</p>
-                                <div class="checkbox-style-2"></div>
-                            </div>
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="butt-to-continue">
-                <button class="butt-style-1" type="submit" [disabled]="!submitFormUsr.valid"><span>Сomplete</span></button>  
-            </div>
-        </form>
-    </section>
-</section> -->
 <section class="main-router-outlet">
     <section class="login-register">
 
+            <app-register-phone 
+                *ngIf="currentPage=='phone'"
+                (phoneStatus)="onSuccesValidatePhone($event)"
+            ></app-register-phone>
+
+
         <app-register-user 
-                [ngStyle]="{display:currentPage=='user'?'block':'none'}" 
-                (createUser)="onSuccesCreateUser($event)"       
+               *ngIf="currentPage=='user'"
+                (createUser)="onSuccesCreateUser($event)"
+                [phoneInput]="phone"       
         ></app-register-user>
 
         <app-register-acc  

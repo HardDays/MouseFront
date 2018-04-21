@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { UserCreateModel } from '../../../core/models/userCreate.model';
 import { UserGetModel } from '../../../core/models/userGet.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -25,6 +25,7 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
 
 
   @Output('createUser') backUser = new EventEmitter<string>();
+  @Input('phoneInput') phone: string;
 
   registerUser(){
 
