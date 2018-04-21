@@ -334,7 +334,7 @@
                             <h6 class="head-of-gradient-box">Add new photo</h6>
                             <div class="photos-wr-flex-venue">
                                 <div class="photo-wr-1">
-                                    <label class="file_upload">
+                                    <label *ngIf="!ImageToLoad" class="file_upload">
                                         <div class="bg-image"></div>
 
                                         <input accept=".jpg, .jpeg, .png" type="file"  (change)="loadImage($event)">

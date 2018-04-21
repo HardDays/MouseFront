@@ -71,7 +71,8 @@ export class AccountCreateModel{
             public refund_policy?:string,
 
             public artist_riders?:Rider
-){}
+){
+}
 }
 
 export class Audio{
