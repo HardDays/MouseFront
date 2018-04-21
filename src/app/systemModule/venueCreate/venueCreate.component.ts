@@ -142,7 +142,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
     }
   );
 
-  
+  @ViewChild('search') public searchElement: ElementRef;
 
   constructor(protected authService: AuthMainService,
     protected accService:AccountService,
@@ -160,7 +160,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
 
     ngOnInit()
     {
-      
+      this.CreateAutocomplete();
       this.TypesOfSpace = this.typeService.GetAllSpaceTypes();
       this.LocatedTypes = this.typeService.GetAllLocatedTypes();
       this.activatedRoute.params.forEach((params) => {
@@ -183,6 +183,53 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
       });
 
 
+    }
+
+    CreateAutocomplete(){
+      this.mapsAPILoader.load().then(
+          () => {
+             //(this.searchElement.nativeElement, {types:[`(cities)`]})
+           let autocomplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement);
+          
+          
+              autocomplete.addListener("place_changed", () => {
+                  this.ngZone.run(() => {
+                      let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
+                      if(place.geometry === undefined || place.geometry === null )
+                      {             
+                          return;
+                      }
+                      else 
+                      {
+                          
+                          // this.Venue.address = autocomplete.getPlace().formatted_address;
+                          
+                          let addr:string[] = autocomplete.getPlace().adr_address.split(', ');
+                         
+                          for(let a of addr){
+                            if(a.search('locality') > 0){
+                              this.Venue.city = a.slice(a.search('>')+1,a.search('</'));
+                            }
+                            else if(a.search('street-address') > 0){
+                              this.Venue.address = a.slice(a.search('>')+1,a.search('</'));
+                            }
+                            else if(a.search('region') > 0){
+                              this.Venue.state = a.slice(a.search('>')+1,a.search('</'));
+                            }
+                            else if(a.search('country-name') > 0){
+                              this.Venue.country = a.slice(a.search('>')+1,a.search('</'));
+                            }
+                            else if(a.search('postal-code') > 0){
+                              this.Venue.zipcode = a.slice(a.search('>')+1,a.search('</'));
+                            }
+                          }
+
+                          
+                      }
+                  });
+              });
+          }
+      );
     }
 
     InitJs()

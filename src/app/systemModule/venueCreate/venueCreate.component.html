@@ -105,13 +105,14 @@
                             </div>
                             <div class="side">
                                 <h6 class="head-col-add-venue hidden-lg hidden-md hidden-sm hidden-xs">Address</h6>
+                                <!-- поменял местами Address и Country -->
+                                <div class="input-groupe-1">
+                                    <input id="inp-create-venue-adr-2" #search placeholder="" autocomplete="foo" [(ngModel)]="Venue.address" formControlName="address" name="" type="text">
+                                    <label for="inp-create-venue-adr-2">Address<span>*</span></label>
+                                </div>
                                 <div class="input-groupe-1">
                                     <input id="inp-create-venue-adr-1" autocomplete="foo" [(ngModel)]="Venue.country" formControlName="country" name="" type="text">
                                     <label for="inp-create-venue-adr-1">Country<span>*</span></label>
-                                </div>
-                                <div class="input-groupe-1">
-                                    <input id="inp-create-venue-adr-2" autocomplete="foo" [(ngModel)]="Venue.address" formControlName="address" name="" type="text">
-                                    <label for="inp-create-venue-adr-2">Address<span>*</span></label>
                                 </div>
                                 <div class="input-groupe-1">
                                     <input id="inp-create-venue-adr-3" autocomplete="foo" [(ngModel)]="Venue.city" formControlName="city" name="" type="text">
@@ -159,7 +160,7 @@
                                         <span>Select Days</span> 
                                     </div>
                                     <div *ngIf="OfficeHoursSelectedDate" class="some-times-days">
-                                        <div class="week-day-time-wr" *ngFor="let item of OfficeHours">
+                                        <div class="week-day-time-wr" *ngFor="let item of OfficeHours; let i = index">
                                             <ng-container *ngIf="item.checked">
                                                 <div class="from-to">
                                                     <span>From</span>
@@ -194,7 +195,7 @@
                                         <span>Select Days</span> 
                                     </div>
                                     <div *ngIf="OperatingHoursSelectedDate" class="some-times-days">
-                                        <div class="week-day-time-wr" *ngFor="let item of OperatingHours">
+                                        <div class="week-day-time-wr" *ngFor="let item of OperatingHours; let i = index">
                                             <ng-container *ngIf="item.checked">
                                                 <div class="from-to">
                                                     <span>From</span>
