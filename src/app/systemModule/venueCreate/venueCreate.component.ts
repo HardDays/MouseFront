@@ -239,13 +239,14 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
       this.imgService.GetImageById(id)
         .subscribe(
           (res:Base64ImageModel) =>{
-            this.VenueImages[saveIndex] = res.base64;
+            this.VenueImages[saveIndex] = (res.base64.indexOf('&quot;data:image/jpeg;base64') < 0? '&quot;data:image/jpeg;base64':'') + res.base64;
           }
         );
     }
 
     SanitizeImage(image: string)
     {
+   
       return this._sanitizer.bypassSecurityTrustStyle(`url(${image})`);
     }
 
@@ -295,6 +296,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
     this.Venue.emails.push(new ContactModel());
     (<FormArray>this.aboutForm.controls["emails"]).push(this.GetContactFormGroup());
   }
+  
 
   deleteEmail(index:number)
   {
@@ -370,10 +372,10 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
     //
     formData.append('image',this.ImageFile,this.ImageFile.name);
     // console.log(this.ImageFile);
-    this.imgService.PostAccountImage(this.VenueId,{image:this.ImageFile})
+    this.imgService.PostAccountImage(this.VenueId,{image:this.ImageToLoad})
       .subscribe(
         (res:any) => {
-          // console.log(res);
+           console.log(res);
         }
       );
   }

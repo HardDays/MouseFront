@@ -60,7 +60,6 @@
                                     
                                 </div>
                                 <div class="input-groupe-1 whithout-label small-textarea max-500">
-                                    
                                     <textarea id="inp-create-9" autocomplete="foo"  [(ngModel)]="Venue.description" formControlName="short_desc"></textarea>
                                     <label for="inp-create-9" class="head-groupe">Short Description<span>*</span></label>
                                     <span class="max-count">1000 max</span>
@@ -95,8 +94,13 @@
                                                 <label for="inp-create-venue-email-{{+i+1}}">Email {{+i+1}} </label>
                                             </div>
                                         </ng-container>
+                                        <div class="delete-email" *ngIf="Venue.emails.length > 1" (click)="deleteEmail(i)"></div>
                                     </div>
-                                    <span class="add-to-active-b" style="cursor: pointer;" (click)="addEmail()">ADD LINK</span>
+                                    <div class="emeil-gen-butt-add">
+                                        <span class="butt-style-1" (click)="addEmail()">
+                                            <span>ADD Email</span>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="side">
@@ -220,11 +224,15 @@
                     </div>
                     <div class="flex-body-1 more-padding">
                         <div class="side">
-                            <div class="input-groupe-1">
-                                <select id="option-datails-type-of-space" [(ngModel)]="Venue.type_of_space" formControlName="venue_type">
-                                    <option *ngFor="let item of TypesOfSpace" [value]="item.value">{{item.name}}</option>
-                                </select>
-                                <label for="option-datails-type-of-space">Preferred Venue is a<span>*</span>:</label>
+                            <h6 class="head-col-add-venue">Preferred Venue is a:</h6>
+                            <div class="flex-genres style-on-add-artist-g">
+                                <div class="one-checkbox" *ngFor="let item of TypesOfSpace;let i = index">
+                                    <div class="check-style">
+                                        <input type="radio" class="checkbox" id="ccc-radio-556{{i}}" name="" [value]="item.value" [(ngModel)]="Venue.type_of_space" formControlName="venue_type" >
+                                        <label for="ccc-radio-556{{i}}"></label>
+                                    </div>
+                                    <p>{{item.name}}</p>
+                                </div>
                             </div>
                             <div class="input-groupe-1 whithout-label small-textarea max-500 max-100">  
                                 <textarea></textarea>
@@ -334,7 +342,7 @@
                             <h6 class="head-of-gradient-box">Add new photo</h6>
                             <div class="photos-wr-flex-venue">
                                 <div class="photo-wr-1">
-                                    <label class="file_upload">
+                                    <label class="file_upload" *ngIf="!ImageToLoad">
                                         <div class="bg-image"></div>
 
                                         <input accept=".jpg, .jpeg, .png" type="file"  (change)="loadImage($event)">
@@ -440,7 +448,7 @@
                                 <div class="one-slide" *ngIf="VenueImages[i]">
                                     <div class="wrapp-card">
                                         <div class="delete-track"></div>
-                                        <div class="cover-image" [ngStyle]="{'background-image': SanitizeImage(img)}"></div>
+                                        <div class="cover-image" [ngStyle]="{'background-image': 'url('+ img.toString() +')'}"></div>
                                         <div class="descr">
                                             <h6>Night club</h6>
                                             <p class="name">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuminim veniam, quis nostrud</p>
@@ -511,29 +519,18 @@
                                     </div>
                                     <div class="input-groupe-1 venue-week-cal-style">
                                         <div class="week-day-time-wr">
+                                           
                                             <div class="from-to">
                                                 <span>From</span>
-                                                <select>
-                                                    <option>10:00</option>
-                                                    <option>11:00</option>
-                                                </select>
-                                                <select>
-                                                    <option>PM</option>
-                                                    <option>AM</option>
-                                                </select>
+                                                <input class="inp-style-3 time-mask" >
                                             </div>
-                                             <div class="from-to">
+                                            <div class="from-to">
                                                 <span>To</span>
-                                                <select>
-                                                    <option>10:00</option>
-                                                    <option>11:00</option>
-                                                </select>
-                                                <select>
-                                                    <option>PM</option>
-                                                    <option>AM</option>
-                                                </select>
+                                                <input class="inp-style-3 time-mask" >
                                             </div>
+                                           
                                         </div>
+                                        
                                         <label>Performance time</label>
                                     </div>
                                 </div>
