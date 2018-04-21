@@ -27,10 +27,13 @@ export class ImagesService{
     }
 
 
-    PostAccountImage(accountId:number,object:any)
+    PostAccountImage(accountId:number,image:string)
     {
+        let params = {
+            image_base64:image
+        };
         return this.http.CommonRequest(
-            ()=> this.http.PostData('/accounts/'+accountId+'/images.json',object)
+            ()=> this.http.PostData('/accounts/'+accountId+'/images.json',JSON.stringify(params))
         );
         // return this.http.GetData('/images/'+imageId,"");
     }

@@ -79,7 +79,6 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
   LocatedTypes:SelectModel[] = [];
 
   ImageToLoad:string = '';
-  ImageFile:File = null;
 
   VenueImages:string[] = [];
 
@@ -213,6 +212,9 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
 
       this.aboutForm.controls["emails"] = new FormArray([]);
 
+      if(!this.Venue.emails)
+        this.Venue.emails = [new ContactModel()];
+      
       this.addEmailsToForm(this.Venue.emails.length);
     }
 
@@ -356,7 +358,6 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
       let reader:FileReader = new FileReader();
       reader.onload = (e) =>{
           this.ImageToLoad = reader.result;
-          this.ImageFile = file;
       }
       reader.readAsDataURL(file);
     }
@@ -368,14 +369,11 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
 
   AddVenuePhoto()
   {
-    let formData: FormData = new FormData();
-    //
-    formData.append('image',this.ImageFile,this.ImageFile.name);
-    // console.log(this.ImageFile);
-    this.imgService.PostAccountImage(this.VenueId,{image:this.ImageToLoad})
+    this.imgService.PostAccountImage(this.VenueId,this.ImageToLoad)
       .subscribe(
         (res:any) => {
-           console.log(res);
+          this.ImageToLoad = '';
+          this.GetVenueImages();
         }
       );
   }
