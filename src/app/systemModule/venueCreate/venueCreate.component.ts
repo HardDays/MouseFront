@@ -276,7 +276,6 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
       this.Venue.office_hours = this.accService.GetWorkingTimeFromFront(this.OfficeHours);
       this.Venue.operating_hours = this.accService.GetWorkingTimeFromFront(this.OperatingHours);
 
-      // console.log("send",this.Venue);
       this.WaitBeforeLoading
       (
         () => this.VenueId == 0 ? this.accService.CreateAccount(this.Venue) : this.accService.UpdateMyAccount(this.VenueId,this.Venue),
