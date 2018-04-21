@@ -156,6 +156,9 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
     super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
   }
 
+  @ViewChild('search') public searchElement: ElementRef;
+
+
 
   ngOnInit(){
    
@@ -169,6 +172,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
  
     this.getGenres();
     this.preferredVenues = this.getVenuesTypes();
+    this.CreateAutocomplete();
   }
 
   Init(){
@@ -180,6 +184,34 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
     this.Artist.audio_links = [];
     this.Artist.artist_albums = [];
     this.Artist.videos = [];
+  }
+
+  CreateAutocomplete(){
+    this.mapsAPILoader.load().then(
+        () => {
+           
+         let autocomplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement, {types:[`(cities)`]});
+        
+        
+            autocomplete.addListener("place_changed", () => {
+                this.ngZone.run(() => {
+                    let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
+                    if(place.geometry === undefined || place.geometry === null )
+                    {             
+                        return;
+                    }
+                    else 
+                    {
+                        // this.venueSearchParams.address = autocomplete.getPlace().formatted_address;
+                        // this.venueSearch();
+                        // this.mapCoords.venue.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
+                        // this.mapCoords.venue.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
+                        this.createArtist.location = autocomplete.getPlace().formatted_address;
+                    }
+                });
+            });
+        }
+    );
   }
 
   initJS(){

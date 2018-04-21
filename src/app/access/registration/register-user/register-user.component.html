@@ -12,7 +12,7 @@
                         <h3>ENTER LOGIN INFORMATION</h3>
                         <div class="sigh-up-3-m-w">
                             <input class="inp-style-2"  formControlName="email" type="text" placeholder="Email Address (Login)">
-                            <input class="inp-style-2"  formControlName="register_phone" [textMask]="MaskTelephone()" type="text" placeholder="Tel. Number">
+                            <input class="inp-style-2" [(ngModel)]="phone" formControlName="register_phone" [textMask]="MaskTelephone()" type="text" placeholder="Tel. Number">
                             <input class="inp-style-2"  formControlName="password" type="password" placeholder="Password">
                             <input class="inp-style-2"  formControlName="password_confirmation" type="password" placeholder="Verify password">
                             <p style="color:white;">{{Error}}</p>
