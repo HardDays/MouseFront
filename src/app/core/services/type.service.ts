@@ -33,6 +33,15 @@ export class TypeService{
         ];
     }
 
+    GetAllLocatedTypes()
+    {
+        return [
+            new SelectModel("Indoors", "indoors"),
+            new SelectModel("Outdoors", "outdoors"),
+            new SelectModel("Both", "other_location")
+        ];
+    }
+
     GetAllVenueTypes()
     {
         return [
@@ -86,6 +95,19 @@ export class TypeService{
             new FrontWorkingTimeModel('saturday', null, null, false),
             new FrontWorkingTimeModel('sunday', null, null, false)
         ];
+    }
+
+    public GetTime()
+    {
+        let result:string[] = [];
+        let time = 0;
+
+        while( time < 12*60)
+        {
+            result.push(((time/60) < 10? "0":"" + (time/60)) +":"+((time%60) < 10? "0":"" + (time%60)));
+            time = time + 30;
+        }
+        return result;
     }
 
     public ValidateArray(array:any[])

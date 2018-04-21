@@ -13,7 +13,7 @@ import { EventDateModel } from '../../core/models/eventDate.model';
 import { ContactModel } from '../../core/models/contact.model';
 import { AccountGetModel } from '../../core/models/accountGet.model';
 import { Base64ImageModel } from '../../core/models/base64image.model';
-import { AccountType } from '../../core/base/base.enum';
+import { AccountType, VenueType } from '../../core/base/base.enum';
 import { GenreModel } from '../../core/models/genres.model';
 import { EventCreateModel } from '../../core/models/eventCreate.model';
 
@@ -48,6 +48,8 @@ import { Observable } from 'rxjs/Observable';
 declare var $:any;
 declare var ionRangeSlider:any;
 
+
+
 @Component({
   selector: 'venueCreate',
   templateUrl: './venueCreate.component.html',
@@ -59,8 +61,32 @@ declare var ionRangeSlider:any;
 
 export class VenueCreateComponent extends BaseComponent implements OnInit 
 {
+  Parts = PageParts;
+
+  CurrentPart = this.Parts.About;
+
   Venue:AccountCreateModel = new AccountCreateModel();
   VenueId:number = 0;
+
+  OfficeHours:FrontWorkingTimeModel[] = [];
+  OfficeHoursSelectedDate = false;
+
+  OperatingHours:FrontWorkingTimeModel[] = [];
+  OperatingHoursSelectedDate = false;
+
+  
+  TypesOfSpace:SelectModel[] = [];
+  LocatedTypes:SelectModel[] = [];
+
+  ImageToLoad:string = '';
+  ImageFile:File = null;
+
+  VenueImages:string[] = [];
+
+  EmailFormGroup : FormGroup = new FormGroup({
+    "name_email":new FormControl("",[]),
+    "email":new FormControl("",[Validators.email]),
+  });
 
   aboutForm : FormGroup = new FormGroup({        
     "venue_name": new FormControl("", [Validators.required]),
@@ -68,12 +94,42 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
     "short_desc": new FormControl("", [Validators.required]),
     "phone": new FormControl("", [Validators.required]),
     "fax": new FormControl("", []),
+    "emails": new FormArray([
+    ]),
     "country": new FormControl("", [Validators.required]),
     "address": new FormControl("", [Validators.required]),
     "city": new FormControl("", [Validators.required]),
     "state": new FormControl("", [Validators.required]),
     "zipcode": new FormControl("", [Validators.required]),
   });
+
+  detailsForm : FormGroup = new FormGroup({
+    "venue_type": new FormControl("", [Validators.required]),
+    "capacity": new FormControl("",[Validators.required,
+      Validators.pattern("[0-9]+"),
+      Validators.min(0),Validators.max(150000)                                
+    ]),
+    "bathrooms": new FormControl("",[
+      Validators.pattern("[0-9]+"),
+      Validators.min(0),Validators.max(100)                                
+    ]),
+    "min_age": new FormControl("",[
+      Validators.pattern("[0-9]+"),
+      Validators.min(0),Validators.max(21)                                
+    ]),
+    "bar": new FormControl("",[]),
+    "located":new FormControl("",[]),
+    "dress_code":new FormControl("Shirt and Shoes Required",[])
+  });
+
+  mediaForm : FormGroup = new FormGroup({
+    "vr": new FormControl("",[]),
+    "audio_description" : new FormControl("",[Validators.required]),
+    "lighting_description" : new FormControl("",[Validators.required]),
+    "stage_description" : new FormControl("",[Validators.required])
+  }); 
+
+  
 
   constructor(protected authService: AuthMainService,
     protected accService:AccountService,
@@ -91,6 +147,9 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
 
     ngOnInit()
     {
+      
+      this.TypesOfSpace = this.typeService.GetAllSpaceTypes();
+      this.LocatedTypes = this.typeService.GetAllLocatedTypes();
       this.activatedRoute.params.forEach((params) => {
         if(params["id"] == 'new')
         {;
@@ -107,31 +166,101 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
               }
             );
         }
+        setTimeout(()=> this.InitJs(),2500);
       });
 
 
     }
 
+    InitJs()
+    {
+      // $('.slider-4-init').slick({
+      //   dots: false,
+      //   arrows: true,
+      //   infinite: false,
+      //   slidesToShow: 2,
+      //     responsive: [
+      //       {
+      //         breakpoint: 1301,
+      //         settings: {
+      //           slidesToShow: 2,
+      //           slidesToScroll: 2
+               
+      //         }
+      //       }
+      //     ]
+      // });
+    }
+
     DisplayVenueParams($venue?:AccountGetModel)
     {
-      if($venue && $venue.id){
+      if($venue && $venue.id)
+      {
         this.VenueId = $venue.id;
         this.router.navigateByUrl("/system/venueCreate/"+this.VenueId);
+        this.GetVenueImages();
       }
-        
+      this.OfficeHours = ($venue && $venue.office_hours)?
+                          this.accService.GetFrontWorkingTimeFromTimeModel($venue.office_hours):this.typeService.GetAllDays();
+      this.OperatingHours = ($venue && $venue.operating_hours)?
+                          this.accService.GetFrontWorkingTimeFromTimeModel($venue.operating_hours):this.typeService.GetAllDays();
+
+      this.IsNeedToShowSelectDayWrapper();
+
       this.Venue = $venue ? this.accService.AccountModelToCreateAccountModel($venue) : new AccountCreateModel();
       this.Venue.account_type = AccountType.Venue;
+      this.Venue.venue_type = VenueType.Public;
+
+      this.aboutForm.controls["emails"] = new FormArray([]);
+
+      this.addEmailsToForm(this.Venue.emails.length);
+    }
+
+    GetVenueImages()
+    {
+      this.imgService.GetAccountImages(this.VenueId,{limit:5})
+        .subscribe(
+          (res:any)=>{
+            if(res && res.total_count > 0)
+            {
+              let index = 0;
+              for(let id of res.images)
+              {
+                this.GetVenueImageById(id,index);
+                index = index + 1;
+              }
+            }
+          }
+        );
+    }
+
+    GetVenueImageById(id,saveIndex)
+    {
+      this.imgService.GetImageById(id)
+        .subscribe(
+          (res:Base64ImageModel) =>{
+            this.VenueImages[saveIndex] = res.base64;
+          }
+        );
+    }
+
+    SanitizeImage(image: string)
+    {
+      return this._sanitizer.bypassSecurityTrustStyle(`url(${image})`);
     }
 
     SaveVenue()
     {
+      this.Venue.office_hours = this.accService.GetWorkingTimeFromFront(this.OfficeHours);
+      this.Venue.operating_hours = this.accService.GetWorkingTimeFromFront(this.OperatingHours);
+
       this.WaitBeforeLoading
       (
         () => this.VenueId == 0 ? this.accService.CreateAccount(this.Venue) : this.accService.UpdateMyAccount(this.VenueId,this.Venue),
         (res) => 
         {
-          console.log(res);
           this.DisplayVenueParams(res);
+          this.NextPart();
         },
         (err) =>
         {
@@ -140,18 +269,135 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
       )
     }
 
-  //   ServiceSaveVenue = (fun:()=>Observable<any>,success:(result?:any)=>void, err?:(obj?:any)=>void)=>{
-  //     fun()
-  //       .subscribe(
-  //         res=>{
-  //             success(res);
-  //         },
-  //         error=>{
-  //           if(err && typeof err == "function"){
-  //               err(error); 
-  //           }
-  //         }
-  //       );
-  // }
+  NextPart()
+  {
+    if(this.CurrentPart == this.Parts.Dates)
+      return;
+    scrollTo(0,0);
+    this.CurrentPart = this.CurrentPart + 1;
+    // if(this.CurrentPart == this.Parts.Media)
+    //   this.InitJs();
+  }
+
+  addEmailsToForm(count?:number){
+    let n = 1;
+    if(count)
+      n = count;
+
+    for(let i = 0; i < n; i++ )
+    {
+      (<FormArray>this.aboutForm.controls["emails"]).push(this.GetContactFormGroup());
+    }
+  }
+
+  addEmail()
+  {
+    this.Venue.emails.push(new ContactModel());
+    (<FormArray>this.aboutForm.controls["emails"]).push(this.GetContactFormGroup());
+  }
+
+  deleteEmail(index:number)
+  {
+    (<FormArray>this.aboutForm.controls["emails"]).removeAt(index);
+    this.Venue.emails.splice(index,1);
+  }
+
+  GetContactFormGroup()
+  {
+    return new FormGroup({
+      "name_email":new FormControl("",[]),
+      "email":new FormControl("",[Validators.email]),
+    })
+  }
+
+  OfficeHoursCheckChange(index, $event)
+  {
+    this.OfficeHours[index].checked = $event;
+
+    this.IsNeedToShowSelectDayWrapper();
+  }
+
+  OperatingHoursCheckChange(index, $event)
+  {
+    this.OperatingHours[index].checked = $event;
+
+    this.IsNeedToShowSelectDayWrapper();
+  }
+
+  IsNeedToShowSelectDayWrapper()
+  {
+    this.OperatingHoursSelectedDate = this.OperatingHours.filter(obj => obj.checked == true).length > 0;
+    this.OfficeHoursSelectedDate = this.OfficeHours.filter(obj => obj.checked == true).length > 0;
+  }
+
+  getMask(item:WorkingTimeModel){
+    return {
+        mask: [/[0-2]/, item && item.begin_time && parseInt(item.begin_time.toString()) > 1 ? /[0-3]/ : /\d/, ':', /[0-5]/, /\d/],
+        keepCharPositions: true
+      };
+  } 
+  getMaskEnd(item:WorkingTimeModel){
+    
+    return {
+        mask: [/[0-2]/, item && item.end_time && parseInt(item.end_time.toString()) > 1 ? /[0-3]/ : /\d/, ':', /[0-5]/, /\d/],
+        keepCharPositions: true
+      };
+  }
+  loadImage($event:any):void{
+    let target = $event.target;
+    //let file:File = target.files[0];
+    if(target.files.length == 0)
+        return;
+    
+    for(let file of target.files)
+    {
+      let reader:FileReader = new FileReader();
+      reader.onload = (e) =>{
+          this.ImageToLoad = reader.result;
+          this.ImageFile = file;
+      }
+      reader.readAsDataURL(file);
+    }
+  }
+  DeleteImageFromLoading()
+  {
+    this.ImageToLoad = '';
+  }
+
+  AddVenuePhoto()
+  {
+    let formData: FormData = new FormData();
+    //
+    formData.append('image',this.ImageFile,this.ImageFile.name);
+    console.log(this.ImageFile);
+    this.imgService.PostAccountImage(this.VenueId,{image:this.ImageFile})
+      .subscribe(
+        (res:any) => {
+          console.log(res);
+        }
+      );
+  }
+
+  ChangeCurrentPart(newPart)
+  {
+    if(this.VenueId == 0 && newPart > this.Parts.About)
+      return;
+
+    if(this.CurrentPart == newPart)
+      return;
+    
+    // if(newPart == this.Parts.Media)
+    //   this.InitJs();
+
+    this.CurrentPart = newPart;
+  }
     
 }
+
+export enum PageParts{
+  About = 0,
+  Hours = 1,
+  Listing = 2,
+  Media = 3,
+  Dates = 4
+};

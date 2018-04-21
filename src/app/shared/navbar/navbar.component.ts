@@ -22,6 +22,7 @@ export class NavbarComponent extends BaseComponent implements OnInit{
     Accounts:AccountGetModel[] = [];
     maxNumberOfProfiles:number = 5;
     curNav:string = 'shows';
+    ActiveAccount = new AccountGetModel();
   
     ngOnInit(){
       this.initUser();
@@ -58,6 +59,7 @@ export class NavbarComponent extends BaseComponent implements OnInit{
               this.isShown = false;
             this.Accounts = users;
             this.idProfile = +localStorage.getItem('activeUserId');
+            this.ActiveAccount = this.Accounts.find(obj => obj.id == this.idProfile);
         });
     }
 

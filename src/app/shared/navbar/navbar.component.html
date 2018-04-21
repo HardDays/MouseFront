@@ -111,7 +111,8 @@
                                 </div>
                                 
                                 <div class="dropdown-items-wr">
-                                        <a [routerLink]="['/system/edit',idProfile]">Settings</a>
+                                    <a *ngIf="ActiveAccount.account_type == 'venue'" [routerLink]="['/system/venueCreate',idProfile]">Settings</a>
+                                    <a *ngIf="ActiveAccount.account_type != 'venue'" [routerLink]="['/system/edit',idProfile]">Settings</a>
                                     <span (click)="logout()">Log Out</span>
                                 </div>
                             </div>

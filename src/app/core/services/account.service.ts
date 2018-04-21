@@ -194,13 +194,16 @@ export class AccountService{
         let result:WorkingTimeModel[] = [];
         for(let i of days)
         {
-            result.push(
-                new WorkingTimeModel(
-                    this.GetTimeFromString(i.begin_time),
-                    this.GetTimeFromString(i.end_time),
-                    i.day[0].toUpperCase() + i.day.substr(1,2)
-                )
-            );
+            if(i.day && i.begin_time && i.end_time)
+            {
+                result.push(
+                    new WorkingTimeModel(
+                        this.GetTimeFromString(i.begin_time),
+                        this.GetTimeFromString(i.end_time),
+                        i.day[0].toUpperCase() + i.day.substr(1,2)
+                    )
+                );
+            }
         }
         return result;
     }

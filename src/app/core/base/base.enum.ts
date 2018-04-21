@@ -14,3 +14,8 @@ export enum AccountType{
     Venue = "venue",
     Artist = "artist"
 }
+export enum VenueType{
+    Public = "public_venue",
+    Private = "private_residence"
+}
+

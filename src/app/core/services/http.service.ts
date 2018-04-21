@@ -61,7 +61,7 @@ export class HttpService
             );
     }
 
-    GetData(method:string,params:string)
+    GetData(method:string,params?:string)
     {
         return this.http.get(this.serverUrl + method + "?"+ params,{headers:this.headers})
     }
@@ -71,7 +71,7 @@ export class HttpService
         return this.http.delete(this.serverUrl + method,{headers:this.headers})
     }
 
-    PostData(method:string,data:string)
+    PostData(method:string,data:any)
     {
         return this.http.post(this.serverUrl + method,data, {headers:this.headers});
     }

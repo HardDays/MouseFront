@@ -6,29 +6,29 @@
                     <h1>Add Venue</h1>
                     <ul>
                         <!--нужным li даем классы active и started."хз нахрена это надо. узнавайте у писателя"-->
-                        <li class="active">
-                            <a href="#" class="nav-second-outlet">about</a>
+                        <li [ngClass]="{'active':CurrentPart == Parts.About,'started':CurrentPart != Parts.About}">
+                            <a (click)="ChangeCurrentPart(Parts.About)" class="nav-second-outlet">About</a>
                         </li>
-                        <li class="started">
-                            <a href="#" class="nav-second-outlet">Hours</a>
+                        <li [ngClass]="{'active':CurrentPart == Parts.Hours,'started':(VenueId != 0 && CurrentPart != Parts.Hours)}">
+                            <a (click)="ChangeCurrentPart(Parts.Hours)" class="nav-second-outlet">Hours</a>
+                        </li>
+                        <li [ngClass]="{'active':CurrentPart == Parts.Listing,'started':(VenueId != 0 && CurrentPart != Parts.Listing)}">
+                            <a (click)="ChangeCurrentPart(Parts.Listing)" class="nav-second-outlet">Listing</a>
+                        </li>
+                        <li [ngClass]="{'active':CurrentPart == Parts.Media,'started':(VenueId != 0 && CurrentPart != Parts.Media)}">
+                            <a (click)="ChangeCurrentPart(Parts.Media)" class="nav-second-outlet">Media</a>
+                        </li>
+                        <li [ngClass]="{'active':CurrentPart == Parts.Dates,'started':(VenueId != 0 && CurrentPart != Parts.Dates)}">
+                            <a (click)="ChangeCurrentPart(Parts.Dates)" class="nav-second-outlet">Dates</a>
                         </li>
                         <li>
-                            <a href="#" class="nav-second-outlet">Listing</a>
-                        </li>
-                        <li>
-                            <a href="#" class="nav-second-outlet">Media</a>
-                        </li>
-                        <li>
-                            <a href="#" class="nav-second-outlet">DAtes</a>
-                        </li>
-                        <li>
-                            <a href="#" class="nav-second-outlet">Preview</a>
+                            <a class="nav-second-outlet">Preview</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="create-event-body-1">
+        <div [ngStyle]="{'display':CurrentPart == Parts.About ? 'block' : 'none'}" class="create-event-body-1">
             <div class="main-mw">
                 <form [formGroup]="aboutForm">
                     <div class="create-event-body">
@@ -51,11 +51,11 @@
                             <div class="side">
                                 <div class="input-groupe-1 lbl-1">
                                     
-                                    <input id="inp-create-1" autocomplete="foo" [(ngModel)]="Venue.display_name" formControlName="venue_name" name="" type="text">
+                                    <input id="inp-create-1" autocomplete="foo" [(ngModel)]="Venue.user_name" formControlName="venue_name" name="" type="text">
                                     <label for="inp-create-1">Venue Name<span>*</span></label>
                                 </div>
                                 <div class="input-groupe-1">
-                                    <input id="inp-create-2" autocomplete="foo" [(ngModel)]="Venue.user_name" formControlName="mouse_name" name="" type="text">
+                                    <input id="inp-create-2" autocomplete="foo" [(ngModel)]="Venue.display_name" formControlName="venue_name" name="" type="text">
                                     <label for="inp-create-2">Mouse Username<span>*</span></label>
                                     
                                 </div>
@@ -82,18 +82,21 @@
                                 </div>
                             
                                 <h6 class="head-col-add-venue">EMAILS<span>*</span></h6>
-                                <div class="padd-emeils-generate">
-                                    <div class="one-email">
-                                        <span class="count">1.</span>
-                                        <div class="input-groupe-1">
-                                            <input autocomplete="foo" id="inp-create-venue-name-1" name="" type="text">
-                                            <label for="inp-create-venue-name-1">Email Name 1</label>
-                                        </div>
-                                        <div class="input-groupe-1">
-                                            <input autocomplete="foo" id="inp-create-venue-email-1" name="" type="text">
-                                            <label for="inp-create-venue-email-1">Email 1 </label>
-                                        </div>
+                                <div class="padd-emeils-generate" formArrayName="emails">
+                                    <div class="one-email" *ngFor="let item of aboutForm.controls['emails']['controls']; let i = index">
+                                        <ng-container [formGroup]="item">
+                                            <span class="count">{{+i+1}}.</span>
+                                            <div class="input-groupe-1">
+                                                <input autocomplete="foo" id="inp-create-venue-name-{{+i+1}}" [(ngModel)]="Venue.emails[i].name" formControlName="name_email" name="" type="text">
+                                                <label for="inp-create-venue-name-{{+i+1}}">Email Name {{+i+1}}</label>
+                                            </div>
+                                            <div class="input-groupe-1">
+                                                <input autocomplete="foo" id="inp-create-venue-email-{{+i+1}}" [(ngModel)]="Venue.emails[i].email" formControlName="email" name="" type="text">
+                                                <label for="inp-create-venue-email-{{+i+1}}">Email {{+i+1}} </label>
+                                            </div>
+                                        </ng-container>
                                     </div>
+                                    <span class="add-to-active-b" style="cursor: pointer;" (click)="addEmail()">ADD LINK</span>
                                 </div>
                             </div>
                             <div class="side">
@@ -120,16 +123,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="scroll-wrapp">
-                            <div class="circle-scroll" (click)="SaveVenue()" ></div>
-                        </div>
-                        
                     </div>
                 </form>
             </div>
         </div>
         
-        <div class="create-event-body-1">
+        <div [ngStyle]="{'display':CurrentPart == Parts.Hours ? 'block' : 'none'}" class="create-event-body-1">
             <div class="main-mw">
                 <div class="create-event-body">
                     <div class="head-ev-body">
@@ -141,132 +140,34 @@
                             <h6 class="head-of-two-sides">Office Hours</h6>
                             <div class="shadow-days-wr">
                                 <div class="checkboxes-days">
-                                    <div class="days-r">
-                                        <span class="price">Mon</span>
+                                    <div class="days-r" *ngFor="let item of OfficeHours; let i = index">
+                                        <span class="price">{{item.short_name}}</span>
                                         <div class="one-checkbox">
                                             <div class="check-style">
-                                                <input type="checkbox" class="checkbox" name="" id="new-checkbox-day-1">
-                                                <label for="new-checkbox-day-1"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="days-r">
-                                        <span class="price">Tue</span>
-                                        <div class="one-checkbox">
-                                            <div class="check-style">
-                                                <input type="checkbox" class="checkbox" name="" id="new-checkbox-day-2">
-                                                <label for="new-checkbox-day-2"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="days-r">
-                                        <span class="price">Wed</span>
-                                        <div class="one-checkbox">
-                                            <div class="check-style">
-                                                <input type="checkbox" class="checkbox" name="" id="new-checkbox-day-3">
-                                                <label for="new-checkbox-day-3"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="days-r">
-                                        <span class="price">Thu</span>
-                                        <div class="one-checkbox">
-                                            <div class="check-style">
-                                                <input type="checkbox" class="checkbox" name="" id="new-checkbox-day-4">
-                                                <label for="new-checkbox-day-4"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="days-r">
-                                        <span class="price">Fri</span>
-                                        <div class="one-checkbox">
-                                            <div class="check-style">
-                                                <input type="checkbox" class="checkbox" name="" id="new-checkbox-day-5">
-                                                <label for="new-checkbox-day-5"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="days-r">
-                                        <span class="price">Sat</span>
-                                        <div class="one-checkbox">
-                                            <div class="check-style">
-                                                <input type="checkbox" class="checkbox" name="" id="new-checkbox-day-6">
-                                                <label for="new-checkbox-day-6"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="days-r">
-                                        <span class="price">Sun</span>
-                                        <div class="one-checkbox">
-                                            <div class="check-style">
-                                                <input type="checkbox" class="checkbox" name="" id="new-checkbox-day-7">
-                                                <label for="new-checkbox-day-7"></label>
+                                                <input type="checkbox" class="checkbox" [ngModel]="item.checked" (ngModelChange)="OfficeHoursCheckChange(i,$event)" name="" id="new-checkbox-day-{{+i+1}}">
+                                                <label for="new-checkbox-day-{{+i+1}}"></label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="times-days">
-                                    <!--этот блок если неодин день не выбран-->
-                                    <!--
-                                    <div class="for-empty-days">
+                                    <div *ngIf="!OfficeHoursSelectedDate" class="for-empty-days">
                                         <span>Select Days</span> 
                                     </div>
-                                    -->
-                                    <!--/этот блок если неодин день не выбран-->
-                                    <!--этот блок если хотябы 1 день выбран-->
-                                    <div class="some-times-days">
-                                        <!--блок появляется если чекнули соответствующий день-->
-                                        <div class="week-day-time-wr">
-                                            <div class="from-to">
-                                                <span>From</span>
-                                                <select>
-                                                    <option>10:00</option>
-                                                    <option>11:00</option>
-                                                </select>
-                                                <select>
-                                                    <option>PM</option>
-                                                    <option>AM</option>
-                                                </select>
-                                            </div>
-                                             <div class="from-to">
-                                                <span>To</span>
-                                                <select>
-                                                    <option>10:00</option>
-                                                    <option>11:00</option>
-                                                </select>
-                                                <select>
-                                                    <option>PM</option>
-                                                    <option>AM</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <!--/блок появляется если чекнули соответствующий день-->
-                                        <div class="week-day-time-wr">
-                                            <div class="from-to">
-                                                <span>From</span>
-                                                <select>
-                                                    <option>10:00</option>
-                                                    <option>11:00</option>
-                                                </select>
-                                                <select>
-                                                    <option>PM</option>
-                                                    <option>AM</option>
-                                                </select>
-                                            </div>
-                                             <div class="from-to">
-                                                <span>To</span>
-                                                <select>
-                                                    <option>10:00</option>
-                                                    <option>11:00</option>
-                                                </select>
-                                                <select>
-                                                    <option>PM</option>
-                                                    <option>AM</option>
-                                                </select>
-                                            </div>
+                                    <div *ngIf="OfficeHoursSelectedDate" class="some-times-days">
+                                        <div class="week-day-time-wr" *ngFor="let item of OfficeHours">
+                                            <ng-container *ngIf="item.checked">
+                                                <div class="from-to">
+                                                    <span>From</span>
+                                                    <input class="inp-style-3 time-mask" [textMask]="getMask(item)"  autocomplete="off" type="text" [name]="'from-time-'+i" [ngModel]="item.start_work" (ngModelChange)="item.start_work = $event">
+                                                </div>
+                                                <div class="from-to">
+                                                    <span>To</span>
+                                                    <input class="inp-style-3 time-mask" [textMask]="getMaskEnd(item)"  autocomplete="off" type="text" [name]="'to-time-'+i" [ngModel]="item.finish_work" (ngModelChange)="item.finish_work = $event">
+                                                </div>
+                                            </ng-container>
                                         </div>
                                     </div>
-                                    <!--/этот блок если хотябы 1 день выбран-->
                                 </div>
                             </div>
                         </div>
@@ -274,135 +175,34 @@
                             <h6 class="head-of-two-sides">Operating Hours</h6>
                             <div class="shadow-days-wr">
                                 <div class="checkboxes-days">
-                                    <div class="days-r">
-                                        <span class="price">Mon</span>
+                                    <div class="days-r" *ngFor="let item of OperatingHours; let i = index">
+                                        <span class="price">{{item.short_name}}</span>
                                         <div class="one-checkbox">
                                             <div class="check-style">
-                                                <input type="checkbox" class="checkbox" name="" id="new-checkbox-day-1">
-                                                <label for="new-checkbox-day-1"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="days-r">
-                                        <span class="price">Tue</span>
-                                        <div class="one-checkbox">
-                                            <div class="check-style">
-                                                <input type="checkbox" class="checkbox" name="" id="new-checkbox-day-2">
-                                                <label for="new-checkbox-day-2"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="days-r">
-                                        <span class="price">Wed</span>
-                                        <div class="one-checkbox">
-                                            <div class="check-style">
-                                                <input type="checkbox" class="checkbox" name="" id="new-checkbox-day-3">
-                                                <label for="new-checkbox-day-3"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="days-r">
-                                        <span class="price">Thu</span>
-                                        <div class="one-checkbox">
-                                            <div class="check-style">
-                                                <input type="checkbox" class="checkbox" name="" id="new-checkbox-day-4">
-                                                <label for="new-checkbox-day-4"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="days-r">
-                                        <span class="price">Fri</span>
-                                        <div class="one-checkbox">
-                                            <div class="check-style">
-                                                <input type="checkbox" class="checkbox" name="" id="new-checkbox-day-5">
-                                                <label for="new-checkbox-day-5"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="days-r">
-                                        <span class="price">Sat</span>
-                                        <div class="one-checkbox">
-                                            <div class="check-style">
-                                                <input type="checkbox" class="checkbox" name="" id="new-checkbox-day-6">
-                                                <label for="new-checkbox-day-6"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="days-r">
-                                        <span class="price">Sun</span>
-                                        <div class="one-checkbox">
-                                            <div class="check-style">
-                                                <input type="checkbox" class="checkbox" name="" id="new-checkbox-day-7">
-                                                <label for="new-checkbox-day-7"></label>
+                                                <input type="checkbox" class="checkbox" [ngModel]="item.checked" (ngModelChange)="OperatingHoursCheckChange(i,$event)" name="" id="oper-checkbox-day-{{+i+1}}">
+                                                <label for="oper-checkbox-day-{{+i+1}}"></label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="times-days">
-                                    <!--этот блок если неодин день не выбран-->
-                                
-                                    <div class="for-empty-days">
+                                    <div *ngIf="!OperatingHoursSelectedDate" class="for-empty-days">
                                         <span>Select Days</span> 
                                     </div>
-                                 
-                                    <!--/этот блок если неодин день не выбран-->
-                                    <!--этот блок если хотябы 1 день выбран-->
-                                    <!--
-                                    <div class="some-times-days">
-                                        <!--блок появляется если чекнули соответствующий день-->
-                                        <!--
-                                        <div class="week-day-time-wr">
-                                            <div class="from-to">
-                                                <span>From</span>
-                                                <select>
-                                                    <option>10:00</option>
-                                                    <option>11:00</option>
-                                                </select>
-                                                <select>
-                                                    <option>PM</option>
-                                                    <option>AM</option>
-                                                </select>
-                                            </div>
-                                             <div class="from-to">
-                                                <span>To</span>
-                                                <select>
-                                                    <option>10:00</option>
-                                                    <option>11:00</option>
-                                                </select>
-                                                <select>
-                                                    <option>PM</option>
-                                                    <option>AM</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <!--/блок появляется если чекнули соответствующий день-->
-                                    <!--
-                                        <div class="week-day-time-wr">
-                                            <div class="from-to">
-                                                <span>From</span>
-                                                <select>
-                                                    <option>10:00</option>
-                                                    <option>11:00</option>
-                                                </select>
-                                                <select>
-                                                    <option>PM</option>
-                                                    <option>AM</option>
-                                                </select>
-                                            </div>
-                                             <div class="from-to">
-                                                <span>To</span>
-                                                <select>
-                                                    <option>10:00</option>
-                                                    <option>11:00</option>
-                                                </select>
-                                                <select>
-                                                    <option>PM</option>
-                                                    <option>AM</option>
-                                                </select>
-                                            </div>
+                                    <div *ngIf="OperatingHoursSelectedDate" class="some-times-days">
+                                        <div class="week-day-time-wr" *ngFor="let item of OperatingHours">
+                                            <ng-container *ngIf="item.checked">
+                                                <div class="from-to">
+                                                    <span>From</span>
+                                                    <input class="inp-style-3 time-mask" [textMask]="getMask(item)"  autocomplete="off" type="text" [name]="'from-time-'+i" [ngModel]="item.start_work" (ngModelChange)="item.start_work = $event">
+                                                </div>
+                                                <div class="from-to">
+                                                    <span>To</span>
+                                                    <input class="inp-style-3 time-mask" [textMask]="getMaskEnd(item)"  autocomplete="off" type="text" [name]="'to-time-'+i" [ngModel]="item.finish_work" (ngModelChange)="item.finish_work = $event">
+                                                </div>
+                                            </ng-container>
                                         </div>
                                     </div>
-                                    <!--/этот блок если хотябы 1 день выбран-->
                                 </div>
                             </div>
                         </div>
@@ -410,84 +210,21 @@
                 </div>
             </div>
         </div>
-        
-        <div class="scroll-wrapp">
-            <div class="circle-scroll"></div>
-        </div>
-        <div class="create-event-body-1">
+
+        <div [ngStyle]="{'display':CurrentPart == Parts.Listing ? 'block' : 'none'}" class="create-event-body-1">
             <div class="main-mw">
-                <div class="create-event-body">
+                <div [formGroup]="detailsForm" class="create-event-body">
                     <div class="head-ev-body">
                         <h2>Listing Details</h2>
                         <p>Please fill in all required fields<br>to proceed to the Next Step</p>
                     </div>
                     <div class="flex-body-1 more-padding">
                         <div class="side">
-                            <h6 class="head-col-add-venue">Preferred Venue is a:</h6>
-                            <div class="flex-genres style-on-add-artist-g">
-                                <div class="one-checkbox">
-                                    <div class="check-style">
-                                        <input type="checkbox" class="checkbox" name="" id="checkbox-1">
-                                        <label for="checkbox-1"></label>
-                                    </div>
-                                    <p>Night Club</p>
-                                </div>
-                                <div class="one-checkbox">
-                                    <div class="check-style">
-                                        <input type="checkbox" class="checkbox" name="" id="checkbox-2">
-                                        <label for="checkbox-2"></label>
-                                    </div>
-                                    <p>Bar</p>
-                                </div>
-                                <div class="one-checkbox">
-                                    <div class="check-style">
-                                        <input type="checkbox" class="checkbox" name="" id="checkbox-3">
-                                        <label for="checkbox-3"></label>
-                                    </div>
-                                    <p>Restaurant</p>
-                                </div>
-                                <div class="one-checkbox">
-                                    <div class="check-style">
-                                        <input type="checkbox" class="checkbox" name="" id="checkbox-4">
-                                        <label for="checkbox-4"></label>
-                                    </div>
-                                    <p>Concert Hall</p>
-                                </div>
-                                <div class="one-checkbox">
-                                    <div class="check-style">
-                                        <input type="checkbox" class="checkbox" name="" id="checkbox-5">
-                                        <label for="checkbox-5"></label>
-                                    </div>
-                                    <p>Event Space</p>
-                                </div>
-                                <div class="one-checkbox">
-                                    <div class="check-style">
-                                        <input type="checkbox" class="checkbox" name="" id="checkbox-6">
-                                        <label for="checkbox-6"></label>
-                                    </div>
-                                    <p>Outdoor Space</p>
-                                </div>
-                                <div class="one-checkbox">
-                                    <div class="check-style">
-                                        <input type="checkbox" class="checkbox" name="" id="checkbox-7">
-                                        <label for="checkbox-7"></label>
-                                    </div>
-                                    <p>Theatre</p>
-                                </div>
-                                <div class="one-checkbox">
-                                    <div class="check-style">
-                                        <input type="checkbox" class="checkbox" name="" id="checkbox-8">
-                                        <label for="checkbox-8"></label>
-                                    </div>
-                                    <p>Private Residence</p>
-                                </div>
-                                <div class="one-checkbox">
-                                    <div class="check-style">
-                                        <input type="checkbox" class="checkbox" name="" id="checkbox-9">
-                                        <label for="checkbox-9"></label>
-                                    </div>
-                                    <p>Other</p>
-                                </div>
+                            <div class="input-groupe-1">
+                                <select id="option-datails-type-of-space" [(ngModel)]="Venue.type_of_space" formControlName="venue_type">
+                                    <option *ngFor="let item of TypesOfSpace" [value]="item.value">{{item.name}}</option>
+                                </select>
+                                <label for="option-datails-type-of-space">Preferred Venue is a<span>*</span>:</label>
                             </div>
                             <div class="input-groupe-1 whithout-label small-textarea max-500 max-100">  
                                 <textarea></textarea>
@@ -496,11 +233,11 @@
                         </div>
                         <div class="side">
                             <div class="input-groupe-1">
-                                <input id="venue-datails-1" name="" type="text">
+                                <input id="venue-datails-1" [(ngModel)]="Venue.capacity" formControlName="capacity" name="" type="text">
                                 <label for="venue-datails-1">Capacity<span>*</span></label>
                             </div>
                             <div class="input-groupe-1">
-                                <input id="venue-datails-2" name="" type="text">
+                                <input id="venue-datails-2" [(ngModel)]="Venue.num_of_bathrooms" formControlName="bathrooms" name="" type="text">
                                 <label for="venue-datails-2">Number of Bathrooms</label>
                             </div>
                             <div class="flex-mac-checkbox">
@@ -508,7 +245,7 @@
                                 <div class="yes-no">
                                     <span>Yes</span>
                                     <div class="mac-checkbox">
-                                        <input class="checkbox" checked="" type="checkbox" id="checkbox-set-option-1">
+                                        <input class="checkbox" type="checkbox" [(ngModel)]="Venue.has_bar" formControlName="bar" id="checkbox-set-option-1">
                                         <label for="checkbox-set-option-1"></label>
                                     </div>
                                     <span>No</span>
@@ -517,26 +254,12 @@
                             <div class="flex-mac-checkbox direction-column on-add-artist-page">
                                 <p class="quetion-radio-text none-max-width">Located?</p>
                                 <div class="flex-radio">
-                                    <div class="one-radio">
+                                    <div class="one-radio" *ngFor="let item of LocatedTypes;let i = index">
                                         <div class="radio-style">
-                                            <input type="radio" class="radio-b" id="radio-556" name="grope-Located-1" checked="">
-                                            <label for="radio-556"></label>
+                                            <input type="radio" class="radio-b" id="radio-556{{i}}" name="" [value]="item.value" [(ngModel)]="Venue.located" formControlName="located" >
+                                            <label for="radio-556{{i}}"></label>
                                         </div>
-                                        <p>Indoors</p>
-                                    </div>
-                                    <div class="one-radio">
-                                        <div class="radio-style">
-                                            <input type="radio" class="radio-b" id="radio-557" name="grope-Located-1">
-                                            <label for="radio-557"></label>
-                                        </div>
-                                        <p>Outdoors</p>
-                                    </div>
-                                    <div class="one-radio">
-                                        <div class="radio-style">
-                                            <input type="radio" class="radio-b" id="radio-558" name="grope-Located-1">
-                                            <label for="radio-558"></label>
-                                        </div>
-                                        <p>Both</p>
+                                        <p>{{item.name}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -544,19 +267,11 @@
                         </div>
                         <div class="side">
                             <div class="input-groupe-1">
-                                <select id="option-datails-10">
-                                    <option>18 and Over</option>
-                                    <option>18 and Over</option>
-                                    <option>18 and Over</option>
-                                </select>
+                                <input id="venue-datails-10" [(ngModel)]="Venue.min_age" formControlName="min_age" name="" type="text">
                                 <label for="option-datails-10">Minimum Age</label>
                             </div>
                             <div class="input-groupe-1">
-                                <select id="option-datails-11">
-                                    <option>Shirt and Shoes Required</option>
-                                    <option>Shirt and Shoes Required</option>
-                                    <option>Shirt and Shoes Required</option>
-                                </select>
+                                <input id="venue-datails-11" [(ngModel)]="Venue.dress_code" formControlName="dress_code" name="" type="text">
                                 <label for="option-datails-11">Dress Code</label>
                             </div>
                         </div>
@@ -564,12 +279,9 @@
                 </div>
             </div>
         </div>
-        <div class="scroll-wrapp">
-            <div class="circle-scroll"></div>
-        </div>
-        <div class="create-event-body-1">
+        <div [ngStyle]="{'display':CurrentPart == Parts.Media ? 'block' : 'none'}" class="create-event-body-1">
             <div class="main-mw">
-                <div class="create-event-body">
+                <div [formGroup]="mediaForm" class="create-event-body">
                     <div class="head-ev-body">
                         <h2>Media</h2>
                         <p>Please fill in all required fields<br> to proceed to the Next Step</p>
@@ -581,7 +293,7 @@
                                 <div class="yes-no">
                                     <span>Yes</span>
                                     <div class="mac-checkbox">
-                                        <input class="checkbox" checked="" type="checkbox" id="checkbox-set-option-vr">
+                                        <input class="checkbox" [(ngModel)]="Venue.has_vr" formControlName="vr" checked="" type="checkbox" id="checkbox-set-option-vr">
                                         <label for="checkbox-set-option-vr"></label>
                                     </div>
                                     <span>No</span>
@@ -593,21 +305,21 @@
                     <div class="flex-body-1 more-padding">
                         <div class="side">
                             <div class="input-groupe-1 whithout-label small-textarea max-500">
-                                <textarea id="inp-media-venue-1"></textarea>
+                                <textarea id="inp-media-venue-1" [(ngModel)]="Venue.audio_description" formControlName="audio_description"></textarea>
                                 <label for="inp-media-venue-1" class="head-groupe">Audio Description<span>*</span></label>
                                 <span class="max-count">1000 max</span>
                             </div>
                         </div>
                         <div class="side">
                             <div class="input-groupe-1 whithout-label small-textarea max-500">
-                                <textarea id="inp-media-venue-2"></textarea>
+                                <textarea id="inp-media-venue-2" [(ngModel)]="Venue.lighting_description" formControlName="lighting_description"></textarea>
                                 <label for="inp-media-venue-2" class="head-groupe">Lighting Description<span>*</span></label>
                                 <span class="max-count">1000 max</span>
                             </div>
                         </div>
                         <div class="side">
                             <div class="input-groupe-1 whithout-label small-textarea max-500">
-                                <textarea id="inp-media-venue-3"></textarea>
+                                <textarea id="inp-media-venue-3" [(ngModel)]="Venue.stage_description" formControlName="stage_description"></textarea>
                                 <label for="inp-media-venue-3" class="head-groupe">Stage Description<span>*</span></label>
                                 <span class="max-count">1000 max</span>
                             </div>
@@ -625,10 +337,10 @@
                                     <label class="file_upload">
                                         <div class="bg-image"></div>
 
-                                        <input accept=".jpg, .jpeg, .png" type="file">
+                                        <input accept=".jpg, .jpeg, .png" type="file"  (change)="loadImage($event)">
                                     </label>
                                     <!--появляется этот блок если загружена фотка и в стайл бекграунд имейдж ебануть-->
-                                    <!--<div class="bg-image uploaded"></div>-->
+                                    <div *ngIf="ImageToLoad" class="bg-image uploaded" (click)="DeleteImageFromLoading()" [ngStyle]="{'background-image': 'url(' + ImageToLoad + ')'}"></div>
                                     <!---->
                                 </div>
                                 <div class="input-groupe-1 small-textarea whithout-label">
@@ -706,7 +418,7 @@
                                 <label for="inp-other-1" class="head-groupe">Other</label>
                             </div>
                             <div class="butt-wrapp-grad">
-                                <button class="butt-style-1 thot-butt" type="submit">
+                                <button (click)="AddVenuePhoto()" [disabled]="!ImageToLoad" class="butt-style-1 thot-butt" type="submit">
                                     <span>Add to Photos</span>
                                 </button>   
                             </div>
@@ -716,47 +428,26 @@
                     <div class="right-side albums">
                         
                         <!--если пустой-->
-                        <!--
-                        <div class="empty-info">
+                        <div [ngStyle]="{'display': VenueImages.length == 0 ? 'block' : 'none'}" class="empty-info">
                             <img src="img/smile.svg" class="img-responsive" alt="">
                             <p>No Photos Yet</p>
                         </div>
-                        -->
                         <!---->
                         <!--если не пустой.-->
                         
-                        <div class="slider-2-albums slider-4-photos slider-4-init">
-                            <div class="one-slide">
-                                <div class="wrapp-card">
-                                    <div class="delete-track"></div>
-                                    <div class="cover-image" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                                    <div class="descr">
-                                        <h6>Night club</h6>
-                                        <p class="name">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuminim veniam, quis nostrud</p>
+                        <div [ngStyle]="{'display': VenueImages.length > 0 ? 'block' : 'none'}" class="slider-2-albums slider-4-photos slider-4-init">
+                            <ng-container *ngFor="let img of VenueImages; let i = index">
+                                <div class="one-slide" *ngIf="VenueImages[i]">
+                                    <div class="wrapp-card">
+                                        <div class="delete-track"></div>
+                                        <div class="cover-image" [ngStyle]="{'background-image': SanitizeImage(img)}"></div>
+                                        <div class="descr">
+                                            <h6>Night club</h6>
+                                            <p class="name">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuminim veniam, quis nostrud</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="one-slide">
-                                <div class="wrapp-card">
-                                    <div class="delete-track"></div>
-                                    <div class="cover-image" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                                    <div class="descr">
-                                        <h6>Night club</h6>
-                                        <p class="name">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuminim veniam, quis nostrud </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="one-slide">
-                                <div class="wrapp-card">
-                                    <div class="delete-track"></div>
-                                    <div class="cover-image" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                                    <div class="descr">
-                                        <h6>Night club</h6>
-                                        <p class="name">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuminim veniam, quis nostrud </p>
-                                    </div>
-                                </div>
-                            </div>
-                           
+                            </ng-container>
                         </div>
                         
                         <!--/если не пустой.-->
@@ -768,10 +459,7 @@
                 
             </div>
         </div>
-        <div class="scroll-wrapp">
-            <div class="circle-scroll"></div>
-        </div>
-        <div class="create-event-body-1">
+        <div [ngStyle]="{'display':CurrentPart == Parts.Dates ? 'block' : 'none'}" class="create-event-body-1">
             <div class="main-mw">
                 <div class="create-event-body">
                     <div class="head-ev-body">
@@ -865,6 +553,10 @@
                 
                 
             </div>
+        </div>
+        
+        <div class="scroll-wrapp">
+            <div class="circle-scroll" (click)="SaveVenue()" ></div>
         </div>
         
     </div>

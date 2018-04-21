@@ -18,3 +18,20 @@ p{
     border-width:0px;
     border:none;
 }
+
+.some-times-days:last-child{
+    margin-bottom: 0px !important;
+}
+.inp-style-3
+{
+    display: block;
+    position: relative;
+    z-index: 10;
+    width: 40%;
+    border: none;
+    background: transparent;
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
+    padding: 10px 0;
+    font-size: 16px;
+    outline: none;
+}
