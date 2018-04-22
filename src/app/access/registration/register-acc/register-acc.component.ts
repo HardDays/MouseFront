@@ -51,6 +51,8 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
   Account:AccountCreateModel = new AccountCreateModel(); 
   place: string='';
  
+  Error:string = '';
+  
   constructor(protected authService: AuthMainService,
     protected accService:AccountService,
     protected imgService:ImagesService,
@@ -108,7 +110,7 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
  }
 
   backTo(){
-    this.back.emit('user');
+    this.back.emit('phone');
   }
 
   loadLogo($event:any):void{
@@ -166,7 +168,8 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
           this.createStatus.emit(true);
         },
           (err)=>{
-              //console.log(err);
+              console.log(err);
+              this.Error = err._body;
     });
 
    

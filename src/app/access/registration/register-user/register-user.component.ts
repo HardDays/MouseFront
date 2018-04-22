@@ -17,14 +17,16 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
   isFirstOpen:boolean = true;
 
  userForm : FormGroup = new FormGroup({        
-    "email": new FormControl("", [Validators.required]),
+    "email": new FormControl("", [Validators.required,
+      Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
     "password": new FormControl("", [Validators.required]),
-    "password_confirmation": new FormControl(""),
-    "register_phone": new FormControl("")  
+    "password_confirmation": new FormControl("", [Validators.required]),
+    "register_phone": new FormControl("", [Validators.required])  
   });
 
 
   @Output('createUser') backUser = new EventEmitter<string>();
+  @Output('back') back = new EventEmitter<string>();
   @Input('phoneInput') phone: string;
 
   registerUser(){
@@ -79,6 +81,10 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     //console.log(`open`,this.isFirstOpen);
+  }
+
+  backPage(){
+    this.back.emit('phone');
   }
 
 }

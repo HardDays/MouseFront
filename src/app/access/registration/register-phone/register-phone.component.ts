@@ -59,6 +59,9 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
     });
   }
   
+  inputPhone($event){
+    this.phone = (+$event.target.value)+'';
+  }
 
   sendCode(){
     let phone = this.phoneCode + this.phone;

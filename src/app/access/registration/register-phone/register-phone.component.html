@@ -1,5 +1,5 @@
 <div class="register">
-    <a href="#" class="abs-arr-left-reg">
+    <a [routerLink]="['/system','shows']" class="abs-arr-left-reg">
         <svg xmlns="http://www.w3.org/2000/svg" width="34" height="29" viewBox="0 0 34 29">
           <path fill="#fff" id="Forma_1_copy_3" data-name="Forma 1 copy 3" class="cls-1" d="M857,946.183H828.082L839.5,934.862,837.62,933,823,947.5,837.62,962l1.877-1.862-11.415-11.322H857v-2.633Z" transform="translate(-823 -933)"/>
         </svg>
@@ -13,7 +13,7 @@
                 <select #t (change)="phoneCode = t.value" class="inp-style-2">
                     <option *ngFor="let code of codes" [value]="code.dial_code">{{code.name}} ({{code.dial_code}})</option>
                 </select>
-                <input (input)="phone = $event.target.value" class="inp-style-2" type="text" placeholder="Tel. Number">
+                <input (input)="inputPhone($event)"  [textMask]="MaskNumbers()" class="inp-style-2" type="text" placeholder="Tel. Number">
             </div>
 
             <div *ngIf="!isRequestCodeSend">
@@ -21,7 +21,7 @@
                   <button class="butt-style-1" type="submit" (click)="sendCode()"><span>Sent Text</span></button>
               </div>
               <p class="text-link-to-login">Already have an account?</p>
-              <p class="al-c"><a href="#" class="link-link-to-login">Log In</a></p>
+              <p class="al-c"><a [routerLink]="['/login']" class="link-link-to-login">Log In</a></p>
             </div>            
 
             <div *ngIf="isRequestCodeSend">

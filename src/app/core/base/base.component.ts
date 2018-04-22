@@ -398,5 +398,13 @@ export class BaseComponent{
           guide:false
         };
       }
+      MaskNumbers(){
+        return {
+          // mask: ['+',/[1-9]/,' (', /[1-9]/, /\d/, /\d/, ') ',/\d/, /\d/, /\d/, '-', /\d/, /\d/,'-', /\d/, /\d/],
+          mask: [/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,,/\d/,/\d/,/\d/],
+          keepCharPositions: true,
+          guide:false
+        };
+      }
 
 }
