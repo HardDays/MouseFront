@@ -103,6 +103,10 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
   addImage:string = '';
   imageInfo:string = '';
   
+  ImageToLoad:string = '';
+  ArtistImages:string[] = [];
+
+
   // bookingForm: FormGroup = new FormGroup({        
   //   "performance_min_time": new FormControl("", [Validators.required]),
   //   "performance_max_time": new FormControl("", [Validators.required]),
@@ -344,6 +348,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
                   }
                   this.genreFromModelToVar();
                   this.venueTypeFromModelToVar();
+                  this.GetVenueImages();
               })
 
   }
@@ -541,21 +546,110 @@ venueTypeFromModelToVar(){
   }
 
 
-  addPhoto(){
-    this.accService.PostAccountImages(this.accountId,this.addImage)
-    .subscribe((res)=>{
-      //console.log(`add`,this.addImage, this.imageInfo);
-      this.updateArtistByCreateArtist();
-    }); 
+//   addPhoto(){
+//     this.accService.PostAccountImages(this.accountId,this.addImage)
+//     .subscribe((res)=>{
+//       //console.log(`add`,this.addImage, this.imageInfo);
+//       this.updateArtistByCreateArtist();
+//     }); 
+//   }
+//   loadPhoto($event:any):void{
+//     this.ReadImages(
+//         $event.target.files,
+//         (res:string)=>{
+//            this.addImage = res;
+//         }
+//     );
+// }
+
+loadImage($event:any):void{
+  let target = $event.target;
+  //let file:File = target.files[0];
+  if(target.files.length == 0)
+      return;
+  
+  for(let file of target.files)
+  {
+    let reader:FileReader = new FileReader();
+    reader.onload = (e) =>{
+        this.ImageToLoad = reader.result;
+    }
+    reader.readAsDataURL(file);
   }
-  loadPhoto($event:any):void{
-    this.ReadImages(
-        $event.target.files,
-        (res:string)=>{
-           this.addImage = res;
-        }
+ 
+}
+
+DeleteImageFromLoading()
+{
+  this.ImageToLoad = '';
+}
+
+AddVenuePhoto()
+{
+  this.imgService.PostAccountImage(this.Artist.id,this.ImageToLoad)
+    .subscribe(
+      (res:any) => {
+        this.ImageToLoad = '';
+        this.GetVenueImages();
+      }
     );
 }
+
+
+GetVenueImages()
+{
+  this.imgService.GetAccountImages(this.Artist.id,{limit:5})
+    .subscribe(
+      (res:any)=>{
+        if(res && res.total_count > 0)
+        {
+          let index = 0;
+          for(let id of res.images)
+          {
+            this.GetVenueImageById(id,index);
+            index = index + 1;
+          }
+        }
+      }
+    );
+}
+
+GetVenueImageById(id,saveIndex)
+{
+  this.imgService.GetImageById(id)
+    .subscribe(
+      (res:Base64ImageModel) =>{
+        this.ArtistImages[saveIndex] = (res.base64.indexOf('&quot;data:image/jpeg;base64') < 0? '&quot;data:image/jpeg;base64':'') + res.base64;
+        console.log(this.ArtistImages);
+      }
+    );
+   
+}
+
+SanitizeImage(image: string)
+{
+
+  return this._sanitizer.bypassSecurityTrustStyle(`url(${image})`);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 getVenuesTypes(){

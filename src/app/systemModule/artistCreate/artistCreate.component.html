@@ -374,13 +374,13 @@
                                             <div class="gradient-box gradient-4">
                                                 <h6 class="head-of-gradient-box">Add new photo</h6>
                                                 <div class="photo-wr-1">
-                                                    <label class="file_upload">
+                                                    <label *ngIf="!ImageToLoad" class="file_upload">
                                                         <div class="bg-image"></div>
                                                 
-                                                        <input accept=".jpg, .jpeg, .png" type="file" (change)="loadPhoto($event)">
+                                                        <input accept=".jpg, .jpeg, .png" type="file" (change)="loadImage($event)">
                                                     </label>
                                                     <!--появляется этот блок если загружена фотка и в стайл бекграунд имейдж ебануть-->
-                                                    <div *ngIf="addImage" (click)="addImage=''" class="bg-image uploaded" [ngStyle]="{'background-image': 'url('+addImage+')'}"></div>
+                                                    <div *ngIf="ImageToLoad" (click)="DeleteImageFromLoading()" class="bg-image uploaded" [ngStyle]="{'background-image': 'url(' + ImageToLoad + ')'}"></div>
                                                     <!---->
                                                 </div>
                                                 <div class="input-groupe-1 small-textarea whithout-label">
@@ -390,7 +390,7 @@
                                                 
                                                 <div class="butt-wrapp-grad">
                                                     <button class="butt-style-1 thot-butt" type="submit">
-                                                        <span (click)="addPhoto()">Add to Photos</span>
+                                                        <span (click)="AddVenuePhoto()">Add to Photos</span>
                                                     </button>   
                                                 </div>
                                                 
