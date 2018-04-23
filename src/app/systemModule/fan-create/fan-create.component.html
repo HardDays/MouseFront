@@ -3,7 +3,8 @@
       <div class="register">
           <div class="m-v-reg">
               <form class="reg-wr" (ngSubmit)="CreateFun()" #submitFormFun="ngForm">
-                  <h3>Add fan</h3>
+                  <h3 *ngIf="flagForText">Add fan</h3>
+                  <h3 *ngIf="!flagForText">Edit fan</h3>
                   <div class="for-flex-add-fan">
                       <div class="side left-side">
                           <input class="inp-style-2" type="text" name="first_name" placeholder="First Name" [ngModel]="Fun.first_name" (ngModelChange)="Fun.first_name = $event">
@@ -19,8 +20,8 @@
                               <p class="max-l-letter">150max</p>
                           </div>
                           <div class="location-wr">
-                            <div class="mark"></div>
-                            <input type="text" name="address" class="location-inp"  id="aboutAddress">
+                            <div class="mark" (click)="OpenMap()"></div>
+                            <input type="text" name="address" class="location-inp" [(ngModel)]="Fun.address" #search id="aboutAddress" placeholder="">
                           </div>
                       </div>
                   </div>
@@ -43,10 +44,25 @@
                   </div>
                   <p class="more" *ngIf="!seeMore" (click)="seeMoreGenres()"><span>See more</span></p>
                   <div class="continue-wr">
-                      <button class="butt-style-1" type="submit"><span>Add Fan</span></button>
+                      <button class="butt-style-1" type="submit"><span *ngIf="flagForText">Add Fan</span><span *ngIf="!flagForText">Save</span></button>
                   </div>
               </form>
           </div>
       </div>
   </section>
 </section>
+ <!--новая вторая модалка с картой-->
+ <div class="modal fade modal-send-request map-1-modal" id="modal-map-2">
+    <div class="modal-dialog">
+        <div class="modal-body">
+            <h6 class="head-m-p-a">Location</h6>
+            <span class="closee-modal" data-dismiss="modal"></span>
+            <div class="for-map-init-modal-1">
+                    <agm-map  style="height:100%" [latitude]="cordsMap.lat" [longitude]="cordsMap.lng">
+                            <agm-marker (dragEnd)="artistDragMarker($event)" [markerDraggable] = "true" [latitude]="cordsMap.lat" [longitude]="cordsMap.lng"></agm-marker>
+                    </agm-map>
+            </div>
+        </div>
+    </div>
+</div>
+<!--//новая вторая модалка с картой-->

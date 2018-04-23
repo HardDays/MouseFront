@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, ViewChild } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core';
 import { BaseComponent } from '../../core/base/base.component';
 import { GenreModel } from '../../core/models/genres.model';
 import { AccountCreateModel } from '../../core/models/accountCreate.model';
@@ -17,6 +17,8 @@ import { AccountGetModel } from '../../core/models/accountGet.model';
 import { NgForm } from '@angular/forms';
 import { AccountType } from '../../core/base/base.enum';
 
+declare var $:any;
+
 @Component({
   selector: 'app-fan-create',
   templateUrl: './fan-create.component.html',
@@ -31,9 +33,11 @@ export class FanCreateComponent extends BaseComponent implements OnInit {
   Genres:GenreModel[] = [];
   allGenres:GenreModel[] = [];
   seeMore:boolean = false;
+  flagForText:boolean;
+  cordsMap = {lat:55.755826, lng:37.6172999};
 
   @ViewChild('submitFormFun') form: NgForm;
-
+  @ViewChild('search') public searchElement: ElementRef;
   constructor(protected authService: AuthMainService,
     protected accService:AccountService,
     protected imgService:ImagesService,
@@ -57,8 +61,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit {
         
         if(params["id"] == 'new')
         {
-          console.log('params');
-          console.log(params);
+          this.flagForText = true;
           this.DisplayFunParams(null);
         }
         else
@@ -68,16 +71,70 @@ export class FanCreateComponent extends BaseComponent implements OnInit {
             (
               (res:AccountGetModel) => 
               {
-                console.log('res');
-                console.log(res);
+                this.flagForText = false;
                 this.DisplayFunParams(res);
 
               }
             );
         }
       });
+      this.CreateAutocomplete();
   }
 
+  CreateAutocomplete(){
+    this.mapsAPILoader.load().then(
+        () => {
+           
+         let autocomplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement, {types:[`(cities)`]});
+        
+        
+            autocomplete.addListener("place_changed", () => {
+                this.ngZone.run(() => {
+                    let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
+                    if(place.geometry === undefined || place.geometry === null )
+                    {             
+                        return;
+                    }
+                    else 
+                    {
+                        // this.venueSearchParams.address = autocomplete.getPlace().formatted_address;
+                        // this.venueSearch();
+                        // this.mapCoords.venue.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
+                        // this.mapCoords.venue.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
+                        this.Fun.address = autocomplete.getPlace().formatted_address;
+                        this.cordsMap.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
+                        this.cordsMap.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
+                    }
+                });
+            });
+        }
+    );
+  }
+  artistDragMarker($event){
+    //console.log($event);
+      this.cordsMap.lat = $event.coords.lat;
+      this.cordsMap.lng = $event.coords.lng;
+      this.codeLatLng( this.cordsMap.lat, this.cordsMap.lng);
+  }
+
+  codeLatLng(lat, lng) {
+    let geocoder = new google.maps.Geocoder();
+    let latlng = new google.maps.LatLng(lat, lng);
+    geocoder.geocode({
+        'location': latlng }, 
+         (results, status) => {
+            if (status === google.maps.GeocoderStatus.OK) {
+                if (results[1]) {
+                //   //console.log(results[1]);
+                
+                //$(id).val(results[1].formatted_address);
+                
+                
+                this.Fun.address = results[1].formatted_address;
+                
+            } 
+        }});
+}
   DisplayFunParams($Fun?:AccountGetModel)
   {
     if($Fun && $Fun.id)
@@ -97,6 +154,10 @@ export class FanCreateComponent extends BaseComponent implements OnInit {
           this.Genres = this.genreService.GetGendreModelFromString(this.Fun.genres, this.genreService.StringArrayToGanreModelArray(genres));
           this.seeFirstGenres();
       });
+      if(this.Fun.lat&&this.Fun.lng){
+            this.cordsMap.lat = this.Fun.lat;
+            this.cordsMap.lng = this.Fun.lng;
+        }
     
   }
 
@@ -146,6 +207,8 @@ export class FanCreateComponent extends BaseComponent implements OnInit {
       this.WaitBeforeLoading(
         ()=> this.FunId == 0 ? this.accService.CreateAccount(this.Fun) : this.accService.UpdateMyAccount(this.FunId,this.Fun),
         (res:any)=>{
+          console.log(res);
+          
           this.DisplayFunParams(res);
           //this.isLoading = false;
           this.router.navigate(['/system','profile',res.id]);
@@ -159,6 +222,10 @@ export class FanCreateComponent extends BaseComponent implements OnInit {
     }
   }
 
+
+  OpenMap(){
+    $('#modal-map-2').modal('show');
+  }
  
 
 
