@@ -170,11 +170,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
                     }
                     else 
                     {
-                        // this.venueSearchParams.address = autocomplete.getPlace().formatted_address;
-                        // this.venueSearch();
-                        // this.mapCoords.venue.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
-                        // this.mapCoords.venue.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
-                        this.createArtist.location = autocomplete.getPlace().formatted_address;
+                        this.createArtist.preferred_address = autocomplete.getPlace().formatted_address;
                     }
                 });
             });
@@ -252,6 +248,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
 
     });
   }
+
   initUser(){
     this.accService.GetMyAccount({extended:true})
     .subscribe((users:any[])=>{
@@ -281,16 +278,17 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
   updateArtistByCreateArtist(){
     this.accService.UpdateMyAccount(this.accountId, JSON.stringify(this.createArtist))
         .subscribe((res)=>{
+
                 this.Artist = res;
                 
-                this.getAudio();
-                this.getAlbumSlider();
-                this.getVideosSlider();
+                                                              // this.getAudio();
+                                                              // this.getAlbumSlider();
+                                                              // this.getVideosSlider();
             
-                //console.log(`updated artist `,this.Artist);    
+                console.log(`updated artist `,this.Artist);    
             },
             (err)=>{
-                //console.log(`err`,err);
+                console.log(`err`,err);
             }
     );
   }
@@ -300,13 +298,14 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
     this.accService.GetAccountById(this.accountId, {extended:true})
               .subscribe((user:any)=>{
                   this.Artist = user;
-                  this.getAudio();
-                  this.getAlbumSlider();
-                  this.getVideosSlider();
-                  this.updateVideosPreview();
+
+                                                            // this.getAudio();
+                                                            // this.getAlbumSlider();
+                                                            // this.getVideosSlider();
+                                                            // this.updateVideosPreview();
+
                   this.createArtist.artist_videos = this.Artist.videos;
                  
-
 
                   //console.log(this.Artist);
                   for (let key in user) {
@@ -600,6 +599,7 @@ GetVenueImages()
         console.log(`images`,res)
         if(res && res.total_count > 0)
         {
+          this.ArtistImages = [];
           let index = 0;
           for(let img of res.images)
           {
@@ -706,10 +706,18 @@ addBooking(){
 
   // this.createArtist.performance_min_time = +((this.Artist.performance_min_time+'').split(' ')[0]);
   // this.createArtist.performance_max_time =  +((this.Artist.performance_max_time+'').split(' ')[0]);
+
+  this.Artist.price_from = (+this.Artist.price_from);
+  this.Artist.price_to = (+this.Artist.price_to);
+
   this.createArtist.performance_min_time = this.Artist.performance_min_time;
   this.createArtist.performance_max_time = this.Artist.performance_max_time;
-  this.createArtist.price_from = this.Artist.price_from; 
-  this.createArtist.price_to = this.Artist.price_to;
+
+  // if(!this.Artist.is_hide_pricing_from_profile){
+    this.createArtist.price_from = this.Artist.price_from; 
+    this.createArtist.price_to = this.Artist.price_to;
+  // }
+
   this.createArtist.additional_hours_price = this.Artist.additional_hours_price;
   this.createArtist.is_hide_pricing_from_profile = this.Artist.is_hide_pricing_from_profile;
   this.createArtist.is_hide_pricing_from_search = this.Artist.is_hide_pricing_from_search;
@@ -735,7 +743,7 @@ addBooking(){
     if(type.checked)
       this.createArtist.preferred_venues.push(type.object.type);
 
-  //console.log(this.createArtist);
+  console.log(this.createArtist, this.Artist);
 
   this.updateArtistByCreateArtist();
 }

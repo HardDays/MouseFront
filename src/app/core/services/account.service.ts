@@ -46,7 +46,7 @@ export class AccountService{
             result.bio = input.bio?input.bio:null;
             result.about = input.about?input.about:null;
             result.address = input.address?input.address:null;
-            result.prefered_address = input.address?input.address:null;
+            result.preferred_address = input.address?input.address:null;
             result.description = input.description?input.description:null;
             result.fax = input.fax?input.fax:null;
             result.bank_name = input.bank_name?input.bank_name:null;
@@ -150,7 +150,7 @@ export class AccountService{
         );
     }
     
-
+    
     FollowAccountById(me:number,target:number)
     {
         return this.http.CommonRequest(
