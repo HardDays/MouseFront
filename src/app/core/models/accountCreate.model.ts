@@ -48,7 +48,8 @@ export class AccountCreateModel{
             public price_for_nighttime?:number,
             public performance_time_from?: string,
             public performance_time_to?:string,
-
+            public first_name?:string,
+            public last_name?:string,
             public office_hours?: WorkingTimeModel[],
             public operating_hours?: WorkingTimeModel[],
             public about?: string, //artist
