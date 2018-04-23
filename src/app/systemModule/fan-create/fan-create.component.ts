@@ -16,6 +16,7 @@ import { ImagesService } from '../../core/services/images.service';
 import { AccountGetModel } from '../../core/models/accountGet.model';
 import { NgForm } from '@angular/forms';
 import { AccountType } from '../../core/base/base.enum';
+import { Base64ImageModel } from '../../core/models/base64image.model';
 
 declare var $:any;
 
@@ -35,6 +36,8 @@ export class FanCreateComponent extends BaseComponent implements OnInit {
   seeMore:boolean = false;
   flagForText:boolean;
   cordsMap = {lat:55.755826, lng:37.6172999};
+  avatar:string = '';
+
 
   @ViewChild('submitFormFun') form: NgForm;
   @ViewChild('search') public searchElement: ElementRef;
@@ -73,7 +76,15 @@ export class FanCreateComponent extends BaseComponent implements OnInit {
               {
                 this.flagForText = false;
                 this.DisplayFunParams(res);
+                this.imgService.GetImageById(res.image_id).subscribe(
+                  (result:Base64ImageModel) =>{
+                    console.log(result);
+                    this.avatar = result.base64;
+                  },
+                  (err)=>{
 
+                  }
+                );
               }
             );
         }
@@ -135,6 +146,17 @@ export class FanCreateComponent extends BaseComponent implements OnInit {
             } 
         }});
 }
+loadLogo($event:any):void{
+  this.ReadImages(
+      $event.target.files,
+      (res:string)=>{
+          this.Fun.image_base64 = res;
+          this.avatar = res;
+      }
+  );
+}
+
+
   DisplayFunParams($Fun?:AccountGetModel)
   {
     if($Fun && $Fun.id)
