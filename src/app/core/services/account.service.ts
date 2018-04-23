@@ -30,7 +30,8 @@ export class AccountService{
         let result = new AccountCreateModel();
        
         if(input){
-
+            result.first_name = input.first_name?input.first_name:null;
+            result.last_name = input.last_name?input.last_name:null;
             result.user_name = input.user_name?input.user_name:null;
             result.display_name = input.display_name?input.display_name:null;
             result.phone = input.phone?input.phone:null;

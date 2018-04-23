@@ -257,14 +257,14 @@
                             </div>
                             <div class="side side-2">
                                 <h3 class="big-name">
-                                    <span id="lines_view">{{Account.user_name}}</span>
+                                    <span id="lines_view">{{Account.first_name}} {{Account.last_name}}</span>
                                     <span></span>
-                                    <span id="d_lines_view" class="insta-link-sp">@{{Account.display_name}}</span>
+                                    <span id="d_lines_view" class="insta-link-sp">@{{Account.user_name}}</span>
                                 </h3>
                             </div>
                             <div class="side side-3">
                                 <div *ngIf="isMyAccount" class="edit-and-settings">
-                                    <a [routerLink]="['/system/edit',UserId]" class="edit-profile">Edit profile</a>
+                                    <a [routerLink]="['/system/fanCreate',UserId]" class="edit-profile">Edit profile</a>
                                 </div>
                                 <div class="desc-wr">
                                     <p id="b_lines_view" class="description">{{Account.bio}}</p>

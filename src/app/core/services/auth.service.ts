@@ -241,24 +241,28 @@ export class AuthMainService{
         // return this.http.PostData('/accounts.json',JSON.stringify(acc));
     }
 
-    ForgotPassword(user:string){
-        let paramsUserName = {
-            user_name: user
+    ForgotPassword(user:string, email:string){
+        let params = {
+            user_name: user,
+            email: email
         };
 
-        let paramsEmail = {
-            email: user
-        };
-        let params;
-        if(user.search('@')>0) 
-            params = paramsEmail;
-        else params = paramsUserName;
-
-        //console.log('params',params);
         return this.http.CommonRequest(
             ()=> this.http.PostData('/auth/forgot_password.json',JSON.stringify(params))
         );
         // return this.http.PostData('/auth/forgot_password.json',JSON.stringify(params));
+    }
+
+    UserPatchPassword(password:string, old_password:string){
+        let params = {
+            old_password:old_password,
+            password:password,
+            password_confirmation:password
+        }
+        return this.http.CommonRequest(
+            ()=> this.http.PatchData('/users/me.json',JSON.stringify(params))
+        );
+
     }
 
     Twitter(){

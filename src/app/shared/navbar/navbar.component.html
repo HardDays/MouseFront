@@ -34,7 +34,7 @@
                                         </a>
                                         <div class="dropdown-content">
                                             <a *ngFor="let item of Accounts"  (click)="setProfile(item.id)"><pre [class.activeProfile]="item.id==idProfile">{{item.account_type.substr(0,1).toUpperCase()}}   {{item.user_name}}</pre></a>
-                                            <a *ngIf="isShown" [routerLink]="['/system','accountCreate']">Add new account</a>
+                                         
                                         </div>
                                     </li>
                             <li>
@@ -106,13 +106,15 @@
                                 <div class="dropdown-items-wr">
                                     <span>{{getProfileNameById()}}</span>
                                     <a >Messages (3)</a>
+                                    <span (click)="curNav = 'profile'" [routerLink]="['/system','fanCreate','new']">Create Fan</span>
                                     <span (click)="curNav = 'profile'" [routerLink]="['/system','artistCreate']">Create Artist</span>
                                     <a (click)="curNav = 'profile'" [routerLink]="['/system','venueCreate','new']">Create Venue</a>
                                 </div>
                                 
                                 <div class="dropdown-items-wr">
                                     <a *ngIf="ActiveAccount.account_type == 'venue'" [routerLink]="['/system/venueCreate',idProfile]">Settings</a>
-                                    <a *ngIf="ActiveAccount.account_type != 'venue'" [routerLink]="['/system/edit',idProfile]">Settings</a>
+                                    <a *ngIf="ActiveAccount.account_type == 'artist'" [routerLink]="['/system/artistCreate',idProfile]">Settings</a>
+                                    <a *ngIf="ActiveAccount.account_type == 'fan'" [routerLink]="['/system/fanCreate',idProfile]">Settings</a>
                                     <span (click)="logout()">Log Out</span>
                                 </div>
                             </div>

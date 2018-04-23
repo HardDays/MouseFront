@@ -21,13 +21,14 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
       Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
     "password": new FormControl("", [Validators.required]),
     "password_confirmation": new FormControl("", [Validators.required]),
-    "register_phone": new FormControl("", [Validators.required])  
+    "register_phone": new FormControl("")  
   });
 
 
   @Output('createUser') backUser = new EventEmitter<string>();
   @Output('back') back = new EventEmitter<string>();
   @Input('phoneInput') phone: string;
+  @Input() isShowPhone: boolean = true;
 
   registerUser(){
 

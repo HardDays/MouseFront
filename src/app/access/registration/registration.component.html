@@ -4,6 +4,7 @@
             <app-register-phone 
                 *ngIf="currentPage=='phone'"
                 (phoneStatus)="onSuccesValidatePhone($event)"
+                (showPhone)="showPhone($event)"
             ></app-register-phone>
 
 
@@ -12,6 +13,7 @@
                 (createUser)="onSuccesCreateUser($event)"
                 (back)="backToPage($event)"
                 [phoneInput]="phone"       
+                [isShowPhone] = "isShowPhone"
         ></app-register-user>
 
         <app-register-acc  

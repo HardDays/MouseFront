@@ -27,10 +27,11 @@ export class ImagesService{
     }
 
 
-    PostAccountImage(accountId:number,image:string)
+    PostAccountImage(accountId:number,image:string,info?:string)
     {
         let params = {
-            image_base64:image
+            image_base64:image,
+            description:info?info:''
         };
         return this.http.CommonRequest(
             ()=> this.http.PostData('/accounts/'+accountId+'/images.json',JSON.stringify(params))

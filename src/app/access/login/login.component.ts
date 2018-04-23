@@ -21,8 +21,13 @@ export class LoginComponent extends BaseComponent implements OnInit {
   isForgotPassSend:boolean = false;
   userLogin:LoginModel = new LoginModel();
   curPage:number = 1;
-  emailPhone:string = '';
+
+  forgotUsername:string = '';
+  forgotEmail:string = '';
+
   forgotCode:string = '';
+
+  oldPass:string = '';
   newPass:string = '';
   newPassComfirm:string = '';
 
@@ -96,18 +101,26 @@ export class LoginComponent extends BaseComponent implements OnInit {
   }
 
   sendCode(){
-    this.curPage = 3;
-     this.authService.ForgotPassword(this.emailPhone)
+   
+     this.authService.ForgotPassword(this.forgotUsername,this.forgotEmail)
     .subscribe(()=>{
-      //console.log(`forgot pass send!`);
+      this.curPage = 3;
     })
   }
 
-  analisCode(){
-    this.curPage = 4;
-  }
 
   changePass(){
-    this.curPage = 1;
+    let login:LoginModel = {user:this.forgotUsername, password: this.oldPass};
+    this.Login(login,(err)=>{
+      if(err.status==401) {
+        this.isErrorLogin = true;
+      }
+    },(res)=>{
+      this.authService.UserPatchPassword(this.newPass,this.oldPass)
+      .subscribe((res)=>{
+        this.router.navigate(['/system','shows'])
+      })
+    });
+    
   }
 }

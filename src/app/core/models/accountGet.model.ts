@@ -39,7 +39,8 @@ export class AccountGetModel{
         public lng?: number,
         public dates?: EventDateModel[], 
         public emails?: ContactModel[],
-
+        public first_name?:string,
+        public last_name?:string,
         public country?: string,
         public city?:string,
         public state?:string,
@@ -111,5 +112,6 @@ export class Video{
     public album_name?:string,
     public name?:string,
     public link?:string,
+    public preview?:string
 ){}
 }

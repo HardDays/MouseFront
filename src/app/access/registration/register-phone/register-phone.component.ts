@@ -23,6 +23,7 @@ declare var $: any;
 export class RegisterPhoneComponent extends BaseComponent implements OnInit {
 
   @Output() phoneStatus = new EventEmitter<{status:boolean,phone:string}>()
+  @Output('showPhone') isShowPhone = new EventEmitter<boolean>()
 
   isRequestCodeSend:boolean = false;
   inputCodeStatus:number = 1;
@@ -103,11 +104,16 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
       this.phoneService.SendRequestCode(phone,code).
         subscribe((res)=>{
           console.log(`success`);
+          this.isShowPhone.emit(true);
           this.phoneStatus.emit({status:true,phone:phone});
         }, (err)=>{
           console.log(err);
         });
     }
+  }
+
+  skipPhone(){
+    this.isShowPhone.emit(false);
   }
 
 }

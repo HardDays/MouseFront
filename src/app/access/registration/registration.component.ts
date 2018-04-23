@@ -58,6 +58,7 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
   currentPage:string = 'phone';
 
   phone:string;
+  isShowPhone:boolean = true;
 
   constructor(protected authService: AuthMainService,
               protected accService:AccountService,
@@ -99,6 +100,11 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
 
   ngOnInit(){
     
+  }
+
+  showPhone(status:boolean){
+    this.isShowPhone = status;
+    this.currentPage = 'user';
   }
 
 

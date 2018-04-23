@@ -148,7 +148,7 @@ export class BaseComponent{
         );
     }
 
-    protected Login(user:LoginModel,callback:(error)=>any){
+    protected Login(user:LoginModel,callback:(error)=>any,callbackOk?:(res)=>any){
 
         this.WaitBeforeLoading(
             ()=>this.authService.UserLogin(user),
@@ -156,7 +156,7 @@ export class BaseComponent{
                 this.isLoggedIn = true;
                 this.authService.BaseInitAfterLogin(res);
                 this.router.navigate(['/system','shows']);
-                
+                callbackOk(res);
             },
             (err)=>{
                 callback(err);

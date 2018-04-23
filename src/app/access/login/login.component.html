@@ -18,18 +18,18 @@
                         <button type="submit" class="butt-style-1"><span>Sign In</span></button>
                     </form>
                     <form *ngIf="curPage==2">
-                        <input autocomplete="off" type="text" name="emailPhone" [ngModel]="emailPhone" (ngModelChange)="emailPhone = $event" required  class="inp-style-1" placeholder="Email or phone">
+                        <input autocomplete="off" type="text" name="emailPhone" [ngModel]="forgotUsername" (ngModelChange)="forgotUsername = $event" required  class="inp-style-1" placeholder="Username">
+                        <input autocomplete="off" type="text" name="emailPhone" [ngModel]="forgotEmail" (ngModelChange)="forgotEmail = $event" required  class="inp-style-1" placeholder="Email">
                         <button type="button" (click)="sendCode()" class="butt-style-1"><span>Next</span></button>
                     </form>
+                   
                     <form *ngIf="curPage==3">
-                        <input autocomplete="off" type="text" name="forgotCode" [ngModel]="forgotCode" (ngModelChange)="forgotCode = $event" required  class="inp-style-1" placeholder="Code">
-                        <button type="button" (click)="analisCode()" class="butt-style-1"><span>Next</span></button>
-                    </form>
-                    <form *ngIf="curPage==4">
+                        <input autocomplete="off" type="password" name="oldPass" [ngModel]="oldPass" (ngModelChange)="oldPass = $event" required  class="inp-style-1" placeholder="Password from email">
                         <input autocomplete="off" type="password" name="newPass" [ngModel]="newPass" (ngModelChange)="newPass = $event" required  class="inp-style-1" placeholder="New password">
                         <input autocomplete="off" type="password" name="newPassComfirm" [ngModel]="newPassComfirm" (ngModelChange)="newPassComfirm = $event" required  class="inp-style-1" placeholder="Comfirm new password">
                         <button type="button" (click)="changePass()" class="butt-style-1"><span>Sign in</span></button>
                     </form>
+
                     <div class="outher-butt">
                         <a routerLink="/register">Create account</a>
                         <p>or</p>

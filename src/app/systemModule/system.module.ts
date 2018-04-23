@@ -31,6 +31,7 @@ import { ArtistCreateComponent } from './artistCreate/artistCreate.component';
 import { FeedComponent } from './feed/feed.component';
 import { TicketsComponent } from './tickets/tickets.component';
 import { VenueCreateComponent } from './venueCreate/venueCreate.component';
+import { FanCreateComponent } from './fan-create/fan-create.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { VenueCreateComponent } from './venueCreate/venueCreate.component';
     PreloaderComponent,
     FeedComponent,
     TicketsComponent,
-    VenueCreateComponent
+    VenueCreateComponent,
+    FanCreateComponent
   ],
   imports: [
     CommonModule,

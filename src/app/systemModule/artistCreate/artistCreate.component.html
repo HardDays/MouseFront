@@ -350,14 +350,14 @@
                                                     <div class="one-slide">
                                                         <div class="wrapp-card">
                                                             <div class="delete-track"></div>
-                                                            <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)">
+                                                            <div (click)="openVideo(item)" class="cover-image" [ngStyle]="{'background-image': 'url('+item.preview+')'}">
                                                                 <div class="butt-play-video">
                                                                     <div class="pl"></div>
                                                                 </div>
                                                             </div>
                                                             <div class="descr playing">
                                                                 <p class="name">{{item.name}}</p>
-                                                                <p class="date">2015</p>
+                                                                <p class="date">{{item.album_name}}</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -412,12 +412,21 @@
                                             <!--если не пустой.-->
                                             
                                             <div class="slider-2-albums slider-4-photos slider-4-init">
-                                                <div class="one-slide">
+                                                <div *ngFor="let img of ArtistImages" class="one-slide">
+                                                    <div class="wrapp-card">
+                                                        <div class="delete-track"></div>
+                                                        <div class="cover-image" [ngStyle]="{'background-image': 'url('+ img.img.toString() +')'}"></div>
+                                                        <div class="descr">
+                                                            <p class="name">{{img.text}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="one-slide">
                                                     <div class="wrapp-card">
                                                         <div class="delete-track"></div>
                                                         <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)"></div>
                                                         <div class="descr">
-                                                            <p class="name">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuminim veniam, quis nostrud</p>
+                                                            <p class="name">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuminim veniam, quis nostrud </p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -429,16 +438,7 @@
                                                             <p class="name">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuminim veniam, quis nostrud </p>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="one-slide">
-                                                    <div class="wrapp-card">
-                                                        <div class="delete-track"></div>
-                                                        <div class="cover-image" style="background-image: url(../../../assets/img/drake.jpg)"></div>
-                                                        <div class="descr">
-                                                            <p class="name">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuminim veniam, quis nostrud </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                </div> -->
                                             
                                             </div>
                                             
@@ -1107,8 +1107,7 @@
                         <div class="modal-dialog">
                             <div class="modal-contant">
                                 <div class="modal-body">
-                                    
-                                   <iframe ></iframe>
+                                    <iframe id="video-frame" width="560" height="315" [src]="openVideoLink" frameborder="0" allow="autoplay; encrypted-media" ></iframe>
                                 </div>
                             </div>
                         </div>

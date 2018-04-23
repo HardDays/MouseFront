@@ -100,51 +100,15 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
     "name": new FormControl("", [Validators.required]),
     "link": new FormControl("", [Validators.required])
   });
-  addImage:string = '';
+  openVideoLink:any;
   imageInfo:string = '';
+
   
   ImageToLoad:string = '';
-  ArtistImages:string[] = [];
+  ArtistImages:{img:string,text:string}[] = [];
 
-
-  // bookingForm: FormGroup = new FormGroup({        
-  //   "performance_min_time": new FormControl("", [Validators.required]),
-  //   "performance_max_time": new FormControl("", [Validators.required]),
-  //   "price_from": new FormControl("", [Validators.required]),
-  //   "price_to": new FormControl("", [Validators.required]),
-  //   "additional_hours_price": new FormControl("", [Validators.required]),
-  //   "is_hide_pricing_from_profile": new FormControl("", [Validators.required]),
-  //   "is_hide_pricing_from_search": new FormControl("", [Validators.required]),
-  //   "is_perform_with_band": new FormControl("", [Validators.required]),
-  //   "can_perform_without_band": new FormControl("", [Validators.required]),
-  //   "is_perform_with_backing_vocals": new FormControl("", [Validators.required]),
-  //   "can_perform_without_backing_vocals": new FormControl("", [Validators.required]),
-  //   "preferred_venues": new FormArray([
-  //     new FormControl("night_club"),
-  //     new FormControl("bar"),
-  //     new FormControl("restaurant"),
-  //     new FormControl("concert_hall"),
-  //     new FormControl("event_space"),
-  //     new FormControl("outdoor_space"),
-  //     new FormControl("theatre"),
-  //     new FormControl("private_residence"),
-  //     new FormControl("other")
-  //    ]),
-  //   "location": new FormControl("", [Validators.required]),
-  //   "preferred_venue_text": new FormControl("", [Validators.required]),
-  //   "days_to_travel": new FormControl("", [Validators.required]),
-  //   "is_permitted_to_stream": new FormControl("", [Validators.required]),
-  //   "is_permitted_to_advertisement": new FormControl("", [Validators.required]),
-  //   "has_conflict_contracts": new FormControl("", [Validators.required]),
-  //   "conflict_companies_names": new FormControl("", [Validators.required]),
-  //   "min_time_to_book": new FormControl("", [Validators.required]),
-  //   "min_time_to_free_cancel": new FormControl("", [Validators.required]),
-  //   "late_cancellation_fee": new FormControl("", [Validators.required]),
-  //   "refund_policy": new FormControl("", [Validators.required])
-  // });
 
   preferredVenues:CheckModel<{type:string, type_show:string}>[] = []; 
-
 
   constructor(protected authService: AuthMainService,
     protected accService:AccountService,
@@ -339,7 +303,11 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
                   this.getAudio();
                   this.getAlbumSlider();
                   this.getVideosSlider();
+                  this.updateVideosPreview();
                   this.createArtist.artist_videos = this.Artist.videos;
+                 
+
+
                   //console.log(this.Artist);
                   for (let key in user) {
                       if (user.hasOwnProperty(key)) {
@@ -351,6 +319,19 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
                   this.GetVenueImages();
               })
 
+  }
+
+  updateVideosPreview(){
+    for(let video of this.Artist.videos){
+      var video_id = video.link.split('v=')[1];
+      var ampersandPosition = video_id.indexOf('&');
+      if(ampersandPosition != -1) {
+        video_id = video_id.substring(0, ampersandPosition);
+      }
+      
+      video.preview = 'https://img.youtube.com/vi/'+video_id+'/0.jpg';
+    }
+   
   }
 
 
@@ -513,6 +494,7 @@ venueTypeFromModelToVar(){
             params[key] = this.addVideoForm.value[key];
         }
       }
+      
       this.createArtist.artist_videos = this.Artist.videos;
       this.createArtist.artist_videos.push(params);
       //console.log(`!`,params,this.createArtist.artist_videos);
@@ -545,6 +527,19 @@ venueTypeFromModelToVar(){
     })
   }
 
+  openVideo(video:Video){
+    var video_id = video.link.split('v=')[1];
+      var ampersandPosition = video_id.indexOf('&');
+      if(ampersandPosition != -1) {
+        video_id = video_id.substring(0, ampersandPosition);
+      }
+
+    this.openVideoLink = this._sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+video_id+'?rel=0'); 
+    setTimeout(()=>{$('#modal-movie').modal('show');},100);
+   // console.log(video.link);
+   
+  }
+
 
 //   addPhoto(){
 //     this.accService.PostAccountImages(this.accountId,this.addImage)
@@ -553,6 +548,7 @@ venueTypeFromModelToVar(){
 //       this.updateArtistByCreateArtist();
 //     }); 
 //   }
+
 //   loadPhoto($event:any):void{
 //     this.ReadImages(
 //         $event.target.files,
@@ -586,7 +582,7 @@ DeleteImageFromLoading()
 
 AddVenuePhoto()
 {
-  this.imgService.PostAccountImage(this.Artist.id,this.ImageToLoad)
+  this.imgService.PostAccountImage(this.Artist.id,this.ImageToLoad,this.imageInfo)
     .subscribe(
       (res:any) => {
         this.ImageToLoad = '';
@@ -601,12 +597,14 @@ GetVenueImages()
   this.imgService.GetAccountImages(this.Artist.id,{limit:5})
     .subscribe(
       (res:any)=>{
+        console.log(`images`,res)
         if(res && res.total_count > 0)
         {
           let index = 0;
-          for(let id of res.images)
+          for(let img of res.images)
           {
-            this.GetVenueImageById(id,index);
+            var txt = img.description?img.description:'';
+            this.GetVenueImageById(img.id,index,txt);
             index = index + 1;
           }
         }
@@ -614,13 +612,12 @@ GetVenueImages()
     );
 }
 
-GetVenueImageById(id,saveIndex)
+GetVenueImageById(id,saveIndex,text)
 {
   this.imgService.GetImageById(id)
     .subscribe(
       (res:Base64ImageModel) =>{
-        this.ArtistImages[saveIndex] = (res.base64.indexOf('&quot;data:image/jpeg;base64') < 0? '&quot;data:image/jpeg;base64':'') + res.base64;
-        console.log(this.ArtistImages);
+        this.ArtistImages.push({img:res.base64,text:text});
       }
     );
    
