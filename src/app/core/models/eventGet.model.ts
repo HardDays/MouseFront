@@ -9,7 +9,7 @@ export class EventGetModel{
         public description?: string,
         public funding_from?: string,
         public funding_to?: string,
-        public funding_goal?: string,
+        public funding_goal?: number,
         public creator_id?: number,
         public created_at?: string,
         public updated_at?: string,

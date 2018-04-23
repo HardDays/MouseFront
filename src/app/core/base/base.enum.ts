@@ -19,3 +19,7 @@ export enum VenueType{
     Private = "private_residence"
 }
 
+export enum BaseImages{
+    Drake = "../../assets/img/drake.jpg"
+}
+

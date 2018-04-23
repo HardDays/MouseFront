@@ -97,14 +97,11 @@ export class EventsComponent extends BaseComponent implements OnInit {
             this.eventService.GetMyEvents(id)
             .subscribe((res:EventGetModel[])=>{
                 this.Events = res;
-                //console.log(this.Events);
+                // console.log(this.Events);
       })
         });
         
     }
-
-    
-
 
     analiticsClick(){
         $('#modal-analytics').modal('show');
