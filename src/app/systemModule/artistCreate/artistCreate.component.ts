@@ -638,8 +638,7 @@ DeleteImageFromLoading()
 
 AddVenuePhoto()
 {
-  console.log(this.Artist.id,this.ImageToLoad,this.imageInfo);
-  this.imgService.PostAccountImage(this.Artist.id,this.ImageToLoad,this.imageInfo)
+  this.imgService.PostAccountImage(this.Artist.id,{image_base64:this.ImageToLoad,image_description: this.imageInfo})
     .subscribe(
       (res:any) => {
         this.ImageToLoad = '';

@@ -32,8 +32,14 @@ declare var ionRangeSlider:any;
 
 
 export class EventsComponent extends BaseComponent implements OnInit {
+    isMarkerVisible: boolean;
+    mapLng: any;
+    mapLat: any;
+    mapCoords = {lat:0, lng:0};
     Events:EventGetModel[] = [];
 
+    MIN_DISTANCE:number = 0;
+    MAX_DISTANCE:number = 100000;
     SearchParams: EventSearchParams = new EventSearchParams();
     
     Genres:GenreModel[] = [];
@@ -52,7 +58,23 @@ export class EventsComponent extends BaseComponent implements OnInit {
         this.GetGenres();
         this.GetTicketTypes();
         this.GetAllTypesOfSpace();
-
+        let _that = this;
+        var distance_slider = $(".distance-slider").ionRangeSlider({
+            type:"single",
+            min: this.MIN_DISTANCE,
+            max: this.MAX_DISTANCE,
+            from: 0,
+            hide_min_max: false,
+            postfix: " km",
+            grid: false,
+            prettify_enabled: true,
+            prettify_separator: ',',
+            grid_num: 5,
+            onChange: function(data)
+            {
+              _that.DistanceChanged(data);
+            }
+        });
         this.GetEvents();
         this.openSearch();
         this.initSlider();
@@ -91,6 +113,10 @@ export class EventsComponent extends BaseComponent implements OnInit {
         this.bsConfig = Object.assign({}, { containerClass: 'theme-default' });
     }
 
+    DistanceChanged(data:any)
+    {
+      this.SearchParams.distance = data.from;
+    }
     setHeightSearch(){
         //console.log($('.main-router-outlet .main-router-outlet').height(),$(window).height());
         if($('.main-router-outlet .main-router-outlet').height() < $(window).height()){
@@ -105,6 +131,10 @@ export class EventsComponent extends BaseComponent implements OnInit {
           }); 
           //console.log(`two`);
       }
+    }
+
+    aboutOpenMapModal(){
+        $('#modal-map').modal('show');
     }
 
     CloseSearchWindow()
@@ -134,7 +164,39 @@ export class EventsComponent extends BaseComponent implements OnInit {
             }
         });
     }
+    
+    aboutDragMarker($event){
+        //console.log($event);
+        this.mapCoords.lat = $event.coords.lat;
+        this.mapCoords.lng = $event.coords.lng;
+        this.codeLatLng( this.mapCoords.lat, this.mapCoords.lng);
+    }
+    codeLatLng(lat, lng) {
+        let geocoder = new google.maps.Geocoder();
+        let latlng = new google.maps.LatLng(lat, lng);
+        geocoder.geocode({
+            'location': latlng }, 
+             (results, status) => {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    if (results[1]) {
+                  
+                    $("#searchAddress").val(results[1].formatted_address);
+                    
+                    /* LOCATION - сдвиг точки на карте results[1].formatted_address */
+                    this.SearchParams.location = results[1].formatted_address;
+                    }
+                } else {
+                    alert('Geocoder failed due to: ' + status);
+                }
+            });
+      }
 
+      mapClick($event){
+        this.mapLat = $event.coords.lat;
+        this.mapLng = $event.coords.lng;
+        this.isMarkerVisible = true;
+        this.codeLatLng(this.mapLat,this.mapLng);
+      }
     PriceChanged(data:any)
     {
     //   if(data.from && this.SearchParams.price_from != data.from)
@@ -146,6 +208,7 @@ export class EventsComponent extends BaseComponent implements OnInit {
 
     GetEvents()
     {
+        //console.log("date", this.SearchParams);
         this.WaitBeforeLoading(
             () => this.eventService.EventsSearch(this.SearchParams),
             (res:EventGetModel[]) =>

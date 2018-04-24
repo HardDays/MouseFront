@@ -9,25 +9,8 @@
                             <input type="text" class="inp-style-1" placeholder="Search" autocomplete="off" [ngModel]="SearchParams.text" (ngModelChange)="SearchParams.text = $event" name="search-text" id='search-text'>
                             <div class="groupe-form">
                                 <p class="head-input-groupe">Date</p>
-                                <div class="add-day">
-                                    <input type="text"
-                                    readonly style="background-color:white; cursor: pointer;"
-                                    class="for-data-picker"
-                                    [minDate]="minDate"
-                                    #dp="bsDatepicker"
-                                    dateDisabled = "{date:new Date(); mode:disable;}"
-                                    bsDatepicker [(bsValue)]="bsValue_start"
-                                    (bsValueChange)="logChanged($event)">
-                                </div>
-                                <div class="add-day">
-                                    <input type="text"
-                                    readonly style="background-color:white; cursor: pointer;"
-                                    class="for-data-picker"
-                                    [minDate]="bsValue_start"
-                                    #dp="bsDatepicker"
-                                    dateDisabled = "{date:new Date(); mode:disable;}"
-                                    bsDatepicker [(bsValue)]="bsValue_end"
-                                    (bsValueChange)="logChanged($event)">
+                                <div class="wrapp-for-triangle">
+                                    <input type="text" name="date-picker-inp" class="date-picker-inp" bsDaterangepicker ngModel [bsConfig]="bsConfig" [(ngModel)]="SearchDateRange">
                                 </div>
                             </div>
         
@@ -49,13 +32,24 @@
                             <div class="groupe-form">
                                 <p class="head-input-groupe">Process of funding</p>
                                 <div class="flex-genres">
-                                        <div class="one-checkbox" >
+                                        <div class="flex-mac-checkbox">
+                                            <p>Is active        </p>
+                                            <div class="yes-no">
+                                                <span>Yes</span>
+                                                <div class="mac-checkbox">
+                                                    <input class="checkbox" type="checkbox" [ngModel]="SearchParams.is_active" name='is-active-checkbox'  (ngModelChange)="SearchParams.is_active = $event" id='is-active-checkbox'>
+                                                    <label for="is-active-checkbox"></label>
+                                                </div>
+                                                <span>No</span>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="one-checkbox" >
                                             <div class="check-style">
                                                 <input type="checkbox" [ngModel]="SearchParams.is_active"  (ngModelChange)="SearchParams.is_active = $event" class="checkbox" name='is-active-checkbox'  id='is-active-checkbox'>
                                                 <label for="is-active-checkbox"></label>
                                             </div>
                                             <p>Is active</p>
-                                        </div> 
+                                        </div>  -->
                                 </div>
                             </div>
                             <div class="groupe-form">
@@ -144,7 +138,9 @@
                                 <div class="new-shows-desc">
                                     <a class="name-show">{{item.name}}</a>
                                     <p class="name-artist">Katy Parry</p>
-                                    <div class="where">23 FEB, 2017 - Madison Square Garden - NY</div>
+                                    <div class="where">{{item.event_time}}</div>
+                                    <div *ngIf="item.event_time && item.address" class="where">-</div>
+                                    <div class="where">{{item.address}}</div> 
                                 </div>
                             </div>
                             

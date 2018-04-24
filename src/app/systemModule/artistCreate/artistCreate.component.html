@@ -397,13 +397,13 @@
                                             </div>
                                         </div>
                                         <div class="right-side albums">
-                                            <div [ngStyle]="{'display': ArtistImages.length<=0?'block':'none'}" class="head-of-right-side">
+                                            <div  class="head-of-right-side">
                                                 <p class="head-text-r">Photos UPLOADED</p>
                                                 <p class="limit">Limit of 20 Videos</p>
                                             </div>
                                             <!--если пустой-->
                                             
-                                            <div class="empty-info">
+                                            <div [ngStyle]="{'display': ArtistImages.length<=0?'block':'none'}" class="empty-info">
                                                 <img src="../../../assets/img/smile.svg" class="img-responsive" alt="">
                                                 <p>No Songs Yet</p>
                                             </div>
