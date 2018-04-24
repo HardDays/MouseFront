@@ -235,8 +235,8 @@
                                     <p>{{item.name}}</p>
                                 </div>
                             </div>
-                            <div class="input-groupe-1 whithout-label small-textarea max-500 max-100">  
-                                <textarea></textarea>
+                            <div class="input-groupe-1 whithout-label small-textarea max-500 max-100" *ngIf="Venue.type_of_space == 'other'">  
+                                <textarea  [(ngModel)]="Venue.other_genre_description" formControlName="other_venue"></textarea>
                                 <span class="max-count">100 max</span>
                             </div>
                         </div>
@@ -344,17 +344,17 @@
                             <div class="photos-wr-flex-venue">
                                 <div class="photo-wr-1">
 
-                                    <label *ngIf="!ImageToLoad" class="file_upload">
+                                    <label *ngIf="!ImageToLoad.image_base64" class="file_upload">
                                         <div class="bg-image"></div>
 
                                         <input accept=".jpg, .jpeg, .png" type="file"  (change)="loadImage($event)">
                                     </label>
                                     <!--появляется этот блок если загружена фотка и в стайл бекграунд имейдж ебануть-->
-                                    <div *ngIf="ImageToLoad" class="bg-image uploaded" (click)="DeleteImageFromLoading()" [ngStyle]="{'background-image': 'url(' + ImageToLoad + ')'}"></div>
+                                    <div *ngIf="ImageToLoad.image_base64" class="bg-image uploaded" (click)="DeleteImageFromLoading()" [ngStyle]="{'background-image': 'url(' + ImageToLoad.image_base64 + ')'}"></div>
                                     <!---->
                                 </div>
                                 <div class="input-groupe-1 small-textarea whithout-label">
-                                    <textarea id="inp-desc-1"></textarea>
+                                    <textarea id="inp-desc-1" name="photo-description" [ngModel]="ImageToLoad.description" (ngModelChenge)="ImageToLoad.description = $event"></textarea>
                                     <label for="inp-desc-1" class="head-groupe">Description</label>
                                 </div>
                             </div>
@@ -446,14 +446,14 @@
                         <!--если не пустой.-->
                         
                         <div [ngStyle]="{'display': VenueImages.length > 0 ? 'block' : 'none'}" class="slider-2-albums slider-4-photos slider-4-init">
-                            <ng-container *ngFor="let img of VenueImages; let i = index">
+                            <ng-container *ngFor="let item of VenueImages; let i = index">
                                 <div class="one-slide" *ngIf="VenueImages[i]">
                                     <div class="wrapp-card">
                                         <div class="delete-track"></div>
-                                        <div class="cover-image" [ngStyle]="{'background-image': 'url('+ img.toString() +')'}"></div>
+                                        <div class="cover-image" [ngStyle]="{'background-image': 'url('+ item.image_base64 +')'}"></div>
                                         <div class="descr">
                                             <h6>Night club</h6>
-                                            <p class="name">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuminim veniam, quis nostrud</p>
+                                            <p class="name">{{item.description}}</p>
                                         </div>
                                     </div>
                                 </div>

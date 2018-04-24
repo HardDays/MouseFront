@@ -42,6 +42,7 @@ import { CheckModel } from '../../core/models/check.model';
 import { TicketModel } from '../../core/models/ticket.model';
 import { TicketGetParamsModel } from '../../core/models/ticketGetParams.model';
 import { Observable } from 'rxjs/Observable';
+import { VenueMediaPhotoModel } from '../../core/models/venueMediaPhoto.model';
 
 
 
@@ -63,7 +64,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
 {
   Parts = PageParts;
 
-  CurrentPart = this.Parts.About;
+  CurrentPart = this.Parts.Media;
 
   Venue:AccountCreateModel = new AccountCreateModel();
   VenueId:number = 0;
@@ -78,9 +79,9 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
   TypesOfSpace:SelectModel[] = [];
   LocatedTypes:SelectModel[] = [];
 
-  ImageToLoad:string = '';
+  ImageToLoad:VenueMediaPhotoModel = new VenueMediaPhotoModel();
 
-  VenueImages:string[] = [];
+  VenueImages:VenueMediaPhotoModel[] = [];
 
   EmailFormGroup : FormGroup = new FormGroup({
     "name_email":new FormControl("",[]),
@@ -104,6 +105,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
 
   detailsForm : FormGroup = new FormGroup({
     "venue_type": new FormControl("", [Validators.required]),
+    "other_venue": new FormControl("",[]),
     "capacity": new FormControl("",[Validators.required,
       Validators.pattern("[0-9]+"),
       Validators.min(0),Validators.max(150000)                                
@@ -286,10 +288,14 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
           (res:any)=>{
             if(res && res.total_count > 0)
             {
+              //console.log(res);
               let index = 0;
-              for(let id of res.images)
+              for(let image of res.images)
               {
-                this.GetVenueImageById(id,index);
+                //console.log(image);
+                this.VenueImages[index] = new VenueMediaPhotoModel();
+                this.VenueImages[index].description = image.description;
+                this.GetVenueImageById(image.id,index);
                 index = index + 1;
               }
             }
@@ -302,7 +308,8 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
       this.imgService.GetImageById(id)
         .subscribe(
           (res:Base64ImageModel) =>{
-            this.VenueImages[saveIndex] = (res.base64.indexOf('&quot;data:image/jpeg;base64') < 0? '&quot;data:image/jpeg;base64':'') + res.base64;
+            this.VenueImages[saveIndex].image_base64 = /*(res.base64.indexOf('&quot;data:image/jpeg;base64') < 0? '&quot;data:image/jpeg;base64':'') + */res.base64;
+            console.log(this.VenueImages);
           }
         );
     }
@@ -322,6 +329,11 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
       }
       this.Venue.office_hours = this.accService.GetWorkingTimeFromFront(this.OfficeHours);
       this.Venue.operating_hours = this.accService.GetWorkingTimeFromFront(this.OperatingHours);
+
+      if(this.Venue.type_of_space != "other" && this.Venue.other_genre_description)
+      {
+        this.Venue.other_genre_description = "";
+      }
 
       this.WaitBeforeLoading
       (
@@ -454,22 +466,23 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
     {
       let reader:FileReader = new FileReader();
       reader.onload = (e) =>{
-          this.ImageToLoad = reader.result;
+          this.ImageToLoad.image_base64 = reader.result;
       }
       reader.readAsDataURL(file);
     }
   }
   DeleteImageFromLoading()
   {
-    this.ImageToLoad = '';
+    this.ImageToLoad.image_base64 = '';
   }
 
   AddVenuePhoto()
   {
-    this.imgService.PostAccountImage(this.VenueId,this.ImageToLoad)
+    this.imgService.PostAccountImage(this.VenueId,this.ImageToLoad.image_base64,this.ImageToLoad.description)
       .subscribe(
         (res:any) => {
-          this.ImageToLoad = '';
+          console.log(res);
+          this.ImageToLoad = new VenueMediaPhotoModel();
           this.GetVenueImages();
         }
       );
