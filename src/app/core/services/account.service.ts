@@ -40,6 +40,7 @@ export class AccountService{
             result.emails = this.typeService.ValidateArray(input.emails)?input.emails:[new ContactModel()];
             result.dates = input.dates;
             result.type_of_space = input.type_of_space;
+            result.other_genre_description = this.DefaultCheck(input.other_genre_description),
             result.genres = input.genres?input.genres:null;
             result.office_hours = this.typeService.ValidateArray(input.office_hours)?input.office_hours:[new WorkingTimeModel()];
             result.operating_hours = this.typeService.ValidateArray(input.operating_hours)?input.operating_hours:[new WorkingTimeModel()];
