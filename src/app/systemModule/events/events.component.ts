@@ -105,7 +105,15 @@ export class EventsComponent extends BaseComponent implements OnInit {
           }); 
           //console.log(`two`);
       }
-      }
+    }
+
+    CloseSearchWindow()
+    {
+        $("body").removeClass("has-active-menu");
+        $(".mainWrapper").removeClass("has-push-left");
+        $(".nav-holder-3").removeClass("is-active");
+        $(".mask-nav-3").removeClass("is-active")
+    }
 
     initSlider(){
         let _the = this;
@@ -143,9 +151,11 @@ export class EventsComponent extends BaseComponent implements OnInit {
             (res:EventGetModel[]) =>
             {
                 this.Events = res;
+                this.CloseSearchWindow();
             },
             (err) => {
                 console.log(err);
+                this.CloseSearchWindow();
             }
         );
     }
