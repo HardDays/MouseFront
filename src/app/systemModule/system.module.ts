@@ -16,6 +16,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { EventCreateComponent } from './eventCreate/eventCreate.component';
 import { EventsComponent } from './events/events.component';
 
+import { SlickModule } from 'ngx-slick';
 import { TextMaskModule } from 'angular2-text-mask';
 
 import { NguiAutoCompleteModule } from '@ngui/auto-complete';
@@ -64,6 +65,7 @@ import { MyEventComponent } from './myEvent/myEvent.component';
     NavbarModule,
     FooterModule,
     YoutubePlayerModule,
+    SlickModule.forRoot(),
     
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",
