@@ -98,6 +98,15 @@ export class GenresService{
         return result;
     }
 
+    public SetHiddenGenres(genres:GenreModel[])
+    {
+        for(let i in genres)
+        {
+            genres[i].show = +i < 4;
+        }
+        return genres;
+    }
+
     convertToShow(genre:string):string{
         let genre_show = '';
         genre_show = genre.replace('_',' ').toUpperCase();

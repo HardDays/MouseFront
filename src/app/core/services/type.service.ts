@@ -12,6 +12,7 @@ import {TokenModel} from "./../models/token.model";
 import { SelectModel } from './../models/select.model';
 import { FrontWorkingTimeModel } from './../models/frontWorkingTime.model';
 import { TicketTypeModel } from '../models/ticketType.model';
+import { CheckModel } from '../models/check.model';
 
 @Injectable()
 export class TypeService{
@@ -176,6 +177,38 @@ export class TypeService{
         options = options.slice(0, options.length - 1);
         options += "}";
         return options;
+    }
+
+    GetDateStringFormat(date: Date)
+    {
+        return date.getFullYear()+"-"+date.getMonth()+"-"+date.getDay();
+    }
+
+    GetTicketTypes()
+    {
+        return [
+            new CheckModel({
+                value:'in_person',
+                name:'Attend'
+            }),
+            new CheckModel({
+                value:'vip',
+                name:'VIP'
+            }),
+        ];
+    }
+
+    TicketTypesArrayToStringArray(arr:CheckModel<any>[])
+    {
+        let result:string[] = [];
+
+        for(let item of arr)
+        {
+            if(item.checked)
+                result.push(item.object.value);
+        }
+
+        return result;
     }
 
    
