@@ -14,13 +14,13 @@
                 <div class="location-wr">
                     <div (click)="aboutOpenMapModal()" class="mark">
                     </div>
-                    <input type="text" class="location-inp" name="search-params-address" autocorrect="off" autocapitalize="off" spellcheck="off" placeholder="" [ngModel]="SearchParams.location" (ngModelChange)="SearchParams.location = $event"  #search id="searchAddress">
+                    <input type="text" class="location-inp" name="search-params-address" autocorrect="off" autocapitalize="off" spellcheck="off" #searchLocal placeholder="" [ngModel]="LocationText" (ngModelChange)="LocationText = $event"  #search id="searchAddress">
                 </div>
             </div>
-            <div class="groupe-form">
+            <div class="groupe-form" [ngStyle]="{'display':(SearchParams.lat && SearchParams.lng)? 'block':'none'}">
                 <p class="head-input-groupe">Distance</p>
                 <div class="for-range-slider">
-                    <input type="text" class="current-slider distance-slider" value="">
+                    <input type="text" name="distance-range-slider" class="current-slider distance-slider" [ngModel]="SearchParams.distance" (ngModelChange)="SearchParams.distance = $event">
                 </div>
             </div>
             <div class="groupe-form">
