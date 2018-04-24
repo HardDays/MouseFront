@@ -8,7 +8,7 @@ import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { SelectModel } from '../../core/models/select.model';
 import { FrontWorkingTimeModel } from '../../core/models/frontWorkingTime.model';
 import { WorkingTimeModel } from '../../core/models/workingTime.model';
-import { AccountCreateModel, Album, Video } from '../../core/models/accountCreate.model';
+import { AccountCreateModel, Album, Video, Rider } from '../../core/models/accountCreate.model';
 import { EventDateModel } from '../../core/models/eventDate.model';
 import { ContactModel } from '../../core/models/contact.model';
 import { AccountGetModel, Audio } from '../../core/models/accountGet.model';
@@ -110,6 +110,15 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
 
   preferredVenues:CheckModel<{type:string, type_show:string}>[] = []; 
 
+
+  // stageRider: FormGroup = new FormGroup({        
+  //   "uploaded_file": new FormControl(""),
+  //   "description": new FormControl("",),
+  //   "is_flexible": new FormControl("",)
+  // });
+  stageRider:Rider= new Rider();
+
+
   constructor(protected authService: AuthMainService,
     protected accService:AccountService,
     protected imgService:ImagesService,
@@ -183,6 +192,25 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
   initJS(){
    
      var as = audiojs.createAll();
+
+     $('.slider-3-init').slick({
+      dots: false,
+      arrows: true,
+      infinite: false,
+      slidesToShow: 3,
+       responsive: [
+          {
+            breakpoint: 1301,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2
+             
+            }
+          }
+       ]
+
+      });
+     
    
     //слайдер аудио, в слайде 12 песен
     // $('.slider-audio-wrapp').slick({
@@ -278,16 +306,22 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
   }
 
   updateArtistByCreateArtist(){
+    console.log(`create`,this.createArtist);
     this.accService.UpdateMyAccount(this.accountId, JSON.stringify(this.createArtist))
         .subscribe((res)=>{
 
                 this.Artist = res;
                 console.log(this.Artist);
+
+                
                 this.venueTypeFromModelToVar();
                 
                                                               // this.getAudio();
                                                               // this.getAlbumSlider();
                                                               // this.getVideosSlider();
+                                                             
+                                                              this.setSliders();
+                                                              this.GetVenueImages();
             
                 console.log(`updated artist `,this.Artist);    
             },
@@ -303,10 +337,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
               .subscribe((user:any)=>{
                   this.Artist = user;
 
-                                                            // this.getAudio();
-                                                            // this.getAlbumSlider();
-                                                            // this.getVideosSlider();
-                                                            // this.updateVideosPreview();
+                                                            
 
                   this.createArtist.artist_videos = this.Artist.videos;
                  
@@ -319,21 +350,23 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
                   }
 
                   
-                  this.createArtist.preferred_venues = [];
-                  for (let key of this.Artist.preferred_venues) {
-                        this.createArtist.preferred_venues.push(key.type_of_venue);
-                  }
+                  // this.createArtist.preferred_venues = [];
+                  // for (let key of this.Artist.preferred_venues) {
+                  //       this.createArtist.preferred_venues.push(key.type_of_venue);
+                  // }
                   
                
                   this.venueTypeFromModelToVar();
                   this.genreFromModelToVar();
-                  // this.GetVenueImages();
+                  this.GetVenueImages();
+
+                  this.setSliders();
               })
 
   }
 
   updateVideosPreview(){
-    for(let video of this.Artist.videos){
+    for(let video of this.createArtist.artist_videos){
       var video_id = video.link.split('v=')[1];
       var ampersandPosition = video_id.indexOf('&');
       if(ampersandPosition != -1) {
@@ -355,6 +388,11 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
   }
 venueTypeFromModelToVar(){
 
+  this.createArtist.preferred_venues = [];
+  for (let key of this.Artist.preferred_venues) {
+        this.createArtist.preferred_venues.push(key.type_of_venue);
+  }
+  
   for(let t of this.createArtist.preferred_venues)
   for(let type of this.preferredVenues)
       if(t == type.object.type)
@@ -442,9 +480,14 @@ venueTypeFromModelToVar(){
     }
     
   }
+
   getAudio(){
     setTimeout(() => {
       var as2 = audiojs.createAll();
+      if(this.Artist.audio_links.length>0){
+        $('.slider-audio-wrapp').slick('unslick'); /* ONLY remove the classes and handlers added on initialize */
+        $('.slider-audio-wrapp').remove();
+      }
       if(this.Artist.audio_links.length>12)
        $('.slider-audio-wrapp').slick({
         dots: false,
@@ -454,6 +497,11 @@ venueTypeFromModelToVar(){
 
     });
     }, 100);    
+  }
+
+  deleteAudio(index:number){
+    this.createArtist.audio_links.splice(index,1);
+    this.updateArtistByCreateArtist();
   }
 
 
@@ -517,26 +565,39 @@ venueTypeFromModelToVar(){
       //console.log(`Invalid Video Form!`, this.aboutForm);
     }
   }
-  getVideosSlider(){
-    setTimeout(() => {
-    $('.slider-3-init').slick({
-      dots: false,
-      arrows: true,
-      infinite: false,
-      slidesToShow: 3,
-       responsive: [
-          {
-            breakpoint: 1301,
-            settings: {
-              slidesToShow: 2,
-              slidesToScroll: 2
-             
-            }
-          }
-       ]
 
-      }),100
-    })
+  deleteVideo(index:number){
+    this.createArtist.artist_videos.splice(index,1);
+    this.updateArtistByCreateArtist();
+    location.reload();
+  }
+
+  getVideosSlider(){
+   
+    setTimeout(() => {
+      $('.slider-3-init').slick("unslick");
+   
+
+      $('.slider-3-init').slick({
+        dots: false,
+        arrows: true,
+        infinite: false,
+        slidesToShow: 3,
+         responsive: [
+            {
+              breakpoint: 1301,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2
+               
+              }
+            }
+         ]
+  
+        }),100
+      })
+  
+
   }
 
   openVideo(video:Video){
@@ -548,27 +609,10 @@ venueTypeFromModelToVar(){
 
     this.openVideoLink = this._sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+video_id+'?rel=0'); 
     setTimeout(()=>{$('#modal-movie').modal('show');},100);
-   // console.log(video.link);
-   
+ 
+    
   }
 
-
-//   addPhoto(){
-//     this.accService.PostAccountImages(this.accountId,this.addImage)
-//     .subscribe((res)=>{
-//       //console.log(`add`,this.addImage, this.imageInfo);
-//       this.updateArtistByCreateArtist();
-//     }); 
-//   }
-
-//   loadPhoto($event:any):void{
-//     this.ReadImages(
-//         $event.target.files,
-//         (res:string)=>{
-//            this.addImage = res;
-//         }
-//     );
-// }
 
 loadImage($event:any):void{
   let target = $event.target;
@@ -594,6 +638,7 @@ DeleteImageFromLoading()
 
 AddVenuePhoto()
 {
+  console.log(this.Artist.id,this.ImageToLoad,this.imageInfo);
   this.imgService.PostAccountImage(this.Artist.id,this.ImageToLoad,this.imageInfo)
     .subscribe(
       (res:any) => {
@@ -641,23 +686,6 @@ SanitizeImage(image: string)
 
   return this._sanitizer.bypassSecurityTrustStyle(`url(${image})`);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -715,6 +743,7 @@ setPreferedVenue(index:number){
       this.preferredVenues[index].checked = false;
     }
 }
+
 addBooking(){
 
   // this.createArtist.performance_min_time = +((this.Artist.performance_min_time+'').split(' ')[0]);
@@ -760,7 +789,58 @@ addBooking(){
 
   this.updateArtistByCreateArtist();
 }
+
+
+
+
+setSliders(){
+  this.getAudio();
+  this.getAlbumSlider();
+  this.updateVideosPreview();
+  this.getVideosSlider();
+
+}
+
+
+
+confirmStageRider(){
+  // if(!this.stageRider.invalid){
+
+  //   for (let key in this.stageRider.value) {
+  //       // if (this.aboutForm.value.hasOwnProperty(key)) {
+  //       //     this.createArtist[key] = this.aboutForm.value[key];
+  //       // }
+  //       console.log(this.stageRider.value[key]);
+  //   }
+  // // }
+  this.stageRider.rider_type = 'stage';
+  this.createArtist.artist_riders = [];
+
+  this.createArtist.artist_riders.push(this.stageRider);
+  console.log(this.createArtist.artist_riders);
+   this.updateArtistByCreateArtist();
+}
+
+loadFile($event:any):void{
+  let target = $event.target;
+  let file:File = target.files[0];
+  console.log(`target`,target);
+  console.log(`file`,file);
+  this.stageRider.uploaded_file = file;
+  // if(target.files.length == 0)
+  //     return;
   
+  for(let file of target.files)
+  {
+    let reader:FileReader = new FileReader();
+    reader.onload = (e) =>{
+        console.log(reader.result);
+    }
+    reader.readAsDataURL(file);
+  }
+ 
+}
+
 
 
 

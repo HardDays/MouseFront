@@ -200,7 +200,7 @@
                                                         <ng-container *ngFor="let item of Artist.audio_links; let i = index">
                                                             
                                                     <div   class="one-audio">
-                                                        <div class="delete-track"></div>
+                                                        <div class="delete-track" (click)="deleteAudio(i)"></div>
                                                         <span id="track-{{i}}" class="name-track">{{item.song_name}}</span>
                                                         <audio src="{{item.audio_link}}" preload="none" ></audio>
                                                         
@@ -349,7 +349,7 @@
                                                 <ng-container *ngFor="let item of Artist.videos; let i = index">
                                                     <div class="one-slide">
                                                         <div class="wrapp-card">
-                                                            <div class="delete-track"></div>
+                                                            <div class="delete-track" (click)="deleteVideo(i)"></div>
                                                             <div (click)="openVideo(item)" class="cover-image" [ngStyle]="{'background-image': 'url('+item.preview+')'}">
                                                                 <div class="butt-play-video">
                                                                     <div class="pl"></div>
@@ -397,21 +397,21 @@
                                             </div>
                                         </div>
                                         <div class="right-side albums">
-                                            <div class="head-of-right-side">
+                                            <div [ngStyle]="{'display': ArtistImages.length<=0?'block':'none'}" class="head-of-right-side">
                                                 <p class="head-text-r">Photos UPLOADED</p>
                                                 <p class="limit">Limit of 20 Videos</p>
                                             </div>
                                             <!--если пустой-->
-                                            <!--
+                                            
                                             <div class="empty-info">
-                                                <img src="img/smile.svg" class="img-responsive" alt="">
+                                                <img src="../../../assets/img/smile.svg" class="img-responsive" alt="">
                                                 <p>No Songs Yet</p>
                                             </div>
-                                            -->
+                                           
                                             <!---->
                                             <!--если не пустой.-->
                                             
-                                            <div class="slider-2-albums slider-4-photos slider-4-init">
+                                            <div [ngStyle]="{'display': ArtistImages.length>0?'block':'none'}" class="slider-2-albums slider-4-photos slider-4-init">
                                                 <div *ngFor="let img of ArtistImages" class="one-slide">
                                                     <div class="wrapp-card">
                                                         <div class="delete-track"></div>
@@ -822,69 +822,71 @@
                                 <div class="main-mw-7">
                                     <div class="riders-flex-wrapp">
                                         <div class="side">
-                                            <p class="head-side-riders">Stage Rider</p>
-                                            <p class="desc-riders">Type or Upload your requirements for the Stage (Stage, Audio, Video, Lighting)</p>
-                                            <div class="download-upload">
-                                                <!--до загрузки файла-->
-                                                <!--
-                                                <div class="side-dwn">
-                                                    <a class="dd-ff" href="#">
-                                                        <img src="img/download.png" class="img-responsive" alt="">
-                                                    </a>
-                                                    <p class="desc-side-dwn">Press to Downlod Templete</p>
-                                                </div>
-                                                <div class="side-dwn">
-                                                    <div class="photo-wr-1 on-riders">
-                                                        <label class="file_upload">
-                                                            <div class="bg-image"></div>
+                
+                                                <p class="head-side-riders">Stage Rider</p>
+                                                <p class="desc-riders">Type or Upload your requirements for the Stage (Stage, Audio, Video, Lighting)</p>
+                                                <div class="download-upload">
+                                                    <!--до загрузки файла-->
+                                                    
+                                                    <div class="side-dwn">
+                                                        <a class="dd-ff" href="#">
+                                                            <img src="../../assets/img/download.png" class="img-responsive" alt="">
+                                                        </a>
+                                                        <p class="desc-side-dwn">Press to Downlod Templete</p>
+                                                    </div>
+                                                    <div class="side-dwn">
+                                                        <div class="photo-wr-1 on-riders">
+                                                            <label class="file_upload">
+                                                                <div class="bg-image"></div>
 
-                                                            <input accept=".jpg, .jpeg, .png" type="file">
-                                                        </label>
-                                                    </div>
-                                                    <p class="desc-side-dwn">Press to Upload filled Templete</p>
-                                                </div>
-                                                -->
-                                                <!--после загрузки файла-->
-                                                <div class="side-dwn">
-                                                    <div class="file-uploaded">
-                                                        <div class="delete-file"></div>    
-                                                    </div>
-                                                    <p class="desc-side-dwn">File uploded</p>
-                                                </div>
-                                                <!--//после загрузки файла-->
-                                                
-                                            </div>
-                                            <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">
-                                                <textarea id="textarea-rider-1"></textarea>
-                                                <label for="textarea-rider-1" class="head-groupe">Description</label>
-                                                <span class="max-count">2000 max</span>
-                                            </div>
-                                            <div class="flex-mac-checkbox direction-column on-add-artist-page">
-                                                <p class="quetion-radio-text">How flexible are you for your preferences?</p>
-                                                <div class="flex-radio">
-                                                    <div class="one-radio">
-                                                        <div class="radio-style">
-                                                            <input type="radio" class="radio-b" id="radio-555" name="grope-rider-1" checked="">
-                                                            <label for="radio-555"></label>
+                                                                <input  (change)="loadFile($event)"  type="file">
+                                                            </label>
                                                         </div>
-                                                        <p>Flexible</p>
+                                                        <p class="desc-side-dwn">Press to Upload filled Templete</p>
                                                     </div>
-                                                    <div class="one-radio">
-                                                        <div class="radio-style">
-                                                            <input type="radio" class="radio-b" id="radio-556" name="grope-rider-1">
-                                                            <label for="radio-556"></label>
+                                                   
+                                                    <!--после загрузки файла-->
+                                                    <!-- <div class="side-dwn">
+                                                        <div class="file-uploaded">
+                                                            <div class="delete-file"></div>    
                                                         </div>
-                                                        <p>Not Flexible</p>
+                                                        <p class="desc-side-dwn">File uploded</p>
+                                                    </div> -->
+                                                    <!--//после загрузки файла-->
+                                                    
+                                                </div>
+                                                <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">
+                                                    <textarea  [(ngModel)]="stageRider.description" id="textarea-rider-1"></textarea>
+                                                    <label for="textarea-rider-1" class="head-groupe">Description</label>
+                                                    <span class="max-count">2000 max</span>
+                                                </div>
+                                                <div class="flex-mac-checkbox direction-column on-add-artist-page">
+                                                    <p class="quetion-radio-text">How flexible are you for your preferences?</p>
+                                                    <div class="flex-radio">
+                                                        <div class="one-radio">
+                                                            <div class="radio-style">
+                                                                <input [(ngModel)]="stageRider.is_flexible" type="radio" class="radio-b" id="radio-555" name="grope-rider-1" checked="">
+                                                                <label for="radio-555"></label>
+                                                            </div>
+                                                            <p>Flexible</p>
+                                                        </div>
+                                                        <div class="one-radio">
+                                                            <div class="radio-style">
+                                                                <input type="radio" class="radio-b" id="radio-556" name="grope-rider-1">
+                                                                <label for="radio-556"></label>
+                                                            </div>
+                                                            <p>Not Flexible</p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <!--походу эта кнопка когдато появлятся должна-->
-                                            <div class="butt-wrapp-grad">
-                                                <button class="butt-style-1 thot-butt" type="submit">
-                                                    <span>confirm</span>
-                                                </button>   
-                                            </div>
-                                            <!--//походу эта кнопка когдато появлятся должна-->
+                                                <!--походу эта кнопка когдато появлятся должна-->
+                                                <div class="butt-wrapp-grad">
+                                                    <button (click)="confirmStageRider()" class="butt-style-1 thot-butt" type="submit">
+                                                        <span>confirm</span>
+                                                    </button>   
+                                                </div>
+                                                <!--//походу эта кнопка когдато появлятся должна-->
+                                       
                                         </div>
                                         <div class="side">
                                             <p class="head-side-riders">Backstage Rider</p>

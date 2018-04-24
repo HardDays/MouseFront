@@ -86,7 +86,7 @@ export class AccountCreateModel{
             public refund_policy?:string,
             public artist_email?:string,
 
-            public artist_riders?:Rider
+            public artist_riders?:Rider[]
 ){
 }
 }
