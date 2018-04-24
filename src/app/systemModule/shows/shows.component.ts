@@ -41,6 +41,7 @@ import { AgmCoreModule } from '@agm/core';
 import { CheckModel } from '../../core/models/check.model';
 import { EventSearchParams } from '../../core/models/eventSearchParams';
 import { TicketTypeModel } from '../../core/models/ticketType.model';
+import { BsDatepickerConfig } from 'ngx-bootstrap';
 
 declare var $:any;
 
@@ -78,7 +79,10 @@ export class ShowsComponent extends BaseComponent implements OnInit {
 
   @ViewChild('search') public searchElement: ElementRef;
   @ViewChild('SearchForm') form: NgForm;
-  
+  SearchDateRange:Date[] = [];
+
+  bsConfig: Partial<BsDatepickerConfig>;
+
   constructor(protected authService: AuthMainService,
     protected accService:AccountService,
     protected imgService:ImagesService,
@@ -96,7 +100,7 @@ export class ShowsComponent extends BaseComponent implements OnInit {
 
     this.genreService.GetAllGenres()
     .subscribe((genres:string[])=> {
-      this.Genres = this.genreService.GetAll();
+      this.Genres = this.genreService.GetGendreModelFromString([], this.genreService.StringArrayToGanreModelArray(genres));
       this.seeFirstGenres();
   });
   let _that = this;
@@ -133,32 +137,18 @@ export class ShowsComponent extends BaseComponent implements OnInit {
         _that.DistanceChanged(data);
       }
   });
-//   var capacity_slider = $(".capacity-slider").ionRangeSlider({
-//     type:"double",
-//     min: this.MIN_CAPACITY,
-//     max: this.MAX_CAPACITY,
-//     from: 0,
-//     hide_min_max: false,
-//     prefix: "",
-//     grid: false,
-//     prettify_enabled: true,
-//     prettify_separator: ',',
-//     grid_num: 5
-//     // onChange: function(data)
-//     // {
-//     //   _that.CapacityChanged(data);
-//     // }
-// });
     this.bsValue_start = new Date();
     this.bsValue_end = new Date();
 
 
-    this.VenueTypes = this.typeService.GetAllVenueTypes();
+    this.VenueTypes = this.typeService.GetAllSpaceTypes();
     this.TicketTypes = this.typeService.GetAllTicketTypes();
     this.GetEvents();
 
     this.CreateAutocomplete();
     this.setHeightSearch();
+
+    this.InitBsConfig();
   }
 
   setHeightSearch(){
@@ -176,7 +166,10 @@ export class ShowsComponent extends BaseComponent implements OnInit {
       //console.log(`two`);
   }
   }
-
+  InitBsConfig()
+  {
+      this.bsConfig = Object.assign({}, { containerClass: 'theme-default' });
+  }
   CloseSearchWindow()
   {
     $("body").removeClass("has-active-menu");
@@ -188,6 +181,7 @@ export class ShowsComponent extends BaseComponent implements OnInit {
   GetEvents()
   {
     this.ParseSearchParams();
+    console.log("Par", this.SearchParams);
     this.eventService.EventsSearch(this.SearchParams)
       .subscribe((res:EventGetModel[])=>{
         this.Events = res;
@@ -231,72 +225,38 @@ export class ShowsComponent extends BaseComponent implements OnInit {
     this.SearchParams.distance = data.from;
   }
 
-  // CapacityChanged(data:any)
-  // {
-  //   if(data.from && this.SearchParams.capacity_from != data.from)
-  //     this.SearchParams.capacity_from = data.from;
-  //   if(data.from && this.SearchParams.capacity_to != data.from)
-  //     this.SearchParams.capacity_to = data.to;
-  // }
+  ConvertSearchDateRangeToSearchParams()
+  {
+      if(this.SearchDateRange && this.SearchDateRange.length == 2)
+      {
+          this.SearchParams.from_date = this.typeService.GetDateStringFormat(this.SearchDateRange[0]);
+          this.SearchParams.to_date = this.typeService.GetDateStringFormat(this.SearchDateRange[1]);
+      }
+      else{
+          this.SearchParams.from_date = "";
+          this.SearchParams.to_date = "";
+      }
+  }
 
   ParseSearchParams()
   {
-    let search:EventSearchParams = new EventSearchParams();
-    search.limit = this.SearchParams.limit;
-    search.offset = this.SearchParams.offset;
-    if(this.SearchParams.text)
-        search.text = this.SearchParams.text;
-
-    if(this.SearchParams.from_date)
-      search.from_date = this.SearchParams.from_date;
-    
-    if(this.SearchParams.to_date)
-      search.to_date = this.SearchParams.to_date;
-
-    if(this.SearchParams.distance)
-      search.distance = this.SearchParams.distance;
-
-    if(this.SearchParams.is_active)
-      search.is_active = this.SearchParams.is_active;
-
-    if(this.SearchParams.location)
-      search.location = this.SearchParams.location;
-    
-    if(this.SearchParams.lat)
-      search.lat = this.SearchParams.lat;
-
-    if(this.SearchParams.lng)
-      search.lat = this.SearchParams.lng;
-
-    if(this.SearchParams.size)
-    search.size = this.SearchParams.size;
-
-    if(this.SearchParams.is_active)
-    search.is_active = this.SearchParams.is_active;
-
-    if(this.bsValue_start)
-      search.from_date = this.bsValue_start.getFullYear()+`-`+this.incr(this.bsValue_start.getMonth())+`-`+this.bsValue_start.getDate();
-    if(this.bsValue_end)
-      search.to_date = this.bsValue_end.getFullYear()+`-`+this.incr(this.bsValue_end.getMonth())+`-`+this.bsValue_end.getDate();
-
+    this.ConvertSearchDateRangeToSearchParams();
     if(this.TicketTypes) {
-      search.ticket_types = [];
-      //console.log("tick", search.ticket_types);
+      this.SearchParams.ticket_types = [];
       for(let item of this.TicketTypes) {
         if(item.checked)
-          search.ticket_types.push(item.value);
+          this.SearchParams.ticket_types.push(item.value);
       }
     }
 
     if(this.Genres)
     {
-      search.genres = [];
+      this.SearchParams.genres = [];
       for(let item of this.Genres) {
         if(item.checked)
-          search.genres.push(item.genre);
+          this.SearchParams.genres.push(item.genre);
       }
     }
-    //console.log("search", search);
   }
 
     aboutDragMarker($event){
