@@ -12,14 +12,27 @@
             <div class="groupe-form">
                 <p class="head-input-groupe">Location</p>
                 <div class="location-wr">
-                    <div class="mark"></div>
-                    <input type="text" class="location-inp">
+                    <div (click)="aboutOpenMapModal()" class="mark">
+                    </div>
+                    <input type="text" class="location-inp" name="search-params-address" autocorrect="off" autocapitalize="off" spellcheck="off" placeholder=""  #search id="searchAddress">
                 </div>
             </div>
             <div class="groupe-form">
                 <p class="head-input-groupe">Distance</p>
                 <div class="for-range-slider">
-                    <input type="text" class="current-slider" value="">
+                    <input type="text" class="current-slider distance-slider" value="">
+                </div>
+            </div>
+            <div class="groupe-form">
+                <p class="head-input-groupe">Process of funding</p>
+                <div class="flex-genres">
+                        <div class="one-checkbox" >
+                            <div class="check-style">
+                                <input type="checkbox" [ngModel]="SearchParams.is_active"  (ngModelChange)="SearchParams.is_active = $event" class="checkbox" name='is-active-checkbox'  id='is-active-checkbox'>
+                                <label for="is-active-checkbox"></label>
+                            </div>
+                            <p>Is active</p>
+                        </div> 
                 </div>
             </div>
             <div class="groupe-form">
@@ -250,6 +263,17 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade modal-send-request map-1-modal" id="modal-map">
+    <div class="modal-dialog">
+        <div class="modal-body">
+            <h6 class="head-m-p-a">Location</h6>
+            <span class="closee-modal" data-dismiss="modal"></span>
+            <div class="for-map-init-modal-1">
+                    <agm-map style="height:100%" (mapClick)="mapClick($event)" [latitude]="mapLat" [longitude]="mapLng"> <agm-marker [visible]="isMarkerVisible"></agm-marker></agm-map>
             </div>
         </div>
     </div>

@@ -100,7 +100,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
     "address": new FormControl("", [Validators.required]),
     "city": new FormControl("", [Validators.required]),
     "state": new FormControl("", [Validators.required]),
-    "zipcode": new FormControl("", [Validators.required]),
+    "zipcode": new FormControl("", []),
   });
 
   detailsForm : FormGroup = new FormGroup({
@@ -324,7 +324,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
     {
       if(!this.CheckFormForValid())
       {
-        //console.log("Form invalid!");
+        console.log("Form invalid!");
         return;
       }
       this.Venue.office_hours = this.accService.GetWorkingTimeFromFront(this.OfficeHours);
@@ -340,7 +340,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
         () => this.VenueId == 0 ? this.accService.CreateAccount(this.Venue) : this.accService.UpdateMyAccount(this.VenueId,this.Venue),
         (res) => 
         {
-          // console.log("recieve",res);
+          console.log("recieve",res);
           this.DisplayVenueParams(res);
           this.NextPart();
         },
@@ -353,9 +353,11 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
 
     CheckFormForValid()
     {
+      console.log("current-form",this.CurrentPart);
       switch(this.CurrentPart)
       {
         case this.Parts.About:{
+          console.log("valid", this.aboutForm);
           return !this.aboutForm.invalid;
         }
         case this.Parts.Listing:{
