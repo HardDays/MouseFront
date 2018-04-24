@@ -208,7 +208,7 @@ export class EventsComponent extends BaseComponent implements OnInit {
 
     GetEvents()
     {
-        console.log("date", this.SearchParams);
+        //console.log("date", this.SearchParams);
         this.WaitBeforeLoading(
             () => this.eventService.EventsSearch(this.SearchParams),
             (res:EventGetModel[]) =>

@@ -181,7 +181,7 @@ export class TypeService{
 
     GetDateStringFormat(date: Date)
     {
-        return date.getFullYear()+"-"+date.getMonth()+"-"+date.getDay();
+        return date.toISOString().split("T")[0];
     }
 
     GetTicketTypes()

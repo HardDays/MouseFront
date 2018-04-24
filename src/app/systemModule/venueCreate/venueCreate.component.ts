@@ -64,7 +64,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
 {
   Parts = PageParts;
 
-  CurrentPart = this.Parts.About;
+  CurrentPart = this.Parts.Media;
 
   Venue:AccountCreateModel = new AccountCreateModel();
   VenueId:number = 0;
@@ -288,15 +288,15 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
           (res:any)=>{
             if(res && res.total_count > 0)
             {
-              //console.log(res);
+              console.log(res);
               let index = 0;
               for(let image of res.images)
               {
-                //console.log(image);
-                this.VenueImages[index] = new VenueMediaPhotoModel();
-                this.VenueImages[index].description = image.description;
-                this.GetVenueImageById(image.id,index);
-                index = index + 1;
+                // console.log(image);
+                // this.VenueImages[index] = new VenueMediaPhotoModel();
+                // this.VenueImages[index].image_description = image.description;
+                // this.GetVenueImageById(image.id,index);
+                // index = index + 1;
               }
             }
           }
@@ -480,11 +480,14 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
 
   AddVenuePhoto()
   {
-    this.imgService.PostAccountImage(this.VenueId,this.ImageToLoad.image_base64,this.ImageToLoad.description)
+    console.log("before post", this.ImageToLoad);
+    this.imgService.PostAccountImage(this.VenueId,this.ImageToLoad)
       .subscribe(
         (res:any) => {
-          console.log(res);
+          console.log("after post",res);
           this.ImageToLoad = new VenueMediaPhotoModel();
+          this.ImageToLoad.image_description = "";
+          console.log(this.ImageToLoad)
           this.GetVenueImages();
         }
       );

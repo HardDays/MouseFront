@@ -22,7 +22,7 @@ export class MyEventComponent extends BaseComponent implements OnInit {
 
     GetExtendedEvent()
     {
-        console.log(this.Event);
+        // console.log(this.Event);
         this.WaitBeforeLoading(
             () => this.eventService.GetEventById(this.Event.id),
             (res:EventGetModel) =>{

@@ -354,7 +354,7 @@
                                     <!---->
                                 </div>
                                 <div class="input-groupe-1 small-textarea whithout-label">
-                                    <textarea id="inp-desc-1" name="photo-description" [ngModel]="ImageToLoad.description" (ngModelChenge)="ImageToLoad.description = $event"></textarea>
+                                    <textarea id="inp-desc-1" name="photo-description" [ngModel]="ImageToLoad.image_description" (ngModelChenge)="ImageToLoad.image_description = $event"></textarea>
                                     <label for="inp-desc-1" class="head-groupe">Description</label>
                                 </div>
                             </div>
@@ -453,7 +453,7 @@
                                         <div class="cover-image" [ngStyle]="{'background-image': 'url('+ item.image_base64 +')'}"></div>
                                         <div class="descr">
                                             <h6>Night club</h6>
-                                            <p class="name">{{item.description}}</p>
+                                            <p class="name">{{item.image_description}}</p>
                                         </div>
                                     </div>
                                 </div>
