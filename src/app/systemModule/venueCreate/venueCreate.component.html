@@ -354,77 +354,21 @@
                                     <!---->
                                 </div>
                                 <div class="input-groupe-1 small-textarea whithout-label">
-                                    <textarea id="inp-desc-1" name="photo-description" [ngModel]="ImageToLoad.image_description" (ngModelChenge)="ImageToLoad.image_description = $event"></textarea>
+                                    <textarea id="inp-desc-1" name="photo-description" [ngModel]="ImageToLoad.image_description" (ngModelChange)="ImageToLoad.image_description = $event"></textarea>
                                     <label for="inp-desc-1" class="head-groupe">Description</label>
                                 </div>
                             </div>
                             <div class="flex-genres style-on-add-artist-g">
-                                <div class="one-checkbox">
+                                <div class="one-checkbox" *ngFor="let item of ImageTypes;let i = index">
                                     <div class="check-style">
-                                        <input type="checkbox" class="checkbox" name="" id="checkbox-photo-1">
-                                        <label for="checkbox-photo-1"></label>
+                                        <input type="radio" class="checkbox" name="image-type-radio" [value]="item.value" [(ngModel)]="ImageToLoad.image_type" id="checkbox-photo-{{+i+1}}">
+                                        <label for="checkbox-photo-{{+i+1}}"></label>
                                     </div>
-                                    <p>Night Club</p>
-                                </div>
-                                <div class="one-checkbox">
-                                    <div class="check-style">
-                                        <input type="checkbox" class="checkbox" name="" id="checkbox-photo-2">
-                                        <label for="checkbox-photo-2"></label>
-                                    </div>
-                                    <p>Bar</p>
-                                </div>
-                                <div class="one-checkbox">
-                                    <div class="check-style">
-                                        <input type="checkbox" class="checkbox" name="" id="checkbox-photo-3">
-                                        <label for="checkbox-photo-3"></label>
-                                    </div>
-                                    <p>Restaurant</p>
-                                </div>
-                                <div class="one-checkbox">
-                                    <div class="check-style">
-                                        <input type="checkbox" class="checkbox" name="" id="checkbox-photo-4">
-                                        <label for="checkbox-photo-4"></label>
-                                    </div>
-                                    <p>Concert Hall</p>
-                                </div>
-                                <div class="one-checkbox">
-                                    <div class="check-style">
-                                        <input type="checkbox" class="checkbox" name="" id="checkbox-photo-5">
-                                        <label for="checkbox-photo-5"></label>
-                                    </div>
-                                    <p>Event Space</p>
-                                </div>
-                                <div class="one-checkbox">
-                                    <div class="check-style">
-                                        <input type="checkbox" class="checkbox" name="" id="checkbox-photo-6">
-                                        <label for="checkbox-photo-6"></label>
-                                    </div>
-                                    <p>Outdoor Space</p>
-                                </div>
-                                <div class="one-checkbox">
-                                    <div class="check-style">
-                                        <input type="checkbox" class="checkbox" name="" id="checkbox-photo-7">
-                                        <label for="checkbox-photo-7"></label>
-                                    </div>
-                                    <p>Theatre</p>
-                                </div>
-                                <div class="one-checkbox">
-                                    <div class="check-style">
-                                        <input type="checkbox" class="checkbox" name="" id="checkbox-photo-8">
-                                        <label for="checkbox-photo-8"></label>
-                                    </div>
-                                    <p>Private Residence</p>
-                                </div>
-                                <div class="one-checkbox">
-                                    <div class="check-style">
-                                        <input type="checkbox" class="checkbox" name="" id="checkbox-photo-9">
-                                        <label for="checkbox-photo-9"></label>
-                                    </div>
-                                    <p>Other</p>
+                                    <p>{{item.name}}</p>
                                 </div>
                             </div>
-                            <div class="input-groupe-1 small-textarea whithout-label">
-                                <textarea id="inp-other-1"></textarea>
+                            <div class="input-groupe-1 small-textarea whithout-label" *ngIf="ImageToLoad.image_type == 'other'">
+                                <textarea id="inp-other-1" [ngModel]="ImageToLoad.image_type_description" (ngModelChange)="ImageToLoad.image_type_description = $event"></textarea>
                                 <label for="inp-other-1" class="head-groupe">Other</label>
                             </div>
                             <div class="butt-wrapp-grad">
@@ -444,8 +388,21 @@
                         </div>
                         <!---->
                         <!--если не пустой.-->
-                        
-                        <div [ngStyle]="{'display': VenueImages.length > 0 ? 'block' : 'none'}" class="slider-2-albums slider-4-photos slider-4-init">
+                        <ngx-slick [ngStyle]="{'display': VenueImages.length > 0 ? 'block' : 'none'}" class="carousel slider-2-albums slider-4-photos slider-4-init" #slickModal="slick-modal" [config]="slideConfig">
+                            <div ngxSlickItem *ngFor="let item of VenueImages; let i = index" class="slide ">
+                                <div class="one-slide" *ngIf="VenueImages[i]">
+                                    <div class="wrapp-card">
+                                        <div class="delete-track"></div>
+                                        <div class="cover-image" [ngStyle]="{'background-image': 'url('+ item.image_base64 +')'}"></div>
+                                        <div class="descr">
+                                            <h6>Night club</h6>
+                                            <p class="name">{{item.image_description}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ngx-slick>
+                        <!-- <div [ngStyle]="{'display': VenueImages.length > 0 ? 'block' : 'none'}" class="slider-2-albums slider-4-photos slider-4-init">
                             <ng-container *ngFor="let item of VenueImages; let i = index">
                                 <div class="one-slide" *ngIf="VenueImages[i]">
                                     <div class="wrapp-card">
@@ -458,7 +415,7 @@
                                     </div>
                                 </div>
                             </ng-container>
-                        </div>
+                        </div> -->
                         
                         <!--/если не пустой.-->
                         

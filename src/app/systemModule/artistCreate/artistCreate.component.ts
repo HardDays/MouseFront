@@ -134,7 +134,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
   }
 
   @ViewChild('search') public searchElement: ElementRef;
-
+  slideConfig = {"slidesToShow": 2, "slidesToScroll": 2};
 
 
   ngOnInit(){
@@ -191,25 +191,25 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
 
   initJS(){
    
-     var as = audiojs.createAll();
+    //  var as = audiojs.createAll();
 
-     $('.slider-3-init').slick({
-      dots: false,
-      arrows: true,
-      infinite: false,
-      slidesToShow: 3,
-       responsive: [
-          {
-            breakpoint: 1301,
-            settings: {
-              slidesToShow: 2,
-              slidesToScroll: 2
+    //  $('.slider-3-init').slick({
+    //   dots: false,
+    //   arrows: true,
+    //   infinite: false,
+    //   slidesToShow: 3,
+    //    responsive: [
+    //       {
+    //         breakpoint: 1301,
+    //         settings: {
+    //           slidesToShow: 2,
+    //           slidesToScroll: 2
              
-            }
-          }
-       ]
+    //         }
+    //       }
+    //    ]
 
-      });
+    //   });
      
    
     //слайдер аудио, в слайде 12 песен
@@ -260,23 +260,23 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
          
 
     // });
-    $('.slider-4-init').slick({
-        dots: false,
-        arrows: true,
-        infinite: false,
-        slidesToShow: 2,
-         responsive: [
-            {
-              breakpoint: 1301,
-              settings: {
-                slidesToShow: 2,
-                slidesToScroll: 2
+    // $('.slider-4-init').slick({
+    //     dots: false,
+    //     arrows: true,
+    //     infinite: false,
+    //     slidesToShow: 2,
+    //      responsive: [
+    //         {
+    //           breakpoint: 1301,
+    //           settings: {
+    //             slidesToShow: 2,
+    //             slidesToScroll: 2
                
-              }
-            }
-         ]
+    //           }
+    //         }
+    //      ]
 
-    });
+    // });
   }
 
   initUser(){
@@ -320,7 +320,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
                                                               // this.getAlbumSlider();
                                                               // this.getVideosSlider();
                                                              
-                                                              this.setSliders();
+                                                           //   this.setSliders();
                                                               this.GetVenueImages();
             
                 console.log(`updated artist `,this.Artist);    
@@ -360,7 +360,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
                   this.genreFromModelToVar();
                   this.GetVenueImages();
 
-                  this.setSliders();
+                //  this.setSliders();
               })
 
   }
@@ -447,9 +447,7 @@ venueTypeFromModelToVar(){
                 this.accService.CreateAccount(this.createArtist)
                 .subscribe((res:any)=>{
                     this.Artist = res;
-                    this.getAudio();
-                    this.getAlbumSlider();
-                    this.getVideosSlider();
+                   
                     this.currentPage = 'riders';
                     //console.log(`new this artist`,this.Artist);
                 });
@@ -481,23 +479,7 @@ venueTypeFromModelToVar(){
     
   }
 
-  getAudio(){
-    setTimeout(() => {
-      var as2 = audiojs.createAll();
-      if(this.Artist.audio_links.length>0){
-        $('.slider-audio-wrapp').slick('unslick'); /* ONLY remove the classes and handlers added on initialize */
-        $('.slider-audio-wrapp').remove();
-      }
-      if(this.Artist.audio_links.length>12)
-       $('.slider-audio-wrapp').slick({
-        dots: false,
-        arrows: true,
-        infinite: false,
-        slidesToShow: 1
-
-    });
-    }, 100);    
-  }
+  
 
   deleteAudio(index:number){
     this.createArtist.audio_links.splice(index,1);
@@ -524,27 +506,7 @@ venueTypeFromModelToVar(){
     }
     
   }
-  getAlbumSlider(){
-    setTimeout(() => {
-    $('.slider-2-init').slick({
-      dots: false,
-      arrows: true,
-      infinite: false,
-      slidesToShow: 3,
-       responsive: [
-          {
-            breakpoint: 1301,
-            settings: {
-              slidesToShow: 2,
-              slidesToScroll: 2
-             
-            }
-          }
-       ]
-
-      }),100
-    })
-  }
+  
   
   addVideo(){
     if(!this.addVideoForm.invalid){
@@ -569,36 +531,10 @@ venueTypeFromModelToVar(){
   deleteVideo(index:number){
     this.createArtist.artist_videos.splice(index,1);
     this.updateArtistByCreateArtist();
-    location.reload();
-  }
-
-  getVideosSlider(){
-   
-    setTimeout(() => {
-      $('.slider-3-init').slick("unslick");
-   
-
-      $('.slider-3-init').slick({
-        dots: false,
-        arrows: true,
-        infinite: false,
-        slidesToShow: 3,
-         responsive: [
-            {
-              breakpoint: 1301,
-              settings: {
-                slidesToShow: 2,
-                slidesToScroll: 2
-               
-              }
-            }
-         ]
-  
-        }),100
-      })
-  
 
   }
+
+
 
   openVideo(video:Video){
     var video_id = video.link.split('v=')[1];
@@ -793,10 +729,10 @@ addBooking(){
 
 
 setSliders(){
-  this.getAudio();
-  this.getAlbumSlider();
-  this.updateVideosPreview();
-  this.getVideosSlider();
+  // this.getAudio();
+  // this.getAlbumSlider();
+  // this.updateVideosPreview();
+  // this.getVideosSlider();
 
 }
 
@@ -816,7 +752,7 @@ confirmStageRider(){
   this.createArtist.artist_riders = [];
 
   this.createArtist.artist_riders.push(this.stageRider);
-  console.log(this.createArtist.artist_riders);
+  
    this.updateArtistByCreateArtist();
 }
 
