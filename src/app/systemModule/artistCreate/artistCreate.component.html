@@ -193,33 +193,23 @@
 
                                             <!---->
                                             <!--если не пустой. это слайдер-->
-                                            <div [ngStyle]="{'display': Artist.audio_links.length>0?'block':'none'}" class="slider-audio-wrapp">
+                                            
+                                            <ngx-slick [ngStyle]="{'display': Artist.audio_links.length>0?'block':'none'}" class="slider-audio-wrapp" #slickModal="slick-modal" [config]="slideAudioConfig">
+                                            
                                                 <!--это слайд. в нем не более 12 треков-->
-                                                <div class="one-slide">
+                                                <div ngxSlickItem *ngFor="let item of Artist.audio_links; let i = index" class="one-slide">
                                                     
-                                                        <ng-container *ngFor="let item of Artist.audio_links; let i = index">
+                                                        
                                                             
-                                                    <div   class="one-audio">
+                                                    <div  class="one-audio">
                                                         <div class="delete-track" (click)="deleteAudio(i)"></div>
                                                         <span id="track-{{i}}" class="name-track">{{item.song_name}}</span>
                                                         <audio src="{{item.audio_link}}" preload="none" ></audio>
                                                         
                                                     </div>
                                                 
-                                                    </ng-container>
-                                                    <!-- <div class="one-audio">
-                                                        <div class="delete-track"></div>
-                                                        <span class="name-track">Soulcallqweqwe qwe qwe qwe qwe qwe qwe qwe qwe qwe qwe qwe </span>
-                                                        
-                                                        <audio src="../../../assets/mp3/lalala.mp3" preload="auto" ></audio>
-                                                        
-                                                    </div>
-                                                    <div class="one-audio">
-                                                        <div class="delete-track"></div>
-                                                        <span class="name-track">Soulcall</span>
-                                                        <audio src="../../../assets/mp3/lalala.mp3" preload="auto" ></audio>
-                                                        
-                                                    </div> -->
+                                                    
+                                                    
                                                 </div>
                                                 <!--это типо второй слайд
                                                 <div class="one-slide">
@@ -231,7 +221,8 @@
                                                     </div>
                                                 </div>
                                                 -->
-                                            </div>
+                                            
+                                            </ngx-slick>
                                         </div>
                                     </div>
                                     <div class="media-flex-sides">
@@ -274,27 +265,25 @@
                                            
                                             <!---->
                                             <!--если не пустой.-->
+                                            
+                                            <ngx-slick [ngStyle]="{'display': Artist.artist_albums.length>0?'block':'none'}" class="slider-2-albums slider-2-init" #slickModal="slick-modal" [config]="slideAlbumConfig">
                                                 
-                                            <div [ngStyle]="{'display': Artist.artist_albums.length>0?'block':'none'}" class="slider-2-albums slider-2-init">
-                                                <ng-container *ngFor="let item of Artist.artist_albums; let i = index">
-                                                    <div class="one-slide">
+                                                    <div ngxSlickItem *ngFor="let item of Artist.artist_albums; let i = index" class="one-slide">
                                                         <div class="wrapp-card">
-                                                            <div class="delete-track"></div>
+                                                            <div class="delete-track" (click)="deleteAlbum(i)"></div>
                                                             <div class="cover-image" [ngStyle]="{'background-image': 'url('+item.album_artwork+')'}"></div>
                                                             <div class="descr playing">
                                                                 <p class="name">{{item.album_name}}</p>
-                                                                <p class="date">2015</p>
+                                                                <!-- <p class="date">2015</p> -->
                                                             
                                                                 <span class="butt-style-1">
-                                                                    <span>play</span>
+                                                                    <a target="_blank" style="color:white" href="{{item.album_link}}"><span>play</span></a>
                                                                 </span>   
                                                             
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </ng-container>
-
-                                            </div>
+                                            </ngx-slick>
                                             
                                             
                                             
@@ -344,10 +333,12 @@
                                            
                                             <!---->
                                             <!--если не пустой.-->
+                                            
+
+                                            <ngx-slick [ngStyle]="{'display': Artist.videos.length>0?'block':'none'}" class="slider-2-albums slider-3-init" #slickModal="slick-modal" [config]="slideConfig">
                                                 
-                                            <div [ngStyle]="{'display': Artist.videos.length>0?'block':'none'}" class="slider-2-albums slider-3-init">
-                                                <ng-container *ngFor="let item of Artist.videos; let i = index">
-                                                    <div class="one-slide">
+                                               
+                                                    <div ngxSlickItem *ngFor="let item of Artist.videos; let i = index" class="one-slide">
                                                         <div class="wrapp-card">
                                                             <div class="delete-track" (click)="deleteVideo(i)"></div>
                                                             <div (click)="openVideo(item)" class="cover-image" [ngStyle]="{'background-image': 'url('+item.preview+')'}">
@@ -361,8 +352,8 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </ng-container>
-                                            </div>
+                                               
+                                            </ngx-slick>
                                             <!--/если не пустой.-->
                                             
                                         </div>
@@ -410,9 +401,10 @@
                                            
                                             <!---->
                                             <!--если не пустой.-->
+                                            <ngx-slick [ngStyle]="{'display': ArtistImages.length>0?'block':'none'}" class="slider-2-albums slider-4-photos slider-4-init" #slickModal="slick-modal" [config]="slideConfig">
+
                                             
-                                            <div [ngStyle]="{'display': ArtistImages.length>0?'block':'none'}" class="slider-2-albums slider-4-photos slider-4-init">
-                                                <div *ngFor="let img of ArtistImages" class="one-slide">
+                                                <div ngxSlickItem *ngFor="let img of ArtistImages" class="one-slide">
                                                     <div class="wrapp-card">
                                                         <div class="delete-track"></div>
                                                         <div class="cover-image" [ngStyle]="{'background-image': 'url('+ img.img.toString() +')'}"></div>
@@ -440,7 +432,7 @@
                                                     </div>
                                                 </div> -->
                                             
-                                            </div>
+                                            </ngx-slick>
                                             
                                             <!--/если не пустой.-->
                                             

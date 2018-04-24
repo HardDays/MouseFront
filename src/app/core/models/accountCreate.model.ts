@@ -120,6 +120,7 @@ export class Rider{
     constructor(
         public rider_type?:string,//stage|backstage|hospitality|technical'
         public uploaded_file?:File,
+        public uploaded_file_base64?:string,
         public description?:string,
         public is_flexible?:boolean
 ){}
