@@ -156,7 +156,9 @@ export class BaseComponent{
                 this.isLoggedIn = true;
                 this.authService.BaseInitAfterLogin(res);
                 this.router.navigate(['/system','shows']);
-                callbackOk(res);
+                if(callbackOk && typeof callbackOk == "function"){
+                    callbackOk(res);
+                }
             },
             (err)=>{
                 callback(err);

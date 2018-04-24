@@ -131,33 +131,8 @@
         <div class="main-mw-6">
             <div class="for-flex-all-events">
                 <div *ngFor="let item of Events" class="one-event-wr" (click)="router.navigate(['/system','eventCreate',item.id])">
-                    <div class="one-event">
-                        <div class="cover-event" style="background-image: url(../../assets/img/drake.jpg)">
-                            <div class="icons-vr-t">
-                                <div class="vr"></div>
-                                <div class="ticket-icon"></div>
-                            </div>
-                        </div>
-                        <div class="white-desc-event">
-                            <a [routerLink]="['/system','eventCreate',item.id]" class="name-artist">{{item.name}}</a>
-                            <p *ngIf="item.event_month && item.event_year"  class="when">{{item.event_month}}, {{item.event_year}}</p>
-                            <p class="where">{{item.address}}</p>
-                            <div class="funded-bar">
-                                <div class="funded" style="width: 14%"></div>
-                            </div>
-                            <div class="funded-desc">
-                                <p class="finded-proc"><span>{{item.founded}}</span> Funded</p>
-                                <p class="comlete-t">0% Complete</p>
-                            </div>
-                            <p class="style-text-2"><span>60</span> Days to go</p>
-                            <div class="last-flex-info">
-                                <p class="style-text-2"><span>{{item.backers}}</span> Backers</p>
-                                <p class="not-active">{{item.is_active}}</p>
-                            </div>
-                            
-                        </div>
-                        
-                    </div>
+                    <my-event-selector [Event]="item"></my-event-selector>
+                    
                 </div>
             </div>
         </div>
@@ -168,7 +143,7 @@
         <div class="modal-dialog">
             <div class="modal-body">
                
-                <h6 class="head-m-p-a"><span>MUSE ANALYTICS</span></h6>
+                <h6 class="head-m-p-a"><span>MOUSE ANALYTICS</span></h6>
                 
                 <span class="closee-modal" data-dismiss="modal"></span>
                 
