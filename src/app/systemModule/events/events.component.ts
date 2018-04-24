@@ -17,6 +17,9 @@ import { AccountType } from '../../core/base/base.enum';
 import { GenreModel } from '../../core/models/genres.model';
 import { AccountSearchParams } from '../../core/models/accountSearchParams.model';
 import { EventGetModel } from '../../core/models/eventGet.model';
+import { EventSearchParams } from '../../core/models/eventSearchParams';
+import { BsDatepickerConfig } from 'ngx-bootstrap';
+import { CheckModel } from '../../core/models/check.model';
 
 declare var $:any;
 declare var ionRangeSlider:any;
@@ -31,15 +34,61 @@ declare var ionRangeSlider:any;
 export class EventsComponent extends BaseComponent implements OnInit {
     Events:EventGetModel[] = [];
 
+    SearchParams: EventSearchParams = new EventSearchParams();
     
+    Genres:GenreModel[] = [];
+    ShowMoreGenres:boolean = false;
+
+    TicketTypes:CheckModel<any>[] = [];
+    TypesOfSpace:SelectModel[] = [];
+    @ViewChild('SearchForm') form: NgForm;
+
+    SearchDateRange:Date[] = [];
+
+    bsConfig: Partial<BsDatepickerConfig>;
     ngOnInit()
     {   
-        this.GetEvents();
+        this.InitSearchParams();
+        this.GetGenres();
+        this.GetTicketTypes();
+        this.GetAllTypesOfSpace();
 
+        this.GetEvents();
         this.openSearch();
         this.initSlider();
         this.setHeightSearch();
+        this.InitBsConfig();
+    }
 
+    GetAllTypesOfSpace()
+    {
+        this.TypesOfSpace = this.typeService.GetAllSpaceTypes();
+    }
+
+    GetTicketTypes()
+    {
+        this.TicketTypes = this.typeService.GetTicketTypes();
+    }
+
+    GetGenres()
+    {
+        this.WaitBeforeLoading(
+            () => this.genreService.GetAllGenres(),
+            (res:string[]) => {
+                this.Genres = this.genreService.SetHiddenGenres(this.genreService.StringArrayToGanreModelArray(res));
+            }
+        );
+    }
+
+    InitSearchParams()
+    {
+        this.SearchParams.only_my = true;
+        this.SearchParams.account_id = +localStorage.getItem('activeUserId');
+    }
+
+    InitBsConfig()
+    {
+        this.bsConfig = Object.assign({}, { containerClass: 'theme-default' });
     }
 
     setHeightSearch(){
@@ -56,7 +105,15 @@ export class EventsComponent extends BaseComponent implements OnInit {
           }); 
           //console.log(`two`);
       }
-      }
+    }
+
+    CloseSearchWindow()
+    {
+        $("body").removeClass("has-active-menu");
+        $(".mainWrapper").removeClass("has-push-left");
+        $(".nav-holder-3").removeClass("is-active");
+        $(".mask-nav-3").removeClass("is-active")
+    }
 
     initSlider(){
         let _the = this;
@@ -89,18 +146,52 @@ export class EventsComponent extends BaseComponent implements OnInit {
 
     GetEvents()
     {
-        this.accService.GetMyAccount({extended:true})
-        .subscribe((users:any[])=>{
-            //console.log(users);
-            let id = +localStorage.getItem('activeUserId');
-            //console.log(`id`,id);
-            this.eventService.GetMyEvents(id)
-            .subscribe((res:EventGetModel[])=>{
+        this.WaitBeforeLoading(
+            () => this.eventService.EventsSearch(this.SearchParams),
+            (res:EventGetModel[]) =>
+            {
                 this.Events = res;
-                // console.log(this.Events);
-      })
-        });
-        
+                this.CloseSearchWindow();
+            },
+            (err) => {
+                console.log(err);
+                this.CloseSearchWindow();
+            }
+        );
+    }
+
+    ShowSearchResults()
+    {
+        //console.log(this.SearchDateRange);
+        this.ConvertSearchDateRangeToSearchParams();
+        this.ConvertGenreCheckboxes();
+        this.ConvertTicketTypes();
+
+        // console.log(this.SearchParams);
+        this.GetEvents();
+    }
+
+    ConvertTicketTypes()
+    {
+        this.SearchParams.ticket_types = this.typeService.TicketTypesArrayToStringArray(this.TicketTypes);
+    }
+
+    ConvertGenreCheckboxes()
+    {
+        this.SearchParams.genres = this.genreService.GenreModelArrToStringArr(this.Genres);
+    }
+
+    ConvertSearchDateRangeToSearchParams()
+    {
+        if(this.SearchDateRange && this.SearchDateRange.length == 2)
+        {
+            this.SearchParams.from_date = this.typeService.GetDateStringFormat(this.SearchDateRange[0]);
+            this.SearchParams.to_date = this.typeService.GetDateStringFormat(this.SearchDateRange[1]);
+        }
+        else{
+            this.SearchParams.from_date = "";
+            this.SearchParams.to_date = "";
+        }
     }
 
     analiticsClick(){
@@ -124,6 +215,12 @@ export class EventsComponent extends BaseComponent implements OnInit {
             $(".nav-holder-3").removeClass("is-active");
             $(".mask-nav-3").removeClass("is-active")
         });
+    }
+    TypeOfSpaceChange($event)
+    {
+        this.SearchParams.size = [];
+        if($event)
+            this.SearchParams.size.push($event);
     }
 
     

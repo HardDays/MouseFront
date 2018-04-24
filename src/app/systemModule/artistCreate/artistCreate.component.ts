@@ -77,7 +77,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
     "display_name": new FormControl("", [Validators.required]),
     "stage_name": new FormControl("", [Validators.required]),
     "manager_name": new FormControl("", [Validators.required]),
-    "email": new FormControl(""),
+    "artist_email": new FormControl(""),
     "about": new FormControl("", [Validators.required]),
     
   });
@@ -129,17 +129,19 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
 
 
   ngOnInit(){
-   
-    // this.Artist.im
     this.initJS();
     this.initUser();
-    this.Init()
+    this.Init();
+    this.preferredVenues = this.getVenuesTypes();
+   
+
     this.activatedRoute.params.forEach((params) => {
       if(params["id"])this.getThisArtist(+params["id"]);
     });
  
     this.getGenres();
-    this.preferredVenues = this.getVenuesTypes();
+    // this.venueTypeFromModelToVar();
+    
     this.CreateAutocomplete();
   }
 
@@ -280,6 +282,8 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
         .subscribe((res)=>{
 
                 this.Artist = res;
+                console.log(this.Artist);
+                this.venueTypeFromModelToVar();
                 
                                                               // this.getAudio();
                                                               // this.getAlbumSlider();
@@ -313,9 +317,17 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
                           this.createArtist[key] = user[key];
                       }
                   }
-                  this.genreFromModelToVar();
+
+                  
+                  this.createArtist.preferred_venues = [];
+                  for (let key of this.Artist.preferred_venues) {
+                        this.createArtist.preferred_venues.push(key.type_of_venue);
+                  }
+                  
+               
                   this.venueTypeFromModelToVar();
-                  this.GetVenueImages();
+                  this.genreFromModelToVar();
+                  // this.GetVenueImages();
               })
 
   }
@@ -342,6 +354,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
               gnr.checked = true;
   }
 venueTypeFromModelToVar(){
+
   for(let t of this.createArtist.preferred_venues)
   for(let type of this.preferredVenues)
       if(t == type.object.type)
@@ -375,7 +388,7 @@ venueTypeFromModelToVar(){
 
 
 
-  createEventFromAbout(){
+  createArtistFromAbout(){
         if(!this.aboutForm.invalid){
 
             for (let key in this.aboutForm.value) {
@@ -388,7 +401,7 @@ venueTypeFromModelToVar(){
             this.createArtist.genres = this.genreService.GenreModelArrToStringArr(this.genres);
 
            
-            //console.log(`create artist`,this.createArtist);
+            console.log(`create artist`,this.createArtist);
            
 
             if(this.isNewArtist)
@@ -728,7 +741,7 @@ addBooking(){
  
   // this.createArtist.location = this.Artist.location;
   this.createArtist.preferred_venue_text = this.Artist.preferred_venue_text;
-  this.createArtist.days_to_travel = this.Artist.days_to_travel;
+  this.createArtist.days_to_travel = +this.Artist.days_to_travel;
   this.createArtist.is_permitted_to_stream = this.Artist.is_permitted_to_stream;
   this.createArtist.is_permitted_to_advertisement = this.Artist.is_permitted_to_advertisement;
   this.createArtist.has_conflict_contracts = this.Artist.has_conflict_contracts;

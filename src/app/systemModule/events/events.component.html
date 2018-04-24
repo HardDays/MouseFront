@@ -1,12 +1,12 @@
 <section class="main-router-outlet">
 <div class="nav-holder-3" id="nav-holder" [ngClass]="{padding250:Events.length<=3}">
     <div class="wrapp-for-filter">
-        <form>
-            <input type="text" class="inp-style-1" placeholder="Search">
+        <form (ngSubmit)="ShowSearchResults()" #SearchForm="ngForm">
+            <input type="text" class="inp-style-1" name="serch-text" [ngModel]="SearchParams.text" (ngModelChange)="SearchParams.text = $event" placeholder="Search">
             <div class="groupe-form">
                 <p class="head-input-groupe">Date</p>
                 <div class="wrapp-for-triangle">
-                    <input type="text" class="date-picker-inp">
+                    <input type="text" name="date-picker-inp" class="date-picker-inp" bsDaterangepicker ngModel [bsConfig]="bsConfig" [(ngModel)]="SearchDateRange">
                 </div>
             </div>
             <div class="groupe-form">
@@ -25,14 +25,16 @@
             <div class="groupe-form">
                 <p class="head-input-groupe">Genre</p>
                 <div class="flex-genres">
-                    <div class="one-checkbox">
-                        <div class="check-style">
-                            <input type="checkbox" class="checkbox" name="" id="checkbox-1">
-                            <label for="checkbox-1"></label>
+                    <ng-container  *ngFor="let item of Genres;let i = index">
+                        <div class="one-checkbox" *ngIf="item.show || ShowMoreGenres">
+                            <div class="check-style">
+                                <input type="checkbox" class="checkbox" [ngModel]="item.checked" name="genre_{{i+1}}" (ngModelChange)="item.checked = $event" id="checkbox-{{i+1}}">
+                                <label for="checkbox-{{i+1}}"></label>
+                            </div>
+                            <p>{{item.genre_show}}</p>
                         </div>
-                        <p>hip hop</p>
-                    </div>
-                    <div class="one-checkbox">
+                    </ng-container>
+                    <!-- <div class="one-checkbox">
                         <div class="check-style">
                             <input type="checkbox" class="checkbox" name="" id="checkbox-2">
                             <label for="checkbox-2"></label>
@@ -66,38 +68,32 @@
                             <label for="checkbox-6"></label>
                         </div>
                         <p>hip hop</p>
-                    </div>
+                    </div> -->
                 </div>
-                <p class="more"><span>See more</span></p>
+                <p class="more" (click)="ShowMoreGenres = !ShowMoreGenres"><span>See more</span></p>
             </div>
             <div class="groupe-form">
                 <p class="head-input-groupe">Ticket type</p>
                 <div class="flex-radio">
-                    <div class="one-radio">
+                    <div class="one-radio" *ngFor="let item of TicketTypes; let i = index">
                         <div class="radio-style">
-                            <input type="radio" class="radio-b" id="radio-1"  name="group1" value="VR" checked>
-                            <label for="radio-1"></label>
+                            <input type="checkbox" class="radio-b" id="radio-{{i}}"  name="radio-{{i}}" [ngModel]="item.checked" (ngModelChange)="item.checked = $event">
+                            <label for="radio-{{i}}"></label>
                         </div>
-                        <p>VR</p>
-                    </div>
-                    <div class="one-radio">
-                        <div class="radio-style">
-                            <input type="radio" class="radio-b" id="radio-2" name="group1" value="Attend">
-                            <label for="radio-2"></label>
-                        </div>
-                        <p>Attend</p>
+                        <p>{{item.object.name}}</p>
                     </div>
                 </div>
             
             </div>
             <div class="groupe-form">
                 <p class="head-input-groupe">Size</p>
-                <select class="form-control">
-                    <option>Size 1</option>
-                    <option>Size 2</option>
-                    <option>Size 3</option>
-                    <option>Size 4</option>
+                <select class="form-control" name="select_type_of_space" [ngModel]="SearchParams.size" (ngModelChange)="TypeOfSpaceChange($event)">
+                    <option value=""></option>
+                    <option *ngFor="let item of TypesOfSpace" [value]="item.value">{{item.name}}</option>
                 </select>
+            </div>
+            <div class="groupe-form">
+                <button type="submit"  class="butt-style-1"><span>Search</span></button>
             </div>
         </form>
         
@@ -114,7 +110,7 @@
     <div class="shows-main-wrapp mainWrapper grey-bg">
         <div class="main-mw">
             <div class="head-shows">
-                <!-- <button class="ham-ham nav-button">
+                <button class="ham-ham nav-button">
                     <div class="ham"></div>
                     <div class="ham"></div>
                     <div class="ham"></div>
@@ -122,7 +118,7 @@
                 <a [routerLink]="['/system','events']" class="ham-ham at-map">
                     
                 </a>
-                <h1>Events</h1> -->
+                <h1>Events</h1>
                 
                 <span [routerLink]="['/system','eventCreate']" class="add-event-butt"><span>Add Event</span></span>
             </div>

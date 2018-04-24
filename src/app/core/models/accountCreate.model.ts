@@ -84,6 +84,7 @@ export class AccountCreateModel{
             public min_time_to_free_cancel?:number,
             public late_cancellation_fee?:number,
             public refund_policy?:string,
+            public artist_email?:string,
 
             public artist_riders?:Rider
 ){

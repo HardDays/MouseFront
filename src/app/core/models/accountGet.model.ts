@@ -76,7 +76,7 @@ export class AccountGetModel{
         public can_perform_without_band?:boolean,
         public is_perform_with_backing_vocals?:boolean,
         public can_perform_without_backing_vocals?:boolean,
-        public preferred_venues?:string[],
+        public preferred_venues?:{type_of_venue:string}[],
         public preferred_address?:string,
         public location?:string,
         public preferred_venue_text?:string,
@@ -88,7 +88,8 @@ export class AccountGetModel{
         public min_time_to_book?:number,
         public min_time_to_free_cancel?:number,
         public late_cancellation_fee?:number,
-        public refund_policy?:string
+        public refund_policy?:string,
+        public artist_email?:string
         
 ){}
 }

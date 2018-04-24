@@ -148,6 +148,13 @@ export class BaseComponent{
         );
     }
 
+    protected GetActiveAccountId()
+    {
+        if(localStorage.getItem('activeUserId'))
+           return  +(localStorage.getItem('activeUserId'));
+        return null;
+    }
+
     protected Login(user:LoginModel,callback:(error)=>any,callbackOk?:(res)=>any){
 
         this.WaitBeforeLoading(

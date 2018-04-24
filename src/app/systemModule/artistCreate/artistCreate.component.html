@@ -58,7 +58,7 @@
                                         <div class="side">
                                             <div class="input-groupe-1">
                                                 
-                                                <input id="inp-create-4" [(ngModel)]="Artist.email" formControlName="email" name="" type="text">
+                                                <input id="inp-create-4" [(ngModel)]="Artist.artist_email" formControlName="artist_email" name="" type="text">
                                                 <label for="inp-create-4">Email Address<span>*</span></label>
                                             </div>
                                             <div class="input-groupe-1">
@@ -102,7 +102,7 @@
                                         </div>
                                     </div>
                                     <div class="scroll-wrapp">
-                                        <div class="circle-scroll" (click)="createEventFromAbout()"></div>
+                                        <div class="circle-scroll" (click)="createArtistFromAbout()"></div>
                                     </div>
                                     
                                 </div>
@@ -693,8 +693,8 @@
                                                     </div>
                                                     <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
                                                         <select [(ngModel)]="Artist.days_to_travel">
-                                                            <option>30 days</option>
-                                                            <option>40 days</option>
+                                                            <option>30</option>
+                                                            <option>40</option>
                                                         </select>                                                         
                                                     </div>
                                                 </div>
@@ -773,8 +773,8 @@
                                                     </div>
                                                     <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
                                                         <select [(ngModel)]="Artist.min_time_to_book">
-                                                            <option>30 days</option>
-                                                            <option>40 days</option>
+                                                            <option>30</option>
+                                                            <option>40</option>
                                                         </select>                                                         
                                                     </div>
                                                 </div>
@@ -784,8 +784,8 @@
                                                     </div>
                                                     <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
                                                         <select [(ngModel)]="Artist.min_time_to_free_cancel">
-                                                            <option>30 days</option>
-                                                            <option>40 days</option>
+                                                            <option>30</option>
+                                                            <option>40</option>
                                                         </select>                                                         
                                                     </div>
                                                 </div>
