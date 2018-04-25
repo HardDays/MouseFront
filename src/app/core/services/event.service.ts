@@ -48,6 +48,7 @@ export class EventService{
                 patchModel[key] = params[key];
             }
         }
+        console.log(`patch`,patchModel);
         return this.http.CommonRequest(
             () => this.http.PatchData('/events/'+patchModel.id+'.json',JSON.stringify(patchModel))
         );

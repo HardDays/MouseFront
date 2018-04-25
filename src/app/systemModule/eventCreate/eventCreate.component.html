@@ -121,19 +121,11 @@
                             </div>
                             <div class="flex-input-groupes">
                                 <div class="input-groupe-1">
-                                    <select formControlName="event_month" [(ngModel)]="newEvent.event_month" id="inp-create-5" >
-                                        <option>jan</option>
-                                        <option>feb</option>
-                                        <option>mar</option>
-                                        <option>apr</option>
-                                        <option>may</option>
-                                        <option>jun</option>
-                                        <option>jul</option>
-                                        <option>aug</option>
-                                        <option>sep</option>
-                                        <option>oct</option>
-                                        <option>nov</option>
-                                        <option>dec</option>
+                                    <select formControlName="event_season" [(ngModel)]="newEvent.event_season" id="inp-create-5" >
+                                        <option>spring</option>
+                                        <option>summer</option>
+                                        <option>autumn</option>
+                                        <option>winter</option>
                                     </select>
                                     <label for="inp-create-5">Event Date<span>*</span></label>
 
@@ -182,12 +174,31 @@
                             </div>
                         </div>
                         <div class="side">
+
+
                             <div class="input-groupe-1 whithout-label">
-                                
-                                <textarea formControlName="description" [(ngModel)]="newEvent.description"  id="inp-create-9"></textarea>
-                                <label for="inp-create-9" class="head-groupe">Short Description<span>*</span></label>
-                                
+                                    
+                                    <div class="photo-wr-1 n-i-s">
+                                        
+                                        <label class="file_upload new-style-img-up">
+                                            <div class="bg-image"></div>
+
+                                            <input accept=".jpg, .jpeg, .png" type="file">
+                                        </label>
+
+                                        <!--появляется этот блок если загружена фотка и в стайл бекграунд имейдж ебануть-->
+                                        <div class="bg-image uploaded"></div>
+                                        <!---->
+                                    </div>
+                                    <label  class="head-groupe">Short Description<span>*</span></label>
                             </div>
+
+                                <div class="input-groupe-1 whithout-label">
+                                    
+                                    <textarea formControlName="description" [(ngModel)]="newEvent.description"  id="inp-create-9"></textarea>
+                                    <label for="inp-create-9" class="head-groupe">Short Description<span>*</span></label>
+                                    
+                                </div>
                             
                         </div>
                     </div>
@@ -239,7 +250,7 @@
                                             <div  class="card">
                                                 <div class="delete-card"></div>
                                                 <div class="left-side">
-                                                    <!--если есть галочка - добавляем класс checked   -->
+                                                  
                                                     <div class="ava" [class.checked]="true" [ngStyle]="{'background-image': item.image_base64_not_given?'url('+item.image_base64_not_given+')':''}"></div>
                                                     <p class="desc-head-info">{{getStatusArtistEventById(item.id)}}</p>
                                                     <p class="status">Accepted by Artist and Event owner</p>

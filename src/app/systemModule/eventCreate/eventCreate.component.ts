@@ -64,7 +64,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     
     // general
     /////////////////////////////////////////////////
-
+    accountId:number = 0;
     isNewEvent:boolean = true;
     Event:EventGetModel = new EventGetModel();
 
@@ -92,7 +92,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         "event_time": new FormControl("", [Validators.required]),
         "event_length": new FormControl("", [Validators.required]),
         "event_year": new FormControl("", [Validators.required]),
-        "event_month": new FormControl("", [Validators.required]),
+        "event_season": new FormControl("", [Validators.required]),
         "artists_number":new FormControl(),
         "description": new FormControl("", [Validators.required]),
         "funding_goal":new FormControl("", [Validators.required,
@@ -217,33 +217,93 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         this.CreateAutocompleteVenue();
         this.initSlider();
       
-        this.initUser();
+       
 
         this.activatedRoute.params.forEach((params) => {
             //////console.log( params["id"]);
-            if(params["id"])this.getThisEvent(+params["id"]);
+            if(params["id"])
+             this.getThisEvent(+params["id"])
+            else this.initUser();
         });
 
 
         this.getGenres();
         this.getAllSpaceTypes();
-        this.artistSearch();
-        this.venueSearch();
+        
+        this.artistLimitSearch();
+        this.venueLimitSearch();
+        
     }
 
+
+    //// ########################################################################################## ////
+
+    initSlider(){
+        
+        let _the = this;
+
+        var hu_2 = $(".current-slider").ionRangeSlider({
+            min: 0,
+            max: 100000,
+            from: 20000,
+            step: 10,
+            type: "single",
+            hide_min_max: false,
+            prefix: "$ ",
+            grid: false,
+            prettify_enabled: true,
+            prettify_separator: ',',
+            grid_num: 5,
+            onChange: function (data) {
+                _the.PriceArtistChanged(data);
+            }
+        });
+
+        this.addArtist.estimated_price = 20000;
+    
+        var hu_3 = $(".current-slider-price-venue").ionRangeSlider({
+            min: 0,
+            max: 100000,
+            from: 20000,
+            step: 5,
+            type: "single",
+            hide_min_max: false,
+            prefix: "$ ",
+            grid: false,
+            prettify_enabled: true,
+            prettify_separator: ',',
+            grid_num: 5,
+            onChange: function (data) {
+                _the.VenuePriceChanged(data);
+            }
+        });
+    
+        var hu_4 = $(".current-slider-capacity-venue").ionRangeSlider({
+            min: 0,
+            max: 100000,
+            from: 10000,
+            step: 10,
+            type: "single",
+            hide_min_max: false,
+    
+            grid: false,
+            prettify_enabled: true,
+            prettify_separator: ',',
+            grid_num: 5,
+            onChange: function (data) {
+                _the.VenueCapacityChanged(data);
+            }
+        });
+
+    }
     navigateTo(path:string){
       
-    $('body, html').animate({
-        scrollTop: $('#'+path).offset().top
-    }, 800);
-             
+        $('body, html').animate({
+            scrollTop: $('#'+path).offset().top
+        }, 800);
+                
        
-    }
-    
-
-
-
-    //  автокомплиты
+    } 
     CreateAutocompleteAbout(){
         this.mapsAPILoader.load().then(
             () => {
@@ -322,8 +382,6 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             }
         );
     }
-
-    // маркер на карте
     aboutDragMarker($event){
         //console.log($event);
         this.mapCoords.about.lat = $event.coords.lat;
@@ -342,8 +400,6 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         this.mapCoords.venue.lng = $event.coords.lng;
         this.codeLatLng( this.mapCoords.venue.lat, this.mapCoords.venue.lng, "venueAddress");
     }
-
-
     codeLatLng(lat, lng, id_map) {
         let geocoder = new google.maps.Geocoder();
         let latlng = new google.maps.LatLng(lat, lng);
@@ -376,83 +432,6 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             });
     }
 
-
-    //инициализация
-
-    initSlider(){
-        
-        let _the = this;
-
-        var hu_2 = $(".current-slider").ionRangeSlider({
-            min: 0,
-            max: 100000,
-            from: 20000,
-            step: 10,
-            type: "single",
-            hide_min_max: false,
-            prefix: "$ ",
-            grid: false,
-            prettify_enabled: true,
-            prettify_separator: ',',
-            grid_num: 5,
-            onChange: function (data) {
-                _the.PriceArtistChanged(data);
-            }
-        });
-
-        this.addArtist.estimated_price = 20000;
-    
-        var hu_3 = $(".current-slider-price-venue").ionRangeSlider({
-            min: 0,
-            max: 100000,
-            from: 20000,
-            step: 5,
-            type: "single",
-            hide_min_max: false,
-            prefix: "$ ",
-            grid: false,
-            prettify_enabled: true,
-            prettify_separator: ',',
-            grid_num: 5,
-            onChange: function (data) {
-                _the.VenuePriceChanged(data);
-            }
-        });
-    
-        var hu_4 = $(".current-slider-capacity-venue").ionRangeSlider({
-            min: 0,
-            max: 100000,
-            from: 10000,
-            step: 10,
-            type: "single",
-            hide_min_max: false,
-    
-            grid: false,
-            prettify_enabled: true,
-            prettify_separator: ',',
-            grid_num: 5,
-            onChange: function (data) {
-                _the.VenueCapacityChanged(data);
-            }
-        });
-
-    }
-    initUser(){
-        this.accService.GetMyAccount({extended:true})
-        .subscribe((users:any[])=>{
-            // this.accountId = users[0].id;
-            for(let u of users)
-            if(u.id==+localStorage.getItem('activeUserId')){
-            this.newEvent.account_id = u.id;
-            this.addArtist.account_id = u.id;
-            this.addVenue.account_id = u.id;
-            this.getMessages(u.id);
-            }
-        });
-    }
-       
-
-    // модалки
     addNewArtistOpenModal(){
 
         $('#modal-pick-artist').modal('show');
@@ -475,6 +454,23 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     venueOpenMapModal(){
         $('#modal-map-3').modal('show');
     }
+
+    //// ########################################################################################## ////
+
+    initUser(){
+        this.accService.GetMyAccount({extended:true})
+        .subscribe((users:any[])=>{
+            for(let u of users)
+                if(u.id==+localStorage.getItem('activeUserId')){
+                    this.accountId = u.id;
+                    this.newEvent.account_id = this.accountId;
+                    this.addArtist.account_id = this.accountId;
+                    this.addVenue.account_id = this.accountId;
+                    this.getMessages(this.accountId);
+                }
+        });
+    }
+       
 
 
     // general
@@ -522,6 +518,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
           a.length = i;
           return a;
     }
+
     deleteDuplicateTickets(t:TicketModel[]){
         for (var q=1, i=1; q<t.length; ++q) {
             if (t[q].id !== t[q-1].id) {
@@ -532,12 +529,49 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
           return t;
     }
 
-    isNewAccById(mas:any[],val:any){
-        for(let i=0;i<mas.length;i++)
-            if(mas[i].id==val.id) return false;
-        return true;
+    // isNewAccById(mas:any[],val:any){
+    //     for(let i=0;i<mas.length;i++)
+    //         if(mas[i].id==val.id) return false;
+    //     return true;
+    // }
+
+
+        isNewAccById(mas:any[],val:any){
+            console.log(`isNewAccById`);
+                for(let i=0;i<mas.length;i++)
+                    if(mas[i].id==val.id) return false;
+                return true;
     }
 
+
+
+    
+   
+
+    //////////////////////////////////////////////////////////
+
+    getThisEvent(id:number){
+        console.log(`getThisEvent`);
+        this.accService.GetMyAccount({extended:true})
+        .subscribe((users:any[])=>{
+            this.eventService.GetMyEvents(+localStorage.getItem('activeUserId'))
+            .subscribe((res:EventGetModel[])=>{
+                for(let v of res) if(v.id == id){
+                        this.accountId = +localStorage.getItem('activeUserId');
+                        this.newEvent.account_id = this.accountId;
+                        this.addArtist.account_id = this.accountId;
+                        this.addVenue.account_id = this.accountId;
+                       
+                        this.isNewEvent = false;
+                        this.Event = v;
+                        this.updateEvent();  
+                        this.showAllPages = true;
+                        this.getMessages(this.accountId);                  
+                }
+                if(this.isNewEvent)this.router.navigate(['/system/eventCreate']);
+            })
+        });
+    }
 
     getMessages(id?:number){
         let crId = id?id:this.Event.creator_id;
@@ -552,10 +586,10 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                     //console.log(`msg`,this.messagesList);
             }); 
         },
-    (err)=>{//console.log(err)
-    });
+        (err)=>{//console.log(err)
+        });
     }
-
+    
     getPriceAtMsg(sender:number){
         for(let m of this.messagesList){
             if( m.sender_id == sender && 
@@ -576,37 +610,17 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         }
     }
 
-    
-   
 
-    //////////////////////////////////////////////////////////
 
-    getThisEvent(id:number){
-        
-        this.accService.GetMyAccount({extended:true})
-        .subscribe((users:any[])=>{
-            this.eventService.GetMyEvents(+localStorage.getItem('activeUserId'))
-            .subscribe((res:EventGetModel[])=>{
-                for(let v of res) if(v.id == id){
-                        this.isNewEvent = false;
-                        this.Event = v;
-                        this.updateEvent();  
-                        this.showAllPages = true;                   
-                }
-                if(this.isNewEvent)this.router.navigate(['/system/eventCreate']);
-            })
-        });
-        
-    
-    }
 
     updateEvent(){
+        console.log(`updateEvent`);
         this.eventService.GetEventById(this.Event.id).
             subscribe((res:EventGetModel)=>{
                 
                 this.Event = res;
-                this.getMessages();
-                //console.log(`EVENT after update (get)`,this.Event);
+              
+               
                     
                     for (let key in res) {
                         if (res.hasOwnProperty(key)) {
@@ -614,15 +628,16 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                         }
                     }
                     
-                    this.codeLatLng( this.newEvent.city_lat, this.newEvent.city_lng, "aboutAddress");
-                    this.mapCoords.about.lat = this.newEvent.city_lat;
-                    this.mapCoords.about.lng = this.newEvent.city_lng;
-                    this.genreFromModelToVar();
-                    //console.log(`newEVENT after update (create)`,this.newEvent);
+                // this.codeLatLng( this.newEvent.city_lat, this.newEvent.city_lng, "aboutAddress");
+                // this.mapCoords.about.lat = this.newEvent.city_lat;
+                // this.mapCoords.about.lng = this.newEvent.city_lng;
+                // this.genreFromModelToVar();
+                    
 
-                this.getShowsArtists();
-                this.getRequestVenue();
-                this.getTickets();
+                 this.getShowsArtists();
+                 this.getRequestVenue();
+                 this.getTickets();
+                 this.getMessages();
         });
     }
 
@@ -671,23 +686,25 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             this.newEvent.city_lat = this.mapCoords.about.lat;
             this.newEvent.city_lng = this.mapCoords.about.lng;
 
-            
+            this.newEvent.account_id = this.accountId;
             //console.log(`newEvent`,this.newEvent);
 
-            if(this.isNewEvent)
+            if(this.isNewEvent){
+                console.log(`new event`)
                 this.eventService.CreateEvent(this.newEvent)
                 .subscribe((res)=>{
                     this.Event = res;
-                    //console.log(`create`,this.Event);
+                    
                     this.currentPage = 'artist';
                 },
                 (err)=>{
                     //console.log(`err`,err);
                 }
                 );
-            else
-                this.eventService.UpdateEvent(this.newEvent, this.Event.id)
-                 this.eventService.CreateEvent(this.newEvent)
+            }
+            else{
+                console.log(`update event`)
+                 this.eventService.UpdateEvent(this.newEvent, this.Event.id)
                     .subscribe((res)=>{
                             this.Event = res;
                             //console.log(`create`,this.Event);
@@ -697,6 +714,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                             //console.log(`err`,err);
                         }
                 );
+            }
         }
         else {
             //console.log(`Invalid About Form!`, this.aboutForm);
@@ -728,8 +746,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
             this.accService.GetAccountById(artist.artist_id).
                 subscribe((res:AccountGetModel)=>{
-                   if(this.isNewAccById( this.showsArtists,res))
-                        {
+                //    if(this.isNewAccById( this.showsArtists,res))
+                //         {
                             this.showsArtists.push(res);
                             //console.log(`SHOW ARTISTS`, this.showsArtists);
 
@@ -743,7 +761,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                                         //console.log(`err img`,err);
                                     });
                             }
-                    }
+                    // }
             });
         }
     }
@@ -796,6 +814,19 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                 }
         });
     }
+
+    artistLimitSearch(){
+    
+        this.artistSearchParams.type = 'artist';
+        this.artistSearchParams.limit = 10;
+         this.accService.AccountsSearch(this.artistSearchParams).
+             subscribe((res)=>{
+                 if(res.length>0){
+                     this.artistsList = this.deleteDuplicateAccounts(res);
+                     this.getListImages(this.artistsList);
+                 }
+         });
+     }
 
 
 
@@ -884,6 +915,20 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                  }
          });
     }
+    venueLimitSearch(){
+        this.venueList = [];
+      
+        this.venueSearchParams.type = 'venue';
+        this.venueSearchParams.limit = 10;
+
+         this.accService.AccountsSearch( this.venueSearchParams).
+             subscribe((res)=>{
+                 if(res.length>0){
+                     this.venueList = this.deleteDuplicateAccounts(res);
+                     this.getListImages(this.venueList);
+                 }
+         });
+    }
     VenuePriceChanged(data){
         this.venueSearchParams.price_from  = data.from;
         this.venueSearch();
@@ -897,14 +942,17 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
     addVenueCheck(venue:AccountGetModel){
          if(!this.ifRequestVenue(venue.id)){
+            console.log(`ifRequestVenue`);
             let index = this.checkVenue.indexOf(venue.id);
-        
+            console.log(index);
             if (index < 0)
             {
+                console.log(`<0`);
                 this.checkVenue.push(venue.id);
                 this.venueShowsList.push(venue);
             }
             else {
+                console.log(`else`);
                 this.checkVenue.splice(index,1);
                 this.venueShowsList.splice(index,1);
             }
@@ -943,10 +991,17 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         for(let venue of this.Event.venues){
             this.accService.GetAccountById(venue.venue_id).
                 subscribe((res:AccountGetModel)=>{
-                   if(this.isNewAccById(this.requestVenues,res)){
+                    if(this.isNewAccById(this.requestVenues,res)){
                             this.requestVenues.push(res);
-                            if(this.ifShowsVenue(res.id))
+                            let index = 0;
+                            for(let sh of this.venueShowsList){
+                                if(sh.id==res.id) this.venueShowsList.splice(index,1);
+                                index = index + 1;
+                            }
+                            if(this.ifShowsVenue(res.id)){
+                                console.log(`ifShowsVenue`);
                                 this.addVenueCheck(res);
+                            }
                             if(res.image_id){
                                 this.imgService.GetImageById(res.image_id)
                                     .subscribe((img:Base64ImageModel)=>{
@@ -956,7 +1011,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                                         //console.log(`err img`,err);
                                     });
                             }
-                    }
+                     }
             });
         }
     }
@@ -1210,8 +1265,22 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
     // TICKETS
     getTickets(){
+        console.log(`getTickets`);
         this.tickets = [];
         let params:TicketGetParamsModel = new TicketGetParamsModel();
         params.account_id = this.Event.creator_id;
@@ -1223,7 +1292,6 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                 subscribe((res:TicketModel)=>{
                     this.tickets.push(res);
                     this.currentTicket = this.tickets[0];
-                    //console.log(`tickets`,this.tickets);
                 }); 
         }
         
@@ -1282,13 +1350,6 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         }
     }
 
-    
-
-
-    
-
-
-    
 
 }
 
