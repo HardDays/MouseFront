@@ -3,9 +3,6 @@
     <div class="wrapp-for-filter">
         <form  #SearchForm="ngForm">
             <input type="text" class="inp-style-1" name="serch-text" [ngModel]="SearchParams.text" (ngModelChange)="SearchParams.text = $event" placeholder="Search">
-            
-            
-            
             <div class="groupe-form">
                 <p class="head-input-groupe">Genre</p>
                 <div class="flex-genres">
@@ -108,13 +105,13 @@
 <div class="shows-main-wrapp mainWrapper grey-bg">
     <div class="main-mw">
         <div class="head-shows">
-            <!--
+         
             <button class="ham-ham nav-button">
                 <div class="ham"></div>
                 <div class="ham"></div>
                 <div class="ham"></div>
             </button>
-           -->
+          
             <h1>Tickets</h1>
         </div>
         
@@ -122,7 +119,7 @@
     <div class="main-mw-6">
         <div class="for-flex-all-events">
             <div class="one-event-wr" *ngFor="let item of Tickets" class="one-event-wr">
-                <app-my-ticket [Event]="item"></app-my-ticket>
+                <app-my-ticket [Ticket]="item"></app-my-ticket>
             </div>
 
             
@@ -135,7 +132,7 @@
         </div>
         <div class="for-flex-all-events">
                 <div class="one-event-wr" *ngFor="let item of PastTickets" class="one-event-wr">
-                    <app-my-ticket [Event]="item"></app-my-ticket>
+                    <app-my-ticket [Ticket]="item"></app-my-ticket>
                 </div>
             
         </div>
