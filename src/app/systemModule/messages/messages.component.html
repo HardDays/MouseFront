@@ -2,143 +2,53 @@
     <div class="messages-main-wrapp">
         <div class="main-mw">
             <div class="flex-massages-wrapp">
+
+
                 <div class="left-s">
                     <!--задаем класс active при клике-->
-                    <div class="one-msg-l-block active">
+                    <div *ngFor="let item of messages; let i = index" [ngClass]="{'active':item.id==idCurMsg}" (click)="idCurMsg=item.id" class="one-msg-l-block active">
                         <div class="name-ava">
                             <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
                             <p class="n">Dylan Davis</p>
-                            <p class="hash"><span>@</span>papapa</p>
+                            <p class="hash"><span>@</span>{{item.message_info.event_info.tagline}}</p>
                         </div>
                         <div class="descr-side">
                             <p class="f">
                                 <!--задаем класс active если нужен кружочек. нахуй он всрался - хз-->
-                                <span class="some-t active">Request to Perform</span>
-                                <span class="when">Feb 15</span>
+                                <span *ngIf="!item.is_read" class="some-t active">{{item.message_type}} to Perform</span>
+                                <span class="when">{{item.message_info.created_at | date:'MMM d' }}</span>
                             </p>
-                            <p class="name-e">Cool Event</p>
+                            <p class="name-e">{{item.message_info.event_info.name}}</p>
                             <p class="where-when">
-                                New York, NY USA
+                                    {{item.message_info.event_info.address}}
                                 <br>
-                                Spring 2018
-                            </p>
-                            <p class="price">$50,000</p>
-                            <p class="expires-soon">Expires<br>Soon</p>
-                        </div>
-                    </div>
-                    <div class="one-msg-l-block">
-                        <div class="name-ava">
-                            <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                            <p class="n">Dylan Davis</p>
-                            <p class="hash"><span>@</span>papapa</p>
-                        </div>
-                        <div class="descr-side">
-                            <p class="f">
-                                <span class="some-t active">Request to Perform</span>
-                                <span class="when">Feb 15</span>
-                            </p>
-                            <p class="name-e">Cool Event</p>
-                            <p class="where-when">
-                                New York, NY USA
-                                <br>
-                                Spring 2018
+                                {{item.message_info.event_info.event_season | titlecase}} {{item.message_info.event_info.event_year}}
+
                             </p>
                             
-                            <p class="price">$50,000</p>
-                        </div>
-                    </div>
-                    <div class="one-msg-l-block">
-                        <div class="name-ava">
-                            <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                            <p class="n">Dylan Davis</p>
-                            <p class="hash"><span>@</span>papapa</p>
-                        </div>
-                        <div class="descr-side">
-                            <p class="f">
-                                <span class="some-t">Request to Perform</span>
-                                <span class="when">Feb 15</span>
-                            </p>
-                            <p class="name-e">Cool Event</p>
-                            <p class="where-when">
-                                New York, NY USA
-                                <br>
-                                Spring 2018
-                            </p>
-                            
-                            <p class="price">$50,000</p>
-                        </div>
-                    </div>
-                    <div class="one-msg-l-block">
-                        <div class="name-ava">
-                            <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                            <p class="n">Dylan Davis</p>
-                            <p class="hash"><span>@</span>papapa</p>
-                        </div>
-                        <div class="descr-side">
-                            <p class="f">
-                                <span class="some-t">Request to Perform</span>
-                                <span class="when">Feb 15</span>
-                            </p>
-                            <p class="name-e">Cool Event</p>
-                            <p class="where-when">
-                                New York, NY USA
-                                <br>
-                                Spring 2018
-                            </p>
-                            
-                            <p class="price">$50,000</p>
-                        </div>
-                    </div>
-                    <div class="one-msg-l-block">
-                        <div class="name-ava">
-                            <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                            <p class="n">Dylan Davis</p>
-                            <p class="hash"><span>@</span>papapa</p>
-                        </div>
-                        <div class="descr-side">
-                            <p class="f">
-                                <span class="some-t active">Request to Perform</span>
-                                <span class="when">Feb 15</span>
-                            </p>
-                            <p class="name-e">Cool Event</p>
-                            <p class="where-when">
-                                New York, NY USA
-                                <br>
-                                Spring 2018
-                            </p>
-                            
-                            <p class="price">$50,000</p>
-                        </div>
-                    </div>
-                    <div class="one-msg-l-block">
-                        <div class="name-ava">
-                            <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                            <p class="n">Dylan Davis</p>
-                            <p class="hash"><span>@</span>papapa</p>
-                        </div>
-                        <div class="descr-side">
-                            <p class="f">
-                                <span class="some-t active">Request to Perform</span>
-                                <span class="when">Feb 15</span>
-                            </p>
-                            <p class="name-e">Cool Event</p>
-                            <p class="where-when">
-                                New York, NY USA
-                                <br>
-                                Spring 2018
-                            </p>
-                            
-                            <p class="price">$50,000</p>
+                            <p *ngIf="item.message_type == 'request'" class="price">${{item.message_info.estimated_price}}</p>
+                            <p *ngIf="item.message_type == 'accept'" class="price">${{item.message_info.price }}</p>
+                            <p *ngIf="isExpiresSoon(item.message_info.created_at, item.message_info.time_frame)=='soon'" class="expires-soon">Expires<br>Soon</p>
                         </div>
                     </div>
                     
+                    
                 </div>
+
+
+
+
+
+
+
+
+
                 <!--вместо дива может быть форма-->
                 <div class="right-s">
-                    <div class="some-request-text-wrapper">
+                    <div *ngIf="openMessage.id" class="some-request-text-wrapper">
                         <div class="block-info f-b">
-                            <span class="some-t">Request to Perform</span>
-                            <span class="when">Feb 15</span>
+                            <span class="some-t">{{openMessage.message_type}} to Perform</span>
+                            <span class="when">{{openMessage.message_info.created_at | date:'MMM d' }}</span>
                         </div>
                         <div class="block-info s-b">
                             <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
@@ -149,24 +59,25 @@
                             
                         </div>
                         <div class="block-info t-b">
-                            <p class="name-event">R&B Event</p>
-                            <p class="descr">We want to bring NICOLE JENNS back to the NY Area to perform from her new album! NICOLE JENNS is a multi-talented songstress. The songwriter, producer and singer has taken the current music  stage by storm. Enjoy the sultry sounds of this New York Native!</p>
-                            <p class="fot-edit">Spring 2018, Evening, 4 Hours
-                                <img src="../../assets/img/edit-img.png" (click)="isEditShow = true" class="img-responsive for-edit-img" alt="">
+                            <p class="name-event">{{openMessage.message_info.event_info.name}}</p>
+                            <p class="descr">{{openMessage.message_info.event_info.description | titlecase}}</p>
+                            <p class="fot-edit">{{openMessage.message_info.event_info.event_season | titlecase}} {{openMessage.message_info.event_info.event_year}}, {{openMessage.message_info.event_info.event_time | titlecase}}, {{openMessage.message_info.event_info.event_length}} Hours
+                                <img src="../../assets/img/edit-img.png"  class="img-responsive for-edit-img" alt="">
                             </p>
-                            
+                            <input class="form-control" #drp="bsDaterangepicker" bsDaterangepicker [bsConfig]="bsConfig" 
+                            [minDate]="minDate" [maxDate]="maxDate" [(ngModel)]="bsRangeValue">
+
                             
                             <!--появлется если нажать на верхнюю картинку for-edit-img-->
-                            <div *ngIf="isEditShow" class="selects-wrapper">
+                            <!-- <div *ngIf="isEditShow" class="selects-wrapper">
                                 <div class="flex-input-groupes">
                                     <div class="input-groupe-1">
-                                        <select id="inp-create-5">
-                                            <option>Spring</option>
-                                            <option>Spring</option>
-                                            <option>Spring</option>
-                                            <option>Spring</option>
-                                            <option>Spring</option>
-
+                                        <select [(ngModel)]="openMessage.message_info.event_info.event_season" id="inp-create-5">
+                                            <option>spring</option>
+                                            <option>summer</option>
+                                            <option>autumn</option>
+                                            <option>winter</option>
+                                    
                                         </select>
                                         <label for="inp-create-5">Event Date</label>
                                     </div>
@@ -183,9 +94,9 @@
                                 <div class="flex-input-groupes">
                                     <div class="input-groupe-1">
                                         <select id="inp-create-7">
-                                            <option>Morning</option>
-                                            <option>Morning</option>
-                                            <option>Morning</option>
+                                            <option>morning</option>
+                                            <option>afternoon</option>
+                                            <option>evening</option>
                                         </select>
                                         <label for="inp-create-7">Time Range</label>
                                     </div>
@@ -201,13 +112,13 @@
                                         <label for="inp-create-8">Event Length</label>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!--/появлется если нажать на верхнюю картинку for-edit-img-->
                             
                             
                             
                             <p class="desc-for-edit">(You can pick the dates you are available to perform)</p>
-                            <p class="event-type">Crowdfunded Event</p>
+                            <p *ngIf="openMessage.message_info.event_info.is_crowdfunding_event" class="event-type">Crowdfunded Event</p>
                         </div>
                         <div class="block-info fourth-b">
                             <p class="fot-edit">
@@ -221,7 +132,7 @@
                                 <p class="your-price">Change price</p>
                                 <div class="rel-dog">
                                     <span>$</span>
-                                    <input class="inp-style-2" type="text">
+                                    <input [(ngModel)]="changePrice" class="inp-style-2" type="text">
                                 </div>
                             </div>
                             <!--/поялвляется если нажать на картинку "for-edit-img"-->
@@ -230,17 +141,17 @@
                             <p class="desc-for-edit">You can change the Price to Perform</p>
                         </div>
                         <div class="block-info fifth-b">
-                            <p class="will-expire">This request will expire on Feb 22, 2018</p>
+                            <p class="will-expire">This request will expire on {{ getExpireDate(openMessage.created_at, openMessage.message_info.time_frame) | date }}</p>
                         </div>
                         <div class="block-info sixth-b">
                             <div class="input-groupe-1 whithout-label small-textarea max-500">
-                                <textarea id="inp-media-venue-2"></textarea>
+                                <textarea disabled [value]="openMessage.message_info.message"  id="inp-media-venue-2"></textarea>
                                 <label for="inp-media-venue-2" class="head-groupe">Personal Message</label>
                             </div>
                             <div class="flex-buttons">
                                 <div class="accept-wr">
                                     <button class="butt-style-1" type="submit">
-                                        <span>Accept</span>
+                                        <span (click)="acceptRequest()">Accept</span>
                                     </button>
                                 </div>
                                 <div class="decline-wr">

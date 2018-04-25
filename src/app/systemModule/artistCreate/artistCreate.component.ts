@@ -191,7 +191,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
   initJS(){
     setTimeout(() => {
       var as = audiojs.createAll();
-     }, 1200);
+     }, 100);
      
 
     //  $('.slider-3-init').slick({
