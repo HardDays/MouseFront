@@ -191,7 +191,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
   initJS(){
     setTimeout(() => {
       var as = audiojs.createAll();
-     }, 1200);
+     }, 100);
      
 
     //  $('.slider-3-init').slick({
@@ -575,6 +575,7 @@ DeleteImageFromLoading()
 
 AddVenuePhoto()
 {
+  console.log(`image`,this.ImageToLoad)
   this.imgService.PostAccountImage(this.Artist.id,{image_base64:this.ImageToLoad,image_description: this.imageInfo})
     .subscribe(
       (res:any) => {
@@ -735,7 +736,7 @@ confirmStageRider(){
 
   this.stageRider.rider_type = 'stage';
   this.createArtist.artist_riders = [];
-
+  this.stageRider.is_flexible = true;
   this.createArtist.artist_riders.push(this.stageRider);
   
    this.updateArtistByCreateArtist();
@@ -752,7 +753,7 @@ loadFile($event:any):void{
   {
     let reader:FileReader = new FileReader();
     reader.onload = (e) =>{
-      this.stageRider.uploaded_file = reader.result;
+      this.stageRider.uploaded_file_base64 = reader.result;
     }
     reader.readAsDataURL(file);
   }
