@@ -735,7 +735,7 @@ confirmStageRider(){
 
   this.stageRider.rider_type = 'stage';
   this.createArtist.artist_riders = [];
-
+  this.stageRider.is_flexible = true;
   this.createArtist.artist_riders.push(this.stageRider);
   
    this.updateArtistByCreateArtist();
@@ -752,7 +752,7 @@ loadFile($event:any):void{
   {
     let reader:FileReader = new FileReader();
     reader.onload = (e) =>{
-      this.stageRider.uploaded_file = reader.result;
+      this.stageRider.uploaded_file_base64 = reader.result;
     }
     reader.readAsDataURL(file);
   }

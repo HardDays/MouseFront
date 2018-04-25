@@ -10,6 +10,7 @@ import { EventPatchModel } from "../models/eventPatch.model";
 import { EventGetModel } from "../models/eventGet.model";
 import { TicketGetParamsModel } from "../models/ticketGetParams.model";
 import { TicketModel } from "../models/ticket.model";
+import { AccountSendRequestModel } from "../models/accountSendRequest.model";
 
 @Injectable()
 export class EventService{
@@ -131,5 +132,37 @@ export class EventService{
         );
     }
 
+    ArtistAcceptedByArtist(params:AccountSendRequestModel){
+        return this.http.CommonRequest(
+            () => this.http.PostData('/events/'+params.event_id+'/artists/'+params.id+'/artist_accept.json',JSON.stringify(params))
+        );
+    }
+    ArtistDeclineByArtist(params:AccountSendRequestModel){
+        return this.http.CommonRequest(
+            () => this.http.PostData('/events/'+params.event_id+'/artists/'+params.id+'/artist_decline.json',JSON.stringify(params))
+        );
+    }
+
+    VenueAcceptedByVenue(params:AccountSendRequestModel){
+        return this.http.CommonRequest(
+            () => this.http.PostData('/events/'+params.event_id+'/venue/'+params.id+'/venue_accept.json',JSON.stringify(params))
+        );
+    }
+    VenueDeclineByVenue(params:AccountSendRequestModel){
+        return this.http.CommonRequest(
+            () => this.http.PostData('/events/'+params.event_id+'/venue/'+params.id+'/venue_decline.json',JSON.stringify(params))
+        );
+    }
+
+    /*тикеты*/
+    GetAllTicketsCurrent(myId,CurrOrPass){
+        let params = {
+            account_id: myId,
+            time:CurrOrPass
+        }
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/fan_tickets.json', this.typeService.ParamsToUrlSearchParams(params))
+        );
+    }
 
 }
