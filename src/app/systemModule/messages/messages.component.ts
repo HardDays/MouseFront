@@ -102,7 +102,7 @@ export class MessagesComponent extends BaseComponent implements OnInit {
     this.openMessage = msg;
     this.idCurMsg = msg.id;
     this.accOpen =  this.accs[i];
-    this.setDateRange();
+    if( this.openMessage.message_type!='blank')this.setDateRange();
   }
 
   getExpireDate(d:string, frame:string){
