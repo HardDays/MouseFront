@@ -15,6 +15,7 @@ export class EventGetModel{
         public updated_at?: string,
         public is_active?: boolean,
         public views?: number,
+        public artists?: string,
         public clicks?: number,
         public has_vr?: boolean,
         public has_in_person?: boolean,

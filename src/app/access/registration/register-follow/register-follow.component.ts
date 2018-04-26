@@ -14,44 +14,64 @@ export class RegisterFollowComponent extends BaseComponent implements OnInit {
 
   artists:AccountGetModel[] = [];
   followsId:number[] = [];
-  artistsChecked:boolean[]=[];
+  artistsChecked:number[]=[];
   genres:GenreModel[] = [];
-  
+  text:string = '';
+
   ngOnInit() {
-
-    this.genreService.GetAllGenres()
-    .subscribe((res:string[])=>{
-      this.genres = this.genreService.StringArrayToGanreModelArray(res);
-      this.getArtists();
-    });
-
+    this.getArtists();
   }
 
-  clickItem(index:number){
-    //console.log(index);
+  clickItem(index:number,id:number){
      var ch = "#checkbox-"+index+"-"+index;
      $(ch).addClass('scaled');
 
     setTimeout(()=>{
       $(ch).removeClass('scaled');
-    },120)
+    },120);
+
+    let ind = this.followsId.indexOf(id);
+    if( ind === -1) {
+      this.followsId.push(id);
+    }
+    else {
+      this.followsId.splice(ind,1);
+    }
   }
+
+  ifArtistChecked(id:number){
+    let ind = this.followsId.indexOf(id);
+    if( ind === -1) {
+     return false;
+    }
+    else {
+      return true;
+    }
+  }
+
 
   
   getArtists(){
-    this.genreService.GetArtists(this.genres).
-    subscribe((res:AccountGetModel[])=>{
-  
-    this.artists = res;
-    
-    for(let i=0;i<this.artists.length;i++)
-      this.artistsChecked.push(false);
+   
+    this.accService.AccountsSearch({text:this.text, limit:20}).
+      subscribe((res:AccountGetModel[])=>{
+        this.artists = res;
+        for(let artist of this.artists)
+        if(artist.image_id)
+          this.imgService.GetImageById(artist.image_id)
+            .subscribe((img)=>{
+              console.log(img);
+              artist.image_base64_not_given = img.base64;
+            });
+        else artist.image_base64_not_given = '../../../assets/img/layer-7.jpg';
+      });
 
-      
-    });
+
   }
 
   followArtists(){
+
+    
     for(let i=0;i<this.artistsChecked.length;i++)
       if(this.artistsChecked[i]) this.followsId.push(this.artists[i].id);
              
@@ -62,7 +82,11 @@ export class RegisterFollowComponent extends BaseComponent implements OnInit {
     }
     
     this.router.navigate(['/system','shows']);
+  
+  }
 
+  changeText(){
+    this.getArtists();
   }
 
 }

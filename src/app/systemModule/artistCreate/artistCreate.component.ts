@@ -117,6 +117,9 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
   //   "is_flexible": new FormControl("",)
   // });
   stageRider:Rider= new Rider();
+  backstageRider:Rider= new Rider();
+  hospitalityRider:Rider= new Rider();
+  technicalRider:Rider= new Rider();
 
 
   constructor(protected authService: AuthMainService,
@@ -158,6 +161,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
     this.createArtist.artist_videos = [];
     this.createArtist.artist_albums = [];
     this.createArtist.preferred_venues = [];
+    this.createArtist.artist_riders = [];
 
     this.Artist.audio_links = [];
     this.Artist.artist_albums = [];
@@ -732,16 +736,6 @@ addBooking(){
 
 
 
-confirmStageRider(){
-
-  this.stageRider.rider_type = 'stage';
-  this.createArtist.artist_riders = [];
-  this.stageRider.is_flexible = true;
-  this.createArtist.artist_riders.push(this.stageRider);
-  
-   this.updateArtistByCreateArtist();
-}
-
 loadFile($event:any):void{
   let target = $event.target;
   let file:File = target.files[0];
@@ -759,6 +753,48 @@ loadFile($event:any):void{
   }
  
 }
+
+
+  confirmStageRider(){
+
+    this.stageRider.rider_type = 'stage';
+
+    this.stageRider.is_flexible = true;
+    this.createArtist.artist_riders.push(this.stageRider);
+    
+    this.updateArtistByCreateArtist();
+  }
+
+  confirmTechnicalRider(){
+
+    this.technicalRider.rider_type = 'technical';
+
+    this.technicalRider.is_flexible = true;
+    this.createArtist.artist_riders.push(this.technicalRider);
+    
+    this.updateArtistByCreateArtist();
+  }
+
+  confirmBackstageRider(){
+
+    this.backstageRider.rider_type = 'backstage';
+
+    this.backstageRider.is_flexible = true;
+    this.createArtist.artist_riders.push(this.backstageRider);
+    
+    this.updateArtistByCreateArtist();
+  }
+
+  confirmHospitalityRider(){
+
+    this.hospitalityRider.rider_type = 'hospitality';
+
+    this.hospitalityRider.is_flexible = true;
+    this.createArtist.artist_riders.push(this.hospitalityRider);
+    
+    this.updateArtistByCreateArtist();
+  }
+
 
 
 

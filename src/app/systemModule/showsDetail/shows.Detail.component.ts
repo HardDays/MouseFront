@@ -211,7 +211,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
             () => this.eventService.BuyTicket(object),
             (res) => 
             {   
-                console.log(res);
+                //console.log(res);
             },
             (err) =>
             {

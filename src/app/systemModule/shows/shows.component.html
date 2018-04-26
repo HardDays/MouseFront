@@ -137,7 +137,7 @@
                                 </div>
                                 <div class="new-shows-desc">
                                     <a class="name-show">{{item.name}}</a>
-                                    <p class="name-artist">Katy Parry</p>
+                                    <p [routerLink]="['/system','eventCreate',item.id]" class="name-artist">{{item.artists}}</p>
                                     <div class="where">{{item.event_time}}</div>
                                     <div *ngIf="item.event_time && item.address" class="where">-</div>
                                     <div class="where">{{item.address}}</div> 
