@@ -165,5 +165,14 @@ export class EventService{
             ()=> this.http.GetData('/fan_tickets.json', this.typeService.ParamsToUrlSearchParams(params))
         );
     }
+    GetTicketsByEvent(myId,eventId){
+        let params = {
+            account_id: myId,
+            event_id:eventId
+        }
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/fan_tickets/by_event.json', this.typeService.ParamsToUrlSearchParams(params))
+        );
+    }
 
 }

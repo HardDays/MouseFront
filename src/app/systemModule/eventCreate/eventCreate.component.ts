@@ -95,8 +95,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         "event_season": new FormControl("", [Validators.required]),
         "artists_number":new FormControl(),
         "description": new FormControl("", [Validators.required]),
-        "funding_goal":new FormControl("", [Validators.required,
-                                            Validators.pattern("[0-9]+")])
+        "funding_goal":new FormControl("", [Validators.pattern("[0-9]+")])
     });
 
     showMoreGenres:boolean = false;
@@ -627,6 +626,15 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                             this.newEvent[key] = res[key];
                         }
                     }
+
+                
+                    this.imgService.GetImageById(this.Event.image_id).
+                        subscribe((img)=>{
+                            console.log(img);
+                            this.newEvent.image_base64 = img.base64;
+                    });
+                
+                
                     
                 // this.codeLatLng( this.newEvent.city_lat, this.newEvent.city_lng, "aboutAddress");
                 // this.mapCoords.about.lat = this.newEvent.city_lat;
@@ -664,6 +672,16 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
          else {
             for(let i of this.genres) i.show = true;
          }
+    }
+
+    uploadImage($event){
+        this.ReadImages(
+            $event.target.files,
+            (res:string)=>{
+               this.newEvent.image_base64 = res;
+                
+            }
+        );
     }
 
     createEventFromAbout(){

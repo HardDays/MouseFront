@@ -170,7 +170,7 @@
                             </div>
                             <div class="location-wr">
                                 <div (click)="aboutOpenMapModal()" class="mark"></div>
-                                <input type="text" class="location-inp"  value="Location" #searchAbout id="aboutAddress"> 
+                                <input type="text" class="location-inp" [ngModelOptions]="{standalone: true}" [ngModel]="newEvent.address"  placeholder="" #searchAbout id="aboutAddress"> 
                             </div>
                         </div>
                         <div class="side">
@@ -180,17 +180,17 @@
                                     
                                     <div class="photo-wr-1 n-i-s">
                                         
-                                        <label class="file_upload new-style-img-up">
+                                        <label *ngIf="!newEvent.image_base64" class="file_upload new-style-img-up">
                                             <div class="bg-image"></div>
 
-                                            <input accept=".jpg, .jpeg, .png" type="file">
+                                            <input accept=".jpg, .jpeg, .png" (change)="uploadImage($event)" type="file">
                                         </label>
 
                                         <!--появляется этот блок если загружена фотка и в стайл бекграунд имейдж ебануть-->
-                                        <div class="bg-image uploaded"></div>
+                                        <div *ngIf="newEvent.image_base64" (click)="newEvent.image_base64=''" [ngStyle]="{'background-image': newEvent.image_base64?'url('+newEvent.image_base64+')':''}" class="bg-image uploaded"></div>
                                         <!---->
                                     </div>
-                                    <label  class="head-groupe">Short Description<span>*</span></label>
+                                    <label  class="head-groupe">Add Image<span>*</span></label>
                             </div>
 
                                 <div class="input-groupe-1 whithout-label">
