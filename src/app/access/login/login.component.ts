@@ -32,8 +32,8 @@ export class LoginComponent extends BaseComponent implements OnInit {
   newPassComfirm:string = '';
 
   accessVkToken:string = '';
-  accessTwitterToken:string = '923927835315785728-iAyJ85E2HwDLIdmBJ8ca1VBIdlGBd9W';
-  accessTwitterSecretToken:string = 'jH56gmOmhtodHnttk65J5Mo6f9pVJyIZkm7xvtYPmuEDG';
+  // accessTwitterToken:string = '923927835315785728-iAyJ85E2HwDLIdmBJ8ca1VBIdlGBd9W';
+  // accessTwitterSecretToken:string = 'jH56gmOmhtodHnttk65J5Mo6f9pVJyIZkm7xvtYPmuEDG';
 
   ngOnInit(){
     // if (this.isLoggedIn)
@@ -82,16 +82,16 @@ export class LoginComponent extends BaseComponent implements OnInit {
     window.open("https://oauth.vk.com/authorize?client_id=6326995&display=page&redirect_uri=https://mouse-web.herokuapp.com/login&scope=friends&response_type=token&v=5.73&scope=offline");
   }
 
-  signInTwitter(){
-    // window.close();
-    //window.open("https://oauth.vk.com/authorize?client_id=6412516&redirect_uri=http://localhost:4200/login&display=page&response_type=token&v=5.73&state=123456");
-    // window.open("https://api.twitter.com/oauth/authenticate?oauth_token=jH56gmOmhtodHnttk65J5Mo6f9pVJyIZkm7xvtYPmuEDG");
-    this.authService.Twitter().subscribe((res)=>{
-      // console.log(`twitter`,res)
-    },(err)=>{//console.log(`tw err`,err)
-  });
+  // signInTwitter(){
+  //   // window.close();
+  //   //window.open("https://oauth.vk.com/authorize?client_id=6412516&redirect_uri=http://localhost:4200/login&display=page&response_type=token&v=5.73&state=123456");
+  //   // window.open("https://api.twitter.com/oauth/authenticate?oauth_token=jH56gmOmhtodHnttk65J5Mo6f9pVJyIZkm7xvtYPmuEDG");
+  //   this.authService.Twitter().subscribe((res)=>{
+  //     // console.log(`twitter`,res)
+  //   },(err)=>{//console.log(`tw err`,err)
+  // });
     
-  }
+  // }
   logoutGoFb(){
     this.SocialLogout('gf');
   }

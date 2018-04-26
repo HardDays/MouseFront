@@ -43,6 +43,7 @@ import { EventSearchParams } from '../../core/models/eventSearchParams';
 import { TicketTypeModel } from '../../core/models/ticketType.model';
 import { TicketsSearchParams } from '../../core/models/ticketsSearchParams.model';
 import { TicketsGetModel } from '../../core/models/ticketsGetModel';
+import { BsDatepickerConfig } from 'ngx-bootstrap';
 
 declare var $:any;
 
@@ -59,13 +60,16 @@ export class TicketsComponent extends BaseComponent implements OnInit {
   isMarkerVisible: boolean;
   mapLng: any;
   mapLat: any;
-  mapCoords = {lat:0, lng:0};
+  mapCoords = {lat:55.755826, lng:37.6172999};
   SearchParams: TicketsSearchParams = new TicketsSearchParams();
   TypesOfSpace:SelectModel[] = [];
   TicketTypes:CheckModel<any>[] = [];
   accountId:number;
   Tickets:TicketsGetModel[] = [];
   PastTickets:TicketsGetModel[] = [];
+  SearchDateRange:Date[] = [];
+  bsConfig: Partial<BsDatepickerConfig>;
+  ticketsTypesDates = ['current','past']
 
 
   @ViewChild('SearchForm') form: NgForm;
@@ -92,7 +96,9 @@ export class TicketsComponent extends BaseComponent implements OnInit {
 
 
   ngOnInit(){
+    this.CreateAutocomplete();
     this.initUser();
+    this.GetTicketTypes();
     this.setHeightSearch();
     this.GetGenres();
     this.openSearch();
@@ -106,14 +112,53 @@ export class TicketsComponent extends BaseComponent implements OnInit {
     .subscribe((users:any[])=>{
         for(let u of users)
         if(u.id==+localStorage.getItem('activeUserId')){
-          this.accountId = u.id;
+          this.accountId = 
+          this.SearchParams.account_id = u.id;
           console.log(u.id);
           this.GetTickets();
           this.GetTicketsPast();
         }
     });
   }
+  GetTicketTypes()
+  {
+      this.TicketTypes = this.typeService.GetMyTicketTypes();
+  }
+  ShowSearchResults()
+    {
+        //console.log(this.SearchDateRange);
+        this.ConvertSearchDateRangeToSearchParams();
+        this.ConvertGenreCheckboxes();
+        this.ConvertTicketTypes();
+       
 
+        // console.log(this.SearchParams);
+        this.GetTicketsSearch();
+    }
+
+    
+
+    ConvertTicketTypes()
+    {
+        this.SearchParams.ticket_types = this.typeService.TicketTypesArrayToStringArray(this.TicketTypes);
+    }
+
+    ConvertGenreCheckboxes()
+    {
+        this.SearchParams.genres = this.genreService.GenreModelArrToStringArr(this.Genres);
+    }
+    ConvertSearchDateRangeToSearchParams()
+    {
+        if(this.SearchDateRange && this.SearchDateRange.length == 2)
+        {
+            this.SearchParams.date_from = this.typeService.GetDateStringFormat(this.SearchDateRange[0]);
+            this.SearchParams.date_to = this.typeService.GetDateStringFormat(this.SearchDateRange[1]);
+        }
+        else{
+            this.SearchParams.date_from = "";
+            this.SearchParams.date_to = "";
+        }
+    }
   GetTickets()
   {
       //console.log("date", this.SearchParams);
@@ -121,16 +166,42 @@ export class TicketsComponent extends BaseComponent implements OnInit {
           () => this.eventService.GetAllTicketsCurrent(this.accountId,'current'),
           (res:TicketsGetModel[]) =>
           {
-            console.log(res);
               this.Tickets = res;
 
-              //this.CloseSearchWindow();
+             // this.CloseSearchWindow();
           },
           (err) => {
               console.log(err);
              // this.CloseSearchWindow();
           }
       );
+  }
+  GetTicketsSearch()
+  {
+    this.SearchParams.location = this.LocationText;
+      for(let i of this.ticketsTypesDates){
+         this.SearchParams.time = i;
+         this.WaitBeforeLoading(
+            () => this.eventService.MyTicketsSearch(this.SearchParams),
+            (res:TicketsGetModel[]) =>
+            {
+              if(this.SearchParams.time == 'current'){
+                this.Tickets = res;
+              }
+              if(this.SearchParams.time == 'past'){
+                this.PastTickets = res;
+              }
+               this.CloseSearchWindow();
+            },
+            (err) => {
+                console.log(err);
+               this.CloseSearchWindow();
+            }
+        );
+      }
+      //console.log("date", this.SearchParams);
+
+     
   }
   GetTicketsPast()
   {
@@ -150,6 +221,7 @@ export class TicketsComponent extends BaseComponent implements OnInit {
           }
       );
   }
+
 
   GetGenres()
   {
@@ -198,8 +270,7 @@ codeLatLng(lat, lng) {
     
     let geocoder = new google.maps.Geocoder();
     let latlng = new google.maps.LatLng(lat, lng);
-    this.SearchParams.lat = lat;
-    this.SearchParams.lng = lng;
+    
     geocoder.geocode({
         'location': latlng }, 
          (results, status) => {
@@ -207,6 +278,8 @@ codeLatLng(lat, lng) {
                 if (results[1]) {
               
                     this.LocationText = results[1].formatted_address;
+                    
+                  
                 //$("#searchAddress").val(results[1].formatted_address);
                 
                 /* LOCATION - сдвиг точки на карте results[1].formatted_address */
@@ -251,7 +324,7 @@ codeLatLng(lat, lng) {
         () => {
            //(this.searchElement.nativeElement, {types:[`(cities)`]})
          let autocomplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement);
-        
+            
         
             autocomplete.addListener("place_changed", () => {
                 this.ngZone.run(() => {
@@ -262,9 +335,10 @@ codeLatLng(lat, lng) {
                     }
                     else 
                     {
+                        this.LocationText = autocomplete.getPlace().formatted_address;
                         //this.LocationText = place.formatted_address;
-                        this.SearchParams.lat = place.geometry.location.lat();
-                        this.SearchParams.lng = place.geometry.location.lng();
+                        this.mapCoords.lat = place.geometry.location.lat();
+                        this.mapCoords.lng = place.geometry.location.lng();
                     }
                 });
             });

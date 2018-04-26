@@ -23,8 +23,6 @@ export class AppComponent implements OnInit {
           );
     });
     this.service.TryToLoginWithToken();
-
-    $("#test").text("Hello world!");
   }
 
  

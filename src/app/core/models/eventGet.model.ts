@@ -41,7 +41,8 @@ export class EventGetModel{
         public artist?: GetArtists[],
         public venues?: GetVenue[],
         public venue?: AccountGetModel,
-        public tickets?: TicketModel[]
+        public tickets?: TicketModel[],
+        public event_season?:string
     )
     {}
 }

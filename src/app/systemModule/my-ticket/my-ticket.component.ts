@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { EventGetModel } from '../../core/models/eventGet.model';
+
 import { BaseComponent } from '../../core/base/base.component';
 import { BaseImages } from '../../core/base/base.enum';
 import { Base64ImageModel } from '../../core/models/base64image.model';
+import { TicketsGetModel } from '../../core/models/ticketsGetModel';
 
 @Component({
   selector: 'app-my-ticket',
@@ -11,38 +12,24 @@ import { Base64ImageModel } from '../../core/models/base64image.model';
 })
 export class MyTicketComponent extends BaseComponent implements OnInit {
 
-  @Input() Event: EventGetModel;
+  @Input() Ticket: TicketsGetModel;
   FoundedPercent:number = 0;
-  Image:string = BaseImages.Drake;
+  Image:string;
 
   ngOnInit(): void 
   {
-      this.GetExtendedEvent();
+      this.GetImage();
   }
 
-  GetExtendedEvent()
-  {
-      // console.log(this.Event);
-      this.WaitBeforeLoading(
-          () => this.eventService.GetEventById(this.Event.id),
-          (res:EventGetModel) =>{
-              this.Event = res;
-              this.FoundedPercent = this.Event.founded / this.Event.funding_goal;
-              this.GetImage();
-          },
-          (err) => {
-              console.log(err);
-          }
-      );
-  }
 
   GetImage()
   {
-      if(this.Event && this.Event.image_id)
+      if(this.Ticket && this.Ticket.image_id)
       {
           this.WaitBeforeLoading(
-              () => this.imgService.GetImageById(this.Event.image_id),
+              () => this.imgService.GetImageById(this.Ticket.image_id),
               (res:Base64ImageModel) => {
+              
                   this.Image = (res && res.base64) ? res.base64 : BaseImages.Drake;
               },
               (err) =>{
