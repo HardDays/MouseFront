@@ -89,7 +89,8 @@ export class AccountGetModel{
         public min_time_to_free_cancel?:number,
         public late_cancellation_fee?:number,
         public refund_policy?:string,
-        public artist_email?:string
+        public artist_email?:string,
+        public artist_riders?:Rider[]
         
 ){}
 }
@@ -115,5 +116,14 @@ export class Video{
     public name?:string,
     public link?:string,
     public preview?:string
+){}
+}
+export class Rider{
+    constructor(
+        public rider_type?:string,//stage|backstage|hospitality|technical'
+        public uploaded_file?:File,
+        public uploaded_file_base64?:string,
+        public description?:string,
+        public is_flexible?:boolean
 ){}
 }
