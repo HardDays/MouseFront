@@ -388,7 +388,7 @@
                         </div>
                         <!---->
                         <!--если не пустой.-->
-                        <ngx-slick [ngStyle]="{'display': VenueImages.length > 0 ? 'block' : 'none'}" class="carousel slider-2-albums slider-4-photos slider-4-init" #slickModal="slick-modal" [config]="slideConfig">
+                        <!-- <ngx-slick [ngStyle]="{'display': VenueImages.length > 0 ? 'block' : 'none'}" class="carousel slider-2-albums slider-4-photos slider-4-init" #slickModal="slick-modal" [config]="slideConfig">
                             <div ngxSlickItem *ngFor="let item of VenueImages; let i = index" class="slide ">
                                 <div class="one-slide" *ngIf="VenueImages[i]">
                                     <div class="wrapp-card">
@@ -401,8 +401,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </ngx-slick>
-                        <!-- <div [ngStyle]="{'display': VenueImages.length > 0 ? 'block' : 'none'}" class="slider-2-albums slider-4-photos slider-4-init">
+                        </ngx-slick> -->
+                        <div [ngStyle]="{'display': VenueImages.length > 0 ? 'block' : 'none'}" class="slider-2-albums slider-4-photos slider-4-init">
                             <ng-container *ngFor="let item of VenueImages; let i = index">
                                 <div class="one-slide" *ngIf="VenueImages[i]">
                                     <div class="wrapp-card">
@@ -415,7 +415,7 @@
                                     </div>
                                 </div>
                             </ng-container>
-                        </div> -->
+                        </div>
                         
                         <!--/если не пустой.-->
                         

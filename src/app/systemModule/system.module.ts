@@ -34,6 +34,7 @@ import { TicketsComponent } from './tickets/tickets.component';
 import { VenueCreateComponent } from './venueCreate/venueCreate.component';
 import { FanCreateComponent } from './fan-create/fan-create.component';
 import { MyEventComponent } from './myEvent/myEvent.component';
+import { ShowsDetailComponent } from './showsDetail/shows.Detail.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { MyEventComponent } from './myEvent/myEvent.component';
     TicketsComponent,
     VenueCreateComponent,
     FanCreateComponent,
-    MyEventComponent
+    MyEventComponent,
+    ShowsDetailComponent
   ],
   imports: [
     CommonModule,

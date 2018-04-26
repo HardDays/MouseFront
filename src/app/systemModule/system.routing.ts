@@ -17,6 +17,7 @@ import { FeedComponent } from './feed/feed.component';
 import { TicketsComponent } from './tickets/tickets.component';
 import { VenueCreateComponent } from './venueCreate/venueCreate.component';
 import { FanCreateComponent } from './fan-create/fan-create.component';
+import { ShowsDetailComponent } from './showsDetail/shows.Detail.component';
 
 const routes: Routes =
 [
@@ -36,7 +37,8 @@ const routes: Routes =
       //{ path: 'venueCreate', component: VenueCreateComponent, canActivate: [SystemAccessGuard] },
       { path: 'venueCreate/:id', component: VenueCreateComponent, canActivate: [SystemAccessGuard] },
       { path: 'feed', component: FeedComponent, canActivate: [SystemAccessGuard] },
-      { path: 'tickets', component: TicketsComponent, canActivate: [SystemAccessGuard] }
+      { path: 'tickets', component: TicketsComponent, canActivate: [SystemAccessGuard] },
+      { path: 'shows_detail/:id', component: ShowsDetailComponent, canActivate: [SystemAccessGuard] }
     ]
   }
 ];
