@@ -22,6 +22,7 @@ import { AccountSearchParams } from '../../core/models/accountSearchParams.model
 import { EventService } from '../../core/services/event.service';
 import { Http } from '@angular/http';
 import { UserGetModel } from '../../core/models/userGet.model';
+import { EventGetModel } from '../../core/models/eventGet.model';
 
 declare var $:any;
 declare var PhotoSwipeUI_Default:any;
@@ -34,11 +35,119 @@ declare var PhotoSwipe:any;
     styleUrls: ['./showsDetail.component.css'],
 })
 export class ShowsDetailComponent extends BaseComponent implements OnInit {
+    EventId:number = 0;
+    Event:EventGetModel = new EventGetModel();
+    Creator:AccountGetModel = new AccountGetModel();
+    Artists:AccountGetModel[] = [];
+
+    Genres:GenreModel[] = [];
+
+    Featuring:string = '';
+
+    constructor(protected authService: AuthMainService,
+        protected accService:AccountService,
+        protected imgService:ImagesService,
+        protected typeService:TypeService,
+        protected genreService:GenresService,
+        protected eventService:EventService,
+        protected _sanitizer: DomSanitizer,
+        protected router: Router,public _auth: AuthService,
+        private activatedRoute: ActivatedRoute, protected h:Http,
+        private ngZone: NgZone)
+    {
+        super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
+    }
+
+
+    ngOnInit(): void 
+    {
+        this.activatedRoute.params.forEach((params)=>{
+            this.EventId = params["id"];
+            this.GetEventInfo();
+        });
+    }
 
 
 
+    GetEventInfo()
+    {
+        this.WaitBeforeLoading
+        (
+            () => this.eventService.GetEventById(this.EventId),
+            (res: EventGetModel) =>
+            {
+                this.InitEvent(res);
+            },
+            (err:any) => 
+            {
+                console.log("Cant get event info",err);
+            }
+        );
+    }
 
+    InitEvent(event:EventGetModel)
+    {
+        this.Event = event;
+        this.GetGenres();
+        this.GetCreatorInfo();
+        this.GetFeaturing();
+    }
 
-    ngOnInit(): void {
+    GetFeaturing()
+    {
+        this.Featuring = '';
+        let artistArr:string[] = [];
+        this.Artists = [];
+        let arr = this.Event.artist;
+        for(let i in arr)
+        {
+            this.WaitBeforeLoading
+            (
+                () => this.accService.GetAccountById(arr[i].artist_id),
+                (res:AccountGetModel) => 
+                {
+                    this.Artists.push(res);
+                    if( +i < (arr.length - 1))
+                    {
+                        artistArr.push(res.display_name)
+                    }
+                    
+                    if(arr.length - 1 == artistArr.length)
+                    {
+                        this.Featuring = artistArr.join(", ");
+                        this.Featuring += " and " + res.display_name;
+                        console.log(this.Artists);
+                    }
+                }
+            );
+        }
+    }
+
+    GetGenres()
+    {
+        this.Genres = this.genreService.StringArrayToGanreModelArray(this.Event.genres);
+    }
+
+    GetCreatorInfo()
+    {
+        if(this.Event.creator_id)
+        {
+            this.WaitBeforeLoading
+            (
+                () => this.accService.GetAccountById(this.Event.creator_id),
+                (res: AccountGetModel) => 
+                {
+                    this.Creator = res;
+                },
+                (err:any) => 
+                {
+                    console.log("Cant get creator info", err);
+                }
+            );
+        }
+    }
+
+    aboutOpenMapModal(){
+        $('#modal-map').modal('show');
     }
 }

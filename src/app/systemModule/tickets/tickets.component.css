@@ -1,0 +1,17 @@
+
+.second-router-outlet{
+    background: #f3f3f3;
+}
+.bs-datepicker
+{
+    left:75px !important;
+}
+bs-daterangepicker-container{
+    left:0px !important;
+}
+.yes-no{
+    margin-left: 80px;
+}
+.modal-send-request.map-1-modal .modal-dialog .for-map-init-modal-1{
+    border: none;
+}

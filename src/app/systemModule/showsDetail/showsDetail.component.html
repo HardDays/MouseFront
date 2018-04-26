@@ -4,25 +4,19 @@
             <div class="flex-artist-main-info">
                 <div class="side left-side">
                     <div class="bg-gradient-info">
-                        <h6>Cool Event</h6>
-                        <p class="st">SATURDAY, FEB 19, 2017 - <span>6:00 pm</span></p>
-                        <span class="hashtag"><span>#</span>CoolEvent</span>
-                        <p class="descr">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
+                        <h6>{{Event.name}}</h6>
+                        <p class="st">{{Event.event_season}}, {{Event.event_year}} - <span>{{Event.event_time}}</span></p>
+                        <span class="hashtag"><span>#</span>{{Event.tagline}}</span>
+                        <p class="descr">{{Event.description}}</p>
                         <p class="gg">Genre</p>
-                        <div class="flex-genres">
-                            <span class="one-genre">HIP HOP</span>
-                            <span class="one-genre">HIP HOP</span>
-                            <span class="one-genre">HIP HOP</span>
-                            <span class="one-genre">HIP HOP</span>
-                            <span class="one-genre">HIP HOP</span>
-                            <span class="one-genre">HIP HOP</span>
-                            <span class="one-genre">HIP HOP</span>
+                        <div class="flex-genres" *ngIf="Genres.length > 0">
+                            <span class="one-genre" *ngFor="let item of Genres">{{item.genre_show}}</span>
                         </div>
-                        <p class="some-tt"><span>Presented by</span> Rob Roy</p>
-                        <p class="some-tt"><span>Featuring:</span> Adele, Jill Scott and Sam Shepard </p>
+                        <p class="some-tt"><span>Presented by</span> {{Creator.display_name}}</p>
+                        <p class="some-tt"><span>Featuring:</span> {{Featuring}} </p>
                         <p class="gg">Location</p>
-                        <p class="location"><span>MADISON SQUARE GARDEN</span>4 Pennsylvania Plaza New York, NY 10001</p>
-                        <div class="location-wr">
+                        <p class="location"><span *ngIf="Event.venue">MADISON SQUARE GARDEN</span>{{Event.address}}</p>
+                        <div class="location-wr" (click)="aboutOpenMapModal()">
                             <div class="mark"></div>
                             <p class="location-inp">View map</p>
                         </div>
@@ -44,25 +38,9 @@
                             <div class="one-slide active">
                                 <span>Adele</span>
                             </div>
-                            <div class="one-slide">
-                                <span>Jill Scott</span>
-                            </div>
-                            <div class="one-slide">
-                                <span>Sam Shepard</span>
-                            </div>
                         </div>
                         <div class="iframe-slider-wrapp">
                             <!--это слайды с видосами-->
-                            <div class="slide">
-                                <div class="iframe-wr">
-                                    <iframe class="youtube-video" src="https://www.youtube.com/embed/tndftV42k7w" allowfullscreen></iframe>
-                                </div>
-                            </div>
-                            <div class="slide">
-                                <div class="iframe-wr">
-                                    <iframe class="youtube-video" src="https://www.youtube.com/embed/tndftV42k7w" allowfullscreen></iframe>
-                                </div>
-                            </div>
                             <div class="slide">
                                 <div class="iframe-wr">
                                     <iframe class="youtube-video" src="https://www.youtube.com/embed/tndftV42k7w" allowfullscreen></iframe>
@@ -72,11 +50,7 @@
                     </div>
                 </div>
             </div>
-        
-        
         </div>
-
-        
     </div>
     
     <!--контент-->
@@ -86,35 +60,35 @@
                 <div class="left-s">
                     <ul>
                         <li>
-                            <a class="active" href="#">Additional info</a>
+                            <a class="active">Additional info</a>
                         </li>
                         <li>
-                            <a href="#">Comments <span>(57)</span></a>
+                            <a >Comments <span>(57)</span></a>
                         </li>
                         <li>
-                            <a href="#">Updates <span>(57)</span></a>
+                            <a >Updates <span>(57)</span></a>
                         </li>
                     </ul>
                 </div>
                 <div class="right-s">
                     <div class="avas-flex">
                         <div class="ava-wr">
-                            <div class="ava" style="background-image: url(img/drake.jpg)"></div>
+                            <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
                         </div>
                         <div class="ava-wr">
-                            <div class="ava" style="background-image: url(img/drake.jpg)"></div>
+                            <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
                         </div>
                         <div class="ava-wr">
-                            <div class="ava" style="background-image: url(img/drake.jpg)"></div>
+                            <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
                         </div>
                         <div class="ava-wr">
-                            <div class="ava" style="background-image: url(img/drake.jpg)"></div>
+                            <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
                         </div>
                         <div class="ava-wr">
-                            <div class="ava" style="background-image: url(img/drake.jpg)"></div>
+                            <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
                         </div>
                         <div class="ava-wr">
-                            <div class="ava" style="background-image: url(img/drake.jpg)"></div>
+                            <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
                         </div>
                     </div>
                     <p>And <span>18</span> more going</p>
@@ -186,20 +160,27 @@
                         <div class="third-router-outlet">
                             <div class="biography-wrapper">
                                 <h6>Biography</h6>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
-                                <div class="cover-middle-text">
-                                    <div class="cover" style="background-image: url(img/drake.jpg)"></div>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
-                                <div class="cover-middle-text">
-                                    <div class="cover" style="background-image: url(img/drake.jpg)"></div>
-                                </div>
+                                <ng-container *ngFor="let item of Artists">
+                                    <biography-selector *ngIf="item.about" [Account]="item"></biography-selector>
+                                </ng-container>
                             </div>
-                        
                         </div>
                     </div>
                 </div>
             
+            </div>
+        </div>
+    </div>
+    <div class="modal fade modal-send-request map-1-modal" id="modal-map">
+        <div class="modal-dialog">
+            <div class="modal-body">
+                <h6 class="head-m-p-a">Location</h6>
+                <span class="closee-modal" data-dismiss="modal"></span>
+                <div class="for-map-init-modal-1">
+                    <agm-map *ngIf="Event.city_lat && Event.city_lng" style="height:100%" [latitude]="Event.city_lat" [longitude]="Event.city_lng"> 
+                        <agm-marker [latitude]="Event.city_lat" [longitude]="Event.city_lng" [visible]="isMarkerVisible"></agm-marker>
+                    </agm-map>
+                </div>
             </div>
         </div>
     </div>

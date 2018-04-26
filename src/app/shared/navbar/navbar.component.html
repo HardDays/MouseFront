@@ -105,7 +105,7 @@
                             <div *ngIf="isLoggedIn" class="dropdown-settings-ava">
                                 <div class="dropdown-items-wr">
                                     <span>{{getProfileNameById()}}</span>
-                                    <a >Messages (3)</a>
+                                    <a [routerLink]="['/system','messages']">Messages</a>
                                     <span (click)="curNav = 'profile'" [routerLink]="['/system','fanCreate','new']">Create Fan</span>
                                     <span (click)="curNav = 'profile'" [routerLink]="['/system','artistCreate']">Create Artist</span>
                                     <a (click)="curNav = 'profile'" [routerLink]="['/system','venueCreate','new']">Create Venue</a>

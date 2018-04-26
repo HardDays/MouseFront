@@ -58,7 +58,7 @@
                                         <div class="side">
                                             <div class="input-groupe-1">
                                                 
-                                                <input id="inp-create-4" [(ngModel)]="Artist.email" formControlName="email" name="" type="text">
+                                                <input id="inp-create-4" [(ngModel)]="Artist.artist_email" formControlName="artist_email" name="" type="text">
                                                 <label for="inp-create-4">Email Address<span>*</span></label>
                                             </div>
                                             <div class="input-groupe-1">
@@ -102,7 +102,7 @@
                                         </div>
                                     </div>
                                     <div class="scroll-wrapp">
-                                        <div class="circle-scroll" (click)="createEventFromAbout()"></div>
+                                        <div class="circle-scroll" (click)="createArtistFromAbout()"></div>
                                     </div>
                                     
                                 </div>
@@ -193,33 +193,22 @@
 
                                             <!---->
                                             <!--если не пустой. это слайдер-->
+                                            
                                             <div [ngStyle]="{'display': Artist.audio_links.length>0?'block':'none'}" class="slider-audio-wrapp">
+                                            
                                                 <!--это слайд. в нем не более 12 треков-->
-                                                <div class="one-slide">
-                                                    
-                                                        <ng-container *ngFor="let item of Artist.audio_links; let i = index">
-                                                            
-                                                    <div   class="one-audio">
-                                                        <div class="delete-track"></div>
+
+                                                
+                                                <div  class="one-slide">
+                                                              
+                                                    <div *ngFor="let item of Artist.audio_links; let i = index"  class="one-audio">
+                                                        <div class="delete-track" (click)="deleteAudio(i)"></div>
                                                         <span id="track-{{i}}" class="name-track">{{item.song_name}}</span>
                                                         <audio src="{{item.audio_link}}" preload="none" ></audio>
                                                         
                                                     </div>
-                                                
-                                                    </ng-container>
-                                                    <!-- <div class="one-audio">
-                                                        <div class="delete-track"></div>
-                                                        <span class="name-track">Soulcallqweqwe qwe qwe qwe qwe qwe qwe qwe qwe qwe qwe qwe </span>
-                                                        
-                                                        <audio src="../../../assets/mp3/lalala.mp3" preload="auto" ></audio>
-                                                        
-                                                    </div>
-                                                    <div class="one-audio">
-                                                        <div class="delete-track"></div>
-                                                        <span class="name-track">Soulcall</span>
-                                                        <audio src="../../../assets/mp3/lalala.mp3" preload="auto" ></audio>
-                                                        
-                                                    </div> -->
+                                            
+                                                    
                                                 </div>
                                                 <!--это типо второй слайд
                                                 <div class="one-slide">
@@ -231,6 +220,7 @@
                                                     </div>
                                                 </div>
                                                 -->
+                                            
                                             </div>
                                         </div>
                                     </div>
@@ -274,28 +264,27 @@
                                            
                                             <!---->
                                             <!--если не пустой.-->
-                                                
-                                            <div [ngStyle]="{'display': Artist.artist_albums.length>0?'block':'none'}" class="slider-2-albums slider-2-init">
-                                                <ng-container *ngFor="let item of Artist.artist_albums; let i = index">
-                                                    <div class="one-slide">
+                                            
+                                            <div [ngStyle]="{'display': Artist.artist_albums.length>0?'block':'none'}" class="slider-2-albums slider-2-init" >
+                                          
+                                                <!-- ngxSlickItem -->
+                                                    <div  *ngFor="let item of Artist.artist_albums; let i = index" class="one-slide">
                                                         <div class="wrapp-card">
-                                                            <div class="delete-track"></div>
+                                                            <div class="delete-track" (click)="deleteAlbum(i)"></div>
                                                             <div class="cover-image" [ngStyle]="{'background-image': 'url('+item.album_artwork+')'}"></div>
                                                             <div class="descr playing">
                                                                 <p class="name">{{item.album_name}}</p>
-                                                                <p class="date">2015</p>
+                                                                <!-- <p class="date">2015</p> -->
                                                             
                                                                 <span class="butt-style-1">
-                                                                    <span>play</span>
+                                                                    <a target="_blank" style="color:white" href="{{item.album_link}}"><span>play</span></a>
                                                                 </span>   
                                                             
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </ng-container>
-
-                                            </div>
-                                            
+                                           
+                                        </div>
                                             
                                             
                                             <!--/если не пустой.-->
@@ -344,12 +333,12 @@
                                            
                                             <!---->
                                             <!--если не пустой.-->
-                                                
-                                            <div [ngStyle]="{'display': Artist.videos.length>0?'block':'none'}" class="slider-2-albums slider-3-init">
-                                                <ng-container *ngFor="let item of Artist.videos; let i = index">
-                                                    <div class="one-slide">
+                                            
+                                            <div [ngStyle]="{'display': Artist.videos.length>0?'block':'none'}" class="slider-2-albums slider-2-init" >
+                                            
+                                                    <div  *ngFor="let item of Artist.videos; let i = index" class="one-slide">
                                                         <div class="wrapp-card">
-                                                            <div class="delete-track"></div>
+                                                            <div class="delete-track" (click)="deleteVideo(i)"></div>
                                                             <div (click)="openVideo(item)" class="cover-image" [ngStyle]="{'background-image': 'url('+item.preview+')'}">
                                                                 <div class="butt-play-video">
                                                                     <div class="pl"></div>
@@ -361,7 +350,8 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </ng-container>
+                                               
+                                            
                                             </div>
                                             <!--/если не пустой.-->
                                             
@@ -397,21 +387,24 @@
                                             </div>
                                         </div>
                                         <div class="right-side albums">
-                                            <div class="head-of-right-side">
+                                            <div  class="head-of-right-side">
                                                 <p class="head-text-r">Photos UPLOADED</p>
                                                 <p class="limit">Limit of 20 Videos</p>
                                             </div>
                                             <!--если пустой-->
-                                            <!--
-                                            <div class="empty-info">
-                                                <img src="img/smile.svg" class="img-responsive" alt="">
+                                            
+                                            <div [ngStyle]="{'display': ArtistImages.length<=0?'block':'none'}" class="empty-info">
+                                                <img src="../../../assets/img/smile.svg" class="img-responsive" alt="">
                                                 <p>No Songs Yet</p>
                                             </div>
-                                            -->
+                                           
                                             <!---->
                                             <!--если не пустой.-->
+                                              
+                                            <div [ngStyle]="{'display': ArtistImages.length>0?'block':'none'}" class="slider-2-albums slider-2-init" >
+                                           
+
                                             
-                                            <div class="slider-2-albums slider-4-photos slider-4-init">
                                                 <div *ngFor="let img of ArtistImages" class="one-slide">
                                                     <div class="wrapp-card">
                                                         <div class="delete-track"></div>
@@ -440,7 +433,7 @@
                                                     </div>
                                                 </div> -->
                                             
-                                            </div>
+                                                </div>
                                             
                                             <!--/если не пустой.-->
                                             
@@ -533,7 +526,7 @@
                                                     <div class="flex-radio">
                                                         <div class="one-radio">
                                                             <div class="radio-style">
-                                                                <input [(ngModel)]="Artist.is_perform_with_band" type="radio" class="radio-b" id="radio-1" name="group1" value="true" checked>
+                                                                <input [(ngModel)]="Artist.is_perform_with_band" type="radio" class="radio-b" id="radio-1" name="group1" [value]="true" checked="">
                                                                 <label for="radio-1"></label>
                                                             </div>
                                                             <p>Yes</p>
@@ -685,7 +678,7 @@
                                                 <h6>Preferred Location</h6>
                                                 <div class="location-wr">
                                                     <div class="mark"></div>
-                                                    <input [(ngModel)]="Artist.location" #search type="text" class="location-inp" placeholder="location">
+                                                    <input [(ngModel)]="Artist.preferred_address" #search type="text" class="location-inp" placeholder="location">
                                                 </div>
                                                 <div class="flex-input-groupes">
                                                     <div class="input-groupe-1 p-style-10">
@@ -693,8 +686,8 @@
                                                     </div>
                                                     <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
                                                         <select [(ngModel)]="Artist.days_to_travel">
-                                                            <option>30 days</option>
-                                                            <option>40 days</option>
+                                                            <option>30</option>
+                                                            <option>40</option>
                                                         </select>                                                         
                                                     </div>
                                                 </div>
@@ -773,8 +766,8 @@
                                                     </div>
                                                     <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
                                                         <select [(ngModel)]="Artist.min_time_to_book">
-                                                            <option>30 days</option>
-                                                            <option>40 days</option>
+                                                            <option>30</option>
+                                                            <option>40</option>
                                                         </select>                                                         
                                                     </div>
                                                 </div>
@@ -784,8 +777,8 @@
                                                     </div>
                                                     <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
                                                         <select [(ngModel)]="Artist.min_time_to_free_cancel">
-                                                            <option>30 days</option>
-                                                            <option>40 days</option>
+                                                            <option>30</option>
+                                                            <option>40</option>
                                                         </select>                                                         
                                                     </div>
                                                 </div>
@@ -822,69 +815,71 @@
                                 <div class="main-mw-7">
                                     <div class="riders-flex-wrapp">
                                         <div class="side">
-                                            <p class="head-side-riders">Stage Rider</p>
-                                            <p class="desc-riders">Type or Upload your requirements for the Stage (Stage, Audio, Video, Lighting)</p>
-                                            <div class="download-upload">
-                                                <!--до загрузки файла-->
-                                                <!--
-                                                <div class="side-dwn">
-                                                    <a class="dd-ff" href="#">
-                                                        <img src="img/download.png" class="img-responsive" alt="">
-                                                    </a>
-                                                    <p class="desc-side-dwn">Press to Downlod Templete</p>
-                                                </div>
-                                                <div class="side-dwn">
-                                                    <div class="photo-wr-1 on-riders">
-                                                        <label class="file_upload">
-                                                            <div class="bg-image"></div>
+                
+                                                <p class="head-side-riders">Stage Rider</p>
+                                                <p class="desc-riders">Type or Upload your requirements for the Stage (Stage, Audio, Video, Lighting)</p>
+                                                <div class="download-upload">
+                                                    <!--до загрузки файла-->
+                                                    
+                                                    <div class="side-dwn">
+                                                        <a class="dd-ff" href="#">
+                                                            <img src="../../assets/img/download.png" class="img-responsive" alt="">
+                                                        </a>
+                                                        <p class="desc-side-dwn">Press to Downlod Templete</p>
+                                                    </div>
+                                                    <div class="side-dwn">
+                                                        <div class="photo-wr-1 on-riders">
+                                                            <label class="file_upload">
+                                                                <div class="bg-image"></div>
 
-                                                            <input accept=".jpg, .jpeg, .png" type="file">
-                                                        </label>
-                                                    </div>
-                                                    <p class="desc-side-dwn">Press to Upload filled Templete</p>
-                                                </div>
-                                                -->
-                                                <!--после загрузки файла-->
-                                                <div class="side-dwn">
-                                                    <div class="file-uploaded">
-                                                        <div class="delete-file"></div>    
-                                                    </div>
-                                                    <p class="desc-side-dwn">File uploded</p>
-                                                </div>
-                                                <!--//после загрузки файла-->
-                                                
-                                            </div>
-                                            <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">
-                                                <textarea id="textarea-rider-1"></textarea>
-                                                <label for="textarea-rider-1" class="head-groupe">Description</label>
-                                                <span class="max-count">2000 max</span>
-                                            </div>
-                                            <div class="flex-mac-checkbox direction-column on-add-artist-page">
-                                                <p class="quetion-radio-text">How flexible are you for your preferences?</p>
-                                                <div class="flex-radio">
-                                                    <div class="one-radio">
-                                                        <div class="radio-style">
-                                                            <input type="radio" class="radio-b" id="radio-555" name="grope-rider-1" checked="">
-                                                            <label for="radio-555"></label>
+                                                                <input  (change)="loadFile($event)"  type="file">
+                                                            </label>
                                                         </div>
-                                                        <p>Flexible</p>
+                                                        <p class="desc-side-dwn">Press to Upload filled Templete</p>
                                                     </div>
-                                                    <div class="one-radio">
-                                                        <div class="radio-style">
-                                                            <input type="radio" class="radio-b" id="radio-556" name="grope-rider-1">
-                                                            <label for="radio-556"></label>
+                                                   
+                                                    <!--после загрузки файла-->
+                                                    <!-- <div class="side-dwn">
+                                                        <div class="file-uploaded">
+                                                            <div class="delete-file"></div>    
                                                         </div>
-                                                        <p>Not Flexible</p>
+                                                        <p class="desc-side-dwn">File uploded</p>
+                                                    </div> -->
+                                                    <!--//после загрузки файла-->
+                                                    
+                                                </div>
+                                                <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">
+                                                    <textarea  [(ngModel)]="stageRider.description" id="textarea-rider-1"></textarea>
+                                                    <label for="textarea-rider-1" class="head-groupe">Description</label>
+                                                    <span class="max-count">2000 max</span>
+                                                </div>
+                                                <div class="flex-mac-checkbox direction-column on-add-artist-page">
+                                                    <p class="quetion-radio-text">How flexible are you for your preferences?</p>
+                                                    <div class="flex-radio">
+                                                        <div class="one-radio">
+                                                            <div class="radio-style">
+                                                                <input [(ngModel)]="stageRider.is_flexible" type="radio" class="radio-b" id="radio-555" name="grope-rider-1" checked="">
+                                                                <label for="radio-555"></label>
+                                                            </div>
+                                                            <p>Flexible</p>
+                                                        </div>
+                                                        <div class="one-radio">
+                                                            <div class="radio-style">
+                                                                <input type="radio" class="radio-b" id="radio-556" name="grope-rider-1">
+                                                                <label for="radio-556"></label>
+                                                            </div>
+                                                            <p>Not Flexible</p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <!--походу эта кнопка когдато появлятся должна-->
-                                            <div class="butt-wrapp-grad">
-                                                <button class="butt-style-1 thot-butt" type="submit">
-                                                    <span>confirm</span>
-                                                </button>   
-                                            </div>
-                                            <!--//походу эта кнопка когдато появлятся должна-->
+                                                <!--походу эта кнопка когдато появлятся должна-->
+                                                <div class="butt-wrapp-grad">
+                                                    <button (click)="confirmStageRider()" class="butt-style-1 thot-butt" type="submit">
+                                                        <span>confirm</span>
+                                                    </button>   
+                                                </div>
+                                                <!--//походу эта кнопка когдато появлятся должна-->
+                                       
                                         </div>
                                         <div class="side">
                                             <p class="head-side-riders">Backstage Rider</p>

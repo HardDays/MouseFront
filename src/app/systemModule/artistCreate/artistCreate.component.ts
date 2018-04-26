@@ -8,7 +8,7 @@ import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { SelectModel } from '../../core/models/select.model';
 import { FrontWorkingTimeModel } from '../../core/models/frontWorkingTime.model';
 import { WorkingTimeModel } from '../../core/models/workingTime.model';
-import { AccountCreateModel, Album, Video } from '../../core/models/accountCreate.model';
+import { AccountCreateModel, Album, Video, Rider } from '../../core/models/accountCreate.model';
 import { EventDateModel } from '../../core/models/eventDate.model';
 import { ContactModel } from '../../core/models/contact.model';
 import { AccountGetModel, Audio } from '../../core/models/accountGet.model';
@@ -77,7 +77,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
     "display_name": new FormControl("", [Validators.required]),
     "stage_name": new FormControl("", [Validators.required]),
     "manager_name": new FormControl("", [Validators.required]),
-    "email": new FormControl(""),
+    "artist_email": new FormControl(""),
     "about": new FormControl("", [Validators.required]),
     
   });
@@ -110,6 +110,15 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
 
   preferredVenues:CheckModel<{type:string, type_show:string}>[] = []; 
 
+
+  // stageRider: FormGroup = new FormGroup({        
+  //   "uploaded_file": new FormControl(""),
+  //   "description": new FormControl("",),
+  //   "is_flexible": new FormControl("",)
+  // });
+  stageRider:Rider= new Rider();
+
+
   constructor(protected authService: AuthMainService,
     protected accService:AccountService,
     protected imgService:ImagesService,
@@ -126,20 +135,21 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
 
   @ViewChild('search') public searchElement: ElementRef;
 
-
+  slideConfig = {"slidesToShow": 2, "slidesToScroll": 2};
+  slideAudioConfig = {"slidesToShow": 12, "slidesToScroll": 12};
+  slideAlbumConfig = {"slidesToShow": 3, "slidesToScroll": 3};
 
   ngOnInit(){
-   
-    // this.Artist.im
-    this.initJS();
     this.initUser();
-    this.Init()
+    this.Init();
+    this.preferredVenues = this.getVenuesTypes();
+   
+
     this.activatedRoute.params.forEach((params) => {
       if(params["id"])this.getThisArtist(+params["id"]);
     });
  
     this.getGenres();
-    this.preferredVenues = this.getVenuesTypes();
     this.CreateAutocomplete();
   }
 
@@ -170,11 +180,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
                     }
                     else 
                     {
-                        // this.venueSearchParams.address = autocomplete.getPlace().formatted_address;
-                        // this.venueSearch();
-                        // this.mapCoords.venue.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
-                        // this.mapCoords.venue.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
-                        this.createArtist.location = autocomplete.getPlace().formatted_address;
+                        this.createArtist.preferred_address = autocomplete.getPlace().formatted_address;
                     }
                 });
             });
@@ -183,8 +189,29 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
   }
 
   initJS(){
-   
-     var as = audiojs.createAll();
+    setTimeout(() => {
+      var as = audiojs.createAll();
+     }, 100);
+     
+
+    //  $('.slider-3-init').slick({
+    //   dots: false,
+    //   arrows: true,
+    //   infinite: false,
+    //   slidesToShow: 3,
+    //    responsive: [
+    //       {
+    //         breakpoint: 1301,
+    //         settings: {
+    //           slidesToShow: 2,
+    //           slidesToScroll: 2
+             
+    //         }
+    //       }
+    //    ]
+
+    //   });
+     
    
     //слайдер аудио, в слайде 12 песен
     // $('.slider-audio-wrapp').slick({
@@ -234,24 +261,25 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
          
 
     // });
-    $('.slider-4-init').slick({
-        dots: false,
-        arrows: true,
-        infinite: false,
-        slidesToShow: 2,
-         responsive: [
-            {
-              breakpoint: 1301,
-              settings: {
-                slidesToShow: 2,
-                slidesToScroll: 2
+    // $('.slider-4-init').slick({
+    //     dots: false,
+    //     arrows: true,
+    //     infinite: false,
+    //     slidesToShow: 2,
+    //      responsive: [
+    //         {
+    //           breakpoint: 1301,
+    //           settings: {
+    //             slidesToShow: 2,
+    //             slidesToScroll: 2
                
-              }
-            }
-         ]
+    //           }
+    //         }
+    //      ]
 
-    });
+    // });
   }
+
   initUser(){
     this.accService.GetMyAccount({extended:true})
     .subscribe((users:any[])=>{
@@ -279,18 +307,26 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
   }
 
   updateArtistByCreateArtist(){
+    console.log(`create`,this.createArtist);
     this.accService.UpdateMyAccount(this.accountId, JSON.stringify(this.createArtist))
         .subscribe((res)=>{
+
                 this.Artist = res;
                 
-                this.getAudio();
-                this.getAlbumSlider();
-                this.getVideosSlider();
+                console.log(this.Artist);
+
+                
+                this.venueTypeFromModelToVar();
+                
+                                                             
+                                                          this.initJS();
+                                                           this.updateVideosPreview();
+                                                          this.GetVenueImages();
             
-                //console.log(`updated artist `,this.Artist);    
+                console.log(`updated artist `,this.Artist);    
             },
             (err)=>{
-                //console.log(`err`,err);
+                console.log(`err`,err);
             }
     );
   }
@@ -300,13 +336,11 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
     this.accService.GetAccountById(this.accountId, {extended:true})
               .subscribe((user:any)=>{
                   this.Artist = user;
-                  this.getAudio();
-                  this.getAlbumSlider();
-                  this.getVideosSlider();
-                  this.updateVideosPreview();
+
+                                                            
+
                   this.createArtist.artist_videos = this.Artist.videos;
                  
-
 
                   //console.log(this.Artist);
                   for (let key in user) {
@@ -314,40 +348,44 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
                           this.createArtist[key] = user[key];
                       }
                   }
-                  this.genreFromModelToVar();
+
+                  
+                  // this.createArtist.preferred_venues = [];
+                  // for (let key of this.Artist.preferred_venues) {
+                  //       this.createArtist.preferred_venues.push(key.type_of_venue);
+                  // }
+                  
+               
                   this.venueTypeFromModelToVar();
+                  this.genreFromModelToVar();
                   this.GetVenueImages();
+
+                //  this.setSliders();
+                this.initJS();
+                this.updateVideosPreview();
               })
 
   }
 
-  updateVideosPreview(){
-    for(let video of this.Artist.videos){
-      var video_id = video.link.split('v=')[1];
-      var ampersandPosition = video_id.indexOf('&');
-      if(ampersandPosition != -1) {
-        video_id = video_id.substring(0, ampersandPosition);
-      }
-      
-      video.preview = 'https://img.youtube.com/vi/'+video_id+'/0.jpg';
-    }
-   
-  }
-
-
 
   genreFromModelToVar(){
-  for(let g of this.createArtist.genres)
+    for(let g of this.createArtist.genres)
       for(let gnr of this.genres)
           if(g == gnr.genre)
               gnr.checked = true;
   }
-venueTypeFromModelToVar(){
-  for(let t of this.createArtist.preferred_venues)
-  for(let type of this.preferredVenues)
-      if(t == type.object.type)
-          type.checked = true;
-}
+  venueTypeFromModelToVar(){
+
+    this.createArtist.preferred_venues = [];
+    for (let key of this.Artist.preferred_venues) {
+          this.createArtist.preferred_venues.push(key.type_of_venue);
+    }
+    
+    for(let t of this.createArtist.preferred_venues)
+    for(let type of this.preferredVenues)
+        if(t == type.object.type)
+            type.checked = true;
+  }
 
   //about form
   getGenres(){
@@ -376,7 +414,7 @@ venueTypeFromModelToVar(){
 
 
 
-  createEventFromAbout(){
+  createArtistFromAbout(){
         if(!this.aboutForm.invalid){
 
             for (let key in this.aboutForm.value) {
@@ -389,7 +427,7 @@ venueTypeFromModelToVar(){
             this.createArtist.genres = this.genreService.GenreModelArrToStringArr(this.genres);
 
            
-            //console.log(`create artist`,this.createArtist);
+            console.log(`create artist`,this.createArtist);
            
 
             if(this.isNewArtist)
@@ -397,9 +435,7 @@ venueTypeFromModelToVar(){
                 this.accService.CreateAccount(this.createArtist)
                 .subscribe((res:any)=>{
                     this.Artist = res;
-                    this.getAudio();
-                    this.getAlbumSlider();
-                    this.getVideosSlider();
+                   
                     this.currentPage = 'riders';
                     //console.log(`new this artist`,this.Artist);
                 });
@@ -430,18 +466,9 @@ venueTypeFromModelToVar(){
     }
     
   }
-  getAudio(){
-    setTimeout(() => {
-      var as2 = audiojs.createAll();
-      if(this.Artist.audio_links.length>12)
-       $('.slider-audio-wrapp').slick({
-        dots: false,
-        arrows: true,
-        infinite: false,
-        slidesToShow: 1
-
-    });
-    }, 100);    
+  deleteAudio(index:number){
+    this.createArtist.audio_links.splice(index,1);
+    this.updateArtistByCreateArtist();
   }
 
 
@@ -464,28 +491,12 @@ venueTypeFromModelToVar(){
     }
     
   }
-  getAlbumSlider(){
-    setTimeout(() => {
-    $('.slider-2-init').slick({
-      dots: false,
-      arrows: true,
-      infinite: false,
-      slidesToShow: 3,
-       responsive: [
-          {
-            breakpoint: 1301,
-            settings: {
-              slidesToShow: 2,
-              slidesToScroll: 2
-             
-            }
-          }
-       ]
-
-      }),100
-    })
+  deleteAlbum(index:number){
+    this.createArtist.artist_albums.splice(index,1);
+    this.updateArtistByCreateArtist();
   }
   
+
   addVideo(){
     if(!this.addVideoForm.invalid){
       let params:Video = new Video();
@@ -494,39 +505,34 @@ venueTypeFromModelToVar(){
             params[key] = this.addVideoForm.value[key];
         }
       }
-      
       this.createArtist.artist_videos = this.Artist.videos;
       this.createArtist.artist_videos.push(params);
-      //console.log(`!`,params,this.createArtist.artist_videos);
       // 'http://d.zaix.ru/6yut.mp3'
        this.updateArtistByCreateArtist();
+       this.updateVideosPreview();
     }
     else {
-      //console.log(`Invalid Video Form!`, this.aboutForm);
+      
     }
   }
-  getVideosSlider(){
-    setTimeout(() => {
-    $('.slider-3-init').slick({
-      dots: false,
-      arrows: true,
-      infinite: false,
-      slidesToShow: 3,
-       responsive: [
-          {
-            breakpoint: 1301,
-            settings: {
-              slidesToShow: 2,
-              slidesToScroll: 2
-             
-            }
-          }
-       ]
+  deleteVideo(index:number){
+    this.createArtist.artist_videos.splice(index,1);
+    this.updateVideosPreview();
+    this.updateArtistByCreateArtist();
+   
 
-      }),100
-    })
   }
-
+  updateVideosPreview(){
+    console.log(`update VIDEO Images`);
+    for(let video of this.Artist.videos){
+      var video_id = video.link.split('v=')[1];
+      var ampersandPosition = video_id.indexOf('&');
+      if(ampersandPosition != -1) {
+        video_id = video_id.substring(0, ampersandPosition);
+      }
+      video.preview = 'https://img.youtube.com/vi/'+video_id+'/0.jpg';
+    }
+  }
   openVideo(video:Video){
     var video_id = video.link.split('v=')[1];
       var ampersandPosition = video_id.indexOf('&');
@@ -536,27 +542,14 @@ venueTypeFromModelToVar(){
 
     this.openVideoLink = this._sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+video_id+'?rel=0'); 
     setTimeout(()=>{$('#modal-movie').modal('show');},100);
-   // console.log(video.link);
-   
+ 
+    
   }
 
 
-//   addPhoto(){
-//     this.accService.PostAccountImages(this.accountId,this.addImage)
-//     .subscribe((res)=>{
-//       //console.log(`add`,this.addImage, this.imageInfo);
-//       this.updateArtistByCreateArtist();
-//     }); 
-//   }
 
-//   loadPhoto($event:any):void{
-//     this.ReadImages(
-//         $event.target.files,
-//         (res:string)=>{
-//            this.addImage = res;
-//         }
-//     );
-// }
+
+
 
 loadImage($event:any):void{
   let target = $event.target;
@@ -582,6 +575,7 @@ DeleteImageFromLoading()
 
 AddVenuePhoto()
 {
+  console.log(`image`,this.ImageToLoad)
   this.imgService.PostAccountImage(this.Artist.id,{image_base64:this.ImageToLoad,image_description: this.imageInfo})
     .subscribe(
       (res:any) => {
@@ -600,6 +594,7 @@ GetVenueImages()
         console.log(`images`,res)
         if(res && res.total_count > 0)
         {
+          this.ArtistImages = [];
           let index = 0;
           for(let img of res.images)
           {
@@ -628,23 +623,6 @@ SanitizeImage(image: string)
 
   return this._sanitizer.bypassSecurityTrustStyle(`url(${image})`);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -702,14 +680,23 @@ setPreferedVenue(index:number){
       this.preferredVenues[index].checked = false;
     }
 }
+
 addBooking(){
 
   // this.createArtist.performance_min_time = +((this.Artist.performance_min_time+'').split(' ')[0]);
   // this.createArtist.performance_max_time =  +((this.Artist.performance_max_time+'').split(' ')[0]);
+
+  this.Artist.price_from = (+this.Artist.price_from);
+  this.Artist.price_to = (+this.Artist.price_to);
+
   this.createArtist.performance_min_time = this.Artist.performance_min_time;
   this.createArtist.performance_max_time = this.Artist.performance_max_time;
-  this.createArtist.price_from = this.Artist.price_from; 
-  this.createArtist.price_to = this.Artist.price_to;
+
+  // if(!this.Artist.is_hide_pricing_from_profile){
+    this.createArtist.price_from = this.Artist.price_from; 
+    this.createArtist.price_to = this.Artist.price_to;
+  // }
+
   this.createArtist.additional_hours_price = this.Artist.additional_hours_price;
   this.createArtist.is_hide_pricing_from_profile = this.Artist.is_hide_pricing_from_profile;
   this.createArtist.is_hide_pricing_from_search = this.Artist.is_hide_pricing_from_search;
@@ -720,7 +707,7 @@ addBooking(){
  
   // this.createArtist.location = this.Artist.location;
   this.createArtist.preferred_venue_text = this.Artist.preferred_venue_text;
-  this.createArtist.days_to_travel = this.Artist.days_to_travel;
+  this.createArtist.days_to_travel = +this.Artist.days_to_travel;
   this.createArtist.is_permitted_to_stream = this.Artist.is_permitted_to_stream;
   this.createArtist.is_permitted_to_advertisement = this.Artist.is_permitted_to_advertisement;
   this.createArtist.has_conflict_contracts = this.Artist.has_conflict_contracts;
@@ -735,11 +722,44 @@ addBooking(){
     if(type.checked)
       this.createArtist.preferred_venues.push(type.object.type);
 
-  //console.log(this.createArtist);
+  console.log(this.createArtist, this.Artist);
 
   this.updateArtistByCreateArtist();
 }
+
+
+
+
+
+
+confirmStageRider(){
+
+  this.stageRider.rider_type = 'stage';
+  this.createArtist.artist_riders = [];
+  this.stageRider.is_flexible = true;
+  this.createArtist.artist_riders.push(this.stageRider);
   
+   this.updateArtistByCreateArtist();
+}
+
+loadFile($event:any):void{
+  let target = $event.target;
+  let file:File = target.files[0];
+  
+  // if(target.files.length == 0)
+  //     return;
+  
+  for(let file of target.files)
+  {
+    let reader:FileReader = new FileReader();
+    reader.onload = (e) =>{
+      this.stageRider.uploaded_file_base64 = reader.result;
+    }
+    reader.readAsDataURL(file);
+  }
+ 
+}
+
 
 
 

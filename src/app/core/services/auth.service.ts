@@ -96,15 +96,15 @@ export class AuthMainService{
         //return this.http.PostData('/auth/facebook.json',JSON.stringify(params));
     }
 
-    UserLoginByTwitter(token:string, secret_token:string){
-        let params = {
-            access_token: token,
-            access_token_secret: secret_token
-        };
-        return this.http.CommonRequest(
-            ()=> this.http.PostData('/auth/twitter.json',JSON.stringify(params))
-        );
-    }
+    // UserLoginByTwitter(token:string, secret_token:string){
+    //     let params = {
+    //         access_token: token,
+    //         access_token_secret: secret_token
+    //     };
+    //     return this.http.CommonRequest(
+    //         ()=> this.http.PostData('/auth/twitter.json',JSON.stringify(params))
+    //     );
+    // }
 
     UserLoginByVk(token:string){
         let params = {
@@ -119,9 +119,9 @@ export class AuthMainService{
         return this.http.GetDataFromOtherUrl('https://oauth.vk.com/authorize?client_id=6412516&display=page&response_type=token&v=5.73&state=123456');
     }
 
-    GetDataFromTwitter(){
-        return this.http.GetDataFromOtherUrl('https://api.twitter.com/oauth/authorize?client_id=923927835315785728&display=page&redirect_uri=https://mouse-web.herokuapp.com/login&scope=friends&response_type=token&v=5.73&scope=offline');
-    }
+    // GetDataFromTwitter(){
+    //     return this.http.GetDataFromOtherUrl('https://api.twitter.com/oauth/authorize?client_id=923927835315785728&display=page&redirect_uri=https://mouse-web.herokuapp.com/login&scope=friends&response_type=token&v=5.73&scope=offline');
+    // }
 
 
     SetupLocalUserStatus(status){
@@ -265,9 +265,9 @@ export class AuthMainService{
 
     }
 
-    Twitter(){
-        return this.http.Twitter();
-    }
+    // Twitter(){
+    //     return this.http.Twitter();
+    // }
 
 
 }

@@ -16,7 +16,8 @@ export class EventCreateModel{
         public city_lng?:number,
         public address?:string,
         public artists_number?:number,
-        public genres?:string[]
+        public genres?:string[],
+        public event_season?:string
     )
     {}
 }

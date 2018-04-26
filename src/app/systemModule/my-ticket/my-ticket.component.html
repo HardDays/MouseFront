@@ -1,0 +1,16 @@
+<div class="one-event">
+    <div class="cover-event" [ngStyle]="{'background-image': 'url(' + Image + ')'}">
+        <div class="icons-vr-t">
+            <span class="icon-icon">
+                <img *ngIf="Ticket.has_in_person" src="../../assets/img/live-icon.png" class="img-responsive" alt="">
+                <img *ngIf="Ticket.has_vr" src="../../assets/img/live-video-icon.svg" class="img-responsive" alt="">
+            </span>
+        </div>
+    </div>
+    <div class="white-desc-event tickets-desc">
+        <a [routerLink]="['/system','tickets',Ticket.id]" class="name-artist">{{Ticket.name}}</a>
+        <p class="when">{{Ticket.date_from && Ticket.date_to?(Ticket.date_from|date:'fullDate':'shortTime')+" - "+(Ticket.date_to|date:'fullDate':'shortTime'):Ticket.event_season+' '+Ticket.event_year}}</p>
+        <p class="where">{{Ticket.address}}</p>
+    </div>
+    
+</div>

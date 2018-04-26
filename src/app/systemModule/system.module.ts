@@ -35,6 +35,10 @@ import { VenueCreateComponent } from './venueCreate/venueCreate.component';
 import { FanCreateComponent } from './fan-create/fan-create.component';
 import { MyEventComponent } from './myEvent/myEvent.component';
 import { ShowsDetailComponent } from './showsDetail/shows.Detail.component';
+import { MessagesComponent } from './messages/messages.component';
+import { MyTicketComponent } from './my-ticket/my-ticket.component';
+import { MyTicketOpenedComponent } from './my-ticket-opened/my-ticket-opened.component';
+import { BiographyComponent } from './biography/biography.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +56,11 @@ import { ShowsDetailComponent } from './showsDetail/shows.Detail.component';
     VenueCreateComponent,
     FanCreateComponent,
     MyEventComponent,
-    ShowsDetailComponent
+    ShowsDetailComponent,
+    MessagesComponent,
+    MyTicketComponent,
+    MyTicketOpenedComponent,
+    BiographyComponent
   ],
   imports: [
     CommonModule,
