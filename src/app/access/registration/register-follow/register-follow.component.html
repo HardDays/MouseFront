@@ -4,14 +4,14 @@
           <div class="follow-m-w">
               <h3>Choose who to follow</h3>
               <div class="search-wr"> 
-                  <input type="text" class="inp-style-1" placeholder="Search">
+                  <input type="text" [(ngModel)]="text" (input)="changeText()" [ngModelOptions]="{standalone: true}" class="inp-style-1" placeholder="Search">
               </div>
               <div class="flex-bands">
                 <div *ngFor="let item of artists; let i = index" class="one-band">
-                    <input type="checkbox" [ngModel]="artistsChecked[i]" (ngModelChange)="artistsChecked[i] = $event" class="checkbox" name="artist-{{i}}" id="artist-{{i}}">
-                    <label class="label-wr" for="artist-{{i}}" id="checkbox-{{i}}-{{i}}" (click)="clickItem(i)">
+                    <input type="checkbox" (click)="clickItem(i,item.id)" [ngModel]="ifArtistChecked(item.id)" (ngModelChange)="$event" class="checkbox" name="artist-{{i}}" id="artist-{{i}}">
+                    <label class="label-wr" for="artist-{{i}}" id="checkbox-{{i}}-{{i}}" >
                         <div class="photo-band-wrapp">
-                            <div class="photo-band" style="background-image: url(../../../assets/img/layer-7.jpg)"></div>
+                            <div class="photo-band" [ngStyle]="{'background-image': 'url('+item.image_base64_not_given+')'}"></div>
                         </div>
                         <div class="descr">
                             <p class="name">{{item.display_name?item.display_name:"No name"}}</p>
