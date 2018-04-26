@@ -58,7 +58,7 @@ export class ShowsComponent extends BaseComponent implements OnInit {
   seeMore: boolean = false;
   isMarkerVisible: boolean = false;
   MIN_DISTANCE:number = 0;
-  MAX_DISTANCE:number = 100000;
+  MAX_DISTANCE:number = 40;
   Roles = AccountType;
   SearchParams: EventSearchParams = new EventSearchParams();
   AccountTypes:SelectModel[] = [];
@@ -181,12 +181,10 @@ export class ShowsComponent extends BaseComponent implements OnInit {
   GetEvents()
   {
     this.ParseSearchParams();
-    console.log("Par", this.SearchParams);
     this.eventService.EventsSearch(this.SearchParams)
       .subscribe((res:EventGetModel[])=>{
+        console.log("Got", res);
         this.Events = res;
-        //TODO: Из списка артистов по каждому ивенту
-        //console.log("1", this.Events);
         this.setHeightSearch();
       })
       
