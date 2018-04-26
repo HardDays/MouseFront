@@ -197,6 +197,19 @@ export class TypeService{
             }),
         ];
     }
+    GetMyTicketTypes()
+    {
+        return [
+            new CheckModel({
+                value:'in_person',
+                name:'In person'
+            }),
+            new CheckModel({
+                value:'vr',
+                name:'VR'
+            }),
+        ];
+    }
 
     TicketTypesArrayToStringArray(arr:CheckModel<any>[])
     {
