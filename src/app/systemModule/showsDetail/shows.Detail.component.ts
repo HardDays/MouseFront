@@ -23,6 +23,9 @@ import { EventService } from '../../core/services/event.service';
 import { Http } from '@angular/http';
 import { UserGetModel } from '../../core/models/userGet.model';
 import { EventGetModel } from '../../core/models/eventGet.model';
+import { TicketGetParamsModel } from '../../core/models/ticketGetParams.model';
+import { TicketModel } from '../../core/models/ticket.model';
+import { BuyTicketModel } from '../../core/models/buyTicket.model';
 
 declare var $:any;
 declare var PhotoSwipeUI_Default:any;
@@ -39,6 +42,10 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
     Event:EventGetModel = new EventGetModel();
     Creator:AccountGetModel = new AccountGetModel();
     Artists:AccountGetModel[] = [];
+    Tickets:TicketModel [] = [];
+
+    TicketsToBuy:BuyTicketModel[] = [];
+    TotalPrice:number = 0;
 
     Genres:GenreModel[] = [];
 
@@ -74,8 +81,9 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
         this.WaitBeforeLoading
         (
             () => this.eventService.GetEventById(this.EventId),
-            (res: EventGetModel) =>
+            (res: any) =>
             {
+                // console.log("Event", res);
                 this.InitEvent(res);
             },
             (err:any) => 
@@ -91,6 +99,8 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
         this.GetGenres();
         this.GetCreatorInfo();
         this.GetFeaturing();
+        this.GetTickets();
+        // console.log(this.Event);
     }
 
     GetFeaturing()
@@ -116,7 +126,6 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
                     {
                         this.Featuring = artistArr.join(", ");
                         this.Featuring += " and " + res.display_name;
-                        console.log(this.Artists);
                     }
                 }
             );
@@ -147,7 +156,77 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
         }
     }
 
+    GetTickets()
+    {
+        this.Tickets = this.Event.tickets;
+    }
+
+    AddTicketsToPrice(object:BuyTicketModel)
+    {
+        this.TicketsToBuy.push(object);
+        this.CalculateCurrentPrice();
+    }
+
+    CalculateCurrentPrice()
+    {
+        this.TotalPrice = 0;
+        for(let item of this.TicketsToBuy)
+        {
+            this.TotalPrice += item.count * item.ticket.price;
+        }
+    }
+
+    BuyTickets()
+    {
+        let myAcc = this.GetActiveAccountId();
+        if(myAcc)
+        {
+            for(let item of this.TicketsToBuy)
+            {
+                let object = {
+                    account_id:myAcc,
+                    ticket_id: item.ticket.id
+                };
+
+                while(item.count > 0)
+                {
+                    this.BuyTicket(object);
+                    item.count -= 1;
+                }
+                this.CalculateCurrentPrice();
+            }
+            setTimeout(
+                () =>
+                {
+                    this.router.navigate(['/system','tickets', this.EventId]);
+                },
+                3000
+            )
+        }
+    }
+
+    BuyTicket(object:any)
+    {
+        this.WaitBeforeLoading(
+            () => this.eventService.BuyTicket(object),
+            (res) => 
+            {   
+                console.log(res);
+            },
+            (err) =>
+            {
+                console.log(err);
+            }
+        );
+    }
+
     aboutOpenMapModal(){
         $('#modal-map').modal('show');
+    }
+
+    
+    SanitizeUrl(url:string)
+    {
+        return this._sanitizer.bypassSecurityTrustResourceUrl(url);
     }
 }

@@ -96,8 +96,12 @@ export class EventService{
     }
 
     GetTickets(params:TicketGetParamsModel){
+        let t_params = {
+            account_id:params.account_id
+        };
+
         return this.http.CommonRequest(
-            () => this.http.GetData('/events/'+params.event_id+'/tickets/'+params.id+'.json',this.typeService.ParamsToUrlSearchParams(params))
+            () => this.http.GetData('/events/'+params.event_id+'/tickets/'+params.id+'.json',this.typeService.ParamsToUrlSearchParams(t_params))
         );
     }
     AddTicket(ticket:TicketModel){
@@ -178,6 +182,22 @@ export class EventService{
         }
         return this.http.CommonRequest(
             ()=> this.http.GetData('/fan_tickets/by_event.json', this.typeService.ParamsToUrlSearchParams(params))
+        );
+    }
+
+    GetTicketInfoById(ticketId:number, accountId:number)
+    {
+        let params = {account_id:accountId};
+
+        return this.http.CommonRequest(
+            () => this.http.GetData('/fan_tickets/'+ticketId,this.typeService.ParamsToUrlSearchParams(params))
+        );
+    }
+
+    BuyTicket(params:any)
+    {
+        return this.http.CommonRequest(
+            () => this.http.PostData('/fan_tickets',params)
         );
     }
 

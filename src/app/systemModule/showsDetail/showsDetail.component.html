@@ -43,7 +43,7 @@
                             <!--это слайды с видосами-->
                             <div class="slide">
                                 <div class="iframe-wr">
-                                    <iframe class="youtube-video" src="https://www.youtube.com/embed/tndftV42k7w" allowfullscreen></iframe>
+                                    <iframe class="youtube-video" enablejsapi="1" [src]="SanitizeUrl('https://www.youtube.com/embed/tndftV42k7w')" allowfullscreen></iframe>
                                 </div>
                             </div>
                         </div>
@@ -97,64 +97,17 @@
             </div>
             <div class="other-datails-info">
                 <h1>Tickets<span>Includes $2 service fee. One ticket per person</span></h1>
-                <p class="total">Total price: <span>$229</span></p>
-                <span class="butt-style-1">
+                <p class="total">Total price: <span>${{TotalPrice}}</span></p>
+                <span (click)="BuyTickets()" class="butt-style-1">
                     <span>Buy</span>
                 </span>
             </div>
             <div class="body-tabs-datails-pages">
                 <div class="for-flex-contant-d">
                     <div class="left-side-tickets">
-                        <div class="one-ticket">
-                            <div class="one-tick-counter">
-                                <p class="count">$102</p>
-                                <div class="conter-wrapp">
-                                    <div class="arrow l-a">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="27">
-                                            <path fill-rule="evenodd" d="M2.72 13.257L14.36 1.523a.737.737 0 0 0 0-1.041.724.724 0 0 0-1.032 0L1.17 12.739a.739.739 0 0 0 0 1.041l12.158 12.251c.141.142.33.218.514.218.183 0 .372-.07.513-.218a.736.736 0 0 0 0-1.039L2.72 13.257z" opacity=".502"/>
-                                        </svg>
-                                    </div>
-                                    <span>1</span>
-                                    <div class="arrow r-a">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="27">
-                                            <path fill-rule="evenodd" d="M12.21 13.28L.601 25.03a.74.74 0 0 0 0 1.042.719.719 0 0 0 1.029 0l12.127-12.274a.742.742 0 0 0 0-1.042L1.63.488a.708.708 0 0 0-1.024 0 .74.74 0 0 0 0 1.041L12.21 13.28z" opacity=".502"/>
-                                        </svg>
-                                    </div>
-                                </div>
-                                <span class="butt-style-2">ADD</span>
-                            </div>
-                            <div class="abs-description-ticket-wr">
-                                <p class="f">In person ticket</p>
-                                <p class="s">(Regular)</p>
-                                <p class="t"><span>Buy one, get one free</span>Vip section, meet &amp; greet</p>
-                                <p class="last">(20 tickets left)</p>
-                            </div>
-                        </div>
-                        <div class="one-ticket">
-                            <div class="one-tick-counter">
-                                <p class="count">$102</p>
-                                <div class="conter-wrapp">
-                                    <div class="arrow l-a">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="27">
-                                            <path fill-rule="evenodd" d="M2.72 13.257L14.36 1.523a.737.737 0 0 0 0-1.041.724.724 0 0 0-1.032 0L1.17 12.739a.739.739 0 0 0 0 1.041l12.158 12.251c.141.142.33.218.514.218.183 0 .372-.07.513-.218a.736.736 0 0 0 0-1.039L2.72 13.257z" opacity=".502"/>
-                                        </svg>
-                                    </div>
-                                    <span>1</span>
-                                    <div class="arrow r-a">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="27">
-                                            <path fill-rule="evenodd" d="M12.21 13.28L.601 25.03a.74.74 0 0 0 0 1.042.719.719 0 0 0 1.029 0l12.127-12.274a.742.742 0 0 0 0-1.042L1.63.488a.708.708 0 0 0-1.024 0 .74.74 0 0 0 0 1.041L12.21 13.28z" opacity=".502"/>
-                                        </svg>
-                                    </div>
-                                </div>
-                                <span class="butt-style-2">ADD</span>
-                            </div>
-                            <div class="abs-description-ticket-wr">
-                                <p class="f">In person ticket</p>
-                                <p class="s">(Regular)</p>
-                                <p class="t">General admission</p>
-                                <p class="last">(20 tickets left)</p>
-                            </div>
-                        </div>
+                        <ng-container *ngFor="let item of Tickets">
+                            <buy-ticket-selector (onAddTickets)="AddTicketsToPrice($event)" [Ticket]="item"></buy-ticket-selector>
+                        </ng-container>
                     </div>
                     <div class="right-side-tickets">
                         <div class="third-router-outlet">

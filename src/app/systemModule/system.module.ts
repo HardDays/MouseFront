@@ -39,6 +39,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { MyTicketComponent } from './my-ticket/my-ticket.component';
 import { MyTicketOpenedComponent } from './my-ticket-opened/my-ticket-opened.component';
 import { BiographyComponent } from './biography/biography.component';
+import { ByTicketComponent } from './buyTicket/buyTicket.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { BiographyComponent } from './biography/biography.component';
     MessagesComponent,
     MyTicketComponent,
     MyTicketOpenedComponent,
-    BiographyComponent
+    BiographyComponent,
+    ByTicketComponent
   ],
   imports: [
     CommonModule,

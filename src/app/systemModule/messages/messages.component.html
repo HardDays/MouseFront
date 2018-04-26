@@ -6,32 +6,68 @@
 
                 <div class="left-s">
                     <!--задаем класс active при клике-->
-                    <div *ngFor="let item of messages; let i = index" [ngClass]="{'active':item.id==idCurMsg}" (click)="changeItem(item,i);" class="one-msg-l-block active">
-                        <div class="name-ava">
-                            <div class="ava" [ngStyle]="{'background-image': (accs[i]&&accs[i].image_base64_not_given)?'url('+accs[i].image_base64_not_given+')':''}"></div>
-                            <p class="n">{{accs[i]?accs[i].display_name:''}}</p>
-                            <p class="hash"><span>@</span>{{accs[i]?accs[i].user_name:''}}</p>
-                        </div>
-                        <div class="descr-side">
-                            <p class="f">
-                                <!--задаем класс active если нужен кружочек. нахуй он всрался - хз-->
-                                <span [ngClass]="{'active':!item.is_read}" class="some-t active">{{item.message_type}} to Perform</span>
-                                <span class="when">{{item.message_info.created_at | date:'MMM d' }}</span>
-                            </p>
-                            <p class="name-e">{{item.message_info.event_info.name}}</p>
-                            <p class="where-when">
-                                    {{item.message_info.event_info.address}}
-                                <br>
-                                {{item.message_info.event_info.event_season | titlecase}} {{item.message_info.event_info.event_year}}
+                    <ng-container *ngFor="let item of messages; let i = index">
+                        <div *ngIf="item.message_type != 'blank'" [ngClass]="{'active':item.id==idCurMsg}" (click)="changeItem(item,i);" class="one-msg-l-block active">
+                            <div class="name-ava">
+                                <div class="ava" [ngStyle]="{'background-image': (accs[i]&&accs[i].image_base64_not_given)?'url('+accs[i].image_base64_not_given+')':''}"></div>
+                                <p class="n">{{accs[i]?accs[i].display_name:''}}</p>
+                                <p class="hash"><span>@</span>{{accs[i]?accs[i].user_name:''}}</p>
+                            </div>
+                            <div  class="descr-side">
+                                <p class="f">
+                                    <!--задаем класс active если нужен кружочек. нахуй он всрался - хз-->
+                                    <span [ngClass]="{'active':!item.is_read}" class="some-t active">{{item.message_type}} to Perform</span>
+                                    <span class="when">{{item.created_at | date:'MMM d' }}</span>
+                                </p>
+                                <p class="name-e">{{item.message_info.event_info.name}}</p>
+                                <p  class="where-when">
+                                        {{item.message_info.event_info.address}}
+                                    <br>
+                                    {{item.message_info.event_info.event_season | titlecase}} {{item.message_info.event_info.event_year}}
 
-                            </p>
-                            
-                            <p *ngIf="item.message_type == 'request'" class="price">${{item.message_info.estimated_price}}</p>
-                            <p *ngIf="item.message_type == 'accept'" class="price">${{item.message_info.price }}</p>
-                            <p *ngIf="isExpiresSoon(item.message_info.created_at, item.message_info.time_frame)=='soon'&&item.message_type == 'request'" class="expires-soon">Expires<br>Soon</p>
+                                </p>
+                                
+                                <p *ngIf="item.message_type == 'request'" class="price">${{item.message_info.estimated_price}}</p>
+                                <p *ngIf="item.message_type == 'accept'" class="price">${{item.message_info.price }}</p>
+                                <p *ngIf="isExpiresSoon(item.created_at, item.message_info.time_frame)=='soon'&&item.message_type == 'request'" class="expires-soon">Expires<br>Soon</p>
+                            </div>
                         </div>
-                    </div>
-                    
+
+                        <div *ngIf="item.message_type == 'blank'" [ngClass]="{'active':item.id==idCurMsg}" (click)="changeItem(item,i);" class="one-msg-l-block active">
+                            <div class="name-ava">
+                                <div class="ava" [ngStyle]="{'background-image': (accs[i]&&accs[i].image_base64_not_given)?'url('+accs[i].image_base64_not_given+')':''}"></div>
+                                <p class="n">{{accs[i]?accs[i].display_name:''}}</p>
+                                <p class="hash"><span>@</span>{{accs[i]?accs[i].user_name:''}}</p>
+                            </div>
+                            <div  class="descr-side">
+                                <p class="f">
+                                    <!--задаем класс active если нужен кружочек. нахуй он всрался - хз-->
+                                    <span [ngClass]="{'active':!item.is_read}" class="some-t active">{{item.name}}</span>
+                                    <span class="when">{{item.created_at | date:'MMM d' }}</span>
+                                </p>
+                                <!-- <p class="name-e">{{item.name}}</p> -->
+                                <!-- <p  class="where-when">
+                                        {{item.message_info.event_info.address}}
+                                    <br>
+                                    {{item.message_info.event_info.event_season | titlecase}} {{item.message_info.event_info.event_year}}
+
+                                </p> -->
+                               
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                    </ng-container>
                     
                 </div>
 
@@ -44,11 +80,11 @@
 
 
                 <!--вместо дива может быть форма-->
-                <div class="right-s">
+                <div *ngIf="openMessage.message_type != 'blank'" class="right-s">
                     <div *ngIf="openMessage.id" class="some-request-text-wrapper">
                         <div class="block-info f-b">
                             <span class="some-t">{{openMessage.message_type}} to Perform</span>
-                            <span class="when">{{openMessage.message_info.created_at | date:'MMM d' }}</span>
+                            <span class="when">{{openMessage.created_at | date:'MMM d' }}</span>
                         </div>
                         <div class="block-info s-b">
                             <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
@@ -170,6 +206,27 @@
                                     </div>
                                     
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="openMessage.message_type == 'blank'" class="right-s">
+                    <div *ngIf="openMessage.id" class="some-request-text-wrapper">
+                        <div class="block-info f-b">
+                            <span class="some-t">{{openMessage.name}}</span>
+                            <span class="when">{{openMessage.created_at | date:'MMM d' }}</span>
+                        </div>
+                        <div class="block-info s-b">
+                            <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                            <div class="name-hash">
+                                <p class="n">{{accOpen.display_name?accOpen.display_name:''}}</p>
+                                <p class="hash"><span>@</span>papapa</p>
+                            </div>
+                            
+                        </div>
+                        <div class="block-info t-b">
+                             <p class="descr">{{openMessage.simple_message | titlecase}}</p>
+                             
                         </div>
                     </div>
                 </div>

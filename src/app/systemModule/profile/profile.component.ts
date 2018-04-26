@@ -219,6 +219,7 @@ logout(){
 FollowProfile() {
   this.accService.FollowAccountById(this.Accounts[0].id, this.UserId);
 }
+
   
 
 }
