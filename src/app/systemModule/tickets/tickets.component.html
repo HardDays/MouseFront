@@ -1,8 +1,14 @@
 <section class="main-router-outlet">
-    <div class="nav-holder-3" id="nav-holder" >
+    <div class="nav-holder-3" id="nav-holder" [ngClass]="{padding250:Tickets.length<=3}">
     <div class="wrapp-for-filter">
-        <form  #SearchForm="ngForm">
-            <input type="text" class="inp-style-1" name="serch-text" [ngModel]="SearchParams.text" (ngModelChange)="SearchParams.text = $event" placeholder="Search">
+        <form (ngSubmit)="ShowSearchResults()"  #SearchForm="ngForm">
+            <!--<input type="text" class="inp-style-1" name="serch-text" [ngModel]="SearchParams.text" (ngModelChange)="SearchParams.text = $event" placeholder="Search">-->
+            <div class="groupe-form">
+                <p class="head-input-groupe">Date</p>
+                <div class="wrapp-for-triangle">
+                    <input type="text" name="date-picker-inp" class="date-picker-inp" bsDaterangepicker ngModel [bsConfig]="bsConfig" [(ngModel)]="SearchDateRange">
+                </div>
+            </div>
             <div class="groupe-form">
                 <p class="head-input-groupe">Genre</p>
                 <div class="flex-genres">
@@ -18,40 +24,24 @@
                 </div>
                 <p class="more" (click)="ShowMoreGenres = !ShowMoreGenres"><span>See more</span></p>
             </div>
+      
             <div class="groupe-form">
                 <p class="head-input-groupe">Ticket type</p>
                 <div class="flex-genres">
-                    <div class="one-checkbox">
+                    <div class="one-checkbox" *ngFor="let item of TicketTypes; let i = index">
                         <div class="check-style">
-                            <input type="checkbox" class="checkbox" name="" id="checkbox-type-1">
-                            <label for="checkbox-type-1"></label>
+                            <input type="checkbox" class="checkbox" name="checkboxy-{{i}}" id="checkbox-type-{{i}}">
+                            <label for="checkbox-type-{{i}}"></label>
                         </div>
-                        <p>In person</p>
+                        <p>{{item.object.name}}</p>
                     </div>
-                    <div class="one-checkbox">
-                        <div class="check-style">
-                            <input type="checkbox" class="checkbox" name="" id="checkbox-type-2">
-                            <label for="checkbox-type-2"></label>
-                        </div>
-                        <p>VR</p>
-                    </div>
-                     <div class="one-checkbox">
-                        <div class="check-style">
-                            <input type="checkbox" class="checkbox" name="" id="checkbox-type-3">
-                            <label for="checkbox-type-3"></label>
-                        </div>
-                        <p>VR (Live)</p>
-                    </div>
-                     <div class="one-checkbox">
-                        <div class="check-style">
-                            <input type="checkbox" class="checkbox" name="" id="checkbox-type-4">
-                            <label for="checkbox-type-4"></label>
-                        </div>
-                        <p>All</p>
-                    </div>
+                    
+                     
+                     
                 </div>
-            
+           
             </div>
+          
             <div class="groupe-form">
                 <p class="head-input-groupe">Location</p>
                 <div class="location-wr">
@@ -60,37 +50,9 @@
                     <input type="text" class="location-inp" name="search-params-address" autocorrect="off" autocapitalize="off" spellcheck="off" #searchLocal placeholder="" [ngModel]="LocationText" (ngModelChange)="LocationText = $event"  #search id="searchAddress">
                 </div>
             </div>
+            
             <div class="groupe-form">
-                <p class="head-input-groupe">Date</p>
-                <select class="form-control">
-                    <option>Today</option>
-                    <option>Today</option>
-                    <option>Today</option>
-                    <option>Today</option>
-                </select>
-                <div class="flex-date-selets-wr">
-                    <div class="form-side-date">
-                        <select class="form-control">
-                            <option>Day</option>
-                            <option>day</option>
-                            <option>day</option>
-                        </select>
-                    </div>
-                    <div class="form-side-date">
-                        <select class="form-control">
-                            <option>Month</option>
-                            <option>Month</option>
-                            <option>Month</option>
-                        </select>
-                    </div>
-                    <div class="form-side-date">
-                        <select class="form-control">
-                            <option>Year</option>
-                            <option>Year</option>
-                            <option>Year</option>
-                        </select>
-                    </div>
-                </div>
+                <button type="submit"  class="butt-style-1"><span>Search</span></button>
             </div>
         </form>
         
@@ -176,7 +138,7 @@
                 <h6 class="head-m-p-a">Location</h6>
                 <span class="closee-modal" data-dismiss="modal"></span>
                 <div class="for-map-init-modal-1">
-                        <agm-map style="height:100%" (mapClick)="mapClick($event)" > <agm-marker [latitude]="mapLat" [longitude]="mapLng" [visible]="isMarkerVisible"></agm-marker></agm-map>
+                        <agm-map style="height:100%" (mapClick)="mapClick($event)" [latitude]="mapCoords.lat" [longitude]="mapCoords.lng"> <agm-marker (dragEnd)="aboutDragMarker($event)" [markerDraggable] = "true" [latitude]="mapCoords.lat"  [longitude]="mapCoords.lng" [visible]="isMarkerVisible"></agm-marker></agm-map>
                 </div>
             </div>
         </div>

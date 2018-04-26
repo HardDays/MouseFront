@@ -8,3 +8,6 @@ bs-daterangepicker-container{
 .yes-no{
     margin-left: 80px;
 }
+.modal-send-request.map-1-modal .modal-dialog .for-map-init-modal-1{
+    border: none;
+}
