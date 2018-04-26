@@ -8,6 +8,7 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/Rx';
 import {Subject} from 'rxjs/Subject';
 import { TypeService } from "./type.service";
+import { VenueMediaPhotoModel } from '../models/venueMediaPhoto.model';
 
 
 @Injectable()
@@ -27,14 +28,14 @@ export class ImagesService{
     }
 
 
-    PostAccountImage(accountId:number,image:string,info?:string)
+    PostAccountImage(accountId:number,object?: VenueMediaPhotoModel)
     {
-        let params = {
-            image_base64:image,
-            description:info?info:''
-        };
+        // let params = {
+        //     image_base64:image,
+        //     description:info?info:''
+        // };
         return this.http.CommonRequest(
-            ()=> this.http.PostData('/accounts/'+accountId+'/images.json',JSON.stringify(params))
+            ()=> this.http.PostData('/accounts/'+accountId+'/images.json',JSON.stringify(object))
         );
         // return this.http.GetData('/images/'+imageId,"");
     }

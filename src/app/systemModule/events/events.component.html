@@ -14,25 +14,29 @@
                 <div class="location-wr">
                     <div (click)="aboutOpenMapModal()" class="mark">
                     </div>
-                    <input type="text" class="location-inp" name="search-params-address" autocorrect="off" autocapitalize="off" spellcheck="off" placeholder=""  #search id="searchAddress">
+                    <input type="text" class="location-inp" name="search-params-address" autocorrect="off" autocapitalize="off" spellcheck="off" #searchLocal placeholder="" [ngModel]="LocationText" (ngModelChange)="LocationText = $event"  #search id="searchAddress">
                 </div>
             </div>
-            <div class="groupe-form">
+            <div class="groupe-form" [ngStyle]="{'display':(SearchParams.lat && SearchParams.lng)? 'block':'none'}">
                 <p class="head-input-groupe">Distance</p>
                 <div class="for-range-slider">
-                    <input type="text" class="current-slider distance-slider" value="">
+                    <input type="text" name="distance-range-slider" class="current-slider distance-slider" [ngModel]="SearchParams.distance" (ngModelChange)="SearchParams.distance = $event">
                 </div>
             </div>
             <div class="groupe-form">
                 <p class="head-input-groupe">Process of funding</p>
                 <div class="flex-genres">
-                        <div class="one-checkbox" >
-                            <div class="check-style">
-                                <input type="checkbox" [ngModel]="SearchParams.is_active"  (ngModelChange)="SearchParams.is_active = $event" class="checkbox" name='is-active-checkbox'  id='is-active-checkbox'>
+                    <div class="flex-mac-checkbox">
+                        <p>Is active        </p>
+                        <div class="yes-no">
+                            <span>Yes</span>
+                            <div class="mac-checkbox">
+                                <input class="checkbox" type="checkbox" [ngModel]="SearchParams.is_active" name='is-active-checkbox'  (ngModelChange)="SearchParams.is_active = $event" id='is-active-checkbox'>
                                 <label for="is-active-checkbox"></label>
                             </div>
-                            <p>Is active</p>
-                        </div> 
+                            <span>No</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="groupe-form">
@@ -47,41 +51,6 @@
                             <p>{{item.genre_show}}</p>
                         </div>
                     </ng-container>
-                    <!-- <div class="one-checkbox">
-                        <div class="check-style">
-                            <input type="checkbox" class="checkbox" name="" id="checkbox-2">
-                            <label for="checkbox-2"></label>
-                        </div>
-                        <p>hip hop</p>
-                    </div>
-                    <div class="one-checkbox">
-                        <div class="check-style">
-                            <input type="checkbox" class="checkbox" name="" id="checkbox-3">
-                            <label for="checkbox-3"></label>
-                        </div>
-                        <p>hip hop</p>
-                    </div>
-                    <div class="one-checkbox">
-                        <div class="check-style">
-                            <input type="checkbox" class="checkbox" name="" id="checkbox-4">
-                            <label for="checkbox-4"></label>
-                        </div>
-                        <p>hip hop</p>
-                    </div>
-                    <div class="one-checkbox">
-                        <div class="check-style">
-                            <input type="checkbox" class="checkbox" name="" id="checkbox-5">
-                            <label for="checkbox-5"></label>
-                        </div>
-                        <p>hip hop</p>
-                    </div>
-                    <div class="one-checkbox">
-                        <div class="check-style">
-                            <input type="checkbox" class="checkbox" name="" id="checkbox-6">
-                            <label for="checkbox-6"></label>
-                        </div>
-                        <p>hip hop</p>
-                    </div> -->
                 </div>
                 <p class="more" (click)="ShowMoreGenres = !ShowMoreGenres"><span>See more</span></p>
             </div>
@@ -99,7 +68,7 @@
             
             </div>
             <div class="groupe-form">
-                <p class="head-input-groupe">Size</p>
+                <p class="head-input-groupe">Type of space</p>
                 <select class="form-control" name="select_type_of_space" [ngModel]="SearchParams.size" (ngModelChange)="TypeOfSpaceChange($event)">
                     <option value=""></option>
                     <option *ngFor="let item of TypesOfSpace" [value]="item.value">{{item.name}}</option>
@@ -129,13 +98,10 @@
                     <div class="ham"></div>
                 </button>
                 <a [routerLink]="['/system','events']" class="ham-ham at-map">
-                    
                 </a>
                 <h1>Events</h1>
-                
                 <span [routerLink]="['/system','eventCreate']" class="add-event-butt"><span>Add Event</span></span>
             </div>
-            
         </div>
         <div class="main-mw-6">
             <div class="for-flex-all-events">
@@ -273,7 +239,7 @@
             <h6 class="head-m-p-a">Location</h6>
             <span class="closee-modal" data-dismiss="modal"></span>
             <div class="for-map-init-modal-1">
-                    <agm-map style="height:100%" (mapClick)="mapClick($event)" [latitude]="mapLat" [longitude]="mapLng"> <agm-marker [visible]="isMarkerVisible"></agm-marker></agm-map>
+                    <agm-map style="height:100%" (mapClick)="mapClick($event)" > <agm-marker [latitude]="mapLat" [longitude]="mapLng" [visible]="isMarkerVisible"></agm-marker></agm-map>
             </div>
         </div>
     </div>

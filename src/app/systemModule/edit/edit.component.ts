@@ -160,7 +160,7 @@ export class EditComponent extends BaseComponent implements OnInit {
       this.Account.emails = this.typeService.ValidateArray(this.Account.emails);
       this.Account.genres = [];
       if(this.Account.account_type == this.Roles.Artist)
-        this.Account.prefered_address = this.Address;
+        this.Account.preferred_address = this.Address;
       else 
         this.Account.address = this.Address;
       for(let g of this.Genres)

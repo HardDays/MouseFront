@@ -7381,3 +7381,376 @@ footer {
         box-shadow: none;
     }
 }
+.messages-main-wrapp{
+   padding: 0 80px;
+    background: #fff;
+    .main-mw{
+       
+        background: #f3f3f3;
+        box-shadow: 0px 4px 8px 0 rgba(0,0,0,0.05) inset;
+        padding: 0 15px;
+    }
+    .flex-massages-wrapp{
+        display: flex;
+        .left-s{
+            padding: 30px 15px;
+            width: 35%;
+            overflow: auto;
+            height: 730px;
+            &::-webkit-scrollbar {
+                background: #f3f3f3;
+                width: 5px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background: rgba(0, 0, 0, 0.1);
+                border-radius: 2.5px;
+                cursor: pointer;
+            }
+            .one-msg-l-block{
+                box-shadow: 0px 7px 13px 0 rgba(0, 0, 0, 0.07);
+                background: #fff;
+                margin-bottom: 15px;
+                border-radius: 10px;
+                min-height: 160px;
+                padding: 15px;
+                display: flex;
+                cursor: pointer;
+                &.active{
+                    background: linear-gradient(24deg, #3c155e, #8e2485);
+                    .name-ava{
+                        .n{
+                            color: #fff;
+                        }
+                        .hash{
+                            color: #fff;
+                        }
+                    }
+                    .descr-side{
+                        .f{
+                            span{
+                                &.some-t{
+                                    color: #fff;
+                                }
+                                &.when{
+                                    color: rgba(255, 255, 255, 0.5);
+                                }
+                            }
+                        }
+                        .name-e{
+                            color: #fff;   
+                        }
+                        .where-when{
+                            color: rgba(255, 255, 255, 0.5);
+                        }
+                        .price{
+                            color: #fff;
+                        }
+                    }
+                }
+                .name-ava{
+                    width: 115px;
+                    flex-shrink: 0;
+                    .ava{
+                        margin: 0 auto 8px auto;
+                        width: 67px;
+                        height: 67px;
+                        background-size: cover;
+                        background-position: center;
+                        border-radius: 50%;
+                        
+                    }
+                    
+                    .n{
+                        margin-bottom: 4px;
+                        color: #0f0f0f;
+                        font-size: 14px;
+                        text-align: center;
+                    }
+                    .hash{
+                        font-size: 14px;
+                        color: #0f0f0f;
+                        text-align: center;
+                        span{
+                              font-family: AvenirLTStdBlack;
+                            color: $main_color;
+                        }
+                    }
+                    
+                }
+                .descr-side{
+                    width: 100%;
+                    padding-left: 15px;
+                    position: relative;
+                    .f{
+                        display: flex;
+                         justify-content: space-between;
+                        margin-bottom: 5px;
+                        span{
+                            display: block;
+                           
+                            &.some-t{
+                                padding-right: 15px;
+                                font-size: 14px;
+                                text-transform: uppercase;
+                                font-family: AvenirLTStdBlack;
+                                color: #0f0f0f;
+                                position: relative;
+                                &.active{
+                                    &:after{
+                                        content: "";
+                                        display: block;
+                                        position: absolute;
+                                        top: 5px;
+                                        right: 0;
+                                        width: 8px;
+                                        height: 8px;
+                                        border-radius: 50%;
+                                        background: $main_color;
+                                    }
+                                }
+                            }
+                            &.when{
+                                padding-left: 10px;
+                                color: rgba(15, 15, 15, 0.5);
+                                font-size: 14px;
+                                white-space: nowrap;
+                            }
+                        }
+                    }
+                    .name-e{
+                        font-size: 16px;
+                        color: #0f0f0f;
+                        margin-bottom: 5px;
+                    }
+                    .where-when{
+                        margin-bottom: 5px;
+                        color: rgba(15, 15, 15, 0.5);
+                        font-size: 14px;
+                    }
+                    .price{
+                        font-size: 14px;
+                        font-family: AvenirLTStdBlack;
+                        margin-bottom: 0;
+                    }
+                    .expires-soon{
+                        position: absolute;
+                        bottom: 0;
+                        right: 0;
+                        text-align: center;
+                        margin: 0;
+                        font-size: 14px;
+                        color: $main_color;
+                    }
+                }
+            }
+        }
+        .right-s{
+            width: 65%;
+            padding: 30px 15px;
+            overflow: auto;
+            height: 730px;
+            &::-webkit-scrollbar {
+                background: #f3f3f3;
+                width: 5px;
+            }
+            &::-webkit-scrollbar-thumb {
+                background: rgba(0, 0, 0, 0.1);
+                border-radius: 2.5px;
+                cursor: pointer;
+            }
+            .some-request-text-wrapper{
+                background: #fff;
+                box-shadow: 0px 7px 13px 0 rgba(0, 0, 0, 0.07);
+                .block-info{
+                    padding: 15px 40px;
+                    border-bottom: 1px solid rgba(0,0,0,0.1);
+                    .rel-dog{
+                        position: relative;
+                        max-width: 70px;
+                        .inp-style-2{
+                            border-bottom: 1px dashed rgba(0,0,0,0.2);
+                            margin-bottom: 0;
+                            color: $main_color;
+                            font-family: AvenirLTStdBlack;
+                            padding: 0;
+                            padding-left: 12px;
+                            padding-bottom: 5px;
+                        }
+                        span{
+                            color: $main_color;
+                            font-size: 16px;
+                            font-family: AvenirLTStdBlack;
+                            position: absolute;
+                            display: block;
+                            top: -3px;
+                            left: 0;
+                            
+                        }
+                    }
+                    .selects-wrapper{
+                        display: flex;
+                        padding-top: 10px;
+                        .flex-input-groupes{
+                            width: 50%;
+                        }
+                        .flex-input-groupes .input-groupe-1:last-child{
+                            margin-left: 0;
+                            margin-right: 20px;
+                        }
+                    }
+                    .flex-price-change{
+                        display: flex;
+                        .your-price{
+                            padding-right: 5px;
+                            font-size: 14px;
+                        }
+                    }
+                    .some-t{
+                        display: block;
+                        font-size: 16px;
+                        font-family: AvenirLTStdBlack;
+                        color: #0f0f0f;
+                        text-transform: uppercase;
+                        
+                    }
+                    .when{
+                        color: rgba(15, 15, 15, 0.5);
+                        font-size: 14px;
+                    }
+                    .name-event{
+                        font-size: 16px;
+                        font-family: AvenirLTStdBlack;
+                        text-transform: uppercase;
+                        margin-bottom: 10px;
+                    }
+                    .descr{
+                        font-size: 14px;
+                        margin-bottom: 10px;
+                    }
+                    
+                    &.f-b{
+                        display: flex;
+                        justify-content: space-between;
+                        
+                    }
+                    .fot-edit{
+                        display: flex;
+                        align-items: center;
+                        font-size: 14px;
+                        margin-bottom: 3px;
+                        span{
+                            color: $main_color;
+                            font-family: AvenirLTStdBlack;
+                            padding-left: 5px;
+                        }
+                        .for-edit-img{
+                            margin-left: 7px;
+                            flex-shrink: 0;
+                            cursor: pointer;
+                        }
+                    }
+                    .desc-for-edit{
+                        color: rgba(0, 0, 0, 0.5);
+                        font-size: 14px;
+                        margin-bottom: 10px;
+                    }
+                    .event-type{
+                        font-size: 14px;
+                        font-family: AvenirLTStdBlack;
+                    }
+                    .will-expire{
+                        font-size: 16px;
+                        color: #df205d;
+                        font-family: AvenirLTStdMedium;
+                    }
+                    &.s-b{
+                        display: flex;
+                        align-items: center;
+                         .ava{
+                            flex-shrink: 0;
+                            width: 67px;
+                            height: 67px;
+                            background-size: cover;
+                            background-position: center;
+                            border-radius: 50%;
+                             
+                        }
+                        .name-hash{
+                            padding-left: 24px;
+                            
+                            .n{
+                                font-size: 16px;
+                                margin-bottom: 5px;
+                                font-family: AvenirLTStdMedium;
+                                color: #0f0f0f;
+                            }
+                            .hash{
+                                font-size: 16px;
+                                color: #0f0f0f;
+                            
+                                span{
+                                      font-family: AvenirLTStdBlack;
+                                    color: $main_color;
+                                }
+                            }
+                        }
+                    }
+                    &.fourth-b{
+                        .desc-for-edit{
+                            margin-bottom: 0;
+                        }
+                    }
+                    .input-groupe-1.small-textarea.max-500 textarea {
+                        height: 93px;
+                        padding: 10px;
+                    }
+                    .flex-buttons{
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        margin-bottom: 20px;
+                        .accept-wr{
+                            width: 142px;
+                            margin-right: 20px;
+                            .butt-style-1{
+                                  border-width: 5px;
+                                span{
+                                    text-transform: uppercase;
+                                    padding: 9px 0px;
+                                    text-align: center;
+                                  
+                                }
+                            }
+                            
+                        }
+                        .decline-wr{
+                            padding-left: 20px;
+                            .decline{
+                                display: block;
+                                width: 142px;
+                                border: solid 1px $main_color;
+                                border-radius: 50px;
+                                font-size: 16px;
+                                color: $main_color;
+                                text-align: center;
+                                margin: 0 auto;
+                                padding: 9px 0;
+                                cursor: pointer;
+                                -webkit-transition: 0.3s;
+                                transition: 0.3s;
+                                 background: transparent;
+                                   text-transform: uppercase;
+                                
+                                &:hover{
+                                    background: $main_color;
+                                    color: #fff;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

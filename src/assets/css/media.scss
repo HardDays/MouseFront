@@ -159,6 +159,15 @@
     .content-and-tabs-datails .tabslinks-and-goings .left-s ul li a{
         font-size: 16px;
     }
+    .messages-main-wrapp .flex-massages-wrapp .left-s .one-msg-l-block .name-ava{
+        width: 100px;
+    }
+    .messages-main-wrapp .flex-massages-wrapp .left-s{
+        width: 38%;
+    }
+    .messages-main-wrapp .flex-massages-wrapp .right-s{
+        width: 62%;
+    }
 }
 @media (max-width: 1250px) {
     .content-and-tabs-datails{
@@ -219,7 +228,9 @@
         font-size: 43px;
     }
     
-    
+    .messages-main-wrapp{
+        padding: 0 40px;
+    }
     
     
     

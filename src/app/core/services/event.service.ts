@@ -131,5 +131,15 @@ export class EventService{
         );
     }
 
+    /*тикеты*/
+    GetAllTicketsCurrent(myId,CurrOrPass){
+        let params = {
+            account_id: myId,
+            time:CurrOrPass
+        }
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/fan_tickets.json', this.typeService.ParamsToUrlSearchParams(params))
+        );
+    }
 
 }

@@ -83,6 +83,8 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
 
   VenueImages:VenueMediaPhotoModel[] = [];
 
+  ImageTypes: SelectModel[] = [];
+
   EmailFormGroup : FormGroup = new FormGroup({
     "name_email":new FormControl("",[]),
     "email":new FormControl("",[Validators.email]),
@@ -144,6 +146,8 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
     }
   );
 
+  slideConfig = {"slidesToShow": 2, "slidesToScroll": 2};
+
   @ViewChild('search') public searchElement: ElementRef;
 
   constructor(protected authService: AuthMainService,
@@ -165,6 +169,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
       this.CreateAutocomplete();
       this.TypesOfSpace = this.typeService.GetAllSpaceTypes();
       this.LocatedTypes = this.typeService.GetAllLocatedTypes();
+      this.ImageTypes = this.typeService.GetAllSpaceTypes();
       this.activatedRoute.params.forEach((params) => {
         if(params["id"] == 'new')
         {;
@@ -288,13 +293,11 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
           (res:any)=>{
             if(res && res.total_count > 0)
             {
-              //console.log(res);
               let index = 0;
               for(let image of res.images)
               {
-                //console.log(image);
                 this.VenueImages[index] = new VenueMediaPhotoModel();
-                this.VenueImages[index].description = image.description;
+                this.VenueImages[index].image_description = image.description;
                 this.GetVenueImageById(image.id,index);
                 index = index + 1;
               }
@@ -309,7 +312,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
         .subscribe(
           (res:Base64ImageModel) =>{
             this.VenueImages[saveIndex].image_base64 = /*(res.base64.indexOf('&quot;data:image/jpeg;base64') < 0? '&quot;data:image/jpeg;base64':'') + */res.base64;
-            console.log(this.VenueImages);
+            // console.log(this.VenueImages);
           }
         );
     }
@@ -340,7 +343,6 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
         () => this.VenueId == 0 ? this.accService.CreateAccount(this.Venue) : this.accService.UpdateMyAccount(this.VenueId,this.Venue),
         (res) => 
         {
-          console.log("recieve",res);
           this.DisplayVenueParams(res);
           this.NextPart();
         },
@@ -353,11 +355,10 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
 
     CheckFormForValid()
     {
-      console.log("current-form",this.CurrentPart);
       switch(this.CurrentPart)
       {
         case this.Parts.About:{
-          console.log("valid", this.aboutForm);
+          // console.log("valid", this.aboutForm);
           return !this.aboutForm.invalid;
         }
         case this.Parts.Listing:{
@@ -480,11 +481,18 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
 
   AddVenuePhoto()
   {
-    this.imgService.PostAccountImage(this.VenueId,this.ImageToLoad.image_base64,this.ImageToLoad.description)
+    if(this.ImageToLoad.image_type != "other" && this.ImageToLoad.image_type_description)
+    {
+      this.ImageToLoad.image_type_description = "";
+    }
+    // console.log(this.ImageToLoad);
+    this.imgService.PostAccountImage(this.VenueId,this.ImageToLoad)
       .subscribe(
         (res:any) => {
-          console.log(res);
+          // console.log("after post",res);
           this.ImageToLoad = new VenueMediaPhotoModel();
+          this.ImageToLoad.image_description = "";
+          // console.log(this.ImageToLoad)
           this.GetVenueImages();
         }
       );

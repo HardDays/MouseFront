@@ -181,13 +181,10 @@ export class ShowsComponent extends BaseComponent implements OnInit {
   GetEvents()
   {
     this.ParseSearchParams();
-    console.log("Send", this.SearchParams);
     this.eventService.EventsSearch(this.SearchParams)
       .subscribe((res:EventGetModel[])=>{
-        console.log("Got", this.SearchParams);
+        console.log("Got", res);
         this.Events = res;
-        //TODO: Из списка артистов по каждому ивенту
-        //console.log("1", this.Events);
         this.setHeightSearch();
       })
       

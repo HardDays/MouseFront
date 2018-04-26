@@ -13,7 +13,6 @@ export class AccountCreateModel{
         public bio?: string, // fan
             public genres?: string[],
             public address?: string,
-            public prefered_address?: string,
             public description?: string,
             public fax?: string,
             public bank_name?: string,
@@ -73,6 +72,7 @@ export class AccountCreateModel{
             public is_perform_with_backing_vocals?:boolean,
             public can_perform_without_backing_vocals?:boolean,
             public preferred_venues?:string[],
+            public preferred_address?:string,
             public location?:string,
             public preferred_venue_text?:string,
             public days_to_travel?:number,
@@ -84,8 +84,9 @@ export class AccountCreateModel{
             public min_time_to_free_cancel?:number,
             public late_cancellation_fee?:number,
             public refund_policy?:string,
+            public artist_email?:string,
 
-            public artist_riders?:Rider
+            public artist_riders?:Rider[]
 ){
 }
 }
@@ -119,6 +120,7 @@ export class Rider{
     constructor(
         public rider_type?:string,//stage|backstage|hospitality|technical'
         public uploaded_file?:File,
+        public uploaded_file_base64?:string,
         public description?:string,
         public is_flexible?:boolean
 ){}

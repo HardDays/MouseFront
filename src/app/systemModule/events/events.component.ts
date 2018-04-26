@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { NgForm,FormControl} from '@angular/forms';
 import { AuthMainService } from '../../core/services/auth.service';
 
@@ -20,6 +20,16 @@ import { EventGetModel } from '../../core/models/eventGet.model';
 import { EventSearchParams } from '../../core/models/eventSearchParams';
 import { BsDatepickerConfig } from 'ngx-bootstrap';
 import { CheckModel } from '../../core/models/check.model';
+import { AccountService } from '../../core/services/account.service';
+import { ImagesService } from '../../core/services/images.service';
+import { TypeService } from '../../core/services/type.service';
+import { GenresService } from '../../core/services/genres.service';
+import { EventService } from '../../core/services/event.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from 'angular2-social-login';
+import { MapsAPILoader } from '@agm/core';
+import { Http } from '@angular/http';
 
 declare var $:any;
 declare var ionRangeSlider:any;
@@ -38,8 +48,8 @@ export class EventsComponent extends BaseComponent implements OnInit {
     mapCoords = {lat:0, lng:0};
     Events:EventGetModel[] = [];
 
-    MIN_DISTANCE:number = 0;
-    MAX_DISTANCE:number = 100000;
+    MIN_DISTANCE:number = 10;
+    MAX_DISTANCE:number = 10000;
     SearchParams: EventSearchParams = new EventSearchParams();
     
     Genres:GenreModel[] = [];
@@ -51,9 +61,27 @@ export class EventsComponent extends BaseComponent implements OnInit {
 
     SearchDateRange:Date[] = [];
 
+    @ViewChild('searchLocal') public searchElement: ElementRef;
+    LocationText:string = '';
     bsConfig: Partial<BsDatepickerConfig>;
+
+
+    constructor(protected authService: AuthMainService,
+        protected accService:AccountService,
+        protected imgService:ImagesService,
+        protected typeService:TypeService,
+        protected genreService:GenresService,
+        protected eventService:EventService,
+        protected _sanitizer: DomSanitizer,
+        protected router: Router,public _auth: AuthService,
+        private mapsAPILoader: MapsAPILoader, 
+        private ngZone: NgZone, protected h:Http,
+        private activatedRoute: ActivatedRoute){
+        super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
+      }
     ngOnInit()
     {   
+        this.CreateAutocomplete();
         this.InitSearchParams();
         this.GetGenres();
         this.GetTicketTypes();
@@ -63,7 +91,7 @@ export class EventsComponent extends BaseComponent implements OnInit {
             type:"single",
             min: this.MIN_DISTANCE,
             max: this.MAX_DISTANCE,
-            from: 0,
+            from: 10,
             hide_min_max: false,
             postfix: " km",
             grid: false,
@@ -172,18 +200,22 @@ export class EventsComponent extends BaseComponent implements OnInit {
         this.codeLatLng( this.mapCoords.lat, this.mapCoords.lng);
     }
     codeLatLng(lat, lng) {
+        
         let geocoder = new google.maps.Geocoder();
         let latlng = new google.maps.LatLng(lat, lng);
+        this.SearchParams.lat = lat;
+        this.SearchParams.lng = lng;
         geocoder.geocode({
             'location': latlng }, 
              (results, status) => {
                 if (status === google.maps.GeocoderStatus.OK) {
                     if (results[1]) {
                   
-                    $("#searchAddress").val(results[1].formatted_address);
+                        this.LocationText = results[1].formatted_address;
+                    //$("#searchAddress").val(results[1].formatted_address);
                     
                     /* LOCATION - сдвиг точки на карте results[1].formatted_address */
-                    this.SearchParams.location = results[1].formatted_address;
+                    //this.SearchParams.location = results[1].formatted_address;
                     }
                 } else {
                     alert('Geocoder failed due to: ' + status);
@@ -208,7 +240,7 @@ export class EventsComponent extends BaseComponent implements OnInit {
 
     GetEvents()
     {
-        console.log("date", this.SearchParams);
+        //console.log("date", this.SearchParams);
         this.WaitBeforeLoading(
             () => this.eventService.EventsSearch(this.SearchParams),
             (res:EventGetModel[]) =>
@@ -229,9 +261,16 @@ export class EventsComponent extends BaseComponent implements OnInit {
         this.ConvertSearchDateRangeToSearchParams();
         this.ConvertGenreCheckboxes();
         this.ConvertTicketTypes();
+        this.CheckDistance();
 
         // console.log(this.SearchParams);
         this.GetEvents();
+    }
+
+    CheckDistance()
+    {
+        if(!this.SearchParams.lat || !this.SearchParams.lng)
+            this.SearchParams.distance = null;
     }
 
     ConvertTicketTypes()
@@ -285,6 +324,32 @@ export class EventsComponent extends BaseComponent implements OnInit {
         if($event)
             this.SearchParams.size.push($event);
     }
+
+    CreateAutocomplete(){
+        this.mapsAPILoader.load().then(
+            () => {
+               //(this.searchElement.nativeElement, {types:[`(cities)`]})
+             let autocomplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement);
+            
+            
+                autocomplete.addListener("place_changed", () => {
+                    this.ngZone.run(() => {
+                        let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
+                        if(place.geometry === undefined || place.geometry === null )
+                        {             
+                            return;
+                        }
+                        else 
+                        {
+                            //this.LocationText = place.formatted_address;
+                            this.SearchParams.lat = place.geometry.location.lat();
+                            this.SearchParams.lng = place.geometry.location.lng();
+                        }
+                    });
+                });
+            }
+        );
+      }
 
     
 

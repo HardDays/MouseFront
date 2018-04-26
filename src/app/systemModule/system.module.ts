@@ -16,6 +16,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { EventCreateComponent } from './eventCreate/eventCreate.component';
 import { EventsComponent } from './events/events.component';
 
+import { SlickModule } from 'ngx-slick';
 import { TextMaskModule } from 'angular2-text-mask';
 
 import { NguiAutoCompleteModule } from '@ngui/auto-complete';
@@ -33,6 +34,8 @@ import { TicketsComponent } from './tickets/tickets.component';
 import { VenueCreateComponent } from './venueCreate/venueCreate.component';
 import { FanCreateComponent } from './fan-create/fan-create.component';
 import { MyEventComponent } from './myEvent/myEvent.component';
+import { MessagesComponent } from './messages/messages.component';
+import { MyTicketComponent } from './my-ticket/my-ticket.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,9 @@ import { MyEventComponent } from './myEvent/myEvent.component';
     TicketsComponent,
     VenueCreateComponent,
     FanCreateComponent,
-    MyEventComponent
+    MyEventComponent,
+    MessagesComponent,
+    MyTicketComponent
   ],
   imports: [
     CommonModule,
@@ -64,6 +69,7 @@ import { MyEventComponent } from './myEvent/myEvent.component';
     NavbarModule,
     FooterModule,
     YoutubePlayerModule,
+    SlickModule.forRoot(),
     
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",
