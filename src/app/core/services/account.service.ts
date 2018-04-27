@@ -284,6 +284,11 @@ export class AccountService{
     GetImagesVenue(id:number){
         return this.http.CommonRequest(
             ()=> this.http.GetData('/accounts/' + id + "/images.json",'')
+        )
+    }
+    VerifyAccount(id:number){
+        return this.http.CommonRequest(
+            ()=> this.http.PostData('/accounts/'+id+'/verify.json',JSON.stringify(id))
         );
     }
     

@@ -224,7 +224,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         this.CreateAutocompleteArtist();
         this.CreateAutocompleteVenue();
         this.initSlider();
-      
+        this.getGenres();
+        this.getAllSpaceTypes();
        
 
         this.activatedRoute.params.forEach((params) => {
@@ -235,8 +236,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         });
 
 
-        this.getGenres();
-        this.getAllSpaceTypes();
+        
         
         this.artistLimitSearch();
         this.venueLimitSearch();
@@ -656,7 +656,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                 // this.codeLatLng( this.newEvent.city_lat, this.newEvent.city_lng, "aboutAddress");
                 // this.mapCoords.about.lat = this.newEvent.city_lat;
                 // this.mapCoords.about.lng = this.newEvent.city_lng;
-                // this.genreFromModelToVar();
+                
+                this.genreFromModelToVar();
                     
 
                  this.getShowsArtists();

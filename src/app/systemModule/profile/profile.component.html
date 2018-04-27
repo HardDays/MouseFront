@@ -24,8 +24,8 @@
                                 <img class="img-responsive" src="../../assets/img/ok.png" alt="">
                             </div>
                         </div>
-                        <form class="follow-wr">
-                            <button *ngIf="!isMyAccount" class="butt-style-1" type="submit" (click)="FollowAccount()">
+                        <form class="follow-wr" (ngSubmit)="FollowProfile()">
+                            <button *ngIf="!isMyAccount" class="butt-style-1" type="submit">
                                 <span>Follow</span>
                             </button>
                         </form>
@@ -259,8 +259,8 @@
                                 <div class="desc-wr">
                                     <p id="b_lines_view" class="description">{{Account.bio}}</p>
                                 </div>
-                                <form class="follow-wr">
-                                    <button *ngIf="!isMyAccount" class="butt-style-1" type="submit" (click)="FollowAccount()">
+                                <form class="follow-wr" (ngSubmit)="FollowProfile()">
+                                    <button *ngIf="!isMyAccount" class="butt-style-1" type="submit" >
                                         <span>Follow</span>
                                     </button>
                                 </form>
@@ -410,8 +410,8 @@
                                 <p id="b_lines_view" class="desc">
                                     {{Account.about}}
                                 </p>
-                                <form class="follow-wr">
-                                    <button *ngIf="!isMyAccount" class="butt-style-1" type="submit" (click)="FollowAccount()">
+                                <form class="follow-wr" (ngSubmit)="FollowProfile()">
+                                    <button *ngIf="!isMyAccount" class="butt-style-1" type="submit" >
                                         <span>Follow</span>
                                     </button>
                                 </form>

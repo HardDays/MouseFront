@@ -102,7 +102,7 @@ ngOnInit(){
                             this.Accounts = resMy;
 
                             this.isMyAccount = this.Accounts.find(obj => obj.id == this.UserId) != null;
-                            console.log(this.isMyAccount);
+                          
                         })
                 })
     })
@@ -131,9 +131,9 @@ Gallery(event) {
 
 }
 GalaryInit(event){
-    console.log(event);
+
     var index = event.srcElement.dataset.eteration;
-    //console.log(index);
+
     var options = {
         index: parseInt(index),
         bgOpacity: 1,
@@ -155,8 +155,7 @@ GetVenueImages()
                     it.checked = true;
                 }
                 this.GetImage();
-                console.log('1');
-                console.log(this.VenueImages);
+              
                 
             },
             (err) => {
@@ -201,7 +200,7 @@ GetImage()
 
 GetEvents()
     {
-        //console.log("date", this.SearchParams);
+      
         this.WaitBeforeLoading(
             () => this.eventService.GetEvents(this.UserId),
             (res:EventGetModel[]) =>
@@ -366,8 +365,7 @@ StopThisShit(index:number)
   InitByUser(usr:any){
     this.Account = usr;
     this.GetFolowersAcc();
-    console.log("this.Account");
-    console.log(this.Account);
+   
     
     if(this.Account.account_type == this.Roles.Venue)
     {
@@ -410,7 +408,7 @@ login(){
 }
 
 logout(){
-  //console.log('logout');
+
   this.Logout();
 }
 

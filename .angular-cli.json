@@ -27,7 +27,9 @@
         "assets/css/style.css",
         "assets/css/media.css",
         "assets/css/photoswipe.css",
-        "assets/css/default-skin.css"
+        "assets/css/default-skin.css",
+        "./../node_modules/angular-calendar/css/angular-calendar.css",
+        "assets/css/photoswipe.css"
       ],
       "scripts": [
         

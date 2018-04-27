@@ -40,6 +40,15 @@ import { NgModule } from '@angular/core';
 import { AgmCoreModule } from '@agm/core';
 import { CheckModel } from '../../core/models/check.model';
 
+import {
+  CalendarMonthModule,
+  CalendarEvent,
+  CalendarEventAction,
+  CalendarEventTimesChangedEvent
+} from 'angular-calendar';
+
+
+
 
 declare var $:any;
 declare var audiojs:any;
@@ -56,10 +65,13 @@ declare var ionRangeSlider:any;
 
 export class ArtistCreateComponent extends BaseComponent implements OnInit {
   
+  viewDate: Date = new Date();
+  events: CalendarEvent[] = [];;
   // general
+  isLoading:boolean = true;
   pages = Pages;
   currentPage:string = 'about';
-  showAllPages:boolean = false;
+  showAllPages:boolean = true;
 
   accountId:number;
   isNewArtist:boolean = true;
@@ -75,8 +87,8 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
   aboutForm : FormGroup = new FormGroup({        
     "user_name": new FormControl("", [Validators.required]),
     "display_name": new FormControl("", [Validators.required]),
-    "stage_name": new FormControl("", [Validators.required]),
-    "manager_name": new FormControl("", [Validators.required]),
+    "stage_name": new FormControl(""),
+    "manager_name": new FormControl(""),
     "artist_email": new FormControl(""),
     "about": new FormControl("", [Validators.required]),
     
@@ -304,7 +316,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
                     this.isNewArtist = false;
                     
                     this.getUpdatedArtistById();  
-                    this.showAllPages = true;                   
+                    // this.showAllPages = true;                   
             }
             if(this.isNewArtist)
               this.router.navigate(['/system/artistCreate']);
@@ -324,11 +336,16 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
                 this.venueTypeFromModelToVar();
                 
                                                              
-                                                          this.initJS();
-                                                           this.updateVideosPreview();
-                                                          this.GetVenueImages();
+                this.initJS();
+                this.updateVideosPreview();
+                this.GetVenueImages();
             
-                console.log(`updated artist `,this.Artist);    
+                console.log(`updated artist `,this.Artist);
+                
+                this.currentPage = this.pages[this.pages[this.currentPage]+1];
+
+                this.clearNewElements();
+                
             },
             (err)=>{
                 console.log(`err`,err);
@@ -441,7 +458,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
                 .subscribe((res:any)=>{
                     this.Artist = res;
                    
-                    this.currentPage = 'riders';
+                    this.currentPage = 'calendar';
                     //console.log(`new this artist`,this.Artist);
                 });
            
@@ -842,8 +859,13 @@ loadRiderFile($event:any){
   }
 
 
+  clearNewElements(){
 
+    this.addSongForm.reset();
+    this.addAlbumForm.reset();
+    this.addVideoForm.reset();
 
+  }
 
 
 }
