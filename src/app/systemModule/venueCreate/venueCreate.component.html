@@ -51,16 +51,16 @@
                             <div class="side">
                                 <div class="input-groupe-1 lbl-1">
                                     
-                                    <input id="inp-create-1" autocomplete="foo" [(ngModel)]="Venue.user_name" formControlName="venue_name" name="" type="text">
+                                    <input id="inp-create-1" autocomplete="off" [(ngModel)]="Venue.user_name" formControlName="venue_name" name="" type="text">
                                     <label for="inp-create-1">Venue Name<span>*</span></label>
                                 </div>
                                 <div class="input-groupe-1">
-                                    <input id="inp-create-2" autocomplete="foo" [(ngModel)]="Venue.display_name" formControlName="mouse_name" name="" type="text">
+                                    <input id="inp-create-2" autocomplete="off" [(ngModel)]="Venue.display_name" formControlName="mouse_name" name="" type="text">
                                     <label for="inp-create-2">Mouse Username<span>*</span></label>
                                     
                                 </div>
                                 <div class="input-groupe-1 whithout-label small-textarea max-500">
-                                    <textarea id="inp-create-9" autocomplete="foo"  [(ngModel)]="Venue.description" formControlName="short_desc"></textarea>
+                                    <textarea id="inp-create-9" autocomplete="off"  [(ngModel)]="Venue.description" formControlName="short_desc"></textarea>
                                     <label for="inp-create-9" class="head-groupe">Short Description<span>*</span></label>
                                     <span class="max-count">1000 max</span>
                                 </div>
@@ -72,11 +72,11 @@
                             <div class="side">
                                 <h6 class="head-col-add-venue hidden-lg hidden-md hidden-sm hidden-xs">Contact Info</h6>
                                 <div class="input-groupe-1">
-                                    <input id="inp-create-venue-tel-1" autocomplete="foo" [(ngModel)]="Venue.phone" formControlName="phone" name="" type="text">
+                                    <input id="inp-create-venue-tel-1" autocomplete="off" [textMask]="MaskTelephone()" [(ngModel)]="Venue.phone" formControlName="phone" name="" type="text">
                                     <label for="inp-create-venue-tel-1">Phone<span>*</span></label>
                                 </div>
                                 <div class="input-groupe-1">
-                                    <input id="inp-create-venue-tel-2" autocomplete="foo" [(ngModel)]="Venue.fax" formControlName="fax" name="" type="text">
+                                    <input id="inp-create-venue-tel-2" autocomplete="off" [(ngModel)]="Venue.fax" formControlName="fax" name="" type="text">
                                     <label for="inp-create-venue-tel-2">Fax</label>
                                 </div>
                             
@@ -86,11 +86,11 @@
                                         <ng-container [formGroup]="item">
                                             <span class="count">{{+i+1}}.</span>
                                             <div class="input-groupe-1">
-                                                <input autocomplete="foo" id="inp-create-venue-name-{{+i+1}}" [(ngModel)]="Venue.emails[i].name" formControlName="name_email" name="" type="text">
+                                                <input autocomplete="off" id="inp-create-venue-name-{{+i+1}}" [(ngModel)]="Venue.emails[i].name" formControlName="name_email" name="" type="text">
                                                 <label for="inp-create-venue-name-{{+i+1}}">Email Name {{+i+1}}</label>
                                             </div>
                                             <div class="input-groupe-1">
-                                                <input autocomplete="foo" id="inp-create-venue-email-{{+i+1}}" [(ngModel)]="Venue.emails[i].email" formControlName="email" name="" type="text">
+                                                <input autocomplete="off" id="inp-create-venue-email-{{+i+1}}" [(ngModel)]="Venue.emails[i].email" formControlName="email" name="" type="text">
                                                 <label for="inp-create-venue-email-{{+i+1}}">Email {{+i+1}} </label>
                                             </div>
                                         </ng-container>
@@ -107,23 +107,23 @@
                                 <h6 class="head-col-add-venue hidden-lg hidden-md hidden-sm hidden-xs">Address</h6>
                                 <!-- поменял местами Address и Country -->
                                 <div class="input-groupe-1">
-                                    <input id="inp-create-venue-adr-2" #search placeholder="" autocomplete="foo" [(ngModel)]="Venue.address" formControlName="address" name="" type="text">
+                                    <input id="inp-create-venue-adr-2" #search placeholder="" autocomplete="off" [(ngModel)]="Venue.address" formControlName="address" name="" type="text">
                                     <label for="inp-create-venue-adr-2">Address<span>*</span></label>
                                 </div>
                                 <div class="input-groupe-1">
-                                    <input id="inp-create-venue-adr-1" autocomplete="foo" [(ngModel)]="Venue.country" formControlName="country" name="" type="text">
+                                    <input id="inp-create-venue-adr-1" autocomplete="off" [(ngModel)]="Venue.country" formControlName="country" name="" type="text">
                                     <label for="inp-create-venue-adr-1">Country<span>*</span></label>
                                 </div>
                                 <div class="input-groupe-1">
-                                    <input id="inp-create-venue-adr-3" autocomplete="foo" [(ngModel)]="Venue.city" formControlName="city" name="" type="text">
+                                    <input id="inp-create-venue-adr-3" autocomplete="off" [(ngModel)]="Venue.city" formControlName="city" name="" type="text">
                                     <label for="inp-create-venue-adr-3">City<span>*</span></label>
                                 </div>
                                 <div class="input-groupe-1">
-                                    <input id="inp-create-venue-adr-4" autocomplete="foo" [(ngModel)]="Venue.state" formControlName="state" name="" type="text">
+                                    <input id="inp-create-venue-adr-4" autocomplete="off" [(ngModel)]="Venue.state" formControlName="state" name="" type="text">
                                     <label for="inp-create-venue-adr-4">State<span>*</span></label>
                                 </div>
                                 <div class="input-groupe-1">
-                                    <input id="inp-create-venue-adr-5" autocomplete="foo" [(ngModel)]="Venue.zipcode" formControlName="zipcode" name="" type="text">
+                                    <input id="inp-create-venue-adr-5" autocomplete="off" [(ngModel)]="Venue.zipcode" formControlName="zipcode" name="" type="text">
                                     <label for="inp-create-venue-adr-5">Zipcode</label>
                                 </div>
                             </div>
@@ -164,11 +164,11 @@
                                             <ng-container *ngIf="item.checked">
                                                 <div class="from-to">
                                                     <span>From</span>
-                                                    <input class="inp-style-3 time-mask" [textMask]="getMask(item)"  autocomplete="off" type="text" [name]="'from-time-'+i" [ngModel]="item.start_work" (ngModelChange)="item.start_work = $event">
+                                                    <input class="inp-style-3 time-mask" [textMask]="GetFromTimeMask(item)"  autocomplete="off" type="text" [name]="'from-time-'+i" [ngModel]="item.start_work" (ngModelChange)="item.start_work = $event">
                                                 </div>
                                                 <div class="from-to">
                                                     <span>To</span>
-                                                    <input class="inp-style-3 time-mask" [textMask]="getMaskEnd(item)"  autocomplete="off" type="text" [name]="'to-time-'+i" [ngModel]="item.finish_work" (ngModelChange)="item.finish_work = $event">
+                                                    <input class="inp-style-3 time-mask" [textMask]="GetToTimeMask(item)"  autocomplete="off" type="text" [name]="'to-time-'+i" [ngModel]="item.finish_work" (ngModelChange)="item.finish_work = $event">
                                                 </div>
                                             </ng-container>
                                         </div>
@@ -199,11 +199,11 @@
                                             <ng-container *ngIf="item.checked">
                                                 <div class="from-to">
                                                     <span>From</span>
-                                                    <input class="inp-style-3 time-mask" [textMask]="getMask(item)"  autocomplete="off" type="text" [name]="'from-time-'+i" [ngModel]="item.start_work" (ngModelChange)="item.start_work = $event">
+                                                    <input class="inp-style-3 time-mask" [textMask]="GetFromTimeMask(item)"  autocomplete="off" type="text" [name]="'from-time-'+i" [ngModel]="item.start_work" (ngModelChange)="item.start_work = $event">
                                                 </div>
                                                 <div class="from-to">
                                                     <span>To</span>
-                                                    <input class="inp-style-3 time-mask" [textMask]="getMaskEnd(item)"  autocomplete="off" type="text" [name]="'to-time-'+i" [ngModel]="item.finish_work" (ngModelChange)="item.finish_work = $event">
+                                                    <input class="inp-style-3 time-mask" [textMask]="GetToTimeMask(item)"  autocomplete="off" type="text" [name]="'to-time-'+i" [ngModel]="item.finish_work" (ngModelChange)="item.finish_work = $event">
                                                 </div>
                                             </ng-container>
                                         </div>
@@ -242,11 +242,11 @@
                         </div>
                         <div class="side">
                             <div class="input-groupe-1">
-                                <input id="venue-datails-1" [(ngModel)]="Venue.capacity" formControlName="capacity" name="" type="text">
+                                <input id="venue-datails-1" [textMask]="GetCapacityMask(Venue.capacity.toString())" [(ngModel)]="Venue.capacity" formControlName="capacity" name="" type="text">
                                 <label for="venue-datails-1">Capacity<span>*</span></label>
                             </div>
                             <div class="input-groupe-1">
-                                <input id="venue-datails-2" [(ngModel)]="Venue.num_of_bathrooms" formControlName="bathrooms" name="" type="text">
+                                <input id="venue-datails-2" [textMask]="GetNumOfBathrooms(Venue.num_of_bathrooms.toString())" [(ngModel)]="Venue.num_of_bathrooms" formControlName="bathrooms" name="" type="text">
                                 <label for="venue-datails-2">Number of Bathrooms</label>
                             </div>
                             <div class="flex-mac-checkbox">
@@ -276,7 +276,7 @@
                         </div>
                         <div class="side">
                             <div class="input-groupe-1">
-                                <input id="venue-datails-10" [(ngModel)]="Venue.min_age" formControlName="min_age" name="" type="text">
+                                <input id="venue-datails-10" [textMask]="GetAgeMask(Venue.min_age.toString())" [(ngModel)]="Venue.min_age" formControlName="min_age" name="" type="text">
                                 <label for="option-datails-10">Minimum Age</label>
                             </div>
                             <div class="input-groupe-1">
@@ -314,7 +314,7 @@
                     <div class="flex-body-1 more-padding">
                         <div class="side">
                             <div class="input-groupe-1 whithout-label small-textarea max-500">
-                                <textarea id="inp-media-venue-1" [(ngModel)]="Venue.audio_description" formControlName="audio_description"></textarea>
+                                <textarea id="inp-media-venue-1" formControlName="audio_description"></textarea>
                                 <label for="inp-media-venue-1" class="head-groupe">Audio Description<span>*</span></label>
                                 <span class="max-count">1000 max</span>
                             </div>
@@ -409,7 +409,7 @@
                                         <div class="delete-track"></div>
                                         <div class="cover-image" [ngStyle]="{'background-image': 'url('+ item.image_base64 +')'}"></div>
                                         <div class="descr">
-                                            <h6>Night club</h6>
+                                            <h6>{{(item.image_type != 'other')?item.image_type : item.image_type_description}}</h6>
                                             <p class="name">{{item.image_description}}</p>
                                         </div>
                                     </div>
@@ -447,7 +447,7 @@
                                     <div class="content-bodal input-groupe-1">
                                         <span class="head-type-inp">Advance Notice</span>
                                         <span class="head-type-inp grey">Minimum advance notice you prefer before booking an event date?</span>
-                                        <input id="venue-dateform-1" [(ngModel)]="Venue.minimum_notice" formControlName="minimum_notice" name="" type="text">
+                                        <input id="venue-dateform-1" [textMask]="GetMinimumNoticeMask()" [(ngModel)]="Venue.minimum_notice" formControlName="minimum_notice" name="" type="text">
                                         <span class="days-span-label">Days</span>
                                         <!-- <select>
                                             <option>2 weeks</option>
@@ -477,14 +477,14 @@
                                     <div class="input-groupe-1">
                                         <div class="rel-wr">
                                             <span class="abs-backs black">$</span>
-                                            <input id="inp-calendar-1" class="dollar" [(ngModel)]="Venue.price_for_daytime" formControlName="price_for_daytime" name="" type="text">
+                                            <input id="inp-calendar-1" class="dollar" [textMask]="GetPerfomancePriceMask()" [(ngModel)]="Venue.price_for_daytime" formControlName="price_for_daytime" name="" type="text">
                                         </div>
                                         <label id="inp-calendar-1">Price for Daytime (7AM - 7PM)</label>
                                     </div>
                                     <div class="input-groupe-1">
                                         <div class="rel-wr">
                                             <span class="abs-backs black">$</span>
-                                            <input id="inp-calendar-2" class="dollar" [(ngModel)]="Venue.price_for_nighttime" formControlName="price_for_nighttime" name="" type="text">
+                                            <input id="inp-calendar-2" class="dollar" [textMask]="GetPerfomancePriceMask()" [(ngModel)]="Venue.price_for_nighttime" formControlName="price_for_nighttime" name="" type="text">
                                         </div>
                                         <label id="inp-calendar-2">Price for Nighttime (7PM - 7AM)</label>
                                     </div>
@@ -493,25 +493,19 @@
                                            
                                             <div class="from-to">
                                                 <span>From</span>
-                                                <input class="inp-style-3 time-mask" [textMask]="GetPerformanceMask(Venue.performance_time_from)"  autocomplete="off" type="text" [(ngModel)]="Venue.performance_time_from" formControlName="performance_time_from">
+                                                <input class="inp-style-3 time-mask" [textMask]="GetPerformanceFromTimeMask(Venue)"  autocomplete="off" type="text" [(ngModel)]="Venue.performance_time_from" formControlName="performance_time_from">
                                             </div>
                                             <div class="from-to">
                                                 <span>To</span>
-                                                <input class="inp-style-3 time-mask" [textMask]="GetPerformanceMask(Venue.performance_time_to)"   autocomplete="off" type="text" [(ngModel)]="Venue.performance_time_to" formControlName="performance_time_to">
+                                                <input class="inp-style-3 time-mask" [textMask]="GetPerformanceToTimeMask(Venue)"   autocomplete="off" type="text" [(ngModel)]="Venue.performance_time_to" formControlName="performance_time_to">
                                             </div>
-                                           
                                         </div>
-                                        
                                         <label>Performance time</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="side width-66">
-                            
                                 Место для календаря
-                                
-                                
-                                
                             </div>
                         </div>
                     </div>
