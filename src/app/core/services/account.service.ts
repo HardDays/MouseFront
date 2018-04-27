@@ -270,4 +270,12 @@ export class AccountService{
             () => this.http.GetData("/accounts/"+acc_id+"/inbox_messages/"+id+".json",this.typeService.ParamsToUrlSearchParams(params))
         );
     }
+    GetAcauntFolowers(id:number,params?:any){
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/accounts/' + id + "/followers.json", this.typeService.ParamsToUrlSearchParams(params))
+        );
+    }
+    
+
+
 }

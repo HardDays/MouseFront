@@ -23,6 +23,9 @@ import { AccountSearchParams } from '../../core/models/accountSearchParams.model
 import { EventService } from '../../core/services/event.service';
 import { Http } from '@angular/http';
 import { UserGetModel } from '../../core/models/userGet.model';
+import { TicketsGetModel } from '../../core/models/ticketsGetModel';
+import { EventGetModel } from '../../core/models/eventGet.model';
+import { CheckModel } from '../../core/models/check.model';
 
 declare var $:any;
 declare var PhotoSwipeUI_Default:any;
@@ -45,7 +48,13 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     Accounts:AccountGetModel[] = [];
     isMyAccount = false;
     Videos:SafeResourceUrl[] = [];
-    
+    FolowersMass:any = [];
+    Tickets:TicketsGetModel[] = [];
+    Events:EventGetModel[] = [];
+    folowersMassChecked:CheckModel<any>[] = [];
+    ticketsMassChecked:CheckModel<TicketsGetModel>[] = [];
+    EventsMassChecked:CheckModel<EventGetModel>[] = [];
+    TotalTicket:number;
     constructor(protected authService: AuthMainService,
       protected accService:AccountService,
       protected imgService:ImagesService,
@@ -69,6 +78,7 @@ ngOnInit(){
             .subscribe(
                 (resAccount:AccountGetModel)=>
                 {
+                    console.log(resAccount);
                     this.InitByUser(resAccount);
                     this.accService.GetVideoArr(
                         (data:SafeResourceUrl[]) => {
@@ -85,6 +95,7 @@ ngOnInit(){
                             this.Accounts = resMy;
 
                             this.isMyAccount = this.Accounts.find(obj => obj.id == this.UserId) != null;
+                            console.log(this.isMyAccount);
                         })
                 })
     })
@@ -111,6 +122,104 @@ ngOnInit(){
     // },500);
 //   })
   
+}
+
+GetEvents()
+    {
+        //console.log("date", this.SearchParams);
+        this.WaitBeforeLoading(
+            () => this.eventService.GetEvents(this.UserId),
+            (res:EventGetModel[]) =>
+            {
+                this.EventsMassChecked = this.convertArrToCheckModel<EventGetModel>(res);
+                for(let it of this.EventsMassChecked){
+                    it.checked = true;
+                }
+
+          
+            },
+            (err) => {
+                console.log(err);
+            }
+        );
+    }
+GetTickets()
+{
+    this.WaitBeforeLoading(
+        () => this.eventService.GetAllTicketswithoutCurrent(this.UserId),
+        (res:TicketsGetModel[]) =>
+        {
+           
+            
+            this.ticketsMassChecked = this.convertArrToCheckModel<TicketsGetModel>(res);
+            for(let it of this.ticketsMassChecked){
+                it.checked = true;
+            }
+           
+         
+            this.CountTotaltTicket();
+        },
+        (err) => {
+            console.log(err);
+        }
+    );
+}
+CountTotaltTicket(){
+    this.TotalTicket = 0;
+    for(let i of this.ticketsMassChecked){
+      this.TotalTicket+=i.object.tickets_count;
+     
+    }
+  }
+GetFolowersAcc(){
+    this.WaitBeforeLoading(
+        () => this.accService.GetAcauntFolowers(this.UserId),
+        (res:any) =>
+        {
+            this.folowersMassChecked = this.convertArrToCheckModel<any>(res.followers);
+            for(let it of this.folowersMassChecked){
+                it.checked = true;
+            }
+           
+        },
+        (err) => {
+            console.log(err);
+         
+        }
+    );
+}
+searchFolover(event){
+    let searchParam = event.target.value;
+    for(let it of this.folowersMassChecked){
+        if(it.object.user_name.indexOf(searchParam)>=0){
+            it.checked = true;
+        }
+        else{
+            it.checked = false;
+        }
+    }
+}
+searchTickets(event){
+    let searchParam = event.target.value;
+    for(let it of this.ticketsMassChecked){
+        if(it.object.name.indexOf(searchParam)>=0){
+            it.checked = true;
+        }
+        else{
+            it.checked = false;
+        }
+    }
+}
+searchEvents(event){
+    let searchParam = event.target.value;
+    for(let it of this.EventsMassChecked){
+        if(it.object.name.indexOf(searchParam)>=0){
+            it.checked = true;
+        }
+        else{
+            it.checked = false;
+        }
+    }
 }
 InitSliderWrapp() {
     let that = this;
@@ -186,6 +295,9 @@ $('.gallery-main-wrapp').each(function () {
 
   InitByUser(usr:any){
     this.Account = usr;
+    this.GetFolowersAcc();
+    this.GetTickets();
+    this.GetEvents();
     if(this.Account.account_type == this.Roles.Venue)
     {
       this.Account.office_hours = this.accService.ParseWorkingTimeModelArr(this.Account.office_hours);
