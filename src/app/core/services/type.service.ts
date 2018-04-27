@@ -17,7 +17,8 @@ import { CheckModel } from '../models/check.model';
 @Injectable()
 export class TypeService{
 
-    constructor(private http: HttpService, private router: Router){     
+    constructor(private http: HttpService, private router: Router)
+    { 
     }
 
     GetAllSpaceTypes()

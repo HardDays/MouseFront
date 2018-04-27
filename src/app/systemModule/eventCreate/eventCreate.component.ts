@@ -109,6 +109,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     showsArtists:AccountGetModel[] = []; // список артистов, которым отправлен запрос
     isAcceptedArtistShow:boolean = true;
 
+    artistForRequest:AccountGetModel = new AccountGetModel();
     addArtist:AccountAddToEventModel = new AccountAddToEventModel(); // артист, которому отправляется запрос
     artistSearchParams:AccountSearchModel = new AccountSearchModel(); // параметры поиска
     genresSearchArtist:GenreModel[] = []; // список жанров для поиска артистов
@@ -123,6 +124,13 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         datetime_from:'',
         datetime_to:''
     }
+
+    requestArtistForm : FormGroup = new FormGroup({        
+        "time_frame": new FormControl(""),
+        "is_personal": new FormControl(""),
+        "estimated_price": new FormControl(),
+        "message": new FormControl("")
+    });
 
     // venue
     /////////////////////////////////////////////////
@@ -437,12 +445,19 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
        
         // this.changeDetector.detectChanges();
     }
-    sendRequestOpenModal(venue:AccountGetModel){
-        $('#modal-send-request').modal('show');
+    sendVenueRequestOpenModal(venue:AccountGetModel){
+        $('#modal-send-request-venue').modal('show');
         this.eventForRequest = venue;
         // this.eventForRequest.user_name
         //console.log(this.eventForRequest);
     }
+    sendArtistRequestOpenModal(artist:AccountGetModel){
+        $('#modal-send-request-artist').modal('show');
+        this.artistForRequest = artist;
+        // this.eventForRequest.user_name
+        //console.log(this.eventForRequest);
+    }
+
     aboutOpenMapModal(){
         $('#modal-map-1').modal('show');
     }
@@ -597,6 +612,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                    return m.message_info.price;
             }
         }
+        return '-';
     }
 
     getIdAtMsg(sender:number){
@@ -746,14 +762,34 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
         for(let item of this.checkArtists){
             this.addArtist.artist_id = item;
+            
             //console.log(`new artist: `,this.addArtist);
             this.eventService.AddArtist(this.addArtist).
                 subscribe((res)=>{
                     //console.log(`add artist`,item);
+                    // this.eventService.ArtistSendRequest(this.addArtist)
+                    // .subscribe((send)=>{
+                    //     this.updateEvent();
+                    // })
                     this.updateEvent();
                 });
         }
         
+    }
+
+    artistSendRequest(id:number){
+        for (let key in this.requestArtistForm.value) {
+            if (this.requestArtistForm.value.hasOwnProperty(key)) {
+                this.addArtist[key] = this.requestArtistForm.value[key];
+            }
+        }
+        this.addArtist.id = id;
+        this.addArtist.event_id = this.Event.id;
+        console.log(`request artist`,this.addArtist);
+                    this.eventService.ArtistSendRequest(this.addArtist)
+                    .subscribe((send)=>{
+                        this.updateEvent();
+                    })
     }
 
     
@@ -890,6 +926,10 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                 this.updateEvent();
             });
 
+    }
+
+    acceptArtistCard(id:number){
+        console.log(`accepted`,id);
     }
 
     declineArtist(idArtist:number){
@@ -1042,17 +1082,22 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
                 for (let key in this.requestVenueForm.value) {
                     if (this.requestVenueForm.value.hasOwnProperty(key)) {
-                        this.addVenue[key] = this.aboutForm.value[key];
+                        this.addVenue[key] = this.requestVenueForm.value[key];
                     }
                 }
     
                 this.addVenue.event_id = this.Event.id;
                 this.addVenue.venue_id = id;
-                
-                //console.log(`add venue`,this.addVenue);
+                this.addVenue.id = id;
+                console.log(`add venue`,this.addVenue);
                 this.eventService.AddVenue(this.addVenue).
                     subscribe((res)=>{
+                        console.log(`ok add`);
+                        this.eventService.VenueSendRequest(this.addVenue)
+                         .subscribe((send)=>{
                         this.updateEvent();
+                    }, (err)=>{console.log(err);})
+                        
                 });
         
             }

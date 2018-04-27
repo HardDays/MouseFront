@@ -1,0 +1,38 @@
+<!-- <p>
+  one-card works! {{card.id}} 
+</p> -->
+
+<div class="card">
+    <div class="delete-card"></div>
+    <div class="left-side">
+      
+        <div class="ava" [class.checked]="true" [ngStyle]="{'background-image': card.image_base64_not_given?'url('+card.image_base64_not_given+')':''}"></div>
+        <p class="desc-head-info">{{status}}</p>
+        <p class="status">Accepted by Artist and Event owner</p>
+    </div>
+    <div class="right-side">
+        <p class="name">{{card.user_name}}</p>
+        <p class="desc-head-info">Genre</p>
+        <p class="info">{{ toBeatyShowsList(card.genres)}}</p>
+        <p class="desc-head-info">Location</p>
+        <p class="info">{{card.address}}</p>
+        <p class="info">{{(status!='pending'&&status!='ready')?'Price $'+price:''}}</p>
+        <div class="flex-buttons">
+            <span *ngIf="status=='pending'" class="button-card" (click)="checkArtist()" >check</span>
+            <span *ngIf="status=='accepted'" class="button-card" (click)="acceptArtist(card.id)">accept</span>
+            <span *ngIf="status=='ready'" class="button-card" (click)="sendRequest()">Send request</span>
+            <span *ngIf="status!='owner_accepted'" class="button-card" (click)="declineArtist(card.id)">Decline</span>
+        </div>
+    </div>
+</div>
+
+
+              
+<!-- 
+<p class="info">{{status!='pending'&&status!='ready'?'Price $'+getPriceAtMsg(item.id):''}}</p>
+        <div class="flex-buttons">
+            <span *ngIf="status=='pending'" class="button-card" (click)="updateEvent()">check</span>
+            <span *ngIf="status=='accepted'" class="button-card" (click)="acceptArtist(item.id)">accept</span>
+            <span *ngIf="status=='ready'" class="button-card" (click)="sendArtistRequestOpenModal(item)">Send request</span>
+            <span *ngIf="status!='owner_accepted'" class="button-card"(click)="declineArtist(item.id)">Decline</span>
+        </div> -->

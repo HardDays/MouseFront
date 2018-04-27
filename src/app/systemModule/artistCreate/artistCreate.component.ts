@@ -306,7 +306,8 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
                     this.getUpdatedArtistById();  
                     this.showAllPages = true;                   
             }
-            if(this.isNewArtist)this.router.navigate(['/system/artistCreate']);
+            if(this.isNewArtist)
+              this.router.navigate(['/system/artistCreate']);
         });  
   }
 

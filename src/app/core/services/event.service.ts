@@ -155,6 +155,19 @@ export class EventService{
         );
     }
 
+    ArtistSendRequest(event:AccountAddToEventModel){
+        return this.http.CommonRequest(
+            () => this.http.PostData('/events/'+event.event_id+'/artists/'+event.id+'/send_request.json',JSON.stringify(event))
+        );
+    }
+
+    VenueSendRequest(event:AccountAddToEventModel){
+        return this.http.CommonRequest(
+            () => this.http.PostData('/events/'+event.event_id+'/venue/'+event.id+'/send_request.json',JSON.stringify(event))
+        );
+    }
+
+
     /*тикеты*/
     GetAllTicketsCurrent(myId,CurrOrPass){
         let params = {
@@ -178,6 +191,22 @@ export class EventService{
         }
         return this.http.CommonRequest(
             ()=> this.http.GetData('/fan_tickets/by_event.json', this.typeService.ParamsToUrlSearchParams(params))
+        );
+    }
+
+    GetTicketInfoById(ticketId:number, accountId:number)
+    {
+        let params = {account_id:accountId};
+
+        return this.http.CommonRequest(
+            () => this.http.GetData('/fan_tickets/'+ticketId,this.typeService.ParamsToUrlSearchParams(params))
+        );
+    }
+
+    BuyTicket(params:any)
+    {
+        return this.http.CommonRequest(
+            () => this.http.PostData('/fan_tickets',params)
         );
     }
 
