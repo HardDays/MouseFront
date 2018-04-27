@@ -280,6 +280,12 @@ export class AccountService{
             ()=> this.http.GetData('/accounts/' + id + "/upcoming_shows.json",'')
         );
     }
+
+    GetImagesVenue(id:number){
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/accounts/' + id + "/images.json",'')
+        );
+    }
     
 
 

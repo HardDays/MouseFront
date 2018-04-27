@@ -16,7 +16,7 @@ import { UserCreateModel } from '../../core/models/userCreate.model';
 import { GenreModel } from '../../core/models/genres.model';
 import { AccountGetModel, Album } from '../../core/models/accountGet.model';
 import { SafeHtml, DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { AccountType } from '../../core/base/base.enum';
+import { AccountType, BaseImages } from '../../core/base/base.enum';
 import { Base64ImageModel } from '../../core/models/base64image.model';
 import { MapsAPILoader } from '@agm/core';
 import { AccountSearchParams } from '../../core/models/accountSearchParams.model';
@@ -26,6 +26,7 @@ import { UserGetModel } from '../../core/models/userGet.model';
 import { TicketsGetModel } from '../../core/models/ticketsGetModel';
 import { EventGetModel } from '../../core/models/eventGet.model';
 import { CheckModel } from '../../core/models/check.model';
+
 
 declare var $:any;
 declare var PhotoSwipeUI_Default:any;
@@ -57,6 +58,9 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     TotalTicket:number;
     UpcomingShows:CheckModel<EventGetModel>[] = [];
     Albums:CheckModel<Album>[] = [];
+    itemsPhotoss:any = [];
+    VenueImages:any;
+    ImageMassVenue:any = [];
     constructor(protected authService: AuthMainService,
       protected accService:AccountService,
       protected imgService:ImagesService,
@@ -73,7 +77,8 @@ super(authService,accService,imgService,typeService,genreService,eventService,_s
 ngOnInit(){
 
     //this.Videos = this.accService.GetVideo();
-    
+ 
+ 
     this.activatedRoute.params.forEach((params)=>{
         this.UserId = params["id"];
         this.accService.GetAccountById(this.UserId,{extended:true})
@@ -101,29 +106,97 @@ ngOnInit(){
                         })
                 })
     })
-//   this.accService.GetMyAccount()
-//   .subscribe((res:AccountGetModel[])=>{
-//       this.isMyAccount = false;
-//       this.activatedRoute.params.forEach((params) => {
-//       this.UserId = params["id"];
-//       this.Accounts = res;
-//       this.accService.GetAccountById(this.UserId, {extended:true})
-//         .subscribe((user:any)=>{
 
-//             for(let acc of this.Accounts) {
-//                 if(acc.id == this.UserId) {
-//                     this.isMyAccount = true;
-//                     break;
-//                 }
-//             }
-//             this.InitByUser(user);
-//         })
-//     });
-    // setTimeout(()=>{
-    //     this.Wrapper();
-    // },500);
-//   })
   
+}
+Gallery(event) {
+    
+    let itemsPhoto = [];
+    $('.for-gallery-item').each(function (e) {
+        var href = $(this).attr('data-hreff')
+            , size = $(this).data('size').split('x')
+            , width = size[0]
+            , height = size[1];
+        var item = {
+            src: href
+            , w: width
+            , h: height
+        }
+        itemsPhoto.push(item);
+
+    });
+    this.itemsPhotoss = itemsPhoto;
+     this.GalaryInit(event);   
+
+
+}
+GalaryInit(event){
+    console.log(event);
+    var index = event.srcElement.dataset.eteration;
+    //console.log(index);
+    var options = {
+        index: parseInt(index),
+        bgOpacity: 1,
+        showHideOpacity: true,
+        history: false,
+    }
+    var lightBox = new PhotoSwipe($('.pswp')[0], PhotoSwipeUI_Default, this.itemsPhotoss, options);
+    lightBox.init();
+}
+GetVenueImages()
+    {
+        //console.log("date", this.SearchParams);
+        this.WaitBeforeLoading(
+            () => this.accService.GetImagesVenue(this.UserId),
+            (res:any) =>
+            {
+                this.VenueImages = this.convertArrToCheckModel<any>(res.images);
+                for(let it of this.VenueImages){
+                    it.checked = true;
+                }
+                this.GetImage();
+                console.log('1');
+                console.log(this.VenueImages);
+                
+            },
+            (err) => {
+                console.log(err);
+            }
+        );
+    }
+GetImage()
+  {
+      for(let i in this.VenueImages){
+        if(this.VenueImages[i].object && this.VenueImages[i].object.id)
+        {
+            this.WaitBeforeLoading(
+                () => this.imgService.GetImageById(this.VenueImages[i].object.id),
+                (res:Base64ImageModel) => {
+                
+                    this.ImageMassVenue[i] = (res && res.base64) ? res.base64 : BaseImages.Drake;
+                    
+                },
+                (err) =>{
+                    this.ImageMassVenue[i] = BaseImages.Drake;
+                }
+            );
+        }
+        else{
+            this.ImageMassVenue[i] = BaseImages.Drake;
+        }
+      }
+     
+  }
+  searchImagesVenue(event){
+    let searchParam = event.target.value;
+    for(let it of this.VenueImages){
+        if(it.object.description.indexOf(searchParam)>=0){
+            it.checked = true;
+        }
+        else{
+            it.checked = false;
+        }
+    }
 }
 
 GetEvents()
@@ -137,7 +210,7 @@ GetEvents()
                 for(let it of this.EventsMassChecked){
                     it.checked = true;
                 }
-
+               
           
             },
             (err) => {
@@ -288,64 +361,21 @@ StopThisShit(index:number)
     //$('#video-iframe-'+index).pauseVideo();
 }
 
-Gallery() {
-$('.gallery-main-wrapp').each(function () {
-    var pic = $(this)
-        , getItems = function () {
-            var items = [];
-            //console.log("1");
-            pic.find('.for-gallery-item').each(function () {
-                var href = $(this).attr('data-hreff')
-                    , size = $(this).data('size').split('x')
-                    , width = size[0]
-                    , height = size[1];
-                var item = {
-                    src: href
-                    , w: width
-                    , h: height
-                }
-                items.push(item);
-            });
-            return items;
-        }
-    var items = getItems();
-    var pswp = $('.pswp')[0];
-    pic.on('click', '.one-block', function (event) {
-        event.preventDefault();
-        var index = $(this).index();
-        var options = {
-                index: parseInt(index),
-                bgOpacity: 1,
-                showHideOpacity: true,
-                history: false,
-                getThumbBoundsFn: function(index) {
-                  var thumbnail = document.querySelectorAll('.for-gallery-item')[index];
-                  var pageYScroll = window.pageYOffset || document.documentElement.scrollTop; 
-                  var rect = thumbnail.getBoundingClientRect(); 
-                  return {x:rect.left, y:rect.top + pageYScroll, w:rect.width};
-              }
-            }
-            // Initialize PhotoSwipe
-        //console.log(options);
-        var lightBox = new PhotoSwipe(pswp, PhotoSwipeUI_Default, items, options);
-        lightBox.init();
-    });
-});
-}
+
 
   InitByUser(usr:any){
     this.Account = usr;
-    
-    console.log(111);
-    console.log(this.Albums);
     this.GetFolowersAcc();
-    
-    
+    console.log("this.Account");
+    console.log(this.Account);
     
     if(this.Account.account_type == this.Roles.Venue)
     {
       this.Account.office_hours = this.accService.ParseWorkingTimeModelArr(this.Account.office_hours);
       this.Account.operating_hours = this.accService.ParseWorkingTimeModelArr(this.Account.operating_hours);
+      this.GetUpcomingShows();
+      this.GetVenueImages();
+      
     }
     if(this.Account.account_type == this.Roles.Fan){
         this.GetTickets();
