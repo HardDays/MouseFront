@@ -41,6 +41,9 @@ import { MyTicketOpenedComponent } from './my-ticket-opened/my-ticket-opened.com
 import { BiographyComponent } from './biography/biography.component';
 import { ByTicketComponent } from './buyTicket/buyTicket.component';
 import { OneCardComponent } from './eventCreate/one-card/one-card.component';
+import { OneFolowerForProfileComponent } from './one-folower-for-profile/one-folower-for-profile.component';
+import { TicketOnProfileComponent } from './ticket-on-profile/ticket-on-profile.component';
+import { UpcomingShowsProfileComponent } from './upcoming-shows-profile/upcoming-shows-profile.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +67,10 @@ import { OneCardComponent } from './eventCreate/one-card/one-card.component';
     MyTicketOpenedComponent,
     BiographyComponent,
     ByTicketComponent,
-    OneCardComponent
+    OneCardComponent,
+    OneFolowerForProfileComponent,
+    TicketOnProfileComponent,
+    UpcomingShowsProfileComponent
   ],
   imports: [
     CommonModule,

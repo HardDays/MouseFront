@@ -63,6 +63,11 @@ export class EventService{
             () => this.http.GetData('/events/search.json',this.typeService.ParamsToUrlSearchParams(params))
         );
     }
+    GetEvents(id){
+        return this.http.CommonRequest(
+            () => this.http.GetData('/accounts/'+id+'/events.json','')
+        );
+    }
     AddArtist(event:AccountAddToEventModel){
         return this.http.CommonRequest(
             () => this.http.PostData('/events/'+event.event_id+'/artists.json',JSON.stringify(event))
@@ -175,6 +180,14 @@ export class EventService{
         let params = {
             account_id: myId,
             time:CurrOrPass
+        }
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/fan_tickets.json', this.typeService.ParamsToUrlSearchParams(params))
+        );
+    }
+    GetAllTicketswithoutCurrent(myId){
+        let params = {
+            account_id: myId
         }
         return this.http.CommonRequest(
             ()=> this.http.GetData('/fan_tickets.json', this.typeService.ParamsToUrlSearchParams(params))
