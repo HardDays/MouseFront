@@ -42,6 +42,7 @@ declare var PhotoSwipe:any;
 
 
 export class ProfileComponent extends BaseComponent implements OnInit {
+    MyAccountId:number;
     UserId:number;
     Roles = AccountType;
     SearchParams: AccountSearchParams = new AccountSearchParams();
@@ -78,7 +79,7 @@ ngOnInit(){
 
     //this.Videos = this.accService.GetVideo();
  
- 
+    this.initUser();
     this.activatedRoute.params.forEach((params)=>{
         this.UserId = params["id"];
         this.accService.GetAccountById(this.UserId,{extended:true})
@@ -411,10 +412,30 @@ logout(){
 
   this.Logout();
 }
-
-FollowProfile() {
-  this.accService.FollowAccountById(this.Accounts[0].id, this.UserId);
+initUser(){
+    this.accService.GetMyAccount({extended:true})
+    .subscribe((users:any[])=>{
+        for(let u of users)
+        if(u.id==+localStorage.getItem('activeUserId')){
+          this.MyAccountId = u.id;
+          console.log(u.id);
+        }
+    });
 }
+FollowProfile() {
+  this.WaitBeforeLoading(
+    () => this.accService.FollowAccountById(this.MyAccountId, this.UserId),
+    (res:any) =>
+    { 
+        console.log(res);
+    },
+    (err) => {
+        console.log(err);
+     
+    }
+);
+}
+
 
   
 
