@@ -40,6 +40,15 @@ import { NgModule } from '@angular/core';
 import { AgmCoreModule } from '@agm/core';
 import { CheckModel } from '../../core/models/check.model';
 
+import {
+  CalendarMonthModule,
+  CalendarEvent,
+  CalendarEventAction,
+  CalendarEventTimesChangedEvent
+} from 'angular-calendar';
+
+
+
 
 declare var $:any;
 declare var audiojs:any;
@@ -56,6 +65,8 @@ declare var ionRangeSlider:any;
 
 export class ArtistCreateComponent extends BaseComponent implements OnInit {
   
+  viewDate: Date = new Date();
+  events: CalendarEvent[] = [];;
   // general
   isLoading:boolean = true;
   pages = Pages;
@@ -76,8 +87,8 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
   aboutForm : FormGroup = new FormGroup({        
     "user_name": new FormControl("", [Validators.required]),
     "display_name": new FormControl("", [Validators.required]),
-    "stage_name": new FormControl("", [Validators.required]),
-    "manager_name": new FormControl("", [Validators.required]),
+    "stage_name": new FormControl(""),
+    "manager_name": new FormControl(""),
     "artist_email": new FormControl(""),
     "about": new FormControl("", [Validators.required]),
     

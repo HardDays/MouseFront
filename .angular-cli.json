@@ -26,7 +26,7 @@
         "assets/css/slick.css",
         "assets/css/style.css",
         "assets/css/media.css",
-       
+        "./../node_modules/angular-calendar/css/angular-calendar.css",
         "assets/css/photoswipe.css"
       ],
       "scripts": [
