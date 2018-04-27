@@ -22,7 +22,7 @@ export class MessagesComponent extends BaseComponent implements OnInit {
   bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-red' });;
 
   accountId:number;
-
+  type:string;
  
   openMessage:InboxMessageModel = new InboxMessageModel();
   idCurMsg:number = 0;
@@ -51,6 +51,7 @@ export class MessagesComponent extends BaseComponent implements OnInit {
           for(let u of users)
           if(u.id==+localStorage.getItem('activeUserId')){
             this.accountId = u.id;
+            this.type = u.account_type;
             this.accService.GetInboxMessages(this.accountId)
             .subscribe((res:InboxMessageModel[])=>{
               let index = 0;
@@ -79,7 +80,7 @@ export class MessagesComponent extends BaseComponent implements OnInit {
       this.imgService.GetImageById(this.accs[index].image_id)
         .subscribe((img)=>{
           this.accs[index].image_base64_not_given = img.base64;
-          console.log(this.accs);
+          console.log(`acc`,this.accs);
           if(index==0){
             this.idCurMsg = this.messages[0].id;
             this.openMessage = this.messages[0];
@@ -183,7 +184,15 @@ export class MessagesComponent extends BaseComponent implements OnInit {
     this.request.preferred_date_to = this.bsRangeValue[1];
 
     console.log(this.request);
+    
+    if(this.type=="artist")
     this.eventService.ArtistAcceptedByArtist(this.request)
+      .subscribe((res)=>{
+        console.log(`ok`,res);
+        this.GetMessages();
+      })
+    else if(this.type=="venue")
+    this.eventService.VenueAcceptedByVenue(this.request)
       .subscribe((res)=>{
         console.log(`ok`,res);
         this.GetMessages();

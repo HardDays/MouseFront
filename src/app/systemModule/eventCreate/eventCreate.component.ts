@@ -44,6 +44,7 @@ import { TicketGetParamsModel } from '../../core/models/ticketGetParams.model';
 import { GetArtists, GetVenue } from '../../core/models/eventPatch.model';
 import { MessageInfoModel, InboxMessageModel } from '../../core/models/inboxMessage.model';
 import { NumberSymbol } from '@angular/common';
+import { identifierModuleUrl } from '@angular/compiler';
 
 
 
@@ -910,40 +911,47 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         return answer;
     }
 
-    acceptArtist(idArtist:number){
+    acceptArtistCard(card:AccountGetModel){
         //console.log(idArtist);
 
         this.ownerAcceptDecline.account_id = this.Event.creator_id;
-        this.ownerAcceptDecline.id = idArtist;
+        this.ownerAcceptDecline.id = card.id;
         this.ownerAcceptDecline.event_id = this.Event.id;
-        this.ownerAcceptDecline.message_id = this.getIdAtMsg(idArtist);
-        this.ownerAcceptDecline.datetime_from = new Date().toString();
-        this.ownerAcceptDecline.datetime_to =  new Date().setFullYear( new Date().getFullYear() + 1).toString();
+        let msgId = this.getIdAtMsg(card.id);
+        this.ownerAcceptDecline.message_id = msgId;
+         let msg = this.messagesList[0];
+        for(let m of this.messagesList)
+            if(m.id == msgId) msg = m;
+        this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from;
+        this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to;
 
+        console.log( this.ownerAcceptDecline);
         this.eventService.ArtistAcceptOwner(this.ownerAcceptDecline).
             subscribe((res)=>{
-                //console.log(`ok accept artist`,res);
+                console.log(`ok accept artist`,res);
                 this.updateEvent();
             });
 
     }
 
-    acceptArtistCard(id:number){
-        console.log(`accepted`,id);
-    }
 
-    declineArtist(idArtist:number){
+    declineArtist(card:AccountGetModel){
 
         this.ownerAcceptDecline.account_id = this.Event.creator_id;
-        this.ownerAcceptDecline.id = idArtist;
+        this.ownerAcceptDecline.id = card.id;
         this.ownerAcceptDecline.event_id = this.Event.id;
-        this.ownerAcceptDecline.message_id = 1;
-        this.ownerAcceptDecline.datetime_from = new Date().toString();
-        this.ownerAcceptDecline.datetime_to =  new Date().setFullYear( new Date().getFullYear() + 1).toString();
+        let msgId = this.getIdAtMsg(card.id);
+        this.ownerAcceptDecline.message_id = msgId;
+         let msg = this.messagesList[0];
+        for(let m of this.messagesList)
+            if(m.id == msgId) msg = m;
+        this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from;
+        this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to;
 
+        console.log( this.ownerAcceptDecline);
         this.eventService.ArtistDeclineOwner(this.ownerAcceptDecline).
             subscribe((res)=>{
-                //console.log(`ok decline artist`,res);
+                console.log(`ok decline artist`,res);
                 this.updateEvent();
             });
 
@@ -1121,16 +1129,21 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         return 'not found artist';
     }
 
-    acceptVenue(idV:number){
+    acceptVenue(card:AccountGetModel){
         //console.log(idV);
 
             this.ownerAcceptDecline.account_id = this.Event.creator_id;
-            this.ownerAcceptDecline.id = idV;
+            this.ownerAcceptDecline.id = card.id;
             this.ownerAcceptDecline.event_id = this.Event.id;
-            this.ownerAcceptDecline.message_id = this.getIdAtMsg(idV);
-            this.ownerAcceptDecline.datetime_from = new Date().toString();
-            this.ownerAcceptDecline.datetime_to =  new Date().setFullYear( new Date().getFullYear() + 1).toString();
-    
+            let msgId = this.getIdAtMsg(card.id);
+            this.ownerAcceptDecline.message_id = msgId;
+            let msg = this.messagesList[0];
+            for(let m of this.messagesList)
+                if(m.id == msgId) msg = m;
+            this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from;
+            this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to;
+
+            console.log(this.ownerAcceptDecline);
             this.eventService.VenueAcceptOwner(this.ownerAcceptDecline).
                 subscribe((res)=>{
                     //console.log(`ok accept artist`,res);
@@ -1140,14 +1153,21 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             //console.log(this.ownerAcceptDecline);   
     }
 
-    declineVenue(idV:number){
+    declineVenue(card:AccountGetModel){
+
         this.ownerAcceptDecline.account_id = this.Event.creator_id;
-            this.ownerAcceptDecline.id = idV;
-            this.ownerAcceptDecline.event_id = this.Event.id;
-            this.ownerAcceptDecline.message_id = 1;
-            this.ownerAcceptDecline.datetime_from = new Date().toString();
-            this.ownerAcceptDecline.datetime_to =  new Date().setFullYear( new Date().getFullYear() + 1).toString();
+        this.ownerAcceptDecline.id = card.id;
+        this.ownerAcceptDecline.event_id = this.Event.id;
+        let msgId = this.getIdAtMsg(card.id);
+        this.ownerAcceptDecline.message_id = msgId;
+        let msg = this.messagesList[0];
+        for(let m of this.messagesList)
+            if(m.id == msgId) msg = m;
+        this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from;
+        this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to;
     
+        console.log(this.ownerAcceptDecline);
+        
             this.eventService.VenueDeclineOwner(this.ownerAcceptDecline).
                 subscribe((res)=>{
                     //console.log(`ok accept artist`,res);
@@ -1235,9 +1255,6 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     }
 
 
-
-
-
     // funding
     getNumInArtistOrVenueById(id:number,list:any[]){
         if(id)
@@ -1253,9 +1270,9 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         this.artistSum = 0;
         this.venueSum = 0;
         let artist:GetArtists[] = [], venue:GetVenue[] = [];
-
+        console.log(this.Event);
          for(let art of this.Event.artist)
-            if(art.status=='owner_accepted'){
+            if(art.status=='owner_accepted'||art.status=='active'){
                 let num = this.getNumInArtistOrVenueById(art.artist_id,this.showsArtists);
                 art.image_base64_not_given = this.showsArtists[num].image_base64_not_given;
                 art.user_name_not_given =  this.showsArtists[num].user_name;
@@ -1266,7 +1283,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                 artist.push(art);
             }
         for(let v of this.Event.venues)
-            if(v.status=='owner_accepted'){
+            if(v.status=='owner_accepted'||v.status=='active'){
                 let num = this.getNumInArtistOrVenueById(v.venue_id,this.requestVenues);
                 v.image_base64_not_given = this.requestVenues[num].image_base64_not_given;
                 v.user_name_not_given =  this.requestVenues[num].user_name;
@@ -1281,6 +1298,25 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         this.activeArtist = this.convertArrToCheckModel<GetArtists>(artist);
         this.activeVenue = this.convertArrToCheckModel<GetVenue>(venue);
 
+        let i = 0;
+        for(let item of this.activeArtist){
+            if(item.object.status=='active'){
+                item.checked = true;
+                // this.setActiveArtist();
+                this.artistSum += this.activeArtist[i].object.agreement.price;
+            }
+            i = i + 1;
+        }
+        i = 0;
+        for(let item of  this.activeVenue){
+            if(item.object.status=='active'){
+                item.checked = true;
+                this.venueSum += this.activeVenue[i].object.agreement.price;
+            }
+            i = i + 1;
+        }
+
+        console.log(this.activeArtist);
         this.getListImages(this.activeArtist);
         this.getListImages(this.activeVenue);
 
@@ -1322,10 +1358,28 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         if(!this.activeVenue[index].checked){
             this.activeVenue[index].checked = true;
             this.venueSum += this.activeVenue[index].object.agreement.price;
+            this.eventService.VenueSetActive({
+                id:this.activeVenue[index].object.venue_id,
+                event_id:this.Event.id,
+                account_id:this.Event.creator_id
+            }).
+                subscribe((res)=>{
+                    //console.log(`active set ok`,res);
+                    this.updateEvent();
+                });
         }
         else {
             this.activeVenue[index].checked = false;
             this.venueSum -= this.activeVenue[index].object.agreement.price;
+            this.eventService.VenueRemoveActive({
+                id:this.activeVenue[index].object.venue_id,
+                event_id:this.Event.id,
+                account_id:this.Event.creator_id
+            }).
+                subscribe((res)=>{
+                    //console.log(`active remove ok`,res);
+                    this.updateEvent();
+                });
         }
         //console.log(this.activeVenue);
 

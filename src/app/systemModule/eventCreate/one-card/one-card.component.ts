@@ -12,12 +12,15 @@ export class OneCardComponent implements OnInit {
   @Input('status') status: string;
   @Input('price') price: number;
 
-  @Output('accepted') accept = new EventEmitter<number>();
+  @Output('accepted') accept = new EventEmitter<AccountGetModel>();
   @Output('requested') requested = new EventEmitter<AccountGetModel>();
-  @Output('declined') declined = new EventEmitter<number>();
+  @Output('declined') declined = new EventEmitter<AccountGetModel>();
   @Output('checked') checked = new EventEmitter();
 
+  // @Output('addVenue') addVenue = new EventEmitter<AccountGetModel>();
+
   ngOnInit() {
+    console.log(this.card, this.status);
   }
 
   toBeatyShowsList( mas:any[]){
@@ -31,16 +34,16 @@ export class OneCardComponent implements OnInit {
     return answer;
   }
 
-  acceptArtist(index:number){
-    this.accept.emit(index);
+  Accept(index:number){
+    this.accept.emit(this.card);
   }
   sendRequest(){
     this.requested.emit(this.card);
   }
-  declineArtist(index:number){
-    this.declined.emit(index);
+  Decline(index:number){
+    this.declined.emit(this.card);
   }
-  checkArtist(){
+  Check(){
     this.checked.emit();
   }
 
