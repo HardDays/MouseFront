@@ -14,7 +14,7 @@ import { BaseComponent } from '../../core/base/base.component';
 import { AccountCreateModel } from '../../core/models/accountCreate.model';
 import { UserCreateModel } from '../../core/models/userCreate.model';
 import { GenreModel } from '../../core/models/genres.model';
-import { AccountGetModel } from '../../core/models/accountGet.model';
+import { AccountGetModel, Album } from '../../core/models/accountGet.model';
 import { SafeHtml, DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { AccountType } from '../../core/base/base.enum';
 import { Base64ImageModel } from '../../core/models/base64image.model';
@@ -55,6 +55,8 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     ticketsMassChecked:CheckModel<TicketsGetModel>[] = [];
     EventsMassChecked:CheckModel<EventGetModel>[] = [];
     TotalTicket:number;
+    UpcomingShows:CheckModel<EventGetModel>[] = [];
+    Albums:CheckModel<Album>[] = [];
     constructor(protected authService: AuthMainService,
       protected accService:AccountService,
       protected imgService:ImagesService,
@@ -78,7 +80,7 @@ ngOnInit(){
             .subscribe(
                 (resAccount:AccountGetModel)=>
                 {
-                    console.log(resAccount);
+                    
                     this.InitByUser(resAccount);
                     this.accService.GetVideoArr(
                         (data:SafeResourceUrl[]) => {
@@ -149,14 +151,10 @@ GetTickets()
         () => this.eventService.GetAllTicketswithoutCurrent(this.UserId),
         (res:TicketsGetModel[]) =>
         {
-           
-            
             this.ticketsMassChecked = this.convertArrToCheckModel<TicketsGetModel>(res);
             for(let it of this.ticketsMassChecked){
                 it.checked = true;
             }
-           
-         
             this.CountTotaltTicket();
         },
         (err) => {
@@ -188,6 +186,37 @@ GetFolowersAcc(){
         }
     );
 }
+GetUpcomingShows(){
+    this.WaitBeforeLoading(
+        () => this.accService.GetUpcomingShows(this.UserId),
+        (res:any) =>
+        { 
+            console.log(res);
+            
+            
+           this.UpcomingShows = this.convertArrToCheckModel<any>(res);
+            for(let it of this.UpcomingShows){
+                it.checked = true;
+            }
+           
+        },
+        (err) => {
+            console.log(err);
+         
+        }
+    );
+}
+searchUpcomingShows(event){
+    let searchParam = event.target.value;
+    for(let it of this.UpcomingShows){
+        if(it.object.name.indexOf(searchParam)>=0){
+            it.checked = true;
+        }
+        else{
+            it.checked = false;
+        }
+    }
+}
 searchFolover(event){
     let searchParam = event.target.value;
     for(let it of this.folowersMassChecked){
@@ -214,6 +243,17 @@ searchEvents(event){
     let searchParam = event.target.value;
     for(let it of this.EventsMassChecked){
         if(it.object.name.indexOf(searchParam)>=0){
+            it.checked = true;
+        }
+        else{
+            it.checked = false;
+        }
+    }
+}
+searchAlboms(event){
+    let searchParam = event.target.value;
+    for(let it of this.Albums){
+        if(it.object.album_name.indexOf(searchParam)>=0){
             it.checked = true;
         }
         else{
@@ -295,13 +335,29 @@ $('.gallery-main-wrapp').each(function () {
 
   InitByUser(usr:any){
     this.Account = usr;
+    
+    console.log(111);
+    console.log(this.Albums);
     this.GetFolowersAcc();
-    this.GetTickets();
-    this.GetEvents();
+    
+    
+    
     if(this.Account.account_type == this.Roles.Venue)
     {
       this.Account.office_hours = this.accService.ParseWorkingTimeModelArr(this.Account.office_hours);
       this.Account.operating_hours = this.accService.ParseWorkingTimeModelArr(this.Account.operating_hours);
+    }
+    if(this.Account.account_type == this.Roles.Fan){
+        this.GetTickets();
+        this.GetEvents();
+    }
+    if(this.Account.account_type == this.Roles.Artist){
+        this.Albums = this.convertArrToCheckModel<Album>(this.Account.artist_albums);
+        for(let it of this.Albums){
+            it.checked = true;
+        }
+        this.GetUpcomingShows();
+
     }
 
     if(usr.image_id){

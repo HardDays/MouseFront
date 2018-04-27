@@ -43,6 +43,7 @@ import { ByTicketComponent } from './buyTicket/buyTicket.component';
 import { OneCardComponent } from './eventCreate/one-card/one-card.component';
 import { OneFolowerForProfileComponent } from './one-folower-for-profile/one-folower-for-profile.component';
 import { TicketOnProfileComponent } from './ticket-on-profile/ticket-on-profile.component';
+import { UpcomingShowsProfileComponent } from './upcoming-shows-profile/upcoming-shows-profile.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { TicketOnProfileComponent } from './ticket-on-profile/ticket-on-profile.
     ByTicketComponent,
     OneCardComponent,
     OneFolowerForProfileComponent,
-    TicketOnProfileComponent
+    TicketOnProfileComponent,
+    UpcomingShowsProfileComponent
   ],
   imports: [
     CommonModule,
