@@ -225,9 +225,76 @@ export class TypeService{
         return result;
     }
 
-   
+    GetEndTimeMask(begin:string,finish:string)
+    {
+        let mask = [
+        /[0-2]/, (finish && (+finish[0]) > 1) ? /[0-3]/ : /\d/, ':', /[0-5]/, /\d/
+        ];
+        
+        if(begin && begin.length > 0)
+        {
+            if(begin[0])
+            {
+                mask[0] = new RegExp("["+begin[0] + "-2]")
+            }
+        
+            if(begin[1])
+            {
+                if(begin[0] == finish[0])
+                {
+                    mask[1] = new RegExp(
+                        (finish && (+finish[0]) > 1) ? "[" + begin[1] +"-3]" : "[" + begin[1] + "-9]"
+                    );
+                }
+            }
+        
+            if(begin[3])
+            {
+                if(begin.substr(0,3) == finish.substr(0,3))
+                {
+                    mask[3] = new RegExp("[" + begin[3] +"-5]");
+                }
+            }
+        
+            if(begin[4])
+            {
+                if(begin.substr(0,4) == finish.substr(0,4))
+                {
+                    if(+begin[4] != 9)
+                    {
+                        mask[4] = new RegExp("[" + (+begin[4] + 1 ) +"-9]");
+                    }
+                    else
+                    {
+                        mask[4] = new RegExp("[9]");
+                    }
+                }
+            }
+        }
 
+        return mask;
+    }
 
+    GetNumbersMask(count:number)
+    {
+        let mask = [];
+        for(let i = 0; i< count; ++i)
+        {
+            mask.push(/\d/);
+        }
+
+        return mask;
+    }
+    GetTextMask(count:number)
+    {
+        let mask = [];
+        for(let i = 0; i< count; ++i)
+        {
+            mask.push(/\d\w\s\n\[\]\^\.\(\)/);
+        }
+
+        return mask;
+    }
 }
 
 

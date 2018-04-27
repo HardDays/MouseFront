@@ -88,6 +88,8 @@ export class AccountCreateModel{
 
             public artist_riders?:Rider[]
 ){
+    if(!is_flexible)
+        this.is_flexible = false;
 }
 }
 

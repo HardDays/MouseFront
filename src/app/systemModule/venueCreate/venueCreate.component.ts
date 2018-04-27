@@ -64,7 +64,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
 {
   Parts = PageParts;
 
-  CurrentPart = this.Parts.About;
+  CurrentPart = this.Parts.Listing;
 
   Venue:AccountCreateModel = new AccountCreateModel();
   VenueId:number = 0;
@@ -127,15 +127,18 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
 
   mediaForm : FormGroup = new FormGroup({
     "vr": new FormControl("",[]),
-    "audio_description" : new FormControl("",[Validators.required]),
-    "lighting_description" : new FormControl("",[Validators.required]),
-    "stage_description" : new FormControl("",[Validators.required])
+    "audio_description" : new FormControl("",[Validators.required,
+                                              Validators.maxLength(1000)]),
+    "lighting_description" : new FormControl("",[Validators.required,
+                                                Validators.maxLength(1000)]),
+    "stage_description" : new FormControl("",[Validators.required,
+                                              Validators.maxLength(1000)])
   }); 
 
   dateForm : FormGroup = new FormGroup(
     {
       "minimum_notice": new FormControl("",[Validators.pattern("[0-9]+"),
-                              Validators.min(0),Validators.max(120)]),
+                              Validators.min(0),Validators.max(999)]),
       "is_flexible": new FormControl("",[]),
       "price_for_daytime": new FormControl("",[Validators.pattern("[0-9]+"),
                               Validators.min(0),Validators.max(1000000)]),
@@ -296,8 +299,12 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
               let index = 0;
               for(let image of res.images)
               {
-                this.VenueImages[index] = new VenueMediaPhotoModel();
+                if(!this.VenueImages[index])
+                  this.VenueImages[index] = new VenueMediaPhotoModel();
+                
                 this.VenueImages[index].image_description = image.description;
+                this.VenueImages[index].image_type = image.type;
+                this.VenueImages[index].image_type_description = image.type_decs
                 this.GetVenueImageById(image.id,index);
                 index = index + 1;
               }
@@ -311,15 +318,13 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
       this.imgService.GetImageById(id)
         .subscribe(
           (res:Base64ImageModel) =>{
-            this.VenueImages[saveIndex].image_base64 = /*(res.base64.indexOf('&quot;data:image/jpeg;base64') < 0? '&quot;data:image/jpeg;base64':'') + */res.base64;
-            // console.log(this.VenueImages);
+            this.VenueImages[saveIndex].image_base64 = res.base64;
           }
         );
     }
 
     SanitizeImage(image: string)
     {
-   
       return this._sanitizer.bypassSecurityTrustStyle(`url(${image})`);
     }
 
@@ -358,16 +363,23 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
       switch(this.CurrentPart)
       {
         case this.Parts.About:{
-          // console.log("valid", this.aboutForm);
+          if(this.aboutForm.invalid)
+            console.log(this.aboutForm);
           return !this.aboutForm.invalid;
         }
         case this.Parts.Listing:{
+          if(this.detailsForm.invalid)
+            console.log(this.detailsForm);
           return !this.detailsForm.invalid;
         }
         case this.Parts.Media:{
+          if(this.mediaForm.invalid)
+            console.log(this.mediaForm);
           return !this.mediaForm.invalid;
         }
         case this.Parts.Dates:{
+          if(this.dateForm.invalid)
+            console.log(this.dateForm);
           return !this.dateForm.invalid;
         }
         default:{
@@ -438,24 +450,102 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
     this.OfficeHoursSelectedDate = this.OfficeHours.filter(obj => obj.checked == true).length > 0;
   }
 
-  getMask(item:WorkingTimeModel){
+  GetFromTimeMask(item:FrontWorkingTimeModel){
     return {
-        mask: [/[0-2]/, item && item.begin_time && parseInt(item.begin_time.toString()) > 1 ? /[0-3]/ : /\d/, ':', /[0-5]/, /\d/],
-        keepCharPositions: true
-      };
+      mask: [/[0-2]/, (item.start_work && (+item.start_work[0]) > 1) ? /[0-3]/ : /\d/, ':', /[0-5]/, /\d/],
+      keepCharPositions: true
+    };
   } 
-  getMaskEnd(item:WorkingTimeModel){
-    
+  GetToTimeMask(item:FrontWorkingTimeModel){
     return {
-        mask: [/[0-2]/, item && item.end_time && parseInt(item.end_time.toString()) > 1 ? /[0-3]/ : /\d/, ':', /[0-5]/, /\d/],
-        keepCharPositions: true
-      };
+      mask: this.typeService.GetEndTimeMask(item.start_work,item.finish_work),
+      keepCharPositions: true
+    };
   }
-  GetPerformanceMask(str:string)
+
+  GetPerformanceFromTimeMask(venue:AccountGetModel)
   {
     return {
-      mask: [/[0-2]/, str && (+str[0]) > 1 ? /[0-3]/ : /\d/, ':', /[0-5]/, /\d/],
+      mask: [/[0-2]/, (venue.performance_time_from && (+venue.performance_time_from[0]) > 1) ? /[0-3]/ : /\d/, ':', /[0-5]/, /\d/],
       keepCharPositions: true
+    };
+  }
+  GetPerformanceToTimeMask(venue:AccountGetModel)
+  {
+    return {
+      mask: this.typeService.GetEndTimeMask(venue.performance_time_from,venue.performance_time_to),
+      keepCharPositions: true
+    };
+  }
+
+  GetCapacityMask(str:string)
+  {
+    let mask = [/[1-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/,/[0-9]/];
+    
+    if( str && str.length > 4)
+    {
+      if(+str.substr(0,5) > 19999)
+        mask.splice(5,1);
+    }
+
+    return {
+      mask: mask,
+      keepCharPositions: true,
+      guide:false
+    };
+  }
+
+  GetAgeMask(str:string)
+  {
+    let mask = [/[0-2]/,(str && +str[0] > 1)?/[0-5]/:/[0-9]/];
+    
+    if(str && +str[0] == 0)
+      mask.splice(1,1);
+
+    return {
+      mask: mask,
+      keepCharPositions: true,
+      guide:false
+    };
+  }
+
+  GetNumOfBathrooms(str:string)
+  {
+    let mask = [/[0-9]/,/[0-9]/];
+    
+    if(str && +str[0] == 0)
+      mask.splice(1,1);
+
+    return {
+      mask: mask,
+      keepCharPositions: true,
+      guide:false
+    };
+  }
+
+  GetMediaDescriptionMask()
+  {
+    return {
+      mask: this.typeService.GetTextMask(1000),
+      keepCharPositions: true,
+      guide:false
+    }
+  }
+
+  GetMinimumNoticeMask()
+  {
+    return {
+      mask: this.typeService.GetNumbersMask(3),
+      keepCharPositions: true,
+      guide:false
+    }
+  }
+  GetPerfomancePriceMask()
+  {
+    return {
+      mask: this.typeService.GetNumbersMask(7),
+      keepCharPositions: true,
+      guide:false
     };
   }
 
@@ -481,6 +571,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
 
   AddVenuePhoto()
   {
+    
     if(this.ImageToLoad.image_type != "other" && this.ImageToLoad.image_type_description)
     {
       this.ImageToLoad.image_type_description = "";
