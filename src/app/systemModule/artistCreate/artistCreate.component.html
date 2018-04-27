@@ -139,7 +139,7 @@
                             </div>
                         </div>
 
-                        <div  class="create-event-body-1">
+                        <div class="create-event-body-1">
                             
                             <div  [ngStyle]="{'display': (pages[currentPage]>=pages.media||showAllPages)?'block':'none'}">
                                 <div class="main-mw">
@@ -818,33 +818,34 @@
                 
                                                 <p class="head-side-riders">Stage Rider</p>
                                                 <p class="desc-riders">Type or Upload your requirements for the Stage (Stage, Audio, Video, Lighting)</p>
-                                                <div class="download-upload">
+                                                <div  class="download-upload">
                                                     <!--до загрузки файла-->
                                                     
-                                                    <div class="side-dwn">
-                                                        <a class="dd-ff" href="#">
-                                                            <img src="../../assets/img/download.png" class="img-responsive" alt="">
-                                                        </a>
-                                                        <p class="desc-side-dwn">Press to Downlod Templete</p>
-                                                    </div>
-                                                    <div class="side-dwn">
-                                                        <div class="photo-wr-1 on-riders">
-                                                            <label class="file_upload">
-                                                                <div class="bg-image"></div>
-
-                                                                <input  (change)="loadFile($event)"  type="file">
-                                                            </label>
+                                                    <ng-container *ngIf="!stageRider.uploaded_file_base64" >
+                                                        <div class="side-dwn">
+                                                            <a class="dd-ff">
+                                                                <img src="../../assets/img/download.png" class="img-responsive" alt="">
+                                                            </a>
+                                                            <p class="desc-side-dwn">Press to Downlod Templete</p>
                                                         </div>
-                                                        <p class="desc-side-dwn">Press to Upload filled Templete</p>
-                                                    </div>
-                                                   
+                                                        <div class="side-dwn">
+                                                            <div class="photo-wr-1 on-riders">
+                                                                <label class="file_upload">
+                                                                    <div class="bg-image"></div>
+
+                                                                    <input  (change)="loadRiderFile($event)"  type="file">
+                                                                </label>
+                                                            </div>
+                                                            <p class="desc-side-dwn">Press to Upload filled Templete</p>
+                                                        </div>
+                                                    </ng-container>
                                                     <!--после загрузки файла-->
-                                                    <!-- <div class="side-dwn">
+                                                    <div  *ngIf="stageRider.uploaded_file_base64" class="side-dwn">
                                                         <div class="file-uploaded">
-                                                            <div class="delete-file"></div>    
+                                                            <div class="delete-file" (click)="stageRider.uploaded_file_base64=''"></div>    
                                                         </div>
                                                         <p class="desc-side-dwn">File uploded</p>
-                                                    </div> -->
+                                                    </div>
                                                     <!--//после загрузки файла-->
                                                     
                                                 </div>
@@ -888,37 +889,36 @@
                                             <div class="download-upload">
                                                 <!--до загрузки файла-->
                                             
-                                                <div class="side-dwn">
-                                                    <a class="dd-ff" [routerLink]="['/system','artistCreate']">
-                                                        <img src="../../../assets/img/download.png" class="img-responsive" alt="">
-                                                    </a>
-                                                    <p class="desc-side-dwn">Press to Downlod Templete</p>
-                                                </div>
-                                                <div class="side-dwn">
-                                                    <div class="photo-wr-1 on-riders">
-                                                        <label class="file_upload">
-                                                            <div class="bg-image"></div>
-
-                                                            <input accept=".jpg, .jpeg, .png" type="file">
-                                                        </label>
+                                                <ng-container *ngIf="!backstageRider.uploaded_file_base64" >
+                                                    <div class="side-dwn">
+                                                        <a class="dd-ff">
+                                                            <img src="../../assets/img/download.png" class="img-responsive" alt="">
+                                                        </a>
+                                                        <p class="desc-side-dwn">Press to Downlod Templete</p>
                                                     </div>
-                                                    <p class="desc-side-dwn">Press to Upload filled Templete</p>
-                                                </div>
-                                            
+                                                    <div class="side-dwn">
+                                                        <div class="photo-wr-1 on-riders">
+                                                            <label class="file_upload">
+                                                                <div class="bg-image"></div>
+
+                                                                <input  (change)="loadBackstageRiderFile($event)"  type="file">
+                                                            </label>
+                                                        </div>
+                                                        <p class="desc-side-dwn">Press to Upload filled Templete</p>
+                                                    </div>
+                                                </ng-container>
                                                 <!--после загрузки файла-->
-                                                <!--
-                                                <div class="side-dwn">
+                                                <div  *ngIf="backstageRider.uploaded_file_base64" class="side-dwn">
                                                     <div class="file-uploaded">
-                                                        <div class="delete-file"></div>    
+                                                        <div class="delete-file" (click)="backstageRider.uploaded_file_base64=''"></div>    
                                                     </div>
                                                     <p class="desc-side-dwn">File uploded</p>
                                                 </div>
-                                                -->
                                                 <!--//после загрузки файла-->
                                                 
                                             </div>
                                             <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">
-                                                <textarea id="textarea-rider-2"></textarea>
+                                                <textarea  [(ngModel)]="backstageRider.description" id="textarea-rider-2"></textarea>
                                                 <label for="textarea-rider-2" class="head-groupe">Description</label>
                                                 <span class="max-count">2000 max</span>
                                             </div>
@@ -927,15 +927,15 @@
                                                 <div class="flex-radio">
                                                     <div class="one-radio">
                                                         <div class="radio-style">
-                                                            <input type="radio" class="radio-b" id="radio-556" name="grope-rider-2" checked="">
+                                                            <input [(ngModel)]="backstageRider.is_flexible" type="radio" class="radio-b" id="radio-556" name="grope-rider-2" checked="">
                                                             <label for="radio-556"></label>
                                                         </div>
                                                         <p>Flexible</p>
                                                     </div>
                                                     <div class="one-radio">
                                                         <div class="radio-style">
-                                                            <input type="radio" class="radio-b" id="radio-557" name="grope-rider-2">
-                                                            <label for="radio-557"></label>
+                                                            <input type="radio" class="radio-b" id="radio-556" name="grope-rider-2">
+                                                            <label for="radio-556"></label>
                                                         </div>
                                                         <p>Not Flexible</p>
                                                     </div>
@@ -943,7 +943,7 @@
                                             </div>
                                             <!--походу эта кнопка когдато появлятся должна-->
                                             <div class="butt-wrapp-grad">
-                                                <button class="butt-style-1 thot-butt" type="submit">
+                                                <button (click)="confirmBackstageRider()" class="butt-style-1 thot-butt" type="submit">
                                                     <span>confirm</span>
                                                 </button>   
                                             </div>
@@ -954,38 +954,36 @@
                                             <p class="desc-riders">Type or Upload your preference for Hospitality (Food and Drinks)</p>
                                             <div class="download-upload">
                                                 <!--до загрузки файла-->
-                                            
-                                                <div class="side-dwn">
-                                                    <a class="dd-ff" [routerLink]="['/system','artistCreate']">
-                                                        <img src="../../../assets/img/download.png" class="img-responsive" alt="">
-                                                    </a>
-                                                    <p class="desc-side-dwn">Press to Downlod Templete</p>
-                                                </div>
-                                                <div class="side-dwn">
-                                                    <div class="photo-wr-1 on-riders">
-                                                        <label class="file_upload">
-                                                            <div class="bg-image"></div>
-
-                                                            <input accept=".jpg, .jpeg, .png" type="file">
-                                                        </label>
+                                                <ng-container *ngIf="!hospitalityRider.uploaded_file_base64" >
+                                                    <div class="side-dwn">
+                                                        <a class="dd-ff">
+                                                            <img src="../../assets/img/download.png" class="img-responsive" alt="">
+                                                        </a>
+                                                        <p class="desc-side-dwn">Press to Downlod Templete</p>
                                                     </div>
-                                                    <p class="desc-side-dwn">Press to Upload filled Templete</p>
-                                                </div>
-                                            
+                                                    <div class="side-dwn">
+                                                        <div class="photo-wr-1 on-riders">
+                                                            <label class="file_upload">
+                                                                <div class="bg-image"></div>
+
+                                                                <input  (change)="loadHospitalityRiderFile($event)"  type="file">
+                                                            </label>
+                                                        </div>
+                                                        <p class="desc-side-dwn">Press to Upload filled Templete</p>
+                                                    </div>
+                                                </ng-container>
                                                 <!--после загрузки файла-->
-                                                <!--
-                                                <div class="side-dwn">
+                                                <div  *ngIf="hospitalityRider.uploaded_file_base64" class="side-dwn">
                                                     <div class="file-uploaded">
-                                                        <div class="delete-file"></div>    
+                                                        <div class="delete-file" (click)="hospitalityRider.uploaded_file_base64=''"></div>    
                                                     </div>
                                                     <p class="desc-side-dwn">File uploded</p>
                                                 </div>
-                                                -->
                                                 <!--//после загрузки файла-->
                                                 
                                             </div>
                                             <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">
-                                                <textarea id="textarea-rider-3"></textarea>
+                                                <textarea  [(ngModel)]="hospitalityRider.description" id="textarea-rider-2"></textarea>
                                                 <label for="textarea-rider-3" class="head-groupe">Description</label>
                                                 <span class="max-count">2000 max</span>
                                             </div>
@@ -994,15 +992,15 @@
                                                 <div class="flex-radio">
                                                     <div class="one-radio">
                                                         <div class="radio-style">
-                                                            <input type="radio" class="radio-b" id="radio-557" name="grope-rider-3" checked="">
+                                                            <input [(ngModel)]="hospitalityRider.is_flexible" type="radio" class="radio-b" id="radio-557" name="grope-rider-3" checked="">
                                                             <label for="radio-557"></label>
                                                         </div>
                                                         <p>Flexible</p>
                                                     </div>
                                                     <div class="one-radio">
                                                         <div class="radio-style">
-                                                            <input type="radio" class="radio-b" id="radio-558" name="grope-rider-3">
-                                                            <label for="radio-558"></label>
+                                                            <input type="radio" class="radio-b" id="radio-557" name="grope-rider-3">
+                                                            <label for="radio-557"></label>
                                                         </div>
                                                         <p>Not Flexible</p>
                                                     </div>
@@ -1010,7 +1008,7 @@
                                             </div>
                                             <!--походу эта кнопка когдато появлятся должна-->
                                             <div class="butt-wrapp-grad">
-                                                <button class="butt-style-1 thot-butt" type="submit">
+                                                <button (click)="confirmHospitalityRider()" class="butt-style-1 thot-butt" type="submit">
                                                     <span>confirm</span>
                                                 </button>   
                                             </div>
@@ -1022,38 +1020,37 @@
                                             <div class="download-upload">
                                                 <!--до загрузки файла-->
                                             
-                                                <div class="side-dwn">
-                                                    <a class="dd-ff" [routerLink]="['/system','artistCreate']">
-                                                        <img src="../../../assets/img/download.png" class="img-responsive" alt="">
-                                                    </a>
-                                                    <p class="desc-side-dwn">Press to Downlod Templete</p>
-                                                </div>
-                                                <div class="side-dwn">
-                                                    <div class="photo-wr-1 on-riders">
-                                                        <label class="file_upload">
-                                                            <div class="bg-image"></div>
-
-                                                            <input accept=".jpg, .jpeg, .png" type="file">
-                                                        </label>
+                                                <ng-container *ngIf="!technicalRider.uploaded_file_base64" >
+                                                    <div class="side-dwn">
+                                                        <a class="dd-ff">
+                                                            <img src="../../assets/img/download.png" class="img-responsive" alt="">
+                                                        </a>
+                                                        <p class="desc-side-dwn">Press to Downlod Templete</p>
                                                     </div>
-                                                    <p class="desc-side-dwn">Press to Upload filled Templete</p>
-                                                </div>
-                                            
+                                                    <div class="side-dwn">
+                                                        <div class="photo-wr-1 on-riders">
+                                                            <label class="file_upload">
+                                                                <div class="bg-image"></div>
+
+                                                                <input  (change)="loadTechnicalRiderFile($event)"  type="file">
+                                                            </label>
+                                                        </div>
+                                                        <p class="desc-side-dwn">Press to Upload filled Templete</p>
+                                                    </div>
+                                                </ng-container>
                                                 <!--после загрузки файла-->
-                                                <!--
-                                                <div class="side-dwn">
+                                                <div  *ngIf="technicalRider.uploaded_file_base64" class="side-dwn">
                                                     <div class="file-uploaded">
-                                                        <div class="delete-file"></div>    
+                                                        <div class="delete-file" (click)="technicalRider.uploaded_file_base64=''"></div>    
                                                     </div>
                                                     <p class="desc-side-dwn">File uploded</p>
                                                 </div>
-                                                -->
                                                 <!--//после загрузки файла-->
                                                 
                                             </div>
                                             <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">
-                                                <textarea id="textarea-rider-4"></textarea>
-                                                <label for="textarea-rider-4" class="head-groupe">Description</label>
+                                                <textarea  [(ngModel)]="technicalRider.description" id="textarea-rider-2"></textarea>
+                                                <label for="textarea-rider-2" class="head-groupe">Description</label>
                                                 <span class="max-count">2000 max</span>
                                             </div>
                                             <div class="flex-mac-checkbox direction-column on-add-artist-page">
@@ -1061,15 +1058,15 @@
                                                 <div class="flex-radio">
                                                     <div class="one-radio">
                                                         <div class="radio-style">
-                                                            <input type="radio" class="radio-b" id="radio-559" name="grope-rider-4" checked="">
-                                                            <label for="radio-559"></label>
+                                                            <input [(ngModel)]="technicalRider.is_flexible" type="radio" class="radio-b" id="radio-558" name="grope-rider-4" checked="">
+                                                            <label for="radio-558"></label>
                                                         </div>
                                                         <p>Flexible</p>
                                                     </div>
                                                     <div class="one-radio">
                                                         <div class="radio-style">
-                                                            <input type="radio" class="radio-b" id="radio-560" name="grope-rider-4">
-                                                            <label for="radio-560"></label>
+                                                            <input type="radio" class="radio-b" id="radio-558" name="grope-rider-4">
+                                                            <label for="radio-558"></label>
                                                         </div>
                                                         <p>Not Flexible</p>
                                                     </div>
@@ -1077,7 +1074,7 @@
                                             </div>
                                             <!--походу эта кнопка когдато появлятся должна-->
                                             <div class="butt-wrapp-grad">
-                                                <button class="butt-style-1 thot-butt" type="submit">
+                                                <button (click)="confirmTechnicalRider()" class="butt-style-1 thot-butt" type="submit">
                                                     <span>confirm</span>
                                                 </button>   
                                             </div>
@@ -1097,6 +1094,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <!--иодалка для открытия видосов-->
                     <div class="modal fade modal-movie" id="modal-movie">
                         <div class="modal-dialog">
@@ -1108,5 +1106,6 @@
                         </div>
                     </div>   
                     <!--//иодалка для открытия видосов-->
+            
                 </section>
            

@@ -120,7 +120,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
   backstageRider:Rider= new Rider();
   hospitalityRider:Rider= new Rider();
   technicalRider:Rider= new Rider();
-
+  
 
   constructor(protected authService: AuthMainService,
     protected accService:AccountService,
@@ -737,12 +737,9 @@ addBooking(){
 
 
 
-loadFile($event:any):void{
+loadRiderFile($event:any){
   let target = $event.target;
   let file:File = target.files[0];
-  
-  // if(target.files.length == 0)
-  //     return;
   
   for(let file of target.files)
   {
@@ -760,7 +757,8 @@ loadFile($event:any):void{
 
     this.stageRider.rider_type = 'stage';
 
-    this.stageRider.is_flexible = true;
+    if(!this.stageRider.is_flexible)
+      this.stageRider.is_flexible = false;
     this.createArtist.artist_riders.push(this.stageRider);
     
     this.updateArtistByCreateArtist();
@@ -770,30 +768,77 @@ loadFile($event:any):void{
 
     this.technicalRider.rider_type = 'technical';
 
-    this.technicalRider.is_flexible = true;
+    if(!this.technicalRider.is_flexible)
+      this.technicalRider.is_flexible = false;
     this.createArtist.artist_riders.push(this.technicalRider);
     
     this.updateArtistByCreateArtist();
+  }
+  loadTechnicalRiderFile($event:any){
+    let target = $event.target;
+    let file:File = target.files[0];
+    
+    for(let file of target.files)
+    {
+      let reader:FileReader = new FileReader();
+      reader.onload = (e) =>{
+        this.technicalRider.uploaded_file_base64 = reader.result;
+      }
+      reader.readAsDataURL(file);
+    }
+   
   }
 
   confirmBackstageRider(){
 
     this.backstageRider.rider_type = 'backstage';
 
-    this.backstageRider.is_flexible = true;
+    if(!this.backstageRider.is_flexible)
+    this.backstageRider.is_flexible = false;
+   
     this.createArtist.artist_riders.push(this.backstageRider);
     
     this.updateArtistByCreateArtist();
+  }
+  loadBackstageRiderFile($event:any){
+    let target = $event.target;
+    let file:File = target.files[0];
+    
+    for(let file of target.files)
+    {
+      let reader:FileReader = new FileReader();
+      reader.onload = (e) =>{
+        this.backstageRider.uploaded_file_base64 = reader.result;
+      }
+      reader.readAsDataURL(file);
+    }
+   
   }
 
   confirmHospitalityRider(){
 
     this.hospitalityRider.rider_type = 'hospitality';
 
-    this.hospitalityRider.is_flexible = true;
+    if(!this.hospitalityRider.is_flexible)
+    this.hospitalityRider.is_flexible = false;
+    
     this.createArtist.artist_riders.push(this.hospitalityRider);
     
     this.updateArtistByCreateArtist();
+  }
+  loadHospitalityRiderFile($event:any){
+    let target = $event.target;
+    let file:File = target.files[0];
+    
+    for(let file of target.files)
+    {
+      let reader:FileReader = new FileReader();
+      reader.onload = (e) =>{
+        this.hospitalityRider.uploaded_file_base64 = reader.result;
+      }
+      reader.readAsDataURL(file);
+    }
+   
   }
 
 

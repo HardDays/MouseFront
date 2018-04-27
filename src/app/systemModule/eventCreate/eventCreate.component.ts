@@ -1085,11 +1085,13 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                         this.addVenue[key] = this.requestVenueForm.value[key];
                     }
                 }
+                this.addVenue.estimated_price = +this.requestVenueForm.value['estimated_price'];
     
                 this.addVenue.event_id = this.Event.id;
                 this.addVenue.venue_id = id;
                 this.addVenue.id = id;
                 console.log(`add venue`,this.addVenue);
+                
                 this.eventService.AddVenue(this.addVenue).
                     subscribe((res)=>{
                         console.log(`ok add`);
@@ -1098,6 +1100,11 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                         this.updateEvent();
                     }, (err)=>{console.log(err);})
                         
+                },(err)=>{
+                    this.eventService.VenueSendRequest(this.addVenue)
+                         .subscribe((send)=>{
+                        this.updateEvent();
+                    });
                 });
         
             }
