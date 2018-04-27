@@ -1,6 +1,6 @@
 
-                <section class="second-router-outlet">
-                    <div class="create-event-nav-tabs">
+                <section  class="second-router-outlet">
+                    <div  class="create-event-nav-tabs">
                         <div class="for-header-shadow">
                             <div class="main-mw">
                                 <div class="create-event-header">
@@ -135,7 +135,7 @@
                         
                         
                             <div class="scroll-wrapp">
-                                <div class="circle-scroll"></div>
+                                <div (click)="currentPage='booking'" class="circle-scroll"></div>
                             </div>
                         </div>
 
@@ -477,12 +477,12 @@
                                                 <div class="flex-input-groupes">
                                                     <div class="input-groupe-1 from-to-style">
                                                         <span class="f-t">From</span>
-                                                        <input [(ngModel)]="Artist.price_from" type="text">
+                                                        <input maxlength="10" [textMask]="MaskNumbers()" [(ngModel)]="Artist.price_from" type="text">
                                                         <span class="t-f">/hr</span>
                                                     </div>
                                                     <div class="input-groupe-1 from-to-style">
                                                         <span class="f-t">To</span>
-                                                        <input [(ngModel)]="Artist.price_to" type="text">
+                                                        <input maxlength="10" [textMask]="MaskNumbers()" [(ngModel)]="Artist.price_to" type="text">
                                                         <span class="t-f">/hr</span>                           
                                                     </div>
                                                 </div>
@@ -492,7 +492,7 @@
                                                     </div>
                                                     <div class="input-groupe-1 from-to-style hours-label-groupe">
                                                     
-                                                        <input [(ngModel)]="Artist.additional_hours_price" type="text">
+                                                        <input maxlength="10" [textMask]="MaskNumbers()" [(ngModel)]="Artist.additional_hours_price" type="text">
                                                         <span class="t-f">/hr</span>                           
                                                     </div>
                                                 </div>

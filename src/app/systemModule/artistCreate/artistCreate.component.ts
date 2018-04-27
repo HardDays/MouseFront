@@ -57,9 +57,10 @@ declare var ionRangeSlider:any;
 export class ArtistCreateComponent extends BaseComponent implements OnInit {
   
   // general
+  isLoading:boolean = true;
   pages = Pages;
   currentPage:string = 'about';
-  showAllPages:boolean = false;
+  showAllPages:boolean = true;
 
   accountId:number;
   isNewArtist:boolean = true;
@@ -304,7 +305,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
                     this.isNewArtist = false;
                     
                     this.getUpdatedArtistById();  
-                    this.showAllPages = true;                   
+                    // this.showAllPages = true;                   
             }
             if(this.isNewArtist)
               this.router.navigate(['/system/artistCreate']);
@@ -324,11 +325,16 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
                 this.venueTypeFromModelToVar();
                 
                                                              
-                                                          this.initJS();
-                                                           this.updateVideosPreview();
-                                                          this.GetVenueImages();
+                this.initJS();
+                this.updateVideosPreview();
+                this.GetVenueImages();
             
-                console.log(`updated artist `,this.Artist);    
+                console.log(`updated artist `,this.Artist);
+                
+                this.currentPage = this.pages[this.pages[this.currentPage]+1];
+
+                this.clearNewElements();
+                
             },
             (err)=>{
                 console.log(`err`,err);
@@ -441,7 +447,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
                 .subscribe((res:any)=>{
                     this.Artist = res;
                    
-                    this.currentPage = 'riders';
+                    this.currentPage = 'calendar';
                     //console.log(`new this artist`,this.Artist);
                 });
            
@@ -842,8 +848,13 @@ loadRiderFile($event:any){
   }
 
 
+  clearNewElements(){
 
+    this.addSongForm.reset();
+    this.addAlbumForm.reset();
+    this.addVideoForm.reset();
 
+  }
 
 
 }
