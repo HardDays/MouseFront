@@ -128,11 +128,13 @@ export class EventService{
     }
 
     VenueSetActive(params){
+        console.log(`params set`,params);
         return this.http.CommonRequest(
             () => this.http.PostData('/events/'+params.event_id+'/venue/'+params.id+'/set_active.json',JSON.stringify(params))
         );
     }
     VenueRemoveActive(params){
+        console.log(`params remove`,params);
         return this.http.CommonRequest(
             () => this.http.PostData('/events/'+params.event_id+'/venue/'+params.id+'/remove_active.json',JSON.stringify(params))
         );

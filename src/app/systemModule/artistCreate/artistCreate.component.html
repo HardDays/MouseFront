@@ -93,8 +93,8 @@
                                         </div>
                                         <div class="side">
                                             <div class="input-groupe-1 whithout-label small-textarea max-500">
-                                                
-                                                <textarea [(ngModel)]="Artist.about" formControlName="about" id="inp-create-9"></textarea>
+                                               
+                                                <textarea maxlength="500" [(ngModel)]="Artist.about" formControlName="about" id="inp-create-9"></textarea>
                                                 <label for="inp-create-9" class="head-groupe">Short Description<span>*</span></label>
                                                 <span class="max-count">500 max</span>
                                             </div>
@@ -668,7 +668,7 @@
                                                     </div> -->
                                                 </div>
                                                 <div class="input-groupe-1 whithout-label small-textarea max-500 max-100">  
-                                                    <textarea [(ngModel)]="Artist.preferred_venue_text"></textarea>
+                                                    <textarea maxlength="100" [(ngModel)]="Artist.preferred_venue_text"></textarea>
                                                     <span class="max-count">100 max</span>
                                                 </div>
                                             </div>
@@ -791,7 +791,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">
-                                                    <textarea [(ngModel)]="Artist.refund_policy" id="inp-create-9"></textarea>
+                                                    <textarea maxlength="100" [(ngModel)]="Artist.refund_policy" id="inp-create-9"></textarea>
                                                     <label for="inp-create-9" class="head-groupe">Refund Policy</label>
                                                     <span class="max-count">100 max</span>
                                                 </div>
@@ -850,7 +850,7 @@
                                                     
                                                 </div>
                                                 <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">
-                                                    <textarea  [(ngModel)]="stageRider.description" id="textarea-rider-1"></textarea>
+                                                    <textarea maxlength="2000"  [(ngModel)]="stageRider.description" id="textarea-rider-1"></textarea>
                                                     <label for="textarea-rider-1" class="head-groupe">Description</label>
                                                     <span class="max-count">2000 max</span>
                                                 </div>
@@ -918,7 +918,7 @@
                                                 
                                             </div>
                                             <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">
-                                                <textarea  [(ngModel)]="backstageRider.description" id="textarea-rider-2"></textarea>
+                                                <textarea maxlength="2000"  [(ngModel)]="backstageRider.description" id="textarea-rider-2"></textarea>
                                                 <label for="textarea-rider-2" class="head-groupe">Description</label>
                                                 <span class="max-count">2000 max</span>
                                             </div>
@@ -983,7 +983,7 @@
                                                 
                                             </div>
                                             <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">
-                                                <textarea  [(ngModel)]="hospitalityRider.description" id="textarea-rider-2"></textarea>
+                                                <textarea maxlength="2000" [(ngModel)]="hospitalityRider.description" id="textarea-rider-2"></textarea>
                                                 <label for="textarea-rider-3" class="head-groupe">Description</label>
                                                 <span class="max-count">2000 max</span>
                                             </div>
@@ -1049,7 +1049,7 @@
                                                 
                                             </div>
                                             <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">
-                                                <textarea  [(ngModel)]="technicalRider.description" id="textarea-rider-2"></textarea>
+                                                <textarea maxlength="2000" [(ngModel)]="technicalRider.description" id="textarea-rider-2"></textarea>
                                                 <label for="textarea-rider-2" class="head-groupe">Description</label>
                                                 <span class="max-count">2000 max</span>
                                             </div>

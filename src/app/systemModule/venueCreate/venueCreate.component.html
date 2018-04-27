@@ -51,16 +51,16 @@
                             <div class="side">
                                 <div class="input-groupe-1 lbl-1">
                                     
-                                    <input id="inp-create-1" autocomplete="foo" [(ngModel)]="Venue.user_name" formControlName="venue_name" name="" type="text">
+                                    <input id="inp-create-1" autocomplete="off" [(ngModel)]="Venue.user_name" formControlName="venue_name" name="" type="text">
                                     <label for="inp-create-1">Venue Name<span>*</span></label>
                                 </div>
                                 <div class="input-groupe-1">
-                                    <input id="inp-create-2" autocomplete="foo" [(ngModel)]="Venue.display_name" formControlName="mouse_name" name="" type="text">
+                                    <input id="inp-create-2" autocomplete="off" [(ngModel)]="Venue.display_name" formControlName="mouse_name" name="" type="text">
                                     <label for="inp-create-2">Mouse Username<span>*</span></label>
                                     
                                 </div>
                                 <div class="input-groupe-1 whithout-label small-textarea max-500">
-                                    <textarea id="inp-create-9" autocomplete="foo"  [(ngModel)]="Venue.description" formControlName="short_desc"></textarea>
+                                    <textarea id="inp-create-9" autocomplete="off"  [(ngModel)]="Venue.description" formControlName="short_desc"></textarea>
                                     <label for="inp-create-9" class="head-groupe">Short Description<span>*</span></label>
                                     <span class="max-count">1000 max</span>
                                 </div>
@@ -72,11 +72,11 @@
                             <div class="side">
                                 <h6 class="head-col-add-venue hidden-lg hidden-md hidden-sm hidden-xs">Contact Info</h6>
                                 <div class="input-groupe-1">
-                                    <input id="inp-create-venue-tel-1" autocomplete="foo" [textMask]="MaskTelephone()" [(ngModel)]="Venue.phone" formControlName="phone" name="" type="text">
+                                    <input id="inp-create-venue-tel-1" autocomplete="off" [textMask]="MaskTelephone()" [(ngModel)]="Venue.phone" formControlName="phone" name="" type="text">
                                     <label for="inp-create-venue-tel-1">Phone<span>*</span></label>
                                 </div>
                                 <div class="input-groupe-1">
-                                    <input id="inp-create-venue-tel-2" autocomplete="foo" [(ngModel)]="Venue.fax" formControlName="fax" name="" type="text">
+                                    <input id="inp-create-venue-tel-2" autocomplete="off" [(ngModel)]="Venue.fax" formControlName="fax" name="" type="text">
                                     <label for="inp-create-venue-tel-2">Fax</label>
                                 </div>
                             
@@ -86,11 +86,11 @@
                                         <ng-container [formGroup]="item">
                                             <span class="count">{{+i+1}}.</span>
                                             <div class="input-groupe-1">
-                                                <input autocomplete="foo" id="inp-create-venue-name-{{+i+1}}" [(ngModel)]="Venue.emails[i].name" formControlName="name_email" name="" type="text">
+                                                <input autocomplete="off" id="inp-create-venue-name-{{+i+1}}" [(ngModel)]="Venue.emails[i].name" formControlName="name_email" name="" type="text">
                                                 <label for="inp-create-venue-name-{{+i+1}}">Email Name {{+i+1}}</label>
                                             </div>
                                             <div class="input-groupe-1">
-                                                <input autocomplete="foo" id="inp-create-venue-email-{{+i+1}}" [(ngModel)]="Venue.emails[i].email" formControlName="email" name="" type="text">
+                                                <input autocomplete="off" id="inp-create-venue-email-{{+i+1}}" [(ngModel)]="Venue.emails[i].email" formControlName="email" name="" type="text">
                                                 <label for="inp-create-venue-email-{{+i+1}}">Email {{+i+1}} </label>
                                             </div>
                                         </ng-container>
@@ -107,23 +107,23 @@
                                 <h6 class="head-col-add-venue hidden-lg hidden-md hidden-sm hidden-xs">Address</h6>
                                 <!-- поменял местами Address и Country -->
                                 <div class="input-groupe-1">
-                                    <input id="inp-create-venue-adr-2" #search placeholder="" autocomplete="foo" [(ngModel)]="Venue.address" formControlName="address" name="" type="text">
+                                    <input id="inp-create-venue-adr-2" #search placeholder="" autocomplete="off" [(ngModel)]="Venue.address" formControlName="address" name="" type="text">
                                     <label for="inp-create-venue-adr-2">Address<span>*</span></label>
                                 </div>
                                 <div class="input-groupe-1">
-                                    <input id="inp-create-venue-adr-1" autocomplete="foo" [(ngModel)]="Venue.country" formControlName="country" name="" type="text">
+                                    <input id="inp-create-venue-adr-1" autocomplete="off" [(ngModel)]="Venue.country" formControlName="country" name="" type="text">
                                     <label for="inp-create-venue-adr-1">Country<span>*</span></label>
                                 </div>
                                 <div class="input-groupe-1">
-                                    <input id="inp-create-venue-adr-3" autocomplete="foo" [(ngModel)]="Venue.city" formControlName="city" name="" type="text">
+                                    <input id="inp-create-venue-adr-3" autocomplete="off" [(ngModel)]="Venue.city" formControlName="city" name="" type="text">
                                     <label for="inp-create-venue-adr-3">City<span>*</span></label>
                                 </div>
                                 <div class="input-groupe-1">
-                                    <input id="inp-create-venue-adr-4" autocomplete="foo" [(ngModel)]="Venue.state" formControlName="state" name="" type="text">
+                                    <input id="inp-create-venue-adr-4" autocomplete="off" [(ngModel)]="Venue.state" formControlName="state" name="" type="text">
                                     <label for="inp-create-venue-adr-4">State<span>*</span></label>
                                 </div>
                                 <div class="input-groupe-1">
-                                    <input id="inp-create-venue-adr-5" autocomplete="foo" [(ngModel)]="Venue.zipcode" formControlName="zipcode" name="" type="text">
+                                    <input id="inp-create-venue-adr-5" autocomplete="off" [(ngModel)]="Venue.zipcode" formControlName="zipcode" name="" type="text">
                                     <label for="inp-create-venue-adr-5">Zipcode</label>
                                 </div>
                             </div>
@@ -242,11 +242,11 @@
                         </div>
                         <div class="side">
                             <div class="input-groupe-1">
-                                <input id="venue-datails-1" [textMask]="GetCapacityMask(Venue.capacity)" [(ngModel)]="Venue.capacity" formControlName="capacity" name="" type="text">
+                                <input id="venue-datails-1" [textMask]="GetCapacityMask(Venue.capacity.toString())" [(ngModel)]="Venue.capacity" formControlName="capacity" name="" type="text">
                                 <label for="venue-datails-1">Capacity<span>*</span></label>
                             </div>
                             <div class="input-groupe-1">
-                                <input id="venue-datails-2" [textMask]="GetNumOfBathrooms(Venue.num_of_bathrooms)" [(ngModel)]="Venue.num_of_bathrooms" formControlName="bathrooms" name="" type="text">
+                                <input id="venue-datails-2" [textMask]="GetNumOfBathrooms(Venue.num_of_bathrooms.toString())" [(ngModel)]="Venue.num_of_bathrooms" formControlName="bathrooms" name="" type="text">
                                 <label for="venue-datails-2">Number of Bathrooms</label>
                             </div>
                             <div class="flex-mac-checkbox">
@@ -276,7 +276,7 @@
                         </div>
                         <div class="side">
                             <div class="input-groupe-1">
-                                <input id="venue-datails-10" [textMask]="GetAgeMask(Venue.min_age)" [(ngModel)]="Venue.min_age" formControlName="min_age" name="" type="text">
+                                <input id="venue-datails-10" [textMask]="GetAgeMask(Venue.min_age.toString())" [(ngModel)]="Venue.min_age" formControlName="min_age" name="" type="text">
                                 <label for="option-datails-10">Minimum Age</label>
                             </div>
                             <div class="input-groupe-1">

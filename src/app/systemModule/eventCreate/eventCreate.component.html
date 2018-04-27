@@ -520,10 +520,10 @@
 
                                 <ng-container *ngFor="let shows of requestVenues">
                                     <div *ngIf="getStatusVenueEventById(shows.id)!='owner_declined'&&getStatusVenueEventById(shows.id)!='declined'" class="one-card">
-                                        <div class="card">
+                                        <!-- <div class="card">
                                             <div class="delete-card"></div>
                                             <div class="left-side">
-                                                <!--если есть галочка - добавляем класс checked-->
+                                                
                                                 <div class="ava checked" [ngStyle]="{'background-image': shows.image_base64_not_given?'url('+shows.image_base64_not_given+')':''}"></div>
                                                 <p class="desc-head-info">{{getStatusVenueEventById(shows.id)}}</p>
                                                 <p class="status">Accepted by Artist and Event owner</p>
@@ -545,12 +545,21 @@
 
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
+                                        <app-one-card 
+                                            [card] = "shows" 
+                                            [status] = "getStatusVenueEventById(shows.id)" 
+                                            [price] = "getPriceAtMsg(shows.id)" 
+                                            (accepted) = "acceptVenue($event)"
+                                            (requested) = "sendVenueRequestOpenModal($event)"
+                                            (declined) = "declineVenue($event)"
+                                            (checked) = "updateEvent()"
+                                        ></app-one-card>
                                     </div>
                                 </ng-container>
 
                                 <div *ngFor="let shows of venueShowsList" class="one-card">
-                                        <div class="card">
+                                        <!-- <div class="card">
                                             <div class="delete-card" (click)="addVenueCheck(shows)"></div>
                                             <div class="left-side">
                                                 <div class="ava" [ngStyle]="{'background-image': shows.image_base64_not_given?'url('+shows.image_base64_not_given+')':''}"></div>
@@ -568,7 +577,16 @@
                                                 
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
+                                        <app-one-card 
+                                            [card] = "shows" 
+                                            [status] = "getStatusVenueEventById(shows.id)" 
+                                            [price] = "getPriceAtMsg(shows.id)" 
+                                            (accepted) = "acceptVenue($event)"
+                                            (requested) = "sendVenueRequestOpenModal($event)"
+                                            (declined) = "declineVenue($event)"
+                                            (checked) = "updateEvent()"
+                                        ></app-one-card>
                                 </div>
                                 
                                 <!--для добавления артиста-->
@@ -1061,7 +1079,7 @@
                         <div class="input-groupe-1 more-padd">
                             <select formControlName="time_frame"  id="inp-modal-req-3">
                                     <option>two_hours</option>
-                                    <option>tho_days</option>
+                                    <option>two_days</option>
                                     <option>one_week</option>
                                 
                             </select>
@@ -1401,7 +1419,7 @@
                         <div class="input-groupe-1 more-padd">
                             <select formControlName="time_frame"  id="inp-modal-req-3">
                                     <option>two_hours</option>
-                                    <option>tho_days</option>
+                                    <option>two_days</option>
                                     <option>one_week</option>
                                 
                             </select>

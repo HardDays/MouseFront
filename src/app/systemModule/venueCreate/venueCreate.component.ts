@@ -463,14 +463,14 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
     };
   }
 
-  GetPerformanceFromTimeMask(venue:AccountGetModel)
+  GetPerformanceFromTimeMask(venue:AccountCreateModel)
   {
     return {
       mask: [/[0-2]/, (venue.performance_time_from && (+venue.performance_time_from[0]) > 1) ? /[0-3]/ : /\d/, ':', /[0-5]/, /\d/],
       keepCharPositions: true
     };
   }
-  GetPerformanceToTimeMask(venue:AccountGetModel)
+  GetPerformanceToTimeMask(venue:AccountCreateModel)
   {
     return {
       mask: this.typeService.GetEndTimeMask(venue.performance_time_from,venue.performance_time_to),
@@ -512,7 +512,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
   GetNumOfBathrooms(str:string)
   {
     let mask = [/[0-9]/,/[0-9]/];
-    
+
     if(str && +str[0] == 0)
       mask.splice(1,1);
 

@@ -1,0 +1,6 @@
+<div class="one-block" [ngStyle]="{'background-image': 'url(' + Image + ')'}">
+  <div class="desc">
+      <p class="name">{{Upshows.name}}</p>
+      <p class="when" *ngIf="Upshows.date_from">{{Upshows.date_from|date:'shortDate'}}</p>
+  </div>
+</div>
