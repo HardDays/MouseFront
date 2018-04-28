@@ -197,43 +197,89 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
         let myAcc = this.GetActiveAccountId();
         if(myAcc)
         {
-            for(let item of this.TicketsToBuy)
+            let arr = this.GroupTickets(this.TicketsToBuy,myAcc);
+            for(let item of arr)
             {
-                let object = {
-                    account_id:myAcc,
-                    ticket_id: item.ticket.id
-                };
-
-                while(item.count > 0)
-                {
-                    this.BuyTicket(object);
-                    item.count -= 1;
-                }
-                this.CalculateCurrentPrice();
+                this.BuyTicket(item);
             }
-            setTimeout(
-                () =>
-                {
-                    this.router.navigate(['/system','tickets', this.EventId]);
-                },
-                3000
-            )
+            // for(let item of this.TicketsToBuy)
+            // {
+                
+            //     let object = {
+            //         account_id:myAcc,
+            //         ticket_id: item.ticket.id,
+            //         count:item.count
+            //     };
+            //     this.BuyTicket(object);
+            //     // this.CalculateCurrentPrice();
+            // }
+            // setTimeout(
+            //     () =>
+            //     {
+            //         this.router.navigate(['/system','tickets', this.EventId]);
+            //     },
+            //     3000
+            // )
         }
     }
+
+    
 
     BuyTicket(object:any)
     {
         this.WaitBeforeLoading(
-            () => this.eventService.BuyTicket(object),
+            () => this.eventService.BuyTicketPack(object),
             (res) => 
             {   
-                //console.log(res);
+                // let index = this.TicketsToBuy.findIndex(obj => obj.ticket.id == object.ticket_id && obj.count == object.count);
+                // this.TicketsToBuy.splice(index,1);
+                // console.log(this.TicketsToBuy);
             },
             (err) =>
             {
                 console.log(err);
             }
         );
+    }
+
+    GroupTickets(arr: BuyTicketModel[],accId:number)
+    {
+        let tickets =  this.GroupBy(arr, item => item.ticket.id);
+
+        let result:any[] = [];
+        tickets.forEach(
+            (element:BuyTicketModel[],key:number) => 
+            {
+                let object = {
+                    ticket_id:key,
+                    count:0,
+                    account_id:accId
+                }
+
+                for(let item of element)
+                {
+                    object.count += item.count;
+                }
+
+                result.push(object);
+            }
+        );
+        return result;
+    }
+
+    GroupBy(list,keyGetter)
+    {
+        const map = new Map();
+        list.forEach((item) => {
+            const key = keyGetter(item);
+            const collection = map.get(key);
+            if (!collection) {
+                map.set(key, [item]);
+            } else {
+                collection.push(item);
+            }
+        });
+        return map;
     }
 
     aboutOpenMapModal(){
