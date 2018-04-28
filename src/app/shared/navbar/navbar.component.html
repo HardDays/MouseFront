@@ -34,7 +34,6 @@
                                         </a>
                                         <div class="dropdown-content">
                                             <a *ngFor="let item of MyAccounts"  (click)="setProfile(item)"><pre [class.activeProfile]="item.id==CurrentAccount.id">{{item.account_type.substr(0,1).toUpperCase()}}   {{item.user_name}}</pre></a>
-                                         
                                         </div>
                                     </li>
                             <li>

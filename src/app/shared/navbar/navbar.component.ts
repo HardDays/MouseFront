@@ -15,29 +15,20 @@ import { AccountGetModel } from '../../core/models/accountGet.model';
     styleUrls: ['./navbar.component.css']
 })
 
-export class NavbarComponent extends BaseComponent implements OnInit{
+export class NavbarComponent extends BaseComponent implements OnInit
+{
 
-    isShown:boolean = true;
-    idProfile:number = 0;
-    Accounts:AccountGetModel[] = [];
-    maxNumberOfProfiles:number = 5;
     curNav:string = 'shows';
   
-    ngOnInit(){
-      this.initUser();
-      this.main.accService.onAuthChange$
-      .subscribe((res:boolean)=>{
-          if(res)
-            this.initUser();
-      });
-      
+    ngOnInit()
+    {
       this.curNav = this.getThisPage();
       
       this.GetMyAccounts();
-    
     }
 
-    getThisPage():string{
+    getThisPage():string
+    {
       var page:string = 'shows';
       var url = this.router.routerState.snapshot.url;
 
@@ -52,58 +43,40 @@ export class NavbarComponent extends BaseComponent implements OnInit{
       return page;
     }
 
-    initUser(){
-
-        this.main.accService.GetMyAccount({extended:true})
-        .subscribe((users:any[])=>{
-            if(users.length >= this.maxNumberOfProfiles)
-              this.isShown = false;
-            this.Accounts = users;
-            this.idProfile = this.GetCurrentAccId();
-        });
-    }
-
-    Navigate(params:string[]){
+    Navigate(params:string[])
+    {
         this.router.navigate(params);
     }
 
-    LOGOUT_STUPID(){
+    LOGOUT_STUPID()
+    {
         localStorage.removeItem('access');
         this.router.navigate(['/access']);
     }
       
-      login(){
+      login()
+      {
         this.router.navigate(['/login']);
       }
     
-      logout(){
+      logout()
+      {
         //console.log('logout');
         this.Logout();
         // this.initUser();
         this.curNav = 'shows';
       }
     
-      edit(){
+      edit()
+      {
         this.router.navigate(['/system','edit']);
       }
 
-      setProfile(item:AccountGetModel){
+      setProfile(item:AccountGetModel)
+      {
         this.curNav = 'profile';
         this.router.navigate(['/system/profile',item.id]);
         this.main.CurrentAccountChange.next(item);
-        // localStorage.setItem('activeUserId',''+id);
-      }
-
-      getProfileNameById(){
-        for(let profile of this.MyAccounts)
-          if(profile.id==this.idProfile)
-            return profile.user_name;
-        return '';
-      }
-
-      updateProfiles(){
-        //console.log(`update profiles`);
-        this.initUser();
       }
 
 
