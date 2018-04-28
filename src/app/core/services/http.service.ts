@@ -78,6 +78,11 @@ export class HttpService
           }))
     }
 
+    DeleteDataWithParam(method:string,param)
+    {
+        return this.http.delete(this.serverUrl + method + "?"+ param,{headers:this.headers})
+    }
+
     PostData(method:string,data:any)
     {
         return this.http.post(this.serverUrl + method,data, {headers:this.headers});

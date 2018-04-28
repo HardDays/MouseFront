@@ -59,5 +59,11 @@ export class ImagesService{
     }
 
 
+    GetImageSize(Id:number){
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/images/'+Id+'/size.json', '')
+        );
+        //return this.http.GetData('/accounts/my.json', this.typeService.ParamsToUrlSearchParams(params));
+    }
 
 }

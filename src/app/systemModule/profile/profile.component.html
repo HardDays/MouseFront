@@ -15,20 +15,30 @@
                             </div>
                         </div>
                         <div class="name-venue">
-                            <h2 id="lines_view">{{Account.user_name}}</h2>
+                            <h2 id="lines_view" *ngIf="Account.user_name">{{Account.user_name}}</h2>
                             <a *ngIf="isMyAccount" [routerLink]="['/system/venueCreate',UserId]" class="settings"></a>
                         </div>
                         <div class="oficial-page">
-                            <span id="d_lines_view" class="of-p">@{{Account.display_name}}</span>
+                            <span id="d_lines_view" *ngIf="Account.display_name" class="of-p">@{{Account.display_name}}</span>
                             <div class="ok-image">
                                 <img class="img-responsive" src="../../assets/img/ok.png" alt="">
                             </div>
                         </div>
-                        <form class="follow-wr" (ngSubmit)="FollowProfile()">
-                            <button *ngIf="!isMyAccount" class="butt-style-1" type="submit">
-                                <span>Follow</span>
-                            </button>
-                        </form>
+                        
+                            
+                        <ng-container *ngIf="!isMyAccount" >
+                            <form *ngIf="!isFolowedAcc" class="follow-wr" (ngSubmit)="FollowProfile()">
+                                <button  class="butt-style-1" type="submit">
+                                    <span>Follow</span>
+                                </button>
+                            </form>
+                            <form *ngIf="isFolowedAcc" class="follow-wr" (ngSubmit)="UnFollowProfile()">
+                                <button  class="butt-style-1" type="submit">
+                                    <span>Unfollow</span>
+                                </button>
+                            </form>
+                        </ng-container>
+                        
                     </div>
                 </div>
                 <div class="for-white-bg">
@@ -38,7 +48,7 @@
                                 <div class="flex--info">
                                     <div class="side side-info side-about">
                                         <h6>About</h6>
-                                        <p id="#b_lines_view" class="about-text">{{Account.description}}</p>
+                                        <p id="#b_lines_view" class="about-text" *ngIf='Account.description'>{{Account.description}}</p>
                                     </div>
                                     <div class="side side-info side-contact">
                                         <h6>Contact info</h6>
@@ -46,7 +56,7 @@
                                             <div class="column-cont">
                                                 <div class="one-cont">
                                                     <p class="head-cont">PHONE:</p>
-                                                    <span>{{Account.phone}}</span>
+                                                    <span *ngIf="Account.phone">{{Account.phone}}</span>
                                                 </div>
                                                 <div class="one-cont" *ngIf="Account.office_hours">
                                                     <p class="head-cont" >OFFICE HOURS:</p>
@@ -78,7 +88,7 @@
                                     </div>
                                     <div class="side side-info side-map">
                                         <h6>Location</h6>
-                                        <p class="about-text">{{Account.address}}</p>
+                                        <p class="about-text" *ngIf='Account.address'>{{Account.address}}</p>
                                         <div class="map" id="map">
                                             карта тут
                                         </div>
@@ -91,7 +101,7 @@
                                 <div class="flex--info">
                                     <div class="side scroller flex-header">
                                         <div class="for-scroll-padd">
-                                            <h6>Gallery ({{VenueImages.length}})</h6>
+                                            <h6>Gallery ({{VenueImages?VenueImages.length:'0'}})</h6>
                                             <input type="text" class="search-profile-inp-style"  placeholder="Search" (input)='searchImagesVenue($event)'>
                                         </div>
                                         <div class="new-scroll-wr">
@@ -101,7 +111,7 @@
                                                    
                                                     <ng-container class="one-block" *ngIf="item.checked">   
                                                               
-                                                        <div class="one-block for-gallery-item" (click)='Gallery($event)' [attr.data-eteration]="in" data-size="290x354" [attr.data-hreff]="ImageMassVenue[in]" [ngStyle]="{'background-image': 'url(' + ImageMassVenue[in] + ')'}"></div>
+                                                        <div class="one-block for-gallery-item" (click)='Gallery($event)' [attr.data-eteration]="in" [attr.data-size]="imagesSize[in]?(imagesSize[in].width+'x'+imagesSize[in].height):'500x500'" [attr.data-hreff]="ImageMassVenue[in]" [ngStyle]="{'background-image': 'url(' + ImageMassVenue[in] + ')'}"></div>
                                                                 
                                                     </ng-container>
                                                  
@@ -259,11 +269,18 @@
                                 <div class="desc-wr">
                                     <p id="b_lines_view" class="description">{{Account.bio}}</p>
                                 </div>
-                                <form class="follow-wr" (ngSubmit)="FollowProfile()">
-                                    <button *ngIf="!isMyAccount" class="butt-style-1" type="submit" >
-                                        <span>Follow</span>
-                                    </button>
-                                </form>
+                                <ng-container *ngIf="!isMyAccount" >
+                                    <form *ngIf="!isFolowedAcc" class="follow-wr" (ngSubmit)="FollowProfile()">
+                                        <button  class="butt-style-1" type="submit">
+                                            <span>Follow</span>
+                                        </button>
+                                    </form>
+                                    <form *ngIf="isFolowedAcc" class="follow-wr" (ngSubmit)="UnFollowProfile()">
+                                        <button  class="butt-style-1" type="submit">
+                                            <span>Unfollow</span>
+                                        </button>
+                                    </form>
+                                </ng-container>
                             </div>
                         </div>
                     </div>
@@ -410,11 +427,18 @@
                                 <p id="b_lines_view" class="desc">
                                     {{Account.about}}
                                 </p>
-                                <form class="follow-wr" (ngSubmit)="FollowProfile()">
-                                    <button *ngIf="!isMyAccount" class="butt-style-1" type="submit" >
-                                        <span>Follow</span>
-                                    </button>
-                                </form>
+                                <ng-container *ngIf="!isMyAccount" >
+                                    <form *ngIf="!isFolowedAcc" class="follow-wr" (ngSubmit)="FollowProfile()">
+                                        <button  class="butt-style-1" type="submit">
+                                            <span>Follow</span>
+                                        </button>
+                                    </form>
+                                    <form *ngIf="isFolowedAcc" class="follow-wr" (ngSubmit)="UnFollowProfile()">
+                                        <button  class="butt-style-1" type="submit">
+                                            <span>Unfollow</span>
+                                        </button>
+                                    </form>
+                                </ng-container>
                             </div>
                             <div class="side right-side">
                                 <div class="bg-slider">

@@ -408,6 +408,14 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         this.mapCoords.venue.lng = $event.coords.lng;
         this.codeLatLng( this.mapCoords.venue.lat, this.mapCoords.venue.lng, "venueAddress");
     }
+
+    setMapCoords(event,map:string){
+        this.mapCoords[map] = {lat:event.coords.lat,lng:event.coords.lng};
+        console.log(map);
+        this.codeLatLng( this.mapCoords[map].lat, this.mapCoords[map].lng, map+"Address");
+
+    }
+
     codeLatLng(lat, lng, id_map) {
         let geocoder = new google.maps.Geocoder();
         let latlng = new google.maps.LatLng(lat, lng);
@@ -577,8 +585,19 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                         this.addArtist.account_id = this.accountId;
                         this.addVenue.account_id = this.accountId;
                        
+                       
                         this.isNewEvent = false;
                         this.Event = v;
+
+                        // this.mapCoords.about.lat = +v.city_lat;
+                        // this.mapCoords.about.lng = +v.city_lng;
+
+                        // this.mapCoords.artist.lat = +v.city_lat;
+                        // this.mapCoords.artist.lng = +v.city_lng;
+
+                        // this.mapCoords.venue.lat = +v.city_lat;
+                        // this.mapCoords.venue.lng = +v.city_lng;
+                    
                         this.updateEvent();  
                         this.showAllPages = true;
                         this.getMessages(this.accountId);                  

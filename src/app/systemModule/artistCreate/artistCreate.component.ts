@@ -61,7 +61,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
 
   pages = Pages;
   currentPage:string = 'about';
-  showAllPages:boolean = true;
+  showAllPages:boolean = false;
 
   artistId:number;
   isNewArtist:boolean = true;
