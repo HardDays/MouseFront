@@ -84,16 +84,6 @@ export class ShowsComponent extends BaseComponent implements OnInit {
 
   bsConfig: Partial<BsDatepickerConfig>;
 
-  constructor
-  (           
-        protected main         : MainService,
-        protected _sanitizer   : DomSanitizer,
-        protected router       : Router,
-        private mapsAPILoader  : MapsAPILoader,
-        private ngZone         : NgZone
-  ){
-        super(main,_sanitizer,router);
-  } 
 
   ngOnInit()
   {

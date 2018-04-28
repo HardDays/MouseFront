@@ -60,17 +60,6 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
 
   phone:string;
   isShowPhone:boolean = true;
-
-  constructor
-  (           
-    protected main         : MainService,
-    protected _sanitizer   : DomSanitizer,
-    protected router       : Router,
-    private mapsAPILoader  : MapsAPILoader,
-    private ngZone         : NgZone
-  ){
-    super(main,_sanitizer,router);
-  }
     
   onSuccesCreateUser(type:string){
     if(type){

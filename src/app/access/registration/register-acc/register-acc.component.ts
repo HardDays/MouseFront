@@ -53,17 +53,7 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
   place: string='';
  
   Error:string = '';
-  
-  constructor
-  (           
-    protected main       : MainService,
-    protected _sanitizer : DomSanitizer,
-    protected router     : Router,
-    private mapsAPILoader : MapsAPILoader,
-    private ngZone        : NgZone
-  ){
-    super(main,_sanitizer,router);
-  } 
+ 
 
   ngOnInit()
   {

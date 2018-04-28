@@ -70,19 +70,6 @@ export class EventsComponent extends BaseComponent implements OnInit {
     LocationText:string = '';
     bsConfig: Partial<BsDatepickerConfig>;
 
-
-    constructor
-    (           
-        protected main         : MainService,
-        protected _sanitizer   : DomSanitizer,
-        protected router       : Router,
-        private mapsAPILoader  : MapsAPILoader,
-        private ngZone         : NgZone,
-        private activatedRoute : ActivatedRoute
-    ){
-        super(main,_sanitizer,router);
-    }
-
     ngOnInit()
     {   
         this.CreateAutocomplete();

@@ -46,6 +46,12 @@ import { TicketOnProfileComponent } from './ticket-on-profile/ticket-on-profile.
 import { UpcomingShowsProfileComponent } from './upcoming-shows-profile/upcoming-shows-profile.component';
 import { VenueMediaPhotoComponent } from './venueCreate/venueImage/venueImage.component';
 import { ShowDetailVideoComponent } from './showsDetail/video/video.component';
+import { VenueAboutComponent } from './venueCreate/about/about.component';
+import { VenueHoursComponent } from './venueCreate/hours/hours.component';
+import { VenueListingComponent } from './venueCreate/listing/listing.component';
+import { VenueMediaComponent } from './venueCreate/media/media.component';
+import { VenueDatesComponent } from './venueCreate/dates/dates.component';
+import { VenueCreateModule } from './venueCreate/venueCreate.module';
 
 @NgModule({
   declarations: [
@@ -60,7 +66,6 @@ import { ShowDetailVideoComponent } from './showsDetail/video/video.component';
     PreloaderComponent,
     FeedComponent,
     TicketsComponent,
-    VenueCreateComponent,
     FanCreateComponent,
     MyEventComponent,
     ShowsDetailComponent,
@@ -73,7 +78,6 @@ import { ShowDetailVideoComponent } from './showsDetail/video/video.component';
     OneFolowerForProfileComponent,
     TicketOnProfileComponent,
     UpcomingShowsProfileComponent,
-    VenueMediaPhotoComponent,
     ShowDetailVideoComponent
   ],
   imports: [
@@ -81,6 +85,7 @@ import { ShowDetailVideoComponent } from './showsDetail/video/video.component';
     FormsModule,
     HttpModule,
     TextMaskModule,
+    VenueCreateModule,
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
     ReactiveFormsModule,

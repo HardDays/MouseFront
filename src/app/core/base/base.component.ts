@@ -26,6 +26,7 @@ import { Http, Headers } from '@angular/http';
 import { CheckModel } from '../models/check.model';
 import { MainService } from '../services/main.service';
 import { BaseImages } from './base.enum';
+import { MapsAPILoader } from '@agm/core';
 
 @Injectable()
 export class BaseComponent{
@@ -47,9 +48,11 @@ export class BaseComponent{
     public ActiveProcesses:string[] = [];
     
     constructor(
-        protected main       : MainService,
-        protected _sanitizer : DomSanitizer,
-        protected router     : Router
+        protected main          : MainService,
+        protected _sanitizer    : DomSanitizer,
+        protected router        : Router,
+        protected mapsAPILoader : MapsAPILoader,
+        protected ngZone        : NgZone
     ) 
     {
         this.isLoggedIn = this.main.authService.IsLogedIn();
@@ -477,6 +480,43 @@ export class BaseComponent{
           guide:false
         };
       }
+
+      /* AUTOCOMPLETE */
+    @ViewChild('search') public searchElement: ElementRef;
+    protected CreateAutocomplete( callback:(addr:string[], place?:google.maps.places.PlaceResult)=>any)
+    {
+        this.mapsAPILoader.load().then(
+            () => {
+                let autocomplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement);
+                autocomplete.addListener(
+                    "place_changed",
+                    () => {
+                        this.ngZone.run(
+                            () => {
+                                let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
+                                if(place.geometry === undefined || place.geometry === null )
+                                {             
+                                    return;
+                                }
+                                else 
+                                {
+                                    let addr:string[] = autocomplete.getPlace().adr_address.split(', ');
+                                    
+                                    if(callback && typeof callback == "function")
+                                    {
+                                        callback(addr,place);
+                                    }
+                                }
+                            }
+                        );
+                    }
+                );
+            }
+        );
+    }
+
+
+      /* AUTOCOMPLETE */
 
       
 

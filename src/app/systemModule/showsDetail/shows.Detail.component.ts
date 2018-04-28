@@ -58,11 +58,11 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
         protected main         : MainService,
         protected _sanitizer   : DomSanitizer,
         protected router       : Router,
-        private mapsAPILoader  : MapsAPILoader,
-        private ngZone         : NgZone,
+        protected mapsAPILoader  : MapsAPILoader,
+        protected ngZone         : NgZone,
         private activatedRoute : ActivatedRoute
     ){
-        super(main,_sanitizer,router);
+        super(main,_sanitizer,router,mapsAPILoader,ngZone);
     } 
 
 
