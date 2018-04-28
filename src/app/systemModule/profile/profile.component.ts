@@ -63,6 +63,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     itemsPhotoss:any = [];
     VenueImages:any;
     ImageMassVenue:any = [];
+    imagesSize:Base64ImageModel[] = [];
     constructor
     (           
         protected main         : MainService,
@@ -74,39 +75,44 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     ){
         super(main,_sanitizer,router);
     }
+    isFolowedAcc:boolean;
 
-    ngOnInit()
-    {
-        this.initUser();
-        this.activatedRoute.params.forEach(
-            (params)=>{
-                this.UserId = params["id"];
-                this.WaitBeforeLoading(
-                    () => this.main.accService.GetAccountById(this.UserId,{extended:true}),
-                    (resAccount:AccountGetModel) => {
-                        this.InitByUser(resAccount);
+ngOnInit(){
 
-                        this.main.accService.GetVideoArr(
-                            (data:SafeResourceUrl[]) => {
-                                this.Videos = data;
-                            },
-                            ()=>{
-                                this.InitSliderWrapp();
-                            }
-                        );
+    //this.Videos = this.accService.GetVideo();
+ 
+    this.initUser();
+    this.activatedRoute.params.forEach((params)=>{
+        this.UserId = params["id"];
+        this.main.accService.GetAccountById(this.UserId,{extended:true})
+            .subscribe(
+                (resAccount:AccountGetModel)=>
+                {
+                    
+                    this.InitByUser(resAccount);
+                    this.main.accService.GetVideoArr(
+                        (data:SafeResourceUrl[]) => {
+                            this.Videos = data;
+                        },
+                        ()=>{
+                            this.InitSliderWrapp();
+                        }
+                    );
 
-                        this.WaitBeforeLoading(
-                            () => this.main.accService.GetMyAccount(),
-                            (resMy:AccountGetModel[])=>
-                            {
-                                this.Accounts = resMy;
-                                this.isMyAccount = this.Accounts.find(obj => obj.id == this.UserId) != null;
-                            }
-                        );
-                    }
-                );
-        })
-    }
+                    this.main.accService.GetMyAccount()
+                        .subscribe((resMy:AccountGetModel[])=>
+                        {
+                            this.Accounts = resMy;
+
+                            this.isMyAccount = this.Accounts.find(obj => obj.id == this.UserId) != null;
+                            this.isFolowed();
+                          
+                        })
+                })
+    })
+
+  
+}
 
     Gallery(event) 
     {
@@ -150,6 +156,8 @@ export class ProfileComponent extends BaseComponent implements OnInit {
                     it.checked = true;
                 }
                 this.GetImage();
+                this.GetImageSize();
+                
             },
             (err) => {
                 console.log(err);
@@ -175,23 +183,37 @@ export class ProfileComponent extends BaseComponent implements OnInit {
             this.ImageMassVenue[i] = BaseImages.Drake;
         }
       }
-    }
+     
+  }
+  GetImageSize()
+  {
+    for(let i in this.VenueImages){
+        this.WaitBeforeLoading(
+            () => this.main.imagesService.GetImageSize(this.VenueImages[i].object.id),
+            (res:Base64ImageModel) => {
+            
+                this.imagesSize[i] = res;
 
-    searchImagesVenue(event)
-    {
-        let searchParam = event.target.value;
-        for(let it of this.VenueImages)
-        {
-            if(it.object.description.indexOf(searchParam)>=0)
-            {
-                it.checked = true;
+                console.log(this.imagesSize);
+            },
+            (err) =>{
+                console.log(err);
             }
-            else
-            {
-                it.checked = false;
-            }
+        );
+    }
+     
+  }
+  searchImagesVenue(event){
+    let searchParam = event.target.value;
+    for(let it of this.VenueImages){
+        if(it.object.description.indexOf(searchParam)>=0){
+            it.checked = true;
+        }
+        else{
+            it.checked = false;
         }
     }
+}
 
     GetEvents()
     {
@@ -425,42 +447,62 @@ export class ProfileComponent extends BaseComponent implements OnInit {
         this.router.navigate(['/system','login']);
     }
 
-    logout()
-    {
-        this.Logout();
+initUser(){
+    this.main.accService.GetMyAccount({extended:true})
+    .subscribe((users:any[])=>{
+        for(let u of users)
+        if(u.id==+localStorage.getItem('activeUserId')){
+          this.MyAccountId = u.id;
+          console.log(u.id);
+        }
+    });
+}
+FollowProfile() {
+  this.WaitBeforeLoading(
+    () => this.main.accService.FollowAccountById(this.MyAccountId, this.UserId),
+    (res:any) =>
+    { 
+   
+        this.isFolowed();
+    },
+    (err) => {
+        console.log(err);
+     
     }
-    initUser()
-    {
-        let id = this.GetCurrentAccId();
-        this.WaitBeforeLoading(
-            () => this.main.accService.GetMyAccount({extended:true}),
-            (users:any[])=>{
-                for(let u of users)
-                {
-                    if(u.id== id)
-                    {
-                        this.MyAccountId = u.id;
-                    }
-                }
-            }
-        );
-    }
-    FollowProfile() 
-    {
-        this.WaitBeforeLoading(
-            () => this.main.accService.FollowAccountById(this.MyAccountId, this.UserId),
-            (res:any) =>
-            { 
-                console.log(res);
-            },
-            (err) => {
-                console.log(err);
-            
-            }
-        );
-    }
+);
+
+}
 
 
+UnFollowProfile() {
+    this.WaitBeforeLoading(
+      () => this.main.accService.UnFollowAccountById(this.MyAccountId, this.UserId),
+      (res:any) =>
+      { 
+          
+          this.isFolowed();
+      },
+      (err) => {
+          console.log(err);
+       
+      }
+  );
   
+  }
+  
+  isFolowed() {
+    this.WaitBeforeLoading(
+      () => this.main.accService.IsAccFolowed(this.MyAccountId, this.UserId),
+      (res:any) =>
+      { 
+          this.isFolowedAcc = res.status;
+      },
+      (err) => {
+          console.log(err);
+       
+      }
+  );
+  
+  }
 
 }

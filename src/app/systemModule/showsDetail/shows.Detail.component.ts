@@ -44,6 +44,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
     Creator:AccountGetModel = new AccountGetModel();
     Artists:AccountGetModel[] = [];
     Tickets:TicketModel [] = [];
+    Venue:AccountGetModel = new AccountGetModel();
 
     TicketsToBuy:BuyTicketModel[] = [];
     TotalPrice:number = 0;
@@ -89,12 +90,27 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
         );
     }
 
+    GetVenueInfo()
+    {
+        if(this.Event.venue){
+            this.WaitBeforeLoading(
+                () => this.main.accService.GetAccountById(this.Event.venue.id),
+                (res:AccountGetModel) => 
+                {
+                    this.Venue = res;
+                    console.log(this.Venue);
+                }
+            );
+        }
+    }
+
     InitEvent(event:EventGetModel)
     {
         this.Event = event;
         this.GetGenres();
         this.GetCreatorInfo();
         this.GetFeaturing();
+        this.GetVenueInfo();
         this.GetTickets();
     }
 
@@ -103,7 +119,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
         this.Featuring = '';
         let artistArr:string[] = [];
         this.Artists = [];
-        let arr = this.Event.artist;
+        let arr = this.Event.artist.filter( obj => obj.status == "active" );
         for(let i in arr)
         {
             this.WaitBeforeLoading
@@ -214,11 +230,5 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
 
     aboutOpenMapModal(){
         $('#modal-map').modal('show');
-    }
-
-    
-    SanitizeUrl(url:string)
-    {
-        return this._sanitizer.bypassSecurityTrustResourceUrl(url);
     }
 }

@@ -70,6 +70,10 @@ export class HttpService
     {
         return this.http.delete(this.serverUrl + method,{headers:this.headers})
     }
+    DeleteDataWithParam(method:string,param)
+    {
+        return this.http.delete(this.serverUrl + method + "?"+ param,{headers:this.headers})
+    }
 
     PostData(method:string,data:any)
     {
@@ -108,7 +112,4 @@ export class HttpService
     // return this.http.post('https://api.twitter.com/oauth2/token',{'grant_type': 'client_credentials'},{ 
     //                     headers: headers});
     // }
-
-
-
 }

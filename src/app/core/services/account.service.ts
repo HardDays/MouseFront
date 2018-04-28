@@ -120,6 +120,7 @@ export class AccountService{
         );
         //return this.http.GetData('/accounts/my.json', this.typeService.ParamsToUrlSearchParams(params));
     }
+    
 
     SanitizeUrl(url)
     {
@@ -159,6 +160,14 @@ export class AccountService{
         );
         //return this.http.PostData("/accounts/" + me + "/follow.json",JSON.stringify({"follower_id":target}));
     }
+    UnFollowAccountById(me:number,target:number)
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.DeleteDataWithParam("/accounts/" + me + "/unfollow.json","follower_id="+target)
+        );
+        //return this.http.PostData("/accounts/" + me + "/follow.json",JSON.stringify({"follower_id":target}));
+    }
+
 
     GetAccountById(id:number, params?:any){
         return this.http.CommonRequest(
@@ -234,6 +243,14 @@ export class AccountService{
         let split = str.split("T");
         return split && split[1]?split[1].substring(0,5):null;
     }
+    IsAccFolowed(id:number, follower_id:number){
+       
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/accounts/' + id + "/is_followed.json",'follower_id='+follower_id)
+        );
+        //return this.http.DeleteData('/accounts/' + id);
+    }
+
 
     AccountFollow(id:number,follower_id:number){
         let params={
