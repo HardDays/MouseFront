@@ -62,6 +62,8 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     itemsPhotoss:any = [];
     VenueImages:any;
     ImageMassVenue:any = [];
+    isFolowedAcc:boolean;
+    imagesSize:any = [];
     constructor(protected authService: AuthMainService,
       protected accService:AccountService,
       protected imgService:ImagesService,
@@ -103,6 +105,7 @@ ngOnInit(){
                             this.Accounts = resMy;
 
                             this.isMyAccount = this.Accounts.find(obj => obj.id == this.UserId) != null;
+                            this.isFolowed();
                           
                         })
                 })
@@ -156,7 +159,7 @@ GetVenueImages()
                     it.checked = true;
                 }
                 this.GetImage();
-              
+                this.GetImageSize();
                 
             },
             (err) => {
@@ -185,6 +188,24 @@ GetImage()
             this.ImageMassVenue[i] = BaseImages.Drake;
         }
       }
+     
+  }
+  GetImageSize()
+  {
+    for(let i in this.VenueImages){
+        this.WaitBeforeLoading(
+            () => this.imgService.GetImageSize(this.VenueImages[i].object.id),
+            (res:Base64ImageModel) => {
+            
+                this.imagesSize[i] = res;
+
+                console.log(this.imagesSize);
+            },
+            (err) =>{
+                console.log(err);
+            }
+        );
+    }
      
   }
   searchImagesVenue(event){
@@ -427,16 +448,47 @@ FollowProfile() {
     () => this.accService.FollowAccountById(this.MyAccountId, this.UserId),
     (res:any) =>
     { 
-        console.log(res);
+   
+        this.isFolowed();
     },
     (err) => {
         console.log(err);
      
     }
 );
+
 }
 
 
+UnFollowProfile() {
+    this.WaitBeforeLoading(
+      () => this.accService.UnFollowAccountById(this.MyAccountId, this.UserId),
+      (res:any) =>
+      { 
+          
+          this.isFolowed();
+      },
+      (err) => {
+          console.log(err);
+       
+      }
+  );
   
+  }
+  
+  isFolowed() {
+    this.WaitBeforeLoading(
+      () => this.accService.IsAccFolowed(this.MyAccountId, this.UserId),
+      (res:any) =>
+      { 
+          this.isFolowedAcc = res.status;
+      },
+      (err) => {
+          console.log(err);
+       
+      }
+  );
+  
+  }
 
 }
