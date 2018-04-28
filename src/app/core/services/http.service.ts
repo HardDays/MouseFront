@@ -112,7 +112,4 @@ export class HttpService
     // return this.http.post('https://api.twitter.com/oauth2/token',{'grant_type': 'client_credentials'},{ 
     //                     headers: headers});
     // }
-
-
-
 }
