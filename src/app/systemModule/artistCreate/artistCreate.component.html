@@ -41,16 +41,16 @@
                                         <div class="side">
                                             <div class="input-groupe-1">
                                                 
-                                                <input id="inp-create-1" [(ngModel)]="Artist.user_name" formControlName="user_name" name="" type="text">
+                                                <input id="inp-create-1" [(ngModel)]="createArtist.user_name" formControlName="user_name" name="" type="text">
                                                 <label for="inp-create-1">Username<span>*</span></label>
                                             </div>
                                             <div class="input-groupe-1">
-                                                <input id="inp-create-2"  [(ngModel)]="Artist.display_name" formControlName="display_name" name="" type="text">
+                                                <input id="inp-create-2"  [(ngModel)]="createArtist.display_name" formControlName="display_name" name="" type="text">
                                                 <label for="inp-create-2">Full Name<span>*</span></label>
                                                 
                                             </div>
                                             <div class="input-groupe-1">
-                                                <input id="inp-create-3" [(ngModel)]="Artist.stage_name" formControlName="stage_name" name="" type="text">
+                                                <input id="inp-create-3" [(ngModel)]="createArtist.stage_name" formControlName="stage_name" name="" type="text">
                                                 <label for="inp-create-3">Stage name</label>
                                                
                                             </div>
@@ -58,12 +58,12 @@
                                         <div class="side">
                                             <div class="input-groupe-1">
                                                 
-                                                <input id="inp-create-4" [(ngModel)]="Artist.artist_email" formControlName="artist_email" name="" type="text">
+                                                <input id="inp-create-4" [(ngModel)]="createArtist.artist_email" formControlName="artist_email" name="" type="text">
                                                 <label for="inp-create-4">Email Address<span>*</span></label>
                                             </div>
                                             <div class="input-groupe-1">
                                                 
-                                                <input id="inp-create-5" [(ngModel)]="Artist.manager_name" formControlName="manager_name" name="" type="text">
+                                                <input id="inp-create-5" [(ngModel)]="createArtist.manager_name" formControlName="manager_name" name="" type="text">
                                                 <label for="inp-create-5">Manager Name</label>
                                             </div>
                                             
@@ -94,7 +94,7 @@
                                         <div class="side">
                                             <div class="input-groupe-1 whithout-label small-textarea max-500">
                                                
-                                                <textarea maxlength="500" [(ngModel)]="Artist.about" formControlName="about" id="inp-create-9"></textarea>
+                                                <textarea maxlength="500" [(ngModel)]="createArtist.about" formControlName="about" id="inp-create-9"></textarea>
                                                 <label for="inp-create-9" class="head-groupe">Short Description<span>*</span></label>
                                                 <span class="max-count">500 max</span>
                                             </div>
@@ -102,7 +102,7 @@
                                         </div>
                                     </div>
                                     <div class="scroll-wrapp">
-                                        <div class="circle-scroll" (click)="createArtistFromAbout()"></div>
+                                        <div class="circle-scroll" (click)="artistFromAbout()"></div>
                                     </div>
                                     
                                 </div>
@@ -185,7 +185,7 @@
                                             </div>
                                             <!--если пустой-->
                                             
-                                            <div [ngStyle]="{'display': Artist.audio_links.length<=0?'block':'none'}" class="empty-info">
+                                            <div [ngStyle]="{'display': createArtist.audio_links.length<=0?'block':'none'}" class="empty-info">
                                                 <img src="./../../../assets/img/smile.svg" class="img-responsive" alt="">
                                                 <p>No Songs Yet</p>
                                             </div>
@@ -194,14 +194,14 @@
                                             <!---->
                                             <!--если не пустой. это слайдер-->
                                             
-                                            <div [ngStyle]="{'display': Artist.audio_links.length>0?'block':'none'}" class="slider-audio-wrapp">
+                                            <div [ngStyle]="{'display': createArtist.audio_links.length>0?'block':'none'}" class="slider-audio-wrapp">
                                             
                                                 <!--это слайд. в нем не более 12 треков-->
 
                                                 
                                                 <div  class="one-slide">
                                                               
-                                                    <div *ngFor="let item of Artist.audio_links; let i = index"  class="one-audio">
+                                                    <div *ngFor="let item of createArtist.audio_links; let i = index"  class="one-audio">
                                                         <div class="delete-track" (click)="deleteAudio(i)"></div>
                                                         <span id="track-{{i}}" class="name-track">{{item.song_name}}</span>
                                                         <audio src="{{item.audio_link}}" preload="none" ></audio>
@@ -257,7 +257,7 @@
                                             </div>
                                             <!--если пустой-->
                                             
-                                            <div [ngStyle]="{'display': Artist.artist_albums.length<=0?'block':'none'}" class="empty-info">
+                                            <div [ngStyle]="{'display': createArtist.artist_albums.length<=0?'block':'none'}" class="empty-info">
                                                 <img src="../../../assets/img/smile.svg" class="img-responsive" alt="">
                                                 <p>No Songs Yet</p>
                                             </div>
@@ -265,10 +265,10 @@
                                             <!---->
                                             <!--если не пустой.-->
                                             
-                                            <div [ngStyle]="{'display': Artist.artist_albums.length>0?'block':'none'}" class="slider-2-albums slider-2-init" >
+                                            <div [ngStyle]="{'display': createArtist.artist_albums.length>0?'block':'none'}" class="slider-2-albums slider-2-init" >
                                           
                                                 <!-- ngxSlickItem -->
-                                                    <div  *ngFor="let item of Artist.artist_albums; let i = index" class="one-slide">
+                                                    <div  *ngFor="let item of createArtist.artist_albums; let i = index" class="one-slide">
                                                         <div class="wrapp-card">
                                                             <div class="delete-track" (click)="deleteAlbum(i)"></div>
                                                             <div class="cover-image" [ngStyle]="{'background-image': 'url('+item.album_artwork+')'}"></div>
@@ -326,7 +326,7 @@
                                             </div>
                                             <!--если пустой-->
                                             
-                                            <div [ngStyle]="{'display': Artist.videos.length<=0?'block':'none'}" class="empty-info">
+                                            <div [ngStyle]="{'display': createArtist.artist_videos.length<=0?'block':'none'}" class="empty-info">
                                                 <img src="../../../assets/img/smile.svg" class="img-responsive" alt="">
                                                 <p>No Songs Yet</p>
                                             </div>
@@ -334,9 +334,9 @@
                                             <!---->
                                             <!--если не пустой.-->
                                             
-                                            <div [ngStyle]="{'display': Artist.videos.length>0?'block':'none'}" class="slider-2-albums slider-2-init" >
+                                            <div [ngStyle]="{'display': createArtist.artist_videos.length>0?'block':'none'}" class="slider-2-albums slider-2-init" >
                                             
-                                                    <div  *ngFor="let item of Artist.videos; let i = index" class="one-slide">
+                                                    <div  *ngFor="let item of createArtist.artist_videos; let i = index" class="one-slide">
                                                         <div class="wrapp-card">
                                                             <div class="delete-track" (click)="deleteVideo(i)"></div>
                                                             <div (click)="openVideo(item)" class="cover-image" [ngStyle]="{'background-image': 'url('+item.preview+')'}">
@@ -407,7 +407,7 @@
                                             
                                                 <div *ngFor="let img of ArtistImages" class="one-slide">
                                                     <div class="wrapp-card">
-                                                        <div class="delete-track"></div>
+                                                        <div class="delete-track" (click)="deleteImage(img.id)"></div>
                                                         <div class="cover-image" [ngStyle]="{'background-image': 'url('+ img.img.toString() +')'}"></div>
                                                         <div class="descr">
                                                             <p class="name">{{img.text}}</p>
@@ -459,14 +459,14 @@
                                                 <h6>Performance</h6>
                                                 <div class="flex-input-groupes">
                                                     <div class="input-groupe-1">
-                                                        <select [(ngModel)]="Artist.performance_min_time" id="inp-perf-req-1">
+                                                        <select [(ngModel)]="createArtist.performance_min_time" id="inp-perf-req-1">
                                                             <option>1</option>
                                                             <option>2</option>
                                                         </select>
                                                         <label for="inp-perf-req-1">Min Time (hr)</label>
                                                     </div>
                                                     <div class="input-groupe-1">
-                                                        <select [(ngModel)]="Artist.performance_max_time" id="inp-perf-req-2">
+                                                        <select [(ngModel)]="createArtist.performance_max_time" id="inp-perf-req-2">
                                                             <option>3</option>
                                                             <option>4</option>
                                                         </select>
@@ -477,12 +477,12 @@
                                                 <div class="flex-input-groupes">
                                                     <div class="input-groupe-1 from-to-style">
                                                         <span class="f-t">From</span>
-                                                        <input maxlength="10" [textMask]="MaskNumbers()" [(ngModel)]="Artist.price_from" type="text">
+                                                        <input maxlength="10" [textMask]="MaskNumbers()" [(ngModel)]="createArtist.price_from" type="text">
                                                         <span class="t-f">/hr</span>
                                                     </div>
                                                     <div class="input-groupe-1 from-to-style">
                                                         <span class="f-t">To</span>
-                                                        <input maxlength="10" [textMask]="MaskNumbers()" [(ngModel)]="Artist.price_to" type="text">
+                                                        <input maxlength="10" [textMask]="MaskNumbers()" [(ngModel)]="createArtist.price_to" type="text">
                                                         <span class="t-f">/hr</span>                           
                                                     </div>
                                                 </div>
@@ -492,7 +492,7 @@
                                                     </div>
                                                     <div class="input-groupe-1 from-to-style hours-label-groupe">
                                                     
-                                                        <input maxlength="10" [textMask]="MaskNumbers()" [(ngModel)]="Artist.additional_hours_price" type="text">
+                                                        <input maxlength="10" [textMask]="MaskNumbers()" [(ngModel)]="createArtist.additional_hours_price" type="text">
                                                         <span class="t-f">/hr</span>                           
                                                     </div>
                                                 </div>
@@ -501,7 +501,7 @@
                                                     <div class="yes-no">
                                                         <span>Yes</span>
                                                         <div class="mac-checkbox">
-                                                            <input  [(ngModel)]="Artist.is_hide_pricing_from_profile" class="checkbox" checked="" type="checkbox" id="checkbox-set-option-1">
+                                                            <input  [(ngModel)]="createArtist.is_hide_pricing_from_profile" class="checkbox" checked="" type="checkbox" id="checkbox-set-option-1">
                                                             <label for="checkbox-set-option-1"></label>
                                                         </div>
                                                         <span>No</span>
@@ -512,7 +512,7 @@
                                                     <div class="yes-no">
                                                         <span>Yes</span>
                                                         <div class="mac-checkbox">
-                                                            <input [(ngModel)]="Artist.is_hide_pricing_from_search" class="checkbox" checked="" type="checkbox" id="checkbox-set-option-2">
+                                                            <input [(ngModel)]="createArtist.is_hide_pricing_from_search" class="checkbox" checked="" type="checkbox" id="checkbox-set-option-2">
                                                             <label for="checkbox-set-option-2"></label>
                                                         </div>
                                                         <span>No</span>
@@ -526,14 +526,14 @@
                                                     <div class="flex-radio">
                                                         <div class="one-radio">
                                                             <div class="radio-style">
-                                                                <input [(ngModel)]="Artist.is_perform_with_band" type="radio" class="radio-b" id="radio-1" name="group1" [value]="true" checked="">
+                                                                <input [(ngModel)]="createArtist.is_perform_with_band" type="radio" class="radio-b" id="radio-1" name="group1" [value]="true" checked="">
                                                                 <label for="radio-1"></label>
                                                             </div>
                                                             <p>Yes</p>
                                                         </div>
                                                         <div class="one-radio">
                                                             <div class="radio-style">
-                                                                <input [(ngModel)]="Artist.is_perform_with_band" type="radio" class="radio-b" id="radio-2" name="group1" [value]="false">
+                                                                <input [(ngModel)]="createArtist.is_perform_with_band" type="radio" class="radio-b" id="radio-2" name="group1" [value]="false">
                                                                 <label for="radio-2"></label>
                                                             </div>
                                                             <p>No</p>
@@ -545,14 +545,14 @@
                                                     <div class="flex-radio">
                                                         <div class="one-radio">
                                                             <div class="radio-style">
-                                                                <input [(ngModel)]="Artist.can_perform_without_band" type="radio" class="radio-b" id="radio-3" name="group2" [value]="true" checked="">
+                                                                <input [(ngModel)]="createArtist.can_perform_without_band" type="radio" class="radio-b" id="radio-3" name="group2" [value]="true" checked="">
                                                                 <label for="radio-3"></label>
                                                             </div>
                                                             <p>Yes</p>
                                                         </div>
                                                         <div class="one-radio">
                                                             <div class="radio-style">
-                                                                <input [(ngModel)]="Artist.can_perform_without_band" type="radio" class="radio-b" id="radio-4" name="group2" [value]="false">
+                                                                <input [(ngModel)]="createArtist.can_perform_without_band" type="radio" class="radio-b" id="radio-4" name="group2" [value]="false">
                                                                 <label for="radio-4"></label>
                                                             </div>
                                                             <p>No</p>
@@ -564,14 +564,14 @@
                                                     <div class="flex-radio">
                                                         <div class="one-radio">
                                                             <div class="radio-style">
-                                                                <input [(ngModel)]="Artist.is_perform_with_backing_vocals" type="radio" class="radio-b" id="radio-5" name="group3" [value]="true" checked="">
+                                                                <input [(ngModel)]="createArtist.is_perform_with_backing_vocals" type="radio" class="radio-b" id="radio-5" name="group3" [value]="true" checked="">
                                                                 <label for="radio-5"></label>
                                                             </div>
                                                             <p>Yes</p>
                                                         </div>
                                                         <div class="one-radio">
                                                             <div class="radio-style">
-                                                                <input [(ngModel)]="Artist.is_perform_with_backing_vocals" type="radio" class="radio-b" id="radio-6" name="group3" [value]="false">
+                                                                <input [(ngModel)]="createArtist.is_perform_with_backing_vocals" type="radio" class="radio-b" id="radio-6" name="group3" [value]="false">
                                                                 <label for="radio-6"></label>
                                                             </div>
                                                             <p>No</p>
@@ -583,14 +583,14 @@
                                                     <div class="flex-radio">
                                                         <div class="one-radio">
                                                             <div class="radio-style">
-                                                                <input [(ngModel)]="Artist.can_perform_without_backing_vocals" type="radio" class="radio-b" id="radio-7" name="group4" [value]="true" checked="">
+                                                                <input [(ngModel)]="createArtist.can_perform_without_backing_vocals" type="radio" class="radio-b" id="radio-7" name="group4" [value]="true" checked="">
                                                                 <label for="radio-7"></label>
                                                             </div>
                                                             <p>Yes</p>
                                                         </div>
                                                         <div class="one-radio">
                                                             <div class="radio-style">
-                                                                <input [(ngModel)]="Artist.can_perform_without_backing_vocals" type="radio" class="radio-b" id="radio-8" name="group4" [value]="false">
+                                                                <input [(ngModel)]="createArtist.can_perform_without_backing_vocals" type="radio" class="radio-b" id="radio-8" name="group4" [value]="false">
                                                                 <label for="radio-8"></label>
                                                             </div>
                                                             <p>No</p>
@@ -668,7 +668,7 @@
                                                     </div> -->
                                                 </div>
                                                 <div class="input-groupe-1 whithout-label small-textarea max-500 max-100">  
-                                                    <textarea maxlength="100" [(ngModel)]="Artist.preferred_venue_text"></textarea>
+                                                    <textarea maxlength="100" [(ngModel)]="createArtist.preferred_venue_text"></textarea>
                                                     <span class="max-count">100 max</span>
                                                 </div>
                                             </div>
@@ -678,14 +678,14 @@
                                                 <h6>Preferred Location</h6>
                                                 <div class="location-wr">
                                                     <div class="mark"></div>
-                                                    <input [(ngModel)]="Artist.preferred_address" #search type="text" class="location-inp" placeholder="location">
+                                                    <input [(ngModel)]="createArtist.preferred_address" #search type="text" class="location-inp" placeholder="location">
                                                 </div>
                                                 <div class="flex-input-groupes">
                                                     <div class="input-groupe-1 p-style-10">
                                                     <p class="hours-label">How many days notice do you need to travel?</p>
                                                     </div>
                                                     <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
-                                                        <select [(ngModel)]="Artist.days_to_travel">
+                                                        <select [(ngModel)]="createArtist.days_to_travel">
                                                             <option>30</option>
                                                             <option>40</option>
                                                         </select>                                                         
@@ -700,14 +700,14 @@
                                                     <div class="flex-radio">
                                                         <div class="one-radio">
                                                             <div class="radio-style">
-                                                                <input [(ngModel)]="Artist.is_permitted_to_stream" type="radio" class="radio-b" id="radio-9" name="group5" [value]="true" checked="">
+                                                                <input [(ngModel)]="createArtist.is_permitted_to_stream" type="radio" class="radio-b" id="radio-9" name="group5" [value]="true" checked="">
                                                                 <label for="radio-9"></label>
                                                             </div>
                                                             <p>Yes</p>
                                                         </div>
                                                         <div class="one-radio">
                                                             <div class="radio-style">
-                                                                <input [(ngModel)]="Artist.is_permitted_to_stream" type="radio" class="radio-b" id="radio-10" name="group5" [value]="false">
+                                                                <input [(ngModel)]="createArtist.is_permitted_to_stream" type="radio" class="radio-b" id="radio-10" name="group5" [value]="false">
                                                                 <label for="radio-10"></label>
                                                             </div>
                                                             <p>No</p>
@@ -719,14 +719,14 @@
                                                     <div class="flex-radio">
                                                         <div class="one-radio">
                                                             <div class="radio-style">
-                                                                <input [(ngModel)]="Artist.is_permitted_to_advertisement" type="radio" class="radio-b" id="radio-11" name="group6" [value]="true" checked="">
+                                                                <input [(ngModel)]="createArtist.is_permitted_to_advertisement" type="radio" class="radio-b" id="radio-11" name="group6" [value]="true" checked="">
                                                                 <label for="radio-11"></label>
                                                             </div>
                                                             <p>Yes</p>
                                                         </div>
                                                         <div class="one-radio">
                                                             <div class="radio-style">
-                                                                <input [(ngModel)]="Artist.is_permitted_to_advertisement" type="radio" class="radio-b" id="radio-12" name="group6" [value]="false">
+                                                                <input [(ngModel)]="createArtist.is_permitted_to_advertisement" type="radio" class="radio-b" id="radio-12" name="group6" [value]="false">
                                                                 <label for="radio-12"></label>
                                                             </div>
                                                             <p>No</p>
@@ -738,14 +738,14 @@
                                                     <div class="flex-radio">
                                                         <div class="one-radio">
                                                             <div class="radio-style">
-                                                                <input [(ngModel)]="Artist.has_conflict_contracts" type="radio" class="radio-b" id="radio-13" name="group7" [value]="true" checked="">
+                                                                <input [(ngModel)]="createArtist.has_conflict_contracts" type="radio" class="radio-b" id="radio-13" name="group7" [value]="true" checked="">
                                                                 <label for="radio-13"></label>
                                                             </div>
                                                             <p>Yes</p>
                                                         </div>
                                                         <div class="one-radio">
                                                             <div class="radio-style">
-                                                                <input [(ngModel)]="Artist.has_conflict_contracts" type="radio" class="radio-b" id="radio-14" name="group7" [value]="false">
+                                                                <input [(ngModel)]="createArtist.has_conflict_contracts" type="radio" class="radio-b" id="radio-14" name="group7" [value]="false">
                                                                 <label for="radio-14"></label>
                                                             </div>
                                                             <p>No</p>
@@ -753,7 +753,7 @@
                                                     </div>
                                                 </div> 
                                                 <div class="input-groupe-1">
-                                                    <input [(ngModel)]="Artist.conflict_companies_names" id="if-yes-1" name="" type="text" placeholder="Company name">
+                                                    <input [(ngModel)]="createArtist.conflict_companies_names" id="if-yes-1" name="" type="text" placeholder="Company name">
                                                     <label for="if-yes-1">If yes, with what companies?</label>
 
                                                 </div>
@@ -765,7 +765,7 @@
                                                     <p class="hours-label">Minimum Time needed to book before a Concert?</p>
                                                     </div>
                                                     <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
-                                                        <select [(ngModel)]="Artist.min_time_to_book">
+                                                        <select [(ngModel)]="createArtist.min_time_to_book">
                                                             <option>30</option>
                                                             <option>40</option>
                                                         </select>                                                         
@@ -776,7 +776,7 @@
                                                     <p class="hours-label">How much time is needed to cancel before you charge a cancellation fee?</p>
                                                     </div>
                                                     <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
-                                                        <select [(ngModel)]="Artist.min_time_to_free_cancel">
+                                                        <select [(ngModel)]="createArtist.min_time_to_free_cancel">
                                                             <option>30</option>
                                                             <option>40</option>
                                                         </select>                                                         
@@ -787,11 +787,11 @@
                                                     <p class="hours-label">Fee for last minute сancellation</p>
                                                     </div>
                                                     <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
-                                                        <input [(ngModel)]="Artist.late_cancellation_fee" type="text" class="whithout-padd">                                                      
+                                                        <input [(ngModel)]="createArtist.late_cancellation_fee" type="text" class="whithout-padd">                                                      
                                                     </div>
                                                 </div>
                                                 <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">
-                                                    <textarea maxlength="100" [(ngModel)]="Artist.refund_policy" id="inp-create-9"></textarea>
+                                                    <textarea maxlength="100" [(ngModel)]="createArtist.refund_policy" id="inp-create-9"></textarea>
                                                     <label for="inp-create-9" class="head-groupe">Refund Policy</label>
                                                     <span class="max-count">100 max</span>
                                                 </div>
@@ -826,7 +826,7 @@
                                                             <a class="dd-ff">
                                                                 <img src="../../assets/img/download.png" class="img-responsive" alt="">
                                                             </a>
-                                                            <p class="desc-side-dwn">Press to Downlod Templete</p>
+                                                            <p class="desc-side-dwn">Press to Downlod Template</p>
                                                         </div>
                                                         <div class="side-dwn">
                                                             <div class="photo-wr-1 on-riders">
@@ -836,7 +836,7 @@
                                                                     <input  (change)="loadRiderFile($event)"  type="file">
                                                                 </label>
                                                             </div>
-                                                            <p class="desc-side-dwn">Press to Upload filled Templete</p>
+                                                            <p class="desc-side-dwn">Press to Upload filled Template</p>
                                                         </div>
                                                     </ng-container>
                                                     <!--после загрузки файла-->
@@ -894,7 +894,7 @@
                                                         <a class="dd-ff">
                                                             <img src="../../assets/img/download.png" class="img-responsive" alt="">
                                                         </a>
-                                                        <p class="desc-side-dwn">Press to Downlod Templete</p>
+                                                        <p class="desc-side-dwn">Press to Downlod Template</p>
                                                     </div>
                                                     <div class="side-dwn">
                                                         <div class="photo-wr-1 on-riders">
@@ -904,7 +904,7 @@
                                                                 <input  (change)="loadBackstageRiderFile($event)"  type="file">
                                                             </label>
                                                         </div>
-                                                        <p class="desc-side-dwn">Press to Upload filled Templete</p>
+                                                        <p class="desc-side-dwn">Press to Upload filled Template</p>
                                                     </div>
                                                 </ng-container>
                                                 <!--после загрузки файла-->
@@ -959,7 +959,7 @@
                                                         <a class="dd-ff">
                                                             <img src="../../assets/img/download.png" class="img-responsive" alt="">
                                                         </a>
-                                                        <p class="desc-side-dwn">Press to Downlod Templete</p>
+                                                        <p class="desc-side-dwn">Press to Downlod Template</p>
                                                     </div>
                                                     <div class="side-dwn">
                                                         <div class="photo-wr-1 on-riders">
@@ -969,7 +969,7 @@
                                                                 <input  (change)="loadHospitalityRiderFile($event)"  type="file">
                                                             </label>
                                                         </div>
-                                                        <p class="desc-side-dwn">Press to Upload filled Templete</p>
+                                                        <p class="desc-side-dwn">Press to Upload filled Template</p>
                                                     </div>
                                                 </ng-container>
                                                 <!--после загрузки файла-->
@@ -1025,7 +1025,7 @@
                                                         <a class="dd-ff">
                                                             <img src="../../assets/img/download.png" class="img-responsive" alt="">
                                                         </a>
-                                                        <p class="desc-side-dwn">Press to Downlod Templete</p>
+                                                        <p class="desc-side-dwn">Press to Downlod Template</p>
                                                     </div>
                                                     <div class="side-dwn">
                                                         <div class="photo-wr-1 on-riders">
@@ -1035,7 +1035,7 @@
                                                                 <input  (change)="loadTechnicalRiderFile($event)"  type="file">
                                                             </label>
                                                         </div>
-                                                        <p class="desc-side-dwn">Press to Upload filled Templete</p>
+                                                        <p class="desc-side-dwn">Press to Upload filled Template</p>
                                                     </div>
                                                 </ng-container>
                                                 <!--после загрузки файла-->
@@ -1091,7 +1091,14 @@
                                         
                                     </div>
                                 </div>
+                                <div class="scroll-wrapp">
+                                        <div [routerLink]="['/system','profile',artistId]" class="circle-scroll"></div>
+                                </div>
+
                             </div>
+
+                           
+
                         </div>
                     </div>
                     

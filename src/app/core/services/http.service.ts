@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import {Http} from "@angular/http";
+import {Http, RequestOptions} from "@angular/http";
 import {Response, Headers, URLSearchParams} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -69,6 +69,13 @@ export class HttpService
     DeleteData(method:string)
     {
         return this.http.delete(this.serverUrl + method,{headers:this.headers})
+    }
+    DeleteDataWithBody(method:string,body:any)
+    {
+        return this.http.delete(this.serverUrl + method, new RequestOptions({
+            headers:this.headers,
+            body: body
+          }))
     }
 
     PostData(method:string,data:any)

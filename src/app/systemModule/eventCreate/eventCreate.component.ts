@@ -729,6 +729,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                 console.log(`new event`)
                 this.eventService.CreateEvent(this.newEvent)
                 .subscribe((res)=>{
+                    
                     this.Event = res;
                     
                     this.currentPage = 'artist';
