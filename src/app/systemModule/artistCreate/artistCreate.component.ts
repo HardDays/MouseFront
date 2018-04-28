@@ -109,7 +109,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
   //booking
   spaceArtistList = [];
   preferredVenues:CheckModel<{type:string, type_show:string}>[] = []; 
-
+  mapCoords = {lat:55.755826, lng:37.6172999};
   //riders
   stageRider:Rider= new Rider();
   backstageRider:Rider= new Rider();
@@ -270,6 +270,8 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
                     else 
                     {
                         this.createArtist.preferred_address = autocomplete.getPlace().formatted_address;
+                        this.mapCoords.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
+                        this.mapCoords.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
                     }
                 });
             });
@@ -692,6 +694,39 @@ addBooking(){
   this.updateArtistByCreateArtist();
 }
 
+  dragMarker($event){
+    //console.log($event);
+    this.mapCoords.lat = $event.coords.lat;
+    this.mapCoords.lng = $event.coords.lng;
+    this.codeLatLng( this.mapCoords.lat, this.mapCoords.lng);
+  }
+
+  codeLatLng(lat, lng) {
+    let geocoder = new google.maps.Geocoder();
+    let latlng = new google.maps.LatLng(lat, lng);
+    geocoder.geocode({
+        'location': latlng }, 
+        (results, status) => {
+            if (status === google.maps.GeocoderStatus.OK) {
+                if (results[1]) {
+               
+                
+              
+                this.createArtist.preferred_address = results[1].formatted_address;
+                
+                    
+                } else {
+                // alert('No results found');
+                }
+            } else {
+                // alert('Geocoder failed due to: ' + status);
+            }
+        });
+  }
+
+  openMapModal(){
+    $('#modal-map').modal('show');
+  }
 
 
 
