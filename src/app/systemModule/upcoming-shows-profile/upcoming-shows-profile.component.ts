@@ -13,30 +13,24 @@ import { TicketsGetModel } from '../../core/models/ticketsGetModel';
 export class UpcomingShowsProfileComponent extends BaseComponent implements OnInit  {
   @Input() Upshows: any;
   FoundedPercent:number = 0;
-  Image:string;
+  Image:string = BaseImages.Drake;
  
 
-  ngOnInit(): void {
+  ngOnInit(): void 
+  {
     this.GetImage();
   }
+
   GetImage()
   {
       if(this.Upshows && this.Upshows.image_id)
       {
           this.WaitBeforeLoading(
-              () => this.imgService.GetImageById(this.Upshows.image_id),
-              
+              () => this.main.imagesService.GetImageById(this.Upshows.image_id),
               (res:Base64ImageModel) => {
-              
                   this.Image = (res && res.base64) ? res.base64 : BaseImages.Drake;
-              },
-              (err) =>{
-                  this.Image = BaseImages.Drake;
               }
           );
-      }
-      else{
-          this.Image = BaseImages.Drake;
       }
   }
 

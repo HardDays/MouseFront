@@ -44,6 +44,7 @@ import { OneCardComponent } from './eventCreate/one-card/one-card.component';
 import { OneFolowerForProfileComponent } from './one-folower-for-profile/one-folower-for-profile.component';
 import { TicketOnProfileComponent } from './ticket-on-profile/ticket-on-profile.component';
 import { UpcomingShowsProfileComponent } from './upcoming-shows-profile/upcoming-shows-profile.component';
+import { VenueMediaPhotoComponent } from './venueCreate/venueImage/venueImage.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { UpcomingShowsProfileComponent } from './upcoming-shows-profile/upcoming
     OneCardComponent,
     OneFolowerForProfileComponent,
     TicketOnProfileComponent,
-    UpcomingShowsProfileComponent
+    UpcomingShowsProfileComponent,
+    VenueMediaPhotoComponent
   ],
   imports: [
     CommonModule,

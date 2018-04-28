@@ -45,6 +45,7 @@ import { GetArtists, GetVenue } from '../../core/models/eventPatch.model';
 import { MessageInfoModel, InboxMessageModel } from '../../core/models/inboxMessage.model';
 import { NumberSymbol } from '@angular/common';
 import { identifierModuleUrl } from '@angular/compiler';
+import { MainService } from '../../core/services/main.service';
 
 
 
@@ -189,19 +190,17 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     @ViewChild('searchVenue') public searchElementVenue: ElementRef;
 
 
-    constructor(protected authService: AuthMainService,
-        protected accService:AccountService,
-        protected imgService:ImagesService,
-        protected typeService:TypeService,
-        protected genreService:GenresService,
-        protected eventService:EventService,
-        protected _sanitizer: DomSanitizer,
-        protected router: Router,public _auth: AuthService,
-        private mapsAPILoader: MapsAPILoader, 
-        private ngZone: NgZone, protected h:Http,
-        private activatedRoute: ActivatedRoute){
-        super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
-
+    constructor
+    (           
+        protected main         : MainService,
+        protected _sanitizer   : DomSanitizer,
+        protected router       : Router,
+        private mapsAPILoader  : MapsAPILoader,
+        private ngZone         : NgZone,
+        private activatedRoute : ActivatedRoute
+    ){
+        super(main,_sanitizer,router);
+        
         this.privateVenueForm = new FormGroup({        
             "user_name": new FormControl("", [Validators.required]),
             "phone": new FormControl(""),
@@ -215,7 +214,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             ]),
             "link_two": new FormControl(""),
             "has_vr": new FormControl("")
-        }); 
+        });
     }
 
     ngOnInit()
@@ -228,28 +227,22 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         this.getAllSpaceTypes();
        
 
-        this.activatedRoute.params.forEach((params) => {
-            //////console.log( params["id"]);
-            if(params["id"])
-             this.getThisEvent(+params["id"])
-            else this.initUser();
+        this.activatedRoute.params.forEach(
+            (params) => {
+                if(params["id"])
+                    this.getThisEvent(+params["id"])
+                else this.initUser();
         });
-
-
-        
-        
         this.artistLimitSearch();
         this.venueLimitSearch();
-        
     }
 
 
     //// ########################################################################################## ////
 
-    initSlider(){
-        
+    initSlider()
+    {
         let _the = this;
-
         var hu_2 = $(".current-slider").ionRangeSlider({
             min: 0,
             max: 100000,
@@ -266,9 +259,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                 _the.PriceArtistChanged(data);
             }
         });
-
         this.addArtist.estimated_price = 20000;
-    
         var hu_3 = $(".current-slider-price-venue").ionRangeSlider({
             min: 0,
             max: 100000,
@@ -285,7 +276,6 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                 _the.VenuePriceChanged(data);
             }
         });
-    
         var hu_4 = $(".current-slider-capacity-venue").ionRangeSlider({
             min: 0,
             max: 100000,
@@ -302,208 +292,241 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                 _the.VenueCapacityChanged(data);
             }
         });
-
     }
-    navigateTo(path:string){
-      
+
+    navigateTo(path:string)
+    {
         $('body, html').animate({
             scrollTop: $('#'+path).offset().top
         }, 800);
-                
-       
     } 
-    CreateAutocompleteAbout(){
-        this.mapsAPILoader.load().then(
-            () => {
-               
-             let autocomplete = new google.maps.places.Autocomplete(this.searchElementAbout.nativeElement, {types:[`(cities)`]});
-            
-            
-                autocomplete.addListener("place_changed", () => {
-                    this.ngZone.run(() => {
-                        let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
-                        if(place.geometry === undefined || place.geometry === null )
-                        {             
-                            return;
-                        }
-                        else 
-                        {
-                            this.newEvent.address = autocomplete.getPlace().formatted_address;
 
-                            this.mapCoords.about.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
-                            this.mapCoords.about.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
-                        }
-                    });
-                });
-            }
-        );
-    }
-    CreateAutocompleteArtist(){
+    CreateAutocompleteAbout()
+    {
         this.mapsAPILoader.load().then(
             () => {
-              
-             let autocomplete = new google.maps.places.Autocomplete(this.searchElementArtist.nativeElement, {types:[`(cities)`]});
+                let autocomplete = new google.maps.places.Autocomplete(this.searchElementAbout.nativeElement, {types:[`(cities)`]});
             
-            
-                autocomplete.addListener("place_changed", () => {
-                    this.ngZone.run(() => {
-                        let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
-                        if(place.geometry === undefined || place.geometry === null )
-                        {             
-                            return;
-                        }
-                        else 
-                        {
-                            this.artistSearchParams.address = autocomplete.getPlace().formatted_address;
-                            this.artistSearch();
-                            this.mapCoords.artist.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
-                            this.mapCoords.artist.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
-                        }
-                    });
-                });
+                autocomplete.addListener(
+                    "place_changed",
+                    () => {
+                        this.ngZone.run(
+                            () => {
+                                let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
+                                if(place.geometry === undefined || place.geometry === null )
+                                {             
+                                    return;
+                                }
+                                else 
+                                {
+                                    this.newEvent.address = autocomplete.getPlace().formatted_address;
+
+                                    this.mapCoords.about.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
+                                    this.mapCoords.about.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
+                                }
+                            }
+                        );
+                    }
+                );
             }
         );
     }
-    CreateAutocompleteVenue(){
+
+    CreateAutocompleteArtist()
+    {
         this.mapsAPILoader.load().then(
             () => {
-               
-             let autocomplete = new google.maps.places.Autocomplete(this.searchElementVenue.nativeElement, {types:[`(cities)`]});
-            
-            
-                autocomplete.addListener("place_changed", () => {
-                    this.ngZone.run(() => {
-                        let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
-                        if(place.geometry === undefined || place.geometry === null )
-                        {             
-                            return;
-                        }
-                        else 
-                        {
-                            this.venueSearchParams.address = autocomplete.getPlace().formatted_address;
-                            this.venueSearch();
-                            this.mapCoords.venue.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
-                            this.mapCoords.venue.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
-                        }
-                    });
-                });
+                let autocomplete = new google.maps.places.Autocomplete(this.searchElementArtist.nativeElement, {types:[`(cities)`]});
+                
+                autocomplete.addListener(
+                    "place_changed",
+                    () => {
+                        this.ngZone.run(
+                            () => {
+                                let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
+                                if(place.geometry === undefined || place.geometry === null )
+                                {             
+                                    return;
+                                }
+                                else 
+                                {
+                                    this.artistSearchParams.address = autocomplete.getPlace().formatted_address;
+                                    this.artistSearch();
+                                    this.mapCoords.artist.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
+                                    this.mapCoords.artist.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
+                                }
+                            }
+                        );
+                    }
+                );
             }
         );
     }
-    aboutDragMarker($event){
+    CreateAutocompleteVenue()
+    {
+        this.mapsAPILoader.load().then(
+            () => {
+                let autocomplete = new google.maps.places.Autocomplete(this.searchElementVenue.nativeElement, {types:[`(cities)`]});
+                
+                autocomplete.addListener("place_changed", 
+                    () => {
+                        this.ngZone.run(
+                            () => {
+                                let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
+                                if(place.geometry === undefined || place.geometry === null )
+                                {             
+                                    return;
+                                }
+                                else 
+                                {
+                                    this.venueSearchParams.address = autocomplete.getPlace().formatted_address;
+                                    this.venueSearch();
+                                    this.mapCoords.venue.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
+                                    this.mapCoords.venue.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
+                                }
+                            }
+                        );
+                    }
+                );
+            }
+        );
+    }
+
+    aboutDragMarker($event)
+    {
         //console.log($event);
         this.mapCoords.about.lat = $event.coords.lat;
         this.mapCoords.about.lng = $event.coords.lng;
         this.codeLatLng( this.mapCoords.about.lat, this.mapCoords.about.lng, "aboutAddress");
     }
-    artistDragMarker($event){
+    artistDragMarker($event)
+    {
         //console.log($event);
         this.mapCoords.artist.lat = $event.coords.lat;
         this.mapCoords.artist.lng = $event.coords.lng;
         this.codeLatLng( this.mapCoords.artist.lat, this.mapCoords.artist.lng, "artistAddress");
     }
-    venueDragMarker($event){
+    venueDragMarker($event)
+    {
         //console.log($event);
         this.mapCoords.venue.lat = $event.coords.lat;
         this.mapCoords.venue.lng = $event.coords.lng;
         this.codeLatLng( this.mapCoords.venue.lat, this.mapCoords.venue.lng, "venueAddress");
     }
-    codeLatLng(lat, lng, id_map) {
+    codeLatLng(lat, lng, id_map)
+    {
         let geocoder = new google.maps.Geocoder();
         let latlng = new google.maps.LatLng(lat, lng);
-        geocoder.geocode({
-            'location': latlng }, 
-             (results, status) => {
+        geocoder.geocode(
+            {'location': latlng }, 
+            (results, status) => {
                 if (status === google.maps.GeocoderStatus.OK) {
                     if (results[1]) {
-                    //   //console.log(results[1]);
-                    let id = "#"+id_map;
-                    $(id).val(results[1].formatted_address);
-                    
-                    if(id_map=='aboutAddress')
-                        this.newEvent.address = results[1].formatted_address;
-                    else if(id_map=='artistAddress'){
-                        this.artistSearchParams.address = results[1].formatted_address;
-                        this.artistSearch();
-                    }
-                    else if(id_map=='venueAddress'){
-                        this.venueSearchParams.address = results[1].formatted_address;
-                        this.venueSearch();
-                    }
+                        //   //console.log(results[1]);
+                        let id = "#"+id_map;
+                        $(id).val(results[1].formatted_address);
                         
-                    } else {
+                        if(id_map=='aboutAddress')
+                            this.newEvent.address = results[1].formatted_address;
+                        else if(id_map=='artistAddress'){
+                            this.artistSearchParams.address = results[1].formatted_address;
+                            this.artistSearch();
+                        }
+                        else if(id_map=='venueAddress'){
+                            this.venueSearchParams.address = results[1].formatted_address;
+                            this.venueSearch();
+                        }
+                    } 
+                    else {
                     // alert('No results found');
                     }
-                } else {
+                } 
+                else {
                     // alert('Geocoder failed due to: ' + status);
                 }
-            });
+            }
+        );
     }
 
-    addNewArtistOpenModal(){
-
+    addNewArtistOpenModal()
+    {
         $('#modal-pick-artist').modal('show');
-       
         // this.changeDetector.detectChanges();
     }
-    sendVenueRequestOpenModal(venue:AccountGetModel){
+    sendVenueRequestOpenModal(venue:AccountGetModel)
+    {
         $('#modal-send-request-venue').modal('show');
         this.eventForRequest = venue;
         // this.eventForRequest.user_name
         //console.log(this.eventForRequest);
     }
-    sendArtistRequestOpenModal(artist:AccountGetModel){
+    sendArtistRequestOpenModal(artist:AccountGetModel)
+    {
         $('#modal-send-request-artist').modal('show');
         this.artistForRequest = artist;
         // this.eventForRequest.user_name
         //console.log(this.eventForRequest);
     }
 
-    aboutOpenMapModal(){
+    aboutOpenMapModal()
+    {
         $('#modal-map-1').modal('show');
     }
-    artistOpenMapModal(){
+    artistOpenMapModal()
+    {
         $('#modal-map-2').modal('show');
         this.artistSearch();
     }
-    venueOpenMapModal(){
+    venueOpenMapModal()
+    {
         $('#modal-map-3').modal('show');
     }
 
     //// ########################################################################################## ////
 
-    initUser(){
-        this.accService.GetMyAccount({extended:true})
-        .subscribe((users:any[])=>{
-            for(let u of users)
-                if(u.id==+localStorage.getItem('activeUserId')){
-                    this.accountId = u.id;
-                    this.newEvent.account_id = this.accountId;
-                    this.addArtist.account_id = this.accountId;
-                    this.addVenue.account_id = this.accountId;
-                    this.getMessages(this.accountId);
+    initUser()
+    {
+        this.WaitBeforeLoading(
+            () => this.main.accService.GetMyAccount({extended:true}),
+            (users:any[])=>{
+                let id = this.GetCurrentAccId();
+                for(let u of users)
+                {
+                    if(u.id==id)
+                    {
+                        this.accountId = u.id;
+                        this.newEvent.account_id = this.accountId;
+                        this.addArtist.account_id = this.accountId;
+                        this.addVenue.account_id = this.accountId;
+                        this.getMessages(this.accountId);
+                    }
                 }
-        });
+            }
+        );
     }
        
 
 
     // general
-    getGenres(){
-        this.genreService.GetAllGenres()
-        .subscribe((res:string[])=>{
-          this.genres = this.genreService.StringArrayToGanreModelArray(res);
-          for(let i of this.genres) i.show = true;
-          this.genresSearchArtist = this.genreService.StringArrayToGanreModelArray(res);
-          for(let i of this.genresSearchArtist) i.show = true;
-        });
+    getGenres()
+    {
+        this.WaitBeforeLoading(
+            () => this.main.genreService.GetAllGenres(),
+            (res:string[])=>{
+                this.genres = this.main.genreService.StringArrayToGanreModelArray(res);
+                for(let i of this.genres) 
+                    i.show = true;
+
+                this.genresSearchArtist = this.main.genreService.StringArrayToGanreModelArray(res);
+                for(let i of this.genresSearchArtist) 
+                    i.show = true;
+              }
+        );
        
     }
     getAllSpaceTypes(){
-        let types:SelectModel[] = this.typeService.GetAllSpaceTypes();
+        let types:SelectModel[] = this.main.typeService.GetAllSpaceTypes();
         this.typesSpace = this.convertArrToCheckModel<SelectModel>(types);
-        //console.log(`spaces`,types);
-        //console.log(`spaces`,this.typesSpace);
     }
     maskNumbers(){
         return {
@@ -516,197 +539,219 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     getListImages(list:any[]){
         if(list)
         for(let item of list)
-            if(item.image_id){
-                this.imgService.GetImageById(item.image_id)
-                    .subscribe((res:Base64ImageModel)=>{
+        {
+            if(item.image_id)
+            {
+                this.WaitBeforeLoading(
+                    () => this.main.imagesService.GetImageById(item.image_id),
+                    (res:Base64ImageModel)=>{
                         item.image_base64_not_given = res.base64;
-                });
+                    }
+                );
             }
+        }
     }
 
-    deleteDuplicateAccounts(a:AccountGetModel[]){
-        for (var q=1, i=1; q<a.length; ++q) {
-            if (a[q].id !== a[q-1].id) {
-              a[i++] = a[q];
+    deleteDuplicateAccounts(a:AccountGetModel[])
+    {
+        for (var q=1, i=1; q<a.length; ++q) 
+        {
+            if (a[q].id !== a[q-1].id) 
+            {
+                a[i++] = a[q];
             }
-          }
-          a.length = i;
-          return a;
+        }
+        a.length = i;
+        return a;
     }
 
-    deleteDuplicateTickets(t:TicketModel[]){
-        for (var q=1, i=1; q<t.length; ++q) {
-            if (t[q].id !== t[q-1].id) {
-              t[i++] = t[q];
+    deleteDuplicateTickets(t:TicketModel[])
+    {
+        for (var q=1, i=1; q<t.length; ++q) 
+        {
+            if (t[q].id !== t[q-1].id) 
+            {
+                t[i++] = t[q];
             }
-          }
-          t.length = i;
-          return t;
+        }
+        t.length = i;
+        return t;
     }
 
-    // isNewAccById(mas:any[],val:any){
-    //     for(let i=0;i<mas.length;i++)
-    //         if(mas[i].id==val.id) return false;
-    //     return true;
-    // }
-
-
-        isNewAccById(mas:any[],val:any){
-            console.log(`isNewAccById`);
-                for(let i=0;i<mas.length;i++)
-                    if(mas[i].id==val.id) return false;
-                return true;
+    isNewAccById(mas:any[],val:any)
+    {
+        for(let i=0;i<mas.length;i++)
+        {
+            if(mas[i].id==val.id) return false;
+        }
+        return true;
     }
 
-
-
-    
-   
-
-    //////////////////////////////////////////////////////////
-
-    getThisEvent(id:number){
-        console.log(`getThisEvent`);
-        this.accService.GetMyAccount({extended:true})
-        .subscribe((users:any[])=>{
-            this.eventService.GetMyEvents(+localStorage.getItem('activeUserId'))
-            .subscribe((res:EventGetModel[])=>{
-                for(let v of res) if(v.id == id){
-                        this.accountId = +localStorage.getItem('activeUserId');
-                        this.newEvent.account_id = this.accountId;
-                        this.addArtist.account_id = this.accountId;
-                        this.addVenue.account_id = this.accountId;
-                       
-                        this.isNewEvent = false;
-                        this.Event = v;
-                        this.updateEvent();  
-                        this.showAllPages = true;
-                        this.getMessages(this.accountId);                  
-                }
-                if(this.isNewEvent)this.router.navigate(['/system/eventCreate']);
-            })
-        });
+    getThisEvent(id:number)
+    {
+        this.WaitBeforeLoading(
+            () => this.main.accService.GetMyAccount({extended:true}),
+            (users:any[])=>{
+                let userId = this.GetCurrentAccId();
+                this.WaitBeforeLoading(
+                    () => this.main.eventService.GetMyEvents(userId),
+                    (res:EventGetModel[])=>{
+                        for(let v of res)
+                        {
+                            if(v.id == id)
+                            {
+                                this.accountId = userId;
+                                this.newEvent.account_id = this.accountId;
+                                this.addArtist.account_id = this.accountId;
+                                this.addVenue.account_id = this.accountId;
+                                
+                                this.isNewEvent = false;
+                                this.Event = v;
+                                this.updateEvent();  
+                                this.showAllPages = true;
+                                this.getMessages(this.accountId);                  
+                            }
+                        }
+                        if(this.isNewEvent)
+                            this.router.navigate(['/system/eventCreate']);
+                    }
+                );
+            }
+        );
     }
 
-    getMessages(id?:number){
+    getMessages(id?:number)
+    {
         let crId = id?id:this.Event.creator_id;
         this.messagesList = [];
-        this.accService.GetInboxMessages(crId).
-        subscribe((res)=>{
+        this.WaitBeforeLoading(
+            () => this.main.accService.GetInboxMessages(crId),
+            (res)=>{
             
-            for(let m of res)
-            this.accService.GetInboxMessageById(crId, m.id).
-                subscribe((msg)=>{
-                    this.messagesList.push(msg);
-                    //console.log(`msg`,this.messagesList);
-            }); 
-        },
-        (err)=>{//console.log(err)
-        });
+                for(let m of res)
+                {
+                    this.WaitBeforeLoading(
+                        () => this.main.accService.GetInboxMessageById(crId, m.id),
+                        (msg)=>{
+                            this.messagesList.push(msg);
+                            //console.log(`msg`,this.messagesList);
+                        }
+                    );
+                }
+            },
+            (err)=>{//console.log(err)
+            }
+        );
     }
     
-    getPriceAtMsg(sender:number){
-        for(let m of this.messagesList){
+    getPriceAtMsg(sender:number)
+    {
+        for(let m of this.messagesList)
+        {
             if( m.sender_id == sender && 
                 m.receiver_id == this.Event.creator_id &&
-                m.message_info.event_info.id == this.Event.id){
+                m.message_info.event_info.id == this.Event.id)
+            {
                    return m.message_info.price;
             }
         }
         return '-';
     }
 
-    getIdAtMsg(sender:number){
-        for(let m of this.messagesList){
+    getIdAtMsg(sender:number)
+    {
+        for(let m of this.messagesList)
+        {
             if( m.sender_id == sender && 
                 m.receiver_id == this.Event.creator_id &&
-                m.message_info.event_info.id == this.Event.id){
+                m.message_info.event_info.id == this.Event.id)
+            {
                    return m.id;
             }
         }
     }
 
-
-
-
-    updateEvent(){
-        console.log(`updateEvent`);
-        this.eventService.GetEventById(this.Event.id).
-            subscribe((res:EventGetModel)=>{
-                
+    updateEvent()
+    {
+        this.WaitBeforeLoading(
+            () => this.main.eventService.GetEventById(this.Event.id),
+            (res:EventGetModel)=>{
                 this.Event = res;
               
-               
-                    
-                    for (let key in res) {
-                        if (res.hasOwnProperty(key)) {
-                            this.newEvent[key] = res[key];
-                        }
+                for (let key in res) {
+                    if (res.hasOwnProperty(key)) {
+                        this.newEvent[key] = res[key];
                     }
+                }
 
-                
-                    this.imgService.GetImageById(this.Event.image_id).
-                        subscribe((img)=>{
-                            console.log(img);
-                            this.newEvent.image_base64 = img.base64;
-                    });
-                
-                
-                    
+                this.WaitBeforeLoading(
+                    () => this.main.imagesService.GetImageById(this.Event.image_id),
+                    (img)=>{
+                        // console.log(img);
+                        this.newEvent.image_base64 = img.base64;
+                    }
+                );
                 // this.codeLatLng( this.newEvent.city_lat, this.newEvent.city_lng, "aboutAddress");
                 // this.mapCoords.about.lat = this.newEvent.city_lat;
                 // this.mapCoords.about.lng = this.newEvent.city_lng;
-                
                 this.genreFromModelToVar();
-                    
-
-                 this.getShowsArtists();
-                 this.getRequestVenue();
-                 this.getTickets();
-                 this.getMessages();
+                this.getShowsArtists();
+                this.getRequestVenue();
+                this.getTickets();
+                this.getMessages();
         });
     }
 
-    genreFromModelToVar(){
+    genreFromModelToVar()
+    {
         for(let g of  this.newEvent.genres)
+        {
             for(let gnr of this.genres)
+            {
                 if(g == gnr.genre)
                     gnr.checked = true;
+            }
+        }
     }
 
-    //////////////////////////////////////////////////////////
-
-    
-
-    GengeSearch($event:string){
+    GengeSearch($event:string)
+    {
         var search = $event;
-         if(search.length>0) {
+        if(search.length>0) 
+        {
            for(let g of this.genres)
-              if(g.genre_show.indexOf(search.toUpperCase())>=0)
-               g.show = true;
-              else
-               g.show = false;
+            {
+                if(g.genre_show.indexOf(search.toUpperCase())>=0)
+                    g.show = true;
+                else
+                    g.show = false;
+            }
          }
-         else {
-            for(let i of this.genres) i.show = true;
+         else 
+         {
+            for(let i of this.genres) 
+                i.show = true;
          }
     }
 
-    uploadImage($event){
+    uploadImage($event)
+    {
         this.ReadImages(
             $event.target.files,
             (res:string)=>{
                this.newEvent.image_base64 = res;
-                
             }
         );
     }
 
-    createEventFromAbout(){
-        if(!this.aboutForm.invalid){
-
-            for (let key in this.aboutForm.value) {
-                if (this.aboutForm.value.hasOwnProperty(key)) {
+    createEventFromAbout()
+    {
+        if(!this.aboutForm.invalid)
+        {
+            for (let key in this.aboutForm.value) 
+            {
+                if (this.aboutForm.value.hasOwnProperty(key)) 
+                {
                     this.newEvent[key] = this.aboutForm.value[key];
                 }
             }
@@ -716,128 +761,118 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                 this.newEvent.is_crowdfunding_event = false;
 
             
-            this.newEvent.genres = this.genreService.GenreModelArrToStringArr(this.genres);
-
+            this.newEvent.genres = this.main.genreService.GenreModelArrToStringArr(this.genres);
 
             this.newEvent.city_lat = this.mapCoords.about.lat;
             this.newEvent.city_lng = this.mapCoords.about.lng;
 
             this.newEvent.account_id = this.accountId;
-            //console.log(`newEvent`,this.newEvent);
 
-            if(this.isNewEvent){
-                console.log(`new event`)
-                this.eventService.CreateEvent(this.newEvent)
-                .subscribe((res)=>{
+            this.WaitBeforeLoading(
+                () => this.isNewEvent ? this.main.eventService.CreateEvent(this.newEvent) : this.main.eventService.UpdateEvent(this.newEvent, this.Event.id),
+                (res)=>{
                     this.Event = res;
-                    
+                    //console.log(`create`,this.Event);
                     this.currentPage = 'artist';
                 },
                 (err)=>{
                     //console.log(`err`,err);
                 }
-                );
-            }
-            else{
-                console.log(`update event`)
-                 this.eventService.UpdateEvent(this.newEvent, this.Event.id)
-                    .subscribe((res)=>{
-                            this.Event = res;
-                            //console.log(`create`,this.Event);
-                            this.currentPage = 'artist';
-                        },
-                        (err)=>{
-                            //console.log(`err`,err);
-                        }
-                );
-            }
+            );
         }
         else {
             //console.log(`Invalid About Form!`, this.aboutForm);
         }
     }
     
-    addNewArtist(){
+    addNewArtist()
+    {
         this.addArtist.event_id = this.Event.id;
         this.addArtist.time_frame = 'one_week';
-        //console.log(`checked`,this.checkArtists);
 
         for(let item of this.checkArtists){
             this.addArtist.artist_id = item;
             
-            //console.log(`new artist: `,this.addArtist);
-            this.eventService.AddArtist(this.addArtist).
-                subscribe((res)=>{
+            this.WaitBeforeLoading(
+                () => this.main.eventService.AddArtist(this.addArtist),
+                (res)=>{
                     //console.log(`add artist`,item);
                     // this.eventService.ArtistSendRequest(this.addArtist)
                     // .subscribe((send)=>{
                     //     this.updateEvent();
                     // })
                     this.updateEvent();
-                });
+                }
+            );
         }
-        
     }
 
-    artistSendRequest(id:number){
-        for (let key in this.requestArtistForm.value) {
-            if (this.requestArtistForm.value.hasOwnProperty(key)) {
+    artistSendRequest(id:number)
+    {
+        for (let key in this.requestArtistForm.value) 
+        {
+            if (this.requestArtistForm.value.hasOwnProperty(key)) 
+            {
                 this.addArtist[key] = this.requestArtistForm.value[key];
             }
         }
         this.addArtist.id = id;
         this.addArtist.event_id = this.Event.id;
-        console.log(`request artist`,this.addArtist);
-                    this.eventService.ArtistSendRequest(this.addArtist)
-                    .subscribe((send)=>{
-                        this.updateEvent();
-                    })
+        // console.log(`request artist`,this.addArtist);
+        this.WaitBeforeLoading(
+            () => this.main.eventService.ArtistSendRequest(this.addArtist),
+            (send)=>{
+                this.updateEvent();
+            }
+        );
     }
 
-    
-
-    getShowsArtists(){
+    getShowsArtists()
+    {
         this.showsArtists = [];
         for(let artist of this.Event.artist){
 
-            this.accService.GetAccountById(artist.artist_id).
-                subscribe((res:AccountGetModel)=>{
-                //    if(this.isNewAccById( this.showsArtists,res))
-                //         {
-                            this.showsArtists.push(res);
-                            //console.log(`SHOW ARTISTS`, this.showsArtists);
+            this.WaitBeforeLoading(
+                () => this.main.accService.GetAccountById(artist.artist_id),
+                (res:AccountGetModel)=>{
+                    //    if(this.isNewAccById( this.showsArtists,res))
+                    //         {
+                    this.showsArtists.push(res);
+                    //console.log(`SHOW ARTISTS`, this.showsArtists);
 
-                            if(res.image_id){
-                                //console.log(`get image `, res.image_id);
-                                this.imgService.GetImageById(res.image_id)
-                                    .subscribe((img:Base64ImageModel)=>{
-                                        res.image_base64_not_given = img.base64;
-                                    },
-                                    (err)=>{
-                                        //console.log(`err img`,err);
-                                    });
+                    if(res.image_id){
+                        //console.log(`get image `, res.image_id);
+                        this.WaitBeforeLoading(
+                            () => this.main.imagesService.GetImageById(res.image_id),
+                            (img:Base64ImageModel)=>{
+                                res.image_base64_not_given = img.base64;
+                            },
+                            (err)=>{
+                                //console.log(`err img`,err);
                             }
+                        );
+                    }
                     // }
-            });
+                }
+            );
         }
     }
 
 
 
-    getStatusArtistEventById(id:number){
-        
+    getStatusArtistEventById(id:number)
+    {
         for(let art of this.Event.artist)
-            if(art.artist_id == id) return art.status;
+        {
+            if(art.artist_id == id) 
+                return art.status;
+        }
         
         return 'not found artist';
     }
     
-
-   
-   
-
-    
-    addArtistCheck(id){
+    addArtistCheck(id)
+    {
         let index = this.checkArtists.indexOf(id);
         if (index < 0)
             this.checkArtists.push(id);
@@ -846,75 +881,93 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         //console.log(this.checkArtists);
     }
 
-    ifCheckedArtist(id){
-        if(this.checkArtists.indexOf(id)<0) return false;
-            else return true;
+    ifCheckedArtist(id)
+    {
+        if(this.checkArtists.indexOf(id)<0) 
+            return false;
+        else 
+            return true;
     }
+    artistSearch($event?:string)
+    {
+        if($event) 
+            this.artistSearchParams.text = $event;
 
+        this.artistSearchParams.type = 'artist';
+        this.artistSearchParams.genres = this.main.genreService.GenreModelArrToStringArr(this.genresSearchArtist);
    
-
-    artistSearch($event?:string){
-    
-       
-       if($event) this.artistSearchParams.text = $event;
-
-       this.artistSearchParams.type = 'artist';
-       this.artistSearchParams.genres = this.genreService.GenreModelArrToStringArr(this.genresSearchArtist);
-   
-        this.accService.AccountsSearch(this.artistSearchParams).
-            subscribe((res)=>{
-                if(res.length>0){
+        this.WaitBeforeLoading(
+            () => this.main.accService.AccountsSearch(this.artistSearchParams),
+            (res)=>{
+                if(res.length>0)
+                {
                     this.artistsList = this.deleteDuplicateAccounts(res);
                     //console.log(`artists`,this.artistsList);
                     this.getListImages(this.artistsList);
                 }
-        });
+            }
+        );
     }
 
-    artistLimitSearch(){
-    
+    artistLimitSearch()
+    {
         this.artistSearchParams.type = 'artist';
         this.artistSearchParams.limit = 10;
-         this.accService.AccountsSearch(this.artistSearchParams).
-             subscribe((res)=>{
-                 if(res.length>0){
-                     this.artistsList = this.deleteDuplicateAccounts(res);
-                     this.getListImages(this.artistsList);
-                 }
-         });
-     }
+        this.WaitBeforeLoading(
+            () => this.main.accService.AccountsSearch(this.artistSearchParams),
+            (res)=>{
+                if(res.length>0){
+                    this.artistsList = this.deleteDuplicateAccounts(res);
+                    this.getListImages(this.artistsList);
+                }
+            }
+        );
+    }
 
-
-
-    PriceArtistChanged(data:any){
+    PriceArtistChanged(data:any)
+    {
         this.addArtist.estimated_price = data.from;
     }
 
-    sliceName(text:string){
+    sliceName(text:string)
+    {
         if(text)
-            if(text.length<15) return text;
-            else return text.slice(0,14)+'...';
+        {
+            if(text.length<15) 
+                return text;
+            else 
+                return text.slice(0,14)+'...';
+        }
     }
-    sliceGenres(mas:string[]){
+    sliceGenres(mas:string[])
+    {
         if(mas)
-            if(mas.length<4)return mas;
-            else return mas.slice(0,3)+'...';
+        {   
+            if(mas.length<4)
+                return mas;
+            else 
+                return mas.slice(0,3)+'...';
+        }
     }
 
-    toBeatyShowsList( mas:any[]){
+    toBeatyShowsList( mas:any[])
+    {
         let list: string = '';
         for(let item of mas)
             list+= item.toUpperCase()+", ";
         let answer = '';
         for(let i=0;i<list.length-2;i++)
-            if(list[i]!="_") answer += list[i];
-            else answer += " ";
+        {
+            if(list[i]!="_") 
+                answer += list[i];
+            else 
+                answer += " ";
+        }
         return answer;
     }
 
-    acceptArtistCard(card:AccountGetModel){
-        //console.log(idArtist);
-
+    acceptArtistCard(card:AccountGetModel)
+    {
         this.ownerAcceptDecline.account_id = this.Event.creator_id;
         this.ownerAcceptDecline.id = card.id;
         this.ownerAcceptDecline.event_id = this.Event.id;
@@ -926,12 +979,14 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from;
         this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to;
 
-        console.log( this.ownerAcceptDecline);
-        this.eventService.ArtistAcceptOwner(this.ownerAcceptDecline).
-            subscribe((res)=>{
-                console.log(`ok accept artist`,res);
+        // console.log( this.ownerAcceptDecline);
+        this.WaitBeforeLoading(
+            () => this.main.eventService.ArtistAcceptOwner(this.ownerAcceptDecline),
+            (res)=>{
+                // console.log(`ok accept artist`,res);
                 this.updateEvent();
-            });
+            }
+        );
 
     }
 
@@ -949,10 +1004,10 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from;
         this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to;
 
-        console.log( this.ownerAcceptDecline);
-        this.eventService.ArtistDeclineOwner(this.ownerAcceptDecline).
+        // console.log( this.ownerAcceptDecline);
+        this.main.eventService.ArtistDeclineOwner(this.ownerAcceptDecline).
             subscribe((res)=>{
-                console.log(`ok decline artist`,res);
+                // console.log(`ok decline artist`,res);
                 this.updateEvent();
             });
 
@@ -974,7 +1029,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         for(let space of this.typesSpace)
             if(space.checked) this.venueSearchParams.types_of_space.push(space.object.value)
 
-         this.accService.AccountsSearch( this.venueSearchParams).
+         this.main.accService.AccountsSearch( this.venueSearchParams).
              subscribe((res)=>{
                  if(res.length>0){
                      this.venueList = this.deleteDuplicateAccounts(res);
@@ -988,7 +1043,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         this.venueSearchParams.type = 'venue';
         this.venueSearchParams.limit = 10;
 
-         this.accService.AccountsSearch( this.venueSearchParams).
+         this.main.accService.AccountsSearch( this.venueSearchParams).
              subscribe((res)=>{
                  if(res.length>0){
                      this.venueList = this.deleteDuplicateAccounts(res);
@@ -1009,17 +1064,17 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
     addVenueCheck(venue:AccountGetModel){
          if(!this.ifRequestVenue(venue.id)){
-            console.log(`ifRequestVenue`);
+            // console.log(`ifRequestVenue`);
             let index = this.checkVenue.indexOf(venue.id);
-            console.log(index);
+            // console.log(index);
             if (index < 0)
             {
-                console.log(`<0`);
+                // console.log(`<0`);
                 this.checkVenue.push(venue.id);
                 this.venueShowsList.push(venue);
             }
             else {
-                console.log(`else`);
+                // console.log(`else`);
                 this.checkVenue.splice(index,1);
                 this.venueShowsList.splice(index,1);
             }
@@ -1056,7 +1111,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     getRequestVenue(){
         this.requestVenues = [];
         for(let venue of this.Event.venues){
-            this.accService.GetAccountById(venue.venue_id).
+            this.main.accService.GetAccountById(venue.venue_id).
                 subscribe((res:AccountGetModel)=>{
                     if(this.isNewAccById(this.requestVenues,res)){
                             this.requestVenues.push(res);
@@ -1066,11 +1121,11 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                                 index = index + 1;
                             }
                             if(this.ifShowsVenue(res.id)){
-                                console.log(`ifShowsVenue`);
+                                // console.log(`ifShowsVenue`);
                                 this.addVenueCheck(res);
                             }
                             if(res.image_id){
-                                this.imgService.GetImageById(res.image_id)
+                                this.main.imagesService.GetImageById(res.image_id)
                                     .subscribe((img:Base64ImageModel)=>{
                                         res.image_base64_not_given = img.base64;
                                     },
@@ -1099,18 +1154,18 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                 this.addVenue.event_id = this.Event.id;
                 this.addVenue.venue_id = id;
                 this.addVenue.id = id;
-                console.log(`add venue`,this.addVenue);
+                // console.log(`add venue`,this.addVenue);
                 
-                this.eventService.AddVenue(this.addVenue).
+                this.main.eventService.AddVenue(this.addVenue).
                     subscribe((res)=>{
-                        console.log(`ok add`);
-                        this.eventService.VenueSendRequest(this.addVenue)
+                        // console.log(`ok add`);
+                        this.main.eventService.VenueSendRequest(this.addVenue)
                          .subscribe((send)=>{
                         this.updateEvent();
                     }, (err)=>{console.log(err);})
                         
                 },(err)=>{
-                    this.eventService.VenueSendRequest(this.addVenue)
+                    this.main.eventService.VenueSendRequest(this.addVenue)
                          .subscribe((send)=>{
                         this.updateEvent();
                     });
@@ -1144,8 +1199,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from;
             this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to;
 
-            console.log(this.ownerAcceptDecline);
-            this.eventService.VenueAcceptOwner(this.ownerAcceptDecline).
+            // console.log(this.ownerAcceptDecline);
+            this.main.eventService.VenueAcceptOwner(this.ownerAcceptDecline).
                 subscribe((res)=>{
                     //console.log(`ok accept artist`,res);
                     this.updateEvent();
@@ -1167,9 +1222,9 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from;
         this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to;
     
-        console.log(this.ownerAcceptDecline);
+        // console.log(this.ownerAcceptDecline);
         
-            this.eventService.VenueDeclineOwner(this.ownerAcceptDecline).
+            this.main.eventService.VenueDeclineOwner(this.ownerAcceptDecline).
                 subscribe((res)=>{
                     //console.log(`ok accept artist`,res);
                     this.updateEvent();
@@ -1209,18 +1264,18 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             
             //console.log(`newPrivateEvent`,this.privateVenueCreate);
 
-            this.accService.CreateAccount(this.privateVenueCreate)
+            this.main.accService.CreateAccount(this.privateVenueCreate)
                 .subscribe((acc:AccountGetModel)=>{
                         this.privateVenue = acc;
                         //console.log(`create`,this.privateVenue);
                         for(let img of this.imagesListPrivateRes){
-                           this.accService.PostAccountImages(acc.id,img)
+                           this.main.accService.PostAccountImages(acc.id,img)
                             .subscribe((res)=>{//console.log(`add`,img)
                         }); 
                         }
                         this.addVenue.venue_id = acc.id;
                         //console.log(`add venue`,this.addVenue);
-                        this.eventService.AddVenue(this.addVenue).
+                        this.main.eventService.AddVenue(this.addVenue).
                             subscribe((res)=>{
                                 //console.log(`add ok`,acc);
                                 this.updateEvent();
@@ -1271,7 +1326,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         this.artistSum = 0;
         this.venueSum = 0;
         let artist:GetArtists[] = [], venue:GetVenue[] = [];
-        console.log(this.Event);
+        // console.log(this.Event);
          for(let art of this.Event.artist)
             if(art.status=='owner_accepted'||art.status=='active'){
                 let num = this.getNumInArtistOrVenueById(art.artist_id,this.showsArtists);
@@ -1317,7 +1372,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             i = i + 1;
         }
 
-        console.log(this.activeArtist);
+        // console.log(this.activeArtist);
         this.getListImages(this.activeArtist);
         this.getListImages(this.activeVenue);
 
@@ -1328,7 +1383,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         if(!this.activeArtist[index].checked){
             this.activeArtist[index].checked = true;
             this.artistSum += this.activeArtist[index].object.agreement.price;
-            this.eventService.ArtistSetActive({
+            this.main.eventService.ArtistSetActive({
                 id:this.activeArtist[index].object.artist_id,
                 event_id:this.Event.id,
                 account_id:this.Event.creator_id
@@ -1341,7 +1396,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         else {
             this.activeArtist[index].checked = false;
             this.artistSum -= this.activeArtist[index].object.agreement.price;
-            this.eventService.ArtistRemoveActive({
+            this.main.eventService.ArtistRemoveActive({
                 id:this.activeArtist[index].object.artist_id,
                 event_id:this.Event.id,
                 account_id:this.Event.creator_id
@@ -1359,7 +1414,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         if(!this.activeVenue[index].checked){
             this.activeVenue[index].checked = true;
             this.venueSum += this.activeVenue[index].object.agreement.price;
-            this.eventService.VenueSetActive({
+            this.main.eventService.VenueSetActive({
                 id:this.activeVenue[index].object.venue_id,
                 event_id:this.Event.id,
                 account_id:this.Event.creator_id
@@ -1372,7 +1427,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         else {
             this.activeVenue[index].checked = false;
             this.venueSum -= this.activeVenue[index].object.agreement.price;
-            this.eventService.VenueRemoveActive({
+            this.main.eventService.VenueRemoveActive({
                 id:this.activeVenue[index].object.venue_id,
                 event_id:this.Event.id,
                 account_id:this.Event.creator_id
@@ -1405,7 +1460,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
     // TICKETS
     getTickets(){
-        console.log(`getTickets`);
+        // console.log(`getTickets`);
         this.tickets = [];
         let params:TicketGetParamsModel = new TicketGetParamsModel();
         params.account_id = this.Event.creator_id;
@@ -1413,7 +1468,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
        
         for(let t of this.Event.tickets){
             params.id = t.id;
-            this.eventService.GetTickets(params).
+            this.main.eventService.GetTickets(params).
                 subscribe((res:TicketModel)=>{
                     this.tickets.push(res);
                     this.currentTicket = this.tickets[0];
@@ -1453,7 +1508,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
             this.currentTicket.id = null;
             //console.log(`new create`,this.currentTicket);
-            this.eventService.AddTicket(this.currentTicket)
+            this.main.eventService.AddTicket(this.currentTicket)
                 .subscribe((res)=>{
                     //console.log(`create`,res);
                     this.isCurTicketNew = false;
@@ -1467,7 +1522,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         else {
             this.currentTicket.account_id = this.Event.creator_id;
             //console.log(`update old`,this.currentTicket);
-            this.eventService.UpdateTicket(this.currentTicket)
+            this.main.eventService.UpdateTicket(this.currentTicket)
                 .subscribe((res)=>{
                     //console.log(`update`,res);
                     this.updateEvent();

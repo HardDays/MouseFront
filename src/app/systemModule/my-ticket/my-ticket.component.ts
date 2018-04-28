@@ -14,7 +14,7 @@ export class MyTicketComponent extends BaseComponent implements OnInit {
 
   @Input() Ticket: TicketsGetModel;
   FoundedPercent:number = 0;
-  Image:string;
+  Image:string = BaseImages.Drake;
 
   ngOnInit(): void 
   {
@@ -27,18 +27,11 @@ export class MyTicketComponent extends BaseComponent implements OnInit {
       if(this.Ticket && this.Ticket.image_id)
       {
           this.WaitBeforeLoading(
-              () => this.imgService.GetImageById(this.Ticket.image_id),
+              () => this.main.imagesService.GetImageById(this.Ticket.image_id),
               (res:Base64ImageModel) => {
-              
                   this.Image = (res && res.base64) ? res.base64 : BaseImages.Drake;
-              },
-              (err) =>{
-                  this.Image = BaseImages.Drake;
               }
           );
-      }
-      else{
-          this.Image = BaseImages.Drake;
       }
   }
 }

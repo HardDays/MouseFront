@@ -50,7 +50,6 @@
                         <div class="flex-body-1">
                             <div class="side">
                                 <div class="input-groupe-1 lbl-1">
-                                    
                                     <input id="inp-create-1" autocomplete="off" [(ngModel)]="Venue.user_name" formControlName="venue_name" name="" type="text">
                                     <label for="inp-create-1">Venue Name<span>*</span></label>
                                 </div>
@@ -242,11 +241,11 @@
                         </div>
                         <div class="side">
                             <div class="input-groupe-1">
-                                <input id="venue-datails-1" [textMask]="GetCapacityMask(Venue.capacity.toString())" [(ngModel)]="Venue.capacity" formControlName="capacity" name="" type="text">
+                                <input id="venue-datails-1" [textMask]="GetCapacityMask(Venue.capacity)" [(ngModel)]="Venue.capacity" formControlName="capacity" name="" type="text">
                                 <label for="venue-datails-1">Capacity<span>*</span></label>
                             </div>
                             <div class="input-groupe-1">
-                                <input id="venue-datails-2" [textMask]="GetNumOfBathrooms(Venue.num_of_bathrooms.toString())" [(ngModel)]="Venue.num_of_bathrooms" formControlName="bathrooms" name="" type="text">
+                                <input id="venue-datails-2" [textMask]="GetNumOfBathrooms(Venue.num_of_bathrooms)" [(ngModel)]="Venue.num_of_bathrooms" formControlName="bathrooms" name="" type="text">
                                 <label for="venue-datails-2">Number of Bathrooms</label>
                             </div>
                             <div class="flex-mac-checkbox">
@@ -276,7 +275,7 @@
                         </div>
                         <div class="side">
                             <div class="input-groupe-1">
-                                <input id="venue-datails-10" [textMask]="GetAgeMask(Venue.min_age.toString())" [(ngModel)]="Venue.min_age" formControlName="min_age" name="" type="text">
+                                <input id="venue-datails-10" [textMask]="GetAgeMask(Venue.min_age)" [(ngModel)]="Venue.min_age" formControlName="min_age" name="" type="text">
                                 <label for="option-datails-10">Minimum Age</label>
                             </div>
                             <div class="input-groupe-1">
@@ -403,8 +402,9 @@
                             </div>
                         </ngx-slick> -->
                         <div [ngStyle]="{'display': VenueImages.length > 0 ? 'block' : 'none'}" class="slider-2-albums slider-4-photos slider-4-init">
-                            <ng-container *ngFor="let item of VenueImages; let i = index">
-                                <div class="one-slide" *ngIf="VenueImages[i]">
+                            <ng-container *ngFor="let item of VenueImages">
+                                <venue-image-selector [Image]="item"></venue-image-selector>
+                                <!-- <div class="one-slide" *ngIf="VenueImages[i]">
                                     <div class="wrapp-card">
                                         <div class="delete-track"></div>
                                         <div class="cover-image" [ngStyle]="{'background-image': 'url('+ item.image_base64 +')'}"></div>
@@ -413,7 +413,7 @@
                                             <p class="name">{{item.image_description}}</p>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </ng-container>
                         </div>
                         

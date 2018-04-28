@@ -33,7 +33,7 @@
                                             </div>
                                         </a>
                                         <div class="dropdown-content">
-                                            <a *ngFor="let item of Accounts"  (click)="setProfile(item.id)"><pre [class.activeProfile]="item.id==idProfile">{{item.account_type.substr(0,1).toUpperCase()}}   {{item.user_name}}</pre></a>
+                                            <a *ngFor="let item of MyAccounts"  (click)="setProfile(item)"><pre [class.activeProfile]="item.id==CurrentAccount.id">{{item.account_type.substr(0,1).toUpperCase()}}   {{item.user_name}}</pre></a>
                                          
                                         </div>
                                     </li>
@@ -98,13 +98,13 @@
                             <!--авторизован-->
                             
                             <div *ngIf="isLoggedIn" class="name-and-ava">                       
-                                <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>                    
+                                <div class="ava" [ngStyle]="{'background-image': 'url('+MyLogo+')'}"></div>                    
                             </div>
                             
                             <!--выпадашка если авторизован-->
                             <div *ngIf="isLoggedIn" class="dropdown-settings-ava">
                                 <div class="dropdown-items-wr">
-                                    <span>{{getProfileNameById()}}</span>
+                                    <span>{{CurrentAccount.user_name}}</span>
                                     <a [routerLink]="['/system','messages']">Messages</a>
                                     <span (click)="curNav = 'profile'" [routerLink]="['/system','fanCreate','new']">Create Fan</span>
                                     <span (click)="curNav = 'profile'" [routerLink]="['/system','artistCreate']">Create Artist</span>
@@ -112,9 +112,11 @@
                                 </div>
                                 
                                 <div class="dropdown-items-wr">
-                                    <a *ngIf="ActiveAccount.account_type == 'venue'" [routerLink]="['/system/venueCreate',idProfile]">Settings</a>
-                                    <a *ngIf="ActiveAccount.account_type == 'artist'" [routerLink]="['/system/artistCreate',idProfile]">Settings</a>
-                                    <a *ngIf="ActiveAccount.account_type == 'fan'" [routerLink]="['/system/fanCreate',idProfile]">Settings</a>
+                                    <ng-container *ngIf="CurrentAccount && CurrentAccount.account_type">
+                                        <a *ngIf="CurrentAccount.account_type == 'venue'" [routerLink]="['/system/venueCreate',CurrentAccount.id]">Settings</a>
+                                        <a *ngIf="CurrentAccount.account_type == 'artist'" [routerLink]="['/system/artistCreate',CurrentAccount.id]">Settings</a>
+                                        <a *ngIf="CurrentAccount.account_type == 'fan'" [routerLink]="['/system/fanCreate',CurrentAccount.id]">Settings</a>
+                                    </ng-container>
                                     <span (click)="logout()">Log Out</span>
                                 </div>
                             </div>

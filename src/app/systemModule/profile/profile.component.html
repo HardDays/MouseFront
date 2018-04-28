@@ -91,7 +91,7 @@
                                 <div class="flex--info">
                                     <div class="side scroller flex-header">
                                         <div class="for-scroll-padd">
-                                            <h6>Gallery ({{VenueImages.length}})</h6>
+                                            <h6>Gallery ({{VenueImages?VenueImages.length:0}})</h6>
                                             <input type="text" class="search-profile-inp-style"  placeholder="Search" (input)='searchImagesVenue($event)'>
                                         </div>
                                         <div class="new-scroll-wr">

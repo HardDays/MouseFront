@@ -43,6 +43,8 @@ import { TicketModel } from '../../core/models/ticket.model';
 import { TicketGetParamsModel } from '../../core/models/ticketGetParams.model';
 import { Observable } from 'rxjs/Observable';
 import { VenueMediaPhotoModel } from '../../core/models/venueMediaPhoto.model';
+import { MainService } from '../../core/services/main.service';
+import { ImageAccModel, ImageAccModelAnswer } from '../../core/models/imageAcc.model';
 
 
 
@@ -64,7 +66,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
 {
   Parts = PageParts;
 
-  CurrentPart = this.Parts.Listing;
+  CurrentPart = this.Parts.Media;
 
   Venue:AccountCreateModel = new AccountCreateModel();
   VenueId:number = 0;
@@ -81,7 +83,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
 
   ImageToLoad:VenueMediaPhotoModel = new VenueMediaPhotoModel();
 
-  VenueImages:VenueMediaPhotoModel[] = [];
+  VenueImages:ImageAccModel[] = [];
 
   ImageTypes: SelectModel[] = [];
 
@@ -153,252 +155,196 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
 
   @ViewChild('search') public searchElement: ElementRef;
 
-  constructor(protected authService: AuthMainService,
-    protected accService:AccountService,
-    protected imgService:ImagesService,
-    protected typeService:TypeService,
-    protected genreService:GenresService,
-    protected eventService:EventService,
-    protected _sanitizer: DomSanitizer,
-    protected router: Router,public _auth: AuthService,
-    private mapsAPILoader: MapsAPILoader, 
-    private ngZone: NgZone, protected h:Http,
-    private activatedRoute: ActivatedRoute){
-    super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
-  }
+  constructor
+  (           
+    protected main         : MainService,
+    protected _sanitizer   : DomSanitizer,
+    protected router       : Router,
+    private mapsAPILoader  : MapsAPILoader,
+    private ngZone         : NgZone,
+    private activatedRoute : ActivatedRoute
+  ){
+    super(main,_sanitizer,router);
+  } 
 
-    ngOnInit()
-    {
-      this.CreateAutocomplete();
-      this.TypesOfSpace = this.typeService.GetAllSpaceTypes();
-      this.LocatedTypes = this.typeService.GetAllLocatedTypes();
-      this.ImageTypes = this.typeService.GetAllSpaceTypes();
-      this.activatedRoute.params.forEach((params) => {
+  ngOnInit()
+  {
+    this.CreateAutocomplete();
+    this.TypesOfSpace = this.main.typeService.GetAllSpaceTypes();
+    this.LocatedTypes = this.main.typeService.GetAllLocatedTypes();
+    this.ImageTypes = this.main.typeService.GetAllSpaceTypes();
+    this.activatedRoute.params.forEach(
+      (params) => {
         if(params["id"] == 'new')
-        {;
+        {
           this.DisplayVenueParams(null);
         }
         else
         {
-          this.accService.GetAccountById(params["id"],{extended:true})
-            .subscribe
-            (
-              (res:AccountGetModel) => 
-              {
-                this.DisplayVenueParams(res);
-              }
-            );
-        }
-        setTimeout(()=> this.InitJs(),2500);
-      });
-
-
-    }
-
-    CreateAutocomplete(){
-      this.mapsAPILoader.load().then(
-          () => {
-             //(this.searchElement.nativeElement, {types:[`(cities)`]})
-           let autocomplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement);
-          
-          
-              autocomplete.addListener("place_changed", () => {
-                  this.ngZone.run(() => {
-                      let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
-                      if(place.geometry === undefined || place.geometry === null )
-                      {             
-                          return;
-                      }
-                      else 
-                      {
-                          
-                          // this.Venue.address = autocomplete.getPlace().formatted_address;
-                          
-                          let addr:string[] = autocomplete.getPlace().adr_address.split(', ');
-                         
-                          for(let a of addr){
-                            if(a.search('locality') > 0){
-                              this.Venue.city = a.slice(a.search('>')+1,a.search('</'));
-                            }
-                            else if(a.search('street-address') > 0){
-                              this.Venue.address = a.slice(a.search('>')+1,a.search('</'));
-                            }
-                            else if(a.search('region') > 0){
-                              this.Venue.state = a.slice(a.search('>')+1,a.search('</'));
-                            }
-                            else if(a.search('country-name') > 0){
-                              this.Venue.country = a.slice(a.search('>')+1,a.search('</'));
-                            }
-                            else if(a.search('postal-code') > 0){
-                              this.Venue.zipcode = a.slice(a.search('>')+1,a.search('</'));
-                            }
-                          }
-
-                          
-                      }
-                  });
-              });
-          }
-      );
-    }
-
-    InitJs()
-    {
-      // $('.slider-4-init').slick({
-      //   dots: false,
-      //   arrows: true,
-      //   infinite: false,
-      //   slidesToShow: 2,
-      //     responsive: [
-      //       {
-      //         breakpoint: 1301,
-      //         settings: {
-      //           slidesToShow: 2,
-      //           slidesToScroll: 2
-               
-      //         }
-      //       }
-      //     ]
-      // });
-    }
-
-    DisplayVenueParams($venue?:AccountGetModel)
-    {
-      if($venue && $venue.id)
-      {
-        this.VenueId = $venue.id;
-        this.router.navigateByUrl("/system/venueCreate/"+this.VenueId);
-        this.GetVenueImages();
-      }
-      this.OfficeHours = ($venue && $venue.office_hours)?
-                          this.accService.GetFrontWorkingTimeFromTimeModel($venue.office_hours):this.typeService.GetAllDays();
-      this.OperatingHours = ($venue && $venue.operating_hours)?
-                          this.accService.GetFrontWorkingTimeFromTimeModel($venue.operating_hours):this.typeService.GetAllDays();
-
-      this.IsNeedToShowSelectDayWrapper();
-
-      this.Venue = $venue ? this.accService.AccountModelToCreateAccountModel($venue) : new AccountCreateModel();
-      this.Venue.account_type = AccountType.Venue;
-      this.Venue.venue_type = VenueType.Public;
-
-      this.aboutForm.controls["emails"] = new FormArray([]);
-
-      if(!this.Venue.emails)
-        this.Venue.emails = [new ContactModel()];
-      
-      this.addEmailsToForm(this.Venue.emails.length);
-    }
-
-    GetVenueImages()
-    {
-      this.imgService.GetAccountImages(this.VenueId,{limit:5})
-        .subscribe(
-          (res:any)=>{
-            if(res && res.total_count > 0)
-            {
-              let index = 0;
-              for(let image of res.images)
-              {
-                if(!this.VenueImages[index])
-                  this.VenueImages[index] = new VenueMediaPhotoModel();
-                
-                this.VenueImages[index].image_description = image.description;
-                this.VenueImages[index].image_type = image.type;
-                this.VenueImages[index].image_type_description = image.type_decs
-                this.GetVenueImageById(image.id,index);
-                index = index + 1;
-              }
+          this.WaitBeforeLoading(
+            () => this.main.accService.GetAccountById(params["id"],{extended:true}),
+            (res:AccountGetModel) => {
+              this.DisplayVenueParams(res);
             }
-          }
-        );
-    }
-
-    GetVenueImageById(id,saveIndex)
-    {
-      this.imgService.GetImageById(id)
-        .subscribe(
-          (res:Base64ImageModel) =>{
-            this.VenueImages[saveIndex].image_base64 = res.base64;
-          }
-        );
-    }
-
-    SanitizeImage(image: string)
-    {
-      return this._sanitizer.bypassSecurityTrustStyle(`url(${image})`);
-    }
-
-    SaveVenue()
-    {
-      if(!this.CheckFormForValid())
-      {
-        console.log("Form invalid!");
-        return;
+          );
+        }
       }
-      this.Venue.office_hours = this.accService.GetWorkingTimeFromFront(this.OfficeHours);
-      this.Venue.operating_hours = this.accService.GetWorkingTimeFromFront(this.OperatingHours);
+    );
+  }
 
-      if(this.Venue.type_of_space != "other" && this.Venue.other_genre_description)
-      {
-        this.Venue.other_genre_description = "";
-      }
-
-      this.WaitBeforeLoading
-      (
-        () => this.VenueId == 0 ? this.accService.CreateAccount(this.Venue) : this.accService.UpdateMyAccount(this.VenueId,this.Venue),
-        (res) => 
-        {
-          this.DisplayVenueParams(res);
-          this.NextPart();
-        },
-        (err) =>
-        {
-          console.log(err);
+  CreateAutocomplete()
+  {
+    this.mapsAPILoader.load().then(
+        () => {
+          let autocomplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement);
+          autocomplete.addListener(
+            "place_changed",
+            () => {
+              this.ngZone.run(
+                () => {
+                  let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
+                  if(place.geometry === undefined || place.geometry === null )
+                  {             
+                    return;
+                  }
+                  else 
+                  {
+                    let addr:string[] = autocomplete.getPlace().adr_address.split(', ');
+                        
+                    for(let a of addr)
+                    {
+                      if(a.search('locality') > 0)
+                      {
+                        this.Venue.city = a.slice(a.search('>')+1,a.search('</'));
+                      }
+                      else if(a.search('street-address') > 0)
+                      {
+                        this.Venue.address = a.slice(a.search('>')+1,a.search('</'));
+                      }
+                      else if(a.search('region') > 0)
+                      {
+                        this.Venue.state = a.slice(a.search('>')+1,a.search('</'));
+                      }
+                      else if(a.search('country-name') > 0)
+                      {
+                        this.Venue.country = a.slice(a.search('>')+1,a.search('</'));
+                      }
+                      else if(a.search('postal-code') > 0)
+                      {
+                        this.Venue.zipcode = a.slice(a.search('>')+1,a.search('</'));
+                      }
+                    }   
+                  }
+                }
+              );
+            }
+          );
         }
-      )
-    }
+      );
+  }
 
-    CheckFormForValid()
+
+  DisplayVenueParams($venue?:AccountGetModel)
+  {
+    if($venue && $venue.id)
     {
-      switch(this.CurrentPart)
-      {
-        case this.Parts.About:{
-          if(this.aboutForm.invalid)
-            console.log(this.aboutForm);
-          return !this.aboutForm.invalid;
-        }
-        case this.Parts.Listing:{
-          if(this.detailsForm.invalid)
-            console.log(this.detailsForm);
-          return !this.detailsForm.invalid;
-        }
-        case this.Parts.Media:{
-          if(this.mediaForm.invalid)
-            console.log(this.mediaForm);
-          return !this.mediaForm.invalid;
-        }
-        case this.Parts.Dates:{
-          if(this.dateForm.invalid)
-            console.log(this.dateForm);
-          return !this.dateForm.invalid;
-        }
-        default:{
-            return true;
-        }
-      } 
+      this.VenueId = $venue.id;
+      this.router.navigateByUrl("/system/venueCreate/"+this.VenueId);
+      this.GetVenueImages();
     }
+
+    this.OfficeHours = ($venue && $venue.office_hours)?
+                        this.main.accService.GetFrontWorkingTimeFromTimeModel($venue.office_hours):this.main.typeService.GetAllDays();
+    this.OperatingHours = ($venue && $venue.operating_hours)?
+                        this.main.accService.GetFrontWorkingTimeFromTimeModel($venue.operating_hours):this.main.typeService.GetAllDays();
+
+    this.IsNeedToShowSelectDayWrapper();
+
+    this.Venue = $venue ? this.main.accService.AccountModelToCreateAccountModel($venue) : new AccountCreateModel();
+    this.Venue.account_type = AccountType.Venue;
+    this.Venue.venue_type = VenueType.Public;
+
+    this.aboutForm.controls["emails"] = new FormArray([]);
+
+    if(!this.Venue.emails)
+      this.Venue.emails = [new ContactModel()];
+    
+    this.addEmailsToForm(this.Venue.emails.length);
+  }
+
+  GetVenueImages()
+  {
+    this.WaitBeforeLoading(
+      () => this.main.imagesService.GetAccountImages(this.VenueId,{limit:5}),
+      (res:ImageAccModelAnswer) => {
+        if(res && res.total_count > 0)
+        {
+          this.VenueImages = res.images;
+        }
+      }
+    );
+  }
+
+  SaveVenue()
+  {
+    if(!this.CheckFormForValid())
+    {
+      console.log("Form invalid!");
+      return;
+    }
+    this.Venue.office_hours = this.main.accService.GetWorkingTimeFromFront(this.OfficeHours);
+    this.Venue.operating_hours = this.main.accService.GetWorkingTimeFromFront(this.OperatingHours);
+
+    if(this.Venue.type_of_space != "other" && this.Venue.other_genre_description)
+    {
+      this.Venue.other_genre_description = "";
+    }
+
+    this.WaitBeforeLoading
+    (
+      () => this.VenueId == 0 ? this.main.accService.CreateAccount(this.Venue) : this.main.accService.UpdateMyAccount(this.VenueId,this.Venue),
+      (res) => {
+        this.DisplayVenueParams(res);
+        this.NextPart();
+      },
+      (err) => {
+        console.log(err);
+      }
+    )
+  }
+
+  CheckFormForValid()
+  {
+    switch(this.CurrentPart)
+    {
+      case this.Parts.About:{
+        return !this.aboutForm.invalid;
+      }
+      case this.Parts.Listing:{
+        return !this.detailsForm.invalid;
+      }
+      case this.Parts.Media:{
+        return !this.mediaForm.invalid;
+      }
+      case this.Parts.Dates:{
+        return !this.dateForm.invalid;
+      }
+      default:{
+          return true;
+      }
+    } 
+  }
 
   NextPart()
   {
     if(this.CurrentPart == this.Parts.Dates)
-      return;
+      this.router.navigate(['/system','profile',this.VenueId]);
     scrollTo(0,0);
     this.CurrentPart = this.CurrentPart + 1;
-    // if(this.CurrentPart == this.Parts.Media)
-    //   this.InitJs();
   }
 
-  addEmailsToForm(count?:number){
+  addEmailsToForm(count?:number)
+  {
     let n = 1;
     if(count)
       n = count;
@@ -414,7 +360,6 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
     this.Venue.emails.push(new ContactModel());
     (<FormArray>this.aboutForm.controls["emails"]).push(this.GetContactFormGroup());
   }
-  
 
   deleteEmail(index:number)
   {
@@ -458,7 +403,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
   } 
   GetToTimeMask(item:FrontWorkingTimeModel){
     return {
-      mask: this.typeService.GetEndTimeMask(item.start_work,item.finish_work),
+      mask: this.main.typeService.GetEndTimeMask(item.start_work,item.finish_work),
       keepCharPositions: true
     };
   }
@@ -473,7 +418,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
   GetPerformanceToTimeMask(venue:AccountCreateModel)
   {
     return {
-      mask: this.typeService.GetEndTimeMask(venue.performance_time_from,venue.performance_time_to),
+      mask: this.main.typeService.GetEndTimeMask(venue.performance_time_from,venue.performance_time_to),
       keepCharPositions: true
     };
   }
@@ -522,36 +467,27 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
       guide:false
     };
   }
-
-  GetMediaDescriptionMask()
-  {
-    return {
-      mask: this.typeService.GetTextMask(1000),
-      keepCharPositions: true,
-      guide:false
-    }
-  }
-
   GetMinimumNoticeMask()
   {
     return {
-      mask: this.typeService.GetNumbersMask(3),
-      keepCharPositions: true,
-      guide:false
-    }
-  }
-  GetPerfomancePriceMask()
-  {
-    return {
-      mask: this.typeService.GetNumbersMask(7),
+      mask: [/[1-9]/,/[0-9]/,/[0-9]/],
       keepCharPositions: true,
       guide:false
     };
   }
 
-  loadImage($event:any):void{
+  GetPerfomancePriceMask()
+  {
+    return {
+      mask: [/[1-9]/,/[0-9]/,/[0-9]/,/[0-9]/,/[0-9]/,/[0-9]/,/[0-9]/],
+      keepCharPositions: true,
+      guide:false
+    };
+  }
+
+  loadImage($event:any):void
+  {
     let target = $event.target;
-    //let file:File = target.files[0];
     if(target.files.length == 0)
         return;
     
@@ -564,6 +500,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
       reader.readAsDataURL(file);
     }
   }
+
   DeleteImageFromLoading()
   {
     this.ImageToLoad.image_base64 = '';
@@ -571,22 +508,19 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
 
   AddVenuePhoto()
   {
-    
     if(this.ImageToLoad.image_type != "other" && this.ImageToLoad.image_type_description)
     {
       this.ImageToLoad.image_type_description = "";
     }
-    // console.log(this.ImageToLoad);
-    this.imgService.PostAccountImage(this.VenueId,this.ImageToLoad)
-      .subscribe(
-        (res:any) => {
-          // console.log("after post",res);
-          this.ImageToLoad = new VenueMediaPhotoModel();
-          this.ImageToLoad.image_description = "";
-          // console.log(this.ImageToLoad)
-          this.GetVenueImages();
-        }
-      );
+
+    this.WaitBeforeLoading(
+      () => this.main.imagesService.PostAccountImage(this.VenueId,this.ImageToLoad),
+      (res:any) => {
+        this.ImageToLoad = new VenueMediaPhotoModel();
+        this.ImageToLoad.image_description = "";
+        this.GetVenueImages();
+      }
+    );
   }
 
   ChangeCurrentPart(newPart)
@@ -596,9 +530,6 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
 
     if(this.CurrentPart == newPart)
       return;
-    
-    // if(newPart == this.Parts.Media)
-    //   this.InitJs();
 
     this.CurrentPart = newPart;
   }

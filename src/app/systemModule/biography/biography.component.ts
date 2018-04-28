@@ -24,7 +24,7 @@ export class BiographyComponent extends BaseComponent implements OnInit {
         if(this.Account && this.Account.image_id)
         {
             this.WaitBeforeLoading(
-                () => this.imgService.GetImageById(this.Account.image_id),
+                () => this.main.imagesService.GetImageById(this.Account.image_id),
                 (res:Base64ImageModel) => {
                     this.Image = (res && res.base64) ? res.base64 : BaseImages.Drake;
                 }

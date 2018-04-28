@@ -44,6 +44,7 @@ import { TicketTypeModel } from '../../core/models/ticketType.model';
 import { TicketsSearchParams } from '../../core/models/ticketsSearchParams.model';
 import { TicketsGetModel } from '../../core/models/ticketsGetModel';
 import { BsDatepickerConfig } from 'ngx-bootstrap';
+import { MainService } from '../../core/services/main.service';
 
 declare var $:any;
 
@@ -78,280 +79,272 @@ export class TicketsComponent extends BaseComponent implements OnInit {
     LocationText:string = '';
    
 
-  constructor(protected authService: AuthMainService,
-    protected accService:AccountService,
-    protected imgService:ImagesService,
-    protected typeService:TypeService,
-    protected genreService:GenresService,
-    protected eventService:EventService,
-    protected _sanitizer: DomSanitizer,
-    protected router: Router,public _auth: AuthService,
-    private mapsAPILoader: MapsAPILoader, 
-    private ngZone: NgZone, protected h:Http,
-    private activatedRoute: ActivatedRoute){
-    super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
-  }
+  constructor(
+        protected main         :MainService,
+        protected _sanitizer   : DomSanitizer,
+        protected router       : Router,
+        private mapsAPILoader  : MapsAPILoader, 
+        private ngZone         : NgZone,
+        private activatedRoute : ActivatedRoute
+    ){
+        super(main,_sanitizer,router);
+    }
 
-
-
-
-  ngOnInit(){
-    this.CreateAutocomplete();
-    this.initUser();
-    this.GetTicketTypes();
-    this.setHeightSearch();
-    this.GetGenres();
-    this.openSearch();
-   
-
-
-  }
-
-  initUser(){
-    this.accService.GetMyAccount({extended:true})
-    .subscribe((users:any[])=>{
-        for(let u of users)
-        if(u.id==+localStorage.getItem('activeUserId')){
-          this.accountId = 
-          this.SearchParams.account_id = u.id;
-          console.log(u.id);
-          this.GetTickets();
-          this.GetTicketsPast();
-        }
-    });
-  }
-  GetTicketTypes()
-  {
-      this.TicketTypes = this.typeService.GetMyTicketTypes();
-  }
-  ShowSearchResults()
+    ngOnInit()
     {
-        //console.log(this.SearchDateRange);
+        this.CreateAutocomplete();
+        this.initUser();
+        this.GetTicketTypes();
+        this.setHeightSearch();
+        this.GetGenres();
+        this.openSearch();
+    }
+
+    initUser()
+    {
+        if(this.isLoggedIn)
+        {
+            this.SearchParams.account_id = this. GetCurrentAccId();
+            if(!this.SearchParams.account_id)
+            {
+                this.GetMyAccounts(
+                    () =>{},
+                    () => {
+                        this.GetCurrentAccId();
+                        this.GetTickets();
+                        this.GetTicketsPast();
+                    }
+                )
+            }
+            else{
+                this.GetTickets();
+                this.GetTicketsPast();
+            }
+        }
+    }
+
+    GetTicketTypes()
+    {
+        this.TicketTypes = this.main.typeService.GetMyTicketTypes();
+    }
+    ShowSearchResults()
+    {
         this.ConvertSearchDateRangeToSearchParams();
         this.ConvertGenreCheckboxes();
         this.ConvertTicketTypes();
-       
-
-        // console.log(this.SearchParams);
         this.GetTicketsSearch();
     }
 
-    
-
     ConvertTicketTypes()
     {
-        this.SearchParams.ticket_types = this.typeService.TicketTypesArrayToStringArray(this.TicketTypes);
+        this.SearchParams.ticket_types = this.main.typeService.TicketTypesArrayToStringArray(this.TicketTypes);
     }
 
     ConvertGenreCheckboxes()
     {
-        this.SearchParams.genres = this.genreService.GenreModelArrToStringArr(this.Genres);
+        this.SearchParams.genres = this.main.genreService.GenreModelArrToStringArr(this.Genres);
     }
+
     ConvertSearchDateRangeToSearchParams()
     {
         if(this.SearchDateRange && this.SearchDateRange.length == 2)
         {
-            this.SearchParams.date_from = this.typeService.GetDateStringFormat(this.SearchDateRange[0]);
-            this.SearchParams.date_to = this.typeService.GetDateStringFormat(this.SearchDateRange[1]);
+            this.SearchParams.date_from = this.main.typeService.GetDateStringFormat(this.SearchDateRange[0]);
+            this.SearchParams.date_to = this.main.typeService.GetDateStringFormat(this.SearchDateRange[1]);
         }
         else{
             this.SearchParams.date_from = "";
             this.SearchParams.date_to = "";
         }
     }
-  GetTickets()
-  {
-      //console.log("date", this.SearchParams);
-      this.WaitBeforeLoading(
-          () => this.eventService.GetAllTicketsCurrent(this.accountId,'current'),
-          (res:TicketsGetModel[]) =>
-          {
-              this.Tickets = res;
-
-             // this.CloseSearchWindow();
-          },
-          (err) => {
-              console.log(err);
-             // this.CloseSearchWindow();
-          }
-      );
-  }
-  GetTicketsSearch()
-  {
-    this.SearchParams.location = this.LocationText;
-      for(let i of this.ticketsTypesDates){
-         this.SearchParams.time = i;
-         this.WaitBeforeLoading(
-            () => this.eventService.MyTicketsSearch(this.SearchParams),
-            (res:TicketsGetModel[]) =>
-            {
-              if(this.SearchParams.time == 'current'){
+    GetTickets()
+    {
+        this.WaitBeforeLoading(
+            () => this.main.eventService.GetAllTicketsCurrent(this.accountId,'current'),
+            (res:TicketsGetModel[]) => {
                 this.Tickets = res;
-              }
-              if(this.SearchParams.time == 'past'){
-                this.PastTickets = res;
-              }
-               this.CloseSearchWindow();
             },
             (err) => {
                 console.log(err);
-               this.CloseSearchWindow();
             }
         );
-      }
-      //console.log("date", this.SearchParams);
+    }
 
-     
-  }
-  GetTicketsPast()
-  {
-      //console.log("date", this.SearchParams);
-      this.WaitBeforeLoading(
-          () => this.eventService.GetAllTicketsCurrent(this.accountId,'past'),
-          (res:TicketsGetModel[]) =>
-          {
-            console.log(res);
-              this.PastTickets = res;
+    GetTicketsSearch()
+    {
+        this.SearchParams.location = this.LocationText;
 
-              //this.CloseSearchWindow();
-          },
-          (err) => {
-              console.log(err);
-             // this.CloseSearchWindow();
-          }
-      );
-  }
+        for(let i of this.ticketsTypesDates)
+        {
+            this.SearchParams.time = i;
+            this.WaitBeforeLoading(
+                () => this.main.eventService.MyTicketsSearch(this.SearchParams),
+                (res:TicketsGetModel[]) =>{
+                    if(this.SearchParams.time == 'current'){
+                        this.Tickets = res;
+                    }
+                    if(this.SearchParams.time == 'past'){
+                        this.PastTickets = res;
+                    }
+                    this.CloseSearchWindow();
+                },
+                (err) => {
+                    console.log(err);
+                    this.CloseSearchWindow();
+                }
+            );
+        }
+    }
+
+    GetTicketsPast()
+    {
+        this.WaitBeforeLoading(
+            () => this.main.eventService.GetAllTicketsCurrent(this.accountId,'past'),
+            (res:TicketsGetModel[]) => {
+                this.PastTickets = res;
+            },
+            (err) => {
+                console.log(err);
+            }
+        );
+    }
 
 
-  GetGenres()
-  {
-      this.WaitBeforeLoading(
-          () => this.genreService.GetAllGenres(),
-          (res:string[]) => {
-              this.Genres = this.genreService.SetHiddenGenres(this.genreService.StringArrayToGanreModelArray(res));
-          }
-      );
-  }
+    GetGenres()
+    {
+        this.WaitBeforeLoading(
+            () => this.main.genreService.GetAllGenres(),
+            (res:string[]) => {
+                this.Genres = this.main.genreService.SetHiddenGenres(this.main.genreService.StringArrayToGanreModelArray(res));
+            }
+        );
+    }
 
-  CloseSearchWindow()
-  {
-      $("body").removeClass("has-active-menu");
-      $(".mainWrapper").removeClass("has-push-left");
-      $(".nav-holder-3").removeClass("is-active");
-      $(".mask-nav-3").removeClass("is-active")
-  }
-  openSearch(){
-    let _that = this;
-    $(".nav-button").on("click", function (e) {
-        _that.setHeightSearch();
-        e.preventDefault();
-        $("body").addClass("has-active-menu");
-        $(".mainWrapper").addClass("has-push-left");
-        $(".nav-holder-3").addClass("is-active");
-        $(".mask-nav-3").addClass("is-active")
-    });
-    $(".menu-close, .mask-nav-3").on("click", function (e) {
-        e.preventDefault();
+    CloseSearchWindow()
+    {
         $("body").removeClass("has-active-menu");
         $(".mainWrapper").removeClass("has-push-left");
         $(".nav-holder-3").removeClass("is-active");
         $(".mask-nav-3").removeClass("is-active")
-    });
-  }
-
-
-  aboutDragMarker($event){
-    //console.log($event);
-    this.mapCoords.lat = $event.coords.lat;
-    this.mapCoords.lng = $event.coords.lng;
-    this.codeLatLng( this.mapCoords.lat, this.mapCoords.lng);
-}
-codeLatLng(lat, lng) {
-    
-    let geocoder = new google.maps.Geocoder();
-    let latlng = new google.maps.LatLng(lat, lng);
-    
-    geocoder.geocode({
-        'location': latlng }, 
-         (results, status) => {
-            if (status === google.maps.GeocoderStatus.OK) {
-                if (results[1]) {
-              
-                    this.LocationText = results[1].formatted_address;
-                    
-                  
-                //$("#searchAddress").val(results[1].formatted_address);
-                
-                /* LOCATION - сдвиг точки на карте results[1].formatted_address */
-                //this.SearchParams.location = results[1].formatted_address;
-                }
-            } else {
-                alert('Geocoder failed due to: ' + status);
-            }
-        });
-  }
-
-  mapClick($event){
-    this.mapLat = $event.coords.lat;
-    this.mapLng = $event.coords.lng;
-    this.isMarkerVisible = true;
-    this.codeLatLng(this.mapLat,this.mapLng);
-  }
-
-  setHeightSearch(){
-      //console.log($('.main-router-outlet .main-router-outlet').height(),$(window).height());
-      if($('.main-router-outlet .main-router-outlet').height() < $(window).height()){
-        $('.wrapp-for-filter').css({
-           "height": $('.for-flex-height').height()-150
-        });
-        //console.log(`one`);
-      }
-    else{
-       $('.wrapp-for-filter').css({
-           "height": '100%'
-        }); 
-        //console.log(`two`);
     }
-  }
 
-  aboutOpenMapModal(){
-      $('#modal-map').modal('show');
-  }
+    openSearch()
+    {
+        let _that = this;
+        $(".nav-button").on("click", function (e) {
+            _that.setHeightSearch();
+            e.preventDefault();
+            $("body").addClass("has-active-menu");
+            $(".mainWrapper").addClass("has-push-left");
+            $(".nav-holder-3").addClass("is-active");
+            $(".mask-nav-3").addClass("is-active")
+        });
+        $(".menu-close, .mask-nav-3").on("click", function (e) {
+            e.preventDefault();
+            $("body").removeClass("has-active-menu");
+            $(".mainWrapper").removeClass("has-push-left");
+            $(".nav-holder-3").removeClass("is-active");
+            $(".mask-nav-3").removeClass("is-active")
+        });
+    }
 
-
-  CreateAutocomplete(){
-    this.mapsAPILoader.load().then(
-        () => {
-           //(this.searchElement.nativeElement, {types:[`(cities)`]})
-         let autocomplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement);
-            
-        
-            autocomplete.addListener("place_changed", () => {
-                this.ngZone.run(() => {
-                    let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
-                    if(place.geometry === undefined || place.geometry === null )
-                    {             
-                        return;
-                    }
-                    else 
+    aboutDragMarker($event)
+    {
+        this.mapCoords.lat = $event.coords.lat;
+        this.mapCoords.lng = $event.coords.lng;
+        this.codeLatLng( this.mapCoords.lat, this.mapCoords.lng);
+    }
+    codeLatLng(lat, lng) {
+        let geocoder = new google.maps.Geocoder();
+        let latlng = new google.maps.LatLng(lat, lng);
+        geocoder.geocode(
+            {'location': latlng }, 
+            (results, status) => {
+                if (status === google.maps.GeocoderStatus.OK) 
+                {
+                    if (results[1]) 
                     {
-                        this.LocationText = autocomplete.getPlace().formatted_address;
-                        //this.LocationText = place.formatted_address;
-                        this.mapCoords.lat = place.geometry.location.lat();
-                        this.mapCoords.lng = place.geometry.location.lng();
+                        this.LocationText = results[1].formatted_address;
                     }
-                });
-            });
+                } 
+                else 
+                {
+                    alert('Geocoder failed due to: ' + status);
+                }
+            }
+        );
+    }
+
+    mapClick($event)
+    {
+        this.mapLat = $event.coords.lat;
+        this.mapLng = $event.coords.lng;
+        this.isMarkerVisible = true;
+        this.codeLatLng(this.mapLat,this.mapLng);
+    }
+
+    setHeightSearch()
+    {
+        //console.log($('.main-router-outlet .main-router-outlet').height(),$(window).height());
+        if($('.main-router-outlet .main-router-outlet').height() < $(window).height())
+        {
+            $('.wrapp-for-filter').css(
+                {
+                    "height": $('.for-flex-height').height()-150
+                }
+            );
+            //console.log(`one`);
         }
-    );
-  }
+        else
+        {
+            $('.wrapp-for-filter').css(
+                {
+                    "height": '100%'
+                }
+            ); 
+            //console.log(`two`);
+        }
+    }
 
+    aboutOpenMapModal()
+    {
+        $('#modal-map').modal('show');
+    }
 
+    CreateAutocomplete()
+    {
+        this.mapsAPILoader.load().then(
+            () => {
+            //(this.searchElement.nativeElement, {types:[`(cities)`]})
+                let autocomplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement);
 
+                autocomplete.addListener(
+                    "place_changed",
+                     () => {
+                        this.ngZone.run(
+                            () => {
+                                let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
+                                if(place.geometry === undefined || place.geometry === null )
+                                {             
+                                    return;
+                                }
+                                else 
+                                {
+                                    this.LocationText = autocomplete.getPlace().formatted_address;
+                                    //this.LocationText = place.formatted_address;
+                                    this.mapCoords.lat = place.geometry.location.lat();
+                                    this.mapCoords.lng = place.geometry.location.lng();
+                                }
+                            }
+                        );
+                    }
+                );
+            }
+        );
+    }
 
-
-  
 }
+
 
 
 

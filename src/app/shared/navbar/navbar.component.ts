@@ -22,17 +22,18 @@ export class NavbarComponent extends BaseComponent implements OnInit{
     Accounts:AccountGetModel[] = [];
     maxNumberOfProfiles:number = 5;
     curNav:string = 'shows';
-    ActiveAccount = new AccountGetModel();
   
     ngOnInit(){
       this.initUser();
-      this.accService.onAuthChange$
+      this.main.accService.onAuthChange$
       .subscribe((res:boolean)=>{
           if(res)
             this.initUser();
       });
       
       this.curNav = this.getThisPage();
+      
+      this.GetMyAccounts();
     
     }
 
@@ -53,13 +54,12 @@ export class NavbarComponent extends BaseComponent implements OnInit{
 
     initUser(){
 
-        this.accService.GetMyAccount({extended:true})
+        this.main.accService.GetMyAccount({extended:true})
         .subscribe((users:any[])=>{
             if(users.length >= this.maxNumberOfProfiles)
               this.isShown = false;
             this.Accounts = users;
-            this.idProfile = +localStorage.getItem('activeUserId');
-            this.ActiveAccount = this.Accounts.find(obj => obj.id == this.idProfile);
+            this.idProfile = this.GetCurrentAccId();
         });
     }
 
@@ -87,11 +87,11 @@ export class NavbarComponent extends BaseComponent implements OnInit{
         this.router.navigate(['/system','edit']);
       }
 
-      setProfile(id:number){
+      setProfile(item:AccountGetModel){
         this.curNav = 'profile';
-        this.router.navigate(['/system/profile',id]);
-        localStorage.setItem('activeUserId',''+id);
-        this.idProfile = id;
+        this.router.navigate(['/system/profile',item.id]);
+        this.main.CurrentAccountChange.next(item);
+        // localStorage.setItem('activeUserId',''+id);
       }
 
       getProfileNameById(){
