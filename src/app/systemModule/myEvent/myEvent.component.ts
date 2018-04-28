@@ -27,7 +27,7 @@ export class MyEventComponent extends BaseComponent implements OnInit {
             () => this.eventService.GetEventById(this.Event.id),
             (res:EventGetModel) =>{
                 this.Event = res;
-                this.FoundedPercent = this.Event.founded / this.Event.funding_goal;
+                this.FoundedPercent = 100*this.Event.founded / this.Event.funding_goal;
                 this.GetImage();
             },
             (err) => {
