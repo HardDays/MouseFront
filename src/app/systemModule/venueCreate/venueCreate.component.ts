@@ -64,7 +64,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
 {
   Parts = PageParts;
 
-  CurrentPart = this.Parts.Listing;
+  CurrentPart = this.Parts.About;
 
   Venue:AccountCreateModel = new AccountCreateModel();
   VenueId:number = 0;
@@ -391,7 +391,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
   NextPart()
   {
     if(this.CurrentPart == this.Parts.Dates)
-      return;
+      this.router.navigate(["/system","profile",this.VenueId]);
     scrollTo(0,0);
     this.CurrentPart = this.CurrentPart + 1;
     // if(this.CurrentPart == this.Parts.Media)
@@ -478,8 +478,10 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
     };
   }
 
-  GetCapacityMask(str:string)
+  GetCapacityMask(int:number)
   {
+    let str = int?int.toString():"";
+    
     let mask = [/[1-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/,/[0-9]/];
     
     if( str && str.length > 4)
@@ -495,8 +497,9 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
     };
   }
 
-  GetAgeMask(str:string)
+  GetAgeMask(int:number)
   {
+    let str = int?int.toString():"";
     let mask = [/[0-2]/,(str && +str[0] > 1)?/[0-5]/:/[0-9]/];
     
     if(str && +str[0] == 0)
@@ -509,8 +512,9 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
     };
   }
 
-  GetNumOfBathrooms(str:string)
+  GetNumOfBathrooms(int:number)
   {
+    let str = int?int.toString():"";
     let mask = [/[0-9]/,/[0-9]/];
 
     if(str && +str[0] == 0)
