@@ -84,7 +84,6 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit{
         for(let u of users)
         if(u.id==+localStorage.getItem('activeUserId')){
           this.accountId = u.id;
-          console.log(u.id);
           this.GetTicketsByEvent();
          
         }
@@ -97,9 +96,7 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit{
       this.WaitBeforeLoading(
           () => this.eventService.GetTicketsByEvent(this.accountId,this.event_id),
           (res:TicketsByEventModel) =>
-          {
-            console.log(res);
-            
+          { 
               this.TicketsByEvent = res;
               this.GetImage();
               this.CountTotalPrice();

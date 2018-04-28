@@ -1,0 +1,24 @@
+<div class="card">
+    <div class="delete-card"></div>
+    <div class="left-side">
+      
+        <div class="ava" [class.checked]="true" [ngStyle]="{'background-image': card.image_base64_not_given?'url('+card.image_base64_not_given+')':''}"></div>
+        <p class="desc-head-info">{{status}}</p>
+        <p class="status">Accepted by {{card.account_type|titlecase}} and Event owner</p>
+    </div>
+    <div class="right-side">
+        <p class="name">{{card.user_name}}</p>
+        <p class="desc-head-info">Genre</p>
+        <p *ngIf="card.account_type == 'artist'" class="info">{{ toBeatyShowsList(card.genres)}}</p>
+        <p class="desc-head-info">Location</p>
+        <p class="info">{{card.address}}</p>
+        <p class="info">{{(status!='pending'&&status!='ready')?'Price $'+price:''}}</p>
+        <p  *ngIf="status=='pending'" class="info">Not verify acc</p>
+        <div *ngIf="status!='pending'" class="flex-buttons">
+            <span *ngIf="status!='ready'&&status!='accepted'&&status!='owner_accepted'&&status!='active'" class="button-card" (click)="Check()" >check</span>
+            <span *ngIf="status=='accepted'" class="button-card" (click)="Accept()">accept</span>
+            <span *ngIf="status=='ready'||(card.account_type == 'venue' && status=='not found artist')" class="button-card" (click)="sendRequest()">Send request</span>
+            <span *ngIf="status!='owner_accepted'&&status!='not found artist'" class="button-card" (click)="Decline()">Decline</span>
+        </div>
+    </div>
+</div>

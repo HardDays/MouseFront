@@ -34,9 +34,17 @@ import { TicketsComponent } from './tickets/tickets.component';
 import { VenueCreateComponent } from './venueCreate/venueCreate.component';
 import { FanCreateComponent } from './fan-create/fan-create.component';
 import { MyEventComponent } from './myEvent/myEvent.component';
+import { ShowsDetailComponent } from './showsDetail/shows.Detail.component';
 import { MessagesComponent } from './messages/messages.component';
 import { MyTicketComponent } from './my-ticket/my-ticket.component';
 import { MyTicketOpenedComponent } from './my-ticket-opened/my-ticket-opened.component';
+import { BiographyComponent } from './biography/biography.component';
+import { ByTicketComponent } from './buyTicket/buyTicket.component';
+import { OneCardComponent } from './eventCreate/one-card/one-card.component';
+import { OneFolowerForProfileComponent } from './one-folower-for-profile/one-folower-for-profile.component';
+import { TicketOnProfileComponent } from './ticket-on-profile/ticket-on-profile.component';
+import { UpcomingShowsProfileComponent } from './upcoming-shows-profile/upcoming-shows-profile.component';
+import { ShowDetailVideoComponent } from './showsDetail/video/video.component';
 
 @NgModule({
   declarations: [
@@ -54,9 +62,17 @@ import { MyTicketOpenedComponent } from './my-ticket-opened/my-ticket-opened.com
     VenueCreateComponent,
     FanCreateComponent,
     MyEventComponent,
+    ShowsDetailComponent,
     MessagesComponent,
     MyTicketComponent,
-    MyTicketOpenedComponent
+    MyTicketOpenedComponent,
+    BiographyComponent,
+    ByTicketComponent,
+    OneCardComponent,
+    OneFolowerForProfileComponent,
+    TicketOnProfileComponent,
+    UpcomingShowsProfileComponent,
+    ShowDetailVideoComponent
   ],
   imports: [
     CommonModule,
@@ -71,7 +87,7 @@ import { MyTicketOpenedComponent } from './my-ticket-opened/my-ticket-opened.com
     NavbarModule,
     FooterModule,
     YoutubePlayerModule,
-    SlickModule.forRoot(),
+    // SlickModule.forRoot(),
     
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",

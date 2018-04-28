@@ -247,28 +247,15 @@
                                 <ng-container *ngFor="let item of showsArtists; let i = index">
                                     <div *ngIf="getStatusArtistEventById(item.id)!='owner_declined'&&getStatusArtistEventById(item.id)!='declined'" class="one-card">
                                        
-                                            <div  class="card">
-                                                <div class="delete-card"></div>
-                                                <div class="left-side">
-                                                  
-                                                    <div class="ava" [class.checked]="true" [ngStyle]="{'background-image': item.image_base64_not_given?'url('+item.image_base64_not_given+')':''}"></div>
-                                                    <p class="desc-head-info">{{getStatusArtistEventById(item.id)}}</p>
-                                                    <p class="status">Accepted by Artist and Event owner</p>
-                                                </div>
-                                                <div class="right-side">
-                                                    <p class="name">{{item.user_name}}</p>
-                                                    <p class="desc-head-info">Genre</p>
-                                                    <p class="info">{{ toBeatyShowsList(item.genres)}}</p>
-                                                    <p class="desc-head-info">Location</p>
-                                                    <p class="info">{{item.address}}</p>
-                                                    <p class="info">{{getStatusArtistEventById(item.id)!='pending'?'Price $'+getPriceAtMsg(item.id):''}}</p>
-                                                    <div class="flex-buttons">
-                                                        <span *ngIf="getStatusArtistEventById(item.id)=='pending'" class="button-card" (click)="updateEvent()">check</span>
-                                                        <span *ngIf="getStatusArtistEventById(item.id)=='accepted'" class="button-card" (click)="acceptArtist(item.id)">accept</span>
-                                                        <span *ngIf="getStatusArtistEventById(item.id)!='owner_accepted'" class="button-card"(click)="declineArtist(item.id)">Decline</span>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <app-one-card 
+                                                [card] = "item" 
+                                                [status] = "getStatusArtistEventById(item.id)" 
+                                                [price] = "getPriceAtMsg(item.id)" 
+                                                (accepted) = "acceptArtistCard($event)"
+                                                (requested) = "sendArtistRequestOpenModal($event)"
+                                                (declined) = "declineArtist($event)"
+                                                (checked) = "updateEvent()"
+                                            ></app-one-card>
                                        
                                     </div>
                                 </ng-container>
@@ -297,23 +284,15 @@
                                 <ng-container *ngFor="let item of showsArtists; let i = index">
                                     <div *ngIf="getStatusArtistEventById(item.id)=='owner_declined'||getStatusArtistEventById(item.id)=='declined'" class="one-card">
                                         
-                                            <div  class="card">
-                                                <div class="delete-card"></div>
-                                                <div class="left-side">
-                                                    <!--если есть галочка - добавляем класс checked   -->
-                                                    <div class="ava" [class.checked]="true" [ngStyle]="{'background-image': item.image_base64_not_given?'url('+item.image_base64_not_given+')':''}"></div>
-                                                    <p class="desc-head-info">{{getStatusArtistEventById(item.id)}}</p>
-                                                    <p class="status">Accepted by Artist and Event owner</p>
-                                                </div>
-                                                <div class="right-side">
-                                                    <p class="name">{{item.user_name}}</p>
-                                                    <p class="desc-head-info">Genre</p>
-                                                    <p class="info">{{ toBeatyShowsList(item.genres)}}</p>
-                                                    <p class="desc-head-info">Location</p>
-                                                    <p class="info">{{item.address}}</p>
-                                                    
-                                                </div>
-                                            </div>
+                                            <app-one-card 
+                                                [card] = "item" 
+                                                [status] = "getStatusArtistEventById(item.id)" 
+                                                [price] = "getPriceAtMsg(item.id)" 
+                                                (accepted) = "acceptArtistCard($event)"
+                                                (requested) = "sendArtistRequestOpenModal($event)"
+                                                (declined) = "declineArtist($event)"
+                                                (checked) = "updateEvent()"
+                                            ></app-one-card>
                                     
                                     </div>
                                 </ng-container>
@@ -362,9 +341,7 @@
                                             <span class="head-type-inp">Type of place</span>
                                             <div class="flex-genres for-pick">
                                                     <span *ngFor="let space of typesSpace" (click)="space.checked=!space.checked; venueSearch()" [ngClass]="{picked:space.checked}" class="one-genre">{{space.object.name}}</span>
-                                                <!-- <span class="one-genre picked">SMALL CLUB</span>
-                                                <span class="one-genre">CONCERT HALL</span>
-                                                <span class="one-genre">FESTIVAL</span> -->
+                                               
                                             </div>
                                             <span class="head-type-inp">Price</span>
                                             <div class="for-range-slider">
@@ -406,102 +383,7 @@
                                                 </div>
                                             </ng-container>
                                             
-                                            <!-- <div class="one-card">
-                                                <div class="l-s">
-                                                    <div class="ava" style="background-image: url(img/drake.jpg)"></div>
-                                                    <div class="desc">
-                                                        <a class="name" href="#">Burn Room</a>
-                                                        <p class="genres">Small club</p>
-                                                        <p class="where">New York, NY USA</p>
-                                                    </div>
-                                                </div>
-                                                <div class="r-s">
-                                                    <div class="circle-checkbox gray-border">
-                                                        <input type="checkbox" class="checkbox" name="" id="checkbox-501">
-                                                        <label class="label-wr" for="checkbox-501"></label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="one-card">
-                                                <div class="l-s">
-                                                    <div class="ava" style="background-image: url(img/drake.jpg)"></div>
-                                                    <div class="desc">
-                                                        <a class="name" href="#">Burn Room</a>
-                                                        <p class="genres">Small club</p>
-                                                        <p class="where">New York, NY USA</p>
-                                                    </div>
-                                                </div>
-                                                <div class="r-s">
-                                                    <div class="circle-checkbox gray-border">
-                                                        <input type="checkbox" class="checkbox" name="" id="checkbox-502">
-                                                        <label class="label-wr" for="checkbox-502"></label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="one-card">
-                                                <div class="l-s">
-                                                    <div class="ava" style="background-image: url(img/drake.jpg)"></div>
-                                                    <div class="desc">
-                                                    <a class="name" href="#">Burn Room</a>
-                                                        <p class="genres">Small club</p>
-                                                        <p class="where">New York, NY USA</p>
-                                                    </div>
-                                                </div>
-                                                <div class="r-s">
-                                                    <div class="circle-checkbox gray-border">
-                                                        <input type="checkbox" class="checkbox" name="" id="checkbox-503">
-                                                        <label class="label-wr" for="checkbox-503"></label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="one-card">
-                                                <div class="l-s">
-                                                    <div class="ava" style="background-image: url(img/drake.jpg)"></div>
-                                                    <div class="desc">
-                                                        <a class="name" href="#">Burn Room</a>
-                                                        <p class="genres">Small club</p>
-                                                        <p class="where">New York, NY USA</p>
-                                                    </div>
-                                                </div>
-                                                <div class="r-s">
-                                                    <div class="circle-checkbox gray-border">
-                                                        <input type="checkbox" class="checkbox" name="" id="checkbox-504">
-                                                        <label class="label-wr" for="checkbox-504"></label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="one-card">
-                                                <div class="l-s">
-                                                    <div class="ava" style="background-image: url(img/drake.jpg)"></div>
-                                                    <div class="desc">
-                                                        <a class="name" href="#">Burn Room</a>
-                                                        <p class="genres">Small club</p>
-                                                        <p class="where">New York, NY USA</p>
-                                                    </div>
-                                                </div>
-                                                <div class="r-s">
-                                                    <div class="circle-checkbox gray-border">
-                                                        <input type="checkbox" class="checkbox" name="" id="checkbox-505">
-                                                        <label class="label-wr" for="checkbox-505"></label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="one-card">
-                                                <div class="l-s">
-                                                    <div class="ava" style="background-image: url(img/drake.jpg)"></div>
-                                                    <div class="desc">
-                                                    <a class="name" href="#">Burn Room</a>
-                                                        <p class="genres">Small club</p>
-                                                        <p class="where">New York, NY USA</p>
-                                                    </div>
-                                                </div>
-                                                <div class="r-s">
-                                                    <div class="circle-checkbox gray-border">
-                                                        <input type="checkbox" class="checkbox" name="" id="checkbox-506">
-                                                        <label class="label-wr" for="checkbox-506"></label>
-                                                    </div>
-                                                </div>
-                                            </div> -->
+                                            
                                         </div>
                                     </div>
 
@@ -638,10 +520,10 @@
 
                                 <ng-container *ngFor="let shows of requestVenues">
                                     <div *ngIf="getStatusVenueEventById(shows.id)!='owner_declined'&&getStatusVenueEventById(shows.id)!='declined'" class="one-card">
-                                        <div class="card">
+                                        <!-- <div class="card">
                                             <div class="delete-card"></div>
                                             <div class="left-side">
-                                                <!--если есть галочка - добавляем класс checked-->
+                                                
                                                 <div class="ava checked" [ngStyle]="{'background-image': shows.image_base64_not_given?'url('+shows.image_base64_not_given+')':''}"></div>
                                                 <p class="desc-head-info">{{getStatusVenueEventById(shows.id)}}</p>
                                                 <p class="status">Accepted by Artist and Event owner</p>
@@ -656,17 +538,28 @@
                                 
                                                     <span *ngIf="getStatusVenueEventById(shows.id)=='pending'" class="button-card" (click)="updateEvent()">check</span>
                                                     <span *ngIf="getStatusVenueEventById(shows.id)=='accepted'" class="button-card" (click)="acceptVenue(shows.id)">accept</span>
+                                                    <span *ngIf="getStatusVenueEventById(shows.id)=='ready'" class="button-card send-request-modal" (click)="sendVenueRequestOpenModal(shows)">send request</span>
                                                     <span *ngIf="getStatusVenueEventById(shows.id)!='owner_accepted'" class="button-card" (click)="declineVenue(shows.id)">Decline</span>
 
+                                                  
 
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
+                                        <app-one-card 
+                                            [card] = "shows" 
+                                            [status] = "getStatusVenueEventById(shows.id)" 
+                                            [price] = "getPriceAtMsg(shows.id)" 
+                                            (accepted) = "acceptVenue($event)"
+                                            (requested) = "sendVenueRequestOpenModal($event)"
+                                            (declined) = "declineVenue($event)"
+                                            (checked) = "updateEvent()"
+                                        ></app-one-card>
                                     </div>
                                 </ng-container>
 
                                 <div *ngFor="let shows of venueShowsList" class="one-card">
-                                        <div class="card">
+                                        <!-- <div class="card">
                                             <div class="delete-card" (click)="addVenueCheck(shows)"></div>
                                             <div class="left-side">
                                                 <div class="ava" [ngStyle]="{'background-image': shows.image_base64_not_given?'url('+shows.image_base64_not_given+')':''}"></div>
@@ -680,11 +573,20 @@
                                                 <p class="desc-head-info">Location</p>
                                                 <p class="info">Los Angeles, California USA</p>
                                                 <div class="flex-buttons">
-                                                    <span class="button-card send-request-modal" (click)="sendRequestOpenModal(shows)">send request</span>
+                                                    <span class="button-card send-request-modal" (click)="sendVenueRequestOpenModal(shows)">send request</span>
                                                 
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
+                                        <app-one-card 
+                                            [card] = "shows" 
+                                            [status] = "getStatusVenueEventById(shows.id)" 
+                                            [price] = "getPriceAtMsg(shows.id)" 
+                                            (accepted) = "acceptVenue($event)"
+                                            (requested) = "sendVenueRequestOpenModal($event)"
+                                            (declined) = "declineVenue($event)"
+                                            (checked) = "updateEvent()"
+                                        ></app-one-card>
                                 </div>
                                 
                                 <!--для добавления артиста-->
@@ -1094,7 +996,7 @@
 
 
      <!--модалка send request c картой-->
-    <div class="modal fade modal-send-request modal-send-request-map" id="modal-send-request-map">
+    <!-- <div class="modal fade modal-send-request modal-send-request-map" id="modal-send-request-map">
         <div class="modal-dialog">
             <div class="modal-body">
                 <h6 class="head-m-p-a">Event Request</h6>
@@ -1133,11 +1035,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- конец новой модалки send request c картой-->
 
     <!--модалка для кликов на send request-->
-    <div class="modal fade modal-send-request" id="modal-send-request">
+    <div class="modal fade modal-send-request" id="modal-send-request-venue">
         <div class="modal-dialog">
                 <form [formGroup]="requestVenueForm">
             <div class="modal-body">
@@ -1177,7 +1079,7 @@
                         <div class="input-groupe-1 more-padd">
                             <select formControlName="time_frame"  id="inp-modal-req-3">
                                     <option>two_hours</option>
-                                    <option>tho_days</option>
+                                    <option>two_days</option>
                                     <option>one_week</option>
                                 
                             </select>
@@ -1207,12 +1109,12 @@
                         <div class="mark"></div>
                         <input type="text" class="location-inp" placeholder="location">
                     </div>
-                    <div class="input-groupe-1 small-textarea whithout-label">
+                    <!-- <div class="input-groupe-1 small-textarea whithout-label">
 
                         <textarea id="inp-desc-1-modal"></textarea>
                         <label for="inp-desc-1-modal" class="head-groupe">Description</label>
 
-                    </div>
+                    </div> -->
                     <div class="input-groupe-1 small-textarea whithout-label">
 
                         <textarea formControlName="message" id="inp-desc-2-modal"></textarea>
@@ -1231,9 +1133,11 @@
     </div>
     <!--//конец модалки для кликов на send request-->
 
+        
+
 
                             <!--модалки для сообщений-->
-                            <div class="modal fade modal-messege" id="message-1">
+                            <!-- <div class="modal fade modal-messege" id="message-1">
                                 <div class="modal-dialog">
                                     <div class="modal-body">
                                         <p class="message-t">Mouse sent an email to Muse, we’ll let you know when they join</p>
@@ -1268,11 +1172,11 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!--//модалки для сообщений-->
 
                         <!--модалка для кликов на decline-->
-                        <div class="modal fade modal-send-request" id="modal-decline">
+                        <!-- <div class="modal fade modal-send-request" id="modal-decline">
                             <div class="modal-dialog">
                                 <div class="modal-body">
                                     <h6 class="head-m-p-a">Decline Request</h6>
@@ -1330,11 +1234,11 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <!--//модалка для кликов на decline-->
 
     <!--новая модалка с картой 2-->
-    <div class="modal fade modal-pick-artist" id="modal-pick-artist-map">
+    <!-- <div class="modal fade modal-pick-artist" id="modal-pick-artist-map">
         <div class="modal-dialog">
             <div class="modal-body">
 
@@ -1343,7 +1247,7 @@
                     <div class="content-bodal input-groupe-1">
                         <input class="search" type="text" placeholder="Search">
                         <div class="flex-genres for-pick">
-                            <!--Добавляем класс picked-->
+                           
                             <span class="one-genre picked">HIP HOP</span>
                             <span class="one-genre picked">HIP HOP</span>
                             <span class="one-genre">HIP HOP</span>
@@ -1372,7 +1276,7 @@
                 </div>
                 
                 <div class="buttons-wrapp-add-inv">
-                    <!--можете баттоном или span. как удобнее-->
+                  
                     <button class="butt-style-1" type="submit">
                         <span>Add to Active</span>
                     </button>
@@ -1381,8 +1285,24 @@
 
             </div>
         </div>
-    </div>
+    </div> -->
     <!--//новая модалка с картой 2-->
+
+
+
+
+
+
+
+
+
+
+<!-- ######################################################################################################################################## -->
+
+
+
+
+
 
     <!--модалка для кликов на плюс и текст-->
     <div class="modal fade modal-pick-artist"   id="modal-pick-artist">
@@ -1442,102 +1362,6 @@
                             </div>
                         </div>
 
-                        <!-- <div class="one-card">
-                            <div class="l-s">
-                                <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                                <div class="desc">
-                                    <a class="name" href="#">Stanislav Galynya</a>
-                                    <p class="genres">Pop, singer/song writer</p>
-                                    <p class="where">New York, NY USA</p>
-                                </div>
-                            </div>
-                            <div class="r-s">
-                                <div class="circle-checkbox gray-border">
-                                    <input type="checkbox" class="checkbox" name="" id="checkbox-2">
-                                    <label class="label-wr" for="checkbox-2"></label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="one-card">
-                            <div class="l-s">
-                                <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                                <div class="desc">
-                                    <a class="name" href="#">Stanislav Galynya</a>
-                                    <p class="genres">Pop, singer/song writer</p>
-                                    <p class="where">New York, NY USA</p>
-                                </div>
-                            </div>
-                            <div class="r-s">
-                                <div class="circle-checkbox gray-border">
-                                    <input type="checkbox" class="checkbox" name="" id="checkbox-3">
-                                    <label class="label-wr" for="checkbox-3"></label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="one-card">
-                            <div class="l-s">
-                                <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                                <div class="desc">
-                                    <a class="name" href="#">Stanislav Galynya</a>
-                                    <p class="genres">Pop, singer/song writer</p>
-                                    <p class="where">New York, NY USA</p>
-                                </div>
-                            </div>
-                            <div class="r-s">
-                                <div class="circle-checkbox gray-border">
-                                    <input type="checkbox" class="checkbox" name="" id="checkbox-4">
-                                    <label class="label-wr" for="checkbox-4"></label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="one-card">
-                            <div class="l-s">
-                                <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                                <div class="desc">
-                                    <a class="name" href="#">Stanislav Galynya</a>
-                                    <p class="genres">Pop, singer/song writer</p>
-                                    <p class="where">New York, NY USA</p>
-                                </div>
-                            </div>
-                            <div class="r-s">
-                                <div class="circle-checkbox gray-border">
-                                    <input type="checkbox" class="checkbox" name="" id="checkbox-5">
-                                    <label class="label-wr" for="checkbox-5"></label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="one-card">
-                            <div class="l-s">
-                                <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                                <div class="desc">
-                                    <a class="name" href="#">Stanislav Galynya</a>
-                                    <p class="genres">Pop, singer/song writer</p>
-                                    <p class="where">New York, NY USA</p>
-                                </div>
-                            </div>
-                            <div class="r-s">
-                                <div class="circle-checkbox gray-border">
-                                    <input type="checkbox" class="checkbox" name="" id="checkbox-6">
-                                    <label class="label-wr" for="checkbox-6"></label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="one-card">
-                            <div class="l-s">
-                                <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                                <div class="desc">
-                                    <a class="name" href="#">Stanislav Galynya</a>
-                                    <p class="genres">Pop, singer/song writer</p>
-                                    <p class="where">New York, NY USA</p>
-                                </div>
-                            </div>
-                            <div class="r-s">
-                                <div class="circle-checkbox gray-border">
-                                    <input type="checkbox" class="checkbox" name="" id="checkbox-7">
-                                    <label class="label-wr" for="checkbox-7"></label>
-                                </div>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
                 <div class="buttons-wrapp-add-inv">
@@ -1553,6 +1377,102 @@
     </div>
     <!--//конец модалки для кликов на плюс и текст-->
 
+    <!--модалка для кликов на send request-->
+    <div class="modal fade modal-send-request" id="modal-send-request-artist">
+        <div class="modal-dialog">
+                <form [formGroup]="requestArtistForm">
+            <div class="modal-body">
+                
+                <h6 class="head-m-p-a">Event Request</h6>
+                
+                <div class="name-and-ava">
+                    <div class="ava" [ngStyle]="{'background-image': artistForRequest.image_base64_not_given?'url('+artistForRequest.image_base64_not_given+')':''}"></div>
+                    <div class="n-h">
+                        <p class="name">{{artistForRequest.display_name}}</p>
+                        <p class="hash"><span>@</span>{{artistForRequest.user_name}}</p>
+                    </div>
+                </div>
+                <div class="content-modal">
+                    <p class="e-n">{{Event.name}}</p>
+                    <div class="flex-input-groupes">
+                        <div class="input-groupe-1">
+                            <select id="inp-modal-req-1">
+                                <option>Spring</option>
+                                <option>Summer</option>
+                                <option>Autumn</option>
+                                <option>Winter</option>
+                                <!-- <option>Fall 2018</option> -->
+                            </select>
+                            <label for="inp-modal-req-1">Date Range</label>
+                        </div>
+                        <div class="input-groupe-1">
+                            <select id="inp-modal-req-2">
+                                    <option>2 hrs</option>
+                                    <option>2 days</option>
+                                    <option>1 week</option>
+                            </select>
+                            <label for="inp-modal-req-2">Performance Time</label>
+                           
+                        </div>
+                    </div>
+                    <div class="flex-input-groupes">
+                        <div class="input-groupe-1 more-padd">
+                            <select formControlName="time_frame"  id="inp-modal-req-3">
+                                    <option>two_hours</option>
+                                    <option>two_days</option>
+                                    <option>one_week</option>
+                                
+                            </select>
+                            <label for="inp-modal-req-3">Time Frame we expect an answer</label>
+                        </div>
+                        <div class="input-groupe-1 more-padd">
+                            <div class="rel-wr">
+                                <span class="abs-backs">$</span>
+                                <input  formControlName="estimated_price" id="inp-modal-req-4" class="dollar" name="" type="text">
+                            </div>
+                            <label for="inp-modal-req-4">Estimated Price to<br> Perform</label>
+                           
+                        </div>
+                    </div>
+                    <div class="flex-mac-checkbox">
+                        <p>Crowdfunding  Event?</p>
+                        <div class="yes-no">
+                            <span>Yes</span>
+                            <div class="mac-checkbox">
+                                <input class="checkbox" type="checkbox" id="crowdfunding-1-check">
+                                <label for="crowdfunding-1-check"></label>
+                            </div>
+                            <span>No</span>
+                        </div>
+                    </div>
+                    <div class="location-wr">
+                        <div class="mark"></div>
+                        <input type="text" class="location-inp" placeholder="location">
+                    </div>
+                    <!-- <div class="input-groupe-1 small-textarea whithout-label">
+
+                        <textarea id="inp-desc-1-modal"></textarea>
+                        <label for="inp-desc-1-modal" class="head-groupe">Description</label>
+
+                    </div> -->
+                    <div class="input-groupe-1 small-textarea whithout-label">
+
+                        <textarea formControlName="message" id="inp-desc-2-modal"></textarea>
+                        <label for="inp-desc-2-modal" class="head-groupe">Message</label>
+
+                    </div>
+                     <div class="send-request-b">
+                        <button class="butt-style-1" type="submit" (click)="artistSendRequest(artistForRequest.id)">
+                            <span>Send Request</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+    <!--//конец модалки для кликов на send request-->
+
 
      <!--новая первая модалка с картой-->
      <div class="modal fade modal-send-request map-1-modal" id="modal-map-1">
@@ -1561,7 +1481,7 @@
                 <h6 class="head-m-p-a">Location</h6>
                 <span class="closee-modal" data-dismiss="modal"></span>
                 <div class="for-map-init-modal-1">
-                        <agm-map  style="height:100%" [latitude]="mapCoords.about.lat" [longitude]="mapCoords.about.lng">
+                        <agm-map  style="height:90%" (mapClick)="setMapCoords($event,'about')" [latitude]="mapCoords.about.lat" [longitude]="mapCoords.about.lng">
                                 <agm-marker (dragEnd)="aboutDragMarker($event)" [markerDraggable] = "true" [latitude]="mapCoords.about.lat" [longitude]="mapCoords.about.lng"></agm-marker>
                         </agm-map>
                 </div>
@@ -1577,7 +1497,7 @@
                 <h6 class="head-m-p-a">Location</h6>
                 <span class="closee-modal" data-dismiss="modal"></span>
                 <div class="for-map-init-modal-1">
-                        <agm-map  style="height:100%" [latitude]="mapCoords.artist.lat" [longitude]="mapCoords.artist.lng">
+                        <agm-map  style="height:90%" (mapClick)="setMapCoords($event,'artist')" [latitude]="mapCoords.artist.lat" [longitude]="mapCoords.artist.lng">
                                 <agm-marker (dragEnd)="artistDragMarker($event)" [markerDraggable] = "true" [latitude]="mapCoords.artist.lat" [longitude]="mapCoords.artist.lng"></agm-marker>
                         </agm-map>
                 </div>
@@ -1593,7 +1513,7 @@
                 <h6 class="head-m-p-a">Location</h6>
                 <span class="closee-modal" data-dismiss="modal"></span>
                 <div class="for-map-init-modal-1">
-                        <agm-map  style="height:100%" [latitude]="mapCoords.venue.lat" [longitude]="mapCoords.venue.lng">
+                        <agm-map  style="height:90%" (mapClick)="setMapCoords($event,'venue')" [latitude]="mapCoords.venue.lat" [longitude]="mapCoords.venue.lng">
                                 <agm-marker (dragEnd)="venueDragMarker($event)" [markerDraggable] = "true" [latitude]="mapCoords.venue.lat" [longitude]="mapCoords.venue.lng"></agm-marker>
                         </agm-map>
                 </div>

@@ -63,6 +63,11 @@ export class EventService{
             () => this.http.GetData('/events/search.json',this.typeService.ParamsToUrlSearchParams(params))
         );
     }
+    GetEvents(id){
+        return this.http.CommonRequest(
+            () => this.http.GetData('/accounts/'+id+'/events.json','')
+        );
+    }
     AddArtist(event:AccountAddToEventModel){
         return this.http.CommonRequest(
             () => this.http.PostData('/events/'+event.event_id+'/artists.json',JSON.stringify(event))
@@ -123,11 +128,13 @@ export class EventService{
     }
 
     VenueSetActive(params){
+        console.log(`params set`,params);
         return this.http.CommonRequest(
             () => this.http.PostData('/events/'+params.event_id+'/venue/'+params.id+'/set_active.json',JSON.stringify(params))
         );
     }
     VenueRemoveActive(params){
+        console.log(`params remove`,params);
         return this.http.CommonRequest(
             () => this.http.PostData('/events/'+params.event_id+'/venue/'+params.id+'/remove_active.json',JSON.stringify(params))
         );
@@ -155,11 +162,32 @@ export class EventService{
         );
     }
 
+    ArtistSendRequest(event:AccountAddToEventModel){
+        return this.http.CommonRequest(
+            () => this.http.PostData('/events/'+event.event_id+'/artists/'+event.id+'/send_request.json',JSON.stringify(event))
+        );
+    }
+
+    VenueSendRequest(event:AccountAddToEventModel){
+        return this.http.CommonRequest(
+            () => this.http.PostData('/events/'+event.event_id+'/venue/'+event.id+'/send_request.json',JSON.stringify(event))
+        );
+    }
+
+
     /*тикеты*/
     GetAllTicketsCurrent(myId,CurrOrPass){
         let params = {
             account_id: myId,
             time:CurrOrPass
+        }
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/fan_tickets.json', this.typeService.ParamsToUrlSearchParams(params))
+        );
+    }
+    GetAllTicketswithoutCurrent(myId){
+        let params = {
+            account_id: myId
         }
         return this.http.CommonRequest(
             ()=> this.http.GetData('/fan_tickets.json', this.typeService.ParamsToUrlSearchParams(params))
@@ -178,6 +206,22 @@ export class EventService{
         }
         return this.http.CommonRequest(
             ()=> this.http.GetData('/fan_tickets/by_event.json', this.typeService.ParamsToUrlSearchParams(params))
+        );
+    }
+
+    GetTicketInfoById(ticketId:number, accountId:number)
+    {
+        let params = {account_id:accountId};
+
+        return this.http.CommonRequest(
+            () => this.http.GetData('/fan_tickets/'+ticketId,this.typeService.ParamsToUrlSearchParams(params))
+        );
+    }
+
+    BuyTicket(params:any)
+    {
+        return this.http.CommonRequest(
+            () => this.http.PostData('/fan_tickets',params)
         );
     }
 

@@ -1,0 +1,142 @@
+<section class="second-router-outlet">
+    <div class="show-datails-wr">
+        <div class="main-mw">
+            <div class="flex-artist-main-info">
+                <div class="side left-side">
+                    <div class="bg-gradient-info">
+                        <h6>{{Event.name}}</h6>
+                        <p class="st">{{Event.event_season}}, {{Event.event_year}} - <span>{{Event.event_time}}</span></p>
+                        <span class="hashtag"><span>#</span>{{Event.tagline}}</span>
+                        <p class="descr">{{Event.description}}</p>
+                        <p class="gg">Genre</p>
+                        <div class="flex-genres" *ngIf="Genres.length > 0">
+                            <span class="one-genre" *ngFor="let item of Genres">{{item.genre_show}}</span>
+                        </div>
+                        <p class="some-tt"><span>Presented by</span> {{Creator.display_name}}</p>
+                        <p class="some-tt"><span>Featuring:</span> {{Featuring}} </p>
+                        <p class="gg">Location</p>
+                        <p class="location" *ngIf="Venue"><span>{{Venue.display_name}}</span>{{Venue.address}}</p>
+                        <p class="location" *ngIf="!Venue">{{Event.address}}</p>
+                        <div *ngIf="(Venue.lat && Venue.lng) || ( Event.city_lat && Event.city_lng)" class="location-wr" (click)="aboutOpenMapModal()">
+                            <div class="mark"></div>
+                            <p class="location-inp">View map</p>
+                        </div>
+                        <div class="flex-icons-show-datails">
+                            <a>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="21" height="22">
+                                    <path fill="#ffffff" fill-rule="evenodd" d="M18.619 21.495H1.45c-.781 0-1.417-.666-1.417-1.485V3.423c0-.819.636-1.485 1.417-1.485h.584V.891c0-.193.149-.349.333-.349h1.667c.184 0 .333.156.333.349v1.047h11.334V.891c0-.193.15-.349.334-.349h1.667c.184 0 .333.156.333.349v1.047h.584c.781 0 1.417.666 1.417 1.485V20.01c0 .819-.636 1.485-1.417 1.485zM.7 20.01c0 .433.336.786.75.786h17.169c.413 0 .75-.353.75-.786V5.43H.7v14.58zm3-18.77h-1V3.335h1V1.24zm13.668 0h-.999V3.335h.999V1.24zm2.001 2.183c0-.433-.337-.786-.75-.786h-.584v1.047c0 .194-.149.35-.333.35h-1.667a.342.342 0 0 1-.334-.35V2.637H4.367v1.047c0 .194-.149.35-.333.35H2.367a.341.341 0 0 1-.333-.35V2.637H1.45c-.414 0-.75.353-.75.786v1.309h18.669V3.423zm-1.667 12.833h-2.001a.342.342 0 0 1-.333-.349v-2.095c0-.193.15-.35.333-.35h2.001c.184 0 .333.157.333.35v2.095a.341.341 0 0 1-.333.349zm-.334-2.095h-1.333v1.397h1.333v-1.397zm.334-1.397h-2.001a.342.342 0 0 1-.333-.349V10.32c0-.194.15-.35.333-.35h2.001c.184 0 .333.156.333.35v2.095a.341.341 0 0 1-.333.349zm-.334-2.096h-1.333v1.398h1.333v-1.398zm.334-1.396h-2.001a.342.342 0 0 1-.333-.349V6.828c0-.193.15-.35.333-.35h2.001c.184 0 .333.157.333.35v2.095a.341.341 0 0 1-.333.349zm-.334-2.095h-1.333v1.397h1.333V7.177zm-3 12.571h-2a.341.341 0 0 1-.333-.349v-2.095c0-.193.149-.35.333-.35h2c.184 0 .333.157.333.35v2.095a.341.341 0 0 1-.333.349zm-.333-2.095h-1.334v1.397h1.334v-1.397zm.333-1.397h-2a.341.341 0 0 1-.333-.349v-2.095c0-.193.149-.35.333-.35h2c.184 0 .333.157.333.35v2.095a.341.341 0 0 1-.333.349zm-.333-2.095h-1.334v1.397h1.334v-1.397zm.333-1.397h-2a.341.341 0 0 1-.333-.349V10.32c0-.194.149-.35.333-.35h2c.184 0 .333.156.333.35v2.095a.341.341 0 0 1-.333.349zm-.333-2.096h-1.334v1.398h1.334v-1.398zm.333-1.396h-2a.341.341 0 0 1-.333-.349V6.828c0-.193.149-.35.333-.35h2c.184 0 .333.157.333.35v2.095a.341.341 0 0 1-.333.349zm-.333-2.095h-1.334v1.397h1.334V7.177zm-3 12.571H9.034a.341.341 0 0 1-.333-.349v-2.095c0-.193.149-.35.333-.35h2.001c.184 0 .333.157.333.35v2.095a.341.341 0 0 1-.333.349zm-.334-2.095H9.367v1.397h1.334v-1.397zm.334-1.397H9.034a.341.341 0 0 1-.333-.349v-2.095c0-.193.149-.35.333-.35h2.001c.184 0 .333.157.333.35v2.095a.341.341 0 0 1-.333.349zm-.334-2.095H9.367v1.397h1.334v-1.397zm.334-1.397H9.034a.341.341 0 0 1-.333-.349V10.32c0-.194.149-.35.333-.35h2.001c.184 0 .333.156.333.35v2.095a.341.341 0 0 1-.333.349zm-.334-2.096H9.367v1.398h1.334v-1.398zm.334-1.396H9.034a.341.341 0 0 1-.333-.349V6.828c0-.193.149-.35.333-.35h2.001c.184 0 .333.157.333.35v2.095a.341.341 0 0 1-.333.349zm-.334-2.095H9.367v1.397h1.334V7.177zm-3 12.571H5.7a.341.341 0 0 1-.333-.349v-2.095c0-.193.149-.35.333-.35h2.001c.183 0 .333.157.333.35v2.095c0 .193-.15.349-.333.349zm-.334-2.095H6.034v1.397h1.333v-1.397zm.334-1.397H5.7a.341.341 0 0 1-.333-.349v-2.095c0-.193.149-.35.333-.35h2.001c.183 0 .333.157.333.35v2.095c0 .193-.15.349-.333.349zm-.334-2.095H6.034v1.397h1.333v-1.397zm.334-1.397H5.7a.341.341 0 0 1-.333-.349V10.32c0-.194.149-.35.333-.35h2.001c.183 0 .333.156.333.35v2.095c0 .193-.15.349-.333.349zm-.334-2.096H6.034v1.398h1.333v-1.398zm-3 9.08h-2a.341.341 0 0 1-.333-.349v-2.095c0-.193.149-.35.333-.35h2c.184 0 .333.157.333.35v2.095a.341.341 0 0 1-.333.349zm-.333-2.095H2.7v1.397h1.334v-1.397zm.333-1.397h-2a.341.341 0 0 1-.333-.349v-2.095c0-.193.149-.35.333-.35h2c.184 0 .333.157.333.35v2.095a.341.341 0 0 1-.333.349zm-.333-2.095H2.7v1.397h1.334v-1.397zm.333-1.397h-2a.341.341 0 0 1-.333-.349V10.32c0-.194.149-.35.333-.35h2c.184 0 .333.156.333.35v2.095a.341.341 0 0 1-.333.349zm-.333-2.096H2.7v1.398h1.334v-1.398z"/>
+                                </svg>
+                            </a>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="side right-side">
+                    <div class="bg-slider">
+                        <div class="nav-iframe-slider-wrapp">
+                            <!--итерируем вместе со слайдами. первому добавляем active-->
+                            <!-- <div class="one-slide active">
+                                <span>Adele</span>
+                            </div> -->
+                        </div>
+                        <div class="iframe-slider-wrapp">
+                            <!--это слайды с видосами-->
+                                <ng-container *ngFor="let item of Artists">
+                                    <show-video-slide [Artist]=item></show-video-slide>
+                                </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!--контент-->
+    <div class="content-and-tabs-datails">
+        <div class="main-mw">
+            <div class="tabslinks-and-goings">
+                <div class="left-s">
+                    <ul>
+                        <li>
+                            <a class="active">Additional info</a>
+                        </li>
+                        <li>
+                            <a >Comments <span>(57)</span></a>
+                        </li>
+                        <li>
+                            <a >Updates <span>(57)</span></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="right-s">
+                    <div class="avas-flex">
+                        <div class="ava-wr">
+                            <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                        </div>
+                        <div class="ava-wr">
+                            <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                        </div>
+                        <div class="ava-wr">
+                            <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                        </div>
+                        <div class="ava-wr">
+                            <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                        </div>
+                        <div class="ava-wr">
+                            <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                        </div>
+                        <div class="ava-wr">
+                            <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                        </div>
+                    </div>
+                    <p>And <span>18</span> more going</p>
+                </div>
+                
+            </div>
+            <div class="other-datails-info">
+                <h1>Tickets<span>Includes $2 service fee. One ticket per person</span></h1>
+                <p class="total">Total price: <span>${{TotalPrice}}</span></p>
+                <span (click)="BuyTickets()" class="butt-style-1">
+                    <span>Buy</span>
+                </span>
+            </div>
+            <div class="body-tabs-datails-pages">
+                <div class="for-flex-contant-d">
+                    <div class="left-side-tickets">
+                        <ng-container *ngFor="let item of Tickets">
+                            <buy-ticket-selector (onAddTickets)="AddTicketsToPrice($event)" [Ticket]="item"></buy-ticket-selector>
+                        </ng-container>
+                    </div>
+                    <div class="right-side-tickets">
+                        <div class="third-router-outlet">
+                            <div class="biography-wrapper">
+                                <h6>Biography</h6>
+                                <ng-container *ngFor="let item of Artists">
+                                    <biography-selector *ngIf="item.about" [Account]="item"></biography-selector>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+    <div class="modal fade modal-send-request map-1-modal" id="modal-map">
+        <div class="modal-dialog">
+            <div class="modal-body">
+                <h6 class="head-m-p-a">Location</h6>
+                <span class="closee-modal" data-dismiss="modal"></span>
+                <div class="for-map-init-modal-1">
+                    <agm-map *ngIf="Venue.lat && Venue.lng" style="height:100%" [latitude]="Venue.lat" [longitude]="Venue.lng"> 
+                        <agm-marker [latitude]="Venue.lat" [longitude]="Venue.lng" [visible]="isMarkerVisible"></agm-marker>
+                    </agm-map>
+                    <agm-map *ngIf="(!Venue.lat && !Venue.lng) && ( Event.city_lat && Event.city_lng)" style="height:100%" [latitude]="Event.city_lat" [longitude]="Event.city_lng"> 
+                        <agm-marker [latitude]="Event.city_lat" [longitude]="Event.city_lng" [visible]="isMarkerVisible"></agm-marker>
+                    </agm-map>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

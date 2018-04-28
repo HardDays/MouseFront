@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import {Http} from "@angular/http";
+import {Http, RequestOptions} from "@angular/http";
 import {Response, Headers, URLSearchParams} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -70,6 +70,18 @@ export class HttpService
     {
         return this.http.delete(this.serverUrl + method,{headers:this.headers})
     }
+    DeleteDataWithBody(method:string,body:any)
+    {
+        return this.http.delete(this.serverUrl + method, new RequestOptions({
+            headers:this.headers,
+            body: body
+          }))
+    }
+
+    DeleteDataWithParam(method:string,param)
+    {
+        return this.http.delete(this.serverUrl + method + "?"+ param,{headers:this.headers})
+    }
 
     PostData(method:string,data:any)
     {
@@ -108,7 +120,4 @@ export class HttpService
     // return this.http.post('https://api.twitter.com/oauth2/token',{'grant_type': 'client_credentials'},{ 
     //                     headers: headers});
     // }
-
-
-
 }

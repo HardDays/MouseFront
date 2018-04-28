@@ -85,9 +85,13 @@ export class AccountCreateModel{
             public late_cancellation_fee?:number,
             public refund_policy?:string,
             public artist_email?:string,
+            public stage_name?:string,
+            public manager_name?:string,
 
             public artist_riders?:Rider[]
 ){
+    if(!is_flexible)
+        this.is_flexible = false;
 }
 }
 

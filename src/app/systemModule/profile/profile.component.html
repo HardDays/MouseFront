@@ -15,21 +15,30 @@
                             </div>
                         </div>
                         <div class="name-venue">
-                           
-                            <h2 id="lines_view">{{Account.user_name}}</h2>
+                            <h2 id="lines_view" *ngIf="Account.user_name">{{Account.user_name}}</h2>
                             <a *ngIf="isMyAccount" [routerLink]="['/system/venueCreate',UserId]" class="settings"></a>
                         </div>
                         <div class="oficial-page">
-                            <span id="d_lines_view" class="of-p">@{{Account.display_name}}</span>
+                            <span id="d_lines_view" *ngIf="Account.display_name" class="of-p">@{{Account.display_name}}</span>
                             <div class="ok-image">
                                 <img class="img-responsive" src="../../assets/img/ok.png" alt="">
                             </div>
                         </div>
-                        <form class="follow-wr">
-                            <button *ngIf="!isMyAccount" class="butt-style-1" type="submit" (click)="FollowAccount()">
-                                <span>Follow</span>
-                            </button>
-                        </form>
+                        
+                            
+                        <ng-container *ngIf="!isMyAccount" >
+                            <form *ngIf="!isFolowedAcc" class="follow-wr" (ngSubmit)="FollowProfile()">
+                                <button  class="butt-style-1" type="submit">
+                                    <span>Follow</span>
+                                </button>
+                            </form>
+                            <form *ngIf="isFolowedAcc" class="follow-wr" (ngSubmit)="UnFollowProfile()">
+                                <button  class="butt-style-1" type="submit">
+                                    <span>Unfollow</span>
+                                </button>
+                            </form>
+                        </ng-container>
+                        
                     </div>
                 </div>
                 <div class="for-white-bg">
@@ -39,7 +48,7 @@
                                 <div class="flex--info">
                                     <div class="side side-info side-about">
                                         <h6>About</h6>
-                                        <p id="#b_lines_view" class="about-text">{{Account.description}}</p>
+                                        <p id="#b_lines_view" class="about-text" *ngIf='Account.description'>{{Account.description}}</p>
                                     </div>
                                     <div class="side side-info side-contact">
                                         <h6>Contact info</h6>
@@ -47,7 +56,7 @@
                                             <div class="column-cont">
                                                 <div class="one-cont">
                                                     <p class="head-cont">PHONE:</p>
-                                                    <span>{{Account.phone}}</span>
+                                                    <span *ngIf="Account.phone">{{Account.phone}}</span>
                                                 </div>
                                                 <div class="one-cont" *ngIf="Account.office_hours">
                                                     <p class="head-cont" >OFFICE HOURS:</p>
@@ -79,7 +88,7 @@
                                     </div>
                                     <div class="side side-info side-map">
                                         <h6>Location</h6>
-                                        <p class="about-text">{{Account.address}}</p>
+                                        <p class="about-text" *ngIf='Account.address'>{{Account.address}}</p>
                                         <div class="map" id="map">
                                             карта тут
                                         </div>
@@ -92,87 +101,78 @@
                                 <div class="flex--info">
                                     <div class="side scroller flex-header">
                                         <div class="for-scroll-padd">
-                                            <h6>Gallery(4)</h6>
-                                            <input type="text" class="search-profile-inp-style"  placeholder="Search">
+                                            <h6>Gallery ({{VenueImages?VenueImages.length:'0'}})</h6>
+                                            <input type="text" class="search-profile-inp-style"  placeholder="Search" (input)='searchImagesVenue($event)'>
                                         </div>
                                         <div class="new-scroll-wr">
-                                            <div (click)="Gallery()" class="blocks gallery-main-wrapp">
-                                                <div class="one-block for-gallery-item" data-size="290x354" data-hreff="../../assets/img/layer-7.jpg" style="background-image: url(../../assets/img/layer-7.jpg)"></div>
-                                                <div class="one-block for-gallery-item" data-size="290x354" data-hreff="../../assets/img/layer-7.jpg" style="background-image: url(../../assets/img/layer-7.jpg)"></div>
-                                                <div class="one-block for-gallery-item" data-size="290x354" data-hreff="../../assets/img/layer-7.jpg" style="background-image: url(../../assets/img/layer-7.jpg)"></div>
-                                                <div class="one-block for-gallery-item"  data-size="290x354" data-hreff="../../assets/img/layer-7.jpg" style="background-image: url(../../assets/img/layer-7.jpg)"></div>
+                                            <div class="blocks gallery-main-wrapp">
+                                               
+                                                <ng-container *ngFor="let item of VenueImages;let in = index">
+                                                   
+                                                    <ng-container class="one-block" *ngIf="item.checked">   
+                                                              
+                                                        <div class="one-block for-gallery-item" (click)='Gallery($event)' [attr.data-eteration]="in" [attr.data-size]="imagesSize[in]?(imagesSize[in].width+'x'+imagesSize[in].height):'500x500'" [attr.data-hreff]="ImageMassVenue[in]" [ngStyle]="{'background-image': 'url(' + ImageMassVenue[in] + ')'}"></div>
+                                                                
+                                                    </ng-container>
+                                                 
+                                                </ng-container>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="side scroller flex-header">
+                                    <div class="side flex-header scroller">
                                         <div class="for-scroll-padd">
-                                            <h6>UPCOMING<br> SHOWS (21)</h6>
-                                            <input type="text" class="search-profile-inp-style" placeholder="Search">
+                                            <h6>UPCOMING<br>SHOWS ({{UpcomingShows.length}})</h6>
+                                            <input type="text" class="search-profile-inp-style" placeholder="Search" (input)='searchUpcomingShows($event)'>
                                         </div>
                                         <div class="new-scroll-wr">
                                             <div class="blocks">
-                                                <div class="one-block" style="background-image: url(../../assets/img/layer-7.jpg)">
-                                                    <div class="desc">
-                                                        <p class="name">Tracey Ross</p>
-                                                        <p class="when">7/17/17</p>
-                                                    </div>
-                                                </div>
-                                                <div class="one-block" style="background-image: url(../../assets/img/layer-7.jpg)">
-                                                    <div class="desc">
-                                                        <p class="name">Tracey Ross</p>
-                                                        <p class="when">7/17/17</p>
-                                                    </div>
-                                                </div>
-                                                <div class="one-block" style="background-image: url(../../assets/img/layer-7.jpg)">
-                                                    <div class="desc">
-                                                        <p class="name">Tracey Ross</p>
-                                                        <p class="when">7/17/17</p>
-                                                    </div>
-                                                </div>
-                                                <div class="one-block" style="background-image: url(../../assets/img/layer-7.jpg)">
-                                                    <div class="desc">
-                                                        <p class="name">Tracey Ross</p>
-                                                        <p class="when">7/17/17</p>
-                                                    </div>
-                                                </div>
+                                                
+                                                
+                                                <!--/календарь вегда есть(не итерируем)-->
+                                                <!--<ng-container *ngIf="isMyAccount">
+                                                        
+                                                <ng-container *ngIf="item.checked">
+                                                -->
+                                                <ng-container *ngFor="let item of UpcomingShows">
+                                                    <ng-container *ngIf="!item.is_active">
+                                                        <ng-container class="one-block" *ngIf="item.checked">   
+                                                                
+                                                            <app-upcoming-shows-profile [Upshows]="item.object"></app-upcoming-shows-profile>
+                                                                
+                                                            </ng-container>
+                                                        </ng-container>
+                                                    </ng-container>
+                                                <ng-container *ngFor="let item of UpcomingShows">
+                                                    
+                                                    <ng-container *ngIf="item.is_active">
+                                                        <ng-container class="one-block" *ngIf="item.checked">   
+                                                            <a  [routerLink]="['/system','shows_detail',item.object.id]" style="display:block">
+                                                                <app-upcoming-shows-profile [Upshows]="item.object"></app-upcoming-shows-profile>
+                                                            </a>
+                                                        </ng-container>
+                                                    </ng-container>
+                                                </ng-container>
+                                                
+                                            
                                             </div>
                                         </div>
                                     </div>
+                            
                                     <div class="side scroller flex-header uniq-padd-style-funs">
                                         <div class="uniq-padd-3">
-                                            <h6>Fans (250)</h6>
-                                            <input type="text" class="search-profile-inp-style" placeholder="Search">
+                                            <h6>Fans ({{Account.followers_count}})</h6>
+                                            <input type="text" class="search-profile-inp-style" placeholder="Search" (input)='searchFolover($event)'>
                                         </div>
                                         <div class="new-scroll-wr">
                                             <div class="blocks-funs">
-                                                <div class="one-block">
-                                                    <div class="photo" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                                                    <a class="name">
-                                                        <span>Name</span>
-                                                        <span>Surname</span>
-                                                    </a>
-                                                </div>
-                                                <div class="one-block">
-                                                    <div class="photo" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                                                    <a   class="name">
-                                                        <span>Name NameNameNameNameNameName</span>
-                                                        <span>Surname</span>
-                                                    </a>
-                                                </div>
-                                                <div class="one-block">
-                                                    <div class="photo" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                                                    <a   class="name">
-                                                        <span>Name NameNameNameNameNameName</span>
-                                                        <span>Surname</span>
-                                                    </a>
-                                                </div>
-                                                <div class="one-block">
-                                                    <div class="photo" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                                                    <a   class="name">
-                                                        <span>Name NameNameNameNameNameName</span>
-                                                        <span>Surname</span>
-                                                    </a>
-                                                </div>
+                                                <ng-container *ngFor="let item of folowersMassChecked">
+                                                    <div class="one-block" *ngIf="item.checked">
+                                                        <app-one-folower-for-profile [Folower]="item.object"></app-one-folower-for-profile>
+                                                        
+                                                    </div>
+
+                                                </ng-container>
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -269,11 +269,18 @@
                                 <div class="desc-wr">
                                     <p id="b_lines_view" class="description">{{Account.bio}}</p>
                                 </div>
-                                <form class="follow-wr">
-                                    <button *ngIf="!isMyAccount" class="butt-style-1" type="submit" (click)="FollowAccount()">
-                                        <span>Follow</span>
-                                    </button>
-                                </form>
+                                <ng-container *ngIf="!isMyAccount" >
+                                    <form *ngIf="!isFolowedAcc" class="follow-wr" (ngSubmit)="FollowProfile()">
+                                        <button  class="butt-style-1" type="submit">
+                                            <span>Follow</span>
+                                        </button>
+                                    </form>
+                                    <form *ngIf="isFolowedAcc" class="follow-wr" (ngSubmit)="UnFollowProfile()">
+                                        <button  class="butt-style-1" type="submit">
+                                            <span>Unfollow</span>
+                                        </button>
+                                    </form>
+                                </ng-container>
                             </div>
                         </div>
                     </div>
@@ -282,15 +289,15 @@
                             <div class="main-mw">
                                 <div class="for-flex-inf">
                                     <div class="circle">
-                                        <span>32</span>
+                                        <span>{{TotalTicket}}</span>
                                         <p>Tickets</p>
                                     </div>
                                     <div class="circle">
-                                        <span>250</span>
+                                        <span>{{Account.followers_count}}</span>
                                         <p>Followers</p>
                                     </div>
                                     <div class="circle">
-                                        <span>150</span>
+                                        <span>{{Account.following_count}}</span>
                                         <p>Following</p>
                                     </div>
                                 </div>
@@ -315,97 +322,70 @@
                                     <div class="flex--info">
                                         <div class="side scroller">
                                             <div class="for-scroll-padd">
-                                                <h6>Events (5)</h6>
-                                                <input type="text" class="search-profile-inp-style"  placeholder="Search">
+                                                <h6>Events ({{EventsMassChecked.length}})</h6>
+                                                <input type="text" class="search-profile-inp-style"  placeholder="Search" (input)='searchEvents($event)'>
                                             </div>
                                             <div class="new-scroll-wr">
                                                 <div class="blocks">
-                                                    <div class="one-block" style="background-image: url(../../assets/img/layer-7.jpg)">
-                                                        <div class="desc">
-                                                            <p class="name">Tracey Ross</p>
-                                                            <p class="when">7/17/17</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="one-block" style="background-image: url(../../assets/img/layer-7.jpg)">
-                                                        <div class="desc">
-                                                            <p class="name">Tracey Ross</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="one-block" style="background-image: url(../../assets/img/layer-7.jpg)">
-                                                        <div class="desc">
-                                                            <p class="name">Tracey Ross</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="one-block" style="background-image: url(../../assets/img/layer-7.jpg)">
-                                                        <div class="desc">
-                                                            <p class="name">Tracey Ross</p>
-                                                        </div>
-                                                    </div>
+                                                    <ng-container *ngIf="Events.is_active">
+                                                        <ng-container *ngFor="let item of EventsMassChecked">
+                                                            <ng-container *ngIf="item.checked">
+                                                                <a  [routerLink]="['/system','shows_detail',item.object.id]" style="display:block">
+                                                                    <app-ticket-on-profile [Ticket]="item.object"></app-ticket-on-profile>
+                                                                </a>
+                                                            </ng-container>
+                                                        </ng-container>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="!Events.is_active">
+                                                        <ng-container *ngFor="let item of EventsMassChecked">
+                                                            <ng-container *ngIf="item.checked">
+                                                                <app-ticket-on-profile [Ticket]="item.object"></app-ticket-on-profile>
+                                                            </ng-container>
+                                                        </ng-container>
+                                                    </ng-container>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="side scroller">
                                             <div class="for-scroll-padd">
-                                                <h6>Tickets (15)</h6>
-                                                <input type="text" class="search-profile-inp-style" placeholder="Search">
+                                                <h6>Tickets ({{TotalTicket}})</h6>
+                                                <input type="text" class="search-profile-inp-style" placeholder="Search" (input)='searchTickets($event)'>
                                             </div>
                                             <div class="new-scroll-wr">
                                                 <div class="blocks">
-                                                    <div class="one-block" style="background-image: url(../../assets/img/layer-7.jpg)">
-                                                        <div class="desc">
-                                                            <p class="name">Tracey Ross</p>
-                                                            <p class="when">7/17/17</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="one-block" style="background-image: url(../../assets/img/layer-7.jpg)">
-                                                        <div class="desc">
-                                                            <p class="name">Tracey Ross</p>
-                                                            <p class="when">7/17/17</p>
-                                                        </div>
-                                                    </div>
-                                                     <div class="one-block" style="background-image: url(../../assets/img/layer-7.jpg)">
-                                                        <div class="desc">
-                                                            <p class="name">Tracey Ross</p>
-                                                            <p class="when">7/17/17</p>
-                                                        </div>
-                                                    </div>
-                                                     <div class="one-block" style="background-image: url(../../assets/img/layer-7.jpg)">
-                                                        <div class="desc">
-                                                            <p class="name">Tracey Ross</p>
-                                                            <p class="when">7/17/17</p>
-                                                        </div>
-                                                    </div>
+                                                    <ng-container *ngIf="isMyAccount">
+                                                        <ng-container *ngFor="let item of ticketsMassChecked">
+                                                            <ng-container *ngIf="item.checked">
+                                                                <a  [routerLink]="['/system','tickets',item.object.id]" style="display:block">
+                                                                    <app-ticket-on-profile [Ticket]="item.object"></app-ticket-on-profile>
+                                                                </a>
+                                                            </ng-container>
+                                                        </ng-container>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="!isMyAccount">
+                                                        <ng-container *ngFor="let item of ticketsMassChecked">
+                                                            <ng-container *ngIf="item.checked">
+                                                                <app-ticket-on-profile [Ticket]="item.object"></app-ticket-on-profile>
+                                                            </ng-container>
+                                                        </ng-container>
+                                                    </ng-container>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="side scroller uniq-padd-style-funs">
                                             <div class="uniq-padd-3">
-                                                <h6>Fans (250)</h6>
-                                                <input type="text" class="search-profile-inp-style" placeholder="Search">
+                                                <h6>Fans ({{Account.followers_count}})</h6>
+                                                <input type="text" class="search-profile-inp-style" placeholder="Search" (input)='searchFolover($event)'>
                                             </div>
                                             <div class="new-scroll-wr">
                                                 <div class="blocks-funs">
-                                                    <div class="one-block">
-                                                        <div class="photo" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                                                        <a   class="name">
-                                                            <span>Name</span>
-                                                            <span>Surname</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="one-block">
-                                                        <div class="photo" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                                                        <a   class="name">
-                                                            <span>Name NameNameNameNameNameName</span>
-                                                            <span>Surname</span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="one-block">
-                                                        <div class="photo" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                                                        <a   class="name">
-                                                            <span>Name NameNameNameNameNameName</span>
-                                                            <span>Surname</span>
-                                                        </a>
-                                                    </div>
+                                                    <ng-container *ngFor="let item of folowersMassChecked">
+                                                        <div class="one-block" *ngIf="item.checked">
+                                                            <app-one-folower-for-profile [Folower]="item.object"></app-one-folower-for-profile>
+                                                            
+                                                        </div>
+
+                                                    </ng-container>
                                                     
                                                 </div>
                                             </div>
@@ -447,11 +427,18 @@
                                 <p id="b_lines_view" class="desc">
                                     {{Account.about}}
                                 </p>
-                                <form class="follow-wr">
-                                    <button *ngIf="!isMyAccount" class="butt-style-1" type="submit" (click)="FollowAccount()">
-                                        <span>Follow</span>
-                                    </button>
-                                </form>
+                                <ng-container *ngIf="!isMyAccount" >
+                                    <form *ngIf="!isFolowedAcc" class="follow-wr" (ngSubmit)="FollowProfile()">
+                                        <button  class="butt-style-1" type="submit">
+                                            <span>Follow</span>
+                                        </button>
+                                    </form>
+                                    <form *ngIf="isFolowedAcc" class="follow-wr" (ngSubmit)="UnFollowProfile()">
+                                        <button  class="butt-style-1" type="submit">
+                                            <span>Unfollow</span>
+                                        </button>
+                                    </form>
+                                </ng-container>
                             </div>
                             <div class="side right-side">
                                 <div class="bg-slider">
@@ -468,23 +455,13 @@
                                 </div>
                             </div>
                         </div>
-                    
-                    
-                    </div>
-                    
-                    
-                    
-                    
-                    
+                    </div>  
                 </div>
                 <div class="for-white-bg">
-                    
-                    
-                    
                     <div class="all-info-profile">
                         <div class="uniq-padd">
                             <div class="main-mw">
-                                <div class="genres-info">
+                                <div class="genres-info genres-info-artist">
                                     <h3>Genres</h3>
                                     <div class="flex-genres">
                                         <ng-container *ngFor="let item of Account.genres;let i = index">
@@ -499,110 +476,79 @@
                                 <div class="flex--info">
                                     <div class="side flex-header scroller">
                                         <div class="for-scroll-padd">
-                                            <h6>Albums (5)</h6>
-                                            <input type="text" class="search-profile-inp-style"  placeholder="Search">
+                                            <h6>Albums ({{Albums.length}})</h6>
+                                            <input type="text" class="search-profile-inp-style"  placeholder="Search" (input)='searchAlboms($event)'>
                                         </div>
                                         <div class="new-scroll-wr">
                                             <div class="blocks">
-                                                <div class="one-block" style="background-image: url(img/layer-7.jpg)">
-                                                    <div class="desc">
-                                                        <p class="name">Tracey Ross</p>
-                                                        <p class="when">(1998)</p>
-                                                    </div>
-                                                </div>
-                                                 <div class="one-block" style="background-image: url(img/layer-7.jpg)">
-                                                    <div class="desc">
-                                                        <p class="name">Tracey Ross</p>
-                                                        <p class="when">(1998)</p>
-                                                    </div>
-                                                </div>
-                                                 <div class="one-block" style="background-image: url(img/layer-7.jpg)">
-                                                    <div class="desc">
-                                                        <p class="name">Tracey Ross</p>
-                                                        <p class="when">(1998)</p>
-                                                    </div>
-                                                </div>
-                                                 <div class="one-block" style="background-image: url(img/layer-7.jpg)">
-                                                    <div class="desc">
-                                                        <p class="name">Tracey Ross</p>
-                                                        <p class="when">(1998)</p>
-                                                    </div>
-                                                </div>
+                                                <ng-container *ngFor="let item of Albums">
+                                                    <ng-container *ngIf="item.checked">
+                                                        <a [href]="item.object.album_link" target="_blank" class="one-block new-link-to-sound" [ngStyle]="{'background-image': item.object.album_artwork?'url('+item.object.album_artwork+')':'url(../../assets/img/drake.jpg)'}">
+                                                            <div class="desc">
+                                                                <p class="name">{{item.object.album_name}}</p>
+                                                            
+                                                            </div>
+                                                        </a>
+                                                    </ng-container>
+                                                </ng-container>
+                                                
                                             </div>
                                         </div>
                                     </div>
                                     <div class="side flex-header scroller">
                                         <div class="for-scroll-padd">
-                                            <h6>UPCOMING<br>SHOWS (21)</h6>
-                                            <input type="text" class="search-profile-inp-style" placeholder="Search">
+                                            <h6>UPCOMING<br>SHOWS ({{UpcomingShows.length}})</h6>
+                                            <input type="text" class="search-profile-inp-style" placeholder="Search" (input)='searchUpcomingShows($event)'>
                                         </div>
                                         <div class="new-scroll-wr">
                                             <div class="blocks">
-                                                <!--календарь вегда есть(не итерируем)-->
-                                                <div class="calendar-wr">
-                                                    <div class="rel-hidd">
-                                                        <div class="one-block" style="background-image: url(img/layer-7.jpg)"></div>
-                                                        <a   class="calendar">Calendar</a>
-                                                    </div>
-                                                </div>
+                                              
+                                                
                                                 <!--/календарь вегда есть(не итерируем)-->
-                                                <div class="one-block" style="background-image: url(img/layer-7.jpg)">
-                                                    <div class="desc">
-                                                        <p class="name">Tracey Ross</p>
-                                                        <p class="when">7/17/17</p>
-                                                    </div>
-                                                </div>
-                                                <div class="one-block" style="background-image: url(img/layer-7.jpg)">
-                                                    <div class="desc">
-                                                        <p class="name">Tracey Ross</p>
-                                                        <p class="when">7/17/17</p>
-                                                    </div>
-                                                </div>
-                                                 <div class="one-block" style="background-image: url(img/layer-7.jpg)">
-                                                    <div class="desc">
-                                                        <p class="name">Tracey Ross</p>
-                                                        <p class="when">7/17/17</p>
-                                                    </div>
-                                                </div>
-                                                 <div class="one-block" style="background-image: url(img/layer-7.jpg)">
-                                                    <div class="desc">
-                                                        <p class="name">Tracey Ross</p>
-                                                        <p class="when">7/17/17</p>
-                                                    </div>
-                                                </div>
+                                                <!--<ng-container *ngIf="isMyAccount">
+                                                        
+                                                <ng-container *ngIf="item.checked">
+                                                -->
+                                                <ng-container *ngFor="let item of UpcomingShows">
+                                                    <ng-container *ngIf="!item.is_active">
+                                                        <ng-container class="one-block" *ngIf="item.checked">   
+                                                               
+                                                            <app-upcoming-shows-profile [Upshows]="item.object"></app-upcoming-shows-profile>
+                                                              
+                                                            </ng-container>
+                                                        </ng-container>
+                                                    </ng-container>
+                                                <ng-container *ngFor="let item of UpcomingShows">
+                                                    
+                                                    <ng-container *ngIf="item.is_active">
+                                                        <ng-container class="one-block" *ngIf="item.checked">   
+                                                            <a  [routerLink]="['/system','shows_detail',item.object.id]" style="display:block">
+                                                                <app-upcoming-shows-profile [Upshows]="item.object"></app-upcoming-shows-profile>
+                                                            </a>
+                                                        </ng-container>
+                                                    </ng-container>
+                                                </ng-container>
+                                                
+                                            
                                             </div>
                                         </div>
                                     </div>
                                     <div class="side flex-header scroller uniq-padd-style-funs">
                                         <div class="uniq-padd-3">
-                                            <h6>Fans (250)</h6>
-                                            <input type="text" class="search-profile-inp-style" placeholder="Search">
+                                            <h6>Fans ({{Account.followers_count}})</h6>
+                                            <input type="text" class="search-profile-inp-style" placeholder="Search" (input)='searchFolover($event)'>
                                         </div>
                                         <div class="new-scroll-wr">
-                                            <div class="blocks-funs">
-                                                <div class="one-block">
-                                                    <div class="photo" style="background-image: url(img/drake.jpg)"></div>
-                                                    <a   class="name">
-                                                        <span>Name</span>
-                                                        <span>Surname</span>
-                                                    </a>
+                                                <div class="blocks-funs">
+                                                    <ng-container *ngFor="let item of folowersMassChecked">
+                                                        <div class="one-block" *ngIf="item.checked">
+                                                            <app-one-folower-for-profile [Folower]="item.object"></app-one-folower-for-profile>
+                                                            
+                                                        </div>
+
+                                                    </ng-container>
+                                                    
                                                 </div>
-                                                <div class="one-block">
-                                                    <div class="photo" style="background-image: url(img/drake.jpg)"></div>
-                                                    <a   class="name">
-                                                        <span>Name NameNameNameNameNameName</span>
-                                                        <span>Surname</span>
-                                                    </a>
-                                                </div>
-                                                <div class="one-block">
-                                                    <div class="photo" style="background-image: url(img/drake.jpg)"></div>
-                                                    <a   class="name">
-                                                        <span>Name NameNameNameNameNameName</span>
-                                                        <span>Surname</span>
-                                                    </a>
-                                                </div>
-                                                
-                                            </div>
                                         </div>
                                     </div>
                                 </div>

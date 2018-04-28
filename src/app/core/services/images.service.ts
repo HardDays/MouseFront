@@ -47,6 +47,23 @@ export class ImagesService{
         );
     }
 
+    DeleteImageById(imageId:number,accountId:number){
+        let params = {
+            id: imageId,
+            account_id: accountId
+        };
+        
+        return this.http.CommonRequest(
+            ()=> this.http.DeleteDataWithBody('/images/'+imageId,JSON.stringify(params))
+        );
+    }
 
+
+    GetImageSize(Id:number){
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/images/'+Id+'/size.json', '')
+        );
+        //return this.http.GetData('/accounts/my.json', this.typeService.ParamsToUrlSearchParams(params));
+    }
 
 }

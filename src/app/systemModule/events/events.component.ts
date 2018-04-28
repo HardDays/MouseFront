@@ -46,6 +46,10 @@ export class EventsComponent extends BaseComponent implements OnInit {
     mapLng: any;
     mapLat: any;
     mapCoords = {lat:0, lng:0};
+    MapPosition = {
+        lat:0,
+        lng:0
+    };
     Events:EventGetModel[] = [];
 
     MIN_DISTANCE:number = 10;
@@ -76,8 +80,10 @@ export class EventsComponent extends BaseComponent implements OnInit {
         protected router: Router,public _auth: AuthService,
         private mapsAPILoader: MapsAPILoader, 
         private ngZone: NgZone, protected h:Http,
-        private activatedRoute: ActivatedRoute){
+        private activatedRoute: ActivatedRoute)
+    {
         super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
+        
       }
     ngOnInit()
     {   
@@ -350,7 +356,4 @@ export class EventsComponent extends BaseComponent implements OnInit {
             }
         );
       }
-
-    
-
 }
