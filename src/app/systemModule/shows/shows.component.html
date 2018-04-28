@@ -113,9 +113,9 @@
                             <h1>Shows</h1>
                         </div>
                         <div class="flex-shows">
-                            <div class="one-show-wr" *ngFor="let item of Events" (click)="router.navigate(['/system','event',item.id])">
+                            <a style="display:block" class="one-show-wr" *ngFor="let item of Events; let i = index" [routerLink]="['/system','eventCreate',item.id]">
                                 <div class="one-show">
-                                    <div class="img-show" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                                    <div class="img-show" [ngStyle]="{'background-image': 'url(' + Images[i] + ')'}"></div>
                                     <div class="description">
                                         <div class="top-info">
                                             <div class="side side-1">
@@ -137,12 +137,12 @@
                                 </div>
                                 <div class="new-shows-desc">
                                     <a class="name-show">{{item.name}}</a>
-                                    <p [routerLink]="['/system','eventCreate',item.id]" class="name-artist">{{item.artists}}</p>
+                                    <p class="name-artist">{{item.artists}}</p>
                                     <div class="where">{{item.event_time}}</div>
                                     <div *ngIf="item.event_time && item.address" class="where">-</div>
                                     <div class="where">{{item.address}}</div> 
                                 </div>
-                            </div>
+                            </a>
                             
                            
                         </div>

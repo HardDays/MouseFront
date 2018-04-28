@@ -13,7 +13,7 @@ import { EventDateModel } from '../../core/models/eventDate.model';
 import { ContactModel } from '../../core/models/contact.model';
 import { AccountGetModel } from '../../core/models/accountGet.model';
 import { Base64ImageModel } from '../../core/models/base64image.model';
-import { AccountType } from '../../core/base/base.enum';
+import { AccountType, BaseImages } from '../../core/base/base.enum';
 import { GenreModel } from '../../core/models/genres.model';
 import { EventCreateModel } from '../../core/models/eventCreate.model';
 
@@ -144,10 +144,8 @@ export class ShowsComponent extends BaseComponent implements OnInit {
     this.VenueTypes = this.typeService.GetAllSpaceTypes();
     this.TicketTypes = this.typeService.GetAllTicketTypes();
     this.GetEvents();
-
     this.CreateAutocomplete();
     this.setHeightSearch();
-
     this.InitBsConfig();
   }
 
@@ -186,6 +184,7 @@ export class ShowsComponent extends BaseComponent implements OnInit {
         console.log("Got", res);
         this.Events = res;
         this.setHeightSearch();
+        this.GetImages();
       })
       
   }
@@ -203,19 +202,23 @@ export class ShowsComponent extends BaseComponent implements OnInit {
 
   GetImages()
   {
-    this.Images = [];
-    for(let item of this.Events)
-    {
-      this.Images[item.id] = "";
-      if(item.image_id)
+    for(let i in this.Events) {
+      if(this.Events[i] && this.Events[i].image_id)
       {
-        this.imgService.GetImageById(item.image_id)
-          .subscribe((res:Base64ImageModel)=>{
-            this.Images[item.id] = res.base64;
-          })
+          this.WaitBeforeLoading(
+              () => this.imgService.GetImageById(this.Events[i].image_id),
+              (res:Base64ImageModel) => {
+                  this.Images[i] = (res && res.base64) ? res.base64 : BaseImages.Drake;
+              },
+              (err) =>{
+                  this.Images[i] = BaseImages.Drake;
+              }
+          );
+      }
+      else{
+          this.Images[i] = BaseImages.Drake;
       }
     }
-
   }
 
   DistanceChanged(data:any)
