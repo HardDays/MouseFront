@@ -1,0 +1,369 @@
+<div class="create-event-body-1">
+        <div class="main-mw">
+            <div class="create-event-body">
+                <div class="head-ev-body">
+                    <h2>Venue</h2>
+                    <p>Please fill in all required fields in<br>the Venue Screen to Add a Funding</p>
+                </div>
+            
+                <div class="flex-tabs-menu-venue">
+                    <p class="some-text">At first choose residence :)</p>
+                    <ul class="v-tabs-menu">
+                        <!--теже табы-->
+                        <li [ngClass]="{active:!isPrivateVenue}" (click)="isPrivateVenue = false">Public Venue</li>
+                        <li [ngClass]="{active:isPrivateVenue}" (click)="isPrivateVenue = true">Private Residence</li>
+                    </ul>
+                </div>
+            </div>
+            
+        </div>
+        <div class="main-mw-5">
+            <div class="tabs-venue-wrapp">
+                <!--теже табы для ngif-->
+                <!--Public Venue-->
+                
+                <div  [ngStyle]="{'display': !isPrivateVenue?'block':'none'}" class="one-tab">
+                    <div class="one-tab-flex alighn-items">
+                        <div class="side">
+                            <div class="filter-venue">
+                                <div class="content-bodal input-groupe-1">
+                                    <!-- <input class="search" (input)="venueSearch($event.target.value)" type="text" placeholder="Search Venue"> -->
+                                    <span class="head-type-inp">Type of place</span>
+                                    <div class="flex-genres for-pick">
+                                            <!-- <span *ngFor="let space of typesSpace" (click)="space.checked=!space.checked; venueSearch()" [ngClass]="{picked:space.checked}" class="one-genre">{{space.object.name}}</span> -->
+                                       
+                                    </div>
+                                    <span class="head-type-inp">Price</span>
+                                    <div class="for-range-slider">
+                                        <input type="text" class="current-slider-price-venue" value="">
+                                    </div>
+                                    <span class="head-type-inp">Capacity</span>
+                                    <div class="for-range-slider">
+                                        <input type="text" class="current-slider-capacity-venue" value="">
+                                    </div>
+
+                                    <div class="location-wr">
+                                        <!-- <div (click)="venueOpenMapModal()" class="mark"></div> -->
+                                        <input type="text" class="location-inp" placeholder="Location" #searchVenue id="venueAddress">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="side width-66">
+                            <div class="for-padd-cards-art">
+                                <div class="scroll-cards-art">
+
+
+                                    <!-- <ng-container *ngFor="let item of venueList; let i = index">
+                                        <div class="one-card">
+                                            <div class="l-s">
+                                                <div class="ava" [ngStyle]="{'background-image': item.image_base64_not_given?'url('+item.image_base64_not_given+')':''}"></div>
+                                                <div class="desc">
+                                                    <a class="name" [routerLink]="['/system/profile',item.id]">{{item.user_name}}</a>
+                                                    <p class="genres">{{item.type_of_space}}</p>
+                                                    <p class="where">{{item.address}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="r-s">
+                                            <div class="circle-checkbox gray-border">
+                                                    <input type="checkbox" [checked]="ifCheckedVenue(item.id)" class="checkbox" (click)="!ifRequestVenue(item.id)?addVenueCheck(item):''" name="" id="checkbox-venue-{{i}}">
+                                                    <label class="label-wr" for="checkbox-venue-{{i}}"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                     -->
+                                    
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+               
+                
+                <!--Private Residence-->
+                <div [ngStyle]="{'display': isPrivateVenue?'block':'none'}" class="one-tab">
+                    <!-- <form [formGroup]="privateVenueForm">
+                        <div class="one-tab-flex">
+                            <div class="side">
+                                <div class="input-groupe-1 lbl-1">
+                                    <input id="inp-private-v-1" name="" type="text" formControlName="user_name">
+                                    <label for="inp-private-v-1">Venue Name</label>
+
+                                </div>
+                                <div class="input-groupe-1">
+                                    <input id="inp-private-v-2" name="" type="text" formControlName="phone">
+                                    <label for="inp-private-v-2">Phone number</label>
+
+                                </div>
+                                <div class="input-groupe-1">
+                                    <input id="inp-private-v-3" name="" type="text" formControlName="capacity">
+                                    <label for="inp-private-v-3">Capacity</label>
+
+                                </div>
+                                <div class="flex-mac-checkbox">
+                                    <p>VR Ready?</p>
+                                    <div class="yes-no">
+                                        <span>Yes</span>
+                                        <div class="mac-checkbox">
+                                            <input class="checkbox" type="checkbox" id="mac-checkbox-2" formControlName="has_vr">
+                                            <label for="mac-checkbox-2"></label>
+                                        </div>
+                                        <span>No</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="side">
+                                <div class="input-groupe-1 lbl-1">
+                                    <input id="inp-private-v-4" name="" type="text" formControlName="country">
+                                    <label for="inp-private-v-4">Country</label>
+
+                                </div>
+                                <div class="input-groupe-1">
+                                    <input id="inp-private-v-5" name="" type="text" formControlName="city">
+                                    <label for="inp-private-v-5">City</label>
+
+                                </div>
+                                <div class="input-groupe-1">
+                                    <input id="inp-private-v-6" name="" type="text" formControlName="address">
+                                    <label for="inp-private-v-6">Address</label>
+
+                                </div>
+                                <div class="input-groupe-1 small-textarea whithout-label">
+
+                                    <textarea id="inp-desc-1" formControlName="description"></textarea>
+                                    <label for="inp-desc-1" class="head-groupe">Short Description</label>
+
+                                </div>
+                            </div>
+                            <div class="side">
+                                <span class="head-black">Photos</span>
+                                <div class="flex-photos">
+
+
+
+
+                                    <div *ngFor=" let img of imagesListPrivateRes; let i = index" class="photo" [ngStyle]="{'background-image': 'url('+img+')'}"></div>
+                                    
+                                    <div class="photo-wr-1">
+                                        <label class="file_upload">
+                                            <div class="bg-image"></div>
+                                            <input accept=".jpg, .jpeg, .png" type="file" (change)="loadPhoto($event)">
+                                        </label>
+                                    </div>
+                                  
+                                </div>
+                                <span class="head-black">Videos</span>
+                                <ng-container formArrayName="venue_video_links">
+                                <div  *ngFor="let item of privateVenueForm.controls['venue_video_links']['controls']; let i = index" class="input-groupe-1">
+                                    <input id="inp-private-link-{{i}}" type="text" formControlName="{{i}}">
+                                    <label for="inp-private-link-{{i}}">Link</label>
+                                </div>
+                            </ng-container>
+                                <span class="add-to-active-b" style="cursor: pointer;" (click)="addPhone()">ADD LINK</span>
+                            </div>
+                            
+                        </div>
+                        
+                        <div class="add-to-active-b">
+                            <button (click)="addPriateVenue()" class="butt-style-1" type="submit">
+                                <span>Add to Active</span>
+                            </button>
+                        </div>
+                    </form> -->
+                </div>
+            
+                <!--//Private Residence-->
+            </div>
+        </div>
+    </div>
+    
+    <div  [ngStyle]="{'display': !isPrivateVenue?'block':'none'}"   class="tabs-artist-wrapp">
+        <div class="new-padd-wrapper-m-w">
+            <div class="main-mw">
+                <ul class="tabs-menu-active-decline">
+                    <li>
+                        <!--Добавляем active табу или удаляем "p.s. наш любимый ngClass"-->
+                        <span [ngClass]="{active:isAcceptedVenueShow}" (click)="isAcceptedVenueShow = true">Active</span>
+                    </li>
+                    <li>
+                        <span [ngClass]="{active:!isAcceptedVenueShow}" (click)="isAcceptedVenueShow = false">declined</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="bg-wr-tabs">
+            <div class="main-mw">
+                
+                <!-- <div *ngIf="isAcceptedVenueShow"  class="tab-artist">
+                    <div class="flex-wrapp-cards">
+
+                        <ng-container *ngFor="let shows of requestVenues">
+                            <div *ngIf="getStatusVenueEventById(shows.id)!='owner_declined'&&getStatusVenueEventById(shows.id)!='declined'" class="one-card">
+                                
+                                <app-one-card 
+                                    [card] = "shows" 
+                                    [status] = "getStatusVenueEventById(shows.id)" 
+                                    [price] = "getPriceAtMsg(shows.id)" 
+                                    (accepted) = "acceptVenue($event)"
+                                    (requested) = "sendVenueRequestOpenModal($event)"
+                                    (declined) = "declineVenue($event)"
+                                    (checked) = "updateEvent()"
+                                ></app-one-card>
+                            </div>
+                        </ng-container>
+
+                        <div *ngFor="let shows of venueShowsList" class="one-card">
+                                
+                                <app-one-card 
+                                    [card] = "shows" 
+                                    [status] = "getStatusVenueEventById(shows.id)" 
+                                    [price] = "getPriceAtMsg(shows.id)" 
+                                    (accepted) = "acceptVenue($event)"
+                                    (requested) = "sendVenueRequestOpenModal($event)"
+                                    (declined) = "declineVenue($event)"
+                                    (checked) = "updateEvent()"
+                                ></app-one-card>
+                        </div>
+                        
+                        
+                    </div>
+                </div> -->
+              
+                <!-- <div *ngIf="!isAcceptedVenueShow" class="tab-artist">
+                    <div class="flex-wrapp-cards">
+                      
+                    
+                        <ng-container *ngFor="let shows of requestVenues">
+                            <div *ngIf="getStatusVenueEventById(shows.id)=='owner_declined'||getStatusVenueEventById(shows.id)=='declined'" class="one-card">
+                                <div class="card">
+                                    <div class="delete-card"></div>
+                                    <div class="left-side">
+                                   
+                                        <div class="ava checked" [ngStyle]="{'background-image': shows.image_base64_not_given?'url('+shows.image_base64_not_given+')':''}"></div>
+                                        <p class="desc-head-info">{{getStatusVenueEventById(shows.id)}}</p>
+                                        <p class="status">Accepted by Artist and Event owner</p>
+                                    </div>
+                                    <div class="right-side">
+                                        <p class="name">{{shows.id}} {{shows.user_name}}</p>
+                                        <p class="desc-head-info">Genre</p>
+                                        <p class="info">Baroque pop, dream pop, trip hop, indie</p>
+                                        <p class="desc-head-info">Location</p>
+                                        <p class="info">Los Angeles, California USA</p>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+
+
+
+
+
+
+
+
+
+                    
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        
+    </div>
+
+
+    <div class="scroll-wrapp">
+        <!-- <div class="circle-scroll" (click)="getActiveArtVen(); currentPage = 'funding'"></div> -->
+</div>
+
+
+  <!--модалка для кликов на send request-->
+<div class="modal fade modal-send-request" id="modal-send-request-venue">
+    <!-- <div class="modal-dialog">
+            <form [formGroup]="requestVenueForm">
+        <div class="modal-body">
+            
+            <h6 class="head-m-p-a">Event Request</h6>
+            
+            <div class="name-and-ava">
+                <div class="ava" [ngStyle]="{'background-image': eventForRequest.image_base64_not_given?'url('+eventForRequest.image_base64_not_given+')':''}"></div>
+                <div class="n-h">
+                    <p class="name">{{eventForRequest.user_name}}</p>
+                    <p class="hash"><span>@</span>pixope</p>
+                </div>
+            </div>
+            <div class="content-modal">
+                <p class="e-n">{{Event.name}}</p>
+                <div class="flex-input-groupes">
+                    <div class="input-groupe-1">
+                        <select id="inp-modal-req-1">
+                            <option>Fall 2018</option>
+                            <option>Fall 2018</option>
+                            <option>Fall 2018</option>
+                            <option>Fall 2018</option>
+                        </select>
+                        <label for="inp-modal-req-1">Date Range</label>
+                    </div>
+                    <div class="input-groupe-1">
+                        <select id="inp-modal-req-2">
+                                <option>2 hrs</option>
+                                <option>2 hrs</option>
+                                <option>2 hrs</option>
+                        </select>
+                        <label for="inp-modal-req-2">Performance Time</label>
+                       
+                    </div>
+                </div>
+                <div class="flex-input-groupes">
+                    <div class="input-groupe-1 more-padd">
+                        <select formControlName="time_frame"  id="inp-modal-req-3">
+                                <option>two_hours</option>
+                                <option>two_days</option>
+                                <option>one_week</option>
+                            
+                        </select>
+                        <label for="inp-modal-req-3">Time Frame we expect an answer</label>
+                    </div>
+                    <div class="input-groupe-1 more-padd">
+                        <div class="rel-wr">
+                            <span class="abs-backs">$</span>
+                            <input  formControlName="estimated_price" id="inp-modal-req-4" class="dollar" name="" type="text">
+                        </div>
+                        <label for="inp-modal-req-4">Estimated Price to<br> Perform</label>
+                       
+                    </div>
+                </div>
+                <div class="flex-mac-checkbox">
+                    <p>Crowdfunding  Event?</p>
+                    <div class="yes-no">
+                        <span>Yes</span>
+                        <div class="mac-checkbox">
+                            <input class="checkbox" type="checkbox" id="crowdfunding-1-check">
+                            <label for="crowdfunding-1-check"></label>
+                        </div>
+                        <span>No</span>
+                    </div>
+                </div>
+                <div class="location-wr">
+                    <div class="mark"></div>
+                    <input type="text" class="location-inp" placeholder="location">
+                </div>
+                
+                <div class="input-groupe-1 small-textarea whithout-label">
+
+                    <textarea formControlName="message" id="inp-desc-2-modal"></textarea>
+                    <label for="inp-desc-2-modal" class="head-groupe">Message</label>
+
+                </div>
+                 <div class="send-request-b">
+                    <button class="butt-style-1" type="submit" (click)="addVenueById(eventForRequest.id)">
+                        <span>Send Request</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div> -->
+</div>

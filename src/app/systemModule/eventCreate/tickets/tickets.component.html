@@ -1,0 +1,128 @@
+<!-- 
+    <div class="main-mw">
+        <div class="create-event-body">
+            <div class="head-ev-body">
+                <h2>Tickets</h2>
+                <p>Сongratulations!<br>This is the last step.</p>
+            </div>
+        </div>
+        <div  class="tickets-flex-body">
+            <div class="left-ticket">
+                <div class="tickets-left-info">
+                    <p class="info-text">In Person Tickets Available</p>
+                    <span class="price">20/100</span>
+                </div>
+                <div class="tickets-left-info">
+                    <p class="info-text">VR Tickets Available</p>
+                    <span class="price">200/200</span>
+                </div>
+               
+                <div class="pick-tickets-wr">
+                    <div  class="one-tickets-iteration">
+                        <div  *ngFor="let t of tickets; let i = index" [ngClass]="{active:!isCurTicketNew&&currentTicket.id==t.id}" (click)="currentTicket = t; isCurTicketNew = false;" class="one-ticket">Ticket {{i+1}}</div>
+                        <div  *ngFor="let t of ticketsNew; let i = index" [ngClass]="{active:isCurTicketNew&&currentTicket.id==t.id}" (click)="currentTicket = t; isCurTicketNew = true;" class="one-ticket">New Ticket {{i+1}}</div>
+                       
+                </div>
+                    <div class="add-ticket">
+                        <span class="butt-style-1" type="submit">
+                            <span (click)="addTicket()">Add Tickets</span>
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="right-ticket">
+                <div class="doted"></div>
+                <div class="shadow-wr">
+                    
+                    
+                    <div *ngIf="tickets.length<=0&&ticketsNew.length<=0" class="havent-tickets">
+                        <img src="../../assets/img/smile.svg" class="img-responsive" alt="">
+                        <p class="p-1">You have no tickets yet</p>
+                        <div class="add-ticket">
+                            <span class="butt-style-1">
+                                <span (click)="addTicket()">Add Tickets</span>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    
+                    <div *ngIf="tickets.length>0||ticketsNew.length>0" class="ticket-options active">
+                        <div class="l-s"> 
+                            <h5 class="head-ticket-settings"><input class="nameTicket"  name="" type="text" [(ngModel)]="currentTicket.name"></h5>
+                            
+                            <div class="flex-mac-checkbox">
+                                <p>Ticket Type</p>
+                                <div class="yes-no">
+                                    <span>In person</span>
+                                    <div class="mac-checkbox">
+                                        <input class="checkbox" [checked]="currentTicket.type=='in_person'" (change)="currentTicket.type=='in_person'?currentTicket.type=currentTicket.type=='vr':currentTicket.type='in_person'" type="checkbox" id="checkbox-set-tick-1" >
+                                        <label for="checkbox-set-tick-1"></label>
+                                    </div>
+                                    <span>VR</span>
+                                </div>
+                            </div>
+                            <div class="flex-mac-checkbox">
+                                <p>For Personal <br>Use/Distribution</p>
+                                <div class="yes-no">
+                                    <span>Yes</span>
+                                    <div class="mac-checkbox">
+                                        <input class="checkbox" [checked]="currentTicket.is_for_personal_use" (change)="currentTicket.is_for_personal_use=!currentTicket.is_for_personal_use" type="checkbox" id="checkbox-set-tick-2">
+                                        <label for="checkbox-set-tick-2"></label>
+                                    </div>
+                                    <span>No</span>
+                                </div>
+                            </div>
+                            <div class="flex-mac-checkbox">
+                                <p>Promotional<br>Ticket?</p>
+                                <div class="yes-no">
+                                    <span>Yes</span>
+                                    <div class="mac-checkbox">
+                                        <input class="checkbox" [checked]="currentTicket.is_promotional" (change)="currentTicket.is_promotional=!currentTicket.is_promotional" type="checkbox" id="checkbox-set-tick-3">
+                                        <label for="checkbox-set-tick-3"></label>
+                                    </div>
+                                    <span>No</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="r-s">
+                            <div class="input-groupe-1 small-textarea whithout-label">
+                                <textarea id="area-desc-tick-1" [(ngModel)]="currentTicket.description"></textarea>
+                                <label for="area-desc-tick-1" class="head-groupe">Short Description</label>
+                            </div>
+                            
+                           
+
+                            <div class="flex-input-groupes">
+                                <div class="input-groupe-1">
+                                    <div class="rel-wr">
+                                        <span class="abs-backs">$</span>
+                                        <input id="inp-price-id-1" class="dollar" name="" type="text" [(ngModel)]="currentTicket.price">
+                                    </div>
+                                    <label for="inp-price-id-1">Price</label>
+                                </div>
+                                <div class="input-groupe-1 none-padd-my">
+                                    <span class="desc-num">Number Available</span>
+                                    <input  class="num" name="" type="text" [(ngModel)]="currentTicket.count">
+                                   
+                                </div>
+                                
+                            </div> 
+
+                           
+                        </div>
+                        <div class="add-to-active-b">
+                            <button class="butt-style-1" type="submit">
+                                <span (click)="updateTicket()">{{isCurTicketNew?'add':'update'}}</span>
+                            </button>
+                        </div>
+                       
+                    </div>
+                 
+                
+                </div>
+                
+            
+            </div>
+        </div>
+    </div> -->

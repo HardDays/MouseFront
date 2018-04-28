@@ -41,7 +41,7 @@ import { AgmCoreModule } from '@agm/core';
 import { CheckModel } from '../../core/models/check.model';
 import { TicketModel } from '../../core/models/ticket.model';
 import { TicketGetParamsModel } from '../../core/models/ticketGetParams.model';
-import { GetArtists, GetVenue } from '../../core/models/eventPatch.model';
+import { GetArtists, GetVenue, EventPatchModel } from '../../core/models/eventPatch.model';
 import { MessageInfoModel, InboxMessageModel } from '../../core/models/inboxMessage.model';
 import { NumberSymbol } from '@angular/common';
 import { identifierModuleUrl } from '@angular/compiler';
@@ -58,8 +58,6 @@ declare var ionRangeSlider:any;
 })
 
 
-
-
 export class EventCreateComponent extends BaseComponent implements OnInit {
     
     
@@ -69,6 +67,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     isNewEvent:boolean = true;
     Event:EventGetModel = new EventGetModel();
 
+    
     pages = Pages;
     currentPage:string = 'about';
     showAllPages:boolean = false;
@@ -79,28 +78,12 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         'venue': {lat:55.755826, lng:37.6172999}
     }
 
-    genres:GenreModel[] = [];
     typesSpace:CheckModel<SelectModel>[] = [];
     
     
     // about
     /////////////////////////////////////////////////
     newEvent:EventCreateModel = new EventCreateModel();
-    aboutForm : FormGroup = new FormGroup({        
-        "name": new FormControl("", [Validators.required]),
-        "tagline": new FormControl("", [Validators.required]),
-        "is_crowdfunding_event": new FormControl(),
-        "event_time": new FormControl("", [Validators.required]),
-        "event_length": new FormControl("", [Validators.required]),
-        "event_year": new FormControl("", [Validators.required]),
-        "event_season": new FormControl("", [Validators.required]),
-        "artists_number":new FormControl(),
-        "description": new FormControl("", [Validators.required]),
-        "funding_goal":new FormControl("", [Validators.pattern("[0-9]+")])
-    });
-
-    showMoreGenres:boolean = false;
-
    
     messagesList:InboxMessageModel[] = [];
 
@@ -184,7 +167,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
     /////////////////////////////////////////////////
 
-    @ViewChild('searchAbout') public searchElementAbout: ElementRef;
+    
     @ViewChild('searchArtist') public searchElementArtist: ElementRef;
     @ViewChild('searchVenue') public searchElementVenue: ElementRef;
 
@@ -220,11 +203,9 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
     ngOnInit()
     {    
-        this.CreateAutocompleteAbout();
-        this.CreateAutocompleteArtist();
-        this.CreateAutocompleteVenue();
+       
         this.initSlider();
-        this.getGenres();
+       
         this.getAllSpaceTypes();
        
 
@@ -312,84 +293,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                 
        
     } 
-    CreateAutocompleteAbout(){
-        this.mapsAPILoader.load().then(
-            () => {
-               
-             let autocomplete = new google.maps.places.Autocomplete(this.searchElementAbout.nativeElement, {types:[`(cities)`]});
-            
-            
-                autocomplete.addListener("place_changed", () => {
-                    this.ngZone.run(() => {
-                        let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
-                        if(place.geometry === undefined || place.geometry === null )
-                        {             
-                            return;
-                        }
-                        else 
-                        {
-                            this.newEvent.address = autocomplete.getPlace().formatted_address;
 
-                            this.mapCoords.about.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
-                            this.mapCoords.about.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
-                        }
-                    });
-                });
-            }
-        );
-    }
-    CreateAutocompleteArtist(){
-        this.mapsAPILoader.load().then(
-            () => {
-              
-             let autocomplete = new google.maps.places.Autocomplete(this.searchElementArtist.nativeElement, {types:[`(cities)`]});
-            
-            
-                autocomplete.addListener("place_changed", () => {
-                    this.ngZone.run(() => {
-                        let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
-                        if(place.geometry === undefined || place.geometry === null )
-                        {             
-                            return;
-                        }
-                        else 
-                        {
-                            this.artistSearchParams.address = autocomplete.getPlace().formatted_address;
-                            this.artistSearch();
-                            this.mapCoords.artist.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
-                            this.mapCoords.artist.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
-                        }
-                    });
-                });
-            }
-        );
-    }
-    CreateAutocompleteVenue(){
-        this.mapsAPILoader.load().then(
-            () => {
-               
-             let autocomplete = new google.maps.places.Autocomplete(this.searchElementVenue.nativeElement, {types:[`(cities)`]});
-            
-            
-                autocomplete.addListener("place_changed", () => {
-                    this.ngZone.run(() => {
-                        let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
-                        if(place.geometry === undefined || place.geometry === null )
-                        {             
-                            return;
-                        }
-                        else 
-                        {
-                            this.venueSearchParams.address = autocomplete.getPlace().formatted_address;
-                            this.venueSearch();
-                            this.mapCoords.venue.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
-                            this.mapCoords.venue.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
-                        }
-                    });
-                });
-            }
-        );
-    }
+
     aboutDragMarker($event){
         //console.log($event);
         this.mapCoords.about.lat = $event.coords.lat;
@@ -467,9 +372,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         //console.log(this.eventForRequest);
     }
 
-    aboutOpenMapModal(){
-        $('#modal-map-1').modal('show');
-    }
+
     artistOpenMapModal(){
         $('#modal-map-2').modal('show');
         this.artistSearch();
@@ -497,16 +400,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
 
     // general
-    getGenres(){
-        this.genreService.GetAllGenres()
-        .subscribe((res:string[])=>{
-          this.genres = this.genreService.StringArrayToGanreModelArray(res);
-          for(let i of this.genres) i.show = true;
-          this.genresSearchArtist = this.genreService.StringArrayToGanreModelArray(res);
-          for(let i of this.genresSearchArtist) i.show = true;
-        });
-       
-    }
+    
     getAllSpaceTypes(){
         let types:SelectModel[] = this.typeService.GetAllSpaceTypes();
         this.typesSpace = this.convertArrToCheckModel<SelectModel>(types);
@@ -568,7 +462,9 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
 
 
-    
+    aboutComplete(event:EventPatchModel){
+        console.log(`about complete`, event);
+    }
    
 
     //////////////////////////////////////////////////////////
@@ -676,7 +572,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                 // this.mapCoords.about.lat = this.newEvent.city_lat;
                 // this.mapCoords.about.lng = this.newEvent.city_lng;
                 
-                this.genreFromModelToVar();
+                // this.genreFromModelToVar();
                     
 
                  this.getShowsArtists();
@@ -686,96 +582,12 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         });
     }
 
-    genreFromModelToVar(){
-        for(let g of  this.newEvent.genres)
-            for(let gnr of this.genres)
-                if(g == gnr.genre)
-                    gnr.checked = true;
-    }
+   
 
     //////////////////////////////////////////////////////////
 
     
 
-    GengeSearch($event:string){
-        var search = $event;
-         if(search.length>0) {
-           for(let g of this.genres)
-              if(g.genre_show.indexOf(search.toUpperCase())>=0)
-               g.show = true;
-              else
-               g.show = false;
-         }
-         else {
-            for(let i of this.genres) i.show = true;
-         }
-    }
-
-    uploadImage($event){
-        this.ReadImages(
-            $event.target.files,
-            (res:string)=>{
-               this.newEvent.image_base64 = res;
-                
-            }
-        );
-    }
-
-    createEventFromAbout(){
-        if(!this.aboutForm.invalid){
-
-            for (let key in this.aboutForm.value) {
-                if (this.aboutForm.value.hasOwnProperty(key)) {
-                    this.newEvent[key] = this.aboutForm.value[key];
-                }
-            }
-
-            this.newEvent.event_time = this.newEvent.event_time.toLowerCase();
-            if(this.newEvent.is_crowdfunding_event==null)
-                this.newEvent.is_crowdfunding_event = false;
-
-            
-            this.newEvent.genres = this.genreService.GenreModelArrToStringArr(this.genres);
-
-
-            this.newEvent.city_lat = this.mapCoords.about.lat;
-            this.newEvent.city_lng = this.mapCoords.about.lng;
-
-            this.newEvent.account_id = this.accountId;
-            //console.log(`newEvent`,this.newEvent);
-
-            if(this.isNewEvent){
-                console.log(`new event`)
-                this.eventService.CreateEvent(this.newEvent)
-                .subscribe((res)=>{
-                    
-                    this.Event = res;
-                    
-                    this.currentPage = 'artist';
-                },
-                (err)=>{
-                    //console.log(`err`,err);
-                }
-                );
-            }
-            else{
-                console.log(`update event`)
-                 this.eventService.UpdateEvent(this.newEvent, this.Event.id)
-                    .subscribe((res)=>{
-                            this.Event = res;
-                            //console.log(`create`,this.Event);
-                            this.currentPage = 'artist';
-                        },
-                        (err)=>{
-                            //console.log(`err`,err);
-                        }
-                );
-            }
-        }
-        else {
-            //console.log(`Invalid About Form!`, this.aboutForm);
-        }
-    }
     
     addNewArtist(){
         this.addArtist.event_id = this.Event.id;

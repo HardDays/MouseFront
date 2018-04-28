@@ -1,0 +1,192 @@
+<div class="create-event-body-1">
+    <div class="main-mw">
+        <form [formGroup]="aboutForm">
+        <div class="create-event-body">
+           <div class="head-ev-body">
+                <h2>About</h2>
+                <p>Please fill in all required fields <br>to proceed to the Next Step</p>
+            </div>
+            <div class="groupe-form" class="flex-body-1">
+                <div class="side">
+                    <div class="input-groupe-1 lbl-1">
+                        
+                        <input id="inp-create-1" name="" type="text" formControlName="name" [(ngModel)]="Event.name" >
+                        <label for="inp-create-1">Event name<span>*</span></label>
+                    </div>
+                    <div class="input-groupe-1">
+                        <input id="inp-create-2" name="" type="text" >
+                        <label for="inp-create-2">Hashtag<span>*</span></label>
+                        
+                    </div>
+                    <div class="input-groupe-1">
+                        <input id="inp-create-3" name="" type="text" formControlName="tagline" [(ngModel)]="Event.tagline">
+                        <label for="inp-create-3">Tagline<span>*</span></label>
+                       
+                    </div>
+                    <div class="flex-mac-checkbox">
+                        <p>Crowdfunding  Event?</p>
+                        <div class="yes-no">
+                            <span>Yes</span>
+                            <div class="mac-checkbox">
+                                <input class="checkbox" type="checkbox" id="mac-checkbox-1" formControlName="is_crowdfunding_event" [(ngModel)]="Event.is_crowdfunding_event">
+                                <label for="mac-checkbox-1"></label>
+                            </div>
+                            <span>No</span>
+                        </div>
+                    </div>
+                    <div class="flex-input-groupes">
+                        <div class="input-groupe-1">
+                            <!--тут пока селекты. но если вы найдете норм плагин таких селектов которые можно будет стилизовать и которые работают с ангуларом - буду очень признателен-->
+                            <select formControlName="artists_number" id="inp-create-4" [(ngModel)]="Event.artists_number">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                                
+                            </select>
+                            <label for="inp-create-4">Number of Artists<span>*</span></label>
+
+                        </div>
+                        <div class="input-groupe-1">
+                            
+                            <div class="rel-wr">
+                                <span class="abs-backs">$</span>
+
+                                <input formControlName="funding_goal" [(ngModel)]="Event.funding_goal" [textMask]="MaskNumbers()" id="inp-create-5" class="dollar" name="" type="text">
+                            </div>
+                            <label for="inp-create-5">Funding Goal</label>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="side">
+                    <div class="input-groupe-1 whithout-label">
+                        <span class="head-groupe">Genre</span>
+                        <div class="flex-genres">
+                                <ng-container *ngFor="let item of genres; let i = index">
+                                    <span *ngIf="item.checked"  class="one-genre">{{item.genre_show}}</span>
+                                </ng-container>
+                            <div class="add-to-genres">
+                                
+                                <span class="plus" (click)="showMoreGenres = !showMoreGenres"></span>
+                                <!--клик на плюсик добавляем absgenres-pick-wr класс showed-->
+                                <div class="absgenres-pick-wr" [ngClass]="{showed:showMoreGenres}">
+                                    <input class="search" (input)="GengeSearch($event.target.value)" type="text" placeholder="Search">
+                                    <div class="flex-genres for-pick">
+                                        <!--Добавляем класс picked-->
+                                        <ng-container *ngFor="let item of genres; let i = index">
+                                            <span *ngIf="item.show" (click)="item.checked = !item.checked" class="one-genre" [ngClass]="{picked:item.checked}">{{item.genre_show}}</span>
+                                        </ng-container>
+        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-input-groupes">
+                        <div class="input-groupe-1">
+                            <select formControlName="event_season" [(ngModel)]="Event.event_season" id="inp-create-5" >
+                                <option>spring</option>
+                                <option>summer</option>
+                                <option>autumn</option>
+                                <option>winter</option>
+                            </select>
+                            <label for="inp-create-5">Event Date<span>*</span></label>
+
+                        </div>
+                        <div class="input-groupe-1">
+                            <select formControlName="event_year" [(ngModel)]="Event.event_year"  id="inp-create-6" >
+                                <option>2018</option>
+                                <option>2019</option>
+                                <option>2020</option>
+                                <option>2021</option>
+                                <option>2022</option>
+                                
+                            </select>
+                            
+
+                        </div>
+                    </div>
+                    <div class="flex-input-groupes">
+                        <div class="input-groupe-1">
+                            <select id="inp-create-7" [(ngModel)]="Event.event_time" formControlName="event_time">
+                                <option>morning</option>
+                                <option>afternoon</option>
+                                <option>evening</option>
+                                
+                                
+                            </select>
+                            <label for="inp-create-7">Event Time Range<span>*</span></label>
+
+                        </div>
+                        <div class="input-groupe-1">
+                            <select formControlName="event_length" [(ngModel)]="Event.event_length" id="inp-create-8" >
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                
+                            </select>
+                            <label for="inp-create-8">Event Length<span>*</span></label>
+
+                        </div>
+                    </div>
+                    <div class="location-wr">
+                        <div (click)="aboutOpenMapModal()" class="mark"></div>
+                        <input type="text" class="location-inp" [ngModelOptions]="{standalone: true}" [ngModel]="Event.address"  placeholder="" #searchAbout id="aboutAddress"> 
+                    </div>
+                </div>
+                <div class="side">
+
+
+                    <div class="input-groupe-1 whithout-label">
+                            
+                            <div class="photo-wr-1 n-i-s">
+                                
+                                <label *ngIf="!Event.image_base64" class="file_upload new-style-img-up">
+                                    <div class="bg-image"></div>
+
+                                    <input accept=".jpg, .jpeg, .png" (change)="uploadImage($event)" type="file">
+                                </label>
+
+                                <!--появляется этот блок если загружена фотка и в стайл бекграунд имейдж ебануть-->
+                                <div *ngIf="Event.image_base64" (click)="Event.image_base64=''" [ngStyle]="{'background-image': Event.image_base64?'url('+Event.image_base64+')':''}" class="bg-image uploaded"></div>
+                                <!---->
+                            </div>
+                            <label  class="head-groupe">Add Image<span>*</span></label>
+                    </div>
+
+                        <div class="input-groupe-1 whithout-label">
+                            
+                            <textarea formControlName="description" [(ngModel)]="Event.description"  id="inp-create-9"></textarea>
+                            <label for="inp-create-9" class="head-groupe">Short Description<span>*</span></label>
+                            
+                        </div>
+                    
+                </div>
+            </div>
+            <div class="scroll-wrapp">
+                <div class="circle-scroll" (click)="submitEvent()"></div>
+            </div>
+            
+        </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade modal-send-request map-1-modal" id="modal-map-1">
+    <div class="modal-dialog">
+        <div class="modal-body">
+            <h6 class="head-m-p-a">Location</h6>
+            <span class="closee-modal" data-dismiss="modal"></span>
+            <div class="for-map-init-modal-1">
+                    <agm-map  style="height:90%"  [latitude]="mapCoords.lat" [longitude]="mapCoords.lng">
+                            <agm-marker  [markerDraggable] = "true" [(latitude)]="mapCoords.lat" [(longitude)]="mapCoords.lng"></agm-marker>
+                    </agm-map>
+            </div>
+        </div>
+    </div>
+</div>

@@ -63,6 +63,7 @@ export class AccountGetModel{
         public artist_albums?: Album[],
         public videos?: Video[],
         public image_base64_not_given?: string,
+        public status_not_given?: string,
 
 
         public performance_min_time?:number,

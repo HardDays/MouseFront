@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AccountGetModel } from '../../../core/models/accountGet.model';
 
+declare var $:any;
+declare var ionRangeSlider:any;
+
 @Component({
   selector: 'app-one-card',
   templateUrl: './one-card.component.html',

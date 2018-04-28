@@ -1,0 +1,163 @@
+<!-- 
+    <div class="main-mw">
+        <div class="create-event-body">
+            <div class="head-ev-body">
+                <h2>Funding</h2>
+                <p>Please fill in all required fields in<br>the About Screen to Add Tickets</p>
+            </div>
+        </div>
+    </div>
+    <div class="main-mw-5">
+        <div class="flex-funding-columns">
+            <div class="side">
+                <div class="top-gum">
+                    <h6>Choose Active Artists</h6>
+                    
+                  
+                    
+                    <p *ngIf="activeArtist.length==0" class="empty-side">You have no Active Artists.<br>Choose Active Artists.</p>
+                   
+                  
+                    <div *ngIf="activeArtist.length>0" class="artists-venue-wrapp">
+                        <div *ngFor="let artist of activeArtist; let i = index" class="one-block">
+                            <div class="ava-l">
+                                <div class="ava" [ngStyle]="{'background-image': artist.object.image_base64_not_given?'url('+artist.object.image_base64_not_given+')':''}"></div>
+                                <a [routerLink]="['/system/profile',artist.object.artist_id]" class="name">{{artist['object']['user_name_not_given']}}</a>
+                            </div>
+                            <div class="price-r">
+                                <span class="price">${{artist['object']['agreement']['price']}}</span>
+                                <div class="one-checkbox">
+                                    <div class="check-style">
+                                        <input [checked]="activeArtist[i].checked" (click)="setActiveArtist(i)" type="checkbox" class="checkbox" name="" id="new-checkbox-artist-{{i}}">
+                                        <label for="new-checkbox-artist-{{i}}"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="bottom-expression">
+                    <p class="t">Price (Plus Additional Costs)</p>
+                    <p class="exp-price">${{artistSum}}</p>
+                </div>
+            </div>
+            <div class="side">
+                <div class="top-gum">
+                    <h6>Choose Active Venue</h6>
+                  
+                    
+                    <p  *ngIf="activeVenue.length==0" class="empty-side">You Have no Active Venues.<br>Choose Active Venue. </p>
+                    
+                    
+                    <div *ngIf="activeVenue.length>0" class="artists-venue-wrapp">
+                        <div *ngFor="let venue of activeVenue; let i = index" class="one-block">
+                            <div class="ava-l">
+                                <div class="ava" [ngStyle]="{'background-image': venue.object.image_base64_not_given?'url('+venue.object.image_base64_not_given+')':''}"></div>
+                                <a [routerLink]="['/system/profile',venue.object.venue_id]" class="name">{{venue['object']['user_name_not_given']}}</a>
+                            </div>
+                            <div class="price-r">
+                                <span class="price">${{venue['object']['agreement']['price']}}</span>
+                                <div class="one-checkbox">
+                                    <div class="check-style">
+                                        <input [checked]="activeVenue[i].checked" (click)="setActiveVenue(i)" type="checkbox" class="checkbox" name="" id="new-checkbox-venue-{{i}}">
+                                        <label for="new-checkbox-venue-{{i}}"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="bottom-expression">
+                    <p class="t">Price (Plus Additional Costs)</p>
+                    <p class="exp-price">${{venueSum}}</p>
+                </div>
+            </div>
+            <div class="side">
+                <div class="top-gum">
+                    <h6>Event Funding Status</h6>
+                    <p class="some-text">When this Event is Successfully Completed, your Status will change to Approved.</p>
+                    <p class="some-text">Go to Settings/Financial Info to transfer your money.</p>
+                    <p class="status">Status: <span>Pending</span></p>
+                    
+                </div>
+                <div class="bottom-expression">
+                    <p class="t total">Total</p>
+                    <p class="exp-price">${{Event.founded}}</p>
+                </div>
+            
+            
+            </div>
+        </div>
+       
+        <h4 class="padd-head-event">Amounts</h4>
+        <div class="flex-funding-columns no-marg">
+            <div class="side no-border">
+                <div class="top-gum">
+                    <h6 class="lower-case-t">Breakeven Amount</h6>
+                    <div class="second-funding-info">
+                        <p class="info-text">Artists Price</p>
+                        <span class="price">${{artistSum}}</span>
+                    </div>
+                    <div class="second-funding-info">
+                        <p class="info-text">Venue Price</p>
+                        <span class="price">${{venueSum}}</span>
+                    </div>
+                    <div class="additional-costs">
+                        <p class="addit-t">Additional Costs</p>
+                        <p class="price">$ <input class="additionalCosts"  name="" type="number" [(ngModel)]="additionalCosts"></p>
+                    </div>
+                    
+                    
+                    <div class="second-funding-info">
+                        <p class="info-text">Amount to Mouse (10%)</p>
+                        <span class="price">${{0.1*(artistSum+venueSum+additionalCosts)}}</span>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="side no-border">
+                <div class="top-gum">
+                    <h6 class="lower-case-t">Family and Friends Amount</h6>
+                    <div class="input-groupe-1">
+                        <select type="number" [(ngModel)]="familyAndFriendAmount">
+                            <option>0%</option>
+                            <option>5%</option>
+                            <option>10%</option>
+                        </select>
+                        
+                    </div>
+                    <div class="second-funding-info">
+                        <p class="info-text">Amount</p>
+                        <span class="price">${{getFamilyAndFriendAmount()}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="side no-border">
+                <div class="top-gum">
+                    <h6 class="lower-case-t">Min Amount per Ticket</h6>
+                    <div class="second-funding-info">
+                        <p class="info-text">Capacity</p>
+                        <span class="price">{{Event.venue?Event.venue.capacity:'1000 (NaN)'}}</span>
+                    </div>
+                    <div class="second-funding-info">
+                        <p class="info-text">Price Per Ticket</p>
+                        <span class="price">${{Event.venue?0.1*(artistSum+venueSum+additionalCosts)+(artistSum+venueSum+additionalCosts) / Event.venue.capacity:(0.1*(artistSum+venueSum+additionalCosts)+(artistSum+venueSum+additionalCosts))/1000}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <div class="flex-funding-columns no-marg">
+            <div class="side">
+                <div class="bottom-expression">
+                    <p class="t total">Total</p>
+                    <p class="exp-price">${{0.1*(artistSum+venueSum+additionalCosts)+(artistSum+venueSum+additionalCosts) }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-wrapp">
+            <div class="circle-scroll" (click)="currentPage = 'tickets'"></div>
+        </div>
+    </div> -->

@@ -45,6 +45,11 @@ import { OneFolowerForProfileComponent } from './one-folower-for-profile/one-fol
 import { TicketOnProfileComponent } from './ticket-on-profile/ticket-on-profile.component';
 import { UpcomingShowsProfileComponent } from './upcoming-shows-profile/upcoming-shows-profile.component';
 import { ShowDetailVideoComponent } from './showsDetail/video/video.component';
+import { AboutComponent } from './eventCreate/about/about.component';
+import { ArtistComponent } from './eventCreate/artist/artist.component';
+import { VenuesComponent } from './eventCreate/venues/venues.component';
+import { FundingComponent } from './eventCreate/funding/funding.component';
+import { AddTicketsComponent } from './eventCreate/tickets/tickets.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +77,12 @@ import { ShowDetailVideoComponent } from './showsDetail/video/video.component';
     OneFolowerForProfileComponent,
     TicketOnProfileComponent,
     UpcomingShowsProfileComponent,
-    ShowDetailVideoComponent
+    ShowDetailVideoComponent,
+    AboutComponent,
+    ArtistComponent,
+    VenuesComponent,
+    FundingComponent,
+    AddTicketsComponent
   ],
   imports: [
     CommonModule,

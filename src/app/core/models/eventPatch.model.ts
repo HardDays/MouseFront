@@ -1,3 +1,6 @@
+import { AccountGetModel } from "./accountGet.model";
+import { TicketModel } from "./ticket.model";
+
 export class EventPatchModel{
     constructor(
         public id?: number,
@@ -7,12 +10,13 @@ export class EventPatchModel{
         public description?: string,
         public funding_from?: string,
         public funding_to?: string,
-        public funding_goal?: string,
+        public funding_goal?: number,
         public creator_id?: number,
         public created_at?: string,
         public updated_at?: string,
         public is_active?: boolean,
         public views?: number,
+        public artists?: string,
         public clicks?: number,
         public has_vr?: boolean,
         public has_in_person?: boolean,
@@ -25,19 +29,22 @@ export class EventPatchModel{
         public event_length?: string,
         public event_time?: string,
         public is_crowdfunding_event?: boolean,
-        public city_lat?: string,
-        public city_lng?: string,
+        public city_lat?: number,
+        public city_lng?: number,
         public artists_number?: number,
         public address?: string,
-        public image_id?: string,
+        public image_id?: number,
         public video_link?: string,
         public backers?: number,
         public founded?: number,
         public collaborators?: string[],
         public genres?: string[],
         public artist?: GetArtists[],
-        public venue?: GetVenue[],
-        public tickets?: string[]
+        public venues?: GetVenue[],
+        public venue?: AccountGetModel,
+        public tickets?: TicketModel[],
+        public event_season?:string,
+        public image_base64?:string
     )
     {}
 }

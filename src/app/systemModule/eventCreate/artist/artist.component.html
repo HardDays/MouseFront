@@ -1,0 +1,260 @@
+    <div class="create-event-body-1">
+        <div class="main-mw">
+            <div class="create-event-body">
+                <div class="head-ev-body">
+                    <h2 >Artist</h2>
+                    <p>Please fill in all required fields in the Artist Screen<br>to Add a Venue. (You can add only 6 artists)</p>
+                </div>
+                
+            </div>
+        
+        </div>
+        
+    </div>
+    <div  class="tabs-artist-wrapp">
+        <div class="new-padd-wrapper-m-w">
+            <div class="main-mw">
+                <ul class="tabs-menu-active-decline">
+                    <li>
+                        <!--Добавляем active табу или удаляем "p.s. наш любимый ngClass"-->
+                        <span [ngClass]="{active:isAcceptedArtistShow}" (click)="isAcceptedArtistShow = true">Active</span>
+                    </li>
+                    <li>
+                        <span [ngClass]="{active:!isAcceptedArtistShow}" (click)="isAcceptedArtistShow = false">declined</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="bg-wr-tabs">
+            <div class="main-mw">
+                <!-- "p.s. наш любимый *ngIf"-->
+                <div *ngIf="isAcceptedArtistShow" class="tab-artist">
+                    <div class="flex-wrapp-cards">
+                        <ng-container *ngFor="let item of Artists; let i = index">
+                            <div *ngIf="item.status_not_given!='owner_declined'&&item.status_not_given!='declined'" class="one-card">
+                               
+                                    <app-one-card 
+                                        [card] = "item" 
+                                        [status] = "item.status_not_given" 
+                                        [price] = "100" 
+                                        (accepted) = "acceptArtistCard($event)"
+                                        (requested) = "sendArtistRequestOpenModal($event)"
+                                        (declined) = "declineArtist($event)"
+                                        (checked) = "updateEvent()"
+                                    ></app-one-card>
+                                    <!--  [card] = "item" 
+                                        [status] = "item.status_not_given" 
+                                        [price] = "getPriceAtMsg(item.id)" 
+                                        (accepted) = "acceptArtistCard($event)"
+                                        (requested) = "sendArtistRequestOpenModal($event)"
+                                        (declined) = "declineArtist($event)"
+                                        (checked) = "updateEvent()" -->
+                               
+                            </div>
+                        </ng-container>
+
+
+
+                       
+                        
+                        <!--для добавления артиста-->
+                        <div class="one-card">
+                            <div class="add-artist-block artist-modal-open">
+                                <div (click)="addNewArtistOpenModal()" class="plus"></div>
+                                <span class="add">Add New Artist</span>
+                                <span class="or">or</span>
+                                <span class="invite">Artist Invite</span>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+                <!-- "p.s. наш любимый *ngIf"-->
+                <div *ngIf="!isAcceptedArtistShow" class="tab-artist">
+                    <div class="flex-wrapp-cards">
+                        <!--сюда копипастим "one-card" c "tab-artist" который выше-->
+                        <ng-container *ngFor="let item of Artists; let i = index">
+                            <div *ngIf="item.status_not_given=='owner_declined'||item.status_not_given=='declined'" class="one-card">
+                                
+                                    <app-one-card 
+                                        [card] = "item" 
+                                        [status] = "item.status_not_given" 
+                                        [price] = "100" 
+                                        (accepted) = "acceptArtistCard($event)"
+                                        (requested) = "sendArtistRequestOpenModal($event)"
+                                        (declined) = "declineArtist($event)"
+                                        (checked) = "updateEvent()"
+                                    ></app-one-card>
+                            
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="scroll-wrapp">
+        <div class="circle-scroll"></div>
+    </div>
+
+
+    <!--модалка для кликов на плюс и текст-->
+    <div class="modal fade modal-pick-artist"    id="modal-pick-artist">
+        <div class="modal-dialog">
+            <div class="modal-body">
+
+                <h3 class="head-m-p-a">Add Artist</h3>
+                <div class="for-slideing-wr">
+                    <div class="content-bodal input-groupe-1">
+                        <input class="search" (input)="artistSearch($event.target.value)" type="text" placeholder="Search">
+                        <div class="flex-genres for-pick">
+                                <!--Добавляем класс picked-->
+                            <!-- <ng-container *ngFor="let item of genresSearchArtist; let i = index">
+                                <span *ngIf="item.show" (click)="item.checked = !item.checked; artistSearch()" class="one-genre" [ngClass]="{picked:item.checked}">{{item.genre_show}}</span>
+                            </ng-container> -->
+                        </div>
+                    </div>
+                    <div class="flex-range-slider">
+                        <span class="d-l-s">Price</span>
+                        <div class="left-side">
+
+                            <div class="for-range-slider">
+                                <input type="text" class="current-slider" value="">
+                            </div>
+                        </div>
+                        <div class="right-side">
+                            <div class="location-wr">
+                                <div (click)="artistOpenMapModal()" class="mark"></div>
+                                <input type="text" class="location-inp" placeholder="Location" #searchArtist id="artistAddress">
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+                <div class="more-padd">
+                    <div class="for-hide-filter">
+                        <span>Roll up</span>
+                    </div>
+
+                </div>
+                <div class="for-padd-cards-art">
+                    <div class="scroll-cards-art">
+
+                        <div *ngFor="let item of artistsSearch; let i = index" class="one-card">
+                            <div class="l-s">
+                                <div class="ava"  [ngStyle]="{'background-image': item.object.image_base64_not_given?'url('+item.object.image_base64_not_given+')':''}"></div>
+                                <div class="desc">
+                                    <a class="name" [routerLink]="['/system/profile',item.object.id]">{{item.object.display_name}}</a>
+                                    <p class="genres">{{item.object.genres}}</p>
+                                    <p class="where">{{item.object.address}}</p>
+                                </div>
+                            </div>
+                            <div class="r-s">
+                                <div class="circle-checkbox gray-border">
+                                    <input type="checkbox" [checked]="item.checked" class="checkbox" (change)="item.checked = !item.checked"  name="" id="checkbox-{{i}}">
+                                    <label class="label-wr" for="checkbox-{{i}}"></label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="buttons-wrapp-add-inv">
+                    <!--можете баттоном или span. как удобнее-->
+                    <!-- <button class="butt-style-1" type="submit" (click)="addNewArtist()">
+                        <span>Add to Active</span>
+                    </button> -->
+                    <!-- <span class="second-button-inv">Artist Invite</span> -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--//конец модалки для кликов на плюс и текст-->
+
+    <!--модалка для кликов на send request-->
+    <div class="modal fade modal-send-request" *ngIf="showModalRequest" id="modal-send-request-artist">
+         <div class="modal-dialog">
+               <form [formGroup]="requestArtistForm">
+            <div class="modal-body">
+                
+                <h6 class="head-m-p-a">Event Request</h6>
+                
+                <div class="name-and-ava">
+                    <div class="ava" [ngStyle]="{'background-image': artistForRequest.image_base64_not_given?'url('+artistForRequest.image_base64_not_given+')':''}"></div>
+                    <div class="n-h">
+                        <p class="name">{{artistForRequest.display_name}}</p>
+                        <p class="hash"><span>@</span>{{artistForRequest.user_name}}</p>
+                    </div>
+                </div>
+                <div class="content-modal">
+                    <p class="e-n">{{Event.name}}</p>
+                    <div class="flex-input-groupes">
+                        <div class="input-groupe-1">
+                                <div class="rel-wr">
+                                <input disabled [value]="Event.event_season" name="" type="text">
+                            </div>
+                            <label for="inp-modal-req-4">Date Range</label>
+                        </div>
+                        <div class="input-groupe-1">
+                                <div class="rel-wr">
+                                <input disabled [value]="Event.event_length" name="" type="text">
+                            </div>
+                            <label for="inp-modal-req-4">Performance Time</label> 
+                        </div>
+                    </div>
+                    <div class="flex-input-groupes">
+                        <div class="input-groupe-1 more-padd">
+                            <select formControlName="time_frame"  id="inp-modal-req-3">
+                                    <option>two_hours</option>
+                                    <option>two_days</option>
+                                    <option>one_week</option>
+                                
+                            </select>
+                            <label for="inp-modal-req-3">Time Frame we expect an answer</label>
+                        </div>
+                        <div class="input-groupe-1 more-padd">
+                            <div class="rel-wr">
+                                <span class="abs-backs">$</span>
+                                <input [textMask]="MaskNumbers()" formControlName="estimated_price" id="inp-modal-req-4" class="dollar" name="" type="text">
+                            </div>
+                            <label for="inp-modal-req-4">Estimated Price to<br> Perform</label>
+                            
+                        </div>
+                    </div>
+                    <div class="flex-mac-checkbox">
+                        <p>Crowdfunding  Event?</p>
+                        <div class="yes-no">
+                            <span>Yes</span>
+                            <div class="mac-checkbox">
+                                <input class="checkbox" type="checkbox" id="crowdfunding-1-check">
+                                <label for="crowdfunding-1-check"></label>
+                            </div>
+                            <span>No</span>
+                        </div>
+                    </div>
+                    <div class="location-wr">
+                        <div class="mark"></div>
+                        <input type="text" [value]="Event.address" class="location-inp" placeholder="location">
+                    </div>
+                    <div class="flex-input-groupes">
+                        <div class="input-groupe-1 small-textarea whithout-label">
+
+                            <textarea formControlName="message" id="inp-desc-2-modal"></textarea>
+                            <label for="inp-desc-2-modal" class="head-groupe">Message</label>
+
+                        </div>
+                    </div>
+                        <div class="send-request-b">
+                        <button class="butt-style-1" type="submit" (click)="artistSendRequest(artistForRequest.id)">
+                            <span>Send Request</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+    <!--//конец модалки для кликов на send request-->
+    
