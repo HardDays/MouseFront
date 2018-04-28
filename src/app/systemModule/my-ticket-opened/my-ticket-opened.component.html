@@ -27,12 +27,13 @@
                           <div class="scrolled-wrapp">
                               <div class="one-wr-tick" *ngFor="let item of TicketsByEvent.tickets; let i = index">
                                   <div class="one-tick">
-                                      <p class="f">{{item.ticket.name}}</p>
+                                      <p class="f" *ngIf="item.ticket.type == 'in_person'">In person ticket</p>
+                                      <p class="f" *ngIf="item.ticket.type == 'vr'">Vr ticket</p>
                                       <p class="s">(Regular)</p>
                                       <p class="c">${{item.price}}</p>
                                       <p class="t">{{item.ticket.description?item.ticket.description:''}}</p>
-                                      <p class="last" *ngIf="item.ticket.count">({{item.ticket.count}} tickets left)</p>
-                                      <p class="last" *ngIf="!item.ticket.count">(Sold out)</p>
+                                      <p class="last" *ngIf="item.tickets_left">({{item.tickets_left}} tickets left)</p>
+                                      <p class="last" *ngIf="!item.tickets_left">(Sold out)</p>
                                   </div>
                               </div>
                               
