@@ -35,7 +35,6 @@ import { SearchEventComponent } from './search/search.component';
 import { MapEventComponent } from './map/map.component';
 
 declare var $:any;
-declare var ionRangeSlider:any;
 
 @Component({
   selector: 'events',
@@ -61,6 +60,7 @@ export class EventsComponent extends BaseComponent implements OnInit {
     GetEvents(params?:EventSearchParams)
     {
         let search:EventSearchParams = {
+            limit: 21,
             only_my: true,
             account_id : this.GetCurrentAccId()
         };

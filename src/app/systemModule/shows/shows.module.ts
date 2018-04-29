@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
-import { EventsComponent } from './events.component';
-import { MyEventComponent } from './myEvent/myEvent.component';
 
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { AgmCoreModule } from '@agm/core';
-import { SearchEventComponent } from './search/search.component';
-import { MapEventComponent } from './map/map.component';
+import { ShowsComponent } from './shows.component';
+import { ShowItemComponent } from './show/show.component';
+import { SearchShowsComponent } from './search/search.component';
+import { MapShowsComponent } from './map/map.component';
 
 @NgModule({
     imports: [ 
@@ -23,14 +23,11 @@ import { MapEventComponent } from './map/map.component';
         }),
     ],
     declarations: [ 
-        EventsComponent,
-        MyEventComponent,
-        SearchEventComponent,
-        MapEventComponent
+        ShowsComponent,
+        ShowItemComponent,
+        SearchShowsComponent,
+        MapShowsComponent
     ],
-    exports: [ EventsComponent]
+    exports: [ ]
 })
-export class EventsModule {}
-
-
-  
+export class ShowsModule {}

@@ -6,17 +6,16 @@ import { CheckModel } from '../../../core/models/check.model';
 import { SelectModel } from '../../../core/models/select.model';
 import { NgForm } from '@angular/forms';
 import { BsDatepickerConfig } from 'ngx-bootstrap';
-import { MapEventComponent } from '../map/map.component';
 
 declare var $:any;
 declare var ionRangeSlider:any;
 
 @Component({
-    selector: 'search-event-selector',
+    selector: 'search-shows-selector',
     templateUrl: './search.component.html',
-    styleUrls: ['./../events.component.css']
+    styleUrls: ['./../shows.component.css']
 })
-export class SearchEventComponent extends BaseComponent implements OnInit {
+export class SearchShowsComponent extends BaseComponent implements OnInit {
     @Output() onSearch:EventEmitter<EventSearchParams> = new EventEmitter<EventSearchParams>();
     @Output() mapClicked:EventEmitter<EventSearchParams> = new EventEmitter<EventSearchParams>();
     SearchParams: EventSearchParams = new EventSearchParams();
@@ -47,9 +46,9 @@ export class SearchEventComponent extends BaseComponent implements OnInit {
     
     ngOnInit(): void 
     {
-        this.SearchParams.only_my = true;
-        this.SearchParams.account_id = this.GetCurrentAccId();
-        this.SearchParams.limit = 16;
+        this.SearchParams.limit = 15;
+        // this.SearchParams.only_my = true;
+        // this.SearchParams.account_id = this.GetCurrentAccId();
         
         this.GetGenres();
         this.GetTicketTypes();
