@@ -1,14 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { EventGetModel } from '../../core/models/eventGet.model';
-import { BaseComponent } from '../../core/base/base.component';
-import { BaseImages } from '../../core/base/base.enum';
-import { Base64ImageModel } from '../../core/models/base64image.model';
+import { BaseComponent } from '../../../core/base/base.component';
+import { EventGetModel } from '../../../core/models/eventGet.model';
+import { BaseImages } from '../../../core/base/base.enum';
+import { Base64ImageModel } from '../../../core/models/base64image.model';
 
 
 @Component({
     selector: 'my-event-selector',
     templateUrl: './myEvent.component.html',
-    styleUrls: ['./myEvent.component.css']
+    styleUrls: [ './../events.component.css']
 })
 export class MyEventComponent extends BaseComponent implements OnInit {
     @Input() Event: EventGetModel;

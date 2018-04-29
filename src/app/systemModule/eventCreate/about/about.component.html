@@ -10,11 +10,11 @@
                 <div class="side">
                     <div class="input-groupe-1 lbl-1">
                         
-                        <input id="inp-create-1" name="" type="text" formControlName="name" [(ngModel)]="Event.name" >
+                        <input id="inp-create-1" name="" type="text" [(ngModel)]="Event.name" formControlName="name"  >
                         <label for="inp-create-1">Event name<span>*</span></label>
                     </div>
                     <div class="input-groupe-1">
-                        <input id="inp-create-2" name="" type="text" >
+                        <input id="inp-create-2" formControlName="hashtag" [(ngModel)]="Event.hashtag" name="" type="text" >
                         <label for="inp-create-2">Hashtag<span>*</span></label>
                         
                     </div>
@@ -169,7 +169,7 @@
                 </div>
             </div>
             <div class="scroll-wrapp">
-                <div class="circle-scroll" (click)="submitEvent()"></div>
+                <div class="circle-scroll" (click)="SaveEvent()" ></div>
             </div>
             
         </div>

@@ -28,6 +28,7 @@ export class SystemAccessGuard extends BaseComponent implements CanActivate{
             }
             case "profile":{
                 if(!login){
+                    // return this.main.onAuthChange$;
                     return this.LoginNavigate();
                 }
                 else{

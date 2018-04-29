@@ -7,27 +7,27 @@
                     <h1>Create Event</h1>
                     <ul>
                         <!--нужным li даем классы active и started."хз нахрена это надо. узнавайте у писателя"-->
-                        <li class="active">
-                            <a (click)="navigateTo('about')" class="nav-second-outlet">about</a>
+
+                        <li [ngClass]="{'active':currentPage == pages.about,'started':currentPage != pages.about}">
+                            <a (click)="ChangeCurrentPart(pages.about)" class="nav-second-outlet">about</a>
                         </li>
-                        <li class="started">
-                            <a (click)="navigateTo('artist')" class="nav-second-outlet">artist</a>
+                        <li [ngClass]="{'active':currentPage == pages.artist,'started':currentPage != pages.artist}">
+                            <a (click)="ChangeCurrentPart(pages.artist)" class="nav-second-outlet">artist</a>
                         </li>
-                        <li>
-                            <a (click)="navigateTo('venues')" class="nav-second-outlet">venues</a>
+                        <li [ngClass]="{'active':currentPage == pages.venue,'started':currentPage != pages.venue}">
+                            <a (click)="ChangeCurrentPart(pages.venue)" class="nav-second-outlet">venues</a>
                         </li>
-                        <li>
-                            <a (click)="navigateTo('funding')" class="nav-second-outlet">funding</a>
+                        <li [ngClass]="{'active':currentPage == pages.funding,'started':currentPage != pages.funding}">
+                            <a (click)="ChangeCurrentPart(pages.funding)" class="nav-second-outlet">funding</a>
                         </li>
-                        <li>
-                            <a (click)="navigateTo('tickets')" class="nav-second-outlet">tickets</a>
+                        <li [ngClass]="{'active':currentPage == pages.tickets,'started':currentPage != pages.tickets}">
+                            <a (click)="ChangeCurrentPart(pages.tickets)" class="nav-second-outlet">tickets</a>
                         </li>
-                        <li>
-                            <a (click)="navigateTo('preview')" class="nav-second-outlet">preview</a>
-                        </li>
-                        <li>
-                            <a (click)="showAllPages = !showAllPages" class="nav-second-outlet">show_all_pages</a>
-                        </li>
+                        <!-- <li [ngClass]="{'active':currentPage == pages.preview,'started':currentPage != pages.preview}">
+                            <a (click)="ChangeCurrentPart(pages.preview)" class="nav-second-outlet">preview</a>
+                        </li> -->
+                        
+
                         <li>
                             <button class="butt-style-1" style="width: 127px">
                                 <span style="padding: 10px 21px">
@@ -40,37 +40,35 @@
             </div>
         </div>
         
-        <app-about id="about" [ngStyle]="{'display': (pages[currentPage]>=pages.about||showAllPages)?'block':'none'}"
-            [(event)]="Event"
-            (submit)="aboutComplete($event)"
+        <app-about #about [ngStyle]="{'display': (currentPage==pages.about)?'block':'none'}"
+            [Event]="Event"
+            (onSaveEvent)="SaveEvent($event)"
         ></app-about>
         
+        
               
-        <app-artist id="artist" [ngStyle]="{'display': (pages[currentPage]>=pages.artist||showAllPages)?'block':'none'}"
-            [artists]="Event.artist"
-            [(event)]="Event"
-            (submit)="artistComplete()"
-
+         <app-artist #artist [ngStyle]="{'display': (currentPage==pages.artist)?'block':'none'}"
+            [Event]="Event"
+            (onSaveEvent)="SaveEvent($event)"
         ></app-artist>
        
-        <app-venues  id="venues" [ngStyle]="{'display': (pages[currentPage]>=pages.venue||showAllPages)?'block':'none'}"
-            [venues]="Event.venues"
-            [(event)]="Event"
-            (submit)="venueComplete()"
+        <app-venues #venue [ngStyle]="{'display': (currentPage==pages.venue)?'block':'none'}"
+            [Event]="Event"
+            (onSaveEvent)="SaveEvent($event)"
         ></app-venues> 
        
 
         <div class="create-event-body-1">
 
             
-            <app-funding id="funding" [ngStyle]="{'display': (pages[currentPage]>=pages.funding||showAllPages)?'block':'none'}"
-                [(event)]="Event"
-                (submit)="fundingComplete()"
+            <app-funding #funding [ngStyle]="{'display': (currentPage==pages.funding)?'block':'none'}"
+                [Event]="Event"
+                (onSaveEvent)="SaveEvent($event)"
             ></app-funding>
-
-            <app-add-tickets id="tickets" [ngStyle]="{'display': (pages[currentPage]>=pages.tickets||showAllPages)?'block':'none'}"
-                [(event)]="Event"
-                (submit)="fundingComplete()"
+            
+            <app-add-tickets #tickets [ngStyle]="{'display': (currentPage==pages.tickets)?'block':'none'}"
+                [Event]="Event"
+                (onSaveEvent)="SaveEvent($event)"
             ></app-add-tickets> 
            
 
@@ -86,7 +84,7 @@
     <!--//новая первая модалка с картой-->
 
     <!--новая вторая модалка с картой-->
-    <div class="modal fade modal-send-request map-1-modal" id="modal-map-2">
+    <!-- <div class="modal fade modal-send-request map-1-modal" id="modal-map-2">
         <div class="modal-dialog">
             <div class="modal-body">
                 <h6 class="head-m-p-a">Location</h6>
@@ -98,11 +96,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!--//новая вторая модалка с картой-->
 
     <!--новая третья модалка с картой-->
-    <div class="modal fade modal-send-request map-1-modal" id="modal-map-3">
+    <!-- <div class="modal fade modal-send-request map-1-modal" id="modal-map-3">
         <div class="modal-dialog">
             <div class="modal-body">
                 <h6 class="head-m-p-a">Location</h6>
@@ -114,7 +112,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!--//новая третья модалка с картой-->
 
 

@@ -19,6 +19,7 @@ import { SelectModel } from '../../../core/models/select.model';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AccountAddToEventModel } from '../../../core/models/artistAddToEvent.model';
 import { InboxMessageModel } from '../../../core/models/inboxMessage.model';
+import { EventCreateModel } from '../../../core/models/eventCreate.model';
 
 declare var $:any;
 declare var ionRangeSlider:any;
@@ -30,13 +31,14 @@ declare var ionRangeSlider:any;
 })
 export class VenuesComponent extends BaseComponent implements OnInit {
 
-    @Input('venues') venuesList: GetVenue[] = [];
-    @Input('event') Event: EventGetModel;
-    @Output('submit') submit = new EventEmitter<boolean>();
-
-
+   
+    @Input() Event:EventCreateModel;
+    @Output() onSaveEvent:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
+  
+    
     @ViewChild('searchVenue') public searchElementVenue: ElementRef;
 
+    venuesList: GetVenue[] = [];
     isAcceptedVenueShow:boolean = true;
     isPrivateVenue:boolean = false;
     Venues:AccountGetModel[] = [];
@@ -69,15 +71,16 @@ export class VenuesComponent extends BaseComponent implements OnInit {
 
     ngOnInit() {
         this.CreateAutocompleteVenue();
+        this.initSlider()
         this.getAllSpaceTypes();
     }
-    ngOnChanges(changes: SimpleChanges) {
-   
-        if (changes['venuesList']) {        
-            this.GetVenue();
-          
-        }
+    Init(event?:EventCreateModel)
+    {
+      this.venuesList = event.venues;
+      console.log(this.venuesList);
+      this.GetVenueFromList();
     }
+    
     initSlider(){
         
         let _the = this;
@@ -119,7 +122,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
 
     }
 
-    GetVenue(){
+    GetVenueFromList(){
         this.venueShowsList = [];
         if(this.venuesList&&this.venuesList.length>0)
         for(let i of this.venuesList){
@@ -188,8 +191,6 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     getAllSpaceTypes(){
         let types:SelectModel[] = this.main.typeService.GetAllSpaceTypes();
         this.typesSpace = this.convertArrToCheckModel<SelectModel>(types);
-        //console.log(`spaces`,types);
-        //console.log(`spaces`,this.typesSpace);
     }
 
     CreateAutocompleteVenue() {
@@ -444,21 +445,40 @@ declineVenue(card:AccountGetModel){
         this.main.eventService.GetEventById(this.Event.id).
         subscribe((res:EventGetModel)=>{
             console.log(`updateEventThis`);
-            this.Event = res;
+            this.Event = this.main.eventService.EventModelToCreateEventModel(res);
             this.venueShowsList = [];
             this.venueShowsList = this.Event.artist;
-           // console.log(`---`,this.Event,this.artistsList)
-            this.GetVenue();
+            console.log(`---`,this.Event,this.venueShowsList);
+            this.GetVenueFromList();
           
 })
     }
 
     submitVenue(){
-        this.submit.emit(true);
+        this.onSaveEvent.emit(this.Event);
     }
 
     venueOpenMapModal(){
         $('#modal-map-3').modal('show');
     }
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

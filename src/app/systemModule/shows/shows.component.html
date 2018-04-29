@@ -1,98 +1,14 @@
 <section class="main-router-outlet">
     <!---->
+    <div class="nav-holder-3" id="nav-holder" [ngClass]="{padding250:Events.length<=3}">
+        <div class="wrapp-for-filter">
+            <search-shows-selector #search (mapClicked)="OpenMap($event)" (onSearch)="GetEvents($event)"></search-shows-selector>
+        </div>
+    </div>
     <section class="main_content">
         <div class="for-flex-height">
 
-             <div class="nav-holder-3" id="nav-holder">
-                    <div class="wrapp-for-filter">
-                        <form (ngSubmit)="ShowSearchResults()" #SearchForm="ngForm">
-                            <input type="text" class="inp-style-1" placeholder="Search" autocomplete="off" [ngModel]="SearchParams.text" (ngModelChange)="SearchParams.text = $event" name="search-text" id='search-text'>
-                            <div class="groupe-form">
-                                <p class="head-input-groupe">Date</p>
-                                <div class="wrapp-for-triangle">
-                                    <input type="text" name="date-picker-inp" class="date-picker-inp" bsDaterangepicker ngModel [bsConfig]="bsConfig" [(ngModel)]="SearchDateRange">
-                                </div>
-                            </div>
-        
-                            <div class="groupe-form">
-                                <p class="head-input-groupe">Location</p>
-                                <div class="location-wr">
-                                    <div (click)="aboutOpenMapModal()" class="mark">
-                                    </div>
-                                    <input type="text" class="location-inp" name="search-params-address" autocorrect="off" autocapitalize="off" spellcheck="off" placeholder=""  #search id="searchAddress">
-                                </div>
-                            </div>
-        
-                            <div class="groupe-form">
-                                <p class="head-input-groupe">Distance</p>
-                                <div class="for-range-slider">
-                                    <input type="text" class="current-slider distance-slider" value="">
-                                </div>
-                            </div>
-                            <div class="groupe-form">
-                                <p class="head-input-groupe">Process of funding</p>
-                                <div class="flex-genres">
-                                        <div class="flex-mac-checkbox">
-                                            <p>Is active        </p>
-                                            <div class="yes-no">
-                                                <span>Yes</span>
-                                                <div class="mac-checkbox">
-                                                    <input class="checkbox" type="checkbox" [ngModel]="SearchParams.is_active" name='is-active-checkbox'  (ngModelChange)="SearchParams.is_active = $event" id='is-active-checkbox'>
-                                                    <label for="is-active-checkbox"></label>
-                                                </div>
-                                                <span>No</span>
-                                            </div>
-                                        </div>
-                                        <!-- <div class="one-checkbox" >
-                                            <div class="check-style">
-                                                <input type="checkbox" [ngModel]="SearchParams.is_active"  (ngModelChange)="SearchParams.is_active = $event" class="checkbox" name='is-active-checkbox'  id='is-active-checkbox'>
-                                                <label for="is-active-checkbox"></label>
-                                            </div>
-                                            <p>Is active</p>
-                                        </div>  -->
-                                </div>
-                            </div>
-                            <div class="groupe-form">
-                                <p class="head-input-groupe">Venue type</p>
-                                <select name="selectSize" class="form-control" [ngModel]="SearchParams.size" (ngModelChange)="SearchParams.size = $event">
-                                    <option *ngFor="let item of VenueTypes" [value]="item.value">{{item.name}}</option>
-                                </select>
-                            </div>
-                            <div class="groupe-form">
-                                <p class="head-input-groupe">Ticket types</p>
-                                <div class="flex-genres">
-                                    <ng-container *ngFor="let item of TicketTypes; let i = index">
-                                        <div class="one-checkbox" >
-                                            <div class="check-style">
-                                                <input type="checkbox"  [ngModel]="item.checked" (ngModelChange)="item.checked = $event" class="checkbox" name="ticket-{{i}}" id='checkbox-ticket-{{i}}'>
-                                                <label for='checkbox-ticket-{{i}}'></label>
-                                            </div>
-                                            <p>{{item.name}}</p>
-                                        </div> 
-                                    </ng-container>
-                                </div>
-                            </div>
-                            <div class="groupe-form">
-                                <p class="head-input-groupe">Genres</p>
-                                <div class="flex-genres">
-                                    <ng-container *ngFor="let item of Genres; let i = index">
-                                        <div *ngIf="item.show" class="one-checkbox" >
-                                            <div class="check-style">
-                                                <input type="checkbox"  [ngModel]="item.checked" (ngModelChange)="item.checked = $event" class="checkbox" name="genre-{{i}}" id='checkbox-genre-{{i}}'>
-                                                <label for='checkbox-genre-{{i}}'></label>
-                                            </div>
-                                            <p>{{item.genre_show}}</p>
-                                        </div> 
-                                    </ng-container>
-                                </div>
-                                <p class="more" *ngIf="!seeMore" (click)="seeMoreGenres()"><span>See more</span></p>
-                            </div>
-                            <div class="groupe-form">
-                                <button type="submit"  class="butt-style-1"><span>Search</span></button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+             
             <section class="second-router-outlet">
                 
                
@@ -113,53 +29,16 @@
                             <h1>Shows</h1>
                         </div>
                         <div class="flex-shows">
-                            <a style="display:block" class="one-show-wr" *ngFor="let item of Events; let i = index" [routerLink]="['/system','eventCreate',item.id]">
-                                <div class="one-show">
-                                    <div class="img-show" [ngStyle]="{'background-image': 'url(' + Images[i] + ')'}"></div>
-                                    <div class="description">
-                                        <div class="top-info">
-                                            <div class="side side-1">
-                                                <!--весртка красной фиговины-->
-                                                <div *ngIf="item.is_active" class="sale">
-                                                        <p>BUY 1<br>GET 1<br>TICKET</p>
-                                                </div>
-                                                <div *ngIf="!item.is_active" class="funded">
-                                                    <!-- тут ебошим высоту, скок собрали баблища-->
-                                                    <div class="complete" style="height: 68%"></div>
-                                                    <p>12 days<br>to go<br><span>68%<br>funded</span></p>
-                                                </div>
-        
-                                            </div>
-                                            
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                                <div class="new-shows-desc">
-                                    <a class="name-show">{{item.name}}</a>
-                                    <p class="name-artist">{{item.artists}}</p>
-                                    <div class="where">{{item.event_time}}</div>
-                                    <div *ngIf="item.event_time && item.address" class="where">-</div>
-                                    <div class="where">{{item.address}}</div> 
-                                </div>
-                            </a>
-                            
-                           
+                            <ng-container *ngFor="let item of Events">
+                                <a style="display:block" class="one-show-wr" [routerLink]="['/system','shows_detail',item.id]">
+                                    <shows-item-selector [Show]="item"></shows-item-selector>
+                                </a>
+                            </ng-container>
                         </div>
                     </div>
                 </div>
 
-                <div class="modal fade modal-send-request map-1-modal" id="modal-map">
-                    <div class="modal-dialog">
-                        <div class="modal-body">
-                            <h6 class="head-m-p-a">Location</h6>
-                            <span class="closee-modal" data-dismiss="modal"></span>
-                            <div class="for-map-init-modal-1">
-                                    <agm-map style="height:100%" (mapClick)="mapClick($event)" [latitude]="mapLat" [longitude]="mapLng"> <agm-marker [visible]="isMarkerVisible"></agm-marker></agm-map>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <map-shows-selector #mapForm (onMapClicked)="TransferMapToSearch($event)"></map-shows-selector>
 
 
             </section>

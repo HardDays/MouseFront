@@ -9,12 +9,10 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import {SystemComponent} from './system.component';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { TimepickerModule } from 'ngx-bootstrap';
-import {ShowsComponent} from './shows/shows.component';
 
 import { EditComponent } from './edit/edit.component';
 import { ProfileComponent } from './profile/profile.component';
 import { EventCreateComponent } from './eventCreate/eventCreate.component';
-import { EventsComponent } from './events/events.component';
 
 import { SlickModule } from 'ngx-slick';
 import { TextMaskModule } from 'angular2-text-mask';
@@ -33,7 +31,6 @@ import { FeedComponent } from './feed/feed.component';
 import { TicketsComponent } from './tickets/tickets.component';
 import { VenueCreateComponent } from './venueCreate/venueCreate.component';
 import { FanCreateComponent } from './fan-create/fan-create.component';
-import { MyEventComponent } from './myEvent/myEvent.component';
 import { ShowsDetailComponent } from './showsDetail/shows.Detail.component';
 import { MessagesComponent } from './messages/messages.component';
 import { MyTicketComponent } from './my-ticket/my-ticket.component';
@@ -50,34 +47,29 @@ import { FundingComponent } from './eventCreate/funding/funding.component';
 import { AddTicketsComponent } from './eventCreate/tickets/tickets.component';
 import { VenueCreateModule } from './venueCreate/venueCreate.module';
 import { ProfileModule } from './profile/profile.module';
+import { EventCreateModule } from './eventCreate/eventCreate.module';
+import { EventsModule } from './events/events.module';
+import { ShowsModule } from './shows/shows.module';
 
 @NgModule({
   declarations: [
     SystemComponent,
-    ShowsComponent,
     EditComponent,
     AccountCreateComponent,
-    EventCreateComponent,
     ArtistCreateComponent,
-    EventsComponent,
     PreloaderComponent,
     FeedComponent,
     TicketsComponent,
     FanCreateComponent,
-    MyEventComponent,
     ShowsDetailComponent,
     MessagesComponent,
     MyTicketComponent,
     MyTicketOpenedComponent,
     BiographyComponent,
     ByTicketComponent,
-    OneCardComponent,
+ 
     ShowDetailVideoComponent,
-    AboutComponent,
-    ArtistComponent,
-    VenuesComponent,
-    FundingComponent,
-    AddTicketsComponent
+
   ],
   imports: [
     CommonModule,
@@ -86,6 +78,9 @@ import { ProfileModule } from './profile/profile.module';
     TextMaskModule,
     VenueCreateModule,
     ProfileModule,
+    EventCreateModule,
+    EventsModule,
+    ShowsModule,
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
     ReactiveFormsModule,

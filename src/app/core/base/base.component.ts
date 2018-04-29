@@ -55,26 +55,28 @@ export class BaseComponent{
         protected ngZone        : NgZone
     ) 
     {
+        // this.main.BaseInitSession();
         this.isLoggedIn = this.main.authService.IsLogedIn();
 
         if(this.isLoggedIn)
         {
+            this.accId = this.GetCurrentAccId();
             this.GetMyAccounts();
         }
 
         this.main.onAuthChange$
             .subscribe(
                 (res:boolean) => {
-                    console.log('loggedIn',res);
+                    // console.log('loggedIn',res);
                     this.isLoggedIn = res;
                     if(this.isLoggedIn)
                     {
                         this.GetMyAccounts();      
                     }
                     else{
-                        this.main.CurrentAccountChange.next(new AccountGetModel());
-                        this.main.MyAccountsChange.next([]);
-                        this.router.navigate(['/system','shows']);
+                        // this.main.CurrentAccountChange.next(new AccountGetModel());
+                        // this.main.MyAccountsChange.next([]);
+                        this.router.navigate(['/system','tickets']);
                     }
                 
                 }
@@ -212,12 +214,12 @@ export class BaseComponent{
                 () => this.main.imagesService.GetImageById(this.CurrentAccount.image_id),
                 (res:Base64ImageModel) =>
                 {
-                    this.MyLogo = res.base64?res.base64:BaseImages.Drake;
+                    this.MyLogo = res.base64?res.base64:BaseImages.NoneUserImage;
                 } 
             );
         }
         else{
-            this.MyLogo = BaseImages.Drake;
+            this.MyLogo = BaseImages.NoneUserImage;
         }
     }
 

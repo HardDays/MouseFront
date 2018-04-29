@@ -37,7 +37,7 @@ import { Point } from '@agm/core/services/google-maps-types';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AgmCoreModule } from '@agm/core';
+// import { AgmCoreModule } from '@agm/core';
 import { CheckModel } from '../../core/models/check.model';
 import { TicketModel } from '../../core/models/ticket.model';
 import { TicketGetParamsModel } from '../../core/models/ticketGetParams.model';
@@ -115,7 +115,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
     this.Venue = $venue ? this.main.accService.AccountModelToCreateAccountModel($venue) : new AccountCreateModel();
     this.Venue.account_type = AccountType.Venue;
     this.Venue.venue_type = VenueType.Public;
-    if($venue.id)
+    if( $venue && $venue.id)
     {
       this.VenueId = $venue.id;
       this.router.navigateByUrl("/system/venueCreate/"+this.VenueId);
@@ -136,6 +136,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
       (res) => {
         this.DisplayVenueParams(res);
         this.NextPart();
+        this.GetMyAccounts();
       },
       (err) => {
         console.log(err);

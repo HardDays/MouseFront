@@ -67,8 +67,6 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     @ViewChild('venue') venue:VenueProfileComponent;
     ngOnInit(){
 
-        //this.Videos = this.accService.GetVideo();
-    
         
         this.activatedRoute.params.forEach((params)=>{
             this.UserId = params["id"];

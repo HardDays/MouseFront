@@ -4,6 +4,7 @@ import { GetVenue } from '../../../core/models/eventPatch.model';
 import { GetArtists, EventGetModel } from '../../../core/models/eventGet.model';
 import { BaseComponent } from '../../../core/base/base.component';
 import { Base64ImageModel } from '../../../core/models/base64image.model';
+import { EventCreateModel } from '../../../core/models/eventCreate.model';
 
 @Component({
   selector: 'app-funding',
@@ -20,8 +21,8 @@ export class FundingComponent extends BaseComponent implements OnInit {
   additionalCosts:number = 50000;
   familyAndFriendAmount:string = '0%';
 
-  @Input('event') Event: EventGetModel;
-  @Output('submit') submit = new EventEmitter<boolean>();
+    @Input() Event:EventCreateModel;
+    @Output() onSaveEvent:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
  
 
 
@@ -44,18 +45,11 @@ export class FundingComponent extends BaseComponent implements OnInit {
     
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-   
-      if (changes['Event']) {
-
-        if(this.Event&&(this.Event.artist||this.Event.venues))
-            this.getActiveArtVen();
-      
-          // this.GetArtists();
-
-      }
-    
+  Init(event:EventCreateModel){
+    this.getActiveArtVen();
   }
+
+
   getFamilyAndFriendAmount(){
     let sum =  parseFloat(this.familyAndFriendAmount)/100;
     return sum*(0.1*(this.artistSum+this.venueSum+this.additionalCosts)+(this.artistSum+this.venueSum+this.additionalCosts));
@@ -139,6 +133,7 @@ getActiveArtVen(){
   this.venueSum = 0;
   let artist:GetArtists[] = [], venue:GetVenue[] = [];
   console.log(this.Event);
+  if( this.Event&&this.Event.artist)
    for(let art of this.Event.artist)
       if(art.status=='owner_accepted'||art.status=='active'){
           // let num = this.getNumInArtistOrVenueById(art.artist_id,this.showsArtists);
@@ -150,6 +145,7 @@ getActiveArtVen(){
 
           artist.push(art);
       }
+if( this.Event&&this.Event.venues)
   for(let v of this.Event.venues)
       if(v.status=='owner_accepted'||v.status=='active'){
           // let num = this.getNumInArtistOrVenueById(v.venue_id,this.requestVenues);
@@ -211,7 +207,7 @@ updateEvent(){
 }
 
 comleteFunding(){
-  this.submit.emit(true);
+  this.onSaveEvent.emit(this.Event);
 }
 
 
