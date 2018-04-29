@@ -57,7 +57,7 @@ export class TypeService{
     {
         return [
             new TicketTypeModel("In person", "in_person", false),
-            new TicketTypeModel("VIP", "vip", false)
+            new TicketTypeModel("VR", "vr", false)
         ];
     }
 
