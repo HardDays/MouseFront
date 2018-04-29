@@ -35,15 +35,16 @@ export class EventService{
         );
     }
     
-    CreateEvent(params:EventPatchModel){
+    CreateEvent(params:EventCreateModel){
+        console.log(`create params`,params);
         return this.http.CommonRequest(
             () => this.http.PostData('/events.json',JSON.stringify(params))
         );
     }
-    UpdateEvent(params:EventPatchModel){
-
+    UpdateEvent(id:number,params:EventCreateModel){
+        console.log(`patch params`,params);
         return this.http.CommonRequest(
-            () => this.http.PatchData('/events/'+params.id+'.json',JSON.stringify(params))
+            () => this.http.PatchData('/events/'+id+'.json',JSON.stringify(params))
         );
     }
     GetEventById(id:number){
@@ -223,6 +224,16 @@ export class EventService{
         return this.http.CommonRequest(
             () => this.http.PostData('/fan_tickets/many.json',params)
         );
+    }
+
+    public EventModelToCreateEventModel(input:EventGetModel){
+        let result = new EventCreateModel();
+             for (let key in input) {
+                        if (input.hasOwnProperty(key)) {
+                            result[key] = input[key];
+                        }
+                    }
+        return result;
     }
 
 }

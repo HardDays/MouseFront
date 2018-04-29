@@ -14,6 +14,7 @@ import { Http } from '@angular/http';
 import { TicketModel } from '../../../core/models/ticket.model';
 import { TicketGetParamsModel } from '../../../core/models/ticketGetParams.model';
 import { EventGetModel } from '../../../core/models/eventGet.model';
+import { EventCreateModel } from '../../../core/models/eventCreate.model';
 
 @Component({
   selector: 'app-add-tickets',
@@ -23,8 +24,8 @@ import { EventGetModel } from '../../../core/models/eventGet.model';
 
 export class AddTicketsComponent extends BaseComponent implements OnInit {
 
-  @Input('event') Event: EventGetModel;
-  @Output('submit') submit = new EventEmitter<boolean>();
+    @Input() Event:EventCreateModel;
+    @Output() onSaveEvent:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
   
   tickets:TicketModel[] = [];
   ticketsNew:TicketModel[] = [];
@@ -36,6 +37,10 @@ export class AddTicketsComponent extends BaseComponent implements OnInit {
     // this.CreateAutocompleteArtist();
     
   }
+  Init(event:EventCreateModel){
+    this.getTickets();
+  }
+
   deleteDuplicateTickets(t:TicketModel[]){
     for (var q=1, i=1; q<t.length; ++q) {
         if (t[q].id !== t[q-1].id) {
@@ -46,23 +51,13 @@ export class AddTicketsComponent extends BaseComponent implements OnInit {
       return t;
 }
 
-  ngOnChanges(changes: SimpleChanges) {
-   
-      if (changes['Event']) {
 
-        if(this.Event&&(this.Event.artist||this.Event.venues))
-            this.getTickets();
-      
-        
-      }
-    
-  }
 
   getTickets(){
     console.log(`getTickets`);
     this.tickets = [];
     let params:TicketGetParamsModel = new TicketGetParamsModel();
-    params.account_id = this.Event.creator_id;
+    params.account_id = this.CurrentAccount.id;
     params.event_id = this.Event.id;
    
     for(let t of this.Event.tickets){
@@ -80,7 +75,7 @@ addTicket(){
     let newTicket:TicketModel = new TicketModel();
     newTicket.id = this.getNewId();
     newTicket.event_id = this.Event.id;
-    newTicket.account_id = this.Event.creator_id;
+    newTicket.account_id = this.CurrentAccount.id;
     newTicket.name = 'New Name';
     newTicket.type = 'vr';
     newTicket.is_promotional = false;
@@ -119,7 +114,7 @@ updateTicket(){
 
     }
     else {
-        this.currentTicket.account_id = this.Event.creator_id;
+        this.currentTicket.account_id = this.CurrentAccount.id;
         //console.log(`update old`,this.currentTicket);
         this.main.eventService.UpdateTicket(this.currentTicket)
             .subscribe((res)=>{
@@ -129,6 +124,9 @@ updateTicket(){
     }
 }
 
-updateEvent(){}
+updateEvent(){
+    this.onSaveEvent.emit(this.Event);
+    this.getTickets();
+}
   
 }

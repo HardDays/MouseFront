@@ -15,6 +15,9 @@ import { MapsAPILoader } from '@agm/core';
 import { Http } from '@angular/http';
 import { EventGetModel } from '../../../core/models/eventGet.model';
 import { EventPatchModel } from '../../../core/models/eventPatch.model';
+import { EventCreateModel } from '../../../core/models/eventCreate.model';
+import { EventCreateComponent } from '../eventCreate.component';
+
 
 
 declare var $:any;
@@ -27,20 +30,21 @@ declare var $:any;
 export class AboutComponent extends BaseComponent implements OnInit {
 
   
-  @Input('event') Event:EventPatchModel = new EventPatchModel();
-  @Output('submit') submit = new EventEmitter<EventPatchModel>();
+  @Input() Event:EventCreateModel;
+  @Output() onSaveEvent:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
 
   @ViewChild('searchAbout') public searchElementAbout: ElementRef;
 
   mapCoords =  {lat:55.755826, lng:37.6172999};
   genres:GenreModel[] = [];
   showMoreGenres:boolean = false;
-  firstOpen:boolean = true;
+
   image:string;
 
   aboutForm : FormGroup = new FormGroup({        
     "name": new FormControl("", [Validators.required]),
     "tagline": new FormControl("", [Validators.required]),
+    "hashtag": new FormControl("", [Validators.required]),
     "is_crowdfunding_event": new FormControl(),
     "event_time": new FormControl("", [Validators.required]),
     "event_length": new FormControl("", [Validators.required]),
@@ -51,35 +55,9 @@ export class AboutComponent extends BaseComponent implements OnInit {
     "funding_goal":new FormControl("", [Validators.pattern("[0-9]+")])
   });
  
-  
- 
-
   ngOnInit() {
-      this.CreateAutocompleteAbout();
+    this.CreateAutocompleteAbout();
   }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['Event']) {
-        this.getGenres();
-        this.InitEvent();
-    }
-  }
-
-  InitEvent(){
-    console.log(this.Event);
-      if(this.Event.city_lat&&this.Event.city_lng){
-        this.mapCoords.lat = this.Event.city_lat;
-        this.mapCoords.lng = this.Event.city_lng;
-      }
-      
-      if(this.Event.image_id)
-        this.main.imagesService.GetImageById(this.Event.image_id)
-          .subscribe((img)=>{
-            this.Event.image_base64 = img.base64;
-      })
-    
-  }
-
   CreateAutocompleteAbout(){
     this.mapsAPILoader.load().then(
         () => {
@@ -108,17 +86,22 @@ export class AboutComponent extends BaseComponent implements OnInit {
         }
     );
   }
-
+  Init(event:EventCreateModel){
+    this.getGenres();
+    this.main.imagesService.GetImageById(event.image_id)
+      .subscribe((img)=>{event.image_base64 = img.base64;})
+  }
   getGenres(){
     this.genres = [];
-    if(this.Event.genres)
     this.main.genreService.GetAllGenres()
     .subscribe((res:string[])=>{
       this.genres = this.main.genreService.StringArrayToGanreModelArray(res);
         for(let i of this.genres) {
-          i.show = true;  
-            for(let g of this.Event.genres)
-              if(g==i.genre) i.checked = true;
+          i.show = true;
+            if(this.Event&&this.Event.genres){
+              for(let g of this.Event.genres)
+                if(g==i.genre) i.checked = true;
+            }
         }
     });
   }
@@ -151,67 +134,19 @@ export class AboutComponent extends BaseComponent implements OnInit {
     $('#modal-map-1').modal('show');
   }
 
-  submitEvent(){
-    this.Event.genres = [];
-    for(let g of this.genres)
-      if(g.checked) this.Event.genres.push(g.genre);
-    this.submit.emit(this.Event);
+  SaveEvent()
+  {
+      if(this.aboutForm.invalid)
+      {
+          console.log("About form invalid");
+          return;
+      }
+      this.Event.genres = [];
+      for(let g of this.genres){
+        if(g.checked)
+          this.Event.genres.push(g.genre);
+      }
+      this.onSaveEvent.emit(this.Event);
   }
-
-  // createEventFromAbout(){
-  //   if(!this.aboutForm.invalid){
-
-  //       for (let key in this.aboutForm.value) {
-  //           if (this.aboutForm.value.hasOwnProperty(key)) {
-  //               this.newEvent[key] = this.aboutForm.value[key];
-  //           }
-  //       }
-
-  //       this.newEvent.event_time = this.newEvent.event_time.toLowerCase();
-  //       if(this.newEvent.is_crowdfunding_event==null)
-  //           this.newEvent.is_crowdfunding_event = false;
-
-        
-  //       this.newEvent.genres = this.genreService.GenreModelArrToStringArr(this.genres);
-
-
-  //       this.newEvent.city_lat = this.mapCoords.about.lat;
-  //       this.newEvent.city_lng = this.mapCoords.about.lng;
-
-  //       this.newEvent.account_id = this.accountId;
-  //       //console.log(`newEvent`,this.newEvent);
-
-  //       if(this.isNewEvent){
-  //           console.log(`new event`)
-  //           this.eventService.CreateEvent(this.newEvent)
-  //           .subscribe((res)=>{
-                
-  //               this.Event = res;
-                
-  //               this.currentPage = 'artist';
-  //           },
-  //           (err)=>{
-  //               //console.log(`err`,err);
-  //           }
-  //           );
-  //       }
-  //       else{
-  //           console.log(`update event`)
-  //            this.eventService.UpdateEvent(this.newEvent, this.Event.id)
-  //               .subscribe((res)=>{
-  //                       this.Event = res;
-  //                       //console.log(`create`,this.Event);
-  //                       this.currentPage = 'artist';
-  //                   },
-  //                   (err)=>{
-  //                       //console.log(`err`,err);
-  //                   }
-  //           );
-  //       }
-  //   }
-  //   else {
-  //       //console.log(`Invalid About Form!`, this.aboutForm);
-  //   }
-  // }
 
 }

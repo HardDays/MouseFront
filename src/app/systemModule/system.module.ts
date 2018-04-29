@@ -52,6 +52,8 @@ import { VenuesComponent } from './eventCreate/venues/venues.component';
 import { FundingComponent } from './eventCreate/funding/funding.component';
 import { AddTicketsComponent } from './eventCreate/tickets/tickets.component';
 import { VenueCreateModule } from './venueCreate/venueCreate.module';
+import { EventCreateModel } from '../core/models/eventCreate.model';
+import { EventCreateModule } from './eventCreate/eventCreate.module';
 
 @NgModule({
   declarations: [
@@ -60,7 +62,6 @@ import { VenueCreateModule } from './venueCreate/venueCreate.module';
     EditComponent,
     ProfileComponent,
     AccountCreateComponent,
-    EventCreateComponent,
     ArtistCreateComponent,
     EventsComponent,
     PreloaderComponent,
@@ -74,16 +75,11 @@ import { VenueCreateModule } from './venueCreate/venueCreate.module';
     MyTicketOpenedComponent,
     BiographyComponent,
     ByTicketComponent,
-    OneCardComponent,
     OneFolowerForProfileComponent,
     TicketOnProfileComponent,
     UpcomingShowsProfileComponent,
     ShowDetailVideoComponent,
-    AboutComponent,
-    ArtistComponent,
-    VenuesComponent,
-    FundingComponent,
-    AddTicketsComponent
+
   ],
   imports: [
     CommonModule,
@@ -91,6 +87,7 @@ import { VenueCreateModule } from './venueCreate/venueCreate.module';
     HttpModule,
     TextMaskModule,
     VenueCreateModule,
+    EventCreateModule,
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
     ReactiveFormsModule,

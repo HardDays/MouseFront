@@ -44,7 +44,7 @@
 
                                     <div class="location-wr">
                                         <div (click)="venueOpenMapModal()" class="mark"></div>
-                                        <input type="text" class="location-inp" placeholder="Location" #searchVenue id="venueAddress">
+                                        <input type="text" [(ngModel)]="venueSearchParams.address" class="location-inp" placeholder="Location" #searchVenue id="venueAddress">
                                     </div>
                                 </div>
                             </div>
@@ -83,97 +83,7 @@
                
                 
                 <!--Private Residence-->
-                <div [ngStyle]="{'display': isPrivateVenue?'block':'none'}" class="one-tab">
-                    <!-- <form [formGroup]="privateVenueForm">
-                        <div class="one-tab-flex">
-                            <div class="side">
-                                <div class="input-groupe-1 lbl-1">
-                                    <input id="inp-private-v-1" name="" type="text" formControlName="user_name">
-                                    <label for="inp-private-v-1">Venue Name</label>
-
-                                </div>
-                                <div class="input-groupe-1">
-                                    <input id="inp-private-v-2" name="" type="text" formControlName="phone">
-                                    <label for="inp-private-v-2">Phone number</label>
-
-                                </div>
-                                <div class="input-groupe-1">
-                                    <input id="inp-private-v-3" name="" type="text" formControlName="capacity">
-                                    <label for="inp-private-v-3">Capacity</label>
-
-                                </div>
-                                <div class="flex-mac-checkbox">
-                                    <p>VR Ready?</p>
-                                    <div class="yes-no">
-                                        <span>Yes</span>
-                                        <div class="mac-checkbox">
-                                            <input class="checkbox" type="checkbox" id="mac-checkbox-2" formControlName="has_vr">
-                                            <label for="mac-checkbox-2"></label>
-                                        </div>
-                                        <span>No</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="side">
-                                <div class="input-groupe-1 lbl-1">
-                                    <input id="inp-private-v-4" name="" type="text" formControlName="country">
-                                    <label for="inp-private-v-4">Country</label>
-
-                                </div>
-                                <div class="input-groupe-1">
-                                    <input id="inp-private-v-5" name="" type="text" formControlName="city">
-                                    <label for="inp-private-v-5">City</label>
-
-                                </div>
-                                <div class="input-groupe-1">
-                                    <input id="inp-private-v-6" name="" type="text" formControlName="address">
-                                    <label for="inp-private-v-6">Address</label>
-
-                                </div>
-                                <div class="input-groupe-1 small-textarea whithout-label">
-
-                                    <textarea id="inp-desc-1" formControlName="description"></textarea>
-                                    <label for="inp-desc-1" class="head-groupe">Short Description</label>
-
-                                </div>
-                            </div>
-                            <div class="side">
-                                <span class="head-black">Photos</span>
-                                <div class="flex-photos">
-
-
-
-
-                                    <div *ngFor=" let img of imagesListPrivateRes; let i = index" class="photo" [ngStyle]="{'background-image': 'url('+img+')'}"></div>
-                                    
-                                    <div class="photo-wr-1">
-                                        <label class="file_upload">
-                                            <div class="bg-image"></div>
-                                            <input accept=".jpg, .jpeg, .png" type="file" (change)="loadPhoto($event)">
-                                        </label>
-                                    </div>
-                                  
-                                </div>
-                                <span class="head-black">Videos</span>
-                                <ng-container formArrayName="venue_video_links">
-                                <div  *ngFor="let item of privateVenueForm.controls['venue_video_links']['controls']; let i = index" class="input-groupe-1">
-                                    <input id="inp-private-link-{{i}}" type="text" formControlName="{{i}}">
-                                    <label for="inp-private-link-{{i}}">Link</label>
-                                </div>
-                            </ng-container>
-                                <span class="add-to-active-b" style="cursor: pointer;" (click)="addPhone()">ADD LINK</span>
-                            </div>
-                            
-                        </div>
-                        
-                        <div class="add-to-active-b">
-                            <button (click)="addPriateVenue()" class="butt-style-1" type="submit">
-                                <span>Add to Active</span>
-                            </button>
-                        </div>
-                    </form> -->
-                </div>
-            
+                    <app-private-res [ngStyle]="{'display': isPrivateVenue?'block':'none'}" [EventId]="Event.id"></app-private-res>
                 <!--//Private Residence-->
             </div>
         </div>
@@ -333,13 +243,14 @@
                     <div class="mark"></div>
                     <input type="text" [value]="Event.address" class="location-inp" placeholder="location">
                 </div>
-                
+                <div class="flex-input-groupes">
                 <div class="input-groupe-1 small-textarea whithout-label">
 
                     <textarea formControlName="message" id="inp-desc-2-modal"></textarea>
                     <label for="inp-desc-2-modal" class="head-groupe">Message</label>
 
                 </div>
+            </div>
                  <div class="send-request-b">
                     <button class="butt-style-1" type="submit" (click)="addVenueById(eventForRequest.id)">
                         <span>Send Request</span>

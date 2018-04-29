@@ -6,6 +6,7 @@ export class EventGetModel{
         public id?: number,
         public name?: string,
         public tagline?: string,
+        public hashtag?: string,
         public description?: string,
         public funding_from?: string,
         public funding_to?: string,
