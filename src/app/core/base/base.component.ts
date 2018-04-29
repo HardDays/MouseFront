@@ -212,12 +212,12 @@ export class BaseComponent{
                 () => this.main.imagesService.GetImageById(this.CurrentAccount.image_id),
                 (res:Base64ImageModel) =>
                 {
-                    this.MyLogo = res.base64?res.base64:BaseImages.Drake;
+                    this.MyLogo = res.base64?res.base64:BaseImages.NoneUserImage;
                 } 
             );
         }
         else{
-            this.MyLogo = BaseImages.Drake;
+            this.MyLogo = BaseImages.NoneUserImage;
         }
     }
 
