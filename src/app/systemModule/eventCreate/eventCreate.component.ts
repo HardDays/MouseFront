@@ -48,6 +48,11 @@ import { identifierModuleUrl } from '@angular/compiler';
 import { MainService } from '../../core/services/main.service';
 import { ArtistComponent } from './artist/artist.component';
 import { AboutComponent } from './about/about.component';
+import { VenuesComponent } from './venues/venues.component';
+import { FundingComponent } from './funding/funding.component';
+import { AddTicketsComponent } from './tickets/tickets.component';
+
+
 
 
 
@@ -71,9 +76,9 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   
     @ViewChild('about') about:AboutComponent;
     @ViewChild('artist') artist:ArtistComponent;
-    @ViewChild('venue') venue:ArtistComponent;
-    @ViewChild('funding') funding:ArtistComponent;
-    @ViewChild('tickets') tickets:ArtistComponent;
+    @ViewChild('venue') venue:VenuesComponent;
+    @ViewChild('funding') funding:FundingComponent;
+    @ViewChild('tickets') tickets:AddTicketsComponent;
     
     pages = Pages;
     currentPage = this.pages.about;
@@ -151,6 +156,22 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         }
       )
     }
+
+    saveButtonClick(){
+
+      if(this.currentPage == this.pages.about)
+        this.about.SaveEvent();
+      else if(this.currentPage == this.pages.artist)
+        this.artist.artistComplete();
+      else if(this.currentPage == this.pages.venue)
+        this.venue.submitVenue();
+      else if(this.currentPage == this.pages.funding)
+        this.funding.comleteFunding();
+      else if(this.currentPage == this.pages.tickets)
+         this.tickets.updateEvent();
+         
+    
+  }
 
     NextPart()
     {

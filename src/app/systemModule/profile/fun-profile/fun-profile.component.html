@@ -1,0 +1,150 @@
+<section class="main_content">
+  <div class="for-flex-height">
+      
+       
+      <section class="second-router-outlet">
+          <div class="head-info-profile-wr">
+              <div class="head-info-profile">
+                  <div class="side side-1">
+                      <div class="mouse-bg-image">
+                          <div class="big-avatar" [ngStyle]="{'background-image': 'url('+Account.image_base64+')'}"></div>
+                      </div>
+                  </div>
+                  <div class="side side-2">
+                      <h3 class="big-name">
+                          <span id="lines_view">{{Account.first_name}} {{Account.last_name}}</span>
+                          <span></span>
+                          <span id="d_lines_view" class="insta-link-sp">@{{Account.user_name}}</span>
+                      </h3>
+                  </div>
+                  <div class="side side-3">
+                      <div *ngIf="isMyAccount" class="edit-and-settings">
+                          <a [routerLink]="['/system/fanCreate',Account.id]" class="edit-profile">Edit profile</a>
+                      </div>
+                      <div class="desc-wr">
+                          <p id="b_lines_view" class="description">{{Account.bio}}</p>
+                      </div>
+                      <ng-container *ngIf="!isMyAccount" >
+                          <form *ngIf="!isFolowedAcc" class="follow-wr" (ngSubmit)="FollowProfile()">
+                              <button  class="butt-style-1" type="submit">
+                                  <span>Follow</span>
+                              </button>
+                          </form>
+                          <form *ngIf="isFolowedAcc" class="follow-wr" (ngSubmit)="UnFollowProfile()">
+                              <button  class="butt-style-1" type="submit">
+                                  <span>Unfollow</span>
+                              </button>
+                          </form>
+                      </ng-container>
+                  </div>
+              </div>
+          </div>
+          <div class="for-white-bg">
+              <div class="circles-info">
+                  <div class="main-mw">
+                      <div class="for-flex-inf">
+                          <div class="circle">
+                              <span>{{TotalTicket}}</span>
+                              <p>Tickets</p>
+                          </div>
+                          <div class="circle">
+                              <span>{{Account.followers_count}}</span>
+                              <p>Followers</p>
+                          </div>
+                          <div class="circle">
+                              <span>{{Account.following_count}}</span>
+                              <p>Following</p>
+                          </div>
+                      </div>
+
+                  </div>
+              </div>
+              <div class="all-info-profile">
+                  <div class="uniq-padd">
+                      <div class="main-mw">
+                          <div class="genres-info">
+                              <h3>Genres</h3>
+                              <div class="flex-genres">
+                                  <ng-container *ngFor="let item of Account.genres;let i = index">
+                                      <span class="one-genre">{{item}}</span>
+                                  </ng-container>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="uniq-padd-2">
+                      <div class="main-mw">
+                          <div class="flex--info">
+                              <div class="side scroller">
+                                  <div class="for-scroll-padd">
+                                      <h6>Events ({{EventsMassChecked.length}})</h6>
+                                      <input type="text" class="search-profile-inp-style"  placeholder="Search" (input)='searchEvents($event)'>
+                                  </div>
+                                  <div class="new-scroll-wr">
+                                      <div class="blocks">
+                                          <ng-container >
+                                              <ng-container *ngFor="let item of EventsMassChecked">
+                                                  <ng-container *ngIf="item.checked">
+                                                      <a *ngIf="item.object.is_active" [routerLink]="['/system','shows_detail',item.object.id]" style="display:block">
+                                                          <app-ticket-on-profile [Ticket]="item.object"></app-ticket-on-profile>
+                                                      </a>
+                                                      <app-ticket-on-profile *ngIf="!item.object.is_active" [Ticket]="item.object"></app-ticket-on-profile>
+                                                  </ng-container>
+                                              </ng-container>
+                                          </ng-container>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="side scroller">
+                                  <div class="for-scroll-padd">
+                                      <h6>Tickets ({{TotalTicket}})</h6>
+                                      <input type="text" class="search-profile-inp-style" placeholder="Search" (input)='searchTickets($event)'>
+                                  </div>
+                                  <div class="new-scroll-wr">
+                                      <div class="blocks">
+                                          <ng-container *ngIf="isMyAccount">
+                                              <ng-container *ngFor="let item of ticketsMassChecked">
+                                                  <ng-container *ngIf="item.checked">
+                                                      <a  [routerLink]="['/system','tickets',item.object.id]" style="display:block">
+                                                          <app-ticket-on-profile [Ticket]="item.object"></app-ticket-on-profile>
+                                                      </a>
+                                                  </ng-container>
+                                              </ng-container>
+                                          </ng-container>
+                                          <ng-container *ngIf="!isMyAccount">
+                                              <ng-container *ngFor="let item of ticketsMassChecked">
+                                                  <ng-container *ngIf="item.checked">
+                                                      <app-ticket-on-profile [Ticket]="item.object"></app-ticket-on-profile>
+                                                  </ng-container>
+                                              </ng-container>
+                                          </ng-container>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="side scroller uniq-padd-style-funs">
+                                  <div class="uniq-padd-3">
+                                      <h6>Fans ({{Account.followers_count}})</h6>
+                                      <input type="text" class="search-profile-inp-style" placeholder="Search" (input)='searchFolover($event)'>
+                                  </div>
+                                  <div class="new-scroll-wr">
+                                      <div class="blocks-funs">
+                                          <ng-container *ngFor="let item of folowersMassChecked">
+                                              <div class="one-block" *ngIf="item.checked">
+                                                  <app-one-folower-for-profile [Folower]="item.object"></app-one-folower-for-profile>
+                                                  
+                                              </div>
+
+                                          </ng-container>
+                                          
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+  </div>
+
+</section>

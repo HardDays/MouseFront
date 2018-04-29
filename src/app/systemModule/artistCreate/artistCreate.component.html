@@ -7,7 +7,7 @@
                                     <h1>Add Artist</h1>
                                     <ul>
                                         <!--нужным li даем классы active и started."хз нахрена это надо. узнавайте у писателя"-->
-                                        <li class="active">
+                                        <!-- <li class="active">
                                             <a  class="nav-second-outlet">about</a>
                                         </li>
                                         <li class="started">
@@ -24,9 +24,37 @@
                                         </li>
                                         <li>
                                             <a  class="nav-second-outlet">Preview</a>
+                                        </li> -->
+                                        <!-- about = 0,
+                                        calendar = 1,
+                                        media = 2,
+                                        booking = 3,
+                                        riders = 4 -->
+
+
+                                        <li [ngClass]="{'active':currentPage == pages.about,'started':currentPage != pages.about}">
+                                            <a (click)="ChangeCurrentPart(pages.about)" class="nav-second-outlet">about</a>
                                         </li>
+                                        <li [ngClass]="{'active':currentPage == pages.calendar,'started':currentPage != pages.calendar}">
+                                            <a (click)="ChangeCurrentPart(pages.calendar)" class="nav-second-outlet">calendar</a>
+                                        </li>
+                                        <li [ngClass]="{'active':currentPage == pages.media,'started':currentPage != pages.media}">
+                                            <a (click)="ChangeCurrentPart(pages.media)" class="nav-second-outlet">media</a>
+                                        </li>
+                                        <li [ngClass]="{'active':currentPage == pages.booking,'started':currentPage != pages.booking}">
+                                            <a (click)="ChangeCurrentPart(pages.booking)" class="nav-second-outlet">booking</a>
+                                        </li>
+                                        <li [ngClass]="{'active':currentPage == pages.riders,'started':currentPage != pages.riders}">
+                                            <a (click)="ChangeCurrentPart(pages.riders)" class="nav-second-outlet">riders</a>
+                                        </li>
+
+
+
+
+
+
                                         <li>
-                                            <button class="butt-style-1" style="width: 127px">
+                                            <button (click)="saveButtonClick()" class="butt-style-1" style="width: 127px">
                                                 <span style="padding: 10px 21px">
                                                 SAVE
                                                 </span>
@@ -36,7 +64,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div [ngStyle]="{'display': (pages[currentPage]>=pages.about||showAllPages)?'block':'none'}" class="create-event-body-1">
+                        <div [ngStyle]="{'display': (currentPage==pages.about)?'block':'none'}" class="create-event-body-1">
                             <div class="main-mw">
                                 <form [formGroup]="aboutForm">
                                 <div class="create-event-body">
@@ -117,7 +145,7 @@
                             </div>
                         </div>
                         
-                        <div [ngStyle]="{'display': (pages[currentPage]>=pages.calendar||showAllPages)?'block':'none'}" class="create-event-body-1">
+                        <div [ngStyle]="{'display': (currentPage==pages.calendar)?'block':'none'}" class="create-event-body-1">
                             <div class="main-mw">
                                 <div class="create-event-body">
                                     <div class="head-ev-body">
@@ -142,13 +170,13 @@
                         
                         
                             <div class="scroll-wrapp">
-                                <div (click)="currentPage='booking'" class="circle-scroll"></div>
+                                <div (click)="currentPage = pages.booking" class="circle-scroll"></div>
                             </div>
                         </div>
 
                         <div class="create-event-body-1">
                             
-                            <div  [ngStyle]="{'display': (pages[currentPage]>=pages.media||showAllPages)?'block':'none'}">
+                            <div  [ngStyle]="{'display': (currentPage==pages.media)?'block':'none'}">
                                 <div class="main-mw">
                                     <div class="create-event-body">
                                         <div class="head-ev-body">
@@ -450,7 +478,7 @@
                                 </div>
                             </div>
 
-                            <div [ngStyle]="{'display': (pages[currentPage]>=pages.booking||showAllPages)?'block':'none'}">
+                            <div [ngStyle]="{'display': (currentPage==pages.booking)?'block':'none'}">
                                 <div class="main-mw">
                                     <div class="create-event-body">
                                         <div class="head-ev-body">
@@ -810,7 +838,7 @@
                                 </div>
                             </div>
 
-                            <div [ngStyle]="{'display': (pages[currentPage]>=pages.riders||showAllPages)?'block':'none'}">
+                            <div [ngStyle]="{'display': (currentPage==pages.riders)?'block':'none'}">
                                 <div class="main-mw">
                                     <div class="create-event-body">
                                         <div class="head-ev-body">

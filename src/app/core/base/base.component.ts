@@ -76,7 +76,7 @@ export class BaseComponent{
                     else{
                         // this.main.CurrentAccountChange.next(new AccountGetModel());
                         // this.main.MyAccountsChange.next([]);
-                        this.router.navigate(['/system','tickets']);
+                        this.router.navigate(['/system','shows']);
                     }
                 
                 }
