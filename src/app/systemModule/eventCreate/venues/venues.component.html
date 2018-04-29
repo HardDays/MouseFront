@@ -27,10 +27,10 @@
                         <div class="side">
                             <div class="filter-venue">
                                 <div class="content-bodal input-groupe-1">
-                                    <!-- <input class="search" (input)="venueSearch($event.target.value)" type="text" placeholder="Search Venue"> -->
+                                    <input class="search" (input)="venueSearch($event.target.value)" type="text" placeholder="Search Venue">
                                     <span class="head-type-inp">Type of place</span>
                                     <div class="flex-genres for-pick">
-                                            <!-- <span *ngFor="let space of typesSpace" (click)="space.checked=!space.checked; venueSearch()" [ngClass]="{picked:space.checked}" class="one-genre">{{space.object.name}}</span> -->
+                                            <span *ngFor="let space of typesSpace" (click)="space.checked=!space.checked; venueSearch()" [ngClass]="{picked:space.checked}" class="one-genre">{{space.object.name}}</span>
                                        
                                     </div>
                                     <span class="head-type-inp">Price</span>
@@ -43,7 +43,7 @@
                                     </div>
 
                                     <div class="location-wr">
-                                        <!-- <div (click)="venueOpenMapModal()" class="mark"></div> -->
+                                        <div (click)="venueOpenMapModal()" class="mark"></div>
                                         <input type="text" class="location-inp" placeholder="Location" #searchVenue id="venueAddress">
                                     </div>
                                 </div>
@@ -54,25 +54,25 @@
                                 <div class="scroll-cards-art">
 
 
-                                    <!-- <ng-container *ngFor="let item of venueList; let i = index">
+                                    <ng-container *ngFor="let item of venueList; let i = index">
                                         <div class="one-card">
                                             <div class="l-s">
                                                 <div class="ava" [ngStyle]="{'background-image': item.image_base64_not_given?'url('+item.image_base64_not_given+')':''}"></div>
                                                 <div class="desc">
-                                                    <a class="name" [routerLink]="['/system/profile',item.id]">{{item.user_name}}</a>
-                                                    <p class="genres">{{item.type_of_space}}</p>
-                                                    <p class="where">{{item.address}}</p>
+                                                    <a class="name" [routerLink]="['/system/profile',item.object.id]">{{item.object.user_name}}</a>
+                                                    <p class="genres">{{item.object.type_of_space}}</p>
+                                                    <p class="where">{{item.object.address}}</p>
                                                 </div>
                                             </div>
                                             <div class="r-s">
                                             <div class="circle-checkbox gray-border">
-                                                    <input type="checkbox" [checked]="ifCheckedVenue(item.id)" class="checkbox" (click)="!ifRequestVenue(item.id)?addVenueCheck(item):''" name="" id="checkbox-venue-{{i}}">
+                                                    <input type="checkbox" [checked]="item.checked" class="checkbox" (change)="addVenueCheck(item)" name="" id="checkbox-venue-{{i}}">
                                                     <label class="label-wr" for="checkbox-venue-{{i}}"></label>
                                                 </div>
                                             </div>
                                         </div>
                                     </ng-container>
-                                     -->
+                                    
                                     
                                 </div>
                             </div>
@@ -196,7 +196,7 @@
         <div class="bg-wr-tabs">
             <div class="main-mw">
                 
-                <!-- <div *ngIf="isAcceptedVenueShow"  class="tab-artist">
+                <div *ngIf="isAcceptedVenueShow"  class="tab-artist">
                     <div class="flex-wrapp-cards">
 
                         <ng-container *ngFor="let shows of requestVenues">
@@ -205,7 +205,7 @@
                                 <app-one-card 
                                     [card] = "shows" 
                                     [status] = "getStatusVenueEventById(shows.id)" 
-                                    [price] = "getPriceAtMsg(shows.id)" 
+                                    [price] = "100" 
                                     (accepted) = "acceptVenue($event)"
                                     (requested) = "sendVenueRequestOpenModal($event)"
                                     (declined) = "declineVenue($event)"
@@ -213,13 +213,14 @@
                                 ></app-one-card>
                             </div>
                         </ng-container>
+                        <!-- [price] = "getPriceAtMsg(shows.id)"  -->
 
                         <div *ngFor="let shows of venueShowsList" class="one-card">
                                 
                                 <app-one-card 
                                     [card] = "shows" 
-                                    [status] = "getStatusVenueEventById(shows.id)" 
-                                    [price] = "getPriceAtMsg(shows.id)" 
+                                    [status] = "shows.status_not_given" 
+                                    [price] = "100" 
                                     (accepted) = "acceptVenue($event)"
                                     (requested) = "sendVenueRequestOpenModal($event)"
                                     (declined) = "declineVenue($event)"
@@ -229,14 +230,12 @@
                         
                         
                     </div>
-                </div> -->
+                </div>
               
-                <!-- <div *ngIf="!isAcceptedVenueShow" class="tab-artist">
+                 <div *ngIf="!isAcceptedVenueShow" class="tab-artist">
                     <div class="flex-wrapp-cards">
-                      
-                    
                         <ng-container *ngFor="let shows of requestVenues">
-                            <div *ngIf="getStatusVenueEventById(shows.id)=='owner_declined'||getStatusVenueEventById(shows.id)=='declined'" class="one-card">
+                            <div *ngIf="shows.status_not_given=='owner_declined'||shows.status_not_given=='declined'" class="one-card">
                                 <div class="card">
                                     <div class="delete-card"></div>
                                     <div class="left-side">
@@ -251,23 +250,13 @@
                                         <p class="info">Baroque pop, dream pop, trip hop, indie</p>
                                         <p class="desc-head-info">Location</p>
                                         <p class="info">Los Angeles, California USA</p>
-                                        
                                     </div>
                                 </div>
                             </div>
                         </ng-container>
-
-
-
-
-
-
-
-
-
-                    
                     </div>
-                </div> -->
+                </div> 
+
             </div>
         </div>
         
@@ -275,13 +264,13 @@
 
 
     <div class="scroll-wrapp">
-        <!-- <div class="circle-scroll" (click)="getActiveArtVen(); currentPage = 'funding'"></div> -->
+        <div class="circle-scroll" (click)="submitVenue()"></div>
 </div>
 
 
   <!--модалка для кликов на send request-->
 <div class="modal fade modal-send-request" id="modal-send-request-venue">
-    <!-- <div class="modal-dialog">
+    <div class="modal-dialog">
             <form [formGroup]="requestVenueForm">
         <div class="modal-body">
             
@@ -297,24 +286,18 @@
             <div class="content-modal">
                 <p class="e-n">{{Event.name}}</p>
                 <div class="flex-input-groupes">
-                    <div class="input-groupe-1">
-                        <select id="inp-modal-req-1">
-                            <option>Fall 2018</option>
-                            <option>Fall 2018</option>
-                            <option>Fall 2018</option>
-                            <option>Fall 2018</option>
-                        </select>
-                        <label for="inp-modal-req-1">Date Range</label>
-                    </div>
-                    <div class="input-groupe-1">
-                        <select id="inp-modal-req-2">
-                                <option>2 hrs</option>
-                                <option>2 hrs</option>
-                                <option>2 hrs</option>
-                        </select>
-                        <label for="inp-modal-req-2">Performance Time</label>
-                       
-                    </div>
+                        <div class="input-groupe-1">
+                                <div class="rel-wr">
+                                <input disabled [value]="Event.event_season" name="" type="text">
+                            </div>
+                            <label for="inp-modal-req-4">Date Range</label>
+                        </div>
+                        <div class="input-groupe-1">
+                                <div class="rel-wr">
+                                <input disabled [value]="Event.event_length" name="" type="text">
+                            </div>
+                            <label for="inp-modal-req-4">Performance Time</label> 
+                        </div>
                 </div>
                 <div class="flex-input-groupes">
                     <div class="input-groupe-1 more-padd">
@@ -329,7 +312,7 @@
                     <div class="input-groupe-1 more-padd">
                         <div class="rel-wr">
                             <span class="abs-backs">$</span>
-                            <input  formControlName="estimated_price" id="inp-modal-req-4" class="dollar" name="" type="text">
+                            <input [textMask]="MaskNumbers()" formControlName="estimated_price" id="inp-modal-req-4" class="dollar" name="" type="text">
                         </div>
                         <label for="inp-modal-req-4">Estimated Price to<br> Perform</label>
                        
@@ -348,7 +331,7 @@
                 </div>
                 <div class="location-wr">
                     <div class="mark"></div>
-                    <input type="text" class="location-inp" placeholder="location">
+                    <input type="text" [value]="Event.address" class="location-inp" placeholder="location">
                 </div>
                 
                 <div class="input-groupe-1 small-textarea whithout-label">
@@ -365,5 +348,5 @@
             </div>
         </div>
         </form>
-    </div> -->
+    </div>
 </div>

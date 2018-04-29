@@ -49,5 +49,6 @@ export class OneCardComponent implements OnInit {
   Check(){
     this.checked.emit();
   }
+  
 
 }

@@ -15,7 +15,7 @@ export class EventGetModel{
         public updated_at?: string,
         public is_active?: boolean,
         public views?: number,
-        public artists?: string,
+        public artists?: any[],
         public clicks?: number,
         public has_vr?: boolean,
         public has_in_person?: boolean,
@@ -42,7 +42,8 @@ export class EventGetModel{
         public venues?: GetVenue[],
         public venue?: AccountGetModel,
         public tickets?: TicketModel[],
-        public event_season?:string
+        public event_season?:string,
+        public image_base64?:string
     )
     {}
 }

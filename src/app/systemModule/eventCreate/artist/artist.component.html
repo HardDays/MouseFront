@@ -30,35 +30,27 @@
                 <!-- "p.s. наш любимый *ngIf"-->
                 <div *ngIf="isAcceptedArtistShow" class="tab-artist">
                     <div class="flex-wrapp-cards">
+
+                        <ng-container *ngIf="Artists&&Artists.length>0">
                         <ng-container *ngFor="let item of Artists; let i = index">
                             <div *ngIf="item.status_not_given!='owner_declined'&&item.status_not_given!='declined'" class="one-card">
                                
                                     <app-one-card 
                                         [card] = "item" 
                                         [status] = "item.status_not_given" 
-                                        [price] = "100" 
+                                        [price] = "getPriceAtMsg(item.id)" 
                                         (accepted) = "acceptArtistCard($event)"
                                         (requested) = "sendArtistRequestOpenModal($event)"
                                         (declined) = "declineArtist($event)"
                                         (checked) = "updateEvent()"
                                     ></app-one-card>
-                                    <!--  [card] = "item" 
-                                        [status] = "item.status_not_given" 
-                                        [price] = "getPriceAtMsg(item.id)" 
-                                        (accepted) = "acceptArtistCard($event)"
-                                        (requested) = "sendArtistRequestOpenModal($event)"
-                                        (declined) = "declineArtist($event)"
-                                        (checked) = "updateEvent()" -->
-                               
+                                    
                             </div>
                         </ng-container>
+                        </ng-container>
 
-
-
-                       
-                        
                         <!--для добавления артиста-->
-                        <div class="one-card">
+                        <div  class="one-card">
                             <div class="add-artist-block artist-modal-open">
                                 <div (click)="addNewArtistOpenModal()" class="plus"></div>
                                 <span class="add">Add New Artist</span>
@@ -80,7 +72,7 @@
                                     <app-one-card 
                                         [card] = "item" 
                                         [status] = "item.status_not_given" 
-                                        [price] = "100" 
+                                        [price] = " " 
                                         (accepted) = "acceptArtistCard($event)"
                                         (requested) = "sendArtistRequestOpenModal($event)"
                                         (declined) = "declineArtist($event)"
@@ -96,7 +88,7 @@
         
     </div>
     <div class="scroll-wrapp">
-        <div class="circle-scroll"></div>
+        <div class="circle-scroll" (click)="artistComplete()"></div>
     </div>
 
 
@@ -141,30 +133,32 @@
                 <div class="for-padd-cards-art">
                     <div class="scroll-cards-art">
 
-                        <div *ngFor="let item of artistsSearch; let i = index" class="one-card">
-                            <div class="l-s">
-                                <div class="ava"  [ngStyle]="{'background-image': item.object.image_base64_not_given?'url('+item.object.image_base64_not_given+')':''}"></div>
-                                <div class="desc">
-                                    <a class="name" [routerLink]="['/system/profile',item.object.id]">{{item.object.display_name}}</a>
-                                    <p class="genres">{{item.object.genres}}</p>
-                                    <p class="where">{{item.object.address}}</p>
+                       
+                            <div *ngFor="let item of artistsSearch; let i = index" class="one-card">
+                                <div class="l-s">
+                                    <div class="ava"  [ngStyle]="{'background-image': item.object.image_base64_not_given?'url('+item.object.image_base64_not_given+')':''}"></div>
+                                    <div class="desc">
+                                        <a class="name" [routerLink]="['/system/profile',item.object.id]">{{item.object.display_name}}</a>
+                                        <p class="genres">{{item.object.genres}}</p>
+                                        <p class="where">{{item.object.address}}</p>
+                                    </div>
+                                </div>
+                                <div class="r-s">
+                                    <div class="circle-checkbox gray-border">
+                                        <input type="checkbox" [checked]="item.checked" class="checkbox" (change)="checkArtist(item)"  name="" id="checkbox-{{i}}">
+                                        <label class="label-wr" for="checkbox-{{i}}"></label>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="r-s">
-                                <div class="circle-checkbox gray-border">
-                                    <input type="checkbox" [checked]="item.checked" class="checkbox" (change)="item.checked = !item.checked"  name="" id="checkbox-{{i}}">
-                                    <label class="label-wr" for="checkbox-{{i}}"></label>
-                                </div>
-                            </div>
-                        </div>
+                       
 
                     </div>
                 </div>
                 <div class="buttons-wrapp-add-inv">
-                    <!--можете баттоном или span. как удобнее-->
-                    <!-- <button class="butt-style-1" type="submit" (click)="addNewArtist()">
+                    <!-- можете баттоном или span. как удобнее-->
+                    <button class="butt-style-1" type="submit" (click)="addNewArtist()">
                         <span>Add to Active</span>
-                    </button> -->
+                    </button>
                     <!-- <span class="second-button-inv">Artist Invite</span> -->
                 </div>
 

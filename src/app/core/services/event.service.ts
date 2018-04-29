@@ -35,22 +35,15 @@ export class EventService{
         );
     }
     
-    CreateEvent(params:EventCreateModel){
+    CreateEvent(params:EventPatchModel){
         return this.http.CommonRequest(
             () => this.http.PostData('/events.json',JSON.stringify(params))
         );
     }
-    UpdateEvent(params:EventCreateModel,id:number){
-        var patchModel:EventPatchModel = new EventPatchModel();
-        patchModel.id = id;
-        for (let key in params) {
-            if (params.hasOwnProperty(key)) {
-                patchModel[key] = params[key];
-            }
-        }
-        console.log(`patch`,patchModel);
+    UpdateEvent(params:EventPatchModel){
+
         return this.http.CommonRequest(
-            () => this.http.PatchData('/events/'+patchModel.id+'.json',JSON.stringify(patchModel))
+            () => this.http.PatchData('/events/'+params.id+'.json',JSON.stringify(params))
         );
     }
     GetEventById(id:number){

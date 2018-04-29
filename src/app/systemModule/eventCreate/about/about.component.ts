@@ -36,6 +36,7 @@ export class AboutComponent extends BaseComponent implements OnInit {
   genres:GenreModel[] = [];
   showMoreGenres:boolean = false;
   firstOpen:boolean = true;
+  image:string;
 
   aboutForm : FormGroup = new FormGroup({        
     "name": new FormControl("", [Validators.required]),
@@ -72,13 +73,8 @@ export class AboutComponent extends BaseComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['Event']) {
-    if(this.Event.genres.length>0&&this.genres.length<1){
         this.getGenres();
         this.InitEvent();
-      }
-    else {
-      this.InitEvent();
-    }
     }
   }
 
@@ -88,6 +84,12 @@ export class AboutComponent extends BaseComponent implements OnInit {
         this.mapCoords.lat = this.Event.city_lat;
         this.mapCoords.lng = this.Event.city_lng;
       }
+      
+      if(this.Event.image_id)
+        this.imgService.GetImageById(this.Event.image_id)
+          .subscribe((img)=>{
+            this.Event.image_base64 = img.base64;
+      })
     
   }
 
@@ -121,13 +123,15 @@ export class AboutComponent extends BaseComponent implements OnInit {
   }
 
   getGenres(){
+    this.genres = [];
+    if(this.Event.genres)
     this.genreService.GetAllGenres()
     .subscribe((res:string[])=>{
       this.genres = this.genreService.StringArrayToGanreModelArray(res);
         for(let i of this.genres) {
-          i.show = true;
-          for(let g of this.Event.genres)
-            if(g==i.genre) i.checked = true;
+          i.show = true;  
+            for(let g of this.Event.genres)
+              if(g==i.genre) i.checked = true;
         }
     });
   }
@@ -161,8 +165,10 @@ export class AboutComponent extends BaseComponent implements OnInit {
   }
 
   submitEvent(){
-     this.submit.emit(this.Event);
-   
+    this.Event.genres = [];
+    for(let g of this.genres)
+      if(g.checked) this.Event.genres.push(g.genre);
+    this.submit.emit(this.Event);
   }
 
   // createEventFromAbout(){

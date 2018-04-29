@@ -34,30 +34,38 @@
         </div>
         
         <app-about id="about" [ngStyle]="{'display': (pages[currentPage]>=pages.about||showAllPages)?'block':'none'}"
-            [event]="Event"
+            [(event)]="Event"
             (submit)="aboutComplete($event)"
         ></app-about>
         
               
         <app-artist id="artist" [ngStyle]="{'display': (pages[currentPage]>=pages.artist||showAllPages)?'block':'none'}"
             [artists]="Event.artist"
-            [event]="Event"
-            (submit)="1+2"
+            [(event)]="Event"
+            (submit)="artistComplete()"
+
         ></app-artist>
        
         <app-venues  id="venues" [ngStyle]="{'display': (pages[currentPage]>=pages.venue||showAllPages)?'block':'none'}"
             [venues]="Event.venues"
-            (submit)="1+2"
+            [(event)]="Event"
+            (submit)="venueComplete()"
         ></app-venues> 
        
 
         <div class="create-event-body-1">
 
-            <!-- 
-            <app-funding id="funding" [ngStyle]="{'display': (pages[currentPage]>=pages.funding||showAllPages)?'block':'none'}"></app-funding>
+            
+            <app-funding id="funding" [ngStyle]="{'display': (pages[currentPage]>=pages.funding||showAllPages)?'block':'none'}"
+                [(event)]="Event"
+                (submit)="fundingComplete()"
+            ></app-funding>
 
-            <app-add-tickets id="tickets" [ngStyle]="{'display': (pages[currentPage]>=pages.tickets||showAllPages)?'block':'none'}"></app-add-tickets> 
-            -->
+            <app-add-tickets id="tickets" [ngStyle]="{'display': (pages[currentPage]>=pages.tickets||showAllPages)?'block':'none'}"
+                [(event)]="Event"
+                (submit)="fundingComplete()"
+            ></app-add-tickets> 
+           
 
         </div>
     </div>

@@ -462,9 +462,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
 
 
-    aboutComplete(event:EventPatchModel){
-        console.log(`about complete`, event);
-    }
+   
    
 
     //////////////////////////////////////////////////////////
@@ -544,42 +542,44 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
 
 
-    updateEvent(){
+    updateEvent(event?){
         console.log(`updateEvent`);
+        if(!event)
         this.eventService.GetEventById(this.Event.id).
             subscribe((res:EventGetModel)=>{
-                
+                console.log(`updateEvent`);
                 this.Event = res;
               
                
                     
-                    for (let key in res) {
-                        if (res.hasOwnProperty(key)) {
-                            this.newEvent[key] = res[key];
-                        }
-                    }
+                //     for (let key in res) {
+                //         if (res.hasOwnProperty(key)) {
+                //             this.newEvent[key] = res[key];
+                //         }
+                //     }
 
                 
-                    this.imgService.GetImageById(this.Event.image_id).
-                        subscribe((img)=>{
-                            console.log(img);
-                            this.newEvent.image_base64 = img.base64;
-                    });
+                //     this.imgService.GetImageById(this.Event.image_id).
+                //         subscribe((img)=>{
+                //             console.log(img);
+                //             this.newEvent.image_base64 = img.base64;
+                //     });
                 
                 
                     
-                // this.codeLatLng( this.newEvent.city_lat, this.newEvent.city_lng, "aboutAddress");
-                // this.mapCoords.about.lat = this.newEvent.city_lat;
-                // this.mapCoords.about.lng = this.newEvent.city_lng;
+                // // this.codeLatLng( this.newEvent.city_lat, this.newEvent.city_lng, "aboutAddress");
+                // // this.mapCoords.about.lat = this.newEvent.city_lat;
+                // // this.mapCoords.about.lng = this.newEvent.city_lng;
                 
-                // this.genreFromModelToVar();
+                // // this.genreFromModelToVar();
                     
 
-                 this.getShowsArtists();
-                 this.getRequestVenue();
-                 this.getTickets();
-                 this.getMessages();
+                //  this.getShowsArtists();
+                //  this.getRequestVenue();
+                //  this.getTickets();
+                //  this.getMessages();
         });
+        else this.Event = event;
     }
 
    
@@ -1082,143 +1082,10 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             }
         );
     }
-    getFamilyAndFriendAmount(){
-        let sum =  parseFloat(this.familyAndFriendAmount)/100;
-        return sum*(0.1*(this.artistSum+this.venueSum+this.additionalCosts)+(this.artistSum+this.venueSum+this.additionalCosts));
-    }
 
 
     // funding
-    getNumInArtistOrVenueById(id:number,list:any[]){
-        if(id)
-            for(let i=0; i<list.length; i++)
-                if(list[i].id==id)
-                    return i;          
-    }
-    
-
-    
-    getActiveArtVen(){
-
-        this.artistSum = 0;
-        this.venueSum = 0;
-        let artist:GetArtists[] = [], venue:GetVenue[] = [];
-        console.log(this.Event);
-         for(let art of this.Event.artist)
-            if(art.status=='owner_accepted'||art.status=='active'){
-                let num = this.getNumInArtistOrVenueById(art.artist_id,this.showsArtists);
-                art.image_base64_not_given = this.showsArtists[num].image_base64_not_given;
-                art.user_name_not_given =  this.showsArtists[num].user_name;
-
-                    //заглушка на старые запросы
-                    if(!art.agreement.price) art.agreement.price = 100;
-
-                artist.push(art);
-            }
-        for(let v of this.Event.venues)
-            if(v.status=='owner_accepted'||v.status=='active'){
-                let num = this.getNumInArtistOrVenueById(v.venue_id,this.requestVenues);
-                v.image_base64_not_given = this.requestVenues[num].image_base64_not_given;
-                v.user_name_not_given =  this.requestVenues[num].user_name;
-
-                //заглушка на старые запросы
-                if(!v.agreement.price) v.agreement.price = 100;
-                
-                venue.push(v);
-        }
-        
-
-        this.activeArtist = this.convertArrToCheckModel<GetArtists>(artist);
-        this.activeVenue = this.convertArrToCheckModel<GetVenue>(venue);
-
-        let i = 0;
-        for(let item of this.activeArtist){
-            if(item.object.status=='active'){
-                item.checked = true;
-                // this.setActiveArtist();
-                this.artistSum += this.activeArtist[i].object.agreement.price;
-            }
-            i = i + 1;
-        }
-        i = 0;
-        for(let item of  this.activeVenue){
-            if(item.object.status=='active'){
-                item.checked = true;
-                this.venueSum += this.activeVenue[i].object.agreement.price;
-            }
-            i = i + 1;
-        }
-
-        console.log(this.activeArtist);
-        this.getListImages(this.activeArtist);
-        this.getListImages(this.activeVenue);
-
-        //console.log(`active: `,this.activeArtist,this.activeVenue);
-    }
-
-    setActiveArtist(index:number){
-        if(!this.activeArtist[index].checked){
-            this.activeArtist[index].checked = true;
-            this.artistSum += this.activeArtist[index].object.agreement.price;
-            this.eventService.ArtistSetActive({
-                id:this.activeArtist[index].object.artist_id,
-                event_id:this.Event.id,
-                account_id:this.Event.creator_id
-            }).
-                subscribe((res)=>{
-                    //console.log(`active set ok`,res);
-                    this.updateEvent();
-                });
-        }
-        else {
-            this.activeArtist[index].checked = false;
-            this.artistSum -= this.activeArtist[index].object.agreement.price;
-            this.eventService.ArtistRemoveActive({
-                id:this.activeArtist[index].object.artist_id,
-                event_id:this.Event.id,
-                account_id:this.Event.creator_id
-            }).
-                subscribe((res)=>{
-                    //console.log(`active remove ok`,res);
-                    this.updateEvent();
-                });
-        }
-        //console.log(this.activeArtist);
-
-    }
-
-    setActiveVenue(index:number){
-        if(!this.activeVenue[index].checked){
-            this.activeVenue[index].checked = true;
-            this.venueSum += this.activeVenue[index].object.agreement.price;
-            this.eventService.VenueSetActive({
-                id:this.activeVenue[index].object.venue_id,
-                event_id:this.Event.id,
-                account_id:this.Event.creator_id
-            }).
-                subscribe((res)=>{
-                    //console.log(`active set ok`,res);
-                    this.updateEvent();
-                });
-        }
-        else {
-            this.activeVenue[index].checked = false;
-            this.venueSum -= this.activeVenue[index].object.agreement.price;
-            this.eventService.VenueRemoveActive({
-                id:this.activeVenue[index].object.venue_id,
-                event_id:this.Event.id,
-                account_id:this.Event.creator_id
-            }).
-                subscribe((res)=>{
-                    //console.log(`active remove ok`,res);
-                    this.updateEvent();
-                });
-        }
-        //console.log(this.activeVenue);
-
-    }
-
-
+   
 
 
 
@@ -1236,76 +1103,79 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
 
     // TICKETS
-    getTickets(){
-        console.log(`getTickets`);
-        this.tickets = [];
-        let params:TicketGetParamsModel = new TicketGetParamsModel();
-        params.account_id = this.Event.creator_id;
-        params.event_id = this.Event.id;
-       
-        for(let t of this.Event.tickets){
-            params.id = t.id;
-            this.eventService.GetTickets(params).
-                subscribe((res:TicketModel)=>{
-                    this.tickets.push(res);
-                    this.currentTicket = this.tickets[0];
-                }); 
-        }
-        
+   
+
+
+
+
+
+
+
+    // #################################################################################
+
+
+
+    aboutComplete(event:EventPatchModel){
+        console.log(`about complete`, event);
+        event.account_id = this.accountId;
+
+        if(this.isNewEvent){
+                      console.log(`new event`);             
+                      this.eventService.CreateEvent(event)
+                      .subscribe((res)=>{
+                                   
+                          this.isNewEvent = false;
+                          event.id = res.id;                    
+                          this.eventService.UpdateEvent(event)
+                          .subscribe((res)=>{          
+                                   this.Event = res;
+                                 
+                                  this.currentPage = 'artist';
+                              },
+                              (err)=>{
+                                  console.log(`err`,err);
+                              }
+                      );
+
+                      },
+                      (err)=>{
+                          //console.log(`err`,err);
+                      }
+                      );
+                  }
+        else{
+                this.eventService.UpdateEvent(event)
+                    .subscribe((res)=>{
+                            console.log(`update event`);
+                            this.Event = res;
+                            console.log(`create`,res);
+                            this.currentPage = 'artist';
+                        },
+                        (err)=>{
+                            console.log(`err`,err);
+                        }
+                );
+            }
     }
 
-    addTicket(){
-        let newTicket:TicketModel = new TicketModel();
-        newTicket.id = this.getNewId();
-        newTicket.event_id = this.Event.id;
-        newTicket.account_id = this.Event.creator_id;
-        newTicket.name = 'New Name';
-        newTicket.type = 'vr';
-        newTicket.is_promotional = false;
-        newTicket.is_for_personal_use = false;
-        this.ticketsNew.push(newTicket);
-        this.currentTicket = this.ticketsNew[this.ticketsNew.length-1];
-        this.isCurTicketNew = true;
-    }
-    getNewId(){
-        let id = 1;
-        for(let t of this.ticketsNew)
-            id+=t.id;
-        return id;
+    
+
+    artistComplete(){
+        this.currentPage = 'venue';
     }
 
-    updateTicket(){
-        if(this.isCurTicketNew) {
-
-            let index:number = -1;
-            for(let i in this.ticketsNew)
-                if(this.ticketsNew[i].id == this.currentTicket.id) 
-                    index = +i;
-            //console.log(`index`,index);
-
-            this.currentTicket.id = null;
-            //console.log(`new create`,this.currentTicket);
-            this.eventService.AddTicket(this.currentTicket)
-                .subscribe((res)=>{
-                    //console.log(`create`,res);
-                    this.isCurTicketNew = false;
-
-                    this.ticketsNew.splice(index,1);
-
-                    this.updateEvent();
-                });
-
-        }
-        else {
-            this.currentTicket.account_id = this.Event.creator_id;
-            //console.log(`update old`,this.currentTicket);
-            this.eventService.UpdateTicket(this.currentTicket)
-                .subscribe((res)=>{
-                    //console.log(`update`,res);
-                    this.updateEvent();
-                });
-        }
+    venueComplete(){
+        this.currentPage = 'funding';
     }
+
+    fundingComplete(){
+        this.currentPage = 'tickets';
+    }
+
+
+
+
+
 
 
 }

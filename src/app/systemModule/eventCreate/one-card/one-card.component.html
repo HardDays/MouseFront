@@ -1,5 +1,6 @@
 <div class="card">
-    <div class="delete-card"></div>
+    <div class="delete-card" *ngIf="status!='owner_accepted'&&status!='not found artist'" (click)="Decline()"></div>
+
     <div class="left-side">
       
         <div class="ava" [class.checked]="true" [ngStyle]="{'background-image': card.image_base64_not_given?'url('+card.image_base64_not_given+')':''}"></div>
@@ -14,7 +15,7 @@
         <p class="info">{{card.address}}</p>
         <p class="info">{{(status!='pending'&&status!='ready')?'Price $'+price:''}}</p>
         <p  *ngIf="status=='pending'" class="info">Not verify acc</p>
-        <div *ngIf="status!='pending'" class="flex-buttons">
+        <div *ngIf="status!='pending'&&status!='declined'&&status!='owner_declined'" class="flex-buttons">
             <span *ngIf="status!='ready'&&status!='accepted'&&status!='owner_accepted'&&status!='active'" class="button-card" (click)="Check()" >check</span>
             <span *ngIf="status=='accepted'" class="button-card" (click)="Accept()">accept</span>
             <span *ngIf="status=='ready'||(card.account_type == 'venue' && status=='not found artist')" class="button-card" (click)="sendRequest()">Send request</span>
