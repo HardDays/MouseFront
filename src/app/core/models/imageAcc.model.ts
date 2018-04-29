@@ -12,6 +12,7 @@ export class ImageAccModelAnswer
 
 export class ImageAccModel{
     constructor(
+        public account_id?:number,
         public id?:number,
         public description?: string,
         public type?:string,

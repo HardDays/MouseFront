@@ -115,7 +115,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
     this.Venue = $venue ? this.main.accService.AccountModelToCreateAccountModel($venue) : new AccountCreateModel();
     this.Venue.account_type = AccountType.Venue;
     this.Venue.venue_type = VenueType.Public;
-    if($venue.id)
+    if( $venue && $venue.id)
     {
       this.VenueId = $venue.id;
       this.router.navigateByUrl("/system/venueCreate/"+this.VenueId);
@@ -136,6 +136,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
       (res) => {
         this.DisplayVenueParams(res);
         this.NextPart();
+        this.GetMyAccounts();
       },
       (err) => {
         console.log(err);

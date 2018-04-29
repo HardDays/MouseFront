@@ -115,4 +115,17 @@ export class VenueMediaComponent extends BaseComponent implements OnInit {
             }
         );
     }
+
+    DeleteImage(image:ImageAccModel)
+    {
+        this.WaitBeforeLoading(
+            () => this.main.imagesService.DeleteImageById(image.id,image.account_id),
+            (res) => {
+                this.GetVenueImages();
+            },
+            (err) => {
+                console.log(err);
+            }
+        );
+    }
 }
