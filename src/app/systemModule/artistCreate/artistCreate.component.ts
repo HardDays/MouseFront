@@ -894,6 +894,16 @@ loadRiderFile($event:any){
     this.currentPage = newPart;
   }
 
+  saveButtonClick(){
+    if(this.currentPage == Pages.about){
+      this.artistFromAbout();
+    }
+    else if(this.currentPage == Pages.booking){
+      this.addBooking();
+    }
+    this.updateArtistByCreateArtist();
+  }
+
 
 }
 
