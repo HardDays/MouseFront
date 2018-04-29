@@ -62,7 +62,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
   // general
 
   pages = Pages;
-  currentPage:string = 'about';
+  currentPage = Pages.about;
   showAllPages:boolean = false;
 
   artistId:number;
@@ -369,7 +369,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
                 this.updateVideosPreview();
                 this.GetVenueImages();
             
-                this.currentPage = this.currentPage!='riders'?this.pages[this.pages[this.currentPage]+1]:'riders';
+                this.NextPart();
 
                 this.clearNewElements();
 
@@ -450,7 +450,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
                 .subscribe((artist:AccountGetModel)=>{
                     this.artistId = artist.id;
                     this.artistModelToCreateArtistModel(artist);
-                    this.currentPage = 'calendar';
+                    this.currentPage = Pages.calendar;
                 });
             }
            
@@ -871,6 +871,27 @@ loadRiderFile($event:any){
       },(err)=>{
         console.log(`err`,err);
       })
+  }
+
+  NextPart()
+  {
+    if(this.currentPage == this.pages.riders)
+      this.router.navigate(["/system","profile",this.artistId]);
+      
+    scrollTo(0,0);
+    if(this.currentPage!=Pages.media)
+    this.currentPage = this.currentPage + 1;
+  }
+  
+  ChangeCurrentPart(newPart)
+  {
+    if(this.artistId == 0 && newPart > this.pages.about)
+      return;
+
+    if(this.currentPage == newPart)
+      return;
+
+    this.currentPage = newPart;
   }
 
 
