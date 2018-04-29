@@ -218,4 +218,11 @@ export class EventService{
         );
     }
 
+    BuyTicketPack(params:any)
+    {
+        return this.http.CommonRequest(
+            () => this.http.PostData('/fan_tickets/many.json',params)
+        );
+    }
+
 }

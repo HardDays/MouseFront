@@ -8,6 +8,7 @@ import { Base64ImageModel } from '../../core/models/base64image.model';
 import { BaseComponent } from '../../core/base/base.component';
 
 import { AccountGetModel } from '../../core/models/accountGet.model';
+import { BaseImages } from '../../core/base/base.enum';
 
 @Component({
     selector: 'navbar-cmp',
@@ -23,7 +24,7 @@ export class NavbarComponent extends BaseComponent implements OnInit{
     maxNumberOfProfiles:number = 5;
     curNav:string = 'shows';
     ActiveAccount = new AccountGetModel();
-  
+    ImageUser:string = '';
     ngOnInit(){
       this.initUser();
       this.accService.onAuthChange$
@@ -58,10 +59,38 @@ export class NavbarComponent extends BaseComponent implements OnInit{
             if(users.length >= this.maxNumberOfProfiles)
               this.isShown = false;
             this.Accounts = users;
+          
             this.idProfile = +localStorage.getItem('activeUserId');
             this.ActiveAccount = this.Accounts.find(obj => obj.id == this.idProfile);
+            this.GetImage();
+            console.log("this.ActiveAccount");
+            console.log(this.ActiveAccount);
         });
     }
+    GetImage()
+    {
+        
+          if(this.ActiveAccount.image_id)
+          {
+              this.WaitBeforeLoading(
+                  () => this.imgService.GetImageById(this.ActiveAccount.image_id),
+                  (res:Base64ImageModel) => {
+                  
+                      this.ImageUser = (res && res.base64) ? res.base64 : BaseImages.Drake;
+                      
+                  },
+                  (err) =>{
+                    this.ImageUser = BaseImages.Drake;
+                  }
+              );
+          }
+          else{
+            this.ImageUser = BaseImages.Drake;
+          }
+        
+      
+    }
+
 
     Navigate(params:string[]){
         this.router.navigate(params);
@@ -92,6 +121,8 @@ export class NavbarComponent extends BaseComponent implements OnInit{
         this.router.navigate(['/system/profile',id]);
         localStorage.setItem('activeUserId',''+id);
         this.idProfile = id;
+        this.ActiveAccount = this.Accounts.find(obj => obj.id == this.idProfile);
+        this.GetImage();
       }
 
       getProfileNameById(){

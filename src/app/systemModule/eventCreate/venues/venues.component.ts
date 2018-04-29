@@ -38,7 +38,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     @ViewChild('searchVenue') public searchElementVenue: ElementRef;
 
     isAcceptedVenueShow:boolean = true;
-
+    isPrivateVenue:boolean = false;
     Venues:AccountGetModel[] = [];
     venueList:CheckModel<AccountGetModel>[] = [];
 

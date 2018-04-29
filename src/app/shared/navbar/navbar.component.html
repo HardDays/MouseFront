@@ -15,11 +15,13 @@
                 </button>
                 <div class="collapse navbar-collapse my-fixed" id="menu">
                     <div class="flex-menu-items">
+                        <!--
                         <div class="search-inp">
                             <input type="text" class="inp-style-1" placeholder="Search">
                         </div>
+                        -->
                         <ul>
-                                <li *ngIf="isLoggedIn" class="dropdown">
+                                <li *ngIf="isLoggedIn" class="dropdown-hover-profiles">
                                         <a class="icon-1" [class.active]="curNav=='profile'">
                                             <div (click)="updateProfiles()" class="">
                                                 <div class="img-menu">
@@ -32,11 +34,20 @@
                                                 <span >Profile</span>
                                             </div>
                                         </a>
-                                        <div class="dropdown-content">
-                                            <a *ngFor="let item of Accounts"  (click)="setProfile(item.id)"><pre [class.activeProfile]="item.id==idProfile">{{item.account_type.substr(0,1).toUpperCase()}}   {{item.user_name}}</pre></a>
-                                         
+                                        <div  class="dropdown-settings-ava">
+                                            <div class="dropdown-items-wr">
+                                                <a *ngFor="let item of Accounts" [class.active]="item.id==idProfile" [class.Fan]="item.account_type == 'fan'" [class.Artist]="item.account_type == 'artist'" [class.Venue]="item.account_type == 'venue'" class="account-link" (click)="setProfile(item.id)">
+                                                    <span class="account-type">{{item.account_type}} account</span>
+                                                    <span class="account-name">@{{item.user_name}}</span>
+                                                </a>
+                                            </div>
                                         </div>
-                                    </li>
+                                        <!--
+                                        <div class="dropdown-content">
+                                            <a   ><pre >   {{item.user_name}}</pre></a>
+                                         
+                                        </div>-->
+                            </li>
                             <li>
                                 <a [routerLink]="['/system','events']" (click)="curNav = 'events'" class="icon-2" [class.active]="curNav=='events'">
                                     <div class="img-menu">
@@ -98,13 +109,13 @@
                             <!--авторизован-->
                             
                             <div *ngIf="isLoggedIn" class="name-and-ava">                       
-                                <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>                    
+                                <div class="ava" [ngStyle]="{'background-image': 'url(' + ImageUser + ')'}"></div>                    
                             </div>
                             
                             <!--выпадашка если авторизован-->
                             <div *ngIf="isLoggedIn" class="dropdown-settings-ava">
                                 <div class="dropdown-items-wr">
-                                    <span>{{getProfileNameById()}}</span>
+                                    <a [routerLink]="['/system/profile',idProfile]">{{getProfileNameById()}}</a>
                                     <a [routerLink]="['/system','messages']">Messages</a>
                                     <span (click)="curNav = 'profile'" [routerLink]="['/system','fanCreate','new']">Create Fan</span>
                                     <span (click)="curNav = 'profile'" [routerLink]="['/system','artistCreate']">Create Artist</span>

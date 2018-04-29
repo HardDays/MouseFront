@@ -24,7 +24,8 @@ export class ticketsMass{
         public price?: number,
         public created_at?: string,
         public updated_at?: string,
-        public ticket?: ticketsInfo
+        public ticket?: ticketsInfo,
+        public tickets_left?:number
 )
 {
     if(!ticket){

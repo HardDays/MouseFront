@@ -50,10 +50,13 @@
 }
 
 p{
-    word-wrap: break-word;
-    word-break: break-all; 
-}
 
+  
+}
+.one-checkbox p{
+    font-size: 13px;
+    padding-left: 10px;
+}
 .pac-container { z-index: 100000; }
 .yes-no{
     margin-left: 80px;

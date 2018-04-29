@@ -24,6 +24,7 @@ export class TypeService{
     GetAllSpaceTypes()
     {
         return [
+            new SelectModel("None", ""),
             new SelectModel("Night club", "night_club"),
             new SelectModel("Concert hall", "concert_hall"),
             new SelectModel("Event space", "event_space"),
