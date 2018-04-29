@@ -14,6 +14,7 @@ import { AccountService } from './account.service';
 import { AuthMainService } from "./auth.service";
 import { GUID } from "../models/guide.model";
 import { AccountGetModel } from '../models/accountGet.model';
+import { TokenModel } from "../models/token.model";
 import { EventGetModel } from "../models/eventGet.model";
 import { EventCreateModel } from "../models/eventCreate.model";
 
@@ -48,10 +49,10 @@ export class MainService{
         this.onLoadingChange$.next(false);
 
         this.CurrentAccountChange = new Subject();
-        this.CurrentAccountChange.next(new AccountGetModel());
+        //this.CurrentAccountChange.next(new AccountGetModel());
 
         this.MyAccountsChange = new Subject();
-        this.MyAccountsChange.next([]);
+        //this.MyAccountsChange.next([]);
 
         this.authService.onAuthChange$
             .subscribe(
@@ -65,7 +66,7 @@ export class MainService{
             (val:AccountGetModel) => 
             {
                 this.SetCurrentAcc(val);
-                this.SetCurrentAccId(val.id);
+                this.SetCurrentAccId(val.id? val.id : 0);
             }
         );
 
@@ -107,6 +108,11 @@ export class MainService{
     public SetCurrentAcc(acc:AccountGetModel)
     {
         this.CurrentAccount = acc;
+    }
+
+    public BaseInitSession()
+    {
+        this.authService.TryToLoginWithToken();
     }
 
 

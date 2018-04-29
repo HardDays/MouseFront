@@ -1,0 +1,29 @@
+
+<div class="one-show">
+    <div class="img-show" [ngStyle]="{'background-image': 'url(' + Image + ')'}"></div>
+    <div class="description">
+        <div class="top-info">
+            <div class="side side-1">
+                <!--весртка красной фиговины-->
+                <div *ngIf="Show.is_active" class="sale">
+                        <p>BUY 1<br>GET 1<br>TICKET</p>
+                </div>
+                <div *ngIf="!Show.is_active" class="funded" style="overflow: hidden">
+                    <!-- тут ебошим высоту, скок собрали баблища-->
+                    <div class="complete" [ngStyle]="{'height':+FoundedPercent +'%'}"></div>
+                    <p>12 days<br>to go<br><span>{{FoundedPercent}}%<br>funded</span></p>
+                </div>
+
+            </div>
+            
+        </div>
+        
+    </div>
+</div>
+<div class="new-shows-desc">
+    <a class="name-show">{{Show.name}}</a>
+    <p class="name-artist">{{Show.artists}}</p>
+    <div class="where">{{Show.event_time}}</div>
+    <div *ngIf="Show.event_time && Show.address" class="where">-</div>
+    <div class="where">{{Show.address}}</div> 
+</div>

@@ -28,7 +28,7 @@ import { MapEventComponent } from './map/map.component';
         SearchEventComponent,
         MapEventComponent
     ],
-    exports: [ EventsComponent ]
+    exports: [ EventsComponent]
 })
 export class EventsModule {}
 

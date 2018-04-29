@@ -49,6 +49,7 @@ export class SearchEventComponent extends BaseComponent implements OnInit {
     {
         this.SearchParams.only_my = true;
         this.SearchParams.account_id = this.GetCurrentAccId();
+        this.SearchParams.limit = 16;
         
         this.GetGenres();
         this.GetTicketTypes();

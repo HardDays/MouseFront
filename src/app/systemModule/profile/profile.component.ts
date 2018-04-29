@@ -81,6 +81,15 @@ ngOnInit(){
 
     //this.Videos = this.accService.GetVideo();
  
+    // this.main.onAuthChange$
+    //     .subscribe(
+    //         (res) => 
+    //         {
+    //             console.log("auth",res);
+    //             console.log("id",this.GetCurrentAccId());
+    //             console.log("token",this.main.authService.GetToken());
+    //         }
+    //     );
     this.initUser();
     this.activatedRoute.params.forEach((params)=>{
         this.UserId = params["id"];

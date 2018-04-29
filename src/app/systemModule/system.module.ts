@@ -9,7 +9,6 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import {SystemComponent} from './system.component';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { TimepickerModule } from 'ngx-bootstrap';
-import {ShowsComponent} from './shows/shows.component';
 
 import { EditComponent } from './edit/edit.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -52,11 +51,11 @@ import { AddTicketsComponent } from './eventCreate/tickets/tickets.component';
 import { VenueCreateModule } from './venueCreate/venueCreate.module';
 import { EventCreateModule } from './eventCreate/eventCreate.module';
 import { EventsModule } from './events/events.module';
+import { ShowsModule } from './shows/shows.module';
 
 @NgModule({
   declarations: [
     SystemComponent,
-    ShowsComponent,
     EditComponent,
     ProfileComponent,
     AccountCreateComponent,
@@ -85,6 +84,7 @@ import { EventsModule } from './events/events.module';
     VenueCreateModule,
     EventCreateModule,
     EventsModule,
+    ShowsModule,
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
     ReactiveFormsModule,
