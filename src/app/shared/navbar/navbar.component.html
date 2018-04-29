@@ -113,7 +113,7 @@
                                     <a [routerLink]="['/system/profile',CurrentAccount.id]">{{CurrentAccount.display_name}}</a>
                                     <a [routerLink]="['/system','messages']">Messages</a>
                                     <span (click)="curNav = 'profile'" [routerLink]="['/system','fanCreate','new']">Create Fan</span>
-                                    <span (click)="curNav = 'profile'" [routerLink]="['/system','artistCreate']">Create Artist</span>
+                                    <span (click)="curNav = 'profile'" [routerLink]="['/system','artistCreate','new']">Create Artist</span>
                                     <a (click)="curNav = 'profile'" [routerLink]="['/system','venueCreate','new']">Create Venue</a>
                                 </div>
                                 

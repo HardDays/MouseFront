@@ -37,7 +37,7 @@ import { Point } from '@agm/core/services/google-maps-types';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AgmCoreModule } from '@agm/core';
+// import { AgmCoreModule } from '@agm/core';
 import { CheckModel } from '../../core/models/check.model';
 import { TicketModel } from '../../core/models/ticket.model';
 import { TicketGetParamsModel } from '../../core/models/ticketGetParams.model';

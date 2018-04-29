@@ -49,6 +49,7 @@ import { VenuesComponent } from './eventCreate/venues/venues.component';
 import { FundingComponent } from './eventCreate/funding/funding.component';
 import { AddTicketsComponent } from './eventCreate/tickets/tickets.component';
 import { VenueCreateModule } from './venueCreate/venueCreate.module';
+import { EventCreateModule } from './eventCreate/eventCreate.module';
 import { EventsModule } from './events/events.module';
 import { ShowsModule } from './shows/shows.module';
 
@@ -58,7 +59,6 @@ import { ShowsModule } from './shows/shows.module';
     EditComponent,
     ProfileComponent,
     AccountCreateComponent,
-    EventCreateComponent,
     ArtistCreateComponent,
     PreloaderComponent,
     FeedComponent,
@@ -70,16 +70,11 @@ import { ShowsModule } from './shows/shows.module';
     MyTicketOpenedComponent,
     BiographyComponent,
     ByTicketComponent,
-    OneCardComponent,
     OneFolowerForProfileComponent,
     TicketOnProfileComponent,
     UpcomingShowsProfileComponent,
     ShowDetailVideoComponent,
-    AboutComponent,
-    ArtistComponent,
-    VenuesComponent,
-    FundingComponent,
-    AddTicketsComponent
+
   ],
   imports: [
     CommonModule,
@@ -87,6 +82,7 @@ import { ShowsModule } from './shows/shows.module';
     HttpModule,
     TextMaskModule,
     VenueCreateModule,
+    EventCreateModule,
     EventsModule,
     ShowsModule,
     BsDatepickerModule.forRoot(),

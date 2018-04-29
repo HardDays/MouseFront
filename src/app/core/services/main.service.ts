@@ -15,6 +15,8 @@ import { AuthMainService } from "./auth.service";
 import { GUID } from "../models/guide.model";
 import { AccountGetModel } from '../models/accountGet.model';
 import { TokenModel } from "../models/token.model";
+import { EventGetModel } from "../models/eventGet.model";
+import { EventCreateModel } from "../models/eventCreate.model";
 
 @Injectable()
 export class MainService{
@@ -112,6 +114,9 @@ export class MainService{
     {
         this.authService.TryToLoginWithToken();
     }
+
+
+           
 
 
     

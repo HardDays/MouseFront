@@ -19,6 +19,7 @@ import { AccountSearchModel } from '../../../core/models/accountSearch.model';
 import { GenreModel } from '../../../core/models/genres.model';
 import { CheckModel } from '../../../core/models/check.model';
 import { InboxMessageModel } from '../../../core/models/inboxMessage.model';
+import { EventCreateModel } from '../../../core/models/eventCreate.model';
 
 declare var $:any;
 declare var ionRangeSlider:any;
@@ -31,13 +32,14 @@ declare var ionRangeSlider:any;
 export class ArtistComponent extends BaseComponent implements OnInit {
 
    
-  @Input('artists') artistsList: GetArtists[] = [];
-  @Input('event') Event: EventGetModel;
-  @Output('submit') submit = new EventEmitter<boolean>();
+   
+  @Input() Event:EventCreateModel;
+  @Output() onSaveEvent:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
  
 
   @ViewChild('searchArtist') public searchElementArtist: ElementRef;
 
+  artistsList: GetArtists[] = [];
   Artists:AccountGetModel[] = [];
   artistForRequest:AccountGetModel = new AccountGetModel();
   addArtist:AccountAddToEventModel = new AccountAddToEventModel();
@@ -47,7 +49,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
   artistsSearch:CheckModel<AccountGetModel>[] = []; // артисты, которые удовлятворяют поиску
 
   mapCoords =  {lat:55.755826, lng:37.6172999};
-  firstOpen:boolean = true;
+
 
   isAcceptedArtistShow:boolean = true;
   showModalRequest:boolean = false;
@@ -71,21 +73,53 @@ export class ArtistComponent extends BaseComponent implements OnInit {
     messagesList:InboxMessageModel[] = [];
 
 
-  ngOnInit() {
-    this.CreateAutocompleteArtist();
-    
-  }
+    ngOnInit() {
+      this.CreateAutocompleteArtist();
 
-  ngOnChanges(changes: SimpleChanges) {
-   
-      if (changes['artistsList']) {
-      
-          this.GetArtists();
+      let _the = this;
+      var hu_2 = $(".current-slider").ionRangeSlider({
+          min: 0,
+          max: 100000,
+          from: 20000,
+          step: 10,
+          type: "single",
+          hide_min_max: false,
+          prefix: "$ ",
+          grid: false,
+          prettify_enabled: true,
+          prettify_separator: ',',
+          grid_num: 5,
+          onChange: function (data) {
+              _the.PriceArtistChanged(data);
+          }
+      });
 
-      }
-    
-  }
+      this.getGenres();
+    }
 
+    getGenres(){
+      this.genresSearchArtist = [];
+      this.main.genreService.GetAllGenres()
+      .subscribe((res:string[])=>{
+        this.genresSearchArtist = this.main.genreService.StringArrayToGanreModelArray(res);
+          for(let i of this.genresSearchArtist) {
+            i.show = true;}
+      });
+    }
+
+    PriceArtistChanged(data:any){
+        this.artistSearchParams.price_from = data.from;
+        this.artistSearch();
+    }
+
+    Init(event?:EventCreateModel)
+    {
+      this.artistsList = event.artist;
+      console.log(this.artistsList);
+      this.GetArtistsFromList();
+    }
+
+ 
   
   CreateAutocompleteArtist(){
     this.mapsAPILoader.load().then(
@@ -105,8 +139,6 @@ export class ArtistComponent extends BaseComponent implements OnInit {
                     {
                          this.artistSearchParams.address = autocomplete.getPlace().formatted_address;
                          this.artistSearch();
-                        // this.mapCoords.artist.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
-                        // this.mapCoords.artist.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
                     }
                 });
             });
@@ -114,7 +146,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
     );
   }
 
-  GetArtists(){
+  GetArtistsFromList(){
     this.Artists = [];
     if(this.artistsList&&this.artistsList.length>0)
     for(let i of this.artistsList){
@@ -134,15 +166,18 @@ export class ArtistComponent extends BaseComponent implements OnInit {
     }
   }
 
-  artistSearch($event?:string){
-    
+  artistSearch($event?:string){ 
     if($event) this.artistSearchParams.text = $event;
 
     this.artistSearchParams.type = 'artist';
+
+    this.artistSearchParams.genres = [];
+
+    for(let g of this.genresSearchArtist)
+      if(g.checked) this.artistSearchParams.genres.push(g.genre);
    
      this.main.accService.AccountsSearch(this.artistSearchParams).
          subscribe((res)=>{
-            //  if(res.length>0){
                 let temp = this.convertArrToCheckModel<AccountGetModel>(res);
                 
                 for(let art of this.artistsSearch){
@@ -160,8 +195,6 @@ export class ArtistComponent extends BaseComponent implements OnInit {
                 }
                 this.artistsSearch = temp;
                 console.log(this.artistsSearch);
-              
-            //  }
      });
   }
 
@@ -196,10 +229,10 @@ export class ArtistComponent extends BaseComponent implements OnInit {
             this.main.eventService.AddArtist(this.addArtist).
               subscribe((res)=>{
                   console.log(`add `,this.addArtist.artist_id);
-                
+                  
               }, (err)=>{
                 console.log(`err`,err);
-               
+                 
               });
           
           } 
@@ -301,11 +334,11 @@ updateEvent(){
   this.main.eventService.GetEventById(this.Event.id).
             subscribe((res:EventGetModel)=>{
                 console.log(`updateEventThis`);
-                this.Event = res;
+                 this.Event = this.main.eventService.EventModelToCreateEventModel(res);
                 this.artistsList = [];
                 this.artistsList = this.Event.artist;
-               // console.log(`---`,this.Event,this.artistsList)
-                this.GetArtists();
+                console.log(`---`,this.Event,this.artistsList)
+                this.GetArtistsFromList();
               
   })
 
@@ -352,9 +385,10 @@ getIdAtMsg(sender:number){
 }
 
 artistComplete(){
-  this.submit.emit(true);
-
+  this.onSaveEvent.emit(this.Event);
 }
+
+
 
 
 
