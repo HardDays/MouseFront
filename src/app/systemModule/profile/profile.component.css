@@ -25,3 +25,10 @@
 .new-link-to-sound{
     display: block;
 }
+.slick-arrow:before,.slick-arrow:after{
+    display: none;
+}
+
+.slick-prev:before, .slick-next:before{
+    display: none;
+}
