@@ -14,7 +14,6 @@ import {ShowsComponent} from './shows/shows.component';
 import { EditComponent } from './edit/edit.component';
 import { ProfileComponent } from './profile/profile.component';
 import { EventCreateComponent } from './eventCreate/eventCreate.component';
-import { EventsComponent } from './events/events.component';
 
 import { SlickModule } from 'ngx-slick';
 import { TextMaskModule } from 'angular2-text-mask';
@@ -33,7 +32,6 @@ import { FeedComponent } from './feed/feed.component';
 import { TicketsComponent } from './tickets/tickets.component';
 import { VenueCreateComponent } from './venueCreate/venueCreate.component';
 import { FanCreateComponent } from './fan-create/fan-create.component';
-import { MyEventComponent } from './myEvent/myEvent.component';
 import { ShowsDetailComponent } from './showsDetail/shows.Detail.component';
 import { MessagesComponent } from './messages/messages.component';
 import { MyTicketComponent } from './my-ticket/my-ticket.component';
@@ -52,6 +50,7 @@ import { VenuesComponent } from './eventCreate/venues/venues.component';
 import { FundingComponent } from './eventCreate/funding/funding.component';
 import { AddTicketsComponent } from './eventCreate/tickets/tickets.component';
 import { VenueCreateModule } from './venueCreate/venueCreate.module';
+import { EventsModule } from './events/events.module';
 
 @NgModule({
   declarations: [
@@ -62,12 +61,10 @@ import { VenueCreateModule } from './venueCreate/venueCreate.module';
     AccountCreateComponent,
     EventCreateComponent,
     ArtistCreateComponent,
-    EventsComponent,
     PreloaderComponent,
     FeedComponent,
     TicketsComponent,
     FanCreateComponent,
-    MyEventComponent,
     ShowsDetailComponent,
     MessagesComponent,
     MyTicketComponent,
@@ -91,6 +88,7 @@ import { VenueCreateModule } from './venueCreate/venueCreate.module';
     HttpModule,
     TextMaskModule,
     VenueCreateModule,
+    EventsModule,
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
     ReactiveFormsModule,
