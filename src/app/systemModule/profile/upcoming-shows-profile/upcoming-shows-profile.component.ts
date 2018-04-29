@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { BaseComponent } from '../../core/base/base.component';
-import { BaseImages } from '../../core/base/base.enum';
-import { Base64ImageModel } from '../../core/models/base64image.model';
-import { TicketsGetModel } from '../../core/models/ticketsGetModel';
+import { BaseComponent } from '../../../core/base/base.component';
+import { BaseImages } from '../../../core/base/base.enum';
+import { Base64ImageModel } from '../../../core/models/base64image.model';
+import { TicketsGetModel } from '../../../core/models/ticketsGetModel';
 
 @Component({
   selector: 'app-upcoming-shows-profile',
