@@ -127,7 +127,6 @@ export class ShowsComponent extends BaseComponent implements OnInit {
             (res:EventGetModel[]) =>
             {
               this.Events = res;
-              // this.CloseSearchWindow();
             },
             (err) => {
                 console.log(err);
