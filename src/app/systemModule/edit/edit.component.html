@@ -11,7 +11,7 @@
                             <input name="photo" accept=".jpg, .jpeg, .png" type="file" (change)="loadLogo($event)"> 
                         </label>
                        
-                        <div (click)="Account.image_base64=''" *ngIf="Account.image_base64" class="bg-image uploaded" [ngStyle]="{'background-image': 'url('+Account.image_base64+')'}"></div>
+                        <div (click)="Account.image_base64='';" *ngIf="Account.image_base64" class="bg-image uploaded" [ngStyle]="{'background-image': 'url('+Account.image_base64+')'}"></div>
                        
                     </div>
                     <div class="side left-side">

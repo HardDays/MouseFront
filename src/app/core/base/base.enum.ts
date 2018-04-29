@@ -20,7 +20,9 @@ export enum VenueType{
 }
 
 export enum BaseImages{
-    Drake = "../../assets/img/drake.jpg"
+    Drake = "../../assets/img/drake.jpg",
+    NoneUserImage = "../../assets/img/non-photo.svg",
+    NoneFolowerImage = "../../assets/img/non-photo-2.svg"
 }
 
 

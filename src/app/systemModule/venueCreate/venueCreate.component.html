@@ -21,8 +21,13 @@
                         <li [ngClass]="{'active':CurrentPart == Parts.Dates,'started':(VenueId != 0 && CurrentPart != Parts.Dates)}">
                             <a (click)="ChangeCurrentPart(Parts.Dates)" class="nav-second-outlet">Dates</a>
                         </li>
+                      
                         <li>
-                            <a class="nav-second-outlet">Preview</a>
+                            <button class="butt-style-1" style="width: 127px">
+                                <span style="padding: 10px 21px">
+                                SAVE
+                                </span>
+                            </button>
                         </li>
                     </ul>
                 </div>

@@ -17,4 +17,14 @@
 .dropdown-hover-profiles .dropdown-settings-ava .account-link.Venue.active{
     background-image: url(../img/venue-active.svg);
 }
+.create-event-nav-tabs .create-event-header ul{
+    align-items: center;
+}
+.create-event-nav-tabs .create-event-header ul li {
+    padding: 0 24px;
+}
+html,
+body {
+    min-width: 1199px;
+}
 /*# sourceMappingURL=style.css.map */

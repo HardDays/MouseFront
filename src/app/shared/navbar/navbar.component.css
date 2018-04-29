@@ -65,6 +65,9 @@ header .main-mw .right-side{
         background-size: 13px;
         background-position: top 14px left 22px;
     }
+    header .main-mw .right-side .flex-menu-items .name-and-ava-wr .name-and-ava .ava{
+        background-color: #eb2d64;
+    }
       .dropdown-hover-profiles .dropdown-settings-ava .account-link .account-type{
         font-size: 14px;
         color: #000;

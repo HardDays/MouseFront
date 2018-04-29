@@ -76,16 +76,16 @@ export class NavbarComponent extends BaseComponent implements OnInit{
                   () => this.imgService.GetImageById(this.ActiveAccount.image_id),
                   (res:Base64ImageModel) => {
                   
-                      this.ImageUser = (res && res.base64) ? res.base64 : BaseImages.Drake;
+                      this.ImageUser = (res && res.base64) ? res.base64 : BaseImages.NoneUserImage;
                       
                   },
                   (err) =>{
-                    this.ImageUser = BaseImages.Drake;
+                    this.ImageUser = BaseImages.NoneUserImage;
                   }
               );
           }
           else{
-            this.ImageUser = BaseImages.Drake;
+            this.ImageUser = BaseImages.NoneUserImage;
           }
         
       
