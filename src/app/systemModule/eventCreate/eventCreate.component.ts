@@ -275,11 +275,16 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         });
     }
 
+    // navigateTo(path:string)
+    // {
+    //     $('body, html').animate({
+    //         scrollTop: $('#'+path).offset().top
+    //     }, 800);
+    // } 
+
     navigateTo(path:string)
     {
-        $('body, html').animate({
-            scrollTop: $('#'+path).offset().top
-        }, 800);
+        this.currentPage = Pages[path];
     } 
 
    

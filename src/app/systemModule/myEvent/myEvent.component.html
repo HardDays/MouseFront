@@ -9,12 +9,12 @@
         <a [routerLink]="['/system','eventCreate',Event.id]" class="name-artist">{{Event.name}}</a>
         <p *ngIf="Event.event_month && Event.event_year"  class="when">{{Event.event_month}}, {{Event.event_year}}</p>
         <p class="where">{{Event.address}}</p>
-        <div class="funded-bar">
+        <div class="funded-bar" style="overflow: hidden">
             <div class="funded" [ngStyle]="{'width':+FoundedPercent +'%'}"></div>
         </div>
         <div class="funded-desc">
             <p class="finded-proc"><span>{{Event.founded}}</span> Funded</p>
-            <p class="comlete-t">{{FoundedPercent}}% Complete</p>
+            <p class="comlete-t">{{FoundedPercent | number}}% Complete</p>
         </div>
         <p class="style-text-2"><span>60</span> Days to go</p>
         <div class="last-flex-info">
