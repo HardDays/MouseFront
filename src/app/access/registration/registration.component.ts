@@ -21,6 +21,7 @@ import { } from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
 import { EventService } from '../../core/services/event.service';
 import { Http } from '@angular/http';
+import { MainService } from '../../core/services/main.service';
 
 
 declare var $:any;
@@ -59,19 +60,6 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
 
   phone:string;
   isShowPhone:boolean = true;
-
-  constructor(protected authService: AuthMainService,
-              protected accService:AccountService,
-              protected imgService:ImagesService,
-              protected typeService:TypeService,
-              protected genreService:GenresService,
-              protected eventService:EventService,
-              protected _sanitizer: DomSanitizer,
-              protected router: Router,public _auth: AuthService,
-              private mapsAPILoader: MapsAPILoader, protected h:Http,
-              private ngZone: NgZone){
-    super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
-  }
     
   onSuccesCreateUser(type:string){
     if(type){

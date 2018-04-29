@@ -30,6 +30,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'angular2-social-login';
 import { MapsAPILoader } from '@agm/core';
 import { Http } from '@angular/http';
+import { MainService } from '../../core/services/main.service';
 
 declare var $:any;
 declare var ionRangeSlider:any;
@@ -69,22 +70,6 @@ export class EventsComponent extends BaseComponent implements OnInit {
     LocationText:string = '';
     bsConfig: Partial<BsDatepickerConfig>;
 
-
-    constructor(protected authService: AuthMainService,
-        protected accService:AccountService,
-        protected imgService:ImagesService,
-        protected typeService:TypeService,
-        protected genreService:GenresService,
-        protected eventService:EventService,
-        protected _sanitizer: DomSanitizer,
-        protected router: Router,public _auth: AuthService,
-        private mapsAPILoader: MapsAPILoader, 
-        private ngZone: NgZone, protected h:Http,
-        private activatedRoute: ActivatedRoute)
-    {
-        super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
-        
-      }
     ngOnInit()
     {   
         this.CreateAutocomplete();
@@ -118,20 +103,20 @@ export class EventsComponent extends BaseComponent implements OnInit {
 
     GetAllTypesOfSpace()
     {
-        this.TypesOfSpace = this.typeService.GetAllSpaceTypes();
+        this.TypesOfSpace = this.main.typeService.GetAllSpaceTypes();
     }
 
     GetTicketTypes()
     {
-        this.TicketTypes = this.typeService.GetTicketTypes();
+        this.TicketTypes = this.main.typeService.GetTicketTypes();
     }
 
     GetGenres()
     {
         this.WaitBeforeLoading(
-            () => this.genreService.GetAllGenres(),
+            () => this.main.genreService.GetAllGenres(),
             (res:string[]) => {
-                this.Genres = this.genreService.SetHiddenGenres(this.genreService.StringArrayToGanreModelArray(res));
+                this.Genres = this.main.genreService.SetHiddenGenres(this.main.genreService.StringArrayToGanreModelArray(res));
             }
         );
     }
@@ -151,23 +136,22 @@ export class EventsComponent extends BaseComponent implements OnInit {
     {
       this.SearchParams.distance = data.from;
     }
-    setHeightSearch(){
-        //console.log($('.main-router-outlet .main-router-outlet').height(),$(window).height());
+    setHeightSearch()
+    {
         if($('.main-router-outlet .main-router-outlet').height() < $(window).height()){
           $('.wrapp-for-filter').css({
              "height": $('.for-flex-height').height()-150
           });
-          //console.log(`one`);
         }
       else{
          $('.wrapp-for-filter').css({
              "height": '100%'
           }); 
-          //console.log(`two`);
       }
     }
 
-    aboutOpenMapModal(){
+    aboutOpenMapModal()
+    {
         $('#modal-map').modal('show');
     }
 
@@ -179,7 +163,8 @@ export class EventsComponent extends BaseComponent implements OnInit {
         $(".mask-nav-3").removeClass("is-active")
     }
 
-    initSlider(){
+    initSlider()
+    {
         let _the = this;
         var price_slider = $(".current-slider").ionRangeSlider({
             type:"double",
@@ -198,57 +183,50 @@ export class EventsComponent extends BaseComponent implements OnInit {
             }
         });
     }
+
+    PriceChanged(data)
+    {}
     
-    aboutDragMarker($event){
-        //console.log($event);
+    aboutDragMarker($event)
+    {
         this.mapCoords.lat = $event.coords.lat;
         this.mapCoords.lng = $event.coords.lng;
         this.codeLatLng( this.mapCoords.lat, this.mapCoords.lng);
     }
-    codeLatLng(lat, lng) {
-        
+    codeLatLng(lat, lng) 
+    {
         let geocoder = new google.maps.Geocoder();
         let latlng = new google.maps.LatLng(lat, lng);
         this.SearchParams.lat = lat;
         this.SearchParams.lng = lng;
-        geocoder.geocode({
-            'location': latlng }, 
-             (results, status) => {
+        geocoder.geocode(
+            {'location': latlng }, 
+            (results, status) => {
                 if (status === google.maps.GeocoderStatus.OK) {
-                    if (results[1]) {
-                  
+                    if (results[1]) 
+                    {
                         this.LocationText = results[1].formatted_address;
-                    //$("#searchAddress").val(results[1].formatted_address);
-                    
-                    /* LOCATION - сдвиг точки на карте results[1].formatted_address */
-                    //this.SearchParams.location = results[1].formatted_address;
                     }
-                } else {
+                } 
+                else {
                     alert('Geocoder failed due to: ' + status);
                 }
-            });
-      }
+            }
+        );
+    }
 
-      mapClick($event){
+    mapClick($event)
+    {
         this.mapLat = $event.coords.lat;
         this.mapLng = $event.coords.lng;
         this.isMarkerVisible = true;
         this.codeLatLng(this.mapLat,this.mapLng);
-      }
-    PriceChanged(data:any)
-    {
-    //   if(data.from && this.SearchParams.price_from != data.from)
-    //     this.SearchParams.price_from = data.from;
-    //   if(data.to && this.SearchParams.price_to != data.to)  
-    //     this.SearchParams.price_to = data.to;
-        //console.log(`data`,data);
     }
-
+    
     GetEvents()
     {
-        //console.log("date", this.SearchParams);
         this.WaitBeforeLoading(
-            () => this.eventService.EventsSearch(this.SearchParams),
+            () => this.main.eventService.EventsSearch(this.SearchParams),
             (res:EventGetModel[]) =>
             {
                 this.Events = res;
@@ -281,32 +259,35 @@ export class EventsComponent extends BaseComponent implements OnInit {
 
     ConvertTicketTypes()
     {
-        this.SearchParams.ticket_types = this.typeService.TicketTypesArrayToStringArray(this.TicketTypes);
+        this.SearchParams.ticket_types = this.main.typeService.TicketTypesArrayToStringArray(this.TicketTypes);
     }
 
     ConvertGenreCheckboxes()
     {
-        this.SearchParams.genres = this.genreService.GenreModelArrToStringArr(this.Genres);
+        this.SearchParams.genres = this.main.genreService.GenreModelArrToStringArr(this.Genres);
     }
 
     ConvertSearchDateRangeToSearchParams()
     {
         if(this.SearchDateRange && this.SearchDateRange.length == 2)
         {
-            this.SearchParams.from_date = this.typeService.GetDateStringFormat(this.SearchDateRange[0]);
-            this.SearchParams.to_date = this.typeService.GetDateStringFormat(this.SearchDateRange[1]);
+            this.SearchParams.from_date = this.main.typeService.GetDateStringFormat(this.SearchDateRange[0]);
+            this.SearchParams.to_date = this.main.typeService.GetDateStringFormat(this.SearchDateRange[1]);
         }
-        else{
+        else
+        {
             this.SearchParams.from_date = "";
             this.SearchParams.to_date = "";
         }
     }
 
-    analiticsClick(){
+    analiticsClick()
+    {
         $('#modal-analytics').modal('show');
     }
 
-    openSearch(){
+    openSearch()
+    {
         let _that = this;
         $(".nav-button").on("click", function (e) {
             _that.setHeightSearch();
@@ -324,6 +305,7 @@ export class EventsComponent extends BaseComponent implements OnInit {
             $(".mask-nav-3").removeClass("is-active")
         });
     }
+
     TypeOfSpaceChange($event)
     {
         this.SearchParams.size = [];
@@ -331,29 +313,32 @@ export class EventsComponent extends BaseComponent implements OnInit {
             this.SearchParams.size.push($event);
     }
 
-    CreateAutocomplete(){
+    CreateAutocomplete()
+    {
         this.mapsAPILoader.load().then(
             () => {
-               //(this.searchElement.nativeElement, {types:[`(cities)`]})
-             let autocomplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement);
-            
-            
-                autocomplete.addListener("place_changed", () => {
-                    this.ngZone.run(() => {
-                        let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
-                        if(place.geometry === undefined || place.geometry === null )
-                        {             
-                            return;
-                        }
-                        else 
-                        {
-                            //this.LocationText = place.formatted_address;
-                            this.SearchParams.lat = place.geometry.location.lat();
-                            this.SearchParams.lng = place.geometry.location.lng();
-                        }
-                    });
-                });
+                let autocomplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement);
+                autocomplete.addListener(
+                    "place_changed",
+                    () => {
+                        this.ngZone.run(
+                            () => {
+                                let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
+                                if(place.geometry === undefined || place.geometry === null )
+                                {             
+                                    return;
+                                }
+                                else 
+                                {
+                                    //this.LocationText = place.formatted_address;
+                                    this.SearchParams.lat = place.geometry.location.lat();
+                                    this.SearchParams.lng = place.geometry.location.lng();
+                                }
+                            }
+                        );
+                    }
+                );
             }
         );
-      }
+    }
 }

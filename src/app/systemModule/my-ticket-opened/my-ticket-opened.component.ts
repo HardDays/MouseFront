@@ -18,6 +18,7 @@ import { Base64ImageModel } from '../../core/models/base64image.model';
 import { TicketsGetModel } from '../../core/models/ticketsGetModel';
 import { BaseImages } from '../../core/base/base.enum';
 import { TicketsByEventModel } from '../../core/models/ticketsByEvent.model';
+import { MainService } from '../../core/services/main.service';
 
 @Component({
   selector: 'app-my-ticket-opened',
@@ -29,32 +30,27 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit{
   accountId:number;
   TotalPrice:number = 0;
   TicketsByEvent:TicketsByEventModel = new TicketsByEventModel();
-  Image:string;
-  constructor(protected authService: AuthMainService,
-    protected accService:AccountService,
-    protected imgService:ImagesService,
-    protected typeService:TypeService,
-    protected genreService:GenresService,
-    protected eventService:EventService,
-    protected _sanitizer: DomSanitizer,
-    protected router: Router,public _auth: AuthService,
-    private mapsAPILoader: MapsAPILoader, 
-    private ngZone: NgZone, protected h:Http,
-    private activatedRoute: ActivatedRoute){
-    super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
+  Image:string = BaseImages.Drake;
+  constructor
+  (           
+      protected main         : MainService,
+      protected _sanitizer   : DomSanitizer,
+      protected router       : Router,
+      protected mapsAPILoader  : MapsAPILoader,
+      protected ngZone         : NgZone,
+      private activatedRoute : ActivatedRoute
+  ){
+      super(main,_sanitizer,router,mapsAPILoader,ngZone);
   }
 
-  ngOnInit() {
-    
-  this.activatedRoute.params.forEach((params) => {
-    this.event_id = params["id"];
-    this.initUser();
-  });
- 
-  
-
-
-
+  ngOnInit() 
+  {
+    this.activatedRoute.params.forEach(
+      (params) => {
+        this.event_id = params["id"];
+        this.initUser();
+      }
+    );
   }
 
   GetImage()
@@ -62,60 +58,57 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit{
       if(this.TicketsByEvent.event && this.TicketsByEvent.event.image_id)
       {
           this.WaitBeforeLoading(
-              () => this.imgService.GetImageById(this.TicketsByEvent.event.image_id),
+              () => this.main.imagesService.GetImageById(this.TicketsByEvent.event.image_id),
               (res:Base64ImageModel) => {
-              
                   this.Image = (res && res.base64) ? res.base64 : BaseImages.Drake;
               },
               (err) =>{
-                  this.Image = BaseImages.Drake;
               }
           );
-      }
-      else{
-          this.Image = BaseImages.Drake;
       }
   }
 
 
-  initUser(){
-    this.accService.GetMyAccount({extended:true})
-    .subscribe((users:any[])=>{
+  initUser()
+  {
+    let id = this.GetCurrentAccId();
+    this.WaitBeforeLoading(
+      () => this.main.accService.GetMyAccount({extended:true}),
+      (users:any[])=>{
         for(let u of users)
-        if(u.id==+localStorage.getItem('activeUserId')){
-          this.accountId = u.id;
-          this.GetTicketsByEvent();
-         
+        {
+          if(u.id == id)
+          {
+            this.accountId = u.id;
+            this.GetTicketsByEvent();
+          }
         }
-    });
+      }
+    );
   }
 
   GetTicketsByEvent()
   {
-      
-      this.WaitBeforeLoading(
-          () => this.eventService.GetTicketsByEvent(this.accountId,this.event_id),
-          (res:TicketsByEventModel) =>
-          { 
-              this.TicketsByEvent = res;
-              this.GetImage();
-              this.CountTotalPrice();
-          },
-          (err) => {
-              console.log(err);
-           
-          }
-      );
+    this.WaitBeforeLoading(
+      () => this.main.eventService.GetTicketsByEvent(this.accountId,this.event_id),
+      (res:TicketsByEventModel) =>
+      {
+        this.TicketsByEvent = res;
+        this.GetImage();
+        this.CountTotalPrice();
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
-  CountTotalPrice(){
+  CountTotalPrice()
+  {
     this.TotalPrice = 0;
-    for(let i of this.TicketsByEvent.tickets){
-      
+    for(let i of this.TicketsByEvent.tickets)
+    {
       this.TotalPrice+=i.price;
-     
     }
   }
-
-
 }

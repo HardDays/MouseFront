@@ -43,6 +43,10 @@ import { TicketModel } from '../../core/models/ticket.model';
 import { TicketGetParamsModel } from '../../core/models/ticketGetParams.model';
 import { Observable } from 'rxjs/Observable';
 import { VenueMediaPhotoModel } from '../../core/models/venueMediaPhoto.model';
+import { MainService } from '../../core/services/main.service';
+import { ImageAccModel, ImageAccModelAnswer } from '../../core/models/imageAcc.model';
+import { VenueHoursComponent } from './hours/hours.component';
+import { VenueMediaComponent } from './media/media.component';
 
 
 
@@ -69,530 +73,85 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
   Venue:AccountCreateModel = new AccountCreateModel();
   VenueId:number = 0;
 
-  OfficeHours:FrontWorkingTimeModel[] = [];
-  OfficeHoursSelectedDate = false;
 
-  OperatingHours:FrontWorkingTimeModel[] = [];
-  OperatingHoursSelectedDate = false;
-
+  @ViewChild('hours') hours:VenueHoursComponent;
+  @ViewChild('media') media:VenueMediaComponent;
   
-  TypesOfSpace:SelectModel[] = [];
-  LocatedTypes:SelectModel[] = [];
+  constructor
+  (           
+    protected main          : MainService,
+    protected _sanitizer    : DomSanitizer,
+    protected router        : Router,
+    protected mapsAPILoader : MapsAPILoader,
+    protected ngZone        : NgZone,
+    private activatedRoute  : ActivatedRoute
+  ){
+    super(main,_sanitizer,router,mapsAPILoader,ngZone);
+  } 
 
-  ImageToLoad:VenueMediaPhotoModel = new VenueMediaPhotoModel();
-
-  VenueImages:VenueMediaPhotoModel[] = [];
-
-  ImageTypes: SelectModel[] = [];
-
-  EmailFormGroup : FormGroup = new FormGroup({
-    "name_email":new FormControl("",[]),
-    "email":new FormControl("",[Validators.email]),
-  });
-
-  aboutForm : FormGroup = new FormGroup({        
-    "venue_name": new FormControl("", [Validators.required]),
-    "mouse_name": new FormControl("", [Validators.required]),
-    "short_desc": new FormControl("", [Validators.required]),
-    "phone": new FormControl("", [Validators.required]),
-    "fax": new FormControl("", []),
-    "emails": new FormArray([
-    ]),
-    "country": new FormControl("", [Validators.required]),
-    "address": new FormControl("", [Validators.required]),
-    "city": new FormControl("", [Validators.required]),
-    "state": new FormControl("", [Validators.required]),
-    "zipcode": new FormControl("", []),
-  });
-
-  detailsForm : FormGroup = new FormGroup({
-    "venue_type": new FormControl("", [Validators.required]),
-    "other_venue": new FormControl("",[]),
-    "capacity": new FormControl("",[Validators.required,
-      Validators.pattern("[0-9]+"),
-      Validators.min(0),Validators.max(150000)                                
-    ]),
-    "bathrooms": new FormControl("",[
-      Validators.pattern("[0-9]+"),
-      Validators.min(0),Validators.max(100)                                
-    ]),
-    "min_age": new FormControl("",[
-      Validators.pattern("[0-9]+"),
-      Validators.min(0),Validators.max(21)                                
-    ]),
-    "bar": new FormControl("",[]),
-    "located":new FormControl("",[]),
-    "dress_code":new FormControl("Shirt and Shoes Required",[])
-  });
-
-  mediaForm : FormGroup = new FormGroup({
-    "vr": new FormControl("",[]),
-    "audio_description" : new FormControl("",[Validators.required,
-                                              Validators.maxLength(1000)]),
-    "lighting_description" : new FormControl("",[Validators.required,
-                                                Validators.maxLength(1000)]),
-    "stage_description" : new FormControl("",[Validators.required,
-                                              Validators.maxLength(1000)])
-  }); 
-
-  dateForm : FormGroup = new FormGroup(
-    {
-      "minimum_notice": new FormControl("",[Validators.pattern("[0-9]+"),
-                              Validators.min(0),Validators.max(999)]),
-      "is_flexible": new FormControl("",[]),
-      "price_for_daytime": new FormControl("",[Validators.pattern("[0-9]+"),
-                              Validators.min(0),Validators.max(1000000)]),
-      "price_for_nighttime": new FormControl("",[Validators.pattern("[0-9]+"),
-                              Validators.min(0),Validators.max(1000000)]),
-      "performance_time_from": new FormControl("",[]),
-      "performance_time_to": new FormControl("",[])
-    }
-  );
-
-  slideConfig = {"slidesToShow": 2, "slidesToScroll": 2};
-
-  @ViewChild('search') public searchElement: ElementRef;
-
-  constructor(protected authService: AuthMainService,
-    protected accService:AccountService,
-    protected imgService:ImagesService,
-    protected typeService:TypeService,
-    protected genreService:GenresService,
-    protected eventService:EventService,
-    protected _sanitizer: DomSanitizer,
-    protected router: Router,public _auth: AuthService,
-    private mapsAPILoader: MapsAPILoader, 
-    private ngZone: NgZone, protected h:Http,
-    private activatedRoute: ActivatedRoute){
-    super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
-  }
-
-    ngOnInit()
-    {
-      this.CreateAutocomplete();
-      this.TypesOfSpace = this.typeService.GetAllSpaceTypes();
-      this.LocatedTypes = this.typeService.GetAllLocatedTypes();
-      this.ImageTypes = this.typeService.GetAllSpaceTypes();
-      this.activatedRoute.params.forEach((params) => {
+  ngOnInit()
+  {
+    this.activatedRoute.params.forEach(
+      (params) => {
         if(params["id"] == 'new')
-        {;
+        {
           this.DisplayVenueParams(null);
         }
         else
         {
-          this.accService.GetAccountById(params["id"],{extended:true})
-            .subscribe
-            (
-              (res:AccountGetModel) => 
-              {
-                this.DisplayVenueParams(res);
-              }
-            );
-        }
-        setTimeout(()=> this.InitJs(),2500);
-      });
-
-
-    }
-
-    CreateAutocomplete(){
-      this.mapsAPILoader.load().then(
-          () => {
-             //(this.searchElement.nativeElement, {types:[`(cities)`]})
-           let autocomplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement);
-          
-          
-              autocomplete.addListener("place_changed", () => {
-                  this.ngZone.run(() => {
-                      let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
-                      if(place.geometry === undefined || place.geometry === null )
-                      {             
-                          return;
-                      }
-                      else 
-                      {
-                          
-                          // this.Venue.address = autocomplete.getPlace().formatted_address;
-                          
-                          let addr:string[] = autocomplete.getPlace().adr_address.split(', ');
-                         
-                          for(let a of addr){
-                            if(a.search('locality') > 0){
-                              this.Venue.city = a.slice(a.search('>')+1,a.search('</'));
-                            }
-                            else if(a.search('street-address') > 0){
-                              this.Venue.address = a.slice(a.search('>')+1,a.search('</'));
-                            }
-                            else if(a.search('region') > 0){
-                              this.Venue.state = a.slice(a.search('>')+1,a.search('</'));
-                            }
-                            else if(a.search('country-name') > 0){
-                              this.Venue.country = a.slice(a.search('>')+1,a.search('</'));
-                            }
-                            else if(a.search('postal-code') > 0){
-                              this.Venue.zipcode = a.slice(a.search('>')+1,a.search('</'));
-                            }
-                          }
-
-                          
-                      }
-                  });
-              });
-          }
-      );
-    }
-
-    InitJs()
-    {
-      // $('.slider-4-init').slick({
-      //   dots: false,
-      //   arrows: true,
-      //   infinite: false,
-      //   slidesToShow: 2,
-      //     responsive: [
-      //       {
-      //         breakpoint: 1301,
-      //         settings: {
-      //           slidesToShow: 2,
-      //           slidesToScroll: 2
-               
-      //         }
-      //       }
-      //     ]
-      // });
-    }
-
-    DisplayVenueParams($venue?:AccountGetModel)
-    {
-      if($venue && $venue.id)
-      {
-        this.VenueId = $venue.id;
-        this.router.navigateByUrl("/system/venueCreate/"+this.VenueId);
-        this.GetVenueImages();
-      }
-      this.OfficeHours = ($venue && $venue.office_hours)?
-                          this.accService.GetFrontWorkingTimeFromTimeModel($venue.office_hours):this.typeService.GetAllDays();
-      this.OperatingHours = ($venue && $venue.operating_hours)?
-                          this.accService.GetFrontWorkingTimeFromTimeModel($venue.operating_hours):this.typeService.GetAllDays();
-
-      this.IsNeedToShowSelectDayWrapper();
-
-      this.Venue = $venue ? this.accService.AccountModelToCreateAccountModel($venue) : new AccountCreateModel();
-      this.Venue.account_type = AccountType.Venue;
-      this.Venue.venue_type = VenueType.Public;
-
-      this.aboutForm.controls["emails"] = new FormArray([]);
-
-      if(!this.Venue.emails)
-        this.Venue.emails = [new ContactModel()];
-      
-      this.addEmailsToForm(this.Venue.emails.length);
-    }
-
-    GetVenueImages()
-    {
-      this.imgService.GetAccountImages(this.VenueId,{limit:5})
-        .subscribe(
-          (res:any)=>{
-            if(res && res.total_count > 0)
-            {
-              let index = 0;
-              for(let image of res.images)
-              {
-                if(!this.VenueImages[index])
-                  this.VenueImages[index] = new VenueMediaPhotoModel();
-                
-                this.VenueImages[index].image_description = image.description;
-                this.VenueImages[index].image_type = image.type;
-                this.VenueImages[index].image_type_description = image.type_decs
-                this.GetVenueImageById(image.id,index);
-                index = index + 1;
-              }
+          this.WaitBeforeLoading(
+            () => this.main.accService.GetAccountById(params["id"],{extended:true}),
+            (res:AccountGetModel) => {
+              this.DisplayVenueParams(res);
             }
-          }
-        );
-    }
-
-    GetVenueImageById(id,saveIndex)
-    {
-      this.imgService.GetImageById(id)
-        .subscribe(
-          (res:Base64ImageModel) =>{
-            this.VenueImages[saveIndex].image_base64 = res.base64;
-          }
-        );
-    }
-
-    SanitizeImage(image: string)
-    {
-      return this._sanitizer.bypassSecurityTrustStyle(`url(${image})`);
-    }
-
-    SaveVenue()
-    {
-      if(!this.CheckFormForValid())
-      {
-        console.log("Form invalid!");
-        return;
+          );
+        }
       }
-      this.Venue.office_hours = this.accService.GetWorkingTimeFromFront(this.OfficeHours);
-      this.Venue.operating_hours = this.accService.GetWorkingTimeFromFront(this.OperatingHours);
+    );
+  }
 
-      if(this.Venue.type_of_space != "other" && this.Venue.other_genre_description)
-      {
-        this.Venue.other_genre_description = "";
-      }
-
-      this.WaitBeforeLoading
-      (
-        () => this.VenueId == 0 ? this.accService.CreateAccount(this.Venue) : this.accService.UpdateMyAccount(this.VenueId,this.Venue),
-        (res) => 
-        {
-          this.DisplayVenueParams(res);
-          this.NextPart();
-        },
-        (err) =>
-        {
-          console.log(err);
-        }
-      )
-    }
-
-    CheckFormForValid()
+  DisplayVenueParams($venue?:AccountGetModel)
+  {
+    this.Venue = $venue ? this.main.accService.AccountModelToCreateAccountModel($venue) : new AccountCreateModel();
+    this.Venue.account_type = AccountType.Venue;
+    this.Venue.venue_type = VenueType.Public;
+    if($venue.id)
     {
-      switch(this.CurrentPart)
-      {
-        case this.Parts.About:{
-          if(this.aboutForm.invalid)
-            console.log(this.aboutForm);
-          return !this.aboutForm.invalid;
-        }
-        case this.Parts.Listing:{
-          if(this.detailsForm.invalid)
-            console.log(this.detailsForm);
-          return !this.detailsForm.invalid;
-        }
-        case this.Parts.Media:{
-          if(this.mediaForm.invalid)
-            console.log(this.mediaForm);
-          return !this.mediaForm.invalid;
-        }
-        case this.Parts.Dates:{
-          if(this.dateForm.invalid)
-            console.log(this.dateForm);
-          return !this.dateForm.invalid;
-        }
-        default:{
-            return true;
-        }
-      } 
+      this.VenueId = $venue.id;
+      this.router.navigateByUrl("/system/venueCreate/"+this.VenueId);
     }
+    if(this.hours)
+      this.hours.Init(this.Venue);
+    if(this.media)
+      this.media.Init(this.Venue,this.VenueId);
+  }
+
+  
+
+  SaveVenue(venue:AccountCreateModel)
+  {
+    this.WaitBeforeLoading
+    (
+      () => this.VenueId == 0 ? this.main.accService.CreateAccount(this.Venue) : this.main.accService.UpdateMyAccount(this.VenueId,this.Venue),
+      (res) => {
+        this.DisplayVenueParams(res);
+        this.NextPart();
+      },
+      (err) => {
+        console.log(err);
+      }
+    )
+  }
 
   NextPart()
   {
     if(this.CurrentPart == this.Parts.Dates)
       this.router.navigate(["/system","profile",this.VenueId]);
+      
     scrollTo(0,0);
     this.CurrentPart = this.CurrentPart + 1;
-    // if(this.CurrentPart == this.Parts.Media)
-    //   this.InitJs();
-  }
-
-  addEmailsToForm(count?:number){
-    let n = 1;
-    if(count)
-      n = count;
-
-    for(let i = 0; i < n; i++ )
-    {
-      (<FormArray>this.aboutForm.controls["emails"]).push(this.GetContactFormGroup());
-    }
-  }
-
-  addEmail()
-  {
-    this.Venue.emails.push(new ContactModel());
-    (<FormArray>this.aboutForm.controls["emails"]).push(this.GetContactFormGroup());
   }
   
-
-  deleteEmail(index:number)
-  {
-    (<FormArray>this.aboutForm.controls["emails"]).removeAt(index);
-    this.Venue.emails.splice(index,1);
-  }
-
-  GetContactFormGroup()
-  {
-    return new FormGroup({
-      "name_email":new FormControl("",[]),
-      "email":new FormControl("",[Validators.email]),
-    })
-  }
-
-  OfficeHoursCheckChange(index, $event)
-  {
-    this.OfficeHours[index].checked = $event;
-
-    this.IsNeedToShowSelectDayWrapper();
-  }
-
-  OperatingHoursCheckChange(index, $event)
-  {
-    this.OperatingHours[index].checked = $event;
-
-    this.IsNeedToShowSelectDayWrapper();
-  }
-
-  IsNeedToShowSelectDayWrapper()
-  {
-    this.OperatingHoursSelectedDate = this.OperatingHours.filter(obj => obj.checked == true).length > 0;
-    this.OfficeHoursSelectedDate = this.OfficeHours.filter(obj => obj.checked == true).length > 0;
-  }
-
-  GetFromTimeMask(item:FrontWorkingTimeModel){
-    return {
-      mask: [/[0-2]/, (item.start_work && (+item.start_work[0]) > 1) ? /[0-3]/ : /\d/, ':', /[0-5]/, /\d/],
-      keepCharPositions: true
-    };
-  } 
-  GetToTimeMask(item:FrontWorkingTimeModel){
-    return {
-      mask: this.typeService.GetEndTimeMask(item.start_work,item.finish_work),
-      keepCharPositions: true
-    };
-  }
-
-  GetPerformanceFromTimeMask(venue:AccountCreateModel)
-  {
-    return {
-      mask: [/[0-2]/, (venue.performance_time_from && (+venue.performance_time_from[0]) > 1) ? /[0-3]/ : /\d/, ':', /[0-5]/, /\d/],
-      keepCharPositions: true
-    };
-  }
-  GetPerformanceToTimeMask(venue:AccountCreateModel)
-  {
-    return {
-      mask: this.typeService.GetEndTimeMask(venue.performance_time_from,venue.performance_time_to),
-      keepCharPositions: true
-    };
-  }
-
-  GetCapacityMask(int:number)
-  {
-    let str = int?int.toString():"";
-    
-    let mask = [/[1-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/,/[0-9]/];
-    
-    if( str && str.length > 4)
-    {
-      if(+str.substr(0,5) > 19999)
-        mask.splice(5,1);
-    }
-
-    return {
-      mask: mask,
-      keepCharPositions: true,
-      guide:false
-    };
-  }
-
-  GetAgeMask(int:number)
-  {
-    let str = int?int.toString():"";
-    let mask = [/[0-2]/,(str && +str[0] > 1)?/[0-5]/:/[0-9]/];
-    
-    if(str && +str[0] == 0)
-      mask.splice(1,1);
-
-    return {
-      mask: mask,
-      keepCharPositions: true,
-      guide:false
-    };
-  }
-
-  GetNumOfBathrooms(int:number)
-  {
-    let str = int?int.toString():"";
-    let mask = [/[0-9]/,/[0-9]/];
-
-    if(str && +str[0] == 0)
-      mask.splice(1,1);
-
-    return {
-      mask: mask,
-      keepCharPositions: true,
-      guide:false
-    };
-  }
-
-  GetMediaDescriptionMask()
-  {
-    return {
-      mask: this.typeService.GetTextMask(1000),
-      keepCharPositions: true,
-      guide:false
-    }
-  }
-
-  GetMinimumNoticeMask()
-  {
-    return {
-      mask: this.typeService.GetNumbersMask(3),
-      keepCharPositions: true,
-      guide:false
-    }
-  }
-  GetPerfomancePriceMask()
-  {
-    return {
-      mask: this.typeService.GetNumbersMask(7),
-      keepCharPositions: true,
-      guide:false
-    };
-  }
-
-  loadImage($event:any):void{
-    let target = $event.target;
-    //let file:File = target.files[0];
-    if(target.files.length == 0)
-        return;
-    
-    for(let file of target.files)
-    {
-      let reader:FileReader = new FileReader();
-      reader.onload = (e) =>{
-          this.ImageToLoad.image_base64 = reader.result;
-      }
-      reader.readAsDataURL(file);
-    }
-  }
-  DeleteImageFromLoading()
-  {
-    this.ImageToLoad.image_base64 = '';
-  }
-
-  AddVenuePhoto()
-  {
-    
-    if(this.ImageToLoad.image_type != "other" && this.ImageToLoad.image_type_description)
-    {
-      this.ImageToLoad.image_type_description = "";
-    }
-    // console.log(this.ImageToLoad);
-    this.imgService.PostAccountImage(this.VenueId,this.ImageToLoad)
-      .subscribe(
-        (res:any) => {
-          // console.log("after post",res);
-          this.ImageToLoad = new VenueMediaPhotoModel();
-          this.ImageToLoad.image_description = "";
-          // console.log(this.ImageToLoad)
-          this.GetVenueImages();
-        }
-      );
-  }
-
   ChangeCurrentPart(newPart)
   {
     if(this.VenueId == 0 && newPart > this.Parts.About)
@@ -600,16 +159,14 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
 
     if(this.CurrentPart == newPart)
       return;
-    
-    // if(newPart == this.Parts.Media)
-    //   this.InitJs();
 
     this.CurrentPart = newPart;
   }
     
 }
 
-export enum PageParts{
+export enum PageParts
+{
   About = 0,
   Hours = 1,
   Listing = 2,

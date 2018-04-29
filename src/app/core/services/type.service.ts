@@ -241,33 +241,42 @@ export class TypeService{
         
             if(begin[1])
             {
-                if(begin[0] == finish[0])
+                if(finish && finish.length > 0)
                 {
-                    mask[1] = new RegExp(
-                        (finish && (+finish[0]) > 1) ? "[" + begin[1] +"-3]" : "[" + begin[1] + "-9]"
-                    );
+                    if(begin[0] == finish[0])
+                    {
+                        mask[1] = new RegExp(
+                            (finish && (+finish[0]) > 1) ? "[" + begin[1] +"-3]" : "[" + begin[1] + "-9]"
+                        );
+                    }
                 }
             }
         
             if(begin[3])
             {
-                if(begin.substr(0,3) == finish.substr(0,3))
+                if(finish && finish.length > 3)
                 {
-                    mask[3] = new RegExp("[" + begin[3] +"-5]");
+                    if(begin.substr(0,3) == finish.substr(0,3))
+                    {
+                        mask[3] = new RegExp("[" + begin[3] +"-5]");
+                    }
                 }
             }
         
             if(begin[4])
             {
-                if(begin.substr(0,4) == finish.substr(0,4))
+                if(finish && finish.length > 4)
                 {
-                    if(+begin[4] != 9)
+                    if(begin.substr(0,4) == finish.substr(0,4))
                     {
-                        mask[4] = new RegExp("[" + (+begin[4] + 1 ) +"-9]");
-                    }
-                    else
-                    {
-                        mask[4] = new RegExp("[9]");
+                        if(+begin[4] != 9)
+                        {
+                            mask[4] = new RegExp("[" + (+begin[4] + 1 ) +"-9]");
+                        }
+                        else
+                        {
+                            mask[4] = new RegExp("[9]");
+                        }
                     }
                 }
             }

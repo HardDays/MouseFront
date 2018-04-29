@@ -25,6 +25,7 @@ import { AuthService } from 'angular2-social-login';
 import { MapsAPILoader } from '@agm/core';
 import { EventService } from '../../core/services/event.service';
 import { Http } from '@angular/http';
+import { MainService } from '../../core/services/main.service';
 
 
 @Component({
@@ -66,19 +67,17 @@ export class EditComponent extends BaseComponent implements OnInit {
     @ViewChild('submitFormUsr') form: NgForm;
     @ViewChild('search') public searchElement: ElementRef;
     
-    constructor(protected authService: AuthMainService,
-      protected accService:AccountService,
-      protected imgService:ImagesService,
-      protected typeService:TypeService,
-      protected genreService:GenresService,
-      protected eventService:EventService,
-      protected _sanitizer: DomSanitizer,
-      protected router: Router,public _auth: AuthService,
-      private mapsAPILoader: MapsAPILoader, 
-      private activatedRoute: ActivatedRoute, protected h:Http,
-      private ngZone: NgZone){
-  super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
-  }
+    constructor
+    (           
+      protected main         : MainService,
+      protected _sanitizer   : DomSanitizer,
+      protected router       : Router,
+      protected mapsAPILoader  : MapsAPILoader,
+      protected ngZone         : NgZone,
+      private activatedRoute : ActivatedRoute
+    ){
+      super(main,_sanitizer,router,mapsAPILoader,ngZone);
+    }
 
     ngOnInit()
     {
@@ -87,7 +86,7 @@ export class EditComponent extends BaseComponent implements OnInit {
       this.Account.dates = [new EventDateModel()];
       this.Account.office_hours = [new WorkingTimeModel()];
       this.isMyAccount = false;
-      this.accService.GetMyAccount()
+      this.main.accService.GetMyAccount()
       .subscribe((res:AccountGetModel[])=>{
           this.activatedRoute.params.forEach((params) => {
           this.UserId = params["id"];
@@ -98,10 +97,10 @@ export class EditComponent extends BaseComponent implements OnInit {
               }
           }
           if(!this.isMyAccount) {
-            this.authService.ClearSession();
+            this.main.authService.ClearSession();
             this.router.navigate(['/shows']);
           }
-          this.accService.GetAccountById(this.UserId, {extended:true})
+          this.main.accService.GetAccountById(this.UserId, {extended:true})
             .subscribe((user:any)=>{
                 this.InitByUser(user);
             })
@@ -113,33 +112,33 @@ export class EditComponent extends BaseComponent implements OnInit {
         //console.log(err);
           
       })
-      this.TypesOfSpace = this.typeService.GetAllSpaceTypes();
-      this.VenueTypes = this.typeService.GetAllVenueTypes();
-      this.AccountTypes = this.typeService.GetAllAccountTypes();
-      this.LocationTypes = this.typeService.GetAllLocationTypes();
-      this.BookingNotice = this.typeService.GetAllBookingNotices();
+      this.TypesOfSpace = this.main.typeService.GetAllSpaceTypes();
+      this.VenueTypes = this.main.typeService.GetAllVenueTypes();
+      this.AccountTypes = this.main.typeService.GetAllAccountTypes();
+      this.LocationTypes = this.main.typeService.GetAllLocationTypes();
+      this.BookingNotice = this.main.typeService.GetAllBookingNotices();
       //this.Account.emails = [new ContactModel()];
       this.CreateAutocomplete();
     }
    
   
     InitByUser(usr:any){  
-      this.Account = this.accService.AccountModelToCreateAccountModel(usr);
+      this.Account = this.main.accService.AccountModelToCreateAccountModel(usr);
       this.Account.venue_type = "public_venue";
       for(let i in this.Account.dates) {
         this.bsValue_start[i] = new Date(this.Account.dates[i].begin_date);
         this.bsValue_end[i] = new Date(this.Account.dates[i].end_date);
       }
-      this.OfficeDays = usr.office_hours?this.accService.GetFrontWorkingTimeFromTimeModel(usr.office_hours):this.typeService.GetAllDays();
-      this.OperatingDays = usr.operating_hours?this.accService.GetFrontWorkingTimeFromTimeModel(usr.operating_hours):this.typeService.GetAllDays();
+      this.OfficeDays = usr.office_hours?this.main.accService.GetFrontWorkingTimeFromTimeModel(usr.office_hours):this.main.typeService.GetAllDays();
+      this.OperatingDays = usr.operating_hours?this.main.accService.GetFrontWorkingTimeFromTimeModel(usr.operating_hours):this.main.typeService.GetAllDays();
       this.UserId = usr.id?usr.id:0;
-      this.genreService.GetAllGenres()
+      this.main.genreService.GetAllGenres()
         .subscribe((genres:string[])=> {
-          this.Genres = this.genreService.GetGendreModelFromString(this.Account.genres, this.genreService.StringArrayToGanreModelArray(genres));
+          this.Genres = this.main.genreService.GetGendreModelFromString(this.Account.genres, this.main.genreService.StringArrayToGanreModelArray(genres));
           this.seeFirstGenres();
         });
       if(usr.image_id){
-          this.imgService.GetImageById(usr.image_id)
+          this.main.imagesService.GetImageById(usr.image_id)
               .subscribe((res:Base64ImageModel)=>{
                   this.Account.image_base64 = res.base64;
               });
@@ -153,11 +152,11 @@ export class EditComponent extends BaseComponent implements OnInit {
     if(this.form.valid){
       //console.log(`form valid`);
       
-      this.Account.office_hours = this.accService.GetWorkingTimeFromFront(this.OfficeDays);
+      this.Account.office_hours = this.main.accService.GetWorkingTimeFromFront(this.OfficeDays);
 
       //console.log("days", this.OperatingDays);
-      this.Account.operating_hours = this.accService.GetWorkingTimeFromFront(this.OperatingDays);
-      this.Account.emails = this.typeService.ValidateArray(this.Account.emails);
+      this.Account.operating_hours = this.main.accService.GetWorkingTimeFromFront(this.OperatingDays);
+      this.Account.emails = this.main.typeService.ValidateArray(this.Account.emails);
       this.Account.genres = [];
       if(this.Account.account_type == this.Roles.Artist)
         this.Account.preferred_address = this.Address;
@@ -173,12 +172,12 @@ export class EditComponent extends BaseComponent implements OnInit {
           //console.log("res", this.Account);
       if( this.Account.office_hours == null)  this.Account.office_hours = [];
       if( this.Account.operating_hours == null)  this.Account.operating_hours = [];
-      this.accService.UpdateMyAccount(this.UserId, JSON.stringify(this.Account))
+      this.main.accService.UpdateMyAccount(this.UserId, JSON.stringify(this.Account))
       .subscribe((res:any)=>{
           //console.log("res", res);
           this.InitByUser(res);
           this.isLoading = false;
-          this.accService.onAuthChange$.next(true);
+          this.main.accService.onAuthChange$.next(true);
       },
       (err:any)=>{
         if(err.status == 422) {
@@ -202,9 +201,9 @@ export class EditComponent extends BaseComponent implements OnInit {
   }
 
   DeleteMe() {
-    this.accService.DeleteMe(this.UserId)
+    this.main.accService.DeleteMe(this.UserId)
     .subscribe((res:any)=>{
-        this.authService.ClearSession();
+        this.main.authService.ClearSession();
         this.router.navigate(['/login']);
         
     },

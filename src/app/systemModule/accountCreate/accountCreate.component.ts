@@ -25,6 +25,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'angular2-social-login';
 import { MapsAPILoader } from '@agm/core';
 import { Http } from '@angular/http';
+import { MainService } from '../../core/services/main.service';
 
 
 @Component({
@@ -63,19 +64,17 @@ export class AccountCreateComponent extends BaseComponent implements OnInit {
     @ViewChild('submitFormUsr') form: NgForm;
     @ViewChild('search') public searchElement: ElementRef;
     
-    constructor(protected authService: AuthMainService,
-      protected accService:AccountService,
-      protected imgService:ImagesService,
-      protected typeService:TypeService,
-      protected genreService:GenresService,
-      protected eventService:EventService,
-      protected _sanitizer: DomSanitizer,
-      protected router: Router,public _auth: AuthService,
-      private mapsAPILoader: MapsAPILoader, 
-      private activatedRoute: ActivatedRoute, protected h:Http,
-      private ngZone: NgZone){
-  super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
-  }
+    constructor
+    (           
+      protected main         : MainService,
+      protected _sanitizer   : DomSanitizer,
+      protected router       : Router,
+      protected mapsAPILoader  : MapsAPILoader,
+      protected ngZone         : NgZone,
+      private activatedRoute : ActivatedRoute
+    ){
+      super(main,_sanitizer,router,mapsAPILoader,ngZone);
+    }
   
     ngOnInit()
     {
@@ -84,17 +83,17 @@ export class AccountCreateComponent extends BaseComponent implements OnInit {
       this.Account.dates = [new EventDateModel()];
       this.Account.emails = [new ContactModel()];
       this.Account.office_hours = [new WorkingTimeModel()];
-      this.TypesOfSpace = this.typeService.GetAllSpaceTypes();
-      this.VenueTypes = this.typeService.GetAllVenueTypes();
-      this.AccountTypes = this.typeService.GetAllAccountTypes();
-      this.LocationTypes = this.typeService.GetAllLocationTypes();
-      this.BookingNotice = this.typeService.GetAllBookingNotices();
-      this.OfficeDays = this.Account.office_hours?this.accService.GetFrontWorkingTimeFromTimeModel(this.Account.office_hours):this.typeService.GetAllDays();
-      this.OperatingDays = this.Account.operating_hours?this.accService.GetFrontWorkingTimeFromTimeModel(this.Account.operating_hours):this.typeService.GetAllDays();
+      this.TypesOfSpace = this.main.typeService.GetAllSpaceTypes();
+      this.VenueTypes = this.main.typeService.GetAllVenueTypes();
+      this.AccountTypes = this.main.typeService.GetAllAccountTypes();
+      this.LocationTypes = this.main.typeService.GetAllLocationTypes();
+      this.BookingNotice = this.main.typeService.GetAllBookingNotices();
+      this.OfficeDays = this.Account.office_hours?this.main.accService.GetFrontWorkingTimeFromTimeModel(this.Account.office_hours):this.main.typeService.GetAllDays();
+      this.OperatingDays = this.Account.operating_hours?this.main.accService.GetFrontWorkingTimeFromTimeModel(this.Account.operating_hours):this.main.typeService.GetAllDays();
       //this.Account.emails = [new ContactModel()];
-      this.genreService.GetAllGenres()
+      this.main.genreService.GetAllGenres()
         .subscribe((genres:string[])=> {
-          this.Genres = this.genreService.GetGendreModelFromString(this.Account.genres, this.genreService.StringArrayToGanreModelArray(genres));
+          this.Genres = this.main.genreService.GetGendreModelFromString(this.Account.genres, this.main.genreService.StringArrayToGanreModelArray(genres));
       });
       this.Account.account_type = this.Roles.Fan;
       this.CreateAutocomplete();
@@ -102,20 +101,20 @@ export class AccountCreateComponent extends BaseComponent implements OnInit {
    
   
     InitByUser(usr:any){  
-      this.Account = this.accService.AccountModelToCreateAccountModel(usr);
+      this.Account = this.main.accService.AccountModelToCreateAccountModel(usr);
       for(let i in this.Account.dates) {
         this.bsValue_start[i] = new Date(this.Account.dates[i].begin_date);
         this.bsValue_end[i] = new Date(this.Account.dates[i].end_date);
       }
-      this.OfficeDays = usr.office_hours?this.accService.GetFrontWorkingTimeFromTimeModel(usr.office_hours):this.typeService.GetAllDays();
-      this.OperatingDays = usr.operating_hours?this.accService.GetFrontWorkingTimeFromTimeModel(usr.operating_hours):this.typeService.GetAllDays();
+      this.OfficeDays = usr.office_hours?this.main.accService.GetFrontWorkingTimeFromTimeModel(usr.office_hours):this.main.typeService.GetAllDays();
+      this.OperatingDays = usr.operating_hours?this.main.accService.GetFrontWorkingTimeFromTimeModel(usr.operating_hours):this.main.typeService.GetAllDays();
       this.UserId = usr.id?usr.id:0;
-      this.genreService.GetAllGenres()
+      this.main.genreService.GetAllGenres()
         .subscribe((genres:string[])=> {
-          this.Genres = this.genreService.GetGendreModelFromString(this.Account.genres, this.genreService.StringArrayToGanreModelArray(genres));
+          this.Genres = this.main.genreService.GetGendreModelFromString(this.Account.genres, this.main.genreService.StringArrayToGanreModelArray(genres));
         });
       if(usr.image_id){
-          this.imgService.GetImageById(usr.image_id)
+          this.main.imagesService.GetImageById(usr.image_id)
               .subscribe((res:Base64ImageModel)=>{
                   this.Account.image_base64 = res.base64;
               });
@@ -126,9 +125,9 @@ export class AccountCreateComponent extends BaseComponent implements OnInit {
 
   CreateUser(){
     if(this.form.valid){
-      this.Account.office_hours = this.accService.GetWorkingTimeFromFront(this.OfficeDays);
-      this.Account.operating_hours = this.accService.GetWorkingTimeFromFront(this.OperatingDays);
-      this.Account.emails = this.typeService.ValidateArray(this.Account.emails);
+      this.Account.office_hours = this.main.accService.GetWorkingTimeFromFront(this.OfficeDays);
+      this.Account.operating_hours = this.main.accService.GetWorkingTimeFromFront(this.OperatingDays);
+      this.Account.emails = this.main.typeService.ValidateArray(this.Account.emails);
       this.Account.genres = [];
       for(let g of this.Genres)
           if(g.checked) this.Account.genres.push(g.genre);
@@ -139,14 +138,14 @@ export class AccountCreateComponent extends BaseComponent implements OnInit {
       this.Account.venue_type = "public_venue";
       //this.Account.dates = this.typeService.ValidateArray(this.Account.dates);
       //console.log("CR", this.Account);
-      this.accService.CreateAccount(JSON.stringify(this.Account))
+      this.main.accService.CreateAccount(JSON.stringify(this.Account))
       .subscribe((res:any)=>{
           //console.log("RES", res);
           this.InitByUser(res);
           this.isLoading = false;
           this.router.navigate(['/system','profile',res.id]);
           location.reload();
-          this.accService.onAuthChange$.next(true);
+          this.main.accService.onAuthChange$.next(true);
           this.GetMyAccounts();
       },
       (err:any)=>{

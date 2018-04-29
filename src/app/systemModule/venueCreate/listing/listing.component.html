@@ -1,0 +1,75 @@
+<div class="create-event-body-1">
+    <div class="main-mw">
+        <div [formGroup]="detailsForm" class="create-event-body">
+            <div class="head-ev-body">
+                <h2>Listing Details</h2>
+                <p>Please fill in all required fields<br>to proceed to the Next Step</p>
+            </div>
+            <div class="flex-body-1 more-padding">
+                <div class="side">
+                    <h6 class="head-col-add-venue">Preferred Venue is a:</h6>
+                    <div class="flex-genres style-on-add-artist-g">
+                        <div class="one-checkbox" *ngFor="let item of TypesOfSpace;let i = index">
+                            <div class="check-style">
+                                <input type="radio" class="checkbox" id="ccc-radio-556{{i}}" name="" [value]="item.value" [(ngModel)]="Venue.type_of_space" formControlName="venue_type" >
+                                <label for="ccc-radio-556{{i}}"></label>
+                            </div>
+                            <p>{{item.name}}</p>
+                        </div>
+                    </div>
+                    <div class="input-groupe-1 whithout-label small-textarea max-500 max-100" *ngIf="Venue.type_of_space == 'other'">  
+                        <textarea  [(ngModel)]="Venue.other_genre_description" formControlName="other_venue"></textarea>
+                        <span class="max-count">100 max</span>
+                    </div>
+                </div>
+                <div class="side">
+                    <div class="input-groupe-1">
+                        <input id="venue-datails-1" [textMask]="GetCapacityMask(Venue.capacity)" [(ngModel)]="Venue.capacity" formControlName="capacity" name="" type="text">
+                        <label for="venue-datails-1">Capacity<span>*</span></label>
+                    </div>
+                    <div class="input-groupe-1">
+                        <input id="venue-datails-2" [textMask]="GetNumOfBathrooms(Venue.num_of_bathrooms)" [(ngModel)]="Venue.num_of_bathrooms" formControlName="bathrooms" name="" type="text">
+                        <label for="venue-datails-2">Number of Bathrooms</label>
+                    </div>
+                    <div class="flex-mac-checkbox">
+                        <p>Does your Venue have a Bar?</p>
+                        <div class="yes-no">
+                            <span>Yes</span>
+                            <div class="mac-checkbox">
+                                <input class="checkbox" type="checkbox" [(ngModel)]="Venue.has_bar" formControlName="bar" id="checkbox-set-option-1">
+                                <label for="checkbox-set-option-1"></label>
+                            </div>
+                            <span>No</span>
+                        </div>
+                    </div>
+                    <div class="flex-mac-checkbox direction-column on-add-artist-page">
+                        <p class="quetion-radio-text none-max-width">Located?</p>
+                        <div class="flex-radio">
+                            <div class="one-radio" *ngFor="let item of LocatedTypes;let i = index">
+                                <div class="radio-style">
+                                    <input type="radio" class="radio-b" id="radio-556{{i}}" name="" [value]="item.value" [(ngModel)]="Venue.located" formControlName="located" >
+                                    <label for="radio-556{{i}}"></label>
+                                </div>
+                                <p>{{item.name}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="side">
+                    <div class="input-groupe-1">
+                        <input id="venue-datails-10" [textMask]="GetAgeMask(Venue.min_age)" [(ngModel)]="Venue.min_age" formControlName="min_age" name="" type="text">
+                        <label for="option-datails-10">Minimum Age</label>
+                    </div>
+                    <div class="input-groupe-1">
+                        <input id="venue-datails-11" [(ngModel)]="Venue.dress_code" formControlName="dress_code" name="" type="text">
+                        <label for="option-datails-11">Dress Code</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="scroll-wrapp">
+    <div class="circle-scroll" (click)="SaveVenue()" ></div>
+</div>

@@ -23,6 +23,7 @@ import { GenresService } from '../../../core/services/genres.service';
 import { AuthMainService } from '../../../core/services/auth.service';
 import { TypeService } from '../../../core/services/type.service';
 import { EventService } from '../../../core/services/event.service';
+import { MainService } from '../../../core/services/main.service';
 
 @Component({
   selector: 'app-register-acc',
@@ -52,129 +53,132 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
   place: string='';
  
   Error:string = '';
-  
-  constructor(protected authService: AuthMainService,
-    protected accService:AccountService,
-    protected imgService:ImagesService,
-    protected typeService:TypeService,
-    protected genreService:GenresService,
-    protected eventService:EventService,
-    protected _sanitizer: DomSanitizer,
-    protected router: Router,public _auth: AuthService,
-    private mapsAPILoader: MapsAPILoader, protected h:Http,
-    private ngZone: NgZone){
-super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
-} 
+ 
 
-  ngOnInit(){
-      
-    this.genreService.GetAllGenres()
-     .subscribe((res:string[])=>{
-      //  console.log(res);
-       this.genres = this.genreService.StringArrayToGanreModelArray(res);     
-       this.seeFirstGenres(); 
-     });
-         
-  this.CreateAutocomplete();
- }
+  ngOnInit()
+  {
+    this.CreateAutocomplete();
+    this.WaitBeforeLoading(
+      () => this.main.genreService.GetAllGenres(),
+      (res:string[]) => 
+      {
+        this.genres = this.main.genreService.StringArrayToGanreModelArray(res);     
+        this.seeFirstGenres(); 
+      }
+    );  
+  }
 
- CreateAutocomplete(){
-   this.mapsAPILoader.load().then(
-       () => {
-          
+  CreateAutocomplete()
+  {
+    this.mapsAPILoader.load().then
+    (
+       () => 
+       {
         let autocomplete = new google.maps.places.Autocomplete(this.searchElementFrom.nativeElement, {types:[`(cities)`]});
        
-         autocomplete.addListener("place_changed", () => {
-          this.ngZone.run(() => {
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
-          if(place.geometry === undefined || place.geometry === null ){
-           
-           return;
+        autocomplete.addListener(
+          "place_changed",
+          () => 
+          {
+            this.ngZone.run(
+              () => 
+              {
+                  let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
+                  if(place.geometry === undefined || place.geometry === null )
+                  {
+                    return;
+                  }
+                  else 
+                  {
+                    this.Account.address = autocomplete.getPlace().formatted_address;
+                    // this.Params.public_lat=autocomplete.getPlace().geometry.location.toJSON().lat;
+                    // this.Params.public_lng=autocomplete.getPlace().geometry.location.toJSON().lng;
+                    // this.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
+                    // this.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
+                    // this.Params.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
+                    // this.Params.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
+                  }
+                }
+              );
           }
-          else {
-             this.Account.address = autocomplete.getPlace().formatted_address;
-            
-          // this.Params.public_lat=autocomplete.getPlace().geometry.location.toJSON().lat;
-          // this.Params.public_lng=autocomplete.getPlace().geometry.location.toJSON().lng;
-          // this.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
-           //this.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
-         //  this.Params.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
-         //  this.Params.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
-          }
-         });
-         });
-       }
-          );
+        );
+      }
+    );
+  }
 
-
- }
-
-  backTo(){
+  backTo()
+  {
     this.back.emit('phone');
   }
 
-  loadLogo($event:any):void{
+  loadLogo($event:any):void
+  {
     this.ReadImages(
         $event.target.files,
-        (res:string)=>{
+        (res:string)=>
+        {
             this.Account.image_base64 = res;
-            
         }
     );
   }
 
-  seeFirstGenres(){
+  seeFirstGenres()
+  {
     for(let g of this.genres) g.show = false;
+
     this.genres[0].show = true;
     this.genres[1].show = true;
     this.genres[2].show = true;
     this.genres[3].show = true;
+
     this.seeMore = false;
   }
 
-  seeMoreGenres(){
+  seeMoreGenres()
+  {
     this.seeMore = true;
-    for(let g of this.genres) g.show = true;
+    for(let g of this.genres) 
+      g.show = true;
   }
 
 
-  CategoryChanged($event:string){
-   this.search = $event;
-    if(this.search.length>0) {
+  CategoryChanged($event:string)
+  {
+    this.search = $event;
+    if(this.search.length>0) 
+    {
       this.seeMore = true;
       for(let g of this.genres)
+      {
          if(g.genre_show.indexOf(this.search.toUpperCase())>=0)
           g.show = true;
          else
           g.show = false;
+      }
     }
-    else {
+    else 
+    {
       this.seeFirstGenres();
     }
   }
 
-
-  registerAcc(){
-
-      this.Account.genres = [];
-      for(let g of this.genres)
-        if(g.checked) this.Account.genres.push(g.genre);
-      this.Account.account_type = this.typeUser;
+  registerAcc()
+  {
+    this.Account.genres = this.main.genreService.GenreModelArrToStringArr(this.genres);
+    this.Account.account_type = this.typeUser;
     this.Account.user_name = this.accForm.value['user_name'];
     this.Account.display_name = this.accForm.value['first_name']+" "+this.accForm.value['last_name'];
 
-    // console.log(this.Account);
-        this.CreateAcc(this.Account,(res)=>{
-          //console.log(`ok`);
-          this.createStatus.emit(true);
-        },
-          (err)=>{
-              console.log(err);
-              this.Error = err._body;
-    });
-
-   
-    
+    this.CreateAcc(
+      this.Account,
+      (res)=>{
+        //console.log(`ok`);
+        this.createStatus.emit(true);
+      },
+      (err)=>{
+        console.log(err);
+        this.Error = err._body;
+      }
+    );
   }
-
 }

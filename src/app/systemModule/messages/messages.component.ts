@@ -39,67 +39,80 @@ export class MessagesComponent extends BaseComponent implements OnInit {
   accs:AccountGetModel[] = [];
   accOpen:AccountGetModel = new AccountGetModel();
 
-  ngOnInit() {
+  ngOnInit() 
+  {
     this.GetMessages();
-    
   }
 
   GetMessages(){
     this.messages = [];
-      this.accService.GetMyAccount({extended:true})
-      .subscribe((users:any[])=>{
-          for(let u of users)
-          if(u.id==+localStorage.getItem('activeUserId')){
+    this.WaitBeforeLoading(
+      () => this.main.accService.GetMyAccount({extended:true}),
+      (users:any[])=>{
+        let id = this.GetCurrentAccId();
+        for(let u of users)
+        {
+          if(u.id == id)
+          {
             this.accountId = u.id;
             this.type = u.account_type;
-            this.accService.GetInboxMessages(this.accountId)
-            .subscribe((res:InboxMessageModel[])=>{
-              let index = 0;
-              for(let m of res){
-                this.accService.GetInboxMessageById(this.accountId,m.id).
-                  subscribe((info:InboxMessageModel)=>{
-                    console.log(`info`,info);
-                    this.messages.push(info);
-                    
-                    this.getUser(info.sender_id,index);
-                    index = index + 1;
-                  })
-
+            this.WaitBeforeLoading(
+              () => this.main.accService.GetInboxMessages(this.accountId),
+              (res:InboxMessageModel[])=>{
+                let index = 0;
+                for(let m of res)
+                {
+                  this.WaitBeforeLoading(
+                    () => this.main.accService.GetInboxMessageById(this.accountId,m.id),
+                    (info:InboxMessageModel)=>{
+                      this.messages.push(info);
+                      this.getUser(info.sender_id,index);
+                      index = index + 1;
+                    }
+                  );
+                }
               }
-              
-            })
+            );
           }
-      });
+        }
+      }
+    );
   }
 
   getUser(sender:number, index:number){
-    this.accService.GetAccountById(sender)
-    .subscribe((acc)=>{
-      this.accs[index] = acc;
-      if(this.accs[index].image_id)
-      this.imgService.GetImageById(this.accs[index].image_id)
-        .subscribe((img)=>{
-          this.accs[index].image_base64_not_given = img.base64;
-          console.log(`acc`,this.accs);
-          if(index==0){
-            this.idCurMsg = this.messages[0].id;
-            this.openMessage = this.messages[0];
-            this.accOpen =  this.accs[0];
-            this.setDateRange();          
-          }
-        })
-        else
-          if(index==0){
-            this.idCurMsg = this.messages[0].id;
-            this.openMessage = this.messages[0];
-            this.accOpen =  this.accs[0];
-            this.setDateRange();          
+    this.WaitBeforeLoading(
+      () => this.main.accService.GetAccountById(sender),
+      (acc)=>{
+        this.accs[index] = acc;
+        if(this.accs[index].image_id)
+        {
+          this.WaitBeforeLoading(
+            () => this.main.imagesService.GetImageById(this.accs[index].image_id),
+            (img)=>{
+              this.accs[index].image_base64_not_given = img.base64;
+              // console.log(`acc`,this.accs);
+              if(index==0){
+                this.idCurMsg = this.messages[0].id;
+                this.openMessage = this.messages[0];
+                this.accOpen =  this.accs[0];
+                this.setDateRange();          
+              }
+            }
+          );
         }
-     
-    })
+        else if(index==0)
+        {
+          this.idCurMsg = this.messages[0].id;
+          this.openMessage = this.messages[0];
+          this.accOpen =  this.accs[0];
+          this.setDateRange();          
+        }
+      }
+    );
   }
 
-  changeItem(msg:InboxMessageModel,i:number){
+  changeItem(msg:InboxMessageModel,i:number)
+  {
     this.openMessage = msg;
     this.idCurMsg = msg.id;
     this.accOpen =  this.accs[i];
@@ -107,74 +120,73 @@ export class MessagesComponent extends BaseComponent implements OnInit {
     this.setDateRange();
   }
 
-  getExpireDate(d:string, frame:string){
+  getExpireDate(d:string, frame:string)
+  {
     let date = new Date(d),
         timeFrame = frame;
    
     let endDate = new Date(date);
     
-    
-    if(timeFrame == 'one_week'){
+    if(timeFrame == 'one_week')
+    {
       endDate.setDate(endDate.getDate()+7);
     }    
-    else if(timeFrame == 'two_hours'){
+    else if(timeFrame == 'two_hours')
+    {
       endDate.setHours(endDate.getHours()+2)
     }   
-    else if(timeFrame == 'two_days'){
+    else if(timeFrame == 'two_days')
+    {
       endDate.setDate(endDate.getDate()+2);
     }
      
-    
     return endDate;
 
   }
 
-  isExpiresSoon(date:string, frame:string){
+  isExpiresSoon(date:string, frame:string)
+  {
     let expire = this.getExpireDate(date,frame);
     let today = new Date();
-    // if(today>expire)
-    //   return 'in_past';
-    // else {
       today.setDate(today.getDate()+1);
       if(today > expire)
       return 'soon';
-    // }
-
-    // return 'in_future';
-
-   
-
-
   }
 
-  setDateRange(){
-    if(this.openMessage.message_info.event_info.event_season=='spring'){
+  setDateRange()
+  {
+    if(this.openMessage.message_info.event_info.event_season=='spring')
+    {
       this.minDate = new Date(+this.openMessage.message_info.event_info.event_year,2,1);
       this.maxDate = new Date(+this.openMessage.message_info.event_info.event_year,4,31);
     }
-    else if(this.openMessage.message_info.event_info.event_season=='summer'){
+    else if(this.openMessage.message_info.event_info.event_season=='summer')
+    {
       this.minDate = new Date(+this.openMessage.message_info.event_info.event_year,5,1);
       this.maxDate = new Date(+this.openMessage.message_info.event_info.event_year,7,31);
     }
-    else if(this.openMessage.message_info.event_info.event_season=='autumn'){
+    else if(this.openMessage.message_info.event_info.event_season=='autumn')
+    {
       this.minDate = new Date(+this.openMessage.message_info.event_info.event_year,8,1);
       this.maxDate = new Date(+this.openMessage.message_info.event_info.event_year,9,31);
     }
-    else if(this.openMessage.message_info.event_info.event_season=='winter'){
+    else if(this.openMessage.message_info.event_info.event_season=='winter')
+    {
       this.minDate = new Date(+this.openMessage.message_info.event_info.event_year,11,1);
       this.maxDate = new Date((+this.openMessage.message_info.event_info.event_year)+1,1,31);
     }
-    else{
+    else
+    {
       this.minDate = new Date(+this.openMessage.message_info.event_info.event_year,0,1);
       this.maxDate = new Date((+this.openMessage.message_info.event_info.event_year),11,31);
     }
     this.bsRangeValue = [this.minDate, this.maxDate];
   }
 
-  acceptRequest(){
+  acceptRequest()
+  {
     if(!this.changePrice)
       this.changePrice = this.openMessage.message_info.estimated_price;
-
 
     this.request.event_id = this.openMessage.message_info.event_info.id;
     this.request.id = this.accountId;
@@ -183,21 +195,23 @@ export class MessagesComponent extends BaseComponent implements OnInit {
     this.request.preferred_date_from = this.bsRangeValue[0];
     this.request.preferred_date_to = this.bsRangeValue[1];
 
-    console.log(this.request);
-    
-    if(this.type=="artist")
-    this.eventService.ArtistAcceptedByArtist(this.request)
-      .subscribe((res)=>{
-        console.log(`ok`,res);
-        this.GetMessages();
-      })
+    if(this.type=="artist"){
+      this.WaitBeforeLoading(
+        () => this.main.eventService.ArtistAcceptedByArtist(this.request),
+        (res)=>{
+          this.GetMessages();
+        }
+      );
+    }
     else if(this.type=="venue")
-    this.eventService.VenueAcceptedByVenue(this.request)
-      .subscribe((res)=>{
-        console.log(`ok`,res);
-        this.GetMessages();
-      })
-
+    {
+      this.WaitBeforeLoading(
+        () => this.main.eventService.VenueAcceptedByVenue(this.request),
+        (res)=>{
+          this.GetMessages();
+        }
+      );
+    }
   }
 
   declineRequest(){
@@ -206,12 +220,14 @@ export class MessagesComponent extends BaseComponent implements OnInit {
     this.request.id = this.accountId;
     this.request.message_id = this.openMessage.id;
 
-    console.log(this.request);
-    this.eventService.ArtistDeclineByArtist(this.request)
-      .subscribe((res)=>{
-        console.log(`ok`,res);
+    // console.log(this.request);
+
+    this.WaitBeforeLoading(
+      () => this.main.eventService.ArtistDeclineByArtist(this.request),
+      (res)=>{
         this.GetMessages();
-      })
+      }
+    );
   }
 
 

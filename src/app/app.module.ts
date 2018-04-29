@@ -30,6 +30,7 @@ import { RegisterAccComponent } from './access/registration/register-acc/registe
 import { RegisterFollowComponent } from './access/registration/register-follow/register-follow.component';
 import { RegisterPhoneComponent } from './access/registration/register-phone/register-phone.component';
 import { PhoneService } from './core/services/phone.service';
+import { MainService } from './core/services/main.service';
 
 
 let providers = {
@@ -68,7 +69,8 @@ let providers = {
     }),
      
   ],
-  providers: [AppAccessGuard, 
+  providers: [
+    AppAccessGuard, 
     AuthMainService,
     TypeService, 
     ImagesService,
@@ -76,7 +78,10 @@ let providers = {
     GenresService,
     EventService,
     PhoneService,
-    HttpModule, HttpService],
+    HttpModule,
+    HttpService,
+    MainService
+  ],
     bootstrap: [AppComponent],
     
 })

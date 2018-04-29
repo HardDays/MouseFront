@@ -66,7 +66,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
     if(!this.activeArtist[index].checked){
         this.activeArtist[index].checked = true;
         this.artistSum += this.activeArtist[index].object.agreement.price;
-        this.eventService.ArtistSetActive({
+        this.main.eventService.ArtistSetActive({
             id:this.activeArtist[index].object.artist_id,
             event_id:this.Event.id,
             account_id:this.Event.creator_id
@@ -79,7 +79,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
     else {
         this.activeArtist[index].checked = false;
         this.artistSum -= this.activeArtist[index].object.agreement.price;
-        this.eventService.ArtistRemoveActive({
+        this.main.eventService.ArtistRemoveActive({
             id:this.activeArtist[index].object.artist_id,
             event_id:this.Event.id,
             account_id:this.Event.creator_id
@@ -97,7 +97,7 @@ setActiveVenue(index:number){
     if(!this.activeVenue[index].checked){
         this.activeVenue[index].checked = true;
         this.venueSum += this.activeVenue[index].object.agreement.price;
-        this.eventService.VenueSetActive({
+        this.main.eventService.VenueSetActive({
             id:this.activeVenue[index].object.venue_id,
             event_id:this.Event.id,
             account_id:this.Event.creator_id
@@ -110,7 +110,7 @@ setActiveVenue(index:number){
     else {
         this.activeVenue[index].checked = false;
         this.venueSum -= this.activeVenue[index].object.agreement.price;
-        this.eventService.VenueRemoveActive({
+        this.main.eventService.VenueRemoveActive({
             id:this.activeVenue[index].object.venue_id,
             event_id:this.Event.id,
             account_id:this.Event.creator_id
@@ -195,7 +195,7 @@ getListImages(list:any[]){
   if(list)
   for(let item of list)
       if(item.image_id){
-          this.imgService.GetImageById(item.image_id)
+          this.main.imagesService.GetImageById(item.image_id)
               .subscribe((res:Base64ImageModel)=>{
                   item.image_base64_not_given = res.base64;
           });

@@ -16,28 +16,20 @@ import { BaseImages } from '../../core/base/base.enum';
     styleUrls: ['./navbar.component.css']
 })
 
-export class NavbarComponent extends BaseComponent implements OnInit{
+export class NavbarComponent extends BaseComponent implements OnInit
+{
 
-    isShown:boolean = true;
-    idProfile:number = 0;
-    Accounts:AccountGetModel[] = [];
-    maxNumberOfProfiles:number = 5;
     curNav:string = 'shows';
-    ActiveAccount = new AccountGetModel();
-    ImageUser:string = '';
-    ngOnInit(){
-      this.initUser();
-      this.accService.onAuthChange$
-      .subscribe((res:boolean)=>{
-          if(res)
-            this.initUser();
-      });
-      
+  
+    ngOnInit()
+    {
       this.curNav = this.getThisPage();
-    
+      
+      this.GetMyAccounts();
     }
 
-    getThisPage():string{
+    getThisPage():string
+    {
       var page:string = 'shows';
       var url = this.router.routerState.snapshot.url;
 
@@ -52,89 +44,40 @@ export class NavbarComponent extends BaseComponent implements OnInit{
       return page;
     }
 
-    initUser(){
-
-        this.accService.GetMyAccount({extended:true})
-        .subscribe((users:any[])=>{
-            if(users.length >= this.maxNumberOfProfiles)
-              this.isShown = false;
-            this.Accounts = users;
-          
-            this.idProfile = +localStorage.getItem('activeUserId');
-            this.ActiveAccount = this.Accounts.find(obj => obj.id == this.idProfile);
-            this.GetImage();
-            console.log("this.ActiveAccount");
-            console.log(this.ActiveAccount);
-        });
-    }
-    GetImage()
+    Navigate(params:string[])
     {
-        
-          if(this.ActiveAccount.image_id)
-          {
-              this.WaitBeforeLoading(
-                  () => this.imgService.GetImageById(this.ActiveAccount.image_id),
-                  (res:Base64ImageModel) => {
-                  
-                      this.ImageUser = (res && res.base64) ? res.base64 : BaseImages.NoneUserImage;
-                      
-                  },
-                  (err) =>{
-                    this.ImageUser = BaseImages.NoneUserImage;
-                  }
-              );
-          }
-          else{
-            this.ImageUser = BaseImages.NoneUserImage;
-          }
-        
-      
-    }
-
-
-    Navigate(params:string[]){
         this.router.navigate(params);
     }
 
-    LOGOUT_STUPID(){
+    LOGOUT_STUPID()
+    {
         localStorage.removeItem('access');
         this.router.navigate(['/access']);
     }
       
-      login(){
+      login()
+      {
         this.router.navigate(['/login']);
       }
     
-      logout(){
+      logout()
+      {
         //console.log('logout');
         this.Logout();
         // this.initUser();
         this.curNav = 'shows';
       }
     
-      edit(){
+      edit()
+      {
         this.router.navigate(['/system','edit']);
       }
 
-      setProfile(id:number){
+      setProfile(item:AccountGetModel)
+      {
         this.curNav = 'profile';
-        this.router.navigate(['/system/profile',id]);
-        localStorage.setItem('activeUserId',''+id);
-        this.idProfile = id;
-        this.ActiveAccount = this.Accounts.find(obj => obj.id == this.idProfile);
-        this.GetImage();
-      }
-
-      getProfileNameById(){
-        for(let profile of this.MyAccounts)
-          if(profile.id==this.idProfile)
-            return profile.user_name;
-        return '';
-      }
-
-      updateProfiles(){
-        //console.log(`update profiles`);
-        this.initUser();
+        this.router.navigate(['/system/profile',item.id]);
+        this.main.CurrentAccountChange.next(item);
       }
 
 

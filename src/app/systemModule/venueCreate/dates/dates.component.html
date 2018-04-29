@@ -1,0 +1,88 @@
+<div class="create-event-body-1">
+    <div class="main-mw">
+        <div class="create-event-body">
+            <div class="head-ev-body">
+                <h2>Date Availability</h2>
+            </div>
+        </div>
+    </div>
+    <div class="main-mw-5">
+        
+        <div class="tabs-venue-wrapp">
+            <!--теже табы для ngif-->
+            
+            <div class="one-tab">
+                <div class="one-tab-flex alighn-items">
+                    <div [formGroup]="dateForm" class="side">
+                        <div class="filter-venue">
+                            <div class="content-bodal input-groupe-1">
+                                <span class="head-type-inp">Advance Notice</span>
+                                <span class="head-type-inp grey">Minimum advance notice you prefer before booking an event date?</span>
+                                <input id="venue-dateform-1" [textMask]="GetMinimumNoticeMask()" [(ngModel)]="Venue.minimum_notice" formControlName="minimum_notice" name="" type="text">
+                                <span class="days-span-label">Days</span>
+                                <!-- <select>
+                                    <option>2 weeks</option>
+                                    <option>2 weeks</option>
+                                    <option>2 weeks</option>
+                                </select> -->
+                                
+                            </div>
+                            <div class="content-bodal input-groupe-1">
+                                <div class="flex-mac-checkbox">
+                                    <span class="head-type-inp grey">Is this Flexible?</span>
+                                    <div class="yes-no">
+                                        <span>Yes</span>
+                                        <div class="mac-checkbox">
+                                            <input class="checkbox" [(ngModel)]="Venue.is_flexible" formControlName="is_flexible" checked="" type="checkbox" id="checkbox-set-flexible">
+                                            <label for="checkbox-set-flexible"></label>
+                                        </div>
+                                        <span>No</span>
+                                    </div>
+                                </div>
+                                <!-- <select>
+                                    <option>Yes</option>
+                                    <option>No</option>
+                                    
+                                </select> -->
+                            </div>
+                            <div class="input-groupe-1">
+                                <div class="rel-wr">
+                                    <span class="abs-backs black">$</span>
+                                    <input id="inp-calendar-1" class="dollar" [textMask]="GetPerfomancePriceMask()" [(ngModel)]="Venue.price_for_daytime" formControlName="price_for_daytime" name="" type="text">
+                                </div>
+                                <label id="inp-calendar-1">Price for Daytime (7AM - 7PM)</label>
+                            </div>
+                            <div class="input-groupe-1">
+                                <div class="rel-wr">
+                                    <span class="abs-backs black">$</span>
+                                    <input id="inp-calendar-2" class="dollar" [textMask]="GetPerfomancePriceMask()" [(ngModel)]="Venue.price_for_nighttime" formControlName="price_for_nighttime" name="" type="text">
+                                </div>
+                                <label id="inp-calendar-2">Price for Nighttime (7PM - 7AM)</label>
+                            </div>
+                            <div class="input-groupe-1 venue-week-cal-style">
+                                <div class="week-day-time-wr">
+                                    
+                                    <div class="from-to">
+                                        <span>From</span>
+                                        <input class="inp-style-3 time-mask" [textMask]="GetPerformanceFromTimeMask(Venue)"  autocomplete="off" type="text" [(ngModel)]="Venue.performance_time_from" formControlName="performance_time_from">
+                                    </div>
+                                    <div class="from-to">
+                                        <span>To</span>
+                                        <input class="inp-style-3 time-mask" [textMask]="GetPerformanceToTimeMask(Venue)"   autocomplete="off" type="text" [(ngModel)]="Venue.performance_time_to" formControlName="performance_time_to">
+                                    </div>
+                                </div>
+                                <label>Performance time</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="side width-66">
+                        Место для календаря
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="scroll-wrapp">
+    <div class="circle-scroll" (click)="SaveVenue()" ></div>
+</div>

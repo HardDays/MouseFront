@@ -41,6 +41,8 @@ import { AgmCoreModule } from '@agm/core';
 import { CheckModel } from '../../core/models/check.model';
 
 
+import { MainService } from '../../core/services/main.service';
+
 
 declare var $:any;
 declare var audiojs:any;
@@ -65,7 +67,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
 
   artistId:number;
   isNewArtist:boolean = true;
-
+  Artist:AccountGetModel = new AccountGetModel();
   createArtist:AccountCreateModel = new AccountCreateModel();
   
 
@@ -117,18 +119,16 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
   technicalRider:Rider= new Rider();
   
 
-  constructor(protected authService: AuthMainService,
-    protected accService:AccountService,
-    protected imgService:ImagesService,
-    protected typeService:TypeService,
-    protected genreService:GenresService,
-    protected eventService:EventService,
-    protected _sanitizer: DomSanitizer,
-    protected router: Router,public _auth: AuthService,
-    private mapsAPILoader: MapsAPILoader, 
-    private ngZone: NgZone, protected h:Http,
-    private activatedRoute: ActivatedRoute){
-    super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
+  constructor
+  (           
+    protected main         : MainService,
+    protected _sanitizer   : DomSanitizer,
+    protected router       : Router,
+    protected mapsAPILoader  : MapsAPILoader,
+    protected ngZone         : NgZone,
+    private activatedRoute : ActivatedRoute
+  ){
+    super(main,_sanitizer,router,mapsAPILoader,ngZone);
   }
 
   @ViewChild('search') public searchElement: ElementRef;
@@ -281,7 +281,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
 
 
   initUser(callback?:(params?)=>any){
-    this.accService.GetMyAccount({extended:true})
+    this.main.accService.GetMyAccount({extended:true})
     .subscribe((users:any[])=>{
         for(let u of users)
         if(u.id==+localStorage.getItem('activeUserId')){
@@ -293,29 +293,47 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
 
 
   getThisArtist(id:number){
-    if(this.artistId == id){     
-        this.isNewArtist = false;
-        this.getUpdatedArtistById();                
-      }
+        
+    this.main.accService.GetMyAccount({extended:true})
+    .subscribe((users:any[])=>{
+            for(let art of users) if(art.id == id){
+                    // this.accountId = art.id;
+                    this.isNewArtist = false;
+                    
+                    this.getUpdatedArtistById();  
+                    // this.showAllPages = true;                   
+            }
+            if(this.isNewArtist)
+              this.router.navigate(['/system/artistCreate']);
+        });  
   }
 
-
+ 
 
   // get Artist && createArtist by ID
   getUpdatedArtistById(){
-    // console.log(`GET ARTIST`);
-    this.accService.GetAccountById(this.artistId, {extended:true})
-              .subscribe((artist:AccountGetModel)=>{
-                
+    this.main.accService.GetAccountById(this.CurrentAccount.id, {extended:true})
+              .subscribe((user:any)=>{
+                  this.Artist = user;
 
-                  this.artistModelToCreateArtistModel(artist);
+                  this.createArtist.artist_videos = this.Artist.videos;
+                 
+
+                  //console.log(this.Artist);
+                  for (let key in user) {
+                      if (user.hasOwnProperty(key)) {
+                          this.createArtist[key] = user[key];
+                      }
+                  }
+
+                  this.artistModelToCreateArtistModel(user);
                   
                   // this.createArtist.preferred_venues = [];
                   // for (let key of this.Artist.preferred_venues) {
                   //       this.createArtist.preferred_venues.push(key.type_of_venue);
                   // }
                   
-                  this.spaceArtistList = artist.preferred_venues;
+                  this.spaceArtistList = user.preferred_venues;
                   this.venueTypeFromModelToVar();
                   this.genreFromModelToVar();
                   this.GetVenueImages();
@@ -339,7 +357,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
   updateArtistByCreateArtist(){
     // console.log(`UPGRADE`,this.createArtist);
     
-    this.accService.UpdateMyAccount(this.artistId, JSON.stringify(this.createArtist))
+    this.main.accService.UpdateMyAccount(this.artistId, JSON.stringify(this.createArtist))
         .subscribe((res:AccountGetModel)=>{
                 this.createArtist.audio_links = [];
                 this.createArtist.audio_links = res.audio_links;
@@ -388,9 +406,9 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
 
   //about form
   getGenres(){
-    this.genreService.GetAllGenres()
+    this.main.genreService.GetAllGenres()
     .subscribe((res:string[])=>{
-      this.genres = this.genreService.StringArrayToGanreModelArray(res);
+      this.genres = this.main.genreService.StringArrayToGanreModelArray(res);
       for(let i of this.genres) i.show = true;
     });
    
@@ -421,14 +439,14 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
             }
 
             this.createArtist.account_type = AccountType.Artist;
-            this.createArtist.genres = this.genreService.GenreModelArrToStringArr(this.genres);
+            this.createArtist.genres = this.main.genreService.GenreModelArrToStringArr(this.genres);
             
            
             console.log(`Artist from About`,this.createArtist);
           
             if(this.isNewArtist){
                 console.log(`CREATE NEW ARTIST`);
-                this.accService.CreateAccount(this.createArtist)
+                this.main.accService.CreateAccount(this.createArtist)
                 .subscribe((artist:AccountGetModel)=>{
                     this.artistId = artist.id;
                     this.artistModelToCreateArtistModel(artist);
@@ -575,7 +593,7 @@ DeleteImageFromLoading()
 AddVenuePhoto()
 {
   // console.log(`image`,this.ImageToLoad)
-  this.imgService.PostAccountImage(this.artistId,{image_base64:this.ImageToLoad,image_description: this.imageInfo})
+  this.main.imagesService.PostAccountImage(this.Artist.id,{image_base64:this.ImageToLoad,image_description: this.imageInfo})
     .subscribe(
       (res:any) => {
         this.ImageToLoad = '';
@@ -588,10 +606,10 @@ AddVenuePhoto()
 
 GetVenueImages()
 {
-  this.imgService.GetAccountImages(this.artistId,{limit:5})
+  this.main.imagesService.GetAccountImages(this.Artist.id,{limit:5})
     .subscribe(
       (res:any)=>{
-        
+        // console.log(`images`,res)
         if(res && res.total_count > 0)
         {
           this.ArtistImages = [];
@@ -610,7 +628,7 @@ GetVenueImages()
 
 GetVenueImageById(id,saveIndex,text)
 {
-  this.imgService.GetImageById(id)
+  this.main.imagesService.GetImageById(id)
     .subscribe(
       (res:Base64ImageModel) =>{
         this.ArtistImages.push({img:res.base64,text:text,id:res.id});
@@ -846,7 +864,7 @@ loadRiderFile($event:any){
   }
 
   deleteImage(id:number){
-    this.imgService.DeleteImageById(id,this.artistId)
+    this.main.imagesService.DeleteImageById(id,this.artistId)
       .subscribe((res)=>{
         // console.log(res);
         this.GetVenueImages();

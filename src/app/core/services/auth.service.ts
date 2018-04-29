@@ -36,14 +36,14 @@ export class AuthMainService{
     }
 
     IsLogedIn():boolean{
-        let token = this.http.GetToken();
+        let token = this.GetToken();
         if(!token || !token.token)
             return false;
         return true;
     }
 
 
-    getToken()
+    GetToken()
     {
         return this.http.GetToken();
     }
@@ -69,12 +69,7 @@ export class AuthMainService{
         return this.http.CommonRequest(
             ()=> this.http.PostData('/auth/login.json',JSON.stringify(params))
         );
-
-        //return this.http.PostData('/auth/login.json',JSON.stringify(params));
     }
-
-
-
     UserLoginByGoogle(token:string){
         let params = {
             access_token: token
@@ -82,7 +77,6 @@ export class AuthMainService{
         return this.http.CommonRequest(
             ()=> this.http.PostData('/auth/google.json',JSON.stringify(params))
         );
-        //return this.http.PostData('/auth/google.json',JSON.stringify(params));
     }
 
 
@@ -93,7 +87,6 @@ export class AuthMainService{
         return this.http.CommonRequest(
             ()=> this.http.PostData('/auth/facebook.json',JSON.stringify(params))
         );
-        //return this.http.PostData('/auth/facebook.json',JSON.stringify(params));
     }
 
     // UserLoginByTwitter(token:string, secret_token:string){
@@ -113,7 +106,6 @@ export class AuthMainService{
         return this.http.CommonRequest(
             ()=> this.http.PostData('/auth/vk.json',JSON.stringify(params))
         );
-        //return this.http.PostData('/auth/facebook.json',JSON.stringify(params));
     }
     GetDataFromVk(){
         return this.http.GetDataFromOtherUrl('https://oauth.vk.com/authorize?client_id=6412516&display=page&response_type=token&v=5.73&state=123456');
@@ -135,7 +127,6 @@ export class AuthMainService{
 
     BaseInitAfterLogin(data:TokenModel){
         localStorage.setItem('token',data.token);
-        // localStorage.setItem('activeUserId','0');
         this.http.BaseInitByToken(data.token);
     }
 
@@ -145,6 +136,7 @@ export class AuthMainService{
         if(token)
         {
             this.BaseInitAfterLogin(new TokenModel(token));
+            this.onAuthChange$.next(true);
         }
     }
 
@@ -155,7 +147,6 @@ export class AuthMainService{
         this.onAuthChange$.next(false);
         localStorage.removeItem('token');
         localStorage.removeItem('activeUserId');
-        //console.log('localStorage deleted');
     }
 
 
@@ -164,11 +155,7 @@ export class AuthMainService{
             ()=> this.http.PostData("/auth/logout.json","{}")
         ).subscribe(()=>{
             this.ClearSession();
-        });
-        // return this.http.PostData("/auth/logout.json","{}")
-        //     .subscribe(()=>{
-        //         this.ClearSession();
-        //     });            
+        });          
     }
 
     
@@ -176,69 +163,18 @@ export class AuthMainService{
         return this.http.CommonRequest(
             ()=> this.http.GetData('/users/me.json',"")
         );
-        // return this.http.GetData('/users/me.json',"");
     }
 
     CreateUser(user:UserCreateModel){
-
-        //console.log(JSON.stringify(user));
         return this.http.CommonRequest(
             ()=> this.http.PostData('/users.json',JSON.stringify(user))
         );
-        // return this.http.PostData('/users.json',JSON.stringify(user));
-    }
-
-
-
-
-
-    AccountModelToCreateAccountModel(input:AccountCreateModel){
-        let result = new AccountCreateModel();
-       
-        if(input){
-
-            result.user_name = input.user_name?input.user_name:null;
-            result.display_name = input.display_name?input.display_name:null;
-            result.phone = input.phone?input.phone:null;
-            result.account_type = input.account_type;
-            result.image_base64 = null;
-            result.emails = this.typeService.ValidateArray(input.emails)?input.emails:[new ContactModel()];
-            result.dates = this.typeService.ValidateArray(input.dates)?input.dates:[new EventDateModel()];
-            result.genres = this.typeService.ValidateArray(input.genres)?input.genres:[];
-            result.office_hours = this.typeService.ValidateArray(input.office_hours)?input.office_hours:[new WorkingTimeModel()];
-            result.operating_hours = this.typeService.ValidateArray(input.operating_hours)?input.operating_hours:[new WorkingTimeModel()];
-            result.bio = input.bio?input.bio:null;
-            result.about = input.about?input.about:null;
-            result.address = input.address?input.address:null;
-            result.description = input.description?input.description:null;
-            result.fax = input.fax?input.fax:null;
-            result.bank_name = input.bank_name?input.bank_name:null;
-            result.account_bank_number = input.account_bank_number?input.account_bank_number:null;
-            result.account_bank_routing_number = input.account_bank_routing_number?input.account_bank_routing_number:null;
-            result.capacity = input.capacity?input.capacity:null;
-            result.num_of_bathrooms = input.num_of_bathrooms?input.num_of_bathrooms:null;
-            result.min_age = input.min_age?input.min_age:null;
-            result.venue_type = input.venue_type?input.venue_type:null;
-            result.has_bar = input.has_bar?input.has_bar:null;
-            result.located = input.located?input.located:null;
-            result.dress_code = input.dress_code?input.dress_code:null;
-            result.has_vr = input.has_vr?input.has_vr:null;
-            result.audio_description = input.audio_description?input.audio_description:null;
-            result.lighting_description = input.lighting_description?input.lighting_description:null;
-            result.stage_description = input.stage_description?input.stage_description:null;
-            result.lat = input.lat?input.lat:null;
-            result.lng = input.lng?input.lng:null;
-            result.about = input.about?input.about:null;
-            }
-            //console.log("RES", result);
-        return result;
     }
 
     CreateAccount(acc:AccountCreateModel){
         return this.http.CommonRequest(
             ()=> this.http.PostData('/accounts.json',JSON.stringify(acc))
         );
-        // return this.http.PostData('/accounts.json',JSON.stringify(acc));
     }
 
     ForgotPassword(user:string, email:string){
@@ -250,7 +186,6 @@ export class AuthMainService{
         return this.http.CommonRequest(
             ()=> this.http.PostData('/auth/forgot_password.json',JSON.stringify(params))
         );
-        // return this.http.PostData('/auth/forgot_password.json',JSON.stringify(params));
     }
 
     UserPatchPassword(password:string, old_password:string){

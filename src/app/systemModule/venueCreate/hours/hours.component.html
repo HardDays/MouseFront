@@ -1,0 +1,85 @@
+<div class="create-event-body-1">
+    <div class="main-mw">
+        <div class="create-event-body">
+            <div class="head-ev-body">
+                <h2>Hours</h2>
+                <p>Please fill in all required fields<br>to proceed to the Next Step</p>
+            </div>
+            <div class="flex-body-1">
+                <div class="side two-sides-w">
+                    <h6 class="head-of-two-sides">Office Hours</h6>
+                    <div class="shadow-days-wr">
+                        <div class="checkboxes-days">
+                            <div class="days-r" *ngFor="let item of OfficeHours; let i = index">
+                                <span class="price">{{item.short_name}}</span>
+                                <div class="one-checkbox">
+                                    <div class="check-style">
+                                        <input type="checkbox" class="checkbox" [ngModel]="item.checked" (ngModelChange)="OfficeHoursCheckChange(i,$event)" name="" id="new-checkbox-day-{{+i+1}}">
+                                        <label for="new-checkbox-day-{{+i+1}}"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="times-days">
+                            <div *ngIf="!OfficeHoursSelectedDate" class="for-empty-days">
+                                <span>Select Days</span> 
+                            </div>
+                            <div *ngIf="OfficeHoursSelectedDate" class="some-times-days">
+                                <div class="week-day-time-wr" *ngFor="let item of OfficeHours; let i = index">
+                                    <ng-container *ngIf="item.checked">
+                                        <div class="from-to">
+                                            <span>From</span>
+                                            <input class="inp-style-3 time-mask" [textMask]="GetFromTimeMask(item)"  autocomplete="off" type="text" [name]="'from-time-'+i" [ngModel]="item.start_work" (ngModelChange)="item.start_work = $event">
+                                        </div>
+                                        <div class="from-to">
+                                            <span>To</span>
+                                            <input class="inp-style-3 time-mask" [textMask]="GetToTimeMask(item)"  autocomplete="off" type="text" [name]="'to-time-'+i" [ngModel]="item.finish_work" (ngModelChange)="item.finish_work = $event">
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="side two-sides-w">
+                    <h6 class="head-of-two-sides">Operating Hours</h6>
+                    <div class="shadow-days-wr">
+                        <div class="checkboxes-days">
+                            <div class="days-r" *ngFor="let item of OperatingHours; let i = index">
+                                <span class="price">{{item.short_name}}</span>
+                                <div class="one-checkbox">
+                                    <div class="check-style">
+                                        <input type="checkbox" class="checkbox" [ngModel]="item.checked" (ngModelChange)="OperatingHoursCheckChange(i,$event)" name="" id="oper-checkbox-day-{{+i+1}}">
+                                        <label for="oper-checkbox-day-{{+i+1}}"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="times-days">
+                            <div *ngIf="!OperatingHoursSelectedDate" class="for-empty-days">
+                                <span>Select Days</span> 
+                            </div>
+                            <div *ngIf="OperatingHoursSelectedDate" class="some-times-days">
+                                <div class="week-day-time-wr" *ngFor="let item of OperatingHours; let i = index">
+                                    <ng-container *ngIf="item.checked">
+                                        <div class="from-to">
+                                            <span>From</span>
+                                            <input class="inp-style-3 time-mask" [textMask]="GetFromTimeMask(item)"  autocomplete="off" type="text" [name]="'from-time-'+i" [ngModel]="item.start_work" (ngModelChange)="item.start_work = $event">
+                                        </div>
+                                        <div class="from-to">
+                                            <span>To</span>
+                                            <input class="inp-style-3 time-mask" [textMask]="GetToTimeMask(item)"  autocomplete="off" type="text" [name]="'to-time-'+i" [ngModel]="item.finish_work" (ngModelChange)="item.finish_work = $event">
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="scroll-wrapp">
+    <div class="circle-scroll" (click)="SaveVenue()" ></div>
+</div>

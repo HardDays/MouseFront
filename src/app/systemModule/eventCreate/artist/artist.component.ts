@@ -70,19 +70,6 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
     messagesList:InboxMessageModel[] = [];
 
-  constructor(protected authService: AuthMainService,
-              protected accService:AccountService,
-              protected imgService:ImagesService,
-              protected typeService:TypeService,
-              protected genreService:GenresService,
-              protected eventService:EventService,
-              protected _sanitizer: DomSanitizer,
-              protected router: Router,public _auth: AuthService,
-              private mapsAPILoader: MapsAPILoader, 
-              private ngZone: NgZone, protected h:Http,
-              private activatedRoute: ActivatedRoute){
-      super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
-  }
 
   ngOnInit() {
     this.CreateAutocompleteArtist();
@@ -131,12 +118,12 @@ export class ArtistComponent extends BaseComponent implements OnInit {
     this.Artists = [];
     if(this.artistsList&&this.artistsList.length>0)
     for(let i of this.artistsList){
-      this.accService.GetAccountById(i.artist_id)
+      this.main.accService.GetAccountById(i.artist_id)
         .subscribe((acc:AccountGetModel)=>{
           this.getMessages();
           acc.status_not_given = i.status;
           if(acc.image_id){
-            this.imgService.GetImageById(acc.image_id).
+            this.main.imagesService.GetImageById(acc.image_id).
               subscribe((img)=>{
                 acc.image_base64_not_given = img.base64;
                 this.Artists.push(acc);
@@ -153,7 +140,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
     this.artistSearchParams.type = 'artist';
    
-     this.accService.AccountsSearch(this.artistSearchParams).
+     this.main.accService.AccountsSearch(this.artistSearchParams).
          subscribe((res)=>{
             //  if(res.length>0){
                 let temp = this.convertArrToCheckModel<AccountGetModel>(res);
@@ -206,7 +193,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
           if(!isFind){
             this.addArtist.artist_id = item.object.id;
             console.log(this.addArtist);
-            this.eventService.AddArtist(this.addArtist).
+            this.main.eventService.AddArtist(this.addArtist).
               subscribe((res)=>{
                   console.log(`add `,this.addArtist.artist_id);
                 
@@ -244,7 +231,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
     this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to;
 
     console.log( this.ownerAcceptDecline);
-    this.eventService.ArtistAcceptOwner(this.ownerAcceptDecline).
+    this.main.eventService.ArtistAcceptOwner(this.ownerAcceptDecline).
         subscribe((res)=>{
             console.log(`ok accept artist`,res);
             this.updateEvent();
@@ -269,7 +256,7 @@ declineArtist(card:AccountGetModel){
   this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to;
 
   console.log( this.ownerAcceptDecline);
-  this.eventService.ArtistDeclineOwner(this.ownerAcceptDecline).
+  this.main.eventService.ArtistDeclineOwner(this.ownerAcceptDecline).
       subscribe((res)=>{
           console.log(`ok decline artist`,res);
           this.updateEvent();
@@ -303,7 +290,7 @@ artistSendRequest(id:number){
   this.addArtist.id = id;
   console.log(`request artist`,this.addArtist);
 
-  this.eventService.ArtistSendRequest(this.addArtist)
+  this.main.eventService.ArtistSendRequest(this.addArtist)
   .subscribe((send)=>{
       console.log(`send`);
       this.updateEvent();
@@ -311,7 +298,7 @@ artistSendRequest(id:number){
 }
 
 updateEvent(){
-  this.eventService.GetEventById(this.Event.id).
+  this.main.eventService.GetEventById(this.Event.id).
             subscribe((res:EventGetModel)=>{
                 console.log(`updateEventThis`);
                 this.Event = res;
@@ -327,10 +314,10 @@ updateEvent(){
 getMessages(){
   let crId = this.Event.creator_id;
   this.messagesList = [];
-  this.accService.GetInboxMessages(crId).
+  this.main.accService.GetInboxMessages(crId).
     subscribe((res)=>{
         for(let m of res)
-        this.accService.GetInboxMessageById(crId, m.id).
+        this.main.accService.GetInboxMessageById(crId, m.id).
             subscribe((msg)=>{
                 this.messagesList.push(msg);
                 console.log(`msg`,this.messagesList);

@@ -1,0 +1,106 @@
+<div class="create-event-body-1">
+    <div class="main-mw">
+        <form [formGroup]="aboutForm">
+            <div class="create-event-body">
+            <div class="head-ev-body">
+                    <h2>About</h2>
+                    <p>Please fill in all required fields<br>to proceed to the Next Step</p>
+                </div>
+                <div class="flex-body-1">
+                    <div class="side">
+                        
+                    </div>
+                    <div class="side">
+                        <h6 class="head-col-add-venue">Contact Info</h6>
+                    </div>
+                    <div class="side">
+                        <h6 class="head-col-add-venue">Address</h6>
+                    </div>
+                </div>
+                <div class="flex-body-1">
+                    <div class="side">
+                        <div class="input-groupe-1 lbl-1">
+                            <input id="inp-create-1" autocomplete="off" [(ngModel)]="Venue.user_name" formControlName="venue_name" name="" type="text">
+                            <label for="inp-create-1">Venue Name<span>*</span></label>
+                        </div>
+                        <div class="input-groupe-1">
+                            <input id="inp-create-2" autocomplete="off" [(ngModel)]="Venue.display_name" formControlName="mouse_name" name="" type="text">
+                            <label for="inp-create-2">Mouse Username<span>*</span></label>
+                            
+                        </div>
+                        <div class="input-groupe-1 whithout-label small-textarea max-500">
+                            <textarea id="inp-create-9" autocomplete="off"  [(ngModel)]="Venue.description" formControlName="short_desc"></textarea>
+                            <label for="inp-create-9" class="head-groupe">Short Description<span>*</span></label>
+                            <span class="max-count">1000 max</span>
+                        </div>
+                        <div class="status-information">
+                            <h6 class="head-col-add-venue">Funding Information</h6>
+                            <p class="status-t">Status:<span>Pending</span></p>
+                        </div>
+                    </div>
+                    <div class="side">
+                        <h6 class="head-col-add-venue hidden-lg hidden-md hidden-sm hidden-xs">Contact Info</h6>
+                        <div class="input-groupe-1">
+                            <input id="inp-create-venue-tel-1" autocomplete="off" [textMask]="MaskTelephone()" [(ngModel)]="Venue.phone" formControlName="phone" name="" type="text">
+                            <label for="inp-create-venue-tel-1">Phone<span>*</span></label>
+                        </div>
+                        <div class="input-groupe-1">
+                            <input id="inp-create-venue-tel-2" autocomplete="off" [(ngModel)]="Venue.fax" formControlName="fax" name="" type="text">
+                            <label for="inp-create-venue-tel-2">Fax</label>
+                        </div>
+                    
+                        <h6 class="head-col-add-venue">EMAILS<span>*</span></h6>
+                        <div class="padd-emeils-generate" formArrayName="emails">
+                            <div class="one-email" *ngFor="let item of aboutForm.controls['emails']['controls']; let i = index">
+                                <ng-container [formGroup]="item">
+                                    <span class="count">{{+i+1}}.</span>
+                                    <div class="input-groupe-1">
+                                        <input autocomplete="off" id="inp-create-venue-name-{{+i+1}}" [(ngModel)]="Venue.emails[i].name" formControlName="name_email" name="" type="text">
+                                        <label for="inp-create-venue-name-{{+i+1}}">Email Name {{+i+1}}</label>
+                                    </div>
+                                    <div class="input-groupe-1">
+                                        <input autocomplete="off" id="inp-create-venue-email-{{+i+1}}" [(ngModel)]="Venue.emails[i].email" formControlName="email" name="" type="text">
+                                        <label for="inp-create-venue-email-{{+i+1}}">Email {{+i+1}} </label>
+                                    </div>
+                                </ng-container>
+                                <div class="delete-email" *ngIf="Venue.emails.length > 1" (click)="DeleteEmail(i)"></div>
+                            </div>
+                            <div class="emeil-gen-butt-add">
+                                <span class="butt-style-1" (click)="AddEmail()">
+                                    <span>ADD Email</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="side">
+                        <h6 class="head-col-add-venue hidden-lg hidden-md hidden-sm hidden-xs">Address</h6>
+                        <!-- поменял местами Address и Country -->
+                        <div class="input-groupe-1">
+                            <input id="inp-create-venue-adr-2" #search placeholder="" autocomplete="off" [(ngModel)]="Venue.address" formControlName="address" name="" type="text">
+                            <label for="inp-create-venue-adr-2">Address<span>*</span></label>
+                        </div>
+                        <div class="input-groupe-1">
+                            <input id="inp-create-venue-adr-1" autocomplete="off" [(ngModel)]="Venue.country" formControlName="country" name="" type="text">
+                            <label for="inp-create-venue-adr-1">Country<span>*</span></label>
+                        </div>
+                        <div class="input-groupe-1">
+                            <input id="inp-create-venue-adr-3" autocomplete="off" [(ngModel)]="Venue.city" formControlName="city" name="" type="text">
+                            <label for="inp-create-venue-adr-3">City<span>*</span></label>
+                        </div>
+                        <div class="input-groupe-1">
+                            <input id="inp-create-venue-adr-4" autocomplete="off" [(ngModel)]="Venue.state" formControlName="state" name="" type="text">
+                            <label for="inp-create-venue-adr-4">State<span>*</span></label>
+                        </div>
+                        <div class="input-groupe-1">
+                            <input id="inp-create-venue-adr-5" autocomplete="off" [(ngModel)]="Venue.zipcode" formControlName="zipcode" name="" type="text">
+                            <label for="inp-create-venue-adr-5">Zipcode</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="scroll-wrapp">
+    <div class="circle-scroll" (click)="SaveVenue()" ></div>
+</div>

@@ -42,6 +42,7 @@ import { CheckModel } from '../../core/models/check.model';
 import { EventSearchParams } from '../../core/models/eventSearchParams';
 import { TicketTypeModel } from '../../core/models/ticketType.model';
 import { BsDatepickerConfig } from 'ngx-bootstrap';
+import { MainService } from '../../core/services/main.service';
 
 declare var $:any;
 
@@ -83,27 +84,18 @@ export class ShowsComponent extends BaseComponent implements OnInit {
 
   bsConfig: Partial<BsDatepickerConfig>;
 
-  constructor(protected authService: AuthMainService,
-    protected accService:AccountService,
-    protected imgService:ImagesService,
-    protected typeService:TypeService,
-    protected genreService:GenresService,
-    protected eventService:EventService,
-    protected _sanitizer: DomSanitizer,
-    protected router: Router,public _auth: AuthService,
-    private mapsAPILoader: MapsAPILoader, protected h:Http,
-    private ngZone: NgZone){
-      super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
-  }
 
-  ngOnInit(){
+  ngOnInit()
+  {
+    this.WaitBeforeLoading(
+      () => this.main.genreService.GetAllGenres(),
+      (genres:string[])=> {
+        this.Genres = this.main.genreService.GetGendreModelFromString([], this.main.genreService.StringArrayToGanreModelArray(genres));
+        this.seeFirstGenres();
+      }
+    );
 
-    this.genreService.GetAllGenres()
-    .subscribe((genres:string[])=> {
-      this.Genres = this.genreService.GetGendreModelFromString([], this.genreService.StringArrayToGanreModelArray(genres));
-      this.seeFirstGenres();
-  });
-  let _that = this;
+    let _that = this;
     $(".nav-button").on("click", function (e) {
       _that.setHeightSearch();
       e.preventDefault();
@@ -111,15 +103,12 @@ export class ShowsComponent extends BaseComponent implements OnInit {
       $(".mainWrapper").addClass("has-push-left");
       $(".nav-holder-3").addClass("is-active");
       $(".mask-nav-3").addClass("is-active");
-     
     });
-    
-   
 
     $(".menu-close, .mask-nav-3").on("click", function (e) {
       e.preventDefault();
       _that.CloseSearchWindow();
-  });
+    });
 
     var distance_slider = $(".distance-slider").ionRangeSlider({
       type:"single",
@@ -136,13 +125,14 @@ export class ShowsComponent extends BaseComponent implements OnInit {
       {
         _that.DistanceChanged(data);
       }
-  });
+    });
+
     this.bsValue_start = new Date();
     this.bsValue_end = new Date();
 
+    this.VenueTypes = this.main.typeService.GetAllSpaceTypes();
+    this.TicketTypes = this.main.typeService.GetAllTicketTypes();
 
-    this.VenueTypes = this.typeService.GetAllSpaceTypes();
-    this.TicketTypes = this.typeService.GetAllTicketTypes();
     this.GetEvents();
     this.CreateAutocomplete();
     this.setHeightSearch();
@@ -150,19 +140,16 @@ export class ShowsComponent extends BaseComponent implements OnInit {
   }
 
   setHeightSearch(){
-    //console.log($('.main-router-outlet .main-router-outlet').height(),$(window).height());
     if($('.main-router-outlet .main-router-outlet').height() < $(window).height()){
       $('.wrapp-for-filter').css({
          "height": $('.for-flex-height').height()-150
       });
-      //console.log(`one`);
     }
-  else{
-     $('.wrapp-for-filter').css({
-         "height": '100%'
-      }); 
-      //console.log(`two`);
-  }
+    else{
+      $('.wrapp-for-filter').css({
+          "height": '100%'
+        }); 
+    }
   }
   InitBsConfig()
   {
@@ -179,9 +166,9 @@ export class ShowsComponent extends BaseComponent implements OnInit {
   GetEvents()
   {
     this.ParseSearchParams();
-    this.eventService.EventsSearch(this.SearchParams)
-      .subscribe((res:EventGetModel[])=>{
-        console.log("Got", res);
+    this.WaitBeforeLoading(
+      () => this.main.eventService.EventsSearch(this.SearchParams),
+      (res:EventGetModel[])=>{
         this.Events = res;
         this.setHeightSearch();
         this.GetImages();
@@ -189,15 +176,14 @@ export class ShowsComponent extends BaseComponent implements OnInit {
       
   }
 
-  aboutOpenMapModal(){
+  aboutOpenMapModal()
+  {
     $('#modal-map').modal('show');
   }
   
   ShowSearchResults() {
-    //this.ParseSearchParams();
     this.GetEvents();
     this.CloseSearchWindow();
-
   }
 
   GetImages()
@@ -205,18 +191,12 @@ export class ShowsComponent extends BaseComponent implements OnInit {
     for(let i in this.Events) {
       if(this.Events[i] && this.Events[i].image_id)
       {
-          this.WaitBeforeLoading(
-              () => this.imgService.GetImageById(this.Events[i].image_id),
-              (res:Base64ImageModel) => {
-                  this.Images[i] = (res && res.base64) ? res.base64 : BaseImages.Drake;
-              },
-              (err) =>{
-                  this.Images[i] = BaseImages.Drake;
-              }
-          );
-      }
-      else{
-          this.Images[i] = BaseImages.Drake;
+        this.WaitBeforeLoading(
+          () => this.main.imagesService.GetImageById(this.Events[i].image_id),
+          (res:Base64ImageModel)=>{
+            this.Images[this.Events[i].id] = res.base64;
+          }
+        );
       }
     }
   }
@@ -230,10 +210,11 @@ export class ShowsComponent extends BaseComponent implements OnInit {
   {
       if(this.SearchDateRange && this.SearchDateRange.length == 2)
       {
-          this.SearchParams.from_date = this.typeService.GetDateStringFormat(this.SearchDateRange[0]);
-          this.SearchParams.to_date = this.typeService.GetDateStringFormat(this.SearchDateRange[1]);
+          this.SearchParams.from_date = this.main.typeService.GetDateStringFormat(this.SearchDateRange[0]);
+          this.SearchParams.to_date = this.main.typeService.GetDateStringFormat(this.SearchDateRange[1]);
       }
-      else{
+      else
+      {
           this.SearchParams.from_date = "";
           this.SearchParams.to_date = "";
       }
@@ -242,9 +223,11 @@ export class ShowsComponent extends BaseComponent implements OnInit {
   ParseSearchParams()
   {
     this.ConvertSearchDateRangeToSearchParams();
-    if(this.TicketTypes) {
+    if(this.TicketTypes) 
+    {
       this.SearchParams.ticket_types = [];
-      for(let item of this.TicketTypes) {
+      for(let item of this.TicketTypes) 
+      {
         if(item.checked)
           this.SearchParams.ticket_types.push(item.value);
       }
@@ -260,68 +243,72 @@ export class ShowsComponent extends BaseComponent implements OnInit {
     }
   }
 
-    aboutDragMarker($event){
-      //console.log($event);
+  aboutDragMarker($event)
+  {
       this.mapCoords.lat = $event.coords.lat;
       this.mapCoords.lng = $event.coords.lng;
       this.codeLatLng( this.mapCoords.lat, this.mapCoords.lng);
   }
   
-  CreateAutocomplete(){
+  CreateAutocomplete()
+  {
     this.mapsAPILoader.load().then(
-        () => {
-           
-         let autocomplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement, {types:[`(cities)`]});
-        
-          autocomplete.addListener("place_changed", () => {
-           this.ngZone.run(() => {
-           let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
-           if(place.geometry === undefined || place.geometry === null ){
-            
-            return;
-           }
-           else {
-               /* LOCATION - изменение в автокомплите autocomplete.getPlace().formatted_address */
-              this.SearchParams.location = autocomplete.getPlace().formatted_address;
-              this.mapLat = autocomplete.getPlace().geometry.location.toJSON().lat;
-              this.mapLng = autocomplete.getPlace().geometry.location.toJSON().lng;
-           }
-          });
-        });
+      () => {
+        let autocomplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement, {types:[`(cities)`]});
+        autocomplete.addListener(
+          "place_changed", 
+          () => {
+            this.ngZone.run(
+              () => {
+                let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
+                if(place.geometry === undefined || place.geometry === null )
+                {
+                  return;
+                }
+                else {
+                  this.SearchParams.location = autocomplete.getPlace().formatted_address;
+                  this.mapLat = autocomplete.getPlace().geometry.location.toJSON().lat;
+                  this.mapLng = autocomplete.getPlace().geometry.location.toJSON().lng;
+                }
+              }
+            );
+          }
+        );
       }
     );
-    
   }
 
 
-  codeLatLng(lat, lng) {
+  codeLatLng(lat, lng) 
+  {
     let geocoder = new google.maps.Geocoder();
     let latlng = new google.maps.LatLng(lat, lng);
-    geocoder.geocode({
-        'location': latlng }, 
-         (results, status) => {
-            if (status === google.maps.GeocoderStatus.OK) {
-                if (results[1]) {
-              
-                $("#searchAddress").val(results[1].formatted_address);
-                
-                /* LOCATION - сдвиг точки на карте results[1].formatted_address */
-                this.SearchParams.location = results[1].formatted_address;
-                }
-            } else {
-                alert('Geocoder failed due to: ' + status);
-            }
-        });
+    geocoder.geocode(
+      {'location': latlng }, 
+      (results, status) => {
+        if (status === google.maps.GeocoderStatus.OK) {
+          if (results[1]) {
+            $("#searchAddress").val(results[1].formatted_address);
+            this.SearchParams.location = results[1].formatted_address;
+          }
+        } 
+        else {
+          alert('Geocoder failed due to: ' + status);
+        }
+      }
+    );
   }
 
-  mapClick($event){
+  mapClick($event)
+  {
     this.mapLat = $event.coords.lat;
     this.mapLng = $event.coords.lng;
     this.isMarkerVisible = true;
     this.codeLatLng(this.mapLat,this.mapLng);
   }
 
-  seeFirstGenres(){
+  seeFirstGenres()
+  {
     for(let g of this.Genres) g.show = false;
     if(this.Genres[0])
     this.Genres[0].show = true;
@@ -334,15 +321,14 @@ export class ShowsComponent extends BaseComponent implements OnInit {
     this.seeMore = false;
   }
 
-  seeMoreGenres(){
+  seeMoreGenres()
+  {
     this.seeMore = true;
     for(let g of this.Genres) g.show = true;
   }
-  incr(n:number){
+  incr(n:number)
+  {
     return n+1;
-  }
-  logChanged($event){
-    //console.log("event",$event);
   }
 }
   

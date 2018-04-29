@@ -44,12 +44,14 @@ import { OneCardComponent } from './eventCreate/one-card/one-card.component';
 import { OneFolowerForProfileComponent } from './one-folower-for-profile/one-folower-for-profile.component';
 import { TicketOnProfileComponent } from './ticket-on-profile/ticket-on-profile.component';
 import { UpcomingShowsProfileComponent } from './upcoming-shows-profile/upcoming-shows-profile.component';
+import { VenueMediaPhotoComponent } from './venueCreate/venueImage/venueImage.component';
 import { ShowDetailVideoComponent } from './showsDetail/video/video.component';
 import { AboutComponent } from './eventCreate/about/about.component';
 import { ArtistComponent } from './eventCreate/artist/artist.component';
 import { VenuesComponent } from './eventCreate/venues/venues.component';
 import { FundingComponent } from './eventCreate/funding/funding.component';
 import { AddTicketsComponent } from './eventCreate/tickets/tickets.component';
+import { VenueCreateModule } from './venueCreate/venueCreate.module';
 
 @NgModule({
   declarations: [
@@ -64,7 +66,6 @@ import { AddTicketsComponent } from './eventCreate/tickets/tickets.component';
     PreloaderComponent,
     FeedComponent,
     TicketsComponent,
-    VenueCreateComponent,
     FanCreateComponent,
     MyEventComponent,
     ShowsDetailComponent,
@@ -89,6 +90,7 @@ import { AddTicketsComponent } from './eventCreate/tickets/tickets.component';
     FormsModule,
     HttpModule,
     TextMaskModule,
+    VenueCreateModule,
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
     ReactiveFormsModule,

@@ -26,6 +26,7 @@ import { EventGetModel } from '../../core/models/eventGet.model';
 import { TicketGetParamsModel } from '../../core/models/ticketGetParams.model';
 import { TicketModel } from '../../core/models/ticket.model';
 import { BuyTicketModel } from '../../core/models/buyTicket.model';
+import { MainService } from '../../core/services/main.service';
 
 declare var $:any;
 declare var PhotoSwipeUI_Default:any;
@@ -52,19 +53,17 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
 
     Featuring:string = '';
 
-    constructor(protected authService: AuthMainService,
-        protected accService:AccountService,
-        protected imgService:ImagesService,
-        protected typeService:TypeService,
-        protected genreService:GenresService,
-        protected eventService:EventService,
-        protected _sanitizer: DomSanitizer,
-        protected router: Router,public _auth: AuthService,
-        private activatedRoute: ActivatedRoute, protected h:Http,
-        private ngZone: NgZone)
-    {
-        super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
-    }
+    constructor
+    (           
+        protected main         : MainService,
+        protected _sanitizer   : DomSanitizer,
+        protected router       : Router,
+        protected mapsAPILoader  : MapsAPILoader,
+        protected ngZone         : NgZone,
+        private activatedRoute : ActivatedRoute
+    ){
+        super(main,_sanitizer,router,mapsAPILoader,ngZone);
+    } 
 
 
     ngOnInit(): void 
@@ -81,14 +80,11 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
     {
         this.WaitBeforeLoading
         (
-            () => this.eventService.GetEventById(this.EventId),
-            (res: any) =>
-            {
-                // console.log("Event", res);
+            () => this.main.eventService.GetEventById(this.EventId),
+            (res: any) => {
                 this.InitEvent(res);
             },
-            (err:any) => 
-            {
+            (err:any) => {
                 console.log("Cant get event info",err);
             }
         );
@@ -98,7 +94,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
     {
         if(this.Event.venue){
             this.WaitBeforeLoading(
-                () => this.accService.GetAccountById(this.Event.venue.id),
+                () => this.main.accService.GetAccountById(this.Event.venue.id),
                 (res:AccountGetModel) => 
                 {
                     this.Venue = res;
@@ -116,7 +112,6 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
         this.GetFeaturing();
         this.GetVenueInfo();
         this.GetTickets();
-        // console.log(this.Event);
     }
 
     GetFeaturing()
@@ -129,9 +124,8 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
         {
             this.WaitBeforeLoading
             (
-                () => this.accService.GetAccountById(arr[i].artist_id),
-                (res:AccountGetModel) => 
-                {
+                () => this.main.accService.GetAccountById(arr[i].artist_id),
+                (res:AccountGetModel) => {
                     this.Artists.push(res);
                     if( +i < (arr.length - 1))
                     {
@@ -150,7 +144,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
 
     GetGenres()
     {
-        this.Genres = this.genreService.StringArrayToGanreModelArray(this.Event.genres);
+        this.Genres = this.main.genreService.StringArrayToGanreModelArray(this.Event.genres);
     }
 
     GetCreatorInfo()
@@ -159,9 +153,8 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
         {
             this.WaitBeforeLoading
             (
-                () => this.accService.GetAccountById(this.Event.creator_id),
-                (res: AccountGetModel) => 
-                {
+                () => this.main.accService.GetAccountById(this.Event.creator_id),
+                (res: AccountGetModel) => {
                     this.Creator = res;
                 },
                 (err:any) => 
@@ -194,7 +187,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
 
     BuyTickets()
     {
-        let myAcc = this.GetActiveAccountId();
+        let myAcc = this.GetCurrentAccId();
         if(myAcc)
         {
             let arr = this.GroupTickets(this.TicketsToBuy,myAcc);
@@ -228,7 +221,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
     BuyTicket(object:any)
     {
         this.WaitBeforeLoading(
-            () => this.eventService.BuyTicketPack(object),
+            () => this.main.eventService.BuyTicketPack(object),
             (res) => 
             {   
                 // let index = this.TicketsToBuy.findIndex(obj => obj.ticket.id == object.ticket_id && obj.count == object.count);

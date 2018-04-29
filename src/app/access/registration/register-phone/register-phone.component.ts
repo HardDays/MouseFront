@@ -12,6 +12,7 @@ import { AuthService } from 'angular2-social-login';
 import { MapsAPILoader } from '@agm/core';
 import { Http } from '@angular/http';
 import { PhoneService } from '../../../core/services/phone.service';
+import { MainService } from '../../../core/services/main.service';
 
 declare var $: any;
 
@@ -34,26 +35,22 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
 
   codeRequest:string[]=[];
 
-  constructor(protected authService: AuthMainService,
-    protected accService:AccountService,
-    protected imgService:ImagesService,
-    protected typeService:TypeService,
-    protected genreService:GenresService,
-    protected eventService:EventService,
-    protected _sanitizer: DomSanitizer,
-    protected router: Router,public _auth: AuthService,
-    private mapsAPILoader: MapsAPILoader, 
-    private ngZone: NgZone, protected h:Http,
-    private activatedRoute: ActivatedRoute,
-    private phoneService: PhoneService
+  constructor
+  (           
+    protected main         : MainService,
+    protected _sanitizer   : DomSanitizer,
+    protected router       : Router,
+    protected mapsAPILoader  : MapsAPILoader,
+    protected ngZone         : NgZone,
+    private activatedRoute : ActivatedRoute
   ){
-    super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
-    }
+    super(main,_sanitizer,router,mapsAPILoader,ngZone);
+  }
     
   
 
   ngOnInit() {
-  this.phoneService.GetAllPhoneCodes().
+  this.main.phoneService.GetAllPhoneCodes().
     subscribe((res)=>{
       this.codes = res;
       this.phoneCode = this.codes[0].dial_code;
@@ -67,7 +64,7 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
   sendCode(){
     if(this.phone.length>0){
       let phone = this.phoneCode + this.phone;
-      this.phoneService.SendCodeToPhone(phone).
+      this.main.phoneService.SendCodeToPhone(phone).
         subscribe((res)=>{
           this.isRequestCodeSend = true;
         }, (err)=>{
@@ -103,7 +100,7 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
     if(this.codeRequest.length==4){
       let phone = this.phoneCode+this.phone;
       let code = this.codeRequest[0]+this.codeRequest[1]+this.codeRequest[2]+this.codeRequest[3];
-      this.phoneService.SendRequestCode(phone,code).
+      this.main.phoneService.SendRequestCode(phone,code).
         subscribe((res)=>{
           console.log(`success`);
           this.isShowPhone.emit(true);

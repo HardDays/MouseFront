@@ -24,14 +24,14 @@ export class MyEventComponent extends BaseComponent implements OnInit {
     {
         // console.log(this.Event);
         this.WaitBeforeLoading(
-            () => this.eventService.GetEventById(this.Event.id),
+            () => this.main.eventService.GetEventById(this.Event.id),
             (res:EventGetModel) =>{
                 this.Event = res;
                 this.FoundedPercent = 100*this.Event.founded / this.Event.funding_goal;
                 this.GetImage();
             },
             (err) => {
-                console.log(err);
+                // console.log(err);
             }
         );
     }
@@ -41,17 +41,11 @@ export class MyEventComponent extends BaseComponent implements OnInit {
         if(this.Event && this.Event.image_id)
         {
             this.WaitBeforeLoading(
-                () => this.imgService.GetImageById(this.Event.image_id),
+                () => this.main.imagesService.GetImageById(this.Event.image_id),
                 (res:Base64ImageModel) => {
                     this.Image = (res && res.base64) ? res.base64 : BaseImages.Drake;
-                },
-                (err) =>{
-                    this.Image = BaseImages.Drake;
                 }
             );
-        }
-        else{
-            this.Image = BaseImages.Drake;
         }
     }
 }

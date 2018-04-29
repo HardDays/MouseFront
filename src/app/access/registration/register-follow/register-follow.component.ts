@@ -53,14 +53,14 @@ export class RegisterFollowComponent extends BaseComponent implements OnInit {
   
   getArtists(){
    
-    this.accService.AccountsSearch({text:this.text, limit:20}).
+    this.main.accService.AccountsSearch({text:this.text, limit:20}).
       subscribe((res:AccountGetModel[])=>{
         this.artists = res;
         for(let artist of this.artists)
         if(artist.image_id)
-          this.imgService.GetImageById(artist.image_id)
+          this.main.imagesService.GetImageById(artist.image_id)
             .subscribe((img)=>{
-              console.log(img);
+              // console.log(img);
               artist.image_base64_not_given = img.base64;
             });
         else artist.image_base64_not_given = '../../../assets/img/layer-7.jpg';
@@ -77,7 +77,7 @@ export class RegisterFollowComponent extends BaseComponent implements OnInit {
              
     let id:number = +localStorage.getItem('activeUserId');
     for(let follow of this.followsId){
-        this.accService.AccountFollow(id,follow).subscribe(()=>{
+        this.main.accService.AccountFollow(id,follow).subscribe(()=>{
         });
     }
     

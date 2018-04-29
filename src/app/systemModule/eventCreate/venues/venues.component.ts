@@ -67,20 +67,6 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         datetime_to:''
     }
 
-    constructor(protected authService: AuthMainService,
-                protected accService:AccountService,
-                protected imgService:ImagesService,
-                protected typeService:TypeService,
-                protected genreService:GenresService,
-                protected eventService:EventService,
-                protected _sanitizer: DomSanitizer,
-                protected router: Router,public _auth: AuthService,
-                private mapsAPILoader: MapsAPILoader, 
-                private ngZone: NgZone, protected h:Http,
-                private activatedRoute: ActivatedRoute){
-        super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
-    }
-
     ngOnInit() {
         this.CreateAutocompleteVenue();
         this.getAllSpaceTypes();
@@ -137,12 +123,12 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         this.venueShowsList = [];
         if(this.venuesList&&this.venuesList.length>0)
         for(let i of this.venuesList){
-        this.accService.GetAccountById(i.venue_id)
+        this.main.accService.GetAccountById(i.venue_id)
             .subscribe((acc:AccountGetModel)=>{
             this.getMessages();
             acc.status_not_given = i.status;
             if(acc.image_id){
-                this.imgService.GetImageById(acc.image_id).
+                this.main.imagesService.GetImageById(acc.image_id).
                 subscribe((img)=>{
                     acc.image_base64_not_given = img.base64;
                     this.venueShowsList.push(acc);
@@ -155,11 +141,11 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     getMessages(id?:number){
         let crId = id?id:this.Event.creator_id;
         this.messagesList = [];
-        this.accService.GetInboxMessages(crId).
+        this.main.accService.GetInboxMessages(crId).
         subscribe((res)=>{
             
             for(let m of res)
-            this.accService.GetInboxMessageById(crId, m.id).
+            this.main.accService.GetInboxMessageById(crId, m.id).
                 subscribe((msg)=>{
                     this.messagesList.push(msg);
                     //console.log(`msg`,this.messagesList);
@@ -200,7 +186,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     }
 
     getAllSpaceTypes(){
-        let types:SelectModel[] = this.typeService.GetAllSpaceTypes();
+        let types:SelectModel[] = this.main.typeService.GetAllSpaceTypes();
         this.typesSpace = this.convertArrToCheckModel<SelectModel>(types);
         //console.log(`spaces`,types);
         //console.log(`spaces`,this.typesSpace);
@@ -250,7 +236,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         //          }
         //  });
 
-         this.accService.AccountsSearch(this.venueSearchParams).
+         this.main.accService.AccountsSearch(this.venueSearchParams).
              subscribe((res)=>{
                 //  if(res.length>0){
                     let temp = this.convertArrToCheckModel<AccountGetModel>(res);
@@ -368,10 +354,10 @@ addVenueById(id:number){
             this.addVenue.account_id = this.Event.creator_id;
             console.log(`add venue`,this.addVenue);
             
-            this.eventService.AddVenue(this.addVenue).
+            this.main.eventService.AddVenue(this.addVenue).
                 subscribe((res)=>{
                     console.log(`ok add`);
-                    this.eventService.VenueSendRequest(this.addVenue)
+                    this.main.eventService.VenueSendRequest(this.addVenue)
                      .subscribe((send)=>{
                         console.log(`ok send`);
                     this.updateEvent();
@@ -380,7 +366,7 @@ addVenueById(id:number){
                 })
                     
                 },(err)=>{
-                    this.eventService.VenueSendRequest(this.addVenue)
+                    this.main.eventService.VenueSendRequest(this.addVenue)
                         .subscribe((send)=>{
                             console.log(`ok send error`);
                         this.updateEvent();
@@ -416,7 +402,7 @@ acceptVenue(card:AccountGetModel){
         this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to;
 
         console.log(this.ownerAcceptDecline);
-        this.eventService.VenueAcceptOwner(this.ownerAcceptDecline).
+        this.main.eventService.VenueAcceptOwner(this.ownerAcceptDecline).
             subscribe((res)=>{
                 //console.log(`ok accept artist`,res);
                 this.updateEvent();
@@ -440,7 +426,7 @@ declineVenue(card:AccountGetModel){
 
     console.log(this.ownerAcceptDecline);
     
-        this.eventService.VenueDeclineOwner(this.ownerAcceptDecline).
+        this.main.eventService.VenueDeclineOwner(this.ownerAcceptDecline).
             subscribe((res)=>{
                 //console.log(`ok accept artist`,res);
                 this.updateEvent();
@@ -455,7 +441,7 @@ declineVenue(card:AccountGetModel){
     }
 
     updateEvent(){
-        this.eventService.GetEventById(this.Event.id).
+        this.main.eventService.GetEventById(this.Event.id).
         subscribe((res:EventGetModel)=>{
             console.log(`updateEventThis`);
             this.Event = res;

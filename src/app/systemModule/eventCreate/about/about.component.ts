@@ -52,20 +52,7 @@ export class AboutComponent extends BaseComponent implements OnInit {
   });
  
   
-  constructor(protected authService: AuthMainService,
-              protected accService:AccountService,
-              protected imgService:ImagesService,
-              protected typeService:TypeService,
-              protected genreService:GenresService,
-              protected eventService:EventService,
-              protected _sanitizer: DomSanitizer,
-              protected router: Router,public _auth: AuthService,
-              private mapsAPILoader: MapsAPILoader, 
-              private ngZone: NgZone, protected h:Http,
-              private activatedRoute: ActivatedRoute){
-      super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
-  }
-
+ 
 
   ngOnInit() {
       this.CreateAutocompleteAbout();
@@ -86,7 +73,7 @@ export class AboutComponent extends BaseComponent implements OnInit {
       }
       
       if(this.Event.image_id)
-        this.imgService.GetImageById(this.Event.image_id)
+        this.main.imagesService.GetImageById(this.Event.image_id)
           .subscribe((img)=>{
             this.Event.image_base64 = img.base64;
       })
@@ -125,9 +112,9 @@ export class AboutComponent extends BaseComponent implements OnInit {
   getGenres(){
     this.genres = [];
     if(this.Event.genres)
-    this.genreService.GetAllGenres()
+    this.main.genreService.GetAllGenres()
     .subscribe((res:string[])=>{
-      this.genres = this.genreService.StringArrayToGanreModelArray(res);
+      this.genres = this.main.genreService.StringArrayToGanreModelArray(res);
         for(let i of this.genres) {
           i.show = true;  
             for(let g of this.Event.genres)
