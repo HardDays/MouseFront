@@ -90,6 +90,7 @@ export class FunProfileComponent extends BaseComponent implements OnInit {
                 for(let it of this.EventsMassChecked){
                     it.checked = true;
                 }
+                console.log(this.EventsMassChecked);
             },
             (err) => {
                 console.log(err);

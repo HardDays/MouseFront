@@ -41,9 +41,6 @@ import { MyTicketOpenedComponent } from './my-ticket-opened/my-ticket-opened.com
 import { BiographyComponent } from './biography/biography.component';
 import { ByTicketComponent } from './buyTicket/buyTicket.component';
 import { OneCardComponent } from './eventCreate/one-card/one-card.component';
-import { OneFolowerForProfileComponent } from './one-folower-for-profile/one-folower-for-profile.component';
-import { TicketOnProfileComponent } from './ticket-on-profile/ticket-on-profile.component';
-import { UpcomingShowsProfileComponent } from './upcoming-shows-profile/upcoming-shows-profile.component';
 import { VenueMediaPhotoComponent } from './venueCreate/venueImage/venueImage.component';
 import { ShowDetailVideoComponent } from './showsDetail/video/video.component';
 import { AboutComponent } from './eventCreate/about/about.component';
@@ -52,13 +49,13 @@ import { VenuesComponent } from './eventCreate/venues/venues.component';
 import { FundingComponent } from './eventCreate/funding/funding.component';
 import { AddTicketsComponent } from './eventCreate/tickets/tickets.component';
 import { VenueCreateModule } from './venueCreate/venueCreate.module';
+import { ProfileModule } from './profile/profile.module';
 
 @NgModule({
   declarations: [
     SystemComponent,
     ShowsComponent,
     EditComponent,
-    ProfileComponent,
     AccountCreateComponent,
     EventCreateComponent,
     ArtistCreateComponent,
@@ -75,9 +72,6 @@ import { VenueCreateModule } from './venueCreate/venueCreate.module';
     BiographyComponent,
     ByTicketComponent,
     OneCardComponent,
-    OneFolowerForProfileComponent,
-    TicketOnProfileComponent,
-    UpcomingShowsProfileComponent,
     ShowDetailVideoComponent,
     AboutComponent,
     ArtistComponent,
@@ -91,6 +85,7 @@ import { VenueCreateModule } from './venueCreate/venueCreate.module';
     HttpModule,
     TextMaskModule,
     VenueCreateModule,
+    ProfileModule,
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
     ReactiveFormsModule,
@@ -99,6 +94,7 @@ import { VenueCreateModule } from './venueCreate/venueCreate.module';
     NavbarModule,
     FooterModule,
     YoutubePlayerModule,
+    
     // SlickModule.forRoot(),
     
     AgmCoreModule.forRoot({

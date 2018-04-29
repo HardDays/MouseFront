@@ -82,19 +82,13 @@
                                   </div>
                                   <div class="new-scroll-wr">
                                       <div class="blocks">
-                                          <ng-container *ngIf="Events.is_active">
+                                          <ng-container >
                                               <ng-container *ngFor="let item of EventsMassChecked">
                                                   <ng-container *ngIf="item.checked">
-                                                      <a  [routerLink]="['/system','shows_detail',item.object.id]" style="display:block">
+                                                      <a *ngIf="item.object.is_active" [routerLink]="['/system','shows_detail',item.object.id]" style="display:block">
                                                           <app-ticket-on-profile [Ticket]="item.object"></app-ticket-on-profile>
                                                       </a>
-                                                  </ng-container>
-                                              </ng-container>
-                                          </ng-container>
-                                          <ng-container *ngIf="!Events.is_active">
-                                              <ng-container *ngFor="let item of EventsMassChecked">
-                                                  <ng-container *ngIf="item.checked">
-                                                      <app-ticket-on-profile [Ticket]="item.object"></app-ticket-on-profile>
+                                                      <app-ticket-on-profile *ngIf="!item.object.is_active" [Ticket]="item.object"></app-ticket-on-profile>
                                                   </ng-container>
                                               </ng-container>
                                           </ng-container>
