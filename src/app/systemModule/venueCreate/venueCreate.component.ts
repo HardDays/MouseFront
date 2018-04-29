@@ -31,7 +31,7 @@ import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { AccountAddToEventModel } from '../../core/models/artistAddToEvent.model';
 import { EventGetModel } from '../../core/models/eventGet.model';
 import { AccountSearchModel } from '../../core/models/accountSearch.model';
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import { Point } from '@agm/core/services/google-maps-types';
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -47,6 +47,9 @@ import { MainService } from '../../core/services/main.service';
 import { ImageAccModel, ImageAccModelAnswer } from '../../core/models/imageAcc.model';
 import { VenueHoursComponent } from './hours/hours.component';
 import { VenueMediaComponent } from './media/media.component';
+import { VenueAboutComponent } from './about/about.component';
+import { VenueListingComponent } from './listing/listing.component';
+import { VenueDatesComponent } from './dates/dates.component';
 
 
 
@@ -74,8 +77,11 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
   VenueId:number = 0;
 
 
+  @ViewChild('about') about:VenueAboutComponent;
   @ViewChild('hours') hours:VenueHoursComponent;
   @ViewChild('media') media:VenueMediaComponent;
+  @ViewChild('listing') listing: VenueListingComponent;
+  @ViewChild('dates') dates:VenueDatesComponent;
   
   constructor
   (           
@@ -130,13 +136,14 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
 
   SaveVenue(venue:AccountCreateModel)
   {
+    console.log(venue);
     this.WaitBeforeLoading
     (
       () => this.VenueId == 0 ? this.main.accService.CreateAccount(this.Venue) : this.main.accService.UpdateMyAccount(this.VenueId,this.Venue),
       (res) => {
         this.DisplayVenueParams(res);
         this.NextPart();
-        this.GetMyAccounts();
+        this.main.GetMyAccounts();
       },
       (err) => {
         console.log(err);
@@ -163,7 +170,33 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
 
     this.CurrentPart = newPart;
   }
-    
+
+  SuperPuperImportantSaveButton()
+  {
+    console.log(this.CurrentPart);
+    switch(this.CurrentPart){
+      case this.Parts.About:{
+        if(this.about)
+          this.about.SaveVenue();
+      }
+      case this.Parts.Dates:{
+        if(this.dates)
+          this.dates.SaveVenue();
+      }
+      case this.Parts.Listing:{
+        if(this.listing)
+          this.listing.SaveVenue();
+      }
+      case this.Parts.Media:{
+        if(this.media)
+          this.media.SaveVenue();
+      }
+      case this.Parts.Hours:{
+        if(this.hours)
+          this.hours.SaveVenue();
+      }
+    }  
+  }
 }
 
 export enum PageParts

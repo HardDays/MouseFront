@@ -25,7 +25,7 @@ export class NavbarComponent extends BaseComponent implements OnInit
     {
       this.curNav = this.getThisPage();
       
-      this.GetMyAccounts();
+      this.main.GetMyAccounts();
     }
 
     getThisPage():string

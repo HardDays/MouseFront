@@ -40,7 +40,6 @@ export class VenueAboutComponent extends BaseComponent implements OnInit {
     
     ngOnInit(): void 
     {
-        console.log(this.Venue);
         this.CreateLocalAutocomplete();
 
         this.aboutForm.controls["emails"] = new FormArray([]);
@@ -86,7 +85,7 @@ export class VenueAboutComponent extends BaseComponent implements OnInit {
     {
         let n = 1;
         if(count)
-        n = count;
+            n = count;
 
         for(let i = 0; i < n; i++ )
         {

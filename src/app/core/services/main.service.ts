@@ -3,7 +3,7 @@ import { HttpService } from "./http.service";
 import { Router } from "@angular/router";
 import { Subject } from "rxjs";
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { Observable } from "rxjs/Observable";
+import { Observable, Subscribable } from 'rxjs/Observable';
 import { TypeService } from './type.service';
 import { PhoneService } from './phone.service';
 import { ImagesService } from './images.service';
@@ -20,13 +20,10 @@ import { EventCreateModel } from "../models/eventCreate.model";
 
 @Injectable()
 export class MainService{
-    public onAuthChange$: Subject<boolean>;
     public onLoadingChange$: Subject<boolean>;
-    public ActiveProcesses:string[] = [];
 
-    private MyAccounts: AccountGetModel[] = [];
-    private CurrentAccount:AccountGetModel = new AccountGetModel();
-
+    public MyAccounts: AccountGetModel[] = [];
+    public CurrentAccount:AccountGetModel = new AccountGetModel();
     public CurrentAccountChange: Subject<AccountGetModel>;
     public MyAccountsChange: Subject<AccountGetModel[]>;
 
@@ -43,29 +40,35 @@ export class MainService{
         public accService    : AccountService,
         public _auth         : AuthService     
     ){
-        this.onAuthChange$ = new Subject();
-        this.onAuthChange$.next(false);
         this.onLoadingChange$ = new Subject();
         this.onLoadingChange$.next(false);
 
         this.CurrentAccountChange = new Subject();
-        //this.CurrentAccountChange.next(new AccountGetModel());
+        this.CurrentAccountChange.next(new AccountGetModel());
 
         this.MyAccountsChange = new Subject();
-        //this.MyAccountsChange.next([]);
+        this.MyAccountsChange.next([]);
 
         this.authService.onAuthChange$
             .subscribe(
-                (res:boolean) =>
-                {
-                    this.onAuthChange$.next(res);
+                (res:boolean) => {
+                    console.log(res);
+                    if(res)
+                    {
+                        this.GetMyAccounts();      
+                    }
+                    else{
+                        this.CurrentAccountChange.next(new AccountGetModel());
+                        this.MyAccountsChange.next([]);
+                        this.router.navigate(['/system','tickets']);
+                    }
                 }
-            )
+            );
         
         this.CurrentAccountChange.subscribe(
             (val:AccountGetModel) => 
             {
-                this.SetCurrentAcc(val);
+                this.CurrentAccount = val;
                 this.SetCurrentAccId(val.id? val.id : 0);
             }
         );
@@ -73,11 +76,9 @@ export class MainService{
         this.MyAccountsChange.subscribe(
             (val:AccountGetModel[]) => 
             {
-                this.SetMyAccounts(val);
+                this.MyAccounts = val;
             }
         );
-
-        this.MyAccounts
     }
 
     public GetCurrentAccId()
@@ -92,35 +93,30 @@ export class MainService{
         localStorage.setItem('activeUserId',id.toString());
     }
 
-    public SetMyAccounts(arr:AccountGetModel[])
-    {
-        this.MyAccounts = arr;
+    public GetMyAccounts(){
+        this.accService.GetMyAccount()
+            .subscribe(
+                (res) => {
+                    this.MyAccounts = res;
+                    if(this.MyAccounts.length > 0)
+                    {
+                        let accId = +this.GetCurrentAccId();
+                        if(accId)
+                        {
+                            this.CurrentAccount = this.MyAccounts.find((acc) => acc.id == accId);
+                        }
+                        else
+                        {
+                            this.CurrentAccount = this.MyAccounts[0];
+                        }
+                    }
+                    this.CurrentAccountChange.next(this.CurrentAccount);
+                    this.MyAccountsChange.next(this.MyAccounts);
+                },
+                (err) => {
+                }
+            );
     }
-    public GetMyAccounts()
-    {
-        return this.MyAccounts;
-    }
-
-    public GetCurrentAcc()
-    {
-        return this.CurrentAccount;
-    }
-    public SetCurrentAcc(acc:AccountGetModel)
-    {
-        this.CurrentAccount = acc;
-    }
-
-    public BaseInitSession()
-    {
-        this.authService.TryToLoginWithToken();
-    }
-
-
-           
-
-
-    
-
     /* Processes BLOCK END */
 
 }

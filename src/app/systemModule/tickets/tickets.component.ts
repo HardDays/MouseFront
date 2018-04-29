@@ -104,17 +104,17 @@ export class TicketsComponent extends BaseComponent implements OnInit {
     {
         if(this.isLoggedIn)
         {
-            this.SearchParams.account_id = this. GetCurrentAccId();
+            this.SearchParams.account_id = this.GetCurrentAccId();
             if(!this.SearchParams.account_id)
             {
-                this.GetMyAccounts(
-                    () =>{},
-                    () => {
-                        this.GetCurrentAccId();
-                        this.GetTickets();
-                        this.GetTicketsPast();
-                    }
-                )
+                // this.GetMyAccounts(
+                //     () =>{},
+                //     () => {
+                //         this.GetCurrentAccId();
+                //         this.GetTickets();
+                //         this.GetTicketsPast();
+                //     }
+                // )
             }
             else{
                 this.GetTickets();

@@ -61,17 +61,17 @@ export class BaseComponent{
         if(this.isLoggedIn)
         {
             this.accId = this.GetCurrentAccId();
-            this.GetMyAccounts();
+            this.MyAccounts = this.main.MyAccounts;
+            this.CurrentAccount = this.main.CurrentAccount;
         }
 
-        this.main.onAuthChange$
+        this.main.authService.onAuthChange$
             .subscribe(
                 (res:boolean) => {
                     // console.log('loggedIn',res);
                     this.isLoggedIn = res;
                     if(this.isLoggedIn)
                     {
-                        this.GetMyAccounts();      
                     }
                     else{
                         // this.main.CurrentAccountChange.next(new AccountGetModel());
@@ -170,58 +170,26 @@ export class BaseComponent{
         return this.accId ? this.accId : (this.CurrentAccount.id?this.CurrentAccount.id:+this.main.GetCurrentAccId());
     }
 
-    protected GetMyAccounts(callback?:()=>any,callbackOk?:()=>any){
-        this.WaitBeforeLoading(
-            () => this.main.accService.GetMyAccount(),
-            (res) => {
-                this.MyAccounts = res;
-                if(this.MyAccounts.length > 0)
-                {
-                    if(this.main.GetCurrentAccId())
-                    {
-                        this.accId = +this.main.GetCurrentAccId();
-                        this.CurrentAccount = this.MyAccounts.find((acc) => acc.id == this.accId);
-                    }
-                    else
-                    {
-                        this.CurrentAccount = this.MyAccounts[0];
-                        this.accId = this.CurrentAccount.id;
-                    }
-                }
-                else this.accId = 0;
-
-                this.main.CurrentAccountChange.next(this.CurrentAccount);
-                this.main.MyAccountsChange.next(this.MyAccounts);
-                if(callbackOk && typeof callbackOk == "function")
-                {
-                    callbackOk();
-                }
-            },
-            (err) => {
-                if(callback && typeof callback == "function")
-                {
-                    callback();
-                }
-            }
-        );
-    }
-
-    protected GetMyLogo()
+    GetMyLogo()
     {
         if(this.CurrentAccount && this.CurrentAccount.image_id)
         {
             this.WaitBeforeLoading(
                 () => this.main.imagesService.GetImageById(this.CurrentAccount.image_id),
-                (res:Base64ImageModel) =>
-                {
-                    this.MyLogo = res.base64?res.base64:BaseImages.NoneUserImage;
-                } 
+                (res:Base64ImageModel) => {
+                    this.MyLogo = res.base64 ? res.base64 : BaseImages.NoneUserImage
+                },
+                (err) => {
+                    this.MyLogo = BaseImages.NoneUserImage;
+                }
             );
         }
         else{
             this.MyLogo = BaseImages.NoneUserImage;
         }
     }
+
+    
 
     protected Login(user:LoginModel,callback:(error)=>any,callbackOk?:(res)=>any)
     {
@@ -230,7 +198,7 @@ export class BaseComponent{
             (res:TokenModel) => {
                 this.main.authService.BaseInitAfterLogin(res);
                 this.router.navigate(['/system','shows']);
-                this.main.onAuthChange$.next(true);
+                this.main.authService.onAuthChange$.next(true);
 
                 if(callbackOk && typeof callbackOk == "function"){
                     callbackOk(res);
@@ -238,7 +206,7 @@ export class BaseComponent{
             },
             (err) => {
                 callback(err);
-                this.main.onAuthChange$.next(false);
+                this.main.authService.onAuthChange$.next(false);
             }
         );
     }
@@ -262,7 +230,7 @@ export class BaseComponent{
                             (res) => {
                                 this.main.authService.BaseInitAfterLogin(res);
                                 this.router.navigate(['/system','shows']);
-                                this.main.onAuthChange$.next(true);
+                                this.main.authService.onAuthChange$.next(true);
                             }
                         );
                     }
@@ -278,7 +246,7 @@ export class BaseComponent{
             this.main._auth.logout()
                 .subscribe(
                     (data) => {//return a boolean value.
-                        this.main.onAuthChange$.next(false);
+                        this.main.authService.onAuthChange$.next(false);
                     } 
                 );
         }
@@ -294,11 +262,11 @@ export class BaseComponent{
                 (res:UserGetModel)=> {
                     this.main.authService.BaseInitAfterLogin(new TokenModel(res.token));
                     this.userCreated = true;
-                    this.main.onAuthChange$.next(true);
+                    this.main.authService.onAuthChange$.next(true);
                 },
                 (err) => {
                     callback(err);
-                    this.main.onAuthChange$.next(false);
+                    this.main.authService.onAuthChange$.next(false);
                 }
             );
         }
@@ -314,12 +282,12 @@ export class BaseComponent{
             (res:UserGetModel) => {
                 this.main.authService.BaseInitAfterLogin(new TokenModel(res.token));
                 this.userCreated = true;
-                this.main.onAuthChange$.next(true);
+                this.main.authService.onAuthChange$.next(true);
                 callbackOk(res);
             },
             (err) => {
                 callbackErr(err);
-                this.main.onAuthChange$.next(false);
+                this.main.authService.onAuthChange$.next(false);
             }
         );
     }
@@ -331,7 +299,7 @@ export class BaseComponent{
                 (acc) => {
                     this.accId = acc.id;
                     this.main.SetCurrentAccId(this.accId);
-                    this.main.onAuthChange$.next(true);
+                    this.main.authService.onAuthChange$.next(true);
                     callbackOk(acc);
                 },
                 (err) => {

@@ -121,7 +121,6 @@ export class ShowsComponent extends BaseComponent implements OnInit {
         if(params)
             search = params;
 
-        console.log(search);
         this.WaitBeforeLoading(
             () => this.main.eventService.EventsSearch(search),
             (res:EventGetModel[]) =>
