@@ -14,7 +14,7 @@
         <p class="desc-head-info">Location</p>
         <p class="info">{{card.address}}</p>
         <p class="info">{{(status!='pending'&&status!='ready')?'Price $'+price:''}}</p>
-        <p  *ngIf="status=='pending'" class="info">Not verify acc</p>
+        <p  *ngIf="status=='pending'" class="info">Account is not verified yet</p>
         <div *ngIf="status!='pending'&&status!='declined'&&status!='owner_declined'" class="flex-buttons">
             <span *ngIf="status!='ready'&&status!='accepted'&&status!='owner_accepted'&&status!='active'" class="button-card" (click)="Check()" >check</span>
             <span *ngIf="status=='accepted'" class="button-card" (click)="Accept()">accept</span>

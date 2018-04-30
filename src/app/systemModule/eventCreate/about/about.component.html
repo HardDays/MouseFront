@@ -136,7 +136,7 @@
                     </div>
                     <div class="location-wr">
                         <div (click)="aboutOpenMapModal()" class="mark"></div>
-                        <input type="text" class="location-inp" [ngModelOptions]="{standalone: true}" [ngModel]="Event.address"  placeholder="" #searchAbout id="aboutAddress"> 
+                        <input id="aboutAddress" type="text" id="aboutAddress" class="location-inp" [ngModelOptions]="{standalone: true}" [ngModel]="Event.address"  placeholder="" #searchAbout> 
                     </div>
                 </div>
                 <div class="side">
@@ -183,8 +183,8 @@
             <h6 class="head-m-p-a">Location</h6>
             <span class="closee-modal" data-dismiss="modal"></span>
             <div class="for-map-init-modal-1">
-                    <agm-map  style="height:90%"  [latitude]="mapCoords.lat" [longitude]="mapCoords.lng">
-                            <agm-marker  [markerDraggable] = "true" [(latitude)]="mapCoords.lat" [(longitude)]="mapCoords.lng"></agm-marker>
+                    <agm-map  style="height:100%" (mapClick)="setMapCoords($event)" [latitude]="mapCoords.lat" [longitude]="mapCoords.lng">
+                            <agm-marker  [markerDraggable] = "true" (dragEnd)="dragMarker($event)" [(latitude)]="mapCoords.lat" [(longitude)]="mapCoords.lng"></agm-marker>
                     </agm-map>
             </div>
         </div>

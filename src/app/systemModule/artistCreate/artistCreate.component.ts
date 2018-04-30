@@ -877,9 +877,7 @@ loadRiderFile($event:any){
   {
     if(this.currentPage == this.pages.riders)
       this.router.navigate(["/system","profile",this.artistId]);
-      
-    scrollTo(0,0);
-    if(this.currentPage!=Pages.media)
+
     this.currentPage = this.currentPage + 1;
   }
   

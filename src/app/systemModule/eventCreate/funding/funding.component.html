@@ -25,7 +25,7 @@
                                 <a [routerLink]="['/system/profile',artist.object.artist_id]" class="name">{{artist['object']['user_name_not_given']}}</a>
                             </div>
                             <div class="price-r">
-                                <span class="price">${{artist['object']['agreement']['price']}}</span>
+                                <span class="price">${{artist['object']['agreement']?artist['object']['agreement']['price']:'none'}}</span>
                                 <div class="one-checkbox">
                                     <div class="check-style">
                                         <input [checked]="activeArtist[i].checked" (click)="setActiveArtist(i)" type="checkbox" class="checkbox" name="" id="new-checkbox-artist-{{i}}">
@@ -58,7 +58,7 @@
                                 <a [routerLink]="['/system/profile',venue.object.venue_id]" class="name">{{venue['object']['user_name_not_given']}}</a>
                             </div>
                             <div class="price-r">
-                                <span class="price">${{venue['object']['agreement']['price']}}</span>
+                                <span class="price">${{venue['object']['agreement']?venue['object']['agreement']['price']:'none'}}</span>
                                 <div class="one-checkbox">
                                     <div class="check-style">
                                         <input [checked]="activeVenue[i].checked" (click)="setActiveVenue(i)" type="checkbox" class="checkbox" name="" id="new-checkbox-venue-{{i}}">

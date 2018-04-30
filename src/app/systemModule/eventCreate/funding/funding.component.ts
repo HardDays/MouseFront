@@ -139,7 +139,7 @@ getActiveArtVen(){
    for(let art of this.Event.artist)
       if(art.status=='owner_accepted'||art.status=='active'){
          
-              if(!art.agreement.price) art.agreement.price = 1000;
+              if(art.agreement&&!art.agreement.price) art.agreement.price = 1000;
 
           artist.push(art);
       }
@@ -148,7 +148,7 @@ if( this.Event&&this.Event.venues)
   for(let v of this.Event.venues)
       if(v.status=='owner_accepted'||v.status=='active'){
          
-          if(!v.agreement.price) v.agreement.price = 100;
+          if(v.agreement&&!v.agreement.price) v.agreement.price = 100;
           
           venue.push(v);
   }
@@ -179,6 +179,8 @@ if( this.Event&&this.Event.venues)
   this.getListImages(this.activeArtist);
   this.getListImages(this.activeVenue);
 
+  this.getListName(this.activeArtist);
+  this.getListName(this.activeVenue);
   //console.log(`active: `,this.activeArtist,this.activeVenue);
 }
 
@@ -192,13 +194,33 @@ getListImages(list:any[]){
           });
       }
 }
+getListName(list:any[]){
+    if(list)
+    for(let item of list){
+        console.log(`get id`,item.artist_id,item.venue_id);
+        if(item.artist_id||item.venue_id){
+            let id = item.artist_id||item.venue_id;
+            console.log(`get id`,id);
+            this.main.accService.GetAccountById(id)
+                .subscribe((res)=>{
+                    item.user_name_not_given = res;
+            });
+        }
+    }
+
+}
 
 
 
 
 
 updateEvent(){
-
+    this.main.eventService.GetEventById(this.Event.id).
+    subscribe((res:EventGetModel)=>{
+        console.log(`updateEventThis`);
+        this.Event = this.main.eventService.EventModelToCreateEventModel(res);
+        this.getActiveArtVen();
+    })  
 }
 
 comleteFunding(){
