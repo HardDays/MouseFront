@@ -220,13 +220,15 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
 
     BuyTicket(object:any)
     {
+        
+        console.log('object',object);
         this.WaitBeforeLoading(
             () => this.main.eventService.BuyTicketPack(object),
             (res) => 
             {   
                 // let index = this.TicketsToBuy.findIndex(obj => obj.ticket.id == object.ticket_id && obj.count == object.count);
                 // this.TicketsToBuy.splice(index,1);
-                // console.log(this.TicketsToBuy);
+                console.log('res',res);
             },
             (err) =>
             {
