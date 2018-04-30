@@ -17,6 +17,7 @@ export class ErrorComponent{
 
     public CloseWindow()
     {
-        $('#message-1').modal('toggle');
+        if($('#message-1').data('bs.modal').isShown)
+            $('#message-1').modal('hide');
     }
 }
