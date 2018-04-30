@@ -143,8 +143,9 @@
                                 <div class="l-s">
                                     <div class="ava"  [ngStyle]="{'background-image': item.object.image_base64_not_given?'url('+item.object.image_base64_not_given+')':''}"></div>
                                     <div class="desc">
-                                        <a class="name" [routerLink]="['/system/profile',item.object.id]">{{item.object.display_name}} {{item.object.user_name}}</a>
-                                        <p class="genres">{{item.object.genres}}</p>
+                                        <!-- <a class="name" [routerLink]="['/system/profile',item.object.id]">{{niceView(item.object.display_name)}} {{niceView(item.object.user_name)}}</a> -->
+                                        <a class="name" [routerLink]="['/system/profile',item.object.id]">{{niceViewName(item.object)}}</a>
+                                        <p class="genres">{{niceViewGenres(item.object.genres)}}</p>
                                         <p class="where">{{item.object.address}}</p>
                                     </div>
                                 </div>

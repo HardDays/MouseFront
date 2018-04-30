@@ -38,4 +38,7 @@ select{
 	height: 40px; 
 	padding: 5px;
 }
+ul li{
+    cursor: pointer;
+}
 

@@ -218,7 +218,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
   addNewArtist(){
     this.addArtist.event_id = this.Event.id;
     this.addArtist.account_id = this.Event.creator_id;
-
+    $('#modal-pick-artist').modal('toggle');
       let step = 1;
       for(let item of this.artistsSearch){
         if(item.checked){
@@ -233,7 +233,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
             this.main.eventService.AddArtist(this.addArtist).
               subscribe((res)=>{
                   console.log(`add `,this.addArtist.artist_id);
-                  
+               
               }, (err)=>{
                 this.onError.emit("Error add "+err._body);
                 console.log(`err`,err);
@@ -336,8 +336,10 @@ artistSendRequest(id:number){
 
   this.main.eventService.ArtistSendRequest(this.addArtist)
   .subscribe((send)=>{
+      $('#modal-send-request-artist').modal('toggle');
       console.log(`send`);
       this.onError.emit("Request was sent!");
+      
       this.updateEvent();
   })
 }
@@ -437,6 +439,24 @@ dragMarker($event)
             }
         );
 
+    }
+
+    niceViewName(obj:AccountGetModel){
+      let s = '';
+      if(obj.display_name)
+        s +=+ obj.display_name.length>10?obj.display_name.slice(0,10):obj.display_name;
+      if(obj.user_name)
+        s +=' '+(obj.user_name.length>10?obj.user_name.slice(0,10):obj.user_name);
+       return s;
+    }
+
+    niceViewGenres(g:string[]){
+      let gnr = '';
+      if(g){
+          if(g[0]) gnr+=g[0];
+          if(g[1]) gnr+=', '+g[1];
+      }
+     return gnr;
     }
 
 
