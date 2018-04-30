@@ -416,7 +416,7 @@ dragMarker($event)
                 if (status === google.maps.GeocoderStatus.OK) {
                     if (results[1]) {
                       
-                        $("#aboutAddress").val(results[1].formatted_address);
+                        $("#artistAddress").val(results[1].formatted_address);
                         
                     } 
                     else {

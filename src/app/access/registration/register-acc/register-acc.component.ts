@@ -25,6 +25,8 @@ import { TypeService } from '../../../core/services/type.service';
 import { EventService } from '../../../core/services/event.service';
 import { MainService } from '../../../core/services/main.service';
 
+declare var $:any;
+
 @Component({
   selector: 'app-register-acc',
   templateUrl: './register-acc.component.html',
@@ -53,7 +55,7 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
   place: string='';
  
   Error:string = '';
- 
+  mapCoords =  {lat:55.755826, lng:37.6172999};
 
   ngOnInit()
   {
@@ -67,7 +69,9 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
       }
     );  
   }
-
+  openMap(){
+    $('#modal-map-reg').modal(`show`);
+  }
   CreateAutocomplete()
   {
     this.mapsAPILoader.load().then
@@ -93,8 +97,8 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
                     this.Account.address = autocomplete.getPlace().formatted_address;
                     // this.Params.public_lat=autocomplete.getPlace().geometry.location.toJSON().lat;
                     // this.Params.public_lng=autocomplete.getPlace().geometry.location.toJSON().lng;
-                    // this.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
-                    // this.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
+                    this.mapCoords.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
+                    this.mapCoords.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
                     // this.Params.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
                     // this.Params.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
                   }
@@ -180,5 +184,44 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
         this.Error = err._body;
       }
     );
+  }
+
+
+  
+  dragMarker($event)
+  {
+      this.mapCoords.lat = $event.coords.lat;
+      this.mapCoords.lng = $event.coords.lng;
+      this.codeLatLng( this.mapCoords.lat, this.mapCoords.lng);
+  }
+
+  setMapCoords(event){
+      this.mapCoords = {lat:event.coords.lat,lng:event.coords.lng};
+      this.codeLatLng( this.mapCoords.lat, this.mapCoords.lng);
+
+  }
+
+  codeLatLng(lat, lng) {
+      let geocoder = new google.maps.Geocoder();
+      let latlng = new google.maps.LatLng(lat, lng);
+      geocoder.geocode(
+          {'location': latlng }, 
+          (results, status) => {
+              if (status === google.maps.GeocoderStatus.OK) {
+                  if (results[1]) {
+                    
+                      $("#address").val(results[1].formatted_address);
+                      
+                  } 
+                  else {
+                  // alert('No results found');
+                  }
+              } 
+              else {
+                  // alert('Geocoder failed due to: ' + status);
+              }
+          }
+      );
+
   }
 }

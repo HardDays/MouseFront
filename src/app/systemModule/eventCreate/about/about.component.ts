@@ -33,7 +33,7 @@ export class AboutComponent extends BaseComponent implements OnInit {
   @Input() Event:EventCreateModel;
   @Output() onSaveEvent:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
 
-  @ViewChild('searchArtist') public searchElementAbout: ElementRef;
+  @ViewChild('searchAbout') public searchElementAbout: ElementRef;
 
   mapCoords =  {lat:55.755826, lng:37.6172999};
   genres:GenreModel[] = [];
@@ -179,7 +179,7 @@ export class AboutComponent extends BaseComponent implements OnInit {
                 if (status === google.maps.GeocoderStatus.OK) {
                     if (results[1]) {
                       
-                        $("#artistAddress").val(results[1].formatted_address);
+                        $("#aboutAddress").val(results[1].formatted_address);
                         
                     } 
                     else {

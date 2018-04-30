@@ -37,3 +37,11 @@
     background-color: #adadad;
     height: 70px;
 }
+.circle-scroll{
+    cursor: pointer;
+    -webkit-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    transform: rotate(270deg);
+}
