@@ -13,7 +13,7 @@ import { EventDateModel } from '../../core/models/eventDate.model';
 import { ContactModel } from '../../core/models/contact.model';
 import { AccountGetModel, Audio } from '../../core/models/accountGet.model';
 import { Base64ImageModel } from '../../core/models/base64image.model';
-import { AccountType } from '../../core/base/base.enum';
+import { AccountType, BaseMessages } from '../../core/base/base.enum';
 import { GenreModel } from '../../core/models/genres.model';
 import { EventCreateModel } from '../../core/models/eventCreate.model';
 
@@ -42,6 +42,7 @@ import { CheckModel } from '../../core/models/check.model';
 
 
 import { MainService } from '../../core/services/main.service';
+import { ErrorComponent } from '../../shared/error/error.component';
 
 
 declare var $:any;
@@ -133,7 +134,8 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
   }
 
   @ViewChild('search') public searchElement: ElementRef;
-
+  
+  @ViewChild('errorCmp') errorCmp: ErrorComponent;
   
 
   ngOnInit(){
@@ -378,9 +380,11 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
                 this.initJS();
                 this.main.GetMyAccounts();
                 this.getRiders();
+                this.errorCmp.OpenWindow(BaseMessages.Success);
             },
             (err)=>{
                 console.log(`err`,err);
+                this.errorCmp.OpenWindow(BaseMessages.Fail);
             }
     );
   }
@@ -455,13 +459,15 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
                     this.artistModelToCreateArtistModel(artist);
                     this.currentPage = Pages.calendar;
                     this.main.GetMyAccounts();
-                });
+                    this.errorCmp.OpenWindow(BaseMessages.Success);
+                },(err)=>{  this.errorCmp.OpenWindow(BaseMessages.Fail);});
             }
            
             else this.updateArtistByCreateArtist();
         }
         else {
             console.log(`Invalid About Form!`, this.aboutForm);
+            this.errorCmp.OpenWindow('Invalid About Form!');
         }
   }
 
@@ -935,6 +941,7 @@ loadRiderFile($event:any){
     this.updateArtistByCreateArtist();
   }
 
+  
 
 }
 

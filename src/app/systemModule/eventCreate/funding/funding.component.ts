@@ -176,34 +176,32 @@ if( this.Event&&this.Event.venues)
   }
 
   console.log(`activeArtist`,this.activeArtist);
-  this.getListImages(this.activeArtist);
-  this.getListImages(this.activeVenue);
+
 
   this.getListName(this.activeArtist);
   this.getListName(this.activeVenue);
   //console.log(`active: `,this.activeArtist,this.activeVenue);
 }
 
-getListImages(list:any[]){
-  if(list)
-  for(let item of list)
-      if(item.image_id){
-          this.main.imagesService.GetImageById(item.image_id)
-              .subscribe((res:Base64ImageModel)=>{
-                  item.image_base64_not_given = res.base64;
-          });
-      }
-}
+
 getListName(list:any[]){
     if(list)
     for(let item of list){
         console.log(`get id`,item.artist_id,item.venue_id);
-        if(item.artist_id||item.venue_id){
-            let id = item.artist_id||item.venue_id;
-            console.log(`get id`,id);
+        if(item.object.artist_id||item.object.venue_id){
+            let id = item.object.artist_id||item.object.venue_id;
+           
             this.main.accService.GetAccountById(id)
                 .subscribe((res)=>{
-                    item.user_name_not_given = res;
+                    item.object.user_name_not_given = res.user_name;
+
+                    if(res.image_id)
+                        this.main.imagesService.GetImageById(res.image_id)
+                        .subscribe((res:Base64ImageModel)=>{
+                            item.object.image_base64_not_given = res.base64;
+                        
+                        });
+
             });
         }
     }
