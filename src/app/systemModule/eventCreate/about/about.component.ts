@@ -91,6 +91,9 @@ export class AboutComponent extends BaseComponent implements OnInit {
     this.main.imagesService.GetImageById(event.image_id)
       .subscribe((img)=>{event.image_base64 = img.base64;})
   }
+  SaveVenue(){
+    
+  }
   getGenres(){
     this.genres = [];
     this.main.genreService.GetAllGenres()

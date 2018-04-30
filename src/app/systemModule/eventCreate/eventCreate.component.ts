@@ -128,6 +128,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         
         this.router.navigateByUrl("/system/eventCreate/"+this.EventId);
       }
+
+         
       if(this.about)
         this.about.Init(this.Event);
       if(this.artist)
@@ -158,7 +160,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     }
 
     saveButtonClick(){
-
+      console.log(`saveButtonClick`,this.currentPage);
       if(this.currentPage == this.pages.about)
         this.about.SaveEvent();
       else if(this.currentPage == this.pages.artist)

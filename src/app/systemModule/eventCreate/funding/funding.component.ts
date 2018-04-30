@@ -46,6 +46,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
   }
 
   Init(event:EventCreateModel){
+      this.Event = event;
     this.getActiveArtVen();
   }
 
@@ -132,27 +133,21 @@ getActiveArtVen(){
   this.artistSum = 0;
   this.venueSum = 0;
   let artist:GetArtists[] = [], venue:GetVenue[] = [];
-  console.log(this.Event);
+  console.log(`funding`,this.Event);
+
   if( this.Event&&this.Event.artist)
    for(let art of this.Event.artist)
       if(art.status=='owner_accepted'||art.status=='active'){
-          // let num = this.getNumInArtistOrVenueById(art.artist_id,this.showsArtists);
-          // art.image_base64_not_given = this.showsArtists[num].image_base64_not_given;
-          // art.user_name_not_given =  this.showsArtists[num].user_name;
-
-              //заглушка на старые запросы
+         
               if(!art.agreement.price) art.agreement.price = 1000;
 
           artist.push(art);
       }
+
 if( this.Event&&this.Event.venues)
   for(let v of this.Event.venues)
       if(v.status=='owner_accepted'||v.status=='active'){
-          // let num = this.getNumInArtistOrVenueById(v.venue_id,this.requestVenues);
-          // v.image_base64_not_given = this.requestVenues[num].image_base64_not_given;
-          // v.user_name_not_given =  this.requestVenues[num].user_name;
-
-          //заглушка на старые запросы
+         
           if(!v.agreement.price) v.agreement.price = 100;
           
           venue.push(v);
@@ -180,7 +175,7 @@ if( this.Event&&this.Event.venues)
       i = i + 1;
   }
 
-  console.log(this.activeArtist);
+  console.log(`activeArtist`,this.activeArtist);
   this.getListImages(this.activeArtist);
   this.getListImages(this.activeVenue);
 

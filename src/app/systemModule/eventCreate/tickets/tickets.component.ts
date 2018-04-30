@@ -38,6 +38,7 @@ export class AddTicketsComponent extends BaseComponent implements OnInit {
     
   }
   Init(event:EventCreateModel){
+    this.Event = event;
     this.getTickets();
   }
 
@@ -109,7 +110,7 @@ updateTicket(){
 
                 this.ticketsNew.splice(index,1);
 
-                this.updateEvent();
+                this.updateEventTickets();
             });
 
     }
@@ -119,14 +120,22 @@ updateTicket(){
         this.main.eventService.UpdateTicket(this.currentTicket)
             .subscribe((res)=>{
                 //console.log(`update`,res);
-                this.updateEvent();
+                this.updateEventTickets();
             });
     }
 }
 
+updateEventTickets(){ 
+    this.main.eventService.GetEventById(this.Event.id).
+    subscribe((res:EventGetModel)=>{
+        console.log(`updateEventThis`);
+        this.Event = this.main.eventService.EventModelToCreateEventModel(res);
+        this.getTickets();
+    })  
+}
 updateEvent(){
     this.onSaveEvent.emit(this.Event);
-    this.getTickets();
 }
+
   
 }
