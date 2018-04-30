@@ -13,7 +13,7 @@ import { EventDateModel } from '../../core/models/eventDate.model';
 import { ContactModel } from '../../core/models/contact.model';
 import { AccountGetModel } from '../../core/models/accountGet.model';
 import { Base64ImageModel } from '../../core/models/base64image.model';
-import { AccountType } from '../../core/base/base.enum';
+import { AccountType, BaseMessages } from '../../core/base/base.enum';
 import { GenreModel } from '../../core/models/genres.model';
 import { EventCreateModel } from '../../core/models/eventCreate.model';
 
@@ -51,6 +51,9 @@ import { AboutComponent } from './about/about.component';
 import { VenuesComponent } from './venues/venues.component';
 import { FundingComponent } from './funding/funding.component';
 import { AddTicketsComponent } from './tickets/tickets.component';
+import { ErrorComponent } from '../../shared/error/error.component';
+
+
 
 
 
@@ -80,6 +83,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     @ViewChild('funding') funding:FundingComponent;
     @ViewChild('tickets') tickets:AddTicketsComponent;
     
+    @ViewChild('errorCmp') errorCmp: ErrorComponent;
+
     pages = Pages;
     currentPage = this.pages.about;
 
@@ -112,6 +117,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
               () => this.main.eventService.GetEventById(params["id"]),
               (res:EventGetModel) => {
                 this.DisplayEventParams(res);
+              }, (err)=>{
+                this.errorCmp.OpenWindow(BaseMessages.Fail);
               }
             );
           }
@@ -201,6 +208,11 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
           console.log(res);
           this.Event.is_active = true;
         })  
+    }
+
+    OpenErrorWindow(str:string)
+    {
+      this.errorCmp.OpenWindow(str);
     }
 
 

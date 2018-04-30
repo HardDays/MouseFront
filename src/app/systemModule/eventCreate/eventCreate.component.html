@@ -50,6 +50,7 @@
         <app-about #about [ngStyle]="{'display': (currentPage==pages.about)?'block':'none'}"
             [Event]="Event"
             (onSaveEvent)="SaveEvent($event)"
+            (onError)="OpenErrorWindow($event)"
         ></app-about>
         
         
@@ -62,6 +63,7 @@
         <app-venues #venue [ngStyle]="{'display': (currentPage==pages.venue)?'block':'none'}"
             [Event]="Event"
             (onSaveEvent)="SaveEvent($event)"
+            (onError)="OpenErrorWindow($event)"
         ></app-venues> 
        
 
@@ -71,11 +73,13 @@
             <app-funding #funding [ngStyle]="{'display': (currentPage==pages.funding)?'block':'none'}"
                 [Event]="Event"
                 (onSaveEvent)="SaveEvent($event)"
+                (onError)="OpenErrorWindow($event)"
             ></app-funding>
             
             <app-add-tickets #tickets [ngStyle]="{'display': (currentPage==pages.tickets)?'block':'none'}"
                 [Event]="Event"
                 (onSaveEvent)="SaveEvent($event)"
+                (onError)="OpenErrorWindow($event)"
             ></app-add-tickets> 
            
 
@@ -95,7 +99,7 @@
 <!-- ######################################################################################################################################## -->
 
 </section>
-
+<error-cmp #errorCmp></error-cmp>
 
 
 

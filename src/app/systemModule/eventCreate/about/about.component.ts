@@ -32,6 +32,7 @@ export class AboutComponent extends BaseComponent implements OnInit {
   
   @Input() Event:EventCreateModel;
   @Output() onSaveEvent:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
+  @Output() onError:EventEmitter<string> = new EventEmitter<string>();
 
   @ViewChild('searchAbout') public searchElementAbout: ElementRef;
 
@@ -146,6 +147,7 @@ export class AboutComponent extends BaseComponent implements OnInit {
       if(this.aboutForm.invalid)
       {
           console.log("About form invalid");
+          this.onError.emit("About form invalid");
           return;
       }
       this.Event.genres = [];

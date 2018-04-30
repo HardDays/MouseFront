@@ -34,7 +34,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
    
     @Input() Event:EventCreateModel;
     @Output() onSaveEvent:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
-  
+    @Output() onError:EventEmitter<string> = new EventEmitter<string>();
     
     @ViewChild('searchVenue') public searchElementVenue: ElementRef;
 
@@ -358,15 +358,18 @@ addVenueById(id:number){
             this.main.eventService.AddVenue(this.addVenue).
                 subscribe((res)=>{
                     console.log(`ok add`);
+                    $('#modal-send-request-venue').modal('toggle');
                     this.main.eventService.VenueSendRequest(this.addVenue)
                      .subscribe((send)=>{
                         console.log(`ok send`);
+                        this.onError.emit("Request was sent!");
                     this.updateEvent();
                 }, (err)=>{
                     console.log(err);
                 })
                     
                 },(err)=>{
+                    this.onError.emit("Request wasn't sent!");
                     this.main.eventService.VenueSendRequest(this.addVenue)
                         .subscribe((send)=>{
                             console.log(`ok send error`);
@@ -405,8 +408,11 @@ acceptVenue(card:AccountGetModel){
         console.log(this.ownerAcceptDecline);
         this.main.eventService.VenueAcceptOwner(this.ownerAcceptDecline).
             subscribe((res)=>{
+                this.onError.emit("Venue accepted!");
                 //console.log(`ok accept artist`,res);
                 this.updateEvent();
+            },(err)=>{
+                this.onError.emit("Venue NOT accepted!");
             });
 
         // //console.log(this.ownerAcceptDecline);   
@@ -430,7 +436,10 @@ declineVenue(card:AccountGetModel){
         this.main.eventService.VenueDeclineOwner(this.ownerAcceptDecline).
             subscribe((res)=>{
                 //console.log(`ok accept artist`,res);
+                this.onError.emit("Venue declined!");
                 this.updateEvent();
+            },(err)=>{
+                this.onError.emit("Venue NOT declined!");
             });
 
         //console.log(this.ownerAcceptDecline); 

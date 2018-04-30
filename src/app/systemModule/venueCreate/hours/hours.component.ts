@@ -32,7 +32,6 @@ export class VenueHoursComponent extends BaseComponent implements OnInit,OnChang
     }
     ngOnChanges(changes: SimpleChanges): void {
         this.Init(changes.Venue.currentValue);
-
     }
 
     Init(venue?:AccountCreateModel)

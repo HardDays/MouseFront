@@ -1,4 +1,6 @@
-<div class="photo" [ngStyle]="{'background-image': 'url(' + Image + ')'}"></div>
-<a [routerLink]="['/system','profile',Folower.id]"  class="name">
-    <span><!--<span style="color:#eb2d64;display:inline;">@</span>-->{{Folower.user_name}}</span>
+<a [routerLink]="['/system','profile',Folower.id]" style="display:block">
+    <div class="photo" [ngStyle]="{'background-image': 'url(' + Image + ')'}"></div>
+    <span class="name">
+        <span><!--<span style="color:#eb2d64;display:inline;">@</span>-->{{Folower.user_name}}</span>
+    </span>
 </a>
