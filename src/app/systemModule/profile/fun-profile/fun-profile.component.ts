@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, Input } from '@angular/core';
+import { Component, OnInit, NgZone, Input, OnDestroy, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { TicketsGetModel } from '../../../core/models/ticketsGetModel';
 import { AccountType } from '../../../core/base/base.enum';
 import { AccountSearchParams } from '../../../core/models/accountSearchParams.model';
@@ -18,20 +18,26 @@ declare var $:any;
     templateUrl: './fun-profile.component.html',
     styleUrls: ['./fun-profile.component.css']
 })
-export class FunProfileComponent extends BaseComponent implements OnInit {
+export class FunProfileComponent extends BaseComponent implements OnInit{
+   
+    
     @Input() IsPreview: any;
     @Input() Account: any;
     MyAccountId:number;
     SearchParams: AccountSearchParams = new AccountSearchParams();
     isMyAccount = false;
-    FolowersMass:any = [];
+
+
+    FolowersMass:AccountGetModel[] = [];
     Tickets:TicketsGetModel[] = [];
     Events:EventGetModel[] = [];
-    folowersMassChecked:CheckModel<any>[] = [];
+
+    folowersMassChecked:AccountGetModel[] = [];
     ticketsMassChecked:CheckModel<TicketsGetModel>[] = [];
     EventsMassChecked:CheckModel<EventGetModel>[] = [];
     TotalTicket:number;
     isFolowedAcc:boolean;
+    render = false;
     constructor
     (           
         protected main         : MainService,
@@ -39,14 +45,17 @@ export class FunProfileComponent extends BaseComponent implements OnInit {
         protected router       : Router,
         protected mapsAPILoader  : MapsAPILoader,
         protected ngZone         : NgZone,
-        private activatedRoute : ActivatedRoute
+        private ref: ChangeDetectorRef
     ){
         super(main,_sanitizer,router,mapsAPILoader,ngZone);
     }
     ngOnInit(): void  {
         this.Init();
     }
+    
+
     public Init(acc?:AccountGetModel){
+        this.render = true;
         if(acc){
             this.Account = acc;
         }
@@ -56,9 +65,11 @@ export class FunProfileComponent extends BaseComponent implements OnInit {
 
         if(this.Account.image_id)
         {
+            
             this.WaitBeforeLoading(
                 () => this.main.imagesService.GetImageById(this.Account.image_id),
                 (res:Base64ImageModel)=>{
+                    console.log(res);
                     this.Account.image_base64 = res.base64;
                 }
             );
@@ -78,6 +89,8 @@ export class FunProfileComponent extends BaseComponent implements OnInit {
                 this.isFolowed();
             }
         }
+        this.ref.detectChanges();
+        this.render = false;
     }
 
     GetEvents()
@@ -125,15 +138,14 @@ export class FunProfileComponent extends BaseComponent implements OnInit {
     }
     GetFolowersAcc()
     {
+        this.FolowersMass = [],this.folowersMassChecked = [];
         this.WaitBeforeLoading(
             () => this.main.accService.GetAcauntFolowers(this.Account.id),
             (res:any) =>
             {
-                this.folowersMassChecked = this.convertArrToCheckModel<any>(res.followers);
-                for(let it of this.folowersMassChecked)
-                {
-                    it.checked = true;
-                }
+                this.FolowersMass = res.followers;
+                this.searchFolover({target:{value:null}});  
+               console.log(this.folowersMassChecked)
             
             },
             (err) => {
@@ -145,17 +157,14 @@ export class FunProfileComponent extends BaseComponent implements OnInit {
     searchFolover(event)
     {
         let searchParam = event.target.value;
-        for(let it of this.folowersMassChecked)
-        {
-            if(it.object.user_name.indexOf(searchParam)>=0)
-            {
-                it.checked = true;
-            }
-            else
-            {
-                it.checked = false;
-            }
+        if(searchParam){
+            this.folowersMassChecked = this.FolowersMass.filter(obj=> obj.user_name.indexOf(searchParam)>=0);
         }
+        else{
+            this.folowersMassChecked = this.FolowersMass;
+        }
+        
+
     }
     searchTickets(event)
     {

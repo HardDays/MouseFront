@@ -1,5 +1,6 @@
 
-import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, OnInit, OnChanges, ViewChild, ElementRef, NgZone, SimpleChanges, ChangeDetectorRef } from '@angular/core';
+import{Location} from '@angular/common';
 import { NgForm} from '@angular/forms';
 import { AuthMainService } from '../../core/services/auth.service';
 import { AccountService } from '../../core/services/account.service';
@@ -50,6 +51,7 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     UserId:number;
     Roles = AccountType;
     Account:AccountGetModel = new AccountGetModel();
+
     constructor
     (           
         protected main         : MainService,
@@ -57,7 +59,9 @@ export class ProfileComponent extends BaseComponent implements OnInit {
         protected router       : Router,
         protected mapsAPILoader  : MapsAPILoader,
         protected ngZone         : NgZone,
-        private activatedRoute : ActivatedRoute
+        private activatedRoute : ActivatedRoute,
+        private ref: ChangeDetectorRef
+        
     ){
         super(main,_sanitizer,router,mapsAPILoader,ngZone);
     }
@@ -66,8 +70,22 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     @ViewChild('artist') artist:ArtistProfileComponent;
     @ViewChild('venue') venue:VenueProfileComponent;
     ngOnInit(){
+        // this.location.subscribe(
+        //     (res)=>{
+               
+        //         this.getAccountMethod();
 
+        //     }
+
+        // );
         
+        this.getAccountMethod();
+
+  
+    }
+    
+
+    getAccountMethod(){
         this.activatedRoute.params.forEach((params)=>{
             this.UserId = params["id"];
             this.main.accService.GetAccountById(this.UserId,{extended:true})
@@ -76,15 +94,20 @@ export class ProfileComponent extends BaseComponent implements OnInit {
                     {
                         this.Account = resAccount;
                         if(this.Account.account_type == this.Roles.Fan){
-                            //this.fan.Init(this.Account);
+                            this.fan = new FunProfileComponent(this.main,this._sanitizer,this.router,this.mapsAPILoader,this.ngZone,this.ref);
+                            this.fan.Init(this.Account);
+                            // setTimeout(
+                            //     ()=>{
+                            //         
+                            //     },500
+                            // );
+                               
+                            
                         }
 
                 }
             )
         })
-
-  
     }
-
 
 }

@@ -1,3 +1,4 @@
+<ng-container *ngIf="!render">
 <section class="main_content">
   <div class="for-flex-height">
       
@@ -127,10 +128,10 @@
                                       <input type="text" class="search-profile-inp-style" placeholder="Search" (input)='searchFolover($event)'>
                                   </div>
                                   <div class="new-scroll-wr">
-                                      <div class="blocks-funs">
+                                      <div class="blocks-funs" *ngIf="folowersMassChecked.length > 0">
                                           <ng-container *ngFor="let item of folowersMassChecked">
-                                              <div class="one-block" *ngIf="item.checked">
-                                                  <app-one-folower-for-profile [Folower]="item.object"></app-one-folower-for-profile>
+                                              <div class="one-block" >
+                                                  <app-one-folower-for-profile [Folower]="item"></app-one-folower-for-profile>
                                                   
                                               </div>
 
@@ -148,3 +149,4 @@
   </div>
 
 </section>
+</ng-container>
