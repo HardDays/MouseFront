@@ -132,5 +132,4 @@ export class EventsComponent extends BaseComponent implements OnInit {
         this.search.GetLocation(params);
     }
 
-    
 }

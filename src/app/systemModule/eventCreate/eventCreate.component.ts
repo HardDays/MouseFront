@@ -195,6 +195,14 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       this.currentPage = newPart;
     }
 
+    activeButtonClick(){
+      this.main.eventService.SetActive(this.EventId,this.main.CurrentAccount.id).
+        subscribe((res)=>{
+          console.log(res);
+          this.Event.is_active = true;
+        })  
+    }
+
 
 
 }

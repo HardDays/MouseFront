@@ -25,4 +25,9 @@ export enum BaseImages{
     NoneFolowerImage = "../../assets/img/non-photo-2.svg"
 }
 
+export enum BaseMessages{
+    Success = "Success",
+    Fail = "Failed"
+}
+
 

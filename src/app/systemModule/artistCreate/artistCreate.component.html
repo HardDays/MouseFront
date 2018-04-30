@@ -893,19 +893,19 @@
                                                     <label for="textarea-rider-1" class="head-groupe">Description</label>
                                                     <span class="max-count">2000 max</span>
                                                 </div>
-                                                <div *ngIf="!stageRider.id" class="flex-mac-checkbox direction-column on-add-artist-page">
+                                                <div  class="flex-mac-checkbox direction-column on-add-artist-page">
                                                     <p class="quetion-radio-text">How flexible are you for your preferences?</p>
                                                     <div class="flex-radio">
                                                         <div class="one-radio">
                                                             <div class="radio-style">
-                                                                <input [(ngModel)]="stageRider.is_flexible" type="radio" class="radio-b" id="radio-555" name="grope-rider-1" checked="">
+                                                                <input [(ngModel)]="stageRider.is_flexible" type="radio" class="radio-b" id="radio-555" [value]="true" name="grope-rider-1" checked="">
                                                                 <label for="radio-555"></label>
                                                             </div>
                                                             <p>Flexible</p>
                                                         </div>
                                                         <div class="one-radio">
                                                             <div class="radio-style">
-                                                                <input type="radio" class="radio-b" id="radio-555-2" name="grope-rider-1">
+                                                                <input type="radio" [(ngModel)]="stageRider.is_flexible" class="radio-b" id="radio-555-2" [value]="false"  name="grope-rider-1">
                                                                 <label for="radio-555-2"></label>
                                                             </div>
                                                             <p>Not Flexible</p>
@@ -961,19 +961,19 @@
                                                 <label for="textarea-rider-2" class="head-groupe">Description</label>
                                                 <span class="max-count">2000 max</span>
                                             </div>
-                                            <div *ngIf="!backstageRider.id" class="flex-mac-checkbox direction-column on-add-artist-page">
+                                            <div class="flex-mac-checkbox direction-column on-add-artist-page">
                                                 <p class="quetion-radio-text">How flexible are you for your preferences?</p>
                                                 <div  class="flex-radio">
                                                     <div class="one-radio">
                                                         <div class="radio-style">
-                                                            <input [(ngModel)]="backstageRider.is_flexible" type="radio" class="radio-b" id="radio-556" name="grope-rider-2" checked="">
+                                                            <input [(ngModel)]="backstageRider.is_flexible" type="radio" class="radio-b" [value]="true" id="radio-556" name="grope-rider-2" checked="">
                                                             <label for="radio-556"></label>
                                                         </div>
                                                         <p>Flexible</p>
                                                     </div>
                                                     <div class="one-radio">
                                                         <div class="radio-style">
-                                                            <input type="radio" class="radio-b" id="radio-556-2" name="grope-rider-2">
+                                                            <input [(ngModel)]="backstageRider.is_flexible" type="radio" class="radio-b" id="radio-556-2" [value]="false" name="grope-rider-2">
                                                             <label for="radio-556-2"></label>
                                                         </div>
                                                         <p>Not Flexible</p>
@@ -1026,19 +1026,19 @@
                                                 <label for="textarea-rider-3" class="head-groupe">Description</label>
                                                 <span class="max-count">2000 max</span>
                                             </div>
-                                            <div *ngIf="!hospitalityRider.id" class="flex-mac-checkbox direction-column on-add-artist-page">
+                                            <div class="flex-mac-checkbox direction-column on-add-artist-page">
                                                 <p class="quetion-radio-text">How flexible are you for your preferences?</p>
                                                 <div  class="flex-radio">
                                                     <div class="one-radio">
                                                         <div class="radio-style">
-                                                            <input [(ngModel)]="hospitalityRider.is_flexible" type="radio" class="radio-b" id="radio-557" name="grope-rider-3" checked="">
+                                                            <input [(ngModel)]="hospitalityRider.is_flexible" type="radio" [value]="true" class="radio-b" id="radio-557" name="grope-rider-3" checked="">
                                                             <label for="radio-557"></label>
                                                         </div>
                                                         <p>Flexible</p>
                                                     </div>
                                                     <div class="one-radio">
                                                         <div class="radio-style">
-                                                            <input type="radio" class="radio-b" id="radio-557-2" name="grope-rider-3">
+                                                            <input [(ngModel)]="hospitalityRider.is_flexible" type="radio" [value]="false" class="radio-b" id="radio-557-2" name="grope-rider-3">
                                                             <label for="radio-557-2"></label>
                                                         </div>
                                                         <p>Not Flexible</p>
@@ -1092,19 +1092,19 @@
                                                 <label for="textarea-rider-2" class="head-groupe">Description</label>
                                                 <span class="max-count">2000 max</span>
                                             </div>
-                                            <div *ngIf="!technicalRider.id" class="flex-mac-checkbox direction-column on-add-artist-page">
+                                            <div class="flex-mac-checkbox direction-column on-add-artist-page">
                                                 <p class="quetion-radio-text">How flexible are you for your preferences?</p>
                                                 <div  class="flex-radio">
                                                     <div class="one-radio">
                                                         <div class="radio-style">
-                                                            <input [(ngModel)]="technicalRider.is_flexible" type="radio" class="radio-b" id="radio-558" name="grope-rider-4" checked="">
+                                                            <input [(ngModel)]="technicalRider.is_flexible" type="radio" [value]="true" class="radio-b" id="radio-558" name="grope-rider-4" checked="">
                                                             <label for="radio-558"></label>
                                                         </div>
                                                         <p>Flexible</p>
                                                     </div>
                                                     <div class="one-radio">
                                                         <div class="radio-style">
-                                                            <input type="radio" class="radio-b" id="radio-558-2" name="grope-rider-4">
+                                                            <input [(ngModel)]="technicalRider.is_flexible" type="radio" [value]="false" class="radio-b" id="radio-558-2" name="grope-rider-4">
                                                             <label for="radio-558-2"></label>
                                                         </div>
                                                         <p>Not Flexible</p>

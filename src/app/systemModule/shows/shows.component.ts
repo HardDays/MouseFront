@@ -109,7 +109,7 @@ export class ShowsComponent extends BaseComponent implements OnInit {
 
   TransferMapToSearch(params)
   {
-      //this.search.GetLocation(params);
+      this.search.GetLocation(params);
   }
 
   GetEvents(params?:EventSearchParams)

@@ -50,6 +50,7 @@ import { ProfileModule } from './profile/profile.module';
 import { EventCreateModule } from './eventCreate/eventCreate.module';
 import { EventsModule } from './events/events.module';
 import { ShowsModule } from './shows/shows.module';
+import { ErrorModule } from '../shared/error/error.module';
 
 @NgModule({
   declarations: [
@@ -89,6 +90,7 @@ import { ShowsModule } from './shows/shows.module';
     NavbarModule,
     FooterModule,
     YoutubePlayerModule,
+    ErrorModule,
     
     // SlickModule.forRoot(),
     

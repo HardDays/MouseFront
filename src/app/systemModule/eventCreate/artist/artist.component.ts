@@ -256,7 +256,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
   acceptArtistCard(card:AccountGetModel){
     
 
-    this.ownerAcceptDecline.account_id = this.Event.creator_id;
+    this.ownerAcceptDecline.account_id = this.main.CurrentAccount.id;
     this.ownerAcceptDecline.id = card.id;
     this.ownerAcceptDecline.event_id = this.Event.id;
     let msgId = this.getIdAtMsg(card.id);
@@ -264,10 +264,10 @@ export class ArtistComponent extends BaseComponent implements OnInit {
      let msg = this.messagesList[0];
     for(let m of this.messagesList)
         if(m.id == msgId) msg = m;
-    this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from;
-    this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to;
+    this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from?msg.message_info.preferred_date_from:new Date().toString();
+    this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to?msg.message_info.preferred_date_to:new Date('+3').toString();
 
-    console.log( this.ownerAcceptDecline);
+    console.log(this.ownerAcceptDecline);
     this.main.eventService.ArtistAcceptOwner(this.ownerAcceptDecline).
         subscribe((res)=>{
             console.log(`ok accept artist`,res);
@@ -279,7 +279,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
 declineArtist(card:AccountGetModel){
 
-  this.ownerAcceptDecline.account_id = this.Event.creator_id;
+  this.ownerAcceptDecline.account_id = this.main.CurrentAccount.id;
   this.ownerAcceptDecline.id = card.id;
   this.ownerAcceptDecline.event_id = this.Event.id;
 
@@ -289,8 +289,8 @@ declineArtist(card:AccountGetModel){
   for(let m of this.messagesList)
       if(m.id == msgId) msg = m;
 
-  this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from;
-  this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to;
+      this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from?msg.message_info.preferred_date_from:new Date().toString();
+      this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to?msg.message_info.preferred_date_to:new Date('+3').toString();
 
   console.log(`dicline`,this.ownerAcceptDecline);
   this.main.eventService.ArtistDeclineOwner(this.ownerAcceptDecline).

@@ -24,7 +24,7 @@
             <div class="flex-body-1 more-padding">
                 <div class="side">
                     <div class="input-groupe-1 whithout-label small-textarea max-500">
-                        <textarea id="inp-media-venue-1" formControlName="audio_description"></textarea>
+                        <textarea id="inp-media-venue-1" [(ngModel)]="Venue.audio_description" formControlName="audio_description"></textarea>
                         <label for="inp-media-venue-1" class="head-groupe">Audio Description<span>*</span></label>
                         <span class="max-count">1000 max</span>
                     </div>

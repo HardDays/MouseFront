@@ -35,6 +35,13 @@
                                 </span>
                             </button>
                         </li>
+                        <li *ngIf="!Event.is_active">
+                            <button (click)="activeButtonClick()" class="butt-style-1" style="width: 127px">
+                                <span style="padding: 10px 21px">
+                                Set Active
+                                </span>
+                            </button>
+                        </li>
                     </ul>
                 </div>
             </div>
