@@ -144,9 +144,12 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
       () => this.VenueId == 0 ? this.main.accService.CreateAccount(this.Venue) : this.main.accService.UpdateMyAccount(this.VenueId,this.Venue),
       (res) => {
         this.DisplayVenueParams(res);
-        this.NextPart();
-        this.main.GetMyAccounts();
         this.errorCmp.OpenWindow(BaseMessages.Success);
+        setTimeout(
+          () => this.NextPart(),
+          2000
+        );
+        this.main.GetMyAccounts();
       },
       (err) => {
         this.errorCmp.OpenWindow(BaseMessages.Fail);
@@ -156,6 +159,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
 
   NextPart()
   {
+    this.errorCmp.CloseWindow();
     if(this.CurrentPart == this.Parts.Dates)
     {
       this.router.navigate(["/system","profile",this.VenueId]);

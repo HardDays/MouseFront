@@ -50,7 +50,7 @@ export class VenueAboutComponent extends BaseComponent implements OnInit {
         
         this.AddEmailsToForm(this.Venue.emails.length);
         
-        this.aboutForm.updateValueAndValidity();
+        
     }
 
     CreateLocalAutocomplete()
@@ -122,6 +122,7 @@ export class VenueAboutComponent extends BaseComponent implements OnInit {
 
     SaveVenue()
     {
+        this.aboutForm.updateValueAndValidity();
         if(this.aboutForm.invalid)
         {
             console.log(this.aboutForm);

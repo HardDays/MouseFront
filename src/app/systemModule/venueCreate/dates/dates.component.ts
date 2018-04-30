@@ -33,12 +33,13 @@ export class VenueDatesComponent extends BaseComponent implements OnInit {
 
     ngOnInit(): void 
     {
-        this.dateForm.updateValueAndValidity();
     }
 
 
     SaveVenue()
     {
+        
+        this.dateForm.updateValueAndValidity();
         if(this.dateForm.invalid)
         {
             this.onError.emit("Date form invalid");

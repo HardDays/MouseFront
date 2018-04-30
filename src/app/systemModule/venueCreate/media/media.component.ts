@@ -45,7 +45,6 @@ export class VenueMediaComponent extends BaseComponent implements OnInit {
         this.ImageTypes = this.main.typeService.GetAllSpaceTypes();
 
         this.Init();
-        this.mediaForm.updateValueAndValidity();
     }
 
     Init(venue?:AccountCreateModel,id?:number)
@@ -73,6 +72,8 @@ export class VenueMediaComponent extends BaseComponent implements OnInit {
 
     SaveVenue()
     {
+        
+        this.mediaForm.updateValueAndValidity();
         if(this.mediaForm.invalid)
         {
             this.onError.emit("Media form invalid");

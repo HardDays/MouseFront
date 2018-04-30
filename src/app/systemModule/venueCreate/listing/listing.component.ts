@@ -47,12 +47,12 @@ export class VenueListingComponent extends BaseComponent implements OnInit {
     {
         this.TypesOfSpace = this.main.typeService.GetAllSpaceTypes();
         this.LocatedTypes = this.main.typeService.GetAllLocatedTypes();
-        this.detailsForm.updateValueAndValidity();
     }
 
 
     SaveVenue()
     {
+        this.detailsForm.updateValueAndValidity();
         if(this.detailsForm.invalid)
         {
             this.onError.emit("Details form invalid");
