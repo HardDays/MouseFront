@@ -63,7 +63,7 @@ export class EditComponent extends BaseComponent implements OnInit {
     bsValue_end: Date[];
     Error:string = '';
     Address:string = '';
-  
+    ImageID:number=0;
     @ViewChild('submitFormUsr') form: NgForm;
     @ViewChild('search') public searchElement: ElementRef;
     
@@ -78,6 +78,7 @@ export class EditComponent extends BaseComponent implements OnInit {
     ){
       super(main,_sanitizer,router,mapsAPILoader,ngZone);
     }
+
 
     ngOnInit()
     {
@@ -121,6 +122,7 @@ export class EditComponent extends BaseComponent implements OnInit {
       this.CreateAutocomplete();
     }
    
+    
   
     InitByUser(usr:any){  
       this.Account = this.main.accService.AccountModelToCreateAccountModel(usr);
@@ -138,6 +140,7 @@ export class EditComponent extends BaseComponent implements OnInit {
           this.seeFirstGenres();
         });
       if(usr.image_id){
+        this.ImageID = usr.image_id;
           this.main.imagesService.GetImageById(usr.image_id)
               .subscribe((res:Base64ImageModel)=>{
                   this.Account.image_base64 = res.base64;

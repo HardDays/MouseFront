@@ -7,9 +7,7 @@ import { ProfileComponent } from './profile.component';
 import { OneFolowerForProfileComponent } from './one-folower-for-profile/one-folower-for-profile.component';
 import { TicketOnProfileComponent } from './ticket-on-profile/ticket-on-profile.component';
 import { UpcomingShowsProfileComponent } from './upcoming-shows-profile/upcoming-shows-profile.component';
-import { FunProfileComponent } from './fun-profile/fun-profile.component';
-import { ArtistProfileComponent } from './artist-profile/artist-profile.component';
-import { VenueProfileComponent } from './venue-profile/venue-profile.component';
+
 
 @NgModule({
     imports: [ 
@@ -25,9 +23,9 @@ import { VenueProfileComponent } from './venue-profile/venue-profile.component';
         OneFolowerForProfileComponent,
         TicketOnProfileComponent,
         UpcomingShowsProfileComponent,
-        FunProfileComponent,
-        ArtistProfileComponent,
-        VenueProfileComponent
+       
+      
+
     ],
     exports: [ ProfileComponent ]
 })

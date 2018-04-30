@@ -38,7 +38,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit {
   flagForText:boolean;
   cordsMap = {lat:55.755826, lng:37.6172999};
   avatar:string = '';
-
+  ImageId:number = 0;
 
   @ViewChild('submitFormFun') form: NgForm;
   @ViewChild('search') public searchElement: ElementRef;
@@ -71,13 +71,19 @@ export class FanCreateComponent extends BaseComponent implements OnInit {
             {
               this.flagForText = false;
               this.DisplayFunParams(res);
-              this.WaitBeforeLoading(
-                () => this.main.imagesService.GetImageById(res.image_id),
-                (result:Base64ImageModel) =>{
-                  // console.log(result);
-                  this.avatar = result.base64;
-                }
-              );
+              if(res.image_id){
+                this.WaitBeforeLoading(
+                  () => this.main.imagesService.GetImageById(res.image_id),
+                  (result:Base64ImageModel) =>{
+                    // console.log(result);
+                    this.avatar = result.base64;
+                    this.ImageId = res.image_id;
+                  }
+                );
+              }
+              else{
+                
+              }
             }
           );
         }
@@ -85,7 +91,26 @@ export class FanCreateComponent extends BaseComponent implements OnInit {
     );
     this.CreateAutocomplete();
   }
-
+    DeleteAva(){
+      console.log(this.ImageId);
+      if(this.ImageId && this.avatar){
+        this.main.imagesService.DeleteImageById(this.ImageId,this.FunId).subscribe(
+          (res)=>{
+            console.log(res);
+            this.LocalDeleteAva();
+          },
+          (err)=>{
+            console.log(err);
+          }
+        );
+      }
+      else{
+        this.LocalDeleteAva();
+      }
+    }
+    LocalDeleteAva(){
+      this.avatar ='';
+    }
   CreateAutocomplete()
   {
     this.mapsAPILoader.load().then(
