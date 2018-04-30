@@ -1,9 +1,9 @@
-import { Component, ViewChild, ElementRef, NgZone, Input, ViewContainerRef, ComponentFactory } from '@angular/core';
+import { Component, ViewChild, ElementRef, NgZone, Input, ViewContainerRef, ComponentFactory, OnChanges } from '@angular/core';
 import { NgForm,FormControl,FormGroup,Validators, FormArray} from '@angular/forms';
 import { AuthMainService } from '../../core/services/auth.service';
 
 import { BaseComponent } from '../../core/base/base.component';
-import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
+import { OnInit, SimpleChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 
 import { SelectModel } from '../../core/models/select.model';
 import { FrontWorkingTimeModel } from '../../core/models/frontWorkingTime.model';
@@ -68,8 +68,9 @@ declare var ionRangeSlider:any;
 
 
 
-export class VenueCreateComponent extends BaseComponent implements OnInit 
+export class VenueCreateComponent extends BaseComponent implements OnInit
 {
+  
   Parts = PageParts;
 
   CurrentPart = this.Parts.About;
@@ -100,6 +101,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
 
   ngOnInit()
   {
+    
     this.activatedRoute.params.forEach(
       (params) => {
         if(params["id"] == 'new')
@@ -129,10 +131,15 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
       this.VenueId = $venue.id;
       this.router.navigateByUrl("/system/venueCreate/"+this.VenueId);
     }
-    if(this.hours)
-      this.hours.Init(this.Venue);
-    if(this.media)
-      this.media.Init(this.Venue,this.VenueId);
+    else {
+      this.CurrentPart = this.Parts.About;
+      this.VenueId = 0;
+    }
+    // if(this.hours)
+    //   this.hours.Init(this.Venue);
+    // if(this.media)
+    //   this.media.Init(this.Venue,this.VenueId);
+
   }
 
   

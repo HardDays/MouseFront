@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ElementRef,EventEmitter, ViewChild, NgZone, Output } from '@angular/core';
+import { Component, Input, OnInit, ElementRef, EventEmitter, ViewChild, NgZone, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { BaseComponent } from '../../../core/base/base.component';
 import { AccountCreateModel } from '../../../core/models/accountCreate.model';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
@@ -18,7 +18,7 @@ import { BaseMessages } from '../../../core/base/base.enum';
     templateUrl: './media.component.html',
     styleUrls: ['./../venueCreate.component.css']
 })
-export class VenueMediaComponent extends BaseComponent implements OnInit {
+export class VenueMediaComponent extends BaseComponent implements OnInit,OnChanges {
     @Input() Venue: AccountCreateModel;
     @Input() VenueId: number;
     @Output() onSaveVenue:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
@@ -45,6 +45,10 @@ export class VenueMediaComponent extends BaseComponent implements OnInit {
         this.ImageTypes = this.main.typeService.GetAllSpaceTypes();
 
         this.Init();
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        this.Init(changes.Venue.currentValue,changes.VenueId.currentValue);
     }
 
     Init(venue?:AccountCreateModel,id?:number)

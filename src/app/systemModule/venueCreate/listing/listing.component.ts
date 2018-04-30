@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ElementRef,EventEmitter, ViewChild, NgZone, Output } from '@angular/core';
+import { Component, Input, OnInit, ElementRef, EventEmitter, ViewChild, NgZone, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { BaseComponent } from '../../../core/base/base.component';
 import { AccountCreateModel } from '../../../core/models/accountCreate.model';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
@@ -15,7 +15,7 @@ import { SelectModel } from '../../../core/models/select.model';
     templateUrl: './listing.component.html',
     styleUrls: ['./../venueCreate.component.css']
 })
-export class VenueListingComponent extends BaseComponent implements OnInit {
+export class VenueListingComponent extends BaseComponent implements OnInit,OnChanges {
     @Input() Venue: AccountCreateModel;
     @Output() onSaveVenue:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
     @Output() onError:EventEmitter<string> = new EventEmitter<string>();
@@ -47,6 +47,10 @@ export class VenueListingComponent extends BaseComponent implements OnInit {
     {
         this.TypesOfSpace = this.main.typeService.GetAllSpaceTypes();
         this.LocatedTypes = this.main.typeService.GetAllLocatedTypes();
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        this.Venue = changes.Venue.currentValue;
     }
 
 
