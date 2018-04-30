@@ -23,14 +23,14 @@ export class MapEventComponent extends BaseComponent implements OnInit {
     isMarkerVisible: boolean = false;
     ngOnInit(): void 
     {
-        this.lat = 0;
-        this.lng = 0;
+        this.lat = 55.755826;
+        this.lng = 37.6172999;
     }
 
     AboutOpenMapModal(searchParams:EventSearchParams)
     {
-        this.lat = 0;
-        this.lng = 0;
+        this.lat = 55.755826;
+        this.lng = 37.6172999;
         this.isMarkerVisible = false;
         if(searchParams.lat && searchParams.lng)
         {

@@ -12,6 +12,7 @@ import { Base64ImageModel } from '../../../core/models/base64image.model';
 export class VenueMediaPhotoComponent extends BaseComponent implements OnInit {
     @Input() Image: ImageAccModel;
     @Output() onDeleteImage:EventEmitter<ImageAccModel> = new EventEmitter<ImageAccModel>();
+    @Output() onError:EventEmitter<string> = new EventEmitter<string>();
     Base64:string = BaseImages.Drake;
 
     ngOnInit(): void 

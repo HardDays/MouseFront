@@ -10,6 +10,7 @@ import { ContactModel } from '../../../core/models/contact.model';
 import { SelectModel } from '../../../core/models/select.model';
 import { VenueMediaPhotoModel } from '../../../core/models/venueMediaPhoto.model';
 import { ImageAccModel, ImageAccModelAnswer } from '../../../core/models/imageAcc.model';
+import { BaseMessages } from '../../../core/base/base.enum';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class VenueMediaComponent extends BaseComponent implements OnInit {
     @Input() Venue: AccountCreateModel;
     @Input() VenueId: number;
     @Output() onSaveVenue:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
+    @Output() onError:EventEmitter<string> = new EventEmitter<string>();
 
     ImageToLoad:VenueMediaPhotoModel = new VenueMediaPhotoModel();
 
@@ -43,6 +45,7 @@ export class VenueMediaComponent extends BaseComponent implements OnInit {
         this.ImageTypes = this.main.typeService.GetAllSpaceTypes();
 
         this.Init();
+        this.mediaForm.updateValueAndValidity();
     }
 
     Init(venue?:AccountCreateModel,id?:number)
@@ -72,7 +75,7 @@ export class VenueMediaComponent extends BaseComponent implements OnInit {
     {
         if(this.mediaForm.invalid)
         {
-            console.log("Media form invalid");
+            this.onError.emit("Media form invalid");
             return;
         }
         this.onSaveVenue.emit(this.Venue);
@@ -109,9 +112,13 @@ export class VenueMediaComponent extends BaseComponent implements OnInit {
         this.WaitBeforeLoading(
             () => this.main.imagesService.PostAccountImage(this.VenueId,this.ImageToLoad),
             (res:any) => {
+                this.onError.emit(BaseMessages.Success);
                 this.ImageToLoad = new VenueMediaPhotoModel();
                 this.ImageToLoad.image_description = "";
                 this.GetVenueImages();
+            },
+            (err) => {
+                this.onError.emit(BaseMessages.Fail);
             }
         );
     }
@@ -121,10 +128,16 @@ export class VenueMediaComponent extends BaseComponent implements OnInit {
         this.WaitBeforeLoading(
             () => this.main.imagesService.DeleteImageById(image.id,image.account_id),
             (res) => {
+                
+                this.onError.emit(BaseMessages.Success);
+                this.VenueImages.splice(
+                    this.VenueImages.findIndex( obj => obj.id == image.id),
+                    1
+                );
                 this.GetVenueImages();
             },
             (err) => {
-                console.log(err);
+                this.onError.emit(BaseMessages.Fail);
             }
         );
     }

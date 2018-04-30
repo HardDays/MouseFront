@@ -13,7 +13,7 @@ import { EventDateModel } from '../../core/models/eventDate.model';
 import { ContactModel } from '../../core/models/contact.model';
 import { AccountGetModel } from '../../core/models/accountGet.model';
 import { Base64ImageModel } from '../../core/models/base64image.model';
-import { AccountType, VenueType } from '../../core/base/base.enum';
+import { AccountType, VenueType, BaseMessages } from '../../core/base/base.enum';
 import { GenreModel } from '../../core/models/genres.model';
 import { EventCreateModel } from '../../core/models/eventCreate.model';
 
@@ -50,6 +50,7 @@ import { VenueMediaComponent } from './media/media.component';
 import { VenueAboutComponent } from './about/about.component';
 import { VenueListingComponent } from './listing/listing.component';
 import { VenueDatesComponent } from './dates/dates.component';
+import { ErrorComponent } from '../../shared/error/error.component';
 
 
 
@@ -82,6 +83,8 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
   @ViewChild('media') media:VenueMediaComponent;
   @ViewChild('listing') listing: VenueListingComponent;
   @ViewChild('dates') dates:VenueDatesComponent;
+
+  @ViewChild('errorCmp') errorCmp: ErrorComponent;
   
   constructor
   (           
@@ -143,9 +146,10 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
         this.DisplayVenueParams(res);
         this.NextPart();
         this.main.GetMyAccounts();
+        this.errorCmp.OpenWindow(BaseMessages.Success);
       },
       (err) => {
-        console.log(err);
+        this.errorCmp.OpenWindow(BaseMessages.Fail);
       }
     )
   }
@@ -197,6 +201,11 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
           this.hours.SaveVenue();
       }
     }  
+  }
+
+  OpenErrorWindow(str:string)
+  {
+    this.errorCmp.OpenWindow(str);
   }
 }
 

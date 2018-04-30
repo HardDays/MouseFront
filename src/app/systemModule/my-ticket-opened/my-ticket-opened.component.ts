@@ -72,6 +72,15 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit{
   initUser()
   {
     let id = this.GetCurrentAccId();
+    // if(id)
+    // {
+    //   let account = this.main.MyAccounts.find( obj => obj.id == id);
+    //   if(account)
+    //   {
+    //     this.accountId = account.id;
+    //     this.GetTicketsByEvent();
+    //   }
+    // }
     this.WaitBeforeLoading(
       () => this.main.accService.GetMyAccount({extended:true}),
       (users:any[])=>{

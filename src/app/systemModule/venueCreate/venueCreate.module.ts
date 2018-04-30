@@ -10,6 +10,8 @@ import { VenueMediaComponent } from './media/media.component';
 import { VenueMediaPhotoComponent } from './venueImage/venueImage.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
+import { ErrorComponent } from '../../shared/error/error.component';
+import { ErrorModule } from '../../shared/error/error.module';
 
 @NgModule({
     imports: [ 
@@ -17,7 +19,8 @@ import { TextMaskModule } from 'angular2-text-mask';
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        TextMaskModule
+        TextMaskModule,
+        ErrorModule
     ],
     declarations: [ 
         VenueCreateComponent,

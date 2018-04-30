@@ -17,6 +17,7 @@ import { ContactModel } from '../../../core/models/contact.model';
 export class VenueDatesComponent extends BaseComponent implements OnInit {
     @Input() Venue: AccountCreateModel;
     @Output() onSaveVenue:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
+    @Output() onError:EventEmitter<string> = new EventEmitter<string>();
 
     dateForm : FormGroup = new FormGroup({
         "minimum_notice": new FormControl("",[Validators.pattern("[0-9]+"),
@@ -32,7 +33,7 @@ export class VenueDatesComponent extends BaseComponent implements OnInit {
 
     ngOnInit(): void 
     {
-
+        this.dateForm.updateValueAndValidity();
     }
 
 
@@ -40,7 +41,7 @@ export class VenueDatesComponent extends BaseComponent implements OnInit {
     {
         if(this.dateForm.invalid)
         {
-            console.log("Date form invalid");
+            this.onError.emit("Date form invalid");
             return;
         }
         this.onSaveVenue.emit(this.Venue);
