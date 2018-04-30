@@ -60,7 +60,8 @@ export class AddTicketsComponent extends BaseComponent implements OnInit {
     let params:TicketGetParamsModel = new TicketGetParamsModel();
     params.account_id = this.CurrentAccount.id;
     params.event_id = this.Event.id;
-   
+  
+    if(this.Event&&this.Event.tickets)
     for(let t of this.Event.tickets){
         params.id = t.id;
         this.main.eventService.GetTickets(params).
