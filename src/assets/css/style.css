@@ -27,4 +27,7 @@ html,
 body {
     min-width: 1199px;
 }
+.transformedDatapicker{
+    transform: translateX(100px);
+}
 /*# sourceMappingURL=style.css.map */

@@ -70,7 +70,7 @@
                     </ul>
                 </div>
                 <div class="right-s">
-                    <div class="avas-flex">
+                    <!-- <div class="avas-flex">
                         <div class="ava-wr">
                             <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
                         </div>
@@ -90,23 +90,27 @@
                             <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
                         </div>
                     </div>
-                    <p>And <span>18</span> more going</p>
+                    <p>And <span>18</span> more going</p> -->
                 </div>
                 
             </div>
-            <div class="other-datails-info">
-                <h1>Tickets<span>Includes $2 service fee. One ticket per person</span></h1>
-                <p class="total">Total price: <span>${{TotalPrice}}</span></p>
-                <span (click)="BuyTickets()" class="butt-style-1">
-                    <span>Buy</span>
-                </span>
-            </div>
+                <div class="other-datails-info">
+                    <h1>Tickets<span>Includes $2 service fee. One ticket per person</span></h1>
+                    
+                        <p class="total">Total price: <span>${{TotalPrice}}</span></p>
+                        <button [disabled]="!Event.is_active" (click)="BuyTickets()" class="butt-style-1" [ngClass]="{'cursor-disabled':!Event.is_active}">
+                            <span>Buy</span>
+                        </button>
+                </div>
             <div class="body-tabs-datails-pages">
                 <div class="for-flex-contant-d">
                     <div class="left-side-tickets">
-                        <ng-container *ngFor="let item of Tickets">
-                            <buy-ticket-selector (onAddTickets)="AddTicketsToPrice($event)" [Ticket]="item"></buy-ticket-selector>
+                        <ng-container *ngIf="Event.is_active">
+                            <ng-container *ngFor="let item of Tickets">
+                                <buy-ticket-selector (onAddTickets)="AddTicketsToPrice($event)" [Ticket]="item"></buy-ticket-selector>
+                            </ng-container>
                         </ng-container>
+                        <h2 class="total" *ngIf="!Event.is_active"> Show is unactive!</h2>
                     </div>
                     <div class="right-side-tickets">
                         <div class="third-router-outlet">
@@ -119,8 +123,8 @@
                         </div>
                     </div>
                 </div>
-            
             </div>
+            
         </div>
     </div>
     <div class="modal fade modal-send-request map-1-modal" id="modal-map">

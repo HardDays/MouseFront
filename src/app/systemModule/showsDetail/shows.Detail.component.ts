@@ -46,6 +46,8 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
     Tickets:TicketModel [] = [];
     Venue:AccountGetModel = new AccountGetModel();
 
+    CheckedTickets:any[] = [];
+
     TicketsToBuy:BuyTicketModel[] = [];
     TotalPrice:number = 0;
 
@@ -190,49 +192,37 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
         let myAcc = this.GetCurrentAccId();
         if(myAcc)
         {
-            let arr = this.GroupTickets(this.TicketsToBuy,myAcc);
-            for(let item of arr)
-            {
-                this.BuyTicket(item);
-            }
-            // for(let item of this.TicketsToBuy)
-            // {
-                
-            //     let object = {
-            //         account_id:myAcc,
-            //         ticket_id: item.ticket.id,
-            //         count:item.count
-            //     };
-            //     this.BuyTicket(object);
-            //     // this.CalculateCurrentPrice();
-            // }
-            // setTimeout(
-            //     () =>
-            //     {
-            //         this.router.navigate(['/system','tickets', this.EventId]);
-            //     },
-            //     3000
-            // )
+            this.CheckedTickets = this.GroupTickets(this.TicketsToBuy,myAcc);
+            this.BuyTicket();
         }
     }
 
     
 
-    BuyTicket(object:any)
+    BuyTicket()
     {
-        this.WaitBeforeLoading(
-            () => this.main.eventService.BuyTicketPack(object),
-            (res) => 
-            {   
-                // let index = this.TicketsToBuy.findIndex(obj => obj.ticket.id == object.ticket_id && obj.count == object.count);
-                // this.TicketsToBuy.splice(index,1);
-                // console.log(this.TicketsToBuy);
-            },
-            (err) =>
-            {
-                console.log(err);
-            }
-        );
+        let items = this.CheckedTickets;
+        for(let item of items)
+        {
+            this.WaitBeforeLoading(
+                () => this.main.eventService.BuyTicketPack(item),
+                (res) => 
+                {   
+                    let index = this.CheckedTickets.findIndex(obj => obj.ticket_id == item.ticket_id && obj.count == item.count);
+                    this.CheckedTickets.splice(index,1);
+                    this.CalculateCurrentPrice();
+                    if(this.CheckedTickets.length == 0)
+                    {
+                        console.log("success");
+                        this.router.navigate(['/system','tickets', this.EventId]);
+                    }
+                },
+                (err) =>
+                {
+                    console.log(err);
+                }
+            );
+        }
     }
 
     GroupTickets(arr: BuyTicketModel[],accId:number)

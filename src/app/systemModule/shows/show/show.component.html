@@ -11,7 +11,7 @@
                 <div *ngIf="!Show.is_active" class="funded" style="overflow: hidden">
                     <!-- тут ебошим высоту, скок собрали баблища-->
                     <div class="complete" [ngStyle]="{'height':+FoundedPercent +'%'}"></div>
-                    <p>12 days<br>to go<br><span>{{FoundedPercent}}%<br>funded</span></p>
+                    <p>12 days<br>to go<br><span>{{FoundedPercent?FoudedPrcent:0}}%<br>funded</span></p>
                 </div>
 
             </div>

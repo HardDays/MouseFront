@@ -240,9 +240,8 @@ export class FanCreateComponent extends BaseComponent implements OnInit {
         ()=> this.FunId == 0 ? this.main.accService.CreateAccount(this.Fun) : this.main.accService.UpdateMyAccount(this.FunId,this.Fun),
         (res:any)=>{
           this.DisplayFunParams(res);
-          this.router.navigate(['/system','profile',res.id]);
-          this.main.accService.onAuthChange$.next(true);
           this.main.GetMyAccounts();
+          this.router.navigate(['/system','profile',res.id]);
         },
         (err:any)=>{ 
         }
