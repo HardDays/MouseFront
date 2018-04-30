@@ -126,6 +126,7 @@ export class Rider{
         public uploaded_file?:File,
         public uploaded_file_base64?:string,
         public description?:string,
-        public is_flexible?:boolean
+        public is_flexible?:boolean,
+        public id?:number
 ){}
 }

@@ -860,13 +860,13 @@
                                                 <div  class="download-upload">
                                                     <!--до загрузки файла-->
                                                     
-                                                    <ng-container *ngIf="!stageRider.uploaded_file_base64" >
-                                                        <div class="side-dwn">
+                                                    <ng-container *ngIf="!stageRider.uploaded_file_base64&&!stageRider.id" >
+                                                        <!-- <div class="side-dwn">
                                                             <a class="dd-ff">
                                                                 <img src="../../assets/img/download.png" class="img-responsive" alt="">
                                                             </a>
                                                             <p class="desc-side-dwn">Press to Downlod Template</p>
-                                                        </div>
+                                                        </div> -->
                                                         <div class="side-dwn">
                                                             <div class="photo-wr-1 on-riders">
                                                                 <label class="file_upload">
@@ -879,9 +879,9 @@
                                                         </div>
                                                     </ng-container>
                                                     <!--после загрузки файла-->
-                                                    <div  *ngIf="stageRider.uploaded_file_base64" class="side-dwn">
+                                                    <div  *ngIf="stageRider.uploaded_file_base64 || stageRider.id" class="side-dwn">
                                                         <div class="file-uploaded">
-                                                            <div class="delete-file" (click)="stageRider.uploaded_file_base64=''"></div>    
+                                                            <div class="delete-file" (click)="stageRider.uploaded_file_base64=''; stageRider.id=''"></div>    
                                                         </div>
                                                         <p class="desc-side-dwn">File uploded</p>
                                                     </div>
@@ -893,7 +893,7 @@
                                                     <label for="textarea-rider-1" class="head-groupe">Description</label>
                                                     <span class="max-count">2000 max</span>
                                                 </div>
-                                                <div class="flex-mac-checkbox direction-column on-add-artist-page">
+                                                <div *ngIf="!stageRider.id" class="flex-mac-checkbox direction-column on-add-artist-page">
                                                     <p class="quetion-radio-text">How flexible are you for your preferences?</p>
                                                     <div class="flex-radio">
                                                         <div class="one-radio">
@@ -905,8 +905,8 @@
                                                         </div>
                                                         <div class="one-radio">
                                                             <div class="radio-style">
-                                                                <input type="radio" class="radio-b" id="radio-556" name="grope-rider-1">
-                                                                <label for="radio-556"></label>
+                                                                <input type="radio" class="radio-b" id="radio-555-2" name="grope-rider-1">
+                                                                <label for="radio-555-2"></label>
                                                             </div>
                                                             <p>Not Flexible</p>
                                                         </div>
@@ -928,13 +928,13 @@
                                             <div class="download-upload">
                                                 <!--до загрузки файла-->
                                             
-                                                <ng-container *ngIf="!backstageRider.uploaded_file_base64" >
-                                                    <div class="side-dwn">
+                                                <ng-container *ngIf="!backstageRider.uploaded_file_base64&&!backstageRider.id" >
+                                                    <!-- <div class="side-dwn">
                                                         <a class="dd-ff">
                                                             <img src="../../assets/img/download.png" class="img-responsive" alt="">
                                                         </a>
                                                         <p class="desc-side-dwn">Press to Downlod Template</p>
-                                                    </div>
+                                                    </div> -->
                                                     <div class="side-dwn">
                                                         <div class="photo-wr-1 on-riders">
                                                             <label class="file_upload">
@@ -947,9 +947,9 @@
                                                     </div>
                                                 </ng-container>
                                                 <!--после загрузки файла-->
-                                                <div  *ngIf="backstageRider.uploaded_file_base64" class="side-dwn">
+                                                <div  *ngIf="backstageRider.uploaded_file_base64||backstageRider.id" class="side-dwn">
                                                     <div class="file-uploaded">
-                                                        <div class="delete-file" (click)="backstageRider.uploaded_file_base64=''"></div>    
+                                                        <div class="delete-file" (click)="backstageRider.uploaded_file_base64=''; backstageRider.id=''"></div>    
                                                     </div>
                                                     <p class="desc-side-dwn">File uploded</p>
                                                 </div>
@@ -961,9 +961,9 @@
                                                 <label for="textarea-rider-2" class="head-groupe">Description</label>
                                                 <span class="max-count">2000 max</span>
                                             </div>
-                                            <div class="flex-mac-checkbox direction-column on-add-artist-page">
+                                            <div *ngIf="!backstageRider.id" class="flex-mac-checkbox direction-column on-add-artist-page">
                                                 <p class="quetion-radio-text">How flexible are you for your preferences?</p>
-                                                <div class="flex-radio">
+                                                <div  class="flex-radio">
                                                     <div class="one-radio">
                                                         <div class="radio-style">
                                                             <input [(ngModel)]="backstageRider.is_flexible" type="radio" class="radio-b" id="radio-556" name="grope-rider-2" checked="">
@@ -973,8 +973,8 @@
                                                     </div>
                                                     <div class="one-radio">
                                                         <div class="radio-style">
-                                                            <input type="radio" class="radio-b" id="radio-556" name="grope-rider-2">
-                                                            <label for="radio-556"></label>
+                                                            <input type="radio" class="radio-b" id="radio-556-2" name="grope-rider-2">
+                                                            <label for="radio-556-2"></label>
                                                         </div>
                                                         <p>Not Flexible</p>
                                                     </div>
@@ -993,13 +993,13 @@
                                             <p class="desc-riders">Type or Upload your preference for Hospitality (Food and Drinks)</p>
                                             <div class="download-upload">
                                                 <!--до загрузки файла-->
-                                                <ng-container *ngIf="!hospitalityRider.uploaded_file_base64" >
-                                                    <div class="side-dwn">
+                                                <ng-container *ngIf="!hospitalityRider.uploaded_file_base64&&!hospitalityRider.id" >
+                                                    <!-- <div class="side-dwn">
                                                         <a class="dd-ff">
                                                             <img src="../../assets/img/download.png" class="img-responsive" alt="">
                                                         </a>
                                                         <p class="desc-side-dwn">Press to Downlod Template</p>
-                                                    </div>
+                                                    </div> -->
                                                     <div class="side-dwn">
                                                         <div class="photo-wr-1 on-riders">
                                                             <label class="file_upload">
@@ -1012,9 +1012,9 @@
                                                     </div>
                                                 </ng-container>
                                                 <!--после загрузки файла-->
-                                                <div  *ngIf="hospitalityRider.uploaded_file_base64" class="side-dwn">
+                                                <div  *ngIf="hospitalityRider.uploaded_file_base64||hospitalityRider.id" class="side-dwn">
                                                     <div class="file-uploaded">
-                                                        <div class="delete-file" (click)="hospitalityRider.uploaded_file_base64=''"></div>    
+                                                        <div class="delete-file" (click)="hospitalityRider.uploaded_file_base64=''; hospitalityRider.id=''"></div>    
                                                     </div>
                                                     <p class="desc-side-dwn">File uploded</p>
                                                 </div>
@@ -1022,13 +1022,13 @@
                                                 
                                             </div>
                                             <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">
-                                                <textarea maxlength="2000" [(ngModel)]="hospitalityRider.description" id="textarea-rider-2"></textarea>
+                                                <textarea maxlength="2000" [(ngModel)]="hospitalityRider.description" id="textarea-rider-3"></textarea>
                                                 <label for="textarea-rider-3" class="head-groupe">Description</label>
                                                 <span class="max-count">2000 max</span>
                                             </div>
-                                            <div class="flex-mac-checkbox direction-column on-add-artist-page">
+                                            <div *ngIf="!hospitalityRider.id" class="flex-mac-checkbox direction-column on-add-artist-page">
                                                 <p class="quetion-radio-text">How flexible are you for your preferences?</p>
-                                                <div class="flex-radio">
+                                                <div  class="flex-radio">
                                                     <div class="one-radio">
                                                         <div class="radio-style">
                                                             <input [(ngModel)]="hospitalityRider.is_flexible" type="radio" class="radio-b" id="radio-557" name="grope-rider-3" checked="">
@@ -1038,8 +1038,8 @@
                                                     </div>
                                                     <div class="one-radio">
                                                         <div class="radio-style">
-                                                            <input type="radio" class="radio-b" id="radio-557" name="grope-rider-3">
-                                                            <label for="radio-557"></label>
+                                                            <input type="radio" class="radio-b" id="radio-557-2" name="grope-rider-3">
+                                                            <label for="radio-557-2"></label>
                                                         </div>
                                                         <p>Not Flexible</p>
                                                     </div>
@@ -1059,13 +1059,13 @@
                                             <div class="download-upload">
                                                 <!--до загрузки файла-->
                                             
-                                                <ng-container *ngIf="!technicalRider.uploaded_file_base64" >
-                                                    <div class="side-dwn">
+                                                <ng-container *ngIf="!technicalRider.uploaded_file_base64&&!technicalRider.id" >
+                                                    <!-- <div class="side-dwn">
                                                         <a class="dd-ff">
                                                             <img src="../../assets/img/download.png" class="img-responsive" alt="">
                                                         </a>
                                                         <p class="desc-side-dwn">Press to Downlod Template</p>
-                                                    </div>
+                                                    </div> -->
                                                     <div class="side-dwn">
                                                         <div class="photo-wr-1 on-riders">
                                                             <label class="file_upload">
@@ -1078,9 +1078,9 @@
                                                     </div>
                                                 </ng-container>
                                                 <!--после загрузки файла-->
-                                                <div  *ngIf="technicalRider.uploaded_file_base64" class="side-dwn">
+                                                <div  *ngIf="technicalRider.uploaded_file_base64||technicalRider.id" class="side-dwn">
                                                     <div class="file-uploaded">
-                                                        <div class="delete-file" (click)="technicalRider.uploaded_file_base64=''"></div>    
+                                                        <div class="delete-file" (click)="technicalRider.uploaded_file_base64=''; technicalRider.id=''"></div>    
                                                     </div>
                                                     <p class="desc-side-dwn">File uploded</p>
                                                 </div>
@@ -1092,9 +1092,9 @@
                                                 <label for="textarea-rider-2" class="head-groupe">Description</label>
                                                 <span class="max-count">2000 max</span>
                                             </div>
-                                            <div class="flex-mac-checkbox direction-column on-add-artist-page">
+                                            <div *ngIf="!technicalRider.id" class="flex-mac-checkbox direction-column on-add-artist-page">
                                                 <p class="quetion-radio-text">How flexible are you for your preferences?</p>
-                                                <div class="flex-radio">
+                                                <div  class="flex-radio">
                                                     <div class="one-radio">
                                                         <div class="radio-style">
                                                             <input [(ngModel)]="technicalRider.is_flexible" type="radio" class="radio-b" id="radio-558" name="grope-rider-4" checked="">
@@ -1104,8 +1104,8 @@
                                                     </div>
                                                     <div class="one-radio">
                                                         <div class="radio-style">
-                                                            <input type="radio" class="radio-b" id="radio-558" name="grope-rider-4">
-                                                            <label for="radio-558"></label>
+                                                            <input type="radio" class="radio-b" id="radio-558-2" name="grope-rider-4">
+                                                            <label for="radio-558-2"></label>
                                                         </div>
                                                         <p>Not Flexible</p>
                                                     </div>

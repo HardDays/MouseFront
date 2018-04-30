@@ -113,6 +113,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
   preferredVenues:CheckModel<{type:string, type_show:string}>[] = []; 
   mapCoords = {lat:55.755826, lng:37.6172999};
   //riders
+  riders:Rider[] = [];
   stageRider:Rider= new Rider();
   backstageRider:Rider= new Rider();
   hospitalityRider:Rider= new Rider();
@@ -339,8 +340,9 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
                   this.GetVenueImages();
 
                
-                  // this.initJS();
+                  this.initJS();
                   this.updateVideosPreview();
+                  this.getRiders();
               })
 
   }
@@ -374,7 +376,8 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
                 this.clearNewElements();
 
                 this.initJS();
-                
+                this.main.GetMyAccounts();
+                this.getRiders();
             },
             (err)=>{
                 console.log(`err`,err);
@@ -451,6 +454,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
                     this.artistId = artist.id;
                     this.artistModelToCreateArtistModel(artist);
                     this.currentPage = Pages.calendar;
+                    this.main.GetMyAccounts();
                 });
             }
            
@@ -747,6 +751,23 @@ addBooking(){
   }
 
 
+ 
+  getRiders(){
+    if(this.Artist&&this.Artist.artist_riders){
+      this.riders = [];
+      for(let r of this.Artist.artist_riders){
+        this.riders.push(r);
+        if(r.rider_type=='stage')
+          this.stageRider = r;
+        else if(r.rider_type=='backstage')
+          this.backstageRider = r;
+        else if(r.rider_type=='hospitality')
+          this.hospitalityRider = r;
+        else if(r.rider_type=='technical')
+          this.technicalRider = r;
+      }
+    }
+  }
 
 
 
@@ -772,6 +793,8 @@ loadRiderFile($event:any){
 
     if(!this.stageRider.is_flexible)
       this.stageRider.is_flexible = false;
+    else 
+      this.stageRider.is_flexible = true;
     this.createArtist.artist_riders.push(this.stageRider);
     
     this.updateArtistByCreateArtist();
@@ -783,6 +806,8 @@ loadRiderFile($event:any){
 
     if(!this.technicalRider.is_flexible)
       this.technicalRider.is_flexible = false;
+    else 
+      this.technicalRider.is_flexible = true;
     this.createArtist.artist_riders.push(this.technicalRider);
     
     this.updateArtistByCreateArtist();
@@ -808,6 +833,8 @@ loadRiderFile($event:any){
 
     if(!this.backstageRider.is_flexible)
     this.backstageRider.is_flexible = false;
+    else 
+    this.backstageRider.is_flexible = true;
    
     this.createArtist.artist_riders.push(this.backstageRider);
     
@@ -834,6 +861,8 @@ loadRiderFile($event:any){
 
     if(!this.hospitalityRider.is_flexible)
     this.hospitalityRider.is_flexible = false;
+    else 
+    this.hospitalityRider.is_flexible = true;
     
     this.createArtist.artist_riders.push(this.hospitalityRider);
     
@@ -875,9 +904,10 @@ loadRiderFile($event:any){
 
   NextPart()
   {
-    if(this.currentPage == this.pages.riders)
-      this.router.navigate(["/system","profile",this.artistId]);
+    // if(this.currentPage == this.pages.riders)
+    //   this.router.navigate(["/system","profile",this.artistId]);
 
+    if(this.currentPage!=this.pages.media&&this.currentPage!=this.pages.riders)
     this.currentPage = this.currentPage + 1;
   }
   
@@ -899,6 +929,9 @@ loadRiderFile($event:any){
     else if(this.currentPage == Pages.booking){
       this.addBooking();
     }
+    else if(this.currentPage == this.pages.riders)
+      this.router.navigate(["/system","profile",this.artistId]);
+
     this.updateArtistByCreateArtist();
   }
 

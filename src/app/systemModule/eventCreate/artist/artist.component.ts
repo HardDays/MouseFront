@@ -292,7 +292,7 @@ declineArtist(card:AccountGetModel){
   this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from;
   this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to;
 
-  console.log( this.ownerAcceptDecline);
+  console.log(`dicline`,this.ownerAcceptDecline);
   this.main.eventService.ArtistDeclineOwner(this.ownerAcceptDecline).
       subscribe((res)=>{
           console.log(`ok decline artist`,res);
