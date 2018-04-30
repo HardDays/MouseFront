@@ -24,11 +24,6 @@ export class RegisterFollowComponent extends BaseComponent implements OnInit {
 
   clickItem(index:number,id:number){
      var ch = "#checkbox-"+index+"-"+index;
-     $(ch).addClass('scaled');
-
-    setTimeout(()=>{
-      $(ch).removeClass('scaled');
-    },120);
 
     let ind = this.followsId.indexOf(id);
     if( ind === -1) {

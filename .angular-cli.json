@@ -33,7 +33,7 @@
       "scripts": [
         
         "assets/js/bootstrap.min.js",
-      
+        "assets/js/slick.min.js",
         "assets/js/ion.rangeSlider.min.js",
         "assets/js/scripts.js",
         "assets/js/inputmask.js",

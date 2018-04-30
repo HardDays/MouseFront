@@ -11,8 +11,8 @@
     </ng-container>   
     <!-- END FAN -->
     <!-- ARTIST -->
-    <ng-container *ngIf="Account.account_type == Roles.Artist" >
-        <app-artist-profile #artist [Account]='Account' [IsPreview]="true"></app-artist-profile>
+    <ng-container >
+        <app-artist-profile  #artist *ngIf="Account.account_type == Roles.Artist" [Account]='Account' [IsPreview]="true"></app-artist-profile>
     </ng-container>
     <!--  END ARTIST  -->
 </section>

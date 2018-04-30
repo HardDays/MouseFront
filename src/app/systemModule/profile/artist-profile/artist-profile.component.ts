@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, Input } from '@angular/core';
+import { Component, OnInit, NgZone, Input, ChangeDetectorRef } from '@angular/core';
 import { TicketsGetModel } from '../../../core/models/ticketsGetModel';
 import { AccountType } from '../../../core/base/base.enum';
 import { AccountSearchParams } from '../../../core/models/accountSearchParams.model';
@@ -32,6 +32,7 @@ export class ArtistProfileComponent  extends BaseComponent implements OnInit {
     UpcomingShows:CheckModel<EventGetModel>[] = [];
     Albums:CheckModel<Album>[] = [];
     isFolowedAcc:boolean;
+    VideoPath:SafeResourceUrl = [];
     constructor
     (           
         protected main         : MainService,
@@ -39,7 +40,7 @@ export class ArtistProfileComponent  extends BaseComponent implements OnInit {
         protected router       : Router,
         protected mapsAPILoader  : MapsAPILoader,
         protected ngZone         : NgZone,
-        private activatedRoute : ActivatedRoute
+        private ref: ChangeDetectorRef
     ){
         super(main,_sanitizer,router,mapsAPILoader,ngZone);
     }
@@ -51,13 +52,14 @@ export class ArtistProfileComponent  extends BaseComponent implements OnInit {
         if(acc){
             this.Account = acc;
         }
+        console.log(this.Account);
         this.GetFolowersAcc();
         this.GetUpcomingShows();
         this.Albums = this.convertArrToCheckModel<Album>(this.Account.artist_albums);
         for(let it of this.Albums){
             it.checked = true;
         }
-    
+       
         this.MyAccountId = this.GetCurrentAccId();
         if(this.MyAccountId == this.Account.id){
             this.isMyAccount = true;
@@ -72,14 +74,58 @@ export class ArtistProfileComponent  extends BaseComponent implements OnInit {
                 this.isFolowed();
             }
         }
-        this.main.accService.GetVideoArr(
-            (data:SafeResourceUrl[]) => {
-                this.Videos = data;
-            },
-            ()=>{
-                this.InitSliderWrapp();
+        this.GetVidio();
+        
+    }
+    GetVidio()
+    {
+        if(this.Account.videos && this.Account.videos.length > 0)
+        {
+            for(let i in this.Account.videos){
+                let link = this.Account.videos[i].link;
+                let id = this.GetVideoId(link);
+                let path = id? ("https://www.youtube.com/embed/" + id) : "";
+                if(path)
+                {
+                    this.VideoPath[i] = this.SanitizePath(path);
+                }
+                console.log('qq');
             }
-        );
+            setTimeout(()=>{
+                this.InitSliderWrapp();
+            },300);
+           
+            
+        }
+    }
+    SanitizePath(path:string)
+    {
+        return this._sanitizer.bypassSecurityTrustResourceUrl(path);
+    }
+    GetVideoId(url:string)
+    {
+        let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+        let match = url.match(regExp);
+
+        if (match && match[2].length == 11) {
+            return match[2];
+        } else {
+            return false;
+        }
+    }
+    InitSliderWrapp() 
+    {
+        let that = this;
+        
+        $('.iframe-slider-wrapp').not('.slick-initialized').slick({
+            dots: false,
+            arrows: true,
+            infinite: false,
+            slidesToShow: 1
+
+        });
+      
+       
     }
     GetFolowersAcc()
     {
@@ -161,21 +207,7 @@ export class ArtistProfileComponent  extends BaseComponent implements OnInit {
             }
         }
     }
-    InitSliderWrapp() 
-    {
-        let that = this;
-        $('.iframe-slider-wrapp').slick({
-            dots: false,
-            arrows: true,
-            infinite: false,
-            slidesToShow: 1
-
-        });
-        $('.iframe-slider-wrapp').on('beforeChange', function (event, slick, currentSlide, nextSlide) {
-            
-            currentSlide = nextSlide;
-        });
-    }
+   
     
     FollowProfile() {
         this.WaitBeforeLoading(

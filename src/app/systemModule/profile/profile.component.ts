@@ -46,8 +46,9 @@ declare var PhotoSwipe:any;
 
 
 
-export class ProfileComponent extends BaseComponent implements OnInit {
+export class ProfileComponent extends BaseComponent implements OnInit{
 
+    
     UserId:number;
     Roles = AccountType;
     Account:AccountGetModel = new AccountGetModel();
@@ -69,15 +70,8 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     @ViewChild('fan') fan:FunProfileComponent;
     @ViewChild('artist') artist:ArtistProfileComponent;
     @ViewChild('venue') venue:VenueProfileComponent;
+   
     ngOnInit(){
-        // this.location.subscribe(
-        //     (res)=>{
-               
-        //         this.getAccountMethod();
-
-        //     }
-
-        // );
         
         this.getAccountMethod();
 
@@ -96,13 +90,11 @@ export class ProfileComponent extends BaseComponent implements OnInit {
                         if(this.Account.account_type == this.Roles.Fan){
                             this.fan = new FunProfileComponent(this.main,this._sanitizer,this.router,this.mapsAPILoader,this.ngZone,this.ref);
                             this.fan.Init(this.Account);
-                            // setTimeout(
-                            //     ()=>{
-                            //         
-                            //     },500
-                            // );
-                               
-                            
+                        }
+                        if(this.Account.account_type == this.Roles.Artist){
+                            this.artist = new ArtistProfileComponent(this.main,this._sanitizer,this.router,this.mapsAPILoader,this.ngZone,this.ref);
+                            this.artist.Init(this.Account);
+                        
                         }
 
                 }
