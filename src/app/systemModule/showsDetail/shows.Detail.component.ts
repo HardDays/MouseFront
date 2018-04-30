@@ -15,7 +15,7 @@ import { UserCreateModel } from '../../core/models/userCreate.model';
 import { GenreModel } from '../../core/models/genres.model';
 import { AccountGetModel } from '../../core/models/accountGet.model';
 import { SafeHtml, DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { AccountType } from '../../core/base/base.enum';
+import { AccountType, BaseMessages } from '../../core/base/base.enum';
 import { Base64ImageModel } from '../../core/models/base64image.model';
 import { MapsAPILoader } from '@agm/core';
 import { AccountSearchParams } from '../../core/models/accountSearchParams.model';
@@ -27,6 +27,7 @@ import { TicketGetParamsModel } from '../../core/models/ticketGetParams.model';
 import { TicketModel } from '../../core/models/ticket.model';
 import { BuyTicketModel } from '../../core/models/buyTicket.model';
 import { MainService } from '../../core/services/main.service';
+import { ErrorComponent } from '../../shared/error/error.component';
 
 declare var $:any;
 declare var PhotoSwipeUI_Default:any;
@@ -54,6 +55,8 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
     Genres:GenreModel[] = [];
 
     Featuring:string = '';
+    
+    @ViewChild('errorCmp') errorCmp: ErrorComponent;
 
     constructor
     (           
@@ -214,12 +217,20 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
                     if(this.CheckedTickets.length == 0)
                     {
                         console.log("success");
-                        this.router.navigate(['/system','tickets', this.EventId]);
+                        this.OpenErrorWindow(BaseMessages.Success);
+                        console.log('show_message');
+                        setTimeout(
+                            () => {
+                                this.errorCmp.CloseWindow();
+                                this.router.navigate(['/system','tickets', this.EventId])
+                            },
+                            2000
+                        );
                     }
                 },
                 (err) =>
                 {
-                    console.log(err);
+                    this.OpenErrorWindow(BaseMessages.Fail);
                 }
             );
         }
@@ -263,6 +274,11 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
             }
         });
         return map;
+    }
+
+    OpenErrorWindow(str:string)
+    {
+        this.errorCmp.OpenWindow(str);
     }
 
     aboutOpenMapModal(){

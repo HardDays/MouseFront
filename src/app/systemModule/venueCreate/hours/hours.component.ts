@@ -18,6 +18,7 @@ import { FrontWorkingTimeModel } from '../../../core/models/frontWorkingTime.mod
 export class VenueHoursComponent extends BaseComponent implements OnInit {
     @Input() Venue: AccountCreateModel;
     @Output() onSaveVenue:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
+    @Output() onError:EventEmitter<string> = new EventEmitter<string>();
 
     OfficeHours:FrontWorkingTimeModel[] = [];
     OfficeHoursSelectedDate = false;

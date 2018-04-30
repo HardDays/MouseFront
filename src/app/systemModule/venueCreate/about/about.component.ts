@@ -17,6 +17,7 @@ import { ContactModel } from '../../../core/models/contact.model';
 export class VenueAboutComponent extends BaseComponent implements OnInit {
     @Input() Venue: AccountCreateModel;
     @Output() onSaveVenue:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
+    @Output() onError:EventEmitter<string> = new EventEmitter<string>();
 
 
     EmailFormGroup : FormGroup = new FormGroup({
@@ -48,6 +49,8 @@ export class VenueAboutComponent extends BaseComponent implements OnInit {
             this.Venue.emails = [new ContactModel()];
         
         this.AddEmailsToForm(this.Venue.emails.length);
+        
+        
     }
 
     CreateLocalAutocomplete()
@@ -119,9 +122,11 @@ export class VenueAboutComponent extends BaseComponent implements OnInit {
 
     SaveVenue()
     {
+        this.aboutForm.updateValueAndValidity();
         if(this.aboutForm.invalid)
         {
-            console.log("About form invalid");
+            console.log(this.aboutForm);
+            this.onError.emit("About form invalid");
             return;
         }
         this.onSaveVenue.emit(this.Venue);

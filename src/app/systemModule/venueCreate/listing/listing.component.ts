@@ -18,6 +18,7 @@ import { SelectModel } from '../../../core/models/select.model';
 export class VenueListingComponent extends BaseComponent implements OnInit {
     @Input() Venue: AccountCreateModel;
     @Output() onSaveVenue:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
+    @Output() onError:EventEmitter<string> = new EventEmitter<string>();
 
     TypesOfSpace:SelectModel[] = [];
     LocatedTypes:SelectModel[] = [];
@@ -51,9 +52,10 @@ export class VenueListingComponent extends BaseComponent implements OnInit {
 
     SaveVenue()
     {
+        this.detailsForm.updateValueAndValidity();
         if(this.detailsForm.invalid)
         {
-            console.log("Details form invalid");
+            this.onError.emit("Details form invalid");
             return;
         }
 
