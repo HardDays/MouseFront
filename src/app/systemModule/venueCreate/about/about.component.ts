@@ -53,7 +53,11 @@ export class VenueAboutComponent extends BaseComponent implements OnInit {
     CreateLocalAutocomplete()
     {
         this.CreateAutocomplete(
-            (addr,place) => {           
+            (addr,place) => {
+                if(place)
+                {
+                    this.Venue.address = place.formatted_address;     
+                }  
                 for(let a of addr)
                 {
                     if(a.search('locality') > 0)

@@ -136,7 +136,6 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
 
   SaveVenue(venue:AccountCreateModel)
   {
-    console.log(venue);
     this.WaitBeforeLoading
     (
       () => this.VenueId == 0 ? this.main.accService.CreateAccount(this.Venue) : this.main.accService.UpdateMyAccount(this.VenueId,this.Venue),
@@ -154,8 +153,11 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
   NextPart()
   {
     if(this.CurrentPart == this.Parts.Dates)
+    {
       this.router.navigate(["/system","profile",this.VenueId]);
-      
+      scrollTo(0,0);
+      return;
+    }
     scrollTo(0,0);
     this.CurrentPart = this.CurrentPart + 1;
   }
@@ -173,7 +175,6 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
 
   SuperPuperImportantSaveButton()
   {
-    console.log(this.CurrentPart);
     switch(this.CurrentPart){
       case this.Parts.About:{
         if(this.about)
