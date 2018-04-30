@@ -14,7 +14,7 @@
                                     <input accept=".jpg, .jpeg, .png" type="file"  (change)="loadLogo($event)">
                                 </label>
                                 
-                                <div class="bg-image uploaded" (click)="avatar=''" *ngIf="avatar" class="bg-image uploaded" [ngStyle]="{'background-image': 'url('+avatar+')'}"></div>
+                                <div class="bg-image uploaded" (click)="DeleteAva()" *ngIf="avatar" class="bg-image uploaded" [ngStyle]="{'background-image': 'url('+avatar+')'}"></div>
                             
                             </div>
                           
@@ -77,3 +77,4 @@
     </div>
 </div>
 <!--//новая вторая модалка с картой-->
+<error-cmp #errorCmp></error-cmp>

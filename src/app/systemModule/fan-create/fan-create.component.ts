@@ -15,9 +15,10 @@ import { TypeService } from '../../core/services/type.service';
 import { ImagesService } from '../../core/services/images.service';
 import { AccountGetModel } from '../../core/models/accountGet.model';
 import { NgForm } from '@angular/forms';
-import { AccountType } from '../../core/base/base.enum';
+import { AccountType, BaseMessages } from '../../core/base/base.enum';
 import { Base64ImageModel } from '../../core/models/base64image.model';
 import { MainService } from '../../core/services/main.service';
+import { ErrorComponent } from '../../shared/error/error.component';
 
 declare var $:any;
 
@@ -38,8 +39,8 @@ export class FanCreateComponent extends BaseComponent implements OnInit {
   flagForText:boolean;
   cordsMap = {lat:55.755826, lng:37.6172999};
   avatar:string = '';
-
-
+  ImageId:number = 0;
+  @ViewChild('errorCmp') errorCmp: ErrorComponent;
   @ViewChild('submitFormFun') form: NgForm;
   @ViewChild('search') public searchElement: ElementRef;
   constructor
@@ -71,13 +72,19 @@ export class FanCreateComponent extends BaseComponent implements OnInit {
             {
               this.flagForText = false;
               this.DisplayFunParams(res);
-              this.WaitBeforeLoading(
-                () => this.main.imagesService.GetImageById(res.image_id),
-                (result:Base64ImageModel) =>{
-                  // console.log(result);
-                  this.avatar = result.base64;
-                }
-              );
+              if(res.image_id){
+                this.WaitBeforeLoading(
+                  () => this.main.imagesService.GetImageById(res.image_id),
+                  (result:Base64ImageModel) =>{
+                    // console.log(result);
+                    this.avatar = result.base64;
+                    this.ImageId = res.image_id;
+                  }
+                );
+              }
+              else{
+                
+              }
             }
           );
         }
@@ -85,7 +92,26 @@ export class FanCreateComponent extends BaseComponent implements OnInit {
     );
     this.CreateAutocomplete();
   }
-
+    DeleteAva(){
+      console.log(this.ImageId);
+      if(this.ImageId && this.avatar){
+        this.main.imagesService.DeleteImageById(this.ImageId,this.FunId).subscribe(
+          (res)=>{
+            this.errorCmp.OpenWindow(BaseMessages.Success);
+            this.LocalDeleteAva();
+          },
+          (err)=>{
+            this.errorCmp.OpenWindow(BaseMessages.Fail);
+          }
+        );
+      }
+      else{
+        this.LocalDeleteAva();
+      }
+    }
+    LocalDeleteAva(){
+      this.avatar ='';
+    }
   CreateAutocomplete()
   {
     this.mapsAPILoader.load().then(
@@ -244,6 +270,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit {
           this.router.navigate(['/system','profile',res.id]);
         },
         (err:any)=>{ 
+          this.errorCmp.OpenWindow(BaseMessages.Fail);
         }
       );
     }

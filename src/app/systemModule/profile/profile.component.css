@@ -32,3 +32,6 @@
 .slick-prev:before, .slick-next:before{
     display: none;
 }
+.head-info-profile-wr.head-info-artist .flex-artist-main-info .side.right-side .bg-slider{
+    min-height: 430px;
+}

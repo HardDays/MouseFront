@@ -27,7 +27,6 @@ const routes: Routes =
   { path:'',component:SystemComponent, children:
     [
       { path: 'shows', component: ShowsComponent, canActivate: [SystemAccessGuard] },
-      { path: 'edit/:id', component: EditComponent, canActivate: [SystemAccessGuard] },
       { path: 'profile/:id', component: ProfileComponent, canActivate: [SystemAccessGuard] },
       { path: 'accountCreate', component: AccountCreateComponent, canActivate: [SystemAccessGuard] },
       { path: 'events', component: EventsComponent, canActivate: [SystemAccessGuard] },
