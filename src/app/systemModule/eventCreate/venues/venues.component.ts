@@ -467,6 +467,41 @@ declineVenue(card:AccountGetModel){
 
 
     
+    dragMarker($event)
+    {
+        this.mapCoords.lat = $event.coords.lat;
+        this.mapCoords.lng = $event.coords.lng;
+        this.codeLatLng( this.mapCoords.lat, this.mapCoords.lng);
+    }
+
+    setMapCoords(event){
+        this.mapCoords = {lat:event.coords.lat,lng:event.coords.lng};
+        this.codeLatLng( this.mapCoords.lat, this.mapCoords.lng);
+    }
+
+    codeLatLng(lat, lng) {
+        let geocoder = new google.maps.Geocoder();
+        let latlng = new google.maps.LatLng(lat, lng);
+        geocoder.geocode(
+            {'location': latlng }, 
+            (results, status) => {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    if (results[1]) {
+                      
+                        $("#venueAddress").val(results[1].formatted_address);
+                        
+                    } 
+                    else {
+                    // alert('No results found');
+                    }
+                } 
+                else {
+                    // alert('Geocoder failed due to: ' + status);
+                }
+            }
+        );
+
+    }
 
 
 

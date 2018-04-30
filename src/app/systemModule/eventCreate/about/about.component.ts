@@ -33,7 +33,7 @@ export class AboutComponent extends BaseComponent implements OnInit {
   @Input() Event:EventCreateModel;
   @Output() onSaveEvent:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
 
-  @ViewChild('searchAbout') public searchElementAbout: ElementRef;
+  @ViewChild('searchArtist') public searchElementAbout: ElementRef;
 
   mapCoords =  {lat:55.755826, lng:37.6172999};
   genres:GenreModel[] = [];
@@ -87,9 +87,13 @@ export class AboutComponent extends BaseComponent implements OnInit {
     );
   }
   Init(event:EventCreateModel){
+  
     this.getGenres();
     this.main.imagesService.GetImageById(event.image_id)
       .subscribe((img)=>{event.image_base64 = img.base64;})
+    
+    this.mapCoords.lat = this.Event.city_lat;
+    this.mapCoords.lng = this.Event.city_lng;
   }
   SaveVenue(){
     
@@ -151,5 +155,43 @@ export class AboutComponent extends BaseComponent implements OnInit {
       }
       this.onSaveEvent.emit(this.Event);
   }
+
+
+  
+   dragMarker($event)
+    {
+        this.mapCoords.lat = $event.coords.lat;
+        this.mapCoords.lng = $event.coords.lng;
+        this.codeLatLng( this.mapCoords.lat, this.mapCoords.lng);
+    }
+
+    setMapCoords(event){
+        this.mapCoords = {lat:event.coords.lat,lng:event.coords.lng};
+        this.codeLatLng( this.mapCoords.lat, this.mapCoords.lng);
+    }
+
+    codeLatLng(lat, lng) {
+        let geocoder = new google.maps.Geocoder();
+        let latlng = new google.maps.LatLng(lat, lng);
+        geocoder.geocode(
+            {'location': latlng }, 
+            (results, status) => {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    if (results[1]) {
+                      
+                        $("#artistAddress").val(results[1].formatted_address);
+                        
+                    } 
+                    else {
+                    // alert('No results found');
+                    }
+                } 
+                else {
+                    // alert('Geocoder failed due to: ' + status);
+                }
+            }
+        );
+
+    }
 
 }

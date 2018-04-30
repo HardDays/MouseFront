@@ -138,6 +138,10 @@ export class ArtistComponent extends BaseComponent implements OnInit {
                     else 
                     {
                          this.artistSearchParams.address = autocomplete.getPlace().formatted_address;
+
+                         this.mapCoords.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
+                         this.mapCoords.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
+
                          this.artistSearch();
                     }
                 });
@@ -199,7 +203,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
   }
 
   artistOpenMapModal(){
-    
+    $('#modal-map-2').modal('show');
   }
 
   addNewArtistOpenModal(){
@@ -388,6 +392,44 @@ artistComplete(){
   this.onSaveEvent.emit(this.Event);
 }
 
+
+
+
+dragMarker($event)
+    {
+        this.mapCoords.lat = $event.coords.lat;
+        this.mapCoords.lng = $event.coords.lng;
+        this.codeLatLng( this.mapCoords.lat, this.mapCoords.lng);
+    }
+
+    setMapCoords(event){
+        this.mapCoords = {lat:event.coords.lat,lng:event.coords.lng};
+        this.codeLatLng( this.mapCoords.lat, this.mapCoords.lng);
+    }
+
+    codeLatLng(lat, lng) {
+        let geocoder = new google.maps.Geocoder();
+        let latlng = new google.maps.LatLng(lat, lng);
+        geocoder.geocode(
+            {'location': latlng }, 
+            (results, status) => {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    if (results[1]) {
+                      
+                        $("#aboutAddress").val(results[1].formatted_address);
+                        
+                    } 
+                    else {
+                    // alert('No results found');
+                    }
+                } 
+                else {
+                    // alert('Geocoder failed due to: ' + status);
+                }
+            }
+        );
+
+    }
 
 
 
