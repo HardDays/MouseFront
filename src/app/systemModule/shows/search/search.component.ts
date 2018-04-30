@@ -119,7 +119,7 @@ export class SearchShowsComponent extends BaseComponent implements OnInit {
 
     InitBsConfig()
     {
-        this.bsConfig = Object.assign({}, { containerClass: 'theme-default' });
+        this.bsConfig = Object.assign({}, { containerClass: 'theme-default transformedDatapicker',showWeekNumbers:false });
     }
 
     

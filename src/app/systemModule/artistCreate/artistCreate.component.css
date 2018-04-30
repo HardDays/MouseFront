@@ -6,3 +6,6 @@
     -ms-transform: rotate(270deg);
     transform: rotate(270deg);
 }
+.create-event-body-1 .create-event-body .flex-body-1 .side .add-to-genres{
+    z-index: 5000;
+}

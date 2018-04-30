@@ -6,8 +6,8 @@
     </ng-container>
     <!-- END Venue -->
     <!-- FAN -->
-    <ng-container *ngIf="Account.account_type == Roles.Fan">
-        <app-fun-profile #fan [Account]='Account' [IsPreview]="true"></app-fun-profile>
+    <ng-container >
+        <app-fun-profile #fan *ngIf="Account.account_type == Roles.Fan" [Account]='Account' [IsPreview]="true"></app-fun-profile>
     </ng-container>   
     <!-- END FAN -->
     <!-- ARTIST -->
