@@ -35,7 +35,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
    
   @Input() Event:EventCreateModel;
   @Output() onSaveEvent:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
- 
+  @Output() onError:EventEmitter<string> = new EventEmitter<string>();
 
   @ViewChild('searchArtist') public searchElementArtist: ElementRef;
 
@@ -235,6 +235,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
                   console.log(`add `,this.addArtist.artist_id);
                   
               }, (err)=>{
+                this.onError.emit("Error add "+err._body);
                 console.log(`err`,err);
                  
               });
@@ -271,7 +272,10 @@ export class ArtistComponent extends BaseComponent implements OnInit {
     this.main.eventService.ArtistAcceptOwner(this.ownerAcceptDecline).
         subscribe((res)=>{
             console.log(`ok accept artist`,res);
+            this.onError.emit("Artist accepted!");
             this.updateEvent();
+        },(err)=>{
+          this.onError.emit("Artist NOT accepted!");
         });
 
 }
@@ -296,7 +300,10 @@ declineArtist(card:AccountGetModel){
   this.main.eventService.ArtistDeclineOwner(this.ownerAcceptDecline).
       subscribe((res)=>{
           console.log(`ok decline artist`,res);
+          this.onError.emit("Artist declined!");
           this.updateEvent();
+      },(err)=>{
+        this.onError.emit("Artist NOT declined!");
       });
 
 }
@@ -330,6 +337,7 @@ artistSendRequest(id:number){
   this.main.eventService.ArtistSendRequest(this.addArtist)
   .subscribe((send)=>{
       console.log(`send`);
+      this.onError.emit("Request was sent!");
       this.updateEvent();
   })
 }

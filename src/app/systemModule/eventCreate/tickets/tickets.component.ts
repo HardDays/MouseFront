@@ -26,7 +26,8 @@ export class AddTicketsComponent extends BaseComponent implements OnInit {
 
     @Input() Event:EventCreateModel;
     @Output() onSaveEvent:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
-  
+    @Output() onError:EventEmitter<string> = new EventEmitter<string>();
+
   tickets:TicketModel[] = [];
   ticketsNew:TicketModel[] = [];
   currentTicket:TicketModel = new TicketModel();
@@ -112,6 +113,8 @@ updateTicket(){
                 this.ticketsNew.splice(index,1);
 
                 this.updateEventTickets();
+            },(err)=>{
+                this.onError.emit("Can't get tickets!");
             });
 
     }

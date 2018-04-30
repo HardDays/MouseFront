@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
 import { AgmCoreModule } from '@agm/core';
 import { PrivateResComponent } from './private-res/private-res.component';
+import { ErrorModule } from '../../shared/error/error.module';
 
 @NgModule({
     imports: [ 
@@ -24,7 +25,7 @@ import { PrivateResComponent } from './private-res/private-res.component';
             apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",
             libraries: ["places"]
           }),
-            
+          ErrorModule    
     ],
     declarations: [ 
         EventCreateComponent,

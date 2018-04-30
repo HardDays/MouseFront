@@ -134,10 +134,10 @@
                 <span class="closee-modal" data-dismiss="modal"></span>
                 <div class="for-map-init-modal-1">
                     <agm-map *ngIf="Venue.lat && Venue.lng" style="height:100%" [latitude]="Venue.lat" [longitude]="Venue.lng"> 
-                        <agm-marker [latitude]="Venue.lat" [longitude]="Venue.lng" [visible]="isMarkerVisible"></agm-marker>
+                        <agm-marker [latitude]="Venue.lat" [longitude]="Venue.lng" ></agm-marker>
                     </agm-map>
                     <agm-map *ngIf="(!Venue.lat && !Venue.lng) && ( Event.city_lat && Event.city_lng)" style="height:100%" [latitude]="Event.city_lat" [longitude]="Event.city_lng"> 
-                        <agm-marker [latitude]="Event.city_lat" [longitude]="Event.city_lng" [visible]="isMarkerVisible"></agm-marker>
+                        <agm-marker [latitude]="Event.city_lat" [longitude]="Event.city_lng" ></agm-marker>
                     </agm-map>
                 </div>
             </div>

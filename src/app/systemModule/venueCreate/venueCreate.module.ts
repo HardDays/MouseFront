@@ -21,6 +21,7 @@ import { ErrorModule } from '../../shared/error/error.module';
         ReactiveFormsModule,
         TextMaskModule,
         ErrorModule
+
     ],
     declarations: [ 
         VenueCreateComponent,
