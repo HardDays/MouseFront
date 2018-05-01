@@ -161,13 +161,13 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
           this.NextPart();
         },
         (err) => {
-          console.log(err);
+          //console.log(err);
         }
       )
     }
 
     saveButtonClick(){
-      console.log(`saveButtonClick`,this.currentPage);
+      //console.log(`saveButtonClick`,this.currentPage);
       if(this.currentPage == this.pages.about)
         this.about.SaveEvent();
       else if(this.currentPage == this.pages.artist)
@@ -205,7 +205,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     activeButtonClick(){
       this.main.eventService.SetActive(this.EventId,this.main.CurrentAccount.id).
         subscribe((res)=>{
-          console.log(res);
+          //console.log(res);
           this.Event.is_active = true;
         })  
     }

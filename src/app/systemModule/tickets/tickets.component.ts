@@ -165,7 +165,7 @@ export class TicketsComponent extends BaseComponent implements OnInit {
                 this.Tickets = res;
             },
             (err) => {
-                console.log(err);
+              //  console.log(err);
             }
         );
     }
@@ -189,7 +189,7 @@ export class TicketsComponent extends BaseComponent implements OnInit {
                     this.CloseSearchWindow();
                 },
                 (err) => {
-                    console.log(err);
+                   // console.log(err);
                     this.CloseSearchWindow();
                 }
             );
@@ -204,7 +204,7 @@ export class TicketsComponent extends BaseComponent implements OnInit {
                 this.PastTickets = res;
             },
             (err) => {
-                console.log(err);
+               // console.log(err);
             }
         );
     }

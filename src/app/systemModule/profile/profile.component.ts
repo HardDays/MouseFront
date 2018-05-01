@@ -114,7 +114,7 @@ ngOnInit(){
     GetVidio()
     {
         this.VideoPath = [];
-        console.log(this.Account);
+        //console.log(this.Account);
         if(this.Account.videos && this.Account.videos.length > 0)
         {
         
@@ -198,7 +198,7 @@ ngOnInit(){
                 
             },
             (err) => {
-                console.log(err);
+               // console.log(err);
             }
         );
     }
@@ -232,10 +232,10 @@ ngOnInit(){
             
                 this.imagesSize[i] = res;
 
-                console.log(this.imagesSize);
+              //  console.log(this.imagesSize);
             },
             (err) =>{
-                console.log(err);
+               // console.log(err);
             }
         );
     }
@@ -265,7 +265,7 @@ ngOnInit(){
                 }
             },
             (err) => {
-                console.log(err);
+              //  console.log(err);
             }
         );
     }
@@ -284,7 +284,7 @@ ngOnInit(){
                 this.CountTotaltTicket();
             },
             (err) => {
-                console.log(err);
+             //   console.log(err);
             }
         );
     }
@@ -310,7 +310,7 @@ ngOnInit(){
             
             },
             (err) => {
-                console.log(err);
+              //  console.log(err);
             
             }
         );
@@ -326,7 +326,7 @@ ngOnInit(){
                 }
             },
             (err) => {
-                console.log(err);
+              //  console.log(err);
             
             }
         );
@@ -480,7 +480,7 @@ initUser(){
         for(let u of users)
         if(u.id==+localStorage.getItem('activeUserId')){
           this.MyAccountId = u.id;
-          console.log(u.id);
+         // console.log(u.id);
         }
     });
 }
@@ -493,7 +493,7 @@ FollowProfile() {
         this.getUserInfo();
     },
     (err) => {
-        console.log(err);
+       // console.log(err);
      
     }
 );
@@ -511,7 +511,7 @@ UnFollowProfile() {
           this.getUserInfo();
       },
       (err) => {
-          console.log(err);
+         // console.log(err);
        
       }
   );
@@ -526,7 +526,7 @@ UnFollowProfile() {
           this.isFolowedAcc = res.status;
       },
       (err) => {
-          console.log(err);
+         // console.log(err);
        
       }
   );

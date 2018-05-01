@@ -107,7 +107,7 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit{
         this.CountTotalPrice();
       },
       (err) => {
-        console.log(err);
+      //  console.log(err);
       }
     );
   }

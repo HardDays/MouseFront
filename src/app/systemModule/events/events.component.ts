@@ -75,7 +75,7 @@ export class EventsComponent extends BaseComponent implements OnInit {
                 // this.CloseSearchWindow();
             },
             (err) => {
-                console.log(err);
+               // console.log(err);
             }
         );
     }

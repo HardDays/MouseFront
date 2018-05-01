@@ -129,7 +129,7 @@ export class ShowsComponent extends BaseComponent implements OnInit {
               // this.CloseSearchWindow();
             },
             (err) => {
-                console.log(err);
+               // console.log(err);
             }
         );
     }

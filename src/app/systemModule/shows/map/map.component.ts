@@ -29,7 +29,7 @@ export class MapShowsComponent extends BaseComponent implements OnInit {
 
     AboutOpenMapModal(searchParams:EventSearchParams)
     {
-        console.log(searchParams);
+       // console.log(searchParams);
         this.lat = 55.755826;
         this.lng = 37.6172999;
         this.isMarkerVisible = false;
