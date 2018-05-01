@@ -61,12 +61,12 @@
                         <li>
                             <a class="active">Additional info</a>
                         </li>
-                        <li>
+                        <!-- <li>
                             <a >Comments <span>(57)</span></a>
                         </li>
                         <li>
                             <a >Updates <span>(57)</span></a>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
                 <div class="right-s">
@@ -98,7 +98,7 @@
                     <h1>Tickets<span>Includes $2 service fee. One ticket per person</span></h1>
                     
                         <p class="total">Total price: <span>${{TotalPrice}}</span></p>
-                        <button [disabled]="!Event.is_active" (click)="BuyTickets()" class="butt-style-1" [ngClass]="{'cursor-disabled':!Event.is_active}">
+                        <button [disabled]="!Event.is_active || !CurrentAccount || CurrentAccount.account_type != 'fan'" (click)="BuyTickets()" class="butt-style-1" [ngClass]="{'cursor-disabled':!Event.is_active || !CurrentAccount || CurrentAccount.account_type != 'fan'}">
                             <span>Buy</span>
                         </button>
                 </div>
@@ -106,8 +106,10 @@
                 <div class="for-flex-contant-d">
                     <div class="left-side-tickets">
                         <ng-container *ngIf="Event.is_active">
-                            <ng-container *ngFor="let item of Tickets">
-                                <buy-ticket-selector (onAddTickets)="AddTicketsToPrice($event)" [Ticket]="item"></buy-ticket-selector>
+                            <ng-container *ngIf="CurrentAccount && CurrentAccount.account_type == 'fan'">
+                                <ng-container *ngFor="let item of Tickets">
+                                    <buy-ticket-selector (onAddTickets)="AddTicketsToPrice($event)" [Ticket]="item"></buy-ticket-selector>
+                                </ng-container>
                             </ng-container>
                         </ng-container>
                         <h2 class="total" *ngIf="!Event.is_active"> Show is unactive!</h2>
