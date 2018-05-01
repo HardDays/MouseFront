@@ -211,6 +211,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
                 () => this.main.eventService.BuyTicketPack(item),
                 (res) => 
                 {   
+                    console.log(item);
                     let index = this.CheckedTickets.findIndex(obj => obj.ticket_id == item.ticket_id && obj.count == item.count);
                     this.CheckedTickets.splice(index,1);
                     this.CalculateCurrentPrice();
