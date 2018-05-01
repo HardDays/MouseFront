@@ -90,7 +90,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
                 this.InitEvent(res);
             },
             (err:any) => {
-                console.log("Cant get event info",err);
+              //  console.log("Cant get event info",err);
             }
         );
     }
@@ -103,7 +103,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
                 (res:AccountGetModel) => 
                 {
                     this.Venue = res;
-                    console.log(this.Venue);
+                   // console.log(this.Venue);
                 }
             );
         }
@@ -164,7 +164,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
                 },
                 (err:any) => 
                 {
-                    console.log("Cant get creator info", err);
+                 //   console.log("Cant get creator info", err);
                 }
             );
         }
@@ -216,9 +216,9 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
                     this.CalculateCurrentPrice();
                     if(this.CheckedTickets.length == 0)
                     {
-                        console.log("success");
+                       // console.log("success");
                         this.OpenErrorWindow(BaseMessages.Success);
-                        console.log('show_message');
+                      //  console.log('show_message');
                         setTimeout(
                             () => {
                                 this.errorCmp.CloseWindow();

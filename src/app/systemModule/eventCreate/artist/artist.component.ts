@@ -115,7 +115,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
     Init(event?:EventCreateModel)
     {
       this.artistsList = event.artist;
-      console.log(this.artistsList);
+      //console.log(this.artistsList);
       this.GetArtistsFromList();
     }
 
@@ -198,7 +198,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
                   }
                 }
                 this.artistsSearch = temp;
-                console.log(this.artistsSearch);
+               // console.log(this.artistsSearch);
      });
   }
 
@@ -229,14 +229,14 @@ export class ArtistComponent extends BaseComponent implements OnInit {
           }
           if(!isFind){
             this.addArtist.artist_id = item.object.id;
-            console.log(this.addArtist);
+           // console.log(this.addArtist);
             this.main.eventService.AddArtist(this.addArtist).
               subscribe((res)=>{
-                  console.log(`add `,this.addArtist.artist_id);
+                //  console.log(`add `,this.addArtist.artist_id);
                
               }, (err)=>{
                 this.onError.emit("Error add "+err._body);
-                console.log(`err`,err);
+               // console.log(`err`,err);
                  
               });
           
@@ -268,10 +268,10 @@ export class ArtistComponent extends BaseComponent implements OnInit {
     this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from?msg.message_info.preferred_date_from:new Date().toString();
     this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to?msg.message_info.preferred_date_to:new Date('+3').toString();
 
-    console.log(this.ownerAcceptDecline);
+   // console.log(this.ownerAcceptDecline);
     this.main.eventService.ArtistAcceptOwner(this.ownerAcceptDecline).
         subscribe((res)=>{
-            console.log(`ok accept artist`,res);
+           // console.log(`ok accept artist`,res);
             this.onError.emit("Artist accepted!");
             this.updateEvent();
         },(err)=>{
@@ -296,10 +296,10 @@ declineArtist(card:AccountGetModel){
       this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from?msg.message_info.preferred_date_from:new Date().toString();
       this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to?msg.message_info.preferred_date_to:new Date('+3').toString();
 
-  console.log(`dicline`,this.ownerAcceptDecline);
+  //console.log(`dicline`,this.ownerAcceptDecline);
   this.main.eventService.ArtistDeclineOwner(this.ownerAcceptDecline).
       subscribe((res)=>{
-          console.log(`ok decline artist`,res);
+         // console.log(`ok decline artist`,res);
           this.onError.emit("Artist declined!");
           this.updateEvent();
       },(err)=>{
@@ -332,12 +332,12 @@ artistSendRequest(id:number){
   this.addArtist.event_id = this.Event.id;
   this.addArtist.account_id = this.Event.creator_id;
   this.addArtist.id = id;
-  console.log(`request artist`,this.addArtist);
+  //console.log(`request artist`,this.addArtist);
 
   this.main.eventService.ArtistSendRequest(this.addArtist)
   .subscribe((send)=>{
       $('#modal-send-request-artist').modal('toggle');
-      console.log(`send`);
+     // console.log(`send`);
       this.onError.emit("Request was sent!");
       
       this.updateEvent();
@@ -347,11 +347,11 @@ artistSendRequest(id:number){
 updateEvent(){
   this.main.eventService.GetEventById(this.Event.id).
             subscribe((res:EventGetModel)=>{
-                console.log(`updateEventThis`);
+              //  console.log(`updateEventThis`);
                  this.Event = this.main.eventService.EventModelToCreateEventModel(res);
                 this.artistsList = [];
                 this.artistsList = this.Event.artist;
-                console.log(`---`,this.Event,this.artistsList)
+            //    console.log(`---`,this.Event,this.artistsList)
                 this.GetArtistsFromList();
               
   })

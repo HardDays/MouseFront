@@ -77,7 +77,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     Init(event?:EventCreateModel)
     {
       this.venuesList = event.venues;
-      console.log(this.venuesList);
+    //  console.log(this.venuesList);
       this.GetVenueFromList();
     }
     
@@ -256,7 +256,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                       }
                     }
                     this.venueList = temp;
-                    console.log(this.venueList);
+                 //   console.log(this.venueList);
                   
                 //  }
          });
@@ -269,7 +269,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         if(!this.ifRequestVenue(venue.object.id)&&!this.ifListVenue(venue.object.id)){
           this.requestVenues.push(venue.object);
         }
-         console.log(this.requestVenues);
+        // console.log(this.requestVenues);
        
    }
 
@@ -353,26 +353,26 @@ addVenueById(id:number){
             this.addVenue.venue_id = id;
             this.addVenue.id = id;
             this.addVenue.account_id = this.Event.creator_id;
-            console.log(`add venue`,this.addVenue);
+            //console.log(`add venue`,this.addVenue);
             
             this.main.eventService.AddVenue(this.addVenue).
                 subscribe((res)=>{
-                    console.log(`ok add`);
+                  //  console.log(`ok add`);
                     $('#modal-send-request-venue').modal('toggle');
                     this.main.eventService.VenueSendRequest(this.addVenue)
                      .subscribe((send)=>{
-                        console.log(`ok send`);
+                      //  console.log(`ok send`);
                         this.onError.emit("Request was sent!");
                     this.updateEvent();
                 }, (err)=>{
-                    console.log(err);
+                  //  console.log(err);
                 })
                     
                 },(err)=>{
                     this.onError.emit("Request wasn't sent!");
                     this.main.eventService.VenueSendRequest(this.addVenue)
                         .subscribe((send)=>{
-                            console.log(`ok send error`);
+                          //  console.log(`ok send error`);
                         this.updateEvent();
                 });
             });
@@ -405,7 +405,7 @@ acceptVenue(card:AccountGetModel){
         this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from;
         this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to;
 
-        console.log(this.ownerAcceptDecline);
+       // console.log(this.ownerAcceptDecline);
         this.main.eventService.VenueAcceptOwner(this.ownerAcceptDecline).
             subscribe((res)=>{
                 this.onError.emit("Venue accepted!");
@@ -431,7 +431,7 @@ declineVenue(card:AccountGetModel){
     this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from;
     this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to;
 
-    console.log(this.ownerAcceptDecline);
+    //console.log(this.ownerAcceptDecline);
     
         this.main.eventService.VenueDeclineOwner(this.ownerAcceptDecline).
             subscribe((res)=>{
@@ -453,11 +453,11 @@ declineVenue(card:AccountGetModel){
     updateEvent(){
         this.main.eventService.GetEventById(this.Event.id).
         subscribe((res:EventGetModel)=>{
-            console.log(`updateEventThis`);
+           // console.log(`updateEventThis`);
             this.Event = this.main.eventService.EventModelToCreateEventModel(res);
             this.venueShowsList = [];
             this.venueShowsList = this.Event.artist;
-            console.log(`---`,this.Event,this.venueShowsList);
+           // console.log(`---`,this.Event,this.venueShowsList);
             this.GetVenueFromList();
           
 })

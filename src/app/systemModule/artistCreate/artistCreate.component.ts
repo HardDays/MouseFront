@@ -341,7 +341,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
                   this.genreFromModelToVar();
                   this.GetVenueImages();
 
-               
+                  
                   this.initJS();
                   this.updateVideosPreview();
                   this.getRiders();
@@ -383,7 +383,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
                 this.errorCmp.OpenWindow(BaseMessages.Success);
             },
             (err)=>{
-                console.log(`err`,err);
+               // console.log(`err`,err);
                 this.errorCmp.OpenWindow(BaseMessages.Fail);
             }
     );
@@ -449,15 +449,16 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
             this.createArtist.genres = this.main.genreService.GenreModelArrToStringArr(this.genres);
             
            
-            console.log(`Artist from About`,this.createArtist);
+          //  console.log(`Artist from About`,this.createArtist);
           
             if(this.isNewArtist){
-                console.log(`CREATE NEW ARTIST`);
+             //   console.log(`CREATE NEW ARTIST`);
                 this.main.accService.CreateAccount(this.createArtist)
                 .subscribe((artist:AccountGetModel)=>{
                     this.artistId = artist.id;
                     this.artistModelToCreateArtistModel(artist);
-                    this.currentPage = Pages.calendar;
+                    // this.currentPage = Pages.calendar;
+                    this.currentPage = Pages.media;
                     this.main.GetMyAccounts();
                     this.errorCmp.OpenWindow(BaseMessages.Success);
                 },(err)=>{  this.errorCmp.OpenWindow(BaseMessages.Fail);});
@@ -466,7 +467,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
             else this.updateArtistByCreateArtist();
         }
         else {
-            console.log(`Invalid About Form!`, this.aboutForm);
+         //   console.log(`Invalid About Form!`, this.aboutForm);
             this.errorCmp.OpenWindow('Invalid About Form!');
         }
   }
@@ -534,7 +535,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
       // this.createArtist.artist_videos = this.createArtist.videos;
       this.createArtist.artist_videos.push(params);
       // 'http://d.zaix.ru/6yut.mp3'
-      console.log(`videos list before update`,this.createArtist.artist_videos);
+    //  console.log(`videos list before update`,this.createArtist.artist_videos);
        this.updateArtistByCreateArtist();
        this.updateVideosPreview();
     }
@@ -550,7 +551,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
   }
 
   updateVideosPreview(){
-    console.log(`update VIDEO Images`);
+    //console.log(`update VIDEO Images`);
     for(let video of this.createArtist.artist_videos){
       var video_id = video.link.split('v=')[1];
       var ampersandPosition = video_id.indexOf('&');
@@ -717,7 +718,7 @@ addBooking(){
     if(type.checked)
       this.createArtist.preferred_venues.push(type.object.type);
 
-  console.log(this.createArtist,this.preferredVenues);
+  //console.log(this.createArtist,this.preferredVenues);
 
   this.updateArtistByCreateArtist();
 }
@@ -904,7 +905,7 @@ loadRiderFile($event:any){
         // console.log(res);
         this.GetVenueImages();
       },(err)=>{
-        console.log(`err`,err);
+       // console.log(`err`,err);
       })
   }
 
@@ -947,8 +948,8 @@ loadRiderFile($event:any){
 
 export enum Pages {
     about = 0,
-    calendar = 1,
-    media = 2,
-    booking = 3,
-    riders = 4
+    // calendar = 1,
+    media = 1,
+    booking = 2,
+    riders = 3
 }

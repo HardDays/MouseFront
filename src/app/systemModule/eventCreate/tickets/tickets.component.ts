@@ -56,7 +56,7 @@ export class AddTicketsComponent extends BaseComponent implements OnInit {
 
 
   getTickets(){
-    console.log(`getTickets`);
+    //console.log(`getTickets`);
     this.tickets = [];
     let params:TicketGetParamsModel = new TicketGetParamsModel();
     params.account_id = this.CurrentAccount.id;
@@ -132,7 +132,7 @@ updateTicket(){
 updateEventTickets(){ 
     this.main.eventService.GetEventById(this.Event.id).
     subscribe((res:EventGetModel)=>{
-        console.log(`updateEventThis`);
+        //console.log(`updateEventThis`);
         this.Event = this.main.eventService.EventModelToCreateEventModel(res);
         this.getTickets();
     })  

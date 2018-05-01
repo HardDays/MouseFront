@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ElementRef, EventEmitter, ViewChild, NgZone, Output, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, ElementRef,EventEmitter, ViewChild, NgZone, Output } from '@angular/core';
 import { BaseComponent } from '../../../core/base/base.component';
 import { AccountCreateModel } from '../../../core/models/accountCreate.model';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
@@ -14,8 +14,7 @@ import { ContactModel } from '../../../core/models/contact.model';
     templateUrl: './about.component.html',
     styleUrls: ['./../venueCreate.component.css']
 })
-export class VenueAboutComponent extends BaseComponent implements OnInit,OnChanges {
-    
+export class VenueAboutComponent extends BaseComponent implements OnInit {
     @Input() Venue: AccountCreateModel;
     @Output() onSaveVenue:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
     @Output() onError:EventEmitter<string> = new EventEmitter<string>();
@@ -42,12 +41,6 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
     
     ngOnInit(): void 
     {
-        this.BaseInit();
-        
-    }
-
-    BaseInit()
-    {
         this.CreateLocalAutocomplete();
 
         this.aboutForm.controls["emails"] = new FormArray([]);
@@ -56,11 +49,8 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
             this.Venue.emails = [new ContactModel()];
         
         this.AddEmailsToForm(this.Venue.emails.length);
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        this.Venue = changes.Venue.currentValue;
-        this.BaseInit();
+        
+        
     }
 
     CreateLocalAutocomplete()
@@ -135,7 +125,7 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
         this.aboutForm.updateValueAndValidity();
         if(this.aboutForm.invalid)
         {
-            console.log(this.aboutForm);
+           // console.log(this.aboutForm);
             this.onError.emit("About form invalid");
             return;
         }
