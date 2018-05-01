@@ -146,7 +146,7 @@ export class AboutComponent extends BaseComponent implements OnInit {
   {
       if(this.aboutForm.invalid)
       {
-          console.log("About form invalid");
+         // console.log("About form invalid");
           this.onError.emit("About form invalid");
           return;
       }

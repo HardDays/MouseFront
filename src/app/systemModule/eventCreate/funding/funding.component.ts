@@ -133,7 +133,7 @@ getActiveArtVen(){
   this.artistSum = 0;
   this.venueSum = 0;
   let artist:GetArtists[] = [], venue:GetVenue[] = [];
-  console.log(`funding`,this.Event);
+ // console.log(`funding`,this.Event);
 
   if( this.Event&&this.Event.artist)
    for(let art of this.Event.artist)
@@ -175,7 +175,7 @@ if( this.Event&&this.Event.venues)
       i = i + 1;
   }
 
-  console.log(`activeArtist`,this.activeArtist);
+  //console.log(`activeArtist`,this.activeArtist);
 
 
   this.getListName(this.activeArtist);
@@ -187,7 +187,7 @@ if( this.Event&&this.Event.venues)
 getListName(list:any[]){
     if(list)
     for(let item of list){
-        console.log(`get id`,item.artist_id,item.venue_id);
+        //console.log(`get id`,item.artist_id,item.venue_id);
         if(item.object.artist_id||item.object.venue_id){
             let id = item.object.artist_id||item.object.venue_id;
            
@@ -215,7 +215,7 @@ getListName(list:any[]){
 updateEvent(){
     this.main.eventService.GetEventById(this.Event.id).
     subscribe((res:EventGetModel)=>{
-        console.log(`updateEventThis`);
+        //console.log(`updateEventThis`);
         this.Event = this.main.eventService.EventModelToCreateEventModel(res);
         this.getActiveArtVen();
     })  

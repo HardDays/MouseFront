@@ -61,12 +61,12 @@ export class PrivateResComponent extends BaseComponent implements OnInit {
             
             
             
-            console.log(`newPrivateEvent`,this.privateVenueCreate);
+            //console.log(`newPrivateEvent`,this.privateVenueCreate);
 
             this.main.accService.CreateAccount(this.privateVenueCreate)
                 .subscribe((acc:AccountGetModel)=>{
                         this.privateVenue = acc;
-                        console.log(`create`,this.privateVenue);
+                        //console.log(`create`,this.privateVenue);
                         for(let img of this.imagesListPrivateRes){
                            this.main.accService.PostAccountImages(acc.id,img)
                             .subscribe((res)=>{
@@ -74,7 +74,7 @@ export class PrivateResComponent extends BaseComponent implements OnInit {
                         }
                         this.addVenue.venue_id = acc.id;
                         this.addVenue.account_id = this.main.CurrentAccount.id;
-                        console.log(`add venue`,this.addVenue);
+                       // console.log(`add venue`,this.addVenue);
                         this.main.eventService.AddVenue(this.addVenue).
                             subscribe((res)=>{
                                 //console.log(`add ok`,acc);

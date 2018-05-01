@@ -20,12 +20,18 @@ export class NavbarComponent extends BaseComponent implements OnInit
 {
 
     curNav:string = 'shows';
-  
+    MyLogo:string = '';
     ngOnInit()
     {
+      this.MyLogo = this.main.MyLogo;
       this.curNav = this.getThisPage();
-      
+      this.main.MyLogoChange.subscribe(
+        (res)=>{
+          this.MyLogo = res;
+        }
+      );
       this.main.GetMyAccounts();
+
     }
 
     getThisPage():string
