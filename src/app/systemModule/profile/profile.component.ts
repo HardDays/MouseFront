@@ -276,7 +276,7 @@ ngOnInit(){
             () => this.main.eventService.GetAllTicketswithoutCurrent(this.UserId),
             (res:TicketsGetModel[]) =>
             {
-               
+               console.log(res);
                 this.ticketsMassChecked = this.convertArrToCheckModel<TicketsGetModel>(res);
                 for(let it of this.ticketsMassChecked){
                     it.checked = true;
@@ -478,12 +478,13 @@ ngOnInit(){
    
 
 initUser(){
-    this.main.accService.GetMyAccount({extended:true})
+    let id = this.GetCurrentAccId();
+
+    this.main.accService.GetMyAccount()
     .subscribe((users:any[])=>{
-        for(let u of users)
-        if(u.id==+localStorage.getItem('activeUserId')){
-          this.MyAccountId = u.id;
-         // console.log(u.id);
+        let user = users.find(obj=>obj.id == id);
+        if(user){
+            this.MyAccountId = user.id;
         }
     });
 }
