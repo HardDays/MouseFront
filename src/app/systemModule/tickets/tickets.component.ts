@@ -160,9 +160,10 @@ export class TicketsComponent extends BaseComponent implements OnInit {
     GetTickets()
     {
         this.WaitBeforeLoading(
-            () => this.main.eventService.GetAllTicketsCurrent(this.accountId,'current'),
+            () => this.main.eventService.GetAllTicketsCurrent(this.SearchParams.account_id,'current'),
             (res:TicketsGetModel[]) => {
                 this.Tickets = res;
+                console.log(res);
             },
             (err) => {
               //  console.log(err);
@@ -173,23 +174,23 @@ export class TicketsComponent extends BaseComponent implements OnInit {
     GetTicketsSearch()
     {
         this.SearchParams.location = this.LocationText;
-
+       
         for(let i of this.ticketsTypesDates)
         {
             this.SearchParams.time = i;
             this.WaitBeforeLoading(
                 () => this.main.eventService.MyTicketsSearch(this.SearchParams),
                 (res:TicketsGetModel[]) =>{
-                    if(this.SearchParams.time == 'current'){
+                    if(i == 'current'){
                         this.Tickets = res;
                     }
-                    if(this.SearchParams.time == 'past'){
+                    if(i == 'past'){
                         this.PastTickets = res;
+                      
                     }
                     this.CloseSearchWindow();
                 },
                 (err) => {
-                   // console.log(err);
                     this.CloseSearchWindow();
                 }
             );
@@ -199,9 +200,10 @@ export class TicketsComponent extends BaseComponent implements OnInit {
     GetTicketsPast()
     {
         this.WaitBeforeLoading(
-            () => this.main.eventService.GetAllTicketsCurrent(this.accountId,'past'),
+            () => this.main.eventService.GetAllTicketsCurrent(this.SearchParams.account_id,'past'),
             (res:TicketsGetModel[]) => {
                 this.PastTickets = res;
+                console.log(res);
             },
             (err) => {
                // console.log(err);
