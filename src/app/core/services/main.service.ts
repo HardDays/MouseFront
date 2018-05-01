@@ -17,6 +17,8 @@ import { AccountGetModel } from '../models/accountGet.model';
 import { TokenModel } from "../models/token.model";
 import { EventGetModel } from "../models/eventGet.model";
 import { EventCreateModel } from "../models/eventCreate.model";
+import { Base64ImageModel } from "../models/base64image.model";
+import { BaseImages } from "../base/base.enum";
 
 @Injectable()
 export class MainService{
@@ -26,7 +28,8 @@ export class MainService{
     public CurrentAccount:AccountGetModel = new AccountGetModel();
     public CurrentAccountChange: Subject<AccountGetModel>;
     public MyAccountsChange: Subject<AccountGetModel[]>;
-
+    public MyLogo:string = BaseImages.NoneUserImage;
+    public MyLogoChange:Subject<string>;
     constructor
     (
         private http         : HttpService,
@@ -70,6 +73,7 @@ export class MainService{
             {
                 this.CurrentAccount = val;
                 this.SetCurrentAccId(val.id? val.id : 0);
+                this.GetMyLogo();
             }
         );
 
@@ -79,8 +83,35 @@ export class MainService{
                 this.MyAccounts = val;
             }
         );
+        this.MyLogoChange = new Subject();
+        this.MyLogoChange.next(BaseImages.NoneUserImage);
+        this.MyLogoChange.subscribe(
+            (val:string)=>{
+                this.MyLogo = val;
+            }
+        )
     }
 
+    GetMyLogo()
+    {
+        if(this.CurrentAccount && this.CurrentAccount.image_id)
+        {
+
+           
+               this.imagesService.GetImageById(this.CurrentAccount.image_id).subscribe(
+                (res:Base64ImageModel) => {
+                    this.MyLogoChange.next(res.base64 ? res.base64 : BaseImages.NoneUserImage);
+                },
+                (err) => {
+                    this.MyLogoChange.next(BaseImages.NoneUserImage);
+                }
+            );
+           
+        }
+        else{
+            this.MyLogoChange.next(BaseImages.NoneUserImage);
+        }
+    }
     public GetCurrentAccId()
     {
         if(localStorage.getItem('activeUserId'))

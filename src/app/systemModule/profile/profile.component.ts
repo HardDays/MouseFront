@@ -468,6 +468,9 @@ ngOnInit(){
                 }
             );
         }
+        else{
+            this.baseImageMy = '';
+        }
     
     }
 

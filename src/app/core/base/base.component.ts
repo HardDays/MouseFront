@@ -40,7 +40,6 @@ export class BaseComponent{
     public accId:number = 0;
     public CurrentAccount:AccountGetModel = new AccountGetModel();
 
-    public MyLogo:string = '';
     public userCreated:boolean = false;
 
     public NewErrForUser:boolean = false;
@@ -100,7 +99,7 @@ export class BaseComponent{
                 {
                     this.CurrentAccount = val;
                     this.accId = this.CurrentAccount.id;
-                    this.GetMyLogo();
+                  
                 }
             );
         
@@ -170,24 +169,7 @@ export class BaseComponent{
         return this.accId ? this.accId : (this.CurrentAccount.id?this.CurrentAccount.id:+this.main.GetCurrentAccId());
     }
 
-    GetMyLogo()
-    {
-        if(this.CurrentAccount && this.CurrentAccount.image_id)
-        {
-            this.WaitBeforeLoading(
-                () => this.main.imagesService.GetImageById(this.CurrentAccount.image_id),
-                (res:Base64ImageModel) => {
-                    this.MyLogo = res.base64 ? res.base64 : BaseImages.NoneUserImage
-                },
-                (err) => {
-                    this.MyLogo = BaseImages.NoneUserImage;
-                }
-            );
-        }
-        else{
-            this.MyLogo = BaseImages.NoneUserImage;
-        }
-    }
+    
 
     
 
