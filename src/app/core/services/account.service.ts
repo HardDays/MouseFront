@@ -84,6 +84,16 @@ export class AccountService{
         return result;
     }
 
+    AccountGetModelToCreateAccountModel(input:AccountGetModel){
+        let result = new AccountCreateModel();
+        for (let key in input) {
+            if (input.hasOwnProperty(key)) {
+                result[key] = input[key];
+            }
+        }
+        return result;
+    }
+
     DefaultCheck(val:any)
     {
         return val?val:null;

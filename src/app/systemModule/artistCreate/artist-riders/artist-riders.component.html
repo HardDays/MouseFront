@@ -1,0 +1,288 @@
+
+
+                <div class="main-mw">
+                    <div class="create-event-body">
+                        <div class="head-ev-body">
+                            <h2>Riders</h2>
+                            <p>Please fill in all required fields<br>to proceed to the Next Step</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-mw-7">
+                    <div class="riders-flex-wrapp">
+                        <div class="side">
+
+                                <p class="head-side-riders">Stage Rider</p>
+                                <p class="desc-riders">Type or Upload your requirements for the Stage (Stage, Audio, Video, Lighting)</p>
+                                <div  class="download-upload">
+                                    <!--до загрузки файла-->
+                                    
+                                    <ng-container *ngIf="!stageRider.uploaded_file_base64&&!stageRider.id" >
+                                        <!-- <div class="side-dwn">
+                                            <a class="dd-ff">
+                                                <img src="../../assets/img/download.png" class="img-responsive" alt="">
+                                            </a>
+                                            <p class="desc-side-dwn">Press to Downlod Template</p>
+                                        </div> -->
+                                        <div class="side-dwn">
+                                            <div class="photo-wr-1 on-riders">
+                                                <label class="file_upload">
+                                                    <div class="bg-image"></div>
+
+                                                    <input  (change)="loadRiderFile($event)"  type="file">
+                                                </label>
+                                            </div>
+                                            <p class="desc-side-dwn">Press to Upload filled Template</p>
+                                        </div>
+                                    </ng-container>
+                                    <!--после загрузки файла-->
+                                    <div  *ngIf="stageRider.uploaded_file_base64 || stageRider.id" class="side-dwn">
+                                        <div class="file-uploaded">
+                                            <div class="delete-file" (click)="stageRider.uploaded_file_base64=''; stageRider.id=''"></div>    
+                                        </div>
+                                        <p class="desc-side-dwn">File uploded</p>
+                                    </div>
+                                    <!--//после загрузки файла-->
+                                    
+                                </div>
+                                <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">
+                                    <textarea maxlength="2000"  [(ngModel)]="stageRider.description" id="textarea-rider-1"></textarea>
+                                    <label for="textarea-rider-1" class="head-groupe">Description</label>
+                                    <span class="max-count">2000 max</span>
+                                </div>
+                                <div  class="flex-mac-checkbox direction-column on-add-artist-page">
+                                    <p class="quetion-radio-text">How flexible are you for your preferences?</p>
+                                    <div class="flex-radio">
+                                        <div class="one-radio">
+                                            <div class="radio-style">
+                                                <input [(ngModel)]="stageRider.is_flexible" type="radio" class="radio-b" id="radio-555" [value]="true" name="grope-rider-1" checked="">
+                                                <label for="radio-555"></label>
+                                            </div>
+                                            <p>Flexible</p>
+                                        </div>
+                                        <div class="one-radio">
+                                            <div class="radio-style">
+                                                <input type="radio" [(ngModel)]="stageRider.is_flexible" class="radio-b" id="radio-555-2" [value]="false"  name="grope-rider-1">
+                                                <label for="radio-555-2"></label>
+                                            </div>
+                                            <p>Not Flexible</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--походу эта кнопка когдато появлятся должна-->
+                                <div class="butt-wrapp-grad">
+                                    <button (click)="confirmStageRider()" class="butt-style-1 thot-butt" type="submit">
+                                        <span>confirm</span>
+                                    </button>   
+                                </div>
+                                <!--//походу эта кнопка когдато появлятся должна-->
+                        
+                        </div>
+                        <div class="side">
+                            <p class="head-side-riders">Backstage Rider</p>
+                            <p class="desc-riders">Type or Upload your requirements for the Backstage (Dressing Room/Makeup Room/Bathroom)</p>
+
+                            <div class="download-upload">
+                                <!--до загрузки файла-->
+                            
+                                <ng-container *ngIf="!backstageRider.uploaded_file_base64&&!backstageRider.id" >
+                                    <!-- <div class="side-dwn">
+                                        <a class="dd-ff">
+                                            <img src="../../assets/img/download.png" class="img-responsive" alt="">
+                                        </a>
+                                        <p class="desc-side-dwn">Press to Downlod Template</p>
+                                    </div> -->
+                                    <div class="side-dwn">
+                                        <div class="photo-wr-1 on-riders">
+                                            <label class="file_upload">
+                                                <div class="bg-image"></div>
+
+                                                <input  (change)="loadBackstageRiderFile($event)"  type="file">
+                                            </label>
+                                        </div>
+                                        <p class="desc-side-dwn">Press to Upload filled Template</p>
+                                    </div>
+                                </ng-container>
+                                <!--после загрузки файла-->
+                                <div  *ngIf="backstageRider.uploaded_file_base64||backstageRider.id" class="side-dwn">
+                                    <div class="file-uploaded">
+                                        <div class="delete-file" (click)="backstageRider.uploaded_file_base64=''; backstageRider.id=''"></div>    
+                                    </div>
+                                    <p class="desc-side-dwn">File uploded</p>
+                                </div>
+                                <!--//после загрузки файла-->
+                                
+                            </div>
+                            <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">
+                                <textarea maxlength="2000"  [(ngModel)]="backstageRider.description" id="textarea-rider-2"></textarea>
+                                <label for="textarea-rider-2" class="head-groupe">Description</label>
+                                <span class="max-count">2000 max</span>
+                            </div>
+                            <div class="flex-mac-checkbox direction-column on-add-artist-page">
+                                <p class="quetion-radio-text">How flexible are you for your preferences?</p>
+                                <div  class="flex-radio">
+                                    <div class="one-radio">
+                                        <div class="radio-style">
+                                            <input [(ngModel)]="backstageRider.is_flexible" type="radio" class="radio-b" [value]="true" id="radio-556" name="grope-rider-2" checked="">
+                                            <label for="radio-556"></label>
+                                        </div>
+                                        <p>Flexible</p>
+                                    </div>
+                                    <div class="one-radio">
+                                        <div class="radio-style">
+                                            <input [(ngModel)]="backstageRider.is_flexible" type="radio" class="radio-b" id="radio-556-2" [value]="false" name="grope-rider-2">
+                                            <label for="radio-556-2"></label>
+                                        </div>
+                                        <p>Not Flexible</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--походу эта кнопка когдато появлятся должна-->
+                            <div class="butt-wrapp-grad">
+                                <button (click)="confirmBackstageRider()" class="butt-style-1 thot-butt" type="submit">
+                                    <span>confirm</span>
+                                </button>   
+                            </div>
+                            <!--//походу эта кнопка когдато появлятся должна-->
+                        </div>
+                        <div class="side">
+                            <p class="head-side-riders">Hospitality Rider</p>
+                            <p class="desc-riders">Type or Upload your preference for Hospitality (Food and Drinks)</p>
+                            <div class="download-upload">
+                                <!--до загрузки файла-->
+                                <ng-container *ngIf="!hospitalityRider.uploaded_file_base64&&!hospitalityRider.id" >
+                                    <!-- <div class="side-dwn">
+                                        <a class="dd-ff">
+                                            <img src="../../assets/img/download.png" class="img-responsive" alt="">
+                                        </a>
+                                        <p class="desc-side-dwn">Press to Downlod Template</p>
+                                    </div> -->
+                                    <div class="side-dwn">
+                                        <div class="photo-wr-1 on-riders">
+                                            <label class="file_upload">
+                                                <div class="bg-image"></div>
+
+                                                <input  (change)="loadHospitalityRiderFile($event)"  type="file">
+                                            </label>
+                                        </div>
+                                        <p class="desc-side-dwn">Press to Upload filled Template</p>
+                                    </div>
+                                </ng-container>
+                                <!--после загрузки файла-->
+                                <div  *ngIf="hospitalityRider.uploaded_file_base64||hospitalityRider.id" class="side-dwn">
+                                    <div class="file-uploaded">
+                                        <div class="delete-file" (click)="hospitalityRider.uploaded_file_base64=''; hospitalityRider.id=''"></div>    
+                                    </div>
+                                    <p class="desc-side-dwn">File uploded</p>
+                                </div>
+                                <!--//после загрузки файла-->
+                                
+                            </div>
+                            <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">
+                                <textarea maxlength="2000" [(ngModel)]="hospitalityRider.description" id="textarea-rider-3"></textarea>
+                                <label for="textarea-rider-3" class="head-groupe">Description</label>
+                                <span class="max-count">2000 max</span>
+                            </div>
+                            <div class="flex-mac-checkbox direction-column on-add-artist-page">
+                                <p class="quetion-radio-text">How flexible are you for your preferences?</p>
+                                <div  class="flex-radio">
+                                    <div class="one-radio">
+                                        <div class="radio-style">
+                                            <input [(ngModel)]="hospitalityRider.is_flexible" type="radio" [value]="true" class="radio-b" id="radio-557" name="grope-rider-3" checked="">
+                                            <label for="radio-557"></label>
+                                        </div>
+                                        <p>Flexible</p>
+                                    </div>
+                                    <div class="one-radio">
+                                        <div class="radio-style">
+                                            <input [(ngModel)]="hospitalityRider.is_flexible" type="radio" [value]="false" class="radio-b" id="radio-557-2" name="grope-rider-3">
+                                            <label for="radio-557-2"></label>
+                                        </div>
+                                        <p>Not Flexible</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--походу эта кнопка когдато появлятся должна-->
+                            <div class="butt-wrapp-grad">
+                                <button (click)="confirmHospitalityRider()" class="butt-style-1 thot-butt" type="submit">
+                                    <span>confirm</span>
+                                </button>   
+                            </div>
+                            <!--//походу эта кнопка когдато появлятся должна-->
+                        </div>
+                        <div class="side">
+                            <p class="head-side-riders">Technical Rider</p>
+                            <p class="desc-riders">Type or Upload your requirements for Musical Instruments and Equipment</p>
+                            <div class="download-upload">
+                                <!--до загрузки файла-->
+                            
+                                <ng-container *ngIf="!technicalRider.uploaded_file_base64&&!technicalRider.id" >
+                                    <!-- <div class="side-dwn">
+                                        <a class="dd-ff">
+                                            <img src="../../assets/img/download.png" class="img-responsive" alt="">
+                                        </a>
+                                        <p class="desc-side-dwn">Press to Downlod Template</p>
+                                    </div> -->
+                                    <div class="side-dwn">
+                                        <div class="photo-wr-1 on-riders">
+                                            <label class="file_upload">
+                                                <div class="bg-image"></div>
+
+                                                <input  (change)="loadTechnicalRiderFile($event)"  type="file">
+                                            </label>
+                                        </div>
+                                        <p class="desc-side-dwn">Press to Upload filled Template</p>
+                                    </div>
+                                </ng-container>
+                                <!--после загрузки файла-->
+                                <div  *ngIf="technicalRider.uploaded_file_base64||technicalRider.id" class="side-dwn">
+                                    <div class="file-uploaded">
+                                        <div class="delete-file" (click)="technicalRider.uploaded_file_base64=''; technicalRider.id=''"></div>    
+                                    </div>
+                                    <p class="desc-side-dwn">File uploded</p>
+                                </div>
+                                <!--//после загрузки файла-->
+                                
+                            </div>
+                            <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">
+                                <textarea maxlength="2000" [(ngModel)]="technicalRider.description" id="textarea-rider-2"></textarea>
+                                <label for="textarea-rider-2" class="head-groupe">Description</label>
+                                <span class="max-count">2000 max</span>
+                            </div>
+                            <div class="flex-mac-checkbox direction-column on-add-artist-page">
+                                <p class="quetion-radio-text">How flexible are you for your preferences?</p>
+                                <div  class="flex-radio">
+                                    <div class="one-radio">
+                                        <div class="radio-style">
+                                            <input [(ngModel)]="technicalRider.is_flexible" type="radio" [value]="true" class="radio-b" id="radio-558" name="grope-rider-4" checked="">
+                                            <label for="radio-558"></label>
+                                        </div>
+                                        <p>Flexible</p>
+                                    </div>
+                                    <div class="one-radio">
+                                        <div class="radio-style">
+                                            <input [(ngModel)]="technicalRider.is_flexible" type="radio" [value]="false" class="radio-b" id="radio-558-2" name="grope-rider-4">
+                                            <label for="radio-558-2"></label>
+                                        </div>
+                                        <p>Not Flexible</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--походу эта кнопка когдато появлятся должна-->
+                            <div class="butt-wrapp-grad">
+                                <button (click)="confirmTechnicalRider()" class="butt-style-1 thot-butt" type="submit">
+                                    <span>confirm</span>
+                                </button>   
+                            </div>
+                            <!--//походу эта кнопка когдато появлятся должна-->
+                        </div>
+                        
+                        
+                        
+                    </div>
+                </div>
+                <!-- <div class="scroll-wrapp">
+                        <div [routerLink]="['/system','profile',artistId]" class="circle-scroll"></div>
+                </div> -->
+
+

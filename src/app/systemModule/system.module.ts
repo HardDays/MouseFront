@@ -50,6 +50,10 @@ import { EventsModule } from './events/events.module';
 import { ShowsModule } from './shows/shows.module';
 import { ErrorModule } from '../shared/error/error.module';
 import { PreloaderModule } from '../shared/preloader/preloader.module';
+import { ArtistAboutComponent } from './artistCreate/artist-about/artist-about.component';
+import { ArtistMediaComponent } from './artistCreate/artist-media/artist-media.component';
+import { ArtistBookingComponent } from './artistCreate/artist-booking/artist-booking.component';
+import { ArtistRidersComponent } from './artistCreate/artist-riders/artist-riders.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +70,14 @@ import { PreloaderModule } from '../shared/preloader/preloader.module';
     ByTicketComponent,
  
     ShowDetailVideoComponent,
+ 
+    ArtistAboutComponent,
+ 
+    ArtistMediaComponent,
+ 
+    ArtistBookingComponent,
+ 
+    ArtistRidersComponent,
 
   ],
   imports: [

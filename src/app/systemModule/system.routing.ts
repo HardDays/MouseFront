@@ -29,7 +29,6 @@ const routes: Routes =
       { path: 'events', component: EventsComponent, canActivate: [SystemAccessGuard] },
       { path: 'eventCreate/:id', component: EventCreateComponent, canActivate: [SystemAccessGuard] },
       { path: 'fanCreate/:id', component: FanCreateComponent, canActivate: [SystemAccessGuard] },
-      { path: 'artistCreate', component: ArtistCreateComponent, canActivate: [SystemAccessGuard] },
       { path: 'artistCreate/:id', component: ArtistCreateComponent, canActivate: [SystemAccessGuard] },
       { path: 'venueCreate/:id', component: VenueCreateComponent, canActivate: [SystemAccessGuard] },
       { path: 'feed', component: FeedComponent, canActivate: [SystemAccessGuard] },
