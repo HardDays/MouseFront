@@ -22,7 +22,7 @@ import { MapsAPILoader } from '@agm/core';
 import { EventService } from '../../core/services/event.service';
 import { Http } from '@angular/http';
 import { MainService } from '../../core/services/main.service';
-
+import { PreloaderComponent } from '../../shared/preloader/preloader.component'
 
 declare var $:any;
 
@@ -56,7 +56,7 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
 
   typeUser:string;
 
-  currentPage:string = 'phone';
+  currentPage:string = 'follow';
 
   phone:string;
   isShowPhone:boolean = true;

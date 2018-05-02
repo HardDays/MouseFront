@@ -1,8 +1,11 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ViewChild } from '@angular/core';
 import { UserCreateModel } from '../../../core/models/userCreate.model';
 import { UserGetModel } from '../../../core/models/userGet.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BaseComponent } from '../../../core/base/base.component';
+import { ErrorComponent } from '../../../shared/error/error.component';
+import { BaseMessages } from '../../../core/base/base.enum';
+import { TokenModel } from '../../../core/models/token.model';
 
 @Component({
   selector: 'app-register-user',
@@ -30,6 +33,8 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
   @Input('phoneInput') phone: string;
   @Input() isShowPhone: boolean = true;
 
+  @ViewChild('errorCmp') errorCmp: ErrorComponent;
+  
   registerUser(){
 
     let isNew = true;
@@ -55,28 +60,33 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
       }
 
       if(!this.createUser.email||!this.createUser.password)
-        this.Error = 'Entry fields email and password!';
+        this.errorCmp.OpenWindow('Entry fields email and password!'); 
       else if (this.createUser.password.length<6)
-        this.Error = 'Short password!';
+        this.errorCmp.OpenWindow('Short password!'); 
       else if (this.createUser.password!=this.createUser.password_confirmation)
-        this.Error = 'Passwords not confirm!';
+        this.errorCmp.OpenWindow('Passwords not confirm!');  
       else if (this.createUser.email.search('@')<=0)
-        this.Error = 'Uncorrect email!';
+        this.errorCmp.OpenWindow('Uncorrect email!'); 
       else {
-      //console.log(this.createUser);
-        this.CreateUser(this.createUser, ()=>{
-                                          this.isFirstOpen = false;
-                                          this.backUser.emit(this.type)
-                                          }, (err)=>{
-                                            //console.log(err);
-                                            this.Error = err._body;
-                                            
-                                          });
+     
+      this.WaitBeforeLoading(
+          ()=>this.main.authService.CreateUser(this.createUser),
+          (res:UserGetModel) => {
+              this.main.authService.BaseInitAfterLogin(new TokenModel(res.token));
+              this.userCreated = true;
+              this.main.authService.onAuthChange$.next(true);
+              this.backUser.emit(this.type);
+          },
+          (err) => {
+              this.Error = err._body;
+              this.errorCmp.OpenWindow(BaseMessages.Fail);
+              this.main.authService.onAuthChange$.next(false);
+          }
+        );
       }
     }
      else{
-       //console.log(`INVALID`);
-       this.Error = 'Uncorrect inputs!';
+       this.errorCmp.OpenWindow('Uncorrect inputs!'); 
      }
   }
 

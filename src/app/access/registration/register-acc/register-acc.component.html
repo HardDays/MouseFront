@@ -6,7 +6,8 @@
               </svg>
               <span>BAck</span>
           </a>
-          <div class="m-v-reg">
+          <app-preloader [white]="true" *ngIf="isLoading"></app-preloader>
+          <div [ngStyle]="{'display':isLoading?'none':'block'}" class="m-v-reg">
               <form [formGroup]="accForm" class="reg-wr">
                   <h3>General info</h3>
                   <div class="for-flex">
@@ -76,3 +77,5 @@
             </div>
         </div>
     </div>
+
+    <error-cmp #errorCmp></error-cmp>

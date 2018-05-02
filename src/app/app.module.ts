@@ -31,6 +31,9 @@ import { RegisterFollowComponent } from './access/registration/register-follow/r
 import { RegisterPhoneComponent } from './access/registration/register-phone/register-phone.component';
 import { PhoneService } from './core/services/phone.service';
 import { MainService } from './core/services/main.service';
+import { PreloaderModule } from './shared/preloader/preloader.module';
+import { ErrorModule } from './shared/error/error.module';
+
 
 
 let providers = {
@@ -66,7 +69,9 @@ let providers = {
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",
       libraries: ["places"]
-    })
+    }),
+    PreloaderModule,
+    ErrorModule
   ],
   providers: [
     AppAccessGuard, 

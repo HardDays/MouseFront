@@ -557,21 +557,36 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
   updateVideosPreview(){
     //console.log(`update VIDEO Images`);
     for(let video of this.createArtist.artist_videos){
-      var video_id = video.link.split('v=')[1];
-      var ampersandPosition = video_id.indexOf('&');
-      if(ampersandPosition != -1) {
-        video_id = video_id.substring(0, ampersandPosition);
-      }
+      let video_id ='';
+
+      if(video.link.indexOf('youtube'))
+        video_id = video.link.split('v=')[1];
+      if(video.link.indexOf('youtu.be'))
+        video_id = video.link.split('be/')[1];
+      
+      // var ampersandPosition = video_id.indexOf('&');
+      // if(ampersandPosition != -1) {
+      //   video_id = video_id.substring(0, ampersandPosition);
+      // }
+      console.log(video,`id`,video_id);
+
       video.preview = 'https://img.youtube.com/vi/'+video_id+'/0.jpg';
     }
   }
-  openVideo(video:Video){
-    var video_id = video.link.split('v=')[1];
-      var ampersandPosition = video_id.indexOf('&');
-      if(ampersandPosition != -1) {
-        video_id = video_id.substring(0, ampersandPosition);
-      }
 
+  openVideo(video:Video){
+    let video_id ='';
+    if(video.link.indexOf('youtube'))
+      video_id = video.link.split('v=')[1];
+    if(video.link.indexOf('youtu.be'))
+      video_id = video.link.split('.be/')[1];
+
+    // var ampersandPosition = video_id.indexOf('&');
+    // if(ampersandPosition != -1) {
+    //   video_id = video_id.substring(0, ampersandPosition);
+    
+    console.log(video,`id`,video_id);
+    
     this.openVideoLink = this._sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+video_id+'?rel=0'); 
     setTimeout(()=>{$('#modal-movie').modal('show');},100);
  
@@ -608,7 +623,7 @@ DeleteImageFromLoading()
 AddVenuePhoto()
 {
   // console.log(`image`,this.ImageToLoad)
-  this.main.imagesService.PostAccountImage(this.Artist.id,{image_base64:this.ImageToLoad,image_description: this.imageInfo})
+  this.main.imagesService.PostAccountImage(this.CurrentAccount.id,{image_base64:this.ImageToLoad,image_description: this.imageInfo})
     .subscribe(
       (res:any) => {
         this.ImageToLoad = '';

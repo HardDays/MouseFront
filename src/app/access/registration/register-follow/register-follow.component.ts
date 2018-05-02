@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../../../core/base/base.component';
 import { AccountGetModel } from '../../../core/models/accountGet.model';
 import { GenreModel } from '../../../core/models/genres.model';
+import { BaseImages } from '../../../core/base/base.enum';
 
 declare var $:any;
 
@@ -47,21 +48,20 @@ export class RegisterFollowComponent extends BaseComponent implements OnInit {
 
   
   getArtists(){
-   
-    this.main.accService.AccountsSearch({text:this.text, limit:20}).
-      subscribe((res:AccountGetModel[])=>{
+    this.WaitBeforeLoading(
+      ()=>this.main.accService.AccountsSearch({text:this.text, limit:20}),
+      (res:AccountGetModel[])=>{
         this.artists = res;
-        for(let artist of this.artists)
-        if(artist.image_id)
-          this.main.imagesService.GetImageById(artist.image_id)
-            .subscribe((img)=>{
-              // console.log(img);
-              artist.image_base64_not_given = img.base64;
-            });
-        else artist.image_base64_not_given = '../../../assets/img/layer-7.jpg';
+        for(let artist of this.artists){
+          if(artist.image_id)
+            this.main.imagesService.GetImageById(artist.image_id)
+              .subscribe((img)=>{
+                console.log(img);
+                artist.image_base64_not_given = img.base64;
+              });
+          else artist.image_base64_not_given = BaseImages.NoneUserImage;
+        }
       });
-
-
   }
 
   followArtists(){
@@ -72,8 +72,12 @@ export class RegisterFollowComponent extends BaseComponent implements OnInit {
              
     let id:number = +localStorage.getItem('activeUserId');
     for(let follow of this.followsId){
-        this.main.accService.AccountFollow(id,follow).subscribe(()=>{
-        });
+      this.WaitBeforeLoading(
+        ()=>this.main.accService.AccountFollow(id,follow),
+        (res)=>{
+          
+        }
+    )
     }
     
     this.router.navigate(['/system','shows']);
