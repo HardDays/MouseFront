@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
 import { NgForm} from '@angular/forms';
 import { AuthMainService } from '../../core/services/auth.service';
 import { AccountService } from '../../core/services/account.service';
@@ -39,7 +39,7 @@ declare var PhotoSwipe:any;
     templateUrl: './showsDetail.component.html',
     styleUrls: ['./showsDetail.component.css'],
 })
-export class ShowsDetailComponent extends BaseComponent implements OnInit {
+export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterViewChecked {
     EventId:number = 0;
     Event:EventGetModel = new EventGetModel();
     Creator:AccountGetModel = new AccountGetModel();
@@ -55,21 +55,20 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
     Genres:GenreModel[] = [];
 
     Featuring:string = '';
-    
-    @ViewChild('errorCmp') errorCmp: ErrorComponent;
 
-    constructor
-    (           
-        protected main         : MainService,
-        protected _sanitizer   : DomSanitizer,
-        protected router       : Router,
+    constructor(
+        protected main           : MainService,
+        protected _sanitizer     : DomSanitizer,
+        protected router         : Router,
         protected mapsAPILoader  : MapsAPILoader,
         protected ngZone         : NgZone,
-        private activatedRoute : ActivatedRoute
-    ){
-        super(main,_sanitizer,router,mapsAPILoader,ngZone);
-    } 
-
+        protected activatedRoute : ActivatedRoute,
+        protected cdRef          : ChangeDetectorRef
+    ) {
+    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
+    }
+    
+    @ViewChild('errorCmp') errorCmp: ErrorComponent;
 
     ngOnInit(): void 
     {
@@ -77,6 +76,11 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit {
             this.EventId = params["id"];
             this.GetEventInfo();
         });
+    }
+
+    ngAfterViewChecked()
+    {
+        this.cdRef.detectChanges();
     }
 
 

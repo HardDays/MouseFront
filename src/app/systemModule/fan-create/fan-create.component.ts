@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild, ElementRef, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
 import { BaseComponent } from '../../core/base/base.component';
 import { GenreModel } from '../../core/models/genres.model';
 import { AccountCreateModel } from '../../core/models/accountCreate.model';
@@ -27,9 +27,7 @@ declare var $:any;
   templateUrl: './fan-create.component.html',
   styleUrls: ['./fan-create.component.css']
 })
-export class FanCreateComponent extends BaseComponent implements OnInit {
-
-
+export class FanCreateComponent extends BaseComponent implements OnInit,AfterViewChecked {
   Fun:AccountCreateModel = new AccountCreateModel();
   FunId:number = 0;
   search:string = '';
@@ -43,16 +41,22 @@ export class FanCreateComponent extends BaseComponent implements OnInit {
   @ViewChild('errorCmp') errorCmp: ErrorComponent;
   @ViewChild('submitFormFun') form: NgForm;
   @ViewChild('search') public searchElement: ElementRef;
-  constructor
-  (           
-      protected main         : MainService,
-      protected _sanitizer   : DomSanitizer,
-      protected router       : Router,
-      protected mapsAPILoader  : MapsAPILoader,
-      protected ngZone         : NgZone,
-      private activatedRoute : ActivatedRoute
-  ){
-      super(main,_sanitizer,router,mapsAPILoader,ngZone);
+  
+  constructor(
+    protected main           : MainService,
+    protected _sanitizer     : DomSanitizer,
+    protected router         : Router,
+    protected mapsAPILoader  : MapsAPILoader,
+    protected ngZone         : NgZone,
+    protected activatedRoute : ActivatedRoute,
+    protected cdRef          : ChangeDetectorRef
+  ) {
+    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
+  }
+
+  ngAfterViewChecked()
+  {
+      this.cdRef.detectChanges();
   }
 
   ngOnInit() 

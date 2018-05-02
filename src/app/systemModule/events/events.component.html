@@ -1,143 +1,144 @@
-<section class="main-router-outlet">
-<div class="nav-holder-3" id="nav-holder" [ngClass]="{padding250:Events.length<=3}">
-    <div class="wrapp-for-filter">
-        <search-event-selector #search (mapClicked)="OpenMap($event)" (onSearch)="GetEvents($event)"></search-event-selector>
-    </div>
-</div>
-
-
-<section class="second-router-outlet">
-    <div class="mask-nav-3"></div>
-    
-    <div class="shows-main-wrapp mainWrapper grey-bg">
-        <div class="main-mw">
-            <div class="head-shows">
-                <button class="ham-ham nav-button">
-                    <div class="ham"></div>
-                    <div class="ham"></div>
-                    <div class="ham"></div>
-                </button>
-                <!-- <a [routerLink]="['/system','events']" class="ham-ham at-map">
-                </a> -->
-                <h1>Events</h1>
-                <span [routerLink]="['/system','eventCreate','new']" class="add-event-butt"><span>Add Event</span></span>
-            </div>
+<app-preloader *ngIf="isLoading"></app-preloader>
+<section class="main-router-outlet"  [ngStyle]="{'display': isLoading?'none':'block'}">
+    <div class="nav-holder-3" id="nav-holder" [ngClass]="{padding250:Events.length<=3}">
+        <div class="wrapp-for-filter">
+            <search-event-selector #search (mapClicked)="OpenMap($event)" (onSearch)="GetEvents($event)"></search-event-selector>
         </div>
-        <div class="main-mw-6">
-            <div class="for-flex-all-events">
-                <div *ngFor="let item of Events" class="one-event-wr" (click)="router.navigate(['/system','eventCreate',item.id])">
-                    <my-event-selector [Event]="item"></my-event-selector>
+    </div>
+
+
+    <section class="second-router-outlet">
+        <div class="mask-nav-3"></div>
+        
+        <div class="shows-main-wrapp mainWrapper grey-bg">
+            <div class="main-mw">
+                <div class="head-shows">
+                    <button class="ham-ham nav-button">
+                        <div class="ham"></div>
+                        <div class="ham"></div>
+                        <div class="ham"></div>
+                    </button>
+                    <!-- <a [routerLink]="['/system','events']" class="ham-ham at-map">
+                    </a> -->
+                    <h1>Events</h1>
+                    <span *ngIf="isLoggedIn" [routerLink]="['/system','eventCreate','new']" class="add-event-butt"><span>Add Event</span></span>
+                </div>
+            </div>
+            <div class="main-mw-6">
+                <div class="for-flex-all-events">
+                    <div *ngFor="let item of Events" class="one-event-wr" (click)="router.navigate(['/system','eventCreate',item.id])">
+                        <my-event-selector [Event]="item"></my-event-selector>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <!--модалка для кликов на Analytics-->
-    <div class="modal fade modal-send-request analytics" id="modal-analytics">
-        <div class="modal-dialog">
-            <div class="modal-body">
-               
-                <h6 class="head-m-p-a"><span>MOUSE ANALYTICS</span></h6>
+        
+        <!--модалка для кликов на Analytics-->
+        <div class="modal fade modal-send-request analytics" id="modal-analytics">
+            <div class="modal-dialog">
+                <div class="modal-body">
                 
-                <span class="closee-modal" data-dismiss="modal"></span>
-                
-                <div class="bg-analytics-cover" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                <div class="all-info-by-event">
-                    <div class="top-side">
-                        <p class="f-t-i">Event Details</p>
-                        <p class="when">November 30, 2017</p>
-                        <p class="where">Madison Square Garden, NY</p>
-                        <div class="funded-bar">
-                            <div class="funded" style="width: 50%"></div>
+                    <h6 class="head-m-p-a"><span>MOUSE ANALYTICS</span></h6>
+                    
+                    <span class="closee-modal" data-dismiss="modal"></span>
+                    
+                    <div class="bg-analytics-cover" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                    <div class="all-info-by-event">
+                        <div class="top-side">
+                            <p class="f-t-i">Event Details</p>
+                            <p class="when">November 30, 2017</p>
+                            <p class="where">Madison Square Garden, NY</p>
+                            <div class="funded-bar">
+                                <div class="funded" style="width: 50%"></div>
+                            </div>
+                            <div class="funded-desc">
+                                <p class="count">$34 000 (68%)</p>
+                                <div class="marg">
+                                    <p class="style-text-2"><span>12</span><br>Days to go</p>
+                                    <p class="style-text-2"><span>2345</span><br>Backers</p>
+                                </div>
+                            </div>
+                            <p class="goal">Goal: <span>$50 000</span></p>
                         </div>
-                        <div class="funded-desc">
-                            <p class="count">$34 000 (68%)</p>
-                            <div class="marg">
-                                <p class="style-text-2"><span>12</span><br>Days to go</p>
-                                <p class="style-text-2"><span>2345</span><br>Backers</p>
+                        <div class="bottom-side">
+                            <p class="f-t-i">Totals</p>
+                            <div class="flex-info-bottom-side">
+                                <p>Purchased Tickets</p>
+                                <p class="count">2345</p>
+                            </div>
+                            <div class="flex-info-bottom-side">
+                                <p>In Person Tickets</p>
+                                <p class="count">2345</p>
+                            </div>
+                            <div class="flex-info-bottom-side">
+                                <p>VR Tickets</p>
+                                <p class="count">2345</p>
+                            </div>
+                            <div class="flex-info-bottom-side">
+                                <p>Views</p>
+                                <p class="count">2345</p>
+                            </div>
+                            <div class="flex-info-bottom-side">
+                                <p>Clicks</p>
+                                <p class="count">2345</p>
+                            </div>
+                            <div class="flex-info-bottom-side">
+                                <p>Percentage Sold</p>
+                                <p class="count">2345</p>
+                            </div>
+                            <div class="flex-info-bottom-side">
+                                <p>Comments <span class="show-t">(show)</span></p>
+                                <p class="count redd">2345</p>
+                            </div>
+                            <div class="flex-info-bottom-side">
+                                <p>Likes <span class="show-t">(show)</span></p>
+                                <p class="count redd">2345</p>
+                            </div>
+                            <div class="print-wr">
+                                <button class="butt-style-1">
+                                    <span>Print</span>
+                                </button>
                             </div>
                         </div>
-                        <p class="goal">Goal: <span>$50 000</span></p>
-                    </div>
-                    <div class="bottom-side">
-                        <p class="f-t-i">Totals</p>
-                        <div class="flex-info-bottom-side">
-                            <p>Purchased Tickets</p>
-                            <p class="count">2345</p>
-                        </div>
-                        <div class="flex-info-bottom-side">
-                            <p>In Person Tickets</p>
-                            <p class="count">2345</p>
-                        </div>
-                        <div class="flex-info-bottom-side">
-                            <p>VR Tickets</p>
-                            <p class="count">2345</p>
-                        </div>
-                        <div class="flex-info-bottom-side">
-                            <p>Views</p>
-                            <p class="count">2345</p>
-                        </div>
-                        <div class="flex-info-bottom-side">
-                            <p>Clicks</p>
-                            <p class="count">2345</p>
-                        </div>
-                        <div class="flex-info-bottom-side">
-                            <p>Percentage Sold</p>
-                            <p class="count">2345</p>
-                        </div>
-                        <div class="flex-info-bottom-side">
-                            <p>Comments <span class="show-t">(show)</span></p>
-                            <p class="count redd">2345</p>
-                        </div>
-                        <div class="flex-info-bottom-side">
-                            <p>Likes <span class="show-t">(show)</span></p>
-                            <p class="count redd">2345</p>
-                        </div>
-                        <div class="print-wr">
-                            <button class="butt-style-1">
-                                <span>Print</span>
-                            </button>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-</section>
-<div class="modal fade modal-slider" id="modal-slider">
-    <div class="modal-dialog">
-        <div class="modal-body">
-            <div class="rel-modal">
-                <div class="close-modal" data-dismiss="modal"></div>
-                <div class="slider-padd">
-                    <div class="slider-modal-wr">
-                        <div class="one-slide">
-                            <h4><span>Share</span> shows you like <span>with friends</span></h4>
-                        </div>
-                        <div class="one-slide">
-                            <h4>Watch shows in <span>360°</span> virtual reality devices</h4>
-                        </div>
-                        <div class="one-slide">
-                            <h4>Crowdfund <span>shows</span> of your favorite artists <span>in your hometown</span></h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-buttons-modal">
-                    <div class="one-butt-wr">
-                        <div class="style-b-op">
-                            <span data-dismiss="modal">Sign up later</span>
+    </section>
+    <div class="modal fade modal-slider" id="modal-slider">
+        <div class="modal-dialog">
+            <div class="modal-body">
+                <div class="rel-modal">
+                    <div class="close-modal" data-dismiss="modal"></div>
+                    <div class="slider-padd">
+                        <div class="slider-modal-wr">
+                            <div class="one-slide">
+                                <h4><span>Share</span> shows you like <span>with friends</span></h4>
+                            </div>
+                            <div class="one-slide">
+                                <h4>Watch shows in <span>360°</span> virtual reality devices</h4>
+                            </div>
+                            <div class="one-slide">
+                                <h4>Crowdfund <span>shows</span> of your favorite artists <span>in your hometown</span></h4>
+                            </div>
                         </div>
                     </div>
-                    <div class="one-butt-wr">
-                        <div class="style-b-op">
-                            <a [routerLink]="['/register']">Sign up</a>
+                    <div class="flex-buttons-modal">
+                        <div class="one-butt-wr">
+                            <div class="style-b-op">
+                                <span data-dismiss="modal">Sign up later</span>
+                            </div>
+                        </div>
+                        <div class="one-butt-wr">
+                            <div class="style-b-op">
+                                <a [routerLink]="['/register']">Sign up</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<map-event-selector #mapForm (onMapClicked)="TransferMapToSearch($event)"></map-event-selector>
+    <map-event-selector #mapForm (onMapClicked)="TransferMapToSearch($event)"></map-event-selector>
 </section>

@@ -1,9 +1,9 @@
-import { Component, ViewChild, ElementRef, NgZone, Input, ViewContainerRef, ComponentFactory, OnChanges } from '@angular/core';
+import { Component, ViewChild, ElementRef, NgZone, Input, ViewContainerRef, ComponentFactory, OnChanges, ChangeDetectorRef } from '@angular/core';
 import { NgForm,FormControl,FormGroup,Validators, FormArray} from '@angular/forms';
 import { AuthMainService } from '../../core/services/auth.service';
 
 import { BaseComponent } from '../../core/base/base.component';
-import { OnInit, SimpleChanges } from '@angular/core/src/metadata/lifecycle_hooks';
+import { OnInit, SimpleChanges, AfterViewChecked } from '@angular/core/src/metadata/lifecycle_hooks';
 
 import { SelectModel } from '../../core/models/select.model';
 import { FrontWorkingTimeModel } from '../../core/models/frontWorkingTime.model';
@@ -68,7 +68,7 @@ declare var ionRangeSlider:any;
 
 
 
-export class VenueCreateComponent extends BaseComponent implements OnInit
+export class VenueCreateComponent extends BaseComponent implements OnInit,AfterViewChecked
 {
   
   Parts = PageParts;
@@ -87,18 +87,19 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
 
   @ViewChild('errorCmp') errorCmp: ErrorComponent;
   
-  constructor
-  (           
-    protected main          : MainService,
-    protected _sanitizer    : DomSanitizer,
-    protected router        : Router,
-    protected mapsAPILoader : MapsAPILoader,
-    protected ngZone        : NgZone,
-    private activatedRoute  : ActivatedRoute
-  ){
-    super(main,_sanitizer,router,mapsAPILoader,ngZone);
-  } 
 
+  constructor(
+    protected main           : MainService,
+    protected _sanitizer     : DomSanitizer,
+    protected router         : Router,
+    protected mapsAPILoader  : MapsAPILoader,
+    protected ngZone         : NgZone,
+    protected activatedRoute : ActivatedRoute,
+    protected cdRef          : ChangeDetectorRef
+  ) {
+    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
+  }
+  
   ngOnInit()
   {
     
@@ -119,6 +120,11 @@ export class VenueCreateComponent extends BaseComponent implements OnInit
         }
       }
     );
+  }
+
+  ngAfterViewChecked()
+  {
+      this.cdRef.detectChanges();
   }
 
   DisplayVenueParams($venue?:AccountGetModel)

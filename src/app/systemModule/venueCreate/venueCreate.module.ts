@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ErrorModule } from '../../shared/error/error.module';
+import { PreloaderModule } from '../../shared/preloader/preloader.module';
 
 @NgModule({
     imports: [ 
@@ -20,7 +21,8 @@ import { ErrorModule } from '../../shared/error/error.module';
         FormsModule,
         ReactiveFormsModule,
         TextMaskModule,
-        ErrorModule
+        ErrorModule,
+        PreloaderModule
     ],
     declarations: [ 
         VenueCreateComponent,

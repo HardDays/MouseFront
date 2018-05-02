@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, NgZone, Input, ViewContainerRef, ComponentFactory } from '@angular/core';
+import { Component, ViewChild, ElementRef, NgZone, Input, ViewContainerRef, ComponentFactory, ChangeDetectorRef } from '@angular/core';
 import { NgForm,FormControl,FormGroup,Validators, FormArray} from '@angular/forms';
 import { AuthMainService } from '../../core/services/auth.service';
 
@@ -72,151 +72,146 @@ declare var ionRangeSlider:any;
 export class EventCreateComponent extends BaseComponent implements OnInit {
     
     
-    Event:EventCreateModel = new EventCreateModel()
-    EventId:number = 0;
+  Event:EventCreateModel = new EventCreateModel()
+  EventId:number = 0;
 
-   
+  @ViewChild('about') about:AboutComponent;
+  @ViewChild('artist') artist:ArtistComponent;
+  @ViewChild('venue') venue:VenuesComponent;
+  @ViewChild('funding') funding:FundingComponent;
+  @ViewChild('tickets') tickets:AddTicketsComponent;
   
-    @ViewChild('about') about:AboutComponent;
-    @ViewChild('artist') artist:ArtistComponent;
-    @ViewChild('venue') venue:VenuesComponent;
-    @ViewChild('funding') funding:FundingComponent;
-    @ViewChild('tickets') tickets:AddTicketsComponent;
-    
-    @ViewChild('errorCmp') errorCmp: ErrorComponent;
+  @ViewChild('errorCmp') errorCmp: ErrorComponent;
 
-    pages = Pages;
-    currentPage = this.pages.about;
+  pages = Pages;
+  currentPage = this.pages.about;
 
-
-    constructor
-    (           
-        protected main         : MainService,
-        protected _sanitizer   : DomSanitizer,
-        protected router       : Router,
-        protected mapsAPILoader  : MapsAPILoader,
-        protected ngZone         : NgZone,
-        private activatedRoute : ActivatedRoute
-    ){
-        super(main,_sanitizer,router,mapsAPILoader,ngZone);
-        
-        
-    }
-
-    ngOnInit()
-    {
-      this.activatedRoute.params.forEach(
-        (params) => {
-          if(params["id"] == 'new')
-          {
-            this.DisplayEventParams(null);
-          }
-          else
-          {
-            this.WaitBeforeLoading(
-              () => this.main.eventService.GetEventById(params["id"]),
-              (res:EventGetModel) => {
-                this.DisplayEventParams(res);
-              }, (err)=>{
-                this.errorCmp.OpenWindow(BaseMessages.Fail);
-              }
-            );
-          }
-        }
-      );
-    }
-  
-    DisplayEventParams($event?:EventGetModel)
-    {
-      this.Event = $event ? this.main.eventService.EventModelToCreateEventModel($event) : new EventCreateModel();
-      if($event&&$event.id)
-      {
-        this.EventId = $event.id;
-        
-        this.router.navigateByUrl("/system/eventCreate/"+this.EventId);
-      }
-
-         
-      if(this.about)
-        this.about.Init(this.Event);
-      if(this.artist)
-        this.artist.Init(this.Event);
-      if(this.venue)
-        this.venue.Init(this.Event);
-      if(this.funding)
-        this.funding.Init(this.Event);
-       if(this.tickets)
-         this.tickets.Init(this.Event);
-    }
-
-
-    SaveEvent(venue:EventCreateModel)
-    {
-      this.Event.account_id = this.CurrentAccount.id;
-      this.WaitBeforeLoading
-      (
-        () => this.EventId == 0 ? this.main.eventService.CreateEvent(this.Event) : this.main.eventService.UpdateEvent(this.EventId,this.Event),
-        (res) => {
-          this.DisplayEventParams(res);
-          this.NextPart();
-        },
-        (err) => {
-          //console.log(err);
-        }
-      )
-    }
-
-    saveButtonClick(){
-      //console.log(`saveButtonClick`,this.currentPage);
-      if(this.currentPage == this.pages.about)
-        this.about.SaveEvent();
-      else if(this.currentPage == this.pages.artist)
-        this.artist.artistComplete();
-      else if(this.currentPage == this.pages.venue)
-        this.venue.submitVenue();
-      else if(this.currentPage == this.pages.funding)
-        this.funding.comleteFunding();
-      else if(this.currentPage == this.pages.tickets)
-         this.tickets.updateEvent();
-         
-    
+  constructor(
+      protected main           : MainService,
+      protected _sanitizer     : DomSanitizer,
+      protected router         : Router,
+      protected mapsAPILoader  : MapsAPILoader,
+      protected ngZone         : NgZone,
+      protected activatedRoute : ActivatedRoute,
+      protected cdRef          : ChangeDetectorRef
+  ) {
+    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
   }
 
-    NextPart()
+  ngAfterViewChecked()
+  {
+      this.cdRef.detectChanges();
+  }
+
+  ngOnInit()
+  {
+    this.activatedRoute.params.forEach(
+      (params) => {
+        if(params["id"] == 'new')
+        {
+          this.DisplayEventParams(null);
+        }
+        else
+        {
+          this.WaitBeforeLoading(
+            () => this.main.eventService.GetEventById(params["id"]),
+            (res:EventGetModel) => {
+              this.DisplayEventParams(res);
+            }, (err)=>{
+              this.errorCmp.OpenWindow(BaseMessages.Fail);
+            }
+          );
+        }
+      }
+    );
+  }
+
+  DisplayEventParams($event?:EventGetModel)
+  {
+    this.Event = $event ? this.main.eventService.EventModelToCreateEventModel($event) : new EventCreateModel();
+    if($event&&$event.id)
     {
-      if(this.currentPage == this.pages.tickets)
-        this.router.navigate(["/system","shows_detail",this.EventId]);
+      this.EventId = $event.id;
+      
+      this.router.navigateByUrl("/system/eventCreate/"+this.EventId);
+    }
+
         
-      scrollTo(0,0);
-      this.currentPage = this.currentPage + 1;
-    }
+    if(this.about)
+      this.about.Init(this.Event);
+    if(this.artist)
+      this.artist.Init(this.Event);
+    if(this.venue)
+      this.venue.Init(this.Event);
+    if(this.funding)
+      this.funding.Init(this.Event);
+      if(this.tickets)
+        this.tickets.Init(this.Event);
+  }
+
+
+  SaveEvent(venue:EventCreateModel)
+  {
+    this.Event.account_id = this.CurrentAccount.id;
+    this.WaitBeforeLoading
+    (
+      () => this.EventId == 0 ? this.main.eventService.CreateEvent(this.Event) : this.main.eventService.UpdateEvent(this.EventId,this.Event),
+      (res) => {
+        this.DisplayEventParams(res);
+        this.NextPart();
+      },
+      (err) => {
+        //console.log(err);
+      }
+    )
+  }
+
+  saveButtonClick(){
+    //console.log(`saveButtonClick`,this.currentPage);
+    if(this.currentPage == this.pages.about)
+      this.about.SaveEvent();
+    else if(this.currentPage == this.pages.artist)
+      this.artist.artistComplete();
+    else if(this.currentPage == this.pages.venue)
+      this.venue.submitVenue();
+    else if(this.currentPage == this.pages.funding)
+      this.funding.comleteFunding();
+    else if(this.currentPage == this.pages.tickets)
+        this.tickets.updateEvent();
+  }
+
+  NextPart()
+  {
+    if(this.currentPage == this.pages.tickets)
+      this.router.navigate(["/system","shows_detail",this.EventId]);
+      
+    scrollTo(0,0);
+    this.currentPage = this.currentPage + 1;
+  }
     
-    ChangeCurrentPart(newPart)
-    {
-      if(this.EventId == 0 && newPart > this.pages.about)
-        return;
-  
-      if(this.currentPage == newPart)
-        return;
-  
-      this.currentPage = newPart;
-    }
+  ChangeCurrentPart(newPart)
+  {
+    if(this.EventId == 0 && newPart > this.pages.about)
+      return;
 
-    activeButtonClick(){
-      this.main.eventService.SetActive(this.EventId,this.main.CurrentAccount.id).
-        subscribe((res)=>{
-          //console.log(res);
-          this.Event.is_active = true;
-        })  
-    }
+    if(this.currentPage == newPart)
+      return;
 
-    OpenErrorWindow(str:string)
-    {
-      this.errorCmp.OpenWindow(str);
-    }
+    this.currentPage = newPart;
+  }
 
+  activeButtonClick(){
+    this.main.eventService.SetActive(this.EventId,this.main.CurrentAccount.id).
+      subscribe((res)=>{
+        //console.log(res);
+        this.Event.is_active = true;
+      })  
+  }
 
-
+  OpenErrorWindow(str:string)
+  {
+    this.errorCmp.OpenWindow(str);
+  }
 }
 
 export enum Pages {

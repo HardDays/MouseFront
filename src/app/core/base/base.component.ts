@@ -1,10 +1,10 @@
-import { Component, OnInit, ElementRef, ViewChild, NgZone, Injectable } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, NgZone, Injectable, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
 import { AuthMainService } from '../services/auth.service';
 import { TypeService } from '../services/type.service';
 import { ImagesService } from '../services/images.service';
 import { AccountService } from '../services/account.service';
 import { GenresService} from '../services/genres.service';
-import { Router, Params } from '@angular/router';
+import { Router, Params, ActivatedRoute } from '@angular/router';
 
 import { Subject } from 'rxjs/Subject';
 import { Subscribable } from 'rxjs/Observable';
@@ -32,7 +32,7 @@ import { MapsAPILoader } from '@agm/core';
 export class BaseComponent{
 
     
-    public isLoading:boolean = false;
+    public isLoading:boolean = true;
     public isLoggedIn:boolean = false;
 
     public userStatus:number = 0;
@@ -43,20 +43,19 @@ export class BaseComponent{
     public userCreated:boolean = false;
 
     public NewErrForUser:boolean = false;
-
-    public ActiveProcesses:string[] = [];
     
     constructor(
-        protected main          : MainService,
-        protected _sanitizer    : DomSanitizer,
-        protected router        : Router,
-        protected mapsAPILoader : MapsAPILoader,
-        protected ngZone        : NgZone
+        protected main           : MainService,
+        protected _sanitizer     : DomSanitizer,
+        protected router         : Router,
+        protected mapsAPILoader  : MapsAPILoader,
+        protected ngZone         : NgZone,
+        protected activatedRoute : ActivatedRoute
     ) 
     {
-        // this.main.BaseInitSession();
         this.isLoggedIn = this.main.authService.IsLogedIn();
 
+        this.isLoading = this.main.ActiveProcesses.length > 0;
         if(this.isLoggedIn)
         {
             this.accId = this.GetCurrentAccId();
@@ -81,17 +80,14 @@ export class BaseComponent{
                 }
             );
 
-        this.main.onLoadingChange$
-            .subscribe(
-                (val:boolean) => {
-                    if(this.ActiveProcesses.length == 0){
-                        this.isLoading = false;
-                    }
-                    else{
-                        this.isLoading = true;
-                    }
-                }
-            ); 
+        this.main.ActiveProcessesChanges.subscribe(
+            (val:string[]) => {
+                if(!this.isLoading && val.length > 0)
+                    this.isLoading = true;
+                else if(this.isLoading && val.length == 0)
+                    this.isLoading = false;
+            }
+        );
             
         this.main.CurrentAccountChange
             .subscribe(
@@ -99,7 +95,6 @@ export class BaseComponent{
                 {
                     this.CurrentAccount = val;
                     this.accId = this.CurrentAccount.id;
-                  
                 }
             );
         
@@ -112,51 +107,32 @@ export class BaseComponent{
     }
 
 
+
     /* PROCESS BLOCK */
 
-    private GenerateProcessID()
-    {
-        let id:string = GUID.GetNewGUID();
-        this.ActiveProcesses.push(id);
-        this.SetLoading();
-        return id;
-    }
-
-    private DeleteProcess(str:string)
-    {
-        let index = this.ActiveProcesses.findIndex(x=>x == str);
-        this.ActiveProcesses.splice(index,1);
-        this.SetLoading();
-    }
+    
     
     public WaitBeforeLoading = (fun:()=>Observable<any>,success:(result?:any)=>void, err?:(obj?:any)=>void)=>
     {
-        let process = this.GenerateProcessID();
-        fun()
-            .subscribe(
-                res => {
-                    success(res);
-                    this.DeleteProcess(process);
-                },
-                error => {                    
-                    if(err && typeof err == "function"){
-                        err(error); 
-                    }
-                    this.DeleteProcess(process);
-                    if(error.status == 401){
 
-                        this.Logout();
-
-                        return;
-                    }
+        this.main.WaitBeforeLoading(
+            () => fun(),
+            res => success(res),
+            error => {
+                if(err && typeof err == "function"){
+                    err(error); 
                 }
-            );
+                if(error.status == 401){
+
+                    this.Logout();
+
+                    return;
+                }
+            }
+        );
     }
 
-    public SetLoading()
-    {
-        this.main.onLoadingChange$.next(true);
-    }
+    
 
     /* PROCESS BLOCK END */
 

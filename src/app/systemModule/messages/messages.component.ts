@@ -1,10 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
 import { BaseComponent } from '../../core/base/base.component';
 import { InboxMessageModel } from '../../core/models/inboxMessage.model';
 import { AccountAddToEventModel } from '../../core/models/artistAddToEvent.model';
 import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { AccountSendRequestModel } from '../../core/models/accountSendRequest.model';
 import { AccountGetModel } from '../../core/models/accountGet.model';
+import { MainService } from '../../core/services/main.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Router, ActivatedRoute } from '@angular/router';
+import { MapsAPILoader } from '@agm/core';
 
 declare var $:any;
 
@@ -13,7 +17,7 @@ declare var $:any;
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.css']
 })
-export class MessagesComponent extends BaseComponent implements OnInit {
+export class MessagesComponent extends BaseComponent implements OnInit,AfterViewChecked {
 
   bsValue = new Date();
   bsRangeValue: Date[];
@@ -39,9 +43,26 @@ export class MessagesComponent extends BaseComponent implements OnInit {
   accs:AccountGetModel[] = [];
   accOpen:AccountGetModel = new AccountGetModel();
 
+  constructor(
+    protected main           : MainService,
+    protected _sanitizer     : DomSanitizer,
+    protected router         : Router,
+    protected mapsAPILoader  : MapsAPILoader,
+    protected ngZone         : NgZone,
+    protected activatedRoute : ActivatedRoute,
+    protected cdRef          : ChangeDetectorRef
+  ) {
+    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
+  }
+  
   ngOnInit() 
   {
     this.GetMessages();
+  }
+
+  ngAfterViewChecked()
+  {
+      this.cdRef.detectChanges();
   }
 
   GetMessages(){

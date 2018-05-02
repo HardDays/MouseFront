@@ -13,6 +13,7 @@ import { TextMaskModule } from 'angular2-text-mask';
 import { AgmCoreModule } from '@agm/core';
 import { PrivateResComponent } from './private-res/private-res.component';
 import { ErrorModule } from '../../shared/error/error.module';
+import { PreloaderModule } from '../../shared/preloader/preloader.module';
 
 @NgModule({
     imports: [ 
@@ -25,7 +26,8 @@ import { ErrorModule } from '../../shared/error/error.module';
             apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",
             libraries: ["places"]
           }),
-          ErrorModule    
+        ErrorModule,
+        PreloaderModule    
     ],
     declarations: [ 
         EventCreateComponent,

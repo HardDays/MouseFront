@@ -85,7 +85,7 @@
                                     <span>Feed</span>
                                 </a>
                             </li> -->
-                            <li>
+                            <li *ngIf="isLoggedIn">
                                 <a [routerLink]="['/system','tickets']" class="icon-5" (click)="curNav = 'tickets'" [class.active]="curNav=='tickets'" class="icon-5">
                                     <div class="img-menu"></div>
                                     <span>Tickets</span>

@@ -1,9 +1,9 @@
-import { Component, ViewChild, ElementRef, NgZone, Input, ViewContainerRef, ComponentFactory } from '@angular/core';
+import { Component, ViewChild, ElementRef, NgZone, Input, ViewContainerRef, ComponentFactory, ChangeDetectorRef } from '@angular/core';
 import { NgForm,FormControl,FormGroup,Validators} from '@angular/forms';
 import { AuthMainService } from '../../core/services/auth.service';
 
 import { BaseComponent } from '../../core/base/base.component';
-import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
+import { OnInit, AfterViewChecked } from '@angular/core/src/metadata/lifecycle_hooks';
 
 import { SelectModel } from '../../core/models/select.model';
 import { FrontWorkingTimeModel } from '../../core/models/frontWorkingTime.model';
@@ -25,7 +25,7 @@ import { EventService } from '../../core/services/event.service';
 
 import { } from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
-import { Router, Params } from '@angular/router';
+import { Router, Params, ActivatedRoute } from '@angular/router';
 import { AuthService } from "angular2-social-login";
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { AccountAddToEventModel } from '../../core/models/artistAddToEvent.model';
@@ -41,6 +41,7 @@ import { AgmCoreModule } from '@agm/core';
 import { CheckModel } from '../../core/models/check.model';
 import { EventSearchParams } from '../../core/models/eventSearchParams';
 import { TicketTypeModel } from '../../core/models/ticketType.model';
+import { MainService } from '../../core/services/main.service';
 
 declare var $:any;
 
@@ -51,10 +52,29 @@ declare var $:any;
 })
 
 
-export class FeedComponent extends BaseComponent implements OnInit {
+export class FeedComponent extends BaseComponent implements OnInit, AfterViewChecked {
 
 
+  constructor(
+    protected main           : MainService,
+    protected _sanitizer     : DomSanitizer,
+    protected router         : Router,
+    protected mapsAPILoader  : MapsAPILoader,
+    protected ngZone         : NgZone,
+    protected activatedRoute : ActivatedRoute,
+    protected cdRef          : ChangeDetectorRef
+  ) {
+    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
+  }
+
+  ngAfterViewChecked()
+  {
+      this.cdRef.detectChanges();
+  }
+  
   ngOnInit(){
   }
+
+  
 }
   

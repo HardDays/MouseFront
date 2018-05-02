@@ -1,9 +1,9 @@
-import { Component, ViewChild, ElementRef, NgZone, Input, ViewContainerRef, ComponentFactory } from '@angular/core';
+import { Component, ViewChild, ElementRef, NgZone, Input, ViewContainerRef, ComponentFactory, ChangeDetectorRef } from '@angular/core';
 import { NgForm,FormControl,FormGroup,Validators} from '@angular/forms';
 import { AuthMainService } from '../../core/services/auth.service';
 
 import { BaseComponent } from '../../core/base/base.component';
-import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
+import { OnInit, AfterViewChecked } from '@angular/core/src/metadata/lifecycle_hooks';
 
 import { SelectModel } from '../../core/models/select.model';
 import { FrontWorkingTimeModel } from '../../core/models/frontWorkingTime.model';
@@ -25,7 +25,7 @@ import { EventService } from '../../core/services/event.service';
 
 import { } from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
-import { Router, Params } from '@angular/router';
+import { Router, Params, ActivatedRoute } from '@angular/router';
 import { AuthService } from "angular2-social-login";
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 import { AccountAddToEventModel } from '../../core/models/artistAddToEvent.model';
@@ -55,64 +55,81 @@ declare var $:any;
 })
 
 
-export class ShowsComponent extends BaseComponent implements OnInit {
-  Events:EventGetModel[] = [];
+export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChecked{
+    Events:EventGetModel[] = [];
 
-  ngOnInit()
-  {
-    this.GetEvents();
-    this.openSearch();
-    this.setHeightSearch();
-  }
-
-  @ViewChild('search') search: SearchShowsComponent;
-    
-  @ViewChild('mapForm') mapForm : MapEventComponent;
-
-  setHeightSearch(){
-    if($('.main-router-outlet .main-router-outlet').height() < $(window).height()){
-      $('.wrapp-for-filter').css({
-         "height": $('.for-flex-height').height()-150
-      });
+    constructor(
+        protected main           : MainService,
+        protected _sanitizer     : DomSanitizer,
+        protected router         : Router,
+        protected mapsAPILoader  : MapsAPILoader,
+        protected ngZone         : NgZone,
+        protected activatedRoute : ActivatedRoute,
+        protected cdRef          : ChangeDetectorRef
+    ) {
+    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
     }
-    else{
-      $('.wrapp-for-filter').css({
-          "height": '100%'
-        }); 
+
+    ngOnInit()
+    {
+        this.GetEvents();
+        this.openSearch();
+        this.setHeightSearch();
     }
-  }
 
-  openSearch()
-  {
-      let _that = this;
-      $(".nav-button").on("click", function (e) {
-          _that.setHeightSearch();
-          e.preventDefault();
-          $("body").addClass("has-active-menu");
-          $(".mainWrapper").addClass("has-push-left");
-          $(".nav-holder-3").addClass("is-active");
-          $(".mask-nav-3").addClass("is-active")
-      });
-      $(".menu-close, .mask-nav-3").on("click", function (e) {
-          e.preventDefault();
-          $("body").removeClass("has-active-menu");
-          $(".mainWrapper").removeClass("has-push-left");
-          $(".nav-holder-3").removeClass("is-active");
-          $(".mask-nav-3").removeClass("is-active")
-      });
-  }
+    ngAfterViewChecked()
+    {
+        this.cdRef.detectChanges();
+    }
 
-  OpenMap(params)
-  {
-      this.mapForm.AboutOpenMapModal(params);
-  }
+    @ViewChild('search') search: SearchShowsComponent;
+        
+    @ViewChild('mapForm') mapForm : MapEventComponent;
 
-  TransferMapToSearch(params)
-  {
-      this.search.GetLocation(params);
-  }
+    setHeightSearch(){
+        if($('.main-router-outlet .main-router-outlet').height() < $(window).height()){
+        $('.wrapp-for-filter').css({
+            "height": $('.for-flex-height').height()-150
+        });
+        }
+        else{
+        $('.wrapp-for-filter').css({
+            "height": '100%'
+            }); 
+        }
+    }
 
-  GetEvents(params?:EventSearchParams)
+    openSearch()
+    {
+        let _that = this;
+        $(".nav-button").on("click", function (e) {
+            _that.setHeightSearch();
+            e.preventDefault();
+            $("body").addClass("has-active-menu");
+            $(".mainWrapper").addClass("has-push-left");
+            $(".nav-holder-3").addClass("is-active");
+            $(".mask-nav-3").addClass("is-active")
+        });
+        $(".menu-close, .mask-nav-3").on("click", function (e) {
+            e.preventDefault();
+            $("body").removeClass("has-active-menu");
+            $(".mainWrapper").removeClass("has-push-left");
+            $(".nav-holder-3").removeClass("is-active");
+            $(".mask-nav-3").removeClass("is-active")
+        });
+    }
+
+    OpenMap(params)
+    {
+        this.mapForm.AboutOpenMapModal(params);
+    }
+
+    TransferMapToSearch(params)
+    {
+        this.search.GetLocation(params);
+    }
+
+    GetEvents(params?:EventSearchParams)
     {
         let search:EventSearchParams = {
             limit: 15
@@ -125,11 +142,11 @@ export class ShowsComponent extends BaseComponent implements OnInit {
             () => this.main.eventService.EventsSearch(search),
             (res:EventGetModel[]) =>
             {
-              this.Events = res;
-              // this.CloseSearchWindow();
+            this.Events = res;
+            // this.CloseSearchWindow();
             },
             (err) => {
-               // console.log(err);
+            // console.log(err);
             }
         );
     }

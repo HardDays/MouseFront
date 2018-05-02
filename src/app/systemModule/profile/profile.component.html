@@ -1,4 +1,5 @@
-<section class="main-router-outlet">
+<app-preloader *ngIf="isLoading"></app-preloader>
+<section class="main-router-outlet" [ngStyle]="{'display': isLoading?'none':'block'}">
     <!---->
 
     <!-- Venue -->

@@ -1,5 +1,5 @@
 
-import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
 import { NgForm} from '@angular/forms';
 import { AuthMainService } from '../../core/services/auth.service';
 import { AccountService } from '../../core/services/account.service';
@@ -42,7 +42,7 @@ declare var PhotoSwipe:any;
 
 
 
-export class ProfileComponent extends BaseComponent implements OnInit {
+export class ProfileComponent extends BaseComponent implements OnInit,AfterViewChecked {
     MyAccountId:number;
     UserId:number;
     Roles = AccountType;
@@ -67,31 +67,39 @@ export class ProfileComponent extends BaseComponent implements OnInit {
     VideoPath:SafeResourceUrl[] = [];
     baseImageMy:string = '';
     EbanySlider:boolean;
-    constructor
-    (           
-        protected main         : MainService,
-        protected _sanitizer   : DomSanitizer,
-        protected router       : Router,
-        protected mapsAPILoader  : MapsAPILoader,
-        protected ngZone         : NgZone,
-        private activatedRoute : ActivatedRoute
-    ){
-        super(main,_sanitizer,router,mapsAPILoader,ngZone);
-    }
+    
     isFolowedAcc:boolean;
 
-ngOnInit(){
+    constructor(
+        protected main           : MainService,
+        protected _sanitizer     : DomSanitizer,
+        protected router         : Router,
+        protected mapsAPILoader  : MapsAPILoader,
+        protected ngZone         : NgZone,
+        protected activatedRoute : ActivatedRoute,
+        protected cdRef          : ChangeDetectorRef
+    ) {
+    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
+    }
 
-    //this.Videos = this.accService.GetVideo();
- 
-    this.initUser();
-    this.activatedRoute.params.forEach((params)=>{
-        this.UserId = params["id"];
-       this.getUserInfo();
-    })
+    ngOnInit(){
 
-  
-}
+        //this.Videos = this.accService.GetVideo();
+    
+        this.initUser();
+        this.activatedRoute.params.forEach((params)=>{
+            this.UserId = params["id"];
+        this.getUserInfo();
+        })
+
+    
+    }
+
+    ngAfterViewChecked()
+    {
+        this.cdRef.detectChanges();
+    }
+
     getUserInfo(){
         this.main.accService.GetAccountById(this.UserId,{extended:true})
         .subscribe(

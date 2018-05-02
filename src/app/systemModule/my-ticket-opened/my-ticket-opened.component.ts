@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
 import { BaseComponent } from '../../core/base/base.component';
 import { Router, Params,ActivatedRoute  } from '@angular/router';
 import { AuthMainService } from '../../core/services/auth.service';
@@ -25,22 +25,23 @@ import { MainService } from '../../core/services/main.service';
   templateUrl: './my-ticket-opened.component.html',
   styleUrls: ['./my-ticket-opened.component.css']
 })
-export class MyTicketOpenedComponent extends BaseComponent implements OnInit{
+export class MyTicketOpenedComponent extends BaseComponent implements OnInit,AfterViewChecked{
   event_id:number;
   accountId:number;
   TotalPrice:number = 0;
   TicketsByEvent:TicketsByEventModel = new TicketsByEventModel();
   Image:string = BaseImages.Drake;
-  constructor
-  (           
-      protected main         : MainService,
-      protected _sanitizer   : DomSanitizer,
-      protected router       : Router,
-      protected mapsAPILoader  : MapsAPILoader,
-      protected ngZone         : NgZone,
-      private activatedRoute : ActivatedRoute
-  ){
-      super(main,_sanitizer,router,mapsAPILoader,ngZone);
+  
+  constructor(
+    protected main           : MainService,
+    protected _sanitizer     : DomSanitizer,
+    protected router         : Router,
+    protected mapsAPILoader  : MapsAPILoader,
+    protected ngZone         : NgZone,
+    protected activatedRoute : ActivatedRoute,
+    protected cdRef          : ChangeDetectorRef
+  ) {
+    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
   }
 
   ngOnInit() 
@@ -51,6 +52,10 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit{
         this.initUser();
       }
     );
+  }
+  ngAfterViewChecked()
+  {
+      this.cdRef.detectChanges();
   }
 
   GetImage()

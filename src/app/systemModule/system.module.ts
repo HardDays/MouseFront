@@ -10,7 +10,6 @@ import {SystemComponent} from './system.component';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { TimepickerModule } from 'ngx-bootstrap';
 
-import { EditComponent } from './edit/edit.component';
 import { ProfileComponent } from './profile/profile.component';
 import { EventCreateComponent } from './eventCreate/eventCreate.component';
 
@@ -18,7 +17,6 @@ import { SlickModule } from 'ngx-slick';
 import { TextMaskModule } from 'angular2-text-mask';
 
 import { NguiAutoCompleteModule } from '@ngui/auto-complete';
-import { AccountCreateComponent } from './accountCreate/accountCreate.component';
 
 import { NavbarModule } from '../shared/navbar/navbar.module';
 import { FooterModule } from '../shared/footer/footer.module';
@@ -51,14 +49,12 @@ import { EventCreateModule } from './eventCreate/eventCreate.module';
 import { EventsModule } from './events/events.module';
 import { ShowsModule } from './shows/shows.module';
 import { ErrorModule } from '../shared/error/error.module';
+import { PreloaderModule } from '../shared/preloader/preloader.module';
 
 @NgModule({
   declarations: [
     SystemComponent,
-    EditComponent,
-    AccountCreateComponent,
     ArtistCreateComponent,
-    PreloaderComponent,
     FeedComponent,
     TicketsComponent,
     FanCreateComponent,
@@ -91,6 +87,7 @@ import { ErrorModule } from '../shared/error/error.module';
     FooterModule,
     YoutubePlayerModule,
     ErrorModule,
+    PreloaderModule,
     
     // SlickModule.forRoot(),
     

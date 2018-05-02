@@ -22,7 +22,6 @@ import { BaseImages } from "../base/base.enum";
 
 @Injectable()
 export class MainService{
-    public onLoadingChange$: Subject<boolean>;
 
     public MyAccounts: AccountGetModel[] = [];
     public CurrentAccount:AccountGetModel = new AccountGetModel();
@@ -30,6 +29,10 @@ export class MainService{
     public MyAccountsChange: Subject<AccountGetModel[]>;
     public MyLogo:string = BaseImages.NoneUserImage;
     public MyLogoChange:Subject<string>;
+
+    public ActiveProcesses:string[] = [];
+    public ActiveProcessesChanges: Subject<string[]>;
+
     constructor
     (
         private http         : HttpService,
@@ -43,8 +46,6 @@ export class MainService{
         public accService    : AccountService,
         public _auth         : AuthService     
     ){
-        this.onLoadingChange$ = new Subject();
-        this.onLoadingChange$.next(false);
 
         this.CurrentAccountChange = new Subject();
         this.CurrentAccountChange.next(new AccountGetModel());
@@ -90,6 +91,15 @@ export class MainService{
                 this.MyLogo = val;
             }
         )
+
+        this.ActiveProcessesChanges = new Subject();
+        this.ActiveProcessesChanges.next([]);
+        this.ActiveProcessesChanges
+            .subscribe(
+                (val:string[]) => {
+                    console.log(val);
+                }
+            );
     }
 
     GetMyLogo()
@@ -148,6 +158,39 @@ export class MainService{
                 }
             );
     }
-    /* Processes BLOCK END */
 
+    public WaitBeforeLoading = (fun:()=>Observable<any>,success:(result?:any)=>void, err?:(obj?:any)=>void)=>
+    {
+        let process = this.GenerateProcessID();
+        fun()
+            .subscribe(
+                res => {
+                    success(res);
+                    this.DeleteProcess(process);
+                },
+                error => {                    
+                    
+                    this.DeleteProcess(process);
+                    if(err && typeof err == "function"){
+                        err(error); 
+                    }
+                }
+            );
+    }
+
+    private GenerateProcessID()
+    {
+        let id:string = GUID.GetNewGUID();
+        this.ActiveProcesses.push(id);
+        this.ActiveProcessesChanges.next(this.ActiveProcesses);
+        return id;
+    }
+
+    private DeleteProcess(str:string)
+    {
+        let index = this.ActiveProcesses.findIndex(x=>x == str);
+        if(index != -1)
+            this.ActiveProcesses.splice(index,1);
+        this.ActiveProcessesChanges.next(this.ActiveProcesses);
+    }
 }

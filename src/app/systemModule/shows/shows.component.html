@@ -1,5 +1,5 @@
-<section class="main-router-outlet">
-    <!---->
+<app-preloader *ngIf="isLoading"></app-preloader>
+<section class="main-router-outlet" [ngStyle]="{'display': isLoading?'none':'block'}">
     <div class="nav-holder-3" id="nav-holder" [ngClass]="{padding250:Events.length<=3}">
         <div class="wrapp-for-filter">
             <search-shows-selector #search (mapClicked)="OpenMap($event)" (onSearch)="GetEvents($event)"></search-shows-selector>
@@ -7,14 +7,8 @@
     </div>
     <section class="main_content">
         <div class="for-flex-height">
-
-             
             <section class="second-router-outlet">
-                
-               
-                
                 <div class="mask-nav-3"></div>
-                
                 <div class="shows-main-wrapp grey-bg mainWrapper">
                     <div class="main-mw">
                         <div class="head-shows">
@@ -37,18 +31,10 @@
                         </div>
                     </div>
                 </div>
-
                 <map-shows-selector #mapForm (onMapClicked)="TransferMapToSearch($event)"></map-shows-selector>
-
-
             </section>
         </div>
-   
-        
     </section>
-
-    
-    
 </section>
         
 

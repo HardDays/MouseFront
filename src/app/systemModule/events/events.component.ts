@@ -1,9 +1,9 @@
-import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, ViewChild, ElementRef, NgZone, ChangeDetectorRef } from '@angular/core';
 import { NgForm,FormControl} from '@angular/forms';
 import { AuthMainService } from '../../core/services/auth.service';
 
 import { BaseComponent } from '../../core/base/base.component';
-import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
+import { OnInit, AfterViewChecked } from '@angular/core/src/metadata/lifecycle_hooks';
 
 import { SelectModel } from '../../core/models/select.model';
 import { FrontWorkingTimeModel } from '../../core/models/frontWorkingTime.model';
@@ -43,9 +43,26 @@ declare var $:any;
 })
 
 
-export class EventsComponent extends BaseComponent implements OnInit {
+export class EventsComponent extends BaseComponent implements OnInit,AfterViewChecked {
     
     Events:EventGetModel[] = [];
+
+    constructor(
+        protected main           : MainService,
+        protected _sanitizer     : DomSanitizer,
+        protected router         : Router,
+        protected mapsAPILoader  : MapsAPILoader,
+        protected ngZone         : NgZone,
+        protected activatedRoute : ActivatedRoute,
+        protected cdRef          : ChangeDetectorRef
+    ) {
+        super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
+    }
+
+    ngAfterViewChecked()
+    {
+        this.cdRef.detectChanges();
+    }
 
     ngOnInit()
     {   

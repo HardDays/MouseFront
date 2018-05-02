@@ -1,4 +1,5 @@
-<section class="second-router-outlet">
+<app-preloader *ngIf="isLoading"></app-preloader>
+<section  [ngStyle]="{'display': isLoading?'none':'block'}" class="second-router-outlet">
     <div class="create-event-nav-tabs">
         <div class="for-header-shadow">
             <div class="main-mw">

@@ -1,69 +1,70 @@
-<section class="second-router-outlet">
-  <section class="login-register add-fan-page">
-      <div class="register">
-          <div class="m-v-reg">
-              <form class="reg-wr" (ngSubmit)="CreateFun()" #submitFormFun="ngForm">
-                  <h3 *ngIf="flagForText">Add fan</h3>
-                  <h3 *ngIf="!flagForText">Edit fan</h3>
-                  <div class="for-flex-add-fan">
-                      <div class="side left-side">
-                        <div class="photo-wr-1">
-                                <label *ngIf="!avatar" class="file_upload">
-                                    <div class="bg-image"></div>
-                                    <p>Add photo</p>
-                                    <input accept=".jpg, .jpeg, .png" type="file"  (change)="loadLogo($event)">
-                                </label>
+<app-preloader *ngIf="isLoading"></app-preloader>
+<section class="second-router-outlet" [ngStyle]="{'display': isLoading?'none':'block'}">
+    <section class="login-register add-fan-page">
+        <div class="register">
+            <div class="m-v-reg">
+                <form class="reg-wr" (ngSubmit)="CreateFun()" #submitFormFun="ngForm">
+                    <h3 *ngIf="flagForText">Add fan</h3>
+                    <h3 *ngIf="!flagForText">Edit fan</h3>
+                    <div class="for-flex-add-fan">
+                        <div class="side left-side">
+                            <div class="photo-wr-1">
+                                    <label *ngIf="!avatar" class="file_upload">
+                                        <div class="bg-image"></div>
+                                        <p>Add photo</p>
+                                        <input accept=".jpg, .jpeg, .png" type="file"  (change)="loadLogo($event)">
+                                    </label>
+                                    
+                                    <div class="bg-image uploaded" (click)="DeleteAva()" *ngIf="avatar" class="bg-image uploaded" [ngStyle]="{'background-image': 'url('+avatar+')'}"></div>
                                 
-                                <div class="bg-image uploaded" (click)="DeleteAva()" *ngIf="avatar" class="bg-image uploaded" [ngStyle]="{'background-image': 'url('+avatar+')'}"></div>
+                                </div>
                             
+                            <div class="rel-dog">
+                                <span>@</span>
+                                <input class="inp-style-2" type="text" name="User_name" placeholder="MouseUsername" [ngModel]="Fun.user_name" (ngModelChange)="Fun.user_name = $event" autocomplete="off">
                             </div>
-                          
-                          <div class="rel-dog">
-                              <span>@</span>
-                              <input class="inp-style-2" type="text" name="User_name" placeholder="MouseUsername" [ngModel]="Fun.user_name" (ngModelChange)="Fun.user_name = $event" autocomplete="off">
-                          </div>
-                      </div>
-                      <div class="side right-side">
-                            <input class="inp-style-2" type="text" name="first_name" placeholder="First Name" [ngModel]="Fun.first_name" (ngModelChange)="Fun.first_name = $event" autocomplete="off">
-                            <input class="inp-style-2" type="text" name="Last_name" placeholder="Last Name" [ngModel]="Fun.last_name" (ngModelChange)="Fun.last_name = $event" autocomplete="off">
-                          <div class="text-area-with-descr">
-                              <textarea class="inp-style-2" maxlength="150" name="bio" placeholder="Bio" [ngModel]="Fun.bio" (ngModelChange)="Fun.bio = $event" autocomplete="off"></textarea>
-                              <p class="max-l-letter">150max</p>
-                          </div>
-                          <div class="location-wr">
-                            <div class="mark" (click)="OpenMap()"></div>
-                            <input type="text" name="address" class="location-inp" [(ngModel)]="Fun.address" #search id="aboutAddress" placeholder="" autocomplete="off">
-                          </div>
-                      </div>
-                  </div>
+                        </div>
+                        <div class="side right-side">
+                                <input class="inp-style-2" type="text" name="first_name" placeholder="First Name" [ngModel]="Fun.first_name" (ngModelChange)="Fun.first_name = $event" autocomplete="off">
+                                <input class="inp-style-2" type="text" name="Last_name" placeholder="Last Name" [ngModel]="Fun.last_name" (ngModelChange)="Fun.last_name = $event" autocomplete="off">
+                            <div class="text-area-with-descr">
+                                <textarea class="inp-style-2" maxlength="150" name="bio" placeholder="Bio" [ngModel]="Fun.bio" (ngModelChange)="Fun.bio = $event" autocomplete="off"></textarea>
+                                <p class="max-l-letter">150max</p>
+                            </div>
+                            <div class="location-wr">
+                                <div class="mark" (click)="OpenMap()"></div>
+                                <input type="text" name="address" class="location-inp" [(ngModel)]="Fun.address" #search id="aboutAddress" placeholder="" autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
 
-                  <h3 class="marg30">select your favourite genres</h3>
-                  
-                  <div class="search-wr">
-                      <input type="text" name="search" class="inp-style-1" (input)="CategoryChanged($event.target.value)"  placeholder="Search">
-                  </div>
-                  <div class="flex-checkboxes">
-                      <ng-container *ngFor="let item of Genres; let i = index">
-                          <div *ngIf="item.show" class="one-checkbox" >
-                              <div  class="check-style">
-                                  <input type="checkbox"  [ngModel]="item.checked" (ngModelChange)="item.checked = $event" class="checkbox" name="genre-{{i}}" id='checkbox-{{i}}'>
-                                  <label for='checkbox-{{i}}'></label>
-                              </div>
-                              <p>{{item.genre_show}}</p>
-                          </div> 
-                      </ng-container>
-                  </div>
-                  <p class="more" *ngIf="!seeMore" (click)="seeMoreGenres()"><span>See more</span></p>
-                  <div class="continue-wr">
-                      <button class="butt-style-1" type="submit"><span *ngIf="flagForText">Add Fan</span><span *ngIf="!flagForText">Save</span></button>
-                  </div>
-              </form>
-          </div>
-      </div>
-  </section>
+                    <h3 class="marg30">select your favourite genres</h3>
+                    
+                    <div class="search-wr">
+                        <input type="text" name="search" class="inp-style-1" (input)="CategoryChanged($event.target.value)"  placeholder="Search">
+                    </div>
+                    <div class="flex-checkboxes">
+                        <ng-container *ngFor="let item of Genres; let i = index">
+                            <div *ngIf="item.show" class="one-checkbox" >
+                                <div  class="check-style">
+                                    <input type="checkbox"  [ngModel]="item.checked" (ngModelChange)="item.checked = $event" class="checkbox" name="genre-{{i}}" id='checkbox-{{i}}'>
+                                    <label for='checkbox-{{i}}'></label>
+                                </div>
+                                <p>{{item.genre_show}}</p>
+                            </div> 
+                        </ng-container>
+                    </div>
+                    <p class="more" *ngIf="!seeMore" (click)="seeMoreGenres()"><span>See more</span></p>
+                    <div class="continue-wr">
+                        <button class="butt-style-1" type="submit"><span *ngIf="flagForText">Add Fan</span><span *ngIf="!flagForText">Save</span></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
 </section>
- <!--новая вторая модалка с картой-->
- <div class="modal fade modal-send-request map-1-modal" id="modal-map-2">
+    <!--новая вторая модалка с картой-->
+<div class="modal fade modal-send-request map-1-modal" id="modal-map-2">
     <div class="modal-dialog">
         <div class="modal-body">
             <h6 class="head-m-p-a">Location</h6>

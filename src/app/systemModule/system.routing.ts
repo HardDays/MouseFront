@@ -7,9 +7,7 @@ import { SystemAccessGuard } from './system.guard';
 import { SystemComponent } from './system.component';
 
 import { ShowsComponent } from './shows/shows.component';
-import { EditComponent } from './edit/edit.component';
 import { ProfileComponent } from './profile/profile.component';
-import { AccountCreateComponent } from './accountCreate/accountCreate.component';
 import { EventCreateComponent } from './eventCreate/eventCreate.component';
 import { ArtistCreateComponent } from './artistCreate/artistCreate.component';
 import { EventsComponent } from './events/events.component';
@@ -28,14 +26,11 @@ const routes: Routes =
     [
       { path: 'shows', component: ShowsComponent, canActivate: [SystemAccessGuard] },
       { path: 'profile/:id', component: ProfileComponent, canActivate: [SystemAccessGuard] },
-      { path: 'accountCreate', component: AccountCreateComponent, canActivate: [SystemAccessGuard] },
       { path: 'events', component: EventsComponent, canActivate: [SystemAccessGuard] },
       { path: 'eventCreate/:id', component: EventCreateComponent, canActivate: [SystemAccessGuard] },
-      // { path: 'eventCreate', component: EventCreateComponent, canActivate: [SystemAccessGuard] },
       { path: 'fanCreate/:id', component: FanCreateComponent, canActivate: [SystemAccessGuard] },
       { path: 'artistCreate', component: ArtistCreateComponent, canActivate: [SystemAccessGuard] },
       { path: 'artistCreate/:id', component: ArtistCreateComponent, canActivate: [SystemAccessGuard] },
-      //{ path: 'venueCreate', component: VenueCreateComponent, canActivate: [SystemAccessGuard] },
       { path: 'venueCreate/:id', component: VenueCreateComponent, canActivate: [SystemAccessGuard] },
       { path: 'feed', component: FeedComponent, canActivate: [SystemAccessGuard] },
       { path: 'tickets', component: TicketsComponent, canActivate: [SystemAccessGuard] },

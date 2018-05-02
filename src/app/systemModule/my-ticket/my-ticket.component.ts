@@ -13,7 +13,6 @@ import { TicketsGetModel } from '../../core/models/ticketsGetModel';
 export class MyTicketComponent extends BaseComponent implements OnInit {
 
   @Input() Ticket: TicketsGetModel;
-  FoundedPercent:number = 0;
   Image:string = BaseImages.Drake;
 
   ngOnInit(): void 

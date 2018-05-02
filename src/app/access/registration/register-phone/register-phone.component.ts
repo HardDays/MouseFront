@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, NgZone, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { BaseComponent } from '../../../core/base/base.component';
 import { AuthMainService } from '../../../core/services/auth.service';
 import { AccountService } from '../../../core/services/account.service';
@@ -34,20 +34,6 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
   phoneCode:string = '';
 
   codeRequest:string[]=[];
-
-  constructor
-  (           
-    protected main         : MainService,
-    protected _sanitizer   : DomSanitizer,
-    protected router       : Router,
-    protected mapsAPILoader  : MapsAPILoader,
-    protected ngZone         : NgZone,
-    private activatedRoute : ActivatedRoute
-  ){
-    super(main,_sanitizer,router,mapsAPILoader,ngZone);
-  }
-    
-  
 
   ngOnInit() {
   this.main.phoneService.GetAllPhoneCodes().

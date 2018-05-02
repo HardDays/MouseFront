@@ -10,6 +10,7 @@ import { ShowsComponent } from './shows.component';
 import { ShowItemComponent } from './show/show.component';
 import { SearchShowsComponent } from './search/search.component';
 import { MapShowsComponent } from './map/map.component';
+import { PreloaderModule } from '../../shared/preloader/preloader.module';
 
 @NgModule({
     imports: [ 
@@ -21,6 +22,7 @@ import { MapShowsComponent } from './map/map.component';
             apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",
             libraries: ["places"]
         }),
+        PreloaderModule
     ],
     declarations: [ 
         ShowsComponent,
@@ -28,6 +30,6 @@ import { MapShowsComponent } from './map/map.component';
         SearchShowsComponent,
         MapShowsComponent
     ],
-    exports: [ ]
+    exports: [ ShowsComponent ]
 })
 export class ShowsModule {}

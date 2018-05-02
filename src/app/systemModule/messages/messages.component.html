@@ -1,4 +1,5 @@
-<section class="second-router-outlet">
+<app-preloader *ngIf="isLoading"></app-preloader>
+<section class="second-router-outlet" [ngStyle]="{'display': isLoading?'none':'block'}">
     <div class="messages-main-wrapp">
         <div class="main-mw">
             <div class="flex-massages-wrapp" style="position:relative;">

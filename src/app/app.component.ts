@@ -1,6 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { LocationStrategy, PlatformLocation, Location } from '@angular/common';
 import { AuthMainService } from './core/services/auth.service';
+import { BaseComponent } from './core/base/base.component';
 
 declare var $:any;
 
@@ -11,18 +12,17 @@ declare var $:any;
 })
 
 
-export class AppComponent implements OnInit {
+export class AppComponent extends BaseComponent implements OnInit {
   isLoggedIn:boolean = false;
-  constructor(private service:AuthMainService){}
   ngOnInit(){
-    this.service.onAuthChange$.subscribe(bool => {
+    this.main.authService.onAuthChange$.subscribe(bool => {
       this.isLoggedIn = bool;
       if(this.isLoggedIn)
-          this.service.GetMe().subscribe(it =>{
+          this.main.authService.GetMe().subscribe(it =>{
             }
           );
     });
-    this.service.TryToLoginWithToken();
+    this.main.authService.TryToLoginWithToken();
   }
 
  

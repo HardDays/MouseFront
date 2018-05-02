@@ -7,6 +7,7 @@ import { ProfileComponent } from './profile.component';
 import { OneFolowerForProfileComponent } from './one-folower-for-profile/one-folower-for-profile.component';
 import { TicketOnProfileComponent } from './ticket-on-profile/ticket-on-profile.component';
 import { UpcomingShowsProfileComponent } from './upcoming-shows-profile/upcoming-shows-profile.component';
+import { PreloaderModule } from '../../shared/preloader/preloader.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { UpcomingShowsProfileComponent } from './upcoming-shows-profile/upcoming
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        TextMaskModule
+        TextMaskModule,
+        PreloaderModule
     ],
     declarations: [ 
         //компоненты

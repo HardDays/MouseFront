@@ -10,6 +10,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
 import { AgmCoreModule } from '@agm/core';
 import { SearchEventComponent } from './search/search.component';
 import { MapEventComponent } from './map/map.component';
+import { PreloaderModule } from '../../shared/preloader/preloader.module';
 
 @NgModule({
     imports: [ 
@@ -21,6 +22,7 @@ import { MapEventComponent } from './map/map.component';
             apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",
             libraries: ["places"]
         }),
+        PreloaderModule
     ],
     declarations: [ 
         EventsComponent,

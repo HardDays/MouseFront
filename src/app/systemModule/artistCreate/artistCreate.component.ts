@@ -1,9 +1,9 @@
-import { Component, ViewChild, ElementRef, NgZone, Input, ViewContainerRef, ComponentFactory } from '@angular/core';
+import { Component, ViewChild, ElementRef, NgZone, Input, ViewContainerRef, ComponentFactory, ChangeDetectorRef } from '@angular/core';
 import { NgForm,FormControl,FormGroup,Validators, FormArray, FormArrayName} from '@angular/forms';
 import { AuthMainService } from '../../core/services/auth.service';
 
 import { BaseComponent } from '../../core/base/base.component';
-import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
+import { OnInit, AfterViewChecked } from '@angular/core/src/metadata/lifecycle_hooks';
 
 import { SelectModel } from '../../core/models/select.model';
 import { FrontWorkingTimeModel } from '../../core/models/frontWorkingTime.model';
@@ -58,7 +58,7 @@ declare var ionRangeSlider:any;
 
 
 
-export class ArtistCreateComponent extends BaseComponent implements OnInit {
+export class ArtistCreateComponent extends BaseComponent implements OnInit,AfterViewChecked {
 
   // general
 
@@ -119,24 +119,28 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit {
   backstageRider:Rider= new Rider();
   hospitalityRider:Rider= new Rider();
   technicalRider:Rider= new Rider();
-  
-
-  constructor
-  (           
-    protected main         : MainService,
-    protected _sanitizer   : DomSanitizer,
-    protected router       : Router,
-    protected mapsAPILoader  : MapsAPILoader,
-    protected ngZone         : NgZone,
-    private activatedRoute : ActivatedRoute
-  ){
-    super(main,_sanitizer,router,mapsAPILoader,ngZone);
-  }
-
+ 
   @ViewChild('search') public searchElement: ElementRef;
   
   @ViewChild('errorCmp') errorCmp: ErrorComponent;
-  
+
+  constructor(
+    protected main           : MainService,
+    protected _sanitizer     : DomSanitizer,
+    protected router         : Router,
+    protected mapsAPILoader  : MapsAPILoader,
+    protected ngZone         : NgZone,
+    protected activatedRoute : ActivatedRoute,
+    protected cdRef          : ChangeDetectorRef
+  ) {
+    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
+  }
+
+  ngAfterViewChecked()
+  {
+      this.cdRef.detectChanges();
+  }
+
 
   ngOnInit(){
 
