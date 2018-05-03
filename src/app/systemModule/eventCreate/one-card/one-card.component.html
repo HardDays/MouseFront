@@ -19,7 +19,7 @@
             <span *ngIf="status!='ready'&&status!='accepted'&&status!='owner_accepted'&&status!='active'&&status!='not found artist'" class="button-card" (click)="Check()" >check</span>
             <span *ngIf="status=='accepted'" class="button-card" (click)="Accept()">accept</span>
             <span *ngIf="status=='ready'||(card.account_type == 'venue' && status=='not found artist')" class="button-card" (click)="sendRequest()">Send request</span>
-            <span *ngIf="status!='ready'&&status!='owner_accepted'&&status!='not found artist'&&status!='pending'" class="button-card" (click)="Decline()">Decline</span>
+            <span *ngIf="status=='accepted'" class="button-card" (click)="Decline()">Decline</span>
         </div>
     </div>
 </div>

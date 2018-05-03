@@ -50,11 +50,12 @@ import { EventsModule } from './events/events.module';
 import { ShowsModule } from './shows/shows.module';
 import { ErrorModule } from '../shared/error/error.module';
 import { PreloaderModule } from '../shared/preloader/preloader.module';
+import { ArtistCreateModule } from './artistCreate/artistCreate.module';
+
 
 @NgModule({
   declarations: [
     SystemComponent,
-    ArtistCreateComponent,
     FeedComponent,
     TicketsComponent,
     FanCreateComponent,
@@ -64,9 +65,7 @@ import { PreloaderModule } from '../shared/preloader/preloader.module';
     MyTicketOpenedComponent,
     BiographyComponent,
     ByTicketComponent,
- 
-    ShowDetailVideoComponent,
-
+    ShowDetailVideoComponent
   ],
   imports: [
     CommonModule,
@@ -88,8 +87,7 @@ import { PreloaderModule } from '../shared/preloader/preloader.module';
     YoutubePlayerModule,
     ErrorModule,
     PreloaderModule,
-    
-    // SlickModule.forRoot(),
+    ArtistCreateModule,
     
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",

@@ -77,6 +77,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
 
   Venue:AccountCreateModel = new AccountCreateModel();
   VenueId:number = 0;
+  VenueImageId:number = 0;
 
 
   @ViewChild('about') about:VenueAboutComponent;
@@ -141,6 +142,8 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
       this.CurrentPart = this.Parts.About;
       this.VenueId = 0;
     }
+
+    this.VenueImageId = ($venue && $venue.image_id) ? $venue.image_id : 0;
     // if(this.hours)
     //   this.hours.Init(this.Venue);
     // if(this.media)

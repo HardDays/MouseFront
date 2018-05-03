@@ -85,7 +85,7 @@
                                     </label>
     
                                     <!--появляется этот блок если загружена фотка и в стайл бекграунд имейдж ебануть-->
-                                    <div *ngIf="Venue.image_base64" (click)="Venue.image_base64=''" [ngStyle]="{'background-image': Venue.image_base64?'url('+Venue.image_base64+')':''}" class="bg-image uploaded"></div>
+                                    <div *ngIf="Venue.image_base64" (click)="DeleteImage()" [ngStyle]="{'background-image': Venue.image_base64?'url('+Venue.image_base64+')':''}" class="bg-image uploaded"></div>
                                     <!---->
                                 </div>
                                 <label  class="head-groupe">Add Image</label>

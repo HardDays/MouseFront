@@ -6,8 +6,12 @@
               <div class="search-wr"> 
                   <input type="text" [(ngModel)]="text" (input)="changeText()" [ngModelOptions]="{standalone: true}" class="inp-style-1" placeholder="Search">
               </div>
-              <div class="flex-bands">
-                <div *ngFor="let item of artists; let i = index" class="one-band">
+
+              <app-preloader [white]="true" *ngIf="isLoading"></app-preloader>
+              
+              <div [ngStyle]="{'display':isLoading?'none':'flex'}" class="flex-bands">
+
+                <div *ngFor="let item of artists; let i = index"  class="one-band">
                     <input type="checkbox" (click)="clickItem(i,item.id)" [ngModel]="ifArtistChecked(item.id)" (ngModelChange)="$event" class="checkbox" name="artist-{{i}}" id="artist-{{i}}">
                     <label class="label-wr" for="artist-{{i}}" id="checkbox-{{i}}-{{i}}" >
                         <div class="photo-band-wrapp">
@@ -20,6 +24,7 @@
                         </div>
                     </label>
                 </div>
+
               </div>
           </div>
           <div class="butt-to-continue">

@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, NgZone, Output, EventEmitter, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { BaseComponent } from '../../../core/base/base.component';
 import { AuthMainService } from '../../../core/services/auth.service';
 import { AccountService } from '../../../core/services/account.service';
@@ -13,6 +13,8 @@ import { MapsAPILoader } from '@agm/core';
 import { Http } from '@angular/http';
 import { PhoneService } from '../../../core/services/phone.service';
 import { MainService } from '../../../core/services/main.service';
+import { ErrorComponent } from '../../../shared/error/error.component';
+import { BaseMessages } from '../../../core/base/base.enum';
 
 declare var $: any;
 
@@ -24,7 +26,8 @@ declare var $: any;
 export class RegisterPhoneComponent extends BaseComponent implements OnInit {
 
   @Output() phoneStatus = new EventEmitter<{status:boolean,phone:string}>()
-  @Output('showPhone') isShowPhone = new EventEmitter<boolean>()
+  @Output('showPhone') isShowPhone = new EventEmitter<boolean>();
+  @ViewChild('errorCmp') errorCmp: ErrorComponent;
 
   isRequestCodeSend:boolean = false;
   inputCodeStatus:number = 1;
@@ -49,13 +52,16 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
 
   sendCode(){
     if(this.phone.length>0){
-      let phone = this.phoneCode + this.phone;
-      this.main.phoneService.SendCodeToPhone(phone).
-        subscribe((res)=>{
+      let phone = this.phoneCode + this.phone;   
+      this.WaitBeforeLoading(
+        ()=>this.main.phoneService.SendCodeToPhone(phone),
+          (res)=>{
           this.isRequestCodeSend = true;
-        }, (err)=>{
-          console.log(err);
-        });
+          },
+          (err)=>{
+            this.errorCmp.OpenWindow(BaseMessages.Fail);
+          }
+      );
     }
   }
 
@@ -86,15 +92,21 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
     if(this.codeRequest.length==4){
       let phone = this.phoneCode+this.phone;
       let code = this.codeRequest[0]+this.codeRequest[1]+this.codeRequest[2]+this.codeRequest[3];
-      this.main.phoneService.SendRequestCode(phone,code).
-        subscribe((res)=>{
-          console.log(`success`);
-          this.isShowPhone.emit(true);
-          this.phoneStatus.emit({status:true,phone:phone});
-        }, (err)=>{
-          console.log(err);
-        });
+
+      this.WaitBeforeLoading(
+        ()=> this.main.phoneService.SendRequestCode(phone,code),
+          (res)=>{
+            console.log(`success`);
+            this.isShowPhone.emit(true);
+            this.phoneStatus.emit({status:true,phone:phone});
+          },
+          (err)=>{
+            this.errorCmp.OpenWindow(BaseMessages.Fail);
+            console.log(`ERRRO`);
+          }
+      );  
     }
+
   }
 
   skipPhone(){

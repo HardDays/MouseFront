@@ -24,6 +24,8 @@ import { AuthMainService } from '../../../core/services/auth.service';
 import { TypeService } from '../../../core/services/type.service';
 import { EventService } from '../../../core/services/event.service';
 import { MainService } from '../../../core/services/main.service';
+import { ErrorComponent } from '../../../shared/error/error.component';
+import { BaseMessages } from '../../../core/base/base.enum';
 
 declare var $:any;
 
@@ -39,6 +41,9 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
   @Output() back = new EventEmitter<string>();
   @Output() createStatus = new EventEmitter<boolean>();
   @ViewChild('search') public searchElementFrom: ElementRef;
+
+  @ViewChild('errorCmp') errorCmp: ErrorComponent;
+  
 
   accForm : FormGroup = new FormGroup({        
     "user_name": new FormControl("",),
@@ -174,17 +179,17 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
     this.Account.display_name = this.accForm.value['first_name']+" "+this.accForm.value['last_name'];
     this.Account.first_name = this.accForm.value['first_name'];
     this.Account.last_name = this.accForm.value['last_name'];
-    this.CreateAcc(
-      this.Account,
+   
+
+    this.WaitBeforeLoading(
+      ()=>this.main.accService.CreateAccount(this.Account),
       (res)=>{
-        //console.log(`ok`);
         this.createStatus.emit(true);
       },
       (err)=>{
-        console.log(err);
-        this.Error = err._body;
+        this.errorCmp.OpenWindow(BaseMessages.Fail+' '+err._body);
       }
-    );
+    )
   }
 
 

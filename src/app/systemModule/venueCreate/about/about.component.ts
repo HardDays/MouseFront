@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ElementRef,EventEmitter, ViewChild, NgZone, Output } from '@angular/core';
+import { Component, Input, OnInit, ElementRef, EventEmitter, ViewChild, NgZone, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { BaseComponent } from '../../../core/base/base.component';
 import { AccountCreateModel } from '../../../core/models/accountCreate.model';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
@@ -7,6 +7,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { MapsAPILoader } from '@agm/core';
 import { ContactModel } from '../../../core/models/contact.model';
+import { Base64ImageModel } from '../../../core/models/base64image.model';
 
 
 @Component({
@@ -17,8 +18,10 @@ import { ContactModel } from '../../../core/models/contact.model';
         './about.component.css'
     ]
 })
-export class VenueAboutComponent extends BaseComponent implements OnInit {
+export class VenueAboutComponent extends BaseComponent implements OnInit,OnChanges {
+    @Input() VenueImageId: number;
     @Input() Venue: AccountCreateModel;
+    @Input() VenueId: number;
     @Output() onSaveVenue:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
     @Output() onError:EventEmitter<string> = new EventEmitter<string>();
 
@@ -44,6 +47,23 @@ export class VenueAboutComponent extends BaseComponent implements OnInit {
     
     ngOnInit(): void 
     {
+        this.Init();
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        console.log(changes);
+        if(changes.Venue)
+            this.Venue = changes.Venue.currentValue;
+        if(changes.VenueImageId)
+            this.VenueImageId = changes.VenueImageId.currentValue;
+        if(changes.VenueId)
+            this.VenueId = changes.VenueId.currentValue;
+        
+        this.Init();
+    }
+
+    Init()
+    {
         this.CreateLocalAutocomplete();
 
         this.aboutForm.controls["emails"] = new FormArray([]);
@@ -52,8 +72,20 @@ export class VenueAboutComponent extends BaseComponent implements OnInit {
             this.Venue.emails = [new ContactModel()];
         
         this.AddEmailsToForm(this.Venue.emails.length);
-        
-        
+        this.GetVenueImage();
+    }
+
+    GetVenueImage()
+    {
+        if(this.VenueImageId)
+        {
+            this.main.imagesService.GetImageById(this.VenueImageId)
+                .subscribe(
+                    (res:Base64ImageModel) => {
+                        this.Venue.image_base64 = res.base64;
+                    }
+                );
+        }
     }
 
     CreateLocalAutocomplete()
@@ -143,5 +175,28 @@ export class VenueAboutComponent extends BaseComponent implements OnInit {
                 
             }
         );
-      }
+    }
+
+    DeleteImage()
+    {
+        if(this.VenueImageId && this.VenueId && this.Venue.image_base64)
+        {
+            this.main.imagesService.DeleteImageById(this.VenueImageId,this.VenueId)
+                .subscribe(
+                    (res) => {
+                        console.log(res);
+                        this.VenueImageId = 0;
+                        this.DeleteLocalImage();
+                    }
+                );
+        }
+        else {
+            this.DeleteLocalImage();
+        }
+    }
+
+    DeleteLocalImage()
+    {
+        this.Venue.image_base64=''
+    }
 }

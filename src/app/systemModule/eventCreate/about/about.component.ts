@@ -91,10 +91,14 @@ export class AboutComponent extends BaseComponent implements OnInit {
   
     this.getGenres();
     this.main.imagesService.GetImageById(event.image_id)
-      .subscribe((img)=>{event.image_base64 = img.base64;})
+      .subscribe(
+          (img)=>{
+              event.image_base64 = img.base64;
+            }
+        )
     
-    this.mapCoords.lat = this.Event.city_lat;
-    this.mapCoords.lng = this.Event.city_lng;
+    this.mapCoords.lat = (this.Event && this.Event.city_lat)?this.Event.city_lat:0;
+    this.mapCoords.lng = (this.Event && this.Event.city_lng)?this.Event.city_lng:0;
   }
   SaveVenue(){
     

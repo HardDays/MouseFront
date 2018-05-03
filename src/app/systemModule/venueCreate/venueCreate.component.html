@@ -34,7 +34,7 @@
                 </div>
             </div>
         </div>
-        <venue-about-selector #about *ngIf="CurrentPart == Parts.About" (onError)="OpenErrorWindow($event)" (onSaveVenue)="SaveVenue($event)" [Venue]="Venue"></venue-about-selector>
+        <venue-about-selector #about *ngIf="CurrentPart == Parts.About" (onError)="OpenErrorWindow($event)" (onSaveVenue)="SaveVenue($event)" [Venue]="Venue" [VenueImageId]="VenueImageId" [VenueId]="VenueId"></venue-about-selector>
         <venue-hours-selector #hours *ngIf="CurrentPart == Parts.Hours" (onError)="OpenErrorWindow($event)" (onSaveVenue)="SaveVenue($event)" [Venue]="Venue"></venue-hours-selector>
         <venue-listing-selector #listing *ngIf="CurrentPart == Parts.Listing" (onError)="OpenErrorWindow($event)" (onSaveVenue)="SaveVenue($event)" [Venue]="Venue"></venue-listing-selector>
         <venue-media-selector #media *ngIf="CurrentPart == Parts.Media" (onError)="OpenErrorWindow($event)" (onSaveVenue)="SaveVenue($event)" [Venue]="Venue" [VenueId]="VenueId"></venue-media-selector>

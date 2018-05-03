@@ -210,46 +210,6 @@ export class BaseComponent{
         }
     }
 
-
-    CreateUserAcc(user:UserCreateModel, account:AccountCreateModel,callback:(error)=>any)
-    {
-        if(!this.userCreated)
-        { 
-            this.WaitBeforeLoading(
-                () => this.main.authService.CreateUser(user),
-                (res:UserGetModel)=> {
-                    this.main.authService.BaseInitAfterLogin(new TokenModel(res.token));
-                    this.userCreated = true;
-                    this.main.authService.onAuthChange$.next(true);
-                },
-                (err) => {
-                    callback(err);
-                    this.main.authService.onAuthChange$.next(false);
-                }
-            );
-        }
-    }
-
-
-
-    CreateUser(user:UserCreateModel, callbackOk:(res)=>any, callbackErr:(error)=>any)
-    {
-        this.userCreated = false;
-        this.WaitBeforeLoading(
-            ()=>this.main.authService.CreateUser(user),
-            (res:UserGetModel) => {
-                this.main.authService.BaseInitAfterLogin(new TokenModel(res.token));
-                this.userCreated = true;
-                this.main.authService.onAuthChange$.next(true);
-                callbackOk(res);
-            },
-            (err) => {
-                callbackErr(err);
-                this.main.authService.onAuthChange$.next(false);
-            }
-        );
-    }
-
     CreateAcc(account:AccountCreateModel,callbackOk:(res)=>any,callback:(error)=>any)
     {
         this.main.authService.CreateAccount(account)
@@ -289,93 +249,6 @@ export class BaseComponent{
 
    
 
-   
-
-    // protected GetImageById(id:number,callback:(res:any)=>any, errCallback?:(obj?:any)=>void){
-    //     if(id){
-    //         this.WaitBeforeLoading(
-    //             ()=>this.service.GetImageById(id),
-    //             (res:Base64ImageModel)=>{
-    //                 if(callback && typeof callback == "function"){
-    //                     callback(res);
-    //                 }
-    //             },
-    //             (err)=>{
-    //                 console.log(err);
-
-    //                 if(callback && typeof callback == "function"){
-    //                     callback(false);
-    //                 }
-    //                 if(errCallback && typeof errCallback == "function"){
-    //                     errCallback();
-    //                 }
-    //             }
-    //         );
-    //     }
-    //     else{
-    //         if(callback && typeof callback == "function"){
-    //             callback(false);
-    //         }
-    //     }
-    // }
-
-    // protected GetMyImage(callback?:()=>any){
-    //     this.GetImageById(
-    //         this.Me.image_id,
-    //         (res:Base64ImageModel)=>{
-    //             this.MyLogo = res.base64;
-    //             if(callback && typeof callback == "function"){
-    //                 callback();
-    //             }
-    //         }
-    //     ); 
-    // }
-    
-    
-    
-    // protected GetMyAccess(callback?:(params:any)=>void){
-    //     this.WaitBeforeLoading(
-    //         ()=>this.service.GetMyAccess(),
-    //         (res:any)=>{
-    //             this.SetUserStatus(res.role);
-               
-    //             if(callback && typeof callback == "function"){
-    //                 callback(res);
-    //             }
-    //         },
-    //         (err)=>{
-    //             this.SetUserStatus('');
-    //             if(callback && typeof callback == "function"){
-    //                  callback(false);
-    //             }
-    //         }
-    //     );
-    // }
-
-
-    // private SetUserStatus(role:string, first?:boolean){
-        
-        
-
-    //     this.service.SetupLocalUserStatus(this.userStatus);
-
-
-    //     if(+this.userStatus <= 1){
-    //         this.Logout();
-    //         this.NewErrForUser = true;
-    //     } 
-        
-    //     else{
-    //         this.NewErrForUser = false;
-    //         if(location.pathname=='/login' || location.pathname=='/system/registration')
-    //         {  
-    //             this.router.navigate(['/system','table']);
-    //             //location.reload();
-    //         }
-    //     }
-
-    // }
-
 
     convertToCheckModel<T>(model)
     {
@@ -397,17 +270,17 @@ export class BaseComponent{
           keepCharPositions: true,
           guide:false
         };
-      }
+    }
 
-      MaskNumbers()
-      {
+    MaskNumbers()
+    {
         return {
-          // mask: ['+',/[1-9]/,' (', /[1-9]/, /\d/, /\d/, ') ',/\d/, /\d/, /\d/, '-', /\d/, /\d/,'-', /\d/, /\d/],
-          mask: [/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,,/\d/,/\d/,/\d/],
-          keepCharPositions: true,
-          guide:false
+            // mask: ['+',/[1-9]/,' (', /[1-9]/, /\d/, /\d/, ') ',/\d/, /\d/, /\d/, '-', /\d/, /\d/,'-', /\d/, /\d/],
+            mask: [/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,,/\d/,/\d/,/\d/],
+            keepCharPositions: true,
+            guide:false
         };
-      }
+    }
 
     
     /* AUTOCOMPLETE */

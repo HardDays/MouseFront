@@ -91,6 +91,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         (
             () => this.main.eventService.GetEventById(this.EventId),
             (res: any) => {
+                console.log(res);
                 this.InitEvent(res);
             },
             (err:any) => {
