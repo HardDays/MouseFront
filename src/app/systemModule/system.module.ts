@@ -50,15 +50,12 @@ import { EventsModule } from './events/events.module';
 import { ShowsModule } from './shows/shows.module';
 import { ErrorModule } from '../shared/error/error.module';
 import { PreloaderModule } from '../shared/preloader/preloader.module';
-import { ArtistAboutComponent } from './artistCreate/artist-about/artist-about.component';
-import { ArtistMediaComponent } from './artistCreate/artist-media/artist-media.component';
-import { ArtistBookingComponent } from './artistCreate/artist-booking/artist-booking.component';
-import { ArtistRidersComponent } from './artistCreate/artist-riders/artist-riders.component';
+import { ArtistCreateModule } from './artistCreate/artistCreate.module';
+
 
 @NgModule({
   declarations: [
     SystemComponent,
-    ArtistCreateComponent,
     FeedComponent,
     TicketsComponent,
     FanCreateComponent,
@@ -68,17 +65,7 @@ import { ArtistRidersComponent } from './artistCreate/artist-riders/artist-rider
     MyTicketOpenedComponent,
     BiographyComponent,
     ByTicketComponent,
- 
-    ShowDetailVideoComponent,
- 
-    ArtistAboutComponent,
- 
-    ArtistMediaComponent,
- 
-    ArtistBookingComponent,
- 
-    ArtistRidersComponent,
-
+    ShowDetailVideoComponent
   ],
   imports: [
     CommonModule,
@@ -100,8 +87,7 @@ import { ArtistRidersComponent } from './artistCreate/artist-riders/artist-rider
     YoutubePlayerModule,
     ErrorModule,
     PreloaderModule,
-    
-    // SlickModule.forRoot(),
+    ArtistCreateModule,
     
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",

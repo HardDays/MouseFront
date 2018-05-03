@@ -38,7 +38,7 @@ import { ArtistCreateComponent } from './artistCreate.component';
     ],
     exports: [ ArtistCreateComponent ]
 })
-export class EventCreateModule {}
+export class ArtistCreateModule {}
 
 
   

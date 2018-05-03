@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, NgZone, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, NgZone, ChangeDetectorRef, ElementRef, EventEmitter, ViewChild, Output } from '@angular/core';
 import { AccountCreateModel } from '../../../core/models/accountCreate.model';
 import { BaseComponent } from '../../../core/base/base.component';
 import { MainService } from '../../../core/services/main.service';
@@ -17,7 +17,12 @@ declare var $:any;
 export class ArtistBookingComponent extends BaseComponent implements OnInit {
 
   // mapCoords = {lat:55.755826, lng:37.6172999};
-  // @ViewChild('search') public searchElement: ElementRef;
+  
+  @ViewChild('search') public searchElement: ElementRef;
+  
+  @Output() OnSave = new EventEmitter<AccountCreateModel>();
+  @Output() OnError = new EventEmitter<string>();
+
 
   @Input() Artist:AccountCreateModel;
   preferredVenues:CheckModel<{type:string, type_show:string}>[] = []; 
@@ -40,9 +45,11 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
     this.CreateAutocomplete();
     this.preferredVenues = this.getVenuesTypes();
   }
+
   Init(artist:AccountCreateModel){
     this.Artist = artist;
   }
+
   setPreferedVenue(index:number){
 
     if(!this.preferredVenues[index].checked){
@@ -60,9 +67,14 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
     if(type.checked)
       this.Artist.preferred_venues.push(type.object.type);
 
-  //console.log(this.createArtist,this.preferredVenues);
+  this.Artist.preferred_venues = [];
+  for(let v of this.preferredVenues)
+    if(v.checked)
+      this.Artist.preferred_venues.push(v.object.type);
 
-  // this.updateArtistByCreateArtist();
+  console.log(this.Artist,this.preferredVenues);
+
+  this.saveArtist();
 }
 
   getVenuesTypes(){
@@ -168,6 +180,10 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
 
   openMapModal(){
     $('#modal-map').modal('show');
+  }
+
+  saveArtist(){
+    this.OnSave.emit(this.Artist);
   }
 
 }

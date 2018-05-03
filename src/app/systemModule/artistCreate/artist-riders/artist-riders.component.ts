@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, NgZone, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, NgZone, ChangeDetectorRef, EventEmitter, Output } from '@angular/core';
 import { AccountCreateModel, Rider } from '../../../core/models/accountCreate.model';
 import { BaseComponent } from '../../../core/base/base.component';
 import { MainService } from '../../../core/services/main.service';
@@ -14,6 +14,9 @@ import { MapsAPILoader } from '@agm/core';
 export class ArtistRidersComponent extends BaseComponent implements OnInit {
 
   @Input() Artist:AccountCreateModel;
+
+  @Output() OnSave = new EventEmitter<AccountCreateModel>();
+  @Output() OnError = new EventEmitter<string>();
 
   riders:Rider[] = [];
   stageRider:Rider= new Rider();
@@ -37,6 +40,7 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
   }
   Init(artist:AccountCreateModel){
     this.Artist = artist;
+    this.getRiders();
   }
 
   loadRiderFile($event:any){
@@ -82,6 +86,7 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
       this.stageRider.is_flexible = true;
     this.Artist.artist_riders.push(this.stageRider);
     
+    this.saveArtist();
     // this.updateArtistByCreateArtist();
   }
 
@@ -95,6 +100,7 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
       this.technicalRider.is_flexible = true;
     this.Artist.artist_riders.push(this.technicalRider);
     
+    this.saveArtist();
     // this.updateArtistByCreateArtist();
   }
   loadTechnicalRiderFile($event:any){
@@ -123,6 +129,7 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
    
     this.Artist.artist_riders.push(this.backstageRider);
     
+    this.saveArtist();
     // this.updateArtistByCreateArtist();
   }
   loadBackstageRiderFile($event:any){
@@ -146,11 +153,12 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
 
     if(!this.hospitalityRider.is_flexible)
     this.hospitalityRider.is_flexible = false;
-    else 
+      else 
     this.hospitalityRider.is_flexible = true;
     
     this.Artist.artist_riders.push(this.hospitalityRider);
     
+    this.saveArtist();
     // this.updateArtistByCreateArtist();
   }
   loadHospitalityRiderFile($event:any){
@@ -166,6 +174,10 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
       reader.readAsDataURL(file);
     }
    
+  }
+
+  saveArtist(){
+    this.OnSave.emit(this.Artist);
   }
 
 

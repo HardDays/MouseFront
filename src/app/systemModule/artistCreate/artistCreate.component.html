@@ -38,7 +38,7 @@
 
         <app-preloader *ngIf="isLoading"></app-preloader>
         
-        <app-artist-about #AboutPage [Artist]="Artist" [ngStyle]="{'display': !isLoading&&(currentPage==pages.about)?'block':'none'}"></app-artist-about>
+        <app-artist-about #AboutPage [Artist]="Artist" (OnSave)="SaveArtist($event)" [ngStyle]="{'display': !isLoading&&(currentPage==pages.about)?'block':'none'}"></app-artist-about>
 
         <!-- 
             <div [ngStyle]="{'display': (currentPage==pages.calendar)?'block':'none'}" class="create-event-body-1">
@@ -73,9 +73,9 @@
 
         <div class="create-event-body-1">
 
-            <app-artist-media #MediatPage [Artist]="Artist" [ngStyle]="{'display': !isLoading&&(currentPage==pages.media)?'block':'none'}"></app-artist-media>
+            <app-artist-media #MediatPage [Artist]="Artist" (OnSave)="SaveArtist($event)" (OnError)="OpenError($event)" [ngStyle]="{'display': !isLoading&&(currentPage==pages.media)?'block':'none'}"></app-artist-media>
 
-            <app-artist-booking #BookingPage [Artist]="Artist" [ngStyle]="{'display': !isLoading&&(currentPage==pages.booking)?'block':'none'}"></app-artist-booking>
+            <app-artist-booking #BookingPage [Artist]="Artist" (OnSave)="SaveArtist($event)" (OnError)="OpenError($event)" [ngStyle]="{'display': !isLoading&&(currentPage==pages.booking)?'block':'none'}"></app-artist-booking>
 
             <app-artist-riders #RidersPage [Artist]="Artist" [ngStyle]="{'display': !isLoading&&(currentPage==pages.riders)?'block':'none'}"></app-artist-riders>
 

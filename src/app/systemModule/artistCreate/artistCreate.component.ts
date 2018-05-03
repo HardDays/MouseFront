@@ -143,14 +143,14 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
       this.RidersPage.Init(this.Artist);
   }
 
-  SaveEvent(venue:EventCreateModel)
+  SaveArtist(artist:AccountCreateModel)
   {
     this.WaitBeforeLoading
     (
-      () => this.ArtistId == 0 ? this.main.eventService.CreateEvent(this.Artist) : this.main.eventService.UpdateEvent(this.ArtistId,this.Artist),
+      () => this.ArtistId == 0 ? this.main.accService.CreateAccount(this.Artist) : this.main.accService.UpdateMyAccount(this.ArtistId,this.Artist),
       (res) => {
         this.DisplayArtistParams(res);
-        // this.NextPart();
+        this.NextPart();
       },
       (err) => {
         this.errorCmp.OpenWindow(BaseMessages.Fail);
@@ -850,19 +850,18 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
 //       })
 //   }
 
-//   NextPart()
-//   {
-//     // if(this.currentPage == this.pages.riders)
-//     //   this.router.navigate(["/system","profile",this.artistId]);
-
-//     if(this.currentPage!=this.pages.media&&this.currentPage!=this.pages.riders)
-//     this.currentPage = this.currentPage + 1;
-//   }
+  NextPart()
+  {
+    if(this.currentPage!=this.pages.media&&this.currentPage!=this.pages.riders)
+      this.currentPage = this.currentPage + 1;
+  }
   
   ChangeCurrentPart(newPart)
   {
 
-    // тут вызвать сохранение страницы до перехода.
+    let prevPage = this.currentPage; 
+   
+   
     if(this.ArtistId == 0 && newPart > this.pages.about)
       return;
 
@@ -871,22 +870,27 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
 
     this.currentPage = newPart;
 
+    // тут вызвать сохранение страницы до перехода.
+    if(prevPage==this.pages.about){
+     if(this.AboutPage)
+      this.AboutPage.artistFromAbout();
+    }
+    else if(prevPage==this.pages.booking){
+      if(this.BookingPage)
+        this.BookingPage.saveArtist();
+    }
    
   }
 
-  saveButtonClick(){
-    // if(this.currentPage == Pages.about){
-    //   this.artistFromAbout();
-    // }
-    // else if(this.currentPage == Pages.booking){
-    //   this.addBooking();
-    // }
-    // else if(this.currentPage == this.pages.riders)
-    //   this.router.navigate(["/system","profile",this.artistId]);
 
-    // this.updateArtistByCreateArtist();
+
+  saveButtonClick(){
+    console.log(`SAVE BUTTON`);
   }
 
+  OpenError(str:string){
+    this.errorCmp.OpenWindow(BaseMessages.Fail+'. '+str);
+  }
   
 
 }

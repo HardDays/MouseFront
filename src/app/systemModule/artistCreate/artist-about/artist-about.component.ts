@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, NgZone, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, NgZone, ChangeDetectorRef, ViewChild, ElementRef, EventEmitter, Output } from '@angular/core';
 import { AccountCreateModel } from '../../../core/models/accountCreate.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { GenreModel } from '../../../core/models/genres.model';
@@ -20,7 +20,7 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
 
 
   @Input() Artist:AccountCreateModel;
-
+  @Output() OnSave = new EventEmitter<AccountCreateModel>();
  
   aboutForm : FormGroup = new FormGroup({        
     "user_name": new FormControl("", [Validators.required]),
@@ -110,31 +110,11 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
 
         this.Artist.account_type = AccountType.Artist;
         this.Artist.genres = this.main.genreService.GenreModelArrToStringArr(this.genres);
+         
+        console.log(`Artist from About`,this.Artist);
         
-       
-      console.log(`Artist from About`,this.Artist);
-      
-    //     if(this.isNewArtist){
-    //      //   console.log(`CREATE NEW ARTIST`);
-    //         this.main.accService.CreateAccount(this.createArtist)
-    //         .subscribe((artist:AccountGetModel)=>{
-    //             this.artistId = artist.id;
-    //             this.artistModelToCreateArtistModel(artist);
-    //             // this.currentPage = Pages.calendar;
-    //             this.currentPage = Pages.media;
-    //             this.main.GetMyAccounts();
-    //             this.errorCmp.OpenWindow(BaseMessages.Success);
-    //         },(err)=>{  this.errorCmp.OpenWindow(BaseMessages.Fail);});
-    //     }
-       
-    //     else this.updateArtistByCreateArtist();
-    // }
-    // else {
-    //  //   console.log(`Invalid About Form!`, this.aboutForm);
-    //     this.errorCmp.OpenWindow('Invalid About Form!');
+        this.OnSave.emit(this.Artist);
     }
-}
-
-
+  }
 
 }
