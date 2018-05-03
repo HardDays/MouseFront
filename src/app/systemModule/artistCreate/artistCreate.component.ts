@@ -886,6 +886,21 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
 
   saveButtonClick(){
     console.log(`SAVE BUTTON`);
+    if(this.currentPage==this.pages.about){
+      if(this.AboutPage)
+       this.AboutPage.artistFromAbout();
+     }
+     else if(this.currentPage==this.pages.booking){
+       if(this.BookingPage)
+         this.BookingPage.saveArtist();
+     }
+    // this.currentPage = this.pages.about;
+
+    this.errorCmp.OpenWindow(BaseMessages.Success);
+    setTimeout(() => {
+      this.errorCmp.CloseWindow();
+      this.router.navigate(['/system','profile',this.ArtistId]);
+    }, 3000);
   }
 
   OpenError(str:string){
