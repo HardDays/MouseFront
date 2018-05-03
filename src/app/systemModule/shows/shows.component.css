@@ -53,11 +53,29 @@ p{
 
   
 }
-.one-checkbox p{
+.one-checkbox p
+{
     font-size: 13px;
     padding-left: 10px;
 }
-.pac-container { z-index: 100000; }
-.yes-no{
+
+.pac-container
+{ 
+    z-index: 100000; 
+}
+
+.yes-no
+{
     margin-left: 80px;
+}
+
+.location-wr .location-inp
+{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.select-type-of-space
+{
+    -moz-appearance: menulist;
+    -webkit-appearance: menulist;
+    background: none;
 }

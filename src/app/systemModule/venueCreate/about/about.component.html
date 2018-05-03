@@ -74,7 +74,22 @@
                     </div>
                     <div class="side">
                         <h6 class="head-col-add-venue hidden-lg hidden-md hidden-sm hidden-xs">Address</h6>
-                        <!-- поменял местами Address и Country -->
+                        <div class="input-groupe-1 whithout-label">
+                            
+                                <div class="photo-wr-1 n-i-s">
+                                    
+                                    <label *ngIf="!Venue.image_base64" class="file_upload new-style-img-up">
+                                        <div class="bg-image"></div>
+    
+                                        <input accept=".jpg, .jpeg, .png" (change)="uploadImage($event)" type="file">
+                                    </label>
+    
+                                    <!--появляется этот блок если загружена фотка и в стайл бекграунд имейдж ебануть-->
+                                    <div *ngIf="Venue.image_base64" (click)="Venue.image_base64=''" [ngStyle]="{'background-image': Venue.image_base64?'url('+Venue.image_base64+')':''}" class="bg-image uploaded"></div>
+                                    <!---->
+                                </div>
+                                <label  class="head-groupe">Add Image</label>
+                        </div>
                         <div class="input-groupe-1">
                             <input id="inp-create-venue-adr-2" #search placeholder="" autocomplete="off" [(ngModel)]="Venue.address" formControlName="address" name="" type="text">
                             <label for="inp-create-venue-adr-2">Address<span>*</span></label>

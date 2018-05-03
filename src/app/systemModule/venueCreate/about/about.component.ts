@@ -12,7 +12,10 @@ import { ContactModel } from '../../../core/models/contact.model';
 @Component({
     selector: 'venue-about-selector',
     templateUrl: './about.component.html',
-    styleUrls: ['./../venueCreate.component.css']
+    styleUrls: [
+        './../venueCreate.component.css',
+        './about.component.css'
+    ]
 })
 export class VenueAboutComponent extends BaseComponent implements OnInit {
     @Input() Venue: AccountCreateModel;
@@ -131,4 +134,14 @@ export class VenueAboutComponent extends BaseComponent implements OnInit {
         }
         this.onSaveVenue.emit(this.Venue);
     }
+
+    uploadImage($event){
+        this.ReadImages(
+            $event.target.files,
+            (res:string)=>{
+               this.Venue.image_base64 = res;
+                
+            }
+        );
+      }
 }

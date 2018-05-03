@@ -248,6 +248,13 @@ export class EventService{
         return result;
     }
 
+    GetEventAnalytics(id:number)
+    {
+        return this.http.CommonRequest(
+            () => this.http.GetData("/events/" + id + "/analytics.json")
+        );
+    }
+
 
 
 }

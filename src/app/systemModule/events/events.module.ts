@@ -11,6 +11,7 @@ import { AgmCoreModule } from '@agm/core';
 import { SearchEventComponent } from './search/search.component';
 import { MapEventComponent } from './map/map.component';
 import { PreloaderModule } from '../../shared/preloader/preloader.module';
+import { AnalyticsEventComponent } from './analytics/analytics.component';
 
 @NgModule({
     imports: [ 
@@ -28,7 +29,8 @@ import { PreloaderModule } from '../../shared/preloader/preloader.module';
         EventsComponent,
         MyEventComponent,
         SearchEventComponent,
-        MapEventComponent
+        MapEventComponent,
+        AnalyticsEventComponent
     ],
     exports: [ EventsComponent]
 })

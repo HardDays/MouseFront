@@ -33,6 +33,7 @@ import { Http } from '@angular/http';
 import { MainService } from '../../core/services/main.service';
 import { SearchEventComponent } from './search/search.component';
 import { MapEventComponent } from './map/map.component';
+import { AnalyticsEventComponent } from './analytics/analytics.component';
 
 declare var $:any;
 
@@ -74,6 +75,7 @@ export class EventsComponent extends BaseComponent implements OnInit,AfterViewCh
     
     @ViewChild('mapForm') mapForm : MapEventComponent;
 
+    @ViewChild('analyt') analyt : AnalyticsEventComponent;
     GetEvents(params?:EventSearchParams)
     {
         let search:EventSearchParams = {
@@ -147,6 +149,10 @@ export class EventsComponent extends BaseComponent implements OnInit,AfterViewCh
     TransferMapToSearch(params)
     {
         this.search.GetLocation(params);
+    }
+    ShowAnalytics($event)
+    {
+        this.analyt.ShowWindow($event);
     }
 
 }

@@ -5,9 +5,26 @@
 bs-daterangepicker-container{
     left:0px !important;
 }
-.yes-no{
+.yes-no
+{
     margin-left: 80px;
 }
-.modal-send-request.map-1-modal .modal-dialog .for-map-init-modal-1{
+.modal-send-request.map-1-modal .modal-dialog .for-map-init-modal-1
+{
     border: none;
+}
+
+.cursor-disabled
+{
+    cursor:not-allowed;
+}
+.location-wr .location-inp
+{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.select-type-of-space
+{
+    -moz-appearance: menulist;
+    -webkit-appearance: menulist;
+    background: none;
 }

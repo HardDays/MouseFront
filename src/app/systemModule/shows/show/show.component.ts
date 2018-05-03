@@ -22,7 +22,6 @@ export class ShowItemComponent extends BaseComponent implements OnInit {
 
     GetExtendedEvent()
     {
-        // console.log(this.Event);
         this.WaitBeforeLoading(
             () => this.main.eventService.GetEventById(this.Show.id),
             (res:EventGetModel) =>{
@@ -31,7 +30,6 @@ export class ShowItemComponent extends BaseComponent implements OnInit {
                 this.GetImage();
             },
             (err) => {
-                // console.log(err);
             }
         );
     }

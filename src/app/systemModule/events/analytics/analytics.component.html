@@ -1,0 +1,79 @@
+<!--модалка для кликов на Analytics-->
+<div class="modal fade modal-send-request analytics" id="modal-analytics">
+    <div class="modal-dialog">
+        <div class="modal-body">
+        
+            <h6 class="head-m-p-a"><span>{{Event.name}}</span></h6>
+            
+            <span class="closee-modal" data-dismiss="modal"></span>
+            
+            <div class="bg-analytics-cover" [ngStyle]="{'background-image': 'url(' + Image + ')'}"></div>
+            <div class="all-info-by-event">
+                <div class="top-side">
+                    <p class="f-t-i">Event Details</p>
+                    <p *ngIf="(Event.event_month || Event.event_season)&& Event.event_year"  class="when">{{Event.event_month?Event.event_month:Event.event_season}}, {{Event.event_year}}</p>
+                    <p class="where">{{Event.address}}</p>
+                    <ng-container *ngIf="Event.is_crowdfunding_event">
+                        <div class="funded-bar" style="overflow: hidden">
+                            <div class="funded" [ngStyle]="{'width':+FoundedPercent +'%'}"></div>
+                        </div>
+                        <div class="funded-desc">
+                            <p class="count">${{Event.founded}} ({{FoundedPercent?FoundedPercent:0 | number}}%)</p>
+                            <div class="marg">
+                                <!-- <p class="style-text-2"><span>12</span><br>Days to go</p> -->
+                                <p class="style-text-2"><span>{{Event.backers}}</span><br>Backers</p>
+                            </div>
+                        </div>
+                        <p class="goal">Goal: <span>${{Event.funding_goal}}</span></p>
+                    </ng-container>
+                </div>
+                <div class="bottom-side">
+                    <p class="f-t-i">Totals</p>
+                    <div class="flex-info-bottom-side">
+                        <p>Purchased Tickets</p>
+                        <p class="count">{{Analyt.purchased_tickets}}</p>
+                    </div>
+                    <div class="flex-info-bottom-side">
+                        <p>In Person Tickets</p>
+                        <p class="count">{{Analyt.in_person_tickets_sold}}</p>
+                    </div>
+                    <div class="flex-info-bottom-side">
+                        <p>VR Tickets</p>
+                        <p class="count">{{Analyt.vr_tickets_sold}}</p>
+                    </div>
+                    <div class="flex-info-bottom-side">
+                        <p>Views</p>
+                        <p class="count">{{Analyt.views}}</p>
+                    </div>
+                    <div class="flex-info-bottom-side">
+                        <p>Clicks</p>
+                        <p class="count">{{Analyt.clicks}}</p>
+                    </div>
+                    <!-- <div class="flex-info-bottom-side">
+                        <p>Percentage Sold</p>
+                        <p class="count">{{smthing}}</p>
+                    </div> -->
+                    <div class="flex-info-bottom-side">
+                        <p>
+                            Comments 
+                            <!-- <span class="show-t">(show)</span> -->
+                        </p>
+                        <p class="count redd">{{Analyt.comments}}</p>
+                    </div>
+                    <div class="flex-info-bottom-side">
+                        <p>
+                            Likes 
+                            <!-- <span class="show-t">(show)</span> -->
+                        </p>
+                        <p class="count redd">{{Analyt.likes}}</p>
+                    </div>
+                    <div class="print-wr">
+                        <button disabled="disabled" class="butt-style-1 cursor-disabled">
+                            <span>Print</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

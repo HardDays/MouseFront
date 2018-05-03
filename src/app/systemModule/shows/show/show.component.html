@@ -8,7 +8,7 @@
                 <div *ngIf="Show.is_active" class="sale">
                         <p>BUY 1<br>GET 1<br>TICKET</p>
                 </div>
-                <div *ngIf="!Show.is_active" class="funded" style="overflow: hidden">
+                <div *ngIf="!Show.is_active && Show.is_crowdfunding_event" class="funded" style="overflow: hidden">
                     <!-- тут ебошим высоту, скок собрали баблища-->
                     <div class="complete" [ngStyle]="{'height':+FoundedPercent +'%'}"></div>
                     <p>12 days<br>to go<br><span>{{FoundedPercent?FoudedPrcent:0}}%<br>funded</span></p>

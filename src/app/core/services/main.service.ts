@@ -97,7 +97,7 @@ export class MainService{
         this.ActiveProcessesChanges
             .subscribe(
                 (val:string[]) => {
-                    console.log(val);
+                    //console.log(val);
                 }
             );
     }

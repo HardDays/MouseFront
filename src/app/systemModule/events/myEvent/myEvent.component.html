@@ -1,26 +1,29 @@
-<div class="one-event">
+<div class="one-event" [routerLink]="['/system','eventCreate',Event.id]">
     <div class="cover-event" [ngStyle]="{'background-image': 'url(' + Image + ')'}">
         <div class="icons-vr-t">
-            <div class="vr"></div>
-            <div class="ticket-icon"></div>
+            <div class="vr" *ngIf="Event.has_vr"></div>
+            <div class="ticket-icon" *ngIf="Event.has_in_person"></div>
         </div>
     </div>
-    <div class="white-desc-event">
+    <div class="white-desc-event" >
         <a [routerLink]="['/system','eventCreate',Event.id]" class="name-artist">{{Event.name}}</a>
-        <p *ngIf="Event.event_month && Event.event_year"  class="when">{{Event.event_month}}, {{Event.event_year}}</p>
+        <p *ngIf="(Event.event_month || Event.event_season)&& Event.event_year"  class="when">{{Event.event_month?Event.event_month:Event.event_season}}, {{Event.event_year}}</p>
         <p class="where">{{Event.address}}</p>
-        <div class="funded-bar" style="overflow: hidden">
-            <div class="funded" [ngStyle]="{'width':+FoundedPercent +'%'}"></div>
-        </div>
-        <div class="funded-desc">
-            <p class="finded-proc"><span>{{Event.founded}}</span> Funded</p>
-            <p class="comlete-t">{{FoundedPercent?FoundedPercent:0 | number}}% Complete</p>
-        </div>
-        <p class="style-text-2"><span>60</span> Days to go</p>
-        <div class="last-flex-info">
+        <p class="types" *ngIf="!Event.is_crowdfunding_event" >Number of ticket types: {{Event.tickets?Event.tickets.length :'0'}}</p>
+        <ng-container *ngIf="Event.is_crowdfunding_event">
+            <div class="funded-bar" style="overflow: hidden">
+                <div class="funded" [ngStyle]="{'width':+FoundedPercent +'%'}"></div>
+            </div>
+            <div class="funded-desc">
+                <p class="finded-proc"><span>{{Event.founded}}</span> Funded</p>
+                <p class="comlete-t">{{FoundedPercent?FoundedPercent:0 | number}}% Complete</p>
+            </div>
+        </ng-container>
+        <!-- <p class="style-text-2"><span>60</span> Days to go</p> -->
+        <div class="last-flex-info" *ngIf="!Event.is_active">
             <p class="style-text-2"><span>{{Event.backers}}</span> Backers</p>
-            <p class="not-active">{{Event.is_active}}</p>
+            <p class="not-active" >Not Active</p>
         </div>
-        
+        <div class="abs-analytics" *ngIf="Event.is_active" (click)="AnaliticsClick($event)">Analytics</div>
     </div>
 </div>

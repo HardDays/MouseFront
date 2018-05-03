@@ -195,7 +195,7 @@ export class TypeService{
             }),
             new CheckModel({
                 value:'vip',
-                name:'VIP'
+                name:'VR'
             }),
         ];
     }

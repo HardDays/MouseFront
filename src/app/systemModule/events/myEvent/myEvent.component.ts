@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { BaseComponent } from '../../../core/base/base.component';
 import { EventGetModel } from '../../../core/models/eventGet.model';
 import { BaseImages } from '../../../core/base/base.enum';
@@ -12,6 +12,8 @@ import { Base64ImageModel } from '../../../core/models/base64image.model';
 })
 export class MyEventComponent extends BaseComponent implements OnInit {
     @Input() Event: EventGetModel;
+    
+    @Output() onGetAnalytics:EventEmitter<EventGetModel> = new EventEmitter<EventGetModel>();
     FoundedPercent:number = 0;
     Image:string = BaseImages.Drake;
 
@@ -47,5 +49,11 @@ export class MyEventComponent extends BaseComponent implements OnInit {
                 }
             );
         }
+    }
+
+    AnaliticsClick(e)
+    {
+        e.stopPropagation();
+        this.onGetAnalytics.emit(this.Event);
     }
 }
