@@ -223,6 +223,17 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
     }  
   }
 
+  DeleteImage($event)
+  {
+    this.main.accService.GetAccountById(this.VenueId,{extended:true})
+      .subscribe(
+        (res:AccountGetModel) => 
+        {
+          this.DisplayVenueParams(res);
+        }
+      );
+  }
+
   OpenErrorWindow(str:string)
   {
     this.errorCmp.OpenWindow(str);

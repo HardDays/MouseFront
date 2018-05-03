@@ -113,3 +113,17 @@ p{
     z-index: 10;
     font-size: 20px;
 }
+.slider-2-albums
+{
+    display: flex;
+    flex-wrap: wrap;
+}
+.slider-2-albums .one-slide
+{
+    width:50%;
+    
+}
+.slider-2-albums .one-slide .wrapp-card .descr
+{
+    min-height: 92px;
+}

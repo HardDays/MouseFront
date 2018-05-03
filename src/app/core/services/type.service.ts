@@ -41,7 +41,7 @@ export class TypeService{
         return [
             new SelectModel("Indoors", "indoors"),
             new SelectModel("Outdoors", "outdoors"),
-            new SelectModel("Both", "other_location")
+            new SelectModel("Both", "both")
         ];
     }
 

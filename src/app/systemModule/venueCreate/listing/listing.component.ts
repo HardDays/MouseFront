@@ -63,6 +63,7 @@ export class VenueListingComponent extends BaseComponent implements OnInit,OnCha
             return;
         }
 
+
         if(this.Venue.type_of_space != "other" && this.Venue.other_genre_description)
         {
             this.Venue.other_genre_description = "";

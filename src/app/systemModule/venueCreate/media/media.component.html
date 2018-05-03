@@ -112,9 +112,11 @@
                         </div>
                     </div>
                 </ngx-slick> -->
-                <div [ngStyle]="{'display': VenueImages.length > 0 ? 'block' : 'none'}" class="slider-2-albums slider-4-photos slider-4-init">
+                <div [ngStyle]="{'display': VenueImages.length > 0 ? 'flex' : 'none'}" class="slider-2-albums slider-4-photos slider-4-init">
                     <ng-container *ngFor="let item of VenueImages">
-                        <venue-image-selector [Image]="item" (onDeleteImage)="DeleteImage($event)"></venue-image-selector>
+                        <div class="one-slide">
+                            <venue-image-selector [Image]="item" (onDeleteImage)="DeleteImage($event)"></venue-image-selector>
+                        </div>
                         <!-- <div class="one-slide" *ngIf="VenueImages[i]">
                             <div class="wrapp-card">
                                 <div class="delete-track"></div>

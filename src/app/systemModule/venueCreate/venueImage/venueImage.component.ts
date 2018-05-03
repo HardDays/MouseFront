@@ -8,6 +8,7 @@ import { Base64ImageModel } from '../../../core/models/base64image.model';
 @Component({
     selector: 'venue-image-selector',
     templateUrl: './venueImage.component.html',
+    styleUrls: ['./../venueCreate.component.css']
 })
 export class VenueMediaPhotoComponent extends BaseComponent implements OnInit {
     @Input() Image: ImageAccModel;

@@ -1,4 +1,4 @@
-<div class="one-slide" *ngIf="Image">
+<ng-container *ngIf="Image">
     <div class="wrapp-card">
         <div class="delete-track" (click)="DeleteImage()"></div>
         <div class="cover-image" [ngStyle]="{'background-image': 'url('+ Base64 +')'}"></div>
@@ -7,4 +7,4 @@
             <p class="name">{{Image.description}}</p>
         </div>
     </div>
-</div>
+</ng-container>

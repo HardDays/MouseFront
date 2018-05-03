@@ -24,7 +24,9 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
     @Input() VenueId: number;
     @Output() onSaveVenue:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
     @Output() onError:EventEmitter<string> = new EventEmitter<string>();
+    @Output() onImageDeleted:EventEmitter<boolean> = new EventEmitter<boolean>();
 
+    
 
     EmailFormGroup : FormGroup = new FormGroup({
         "name_email":new FormControl("",[]),
@@ -51,7 +53,6 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        console.log(changes);
         if(changes.Venue)
             this.Venue = changes.Venue.currentValue;
         if(changes.VenueImageId)
@@ -184,8 +185,8 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
             this.main.imagesService.DeleteImageById(this.VenueImageId,this.VenueId)
                 .subscribe(
                     (res) => {
-                        console.log(res);
                         this.VenueImageId = 0;
+                        this.onImageDeleted.emit(true);
                         this.DeleteLocalImage();
                     }
                 );
