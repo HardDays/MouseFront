@@ -20,6 +20,7 @@ import { GenreModel } from '../../../core/models/genres.model';
 import { CheckModel } from '../../../core/models/check.model';
 import { InboxMessageModel } from '../../../core/models/inboxMessage.model';
 import { EventCreateModel } from '../../../core/models/eventCreate.model';
+import { BaseImages } from '../../../core/base/base.enum';
 
 declare var $:any;
 declare var ionRangeSlider:any;
@@ -43,7 +44,8 @@ export class ArtistComponent extends BaseComponent implements OnInit {
   Artists:AccountGetModel[] = [];
   artistForRequest:AccountGetModel = new AccountGetModel();
   addArtist:AccountAddToEventModel = new AccountAddToEventModel();
-  
+  isLoadingArtist:boolean = false;
+
   artistSearchParams:AccountSearchModel = new AccountSearchModel();
   genresSearchArtist:GenreModel[] = []; // список жанров для поиска артистов
   artistsSearch:CheckModel<AccountGetModel>[] = []; // артисты, которые удовлятворяют поиску
@@ -108,7 +110,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
     }
 
     PriceArtistChanged(data:any){
-        this.artistSearchParams.price_from = data.from;
+        this.artistSearchParams.price_to = data.from;
         this.artistSearch();
     }
 
@@ -170,9 +172,13 @@ export class ArtistComponent extends BaseComponent implements OnInit {
     }
   }
 
-  artistSearch($event?:string){ 
+  artistSearch($event?:string){
+
+    
+
     if($event) this.artistSearchParams.text = $event;
 
+    this.isLoadingArtist = true;
     this.artistSearchParams.type = 'artist';
 
     this.artistSearchParams.genres = [];
@@ -180,26 +186,42 @@ export class ArtistComponent extends BaseComponent implements OnInit {
     for(let g of this.genresSearchArtist)
       if(g.checked) this.artistSearchParams.genres.push(g.genre);
    
-     this.main.accService.AccountsSearch(this.artistSearchParams).
-         subscribe((res)=>{
-                let temp = this.convertArrToCheckModel<AccountGetModel>(res);
-                
-                for(let art of this.artistsSearch){
-                  if(art.checked){
-                    let isFind = false;
-                    
-                    for(let t of temp)
-                      if(t.object.id==art.object.id){
-                        t.checked = art.checked;
-                        isFind = true;
-                        break;
-                      }
-                    if(!isFind) temp.push(art);
-                  }
-                }
-                this.artistsSearch = temp;
-               // console.log(this.artistsSearch);
-     });
+   this.main.accService.AccountsSearch(this.artistSearchParams)
+   .subscribe((res)=>{
+        let temp = this.convertArrToCheckModel<AccountGetModel>(res);
+        
+        for(let art of this.artistsSearch){
+          if(art.checked){
+            let isFind = false;
+            
+            for(let t of temp)
+              if(t.object.id==art.object.id){
+                t.checked = art.checked;
+                isFind = true;
+                break;
+              }
+            if(!isFind) temp.push(art);
+          }
+        }
+        
+        this.artistsSearch = [];
+        this.artistsSearch = temp;
+        this.isLoadingArtist = false;
+        this.GetArtistsImages();
+       // console.log(this.artistsSearch);
+      },(err)=>{ this.isLoadingArtist = false;})
+  }
+
+  GetArtistsImages(){
+    for(let a of this.artistsSearch){
+      if(a.object.image_id){
+        this.main.imagesService.GetImageById(a.object.image_id)
+          .subscribe((img)=>{
+            a.object.image_base64_not_given = img.base64;
+          });
+        }
+      else a.object.image_base64_not_given = BaseImages.NoneFolowerImage;
+    }
   }
 
   artistOpenMapModal(){

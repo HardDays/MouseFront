@@ -194,7 +194,7 @@ export class AccountService{
         //return this.http.DeleteData('/accounts/' + id);
     }
 
-    AccountsSearch(params:any)
+    AccountsSearch(params?:any)
     {
         return this.http.CommonRequest(
             () => this.http.GetData("/accounts/search.json",this.typeService.ParamsToUrlSearchParams(params))

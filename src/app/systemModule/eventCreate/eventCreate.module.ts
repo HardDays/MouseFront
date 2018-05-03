@@ -27,7 +27,7 @@ import { PreloaderModule } from '../../shared/preloader/preloader.module';
             libraries: ["places"]
           }),
         ErrorModule,
-        PreloaderModule    
+        PreloaderModule
     ],
     declarations: [ 
         EventCreateComponent,
