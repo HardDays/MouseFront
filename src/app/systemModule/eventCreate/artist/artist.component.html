@@ -123,7 +123,7 @@
                         </div>
                         <div class="right-side">
                             <div class="location-wr">
-                                <div class="mark"></div>
+                                <div class="mark" (click)="artistOpenMapModal()"></div>
                                 <input type="text" [(ngModel)]="artistSearchParams.address" class="location-inp" placeholder="Location" #searchArtist id="artistAddress">
                             </div>
                         </div>
@@ -147,7 +147,7 @@
                                     <div class="ava"  [ngStyle]="{'background-image': item.object.image_base64_not_given?'url('+item.object.image_base64_not_given+')':''}"></div>
                                     <div class="desc">
                                         <!-- <a class="name" [routerLink]="['/system/profile',item.object.id]">{{niceView(item.object.display_name)}} {{niceView(item.object.user_name)}}</a> -->
-                                        <a class="name" [routerLink]="['/system/profile',item.object.id]">{{niceViewName(item.object)}}</a>
+                                        <a class="name" style="cursor: pointer" (click)="closeAddArtist(item.object.id)">{{niceViewName(item.object)}}</a>
                                         <p class="genres">{{niceViewGenres(item.object.genres)}}</p>
                                         <p class="where">{{item.object.address}}</p>
                                     </div>
@@ -261,19 +261,19 @@
             </form>
         </div>
     </div>
-    <!--//конец модалки для кликов на send request-->
-        <!-- новая вторая модалка с картой
+    <!-- //конец модалки для кликов на send request-->
+        
         <div class="modal fade modal-send-request map-1-modal" id="modal-map-2">
             <div class="modal-dialog">
                 <div class="modal-body">
                     <h6 class="head-m-p-a">Location</h6>
                     <span class="closee-modal" data-dismiss="modal"></span>
                     <div class="for-map-init-modal-1">
-                            <agm-map  style="height:100%" (mapClick)="setMapCoords($event)" [latitude]="mapCoords.lat" [longitude]="mapCoords.lng">
+                            <agm-map  #agmMap triggerResize='true' style="height:100%" (mapClick)="setMapCoords($event)" [latitude]="mapCoords.lat" [longitude]="mapCoords.lng">
                                 <agm-marker  [markerDraggable] = "true" (dragEnd)="dragMarker($event)" [(latitude)]="mapCoords.lat" [(longitude)]="mapCoords.lng"></agm-marker>
                         </agm-map>
                     </div>
                 </div>
             </div>
-        </div> -->
-        <!--//новая вторая модалка с картой-->
+        </div> 
+        <!--//новая вторая модалка с картой -->

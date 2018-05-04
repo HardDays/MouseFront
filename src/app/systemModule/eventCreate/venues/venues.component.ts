@@ -10,7 +10,7 @@ import { BaseComponent } from '../../../core/base/base.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'angular2-social-login';
-import { MapsAPILoader } from '@agm/core';
+import { MapsAPILoader, AgmMap } from '@agm/core';
 import { Http } from '@angular/http';
 import { GetVenue, EventGetModel } from '../../../core/models/eventGet.model';
 import { AccountSearchModel } from '../../../core/models/accountSearch.model';
@@ -20,6 +20,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { AccountAddToEventModel } from '../../../core/models/artistAddToEvent.model';
 import { InboxMessageModel } from '../../../core/models/inboxMessage.model';
 import { EventCreateModel } from '../../../core/models/eventCreate.model';
+import { BaseImages } from '../../../core/base/base.enum';
 
 declare var $:any;
 declare var ionRangeSlider:any;
@@ -37,7 +38,8 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     @Output() onError:EventEmitter<string> = new EventEmitter<string>();
     
     @ViewChild('searchVenue') public searchElementVenue: ElementRef;
-
+    @ViewChild('agmMap') agmMap : AgmMap;
+    
     venuesList: GetVenue[] = [];
     isAcceptedVenueShow:boolean = true;
     isPrivateVenue:boolean = false;
@@ -45,6 +47,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     venueList:CheckModel<AccountGetModel>[] = [];
 
     mapCoords =  {lat:55.755826, lng:37.6172999};
+    isLoadingVenue:boolean = false;
    
     venueSearchParams:AccountSearchModel = new AccountSearchModel();
     typesSpace:CheckModel<SelectModel>[] = [];
@@ -137,7 +140,10 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                     this.venueShowsList.push(acc);
                 })
             }
-            else this.venueShowsList.push(acc);
+            else {
+                acc.image_base64_not_given = BaseImages.NoneFolowerImage;
+                this.venueShowsList.push(acc);
+            }
             })
         }
     }
@@ -179,12 +185,12 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         }
     }
     VenuePriceChanged(data){
-        this.venueSearchParams.price_from  = data.from;
+        this.venueSearchParams.price_to  = data.from;
         this.venueSearch();
 
     }
     VenueCapacityChanged(data){
-        this.venueSearchParams.capacity_from = data.from;
+        this.venueSearchParams.capacity_to = data.from;
         this.venueSearch();
     }
 
@@ -211,8 +217,8 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                         {
                             this.venueSearchParams.address = autocomplete.getPlace().formatted_address;
                              this.venueSearch();
-                            // this.mapCoords.venue.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
-                            // this.mapCoords.venue.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
+                            this.mapCoords.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
+                            this.mapCoords.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
                         }
                     });
                 });
@@ -221,7 +227,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     }
     venueSearch($event?:string){
         this.venueList = [];
-      
+        this.isLoadingVenue = true;
         this.venueSearchParams.type = 'venue';
         if($event) this.venueSearchParams.text = $event;
         this.venueSearchParams.types_of_space = [];
@@ -255,12 +261,28 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                         if(!isFind) temp.push(art);
                       }
                     }
+                    this.venueList = [];
                     this.venueList = temp;
+                    
+                    this.isLoadingVenue = false;
+                    this.GetVenuesImages();
                  //   console.log(this.venueList);
                   
                 //  }
          });
     }
+
+    GetVenuesImages(){
+        for(let a of this.venueList){
+          if(a.object.image_id){
+            this.main.imagesService.GetImageById(a.object.image_id)
+              .subscribe((img)=>{
+                a.object.image_base64_not_given = img.base64;
+              });
+            }
+          else a.object.image_base64_not_given = BaseImages.NoneFolowerImage;
+        }
+      }
 
 
     addVenueCheck(venue:CheckModel<AccountGetModel>){
@@ -470,6 +492,7 @@ declineVenue(card:AccountGetModel){
 
     venueOpenMapModal(){
         $('#modal-map-3').modal('show');
+        this.agmMap.triggerResize();
     }
 
 

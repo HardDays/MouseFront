@@ -8,7 +8,7 @@ import { EventService } from '../../../core/services/event.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'angular2-social-login';
-import { MapsAPILoader } from '@agm/core';
+import { MapsAPILoader, AgmMap } from '@agm/core';
 import { Http } from '@angular/http';
 import { BaseComponent } from '../../../core/base/base.component';
 import { GetArtists, EventGetModel } from '../../../core/models/eventGet.model';
@@ -39,6 +39,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
   @Output() onError:EventEmitter<string> = new EventEmitter<string>();
 
   @ViewChild('searchArtist') public searchElementArtist: ElementRef;
+  @ViewChild('agmMap') agmMap : AgmMap;
 
   artistsList: GetArtists[] = [];
   Artists:AccountGetModel[] = [];
@@ -224,6 +225,15 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
   artistOpenMapModal(){
     $('#modal-map-2').modal('show');
+    this.agmMap.triggerResize();
+  }
+
+  closeAddArtist(id:number){
+    $('#modal-pick-artist').modal('toggle');
+    setTimeout(() => {
+      this.router.navigate(['/system/profile',id]);
+    }, 150);
+    // [routerLink]="
   }
 
   addNewArtistOpenModal(){

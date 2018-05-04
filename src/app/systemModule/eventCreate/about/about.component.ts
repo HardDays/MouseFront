@@ -37,6 +37,7 @@ export class AboutComponent extends BaseComponent implements OnInit {
   @ViewChild('searchAbout') public searchElementAbout: ElementRef;
 
   mapCoords =  {lat:55.755826, lng:37.6172999};
+
   genres:GenreModel[] = [];
   showMoreGenres:boolean = false;
 
@@ -76,8 +77,8 @@ export class AboutComponent extends BaseComponent implements OnInit {
                     else 
                     {
                         this.Event.address = autocomplete.getPlace().formatted_address;
-                        // this.Event.city_lat = autocomplete.getPlace().geometry.location.toJSON().lat;
-                        // this.Event.city_lng = autocomplete.getPlace().geometry.location.toJSON().lng;
+                        this.Event.city_lat = autocomplete.getPlace().geometry.location.toJSON().lat;
+                        this.Event.city_lng = autocomplete.getPlace().geometry.location.toJSON().lng;
 
                         this.mapCoords.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
                         this.mapCoords.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
@@ -97,8 +98,8 @@ export class AboutComponent extends BaseComponent implements OnInit {
             }
         )
     
-    this.mapCoords.lat = (this.Event && this.Event.city_lat)?this.Event.city_lat:0;
-    this.mapCoords.lng = (this.Event && this.Event.city_lng)?this.Event.city_lng:0;
+    this.mapCoords.lat = (this.Event && this.Event.city_lat)?this.Event.city_lat:55.755826;
+    this.mapCoords.lng = (this.Event && this.Event.city_lng)?this.Event.city_lng:37.6172999;
   }
   SaveVenue(){
     
@@ -186,6 +187,9 @@ export class AboutComponent extends BaseComponent implements OnInit {
                     if (results[1]) {
                       
                         $("#aboutAddress").val(results[1].formatted_address);
+                        this.Event.address = results[1].formatted_address;
+                        this.Event.city_lat = results[1].geometry.location.toJSON().lat;
+                        this.Event.city_lng = results[1].geometry.location.toJSON().lng;
                         
                     } 
                     else {

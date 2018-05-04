@@ -168,16 +168,19 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
   saveButtonClick(){
     //console.log(`saveButtonClick`,this.currentPage);
-    if(this.currentPage == this.pages.about)
-      this.about.SaveEvent();
-    else if(this.currentPage == this.pages.artist)
-      this.artist.artistComplete();
-    else if(this.currentPage == this.pages.venue)
-      this.venue.submitVenue();
-    else if(this.currentPage == this.pages.funding)
-      this.funding.comleteFunding();
-    else if(this.currentPage == this.pages.tickets)
-        this.tickets.updateEvent();
+    // if(this.currentPage == this.pages.about)
+      if(this.about)
+        this.about.SaveEvent();
+      if(this.funding)
+        this.funding.comleteFunding();
+    // else if(this.currentPage == this.pages.artist)
+    //   this.artist.artistComplete();
+    // else if(this.currentPage == this.pages.venue)
+    //   this.venue.submitVenue();
+    // else if(this.currentPage == this.pages.funding)
+    //   this.funding.comleteFunding();
+    // else if(this.currentPage == this.pages.tickets)
+    //     this.tickets.updateEvent();
   }
 
   NextPart()

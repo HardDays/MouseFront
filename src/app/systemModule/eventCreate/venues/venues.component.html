@@ -43,7 +43,7 @@
                                     </div>
 
                                     <div class="location-wr">
-                                        <div class="mark"></div>
+                                        <div class="mark" (click)="venueOpenMapModal()" ></div>
                                         <input type="text" [(ngModel)]="venueSearchParams.address" class="location-inp" placeholder="Location" #searchVenue id="venueAddress">
                                     </div>
                                 </div>
@@ -51,26 +51,28 @@
                         </div>
                         <div class="side width-66">
                             <div class="for-padd-cards-art">
+                                    <app-preloader *ngIf="isLoadingVenue"></app-preloader>
                                 <div class="scroll-cards-art">
 
-
-                                    <ng-container *ngFor="let item of venueList; let i = index">
-                                        <div class="one-card">
-                                            <div class="l-s">
-                                                <div class="ava" [ngStyle]="{'background-image': item.image_base64_not_given?'url('+item.image_base64_not_given+')':''}"></div>
-                                                <div class="desc">
-                                                    <a class="name" [routerLink]="['/system/profile',item.object.id]">{{item.object.user_name}}</a>
-                                                    <p class="genres">{{item.object.type_of_space}}</p>
-                                                    <p class="where">{{item.object.address}}</p>
+                                    <ng-container *ngIf="!isLoadingVenue">
+                                        <ng-container *ngFor="let item of venueList; let i = index">
+                                            <div class="one-card">
+                                                <div class="l-s">
+                                                    <div class="ava" [ngStyle]="{'background-image': item.object.image_base64_not_given?'url('+item.object.image_base64_not_given+')':''}"></div>
+                                                    <div class="desc">
+                                                        <a class="name" [routerLink]="['/system/profile',item.object.id]">{{item.object.user_name}}</a>
+                                                        <p class="genres">{{item.object.type_of_space}}</p>
+                                                        <p class="where">{{item.object.address}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="r-s">
+                                                <div class="circle-checkbox gray-border">
+                                                        <input type="checkbox" [checked]="item.checked" class="checkbox" (change)="addVenueCheck(item)" name="" id="checkbox-venue-{{i}}">
+                                                        <label class="label-wr" for="checkbox-venue-{{i}}"></label>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="r-s">
-                                            <div class="circle-checkbox gray-border">
-                                                    <input type="checkbox" [checked]="item.checked" class="checkbox" (change)="addVenueCheck(item)" name="" id="checkbox-venue-{{i}}">
-                                                    <label class="label-wr" for="checkbox-venue-{{i}}"></label>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </ng-container>
                                     </ng-container>
                                     
                                     
@@ -89,7 +91,7 @@
         </div>
     </div>
     
-    <div  [ngStyle]="{'display': !isPrivateVenue?'block':'none'}"   class="tabs-artist-wrapp">
+    <div    class="tabs-artist-wrapp">
         <div class="new-padd-wrapper-m-w">
             <div class="main-mw">
                 <ul class="tabs-menu-active-decline">
@@ -262,16 +264,16 @@
     </div>
 </div>
 
-<!-- <div class="modal fade modal-send-request map-1-modal" id="modal-map-3">
+<div class="modal fade modal-send-request map-1-modal" id="modal-map-3">
     <div class="modal-dialog">
         <div class="modal-body">
             <h6 class="head-m-p-a">Location</h6>
             <span class="closee-modal" data-dismiss="modal"></span>
             <div class="for-map-init-modal-1">
-                    <agm-map  style="height:100%" (mapClick)="setMapCoords($event)" [latitude]="mapCoords.lat" [longitude]="mapCoords.lng">
+                    <agm-map #agmMap style="height:100%" (mapClick)="setMapCoords($event)" [latitude]="mapCoords.lat" [longitude]="mapCoords.lng">
                         <agm-marker  [markerDraggable] = "true" (dragEnd)="dragMarker($event)" [(latitude)]="mapCoords.lat" [(longitude)]="mapCoords.lng"></agm-marker>
                 </agm-map>
             </div>
         </div>
     </div>
-</div> -->
+</div>
