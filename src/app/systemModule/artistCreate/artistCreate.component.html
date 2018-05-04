@@ -24,7 +24,7 @@
                         </li>
 
 
-                        <li>
+                        <li *ngIf="ArtistId !== 0">
                             <button (click)="saveButtonClick()" class="butt-style-1" style="width: 127px">
                                 <span style="padding: 10px 21px">
                                 SAVE
@@ -38,7 +38,7 @@
 
         <app-preloader *ngIf="isLoading"></app-preloader>
         
-        <app-artist-about #AboutPage [Artist]="Artist" (OnSave)="SaveArtist($event)" [ngStyle]="{'display': !isLoading&&(currentPage==pages.about)?'block':'none'}"></app-artist-about>
+        <app-artist-about #AboutPage [Artist]="Artist" (OnSave)="SaveArtist($event)" (OnError)="OpenError($event)" [ngStyle]="{'display': !isLoading&&(currentPage==pages.about)?'block':'none'}"></app-artist-about>
 
         <!-- 
             <div [ngStyle]="{'display': (currentPage==pages.calendar)?'block':'none'}" class="create-event-body-1">

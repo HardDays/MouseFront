@@ -8,11 +8,11 @@
         </div>
         <div  class="tickets-flex-body">
             <div class="left-ticket">
-                <div class="tickets-left-info">
+                <div *ngIf="Event.venue" class="tickets-left-info">
                     <p class="info-text">In Person Tickets Available</p>
-                    <span class="price">20/100</span>
+                    <span class="price">20/{{Event.venue.capacity}}</span>
                 </div>
-                <div class="tickets-left-info">
+                <div *ngIf="Event.venue" class="tickets-left-info">
                     <p class="info-text">VR Tickets Available</p>
                     <span class="price">200/200</span>
                 </div>

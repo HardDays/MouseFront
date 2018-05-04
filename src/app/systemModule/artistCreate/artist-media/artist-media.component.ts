@@ -249,12 +249,16 @@ SanitizeImage(image: string)
 
 
 deleteImage(id:number){
-  this.main.imagesService.DeleteImageById(id,this.main.CurrentAccount.id)
-    .subscribe((res)=>{
+  console.log(id,this.main.CurrentAccount.id);
+  this.WaitBeforeLoading(
+    ()=> this.main.imagesService.DeleteImageById(id,this.main.CurrentAccount.id),
+    (res)=>{
+      this.ArtistImages = [];
       this.GetArtistImages();
     },(err)=>{
-      this.showError(BaseMessages.Fail);
-    })
+      this.showError('');
+    }
+  )
 }
 
   clearNewElements(){

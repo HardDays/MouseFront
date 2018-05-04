@@ -174,8 +174,6 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
   artistSearch($event?:string){
 
-    
-
     if($event) this.artistSearchParams.text = $event;
 
     this.isLoadingArtist = true;

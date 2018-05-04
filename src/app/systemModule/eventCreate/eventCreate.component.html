@@ -28,17 +28,17 @@
                         </li> -->
                         
 
-                        <li>
+                        <li *ngIf="EventId !== 0">
                             <button (click)="saveButtonClick()" class="butt-style-1" style="width: 127px">
                                 <span style="padding: 10px 21px">
                                 SAVE
                                 </span>
                             </button>
                         </li>
-                        <li *ngIf="!Event.is_active">
+                        <li *ngIf="!Event.is_active&&EventId !== 0&&currentPage == pages.tickets">
                             <button (click)="activeButtonClick()" class="butt-style-1" style="width: 127px">
                                 <span style="padding: 10px 21px">
-                                Set Active
+                                Launch event
                                 </span>
                             </button>
                         </li>

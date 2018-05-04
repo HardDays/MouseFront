@@ -32,25 +32,25 @@
                     <div class="flex-wrapp-cards">
 
                         <ng-container *ngIf="Artists&&Artists.length>0">
-                        <ng-container *ngFor="let item of Artists; let i = index">
-                            <div *ngIf="item.status_not_given!='owner_declined'&&item.status_not_given!='declined'" class="one-card">
-                               
-                                    <app-one-card 
-                                        [card] = "item" 
-                                        [status] = "item.status_not_given" 
-                                        [price] = "getPriceAtMsg(item.id)" 
-                                        (accepted) = "acceptArtistCard($event)"
-                                        (requested) = "sendArtistRequestOpenModal($event)"
-                                        (declined) = "declineArtist($event)"
-                                        (checked) = "updateEvent()"
-                                    ></app-one-card>
-                                    
-                            </div>
-                        </ng-container>
+                            <ng-container *ngFor="let item of Artists; let i = index">
+                                <div *ngIf="item.status_not_given!='owner_declined'&&item.status_not_given!='declined'" class="one-card">
+                                
+                                        <app-one-card 
+                                            [card] = "item" 
+                                            [status] = "item.status_not_given" 
+                                            [price] = "getPriceAtMsg(item.id)" 
+                                            (accepted) = "acceptArtistCard($event)"
+                                            (requested) = "sendArtistRequestOpenModal($event)"
+                                            (declined) = "declineArtist($event)"
+                                            (checked) = "updateEvent()"
+                                        ></app-one-card>
+                                        
+                                </div>
+                            </ng-container>
                         </ng-container>
 
                         <!--для добавления артиста-->
-                        <div [ngStyle]="{'display': ((Event.artist&&(Event.artist.length<Event.artists_number))||!Event.artist)?'block':'none'}" class="one-card">
+                        <div class="one-card">
                             <div class="add-artist-block artist-modal-open">
                                 <div (click)="addNewArtistOpenModal()" class="plus"></div>
                                 <span class="add">Add New Artist</span>

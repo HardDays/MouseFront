@@ -7,7 +7,7 @@ import { MainService } from '../../../core/services/main.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MapsAPILoader } from '@agm/core';
-import { AccountType } from '../../../core/base/base.enum';
+import { AccountType, BaseMessages } from '../../../core/base/base.enum';
 
 declare var $:any;
 
@@ -21,6 +21,7 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
 
   @Input() Artist:AccountCreateModel;
   @Output() OnSave = new EventEmitter<AccountCreateModel>();
+  @Output() OnError = new EventEmitter<string>();
  
   aboutForm : FormGroup = new FormGroup({        
     "user_name": new FormControl("", [Validators.required]),
@@ -115,6 +116,13 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
         
         this.OnSave.emit(this.Artist);
     }
+    else {
+      this.showError('Uncorrect Inputs');
+    }
+  }
+
+  showError(str:string){
+    this.OnError.emit(str);
   }
 
 }

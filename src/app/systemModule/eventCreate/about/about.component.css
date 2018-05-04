@@ -45,3 +45,6 @@
     -ms-transform: rotate(270deg);
     transform: rotate(270deg);
 }
+.location-wr .location-inp{
+    border-bottom: 1px dashed rgba(255,255,255,0.5);
+}
