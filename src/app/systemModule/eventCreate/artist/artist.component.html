@@ -50,7 +50,7 @@
                         </ng-container>
 
                         <!--для добавления артиста-->
-                        <div  class="one-card">
+                        <div [ngStyle]="{'display': ((Event.artist&&(Event.artist.length<Event.artists_number))||!Event.artist)?'block':'none'}" class="one-card">
                             <div class="add-artist-block artist-modal-open">
                                 <div (click)="addNewArtistOpenModal()" class="plus"></div>
                                 <span class="add">Add New Artist</span>
