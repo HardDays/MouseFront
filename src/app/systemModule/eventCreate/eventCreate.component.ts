@@ -183,7 +183,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   NextPart()
   {
     if(this.currentPage == this.pages.tickets)
-      this.router.navigate(["/system","shows_detail",this.EventId]);
+      this.router.navigate(["/system","events"]);
       
     scrollTo(0,0);
     this.currentPage = this.currentPage + 1;

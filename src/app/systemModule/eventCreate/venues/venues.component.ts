@@ -451,13 +451,14 @@ declineVenue(card:AccountGetModel){
     }
 
     updateEvent(){
+        console.log(`UPDATE EVENT`);
         this.main.eventService.GetEventById(this.Event.id).
         subscribe((res:EventGetModel)=>{
            // console.log(`updateEventThis`);
             this.Event = this.main.eventService.EventModelToCreateEventModel(res);
-            this.venueShowsList = [];
-            this.venueShowsList = this.Event.artist;
-           // console.log(`---`,this.Event,this.venueShowsList);
+            this.venuesList = [];
+            this.venuesList = this.Event.venues;
+            console.log(`---`,this.Event,this.venueShowsList);
             this.GetVenueFromList();
           
 })

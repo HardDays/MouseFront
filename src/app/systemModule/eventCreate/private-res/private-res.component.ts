@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { BaseComponent } from '../../../core/base/base.component';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { AccountCreateModel } from '../../../core/models/accountCreate.model';
 import { AccountGetModel } from '../../../core/models/accountGet.model';
 import { AccountAddToEventModel } from '../../../core/models/artistAddToEvent.model';
+
 
 @Component({
   selector: 'app-private-res',
@@ -13,6 +14,8 @@ import { AccountAddToEventModel } from '../../../core/models/artistAddToEvent.mo
 export class PrivateResComponent extends BaseComponent implements OnInit {
   
   @Input() EventId:number;
+  @Output() OnCreate = new EventEmitter<boolean>();
+
   addVenue:AccountAddToEventModel = new AccountAddToEventModel();
   
   privateVenueForm : FormGroup ;
@@ -40,16 +43,13 @@ export class PrivateResComponent extends BaseComponent implements OnInit {
     addPriateVenue(){
         if(!this.privateVenueForm.invalid){
 
-
             this.addVenue.event_id = this.EventId;
             
-           
             for (let key in this.privateVenueForm.value) {
                 if (this.privateVenueForm.value.hasOwnProperty(key)) {
                         this.privateVenueCreate[key] = this.privateVenueForm.value[key];
                 }
             }
-
 
             if(this.privateVenueCreate.has_vr != true)
                 this.privateVenueCreate.has_vr = false;
@@ -58,35 +58,35 @@ export class PrivateResComponent extends BaseComponent implements OnInit {
             this.privateVenueCreate.venue_type = 'private_residence';
 
           
-            
-            
-            
-            //console.log(`newPrivateEvent`,this.privateVenueCreate);
+            console.log(`newPrivateEvent`,this.privateVenueCreate);
 
-            this.main.accService.CreateAccount(this.privateVenueCreate)
-                .subscribe((acc:AccountGetModel)=>{
-                        this.privateVenue = acc;
-                        //console.log(`create`,this.privateVenue);
+            this.WaitBeforeLoading(
+                ()=>  this.main.accService.CreateAccount(this.privateVenueCreate),
+                (acc:AccountGetModel)=>{
+                    this.privateVenue = acc;
+                    console.log(`create`,this.privateVenue);
+                   
+                    
+                    this.addVenue.venue_id = acc.id;
+                    this.addVenue.account_id = this.main.CurrentAccount.id;
+
+                    console.log(`add venue`,this.addVenue);
+                    this.main.eventService.AddVenue(this.addVenue).
+                        subscribe((res)=>{
+                            this.OnCreate.emit(true);
+                        });
+
                         for(let img of this.imagesListPrivateRes){
-                           this.main.accService.PostAccountImages(acc.id,img)
-                            .subscribe((res)=>{
-                        }); 
-                        }
-                        this.addVenue.venue_id = acc.id;
-                        this.addVenue.account_id = this.main.CurrentAccount.id;
-                       // console.log(`add venue`,this.addVenue);
-                        this.main.eventService.AddVenue(this.addVenue).
-                            subscribe((res)=>{
-                                //console.log(`add ok`,acc);
-                                // this.updateEvent();
-                                // this.currentPage = 'funding';
-                            });
-                        
-                    },
-                    (err)=>{
-                        //console.log(`err`,err);
-                    }
-                );
+                            this.main.accService.PostAccountImages(acc.id,img)
+                             .subscribe((res)=>{
+                         }); 
+                         }
+               
+                },
+                (err)=>{
+                    //console.log(`err`,err);
+                }
+            );
         }
         else {
             //console.log(`Invalid About Form!`, this.privateVenueForm);
