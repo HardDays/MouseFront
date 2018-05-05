@@ -73,7 +73,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
   
   Parts = PageParts;
 
-  CurrentPart = this.Parts.Listing;
+  CurrentPart = this.Parts.About;
 
   Venue:AccountCreateModel = new AccountCreateModel();
   VenueId:number = 0;

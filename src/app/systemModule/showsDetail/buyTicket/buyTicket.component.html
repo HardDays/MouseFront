@@ -15,7 +15,10 @@
                     </svg>
                 </div>
             </div>
-            <button type="submit" class="butt-style-2" [disabled]="Count == 0" style="border: none;">ADD</button>
+            <button type="submit" class="butt-style-2" [disabled]=" !(CurrentAccount && CurrentAccount.account_type == 'fan') || Count == 0" 
+                style="border: none;" [ngClass]="{'cursor-disabled':!(CurrentAccount && CurrentAccount.account_type == 'fan') || Count == 0}">
+                    ADD
+            </button>
         </div>
         <div class="abs-description-ticket-wr">
             <p class="f" *ngIf="!Ticket.is_for_personal_use && !Ticket.is_promotional">VR ticket</p>

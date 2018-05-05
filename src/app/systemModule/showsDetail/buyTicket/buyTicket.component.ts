@@ -1,14 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { BaseComponent } from '../../core/base/base.component';
-import { BaseImages } from '../../core/base/base.enum';
-import { Base64ImageModel } from '../../core/models/base64image.model';
-import { TicketModel } from '../../core/models/ticket.model';
-import { BuyTicketModel } from '../../core/models/buyTicket.model';
+import { BaseComponent } from '../../../core/base/base.component';
+import { TicketModel } from '../../../core/models/ticket.model';
+import { BuyTicketModel } from '../../../core/models/buyTicket.model';
 
 
 @Component({
     selector: 'buy-ticket-selector',
-    templateUrl: './buyTicket.component.html'
+    templateUrl: './buyTicket.component.html',
+    styleUrls: ['./../showsDetail.component.css']
 })
 export class ByTicketComponent extends BaseComponent implements OnInit {
     @Input() Ticket: TicketModel;

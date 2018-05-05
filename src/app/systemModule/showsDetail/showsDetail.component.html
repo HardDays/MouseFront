@@ -106,11 +106,9 @@
                 <div class="for-flex-contant-d">
                     <div class="left-side-tickets">
                         <ng-container *ngIf="Event.is_active">
-                            <ng-container *ngIf="CurrentAccount && CurrentAccount.account_type == 'fan'">
                                 <ng-container *ngFor="let item of Tickets">
                                     <buy-ticket-selector (onAddTickets)="AddTicketsToPrice($event)" [Ticket]="item"></buy-ticket-selector>
                                 </ng-container>
-                            </ng-container>
                         </ng-container>
                         <h2 class="total" *ngIf="!Event.is_active"> Show is unactive!</h2>
                     </div>

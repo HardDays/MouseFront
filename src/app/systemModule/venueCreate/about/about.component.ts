@@ -63,6 +63,7 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
 
     ngOnInit(): void 
     {
+        this.CreateOnModelChangeForParent();
         this.Init();
     }
 
@@ -89,7 +90,6 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
         
         this.AddEmailsToForm(this.Venue.emails.length);
         this.GetVenueImage();
-        this.CreateOnModelChangeForParent();
     }
 
     GetVenueImage()
@@ -100,7 +100,7 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
                 .subscribe(
                     (res:Base64ImageModel) => {
                         this.Venue.image_base64 = res.base64;
-                        this.aboutForm.updateValueAndValidity();
+                        this.onVenueChanged.emit(this.Venue);
                     }
                 );
         }
@@ -190,7 +190,6 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
             $event.target.files,
             (res:string)=>{
                 this.Venue.image_base64 = res;
-                this.aboutForm.updateValueAndValidity();
             }
         );
     }
@@ -216,6 +215,6 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
     DeleteLocalImage()
     {
         this.Venue.image_base64='';
-        this.aboutForm.updateValueAndValidity();
+        this.onVenueChanged.emit(this.Venue);
     }
 }

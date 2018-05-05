@@ -34,7 +34,6 @@ import { MessagesComponent } from './messages/messages.component';
 import { MyTicketComponent } from './my-ticket/my-ticket.component';
 import { MyTicketOpenedComponent } from './my-ticket-opened/my-ticket-opened.component';
 import { BiographyComponent } from './biography/biography.component';
-import { ByTicketComponent } from './buyTicket/buyTicket.component';
 import { OneCardComponent } from './eventCreate/one-card/one-card.component';
 import { VenueMediaPhotoComponent } from './venueCreate/venueImage/venueImage.component';
 import { ShowDetailVideoComponent } from './showsDetail/video/video.component';
@@ -52,6 +51,7 @@ import { ErrorModule } from '../shared/error/error.module';
 import { PreloaderModule } from '../shared/preloader/preloader.module';
 import { ArtistCreateModule } from './artistCreate/artistCreate.module';
 import { NewComponent } from './newComponent/new.component';
+import { ByTicketComponent } from './showsDetail/buyTicket/buyTicket.component';
 
 
 @NgModule({
