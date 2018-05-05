@@ -36,7 +36,7 @@ export class AccountService{
             result.display_name = input.display_name?input.display_name:null;
             result.phone = input.phone?input.phone:null;
             result.account_type = input.account_type;
-            result.image_base64 = null;
+            result.image_base64 = '';
             result.emails = this.typeService.ValidateArray(input.emails)?input.emails:[new ContactModel()];
             result.dates = input.dates;
             result.type_of_space = input.type_of_space;
@@ -194,7 +194,7 @@ export class AccountService{
         //return this.http.DeleteData('/accounts/' + id);
     }
 
-    AccountsSearch(params?:any)
+    AccountsSearch(params:any)
     {
         return this.http.CommonRequest(
             () => this.http.GetData("/accounts/search.json",this.typeService.ParamsToUrlSearchParams(params))
@@ -204,7 +204,8 @@ export class AccountService{
     public GetWorkingTimeFromFront(days:FrontWorkingTimeModel[]):WorkingTimeModel[]{
         let result:WorkingTimeModel[] = [];
 
-        for(let i of days){
+        for(let i of days)
+        {
             if(i.checked)
                 result.push(new WorkingTimeModel(i.start_work, i.finish_work, i.name));
         }

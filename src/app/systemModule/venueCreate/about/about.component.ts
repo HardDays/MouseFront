@@ -25,6 +25,7 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
     @Output() onSaveVenue:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
     @Output() onError:EventEmitter<string> = new EventEmitter<string>();
     @Output() onImageDeleted:EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() onVenueChanged:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
 
     
 
@@ -46,15 +47,29 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
         "state": new FormControl("", [Validators.required]),
         "zipcode": new FormControl("", []),
     });
-    
+
+    CreateOnModelChangeForParent()
+    {
+        this.aboutForm.valueChanges.forEach(
+            (value:any) => {
+                this.onVenueChanged.emit(this.Venue);
+            });
+        this.aboutForm.controls["emails"].valueChanges.forEach(
+            (value:any) => {
+                this.onVenueChanged.emit(this.Venue);
+            }
+        );
+    }
+
     ngOnInit(): void 
     {
         this.Init();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if(changes.Venue)
+        if(changes.Venue){
             this.Venue = changes.Venue.currentValue;
+        }
         if(changes.VenueImageId)
             this.VenueImageId = changes.VenueImageId.currentValue;
         if(changes.VenueId)
@@ -74,6 +89,7 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
         
         this.AddEmailsToForm(this.Venue.emails.length);
         this.GetVenueImage();
+        this.CreateOnModelChangeForParent();
     }
 
     GetVenueImage()
@@ -84,6 +100,7 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
                 .subscribe(
                     (res:Base64ImageModel) => {
                         this.Venue.image_base64 = res.base64;
+                        this.aboutForm.updateValueAndValidity();
                     }
                 );
         }
@@ -139,8 +156,8 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
     GetContactFormGroup()
     {
         return new FormGroup({
-        "name_email":new FormControl("",[]),
-        "email":new FormControl("",[Validators.email]),
+            "name_email":new FormControl("",[]),
+            "email":new FormControl("",[Validators.email]),
         })
     }
 
@@ -172,8 +189,8 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
         this.ReadImages(
             $event.target.files,
             (res:string)=>{
-               this.Venue.image_base64 = res;
-                
+                this.Venue.image_base64 = res;
+                this.aboutForm.updateValueAndValidity();
             }
         );
     }
@@ -198,6 +215,7 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
 
     DeleteLocalImage()
     {
-        this.Venue.image_base64=''
+        this.Venue.image_base64='';
+        this.aboutForm.updateValueAndValidity();
     }
 }

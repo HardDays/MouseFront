@@ -34,13 +34,25 @@
                 </div>
             </div>
         </div>
-        <venue-about-selector #about *ngIf="CurrentPart == Parts.About" (onError)="OpenErrorWindow($event)" (onSaveVenue)="SaveVenue($event)" [Venue]="Venue" [VenueImageId]="VenueImageId" [VenueId]="VenueId" (onImageDeleted)="DeleteImage($event)"></venue-about-selector>
-        <venue-hours-selector #hours *ngIf="CurrentPart == Parts.Hours" (onError)="OpenErrorWindow($event)" (onSaveVenue)="SaveVenue($event)" [Venue]="Venue"></venue-hours-selector>
-        <venue-listing-selector #listing *ngIf="CurrentPart == Parts.Listing" (onError)="OpenErrorWindow($event)" (onSaveVenue)="SaveVenue($event)" [Venue]="Venue"></venue-listing-selector>
-        <venue-media-selector #media *ngIf="CurrentPart == Parts.Media" (onError)="OpenErrorWindow($event)" (onSaveVenue)="SaveVenue($event)" [Venue]="Venue" [VenueId]="VenueId"></venue-media-selector>
-        <venue-dates-selector #dates *ngIf="CurrentPart == Parts.Dates" (onError)="OpenErrorWindow($event)" (onSaveVenue)="SaveVenue($event)" [Venue]="Venue"></venue-dates-selector>
-        
-        
+        <venue-about-selector #about *ngIf="CurrentPart == Parts.About" (onError)="OpenErrorWindow($event)" (onSaveVenue)="SaveVenueByPages($event)" 
+            [Venue]="Venue" [VenueImageId]="VenueImageId" [VenueId]="VenueId" (onImageDeleted)="DeleteImage($event)" (onVenueChanged)="VenueChanged($event)" >
+        </venue-about-selector>
+
+        <venue-hours-selector #hours *ngIf="CurrentPart == Parts.Hours" (onError)="OpenErrorWindow($event)" (onSaveVenue)="SaveVenueByPages($event)"
+            [Venue]="Venue" (onVenueChanged)="VenueChanged($event)">
+        </venue-hours-selector>
+
+        <venue-listing-selector #listing *ngIf="CurrentPart == Parts.Listing" (onError)="OpenErrorWindow($event)" (onSaveVenue)="SaveVenueByPages($event)"
+            [Venue]="Venue" (onVenueChanged)="VenueChanged($event)">
+        </venue-listing-selector>
+
+        <venue-media-selector #media *ngIf="CurrentPart == Parts.Media" (onError)="OpenErrorWindow($event)" (onSaveVenue)="SaveVenueByPages($event)"
+            [Venue]="Venue" [VenueId]="VenueId" (onVenueChanged)="VenueChanged($event)">
+        </venue-media-selector>
+
+        <venue-dates-selector #dates *ngIf="CurrentPart == Parts.Dates" (onError)="OpenErrorWindow($event)" (onSaveVenue)="SaveVenueByPages($event)" 
+            [Venue]="Venue" (onVenueChanged)="VenueChanged($event)">
+        </venue-dates-selector>
     </div>
 </section>
 <error-cmp #errorCmp></error-cmp>

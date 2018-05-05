@@ -73,7 +73,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
   
   Parts = PageParts;
 
-  CurrentPart = this.Parts.About;
+  CurrentPart = this.Parts.Listing;
 
   Venue:AccountCreateModel = new AccountCreateModel();
   VenueId:number = 0;
@@ -144,28 +144,47 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
     }
 
     this.VenueImageId = ($venue && $venue.image_id) ? $venue.image_id : 0;
-    // if(this.hours)
-    //   this.hours.Init(this.Venue);
-    // if(this.media)
-    //   this.media.Init(this.Venue,this.VenueId);
-
   }
 
-  
-
-  SaveVenue(venue:AccountCreateModel)
+  SaveVenueByPages(venue:AccountCreateModel)
   {
     this.WaitBeforeLoading
     (
       () => this.VenueId == 0 ? this.main.accService.CreateAccount(this.Venue) : this.main.accService.UpdateMyAccount(this.VenueId,this.Venue),
       (res) => {
         this.DisplayVenueParams(res);
+
         this.errorCmp.OpenWindow(BaseMessages.Success);
+        
         setTimeout(
           () => this.NextPart(),
           2000
         );
         this.main.GetMyAccounts();
+      },
+      (err) => {
+        this.errorCmp.OpenWindow(BaseMessages.Fail);
+      }
+    )
+  }
+
+  SaveVenue()
+  {
+    this.WaitBeforeLoading
+    (
+      () => this.VenueId == 0 ? this.main.accService.CreateAccount(this.Venue) : this.main.accService.UpdateMyAccount(this.VenueId,this.Venue),
+      (res) => {
+
+        this.errorCmp.OpenWindow(BaseMessages.Success);
+        this.main.GetMyAccounts();
+        setTimeout(
+          () => {
+            this.errorCmp.CloseWindow();
+            this.router.navigate(["/system","profile",this.VenueId]);
+            scrollTo(0,0);
+          },
+          2000
+        );
       },
       (err) => {
         this.errorCmp.OpenWindow(BaseMessages.Fail);
@@ -199,28 +218,29 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
 
   SuperPuperImportantSaveButton()
   {
-    switch(this.CurrentPart){
-      case this.Parts.About:{
-        if(this.about)
-          this.about.SaveVenue();
-      }
-      case this.Parts.Dates:{
-        if(this.dates)
-          this.dates.SaveVenue();
-      }
-      case this.Parts.Listing:{
-        if(this.listing)
-          this.listing.SaveVenue();
-      }
-      case this.Parts.Media:{
-        if(this.media)
-          this.media.SaveVenue();
-      }
-      case this.Parts.Hours:{
-        if(this.hours)
-          this.hours.SaveVenue();
-      }
-    }  
+    this.SaveVenue();
+    // switch(this.CurrentPart){
+    //   case this.Parts.About:{
+    //     if(this.about)
+    //       this.about.SaveVenue();
+    //   }
+    //   case this.Parts.Dates:{
+    //     if(this.dates)
+    //       this.dates.SaveVenue();
+    //   }
+    //   case this.Parts.Listing:{
+    //     if(this.listing)
+    //       this.listing.SaveVenue();
+    //   }
+    //   case this.Parts.Media:{
+    //     if(this.media)
+    //       this.media.SaveVenue();
+    //   }
+    //   case this.Parts.Hours:{
+    //     if(this.hours)
+    //       this.hours.SaveVenue();
+    //   }
+    // }  
   }
 
   DeleteImage($event)
@@ -232,6 +252,17 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
           this.DisplayVenueParams(res);
         }
       );
+  }
+
+  VenueChanged($event)
+  {
+    for(let key of $event)
+    {
+      if(this.Venue[key] != $event[key])
+      {
+        this.Venue[key] = $event[key];
+      }
+    }
   }
 
   OpenErrorWindow(str:string)

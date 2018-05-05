@@ -19,6 +19,7 @@ export class VenueListingComponent extends BaseComponent implements OnInit,OnCha
     @Input() Venue: AccountCreateModel;
     @Output() onSaveVenue:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
     @Output() onError:EventEmitter<string> = new EventEmitter<string>();
+    @Output() onVenueChanged:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
 
     TypesOfSpace:SelectModel[] = [];
     LocatedTypes:SelectModel[] = [];
@@ -43,10 +44,19 @@ export class VenueListingComponent extends BaseComponent implements OnInit,OnCha
         "dress_code":new FormControl("Shirt and Shoes Required",[])
     });
     
+    CreateOnModelChangeForParent()
+    {
+        this.detailsForm.valueChanges.forEach(
+            (value:any) => {
+                this.onVenueChanged.emit(this.Venue);
+            });
+    }
+
     ngOnInit(): void 
     {
         this.TypesOfSpace = this.main.typeService.GetAllSpaceTypes();
         this.LocatedTypes = this.main.typeService.GetAllLocatedTypes();
+        this.CreateOnModelChangeForParent();
     }
 
     ngOnChanges(changes: SimpleChanges): void {

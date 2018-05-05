@@ -51,6 +51,7 @@ import { ShowsModule } from './shows/shows.module';
 import { ErrorModule } from '../shared/error/error.module';
 import { PreloaderModule } from '../shared/preloader/preloader.module';
 import { ArtistCreateModule } from './artistCreate/artistCreate.module';
+import { NewComponent } from './newComponent/new.component';
 
 
 @NgModule({
@@ -65,7 +66,8 @@ import { ArtistCreateModule } from './artistCreate/artistCreate.module';
     MyTicketOpenedComponent,
     BiographyComponent,
     ByTicketComponent,
-    ShowDetailVideoComponent
+    ShowDetailVideoComponent,
+    NewComponent
   ],
   imports: [
     CommonModule,

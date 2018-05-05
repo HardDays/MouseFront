@@ -145,10 +145,6 @@ export class BaseComponent{
         return this.accId ? this.accId : (this.CurrentAccount.id?this.CurrentAccount.id:+this.main.GetCurrentAccId());
     }
 
-    
-
-    
-
     protected Login(user:LoginModel,callback:(error)=>any,callbackOk?:(res)=>any)
     {
         this.WaitBeforeLoading(

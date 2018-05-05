@@ -23,6 +23,7 @@ export class VenueMediaComponent extends BaseComponent implements OnInit,OnChang
     @Input() VenueId: number;
     @Output() onSaveVenue:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
     @Output() onError:EventEmitter<string> = new EventEmitter<string>();
+    @Output() onVenueChanged:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
 
     ImageToLoad:VenueMediaPhotoModel = new VenueMediaPhotoModel();
 
@@ -39,6 +40,14 @@ export class VenueMediaComponent extends BaseComponent implements OnInit,OnChang
         "stage_description" : new FormControl("",[Validators.required,
                                                 Validators.maxLength(1000)])
     }); 
+
+    CreateOnModelChangeForParent()
+    {
+        this.mediaForm.valueChanges.forEach(
+            (value:any) => {
+                this.onVenueChanged.emit(this.Venue);
+            });
+    }
 
     ngOnInit(): void 
     {
@@ -58,6 +67,7 @@ export class VenueMediaComponent extends BaseComponent implements OnInit,OnChang
         if(id)
             this.VenueId = id;
         
+        this.CreateOnModelChangeForParent();
         this.GetVenueImages();
     }
 

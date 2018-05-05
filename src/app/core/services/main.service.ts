@@ -40,7 +40,7 @@ export class MainService{
         public typeService   : TypeService,
         public phoneService  : PhoneService,
         public imagesService : ImagesService,
-        public genreService : GenresService,
+        public genreService  : GenresService,
         public eventService  : EventService,
         public authService   : AuthMainService,
         public accService    : AccountService,

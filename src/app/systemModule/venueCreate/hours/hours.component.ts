@@ -19,6 +19,7 @@ export class VenueHoursComponent extends BaseComponent implements OnInit,OnChang
     @Input() Venue: AccountCreateModel;
     @Output() onSaveVenue:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
     @Output() onError:EventEmitter<string> = new EventEmitter<string>();
+    @Output() onVenueChanged:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
 
     OfficeHours:FrontWorkingTimeModel[] = [];
     OfficeHoursSelectedDate = false;
@@ -74,10 +75,15 @@ export class VenueHoursComponent extends BaseComponent implements OnInit,OnChang
 
     SaveVenue()
     {
-        this.Venue.office_hours = this.main.accService.GetWorkingTimeFromFront(this.OfficeHours);
-        this.Venue.operating_hours = this.main.accService.GetWorkingTimeFromFront(this.OperatingHours);
+        this.GetHoursToVenueModel();
 
         this.onSaveVenue.emit(this.Venue);
+    }
+
+    GetHoursToVenueModel()
+    {
+        this.Venue.office_hours = this.main.accService.GetWorkingTimeFromFront(this.OfficeHours);
+        this.Venue.operating_hours = this.main.accService.GetWorkingTimeFromFront(this.OperatingHours);
     }
 
     OfficeHoursCheckChange(index, $event)
@@ -85,13 +91,45 @@ export class VenueHoursComponent extends BaseComponent implements OnInit,OnChang
         this.OfficeHours[index].checked = $event;
 
         this.IsNeedToShowSelectDayWrapper();
+        this.OnVenueModelChange();
     }
 
-  OperatingHoursCheckChange(index, $event)
-  {
-    this.OperatingHours[index].checked = $event;
+    OperatingHoursCheckChange(index, $event)
+    {
+        this.OperatingHours[index].checked = $event;
 
-    this.IsNeedToShowSelectDayWrapper();
-  }
+        this.IsNeedToShowSelectDayWrapper();
+        this.OnVenueModelChange();
+    }
+
+    OfficeHoursBeginChange(index,$event)
+    {
+        this.OfficeHours[index].start_work = $event;
+        this.OnVenueModelChange();
+    }
+
+    OfficeHoursEndChange(index,$event)
+    {
+        this.OfficeHours[index].finish_work = $event;
+        this.OnVenueModelChange();
+    }
+
+    OperHoursBeginChange(index,$event)
+    {
+        this.OperatingHours[index].start_work = $event;
+        this.OnVenueModelChange();
+    }
+
+    OperHoursEndChange(index,$event)
+    {
+        this.OperatingHours[index].finish_work = $event;
+        this.OnVenueModelChange();
+    }
+
+    OnVenueModelChange()
+    {
+        this.GetHoursToVenueModel();
+        this.onVenueChanged.emit(this.Venue);
+    }
 
 }

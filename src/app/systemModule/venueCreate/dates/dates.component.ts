@@ -18,6 +18,8 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
     @Input() Venue: AccountCreateModel;
     @Output() onSaveVenue:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
     @Output() onError:EventEmitter<string> = new EventEmitter<string>();
+    @Output() onVenueChanged:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
+    
 
     dateForm : FormGroup = new FormGroup({
         "minimum_notice": new FormControl("",[Validators.pattern("[0-9]+"),
@@ -31,8 +33,16 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
         "performance_time_to": new FormControl("",[])
     });
 
+    CreateOnModelChangeForParent()
+    {
+        this.dateForm.valueChanges.forEach(
+            (value:any) => {
+                this.onVenueChanged.emit(this.Venue);
+            });
+    }
     ngOnInit(): void 
     {
+        this.CreateOnModelChangeForParent();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
