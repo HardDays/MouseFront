@@ -80,25 +80,37 @@
                 
             </div>
             <div class="main-mw-6">
-                <div class="for-flex-all-events">
-                    <div class="one-event-wr" *ngFor="let item of Tickets" class="one-event-wr">
-                        <app-my-ticket [Ticket]="item"></app-my-ticket>
-                    </div>
+                <ng-container *ngIf="Tickets.length">
+                    <div class="for-flex-all-events">
+                        <div class="one-event-wr" *ngFor="let item of Tickets" class="one-event-wr">
+                            <app-my-ticket [Ticket]="item"></app-my-ticket>
+                        </div>
 
-                    
+                        
+                    </div>
+                    <div class="load-more-tickets">
+                    <!-- <span>More</span>-->
+                    </div>
+                </ng-container>
+                <div class="empty-info" *ngIf="!Tickets.length">
+                    <img src="../../assets/img/smile.svg" class="img-responsive" alt="">
+                    <p>No Tickets Yet</p>
                 </div>
-                <div class="load-more-tickets">
-                <!-- <span>More</span>-->
-                </div>
+
+
                 <div class="past-header">
                     <p>Past</p>
                 </div>
-                <div class="for-flex-all-events">
+                <div class="for-flex-all-events" *ngIf="PastTickets.length">
                         <div class="one-event-wr" *ngFor="let item of PastTickets" class="one-event-wr">
                             <app-my-ticket [Ticket]="item"></app-my-ticket>
                         </div>
                     
                 </div>
+                <div class="empty-info" *ngIf="!PastTickets.length">
+                        <img src="../../assets/img/smile.svg" class="img-responsive" alt="">
+                        <p>No Tickets Yet</p>
+                    </div>
                 <!--прелоадер анимейшн-->
                 <!--
                 <div class="preloader-wrapper big active">
