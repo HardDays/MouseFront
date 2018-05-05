@@ -28,7 +28,7 @@
                         </li> -->
                         
 
-                        <li *ngIf="EventId !== 0">
+                        <li *ngIf="(EventId !== 0) || (isNewEvent && currentPage == pages.tickets)">
                             <button (click)="saveButtonClick()" class="butt-style-1" style="width: 127px">
                                 <span style="padding: 10px 21px">
                                 SAVE

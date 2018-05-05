@@ -86,6 +86,9 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   pages = Pages;
   currentPage = this.pages.about;
 
+  isSaveBtnClick:boolean = false;
+  isNewEvent = false;
+
   constructor(
       protected main           : MainService,
       protected _sanitizer     : DomSanitizer,
@@ -109,6 +112,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       (params) => {
         if(params["id"] == 'new')
         {
+          this.isNewEvent = true;
           this.DisplayEventParams(null);
         }
         else
@@ -158,7 +162,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       () => this.EventId == 0 ? this.main.eventService.CreateEvent(this.Event) : this.main.eventService.UpdateEvent(this.EventId,this.Event),
       (res) => {
         this.DisplayEventParams(res);
-        this.NextPart();
+          this.NextPart();
       },
       (err) => {
         //console.log(err);
@@ -167,25 +171,19 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   }
 
   saveButtonClick(){
-    //console.log(`saveButtonClick`,this.currentPage);
-    // if(this.currentPage == this.pages.about)
-      if(this.about)
-        this.about.SaveEvent();
-      if(this.funding)
-        this.funding.comleteFunding();
-    // else if(this.currentPage == this.pages.artist)
-    //   this.artist.artistComplete();
-    // else if(this.currentPage == this.pages.venue)
-    //   this.venue.submitVenue();
-    // else if(this.currentPage == this.pages.funding)
-    //   this.funding.comleteFunding();
-    // else if(this.currentPage == this.pages.tickets)
-    //     this.tickets.updateEvent();
+
+    this.isSaveBtnClick = true;
+
+    if(this.about)
+      this.about.SaveEvent();
+    if(this.funding)
+      this.funding.comleteFunding();
+
   }
 
   NextPart()
   {
-    if(this.currentPage == this.pages.tickets)
+    if(this.currentPage == this.pages.tickets ||this.isSaveBtnClick)
       this.router.navigate(["/system","events"]);
       
     scrollTo(0,0);

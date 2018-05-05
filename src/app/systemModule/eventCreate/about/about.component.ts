@@ -91,6 +91,7 @@ export class AboutComponent extends BaseComponent implements OnInit {
   Init(event:EventCreateModel){
   
     this.getGenres();
+    if(event.image_id)
     this.main.imagesService.GetImageById(event.image_id)
       .subscribe(
           (img)=>{

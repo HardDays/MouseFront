@@ -152,13 +152,17 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
     {
       endDate.setDate(endDate.getDate()+7);
     }    
-    else if(timeFrame == 'two_hours')
+    else if(timeFrame == 'one_hour')
     {
-      endDate.setHours(endDate.getHours()+2)
+      endDate.setHours(endDate.getHours()+1)
     }   
-    else if(timeFrame == 'two_days')
+    else if(timeFrame == 'one_day')
     {
-      endDate.setDate(endDate.getDate()+2);
+      endDate.setDate(endDate.getDate()+1);
+    }
+    else if(timeFrame == 'one_month')
+    {
+      endDate.setDate(endDate.getDate()+31);
     }
      
     return endDate;

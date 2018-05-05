@@ -76,7 +76,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
   ArtistId:number = 0;
 
   isSaveButtonClick:boolean = false;
-
+  ErrorSave:boolean = false;
   
 
   @ViewChild('errorCmp') errorCmp: ErrorComponent;
@@ -199,6 +199,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
   saveButtonClick(){
     console.log(`SAVE BUTTON`);
     this.isSaveButtonClick = true;
+    this.ErrorSave = false;
     if(this.currentPage==this.pages.about){
       if(this.AboutPage)
        this.AboutPage.artistFromAbout();
@@ -207,16 +208,18 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
        if(this.BookingPage)
          this.BookingPage.saveArtist();
      }
-    // this.currentPage = this.pages.about;
 
-    this.errorCmp.OpenWindow(BaseMessages.Success);
-    setTimeout(() => {
-      this.errorCmp.CloseWindow();
-      this.router.navigate(['/system','profile',this.ArtistId]);
-    }, 3000);
+    if(!this.ErrorSave){
+      this.errorCmp.OpenWindow(BaseMessages.Success);
+      setTimeout(() => {
+        this.errorCmp.CloseWindow();
+        this.router.navigate(['/system','profile',this.ArtistId]);
+      }, 3000);
+    }
   }
 
   OpenError(str:string){
+    this.ErrorSave = true;
     this.errorCmp.OpenWindow(BaseMessages.Fail+'. '+str);
   }
   
