@@ -216,6 +216,19 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
     }
 
+    textChange(str:string){
+      if(str==''){
+        this.artistSearchParams.text = '';
+        this.artistSearch();
+      }
+    }
+    addressChange(str:string){
+      if(str==''){
+        this.artistSearchParams.address = '';
+        this.artistSearch();
+      }
+    }
+
   GetArtistsImages(){
     for(let a of this.artistsSearch){
       if(a.object.image_id){
@@ -292,7 +305,6 @@ export class ArtistComponent extends BaseComponent implements OnInit {
   
   acceptArtistCard(card:AccountGetModel){
     
-
     this.ownerAcceptDecline.account_id = this.main.CurrentAccount.id;
     this.ownerAcceptDecline.id = card.id;
     this.ownerAcceptDecline.event_id = this.Event.id;
@@ -463,7 +475,8 @@ dragMarker($event)
                     if (results[1]) {
                       
                         $("#artistAddress").val(results[1].formatted_address);
-                        
+                        this.artistSearchParams.address = results[1].formatted_address;
+                        this.artistSearch();
                     } 
                     else {
                     // alert('No results found');

@@ -28,7 +28,7 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
     "display_name": new FormControl("", [Validators.required]),
     "stage_name": new FormControl(""),
     "manager_name": new FormControl(""),
-    "artist_email": new FormControl(""),
+    "artist_email": new FormControl("",[Validators.required]),
     "about": new FormControl("", [Validators.required]), 
   });
   genres:GenreModel[] = [];
@@ -87,7 +87,7 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
   }
 
   GetArtistGenres(){
-    console.log(`----`,this.genres,this.Artist);
+    // console.log(`----`,this.genres,this.Artist);
     if(this.Artist&&this.Artist.genres){
       for(let g of this.Artist.genres){
         for(let gnr of this.genres)

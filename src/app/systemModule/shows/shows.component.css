@@ -75,9 +75,19 @@ p{
 }
 .select-type-of-space
 {
-    -moz-appearance: menulist;
-    -webkit-appearance: menulist;
-    background: none;
+    display: block;
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    border: none;
+    background: transparent;
+    border-bottom: 1px dashed rgba(0,0,0,.2);
+    padding: 10px 0;
+    font-size: 16px;
+    outline: none;
+    box-shadow: none;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAh0lEQVQ4T93TMQrCUAzG8V9x8QziiYSuXdzFC7h4AcELOPQAdXYovZCHEATlgQV5GFTe1ozJlz/kS1IpjKqw3wQBVyy++JI0y1GTe7DCBbMAckeNIQKk/BanALBB+16LtnDELoMcsM/BESDlz2heDR3WePwKSLo5eoxz3z6NNcFD+vu3ij14Aqz/DxGbKB7CAAAAAElFTkSuQmCC) no-repeat 95% 50%;
+    appearance: none;
 }
 
 select{

@@ -197,7 +197,7 @@
                           <h6>Performance</h6>
                           <p class="about-text flexed">
                               <span>Time:</span>
-                              <span>1h - 3h</span>
+                              <span>{{Artist.performance_min_time}}h - {{Artist.performance_max_time}}h</span>
                           </p>
                           <p class="about-text flexed">
                               <span>Performance Price:</span>
@@ -210,24 +210,24 @@
                       </div>
                       <div class="side side-info side-contact">
                          <h6>Band</h6>
-                          <p class="about-text margened">
+                          <p *ngIf="Artist&&Artist.is_perform_with_band" class="about-text margened">
                              Does not perform with a Band
                           </p>
-                           <p class="about-text margened">
+                           <p *ngIf="Artist&&Artist.can_perform_without_band" class="about-text margened">
                             Can perform without a Band
                           </p>
-                           <p class="about-text margened">
+                           <p *ngIf="Artist&&Artist.is_perform_with_backing_vocals" class="about-text margened">
                              Does perform with Backing Vocals
                           </p>
-                          <p class="about-text margened">
+                          <p *ngIf="Artist&&Artist.can_perform_without_backing_vocals" class="about-text margened">
                             Can perform without Backing Vocals
                           </p>
                           
                       </div>
                       <div class="side side-info side-map">
                           <h6>Preferred Venues</h6>
-                          <p class="about-text margened">
-                             Can perform without Backing Vocals
+                          <p *ngIf="Artist&&Artist.preferred_venue_text" class="about-text margened">
+                            {{Artist.preferred_venue_text}}
                           </p>
                       </div>
                   </div>
@@ -237,22 +237,22 @@
                           <div class="location-wr margened">
                               <div class="mark"></div>
                               <p class="location-inp ">
-                                  New York City, NY, USA
+                                {{Artist.preferred_address}}
                               </p>
                           </div>
                           <p class="about-text line-height-hig">
-                              <span>30 days </span>  Notice needed to travel
+                              <span>{{Artist.days_to_travel}} days </span>  Notice needed to travel
                           </p>
                       </div>
                       <div class="side side-info side-contact">
                          <h6>Video Streaming Preference</h6>
-                          <p class="about-text margened">
+                          <p *ngIf="Artist&&Artist.is_permitted_to_stream" class="about-text margened">
                             Gives permission to the Venue/Event Organizer to stream performance. 
                           </p>
-                          <p class="about-text margened">
+                          <p *ngIf="Artist&&Artist.is_permitted_to_advertisement" class="about-text margened">
                             Gives permission to the Venue/Event Organizer to have advertisements over streaming performance.
                           </p>
-                          <p class="about-text margened">
+                          <p *ngIf="Artist&&!Artist.has_conflict_contracts" class="about-text margened">
                             Does not have contracts with any Brands that may conflict with advertisements.
                           </p>
                           
@@ -260,30 +260,30 @@
                       <div class="side side-info side-map">
                           <h6>Other</h6>
                           <p class="about-text margened">
-                            <span>30 days</span> needed to book before concert.
+                            <span>{{Artist.min_time_to_book}} days</span> needed to book before concert.
                           </p>
                           <p class="about-text margened">
-                            <span>30 days</span> to cancel before charged a cancellation fee.
+                            <span>{{Artist.min_time_to_free_cancel}} days</span> to cancel before charged a cancellation fee.
                           </p>
                           <p class="about-text margened">
-                            Fee for last minute Cancellation: <span>$200</span>
+                            Fee for last minute Cancellation: <span>${{Artist.late_cancellation_fee}}</span>
                           </p>
                           <p class="about-text margened">
-                            <strong>No Refunds</strong>
+                            <strong> {{Artist&&Artist.refund_policy?Artist.refund_policy:'No Refunds'}}</strong>
                           </p>
                       </div>
                   </div>
               </div>
-              <div class="main-mw">
+              <!-- <div class="main-mw">
                   <div class="flex--info none-padd-sides-b">
                       <div class="side side-info-new-venue-prev side-info side-about">
                           <h6>Riders</h6>
                       </div>
                       <div class="side side-info-new-venue-prev side-info side-about"></div>
                   </div>
-              </div>
+              </div> -->
                
-               <div class="main-mw-7">
+               <!-- <div class="main-mw-7">
                   <div class="riders-flex-wrapp preview-page">
                       <div class="side">
                           <p class="head-side-riders">Stage Rider</p>
@@ -294,15 +294,15 @@
                                   </a>
                                   <p class="desc-side-dwn">название123123123wafgsfdgbslfgblsbdflgbslfgbaslfgblsdbglsbdflgbsldbfglsdфайла</p>
                               </div>
-                          </div>
+                          </div> -->
                           <!--видимый рейден-->
-                          <p class="desc-rider">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse </p>
+                          <!-- <p class="desc-rider">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse </p>
                           <p class="desc-rider">
                               <strong>flexible preferences</strong>
                           </p>
-                      </div>
+                      </div> -->
                       <!--не видимый рейден - добавляем класс "invisible-rider-wrapp"-->
-                      <div class="side invisible-rider-wrapp">
+                      <!-- <div class="side invisible-rider-wrapp">
                           <p class="head-side-riders">Backstage Rider</p>
                           <div class="download-upload">
                               <div class="side-dwn">
@@ -311,18 +311,18 @@
                                   </a>
                                   <p class="desc-side-dwn">название файла</p>
                               </div>
-                          </div>
+                          </div> -->
                           <!--не видимый рейден-->
-                          <div class="unvisible-rider">
+                          <!-- <div class="unvisible-rider">
                               <img src="./../../../../assets/img/eye.jpg" class="img-responsive" alt="">
                               <p class="unvisible-rider-text">It’s not visible until the artist<br> approves</p>
                           </div>
                       </div>
                       <div class="side">
                           <p class="head-side-riders">Hospitality Rider</p>
-                          <div class="download-upload">
+                          <div class="download-upload"> -->
                               <!--до загрузки файла-->
-                              <div class="side-dwn">
+                              <!-- <div class="side-dwn">
                                   <a class="dd-ff" href="#">
                                       <img src="./../../../../assets/img/download.png" class="img-responsive" alt="">
                                   </a>
@@ -333,9 +333,9 @@
                           <p class="desc-rider">
                               <strong>flexible preferences</strong>
                           </p>
-                      </div>
+                      </div> -->
                       <!--не видимый рейден - добавляем класс "invisible-rider-wrapp"-->
-                      <div class="side invisible-rider-wrapp">
+                      <!-- <div class="side invisible-rider-wrapp">
                           <p class="head-side-riders">Technical Rider</p>
                           <div class="download-upload">
                               <div class="side-dwn">
@@ -349,7 +349,7 @@
                               <img src="./../../../../assets/img/eye.jpg" class="img-responsive" alt="">
                               <p class="unvisible-rider-text">It’s not visible until the artist<br> approves</p>
                           </div>
-                      </div>
+                      </div> -->
 
 
 
@@ -358,9 +358,9 @@
 
 
 
-
+                <!-- 
                   </div>
-              </div> 
+              </div>  -->
                
                
                

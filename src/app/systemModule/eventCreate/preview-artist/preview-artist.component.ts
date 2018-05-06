@@ -122,7 +122,7 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
               (err) =>{
             });
             this.photos.push(p);
-            console.log(`photos2`,this.photos);  
+            // console.log(`photos2`,this.photos);  
           },
         (err) => {
         }

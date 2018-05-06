@@ -89,7 +89,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   isSaveBtnClick:boolean = false;
   isNewEvent = false;
 
-  artistPreview:number = 594;
+  artistPreview:number = 644;
 
   constructor(
       protected main           : MainService,

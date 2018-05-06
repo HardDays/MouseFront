@@ -62,7 +62,7 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
   }
 
   ngOnChanges(changes:SimpleChanges){
-    console.log(changes);
+    // console.log(changes);
     if(!changes['Artist'].isFirstChange()){
       this.InitMusicPlayer();
       this.updateVideosPreview();
