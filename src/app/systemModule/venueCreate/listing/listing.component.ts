@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { MapsAPILoader } from '@agm/core';
 import { ContactModel } from '../../../core/models/contact.model';
 import { SelectModel } from '../../../core/models/select.model';
+import {BaseMessages} from '../../../core/base/base.enum';
 
 
 @Component({
@@ -23,27 +24,27 @@ export class VenueListingComponent extends BaseComponent implements OnInit,OnCha
 
     TypesOfSpace:SelectModel[] = [];
     LocatedTypes:SelectModel[] = [];
-    
+
     detailsForm : FormGroup = new FormGroup({
         "venue_type": new FormControl("", [Validators.required]),
         "other_venue": new FormControl("",[]),
         "capacity": new FormControl("",[Validators.required,
             Validators.pattern("[0-9]+"),
-            Validators.min(0),Validators.max(150000)                                
+            Validators.min(0),Validators.max(150000)
         ]),
         "bathrooms": new FormControl("",[
             Validators.pattern("[0-9]+"),
-            Validators.min(0),Validators.max(100)                                
+            Validators.min(0),Validators.max(100)
         ]),
         "min_age": new FormControl("",[
             Validators.pattern("[0-9]+"),
-            Validators.min(0),Validators.max(25)                                
+            Validators.min(0),Validators.max(25)
         ]),
         "bar": new FormControl("",[]),
         "located":new FormControl("",[]),
         "dress_code":new FormControl("Shirt and Shoes Required",[])
     });
-    
+
     CreateOnModelChangeForParent()
     {
         this.detailsForm.valueChanges.forEach(
@@ -52,7 +53,7 @@ export class VenueListingComponent extends BaseComponent implements OnInit,OnCha
             });
     }
 
-    ngOnInit(): void 
+    ngOnInit(): void
     {
         this.TypesOfSpace = this.main.typeService.GetAllSpaceTypes();
         this.LocatedTypes = this.main.typeService.GetAllLocatedTypes();
@@ -69,7 +70,7 @@ export class VenueListingComponent extends BaseComponent implements OnInit,OnCha
         this.detailsForm.updateValueAndValidity();
         if(this.detailsForm.invalid)
         {
-            this.onError.emit("Details form invalid");
+            this.onError.emit(this.getFormErrorMessage(this.detailsForm));
             return;
         }
 
@@ -84,9 +85,9 @@ export class VenueListingComponent extends BaseComponent implements OnInit,OnCha
     GetCapacityMask(int:number)
     {
         let str = int?int.toString():"";
-        
+
         let mask = [/[1-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/,/[0-9]/];
-        
+
         if( str && str.length > 4)
         {
         if(+str.substr(0,5) > 19999)
@@ -104,7 +105,7 @@ export class VenueListingComponent extends BaseComponent implements OnInit,OnCha
     {
         let str = int?int.toString():"";
         let mask = [/[0-2]/,(str && +str[0] > 1)?/[0-5]/:/[0-9]/];
-        
+
         if(str && +str[0] == 0)
         mask.splice(1,1);
 

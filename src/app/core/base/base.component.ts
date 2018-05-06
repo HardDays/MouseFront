@@ -25,13 +25,14 @@ import { EventService } from '../services/event.service';
 import { Http, Headers } from '@angular/http';
 import { CheckModel } from '../models/check.model';
 import { MainService } from '../services/main.service';
-import { BaseImages } from './base.enum';
+import {BaseImages, BaseMessages, VenueFields} from './base.enum';
 import { MapsAPILoader } from '@agm/core';
+import {FormArray, FormControl, FormGroup} from '@angular/forms';
 
 @Injectable()
 export class BaseComponent{
 
-    
+
     public isLoading:boolean = true;
     public isLoggedIn:boolean = false;
 
@@ -43,7 +44,7 @@ export class BaseComponent{
     public userCreated:boolean = false;
 
     public NewErrForUser:boolean = false;
-    
+
     constructor(
         protected main           : MainService,
         protected _sanitizer     : DomSanitizer,
@@ -51,7 +52,7 @@ export class BaseComponent{
         protected mapsAPILoader  : MapsAPILoader,
         protected ngZone         : NgZone,
         protected activatedRoute : ActivatedRoute
-    ) 
+    )
     {
         this.isLoggedIn = this.main.authService.IsLogedIn();
 
@@ -76,7 +77,7 @@ export class BaseComponent{
                         // this.main.MyAccountsChange.next([]);
                         this.router.navigate(['/system','shows']);
                     }
-                
+
                 }
             );
 
@@ -88,7 +89,7 @@ export class BaseComponent{
                     this.isLoading = false;
             }
         );
-            
+
         this.main.CurrentAccountChange
             .subscribe(
                 (val:AccountGetModel) =>
@@ -97,9 +98,9 @@ export class BaseComponent{
                     this.accId = this.CurrentAccount.id;
                 }
             );
-        
+
         this.main.MyAccountsChange.subscribe(
-            (val:AccountGetModel[]) => 
+            (val:AccountGetModel[]) =>
             {
                 this.MyAccounts = val;
             }
@@ -110,8 +111,8 @@ export class BaseComponent{
 
     /* PROCESS BLOCK */
 
-    
-    
+
+
     public WaitBeforeLoading = (fun:()=>Observable<any>,success:(result?:any)=>void, err?:(obj?:any)=>void)=>
     {
 
@@ -120,7 +121,7 @@ export class BaseComponent{
             res => success(res),
             error => {
                 if(err && typeof err == "function"){
-                    err(error); 
+                    err(error);
                 }
                 if(error.status == 401){
 
@@ -132,7 +133,7 @@ export class BaseComponent{
         );
     }
 
-    
+
 
     /* PROCESS BLOCK END */
 
@@ -144,6 +145,7 @@ export class BaseComponent{
     {
         return this.accId ? this.accId : (this.CurrentAccount.id?this.CurrentAccount.id:+this.main.GetCurrentAccId());
     }
+
 
     protected Login(user:LoginModel,callback:(error)=>any,callbackOk?:(res)=>any)
     {
@@ -201,7 +203,7 @@ export class BaseComponent{
                 .subscribe(
                     (data) => {//return a boolean value.
                         this.main.authService.onAuthChange$.next(false);
-                    } 
+                    }
                 );
         }
     }
@@ -224,7 +226,7 @@ export class BaseComponent{
 
 
     /* Service Process BLOCK */
-    
+
     protected ReadImages(files:any,callback?:(params?)=>any)
     {
         for(let f of files)
@@ -243,7 +245,7 @@ export class BaseComponent{
 
     /* Service Process BLOCK END */
 
-   
+
 
 
     convertToCheckModel<T>(model)
@@ -254,7 +256,7 @@ export class BaseComponent{
     convertArrToCheckModel<T>(model:T[])
     {
         let arrCheck: CheckModel<T>[] = [];
-        for(let i of model) arrCheck.push(this.convertToCheckModel(i)); 
+        for(let i of model) arrCheck.push(this.convertToCheckModel(i));
         return arrCheck;
     }
 
@@ -278,7 +280,7 @@ export class BaseComponent{
         };
     }
 
-    
+
     /* AUTOCOMPLETE */
     @ViewChild('search') public searchElement: ElementRef;
     protected CreateAutocomplete( callback:(addr:string[], place?:google.maps.places.PlaceResult)=>any)
@@ -291,15 +293,15 @@ export class BaseComponent{
                     () => {
                         this.ngZone.run(
                             () => {
-                                let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
+                                let place: google.maps.places.PlaceResult = autocomplete.getPlace();
                                 if(place.geometry === undefined || place.geometry === null )
-                                {             
+                                {
                                     return;
                                 }
-                                else 
+                                else
                                 {
                                     let addr:string[] = autocomplete.getPlace().adr_address.split(', ');
-                                    
+
                                     if(callback && typeof callback == "function")
                                     {
                                         callback(addr,place);
@@ -313,9 +315,54 @@ export class BaseComponent{
         );
     }
 
+    /* Error messages */
+    private getFieldError(field: FormControl, key: string) {
+      if (field.errors !== null) {
+        if (field.errors.hasOwnProperty('required')) {
+          return String(BaseMessages.RequiredField).replace('_field', key);
+        } else if (field.errors.hasOwnProperty('email')) {
+          return String(BaseMessages.EmailField).replace('_email', key);
+        }
+      }
+    }
+
+    protected getFormErrorMessage(form: FormGroup) {
+      const errors = [];
+
+      Object.keys(form.controls).forEach((key) => {
+        if (form.controls[key].status === 'INVALID') {
+          const formControl = form.controls[key];
+
+          if (formControl instanceof FormControl) {
+            errors.push(this.getFieldError(formControl, key));
+          } else if (formControl instanceof FormArray) {
+            // y formArray свой controls, который массив из FormControls и у каждого свои controls
+            formControl.controls.forEach((arrElem) => {
+                Object.keys(arrElem.controls).forEach((i) => {
+                  errors.push(this.getFieldError(arrElem.controls[i], i));
+                });
+            });
+          }
+        }
+      });
+      console.log(errors.join("\n"));
+      return errors.join("\n");
+    }
+
+    protected getResponseErrorMessage(err: Response) {
+      const errors = [];
+
+      Object.keys(err.json()).forEach((key) => {
+        for (let error of err.json()[key]) {
+          errors.push(VenueFields[key] + " " + error.replace("_", ' ').toLowerCase());
+        }
+      });
+
+      return errors.join("\n");
+    }
 
       /* AUTOCOMPLETE */
 
-      
+
 
 }

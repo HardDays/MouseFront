@@ -70,7 +70,7 @@ declare var ionRangeSlider:any;
 
 export class VenueCreateComponent extends BaseComponent implements OnInit,AfterViewChecked
 {
-  
+
   Parts = PageParts;
 
   CurrentPart = this.Parts.About;
@@ -87,7 +87,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
   @ViewChild('dates') dates:VenueDatesComponent;
 
   @ViewChild('errorCmp') errorCmp: ErrorComponent;
-  
+
 
   constructor(
     protected main           : MainService,
@@ -100,10 +100,10 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
   ) {
     super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
   }
-  
+
   ngOnInit()
   {
-    
+
     this.activatedRoute.params.forEach(
       (params) => {
         if(params["id"] == 'new')
@@ -155,7 +155,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
         this.DisplayVenueParams(res);
 
         this.errorCmp.OpenWindow(BaseMessages.Success);
-        
+
         setTimeout(
           () => this.NextPart(),
           2000
@@ -163,7 +163,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
         this.main.GetMyAccounts();
       },
       (err) => {
-        this.errorCmp.OpenWindow(BaseMessages.Fail);
+        this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
       }
     )
   }
@@ -187,7 +187,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
         );
       },
       (err) => {
-        this.errorCmp.OpenWindow(BaseMessages.Fail);
+        this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
       }
     )
   }
@@ -204,7 +204,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
     scrollTo(0,0);
     this.CurrentPart = this.CurrentPart + 1;
   }
-  
+
   ChangeCurrentPart(newPart)
   {
     if(this.VenueId == 0 && newPart > this.Parts.About)
@@ -240,14 +240,14 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
     //     if(this.hours)
     //       this.hours.SaveVenue();
     //   }
-    // }  
+    // }
   }
 
   DeleteImage($event)
   {
     this.main.accService.GetAccountById(this.VenueId,{extended:true})
       .subscribe(
-        (res:AccountGetModel) => 
+        (res:AccountGetModel) =>
         {
           this.DisplayVenueParams(res);
         }
