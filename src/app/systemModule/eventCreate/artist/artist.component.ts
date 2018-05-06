@@ -37,7 +37,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
   @Input() Event:EventCreateModel;
   @Output() onSaveEvent:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
   @Output() onError:EventEmitter<string> = new EventEmitter<string>();
-
+  @Output() openPreview = new EventEmitter<number>();
   @ViewChild('searchArtist') public searchElementArtist: ElementRef;
   @ViewChild('agmMap') agmMap : AgmMap;
 
@@ -174,7 +174,9 @@ export class ArtistComponent extends BaseComponent implements OnInit {
   }
 
   artistSearch($event?:string){
-
+ 
+    let copy = this.artistsSearch;
+    this.artistsSearch = [];
     if($event) this.artistSearchParams.text = $event;
 
     this.isLoadingArtist = true;
@@ -185,31 +187,34 @@ export class ArtistComponent extends BaseComponent implements OnInit {
     for(let g of this.genresSearchArtist)
       if(g.checked) this.artistSearchParams.genres.push(g.genre);
    
-   this.main.accService.AccountsSearch(this.artistSearchParams)
-   .subscribe((res)=>{
-        let temp = this.convertArrToCheckModel<AccountGetModel>(res);
-        
-        for(let art of this.artistsSearch){
-          if(art.checked){
-            let isFind = false;
-            
-            for(let t of temp)
-              if(t.object.id==art.object.id){
-                t.checked = art.checked;
-                isFind = true;
-                break;
-              }
-            if(!isFind) temp.push(art);
-          }
+  this.WaitBeforeLoading(
+    ()=>this.main.accService.AccountsSearch(this.artistSearchParams),
+    (res)=>{
+      console.log(this.artistSearchParams,` from back `, res);
+      let temp = this.convertArrToCheckModel<AccountGetModel>(res);
+      
+      for(let art of copy){
+        if(art.checked){
+          let isFind = false;
+          
+          for(let t of temp)
+            if(t.object.id==art.object.id){
+              t.checked = art.checked;
+              isFind = true;
+              break;
+            }
+          if(!isFind) temp.push(art);
         }
-        
-        this.artistsSearch = [];
-        this.artistsSearch = temp;
-        this.isLoadingArtist = false;
-        this.GetArtistsImages();
-       // console.log(this.artistsSearch);
-      },(err)=>{ this.isLoadingArtist = false;})
-  }
+      }
+      
+      this.artistsSearch = [];
+      this.artistsSearch = temp;
+      this.isLoadingArtist = false;
+      this.GetArtistsImages();
+     // console.log(this.artistsSearch);
+    },(err)=>{ this.isLoadingArtist = false;})
+
+    }
 
   GetArtistsImages(){
     for(let a of this.artistsSearch){
@@ -231,9 +236,10 @@ export class ArtistComponent extends BaseComponent implements OnInit {
   closeAddArtist(id:number){
     $('#modal-pick-artist').modal('toggle');
     setTimeout(() => {
-      this.router.navigate(['/system/profile',id]);
+      // this.router.navigate(['/system/profile',id]);
     }, 150);
-    // [routerLink]="
+    this.openPreview.emit(id);
+  
   }
 
   addNewArtistOpenModal(){

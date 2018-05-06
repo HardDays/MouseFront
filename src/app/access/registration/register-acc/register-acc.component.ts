@@ -185,6 +185,7 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
       ()=>this.main.accService.CreateAccount(this.Account),
       (res)=>{
         this.createStatus.emit(true);
+        this.main.SetCurrentAccId(res.id);
       },
       (err)=>{
         this.errorCmp.OpenWindow(BaseMessages.Fail+' '+err._body);

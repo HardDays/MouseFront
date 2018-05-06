@@ -117,7 +117,7 @@
                 <!---->
                 <!--если не пустой.-->
                 
-                <div [ngStyle]="{'display': Artist.artist_albums&&Artist.artist_albums.length>0?'block':'none'}" class="slider-2-albums slider-2-init" >
+                <div [ngStyle]="{'display': Artist.artist_albums&&Artist.artist_albums.length>0?'flex':'none'}" class="slider-2-albums slider-2-init" >
                 
                     <!-- ngxSlickItem -->
                         <div  *ngFor="let item of Artist.artist_albums; let i = index" class="one-slide">
@@ -186,7 +186,7 @@
                 <!---->
                 <!--если не пустой.-->
                 
-                <div [ngStyle]="{'display': Artist.artist_videos&&Artist.artist_videos.length>0?'block':'none'}" class="slider-2-albums slider-2-init" >
+                <div [ngStyle]="{'display': Artist.artist_videos&&Artist.artist_videos.length>0?'flex':'none'}" class="slider-2-albums slider-2-init" >
                 
                         <div  *ngFor="let item of Artist.artist_videos; let i = index" class="one-slide">
                             <div class="wrapp-card">
@@ -253,7 +253,7 @@
                 <!---->
                 <!--если не пустой.-->
                     
-                <div [ngStyle]="{'display': ArtistImages.length>0?'block':'none'}" class="slider-2-albums slider-2-init" >
+                <div [ngStyle]="{'display': ArtistImages.length>0?'flex':'none'}" class="slider-2-albums slider-2-init" >
                 
 
                 
