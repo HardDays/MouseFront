@@ -337,9 +337,9 @@ export class BaseComponent{
             errors.push(this.getFieldError(formControl, key));
           } else if (formControl instanceof FormArray) {
             // y formArray свой controls, который массив из FormControls и у каждого свои controls
-            formControl.controls.forEach((arrElem) => {
+            formControl.controls.forEach((arrElem:FormGroup) => {
                 Object.keys(arrElem.controls).forEach((i) => {
-                  errors.push(this.getFieldError(arrElem.controls[i], i));
+                  errors.push(this.getFieldError(<FormControl>arrElem.controls[i], i));
                 });
             });
           }
