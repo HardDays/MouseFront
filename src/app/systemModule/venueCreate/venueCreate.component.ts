@@ -195,19 +195,19 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
   NextPart()
   {
     this.errorCmp.CloseWindow();
-    if(this.CurrentPart == this.Parts.Dates)
-    {
-      this.router.navigate(["/system","profile",this.VenueId]);
-      scrollTo(0,0);
-      return;
-    }
+    // if(this.CurrentPart == this.Parts.Dates)
+    // {
+    //   this.router.navigate(["/system","profile",this.VenueId]);
+    //   scrollTo(0,0);
+    //   return;
+    // }
     scrollTo(0,0);
     this.CurrentPart = this.CurrentPart + 1;
   }
   
   ChangeCurrentPart(newPart)
   {
-    if(this.VenueId == 0 && newPart > this.Parts.About)
+    if(this.VenueId == 0)
       return;
 
     if(this.CurrentPart == newPart)
@@ -256,6 +256,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
 
   VenueChanged($event)
   {
+    console.log($event);
     for(let key of $event)
     {
       if(this.Venue[key] != $event[key])
@@ -277,5 +278,6 @@ export enum PageParts
   Hours = 1,
   Listing = 2,
   Media = 3,
-  Dates = 4
+  Dates = 4,
+  Preview = 5
 };

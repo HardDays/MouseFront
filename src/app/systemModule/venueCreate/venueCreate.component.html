@@ -22,6 +22,9 @@
                         <li [ngClass]="{'active':CurrentPart == Parts.Dates,'started':(VenueId != 0 && CurrentPart != Parts.Dates)}">
                             <a (click)="ChangeCurrentPart(Parts.Dates)" class="nav-second-outlet">Dates</a>
                         </li>
+                        <li [ngClass]="{'active':CurrentPart == Parts.Preview,'started':(VenueId != 0 && CurrentPart != Parts.Preview)}">
+                            <a (click)="ChangeCurrentPart(Parts.Preview)" class="nav-second-outlet">Preview</a>
+                        </li>
                       
                         <li>
                             <button class="butt-style-1" style="width: 127px" (click)="SuperPuperImportantSaveButton()">
@@ -53,6 +56,9 @@
         <venue-dates-selector #dates *ngIf="CurrentPart == Parts.Dates" (onError)="OpenErrorWindow($event)" (onSaveVenue)="SaveVenueByPages($event)" 
             [Venue]="Venue" (onVenueChanged)="VenueChanged($event)">
         </venue-dates-selector>
+
+        <venue-profile-selector *ngIf="CurrentPart == Parts.Preview" [Account]="Venue" [Fans]="[]" [IsPreview]="true">
+        </venue-profile-selector>
     </div>
 </section>
 <error-cmp #errorCmp></error-cmp>

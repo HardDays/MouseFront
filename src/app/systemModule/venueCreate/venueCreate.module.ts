@@ -13,6 +13,7 @@ import { TextMaskModule } from 'angular2-text-mask';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { ErrorModule } from '../../shared/error/error.module';
 import { PreloaderModule } from '../../shared/preloader/preloader.module';
+import { ProfileModule } from '../profile/profile.module';
 
 @NgModule({
     imports: [ 
@@ -22,7 +23,8 @@ import { PreloaderModule } from '../../shared/preloader/preloader.module';
         ReactiveFormsModule,
         TextMaskModule,
         ErrorModule,
-        PreloaderModule
+        PreloaderModule,
+        ProfileModule
     ],
     declarations: [ 
         VenueCreateComponent,

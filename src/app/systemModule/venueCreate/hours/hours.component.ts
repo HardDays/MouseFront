@@ -32,14 +32,16 @@ export class VenueHoursComponent extends BaseComponent implements OnInit,OnChang
         this.Init();
     }
     ngOnChanges(changes: SimpleChanges): void {
-        this.Init(changes.Venue.currentValue);
+        if(changes.Venue && changes.Venue.currentValue)
+            this.Venue = changes.Venue.currentValue;
+
+        this.Init();
     }
 
-    Init(venue?:AccountCreateModel)
+    Init()
     {
-        if(venue)
-            this.Venue = venue;
-            
+           
+        console.log(this.Venue);
         this.OfficeHours = (this.Venue && this.Venue.office_hours)?
             this.main.accService.GetFrontWorkingTimeFromTimeModel(this.Venue.office_hours):this.main.typeService.GetAllDays();
 

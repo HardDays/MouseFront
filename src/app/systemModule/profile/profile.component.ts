@@ -70,6 +70,8 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
     
     isFolowedAcc:boolean;
 
+    Fans:AccountGetModel[] = [];
+
     constructor(
         protected main           : MainService,
         protected _sanitizer     : DomSanitizer,
@@ -79,7 +81,7 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
         protected activatedRoute : ActivatedRoute,
         protected cdRef          : ChangeDetectorRef
     ) {
-    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
+        super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
     }
 
     ngOnInit(){
@@ -91,8 +93,6 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
             this.UserId = params["id"];
         this.getUserInfo();
         })
-
-    
     }
 
     ngAfterViewChecked()
@@ -261,61 +261,16 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
     }
 }
 
-    GetEvents()
-    {
-      
-        this.WaitBeforeLoading(
-            () => this.main.eventService.GetEvents(this.UserId),
-            (res:EventGetModel[]) => {
-                this.EventsMassChecked = this.convertArrToCheckModel<EventGetModel>(res);
-                for(let it of this.EventsMassChecked){
-                    it.checked = true;
-                }
-            },
-            (err) => {
-              //  console.log(err);
-            }
-        );
-    }
+    
 
-    GetTickets()
-    {
-        this.WaitBeforeLoading(
-            () => this.main.eventService.GetAllTicketswithoutCurrent(this.UserId),
-            (res:TicketsGetModel[]) =>
-            {
-               console.log(res);
-                this.ticketsMassChecked = this.convertArrToCheckModel<TicketsGetModel>(res);
-                for(let it of this.ticketsMassChecked){
-                    it.checked = true;
-                }
-                this.CountTotaltTicket();
-            },
-            (err) => {
-             //   console.log(err);
-            }
-        );
-    }
-    CountTotaltTicket()
-    {
-        this.TotalTicket = 0;
-        for(let i of this.ticketsMassChecked)
-        {
-            this.TotalTicket+=i.object.tickets_count;
-        }
-    }
     GetFolowersAcc()
     {
+        this.Fans = [];
         this.WaitBeforeLoading(
             () => this.main.accService.GetAcauntFolowers(this.UserId),
             (res:any) =>
             {
-                this.folowersMassChecked = this.convertArrToCheckModel<any>(res.followers);
-                for(let it of this.folowersMassChecked)
-                {
-                    it.checked = true;
-                }
-            
+                this.Fans = res.followers;
             },
             (err) => {
               //  console.log(err);
@@ -369,36 +324,8 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
             }
         }
     }
-    searchTickets(event)
-    {
-        let searchParam = event.target.value;
-        for(let it of this.ticketsMassChecked)
-        {
-            if(it.object.name.indexOf(searchParam)>=0)
-            {
-                it.checked = true;
-            }
-            else
-            {
-                it.checked = false;
-            }
-        }
-    }
-    searchEvents(event)
-    {
-        let searchParam = event.target.value;
-        for(let it of this.EventsMassChecked)
-        {
-            if(it.object.name.indexOf(searchParam)>=0)
-            {
-                it.checked = true;
-            }
-            else
-            {
-                it.checked = false;
-            }
-        }
-    }
+    
+    
     searchAlboms(event)
     {
         let searchParam = event.target.value;
@@ -414,10 +341,9 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
             }
         }
     }
+
     InitSliderWrapp() 
     {
-        
-
         $('.iframe-slider-wrapp').not('.slick-initialized').slick({
             dots: false,
             arrows: true,
@@ -425,7 +351,6 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
             slidesToShow: 1
 
         });
-      
     }
 
     StopThisShit(index:number)
@@ -453,10 +378,6 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
         this.GetUpcomingShows();
         this.GetVenueImages();
        
-        }
-        if(this.Account.account_type == this.Roles.Fan){
-            this.GetTickets();
-            this.GetEvents();
         }
         if(this.Account.account_type == this.Roles.Artist){
             this.Albums = this.convertArrToCheckModel<Album>(this.Account.artist_albums);
@@ -512,23 +433,19 @@ FollowProfile() {
 
 }
 
-
-UnFollowProfile() {
-    this.WaitBeforeLoading(
-      () => this.main.accService.UnFollowAccountById(this.MyAccountId, this.UserId),
-      (res:any) =>
-      { 
-          
-          this.isFolowed();
-          this.getUserInfo();
-      },
-      (err) => {
-         // console.log(err);
-       
-      }
-  );
-  
-  }
+    FollowOrUnfollowProfile(val:boolean)
+    {
+        (val?this.main.accService.FollowAccountById(this.MyAccountId, this.UserId) : this.main.accService.UnFollowAccountById(this.MyAccountId, this.UserId))
+            .subscribe(
+                (res:any) =>
+                { 
+                    this.isFolowedAcc = val;
+                    this.GetFolowersAcc();
+                },
+                (err) => {
+                }
+            );
+    }
   
   isFolowed() {
     this.WaitBeforeLoading(
