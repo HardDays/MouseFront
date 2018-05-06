@@ -25,9 +25,40 @@ export enum BaseImages{
     NoneFolowerImage = "../../assets/img/non-photo-2.svg"
 }
 
+export enum BaseErrors{
+     
+}
+
 export enum BaseMessages{
     Success = "Success",
-    Fail = "Failed"
+    Fail = "Failed",
+    InvalidForm = 'Please fill in all required fields to proceed to the Next Step',
+    RequiredField = '_field need to be filled',
+    EmailField = '_email need to be a valid email',
+}
+
+export enum VenueFields {
+  email = "Email",
+  venue_name = "Venue name",
+  mouse_name = "Mouse username",
+  short_desc = "Short Description",
+  phone = "Phone",
+  emails = "Emails",
+  country = "Country",
+  address = "Address",
+  city = "City",
+  state = "State",
+  user_name = "Mouse username",
+  venue_type = "Preffered venue type",
+  capacity = "Capacity",
+  bathrooms = "Number of bathrooms",
+  min_age = "Minimum Age",
+  audio_description = "Audio description",
+  lighting_description = "Lighting description",
+  stage_description = "Stage description",
+  minimum_notice = "Minimum notice days",
+  price_for_daytime = "Price for daytime",
+  price_for_nighttime = "Price for nighttime" ,
 }
 
 

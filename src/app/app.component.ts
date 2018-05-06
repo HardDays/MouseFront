@@ -24,6 +24,4 @@ export class AppComponent extends BaseComponent implements OnInit {
     });
     this.main.authService.TryToLoginWithToken();
   }
-
- 
 }

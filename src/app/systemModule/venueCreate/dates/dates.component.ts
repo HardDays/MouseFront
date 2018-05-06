@@ -7,6 +7,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { MapsAPILoader } from '@agm/core';
 import { ContactModel } from '../../../core/models/contact.model';
+import {BaseMessages} from '../../../core/base/base.enum';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
     @Output() onSaveVenue:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
     @Output() onError:EventEmitter<string> = new EventEmitter<string>();
     @Output() onVenueChanged:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
-    
+
 
     dateForm : FormGroup = new FormGroup({
         "minimum_notice": new FormControl("",[Validators.pattern("[0-9]+"),
@@ -40,7 +41,7 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
                 this.onVenueChanged.emit(this.Venue);
             });
     }
-    ngOnInit(): void 
+    ngOnInit(): void
     {
         this.CreateOnModelChangeForParent();
     }
@@ -52,11 +53,11 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
 
     SaveVenue()
     {
-        
+
         this.dateForm.updateValueAndValidity();
         if(this.dateForm.invalid)
         {
-            this.onError.emit("Date form invalid");
+            this.onError.emit(this.getFormErrorMessage(this.dateForm));
             return;
         }
         this.onSaveVenue.emit(this.Venue);

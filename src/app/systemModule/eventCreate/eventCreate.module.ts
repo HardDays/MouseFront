@@ -14,6 +14,8 @@ import { AgmCoreModule } from '@agm/core';
 import { PrivateResComponent } from './private-res/private-res.component';
 import { ErrorModule } from '../../shared/error/error.module';
 import { PreloaderModule } from '../../shared/preloader/preloader.module';
+import { PreviewArtistComponent } from './preview-artist/preview-artist.component';
+import { PreviewVenueComponent } from './preview-venue/preview-venue.component';
 
 @NgModule({
     imports: [ 
@@ -37,7 +39,9 @@ import { PreloaderModule } from '../../shared/preloader/preloader.module';
         OneCardComponent,
         AddTicketsComponent,
         VenuesComponent,
-        PrivateResComponent
+        PrivateResComponent,
+        PreviewArtistComponent,
+        PreviewVenueComponent
         
     ],
     exports: [ EventCreateComponent ]

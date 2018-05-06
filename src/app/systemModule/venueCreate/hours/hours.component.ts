@@ -40,7 +40,6 @@ export class VenueHoursComponent extends BaseComponent implements OnInit,OnChang
 
     Init()
     {
-           
         console.log(this.Venue);
         this.OfficeHours = (this.Venue && this.Venue.office_hours)?
             this.main.accService.GetFrontWorkingTimeFromTimeModel(this.Venue.office_hours):this.main.typeService.GetAllDays();

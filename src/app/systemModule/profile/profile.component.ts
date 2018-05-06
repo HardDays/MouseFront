@@ -160,106 +160,7 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
         }
     }
 
-    Gallery(event) 
-    {
-        let itemsPhoto = [];
-        $('.for-gallery-item').each(function (e) {
-            var href = $(this).attr('data-hreff')
-                , size = $(this).data('size').split('x')
-                , width = size[0]
-                , height = size[1];
-            var item = {
-                src: href
-                , w: width
-                , h: height
-            }
-            itemsPhoto.push(item);
-
-        });
-        this.itemsPhotoss = itemsPhoto;
-        this.GalaryInit(event);   
-    }
-    GalaryInit(event)
-    {
-        var index = event.srcElement.dataset.eteration;
-
-        var options = {
-            index: parseInt(index),
-            bgOpacity: 1,
-            showHideOpacity: true,
-            history: false,
-        }
-        var lightBox = new PhotoSwipe($('.pswp')[0], PhotoSwipeUI_Default, this.itemsPhotoss, options);
-        lightBox.init();
-    }
-    GetVenueImages()
-    {
-        this.WaitBeforeLoading(
-            () => this.main.accService.GetImagesVenue(this.UserId),
-            (res:any) => {
-                this.VenueImages = this.convertArrToCheckModel<any>(res.images);
-                for(let it of this.VenueImages){
-                    it.checked = true;
-                }
-                this.GetImage();
-                this.GetImageSize();
-                
-            },
-            (err) => {
-               // console.log(err);
-            }
-        );
-    }
-    GetImage()
-    {
-      for(let i in this.VenueImages){
-        if(this.VenueImages[i].object && this.VenueImages[i].object.id)
-        {
-            this.WaitBeforeLoading(
-                () => this.main.imagesService.GetImageById(this.VenueImages[i].object.id),
-                (res:Base64ImageModel) => {
-                    this.ImageMassVenue[i] = (res && res.base64) ? res.base64 : BaseImages.Drake;
-                },
-                (err) =>{
-                    this.ImageMassVenue[i] = BaseImages.Drake;
-                }
-            );
-        }
-        else{
-            this.ImageMassVenue[i] = BaseImages.Drake;
-        }
-      }
-     
-  }
-  GetImageSize()
-  {
-    for(let i in this.VenueImages){
-        this.WaitBeforeLoading(
-            () => this.main.imagesService.GetImageSize(this.VenueImages[i].object.id),
-            (res:Base64ImageModel) => {
-            
-                this.imagesSize[i] = res;
-
-              //  console.log(this.imagesSize);
-            },
-            (err) =>{
-               // console.log(err);
-            }
-        );
-    }
-     
-  }
-  searchImagesVenue(event){
-    let searchParam = event.target.value;
-    for(let it of this.VenueImages){
-        if(it.object.description.indexOf(searchParam)>=0){
-            it.checked = true;
-        }
-        else{
-            it.checked = false;
-        }
-    }
-}
+    
 
     
 
@@ -278,37 +179,7 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
             }
         );
     }
-    GetUpcomingShows(){
-        this.WaitBeforeLoading(
-            () => this.main.accService.GetUpcomingShows(this.UserId),
-            (res:any) =>
-            { 
-                this.UpcomingShows = this.convertArrToCheckModel<any>(res);
-                for(let it of this.UpcomingShows){
-                    it.checked = true;
-                }
-            },
-            (err) => {
-              //  console.log(err);
-            
-            }
-        );
-    }
-    searchUpcomingShows(event)
-    {
-        let searchParam = event.target.value;
-        for(let it of this.UpcomingShows)
-        {
-            if(it.object.name.indexOf(searchParam)>=0)
-            {
-                it.checked = true;
-            }
-            else
-            {
-                it.checked = false;
-            }
-        }
-    }
+    
     searchFolover(event)
     {
         let searchParam = event.target.value;
@@ -373,10 +244,7 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
         
         if(this.Account.account_type == this.Roles.Venue)
         {
-        this.Account.office_hours = this.main.accService.ParseWorkingTimeModelArr(this.Account.office_hours);
-        this.Account.operating_hours = this.main.accService.ParseWorkingTimeModelArr(this.Account.operating_hours);
-        this.GetUpcomingShows();
-        this.GetVenueImages();
+        
        
         }
         if(this.Account.account_type == this.Roles.Artist){
@@ -385,7 +253,7 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
             for(let it of this.Albums){
                 it.checked = true;
             }
-            this.GetUpcomingShows();
+            // this.GetUpcomingShows(); 
         }
 
         if(usr.image_id)
@@ -406,32 +274,17 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
 
    
 
-initUser(){
-    let id = this.GetCurrentAccId();
+    initUser(){
+        let id = this.GetCurrentAccId();
 
-    this.main.accService.GetMyAccount()
-    .subscribe((users:any[])=>{
-        let user = users.find(obj=>obj.id == id);
-        if(user){
-            this.MyAccountId = user.id;
-        }
-    });
-}
-FollowProfile() {
-  this.WaitBeforeLoading(
-    () => this.main.accService.FollowAccountById(this.MyAccountId, this.UserId),
-    (res:any) =>
-    { 
-        this.isFolowed();
-        this.getUserInfo();
-    },
-    (err) => {
-       // console.log(err);
-     
+        this.main.accService.GetMyAccount()
+        .subscribe((users:any[])=>{
+            let user = users.find(obj=>obj.id == id);
+            if(user){
+                this.MyAccountId = user.id;
+            }
+        });
     }
-);
-
-}
 
     FollowOrUnfollowProfile(val:boolean)
     {
@@ -447,19 +300,19 @@ FollowProfile() {
             );
     }
   
-  isFolowed() {
-    this.WaitBeforeLoading(
-      () => this.main.accService.IsAccFolowed(this.MyAccountId, this.UserId),
-      (res:any) =>
-      { 
-          this.isFolowedAcc = res.status;
-      },
-      (err) => {
-         // console.log(err);
-       
-      }
-  );
-  
-  }
+    isFolowed() {
+        this.WaitBeforeLoading(
+            () => this.main.accService.IsAccFolowed(this.MyAccountId, this.UserId),
+            (res:any) =>
+            { 
+                this.isFolowedAcc = res.status;
+            },
+            (err) => {
+                // console.log(err);
+            
+            }
+        );
+    
+    }
 
 }
