@@ -25,7 +25,7 @@ import { EventService } from '../services/event.service';
 import { Http, Headers } from '@angular/http';
 import { CheckModel } from '../models/check.model';
 import { MainService } from '../services/main.service';
-import {ArtistFields, BaseImages, BaseMessages, EventFields, FanFields, VenueFields} from './base.enum';
+import {ArtistFields, BaseImages, BaseMessages, EventFields, FanFields, VenueFields, BaseFields} from './base.enum';
 import { MapsAPILoader } from '@agm/core';
 import {FormArray, FormControl, FormGroup} from '@angular/forms';
 
