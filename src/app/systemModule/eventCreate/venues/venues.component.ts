@@ -395,7 +395,8 @@ addVenueById(id:number){
             this.addVenue.venue_id = id;
             this.addVenue.id = id;
             this.addVenue.account_id = this.Event.creator_id;
-            //console.log(`add venue`,this.addVenue);
+            this.addVenue.is_personal = true;
+            console.log(`add venue`,this.addVenue);
             
             this.main.eventService.AddVenue(this.addVenue).
                 subscribe((res)=>{
@@ -407,7 +408,7 @@ addVenueById(id:number){
                         this.onError.emit("Request was sent!");
                     this.updateEvent();
                 }, (err)=>{
-                  //  console.log(err);
+                  console.log(err);
                 })
                     
                 },(err)=>{
@@ -511,7 +512,8 @@ declineVenue(card:AccountGetModel){
     }
 
     submitVenue(){
-        this.onSaveEvent.emit(this.Event);
+        this.updateEvent();
+        // this.onSaveEvent.emit(this.Event);
     }
 
     venueOpenMapModal(){
