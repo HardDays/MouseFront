@@ -44,19 +44,22 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
     ngOnChanges(changes: SimpleChanges): void {
         if(changes.Account)
         {
+            console.log('changes');
             this.Account = changes.Account.currentValue;
+           
+            
         }
         
         if(changes.Fans)
             this.FansChecked = this.Fans = changes.Fans.currentValue;
 
         this.InitByUser();
-        console.log('changes');
+        
     }
 
     ngOnInit(): void {
         this.InitByUser();
-        console.log('init');
+       
     }
 
     InitByUser()
@@ -68,11 +71,9 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
 
         
         this.AlbumsChecked = this.Albums = this.Account.artist_albums;
-        if(this.SomeFlagForSlider){
-         
-            this.GetVideo();
-            this.SomeFlagForSlider = false;
-        }
+    
+        this.GetVideo();
+        
         this.GetUpcomingShows();
     }
 
@@ -91,9 +92,14 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
                     this.VideoPath[i] = this.SanitizePath(path);
                 }
             }
-            // setTimeout(()=>{
-            //     this.InitSliderWrapp();
-            // },600);
+            if(!$('.iframe-slider-wrapp').not('.slick-initialized').length){
+                console.log('убили слайдер');
+                $('.iframe-slider-wrapp').slick('unslick');
+    
+            }
+            setTimeout(()=>{
+                this.InitSliderWrapp();
+            },1000);
         }
     }
     
@@ -124,13 +130,20 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
 
     InitSliderWrapp() 
     {
-  
-        $('.iframe-slider-wrapp').not('.slick-initialized').slick({
-            dots: false,
-            arrows: true,
-            infinite: false,
-            slidesToShow: 1
-        });
+        console.log($('.iframe-slider-wrapp').not('.slick-initialized').length);
+        //если не
+        
+        if($('.iframe-slider-wrapp').not('.slick-initialized').length){
+            console.log('проинитили слайдер');
+            $('.iframe-slider-wrapp').slick({
+                dots: false,
+                arrows: true,
+                infinite: false,
+                slidesToShow: 1
+            });
+
+        }
+        //если да
     }
 
 
