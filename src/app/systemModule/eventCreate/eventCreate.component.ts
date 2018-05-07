@@ -70,8 +70,8 @@ declare var ionRangeSlider:any;
 
 
 export class EventCreateComponent extends BaseComponent implements OnInit {
-    
-    
+
+
   Event:EventCreateModel = new EventCreateModel()
   EventId:number = 0;
 
@@ -80,7 +80,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   @ViewChild('venue') venue:VenuesComponent;
   @ViewChild('funding') funding:FundingComponent;
   @ViewChild('tickets') tickets:AddTicketsComponent;
-  
+
   @ViewChild('errorCmp') errorCmp: ErrorComponent;
 
   pages = Pages;
@@ -124,7 +124,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             (res:EventGetModel) => {
               this.DisplayEventParams(res);
             }, (err)=>{
-              this.errorCmp.OpenWindow(BaseMessages.Fail);
+              this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'event'));
             }
           );
         }
@@ -138,11 +138,11 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     if($event&&$event.id)
     {
       this.EventId = $event.id;
-      
+
       this.router.navigateByUrl("/system/eventCreate/"+this.EventId);
     }
 
-        
+
     if(this.about)
       this.about.Init(this.Event);
     if(this.artist)
@@ -187,11 +187,11 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   {
     if(this.currentPage == this.pages.tickets ||this.isSaveBtnClick)
       this.router.navigate(["/system","events"]);
-      
+
     scrollTo(0,0);
     this.currentPage = this.currentPage + 1;
   }
-    
+
   ChangeCurrentPart(newPart)
   {
     if(this.EventId == 0 && newPart > this.pages.about)
@@ -208,7 +208,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       subscribe((res)=>{
         //console.log(res);
         this.Event.is_active = true;
-      })  
+      })
   }
 
   OpenErrorWindow(str:string)

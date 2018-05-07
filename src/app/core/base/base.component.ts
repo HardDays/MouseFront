@@ -25,7 +25,7 @@ import { EventService } from '../services/event.service';
 import { Http, Headers } from '@angular/http';
 import { CheckModel } from '../models/check.model';
 import { MainService } from '../services/main.service';
-import {ArtistFields, BaseImages, BaseMessages, FanFields, VenueFields} from './base.enum';
+import {ArtistFields, BaseImages, BaseMessages, EventFields, FanFields, VenueFields} from './base.enum';
 import { MapsAPILoader } from '@agm/core';
 import {FormArray, FormControl, FormGroup} from '@angular/forms';
 
@@ -323,6 +323,10 @@ export class BaseComponent{
         return ArtistFields;
       } else if (entityType === 'fan') {
         return FanFields;
+      } else if (entityType === 'event') {
+        return EventFields;
+      } else if (entityType === 'base') {
+        return BaseFields;
       }
     }
 
@@ -377,7 +381,7 @@ export class BaseComponent{
         return errors.join('<br/>');
     }
 
-    protected getResponseErrorMessage(err: Response, entityType: string) {
+    protected getResponseErrorMessage(err: Response, entityType='base') {
       const errors = [];
       const keyDict = this.getKeysDict(entityType);
 

@@ -134,7 +134,7 @@ export class VenueMediaComponent extends BaseComponent implements OnInit,OnChang
                 this.GetVenueImages();
             },
             (err) => {
-                this.onError.emit(BaseMessages.Fail);
+                this.onError.emit(this.getResponseErrorMessage(err, 'venue'));
             }
         );
     }
@@ -153,7 +153,7 @@ export class VenueMediaComponent extends BaseComponent implements OnInit,OnChang
                 this.GetVenueImages();
             },
             (err) => {
-                this.onError.emit(BaseMessages.Fail);
+                this.onError.emit(this.getResponseErrorMessage(err, 'venue'));
             }
         );
     }

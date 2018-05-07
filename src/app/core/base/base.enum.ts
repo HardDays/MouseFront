@@ -75,12 +75,35 @@ export enum ArtistFields {
   audio_link = 'Link',
   album_artwork = 'Album artwork',
   album_link = 'Link',
-  name = "Song name",
-  link = "Link",
+  name = 'Song name',
+  link = 'Link',
 }
 
 export enum FanFields {
   user_name = 'Username',
+}
+
+export enum EventFields {
+  name = 'Event name',
+  tagline = 'Tagline',
+  hashtag = 'Hashtag',
+  event_time = 'Event time range',
+  event_length = 'Event length',
+  event_year = 'Event date',
+  event_season = 'Event date',
+  description = 'Short description',
+  funding_goal = 'Funding goal',
+  artists_number = 'Number of artists',
+}
+
+export enum BaseFields {
+  user_name = 'Username',
+  first_name = 'First name',
+  last_name = 'Last name',
+  password = 'Password',
+  password_confirm = 'Password confirmation',
+  register_phone = 'Phone',
+  email = 'Email',
 }
 
 
