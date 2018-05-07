@@ -100,9 +100,9 @@
                                 <p class="name-event">{{openMessage.message_info.event_info.name}}</p>
                                 <p class="descr">{{openMessage.message_info.event_info.description | titlecase}}</p>
                                 <p *ngIf="openMessage.message_type == 'request'" class="fot-edit">{{openMessage.message_info.event_info.event_season | titlecase}} {{openMessage.message_info.event_info.event_year}}, {{openMessage.message_info.event_info.event_time | titlecase}}, {{openMessage.message_info.event_info.event_length}} Hours
-                                    <img  src="../../assets/img/edit-img.png"  class="img-responsive for-edit-img" alt="">
+                                    <img *ngIf="!openMessage.is_read"  src="../../assets/img/edit-img.png"  class="img-responsive for-edit-img" alt="">
                                 </p>
-                                <input *ngIf="openMessage.message_type == 'request'" class="form-control" #drp="bsDaterangepicker" bsDaterangepicker [bsConfig]="bsConfig" 
+                                <input *ngIf="openMessage.message_type == 'request'" [disabled]="openMessage.is_read" class="form-control" #drp="bsDaterangepicker" bsDaterangepicker [bsConfig]="bsConfig" 
                                 [minDate]="minDate" [maxDate]="maxDate" [(ngModel)]="bsRangeValue">
 
                                 <p *ngIf="openMessage.message_type == 'accept'" class="fot-edit">{{openMessage.message_info.preferred_date_from | date}} - {{openMessage.message_info.preferred_date_to | date}} </p>
@@ -163,7 +163,7 @@
                                 <p class="fot-edit">
                                         
                                     Price to Perform <span> ${{(openMessage.message_type == 'request')?openMessage.message_info.estimated_price:openMessage.message_info.price}}</span>
-                                    <img *ngIf="openMessage.message_type == 'request'" src="../../assets/img/edit-img.png" (click)="isEditPrice = true" class="img-responsive for-edit-img" alt="">
+                                    <img *ngIf="openMessage.message_type == 'request'&&!openMessage.is_read" src="../../assets/img/edit-img.png" (click)="isEditPrice = true" class="img-responsive for-edit-img" alt="">
                                 </p>
                                 
                                 

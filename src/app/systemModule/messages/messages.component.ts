@@ -180,32 +180,34 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
 
   setDateRange()
   {
-    if(this.openMessage.message_info.event_info.event_season=='spring')
-    {
-      this.minDate = new Date(+this.openMessage.message_info.event_info.event_year,2,1);
-      this.maxDate = new Date(+this.openMessage.message_info.event_info.event_year,4,31);
+    if(this.openMessage&&this.openMessage.message_info&&this.openMessage.message_info.event_info&&this.openMessage.message_info.event_info.event_season){
+      if(this.openMessage.message_info.event_info.event_season=='spring')
+      {
+        this.minDate = new Date(+this.openMessage.message_info.event_info.event_year,2,1);
+        this.maxDate = new Date(+this.openMessage.message_info.event_info.event_year,4,31);
+      }
+      else if(this.openMessage.message_info.event_info.event_season=='summer')
+      {
+        this.minDate = new Date(+this.openMessage.message_info.event_info.event_year,5,1);
+        this.maxDate = new Date(+this.openMessage.message_info.event_info.event_year,7,31);
+      }
+      else if(this.openMessage.message_info.event_info.event_season=='autumn')
+      {
+        this.minDate = new Date(+this.openMessage.message_info.event_info.event_year,8,1);
+        this.maxDate = new Date(+this.openMessage.message_info.event_info.event_year,9,31);
+      }
+      else if(this.openMessage.message_info.event_info.event_season=='winter')
+      {
+        this.minDate = new Date(+this.openMessage.message_info.event_info.event_year,11,1);
+        this.maxDate = new Date((+this.openMessage.message_info.event_info.event_year)+1,1,31);
+      }
+      else
+      {
+        this.minDate = new Date(+this.openMessage.message_info.event_info.event_year,0,1);
+        this.maxDate = new Date((+this.openMessage.message_info.event_info.event_year),11,31);
+      }
+      this.bsRangeValue = [this.minDate, this.maxDate];
     }
-    else if(this.openMessage.message_info.event_info.event_season=='summer')
-    {
-      this.minDate = new Date(+this.openMessage.message_info.event_info.event_year,5,1);
-      this.maxDate = new Date(+this.openMessage.message_info.event_info.event_year,7,31);
-    }
-    else if(this.openMessage.message_info.event_info.event_season=='autumn')
-    {
-      this.minDate = new Date(+this.openMessage.message_info.event_info.event_year,8,1);
-      this.maxDate = new Date(+this.openMessage.message_info.event_info.event_year,9,31);
-    }
-    else if(this.openMessage.message_info.event_info.event_season=='winter')
-    {
-      this.minDate = new Date(+this.openMessage.message_info.event_info.event_year,11,1);
-      this.maxDate = new Date((+this.openMessage.message_info.event_info.event_year)+1,1,31);
-    }
-    else
-    {
-      this.minDate = new Date(+this.openMessage.message_info.event_info.event_year,0,1);
-      this.maxDate = new Date((+this.openMessage.message_info.event_info.event_year),11,31);
-    }
-    this.bsRangeValue = [this.minDate, this.maxDate];
   }
 
   acceptRequest()

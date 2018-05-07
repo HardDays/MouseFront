@@ -21,8 +21,10 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
 
   @Output() OnSave = new EventEmitter<AccountCreateModel>();
   @Output() OnError = new EventEmitter<string>();
+  @Output() next = new EventEmitter();
 
   @Input() Artist:AccountCreateModel;
+  @Input() idArtist:number;
   
   addSongForm: FormGroup = new FormGroup({        
     "song_name": new FormControl("", [Validators.required]),
@@ -70,8 +72,9 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
     }
   }
 
-  Init(artist:AccountCreateModel){
+  Init(artist:AccountCreateModel,id:number){
     this.Artist = artist;
+    this.idArtist = id;
     console.log(`Artist MEDIA`,this.Artist);
   }
 
@@ -210,7 +213,7 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
   AddArtistPhoto(){
 
   this.WaitBeforeLoading(
-    ()=> this.main.imagesService.PostAccountImage(this.CurrentAccount.id,{image_base64:this.ImageToLoad,image_description: this.imageInfo}),
+    ()=> this.main.imagesService.PostAccountImage(this.idArtist,{image_base64:this.ImageToLoad,image_description: this.imageInfo}),
       (res:any)=>{
         this.ImageToLoad = '';
         this.imageInfo = '';
@@ -219,10 +222,16 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
     );
   }
 
+  nextPage(){
+    this.next.emit();
+  }
+
 
 GetArtistImages()
 {
-  this.main.imagesService.GetAccountImages(this.main.CurrentAccount.id,{limit:5})
+  this.ArtistImages = [];
+
+  this.main.imagesService.GetAccountImages(this.idArtist,{limit:5})
     .subscribe(
       (res:any)=>{
         if(res && res.total_count > 0)
@@ -259,9 +268,9 @@ SanitizeImage(image: string)
 
 
 deleteImage(id:number){
-  console.log(id,this.main.CurrentAccount.id);
+  console.log(id,this.idArtist);
   this.WaitBeforeLoading(
-    ()=> this.main.imagesService.DeleteImageById(id,this.main.CurrentAccount.id),
+    ()=> this.main.imagesService.DeleteImageById(id,this.idArtist),
     (res)=>{
       this.ArtistImages = [];
       this.GetArtistImages();

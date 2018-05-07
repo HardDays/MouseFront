@@ -132,14 +132,18 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
     if($artist&&$artist.id)
     {
       this.ArtistId = $artist.id;
-      this.main.SetCurrentAccId($artist.id);
       this.router.navigateByUrl("/system/artistCreate/"+this.ArtistId);
+    }
+    else{
+      console.log(`new artist`);
+      this.currentPage = this.pages.about;
+      this.ArtistId = 0;
     }
 
     if(this.AboutPage)
       this.AboutPage.Init(this.Artist);
     if(this.MediaPage)
-      this.MediaPage.Init(this.Artist);
+      this.MediaPage.Init(this.Artist,this.ArtistId);
     if(this.BookingPage)
       this.BookingPage.Init(this.Artist);
     if(this.RidersPage)
@@ -152,7 +156,10 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
     (
       () => this.ArtistId == 0 ? this.main.accService.CreateAccount(this.Artist) : this.main.accService.UpdateMyAccount(this.ArtistId,this.Artist),
       (res) => {
+        console.log(res);
+        this.ArtistId = res.id;
         this.main.SetCurrentAccId(res.id);
+
         this.DisplayArtistParams(res);
         this.NextPart();
       },
@@ -168,6 +175,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
     if(!this.isSaveButtonClick&&this.currentPage!=this.pages.media&&this.currentPage!=this.pages.riders)
       this.currentPage = this.currentPage + 1;
   }
+  
   
   ChangeCurrentPart(newPart)
   {
@@ -192,6 +200,8 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
         if(this.BookingPage)
           this.BookingPage.saveArtist();
       }
+      if(this.MediaPage)
+        this.MediaPage.Init(this.Artist,this.ArtistId);
     }
    
   }
