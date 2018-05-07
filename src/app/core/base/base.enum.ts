@@ -74,7 +74,6 @@ export enum ArtistFields {
   album_name = 'Album name',
   audio_link = 'Link',
   album_artwork = 'Album artwork',
-  album_name = 'Album name',
   album_link = 'Link',
   name = "Song name",
   link = "Link",
