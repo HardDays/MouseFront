@@ -141,10 +141,15 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                 })
             }
             else {
-                acc.image_base64_not_given = BaseImages.NoneFolowerImage;
+                acc.image_base64_not_given = '../../../../assets/img/show.png';
                 this.venueShowsList.push(acc);
             }
-            })
+            });
+        for(let v =0; v<this.requestVenues.length;v++){
+            if (this.requestVenues[v].id==i.venue_id){
+                this.requestVenues.splice(v,1);
+            }
+        }
         }
     }
     getMessages(id?:number){
@@ -295,7 +300,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                 a.object.image_base64_not_given = img.base64;
               });
             }
-          else a.object.image_base64_not_given = BaseImages.NoneFolowerImage;
+          else a.object.image_base64_not_given = '../../../../assets/img/show.png';
         }
       }
 
@@ -492,11 +497,15 @@ declineVenue(card:AccountGetModel){
         this.main.eventService.GetEventById(this.Event.id).
         subscribe((res:EventGetModel)=>{
            // console.log(`updateEventThis`);
+           this.venuesList = [];
+           setTimeout(() => {
             this.Event = this.main.eventService.EventModelToCreateEventModel(res);
-            this.venuesList = [];
+           
             this.venuesList = this.Event.venues;
             console.log(`---`,this.Event,this.venueShowsList);
             this.GetVenueFromList();
+           }, 250);
+            
           
 })
     }
