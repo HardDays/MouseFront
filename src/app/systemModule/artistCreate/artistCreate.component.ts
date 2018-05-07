@@ -77,7 +77,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
 
   isSaveButtonClick:boolean = false;
   ErrorSave:boolean = false;
-  
+  changePage:boolean = false;
 
   @ViewChild('errorCmp') errorCmp: ErrorComponent;
   @ViewChild('AboutPage') AboutPage: ArtistAboutComponent;
@@ -172,15 +172,18 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
 
   NextPart()
   {
-    if(!this.isSaveButtonClick&&this.currentPage!=this.pages.media&&this.currentPage!=this.pages.riders)
+    if(!this.changePage){
+      if(!this.isSaveButtonClick&&this.currentPage!=this.pages.media&&this.currentPage!=this.pages.riders)
       this.currentPage = this.currentPage + 1;
+    }
+    this.changePage = false;
   }
   
   
   ChangeCurrentPart(newPart)
   {
 
-
+    this.changePage = true;
     let prevPage = this.currentPage; 
    
     if(this.ArtistId == 0 && newPart > this.pages.about)

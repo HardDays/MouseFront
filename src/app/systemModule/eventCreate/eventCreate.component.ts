@@ -204,11 +204,18 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   }
 
   activeButtonClick(){
+    console.log(this.EventId,this.main.CurrentAccount.id);
     this.main.eventService.SetActive(this.EventId,this.main.CurrentAccount.id).
       subscribe((res)=>{
-        //console.log(res);
+        console.log(`ok`,res);
         this.Event.is_active = true;
-      })  
+        this.SaveEvent(res);
+      },
+      (err)=>{
+        console.log(`err`,err);
+        this.OpenErrorWindow(BaseMessages.Fail);
+      }
+    )  
   }
 
   OpenErrorWindow(str:string)
