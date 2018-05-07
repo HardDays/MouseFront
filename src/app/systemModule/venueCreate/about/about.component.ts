@@ -180,7 +180,7 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
         this.aboutForm.updateValueAndValidity();
         if(this.aboutForm.invalid)
         {
-            this.onError.emit(this.getFormErrorMessage(this.aboutForm));
+            this.onError.emit(this.getFormErrorMessage(this.aboutForm, 'venue'));
             return;
         }
         this.onSaveVenue.emit(this.Venue);

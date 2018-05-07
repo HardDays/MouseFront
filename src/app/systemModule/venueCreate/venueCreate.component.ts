@@ -163,7 +163,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
         this.main.GetMyAccounts();
       },
       (err) => {
-        this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
+        this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'venue'));
       }
     )
   }
@@ -187,7 +187,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
         );
       },
       (err) => {
-        this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
+        this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'venue'));
       }
     )
   }
@@ -224,7 +224,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
         {
           if(this.about.aboutForm.invalid)
           {
-            this.OpenErrorWindow(this.getFormErrorMessage(this.about.aboutForm));
+            this.OpenErrorWindow(this.getFormErrorMessage(this.about.aboutForm, 'venue'));
             return;
           }
         }
@@ -233,7 +233,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
         if(this.dates){
           if(this.dates.dateForm.invalid)
           {
-            this.OpenErrorWindow(this.getFormErrorMessage(this.dates.dateForm));
+            this.OpenErrorWindow(this.getFormErrorMessage(this.dates.dateForm, 'venue'));
             return;
           }
         }
@@ -242,7 +242,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
         if(this.listing){
           if(this.listing.detailsForm.invalid)
           {
-            this.OpenErrorWindow(this.getFormErrorMessage(this.listing.detailsForm));
+            this.OpenErrorWindow(this.getFormErrorMessage(this.listing.detailsForm, 'venue'));
             return;
           }
         }
@@ -252,7 +252,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
         {
           if(this.media.mediaForm.invalid)
           {
-            this.OpenErrorWindow(this.getFormErrorMessage(this.media.mediaForm));
+            this.OpenErrorWindow(this.getFormErrorMessage(this.media.mediaForm, 'venue'));
             return;
           }
         }
@@ -261,7 +261,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
       }
     }
     this.SaveVenue();
-    
+
   }
 
   DeleteImage($event)

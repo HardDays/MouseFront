@@ -91,7 +91,7 @@ export class VenueMediaComponent extends BaseComponent implements OnInit,OnChang
         this.mediaForm.updateValueAndValidity();
         if(this.mediaForm.invalid)
         {
-            this.onError.emit(this.getFormErrorMessage(this.mediaForm));
+            this.onError.emit(this.getFormErrorMessage(this.mediaForm, 'venue'));
             return;
         }
         this.onSaveVenue.emit(this.Venue);

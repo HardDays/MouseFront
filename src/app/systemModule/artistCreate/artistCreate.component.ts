@@ -70,14 +70,14 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
   currentPage = Pages.about;
   showAllPages:boolean = false;
 
-  
+
   isNewArtist:boolean = true;
   Artist:AccountCreateModel = new AccountCreateModel();
   ArtistId:number = 0;
 
   isSaveButtonClick:boolean = false;
   ErrorSave:boolean = false;
-  
+
 
   @ViewChild('errorCmp') errorCmp: ErrorComponent;
   @ViewChild('AboutPage') AboutPage: ArtistAboutComponent;
@@ -117,7 +117,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
             (res:AccountGetModel) => {
               this.DisplayArtistParams(res);
             }, (err)=>{
-              this.errorCmp.OpenWindow(BaseMessages.Fail);
+              this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'artist'));
             }
           );
         }
@@ -157,7 +157,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
         this.NextPart();
       },
       (err) => {
-        this.errorCmp.OpenWindow(BaseMessages.Fail);
+        this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'artist'));
       }
     )
   }
@@ -168,13 +168,13 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
     if(!this.isSaveButtonClick&&this.currentPage!=this.pages.media&&this.currentPage!=this.pages.riders)
       this.currentPage = this.currentPage + 1;
   }
-  
+
   ChangeCurrentPart(newPart)
   {
 
 
-    let prevPage = this.currentPage; 
-   
+    let prevPage = this.currentPage;
+
     if(this.ArtistId == 0 && newPart > this.pages.about)
       return;
     else{
@@ -193,7 +193,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
           this.BookingPage.saveArtist();
       }
     }
-   
+
   }
 
 
@@ -222,9 +222,9 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
 
   OpenError(str:string){
     this.ErrorSave = true;
-    this.errorCmp.OpenWindow(BaseMessages.Fail+'. '+str);
+    this.errorCmp.OpenWindow(str);
   }
-  
+
 
 }
 
