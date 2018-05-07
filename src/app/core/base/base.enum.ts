@@ -79,4 +79,8 @@ export enum ArtistFields {
   link = "Link",
 }
 
+export enum FanFields {
+  user_name = 'Username',
+}
+
 
