@@ -231,5 +231,6 @@ export enum Pages {
     // calendar = 1,
     media = 1,
     booking = 2,
-    riders = 3
+    riders = 3,
+    preview = 4
 }

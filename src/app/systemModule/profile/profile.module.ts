@@ -11,6 +11,7 @@ import { PreloaderModule } from '../../shared/preloader/preloader.module';
 import { FanProfileComponent } from './fan/fan.component';
 import { VenueProfileComponent } from './vanue/venue.component';
 import { AgmCoreModule } from '@agm/core';
+import { ArtistProfileComponent } from './artist/artist.component';
 
 
 @NgModule({
@@ -33,12 +34,13 @@ import { AgmCoreModule } from '@agm/core';
         TicketOnProfileComponent,
         UpcomingShowsProfileComponent,
         FanProfileComponent,
-        VenueProfileComponent
+        VenueProfileComponent,
+        ArtistProfileComponent
        
       
 
     ],
-    exports: [ ProfileComponent, VenueProfileComponent ]
+    exports: [ ProfileComponent, VenueProfileComponent, ArtistProfileComponent ]
 })
 export class ProfileModule {}
 

@@ -13,6 +13,7 @@ import { ArtistBookingComponent } from './artist-booking/artist-booking.componen
 import { ArtistMediaComponent } from './artist-media/artist-media.component';
 import { ArtistRidersComponent } from './artist-riders/artist-riders.component';
 import { ArtistCreateComponent } from './artistCreate.component';
+import { ProfileModule } from '../profile/profile.module';
 
 @NgModule({
     imports: [ 
@@ -26,7 +27,8 @@ import { ArtistCreateComponent } from './artistCreate.component';
             libraries: ["places"]
           }),
         ErrorModule,
-        PreloaderModule    
+        PreloaderModule,
+        ProfileModule    
     ],
     declarations: [
         ArtistAboutComponent,

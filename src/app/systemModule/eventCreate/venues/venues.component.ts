@@ -243,6 +243,8 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         //          }
         //  });
 
+        console.log(this.venueSearchParams);
+
          this.main.accService.AccountsSearch(this.venueSearchParams).
              subscribe((res)=>{
                 //  if(res.length>0){
@@ -271,6 +273,19 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                 //  }
          });
     }
+
+    textChange(str:string){
+        if(str==''){
+          this.venueSearchParams.text = '';
+          this.venueSearch();
+        }
+      }
+      addressChange(str:string){
+        if(str==''){
+          this.venueSearchParams.address = '';
+          this.venueSearch();
+        }
+      }
 
     GetVenuesImages(){
         for(let a of this.venueList){
@@ -522,7 +537,8 @@ declineVenue(card:AccountGetModel){
                     if (results[1]) {
                       
                         $("#venueAddress").val(results[1].formatted_address);
-                        
+                        this.venueSearchParams.address = results[1].formatted_address;
+                        this.venueSearch();
                     } 
                     else {
                     // alert('No results found');

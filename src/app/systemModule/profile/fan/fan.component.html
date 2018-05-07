@@ -41,7 +41,7 @@
                                 <p>Tickets</p>
                             </div>
                             <div class="circle">
-                                <span>{{Account.followers_count}}</span>
+                                <span>{{Fans.length}}</span>
                                 <p>Followers</p>
                             </div>
                             <div class="circle">
@@ -75,14 +75,14 @@
                                     </div>
                                     <div class="new-scroll-wr">
                                         <div class="blocks">
-                                            <ng-container *ngIf="!isMyAccount">
+                                            <ng-container *ngIf="!IsMyAccount">
                                                 <ng-container *ngFor="let item of EventsMassChecked">
                                                     <a [routerLink]="['/system','shows_detail',item.id]" style="display:block">
                                                         <app-ticket-on-profile [Ticket]="item"></app-ticket-on-profile>
                                                     </a>
                                                 </ng-container>
                                             </ng-container>
-                                            <ng-container *ngIf="isMyAccount">
+                                            <ng-container *ngIf="IsMyAccount">
                                                 <ng-container *ngFor="let item of EventsMassChecked">
                                                     <a [routerLink]="['/system','eventCreate',item.id]" style="display:block">
                                                         <app-ticket-on-profile [Ticket]="item"></app-ticket-on-profile>
@@ -99,14 +99,14 @@
                                     </div>
                                     <div class="new-scroll-wr">
                                         <div class="blocks">
-                                            <ng-container *ngIf="isMyAccount">
+                                            <ng-container *ngIf="IsMyAccount">
                                                 <ng-container *ngFor="let item of ticketsMassChecked">
                                                     <a  [routerLink]="['/system','tickets',item.id]" style="display:block">
                                                         <app-ticket-on-profile [Ticket]="item"></app-ticket-on-profile>
                                                     </a>
                                                 </ng-container>
                                             </ng-container>
-                                            <ng-container *ngIf="!isMyAccount">
+                                            <ng-container *ngIf="!IsMyAccount">
                                                 <ng-container *ngFor="let item of ticketsMassChecked">
                                                     <a  [routerLink]="['/system','shows_detail',item.id]" style="display:block">
                                                         <app-ticket-on-profile [Ticket]="item"></app-ticket-on-profile>

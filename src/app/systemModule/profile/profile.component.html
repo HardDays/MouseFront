@@ -10,11 +10,14 @@
     </fan-profile-selector>
 
 
+    <artist-profile-selector *ngIf="Account.account_type == Roles.Artist" [Account]="Account" [Image]="baseImageMy"
+        [Fans]="Fans" [IsMyAccount]="isMyAccount" [isFolowedAcc]="isFolowedAcc" (onFollow)="FollowOrUnfollowProfile($event)">
+    </artist-profile-selector>
 
 
     <!-- ARTIST -->
 
-    <section *ngIf="Account.account_type == Roles.Artist" class="main_content">
+    <!-- <section *ngIf="Account.account_type == Roles.Artist" class="main_content">
         <div class="for-flex-height">
              
             <section class="second-router-outlet">
@@ -25,9 +28,9 @@
                                 <h6 id="lines_view" class="name">{{Account.user_name}}</h6>
                                 <div class="oficial-page">
                                     <span id="d_lines_view" class="page">@{{Account.display_name}}</span>
-                                    <div *ngIf="isMyAccount" class="edit-and-settings">
+                                    <div *ngIf="isMyAccount" class="edit-and-settings"> -->
                                         <!-- <a [routerLink]="['/system/edit',UserId]" class="edit-profile">Edit profile</a> -->
-                                        <a [routerLink]="['/system/artistCreate',UserId]" class="edit-profile">Edit profile</a>
+                                        <!-- <a [routerLink]="['/system/artistCreate',UserId]" class="edit-profile">Edit profile</a>
 
                                     </div>
                                 </div>
@@ -50,9 +53,9 @@
                             <div class="side right-side">
                                 <div class="bg-slider">
                                     
-                                    <div class="iframe-slider-wrapp" *ngIf="Account.videos.length > 0">
+                                    <div class="iframe-slider-wrapp" *ngIf="Account.videos.length > 0"> -->
                                         <!-- надо подключить youtube api и тем самым вставлять видео вместо iframe ибо у iframe нет норм функций для остановки видео, либо я хреново покопался.-->
-                                        <li *ngFor="let item of VideoPath;let i = index" >
+                                        <!-- <li *ngFor="let item of VideoPath;let i = index" >
                                             <div class="slide">
                                                 <div class="iframe-wr">
                                                     <iframe [id]="'video-iframe-'+i" class="youtube-video" enablejsapi="1" [src]="item" allowfullscreen></iframe>
@@ -111,7 +114,7 @@
                                         </div>
                                         <div class="new-scroll-wr">
                                             <div class="blocks">
-                                              
+                                               -->
                                                 
                                                 <!--/календарь вегда есть(не итерируем)-->
                                                 <!--<ng-container *ngIf="isMyAccount">
@@ -119,7 +122,7 @@
                                                 <ng-container *ngIf="item.checked">
                                                 -->
                                                 
-                                                <ng-container *ngFor="let item of UpcomingShows">
+                                                <!-- <ng-container *ngFor="let item of UpcomingShows">
                                                   
                                                     <ng-container class="one-block" *ngIf="item.checked">   
                                                         <a [routerLink]="['/system','shows_detail',item.object.id]" style="display:block">
@@ -159,7 +162,7 @@
             </section>
         </div>
 
-    </section>
+    </section> -->
 
     <!--  END ARTIST  -->
     

@@ -75,10 +75,10 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
         }
         else{
             if(this.Account.office_hours)
-                this.OffHours = this.Account.office_hours;
+                this.OffHours = this.main.accService.ParseWorkingTimeModelArr(this.Account.office_hours);
         
             if(this.Account.operating_hours)
-                this.OpHours = this.Account.operating_hours;
+                this.OpHours = this.main.accService.ParseWorkingTimeModelArr(this.Account.operating_hours);;
         }
         // this.Account.office_hours = (this.Account && this.Account.office_hours)?
         //     this.main.accService.ParseWorkingTimeModelArr(this.Account.office_hours):[];

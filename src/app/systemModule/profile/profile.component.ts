@@ -118,52 +118,7 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
                     })
             })
     }
-
-    GetVidio()
-    {
-        this.VideoPath = [];
-        //console.log(this.Account);
-        if(this.Account.videos && this.Account.videos.length > 0)
-        {
-        
-            for(let i in this.Account.videos){
-                let link = this.Account.videos[i].link;
-                let id = this.GetVideoId(link);
-                let path = id? ("https://www.youtube.com/embed/" + id) : "";
-                if(path)
-                {
-                    this.VideoPath[i] = this.SanitizePath(path);
-                }
-                
-            }
-            setTimeout(()=>{
-                this.InitSliderWrapp();
-            },300);
-           
-            
-        }
-      
-    }
-    SanitizePath(path:string)
-    {
-        return this._sanitizer.bypassSecurityTrustResourceUrl(path);
-    }
-    GetVideoId(url:string)
-    {
-        let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-        let match = url.match(regExp);
-
-        if (match && match[2].length == 11) {
-            return match[2];
-        } else {
-            return false;
-        }
-    }
-
     
-
-    
-
     GetFolowersAcc()
     {
         this.Fans = [];
@@ -180,50 +135,6 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
         );
     }
     
-    searchFolover(event)
-    {
-        let searchParam = event.target.value;
-        for(let it of this.folowersMassChecked)
-        {
-            if(it.object.user_name.indexOf(searchParam)>=0)
-            {
-                it.checked = true;
-            }
-            else
-            {
-                it.checked = false;
-            }
-        }
-    }
-    
-    
-    searchAlboms(event)
-    {
-        let searchParam = event.target.value;
-        for(let it of this.Albums)
-        {
-            if(it.object.album_name.indexOf(searchParam)>=0)
-            {
-                it.checked = true;
-            }
-            else
-            {
-                it.checked = false;
-            }
-        }
-    }
-
-    InitSliderWrapp() 
-    {
-        $('.iframe-slider-wrapp').not('.slick-initialized').slick({
-            dots: false,
-            arrows: true,
-            infinite: false,
-            slidesToShow: 1
-
-        });
-    }
-
     StopThisShit(index:number)
     {
         //let player = window.document.getElementById('#video-iframe-'+index);
@@ -240,21 +151,6 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
     {
         this.Account = usr;
         this.GetFolowersAcc();
-    
-        
-        if(this.Account.account_type == this.Roles.Venue)
-        {
-        
-       
-        }
-        if(this.Account.account_type == this.Roles.Artist){
-            this.Albums = this.convertArrToCheckModel<Album>(this.Account.artist_albums);
-            this.GetVidio();
-            for(let it of this.Albums){
-                it.checked = true;
-            }
-            // this.GetUpcomingShows(); 
-        }
 
         if(usr.image_id)
         {
@@ -270,9 +166,6 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
         }
     
     }
-
-
-   
 
     initUser(){
         let id = this.GetCurrentAccId();
