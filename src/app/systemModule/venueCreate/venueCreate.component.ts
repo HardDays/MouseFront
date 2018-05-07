@@ -218,29 +218,50 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
 
   SuperPuperImportantSaveButton()
   {
+    switch(this.CurrentPart){
+      case this.Parts.About:{
+        if(this.about)
+        {
+          if(this.about.aboutForm.invalid)
+          {
+            this.OpenErrorWindow(this.getFormErrorMessage(this.about.aboutForm));
+            return;
+          }
+        }
+      }
+      case this.Parts.Dates:{
+        if(this.dates){
+          if(this.dates.dateForm.invalid)
+          {
+            this.OpenErrorWindow(this.getFormErrorMessage(this.dates.dateForm));
+            return;
+          }
+        }
+      }
+      case this.Parts.Listing:{
+        if(this.listing){
+          if(this.listing.detailsForm.invalid)
+          {
+            this.OpenErrorWindow(this.getFormErrorMessage(this.listing.detailsForm));
+            return;
+          }
+        }
+      }
+      case this.Parts.Media:{
+        if(this.media)
+        {
+          if(this.media.mediaForm.invalid)
+          {
+            this.OpenErrorWindow(this.getFormErrorMessage(this.media.mediaForm));
+            return;
+          }
+        }
+      }
+      case this.Parts.Hours:{
+      }
+    }
     this.SaveVenue();
-    // switch(this.CurrentPart){
-    //   case this.Parts.About:{
-    //     if(this.about)
-    //       this.about.SaveVenue();
-    //   }
-    //   case this.Parts.Dates:{
-    //     if(this.dates)
-    //       this.dates.SaveVenue();
-    //   }
-    //   case this.Parts.Listing:{
-    //     if(this.listing)
-    //       this.listing.SaveVenue();
-    //   }
-    //   case this.Parts.Media:{
-    //     if(this.media)
-    //       this.media.SaveVenue();
-    //   }
-    //   case this.Parts.Hours:{
-    //     if(this.hours)
-    //       this.hours.SaveVenue();
-    //   }
-    // }
+    
   }
 
   DeleteImage($event)
@@ -256,7 +277,6 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
 
   VenueChanged($event)
   {
-    console.log($event);
     for(let key of $event)
     {
       if(this.Venue[key] != $event[key])

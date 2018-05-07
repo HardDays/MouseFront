@@ -33,8 +33,9 @@ export enum BaseMessages{
     Success = "Success",
     Fail = "Failed",
     InvalidForm = 'Please fill in all required fields to proceed to the Next Step',
-    RequiredField = '_field need to be filled',
-    EmailField = '_email need to be a valid email',
+    RequiredField = '_field is need to be filled',
+    EmailField = '_email is need to be a valid email',
+    MaxLength = "_field max length is _length"
 }
 
 export enum VenueFields {

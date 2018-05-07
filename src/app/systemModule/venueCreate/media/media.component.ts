@@ -79,6 +79,7 @@ export class VenueMediaComponent extends BaseComponent implements OnInit,OnChang
             if(res && res.total_count > 0)
             {
                 this.VenueImages = res.images;
+                console.log(this.VenueImages);
             }
         }
         );

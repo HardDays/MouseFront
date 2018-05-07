@@ -38,7 +38,8 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
     aboutForm : FormGroup = new FormGroup({
         "venue_name": new FormControl("", [Validators.required]),
         "mouse_name": new FormControl("", [Validators.required]),
-        "short_desc": new FormControl("", [Validators.required]),
+        "short_desc": new FormControl("", [Validators.required,
+                                        Validators.maxLength(1000)]),
         "phone": new FormControl("", [Validators.required]),
         "fax": new FormControl("", []),
         "emails": new FormArray([]),

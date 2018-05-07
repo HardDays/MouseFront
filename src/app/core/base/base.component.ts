@@ -316,37 +316,48 @@ export class BaseComponent{
     }
 
     /* Error messages */
-    private getFieldError(field: FormControl, key: string) {
-      if (field.errors !== null) {
-        if (field.errors.hasOwnProperty('required')) {
-          return String(BaseMessages.RequiredField).replace('_field', key);
-        } else if (field.errors.hasOwnProperty('email')) {
-          return String(BaseMessages.EmailField).replace('_email', key);
+    private getFieldError(field: FormControl, key: string) 
+    {
+        if (field.errors !== null) 
+        {
+            if (field.errors.hasOwnProperty('required'))
+            {
+                return String(BaseMessages.RequiredField).replace('_field', key);
+            }
+            else if (field.errors.hasOwnProperty('email')) 
+            {
+                return String(BaseMessages.EmailField).replace('_email', key);
+            }
+            else if (field.errors.hasOwnProperty('maxlength'))
+            {
+                return String(BaseMessages.MaxLength).replace('_field', key).replace('_length',field.errors["maxlength"].requiredLength);
+            }
         }
-      }
     }
 
     protected getFormErrorMessage(form: FormGroup) {
-      const errors = [];
+        const errors = [];
 
-      Object.keys(form.controls).forEach((key) => {
-        if (form.controls[key].status === 'INVALID') {
-          const formControl = form.controls[key];
+        Object.keys(form.controls).forEach((key) => {
+            if (form.controls[key].status === 'INVALID') {
+                const formControl = form.controls[key];
+                console.log(formControl);
 
-          if (formControl instanceof FormControl) {
-            errors.push(this.getFieldError(formControl, key));
-          } else if (formControl instanceof FormArray) {
-            // y formArray свой controls, который массив из FormControls и у каждого свои controls
-            formControl.controls.forEach((arrElem:FormGroup) => {
-                Object.keys(arrElem.controls).forEach((i) => {
-                  errors.push(this.getFieldError(<FormControl>arrElem.controls[i], i));
-                });
-            });
-          }
-        }
-      });
-      console.log(errors.join("\n"));
-      return errors.join("\n");
+                if (formControl instanceof FormControl) {
+                    errors.push(this.getFieldError(formControl, key));
+                } 
+                else if (formControl instanceof FormArray) {
+                    // y formArray свой controls, который массив из FormControls и у каждого свои controls
+                    formControl.controls.forEach((arrElem:FormGroup) => {
+                        Object.keys(arrElem.controls).forEach((i) => {
+                            errors.push(this.getFieldError(<FormControl>arrElem.controls[i], i));
+                        });
+                    });
+                }
+            }
+        });
+        console.log(errors.join("<br/>"));
+        return errors.join("<br/>");
     }
 
     protected getResponseErrorMessage(err: Response) {
