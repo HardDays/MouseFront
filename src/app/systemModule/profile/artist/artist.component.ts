@@ -36,7 +36,7 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
 
     FansChecked:AccountGetModel[] = [];
 
-    
+    SomeFlagForSlider:boolean = true;
     Albums:Album[] = [];
     AlbumsChecked:Album[] = [];
     VideoPath:SafeResourceUrl[] = [];
@@ -50,12 +50,13 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
         if(changes.Fans)
             this.FansChecked = this.Fans = changes.Fans.currentValue;
 
-        // console.log(this.Account);
         this.InitByUser();
+        console.log('changes');
     }
 
     ngOnInit(): void {
         this.InitByUser();
+        console.log('init');
     }
 
     InitByUser()
@@ -65,10 +66,13 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
         // this.Account.operating_hours = (this.Account && this.Account.operating_hours)?
         //     this.main.accService.ParseWorkingTimeModelArr(this.Account.operating_hours):[];
 
-        console.log(this.Account);
+        
         this.AlbumsChecked = this.Albums = this.Account.artist_albums;
-        this.GetVideo();
-
+        if(this.SomeFlagForSlider){
+         
+            this.GetVideo();
+            this.SomeFlagForSlider = false;
+        }
         this.GetUpcomingShows();
     }
 
@@ -87,9 +91,9 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
                     this.VideoPath[i] = this.SanitizePath(path);
                 }
             }
-            setTimeout(()=>{
-                this.InitSliderWrapp();
-            },300);
+            // setTimeout(()=>{
+            //     this.InitSliderWrapp();
+            // },600);
         }
     }
     
@@ -120,6 +124,7 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
 
     InitSliderWrapp() 
     {
+  
         $('.iframe-slider-wrapp').not('.slick-initialized').slick({
             dots: false,
             arrows: true,

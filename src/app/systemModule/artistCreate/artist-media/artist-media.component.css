@@ -9,3 +9,6 @@
     -ms-transform: rotate(270deg);
     transform: rotate(270deg);
 }
+.slider-2-albums{
+    flex-wrap: wrap;
+}

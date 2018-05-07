@@ -16,7 +16,9 @@
         <p *ngIf="status=='not found artist'" class="status">No status</p>
     </div>
     <div class="right-side">
-        <p class="name">{{card.user_name}}</p>
+        <p class="name" style=" white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; ">{{card.user_name}}</p>
         <p class="desc-head-info">Genre</p>
         <p *ngIf="card.account_type == 'artist'" class="info">{{ toBeatyShowsList(card.genres)}}</p>
         <p class="desc-head-info">Location</p>
