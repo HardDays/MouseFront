@@ -25,7 +25,7 @@ import { EventService } from '../services/event.service';
 import { Http, Headers } from '@angular/http';
 import { CheckModel } from '../models/check.model';
 import { MainService } from '../services/main.service';
-import {BaseImages, BaseMessages, VenueFields} from './base.enum';
+import {ArtistFields, BaseImages, BaseMessages, EventFields, FanFields, VenueFields, BaseFields} from './base.enum';
 import { MapsAPILoader } from '@agm/core';
 import {FormArray, FormControl, FormGroup} from '@angular/forms';
 
@@ -316,27 +316,46 @@ export class BaseComponent{
     }
 
     /* Error messages */
-    private getFieldError(field: FormControl, key: string) 
+    private getKeysDict(entityType: string) {
+      if (entityType === 'venue') {
+        return VenueFields;
+      } else if (entityType === 'artist') {
+        return ArtistFields;
+      } else if (entityType === 'fan') {
+        return FanFields;
+      } else if (entityType === 'event') {
+        return EventFields;
+      } else if (entityType === 'base') {
+        return BaseFields;
+      }
+    }
+
+    private getFieldError(field: FormControl, key: string)
     {
-        if (field.errors !== null) 
+        if (field.errors !== null)
         {
             if (field.errors.hasOwnProperty('required'))
             {
                 return String(BaseMessages.RequiredField).replace('_field', key);
             }
-            else if (field.errors.hasOwnProperty('email')) 
+            else if (field.errors.hasOwnProperty('email'))
             {
                 return String(BaseMessages.EmailField).replace('_email', key);
             }
             else if (field.errors.hasOwnProperty('maxlength'))
             {
-                return String(BaseMessages.MaxLength).replace('_field', key).replace('_length',field.errors["maxlength"].requiredLength);
+                return String(BaseMessages.MaxLength).replace(
+                  '_field', key
+                ).replace('_length', field.errors['maxlength'].requiredLength);
             }
         }
     }
 
-    protected getFormErrorMessage(form: FormGroup) {
+    protected getFormErrorMessage(form: FormGroup, entityType: string) {
         const errors = [];
+        const keyDict = this.getKeysDict(entityType);
+        console.log(entityType);
+        console.log(keyDict);
 
         Object.keys(form.controls).forEach((key) => {
             if (form.controls[key].status === 'INVALID') {
@@ -344,32 +363,35 @@ export class BaseComponent{
                 console.log(formControl);
 
                 if (formControl instanceof FormControl) {
-                    errors.push(this.getFieldError(formControl, key));
-                } 
+                    errors.push(this.getFieldError(formControl, keyDict[key]));
+                }
                 else if (formControl instanceof FormArray) {
                     // y formArray свой controls, который массив из FormControls и у каждого свои controls
-                    formControl.controls.forEach((arrElem:FormGroup) => {
+                    formControl.controls.forEach((arrElem: FormGroup) => {
                         Object.keys(arrElem.controls).forEach((i) => {
-                            errors.push(this.getFieldError(<FormControl>arrElem.controls[i], i));
+                          if (arrElem.controls[i].status === 'INVALID') {
+                            errors.push(this.getFieldError(<FormControl>arrElem.controls[i], keyDict[i]));
+                          }
                         });
                     });
                 }
             }
         });
-        console.log(errors.join("<br/>"));
-        return errors.join("<br/>");
+        console.log(errors.join('<br/>'));
+        return errors.join('<br/>');
     }
 
-    protected getResponseErrorMessage(err: Response) {
+    protected getResponseErrorMessage(err: Response, entityType='base') {
       const errors = [];
+      const keyDict = this.getKeysDict(entityType);
 
       Object.keys(err.json()).forEach((key) => {
         for (let error of err.json()[key]) {
-          errors.push(VenueFields[key] + " " + error.replace("_", ' ').toLowerCase());
+          errors.push(keyDict[key] + ' ' + error.replace('_', ' ').toLowerCase());
         }
       });
 
-      return errors.join("\n");
+      return errors.join('<br/>');
     }
 
       /* AUTOCOMPLETE */

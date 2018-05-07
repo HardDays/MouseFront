@@ -25,18 +25,18 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
 
   @Input() Artist:AccountCreateModel;
   @Input() idArtist:number;
-  
-  addSongForm: FormGroup = new FormGroup({        
+
+  addSongForm: FormGroup = new FormGroup({
     "song_name": new FormControl("", [Validators.required]),
     "album_name": new FormControl("", [Validators.required]),
     "audio_link": new FormControl("", [Validators.required])
   });
-  addAlbumForm: FormGroup = new FormGroup({        
+  addAlbumForm: FormGroup = new FormGroup({
     "album_artwork": new FormControl("", [Validators.required]),
     "album_name": new FormControl("", [Validators.required]),
     "album_link": new FormControl("", [Validators.required])
   });
-  addVideoForm: FormGroup = new FormGroup({        
+  addVideoForm: FormGroup = new FormGroup({
     "album_name": new FormControl("", [Validators.required]),
     "name": new FormControl("", [Validators.required]),
     "link": new FormControl("", [Validators.required])
@@ -97,11 +97,11 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
       this.Artist.audio_links.push(params);
       this.saveArtist();
       this.addSongForm.reset();
-      // 'http://d.zaix.ru/6yut.mp3'  
+      // 'http://d.zaix.ru/6yut.mp3'
 
     }
     else {
-      this.showError('Incorrect Inputs');
+      this.showError(this.getFormErrorMessage(this.addSongForm, 'artist'));
     }
   }
 
@@ -123,7 +123,7 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
       this.addAlbumForm.reset();
     }
     else {
-      this.showError('Incorrect Inputs');
+      this.showError(this.getFormErrorMessage(this.addAlbumForm, 'artist'));
     }
   }
 
@@ -138,7 +138,7 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
       for (let key in this.addVideoForm.value) {
         if (this.addVideoForm.value.hasOwnProperty(key)) {
             params[key] = this.addVideoForm.value[key];
-           
+
         }
       }
       this.Artist.artist_videos.push(params);
@@ -147,7 +147,7 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
       this.addVideoForm.reset();
     }
     else {
-      this.showError('Incorrect Inputs');
+      this.showError(this.getFormErrorMessage(this.addVideoForm, 'artist'));
     }
   }
 
@@ -157,7 +157,7 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
   }
 
   updateVideosPreview(){
-   
+
     for(let video of this.Artist.artist_videos){
       let video_id ='';
 
@@ -171,25 +171,25 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
   }
 
   openVideo(video:Video){
-   
+
     let video_id ='';
     console.log('youtube',video.link.indexOf('youtube'));
     console.log('youtu.be',video.link.indexOf('youtu.be'));
     if(video.link.indexOf('youtube') != -1){
       video_id = video.link.split('v=')[1];
-    
+
     }
     if(video.link.indexOf('youtu.be') != -1){
       video_id = video.link.split('.be/')[1];
       console.log(456);
     }
-    
 
-    this.openVideoLink = this._sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+video_id+'?rel=0'); 
+
+    this.openVideoLink = this._sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+video_id+'?rel=0');
     setTimeout(()=>{$('#modal-movie').modal('show');},100);
   }
 
-  
+
   loadImage($event:any):void{
     let target = $event.target;
     if(target.files.length == 0)
@@ -258,7 +258,7 @@ GetArtistImageById(id,saveIndex,text)
         this.ArtistImages.push({img:res.base64,text:text,id:res.id});
       }
     );
-   
+
 }
 
 SanitizeImage(image: string)
@@ -275,7 +275,7 @@ deleteImage(id:number){
       this.ArtistImages = [];
       this.GetArtistImages();
     },(err)=>{
-      this.showError('');
+      this.showError(this.getResponseErrorMessage(err, 'artist'));
     }
   )
 }

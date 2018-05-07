@@ -70,7 +70,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
   currentPage = Pages.about;
   showAllPages:boolean = false;
 
-  
+
   isNewArtist:boolean = true;
   Artist:AccountCreateModel = new AccountCreateModel();
   ArtistId:number = 0;
@@ -117,7 +117,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
             (res:AccountGetModel) => {
               this.DisplayArtistParams(res);
             }, (err)=>{
-              this.errorCmp.OpenWindow(BaseMessages.Fail);
+              this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'artist'));
             }
           );
         }
@@ -164,7 +164,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
         this.NextPart();
       },
       (err) => {
-        this.errorCmp.OpenWindow(BaseMessages.Fail);
+        this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'artist'));
       }
     )
   }
@@ -178,8 +178,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
     }
     this.changePage = false;
   }
-  
-  
+
   ChangeCurrentPart(newPart)
   {
 
@@ -206,7 +205,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
       if(this.MediaPage)
         this.MediaPage.Init(this.Artist,this.ArtistId);
     }
-   
+
   }
 
 
@@ -235,9 +234,9 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
 
   OpenError(str:string){
     this.ErrorSave = true;
-    this.errorCmp.OpenWindow(BaseMessages.Fail+'. '+str);
+    this.errorCmp.OpenWindow(str);
   }
-  
+
 
 }
 
