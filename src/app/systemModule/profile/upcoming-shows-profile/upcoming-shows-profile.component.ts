@@ -25,12 +25,12 @@ export class UpcomingShowsProfileComponent extends BaseComponent implements OnIn
   {
       if(this.Upshows && this.Upshows.image_id)
       {
-          this.WaitBeforeLoading(
-              () => this.main.imagesService.GetImageById(this.Upshows.image_id),
-              (res:Base64ImageModel) => {
-                  this.Image = (res && res.base64) ? res.base64 : BaseImages.Drake;
-              }
-          );
+          this.main.imagesService.GetImageById(this.Upshows.image_id)
+            .subscribe(
+                (res:Base64ImageModel) => {
+                    this.Image = (res && res.base64) ? res.base64 : BaseImages.Drake;
+                }
+            );
       }
   }
 

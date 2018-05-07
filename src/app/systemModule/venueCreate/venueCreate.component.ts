@@ -70,7 +70,7 @@ declare var ionRangeSlider:any;
 
 export class VenueCreateComponent extends BaseComponent implements OnInit,AfterViewChecked
 {
-  
+
   Parts = PageParts;
 
   CurrentPart = this.Parts.About;
@@ -87,7 +87,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
   @ViewChild('dates') dates:VenueDatesComponent;
 
   @ViewChild('errorCmp') errorCmp: ErrorComponent;
-  
+
 
   constructor(
     protected main           : MainService,
@@ -100,10 +100,10 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
   ) {
     super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
   }
-  
+
   ngOnInit()
   {
-    
+
     this.activatedRoute.params.forEach(
       (params) => {
         if(params["id"] == 'new')
@@ -155,7 +155,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
         this.DisplayVenueParams(res);
 
         this.errorCmp.OpenWindow(BaseMessages.Success);
-        
+
         setTimeout(
           () => this.NextPart(),
           2000
@@ -163,7 +163,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
         this.main.GetMyAccounts();
       },
       (err) => {
-        this.errorCmp.OpenWindow(BaseMessages.Fail);
+        this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
       }
     )
   }
@@ -187,7 +187,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
         );
       },
       (err) => {
-        this.errorCmp.OpenWindow(BaseMessages.Fail);
+        this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
       }
     )
   }
@@ -195,19 +195,19 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
   NextPart()
   {
     this.errorCmp.CloseWindow();
-    if(this.CurrentPart == this.Parts.Dates)
-    {
-      this.router.navigate(["/system","profile",this.VenueId]);
-      scrollTo(0,0);
-      return;
-    }
+    // if(this.CurrentPart == this.Parts.Dates)
+    // {
+    //   this.router.navigate(["/system","profile",this.VenueId]);
+    //   scrollTo(0,0);
+    //   return;
+    // }
     scrollTo(0,0);
     this.CurrentPart = this.CurrentPart + 1;
   }
-  
+
   ChangeCurrentPart(newPart)
   {
-    if(this.VenueId == 0 && newPart > this.Parts.About)
+    if(this.VenueId == 0)
       return;
 
     if(this.CurrentPart == newPart)
@@ -218,36 +218,57 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
 
   SuperPuperImportantSaveButton()
   {
+    switch(this.CurrentPart){
+      case this.Parts.About:{
+        if(this.about)
+        {
+          if(this.about.aboutForm.invalid)
+          {
+            this.OpenErrorWindow(this.getFormErrorMessage(this.about.aboutForm));
+            return;
+          }
+        }
+      }
+      case this.Parts.Dates:{
+        if(this.dates){
+          if(this.dates.dateForm.invalid)
+          {
+            this.OpenErrorWindow(this.getFormErrorMessage(this.dates.dateForm));
+            return;
+          }
+        }
+      }
+      case this.Parts.Listing:{
+        if(this.listing){
+          if(this.listing.detailsForm.invalid)
+          {
+            this.OpenErrorWindow(this.getFormErrorMessage(this.listing.detailsForm));
+            return;
+          }
+        }
+      }
+      case this.Parts.Media:{
+        if(this.media)
+        {
+          if(this.media.mediaForm.invalid)
+          {
+            this.OpenErrorWindow(this.getFormErrorMessage(this.media.mediaForm));
+            return;
+          }
+        }
+      }
+      case this.Parts.Hours:{
+      }
+    }
     this.SaveVenue();
-    // switch(this.CurrentPart){
-    //   case this.Parts.About:{
-    //     if(this.about)
-    //       this.about.SaveVenue();
-    //   }
-    //   case this.Parts.Dates:{
-    //     if(this.dates)
-    //       this.dates.SaveVenue();
-    //   }
-    //   case this.Parts.Listing:{
-    //     if(this.listing)
-    //       this.listing.SaveVenue();
-    //   }
-    //   case this.Parts.Media:{
-    //     if(this.media)
-    //       this.media.SaveVenue();
-    //   }
-    //   case this.Parts.Hours:{
-    //     if(this.hours)
-    //       this.hours.SaveVenue();
-    //   }
-    // }  
+    
   }
 
   DeleteImage($event)
   {
     this.main.accService.GetAccountById(this.VenueId,{extended:true})
       .subscribe(
-        (res:AccountGetModel) => 
+        (res:AccountGetModel) =>
         {
           this.DisplayVenueParams(res);
         }
@@ -277,5 +298,6 @@ export enum PageParts
   Hours = 1,
   Listing = 2,
   Media = 3,
-  Dates = 4
+  Dates = 4,
+  Preview = 5
 };

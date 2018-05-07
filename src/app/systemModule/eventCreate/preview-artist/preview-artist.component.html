@@ -1,0 +1,431 @@
+<section class="second-router-outlet">
+  <div class="create-event-nav-tabs">
+      <div class="for-header-shadow">
+          <div class="main-mw">
+              <div class="create-event-header">
+                  <!--добавляем класс для отображения стрелки-->
+                  <h1 class="arrow-class">
+                      <!--для клика на возврат к addevent-->
+                      <div (click)="backPage()" class="arr">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="34" height="29" viewBox="0 0 34 29">
+                            <path fill="#000000" id="Forma_1_copy_3" data-name="Forma 1 copy 3" class="cls-1" d="M857,946.183H828.082L839.5,934.862,837.62,933,823,947.5,837.62,962l1.877-1.862-11.415-11.322H857v-2.633Z" transform="translate(-823 -933)"/>
+                          </svg>
+                      </div>
+                      Add Artist
+                  </h1>
+                  <ul>
+                      <!--нужным li даем классы active и started."хз нахрена это надо. узнавайте у писателя"-->
+                      <li class="active">
+                          <a href="#" class="nav-second-outlet">about</a>
+                      </li>
+                      <li class="started">
+                          <a href="#" class="nav-second-outlet">Hours</a>
+                      </li>
+                      <li>
+                          <a href="#" class="nav-second-outlet">Listing</a>
+                      </li>
+                      <li>
+                          <a href="#" class="nav-second-outlet">Media</a>
+                      </li>
+                      <li>
+                          <a href="#" class="nav-second-outlet">DAtes</a>
+                      </li>
+                      <li>
+                          <a href="#" class="nav-second-outlet">Preview</a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+      <div class="for-white-bg">
+       <div class="all-info-profile all-info-profile-preview">
+           <div class="uniq-padd-2">
+              <div class="main-mw">
+                  <div class="flex--info">
+                      <div class="side side-info-new-venue-prev side-info side-about">
+                          <h1>{{Artist.display_name}}</h1>
+                          <p class="hash"><span>@</span>{{Artist.user_name}}</p>
+                          <p *ngIf="Artist.manager_name" class="manager">
+                              Manager:
+                              <a href="#">{{Artist.manager_name}}</a>
+                          </p>
+                          <p class="about-text line-height-hig">
+                            {{Artist.about}}
+                          </p>
+                      </div>
+                      <div class="side side-info-new-venue-prev side-info side-about">
+                          <div class="one-cover" [ngStyle]="{'background-image': Artist.image_base64_not_given?'url('+Artist.image_base64_not_given+')':''}"></div>
+                      </div>
+                  </div>
+               </div>
+           </div>
+           <div class="uniq-padd">
+              <div class="main-mw">
+                  <div class="genres-info">
+                      <h3>Genres</h3>
+                      <div class="flex-genres">
+                        <ng-container  *ngFor="let g of Artist.genres" >
+                          <span class="one-genre">{{g}}</span>
+                        </ng-container>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!-- <div class="uniq-padd">
+              <div class="main-mw">
+                  <div class="genres-info less-margin">
+                      <h3>Dates Available</h3>
+                  </div>
+               </div>
+          </div>
+          <div class="calendar-add-artist">
+              <div class="one-calendar-block">
+                  Сюда надо ангуларный календарь какой нибудь
+              </div>
+              <div class="bg-doted-cal"></div>
+          </div> -->
+          <div class="uniq-padd-2">
+              <div class="main-mw">
+                  <div class="flex--info none-padd-sides-b none-padd-sides-t-without-h">
+                      <div class="side side-info side-about ">
+                          <h6>SONGS</h6>
+                      </div>
+                      <div class="side side-info side-contact un-padd-on-1560"></div>
+                      <div class="side side-info side-map"></div>
+                  </div>
+              </div>
+              <div class="main-mw">
+                  <div class="styles-audio-list">
+                      <div *ngFor="let audio of Artist.audio_links" class="audio-wrapper">
+                          <div class="one-audio">
+                              <span class="name-track">{{audio.song_name}}</span>
+                              <audio [src]="audio.audio_link" preload="auto"></audio> 
+                          </div>
+                      </div>      
+                      <button class="see-all">SEE ALL</button>
+                  </div>
+                 
+              </div>
+              <div class="main-mw">
+                  <div class="flex--info none-padd-sides-b">
+                      <div class="side side-info side-about ">
+                          <h6 class="for-position-left-js">Images ({{photos?photos.length:'-'}})</h6>
+                      </div>
+                      <div class="side side-info side-contact un-padd-on-1560"></div>
+                      <div class="side side-info side-map"></div>
+                  </div>
+              </div>
+          </div>
+          <!--
+          в onInit надо будет вставить вот эту ебалистику
+
+           $('.photos-abs-wrapp').css({
+              'max-height': $('.rel-wr-photoos').width()+'px'
+          });
+          $('.new-photos-wr-scroll-preview').css({
+              'padding-left':$('.for-position-left-js').offset().left
+          });
+
+          $(window).resize(function(){
+              $('.photos-abs-wrapp').css({
+                  'max-height': $('.rel-wr-photoos').width()+'px'
+              });
+              $('.new-photos-wr-scroll-preview').css({
+                  'padding-left':$('.for-position-left-js').offset().left
+              });
+          });
+          -->
+          <div class="new-photos-wr-scroll-preview">
+              <div class="rel-wr-photoos">
+                  <div class="photos-abs-wrapp">
+                      <div *ngFor="let item of photos; let in = index" class="one-slide">
+                          <div (click)='Gallery(in)' [attr.data-eteration]="in" [attr.data-size]="item.size?(item.size.width+'x'+item.size.height):'500x500'" [attr.data-hreff]="item.base64"  class="wrapp-card for-gallery-item">
+                              <div class="cover-image" [ngStyle]="{'background-image': 'url(' + item.base64 + ')'}"></div>
+                              <div class="descr m-h-artist-prev">
+                                  <p class="name">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuminim veniam, quis nostrud</p>
+                              </div>
+                          </div>
+                      </div>
+
+                  </div>
+              </div>
+
+          </div>
+          <div class="uniq-padd-2">
+              <div class="main-mw">
+                  <div class="flex--info none-padd-sides-b none-padd-sides-t-without-h">
+                      <div class="side side-info side-about ">
+                          <h6 class="for-position-left-js">Albums ({{Artist.artist_albums?Artist.artist_albums.length:'-'}})</h6>
+                      </div>
+                      <div class="side side-info side-contact un-padd-on-1560"></div>
+                      <div class="side side-info side-map"></div>
+                  </div>
+              </div>
+           </div> 
+           <div class="new-photos-wr-scroll-preview ">
+              <div class="rel-wr-photoos alboms-play">
+                  <div class="photos-abs-wrapp">
+
+                      <div *ngFor="let item of Artist.artist_albums" class="one-slide">
+                          <div  class="wrapp-card">
+                              <div class="cover-image" [ngStyle]="{'background-image': 'url('+item.album_artwork+')'}"></div>
+                              <div class="descr">
+                                  <p class="name">{{item.album_name}}</p>
+                                  <!-- <p class="date">2015</p> -->
+                                  <span class="butt-style-1">
+                                      <a target="_blank" style="color:white" href="{{item.album_link}}"><span>play</span></a>
+                                  </span>   
+                              </div>
+                          </div>
+                      </div>
+                     
+                  </div>
+              </div>
+          </div>
+           <div class="uniq-padd-2">
+              <div class="main-mw">
+                  <div class="flex--info none-padd-sides-b">
+                      <div class="side side-info-new-venue-prev side-info side-about">
+                          <h6>BOOKING</h6>
+                      </div>
+                      <div class="side side-info-new-venue-prev side-info side-about"></div>
+                  </div>
+              </div>
+              <div class="main-mw">
+                  <div class="flex--info none-padd-sides-t">
+                      <div class="side side-info side-about">
+                          <h6>Performance</h6>
+                          <p class="about-text flexed">
+                              <span>Time:</span>
+                              <span>{{Artist.performance_min_time}}h - {{Artist.performance_max_time}}h</span>
+                          </p>
+                          <p class="about-text flexed">
+                              <span>Performance Price:</span>
+                              <span>$800/h - $1200/h</span>
+                          </p>
+                          <p class="about-text flexed">
+                              <span>Performance Price for additional Hours:</span>
+                              <span>$1500/h</span>
+                          </p>
+                      </div>
+                      <div class="side side-info side-contact">
+                         <h6>Band</h6>
+                          <p *ngIf="Artist&&Artist.is_perform_with_band" class="about-text margened">
+                             Does not perform with a Band
+                          </p>
+                           <p *ngIf="Artist&&Artist.can_perform_without_band" class="about-text margened">
+                            Can perform without a Band
+                          </p>
+                           <p *ngIf="Artist&&Artist.is_perform_with_backing_vocals" class="about-text margened">
+                             Does perform with Backing Vocals
+                          </p>
+                          <p *ngIf="Artist&&Artist.can_perform_without_backing_vocals" class="about-text margened">
+                            Can perform without Backing Vocals
+                          </p>
+                          
+                      </div>
+                      <div class="side side-info side-map">
+                          <h6>Preferred Venues</h6>
+                          <p *ngIf="Artist&&Artist.preferred_venue_text" class="about-text margened">
+                            {{Artist.preferred_venue_text}}
+                          </p>
+                      </div>
+                  </div>
+                  <div class="flex--info none-padd-sides-t">
+                      <div class="side side-info side-about">
+                          <h6>Preferred Location</h6>
+                          <div class="location-wr margened">
+                              <div class="mark"></div>
+                              <p class="location-inp ">
+                                {{Artist.preferred_address}}
+                              </p>
+                          </div>
+                          <p class="about-text line-height-hig">
+                              <span>{{Artist.days_to_travel}} days </span>  Notice needed to travel
+                          </p>
+                      </div>
+                      <div class="side side-info side-contact">
+                         <h6>Video Streaming Preference</h6>
+                          <p *ngIf="Artist&&Artist.is_permitted_to_stream" class="about-text margened">
+                            Gives permission to the Venue/Event Organizer to stream performance. 
+                          </p>
+                          <p *ngIf="Artist&&Artist.is_permitted_to_advertisement" class="about-text margened">
+                            Gives permission to the Venue/Event Organizer to have advertisements over streaming performance.
+                          </p>
+                          <p *ngIf="Artist&&!Artist.has_conflict_contracts" class="about-text margened">
+                            Does not have contracts with any Brands that may conflict with advertisements.
+                          </p>
+                          
+                      </div>
+                      <div class="side side-info side-map">
+                          <h6>Other</h6>
+                          <p class="about-text margened">
+                            <span>{{Artist.min_time_to_book}} days</span> needed to book before concert.
+                          </p>
+                          <p class="about-text margened">
+                            <span>{{Artist.min_time_to_free_cancel}} days</span> to cancel before charged a cancellation fee.
+                          </p>
+                          <p class="about-text margened">
+                            Fee for last minute Cancellation: <span>${{Artist.late_cancellation_fee}}</span>
+                          </p>
+                          <p class="about-text margened">
+                            <strong> {{Artist&&Artist.refund_policy?Artist.refund_policy:'No Refunds'}}</strong>
+                          </p>
+                      </div>
+                  </div>
+              </div>
+              <!-- <div class="main-mw">
+                  <div class="flex--info none-padd-sides-b">
+                      <div class="side side-info-new-venue-prev side-info side-about">
+                          <h6>Riders</h6>
+                      </div>
+                      <div class="side side-info-new-venue-prev side-info side-about"></div>
+                  </div>
+              </div> -->
+               
+               <!-- <div class="main-mw-7">
+                  <div class="riders-flex-wrapp preview-page">
+                      <div class="side">
+                          <p class="head-side-riders">Stage Rider</p>
+                          <div class="download-upload">
+                              <div class="side-dwn">
+                                  <a class="dd-ff" href="#">
+                                      <img src="./../../../../assets/img/download.png" class="img-responsive" alt="">
+                                  </a>
+                                  <p class="desc-side-dwn">название123123123wafgsfdgbslfgblsbdflgbslfgbaslfgblsdbglsbdflgbsldbfglsdфайла</p>
+                              </div>
+                          </div> -->
+                          <!--видимый рейден-->
+                          <!-- <p class="desc-rider">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse </p>
+                          <p class="desc-rider">
+                              <strong>flexible preferences</strong>
+                          </p>
+                      </div> -->
+                      <!--не видимый рейден - добавляем класс "invisible-rider-wrapp"-->
+                      <!-- <div class="side invisible-rider-wrapp">
+                          <p class="head-side-riders">Backstage Rider</p>
+                          <div class="download-upload">
+                              <div class="side-dwn">
+                                  <a class="dd-ff">
+                                      <img src="./../../../../assets/img/download.png" class="img-responsive" alt="">
+                                  </a>
+                                  <p class="desc-side-dwn">название файла</p>
+                              </div>
+                          </div> -->
+                          <!--не видимый рейден-->
+                          <!-- <div class="unvisible-rider">
+                              <img src="./../../../../assets/img/eye.jpg" class="img-responsive" alt="">
+                              <p class="unvisible-rider-text">It’s not visible until the artist<br> approves</p>
+                          </div>
+                      </div>
+                      <div class="side">
+                          <p class="head-side-riders">Hospitality Rider</p>
+                          <div class="download-upload"> -->
+                              <!--до загрузки файла-->
+                              <!-- <div class="side-dwn">
+                                  <a class="dd-ff" href="#">
+                                      <img src="./../../../../assets/img/download.png" class="img-responsive" alt="">
+                                  </a>
+                                  <p class="desc-side-dwn">название файла</p>
+                              </div>
+                          </div>
+                          <p class="desc-rider">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse </p>
+                          <p class="desc-rider">
+                              <strong>flexible preferences</strong>
+                          </p>
+                      </div> -->
+                      <!--не видимый рейден - добавляем класс "invisible-rider-wrapp"-->
+                      <!-- <div class="side invisible-rider-wrapp">
+                          <p class="head-side-riders">Technical Rider</p>
+                          <div class="download-upload">
+                              <div class="side-dwn">
+                                  <a class="dd-ff" href="#">
+                                      <img src="./../../../../assets/img/download.png" class="img-responsive" alt="">
+                                  </a>
+                                  <p class="desc-side-dwn">название файла</p>
+                              </div>
+                          </div>
+                          <div class="unvisible-rider">
+                              <img src="./../../../../assets/img/eye.jpg" class="img-responsive" alt="">
+                              <p class="unvisible-rider-text">It’s not visible until the artist<br> approves</p>
+                          </div>
+                      </div> -->
+
+
+
+
+
+
+
+
+                <!-- 
+                  </div>
+              </div>  -->
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+
+
+
+
+                <!--photo-galary-->
+                <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="pswp__bg"></div>
+                    <div class="pswp__scroll-wrap">
+                        <div class="pswp__container">
+                            <div class="pswp__item"></div>
+                            <div class="pswp__item"></div>
+                            <div class="pswp__item"></div>
+                        </div>
+                        <div class="pswp__ui pswp__ui--hidden">
+                            <div class="pswp__top-bar">
+                                <div class="pswp__counter"></div>
+                                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                                <div class="pswp__preloader">
+                                    <div class="pswp__preloader__icn">
+                                      <div class="pswp__preloader__cut">
+                                        <div class="pswp__preloader__donut"></div>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                                <div class="pswp__share-tooltip"></div> 
+                            </div>
+                            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+                            </button>
+                            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+                            </button>
+                            <div class="pswp__caption">
+                                <div class="pswp__caption__center"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!--/photo-galary-->

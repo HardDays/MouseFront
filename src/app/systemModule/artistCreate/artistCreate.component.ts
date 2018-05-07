@@ -132,6 +132,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
     if($artist&&$artist.id)
     {
       this.ArtistId = $artist.id;
+      this.main.SetCurrentAccId($artist.id);
       this.router.navigateByUrl("/system/artistCreate/"+this.ArtistId);
     }
 
@@ -151,6 +152,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
     (
       () => this.ArtistId == 0 ? this.main.accService.CreateAccount(this.Artist) : this.main.accService.UpdateMyAccount(this.ArtistId,this.Artist),
       (res) => {
+        this.main.SetCurrentAccId(res.id);
         this.DisplayArtistParams(res);
         this.NextPart();
       },
@@ -231,5 +233,6 @@ export enum Pages {
     // calendar = 1,
     media = 1,
     booking = 2,
-    riders = 3
+    riders = 3,
+    preview = 4
 }

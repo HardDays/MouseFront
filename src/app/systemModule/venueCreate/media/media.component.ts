@@ -39,7 +39,7 @@ export class VenueMediaComponent extends BaseComponent implements OnInit,OnChang
                                                     Validators.maxLength(1000)]),
         "stage_description" : new FormControl("",[Validators.required,
                                                 Validators.maxLength(1000)])
-    }); 
+    });
 
     CreateOnModelChangeForParent()
     {
@@ -49,7 +49,7 @@ export class VenueMediaComponent extends BaseComponent implements OnInit,OnChang
             });
     }
 
-    ngOnInit(): void 
+    ngOnInit(): void
     {
         this.ImageTypes = this.main.typeService.GetAllSpaceTypes();
 
@@ -66,7 +66,7 @@ export class VenueMediaComponent extends BaseComponent implements OnInit,OnChang
             this.Venue = venue;
         if(id)
             this.VenueId = id;
-        
+
         this.CreateOnModelChangeForParent();
         this.GetVenueImages();
     }
@@ -79,6 +79,7 @@ export class VenueMediaComponent extends BaseComponent implements OnInit,OnChang
             if(res && res.total_count > 0)
             {
                 this.VenueImages = res.images;
+                console.log(this.VenueImages);
             }
         }
         );
@@ -86,11 +87,11 @@ export class VenueMediaComponent extends BaseComponent implements OnInit,OnChang
 
     SaveVenue()
     {
-        
+
         this.mediaForm.updateValueAndValidity();
         if(this.mediaForm.invalid)
         {
-            this.onError.emit("Media form invalid");
+            this.onError.emit(this.getFormErrorMessage(this.mediaForm));
             return;
         }
         this.onSaveVenue.emit(this.Venue);
@@ -101,7 +102,7 @@ export class VenueMediaComponent extends BaseComponent implements OnInit,OnChang
         let target = $event.target;
         if(target.files.length == 0)
             return;
-        
+
         for(let file of target.files)
         {
         let reader:FileReader = new FileReader();
@@ -143,7 +144,7 @@ export class VenueMediaComponent extends BaseComponent implements OnInit,OnChang
         this.WaitBeforeLoading(
             () => this.main.imagesService.DeleteImageById(image.id,image.account_id),
             (res) => {
-                
+
                 this.onError.emit(BaseMessages.Success);
                 this.VenueImages.splice(
                     this.VenueImages.findIndex( obj => obj.id == image.id),

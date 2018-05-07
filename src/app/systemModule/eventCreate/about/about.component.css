@@ -49,3 +49,11 @@
     border-bottom: 1px dashed rgba(0, 0, 0, 0.25);
     padding: 5px 4px;
 }
+
+.modal-send-request.map-1-modal .modal-dialog .for-map-init-modal-1{
+    height: 600px;
+    border: none;
+}
+.flex-input-groupes .input-groupe-1:first-child{
+    margin-left: 0!important;
+}

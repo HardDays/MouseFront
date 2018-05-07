@@ -8,6 +8,10 @@ import { OneFolowerForProfileComponent } from './one-folower-for-profile/one-fol
 import { TicketOnProfileComponent } from './ticket-on-profile/ticket-on-profile.component';
 import { UpcomingShowsProfileComponent } from './upcoming-shows-profile/upcoming-shows-profile.component';
 import { PreloaderModule } from '../../shared/preloader/preloader.module';
+import { FanProfileComponent } from './fan/fan.component';
+import { VenueProfileComponent } from './vanue/venue.component';
+import { AgmCoreModule } from '@agm/core';
+import { ArtistProfileComponent } from './artist/artist.component';
 
 
 @NgModule({
@@ -17,7 +21,11 @@ import { PreloaderModule } from '../../shared/preloader/preloader.module';
         FormsModule,
         ReactiveFormsModule,
         TextMaskModule,
-        PreloaderModule
+        PreloaderModule,
+        AgmCoreModule.forRoot({
+            apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",
+            libraries: ["places"]
+        })
     ],
     declarations: [ 
         //компоненты
@@ -25,11 +33,14 @@ import { PreloaderModule } from '../../shared/preloader/preloader.module';
         OneFolowerForProfileComponent,
         TicketOnProfileComponent,
         UpcomingShowsProfileComponent,
+        FanProfileComponent,
+        VenueProfileComponent,
+        ArtistProfileComponent
        
       
 
     ],
-    exports: [ ProfileComponent ]
+    exports: [ ProfileComponent, VenueProfileComponent, ArtistProfileComponent ]
 })
 export class ProfileModule {}
 

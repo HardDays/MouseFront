@@ -19,6 +19,8 @@
                 </div>
                 <div class="flex-body-1">
                     <div class="side">
+                        
+                        
                         <div class="input-groupe-1 lbl-1">
                             <input id="inp-create-1" autocomplete="off" [(ngModel)]="Venue.display_name" formControlName="venue_name" name="" type="text">
                             <label for="inp-create-1">Venue Name<span>*</span></label>
@@ -27,6 +29,22 @@
                             <input id="inp-create-2" autocomplete="off" [(ngModel)]="Venue.user_name" formControlName="mouse_name" name="" type="text">
                             <label for="inp-create-2">Mouse Username<span>*</span></label>
                             
+                        </div>
+                        <div class="input-groupe-1 whithout-label">
+                
+                                <div class="photo-wr-1 n-i-s">
+                                    
+                                    <label *ngIf="!Venue.image_base64" class="file_upload new-style-img-up">
+                                        <div class="bg-image"></div>
+    
+                                        <input accept=".jpg, .jpeg, .png" (change)="uploadImage($event)" type="file">
+                                    </label>
+    
+                                    <!--появляется этот блок если загружена фотка и в стайл бекграунд имейдж ебануть-->
+                                    <div *ngIf="Venue.image_base64" (click)="DeleteImage()" [ngStyle]="{'background-image': Venue.image_base64?'url('+Venue.image_base64+')':''}" class="bg-image uploaded"></div>
+                                    <!---->
+                                </div>
+                                <label  class="head-groupe">Add Image</label>
                         </div>
                         <div class="input-groupe-1 whithout-label small-textarea max-500">
                             <textarea id="inp-create-9" autocomplete="off"  [(ngModel)]="Venue.description" formControlName="short_desc"></textarea>
@@ -96,22 +114,6 @@
                             <label for="inp-create-venue-adr-5">Zipcode</label>
                         </div>
                         
-                        <div class="input-groupe-1 whithout-label">
-                    
-                                <div class="photo-wr-1 n-i-s">
-                                    
-                                    <label *ngIf="!Venue.image_base64" class="file_upload new-style-img-up">
-                                        <div class="bg-image"></div>
-    
-                                        <input accept=".jpg, .jpeg, .png" (change)="uploadImage($event)" type="file">
-                                    </label>
-    
-                                    <!--появляется этот блок если загружена фотка и в стайл бекграунд имейдж ебануть-->
-                                    <div *ngIf="Venue.image_base64" (click)="DeleteImage()" [ngStyle]="{'background-image': Venue.image_base64?'url('+Venue.image_base64+')':''}" class="bg-image uploaded"></div>
-                                    <!---->
-                                </div>
-                                <label  class="head-groupe">Add Image</label>
-                        </div>
                     </div>
                 </div>
             </div>

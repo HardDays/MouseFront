@@ -62,7 +62,7 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
   }
 
   ngOnChanges(changes:SimpleChanges){
-    console.log(changes);
+    // console.log(changes);
     if(!changes['Artist'].isFirstChange()){
       this.InitMusicPlayer();
       this.updateVideosPreview();
@@ -135,9 +135,11 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
       for (let key in this.addVideoForm.value) {
         if (this.addVideoForm.value.hasOwnProperty(key)) {
             params[key] = this.addVideoForm.value[key];
+           
         }
       }
       this.Artist.artist_videos.push(params);
+      console.log(this.Artist.artist_videos);
       this.saveArtist();
       this.addVideoForm.reset();
     }
@@ -156,9 +158,9 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
     for(let video of this.Artist.artist_videos){
       let video_id ='';
 
-      if(video.link.indexOf('youtube'))
+      if(video.link.indexOf('youtube')!= -1)
         video_id = video.link.split('v=')[1];
-      if(video.link.indexOf('youtu.be'))
+      if(video.link.indexOf('youtu.be')!= -1)
         video_id = video.link.split('be/')[1];
 
       video.preview = 'https://img.youtube.com/vi/'+video_id+'/0.jpg';
@@ -166,12 +168,20 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
   }
 
   openVideo(video:Video){
+   
     let video_id ='';
-    if(video.link.indexOf('youtube'))
+    console.log('youtube',video.link.indexOf('youtube'));
+    console.log('youtu.be',video.link.indexOf('youtu.be'));
+    if(video.link.indexOf('youtube') != -1){
       video_id = video.link.split('v=')[1];
-    if(video.link.indexOf('youtu.be'))
-      video_id = video.link.split('.be/')[1];
     
+    }
+    if(video.link.indexOf('youtu.be') != -1){
+      video_id = video.link.split('.be/')[1];
+      console.log(456);
+    }
+    
+
     this.openVideoLink = this._sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+video_id+'?rel=0'); 
     setTimeout(()=>{$('#modal-movie').modal('show');},100);
   }
@@ -274,7 +284,9 @@ deleteImage(id:number){
   showError(str:string){
     this.OnError.emit(str);
   }
-
+  artistFromAbout(){
+    this.OnSave.emit(this.Artist);
+  }
 
 
 }

@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { MapsAPILoader } from '@agm/core';
 import { ContactModel } from '../../../core/models/contact.model';
 import { Base64ImageModel } from '../../../core/models/base64image.model';
+import {BaseMessages} from '../../../core/base/base.enum';
 
 
 @Component({
@@ -27,17 +28,18 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
     @Output() onImageDeleted:EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() onVenueChanged:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
 
-    
+
 
     EmailFormGroup : FormGroup = new FormGroup({
         "name_email":new FormControl("",[]),
         "email":new FormControl("",[Validators.email]),
     });
 
-    aboutForm : FormGroup = new FormGroup({        
+    aboutForm : FormGroup = new FormGroup({
         "venue_name": new FormControl("", [Validators.required]),
         "mouse_name": new FormControl("", [Validators.required]),
-        "short_desc": new FormControl("", [Validators.required]),
+        "short_desc": new FormControl("", [Validators.required,
+                                        Validators.maxLength(1000)]),
         "phone": new FormControl("", [Validators.required]),
         "fax": new FormControl("", []),
         "emails": new FormArray([]),
@@ -61,7 +63,7 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
         );
     }
 
-    ngOnInit(): void 
+    ngOnInit(): void
     {
         this.CreateOnModelChangeForParent();
         this.Init();
@@ -75,7 +77,7 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
             this.VenueImageId = changes.VenueImageId.currentValue;
         if(changes.VenueId)
             this.VenueId = changes.VenueId.currentValue;
-        
+
         this.Init();
     }
 
@@ -87,7 +89,7 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
 
         if(!this.Venue.emails)
             this.Venue.emails = [new ContactModel()];
-        
+
         this.AddEmailsToForm(this.Venue.emails.length);
         this.GetVenueImage();
     }
@@ -112,8 +114,8 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
             (addr,place) => {
                 if(place)
                 {
-                    this.Venue.address = place.formatted_address;     
-                }  
+                    this.Venue.address = place.formatted_address;
+                }
                 for(let a of addr)
                 {
                     if(a.search('locality') > 0)
@@ -136,7 +138,7 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
                     {
                         this.Venue.zipcode = a.slice(a.search('>')+1,a.search('</'));
                     }
-                }  
+                }
             }
         );
     }
@@ -178,8 +180,7 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
         this.aboutForm.updateValueAndValidity();
         if(this.aboutForm.invalid)
         {
-           // console.log(this.aboutForm);
-            this.onError.emit("About form invalid");
+            this.onError.emit(this.getFormErrorMessage(this.aboutForm));
             return;
         }
         this.onSaveVenue.emit(this.Venue);

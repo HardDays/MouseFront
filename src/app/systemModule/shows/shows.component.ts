@@ -67,7 +67,7 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
         protected activatedRoute : ActivatedRoute,
         protected cdRef          : ChangeDetectorRef
     ) {
-    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
+        super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
     }
 
     ngOnInit()

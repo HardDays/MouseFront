@@ -9,6 +9,7 @@ declare var $:any;
 export class ErrorComponent{
 
     public Message:string = '';
+    
     public OpenWindow(message:string)
     {
         this.Message = message;

@@ -89,6 +89,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   isSaveBtnClick:boolean = false;
   isNewEvent = false;
 
+  artistPreview:number = 644;
+
   constructor(
       protected main           : MainService,
       protected _sanitizer     : DomSanitizer,
@@ -213,6 +215,12 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   {
     this.errorCmp.OpenWindow(str);
   }
+
+  openPreviewArtist(id:number){
+    this.currentPage = this.pages.previewArtist;
+    this.artistPreview = id;
+  }
+
 }
 
 export enum Pages {
@@ -220,5 +228,7 @@ export enum Pages {
     artist = 1,
     venue = 2,
     funding = 3,
-    tickets = 4
+    tickets = 4,
+    previewArtist = 5,
+    previewVenue = 6
 }

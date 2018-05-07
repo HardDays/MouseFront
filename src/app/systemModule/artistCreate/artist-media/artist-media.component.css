@@ -1,0 +1,14 @@
+.slider-2-albums .one-slide{
+    width: 50%;
+}
+.circle-scroll{
+    cursor: pointer;
+    -webkit-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    transform: rotate(270deg);
+}
+.slider-2-albums{
+    flex-wrap: wrap;
+}

@@ -98,7 +98,9 @@
                     <h1>Tickets<span>Includes $2 service fee. One ticket per person</span></h1>
                     
                         <p class="total">Total price: <span>${{TotalPrice}}</span></p>
-                        <button [disabled]="!Event.is_active || !CurrentAccount || CurrentAccount.account_type != 'fan' || !Event.tickets || !Event.tickets.length" (click)="BuyTickets()" class="butt-style-1" [ngClass]="{'cursor-disabled':!Event.is_active || !CurrentAccount || CurrentAccount.account_type != 'fan' || !Event.tickets || !Event.tickets.length}">
+                        <button [disabled]="!Event.is_active || !CurrentAccount || CurrentAccount.account_type != 'fan' || !Event.tickets || !Event.tickets.length || !TicketsToBuy.length"
+                            (click)="BuyTickets()" class="butt-style-1" 
+                            [ngClass]="{'cursor-disabled':!Event.is_active || !CurrentAccount || CurrentAccount.account_type != 'fan' || !Event.tickets || !Event.tickets.length || !TicketsToBuy.length}">
                             <span>Buy</span>
                         </button>
                 </div>

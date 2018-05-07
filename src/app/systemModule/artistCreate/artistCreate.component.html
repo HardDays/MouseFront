@@ -23,6 +23,10 @@
                             <a (click)="ChangeCurrentPart(pages.riders)" class="nav-second-outlet">riders</a>
                         </li>
 
+                        <li [ngClass]="{'active':currentPage == pages.preview,'started':currentPage != pages.preview}">
+                            <a (click)="ChangeCurrentPart(pages.preview)" class="nav-second-outlet">preview</a>
+                        </li>
+
 
                         <li *ngIf="ArtistId !== 0">
                             <button (click)="saveButtonClick()" class="butt-style-1" style="width: 127px">
@@ -81,6 +85,8 @@
 
 
         </div>
+        <artist-profile-selector *ngIf="currentPage==pages.preview" [Account]="Artist" [Fans]="[]" [IsPreview]="true">
+        </artist-profile-selector>
 
     </div>
 
