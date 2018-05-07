@@ -75,7 +75,7 @@ export class RegisterFollowComponent extends BaseComponent implements OnInit {
       this.WaitBeforeLoading(
         ()=>this.main.accService.AccountFollow(id,follow),
         (res)=>{
-          
+          console.log(res);
         }
     )
     }
