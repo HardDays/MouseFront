@@ -70,14 +70,14 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
   currentPage = Pages.about;
   showAllPages:boolean = false;
 
-  
+
   isNewArtist:boolean = true;
   Artist:AccountCreateModel = new AccountCreateModel();
   ArtistId:number = 0;
 
   isSaveButtonClick:boolean = false;
   ErrorSave:boolean = false;
-  
+  changePage:boolean = false;
 
   @ViewChild('errorCmp') errorCmp: ErrorComponent;
   @ViewChild('AboutPage') AboutPage: ArtistAboutComponent;
@@ -117,7 +117,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
             (res:AccountGetModel) => {
               this.DisplayArtistParams(res);
             }, (err)=>{
-              this.errorCmp.OpenWindow(BaseMessages.Fail);
+              this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'artist'));
             }
           );
         }
@@ -134,11 +134,16 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
       this.ArtistId = $artist.id;
       this.router.navigateByUrl("/system/artistCreate/"+this.ArtistId);
     }
+    else{
+      console.log(`new artist`);
+      this.currentPage = this.pages.about;
+      this.ArtistId = 0;
+    }
 
     if(this.AboutPage)
       this.AboutPage.Init(this.Artist);
     if(this.MediaPage)
-      this.MediaPage.Init(this.Artist);
+      this.MediaPage.Init(this.Artist,this.ArtistId);
     if(this.BookingPage)
       this.BookingPage.Init(this.Artist);
     if(this.RidersPage)
@@ -151,11 +156,15 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
     (
       () => this.ArtistId == 0 ? this.main.accService.CreateAccount(this.Artist) : this.main.accService.UpdateMyAccount(this.ArtistId,this.Artist),
       (res) => {
+        console.log(res);
+        this.ArtistId = res.id;
+        this.main.SetCurrentAccId(res.id);
+        this.main.GetMyAccounts();
         this.DisplayArtistParams(res);
         this.NextPart();
       },
       (err) => {
-        this.errorCmp.OpenWindow(BaseMessages.Fail);
+        this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'artist'));
       }
     )
   }
@@ -163,14 +172,17 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
 
   NextPart()
   {
-    if(!this.isSaveButtonClick&&this.currentPage!=this.pages.media&&this.currentPage!=this.pages.riders)
+    if(!this.changePage){
+      if(!this.isSaveButtonClick&&this.currentPage!=this.pages.media&&this.currentPage!=this.pages.riders)
       this.currentPage = this.currentPage + 1;
+    }
+    this.changePage = false;
   }
-  
+
   ChangeCurrentPart(newPart)
   {
 
-
+    this.changePage = true;
     let prevPage = this.currentPage; 
    
     if(this.ArtistId == 0 && newPart > this.pages.about)
@@ -190,8 +202,10 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
         if(this.BookingPage)
           this.BookingPage.saveArtist();
       }
+      if(this.MediaPage)
+        this.MediaPage.Init(this.Artist,this.ArtistId);
     }
-   
+
   }
 
 
@@ -220,9 +234,9 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
 
   OpenError(str:string){
     this.ErrorSave = true;
-    this.errorCmp.OpenWindow(BaseMessages.Fail+'. '+str);
+    this.errorCmp.OpenWindow(str);
   }
-  
+
 
 }
 

@@ -70,7 +70,7 @@ export class VenueListingComponent extends BaseComponent implements OnInit,OnCha
         this.detailsForm.updateValueAndValidity();
         if(this.detailsForm.invalid)
         {
-            this.onError.emit(this.getFormErrorMessage(this.detailsForm));
+            this.onError.emit(this.getFormErrorMessage(this.detailsForm, 'venue'));
             return;
         }
 

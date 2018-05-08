@@ -41,7 +41,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
   @ViewChild('errorCmp') errorCmp: ErrorComponent;
   @ViewChild('submitFormFun') form: NgForm;
   @ViewChild('search') public searchElement: ElementRef;
-  
+
   constructor(
     protected main           : MainService,
     protected _sanitizer     : DomSanitizer,
@@ -59,7 +59,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
       this.cdRef.detectChanges();
   }
 
-  ngOnInit() 
+  ngOnInit()
   {
     this.activatedRoute.params.forEach(
       (params) => {
@@ -72,7 +72,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
         {
           this.WaitBeforeLoading(
             () => this.main.accService.GetAccountById(params["id"],{extended:true}),
-            (res:AccountGetModel) => 
+            (res:AccountGetModel) =>
             {
               this.flagForText = false;
               this.DisplayFunParams(res);
@@ -87,7 +87,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
                 );
               }
               else{
-                
+
               }
             }
           );
@@ -105,7 +105,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
             this.LocalDeleteAva();
           },
           (err)=>{
-            this.errorCmp.OpenWindow(BaseMessages.Fail);
+            this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'fan'));
           }
         );
       }
@@ -121,17 +121,17 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
     this.mapsAPILoader.load().then(
       () => {
         let autocomplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement, {types:[`(cities)`]});
-        
-        autocomplete.addListener("place_changed", 
+
+        autocomplete.addListener("place_changed",
           () => {
             this.ngZone.run(
               () => {
-                let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
+                let place: google.maps.places.PlaceResult = autocomplete.getPlace();
                   if(place.geometry === undefined || place.geometry === null )
-                  {             
+                  {
                     return;
                   }
-                  else 
+                  else
                   {
                     // this.venueSearchParams.address = autocomplete.getPlace().formatted_address;
                     // this.venueSearch();
@@ -157,22 +157,22 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
     this.codeLatLng( this.cordsMap.lat, this.cordsMap.lng);
   }
 
-  codeLatLng(lat, lng) 
+  codeLatLng(lat, lng)
   {
     let geocoder = new google.maps.Geocoder();
     let latlng = new google.maps.LatLng(lat, lng);
     geocoder.geocode(
-      {'location': latlng }, 
+      {'location': latlng },
       (results, status) => {
         if (status === google.maps.GeocoderStatus.OK) {
           if (results[1]) {
             this.Fun.address = results[1].formatted_address;
-          } 
+          }
         }
       }
     );
   }
-  
+
   loadLogo($event:any):void
   {
     this.ReadImages(
@@ -227,7 +227,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
   CategoryChanged($event:string)
   {
     this.search = $event;
-    if(this.search.length>0) 
+    if(this.search.length>0)
     {
       for(let g of this.Genres)
       {
@@ -241,7 +241,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
         }
       }
      }
-     else 
+     else
      {
        this.seeFirstGenres();
      }
@@ -262,7 +262,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
       this.Fun.genres = [];
       for(let g of this.Genres)
       {
-        if(g.checked) 
+        if(g.checked)
           this.Fun.genres.push(g.genre);
       }
 
@@ -273,8 +273,8 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
           this.main.GetMyAccounts();
           this.router.navigate(['/system','profile',res.id]);
         },
-        (err:any)=>{ 
-          this.errorCmp.OpenWindow(BaseMessages.Fail);
+        (err:any)=>{
+          this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'fan'));
         }
       );
     }
@@ -284,7 +284,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
   {
     $('#modal-map-2').modal('show');
   }
- 
+
 
 
 

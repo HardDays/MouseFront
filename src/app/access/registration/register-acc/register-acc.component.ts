@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, NgZone  } from '@angular/core';
 import { UserGetModel } from '../../../core/models/userGet.model';
-import { FormGroup, FormControl } from '@angular/forms';
+import {FormGroup, FormControl, Validators} from '@angular/forms';
 import { GenreModel } from '../../../core/models/genres.model';
 import { AccountGetModel } from '../../../core/models/accountGet.model';
 import { AccountCreateModel } from '../../../core/models/accountCreate.model';
@@ -43,12 +43,12 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
   @ViewChild('search') public searchElementFrom: ElementRef;
 
   @ViewChild('errorCmp') errorCmp: ErrorComponent;
-  
 
-  accForm : FormGroup = new FormGroup({        
-    "user_name": new FormControl("",),
-    "first_name": new FormControl("",),
-    "last_name": new FormControl("")
+
+  accForm : FormGroup = new FormGroup({
+    "user_name": new FormControl("", [Validators.required]),
+    "first_name": new FormControl("", [Validators.required]),
+    "last_name": new FormControl("", [Validators.required])
   });
 
   genres:GenreModel[] = [];
@@ -56,9 +56,9 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
   allGenres:GenreModel[] = [];
   search:string = '';
   seeMore:boolean = false;
-  Account:AccountCreateModel = new AccountCreateModel(); 
+  Account:AccountCreateModel = new AccountCreateModel();
   place: string='';
- 
+
   Error:string = '';
   mapCoords =  {lat:55.755826, lng:37.6172999};
 
@@ -67,12 +67,12 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
     this.CreateAutocomplete();
     this.WaitBeforeLoading(
       () => this.main.genreService.GetAllGenres(),
-      (res:string[]) => 
+      (res:string[]) =>
       {
-        this.genres = this.main.genreService.StringArrayToGanreModelArray(res);     
-        this.seeFirstGenres(); 
+        this.genres = this.main.genreService.StringArrayToGanreModelArray(res);
+        this.seeFirstGenres();
       }
-    );  
+    );
   }
   openMap(){
     $('#modal-map-reg').modal(`show`);
@@ -81,23 +81,23 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
   {
     this.mapsAPILoader.load().then
     (
-       () => 
+       () =>
        {
         let autocomplete = new google.maps.places.Autocomplete(this.searchElementFrom.nativeElement, {types:[`(cities)`]});
-       
+
         autocomplete.addListener(
           "place_changed",
-          () => 
+          () =>
           {
             this.ngZone.run(
-              () => 
+              () =>
               {
-                  let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
+                  let place: google.maps.places.PlaceResult = autocomplete.getPlace();
                   if(place.geometry === undefined || place.geometry === null )
                   {
                     return;
                   }
-                  else 
+                  else
                   {
                     this.Account.address = autocomplete.getPlace().formatted_address;
                     // this.Params.public_lat=autocomplete.getPlace().geometry.location.toJSON().lat;
@@ -146,7 +146,7 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
   seeMoreGenres()
   {
     this.seeMore = true;
-    for(let g of this.genres) 
+    for(let g of this.genres)
       g.show = true;
   }
 
@@ -154,7 +154,7 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
   CategoryChanged($event:string)
   {
     this.search = $event;
-    if(this.search.length>0) 
+    if(this.search.length>0)
     {
       this.seeMore = true;
       for(let g of this.genres)
@@ -165,7 +165,7 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
           g.show = false;
       }
     }
-    else 
+    else
     {
       this.seeFirstGenres();
     }
@@ -173,13 +173,19 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
 
   registerAcc()
   {
+    if(this.accForm.invalid)
+    {
+      // console.log("About form invalid");
+      this.errorCmp.OpenWindow(this.getFormErrorMessage(this.accForm, 'base'));
+      return;
+    }
+
     this.Account.genres = this.main.genreService.GenreModelArrToStringArr(this.genres);
     this.Account.account_type = this.typeUser;
     this.Account.user_name = this.accForm.value['user_name'];
     this.Account.display_name = this.accForm.value['first_name']+" "+this.accForm.value['last_name'];
     this.Account.first_name = this.accForm.value['first_name'];
     this.Account.last_name = this.accForm.value['last_name'];
-   
 
     this.WaitBeforeLoading(
       ()=>this.main.accService.CreateAccount(this.Account),
@@ -188,13 +194,13 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
         this.main.SetCurrentAccId(res.id);
       },
       (err)=>{
-        this.errorCmp.OpenWindow(BaseMessages.Fail+' '+err._body);
+        this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
       }
     )
   }
 
 
-  
+
   dragMarker($event)
   {
       this.mapCoords.lat = $event.coords.lat;
@@ -212,18 +218,18 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
       let geocoder = new google.maps.Geocoder();
       let latlng = new google.maps.LatLng(lat, lng);
       geocoder.geocode(
-          {'location': latlng }, 
+          {'location': latlng },
           (results, status) => {
               if (status === google.maps.GeocoderStatus.OK) {
                   if (results[1]) {
-                    
+
                       $("#address").val(results[1].formatted_address);
-                      
-                  } 
+
+                  }
                   else {
                   // alert('No results found');
                   }
-              } 
+              }
               else {
                   // alert('Geocoder failed due to: ' + status);
               }

@@ -307,7 +307,7 @@
             <h6 class="head-m-p-a">Location</h6>
             <span class="closee-modal" data-dismiss="modal"></span>
             <div class="for-map-init-modal-1">
-                    <agm-map  style="height:100%" [latitude]="mapCoords.lat" [longitude]="mapCoords.lng">
+                    <agm-map #agmMap style="height:100%" [latitude]="mapCoords.lat" [longitude]="mapCoords.lng">
                             <agm-marker (dragEnd)="dragMarker($event)" [markerDraggable] = "true" [latitude]="mapCoords.lat" [longitude]="mapCoords.lng"></agm-marker>
                     </agm-map>
             </div>

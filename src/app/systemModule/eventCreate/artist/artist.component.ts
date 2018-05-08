@@ -22,6 +22,7 @@ import { InboxMessageModel } from '../../../core/models/inboxMessage.model';
 import { EventCreateModel } from '../../../core/models/eventCreate.model';
 import { BaseImages } from '../../../core/base/base.enum';
 
+
 declare var $:any;
 declare var ionRangeSlider:any;
 
@@ -32,8 +33,8 @@ declare var ionRangeSlider:any;
 })
 export class ArtistComponent extends BaseComponent implements OnInit {
 
-   
-   
+
+
   @Input() Event:EventCreateModel;
   @Output() onSaveEvent:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
   @Output() onError:EventEmitter<string> = new EventEmitter<string>();
@@ -57,7 +58,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
   isAcceptedArtistShow:boolean = true;
   showModalRequest:boolean = false;
 
-  requestArtistForm : FormGroup = new FormGroup({        
+  requestArtistForm : FormGroup = new FormGroup({
     "time_frame": new FormControl(""),
     "is_personal": new FormControl(""),
     "estimated_price": new FormControl(""),
@@ -122,23 +123,23 @@ export class ArtistComponent extends BaseComponent implements OnInit {
       this.GetArtistsFromList();
     }
 
- 
-  
+
+
   CreateAutocompleteArtist(){
     this.mapsAPILoader.load().then(
         () => {
-          
+
          let autocomplete = new google.maps.places.Autocomplete(this.searchElementArtist.nativeElement, {types:[`(cities)`]});
-        
-        
+
+
             autocomplete.addListener("place_changed", () => {
                 this.ngZone.run(() => {
-                    let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
+                    let place: google.maps.places.PlaceResult = autocomplete.getPlace();
                     if(place.geometry === undefined || place.geometry === null )
-                    {             
+                    {
                         return;
                     }
-                    else 
+                    else
                     {
                          this.artistSearchParams.address = autocomplete.getPlace().formatted_address;
 
@@ -168,13 +169,16 @@ export class ArtistComponent extends BaseComponent implements OnInit {
                 this.Artists.push(acc);
               })
           }
-          else this.Artists.push(acc);
+          else {
+            acc.image_base64_not_given = '../../../../assets/img/non-photo-2.svg';
+            this.Artists.push(acc);
+          }
         })
     }
   }
 
   artistSearch($event?:string){
- 
+
     let copy = this.artistsSearch;
     this.artistsSearch = [];
     if($event) this.artistSearchParams.text = $event;
@@ -186,17 +190,17 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
     for(let g of this.genresSearchArtist)
       if(g.checked) this.artistSearchParams.genres.push(g.genre);
-   
+
   this.WaitBeforeLoading(
     ()=>this.main.accService.AccountsSearch(this.artistSearchParams),
     (res)=>{
       console.log(this.artistSearchParams,` from back `, res);
       let temp = this.convertArrToCheckModel<AccountGetModel>(res);
-      
+
       for(let art of copy){
         if(art.checked){
           let isFind = false;
-          
+
           for(let t of temp)
             if(t.object.id==art.object.id){
               t.checked = art.checked;
@@ -206,7 +210,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
           if(!isFind) temp.push(art);
         }
       }
-      
+
       this.artistsSearch = [];
       this.artistsSearch = temp;
       this.isLoadingArtist = false;
@@ -237,7 +241,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
             a.object.image_base64_not_given = img.base64;
           });
         }
-      else a.object.image_base64_not_given = BaseImages.NoneFolowerImage;
+      else a.object.image_base64_not_given = '../../../../assets/img/non-photo-2.svg';
     }
   }
 
@@ -252,16 +256,16 @@ export class ArtistComponent extends BaseComponent implements OnInit {
       // this.router.navigate(['/system/profile',id]);
     }, 150);
     this.openPreview.emit(id);
-  
+
   }
 
   addNewArtistOpenModal(){
     $('#modal-pick-artist').modal('show');
-    
+
   }
 
   checkArtist(acc:CheckModel<AccountGetModel>){
-    acc.checked = !acc.checked; 
+    acc.checked = !acc.checked;
   }
 
   addNewArtist(){
@@ -282,29 +286,29 @@ export class ArtistComponent extends BaseComponent implements OnInit {
             this.main.eventService.AddArtist(this.addArtist).
               subscribe((res)=>{
                 //  console.log(`add `,this.addArtist.artist_id);
-               
+
               }, (err)=>{
-                this.onError.emit("Error add "+err._body);
+                this.onError.emit(this.getResponseErrorMessage(err, 'event'));
                // console.log(`err`,err);
-                 
+
               });
-          
-          } 
-         
-        } 
-       
+
+          }
+
+        }
+
       }
       setTimeout(() => {
         this.updateEvent();
       }, 1000);
 
-      
+
   }
-      
-      
-  
+
+
+
   acceptArtistCard(card:AccountGetModel){
-    
+
     this.ownerAcceptDecline.account_id = this.main.CurrentAccount.id;
     this.ownerAcceptDecline.id = card.id;
     this.ownerAcceptDecline.event_id = this.Event.id;
@@ -363,7 +367,7 @@ sendArtistRequestOpenModal(artist:AccountGetModel){
     setTimeout(() => {
       $('#modal-send-request-artist').modal('show');
     }, 50);
-  
+
    this.artistForRequest = artist;
 }
 
@@ -387,7 +391,7 @@ artistSendRequest(id:number){
       $('#modal-send-request-artist').modal('toggle');
      // console.log(`send`);
       this.onError.emit("Request was sent!");
-      
+
       this.updateEvent();
   })
 }
@@ -401,7 +405,7 @@ updateEvent(){
                 this.artistsList = this.Event.artist;
             //    console.log(`---`,this.Event,this.artistsList)
                 this.GetArtistsFromList();
-              
+
   })
 
 }
@@ -416,7 +420,7 @@ getMessages(){
             subscribe((msg)=>{
                 this.messagesList.push(msg);
                 // console.log(`msg`,this.messagesList);
-        }); 
+        });
         },(err)=>{
       //console.log(err)
     });
@@ -424,10 +428,10 @@ getMessages(){
 
 getPriceAtMsg(sender:number){
   for(let m of this.messagesList){
-      if( m.sender_id == sender && 
+      if( m.sender_id == sender &&
           m.receiver_id == this.Event.creator_id &&
           m.message_info.event_info.id == this.Event.id){
-            if(m.message_type=='request') 
+            if(m.message_type=='request')
               return m.message_info.estimated_price;
             else
              return m.message_info.price;
@@ -438,7 +442,7 @@ getPriceAtMsg(sender:number){
 
 getIdAtMsg(sender:number){
   for(let m of this.messagesList){
-      if( m.sender_id == sender && 
+      if( m.sender_id == sender &&
           m.receiver_id == this.Event.creator_id &&
           m.message_info.event_info.id == this.Event.id){
              return m.id;
@@ -469,19 +473,19 @@ dragMarker($event)
         let geocoder = new google.maps.Geocoder();
         let latlng = new google.maps.LatLng(lat, lng);
         geocoder.geocode(
-            {'location': latlng }, 
+            {'location': latlng },
             (results, status) => {
                 if (status === google.maps.GeocoderStatus.OK) {
                     if (results[1]) {
-                      
+
                         $("#artistAddress").val(results[1].formatted_address);
                         this.artistSearchParams.address = results[1].formatted_address;
                         this.artistSearch();
-                    } 
+                    }
                     else {
                     // alert('No results found');
                     }
-                } 
+                }
                 else {
                     // alert('Geocoder failed due to: ' + status);
                 }

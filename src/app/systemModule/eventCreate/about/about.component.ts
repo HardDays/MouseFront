@@ -29,7 +29,7 @@ declare var $:any;
 })
 export class AboutComponent extends BaseComponent implements OnInit {
 
-  
+
   @Input() Event:EventCreateModel;
   @Output() onSaveEvent:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
   @Output() onError:EventEmitter<string> = new EventEmitter<string>();
@@ -43,7 +43,7 @@ export class AboutComponent extends BaseComponent implements OnInit {
 
   image:string;
 
-  aboutForm : FormGroup = new FormGroup({        
+  aboutForm : FormGroup = new FormGroup({
     "name": new FormControl("", [Validators.required]),
     "tagline": new FormControl("", [Validators.required]),
     "hashtag": new FormControl("", [Validators.required]),
@@ -52,29 +52,29 @@ export class AboutComponent extends BaseComponent implements OnInit {
     "event_length": new FormControl("", [Validators.required]),
     "event_year": new FormControl("", [Validators.required]),
     "event_season": new FormControl("", [Validators.required]),
-    "artists_number":new FormControl(),
+    "artists_number":new FormControl("", [Validators.required]),
     "description": new FormControl("", [Validators.required]),
     "funding_goal":new FormControl("", [Validators.pattern("[0-9]+")])
   });
- 
+
   ngOnInit() {
     this.CreateAutocompleteAbout();
   }
   CreateAutocompleteAbout(){
     this.mapsAPILoader.load().then(
         () => {
-            
+
           let autocomplete = new google.maps.places.Autocomplete(this.searchElementAbout.nativeElement, {types:[`(cities)`]});
-        
-        
+
+
             autocomplete.addListener("place_changed", () => {
                 this.ngZone.run(() => {
-                    let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
+                    let place: google.maps.places.PlaceResult = autocomplete.getPlace();
                     if(place.geometry === undefined || place.geometry === null )
-                    {             
+                    {
                         return;
                     }
-                    else 
+                    else
                     {
                         this.Event.address = autocomplete.getPlace().formatted_address;
                         this.Event.city_lat = autocomplete.getPlace().geometry.location.toJSON().lat;
@@ -89,7 +89,7 @@ export class AboutComponent extends BaseComponent implements OnInit {
     );
   }
   Init(event:EventCreateModel){
-  
+
     this.getGenres();
     if(event.image_id)
     this.main.imagesService.GetImageById(event.image_id)
@@ -98,12 +98,12 @@ export class AboutComponent extends BaseComponent implements OnInit {
               event.image_base64 = img.base64;
             }
         )
-    
+
     this.mapCoords.lat = (this.Event && this.Event.city_lat)?this.Event.city_lat:55.755826;
     this.mapCoords.lng = (this.Event && this.Event.city_lng)?this.Event.city_lng:37.6172999;
   }
   SaveVenue(){
-    
+
   }
   getGenres(){
     this.genres = [];
@@ -119,7 +119,7 @@ export class AboutComponent extends BaseComponent implements OnInit {
         }
     });
   }
-  
+
   GengeSearch($event:string){
     var search = $event;
      if(search.length>0) {
@@ -139,7 +139,7 @@ export class AboutComponent extends BaseComponent implements OnInit {
         $event.target.files,
         (res:string)=>{
            this.Event.image_base64 = res;
-            
+
         }
     );
   }
@@ -153,7 +153,7 @@ export class AboutComponent extends BaseComponent implements OnInit {
       if(this.aboutForm.invalid)
       {
          // console.log("About form invalid");
-          this.onError.emit("About form invalid");
+          this.onError.emit(this.getFormErrorMessage(this.aboutForm, 'event'));
           return;
       }
       this.Event.genres = [];
@@ -165,7 +165,7 @@ export class AboutComponent extends BaseComponent implements OnInit {
   }
 
 
-  
+
    dragMarker($event)
     {
         this.mapCoords.lat = $event.coords.lat;
@@ -182,21 +182,21 @@ export class AboutComponent extends BaseComponent implements OnInit {
         let geocoder = new google.maps.Geocoder();
         let latlng = new google.maps.LatLng(lat, lng);
         geocoder.geocode(
-            {'location': latlng }, 
+            {'location': latlng },
             (results, status) => {
                 if (status === google.maps.GeocoderStatus.OK) {
                     if (results[1]) {
-                      
+
                         $("#aboutAddress").val(results[1].formatted_address);
                         this.Event.address = results[1].formatted_address;
                         this.Event.city_lat = results[1].geometry.location.toJSON().lat;
                         this.Event.city_lng = results[1].geometry.location.toJSON().lng;
-                        
-                    } 
+
+                    }
                     else {
                     // alert('No results found');
                     }
-                } 
+                }
                 else {
                     // alert('Geocoder failed due to: ' + status);
                 }

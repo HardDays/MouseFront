@@ -57,7 +57,7 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
         this.dateForm.updateValueAndValidity();
         if(this.dateForm.invalid)
         {
-            this.onError.emit(this.getFormErrorMessage(this.dateForm));
+            this.onError.emit(this.getFormErrorMessage(this.dateForm, 'venue'));
             return;
         }
         this.onSaveVenue.emit(this.Venue);

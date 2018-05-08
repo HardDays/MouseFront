@@ -57,7 +57,7 @@
             [Venue]="Venue" (onVenueChanged)="VenueChanged($event)">
         </venue-dates-selector>
 
-        <venue-profile-selector *ngIf="CurrentPart == Parts.Preview" [Account]="Venue" [Fans]="[]" [IsPreview]="true">
+        <venue-profile-selector [Venue]="Venue" [VenueId]="VenueId" *ngIf="CurrentPart == Parts.Preview" [Account]="Venue" [Fans]="[]" [IsPreview]="true">
         </venue-profile-selector>
     </div>
 </section>

@@ -140,11 +140,11 @@
                     <h6 class="lower-case-t">Min Amount per Ticket</h6>
                     <div class="second-funding-info">
                         <p class="info-text">Capacity</p>
-                        <span class="price">{{Event.venue?Event.venue.capacity:'1000 (NaN)'}}</span>
+                        <span class="price">{{Event.venue?Event.venue.capacity:'-'}}</span>
                     </div>
                     <div class="second-funding-info">
                         <p class="info-text">Price Per Ticket</p>
-                        <span class="price">${{Event.venue?0.1*(artistSum+venueSum+additionalCosts)+(artistSum+venueSum+additionalCosts) / Event.venue.capacity:(0.1*(artistSum+venueSum+additionalCosts)+(artistSum+venueSum+additionalCosts))/1000}}</span>
+                        <span class="price">{{Event.venue? '$'+0.1*(artistSum+venueSum+additionalCosts)+(artistSum+venueSum+additionalCosts) / Event.venue.capacity : '-'}}</span>
                     </div>
                 </div>
             </div>

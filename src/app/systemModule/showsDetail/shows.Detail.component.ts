@@ -67,10 +67,10 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     ) {
     super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
     }
-    
+
     @ViewChild('errorCmp') errorCmp: ErrorComponent;
 
-    ngOnInit(): void 
+    ngOnInit(): void
     {
         this.activatedRoute.params.forEach((params)=>{
             this.EventId = params["id"];
@@ -105,7 +105,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         if(this.Event.venue){
             this.WaitBeforeLoading(
                 () => this.main.accService.GetAccountById(this.Event.venue.id),
-                (res:AccountGetModel) => 
+                (res:AccountGetModel) =>
                 {
                     this.Venue = res;
                    // console.log(this.Venue);
@@ -141,7 +141,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
                     {
                         artistArr.push(res.display_name)
                     }
-                    
+
                     if(arr.length - 1 == artistArr.length)
                     {
                         this.Featuring = artistArr.join(", ");
@@ -167,7 +167,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
                 (res: AccountGetModel) => {
                     this.Creator = res;
                 },
-                (err:any) => 
+                (err:any) =>
                 {
                  //   console.log("Cant get creator info", err);
                 }
@@ -205,7 +205,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         }
     }
 
-    
+
 
     BuyTicket()
     {
@@ -214,8 +214,8 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         {
             this.WaitBeforeLoading(
                 () => this.main.eventService.BuyTicketPack(item),
-                (res) => 
-                {   
+                (res) =>
+                {
                     console.log(item);
                     let index = this.CheckedTickets.findIndex(obj => obj.ticket_id == item.ticket_id && obj.count == item.count);
                     this.CheckedTickets.splice(index,1);
@@ -236,7 +236,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
                 },
                 (err) =>
                 {
-                    this.OpenErrorWindow(BaseMessages.Fail);
+                    this.OpenErrorWindow(this.getResponseErrorMessage(err));
                 }
             );
         }
@@ -248,7 +248,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
 
         let result:any[] = [];
         tickets.forEach(
-            (element:BuyTicketModel[],key:number) => 
+            (element:BuyTicketModel[],key:number) =>
             {
                 let object = {
                     ticket_id:key,

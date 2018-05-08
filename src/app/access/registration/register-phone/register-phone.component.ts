@@ -32,7 +32,7 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
   isRequestCodeSend:boolean = false;
   inputCodeStatus:number = 1;
   codes:[{name:string,dial_code:string}];
-  
+
   phone:string = '';
   phoneCode:string = '';
 
@@ -45,21 +45,21 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
       this.phoneCode = this.codes[0].dial_code;
     });
   }
-  
+
   inputPhone($event){
     this.phone = (+$event.target.value)+'';
   }
 
   sendCode(){
     if(this.phone.length>0){
-      let phone = this.phoneCode + this.phone;   
+      let phone = this.phoneCode + this.phone;
       this.WaitBeforeLoading(
         ()=>this.main.phoneService.SendCodeToPhone(phone),
           (res)=>{
           this.isRequestCodeSend = true;
           },
           (err)=>{
-            this.errorCmp.OpenWindow(BaseMessages.Fail);
+            this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
           }
       );
     }
@@ -85,7 +85,7 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
         document.getElementById("code1").focus();
       }
     }
-   
+
   }
 
   sendRequest(){
@@ -101,10 +101,10 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
             this.phoneStatus.emit({status:true,phone:phone});
           },
           (err)=>{
-            this.errorCmp.OpenWindow(BaseMessages.Fail);
+            this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
             console.log(`ERRRO`);
           }
-      );  
+      );
     }
 
   }

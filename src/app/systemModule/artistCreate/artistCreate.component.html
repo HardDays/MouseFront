@@ -77,11 +77,11 @@
 
         <div class="create-event-body-1">
 
-            <app-artist-media #MediatPage [Artist]="Artist" (OnSave)="SaveArtist($event)" (OnError)="OpenError($event)" [ngStyle]="{'display': !isLoading&&(currentPage==pages.media)?'block':'none'}"></app-artist-media>
+            <app-artist-media #MediatPage [Artist]="Artist" [idArtist]="ArtistId" (next)="this.currentPage = this.pages.booking" (OnSave)="SaveArtist($event)" (OnError)="OpenError($event)" [ngStyle]="{'display': !isLoading&&(currentPage==pages.media)?'block':'none'}"></app-artist-media>
 
             <app-artist-booking #BookingPage [Artist]="Artist" (OnSave)="SaveArtist($event)" (OnError)="OpenError($event)" [ngStyle]="{'display': !isLoading&&(currentPage==pages.booking)?'block':'none'}"></app-artist-booking>
 
-            <app-artist-riders #RidersPage [Artist]="Artist" [ngStyle]="{'display': !isLoading&&(currentPage==pages.riders)?'block':'none'}"></app-artist-riders>
+            <app-artist-riders #RidersPage [Artist]="Artist" (OnSave)="SaveArtist($event)" [ngStyle]="{'display': !isLoading&&(currentPage==pages.riders)?'block':'none'}"></app-artist-riders>
 
 
         </div>

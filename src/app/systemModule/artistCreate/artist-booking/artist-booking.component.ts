@@ -4,7 +4,7 @@ import { BaseComponent } from '../../../core/base/base.component';
 import { MainService } from '../../../core/services/main.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MapsAPILoader } from '@agm/core';
+import { MapsAPILoader, AgmMap } from '@agm/core';
 import { CheckModel } from '../../../core/models/check.model';
 
 declare var $:any;
@@ -25,6 +25,7 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
 
 
   @Input() Artist:AccountCreateModel;
+  @ViewChild('agmMap') agmMap : AgmMap;
   preferredVenues:CheckModel<{type:string, type_show:string}>[] = []; 
   mapCoords = {lat:55.755826, lng:37.6172999};
   spaceArtistList = [];
@@ -180,6 +181,7 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
 
   openMapModal(){
     $('#modal-map').modal('show');
+    this.agmMap.triggerResize();
   }
 
   saveArtist(){

@@ -22,18 +22,18 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
   @Input() Artist:AccountCreateModel;
   @Output() OnSave = new EventEmitter<AccountCreateModel>();
   @Output() OnError = new EventEmitter<string>();
- 
-  aboutForm : FormGroup = new FormGroup({        
+
+  aboutForm : FormGroup = new FormGroup({
     "user_name": new FormControl("", [Validators.required]),
     "display_name": new FormControl("", [Validators.required]),
     "stage_name": new FormControl(""),
     "manager_name": new FormControl(""),
-    "artist_email": new FormControl("",[Validators.required]),
-    "about": new FormControl("", [Validators.required]), 
+    "artist_email": new FormControl("",[Validators.required, Validators.email]),
+    "about": new FormControl("", [Validators.required]),
   });
   genres:GenreModel[] = [];
   showMoreGenres:boolean = false;
-  
+
   constructor(
     protected main           : MainService,
     protected _sanitizer     : DomSanitizer,
@@ -71,7 +71,7 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
 
   //##########################################//
   //  GENRES
-  
+
   GengeSearch($event:string){
     var search = $event;
     if(search.length>0) {
@@ -111,13 +111,13 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
 
         this.Artist.account_type = AccountType.Artist;
         this.Artist.genres = this.main.genreService.GenreModelArrToStringArr(this.genres);
-         
+
         console.log(`Artist from About`,this.Artist);
-        
+
         this.OnSave.emit(this.Artist);
     }
     else {
-      this.showError('Uncorrect Inputs');
+      this.showError(this.getFormErrorMessage(this.aboutForm, 'artist'));
     }
   }
 

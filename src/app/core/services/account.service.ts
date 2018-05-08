@@ -320,6 +320,12 @@ export class AccountService{
             ()=> this.http.PostData('/accounts/'+id+'/verify.json',JSON.stringify(id))
         );
     }
+
+    GetRiderById(id:number){
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/artist_riders/'+id+'.json',this.typeService.ParamsToUrlSearchParams(id))
+        );
+    }
     
 
 

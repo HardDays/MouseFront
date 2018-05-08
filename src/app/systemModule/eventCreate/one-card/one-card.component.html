@@ -7,6 +7,7 @@
         <p class="desc-head-info">Status</p>
         <!-- <p class="status"> {{status}}Accepted by {{card.account_type|titlecase}} and Event owner</p> -->
         <p *ngIf="status=='pending'" class="status">Pending</p>
+        <p *ngIf="status=='send_request'" class="status">Request has been send</p>        
         <p *ngIf="status=='declined'" class="status">Declined by Artist</p>
         <p *ngIf="status=='owner_declined'" class="status">Declined by Event owner</p>
         <p *ngIf="status=='accepted'" class="status"> Accepted by {{card.account_type|titlecase}}</p>
@@ -23,7 +24,7 @@
         <p *ngIf="card.account_type == 'artist'" class="info">{{ toBeatyShowsList(card.genres)}}</p>
         <p class="desc-head-info">Location</p>
         <p class="info">{{card.address}}</p>
-        <p class="info">{{(status!='pending'&&status!='ready')?'Price $'+price:''}}</p>
+        <p *ngIf="price != null && price+'' != '-'" class="info">{{(status!='pending'&&status!='ready')?'Price $'+price:''}}</p>
         <p  *ngIf="status=='pending'" class="info">Account is not verified yet</p>
         <div *ngIf="status!='pending'&&status!='declined'&&status!='owner_declined'" class="flex-buttons">
             <span *ngIf="status!='ready'&&status!='accepted'&&status!='owner_accepted'&&status!='active'&&status!='not found artist'" class="button-card" (click)="Check()" >check</span>

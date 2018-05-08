@@ -5,6 +5,7 @@ import { TicketsGetModel } from "../../../core/models/ticketsGetModel";
 import { EventGetModel } from "../../../core/models/eventGet.model";
 import { Base64ImageModel } from "../../../core/models/base64image.model";
 import { BaseImages } from "../../../core/base/base.enum";
+import { AccountCreateModel } from "../../../core/models/accountCreate.model";
 
 declare var $:any;
 declare var PhotoSwipeUI_Default:any;
@@ -27,7 +28,11 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
     @Input() IsMyAccount:boolean;
     @Input() isFolowedAcc:boolean;
     @Input() IsPreview:boolean;
+    @Input() Venue: AccountCreateModel;
+    @Input() VenueId: number;
     @Output() onFollow:EventEmitter<boolean> = new EventEmitter<boolean>();
+
+
 
     UpcomingShows:any [] = [];
     UpcomingShowsChecked:any [] = [];
@@ -54,11 +59,26 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
             this.FansChecked = this.Fans = changes.Fans.currentValue;
 
         // console.log(this.Account);
+
+        if(this.IsPreview){
+            this.Init(changes.Venue.currentValue,changes.VenueId.currentValue);
+        }
         this.InitByUser();
     }
 
     ngOnInit(): void {
         this.InitByUser();
+    }
+
+    Init(venue?:AccountCreateModel,id?:number)
+    {
+        if(venue)
+            this.Venue = venue;
+        if(id)
+            this.VenueId = id;
+
+           
+        this.GetVenueImagesPreview();
     }
 
     InitByUser()
@@ -162,6 +182,26 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
         var lightBox = new PhotoSwipe($('.pswp')[0], PhotoSwipeUI_Default, this.itemsPhotoss, options);
         lightBox.init();
     }
+    GetVenueImagesPreview()
+    {
+        this.VenueImages = this.VenueImagesChecked = [];
+        if(this.VenueId)
+        {
+            this.WaitBeforeLoading(
+                () => this.main.accService.GetImagesVenue(this.VenueId),
+                (res:any) => {
+                    this.VenueImagesChecked = this.VenueImages = res.images;
+                    this.GetImage();
+                    this.GetImageSize();
+                    
+                },
+                (err) => {
+                // console.log(err);
+                }
+            );
+        }
+    }
+
     GetVenueImages()
     {
         this.VenueImages = this.VenueImagesChecked = [];
