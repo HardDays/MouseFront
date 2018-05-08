@@ -56,7 +56,6 @@ export class MainService{
         this.authService.onAuthChange$
             .subscribe(
                 (res:boolean) => {
-                    console.log(res);
                     if(res)
                     {
                         this.GetMyAccounts();      
