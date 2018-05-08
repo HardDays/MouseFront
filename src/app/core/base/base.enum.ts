@@ -36,7 +36,9 @@ export enum BaseMessages{
     Fail = "Failed",
     RequiredField = '<b>_field</b> need to be filled',
     RequiredFields = 'Please fill in _fields to proceed to the Next Step',
-    EmailField = '<b>_email</b> is need to be a valid email',
+    EmailField = '<b>_email</b> need to be a valid email',
+    EmailPattern = '<b>_email</b> need to be a valid email',
+    NumberPattern = '<b>_field</b> need to be a valid number',
     MaxLength = '<b>_field</b> max length is _length'
 }
 
@@ -102,6 +104,7 @@ export enum BaseFields {
   last_name = 'Last name',
   password = 'Password',
   password_confirm = 'Password confirmation',
+  password_confirmation = 'Password confirmation',
   register_phone = 'Phone',
   email = 'Email',
 }

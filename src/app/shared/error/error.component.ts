@@ -3,13 +3,14 @@ import { Component } from '@angular/core';
 declare var $:any;
 @Component({
     selector: 'error-cmp',
-    templateUrl: 'error.component.html'
+    templateUrl: 'error.component.html',
+    styleUrls: ['error.component.css']
 })
 
 export class ErrorComponent{
 
     public Message:string = '';
-    
+
     public OpenWindow(message:string)
     {
         this.Message = message;
