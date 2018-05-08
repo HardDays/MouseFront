@@ -138,7 +138,10 @@ export class VenuesComponent extends BaseComponent implements OnInit {
             if(acc.image_id){
                 this.main.imagesService.GetImageById(acc.image_id).
                 subscribe((img)=>{
-                    acc.image_base64_not_given = img.base64;
+                    if(img.base64)
+                        acc.image_base64_not_given = img.base64;
+                    else
+                        acc.image_base64_not_given = '../../../../assets/img/show.png';
                     this.venueShowsList.push(acc);
                 })
             }
@@ -307,7 +310,10 @@ export class VenuesComponent extends BaseComponent implements OnInit {
           if(a.object.image_id){
             this.main.imagesService.GetImageById(a.object.image_id)
               .subscribe((img)=>{
-                a.object.image_base64_not_given = img.base64;
+                  if(img.base64)
+                        a.object.image_base64_not_given = img.base64;
+                    else
+                    a.object.image_base64_not_given = '../../../../assets/img/show.png';
               });
             }
           else a.object.image_base64_not_given = '../../../../assets/img/show.png';
