@@ -34,7 +34,7 @@ export class OneCardComponent implements OnInit {
     for(let i=0;i<list.length-2;i++)
         if(list[i]!="_") answer += list[i];
         else answer += " ";
-    return answer;
+    return answer.replace('_',' ');
   }
 
   Accept(index:number){
@@ -49,6 +49,21 @@ export class OneCardComponent implements OnInit {
   Check(){
     this.checked.emit();
   }
+
+  niceViewGenres(g:string[]){
+    let gnr = '';
+    if(g){
+        if(g[0]) gnr+=g[0].replace('_',' ');
+        if(g[1]) gnr+=', '+g[1].replace('_',' ');
+    }
+
+   return gnr;
+  }
+
+  niceViewGenre(g:string){
+      return g.replace('_',' ');
+  }
+
   
 
 }
