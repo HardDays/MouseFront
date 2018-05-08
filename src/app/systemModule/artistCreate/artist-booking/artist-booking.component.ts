@@ -17,19 +17,19 @@ declare var $:any;
 export class ArtistBookingComponent extends BaseComponent implements OnInit {
 
   // mapCoords = {lat:55.755826, lng:37.6172999};
-  
+
   @ViewChild('search') public searchElement: ElementRef;
-  
+
   @Output() OnSave = new EventEmitter<AccountCreateModel>();
   @Output() OnError = new EventEmitter<string>();
 
 
   @Input() Artist:AccountCreateModel;
   @ViewChild('agmMap') agmMap : AgmMap;
-  preferredVenues:CheckModel<{type:string, type_show:string}>[] = []; 
+  preferredVenues:CheckModel<{type:string, type_show:string}>[] = [];
   mapCoords = {lat:55.755826, lng:37.6172999};
   spaceArtistList = [];
-  
+
   constructor(
     protected main           : MainService,
     protected _sanitizer     : DomSanitizer,
@@ -125,18 +125,18 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
   CreateAutocomplete(){
     this.mapsAPILoader.load().then(
         () => {
-           
+
          let autocomplete = new google.maps.places.Autocomplete(this.searchElement.nativeElement, {types:[`(cities)`]});
-        
-        
+
+
             autocomplete.addListener("place_changed", () => {
                 this.ngZone.run(() => {
-                    let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
+                    let place: google.maps.places.PlaceResult = autocomplete.getPlace();
                     if(place.geometry === undefined || place.geometry === null )
-                    {             
+                    {
                         return;
                     }
-                    else 
+                    else
                     {
                         this.Artist.preferred_address = autocomplete.getPlace().formatted_address;
                         this.mapCoords.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
@@ -148,7 +148,7 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
     );
   }
 
-  
+
   dragMarker($event){
     //console.log($event);
     this.mapCoords.lat = $event.coords.lat;
@@ -160,16 +160,16 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
     let geocoder = new google.maps.Geocoder();
     let latlng = new google.maps.LatLng(lat, lng);
     geocoder.geocode({
-        'location': latlng }, 
+        'location': latlng },
         (results, status) => {
             if (status === google.maps.GeocoderStatus.OK) {
                 if (results[1]) {
-               
-                
-              
+
+
+
                 this.Artist.preferred_address = results[1].formatted_address;
-                
-                    
+
+
                 } else {
                 // alert('No results found');
                 }
@@ -186,6 +186,7 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
 
   saveArtist(){
     this.OnSave.emit(this.Artist);
+    return;
   }
 
 }

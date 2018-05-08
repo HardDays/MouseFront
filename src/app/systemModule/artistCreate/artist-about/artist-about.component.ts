@@ -123,6 +123,7 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
 
   showError(str:string){
     this.OnError.emit(str);
+    return;
   }
 
 }

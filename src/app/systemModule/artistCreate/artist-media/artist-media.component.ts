@@ -292,6 +292,7 @@ deleteImage(id:number){
 
   showError(str:string){
     this.OnError.emit(str);
+    return;
   }
   artistFromAbout(){
     this.OnSave.emit(this.Artist);
