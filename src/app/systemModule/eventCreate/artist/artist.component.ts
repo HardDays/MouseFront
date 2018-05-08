@@ -251,6 +251,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
   }
 
   closeAddArtist(id:number){
+    console.log(`click`);
     $('#modal-pick-artist').modal('toggle');
     setTimeout(() => {
       // this.router.navigate(['/system/profile',id]);
@@ -506,9 +507,10 @@ dragMarker($event)
     niceViewGenres(g:string[]){
       let gnr = '';
       if(g){
-          if(g[0]) gnr+=g[0];
-          if(g[1]) gnr+=', '+g[1];
+          if(g[0]) gnr+=g[0].replace('_',' ');
+          if(g[1]) gnr+=', '+g[1].replace('_',' ');
       }
+
      return gnr;
     }
 

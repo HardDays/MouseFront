@@ -61,7 +61,7 @@
                                                     <div class="ava" [ngStyle]="{'background-image': item.object.image_base64_not_given?'url('+item.object.image_base64_not_given+')':''}"></div>
                                                     <div class="desc">
                                                         <a class="name" [routerLink]="['/system/profile',item.object.id]">{{item.object.user_name}}</a>
-                                                        <p class="genres">{{item.object.type_of_space}}</p>
+                                                        <p class="genres">{{niceViewGenre(item.object.type_of_space)}}</p>
                                                         <p class="where">{{item.object.address}}</p>
                                                     </div>
                                                 </div>
@@ -158,10 +158,10 @@
                                     </div>
                                     <div class="right-side">
                                         <p class="name">{{shows.id}} {{shows.user_name}}</p>
-                                        <p class="desc-head-info">Genre</p>
-                                        <p class="info">Baroque pop, dream pop, trip hop, indie</p>
+                                        <p class="desc-head-info">Spaces</p>
+                                        <p class="info">{{shows.type_of_space}}</p>
                                         <p class="desc-head-info">Location</p>
-                                        <p class="info">Los Angeles, California USA</p>
+                                        <p class="info">{{shows.address}}</p>
                                     </div>
                                 </div>
                             </div>

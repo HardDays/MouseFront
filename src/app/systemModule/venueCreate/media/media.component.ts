@@ -67,6 +67,7 @@ export class VenueMediaComponent extends BaseComponent implements OnInit,OnChang
         if(id)
             this.VenueId = id;
 
+        console.log(this.VenueId); 
         this.CreateOnModelChangeForParent();
         this.GetVenueImages();
     }

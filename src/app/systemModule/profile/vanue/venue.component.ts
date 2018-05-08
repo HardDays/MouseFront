@@ -104,7 +104,7 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
         //     this.main.accService.ParseWorkingTimeModelArr(this.Account.office_hours):[];
         // this.Account.operating_hours = (this.Account && this.Account.operating_hours)?
         //     this.main.accService.ParseWorkingTimeModelArr(this.Account.operating_hours):[];
-
+        
         this.GetUpcomingShows();
         this.GetVenueImages();
     }
