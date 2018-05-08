@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, NgZone  } from '@angular/core';
 import { UserGetModel } from '../../../core/models/userGet.model';
-import { FormGroup, FormControl } from '@angular/forms';
+import {FormGroup, FormControl, Validators} from '@angular/forms';
 import { GenreModel } from '../../../core/models/genres.model';
 import { AccountGetModel } from '../../../core/models/accountGet.model';
 import { AccountCreateModel } from '../../../core/models/accountCreate.model';
@@ -46,9 +46,9 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
 
 
   accForm : FormGroup = new FormGroup({
-    "user_name": new FormControl("",),
-    "first_name": new FormControl("",),
-    "last_name": new FormControl("")
+    "user_name": new FormControl("", [Validators.required]),
+    "first_name": new FormControl("", [Validators.required]),
+    "last_name": new FormControl("", [Validators.required])
   });
 
   genres:GenreModel[] = [];
@@ -173,13 +173,19 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
 
   registerAcc()
   {
+    if(this.accForm.invalid)
+    {
+      // console.log("About form invalid");
+      this.errorCmp.OpenWindow(this.getFormErrorMessage(this.accForm, 'base'));
+      return;
+    }
+
     this.Account.genres = this.main.genreService.GenreModelArrToStringArr(this.genres);
     this.Account.account_type = this.typeUser;
     this.Account.user_name = this.accForm.value['user_name'];
     this.Account.display_name = this.accForm.value['first_name']+" "+this.accForm.value['last_name'];
     this.Account.first_name = this.accForm.value['first_name'];
     this.Account.last_name = this.accForm.value['last_name'];
-
 
     this.WaitBeforeLoading(
       ()=>this.main.accService.CreateAccount(this.Account),
