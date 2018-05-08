@@ -73,7 +73,7 @@
             
             <app-funding #funding [ngStyle]="{'display': !isLoading&&(currentPage==pages.funding)?'block':'none'}"
                 [Event]="Event"
-                (onSaveEvent)="SaveEvent($event)"
+                (onSaveEvent)="NextPart()"
                 (onError)="OpenErrorWindow($event)"
             ></app-funding>
             
