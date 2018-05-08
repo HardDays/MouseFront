@@ -412,12 +412,12 @@ addVenueById(id:number){
                 })
                     
                 },(err)=>{
-                    this.onError.emit("Request wasn't sent!");
+                   
                     this.main.eventService.VenueSendRequest(this.addVenue)
                         .subscribe((send)=>{
-                          //  console.log(`ok send error`);
+                            this.onError.emit("Request was sent!");
                         this.updateEvent();
-                });
+                }, (err)=>{ this.onError.emit("Request wasn't sent!");});
             });
     
         }
