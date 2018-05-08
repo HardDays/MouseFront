@@ -75,12 +75,18 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
               this.main.authService.BaseInitAfterLogin(new TokenModel(res.token));
               this.userCreated = true;
               this.main.authService.onAuthChange$.next(true);
-              this.backUser.emit(this.type);
+              console.log(this.type);
+              if(this.type=='fan')
+                this.backUser.emit(this.type);
+              else if(this.type=='venue')
+                this.router.navigate(['/system','venueCreate','new']);
+              else if(this.type=='artist')
+                this.router.navigate(['/system','artistCreate','new']);
           },
           (err) => {
-              this.Error = err._body;
+              //this.Error = err._body;
               this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'base'));
-              this.main.authService.onAuthChange$.next(false);
+              // this.main.authService.onAuthChange$.next(false);
           }
         );
       }

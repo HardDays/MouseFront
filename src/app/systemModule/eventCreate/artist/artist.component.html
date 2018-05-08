@@ -143,8 +143,8 @@
                             
                             <ng-container *ngIf="!isLoadingArtist">
                             <div *ngFor="let item of artistsSearch; let i = index" class="one-card">
-                                <div class="l-s">
-                                    <div class="ava"  [ngStyle]="{'background-image': item.object.image_base64_not_given?'url('+item.object.image_base64_not_given+')':''}"></div>
+                                <div (click)="closeAddArtist(item.object.id)"  class="l-s">
+                                    <div class="ava" [ngStyle]="{'background-image': item.object.image_base64_not_given?'url('+item.object.image_base64_not_given+')':''}"></div>
                                     <div class="desc">
                                         <!-- <a class="name" [routerLink]="['/system/profile',item.object.id]">{{niceView(item.object.display_name)}} {{niceView(item.object.user_name)}}</a> -->
                                         <a class="name" style="cursor: pointer" (click)="closeAddArtist(item.object.id)">{{niceViewName(item.object)}}</a>

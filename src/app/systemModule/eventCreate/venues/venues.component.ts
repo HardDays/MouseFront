@@ -563,6 +563,20 @@ declineVenue(card:AccountGetModel){
 
     }
 
+    niceViewGenres(g:string[]){
+        let gnr = '';
+        if(g){
+            if(g[0]) gnr+=g[0].replace('_',' ');
+            if(g[1]) gnr+=', '+g[1].replace('_',' ');
+        }
+  
+       return gnr;
+      }
+
+      niceViewGenre(g:string){
+          return g.replace('_',' ');
+      }
+
 
 
 
