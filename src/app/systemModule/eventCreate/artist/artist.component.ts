@@ -84,7 +84,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
       var hu_2 = $(".current-slider").ionRangeSlider({
           min: 0,
           max: 100000,
-          from: 20000,
+          from: 100000,
           step: 10,
           type: "single",
           hide_min_max: false,
@@ -111,9 +111,13 @@ export class ArtistComponent extends BaseComponent implements OnInit {
       });
     }
 
+    isPriceSearch = false;
     PriceArtistChanged(data:any){
-        this.artistSearchParams.price_to = data.from;
-        this.artistSearch();
+        
+          setTimeout(() => {
+            this.artistSearchParams.price_to = data.from;
+            this.artistSearch();
+          }, 200);
     }
 
     Init(event?:EventCreateModel)
@@ -191,8 +195,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
     for(let g of this.genresSearchArtist)
       if(g.checked) this.artistSearchParams.genres.push(g.genre);
 
-  this.WaitBeforeLoading(
-    ()=>this.main.accService.AccountsSearch(this.artistSearchParams),
+  this.main.accService.AccountsSearch(this.artistSearchParams).subscribe(
     (res)=>{
       console.log(this.artistSearchParams,` from back `, res);
       let temp = this.convertArrToCheckModel<AccountGetModel>(res);

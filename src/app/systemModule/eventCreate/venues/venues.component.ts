@@ -92,7 +92,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         var hu_3 = $(".current-slider-price-venue").ionRangeSlider({
             min: 0,
             max: 100000,
-            from: 20000,
+            from: 100000,
             step: 5,
             type: "single",
             hide_min_max: false,
@@ -109,7 +109,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         var hu_4 = $(".current-slider-capacity-venue").ionRangeSlider({
             min: 0,
             max: 100000,
-            from: 10000,
+            from: 100000,
             step: 10,
             type: "single",
             hide_min_max: false,
@@ -190,13 +190,21 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         }
     }
     VenuePriceChanged(data){
-        this.venueSearchParams.price_to  = data.from;
-        this.venueSearch();
+
+        setTimeout(() => {
+            this.venueSearchParams.price_to  = data.from;
+            this.venueSearch();
+          }, 200);
+       
 
     }
     VenueCapacityChanged(data){
-        this.venueSearchParams.capacity_to = data.from;
-        this.venueSearch();
+        
+        setTimeout(() => {
+            this.venueSearchParams.capacity_to = data.from;
+            this.venueSearch();
+          }, 200);
+       
     }
 
     getAllSpaceTypes(){
