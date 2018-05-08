@@ -86,6 +86,8 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     
     initSlider(){
         
+        this.venueSearchParams.capacity_to = 100000;
+        this.venueSearchParams.price_to = 100000;
         let _the = this;
 
     
@@ -384,6 +386,10 @@ getRequestVenue(){
     //     });
     // }
 }
+pressEnter(event){
+    if(event.key=="Enter")
+      this.venueSearch();
+  }
 
 
 

@@ -27,7 +27,7 @@
                         <div class="side">
                             <div class="filter-venue">
                                 <div class="content-bodal input-groupe-1">
-                                    <input class="search" (change)="venueSearch($event.target.value)" (input)="textChange($event.target.value)" type="text" placeholder="Search Venue">
+                                    <input class="search" (change)="venueSearch($event.target.value)" (keyup)="pressEnter($event)" (input)="textChange($event.target.value)" type="text" placeholder="Search Venue">
                                     <span class="head-type-inp">Type of place</span>
                                     <div class="flex-genres for-pick">
                                             <span *ngFor="let space of typesSpace" (click)="space.checked=!space.checked; venueSearch()" [ngClass]="{picked:space.checked}" class="one-genre">{{space.object.name}}</span>

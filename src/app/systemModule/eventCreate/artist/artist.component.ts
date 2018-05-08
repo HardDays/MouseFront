@@ -79,7 +79,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
     ngOnInit() {
       this.CreateAutocompleteArtist();
-
+      this.artistSearchParams.price_to = 100000;
       let _the = this;
       var hu_2 = $(".current-slider").ionRangeSlider({
           min: 0,
@@ -229,6 +229,12 @@ export class ArtistComponent extends BaseComponent implements OnInit {
         this.artistSearch();
       }
     }
+
+    pressEnter(event){
+      if(event.key=="Enter")
+        this.artistSearch();
+    }
+
     addressChange(str:string){
       if(str==''){
         this.artistSearchParams.address = '';
