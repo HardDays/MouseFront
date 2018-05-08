@@ -105,7 +105,7 @@
                 <h3 class="head-m-p-a">Add Artist</h3>
                 <div class="for-slideing-wr">
                     <div class="content-bodal input-groupe-1">
-                        <input class="search" (change)="artistSearch($event.target.value)" (input)="textChange($event.target.value)" type="text" placeholder="Search">
+                        <input class="search" (change)="artistSearch($event.target.value)" (keyup)="pressEnter($event)" (input)="textChange($event)" type="text" placeholder="Search">
                         <div class="flex-genres for-pick">
                                 <!--Добавляем класс picked-->
                             <ng-container *ngFor="let item of genresSearchArtist; let i = index">
