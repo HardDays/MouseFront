@@ -159,7 +159,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
         console.log(res);
         this.ArtistId = res.id;
         this.main.SetCurrentAccId(res.id);
-
+        this.main.GetMyAccounts();
         this.DisplayArtistParams(res);
         this.NextPart();
       },

@@ -22,6 +22,7 @@ import { InboxMessageModel } from '../../../core/models/inboxMessage.model';
 import { EventCreateModel } from '../../../core/models/eventCreate.model';
 import { BaseImages } from '../../../core/base/base.enum';
 
+
 declare var $:any;
 declare var ionRangeSlider:any;
 
@@ -168,7 +169,10 @@ export class ArtistComponent extends BaseComponent implements OnInit {
                 this.Artists.push(acc);
               })
           }
-          else this.Artists.push(acc);
+          else {
+            acc.image_base64_not_given = '../../../../assets/img/non-photo-2.svg';
+            this.Artists.push(acc);
+          }
         })
     }
   }
@@ -237,7 +241,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
             a.object.image_base64_not_given = img.base64;
           });
         }
-      else a.object.image_base64_not_given = BaseImages.NoneFolowerImage;
+      else a.object.image_base64_not_given = '../../../../assets/img/non-photo-2.svg';
     }
   }
 
