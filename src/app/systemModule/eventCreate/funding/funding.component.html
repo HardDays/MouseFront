@@ -99,11 +99,13 @@
                     <h6 class="lower-case-t">Breakeven Amount</h6>
                     <div class="second-funding-info">
                         <p class="info-text">Artists Price</p>
-                        <span class="price">${{artistSum}}</span>
+                        <span *ngIf="artistSum>0" class="price">${{artistSum  | number:'3.1-2'}}</span>
+                        <span *ngIf="!artistSum||artistSum==0" class="price">$0</span>
                     </div>
                     <div class="second-funding-info">
                         <p class="info-text">Venue Price</p>
-                        <span class="price">${{venueSum}}</span>
+                        <span *ngIf="venueSum>0" class="price">${{venueSum  | number:'3.1-2'}}</span>
+                        <span *ngIf="!venueSum||venueSum==0" class="price">$0</span>
                     </div>
                     <div class="additional-costs">
                         <p class="addit-t">Additional Costs</p>
@@ -113,7 +115,7 @@
                     
                     <div class="second-funding-info">
                         <p class="info-text">Amount to Mouse (10%)</p>
-                        <span class="price">${{0.1*(artistSum+venueSum+additionalCosts)}}</span>
+                        <span class="price">${{0.1*(artistSum+venueSum+additionalCosts) | number:'3.1-2'}}</span>
                     </div>
                 </div>
                 
@@ -131,7 +133,7 @@
                     </div>
                     <div class="second-funding-info">
                         <p class="info-text">Amount</p>
-                        <span class="price">${{getFamilyAndFriendAmount()}}</span>
+                        <span class="price">${{getFamilyAndFriendAmount()  | number:'3.1-2'}}</span>
                     </div>
                 </div>
             </div>

@@ -43,6 +43,7 @@
                                             (requested) = "sendArtistRequestOpenModal($event)"
                                             (declined) = "declineArtist($event)"
                                             (checked) = "updateEvent()"
+                                            (open) = "openArtist($event)"
                                         ></app-one-card>
                                         
                                 </div>
@@ -53,9 +54,9 @@
                         <div class="one-card">
                             <div class="add-artist-block artist-modal-open">
                                 <div (click)="addNewArtistOpenModal()" class="plus"></div>
-                                <span class="add">Add New Artist</span>
-                                <span class="or">or</span>
-                                <span class="invite">Artist Invite</span>
+                                <span (click)="addNewArtistOpenModal()" class="add">Add New Artist</span>
+                                <!-- <span class="or">or</span>
+                                <span class="invite">Artist Invite</span> -->
                             </div>
                         </div>
                         
@@ -72,7 +73,8 @@
                                     <app-one-card 
                                         [card] = "item" 
                                         [status] = "item.status_not_given" 
-                                        [price] = " " 
+                                        [price] = " "
+
                                         (accepted) = "acceptArtistCard($event)"
                                         (requested) = "sendArtistRequestOpenModal($event)"
                                         (declined) = "declineArtist($event)"
@@ -81,6 +83,16 @@
                             
                             </div>
                         </ng-container>
+
+                        <div class="one-card">
+                            <div class="add-artist-block artist-modal-open">
+                                <div (click)="addNewArtistOpenModal()" class="plus"></div>
+                                <span (click)="addNewArtistOpenModal()" class="add">Add New Artist</span>
+                                <!-- <span class="or">or</span>
+                                <span class="invite">Artist Invite</span> -->
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

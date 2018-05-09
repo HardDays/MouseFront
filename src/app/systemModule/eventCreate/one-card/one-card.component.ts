@@ -19,6 +19,7 @@ export class OneCardComponent implements OnInit {
   @Output('requested') requested = new EventEmitter<AccountGetModel>();
   @Output('declined') declined = new EventEmitter<AccountGetModel>();
   @Output('checked') checked = new EventEmitter();
+  @Output('open') open = new EventEmitter<number>();
 
   // @Output('addVenue') addVenue = new EventEmitter<AccountGetModel>();
 
@@ -62,6 +63,10 @@ export class OneCardComponent implements OnInit {
 
   niceViewGenre(g:string){
       return g.replace('_',' ');
+  }
+
+  openArtist(){
+    this.open.emit(this.card.id);
   }
 
   

@@ -275,6 +275,12 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
   }
 
+  openArtist(id:number){
+
+    this.router.navigate(['/system','profile',id]);
+    // this.openPreview.emit(id);
+  }
+
   addNewArtistOpenModal(){
     $('#modal-pick-artist').modal('show');
 

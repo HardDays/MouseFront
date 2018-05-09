@@ -18,7 +18,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
   
   artistSum:number = 0;
   venueSum:number = 0;
-  additionalCosts:number = 50000;
+  additionalCosts:number = 0;
   familyAndFriendAmount:string = '0%';
 
     @Input() Event:EventCreateModel;

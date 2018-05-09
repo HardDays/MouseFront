@@ -72,7 +72,7 @@
                                 
                                 <span class="plus" (click)="showMoreGenres = !showMoreGenres"></span>
                                 <!--клик на плюсик добавляем absgenres-pick-wr класс showed-->
-                                <div class="absgenres-pick-wr" [ngClass]="{showed:showMoreGenres}">
+                                <div id="pick-up-genre-modal" class="absgenres-pick-wr" [ngClass]="{showed:showMoreGenres}">
                                     <input class="search" (input)="GengeSearch($event.target.value)" type="text" placeholder="Search">
                                     <div class="flex-genres for-pick">
                                         <!--Добавляем класс picked-->
@@ -88,10 +88,10 @@
                     <div class="flex-input-groupes">
                         <div class="input-groupe-1">
                             <select formControlName="event_season" [(ngModel)]="Event.event_season" id="inp-create-5" >
-                                <option>spring</option>
-                                <option>summer</option>
-                                <option>autumn</option>
-                                <option>winter</option>
+                                <option value="spring">Spring</option>
+                                <option value="summer">Summer</option>
+                                <option value="autumn">Autumn</option>
+                                <option value="winter">Winter</option>
                             </select>
                             <label for="inp-create-5">Event Date<span>*</span></label>
 
@@ -112,10 +112,10 @@
                     <div class="flex-input-groupes">
                         <div class="input-groupe-1">
                             <select id="inp-create-7" [(ngModel)]="Event.event_time" formControlName="event_time">
-                                <option>morning</option>
-                                <option>afternoon</option>
-                                <option>evening</option>
-                                
+                                <option value="morning">Morning</option>
+                                <option value="afternoon">Afternoon</option>
+                                <option value="evening">Evening</option>
+                                <option value="night">Night</option>
                                 
                             </select>
                             <label for="inp-create-7">Event Time Range<span>*</span></label>
@@ -128,6 +128,25 @@
                                 <option>3</option>
                                 <option>4</option>
                                 <option>5</option>
+                                <option>6</option>
+                                <option>7</option>
+                                <option>8</option>
+                                <option>9</option>
+                                <option>10</option>
+                                <option>11</option>
+                                <option>12</option>
+                                <option>13</option>
+                                <option>14</option>
+                                <option>15</option>
+                                <option>16</option>
+                                <option>17</option>
+                                <option>18</option>
+                                <option>19</option>
+                                <option>20</option>
+                                <option>21</option>
+                                <option>22</option>
+                                <option>23</option>
+                                <option>24</option>
                                 
                             </select>
                             <label for="inp-create-8">Event Length<span>*</span></label>

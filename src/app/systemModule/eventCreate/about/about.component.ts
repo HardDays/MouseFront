@@ -59,6 +59,16 @@ export class AboutComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     this.CreateAutocompleteAbout();
+
+    var _the = this;
+    $(document).mouseup(function (e) {
+        var container = $("#pick-up-genre-modal");
+        // console.log(`click`,e,container.has(e.target),_the.showMoreGenres);
+        if (container.has(e.target).length === 0 && _the.showMoreGenres){
+            _the.showMoreGenres = false;
+        }
+    });
+
   }
   CreateAutocompleteAbout(){
     this.mapsAPILoader.load().then(
