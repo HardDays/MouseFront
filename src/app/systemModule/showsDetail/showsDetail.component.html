@@ -13,8 +13,8 @@
                             <p class="st" >{{Event.date_from | date:'EEEE, MMM d, yyyy'}} - <span>{{Event.date_from | date:'HH:mm'}}</span></p>
                         </ng-container>
                         <ng-container *ngIf="!Event.date_from && Event.date_to">
-                                <p class="st" >{{Event.date_to | date:'EEEE, MMM d, yyyy'}} - <span>{{Event.date_to | date:'HH:mm'}}</span></p>
-                            </ng-container>
+                            <p class="st" >{{Event.date_to | date:'EEEE, MMM d, yyyy'}} - <span>{{Event.date_to | date:'HH:mm'}}</span></p>
+                        </ng-container>
                         <p class="st" *ngIf="!Event.date_from && !Event.date_to">{{Event.event_season}}, {{Event.event_year}} - <span>{{Event.event_time}}</span></p>
                         <span class="hashtag" *ngIf="Event.hashtag"><span>#</span>{{Event.hashtag}}</span>
                         <p class="descr">{{Event.description}}</p>
