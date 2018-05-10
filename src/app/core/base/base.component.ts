@@ -274,7 +274,7 @@ export class BaseComponent{
     {
         return {
             // mask: ['+',/[1-9]/,' (', /[1-9]/, /\d/, /\d/, ') ',/\d/, /\d/, /\d/, '-', /\d/, /\d/,'-', /\d/, /\d/],
-            mask: [/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,,/\d/,/\d/,/\d/],
+            mask: [/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/],
             keepCharPositions: true,
             guide:false
         };
@@ -398,13 +398,12 @@ export class BaseComponent{
     protected getResponseErrorMessage(err: Response, entityType='base') {
       const errors = [];
       const keyDict = this.getKeysDict(entityType);
-
       Object.keys(err.json()).forEach((key) => {
           let error = err.json()[key][0];
           console.log(key);
           console.log(err.json());
-          console.log(errors);
-          errors.push(keyDict[key] + ' ' + error.replace('_', ' ').toLowerCase());
+          console.log(error);
+          errors.push(keyDict[key] + ' ' + (error?error.replace('_', ' '):'').toLowerCase());
       });
 
       return errors.join('<br/>');

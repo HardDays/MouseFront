@@ -160,16 +160,19 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   SaveEvent(venue:EventCreateModel)
   {
     this.Event.account_id = this.CurrentAccount.id;
+    console.log(this.Event,this.EventId);
     this.WaitBeforeLoading
     (
       () => this.EventId == 0 ? this.main.eventService.CreateEvent(this.Event) : this.main.eventService.UpdateEvent(this.EventId,this.Event),
       (res) => {
-        this.DisplayEventParams(res);
+          console.log(`okey save`);
+          this.DisplayEventParams(res);
           this.NextPart();
+          this.isShowLaunchBtn();
       },
       (err) => {
         this.OpenErrorWindow(BaseMessages.Fail);
-        this.isSaveBtnClick = true;
+        console.log(`SAVE ERORR`,err);
       }
     )
   }

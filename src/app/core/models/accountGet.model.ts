@@ -94,7 +94,8 @@ export class AccountGetModel{
         public artist_riders?:Rider[],
 
         public followers_count?: number,
-        public following_count?: number
+        public following_count?: number,
+        public is_verified?: boolean
         
 ){}
 }

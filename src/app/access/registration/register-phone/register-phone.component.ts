@@ -49,7 +49,7 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
   }
 
   inputPhone($event){
-    this.phone = (+$event.target.value)+'';
+    this.phone = $event.target.value;
   }
 
   sendCode(){

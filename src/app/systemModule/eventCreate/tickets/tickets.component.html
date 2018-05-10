@@ -86,6 +86,11 @@
                             </div>
                         </div>
                         <div class="r-s">
+                            <div *ngIf="currentTicket.is_promotional" class="input-groupe-1 small-textarea whithout-label">
+                                    <textarea id="area-desc-tick-1" [(ngModel)]="currentTicket.promotional_description	"></textarea>
+                                    <label for="area-desc-tick-1" class="head-groupe">Promotional Description<span>*</span></label>
+                            </div>
+
                             <div class="input-groupe-1 small-textarea whithout-label">
                                 <textarea id="area-desc-tick-1" [(ngModel)]="currentTicket.description"></textarea>
                                 <label for="area-desc-tick-1" class="head-groupe">Short Description</label>

@@ -84,6 +84,7 @@ export class NavbarComponent extends BaseComponent implements OnInit
         this.curNav = 'profile';
         this.router.navigate(['/system/profile',item.id]);
         this.main.CurrentAccountChange.next(item);
+       
       }
 
 
