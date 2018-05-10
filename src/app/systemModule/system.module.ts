@@ -29,11 +29,9 @@ import { FeedComponent } from './feed/feed.component';
 import { TicketsComponent } from './tickets/tickets.component';
 import { VenueCreateComponent } from './venueCreate/venueCreate.component';
 import { FanCreateComponent } from './fan-create/fan-create.component';
-import { ShowsDetailComponent } from './showsDetail/shows.Detail.component';
 import { MessagesComponent } from './messages/messages.component';
 import { MyTicketComponent } from './my-ticket/my-ticket.component';
 import { MyTicketOpenedComponent } from './my-ticket-opened/my-ticket-opened.component';
-import { BiographyComponent } from './biography/biography.component';
 import { OneCardComponent } from './eventCreate/one-card/one-card.component';
 import { VenueMediaPhotoComponent } from './venueCreate/venueImage/venueImage.component';
 import { ShowDetailVideoComponent } from './showsDetail/video/video.component';
@@ -50,8 +48,9 @@ import { ShowsModule } from './shows/shows.module';
 import { ErrorModule } from '../shared/error/error.module';
 import { PreloaderModule } from '../shared/preloader/preloader.module';
 import { ArtistCreateModule } from './artistCreate/artistCreate.module';
-import { NewComponent } from './newComponent/new.component';
 import { ByTicketComponent } from './showsDetail/buyTicket/buyTicket.component';
+import { ShowDetailGalleryComponent } from './showsDetail/gallery/gallery.component';
+import { ShowsDetailModule } from './showsDetail/showsDetail.module';
 
 
 @NgModule({
@@ -60,14 +59,9 @@ import { ByTicketComponent } from './showsDetail/buyTicket/buyTicket.component';
     FeedComponent,
     TicketsComponent,
     FanCreateComponent,
-    ShowsDetailComponent,
     MessagesComponent,
     MyTicketComponent,
-    MyTicketOpenedComponent,
-    BiographyComponent,
-    ByTicketComponent,
-    ShowDetailVideoComponent,
-    NewComponent
+    MyTicketOpenedComponent
   ],
   imports: [
     CommonModule,
@@ -90,7 +84,7 @@ import { ByTicketComponent } from './showsDetail/buyTicket/buyTicket.component';
     ErrorModule,
     PreloaderModule,
     ArtistCreateModule,
-    
+    ShowsDetailModule,
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",
       libraries: ["places"]

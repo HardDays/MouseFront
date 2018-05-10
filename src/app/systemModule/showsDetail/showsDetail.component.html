@@ -1,12 +1,22 @@
-<section class="second-router-outlet">
+<app-preloader *ngIf="isLoading"></app-preloader>
+<section  [ngStyle]="{'display': isLoading?'none':'block'}" class="second-router-outlet">
     <div class="show-datails-wr">
         <div class="main-mw">
             <div class="flex-artist-main-info">
                 <div class="side left-side">
                     <div class="bg-gradient-info">
                         <h6>{{Event.name}}</h6>
-                        <p class="st">{{Event.event_season}}, {{Event.event_year}} - <span>{{Event.event_time}}</span></p>
-                        <span class="hashtag"><span>#</span>{{Event.tagline}}</span>
+                        <ng-container *ngIf="Event.date_from && Event.date_to">
+                            <p class="st" >{{Event.date_from | date:'EEEE, MMM d, yyyy HH:mm'}} - {{Event.date_to | date:'EEEE, MMM d, yyyy HH:mm'}}</p>
+                        </ng-container>
+                        <ng-container *ngIf="Event.date_from && !Event.date_to">
+                            <p class="st" >{{Event.date_from | date:'EEEE, MMM d, yyyy'}} - <span>{{Event.date_from | date:'HH:mm'}}</span></p>
+                        </ng-container>
+                        <ng-container *ngIf="!Event.date_from && Event.date_to">
+                                <p class="st" >{{Event.date_to | date:'EEEE, MMM d, yyyy'}} - <span>{{Event.date_to | date:'HH:mm'}}</span></p>
+                            </ng-container>
+                        <p class="st" *ngIf="!Event.date_from && !Event.date_to">{{Event.event_season}}, {{Event.event_year}} - <span>{{Event.event_time}}</span></p>
+                        <span class="hashtag" *ngIf="Event.hashtag"><span>#</span>{{Event.hashtag}}</span>
                         <p class="descr">{{Event.description}}</p>
                         <p class="gg">Genre</p>
                         <div class="flex-genres" *ngIf="Genres.length > 0">
@@ -40,12 +50,21 @@
                                 <span>Adele</span>
                             </div> -->
                         </div>
-                        <div class="iframe-slider-wrapp">
+                        <show-gallery-cmp [Artists]="Artists" [Venue]="Venue"></show-gallery-cmp>
+                        <!-- <div class="iframe-slider-wrapp"> -->
                             <!--это слайды с видосами-->
-                                <ng-container *ngFor="let item of Artists">
-                                    <show-video-slide [Artist]=item></show-video-slide>
+                                <!-- <ng-container *ngFor="let item of Artists">
+                                    <div class="slide">
+                                        <show-image-slide [Artist]="item" (onInitSlider)="InitSlider($event)"></show-image-slide>
+                                    </div> -->
+                                    <!-- <show-video-slide [Artist]=item></show-video-slide> -->
+                                <!-- </ng-container>
+                                <ng-container *ngIf="Event.venue">
+                                    <div class="slide">
+                                        <show-image-slide [Artist]="Event.venue"></show-image-slide>
+                                    </div>
                                 </ng-container>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

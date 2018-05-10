@@ -44,10 +44,7 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
     ngOnChanges(changes: SimpleChanges): void {
         if(changes.Account)
         {
-            console.log('changes');
             this.Account = changes.Account.currentValue;
-           
-            
         }
         
         if(changes.Fans)
@@ -72,36 +69,35 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
         
         this.AlbumsChecked = this.Albums = this.Account.artist_albums;
     
-        this.GetVideo();
+        // this.GetVideo();
         
         this.GetUpcomingShows();
     }
 
-    GetVideo()
-    {
-        this.VideoPath = [];
-        if(this.Account.videos && this.Account.videos.length > 0)
-        {
+    // GetVideo()
+    // {
+    //     this.VideoPath = [];
+    //     if(this.Account.videos && this.Account.videos.length > 0)
+    //     {
         
-            for(let i in this.Account.videos){
-                let link = this.Account.videos[i].link;
-                let id = this.GetVideoId(link);
-                let path = id? ("https://www.youtube.com/embed/" + id) : "";
-                if(path)
-                {
-                    this.VideoPath[i] = this.SanitizePath(path);
-                }
-            }
-            if(!$('.iframe-slider-wrapp').not('.slick-initialized').length){
-                console.log('убили слайдер');
-                $('.iframe-slider-wrapp').slick('unslick');
+    //         for(let i in this.Account.videos){
+    //             let link = this.Account.videos[i].link;
+    //             let id = this.GetVideoId(link);
+    //             let path = id? ("https://www.youtube.com/embed/" + id) : "";
+    //             if(path)
+    //             {
+    //                 this.VideoPath[i] = this.SanitizePath(path);
+    //             }
+    //         }
+    //         if(!$('.iframe-slider-wrapp').not('.slick-initialized').length){
+    //             $('.iframe-slider-wrapp').slick('unslick');
     
-            }
-            setTimeout(()=>{
-                this.InitSliderWrapp();
-            },1000);
-        }
-    }
+    //         }
+    //         setTimeout(()=>{
+    //             this.InitSliderWrapp();
+    //         },1000);
+    //     }
+    // }
     
     SanitizePath(path:string)
     {
@@ -128,23 +124,20 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
         else this.AlbumsChecked = this.Albums;
     }
 
-    InitSliderWrapp() 
-    {
-        console.log($('.iframe-slider-wrapp').not('.slick-initialized').length);
-        //если не
+    // InitSliderWrapp() 
+    // {
         
-        if($('.iframe-slider-wrapp').not('.slick-initialized').length){
-            console.log('проинитили слайдер');
-            $('.iframe-slider-wrapp').slick({
-                dots: false,
-                arrows: true,
-                infinite: false,
-                slidesToShow: 1
-            });
+    //     if($('.iframe-slider-wrapp').not('.slick-initialized').length){
+    //         $('.iframe-slider-wrapp').slick({
+    //             dots: false,
+    //             arrows: true,
+    //             infinite: false,
+    //             slidesToShow: 1
+    //         });
 
-        }
-        //если да
-    }
+    //     }
+    //     //если да
+    // }
 
 
     searchFans(event)

@@ -1,0 +1,11 @@
+<div class="iframe-slider-wrapp" *ngIf="Images && Images.length > 0">
+    <!--это слайды с видосами-->
+    <ng-container *ngFor="let item of Images">
+        <div class="slide" *ngIf="item">
+            <div class="iframe-wr" [ngStyle]="{'background-image': 'url('+ item +')'}">
+                <!-- <iframe class="youtube-video" enablejsapi="1" [src]="VideoPath" allowfullscreen></iframe> -->
+            </div>
+        </div>
+        <!-- <show-video-slide [Artist]=item></show-video-slide> -->
+    </ng-container>
+</div>

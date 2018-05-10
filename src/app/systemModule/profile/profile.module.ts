@@ -12,6 +12,8 @@ import { FanProfileComponent } from './fan/fan.component';
 import { VenueProfileComponent } from './vanue/venue.component';
 import { AgmCoreModule } from '@agm/core';
 import { ArtistProfileComponent } from './artist/artist.component';
+import { ShowDetailGalleryComponent } from '../showsDetail/gallery/gallery.component';
+import { ShowsDetailModule } from '../showsDetail/showsDetail.module';
 
 
 @NgModule({
@@ -25,7 +27,8 @@ import { ArtistProfileComponent } from './artist/artist.component';
         AgmCoreModule.forRoot({
             apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",
             libraries: ["places"]
-        })
+        }),
+        ShowsDetailModule
     ],
     declarations: [ 
         //компоненты
@@ -36,9 +39,6 @@ import { ArtistProfileComponent } from './artist/artist.component';
         FanProfileComponent,
         VenueProfileComponent,
         ArtistProfileComponent
-       
-      
-
     ],
     exports: [ ProfileComponent, VenueProfileComponent, ArtistProfileComponent ]
 })

@@ -30,17 +30,17 @@
                         </div>
                         <div class="side right-side">
                             <div class="bg-slider">
-                                
-                                <div class="iframe-slider-wrapp" *ngIf="Account.videos.length > 0">
+                                <show-gallery-cmp [Artists]="[Account]"></show-gallery-cmp>
+                                <!-- <div class="iframe-slider-wrapp" *ngIf="Account.videos.length > 0"> -->
                                     <!-- надо подключить youtube api и тем самым вставлять видео вместо iframe ибо у iframe нет норм функций для остановки видео, либо я хреново покопался.-->
-                                    <li *ngFor="let item of VideoPath;let i = index" >
+                                    <!-- <li *ngFor="let item of VideoPath;let i = index" >
                                         <div class="slide" style="height:400px;">
                                             <div class="iframe-wr">
                                                 <iframe [id]="'video-iframe-'+i" class="youtube-video" enablejsapi="1" [src]="item" allowfullscreen></iframe>
                                             </div>
                                         </div>
                                     </li>
-                                </div>
+                                </div> -->
 
                             </div>
                         </div>
