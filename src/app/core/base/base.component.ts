@@ -363,10 +363,12 @@ export class BaseComponent{
 
     protected getFormErrorMessage(form: FormGroup, entityType: string) {
         const errors = [];
+
         const keyDict = this.getKeysDict(entityType);
         // console.log(entityType);
         // console.log(keyDict);
 
+        
         Object.keys(form.controls).forEach((key) => {
             if (form.controls[key].status === 'INVALID') {
                 const formControl = form.controls[key];
@@ -388,8 +390,9 @@ export class BaseComponent{
                 }
             }
         });
+
         // console.log(errors.join('<br/>'));
-        return errors.join('<br/>');
+        return (errors.length > 3)?BaseMessages.AllFields : errors.join('<br/>');
     }
 
     protected getResponseErrorMessage(err: Response, entityType='base') {

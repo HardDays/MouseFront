@@ -28,6 +28,7 @@ export enum BaseImages{
 }
 
 export enum BaseErrors{
+    
 
 }
 
@@ -39,7 +40,9 @@ export enum BaseMessages{
     EmailField = '<b>_email</b> needs to be a valid email',
     EmailPattern = '<b>_email</b> needs to be a valid email',
     NumberPattern = '<b>_field</b> needs to be a valid number',
-    MaxLength = '<b>_field</b> max length is _length'
+    MaxLength = '<b>_field</b> max length is _length',
+    AllFields = 'Please fill in all required fields'
+
 }
 
 export enum VenueFields {
@@ -92,7 +95,7 @@ export enum EventFields {
   event_time = 'Event time range',
   event_length = 'Event length',
   event_year = 'Event date year',
-  event_season = 'Event time range',
+  event_season = 'Event season',
   description = 'Short description',
   funding_goal = 'Funding goal',
   artists_number = 'Number of artists',
