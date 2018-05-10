@@ -6,14 +6,14 @@
                 <div class="main-mw">
                     <div class="flex-artist-main-info">
                         <div class="side left-side">
-                               
+                            <h6 id="lines_view" class="name" style="width:100%;">{{Account.display_name}}</h6>
                             
                             <div class="oficial-page">
-                                <span id="d_lines_view" class="page" style="width:100%;">@{{Account.display_name}}</span>
-                                <h6 id="lines_view" class="name" style="width:100%;">{{Account.user_name}}</h6>
+                                <span id="d_lines_view" class="page">@{{Account.user_name}}</span>
+                               
                                 <div *ngIf="IsMyAccount" class="edit-and-settings">
                                     <!-- <a [routerLink]="['/system/edit',UserId]" class="edit-profile">Edit profile</a> -->
-                                    <a [routerLink]="['/system/artistCreate',Account.id]" style="margin-left:0;" class="edit-profile">Edit profile</a>
+                                    <a [routerLink]="['/system/artistCreate',Account.id]" class="edit-profile">Edit profile</a>
 
                                 </div>
                             </div>
