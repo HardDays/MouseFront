@@ -51,6 +51,7 @@ import { VenueAboutComponent } from './about/about.component';
 import { VenueListingComponent } from './listing/listing.component';
 import { VenueDatesComponent } from './dates/dates.component';
 import { ErrorComponent } from '../../shared/error/error.component';
+import { UserGetModel } from '../../core/models/userGet.model';
 
 
 
@@ -141,6 +142,17 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
     else {
       this.CurrentPart = this.Parts.About;
       this.VenueId = 0;
+    }
+
+    if(!this.Venue.phone)
+    {
+      this.WaitBeforeLoading(
+        () => this.main.authService.GetMe(),
+        (res:UserGetModel) => {
+          if(res.register_phone)
+            this.Venue.phone = res.register_phone.toString();
+        }
+      );
     }
 
     this.VenueImageId = ($venue && $venue.image_id) ? $venue.image_id : 0;

@@ -51,7 +51,7 @@ export class VenueMediaComponent extends BaseComponent implements OnInit,OnChang
 
     ngOnInit(): void
     {
-        this.ImageTypes = this.main.typeService.GetAllSpaceTypes();
+        this.ImageTypes = this.main.typeService.GetAllImageTypes();
 
         this.Init();
     }
@@ -136,6 +136,7 @@ export class VenueMediaComponent extends BaseComponent implements OnInit,OnChang
             },
             (err) => {
                 this.onError.emit(this.getResponseErrorMessage(err, 'venue'));
+                this.GetVenueImages();
             }
         );
     }

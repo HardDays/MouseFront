@@ -109,7 +109,7 @@ export enum BaseFields {
   password_confirm = 'Password confirmation',
   password_confirmation = 'Password confirmation',
   register_phone = 'Phone',
-  email = 'Email',
+  email = 'Email'
 }
 
 

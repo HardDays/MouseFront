@@ -43,7 +43,7 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
     VenueImages:any = [];
     VenueImagesChecked:any = [];
     ImageMassVenue:any = [];
-    imagesSize:Base64ImageModel[] = [];
+    imagesSize:any[] = [];
 
     OffHours: any[] = [];
     OpHours: any[] = [];
@@ -63,11 +63,12 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
         if(this.IsPreview){
             this.Init(changes.Venue.currentValue,changes.VenueId.currentValue);
         }
+        
         this.InitByUser();
     }
 
     ngOnInit(): void {
-        this.InitByUser();
+        
     }
 
     Init(venue?:AccountCreateModel,id?:number)
@@ -77,7 +78,6 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
         if(id)
             this.VenueId = id;
 
-           
         this.GetVenueImagesPreview();
     }
 
@@ -229,15 +229,18 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
                 this.WaitBeforeLoading(
                     () => this.main.imagesService.GetImageById(this.VenueImages[i].id),
                     (res:Base64ImageModel) => {
+                        // if(res && res.base64)
+                        // {
+                        //     if(this.ImageMassVenue.indexOf(res.base64) < 0)
+                        //     {
+                        //         this.ImageMassVenue[res.id] = res.base64;
+                        //         this.ImageMassVenue = this.ImageMassVenue.filter(obj => obj.length > 0);
+                        //         console.log(this.ImageMassVenue);
+                        //     }
+                        // }
                         this.ImageMassVenue[i] = (res && res.base64) ? res.base64 : BaseImages.Drake;
-                    },
-                    (err) =>{
-                        this.ImageMassVenue[i] = BaseImages.Drake;
                     }
                 );
-            }
-            else{
-                this.ImageMassVenue[i] = BaseImages.Drake;
             }
         }
         
@@ -247,8 +250,17 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
         for(let i in this.VenueImages){
             this.WaitBeforeLoading(
                 () => this.main.imagesService.GetImageSize(this.VenueImages[i].id),
-                (res:Base64ImageModel) => {
+                (res:any) => {
                 
+                    // if(res && res.url)
+                    // {
+                    //     if(!this.imagesSize.find(obj => obj.url == res.url))
+                    //     {
+                    //         this.imagesSize[i] = res;
+                    //         this.imagesSize = this.imagesSize.filter(obj => obj && obj.url.length > 0);
+                    //         //console.log(this.imagesSize);
+                    //     }
+                    // }
                     this.imagesSize[i] = res;
 
                 //  console.log(this.imagesSize);

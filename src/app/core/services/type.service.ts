@@ -21,6 +21,19 @@ export class TypeService{
     { 
     }
 
+    GetAllImageTypes()
+    {
+        return [
+            new SelectModel("Outside venue", "outside_venue"),
+            new SelectModel("Bar", "bar"),
+            new SelectModel("Stage", "stage"),
+            new SelectModel("Audience", "audience"),
+            new SelectModel("Seating", "seating"),
+            new SelectModel("Dressing Room", "dressing_room"),
+            new SelectModel("Other", "other")
+        ];
+    }
+
     GetAllSpaceTypes()
     {
         return [
