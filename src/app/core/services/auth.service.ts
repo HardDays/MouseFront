@@ -57,7 +57,7 @@ export class AuthMainService{
         };
 
         let paramsEmail = {
-            email: user.user,
+            email: user.user.toLowerCase(),
             password: user.password
         };
 

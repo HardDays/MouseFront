@@ -142,7 +142,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       this.router.navigateByUrl("/system/eventCreate/"+this.EventId);
     }
 
-
+  console.log(this.Event);
     if(this.about)
       this.about.Init(this.Event);
     if(this.artist)
@@ -153,6 +153,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       this.funding.Init(this.Event);
       if(this.tickets)
         this.tickets.Init(this.Event);
+
   }
 
 
@@ -203,12 +204,45 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     this.currentPage = newPart;
   }
 
+  isShowLaunchBtn(){
+    let countA = 0, countV = 0;
+
+    if(this.Event&&this.Event.artist)
+    for(let a of this.Event.artist)
+      if(a.status=='owner_accepted'||a.status=='active')
+        countA++;
+
+    if(this.Event&&this.Event.venues)
+    for(let v of this.Event.venues)
+      if(v.status=='owner_accepted'||v.status=='active')
+        countV++;
+
+    if(!this.Event.is_active && countA>0 && countV>0 ) return true;
+      else return false;
+      //!this.Event.is_active && ((this.EventId !== 0 && !this.isNewEvent) || (this.isNewEvent && this.currentPage == this.pages.tickets)) &&
+
+  }
   activeButtonClick(){
+    
     console.log(this.EventId,this.main.CurrentAccount.id);
     this.main.eventService.SetActive(this.EventId,this.main.CurrentAccount.id).
       subscribe((res)=>{
         console.log(`ok`,res);
         this.Event.is_active = true;
+        this.SaveEvent(res);
+      },
+      (err)=>{
+        console.log(`err`,err);
+        this.OpenErrorWindow(BaseMessages.Fail);
+      }
+    )  
+  }
+
+  unActiveButtonClick(){
+    this.main.eventService.SetDeActive(this.EventId,this.main.CurrentAccount.id).
+      subscribe((res)=>{
+        console.log(`ok`,res);
+        this.Event.is_active = false;
         this.SaveEvent(res);
       },
       (err)=>{

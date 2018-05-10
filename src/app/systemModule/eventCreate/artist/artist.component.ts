@@ -82,7 +82,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
       this.artistSearchParams.price_to = 100000;
       let _the = this;
       var hu_2 = $(".current-slider").ionRangeSlider({
-          min: 0,
+          min: 1,
           max: 100000,
           from: 100000,
           step: 10,
@@ -93,7 +93,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
           prettify_enabled: true,
           prettify_separator: ',',
           grid_num: 5,
-          onChange: function (data) {
+          onFinish: function (data) {
               _the.PriceArtistChanged(data);
           }
       });
@@ -376,6 +376,7 @@ declineArtist(card:AccountGetModel){
          // console.log(`ok decline artist`,res);
           this.onError.emit("Artist declined!");
           this.updateEvent();
+          this.isEmptyDeclinedArtists();
       },(err)=>{
         this.onError.emit("Artist NOT declined!");
       });
@@ -536,6 +537,12 @@ dragMarker($event)
     }
 
 
+    isEmptyDeclinedArtists(){
+      for(let a of this.Artists)
+        if(a.status_not_given=='owner_declined'||a.status_not_given=='declined')
+          return false;
+      return true;
+    }
 
 
 }

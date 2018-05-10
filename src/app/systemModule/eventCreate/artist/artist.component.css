@@ -20,3 +20,10 @@
     overflow: hidden; /* Обрезаем все, что не помещается в область */
     text-overflow: ellipsis; /* Добавляем многоточие */
 }
+.empty-info{
+    margin: 0 auto;
+    color: white;
+}
+.empty-info p{
+    color: white;
+}

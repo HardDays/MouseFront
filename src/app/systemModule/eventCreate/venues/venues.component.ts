@@ -92,7 +92,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
 
     
         var hu_3 = $(".current-slider-price-venue").ionRangeSlider({
-            min: 0,
+            min: 1,
             max: 100000,
             from: 100000,
             step: 5,
@@ -103,13 +103,13 @@ export class VenuesComponent extends BaseComponent implements OnInit {
             prettify_enabled: true,
             prettify_separator: ',',
             grid_num: 5,
-            onChange: function (data) {
+            onFinish: function (data) {
                 _the.VenuePriceChanged(data);
             }
         });
     
         var hu_4 = $(".current-slider-capacity-venue").ionRangeSlider({
-            min: 0,
+            min: 1,
             max: 100000,
             from: 100000,
             step: 10,
@@ -120,7 +120,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
             prettify_enabled: true,
             prettify_separator: ',',
             grid_num: 5,
-            onChange: function (data) {
+            onFinish: function (data) {
                 _the.VenueCapacityChanged(data);
             }
         });
@@ -196,11 +196,11 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     }
     VenuePriceChanged(data){
 
-        setTimeout(() => {
-            this.venueSearchParams.price_to  = data.from;
-            this.venueSearch();
-          }, 200);
-       
+        // setTimeout(() => {
+          
+        //   }, 200);
+          this.venueSearchParams.price_to  = data.from;
+          this.venueSearch();
 
     }
     VenueCapacityChanged(data){
@@ -261,10 +261,11 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         //          }
         //  });
 
-        console.log(this.venueSearchParams);
+       
 
          this.main.accService.AccountsSearch(this.venueSearchParams).
              subscribe((res)=>{
+                console.log(this.venueSearchParams,`res`,res);
                 //  if(res.length>0){
                     let temp = this.convertArrToCheckModel<AccountGetModel>(res);
                     
@@ -595,6 +596,16 @@ declineVenue(card:AccountGetModel){
 
       niceViewGenre(g:string){
           return g.replace('_',' ');
+      }
+
+      isEmptyDeclinedArtists(){
+        for(let a of this.requestVenues)
+          if(a.status_not_given=='owner_declined'||a.status_not_given=='declined')
+            return false;
+        for(let a of this.venueShowsList)
+        if(a.status_not_given=='owner_declined'||a.status_not_given=='declined')
+            return false;
+        return true;
       }
 
 

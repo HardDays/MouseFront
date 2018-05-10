@@ -21,7 +21,7 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
 
  userForm : FormGroup = new FormGroup({
     "email": new FormControl("", [Validators.required,
-      Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
+      Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$')]),
     "password": new FormControl("", [Validators.required]),
     "password_confirmation": new FormControl("", [Validators.required]),
     "register_phone": new FormControl("")
@@ -68,6 +68,8 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
       else if (this.createUser.email.search('@')<=0)
         this.errorCmp.OpenWindow('Uncorrect email!');
       else {
+
+        this.createUser.email = this.createUser.email.toLowerCase();
 
       this.WaitBeforeLoading(
           ()=>this.main.authService.CreateUser(this.createUser),

@@ -112,7 +112,7 @@
                     <div class="flex-wrapp-cards">
 
                         <ng-container *ngFor="let shows of requestVenues">
-                            <div *ngIf="getStatusVenueEventById(shows.id)!='owner_declined'&&getStatusVenueEventById(shows.id)!='declined'" class="one-card">
+                            <div *ngIf="shows.status_not_given!='owner_declined'&&shows.status_not_given!='declined'" class="one-card">
                                 
                                 <app-one-card 
                                     [card] = "shows" 
@@ -123,12 +123,13 @@
                                     (declined) = "declineVenue($event)"
                                     (checked) = "updateEvent()"
                                 ></app-one-card>
+                                <p>'1'+{{shows.status_not_given}}</p>
                             </div>
                         </ng-container>
                         <!-- [price] = "getPriceAtMsg(shows.id)"  -->
 
-                        <div *ngFor="let shows of venueShowsList" class="one-card">
-                                
+                        <ng-container *ngFor="let shows of venueShowsList" >
+                            <div *ngIf="shows.status_not_given!='owner_declined'&&shows.status_not_given!='declined'" class="one-card">
                                 <app-one-card 
                                     [card] = "shows" 
                                     [status] = "shows.status_not_given" 
@@ -138,7 +139,9 @@
                                     (declined) = "declineVenue($event)"
                                     (checked) = "updateEvent()"
                                 ></app-one-card>
-                        </div>
+                                <p>'2'+{{shows.status_not_given}}</p>
+                            </div>
+                        </ng-container>
                         
                         
                     </div>
@@ -164,8 +167,38 @@
                                         <p class="info">{{shows.address}}</p>
                                     </div>
                                 </div>
+                                <p>'1'+{{getStatusVenueEventById(shows.id)}}</p>
                             </div>
                         </ng-container>
+
+                        <ng-container *ngFor="let shows of venueShowsList">
+                            <div *ngIf="shows.status_not_given=='owner_declined'||shows.status_not_given=='declined'" class="one-card">
+                                <div class="card">
+                                    <div class="delete-card"></div>
+                                    <div class="left-side">
+                                   
+                                        <div class="ava checked" [ngStyle]="{'background-image': shows.image_base64_not_given?'url('+shows.image_base64_not_given+')':''}"></div>
+                                        <p class="desc-head-info">{{getStatusVenueEventById(shows.id)}}</p>
+                                        <p class="status">Accepted by Artist and Event owner</p>
+                                    </div>
+                                    <div class="right-side">
+                                        <p class="name">{{shows.id}} {{shows.user_name}}</p>
+                                        <p class="desc-head-info">Spaces</p>
+                                        <p class="info">{{shows.type_of_space?shows.type_of_space:''}}</p>
+                                        <p class="desc-head-info">Location</p>
+                                        <p class="info">{{shows.address}}</p>
+                                    </div>
+                                </div>
+                                <p>'1'+{{getStatusVenueEventById(shows.id)}}</p>
+                            </div>
+                        </ng-container>
+
+                        <div *ngIf="isEmptyDeclinedArtists()" class="empty-info">
+                            <img src="./../../../assets/img/smile-white.svg" class="img-responsive" alt="">
+                            <p>No venues yet :(</p>
+                            
+                        </div>
+
                     </div>
                 </div> 
 

@@ -84,13 +84,10 @@
                             </div>
                         </ng-container>
 
-                        <div class="one-card">
-                            <div class="add-artist-block artist-modal-open">
-                                <div (click)="addNewArtistOpenModal()" class="plus"></div>
-                                <span (click)="addNewArtistOpenModal()" class="add">Add New Artist</span>
-                                <!-- <span class="or">or</span>
-                                <span class="invite">Artist Invite</span> -->
-                            </div>
+                        <div *ngIf="isEmptyDeclinedArtists()" class="empty-info">
+                            <img src="./../../../assets/img/smile-white.svg" class="img-responsive" alt="">
+                            <p>No artists yet :(</p>
+                            
                         </div>
 
                     </div>

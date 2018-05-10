@@ -7,7 +7,8 @@
         <p class="desc-head-info">Status</p>
         <!-- <p class="status"> {{status}}Accepted by {{card.account_type|titlecase}} and Event owner</p> -->
         <p *ngIf="status=='pending'" class="status">Pending</p>
-        <p *ngIf="status=='send_request'" class="status">Request has been send</p>        
+        <p *ngIf="status=='send_request'" class="status">Request has been send</p> 
+        <p *ngIf="status=='request_send'" class="status">Request has been send</p>        
         <p *ngIf="status=='declined'" class="status">Declined by Artist</p>
         <p *ngIf="status=='owner_declined'" class="status">Declined by Event owner</p>
         <p *ngIf="status=='accepted'" class="status"> Accepted by {{card.account_type|titlecase}}</p>

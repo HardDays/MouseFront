@@ -14,3 +14,10 @@
     height: 600px;
     border: none;
 }
+.empty-info{
+    margin: 0 auto;
+    color: white;
+}
+.empty-info p{
+    color: white;
+}

@@ -180,6 +180,17 @@ export class EventService{
         );
     }
 
+    SetDeActive(id:number,account_id:number){
+
+        let params = {
+            id:id,
+            account_id:account_id
+        }
+        return this.http.CommonRequest(
+            () => this.http.PostData('/events/'+id+'/deactivate.json',JSON.stringify(params))
+        );
+    }
+
 
     /*тикеты*/
     GetAllTicketsCurrent(myId,CurrOrPass){
