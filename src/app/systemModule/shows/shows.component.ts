@@ -132,7 +132,7 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
     GetEvents(params?:EventSearchParams)
     {
         let search:EventSearchParams = {
-            limit: 15
+            is_active:true,
         };
 
         if(params)

@@ -46,7 +46,8 @@ export class SearchShowsComponent extends BaseComponent implements OnInit {
     
     ngOnInit(): void 
     {
-        this.SearchParams.limit = 15;
+        //this.SearchParams.limit = 15;
+        this.SearchParams.is_active = true;
         // this.SearchParams.only_my = true;
         // this.SearchParams.account_id = this.GetCurrentAccId();
         
