@@ -28,18 +28,21 @@ export enum BaseImages{
 }
 
 export enum BaseErrors{
+    
 
 }
 
 export enum BaseMessages{
     Success = "Success",
     Fail = "Failed",
-    RequiredField = '<b>_field</b> need to be filled',
+    RequiredField = '<b>_field</b> needs to be filled',
     RequiredFields = 'Please fill in _fields to proceed to the Next Step',
-    EmailField = '<b>_email</b> need to be a valid email',
-    EmailPattern = '<b>_email</b> need to be a valid email',
-    NumberPattern = '<b>_field</b> need to be a valid number',
-    MaxLength = '<b>_field</b> max length is _length'
+    EmailField = '<b>_email</b> needs to be a valid email',
+    EmailPattern = '<b>_email</b> needs to be a valid email',
+    NumberPattern = '<b>_field</b> needs to be a valid number',
+    MaxLength = '<b>_field</b> max length is _length',
+    AllFields = 'Please fill in all required fields'
+
 }
 
 export enum VenueFields {
@@ -91,8 +94,8 @@ export enum EventFields {
   hashtag = 'Hashtag',
   event_time = 'Event time range',
   event_length = 'Event length',
-  event_year = 'Event date',
-  event_season = 'Event date',
+  event_year = 'Event date year',
+  event_season = 'Event season',
   description = 'Short description',
   funding_goal = 'Funding goal',
   artists_number = 'Number of artists',

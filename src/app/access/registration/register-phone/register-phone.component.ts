@@ -38,6 +38,8 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
 
   codeRequest:string[]=[];
 
+  curPos = '+1';
+
   ngOnInit() {
   this.main.phoneService.GetAllPhoneCodes().
     subscribe((res)=>{

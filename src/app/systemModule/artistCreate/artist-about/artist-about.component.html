@@ -46,7 +46,7 @@
                                 
                                 <span class="plus" (click)="showMoreGenres = !showMoreGenres"></span>
                                 <!--клик на плюсик добавляем absgenres-pick-wr класс showed-->
-                                <div class="absgenres-pick-wr" [ngClass]="{showed:showMoreGenres}">
+                                <div id="pick-up-genre-modal" class="absgenres-pick-wr" [ngClass]="{showed:showMoreGenres}">
                                     <input class="search" (input)="GengeSearch($event.target.value)" type="text" placeholder="Search">
                                     <div class="flex-genres for-pick">
                                         <!--Добавляем класс picked-->

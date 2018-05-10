@@ -14,6 +14,7 @@ export class ErrorComponent{
     public OpenWindow(message:string)
     {
         this.Message = message;
+        console.log(message);
         $('#message-1').modal('show');
     }
 

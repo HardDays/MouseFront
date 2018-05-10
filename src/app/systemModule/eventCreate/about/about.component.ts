@@ -164,6 +164,7 @@ export class AboutComponent extends BaseComponent implements OnInit {
       {
          // console.log("About form invalid");
           this.onError.emit(this.getFormErrorMessage(this.aboutForm, 'event'));
+          console.log(this.aboutForm, 'event');
           return;
       }
       this.Event.genres = [];

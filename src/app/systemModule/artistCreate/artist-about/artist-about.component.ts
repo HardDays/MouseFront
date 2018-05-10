@@ -51,10 +51,18 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
 
+
   }
 
   Init(artist:AccountCreateModel){
     this.Artist = artist;
+
+    if(!this.Artist.artist_email){
+      this.main.authService.GetMe().
+        subscribe((res)=>{
+          this.Artist.artist_email = res.email;
+        })
+    }
 
     this.WaitBeforeLoading(
       ()=>  this.main.genreService.GetAllGenres(),
@@ -64,6 +72,15 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
         this.GetArtistGenres();
       }
     )
+
+    var _the = this;
+    $(document).mouseup(function (e) {
+      var container = $("#pick-up-genre-modal");
+      // console.log(`click`,e,container.has(e.target),_the.showMoreGenres);
+      if (container.has(e.target).length === 0 && _the.showMoreGenres){
+          _the.showMoreGenres = false;
+      }
+    });
 
     console.log(`About Artist`,this.Artist);
   }
