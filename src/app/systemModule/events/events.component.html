@@ -25,10 +25,17 @@
                 </div>
             </div>
             <div class="main-mw-6">
-                <div class="for-flex-all-events">
-                    <div *ngFor="let item of Events" class="one-event-wr">
-                        <my-event-selector [Event]="item" (onGetAnalytics)="ShowAnalytics($event)"></my-event-selector>
+                    <div *ngIf="!Events.length" class="empty-info">
+                        <img src="./../../../assets/img/smile.svg" class="img-responsive" alt="">
+                        <p>You have no events yet</p>
+                        
                     </div>
+                <div class="for-flex-all-events">
+                     
+                        <div *ngFor="let item of Events" class="one-event-wr">
+                            <my-event-selector [Event]="item" (onGetAnalytics)="ShowAnalytics($event)"></my-event-selector>
+                        </div>
+                   
                 </div>
             </div>
         </div>
