@@ -237,7 +237,9 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       subscribe((res)=>{
         console.log(`ok`,res);
         this.Event.is_active = true;
-        this.SaveEvent(res);
+        //this.SaveEvent(res);
+        // this.main.eventService.GetEventById()
+        // this.Event = res;
       },
       (err)=>{
         console.log(`err`,err);
@@ -251,7 +253,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       subscribe((res)=>{
         console.log(`ok`,res);
         this.Event.is_active = false;
-        this.SaveEvent(res);
+        // this.Event.is_active = false;
+        // this.SaveEvent(res);
       },
       (err)=>{
         console.log(`err`,err);
