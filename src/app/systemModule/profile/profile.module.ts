@@ -9,7 +9,7 @@ import { TicketOnProfileComponent } from './ticket-on-profile/ticket-on-profile.
 import { UpcomingShowsProfileComponent } from './upcoming-shows-profile/upcoming-shows-profile.component';
 import { PreloaderModule } from '../../shared/preloader/preloader.module';
 import { FanProfileComponent } from './fan/fan.component';
-import { VenueProfileComponent } from './vanue/venue.component';
+import { VenueProfileComponent } from './venue/venue.component';
 import { AgmCoreModule } from '@agm/core';
 import { ArtistProfileComponent } from './artist/artist.component';
 import { ShowDetailGalleryComponent } from '../showsDetail/gallery/gallery.component';
@@ -25,13 +25,13 @@ import { ShowsDetailModule } from '../showsDetail/showsDetail.module';
         TextMaskModule,
         PreloaderModule,
         AgmCoreModule.forRoot({
-            apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",
-            libraries: ["places"]
+            apiKey: 'AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc',
+            libraries: ['places']
         }),
         ShowsDetailModule
     ],
-    declarations: [ 
-        //компоненты
+    declarations: [
+        // компоненты
         ProfileComponent,
         OneFolowerForProfileComponent,
         TicketOnProfileComponent,
@@ -43,6 +43,3 @@ import { ShowsDetailModule } from '../showsDetail/showsDetail.module';
     exports: [ ProfileComponent, VenueProfileComponent, ArtistProfileComponent ]
 })
 export class ProfileModule {}
-
-
-  

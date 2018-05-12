@@ -68,7 +68,6 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
   }
 
   inputCode($event,num:number){
-    // console.log($event,num);
     if($event.target.value&&$event.target.value.length==1){
       if(num==1){
         this.inputCodeStatus = 2;
@@ -98,13 +97,11 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
       this.WaitBeforeLoading(
         ()=> this.main.phoneService.SendRequestCode(phone,code),
           (res)=>{
-            console.log(`success`);
             this.isShowPhone.emit(true);
             this.phoneStatus.emit({status:true,phone:phone});
           },
           (err)=>{
             this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
-            console.log(`ERRRO`);
           }
       );
     }

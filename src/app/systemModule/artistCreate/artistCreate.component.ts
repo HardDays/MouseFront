@@ -135,7 +135,6 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
       this.router.navigateByUrl("/system/artistCreate/"+this.ArtistId);
     }
     else{
-      console.log(`new artist`);
       this.currentPage = this.pages.about;
       this.ArtistId = 0;
     }
@@ -156,7 +155,6 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
     (
       () => this.ArtistId == 0 ? this.main.accService.CreateAccount(this.Artist) : this.main.accService.UpdateMyAccount(this.ArtistId,this.Artist),
       (res) => {
-        console.log(res);
         this.ArtistId = res.id;
         this.main.SetCurrentAccId(res.id);
         this.main.GetMyAccounts();
@@ -211,7 +209,6 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
 
 
   saveButtonClick(){
-    console.log(`SAVE BUTTON`);
     this.isSaveButtonClick = true;
     this.ErrorSave = false;
     if(this.currentPage==this.pages.about){

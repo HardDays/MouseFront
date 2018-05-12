@@ -100,9 +100,9 @@
                                             
                                             <ng-container *ngFor="let item of VenueImagesChecked;let in = index">
                                                 
-                                                <ng-container class="one-block">   
+                                                <ng-container class="one-block" *ngIf="item">   
                                                             
-                                                    <div class="one-block for-gallery-item" (click)='Gallery($event)' [attr.data-eteration]="in" [attr.data-size]="imagesSize[in]?(imagesSize[in].width+'x'+imagesSize[in].height):'500x500'" [attr.data-hreff]="ImageMassVenue[in]" [ngStyle]="{'background-image': 'url(' + ImageMassVenue[in] + ')'}"></div>
+                                                    <div class="one-block for-gallery-item" (click)='Gallery($event)' [attr.data-eteration]="in" [attr.data-size]="item?(item.width+'x'+item.height):'500x500'" [attr.data-hreff]="item.base64" [ngStyle]="{'background-image': 'url(' + item.base64 + ')'}"></div>
                                                             
                                                 </ng-container>
                                             </ng-container>

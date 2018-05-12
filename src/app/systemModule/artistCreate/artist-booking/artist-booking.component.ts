@@ -73,7 +73,6 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
     if(v.checked)
       this.Artist.preferred_venues.push(v.object.type);
 
-  console.log(this.Artist,this.preferredVenues);
 
   this.saveArtist();
 }
@@ -150,7 +149,6 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
 
 
   dragMarker($event){
-    //console.log($event);
     this.mapCoords.lat = $event.coords.lat;
     this.mapCoords.lng = $event.coords.lng;
     this.codeLatLng( this.mapCoords.lat, this.mapCoords.lng);

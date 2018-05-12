@@ -208,7 +208,6 @@ export class TicketsComponent extends BaseComponent implements OnInit,AfterViewC
             () => this.main.eventService.GetAllTicketsCurrent(this.SearchParams.account_id,'past'),
             (res:TicketsGetModel[]) => {
                 this.PastTickets = res;
-                console.log(res);
             },
             (err) => {
                // console.log(err);

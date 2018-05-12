@@ -2,7 +2,7 @@
 <section class="main-router-outlet" [ngStyle]="{'display': isLoading?'none':'block'}">
 
     <venue-profile-selector *ngIf="Account.account_type == Roles.Venue" [Account]="Account" [Image]="baseImageMy"
-        [Fans]="Fans" [IsMyAccount]="isMyAccount" [isFolowedAcc]="isFolowedAcc" (onFollow)="FollowOrUnfollowProfile($event)">
+        [Fans]="Fans" [IsMyAccount]="isMyAccount" [VenueId]="Account.id" [isFolowedAcc]="isFolowedAcc" (onFollow)="FollowOrUnfollowProfile($event)">
     </venue-profile-selector>
 
     <fan-profile-selector *ngIf="Account.account_type == Roles.Fan" [Account]="Account" [Image]="baseImageMy"

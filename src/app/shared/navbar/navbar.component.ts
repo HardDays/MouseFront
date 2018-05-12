@@ -68,7 +68,6 @@ export class NavbarComponent extends BaseComponent implements OnInit
     
       logout()
       {
-        //console.log('logout');
         this.Logout();
         // this.initUser();
         this.curNav = 'shows';

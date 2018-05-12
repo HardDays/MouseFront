@@ -37,7 +37,6 @@ export class GenresService{
         let result:GenreModel[] = [];
         for(let i in input)
         {
-            // console.log(i,input[i]);
             result.push(new GenreModel(input[i],this.convertToShow(input[i]),false,+i<4));
         }
         return result;

@@ -56,7 +56,6 @@ export class RegisterFollowComponent extends BaseComponent implements OnInit {
           if(artist.image_id)
             this.main.imagesService.GetImageById(artist.image_id)
               .subscribe((img)=>{
-                console.log(img);
                 artist.image_base64_not_given = img.base64;
               });
           else artist.image_base64_not_given = BaseImages.NoneUserImage;
@@ -72,12 +71,10 @@ export class RegisterFollowComponent extends BaseComponent implements OnInit {
   
     ;
     let id:number = +this.main.GetCurrentAccId();
-    console.log(`MY id`,id);
     for(let follow of this.followsId){
       this.WaitBeforeLoading(
         ()=>this.main.accService.AccountFollow(id,follow),
         (res)=>{
-          console.log(res);
         }
     )
     }

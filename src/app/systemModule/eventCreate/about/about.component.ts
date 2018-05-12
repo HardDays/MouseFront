@@ -63,7 +63,6 @@ export class AboutComponent extends BaseComponent implements OnInit {
     var _the = this;
     $(document).mouseup(function (e) {
         var container = $("#pick-up-genre-modal");
-        // console.log(`click`,e,container.has(e.target),_the.showMoreGenres);
         if (container.has(e.target).length === 0 && _the.showMoreGenres){
             _the.showMoreGenres = false;
         }
@@ -162,9 +161,7 @@ export class AboutComponent extends BaseComponent implements OnInit {
   {
       if(this.aboutForm.invalid)
       {
-         // console.log("About form invalid");
           this.onError.emit(this.getFormErrorMessage(this.aboutForm, 'event'));
-          console.log(this.aboutForm, 'event');
           return;
       }
       this.Event.genres = [];

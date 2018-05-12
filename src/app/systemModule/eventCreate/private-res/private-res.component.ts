@@ -58,19 +58,16 @@ export class PrivateResComponent extends BaseComponent implements OnInit {
             this.privateVenueCreate.venue_type = 'private_residence';
 
           
-            console.log(`newPrivateEvent`,this.privateVenueCreate);
 
             this.WaitBeforeLoading(
                 ()=>  this.main.accService.CreateAccount(this.privateVenueCreate),
                 (acc:AccountGetModel)=>{
                     this.privateVenue = acc;
-                    console.log(`create`,this.privateVenue);
                    
                     
                     this.addVenue.venue_id = acc.id;
                     this.addVenue.account_id = this.main.CurrentAccount.id;
 
-                    console.log(`add venue`,this.addVenue);
                     this.main.eventService.AddVenue(this.addVenue).
                         subscribe((res)=>{
                             this.OnCreate.emit(true);

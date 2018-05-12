@@ -67,7 +67,6 @@ export class BaseComponent{
         this.main.authService.onAuthChange$
             .subscribe(
                 (res:boolean) => {
-                    // console.log('loggedIn',res);
                     this.isLoggedIn = res;
                     if(this.isLoggedIn)
                     {
@@ -365,15 +364,11 @@ export class BaseComponent{
         const errors = [];
 
         const keyDict = this.getKeysDict(entityType);
-        // console.log(entityType);
-        // console.log(keyDict);
 
         
         Object.keys(form.controls).forEach((key) => {
             if (form.controls[key].status === 'INVALID') {
                 const formControl = form.controls[key];
-                // console.log(formControl);
-                // console.log(key);
 
                 if (formControl instanceof FormControl) {
                     errors.push(this.getFieldError(formControl, key, keyDict));
@@ -391,7 +386,6 @@ export class BaseComponent{
             }
         });
 
-        // console.log(errors.join('<br/>'));
         return (errors.length > 3)?BaseMessages.AllFields : errors.join('<br/>');
     }
 

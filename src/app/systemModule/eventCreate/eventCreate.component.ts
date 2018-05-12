@@ -142,7 +142,6 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       this.router.navigateByUrl("/system/eventCreate/"+this.EventId);
     }
 
-  console.log(this.Event);
     if(this.about)
       this.about.Init(this.Event);
     if(this.artist)
@@ -160,12 +159,10 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   SaveEvent(venue:EventCreateModel)
   {
     this.Event.account_id = this.CurrentAccount.id;
-    console.log(this.Event,this.EventId);
     this.WaitBeforeLoading
     (
       () => this.EventId == 0 ? this.main.eventService.CreateEvent(this.Event) : this.main.eventService.UpdateEvent(this.EventId,this.Event),
       (res) => {
-          console.log(`okey save`);
           this.DisplayEventParams(res);
           this.NextPart();
           this.isShowLaunchBtn();
@@ -232,10 +229,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   }
   activeButtonClick(){
     
-    console.log(this.EventId,this.main.CurrentAccount.id);
     this.main.eventService.SetActive(this.EventId,this.main.CurrentAccount.id).
       subscribe((res)=>{
-        console.log(`ok`,res);
         this.Event.is_active = true;
         //this.SaveEvent(res);
         // this.main.eventService.GetEventById()
@@ -251,7 +246,6 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   unActiveButtonClick(){
     this.main.eventService.SetDeActive(this.EventId,this.main.CurrentAccount.id).
       subscribe((res)=>{
-        console.log(`ok`,res);
         this.Event.is_active = false;
         // this.Event.is_active = false;
         // this.SaveEvent(res);

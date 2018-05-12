@@ -222,7 +222,6 @@ updateEvent(){
 }
 
 comleteFunding(){
-    console.log(`comleteFunding`);
   this.onSaveEvent.emit(this.Event);
 }
 

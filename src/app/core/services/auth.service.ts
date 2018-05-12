@@ -121,7 +121,6 @@ export class AuthMainService{
             localStorage.setItem('userStatus',status+"");
         }
         catch(err){
-            //console.log(err);
         }
     }
 

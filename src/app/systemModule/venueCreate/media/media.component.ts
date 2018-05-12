@@ -67,7 +67,6 @@ export class VenueMediaComponent extends BaseComponent implements OnInit,OnChang
         if(id)
             this.VenueId = id;
 
-        console.log(this.VenueId); 
         this.CreateOnModelChangeForParent();
         this.GetVenueImages();
     }
@@ -75,12 +74,11 @@ export class VenueMediaComponent extends BaseComponent implements OnInit,OnChang
     GetVenueImages()
     {
         this.WaitBeforeLoading(
-        () => this.main.imagesService.GetAccountImages(this.VenueId,{limit:5}),
+        () => this.main.imagesService.GetAccountImages(this.VenueId),
         (res:ImageAccModelAnswer) => {
             if(res && res.total_count > 0)
             {
                 this.VenueImages = res.images;
-                console.log(this.VenueImages);
             }
         }
         );

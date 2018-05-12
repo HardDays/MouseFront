@@ -175,7 +175,6 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
   {
     if(this.accForm.invalid)
     {
-      // console.log("About form invalid");
       this.errorCmp.OpenWindow(this.getFormErrorMessage(this.accForm, 'base'));
       return;
     }

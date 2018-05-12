@@ -64,7 +64,6 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
   }
 
   ngOnChanges(changes:SimpleChanges){
-    // console.log(changes);
     if(!changes['Artist'].isFirstChange()){
       this.InitMusicPlayer();
       this.updateVideosPreview();
@@ -75,7 +74,6 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
   Init(artist:AccountCreateModel,id:number){
     this.Artist = artist;
     this.idArtist = id;
-    console.log(`Artist MEDIA`,this.Artist);
   }
 
   InitMusicPlayer(){
@@ -142,7 +140,6 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
         }
       }
       this.Artist.artist_videos.push(params);
-      console.log(this.Artist.artist_videos);
       this.saveArtist();
       this.addVideoForm.reset();
     }
@@ -173,15 +170,12 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
   openVideo(video:Video){
 
     let video_id ='';
-    console.log('youtube',video.link.indexOf('youtube'));
-    console.log('youtu.be',video.link.indexOf('youtu.be'));
     if(video.link.indexOf('youtube') != -1){
       video_id = video.link.split('v=')[1];
 
     }
     if(video.link.indexOf('youtu.be') != -1){
       video_id = video.link.split('.be/')[1];
-      console.log(456);
     }
 
 
@@ -268,7 +262,6 @@ SanitizeImage(image: string)
 
 
 deleteImage(id:number){
-  console.log(id,this.idArtist);
   this.WaitBeforeLoading(
     ()=> this.main.imagesService.DeleteImageById(id,this.idArtist),
     (res)=>{

@@ -177,15 +177,12 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
   }
 
   saveArtist(){
-    console.log(this.Artist);
     this.OnSave.emit(this.Artist);
   }
 
   downloadFile(data: Response){
-    console.log(this.Artist.artist_riders[1].id);
     this.main.accService.GetRiderById(this.Artist.artist_riders[1].id)
     .subscribe((res)=>{
-      console.log(res);
       let data2 = res.uploaded_file_base64;
       var blob = new Blob([data], { type: 'data:application/pdf' });
       var url= window.URL.createObjectURL(blob);

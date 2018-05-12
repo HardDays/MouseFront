@@ -39,12 +39,10 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
 
     let isNew = true;
     if(!this.isFirstOpen){
-     //console.log(`isFirstOpen`);
       if(this.createUser.email!=this.userForm.value['email'])
       isNew = false;
 
       if(!isNew){
-        //console.log(`not change`);
         this.backUser.emit(this.type);
       }
     }
@@ -77,7 +75,6 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
               this.main.authService.BaseInitAfterLogin(new TokenModel(res.token));
               this.userCreated = true;
               this.main.authService.onAuthChange$.next(true);
-              console.log(this.type);
               if(this.type=='fan')
                 this.backUser.emit(this.type);
               else if(this.type=='venue')
@@ -99,7 +96,6 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    //console.log(`open`,this.isFirstOpen);
   }
 
   backPage(){

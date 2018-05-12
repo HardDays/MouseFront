@@ -58,8 +58,6 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
         if(changes.Fans)
             this.FansChecked = this.Fans = changes.Fans.currentValue;
 
-        // console.log(this.Account);
-
         if(this.IsPreview){
             this.Init(changes.Venue.currentValue,changes.VenueId.currentValue);
         }
@@ -78,7 +76,7 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
         if(id)
             this.VenueId = id;
 
-        this.GetVenueImagesPreview();
+        this.GetVenueImages();
     }
 
     InitByUser()
@@ -127,7 +125,6 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
                     this.UpcomingShowsChecked = this.UpcomingShows = res;
                 },
                 (err) => {
-                //  console.log(err);
                 
                 }
             );
@@ -182,7 +179,8 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
         var lightBox = new PhotoSwipe($('.pswp')[0], PhotoSwipeUI_Default, this.itemsPhotoss, options);
         lightBox.init();
     }
-    GetVenueImagesPreview()
+
+    GetVenueImages()
     {
         this.VenueImages = this.VenueImagesChecked = [];
         if(this.VenueId)
@@ -190,33 +188,10 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
             this.WaitBeforeLoading(
                 () => this.main.accService.GetImagesVenue(this.VenueId),
                 (res:any) => {
-                    this.VenueImagesChecked = this.VenueImages = res.images;
+                    this.VenueImages = res.images;
                     this.GetImage();
-                    this.GetImageSize();
-                    
                 },
                 (err) => {
-                // console.log(err);
-                }
-            );
-        }
-    }
-
-    GetVenueImages()
-    {
-        this.VenueImages = this.VenueImagesChecked = [];
-        if(this.Account.id)
-        {
-            this.WaitBeforeLoading(
-                () => this.main.accService.GetImagesVenue(this.Account.id),
-                (res:any) => {
-                    this.VenueImagesChecked = this.VenueImages = res.images;
-                    this.GetImage();
-                    this.GetImageSize();
-                    
-                },
-                (err) => {
-                // console.log(err);
                 }
             );
         }
@@ -224,49 +199,39 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
     GetImage()
     {
         for(let i in this.VenueImages){
-            if(this.VenueImages[i]&& this.VenueImages[i].id)
+            if(this.VenueImages[i] && this.VenueImages[i].id)
             {
                 this.WaitBeforeLoading(
                     () => this.main.imagesService.GetImageById(this.VenueImages[i].id),
                     (res:Base64ImageModel) => {
-                        // if(res && res.base64)
-                        // {
-                        //     if(this.ImageMassVenue.indexOf(res.base64) < 0)
-                        //     {
-                        //         this.ImageMassVenue[res.id] = res.base64;
-                        //         this.ImageMassVenue = this.ImageMassVenue.filter(obj => obj.length > 0);
-                        //         console.log(this.ImageMassVenue);
-                        //     }
-                        // }
-                        this.ImageMassVenue[i] = (res && res.base64) ? res.base64 : BaseImages.Drake;
+                        this.ImageMassVenue[i] = res;
+                        this.VenueImagesChecked = this.ImageMassVenue;
+                        this.GetImageSize(+i);
                     }
                 );
             }
         }
         
     }
-    GetImageSize()
+    GetImageSize(i:number)
     {
-        for(let i in this.VenueImages){
+        if(this.VenueImages[i] && this.VenueImages[i].id)
+        {
             this.WaitBeforeLoading(
                 () => this.main.imagesService.GetImageSize(this.VenueImages[i].id),
                 (res:any) => {
-                
-                    // if(res && res.url)
-                    // {
-                    //     if(!this.imagesSize.find(obj => obj.url == res.url))
-                    //     {
-                    //         this.imagesSize[i] = res;
-                    //         this.imagesSize = this.imagesSize.filter(obj => obj && obj.url.length > 0);
-                    //         //console.log(this.imagesSize);
-                    //     }
-                    // }
-                    this.imagesSize[i] = res;
-
-                //  console.log(this.imagesSize);
+                    if(res)
+                    {
+                        if(res.width)
+                            this.ImageMassVenue[i].width = res.width;
+                        if(res.height)
+                            this.ImageMassVenue[i].height = res.height;
+                        if(res.url)
+                            this.ImageMassVenue[i].url = res.url;
+                    }
+                    this.VenueImagesChecked = this.ImageMassVenue;
                 },
                 (err) =>{
-                // console.log(err);
                 }
             );
         }
@@ -274,9 +239,8 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
     }
     searchImagesVenue(event){
         let searchParam = event.target.value;
-        console.log(this.VenueImages.filter(obj => obj.description && obj.description.indexOf(searchParam)>=0));
         if(searchParam)
-            this.VenueImagesChecked = this.VenueImages.filter(obj => obj.description && obj.description.indexOf(searchParam)>=0);
-        else this.VenueImagesChecked = this.VenueImages;
+            this.VenueImagesChecked = this.ImageMassVenue.filter(obj => obj.description && obj.description.indexOf(searchParam)>=0);
+        else this.VenueImagesChecked = this.ImageMassVenue;
     }
 }

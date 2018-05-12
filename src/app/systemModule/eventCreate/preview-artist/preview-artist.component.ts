@@ -75,7 +75,6 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
   }
 
   ngOnChanges(changes:SimpleChanges){
-    console.log(changes);
     if(changes['ArtistId']){
       this.WaitBeforeLoading(
        ()=>this.main.accService.GetAccountById(this.ArtistId),
@@ -90,7 +89,6 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
             });
           }
           else this.Artist.image_base64_not_given = BaseImages.NoneFolowerImage;
-         console.log(this.Artist);
        }
       )
       
@@ -153,9 +151,7 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
 
     GalaryInit(index)
     {
-      console.log(`event`,event);
         var index = index;
-      console.log(`index`,index);
         var options = {
             index: parseInt(index),
             bgOpacity: 1,

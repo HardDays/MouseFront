@@ -85,7 +85,6 @@ export class FanProfileComponent extends BaseComponent implements OnInit,OnChang
     searchTickets(event)
     {
         let searchParam = event.target.value;
-        console.log(this.ticketsMassChecked);
         if(searchParam)
             this.ticketsMassChecked = this.TicketMass.filter(obj => obj.name && obj.name.indexOf(searchParam)>=0);
         else this.ticketsMassChecked = this.TicketMass;

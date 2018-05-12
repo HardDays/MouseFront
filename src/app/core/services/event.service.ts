@@ -37,13 +37,11 @@ export class EventService{
     }
     
     CreateEvent(params:EventCreateModel){
-        //console.log(`create params`,params);
         return this.http.CommonRequest(
             () => this.http.PostData('/events.json',JSON.stringify(params))
         );
     }
     UpdateEvent(id:number,params:EventCreateModel){
-        //console.log(`patch params`,params);
         return this.http.CommonRequest(
             () => this.http.PatchData('/events/'+id+'.json',JSON.stringify(params))
         );
@@ -123,13 +121,11 @@ export class EventService{
     }
 
     VenueSetActive(params){
-        // console.log(`params set`,params);
         return this.http.CommonRequest(
             () => this.http.PostData('/events/'+params.event_id+'/venue/'+params.id+'/set_active.json',JSON.stringify(params))
         );
     }
     VenueRemoveActive(params){
-        // console.log(`params remove`,params);
          return this.http.CommonRequest(
             () => this.http.PostData('/events/'+params.event_id+'/venue/'+params.id+'/remove_active.json',JSON.stringify(params))
         );

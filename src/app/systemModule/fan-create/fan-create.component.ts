@@ -97,7 +97,6 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
     this.CreateAutocomplete();
   }
     DeleteAva(){
-      console.log(this.ImageId);
       if(this.ImageId && this.avatar){
         this.main.imagesService.DeleteImageById(this.ImageId,this.FunId).subscribe(
           (res)=>{

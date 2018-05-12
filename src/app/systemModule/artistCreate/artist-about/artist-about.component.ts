@@ -76,13 +76,11 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
     var _the = this;
     $(document).mouseup(function (e) {
       var container = $("#pick-up-genre-modal");
-      // console.log(`click`,e,container.has(e.target),_the.showMoreGenres);
       if (container.has(e.target).length === 0 && _the.showMoreGenres){
           _the.showMoreGenres = false;
       }
     });
 
-    console.log(`About Artist`,this.Artist);
   }
 
 
@@ -104,7 +102,6 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
   }
 
   GetArtistGenres(){
-    // console.log(`----`,this.genres,this.Artist);
     if(this.Artist&&this.Artist.genres){
       for(let g of this.Artist.genres){
         for(let gnr of this.genres)
@@ -129,7 +126,6 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
         this.Artist.account_type = AccountType.Artist;
         this.Artist.genres = this.main.genreService.GenreModelArrToStringArr(this.genres);
 
-        console.log(`Artist from About`,this.Artist);
 
         this.OnSave.emit(this.Artist);
     }

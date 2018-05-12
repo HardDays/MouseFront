@@ -91,7 +91,6 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         (
             () => this.main.eventService.GetEventById(this.EventId),
             (res: any) => {
-                console.log(res);
                 this.InitEvent(res);
             },
             (err:any) => {
@@ -219,7 +218,6 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
                 () => this.main.eventService.BuyTicketPack(item),
                 (res) =>
                 {
-                    console.log(item);
                     let index = this.CheckedTickets.findIndex(obj => obj.ticket_id == item.ticket_id && obj.count == item.count);
                     this.CheckedTickets.splice(index,1);
                     this.CalculateCurrentPrice();
@@ -297,7 +295,6 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     InitSlider(bool:boolean)
     {
         if(!$('.iframe-slider-wrapp').not('.slick-initialized').length){
-            console.log('убили слайдер');
             $('.iframe-slider-wrapp').slick('unslick');
         }
 
@@ -318,11 +315,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
 
     InitSliderWrapp() 
     {
-        console.log($('.iframe-slider-wrapp').not('.slick-initialized').length);
-        //если не
-        
         if($('.iframe-slider-wrapp').not('.slick-initialized').length){
-            console.log('проинитили слайдер');
             $('.iframe-slider-wrapp').slick({
                 dots: false,
                 arrows: true,

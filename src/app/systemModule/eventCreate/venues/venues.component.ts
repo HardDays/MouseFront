@@ -515,7 +515,6 @@ declineVenue(card:AccountGetModel){
     }
 
     updateEvent(){
-        console.log(`UPDATE EVENT`);
         this.main.eventService.GetEventById(this.Event.id).
         subscribe((res:EventGetModel)=>{
            // console.log(`updateEventThis`);
@@ -524,7 +523,6 @@ declineVenue(card:AccountGetModel){
             this.Event = this.main.eventService.EventModelToCreateEventModel(res);
            
             this.venuesList = this.Event.venues;
-            console.log(`---`,this.Event,this.venueShowsList);
             this.GetVenueFromList();
            }, 250);
             
