@@ -5,3 +5,6 @@
 .login-register .login .m-w-log .login-form .outher-butt .socials{
     justify-content: center;
 }
+.cursor-disabled{
+    cursor:not-allowed;
+}

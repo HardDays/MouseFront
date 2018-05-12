@@ -18,7 +18,7 @@
                         <p *ngIf="isErrorLogin" style="color:white;">Uncorrect login-password!</p>
                         <p *ngIf="isForgotPassSend" style="color:white;">Send password!</p>
                       
-                        <button type="submit" class="butt-style-1"><span>Sign In</span></button>
+                        <button type="submit" class="butt-style-1"  [ngClass]="{'cursor-disabled':!userLogin.user || !userLogin.password}" [disabled]="!userLogin.user || !userLogin.password"><span>Sign In</span></button>
                     </form>
                     <form *ngIf="curPage==2">
                         <input autocomplete="off" type="text" name="emailPhone" [ngModel]="forgotUsername" (ngModelChange)="forgotUsername = $event" required  class="inp-style-1" placeholder="Username">
