@@ -96,8 +96,14 @@ export class TicketsComponent extends BaseComponent implements OnInit,AfterViewC
         this.initUser();
         this.GetTicketTypes();
         this.setHeightSearch();
+        this.InitBsConfig();
         this.GetGenres();
         this.openSearch();
+    }
+
+    InitBsConfig()
+    {
+        this.bsConfig = Object.assign({}, { containerClass: 'theme-default transformedDatapicker',showWeekNumbers:false  });
     }
 
     ngAfterViewChecked()
