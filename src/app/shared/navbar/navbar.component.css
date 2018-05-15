@@ -89,6 +89,9 @@ header .main-mw .right-side{
         display: block;
         text-align: left;
         text-transform: inherit;
+        white-space: nowrap; 
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
     

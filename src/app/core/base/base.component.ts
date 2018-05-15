@@ -394,9 +394,6 @@ export class BaseComponent{
       const keyDict = this.getKeysDict(entityType);
       Object.keys(err.json()).forEach((key) => {
           let error = err.json()[key][0];
-          console.log(key);
-          console.log(err.json());
-          console.log(error);
           errors.push(keyDict[key] + ' ' + (error?error.replace('_', ' '):'').toLowerCase());
       });
 
