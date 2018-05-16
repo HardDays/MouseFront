@@ -19,12 +19,12 @@ declare var $:any;
 })
 export class ArtistMediaComponent extends BaseComponent implements OnInit {
 
-  @Output() OnSave = new EventEmitter<AccountCreateModel>();
-  @Output() OnError = new EventEmitter<string>();
-  @Output() next = new EventEmitter();
+  @Output() onSave = new EventEmitter<AccountCreateModel>();
+  @Output() onError = new EventEmitter<string>();
+  @Output() openNextPage = new EventEmitter();
 
   @Input() Artist:AccountCreateModel;
-  @Input() idArtist:number;
+  @Input() ArtistId:number;
 
   addSongForm: FormGroup = new FormGroup({
     "song_name": new FormControl("", [Validators.required]),
@@ -61,25 +61,30 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(){
+    this.getAllMedia();
   }
 
   ngOnChanges(changes:SimpleChanges){
     if(!changes['Artist'].isFirstChange()){
-      this.InitMusicPlayer();
-      this.updateVideosPreview();
-      this.GetArtistImages();
+      this.getAllMedia();
     }
+  }
+
+  getAllMedia(){
+    this.InitMusicPlayer();
+    this.updateVideosPreview();
+    this.GetArtistImages();
   }
 
   Init(artist:AccountCreateModel,id:number){
     this.Artist = artist;
-    this.idArtist = id;
+    this.ArtistId = id;
   }
 
   InitMusicPlayer(){
     setTimeout(() => {
       var as = audiojs.createAll();
-     }, 500);
+     }, 100);
   }
 
   addAudio(){
@@ -207,7 +212,7 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
   AddArtistPhoto(){
 
   this.WaitBeforeLoading(
-    ()=> this.main.imagesService.PostAccountImage(this.idArtist,{image_base64:this.ImageToLoad,image_description: this.imageInfo}),
+    ()=> this.main.imagesService.PostAccountImage(this.ArtistId,{image_base64:this.ImageToLoad,image_description: this.imageInfo}),
       (res:any)=>{
         this.ImageToLoad = '';
         this.imageInfo = '';
@@ -216,16 +221,13 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
     );
   }
 
-  nextPage(){
-    this.next.emit();
-  }
-
+ 
 
 GetArtistImages()
 {
   this.ArtistImages = [];
 
-  this.main.imagesService.GetAccountImages(this.idArtist,{limit:5})
+  this.main.imagesService.GetAccountImages(this.ArtistId,{limit:5})
     .subscribe(
       (res:any)=>{
         if(res && res.total_count > 0)
@@ -263,7 +265,7 @@ SanitizeImage(image: string)
 
 deleteImage(id:number){
   this.WaitBeforeLoading(
-    ()=> this.main.imagesService.DeleteImageById(id,this.idArtist),
+    ()=> this.main.imagesService.DeleteImageById(id,this.ArtistId),
     (res)=>{
       this.ArtistImages = [];
       this.GetArtistImages();
@@ -280,16 +282,18 @@ deleteImage(id:number){
   }
 
   saveArtist(){
-    this.OnSave.emit(this.Artist);
+    this.onSave.emit(this.Artist);
   }
 
   showError(str:string){
-    this.OnError.emit(str);
+    this.onError.emit(str);
     return;
   }
-  artistFromAbout(){
-    this.OnSave.emit(this.Artist);
+
+  nextPage(){
+    this.openNextPage.emit();
   }
+
 
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, NgZone, ChangeDetectorRef, ElementRef, EventEmitter, ViewChild, Output } from '@angular/core';
+import { Component, OnInit, Input, NgZone, ChangeDetectorRef, ElementRef, EventEmitter, ViewChild, Output, SimpleChanges } from '@angular/core';
 import { AccountCreateModel } from '../../../core/models/accountCreate.model';
 import { BaseComponent } from '../../../core/base/base.component';
 import { MainService } from '../../../core/services/main.service';
@@ -6,6 +6,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MapsAPILoader, AgmMap } from '@agm/core';
 import { CheckModel } from '../../../core/models/check.model';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 declare var $:any;
 
@@ -16,16 +17,17 @@ declare var $:any;
 })
 export class ArtistBookingComponent extends BaseComponent implements OnInit {
 
-  // mapCoords = {lat:55.755826, lng:37.6172999};
+  @Input() Artist:AccountCreateModel;
+  @Input() ArtistId:number;
+
+  @Output() onSave = new EventEmitter<AccountCreateModel>();
+  @Output() onError = new EventEmitter<string>();
 
   @ViewChild('search') public searchElement: ElementRef;
 
-  @Output() OnSave = new EventEmitter<AccountCreateModel>();
-  @Output() OnError = new EventEmitter<string>();
 
-
-  @Input() Artist:AccountCreateModel;
   @ViewChild('agmMap') agmMap : AgmMap;
+
   preferredVenues:CheckModel<{type:string, type_show:string}>[] = [];
   mapCoords = {lat:55.755826, lng:37.6172999};
   spaceArtistList = [];
@@ -44,11 +46,25 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     this.CreateAutocomplete();
-    this.preferredVenues = this.getVenuesTypes();
+   
   }
 
-  Init(artist:AccountCreateModel){
-    this.Artist = artist;
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes.Artist)
+        this.Artist = changes.Artist.currentValue;
+    if(changes.ArtistId)
+        this.ArtistId = changes.ArtistId.currentValue;
+    this.Init();
+  }
+
+  Init(){
+    this.preferredVenues = this.getVenuesTypes();
+    for(let v of this.preferredVenues){
+      for(let venue of this.Artist.preferred_venues){
+        if(v.object.type === venue['type_of_venue'])
+          v.checked = true;
+      }
+    }
   }
 
   setPreferedVenue(index:number){
@@ -62,20 +78,16 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
   }
 
   addBooking(){
-
+  
   this.Artist.preferred_venues = [];
-  for(let type of this.preferredVenues)
-    if(type.checked)
-      this.Artist.preferred_venues.push(type.object.type);
 
-  this.Artist.preferred_venues = [];
-  for(let v of this.preferredVenues)
-    if(v.checked)
-      this.Artist.preferred_venues.push(v.object.type);
+    for(let v of this.preferredVenues){
+      if(v.checked)
+        this.Artist.preferred_venues.push(v.object.type);
+    }
 
-
-  this.saveArtist();
-}
+    this.saveArtist();
+  }
 
   getVenuesTypes(){
     return this.convertArrToCheckModel(
@@ -183,7 +195,7 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
   }
 
   saveArtist(){
-    this.OnSave.emit(this.Artist);
+    this.onSave.emit(this.Artist);
     return;
   }
 

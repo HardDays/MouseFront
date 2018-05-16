@@ -1,9 +1,10 @@
+<app-preloader *ngIf="isLoading"></app-preloader>
 <section class="second-router-outlet">
     <div  class="create-event-nav-tabs">
         <div class="for-header-shadow">
             <div class="main-mw">
                 <div class="create-event-header">
-                    <h1>{{ArtistId == 0?'Add':'Edit'}} Artist</h1>
+                    <h1>{{ArtistId?'Edit':'Create'}} Artist</h1>
                     <ul>
 
 
@@ -29,7 +30,7 @@
 
 
                         <li *ngIf="ArtistId !== 0">
-                            <button (click)="saveButtonClick()" class="butt-style-1" style="width: 127px">
+                            <button (click)="SaveButton()" class="butt-style-1" style="width: 127px">
                                 <span style="padding: 10px 21px">
                                 SAVE
                                 </span>
@@ -40,9 +41,18 @@
             </div>
         </div>
 
-        <app-preloader *ngIf="isLoading"></app-preloader>
+       
         
-        <app-artist-about #AboutPage [Artist]="Artist" (OnSave)="SaveArtist($event)" (OnError)="OpenError($event)" [ngStyle]="{'display': !isLoading&&(currentPage==pages.about)?'block':'none'}"></app-artist-about>
+        <app-artist-about #AboutPage *ngIf="currentPage == pages.about" 
+            [Artist]="Artist"
+            [ArtistImageId]="ArtistImageId" 
+            [ArtistId]="ArtistId" 
+            (onError)="OpenErrorWindow($event)" 
+            (onSaveArtist)="SaveArtistByPages($event)" 
+            (onImageDeleted)="DeleteImage($event)" 
+            (onArtistChanged)="ArtistChanged($event)"
+        >
+        </app-artist-about>
 
         <!-- 
             <div [ngStyle]="{'display': (currentPage==pages.calendar)?'block':'none'}" class="create-event-body-1">
@@ -77,15 +87,37 @@
 
         <div class="create-event-body-1">
 
-            <app-artist-media #MediatPage [Artist]="Artist" [idArtist]="ArtistId" (next)="this.currentPage = this.pages.booking" (OnSave)="SaveArtist($event)" (OnError)="OpenError($event)" [ngStyle]="{'display': !isLoading&&(currentPage==pages.media)?'block':'none'}"></app-artist-media>
+            <app-artist-media #MediatPage *ngIf="currentPage == pages.media" 
+                [Artist]="Artist" 
+                [ArtistId]="ArtistId" 
+                (openNextPage)="NextPart()" 
+                (onSave)="SaveArtistByPages($event, false)" 
+                (onError)="OpenErrorWindow($event)"
+            >
+            </app-artist-media>
 
-            <app-artist-booking #BookingPage [Artist]="Artist" (OnSave)="SaveArtist($event)" (OnError)="OpenError($event)" [ngStyle]="{'display': !isLoading&&(currentPage==pages.booking)?'block':'none'}"></app-artist-booking>
 
-            <app-artist-riders #RidersPage [Artist]="Artist" (OnSave)="SaveArtist($event)" [ngStyle]="{'display': !isLoading&&(currentPage==pages.riders)?'block':'none'}"></app-artist-riders>
+            <app-artist-booking #BookingPage *ngIf="currentPage == pages.booking"
+                [Artist]="Artist"
+                [ArtistId]="ArtistId"  
+                (onSave)="SaveArtistByPages($event)" 
+                (onError)="OpenErrorWindow($event)"
+            >
+            </app-artist-booking>
 
+            <app-artist-riders #RidersPage *ngIf="currentPage == pages.riders"
+                [Artist]="Artist" 
+                (OnSave)="SaveArtistByPages($event)" 
+            >
+            </app-artist-riders>
 
         </div>
-        <artist-profile-selector *ngIf="currentPage==pages.preview" [Account]="Artist" [Fans]="[]" [IsPreview]="true">
+
+        <artist-profile-selector *ngIf="currentPage==pages.preview" 
+            [Account]="Artist" 
+            [Fans]="[]" 
+            [IsPreview]="true"
+        >
         </artist-profile-selector>
 
     </div>
