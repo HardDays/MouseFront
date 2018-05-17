@@ -18,6 +18,8 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
   @Output() OnSave = new EventEmitter<AccountCreateModel>();
   @Output() OnError = new EventEmitter<string>();
 
+  @Output() openNextPage = new EventEmitter();
+
   riders:Rider[] = [];
   stageRider:Rider= new Rider();
   backstageRider:Rider= new Rider();
@@ -194,6 +196,10 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
       console.log(err);
     })
    
+  }
+
+  nextPage(){
+    this.openNextPage.emit();
   }
 
 

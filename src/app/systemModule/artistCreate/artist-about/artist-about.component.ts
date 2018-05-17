@@ -136,6 +136,14 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
           this.onError.emit(this.getFormErrorMessage(this.aboutForm, 'artist'));
           return;
       }
+
+      this.Artist.genres = [];
+      for(let g of this.genres){
+        if(g.checked){
+          this.Artist.genres.push(g.genre);
+        }
+      }
+      
       this.onSaveArtist.emit(this.Artist);
   }
 

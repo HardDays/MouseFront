@@ -46,7 +46,7 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
   ArtistImages:{img:string,text:string,id:number}[] = [];
   imageInfo:string = '';
   ImageToLoad:string = '';
-  isImageLoad:boolean = false;
+  isImageLoading:boolean = false;
 
 
   constructor(
@@ -212,17 +212,19 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
 
   AddArtistPhoto(){
 
-  this.isImageLoad = true;
-  this.WaitBeforeLoading(
-    ()=> this.main.imagesService.PostAccountImage(this.ArtistId,{image_base64:this.ImageToLoad,image_description: this.imageInfo}),
-      (res:any)=>{
-        this.ImageToLoad = '';
-        this.imageInfo = '';
-        this.GetArtistImages();
-      },
-      (err)=>{
-        this.isImageLoad = false;
-      }
+  this.isImageLoading = true;
+ // this.WaitBeforeLoading(
+    //()=> 
+    this.main.imagesService.PostAccountImage(this.ArtistId,{image_base64:this.ImageToLoad,image_description: this.imageInfo})
+      .subscribe(
+        (res:any)=>{
+          this.ImageToLoad = '';
+          this.imageInfo = '';
+          this.GetArtistImages();
+        },
+        (err)=>{
+          this.isImageLoading = false;
+        }
     );
   }
 
@@ -246,7 +248,7 @@ GetArtistImages()
             index = index + 1;
           }
         }
-        this.isImageLoad = false;
+        this.isImageLoading = false;
       }
     );
 }
@@ -270,15 +272,17 @@ SanitizeImage(image: string)
 
 
 deleteImage(id:number){
-  this.WaitBeforeLoading(
-    ()=> this.main.imagesService.DeleteImageById(id,this.ArtistId),
-    (res)=>{
-      this.ArtistImages = [];
-      this.GetArtistImages();
-    },(err)=>{
-      this.showError(this.getResponseErrorMessage(err, 'artist'));
-    }
-  )
+  // this.WaitBeforeLoading(
+    // ()=> 
+    this.main.imagesService.DeleteImageById(id,this.ArtistId)
+      .subscribe(
+        (res)=>{
+          this.ArtistImages = [];
+          this.GetArtistImages();
+        },(err)=>{
+          this.showError(this.getResponseErrorMessage(err, 'artist'));
+        }
+      )
 }
 
   clearNewElements(){

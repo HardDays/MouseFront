@@ -230,7 +230,7 @@
                         <label for="inp-desc-1" class="head-groupe">Description</label>
                     </div>
                     
-                    <div class="butt-wrapp-grad">
+                    <div *ngIf="!isImageLoading" class="butt-wrapp-grad">
                         <button class="butt-style-1 thot-butt" type="submit">
                             <span (click)="AddArtistPhoto()">Add to Photos</span>
                         </button>   

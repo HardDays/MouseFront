@@ -79,6 +79,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
       this.userLogin,
       (err)=>
       {
+        console.log('qwe');
         if(err.status==401) 
         {
           this.isErrorLogin = true;

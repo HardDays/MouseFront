@@ -151,6 +151,7 @@ export class BaseComponent{
         this.WaitBeforeLoading(
             () => this.main.authService.UserLogin(user),
             (res:TokenModel) => {
+                
                 this.main.authService.BaseInitAfterLogin(res);
                 this.router.navigate(['/system','shows']);
                 this.main.authService.onAuthChange$.next(true);
@@ -160,8 +161,10 @@ export class BaseComponent{
                 }
             },
             (err) => {
+                console.log(err);
                 callback(err);
-                this.main.authService.onAuthChange$.next(false);
+                console.log('asdfasdf');
+                //this.main.authService.onAuthChange$.next(false);
             }
         );
     }
