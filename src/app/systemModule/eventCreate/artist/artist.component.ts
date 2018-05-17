@@ -99,6 +99,10 @@ export class ArtistComponent extends BaseComponent implements OnInit {
       });
 
       this.getGenres();
+
+      this.artistsList = this.Event.artist;
+      //console.log(this.artistsList);
+      this.GetArtistsFromList();
     }
 
     getGenres(){
@@ -122,9 +126,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
     Init(event?:EventCreateModel)
     {
-      this.artistsList = event.artist;
-      //console.log(this.artistsList);
-      this.GetArtistsFromList();
+     
     }
 
 

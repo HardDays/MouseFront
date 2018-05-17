@@ -76,12 +76,9 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         this.CreateAutocompleteVenue();
         this.initSlider()
         this.getAllSpaceTypes();
-    }
-    Init(event?:EventCreateModel)
-    {
-      this.venuesList = event.venues;
-    //  console.log(this.venuesList);
-      this.GetVenueFromList();
+        this.venuesList = this.Event.venues;
+        //  console.log(this.venuesList);
+        this.GetVenueFromList();
     }
     
     initSlider(){

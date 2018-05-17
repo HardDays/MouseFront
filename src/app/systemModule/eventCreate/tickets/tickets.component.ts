@@ -36,11 +36,11 @@ export class AddTicketsComponent extends BaseComponent implements OnInit {
   
   ngOnInit() {
     // this.CreateAutocompleteArtist();
+    this.getTickets();
     
   }
   Init(event:EventCreateModel){
-    this.Event = event;
-    this.getTickets();
+    
   }
 
   deleteDuplicateTickets(t:TicketModel[]){

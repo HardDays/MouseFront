@@ -1,5 +1,5 @@
 <app-preloader *ngIf="isLoading"></app-preloader>
-<section  [ngStyle]="{'display': (currentPage!=pages.previewArtist)?'block':'none'}" class="second-router-outlet"  [ngStyle]="{'display': isLoading?'none':'block'}">
+<section  [ngStyle]="{'display': (currentPage!=pages.previewArtist)&&!isLoading?'block':'none'}" class="second-router-outlet">
     <div class="create-event-nav-tabs">
         <div class="for-header-shadow">
             <div [ngStyle]="{'display': !isLoading?'block':'none'}" class="main-mw">
@@ -29,7 +29,7 @@
                         
 
                         <li *ngIf="(EventId !== 0 && !isNewEvent) || (isNewEvent && currentPage == pages.tickets)">
-                            <button (click)="saveButtonClick()" class="butt-style-1" style="width: 127px">
+                            <button (click)="SaveEvent()" class="butt-style-1" style="width: 127px">
                                 <span style="padding: 10px 21px">
                                 SAVE
                                 </span>
@@ -54,23 +54,23 @@
             </div>
         </div>
         
-        <app-about #about [ngStyle]="{'display': !isLoading&&(currentPage==pages.about)?'block':'none'}"
+        <app-about #about *ngIf="!isLoading&&(currentPage==pages.about)"
             [Event]="Event"
-            (onSaveEvent)="SaveEvent($event)"
+            (onSaveEvent)="SaveEventByPages($event)"
             (onError)="OpenErrorWindow($event)"
         ></app-about>
         
         
               
-         <app-artist #artist [ngStyle]="{'display': !isLoading&&(currentPage==pages.artist)?'block':'none'}"
+         <app-artist #artist *ngIf="!isLoading&&(currentPage==pages.artist)"
             [Event]="Event"
-            (onSaveEvent)="SaveEvent($event)"
+            (onSaveEvent)="SaveEventByPages($event)"
             (openPreview)="openPreviewArtist($event)"
         ></app-artist>
        
-        <app-venues #venue [ngStyle]="{'display': !isLoading&&(currentPage==pages.venue)?'block':'none'}"
+        <app-venues #venue *ngIf="!isLoading&&(currentPage==pages.venue)"
             [Event]="Event"
-            (onSaveEvent)="SaveEvent($event)"
+            (onSaveEvent)="SaveEventByPages($event)"
             (onError)="OpenErrorWindow($event)"
         ></app-venues> 
        
@@ -78,15 +78,15 @@
         <div class="create-event-body-1">
 
             
-            <app-funding #funding [ngStyle]="{'display': !isLoading&&(currentPage==pages.funding)?'block':'none'}"
+            <app-funding #funding *ngIf="!isLoading&&(currentPage==pages.funding)"
                 [Event]="Event"
-                (onSaveEvent)="NextPart()"
+                (onSaveEvent)="SaveEventByPages()"
                 (onError)="OpenErrorWindow($event)"
             ></app-funding>
             
-            <app-add-tickets #tickets [ngStyle]="{'display': !isLoading&&(currentPage==pages.tickets)?'block':'none'}"
+            <app-add-tickets #tickets *ngIf="!isLoading&&(currentPage==pages.tickets)"
                 [Event]="Event"
-                (onSaveEvent)="SaveEvent($event)"
+                (onSaveEvent)="SaveEventByPages($event)"
                 (onError)="OpenErrorWindow($event)"
             ></app-add-tickets> 
            

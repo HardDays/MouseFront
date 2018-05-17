@@ -42,13 +42,9 @@ export class FundingComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     // this.CreateAutocompleteArtist();
-    
-  }
-
-  Init(event:EventCreateModel){
-      this.Event = event;
     this.getActiveArtVen();
   }
+
 
 
   getFamilyAndFriendAmount(){

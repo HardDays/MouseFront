@@ -138,51 +138,91 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     if($event&&$event.id)
     {
       this.EventId = $event.id;
-
       this.router.navigateByUrl("/system/eventCreate/"+this.EventId);
     }
-
-    if(this.about)
-      this.about.Init(this.Event);
-    if(this.artist)
-      this.artist.Init(this.Event);
-    if(this.venue)
-      this.venue.Init(this.Event);
-    if(this.funding)
-      this.funding.Init(this.Event);
-      if(this.tickets)
-        this.tickets.Init(this.Event);
-
   }
 
 
-  SaveEvent(venue:EventCreateModel)
+  // SaveEvent(venue:EventCreateModel)
+  // {
+  //   this.Event.account_id = this.CurrentAccount.id;
+  //   this.WaitBeforeLoading
+  //   (
+  //     () => this.EventId == 0 ? this.main.eventService.CreateEvent(this.Event) : this.main.eventService.UpdateEvent(this.EventId,this.Event),
+  //     (res) => {
+  //         this.DisplayEventParams(res);
+  //         this.NextPart();
+  //         this.isShowLaunchBtn();
+  //     },
+  //     (err) => {
+  //       this.OpenErrorWindow(BaseMessages.Fail);
+  //       console.log(`SAVE ERORR`,err);
+  //     }
+  //   )
+  // }
+
+  // saveButtonClick(){
+  //   switch(this.currentPage){
+  //     case this.pages.about:{
+  //       if(this.about)
+  //       {
+  //         if(this.about.aboutForm.invalid)
+  //         {
+  //           this.OpenErrorWindow(this.getFormErrorMessage(this.about.aboutForm, 'venue'));
+  //           return;
+  //         }
+  //       }
+  //     }
+  //   }
+  //   this.SaveEvent();
+  // }
+
+  SaveEventByPages(event:EventCreateModel)
   {
     this.Event.account_id = this.CurrentAccount.id;
     this.WaitBeforeLoading
     (
       () => this.EventId == 0 ? this.main.eventService.CreateEvent(this.Event) : this.main.eventService.UpdateEvent(this.EventId,this.Event),
       (res) => {
-          this.DisplayEventParams(res);
-          this.NextPart();
-          this.isShowLaunchBtn();
+        this.DisplayEventParams(res);
+
+        this.errorCmp.OpenWindow(BaseMessages.Success);
+
+        setTimeout(
+          () => this.NextPart(),
+          2000
+        );
+        
       },
       (err) => {
-        this.OpenErrorWindow(BaseMessages.Fail);
-        console.log(`SAVE ERORR`,err);
+        console.log(`err`,err);
+        this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'event'));
       }
     )
   }
 
-  saveButtonClick(){
+  SaveEvent()
+  {
+    this.Event.account_id = this.CurrentAccount.id;
+    this.WaitBeforeLoading
+    (
+      () => this.EventId == 0 ? this.main.eventService.CreateEvent(this.Event) : this.main.eventService.UpdateEvent(this.EventId,this.Event),
+      (res) => {
 
-    this.isSaveBtnClick = true;
-
-    if(this.about)
-      this.about.SaveEvent();
-    if(this.funding)
-      this.funding.comleteFunding();
-
+        this.errorCmp.OpenWindow(BaseMessages.Success);
+        
+        setTimeout(
+          () => {
+            this.errorCmp.CloseWindow();
+            this.router.navigate(["/system","events"]);
+          },
+          2000
+        );
+      },
+      (err) => {
+        this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'event'));
+      }
+    )
   }
 
   NextPart()
@@ -209,6 +249,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     this.currentPage = newPart;
   }
 
+  
   isShowLaunchBtn(){
     let countA = 0, countV = 0;
 
@@ -224,17 +265,14 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
     if(!this.Event.is_active && countA>0 && countV>0 ) return true;
       else return false;
-      //!this.Event.is_active && ((this.EventId !== 0 && !this.isNewEvent) || (this.isNewEvent && this.currentPage == this.pages.tickets)) &&
 
   }
+
   activeButtonClick(){
     
     this.main.eventService.SetActive(this.EventId,this.main.CurrentAccount.id).
       subscribe((res)=>{
         this.Event.is_active = true;
-        //this.SaveEvent(res);
-        // this.main.eventService.GetEventById()
-        // this.Event = res;
       },
       (err)=>{
         console.log(`err`,err);
@@ -247,14 +285,24 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     this.main.eventService.SetDeActive(this.EventId,this.main.CurrentAccount.id).
       subscribe((res)=>{
         this.Event.is_active = false;
-        // this.Event.is_active = false;
-        // this.SaveEvent(res);
       },
       (err)=>{
         console.log(`err`,err);
         this.OpenErrorWindow(BaseMessages.Fail);
       }
     )  
+  }
+
+  
+  EventChanged($event)
+  {
+    for(let key of $event)
+    {
+      if(this.Event[key] != $event[key])
+      {
+        this.Event[key] = $event[key];
+      }
+    }
   }
 
   OpenErrorWindow(str:string)

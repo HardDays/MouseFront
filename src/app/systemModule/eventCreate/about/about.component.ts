@@ -68,7 +68,21 @@ export class AboutComponent extends BaseComponent implements OnInit {
         }
     });
 
+    this.getGenres();
+
+    if(this.Event.image_id)
+    this.main.imagesService.GetImageById(this.Event.image_id)
+      .subscribe(
+          (img)=>{
+                this.Event.image_base64 = img.base64;
+        }
+    )
+
+    this.mapCoords.lat = (this.Event && this.Event.city_lat)?this.Event.city_lat:55.755826;
+    this.mapCoords.lng = (this.Event && this.Event.city_lng)?this.Event.city_lng:37.6172999;
+
   }
+
   CreateAutocompleteAbout(){
     this.mapsAPILoader.load().then(
         () => {
@@ -97,23 +111,7 @@ export class AboutComponent extends BaseComponent implements OnInit {
         }
     );
   }
-  Init(event:EventCreateModel){
 
-    this.getGenres();
-    if(event.image_id)
-    this.main.imagesService.GetImageById(event.image_id)
-      .subscribe(
-          (img)=>{
-              event.image_base64 = img.base64;
-            }
-        )
-
-    this.mapCoords.lat = (this.Event && this.Event.city_lat)?this.Event.city_lat:55.755826;
-    this.mapCoords.lng = (this.Event && this.Event.city_lng)?this.Event.city_lng:37.6172999;
-  }
-  SaveVenue(){
-
-  }
   getGenres(){
     this.genres = [];
     this.main.genreService.GetAllGenres()
@@ -157,22 +155,6 @@ export class AboutComponent extends BaseComponent implements OnInit {
     $('#modal-map-1').modal('show');
   }
 
-  SaveEvent()
-  {
-      if(this.aboutForm.invalid)
-      {
-          this.onError.emit(this.getFormErrorMessage(this.aboutForm, 'event'));
-          return;
-      }
-      this.Event.genres = [];
-      for(let g of this.genres){
-        if(g.checked)
-          this.Event.genres.push(g.genre);
-      }
-      this.onSaveEvent.emit(this.Event);
-  }
-
-
 
    dragMarker($event)
     {
@@ -211,6 +193,22 @@ export class AboutComponent extends BaseComponent implements OnInit {
             }
         );
 
+    }
+
+    SaveEvent()
+    {
+        if(this.aboutForm.invalid)
+        {
+            this.onError.emit(this.getFormErrorMessage(this.aboutForm, 'event'));
+            return;
+        }
+        
+        this.Event.genres = [];
+        for(let g of this.genres){
+          if(g.checked)
+            this.Event.genres.push(g.genre);
+        }
+        this.onSaveEvent.emit(this.Event);
     }
 
 }
