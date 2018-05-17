@@ -83,9 +83,7 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
                 this.router.navigate(['/system','artistCreate','new']);
           },
           (err) => {
-              //this.Error = err._body;
               this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'base'));
-              // this.main.authService.onAuthChange$.next(false);
           }
         );
       }
