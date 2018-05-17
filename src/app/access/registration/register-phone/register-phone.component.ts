@@ -35,7 +35,7 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
 
   phone:string = '';
   phoneCode:string = '';
-
+  phoneArr:boolean = false;
   codeRequest:string[]=[];
 
   curPos = '+1';
@@ -54,6 +54,7 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
 
   sendCode(){
     if(this.phone.length>0){
+      this.phoneArr = false;
       let phone = this.phoneCode + this.phone;
       this.WaitBeforeLoading(
         ()=>this.main.phoneService.SendCodeToPhone(phone),
@@ -64,6 +65,9 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
             this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
           }
       );
+    }
+    else{
+      this.phoneArr = true;
     }
   }
 
