@@ -46,6 +46,7 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
   ArtistImages:{img:string,text:string,id:number}[] = [];
   imageInfo:string = '';
   ImageToLoad:string = '';
+  isImageLoad:boolean = false;
 
 
   constructor(
@@ -211,12 +212,16 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
 
   AddArtistPhoto(){
 
+  this.isImageLoad = true;
   this.WaitBeforeLoading(
     ()=> this.main.imagesService.PostAccountImage(this.ArtistId,{image_base64:this.ImageToLoad,image_description: this.imageInfo}),
       (res:any)=>{
         this.ImageToLoad = '';
         this.imageInfo = '';
         this.GetArtistImages();
+      },
+      (err)=>{
+        this.isImageLoad = false;
       }
     );
   }
@@ -241,6 +246,7 @@ GetArtistImages()
             index = index + 1;
           }
         }
+        this.isImageLoad = false;
       }
     );
 }
