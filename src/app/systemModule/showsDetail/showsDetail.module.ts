@@ -28,7 +28,6 @@ import { ErrorModule } from '../../shared/error/error.module';
         })
     ],
     declarations: [ 
-        //компоненты
         ShowsDetailComponent,
         ShowDetailVideoComponent,
         ShowDetailGalleryComponent,

@@ -114,7 +114,6 @@ export class BaseComponent{
 
     public WaitBeforeLoading = (fun:()=>Observable<any>,success:(result?:any)=>void, err?:(obj?:any)=>void)=>
     {
-
         this.main.WaitBeforeLoading(
             () => fun(),
             res => success(res),

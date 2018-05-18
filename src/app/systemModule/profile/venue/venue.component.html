@@ -77,8 +77,8 @@
                                 </div>
                                 <div class="side side-info side-map">
                                     <h6>Location</h6>
-                                    <p class="about-text" *ngIf='Account.address'>{{Account.address}}</p>
-                                    <div class="map" id="map" *ngIf="Account.lat && Account.lng">
+                                    <p class="about-text" *ngIf="Account.address">{{Account.address}}</p>
+                                    <div class="map" [ngStyle]="{'display':(Account.lat && Account.lng)?'block':'none'}">
                                         <agm-map style="height:100%" [latitude]="Account.lat" [longitude]="Account.lng">
                                             <agm-marker [latitude]="Account.lat" [longitude]="Account.lng"></agm-marker>
                                         </agm-map>
@@ -97,9 +97,7 @@
                                     </div>
                                     <div class="new-scroll-wr">
                                         <div class="blocks gallery-main-wrapp">
-                                            
                                             <ng-container *ngFor="let item of VenueImagesChecked;let in = index">
-                                                
                                                 <ng-container class="one-block" *ngIf="item">   
                                                             
                                                     <div class="one-block for-gallery-item" (click)='Gallery($event)' [attr.data-eteration]="in" [attr.data-size]="item?(item.width+'x'+item.height):'500x500'" [attr.data-hreff]="item.base64" [ngStyle]="{'background-image': 'url(' + item.base64 + ')'}"></div>

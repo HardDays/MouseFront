@@ -32,8 +32,6 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
     @Input() VenueId: number;
     @Output() onFollow:EventEmitter<boolean> = new EventEmitter<boolean>();
 
-
-
     UpcomingShows:any [] = [];
     UpcomingShowsChecked:any [] = [];
 
@@ -45,9 +43,11 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
     ImageMassVenue:any = [];
     imagesSize:any[] = [];
 
+    Lat:number = 0;
+    Lng:number = 0;
+
     OffHours: any[] = [];
     OpHours: any[] = [];
-    
 
     ngOnChanges(changes: SimpleChanges): void {
         if(changes.Account)
@@ -57,6 +57,8 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
         
         if(changes.Fans)
             this.FansChecked = this.Fans = changes.Fans.currentValue;
+
+        
 
         if(this.IsPreview){
             this.Init(changes.Venue.currentValue,changes.VenueId.currentValue);
@@ -96,12 +98,12 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
                 this.OffHours = this.main.accService.ParseWorkingTimeModelArr(this.Account.office_hours);
         
             if(this.Account.operating_hours)
-                this.OpHours = this.main.accService.ParseWorkingTimeModelArr(this.Account.operating_hours);;
+                this.OpHours = this.main.accService.ParseWorkingTimeModelArr(this.Account.operating_hours);
         }
-        // this.Account.office_hours = (this.Account && this.Account.office_hours)?
-        //     this.main.accService.ParseWorkingTimeModelArr(this.Account.office_hours):[];
-        // this.Account.operating_hours = (this.Account && this.Account.operating_hours)?
-        //     this.main.accService.ParseWorkingTimeModelArr(this.Account.operating_hours):[];
+
+        this.Lat = this.Account.lat?this.Account.lat:0;
+        this.Lng = this.Account.lng?this.Account.lng:0;
+        console.log(this.Lat,this.Lng);
         
         this.GetUpcomingShows();
         this.GetVenueImages();
