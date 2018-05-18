@@ -47,7 +47,21 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     this.InitMusicPlayer();
 
-     
+    this.WaitBeforeLoading(
+      ()=>this.main.accService.GetAccountById(this.ArtistId),
+      (res:AccountGetModel)=>{
+        this.Artist = res;
+        this.GetArtistImages();
+       // if(changes['ArtistId'].isFirstChange()) this.InitMusicPlayer();
+        if(res.image_id){
+         this.main.imagesService.GetImageById(res.image_id)
+           .subscribe((img)=>{
+             this.Artist.image_base64_not_given = img.base64;
+           });
+         }
+         else this.Artist.image_base64_not_given = BaseImages.NoneFolowerImage;
+      }
+     )
   }
 
   ngAfterViewInit(){
@@ -66,34 +80,16 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
           'padding-left':$('.for-position-left-js').offset().left
       });
   });
+  // this.InitMusicPlayer();
   }
 
   InitMusicPlayer(){
     setTimeout(() => {
       var as = audiojs.createAll();
-     }, 1500);
+     }, 500);
   }
 
-  ngOnChanges(changes:SimpleChanges){
-    if(changes['ArtistId']){
-      this.WaitBeforeLoading(
-       ()=>this.main.accService.GetAccountById(this.ArtistId),
-       (res:AccountGetModel)=>{
-         this.Artist = res;
-         this.GetArtistImages();
-        // if(changes['ArtistId'].isFirstChange()) this.InitMusicPlayer();
-         if(res.image_id){
-          this.main.imagesService.GetImageById(res.image_id)
-            .subscribe((img)=>{
-              this.Artist.image_base64_not_given = img.base64;
-            });
-          }
-          else this.Artist.image_base64_not_given = BaseImages.NoneFolowerImage;
-       }
-      )
-      
-    }
-  }
+
 
   backPage(){
     this.OnReturn.emit();

@@ -89,7 +89,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   isSaveBtnClick:boolean = false;
   isNewEvent = false;
 
-  artistPreview:number = 644;
+  artistPreview:number = 0;
+  venuePreview:number = 0;
 
   constructor(
       protected main           : MainService,
@@ -278,6 +279,10 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   openPreviewArtist(id:number){
     this.currentPage = this.pages.previewArtist;
     this.artistPreview = id;
+  }
+  openPreviewVenue(id:number){
+    this.currentPage = this.pages.previewVenue;
+    this.venuePreview = id;
   }
 
 }

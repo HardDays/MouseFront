@@ -1,3 +1,222 @@
-<p>
-  preview-venue works!
-</p>
+<section class="second-router-outlet">
+  <div class="create-event-nav-tabs">
+      <div class="for-header-shadow">
+          <div class="main-mw">
+              <div class="create-event-header">
+                  <!--добавляем класс для отображения стрелки-->
+                  <h1 class="arrow-class">
+                      <!--для клика на возврат к addevent-->
+                      <div (click)="backPage()" class="arr">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="34" height="29" viewBox="0 0 34 29">
+                            <path fill="#000000" id="Forma_1_copy_3" data-name="Forma 1 copy 3" class="cls-1" d="M857,946.183H828.082L839.5,934.862,837.62,933,823,947.5,837.62,962l1.877-1.862-11.415-11.322H857v-2.633Z" transform="translate(-823 -933)"/>
+                          </svg>
+                      </div>
+                      Add Venue
+                  </h1>
+                  <ul>
+                      <!--нужным li даем классы active и started."хз нахрена это надо. узнавайте у писателя"-->
+                      <li class="active">
+                          <a href="#" class="nav-second-outlet">about</a>
+                      </li>
+                      <li class="started">
+                          <a href="#" class="nav-second-outlet">Hours</a>
+                      </li>
+                      <li>
+                          <a href="#" class="nav-second-outlet">Listing</a>
+                      </li>
+                      <li>
+                          <a href="#" class="nav-second-outlet">Media</a>
+                      </li>
+                      <!-- <li>
+                          <a href="#" class="nav-second-outlet">DAtes</a>
+                      </li> -->
+                      <li>
+                          <a href="#" class="nav-second-outlet">Preview</a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+      <div class="for-white-bg">
+       <div class="all-info-profile all-info-profile-preview">
+           <div class="uniq-padd-2">
+              <div class="main-mw">
+                  <div class="flex--info">
+                      <div class="side side-info-new-venue-prev side-info side-about">
+                          <h1>{{Venue.display_name}}</h1>
+                          <p class="hash"><span>@</span>{{Venue.user_name}}</p>
+                          <h6>About</h6>
+                          <p class="about-text line-height-hig">
+                              {{Venue.description}}
+                          </p>
+                      </div>
+                      <div class="side side-info-new-venue-prev side-info side-about">
+                          <div class="one-cover" [ngStyle]="{'background-image': Venue.image_base64_not_given?'url('+Venue.image_base64_not_given+')':''}"></div>
+                      </div>
+                  </div>
+               </div>
+           </div>
+          <div class="uniq-padd-2">
+              <div class="main-mw">
+                  <div class="flex--info">
+                      <div class="side side-info side-about">
+                          <h6>Listing Details</h6>
+                          <p class="about-text line-height-hig">
+                              {{toBeatyType(Venue.type_of_space)}}<br>
+                              <span>{{Venue.capacity}}</span> Person Capacity<br>
+                              <span>{{Venue.num_of_bathrooms}}</span> Bathroom(s)<br>
+                              <span *ngIf="Venue.has_bar">Bar Available<br></span>
+                              Located: <span>{{Venue.located}}</span><br>
+                              Age Policy: <span>{{Venue.min_age}} and Over</span><br>
+                              Dress Code: <span>{{Venue.dress_code}}</span>
+                          </p>
+                      </div>
+                      <div class="side side-info side-contact un-padd-on-1560">
+                          <h6>Contact info</h6>
+                          <div class="flex-contact-venue">
+                              <div class="column-cont">
+                                  <div *ngIf="Venue.phone" class="one-cont">
+                                      <p class="head-cont">PHONE:</p>
+                                      <span>{{Venue.phone}}</span>
+                                  </div>
+                                   <div *ngIf="Venue.fax" class="one-cont">
+                                      <p class="head-cont">FAX:</p>
+                                      <span>{{Venue.fax}}</span>
+                                  </div>
+                                  
+                                  
+                                  <!--ну и другая контактная инфа-->
+                                  
+                                  <div class="hours-time-wr">
+                                      <div class="hours-hover">
+                                          <span class="o-f-h">Office Hours</span>
+                                          <ul class="hours-drop-show">
+                                              <li *ngFor="let date of Venue.office_hours">
+                                                  <span class="left">{{date.day.slice(0,3)}}</span>
+                                                  <span class="right">
+                                                      {{date.begin_time|date:'shortTime'}} - {{date.end_time|date:'shortTime'}}
+                                                  </span>
+                                              </li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="column-cont">
+                                  <div *ngFor="let email of Venue.emails" class="one-cont">
+                                      <p class="head-cont">{{email.name}}:</p>
+                                      <span>{{email.email}}</span>
+                                  </div>
+                                  
+                                  <!--ну и другая контактная инфа-->
+                                  
+                                  
+                                  <div class="hours-time-wr">
+                                      <div class="hours-hover">
+                                          <span class="o-f-h">Operating Hours</span>
+                                          <ul class="hours-drop-show">
+                                              <li *ngFor="let date of Venue.operating_hours">
+                                                  <span class="left">{{date.day.slice(0,3)}}</span>
+                                                  <span class="right">
+                                                      {{date.begin_time|date:'shortTime'}} - {{date.end_time|date:'shortTime'}}
+                                                  </span>
+                                              </li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="side side-info side-map">
+                          <h6>Location</h6>
+                          <p class="about-text">{{Venue.address}}</p>
+                          <div class="map" id="map">
+                              <agm-map style="height: 100%;" [longitude]="Venue.lng" [latitude]="Venue.lat"> 
+                                <agm-marker [longitude]="Venue.lng" [latitude]="Venue.lat"></agm-marker>
+                              </agm-map>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <!-- <div class="main-mw">
+                  <div class="flex--info disable-flex-wrapp-on-md">
+                      <div class="side side-calendars-l side-info side-about">
+                          <p class="head-cont">Available Dates</p>
+                      </div>
+                      <div class="side side-calendars-m side-info side-about">
+                          календарь тут
+                      </div>
+                      <div class="side side-calendars-l side-info side-about"></div>
+                  </div>
+              </div> -->
+              <div class="main-mw">
+                  <div class="flex--info none-padd-sides-b">
+                      <div class="side side-info-new-venue-prev side-info side-about">
+                          <h6>Media</h6>
+                          <p class="vr-availeble">
+                              VR Video Equipment
+                              <span *ngIf="!Venue.has_vr">not</span>
+                              <span>available</span>
+                          </p>
+                      </div>
+                      <div class="side side-info-new-venue-prev side-info side-about"></div>
+                  </div>
+              </div>
+              <div class="main-mw">
+                  <div class="flex--info none-padd-sides-t">
+                      <div class="side side-info side-about">
+                          <h6>Audio Description</h6>
+                          <p class="about-text">
+                             {{Venue.audio_description}}
+                          </p>
+                      </div>
+                      <div class="side side-info side-contact">
+                         <h6>Lightning Description</h6>
+                          <p class="about-text">
+                              {{Venue.lighting_description}}
+                          </p>
+                          
+                      </div>
+                      <div class="side side-info side-map">
+                          <h6>Stage Description</h6>
+                          <p class="about-text">
+                              {{Venue.stage_description}}
+                          </p>
+                      </div>
+                  </div>
+              </div>
+              <div class="main-mw">
+                  <div class="flex--info none-padd-sides-t none-padd-sides-b w-100">
+                      <div class="side side-info side-about">
+                          <h6 class="for-position-left-js">Recommended Photos</h6>
+                      </div>
+                  </div>
+              </div>    
+          </div>
+          
+          <div class="new-photos-wr-scroll-preview">
+              <div class="rel-wr-photoos">
+                  <div class="photos-abs-wrapp">
+                    
+                      <div *ngFor="let item of photos; let in = index" class="one-slide">
+                          <div   class="wrapp-card for-gallery-item">
+                          <div class="cover-image" [ngStyle]="{'background-image': 'url(' + item.base64 + ')'}"></div>
+                          <div class="descr">
+                              <h6>{{toBeatyType(item.type)}}</h6>
+                              <p class="name">{{item.description}}</p>
+                          </div>
+                      </div>
+                      </div>
+                       
+                             
+                  
+                  
+                  </div>
+              </div>
+
+          </div>
+                  
+          
+      </div>
+          </div>
+  </div>
+</section>

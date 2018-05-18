@@ -1,5 +1,5 @@
 <app-preloader *ngIf="isLoading"></app-preloader>
-<section  [ngStyle]="{'display': (currentPage!=pages.previewArtist)&&!isLoading?'block':'none'}" class="second-router-outlet">
+<section  [ngStyle]="{'display': (currentPage!=pages.previewArtist && currentPage!=pages.previewVenue)&&!isLoading?'block':'none'}" class="second-router-outlet">
     <div class="create-event-nav-tabs">
         <div class="for-header-shadow">
             <div [ngStyle]="{'display': !isLoading?'block':'none'}" class="main-mw">
@@ -71,6 +71,7 @@
         <app-venues #venue *ngIf="!isLoading&&(currentPage==pages.venue)"
             [Event]="Event"
             (onSaveEvent)="SaveEventByPages($event)"
+            (openPreview)="openPreviewVenue($event)"
             (onError)="OpenErrorWindow($event)"
         ></app-venues> 
        
@@ -100,9 +101,17 @@
 
 </section>
 <!--  [ngStyle]="{'display': (currentPage==pages.previewArtist)?'block':'none'}" -->
-<app-preview-artist *ngIf="!isLoading&&currentPage==pages.previewArtist"
-    [ArtistId]="artistPreview"
-    (OnReturn)="currentPage=pages.artist"
-></app-preview-artist>
+<section>
+    <app-preview-artist *ngIf="currentPage==pages.previewArtist"
+        [ArtistId]="artistPreview"
+        (OnReturn)="currentPage=pages.artist"
+    ></app-preview-artist>
+
+    <app-preview-venue *ngIf="currentPage==pages.previewVenue"
+        [VenueId]="venuePreview"
+        (OnReturn)="currentPage=pages.venue"
+    ></app-preview-venue>
+
+</section>
 
 <error-cmp #errorCmp></error-cmp>
