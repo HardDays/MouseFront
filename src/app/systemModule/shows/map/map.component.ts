@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, ViewChild, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
 import { BaseComponent } from '../../../core/base/base.component';
 import { EventSearchParams } from '../../../core/models/eventSearchParams';
 import { GenreModel } from '../../../core/models/genres.model';
@@ -6,6 +6,7 @@ import { CheckModel } from '../../../core/models/check.model';
 import { SelectModel } from '../../../core/models/select.model';
 import { NgForm } from '@angular/forms';
 import { BsDatepickerConfig } from 'ngx-bootstrap';
+import { EventSearchModel } from '../../../core/models/eventSearch.model';
 
 declare var $:any;
 declare var ionRangeSlider:any;
@@ -16,6 +17,7 @@ declare var ionRangeSlider:any;
     styleUrls: ['./../shows.component.css']
 })
 export class MapShowsComponent extends BaseComponent implements OnInit {
+    
     lat:number;
     lng:number;
     @Output() onMapClicked:EventEmitter<any> = new EventEmitter<any>();

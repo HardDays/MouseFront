@@ -2,7 +2,7 @@
 <section class="main-router-outlet"  [ngStyle]="{'display': isLoading?'none':'block'}">
     <div class="nav-holder-3" id="nav-holder" [ngClass]="{padding250:Events.length<=3}">
         <div class="wrapp-for-filter">
-            <search-event-selector #search (mapClicked)="OpenMap($event)" (onSearch)="GetEvents($event)"></search-event-selector>
+            <search-event-selector #search [SearchParams]="SearchParams" (mapClicked)="OpenMap($event)" (onSearch)="GetEvents($event)"></search-event-selector>
         </div>
     </div>
 
