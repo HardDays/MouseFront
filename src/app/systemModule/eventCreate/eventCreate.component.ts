@@ -142,41 +142,6 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     }
   }
 
-
-  // SaveEvent(venue:EventCreateModel)
-  // {
-  //   this.Event.account_id = this.CurrentAccount.id;
-  //   this.WaitBeforeLoading
-  //   (
-  //     () => this.EventId == 0 ? this.main.eventService.CreateEvent(this.Event) : this.main.eventService.UpdateEvent(this.EventId,this.Event),
-  //     (res) => {
-  //         this.DisplayEventParams(res);
-  //         this.NextPart();
-  //         this.isShowLaunchBtn();
-  //     },
-  //     (err) => {
-  //       this.OpenErrorWindow(BaseMessages.Fail);
-  //       console.log(`SAVE ERORR`,err);
-  //     }
-  //   )
-  // }
-
-  // saveButtonClick(){
-  //   switch(this.currentPage){
-  //     case this.pages.about:{
-  //       if(this.about)
-  //       {
-  //         if(this.about.aboutForm.invalid)
-  //         {
-  //           this.OpenErrorWindow(this.getFormErrorMessage(this.about.aboutForm, 'venue'));
-  //           return;
-  //         }
-  //       }
-  //     }
-  //   }
-  //   this.SaveEvent();
-  // }
-
   SaveEventByPages(event:EventCreateModel)
   {
     this.Event.account_id = this.CurrentAccount.id;

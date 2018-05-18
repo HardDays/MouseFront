@@ -50,8 +50,10 @@ export class NavbarComponent extends BaseComponent implements OnInit
       return page;
     }
 
-    Navigate(params:string[])
+    Navigate(params?:string[])
     {
+      
+      if(params && params.length)
         this.router.navigate(params);
     }
 
@@ -83,9 +85,12 @@ export class NavbarComponent extends BaseComponent implements OnInit
         this.curNav = 'profile';
         this.router.navigate(['/system/profile',item.id]);
         this.main.CurrentAccountChange.next(item);
-       
       }
 
-
+      CheckModalWindows(page:string)
+      {
+        console.log("new_page",page);
+        console.log("current_page",this.getThisPage());
+      }
 
 }

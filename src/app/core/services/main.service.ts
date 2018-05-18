@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpService } from "./http.service";
-import { Router } from "@angular/router";
+import { Router, NavigationStart, NavigationEnd, NavigationError, ActivatedRoute } from '@angular/router';
 import { Subject } from "rxjs";
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Observable, Subscribable } from 'rxjs/Observable';
@@ -19,6 +19,8 @@ import { EventGetModel } from "../models/eventGet.model";
 import { EventCreateModel } from "../models/eventCreate.model";
 import { Base64ImageModel } from "../models/base64image.model";
 import { BaseImages } from "../base/base.enum";
+
+declare var $:any;
 
 @Injectable()
 export class MainService{
@@ -44,7 +46,8 @@ export class MainService{
         public eventService  : EventService,
         public authService   : AuthMainService,
         public accService    : AccountService,
-        public _auth         : AuthService     
+        public _auth         : AuthService,
+        public activeRouter  : ActivatedRoute     
     ){
 
         this.CurrentAccountChange = new Subject();
@@ -98,6 +101,17 @@ export class MainService{
                 (val:string[]) => {
                 }
             );
+
+        this.router.events.subscribe(
+            (event) => {
+                if (event instanceof NavigationStart) {
+                    $("body").removeClass("has-active-menu");
+                    $(".mainWrapper").removeClass("has-push-left");
+                    $(".nav-holder-3").removeClass("is-active");
+                    $(".mask-nav-3").removeClass("is-active");
+                }
+            }
+        );
     }
 
     GetMyLogo()

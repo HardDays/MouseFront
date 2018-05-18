@@ -25,8 +25,7 @@ import { ShowsDetailModule } from '../showsDetail/showsDetail.module';
         TextMaskModule,
         PreloaderModule,
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc',
-            libraries: ['places']
+            apiKey: 'AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc'
         }),
         ShowsDetailModule
     ],

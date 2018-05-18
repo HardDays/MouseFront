@@ -4,7 +4,7 @@ import { TypeService } from '../services/type.service';
 import { ImagesService } from '../services/images.service';
 import { AccountService } from '../services/account.service';
 import { GenresService} from '../services/genres.service';
-import { Router, Params, ActivatedRoute } from '@angular/router';
+import { Router, Params, ActivatedRoute, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
 
 import { Subject } from 'rxjs/Subject';
 import { Subscribable } from 'rxjs/Observable';
@@ -64,6 +64,8 @@ export class BaseComponent{
             this.CurrentAccount = this.main.CurrentAccount;
         }
 
+        
+
         this.main.authService.onAuthChange$
             .subscribe(
                 (res:boolean) => {
@@ -114,7 +116,6 @@ export class BaseComponent{
 
     public WaitBeforeLoading = (fun:()=>Observable<any>,success:(result?:any)=>void, err?:(obj?:any)=>void)=>
     {
-
         this.main.WaitBeforeLoading(
             () => fun(),
             res => success(res),

@@ -25,23 +25,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
     @Output() onSaveEvent:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
     @Output() onError:EventEmitter<string> = new EventEmitter<string>();
 
-
-  // constructor(protected authService: AuthMainService,
-  //             protected accService:AccountService,
-  //             protected imgService:ImagesService,
-  //             protected typeService:TypeService,
-  //             protected genreService:GenresService,
-  //             protected eventService:EventService,
-  //             protected _sanitizer: DomSanitizer,
-  //             protected router: Router,public _auth: AuthService,
-  //             private mapsAPILoader: MapsAPILoader, 
-  //             private ngZone: NgZone, protected h:Http,
-  //             private activatedRoute: ActivatedRoute){
-  //     super(authService,accService,imgService,typeService,genreService,eventService,_sanitizer,router,h,_auth);
-  // }
-
   ngOnInit() {
-    // this.CreateAutocompleteArtist();
     this.getActiveArtVen();
   }
 
