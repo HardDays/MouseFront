@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NgForm} from '@angular/forms';
 import { AuthMainService } from '../../core/services/auth.service';
 
@@ -6,6 +6,8 @@ import { BaseComponent } from '../../core/base/base.component';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { isError } from 'util';
 import { LoginModel } from '../../core/models/login.model';
+import { BaseMessages } from '../../core/base/base.enum';
+import { ErrorComponent } from '../../shared/error/error.component';
 
 
 @Component({
@@ -34,7 +36,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
   accessVkToken:string = '';
   // accessTwitterToken:string = '923927835315785728-iAyJ85E2HwDLIdmBJ8ca1VBIdlGBd9W';
   // accessTwitterSecretToken:string = 'jH56gmOmhtodHnttk65J5Mo6f9pVJyIZkm7xvtYPmuEDG';
-
+  @ViewChild('errorCmp') errorCmp: ErrorComponent;
   ngOnInit()
   {
     // if (this.isLoggedIn)
@@ -79,14 +81,14 @@ export class LoginComponent extends BaseComponent implements OnInit {
       this.userLogin,
       (err)=>
       {
-        if(err.status==401) 
-        {
-          this.isErrorLogin = true;
-        }
+        this.OpenErrorWindow(BaseMessages.Incorrect);
       }
     );
   }
-
+  OpenErrorWindow(str:string)
+  {
+    this.errorCmp.OpenWindow(str);
+  }
   signInGoFb(provider)
   {
    this.SocialLogin(provider);

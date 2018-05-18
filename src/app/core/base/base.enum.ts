@@ -35,6 +35,7 @@ export enum BaseErrors{
 export enum BaseMessages{
     Success = "Success",
     Fail = "Failed",
+    Incorrect = 'Incorrect login or password',
     RequiredField = '<b>_field</b> needs to be filled',
     RequiredFields = 'Please fill in _fields to proceed to the Next Step',
     EmailField = '<b>_email</b> needs to be a valid email',

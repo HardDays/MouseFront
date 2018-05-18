@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, NgZone, ChangeDetectorRef, ViewChild, ElementRef, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, NgZone, ChangeDetectorRef, ViewChild, ElementRef, EventEmitter, Output, SimpleChanges } from '@angular/core';
 import { AccountCreateModel } from '../../../core/models/accountCreate.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { GenreModel } from '../../../core/models/genres.model';
@@ -20,8 +20,13 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
 
 
   @Input() Artist:AccountCreateModel;
-  @Output() OnSave = new EventEmitter<AccountCreateModel>();
-  @Output() OnError = new EventEmitter<string>();
+  @Input() ArtistImageId:number = 0;
+  @Input() ArtistId:number = 0;
+
+  @Output() onSaveArtist:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
+  @Output() onError:EventEmitter<string> = new EventEmitter<string>();
+  @Output() onImageDeleted:EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() onArtistChanged:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
 
   aboutForm : FormGroup = new FormGroup({
     "user_name": new FormControl("", [Validators.required]),
@@ -50,20 +55,30 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
   //  INIT
 
   ngOnInit() {
-
-
+    this.CreateOnModelChangeForParent();
+    this.Init();
+  }
+  
+  CreateOnModelChangeForParent()
+  {
+      this.aboutForm.valueChanges.forEach(
+          (value:any) => {
+              this.onArtistChanged.emit(this.Artist);
+          }
+      );
   }
 
-  Init(artist:AccountCreateModel){
-    this.Artist = artist;
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes.Artist)
+        this.Artist = changes.Artist.currentValue;
+    if(changes.ArtistImageId)
+        this.ArtistImageId = changes.ArtistImageId.currentValue;
+    if(changes.ArtistId)
+        this.ArtistId = changes.ArtistId.currentValue;
+    this.Init();
+  }
 
-    if(!this.Artist.artist_email){
-      this.main.authService.GetMe().
-        subscribe((res)=>{
-          this.Artist.artist_email = res.email;
-        })
-    }
-
+  Init(){
     this.WaitBeforeLoading(
       ()=>  this.main.genreService.GetAllGenres(),
       (res:string[])=>{
@@ -110,33 +125,27 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
     }
   }
 
+    //##########################################//
+  //  SAVE
 
-  //##########################################//
-  //  FORM
+  SaveArtist()
+  {
+      this.aboutForm.updateValueAndValidity();
+      if(this.aboutForm.invalid)
+      {
+          this.onError.emit(this.getFormErrorMessage(this.aboutForm, 'artist'));
+          return;
+      }
 
-  artistFromAbout(){
-    if(!this.aboutForm.invalid){
-
-        for (let key in this.aboutForm.value) {
-            if (this.aboutForm.value.hasOwnProperty(key)) {
-                this.Artist[key] = this.aboutForm.value[key];
-            }
+      this.Artist.genres = [];
+      for(let g of this.genres){
+        if(g.checked){
+          this.Artist.genres.push(g.genre);
         }
-
-        this.Artist.account_type = AccountType.Artist;
-        this.Artist.genres = this.main.genreService.GenreModelArrToStringArr(this.genres);
-
-
-        this.OnSave.emit(this.Artist);
-    }
-    else {
-      this.showError(this.getFormErrorMessage(this.aboutForm, 'artist'));
-    }
+      }
+      
+      this.onSaveArtist.emit(this.Artist);
   }
 
-  showError(str:string){
-    this.OnError.emit(str);
-    return;
-  }
 
 }

@@ -4,7 +4,7 @@ import { TypeService } from '../services/type.service';
 import { ImagesService } from '../services/images.service';
 import { AccountService } from '../services/account.service';
 import { GenresService} from '../services/genres.service';
-import { Router, Params, ActivatedRoute } from '@angular/router';
+import { Router, Params, ActivatedRoute, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
 
 import { Subject } from 'rxjs/Subject';
 import { Subscribable } from 'rxjs/Observable';
@@ -63,6 +63,8 @@ export class BaseComponent{
             this.MyAccounts = this.main.MyAccounts;
             this.CurrentAccount = this.main.CurrentAccount;
         }
+
+        
 
         this.main.authService.onAuthChange$
             .subscribe(
@@ -150,6 +152,7 @@ export class BaseComponent{
         this.WaitBeforeLoading(
             () => this.main.authService.UserLogin(user),
             (res:TokenModel) => {
+                
                 this.main.authService.BaseInitAfterLogin(res);
                 this.router.navigate(['/system','shows']);
                 this.main.authService.onAuthChange$.next(true);
@@ -159,8 +162,10 @@ export class BaseComponent{
                 }
             },
             (err) => {
+                console.log(err);
                 callback(err);
-                this.main.authService.onAuthChange$.next(false);
+                console.log('asdfasdf');
+                //this.main.authService.onAuthChange$.next(false);
             }
         );
     }

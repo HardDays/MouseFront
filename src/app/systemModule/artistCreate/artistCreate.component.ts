@@ -47,6 +47,7 @@ import { ArtistAboutComponent } from './artist-about/artist-about.component';
 import { ArtistMediaComponent } from './artist-media/artist-media.component';
 import { ArtistBookingComponent } from './artist-booking/artist-booking.component';
 import { ArtistRidersComponent } from './artist-riders/artist-riders.component';
+import { UserGetModel } from '../../core/models/userGet.model';
 
 
 declare var $:any;
@@ -68,22 +69,25 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
 
   pages = Pages;
   currentPage = Pages.about;
+  
   showAllPages:boolean = false;
 
 
-  isNewArtist:boolean = true;
+  // isNewArtist:boolean = true;
   Artist:AccountCreateModel = new AccountCreateModel();
   ArtistId:number = 0;
+  ArtistImageId:number = 0;
 
-  isSaveButtonClick:boolean = false;
-  ErrorSave:boolean = false;
-  changePage:boolean = false;
+  // isSaveButtonClick:boolean = false;
+  // ErrorSave:boolean = false;
+  // changePage:boolean = false;
 
-  @ViewChild('errorCmp') errorCmp: ErrorComponent;
   @ViewChild('AboutPage') AboutPage: ArtistAboutComponent;
   @ViewChild('MediaPage') MediaPage: ArtistMediaComponent;
   @ViewChild('BookingPage') BookingPage: ArtistBookingComponent;
   @ViewChild('RidersPage') RidersPage: ArtistRidersComponent;
+
+  @ViewChild('errorCmp') errorCmp: ErrorComponent;
 
   constructor(
     protected main           : MainService,
@@ -97,15 +101,10 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
     super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
   }
 
-  ngAfterViewChecked()
-  {
-      this.cdRef.detectChanges();
-  }
-
   ngOnInit()
   {
-    this.activatedRoute.params.forEach(
-      (params) => {
+    this.activatedRoute.params.subscribe(
+      (params:Params) => {
         if(params["id"] == 'new')
         {
           this.DisplayArtistParams(null);
@@ -113,7 +112,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
         else
         {
           this.WaitBeforeLoading(
-            () => this.main.accService.GetAccountById(params["id"]),
+            () => this.main.accService.GetAccountById(params["id"],{extended:true}),
             (res:AccountGetModel) => {
               this.DisplayArtistParams(res);
             }, (err)=>{
@@ -125,41 +124,67 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
     );
   }
 
+  ngAfterViewChecked()
+  {
+      this.cdRef.detectChanges();
+  }
+
 
   DisplayArtistParams($artist?:AccountGetModel)
   {
+    console.log('artist',$artist);
     this.Artist = $artist ? this.main.accService.AccountGetModelToCreateAccountModel($artist) : new AccountCreateModel();
-    if($artist&&$artist.id)
+    this.Artist.account_type = AccountType.Artist;
+    if( $artist && $artist.id)
     {
       this.ArtistId = $artist.id;
       this.router.navigateByUrl("/system/artistCreate/"+this.ArtistId);
     }
-    else{
+    else {
       this.currentPage = this.pages.about;
       this.ArtistId = 0;
     }
 
-    if(this.AboutPage)
-      this.AboutPage.Init(this.Artist);
-    if(this.MediaPage)
-      this.MediaPage.Init(this.Artist,this.ArtistId);
-    if(this.BookingPage)
-      this.BookingPage.Init(this.Artist);
-    if(this.RidersPage)
-      this.RidersPage.Init(this.Artist);
+
+
+    if(!this.Artist.phone)
+    {
+      this.WaitBeforeLoading(
+        () => this.main.authService.GetMe(),
+        (res:UserGetModel) => {
+          if(res.register_phone)
+            this.Artist.phone = res.register_phone.toString();
+        }
+      );
+
+      
+    }
+
+    this.ArtistImageId = ($artist && $artist.image_id) ? $artist.image_id : 0;
+
   }
 
-  SaveArtist(artist:AccountCreateModel)
+ 
+  //////////////////////////////////////////////
+  SaveArtistByPages(artist:AccountCreateModel, goToNextPage:boolean = true)
   {
+    console.log(this.ArtistId,this.Artist);
     this.WaitBeforeLoading
     (
       () => this.ArtistId == 0 ? this.main.accService.CreateAccount(this.Artist) : this.main.accService.UpdateMyAccount(this.ArtistId,this.Artist),
       (res) => {
-        this.ArtistId = res.id;
-        this.main.SetCurrentAccId(res.id);
-        this.main.GetMyAccounts();
         this.DisplayArtistParams(res);
-        this.NextPart();
+
+        this.errorCmp.OpenWindow(BaseMessages.Success);
+
+        if(goToNextPage){
+          setTimeout(
+            () => this.NextPart(),
+            2000
+          );
+        }
+
+        this.main.GetMyAccounts();
       },
       (err) => {
         this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'artist'));
@@ -167,73 +192,105 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
     )
   }
 
+  SaveArtist()
+  {
+    this.WaitBeforeLoading
+    (
+      () => this.ArtistId == 0 ? this.main.accService.CreateAccount(this.Artist) : this.main.accService.UpdateMyAccount(this.ArtistId,this.Artist),
+      (res) => {
 
+        this.errorCmp.OpenWindow(BaseMessages.Success);
+        this.main.GetMyAccounts();
+        setTimeout(
+          () => {
+            this.errorCmp.CloseWindow();
+            this.router.navigate(["/system","profile",this.ArtistId]);
+            scrollTo(0,0);
+          },
+          2000
+        );
+      },
+      (err) => {
+        this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'artist'));
+      }
+    )
+  }
+
+  
   NextPart()
   {
-    if(!this.changePage){
-      if(!this.isSaveButtonClick&&this.currentPage!=this.pages.media&&this.currentPage!=this.pages.riders)
-      this.currentPage = this.currentPage + 1;
-    }
-    this.changePage = false;
+    if(this.errorCmp.isShown)
+      this.errorCmp.CloseWindow();
+    scrollTo(0,0);
+    this.currentPage = this.currentPage + 1;
   }
 
   ChangeCurrentPart(newPart)
   {
-
-    this.changePage = true;
-    let prevPage = this.currentPage; 
-   
-    if(this.ArtistId == 0 && newPart > this.pages.about)
+    if(this.ArtistId == 0)
       return;
-    else{
-      if(this.currentPage == newPart)
-        return;
 
-      this.currentPage = newPart;
+    if(this.currentPage == newPart)
+      return;
 
-      // тут вызвать сохранение страницы до перехода.
-      if(prevPage==this.pages.about){
-      if(this.AboutPage)
-        this.AboutPage.artistFromAbout();
-      }
-      else if(prevPage==this.pages.booking){
-        if(this.BookingPage)
-          this.BookingPage.saveArtist();
-      }
-      if(this.MediaPage)
-        this.MediaPage.Init(this.Artist,this.ArtistId);
-    }
-
+    this.currentPage = newPart;
   }
 
 
+  SaveButton()
+  {
+    switch(this.currentPage){
+      case this.pages.about:{
+        if(this.AboutPage)
+        {
+          if(this.AboutPage.aboutForm.invalid)
+          {
+            this.OpenErrorWindow(this.getFormErrorMessage(this.AboutPage.aboutForm, 'artist'));
+            return;
+          }
+        }
+      }
+      case this.pages.booking:{
+        if(this.BookingPage){
+          // if(this.BookingPage.dateForm.invalid)
+          // {
+          //  // this.OpenErrorWindow(this.getFormErrorMessage(this.BookingPage., 'venue'));
+          //   return;
+          // }
+        }
+      }
+      
+    }
+    this.SaveArtist();
 
-  saveButtonClick(){
-    this.isSaveButtonClick = true;
-    this.ErrorSave = false;
-    if(this.currentPage==this.pages.about){
-      if(this.AboutPage)
-       this.AboutPage.artistFromAbout();
-     }
-     else if(this.currentPage==this.pages.booking){
-       if(this.BookingPage)
-         this.BookingPage.saveArtist();
-     }
+  }
 
-    if(!this.ErrorSave){
-      this.errorCmp.OpenWindow(BaseMessages.Success);
-      setTimeout(() => {
-        this.errorCmp.CloseWindow();
-        this.router.navigate(['/system','profile',this.ArtistId]);
-      }, 3000);
+  DeleteImage($event)
+  {
+    this.main.accService.GetAccountById(this.ArtistId,{extended:true})
+      .subscribe(
+        (res:AccountGetModel) =>
+        {
+          this.DisplayArtistParams(res);
+        }
+      );
+  }
+
+  ArtistChanged($event)
+  {
+    for(let key of $event)
+    {
+      if(this.Artist[key] != $event[key])
+      {
+        this.Artist[key] = $event[key];
+      }
     }
   }
 
-  OpenError(str:string){
-    this.ErrorSave = true;
+  OpenErrorWindow(str:string)
+  {
     this.errorCmp.OpenWindow(str);
   }
-
 
 }
 

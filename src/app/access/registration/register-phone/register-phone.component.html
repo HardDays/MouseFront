@@ -20,6 +20,7 @@
             </div>
 
             <div *ngIf="!isRequestCodeSend">
+                <p class="qqq" *ngIf='phoneArr' style="text-align:center; color:#fff">Tel. number is required</p>
               <div class="continue-wr more-margin">
                   <button class="butt-style-1" type="submit" (click)="sendCode()"><span>Send Text</span></button>
               </div>

@@ -18,6 +18,8 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
   @Output() OnSave = new EventEmitter<AccountCreateModel>();
   @Output() OnError = new EventEmitter<string>();
 
+  @Output() openNextPage = new EventEmitter();
+
   riders:Rider[] = [];
   stageRider:Rider= new Rider();
   backstageRider:Rider= new Rider();
@@ -37,6 +39,7 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getRiders();
   }
   Init(artist:AccountCreateModel){
     this.Artist = artist;
@@ -177,18 +180,26 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
   }
 
   saveArtist(){
+    console.log(`riders`,this.Artist);
     this.OnSave.emit(this.Artist);
   }
 
   downloadFile(data: Response){
-    this.main.accService.GetRiderById(this.Artist.artist_riders[1].id)
+    this.main.accService.GetRiderById(this.Artist.artist_riders[0].id)
     .subscribe((res)=>{
-      let data2 = res.uploaded_file_base64;
-      var blob = new Blob([data], { type: 'data:application/pdf' });
-      var url= window.URL.createObjectURL(blob);
+      let type = res.uploaded_file_base64.split(';base64,')[0];
+      let file = res.uploaded_file_base64.split(';base64,')[1];
+      var blob = new Blob([file], { type: type });
+      var url = window.URL.createObjectURL(blob);
       window.open(url);
+    }, (err)=>{
+      console.log(err);
     })
    
+  }
+
+  nextPage(){
+    this.openNextPage.emit();
   }
 
 
