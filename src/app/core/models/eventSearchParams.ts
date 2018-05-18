@@ -16,8 +16,6 @@ export class EventSearchParams{
         public limit?: number,
         public offset?: number
     ){
-        if(!limit)
-            this.limit = 21;
 
     }
 }

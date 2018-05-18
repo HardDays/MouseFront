@@ -17,10 +17,9 @@ declare var ionRangeSlider:any;
     styleUrls: ['./../events.component.css']
 })
 export class SearchEventComponent extends BaseComponent implements OnInit {
+    @Input() SearchParams: EventSearchParams;
     @Output() onSearch:EventEmitter<EventSearchParams> = new EventEmitter<EventSearchParams>();
     @Output() mapClicked:EventEmitter<EventSearchParams> = new EventEmitter<EventSearchParams>();
-    SearchParams: EventSearchParams = new EventSearchParams();
-
     
     mapLng: any;
     mapLat: any;
@@ -47,10 +46,6 @@ export class SearchEventComponent extends BaseComponent implements OnInit {
     
     ngOnInit(): void 
     {
-        this.SearchParams.only_my = true;
-        this.SearchParams.account_id = this.GetCurrentAccId();
-        this.SearchParams.limit = 16;
-        
         this.GetGenres();
         this.GetTicketTypes();
         this.GetAllTypesOfSpace();

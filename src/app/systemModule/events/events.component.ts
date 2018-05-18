@@ -47,7 +47,7 @@ declare var $:any;
 export class EventsComponent extends BaseComponent implements OnInit,AfterViewChecked {
     
     Events:EventGetModel[] = [];
-
+    SearchParams: EventSearchParams = new EventSearchParams();
     constructor(
         protected main           : MainService,
         protected _sanitizer     : DomSanitizer,
@@ -67,6 +67,8 @@ export class EventsComponent extends BaseComponent implements OnInit,AfterViewCh
 
     ngOnInit()
     {   
+        this.SearchParams.only_my = true;
+        this.SearchParams.account_id = this.GetCurrentAccId();
         this.GetEvents();
         this.openSearch();
         this.setHeightSearch();
@@ -78,16 +80,8 @@ export class EventsComponent extends BaseComponent implements OnInit,AfterViewCh
     @ViewChild('analyt') analyt : AnalyticsEventComponent;
     GetEvents(params?:EventSearchParams)
     {
-        let search:EventSearchParams = {
-            limit: 21,
-            only_my: true,
-            account_id : this.GetCurrentAccId()
-        };
-
-        if(params)
-            search = params;
         this.WaitBeforeLoading(
-            () => this.main.eventService.EventsSearch(search),
+            () => this.main.eventService.EventsSearch(this.SearchParams),
             (res:EventGetModel[]) =>
             {
                 this.Events = res;

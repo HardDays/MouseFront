@@ -57,6 +57,7 @@ declare var $:any;
 
 export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChecked{
     Events:EventGetModel[] = [];
+    SearchParams: EventSearchParams = new EventSearchParams();
 
     constructor(
         protected main           : MainService,
@@ -72,6 +73,7 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
 
     ngOnInit()
     {
+        this.SearchParams.is_active = true;
         this.GetEvents();
         this.openSearch();
         this.setHeightSearch();
@@ -131,15 +133,8 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
 
     GetEvents(params?:EventSearchParams)
     {
-        let search:EventSearchParams = {
-            is_active:true,
-        };
-
-        if(params)
-            search = params;
-
         this.WaitBeforeLoading(
-            () => this.main.eventService.EventsSearch(search),
+            () => this.main.eventService.EventsSearch(this.SearchParams),
             (res:EventGetModel[]) =>
             {
             this.Events = res;
