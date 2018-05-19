@@ -80,6 +80,8 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
           'padding-left':$('.for-position-left-js').offset().left
       });
   });
+
+  
   // this.InitMusicPlayer();
   }
 

@@ -85,7 +85,7 @@
                
                 
                 <!--Private Residence-->
-                    <app-private-res [ngStyle]="{'display': isPrivateVenue?'block':'none'}" (OnCreate)=" submitVenue(); " [EventId]="Event.id"></app-private-res>
+                    <app-private-res [ngStyle]="{'display': isPrivateVenue?'block':'none'}" (OnCreate)="createPrivateRes()" [EventId]="Event.id"></app-private-res>
                 <!--//Private Residence-->
             </div>
         </div>

@@ -78,7 +78,6 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         this.initSlider()
         this.getAllSpaceTypes();
         this.venuesList = this.Event.venues;
-        //  console.log(this.venuesList);
         this.GetVenueFromList();
     }
     
@@ -155,6 +154,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         }
         }
     }
+
     getMessages(id?:number){
         let crId = id?id:this.Event.creator_id;
         this.messagesList = [];
@@ -165,10 +165,9 @@ export class VenuesComponent extends BaseComponent implements OnInit {
             this.main.accService.GetInboxMessageById(crId, m.id).
                 subscribe((msg)=>{
                     this.messagesList.push(msg);
-                    //console.log(`msg`,this.messagesList);
             }); 
         },
-        (err)=>{//console.log(err)
+        (err)=>{
         });
     }
     
@@ -192,22 +191,17 @@ export class VenuesComponent extends BaseComponent implements OnInit {
             }
         }
     }
+
     VenuePriceChanged(data){
-
-        // setTimeout(() => {
-          
-        //   }, 200);
-          this.venueSearchParams.price_to  = data.from;
-          this.venueSearch();
-
+        this.venueSearchParams.price_to  = data.from;
+        this.venueSearch();
     }
-    VenueCapacityChanged(data){
-        
+
+    VenueCapacityChanged(data){    
         setTimeout(() => {
             this.venueSearchParams.capacity_to = data.from;
             this.venueSearch();
-          }, 200);
-       
+            }, 200);
     }
 
     getAllSpaceTypes(){
@@ -217,11 +211,8 @@ export class VenuesComponent extends BaseComponent implements OnInit {
 
     CreateAutocompleteVenue() {
         this.mapsAPILoader.load().then(
-            () => {
-            
-            let autocomplete = new google.maps.places.Autocomplete(this.searchElementVenue.nativeElement, {types:[`(cities)`]});
-            
-            
+            () => {      
+            let autocomplete = new google.maps.places.Autocomplete(this.searchElementVenue.nativeElement, {types:[`(cities)`]});           
                 autocomplete.addListener("place_changed", () => {
                     this.ngZone.run(() => {
                         let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
@@ -241,6 +232,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
             }
         );
     }
+
     venueSearch($event?:string){
         this.venueList = [];
         this.isLoadingVenue = true;
@@ -249,22 +241,11 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         this.venueSearchParams.types_of_space = [];
         
         for(let space of this.typesSpace)
-            if(space.checked) this.venueSearchParams.types_of_space.push(space.object.value)
-
-        //  this.accService.AccountsSearch( this.venueSearchParams).
-        //      subscribe((res)=>{
-        //          if(res.length>0){
-        //              this.venueList = this.deleteDuplicateAccounts(res);
-        //              this.getListImages(this.venueList);
-        //          }
-        //  });
-
-       
+            if(space.checked) this.venueSearchParams.types_of_space.push(space.object.value)       
 
          this.main.accService.AccountsSearch(this.venueSearchParams).
              subscribe((res)=>{
                 console.log(this.venueSearchParams,`res`,res);
-                //  if(res.length>0){
                     let temp = this.convertArrToCheckModel<AccountGetModel>(res);
                     
                     for(let art of this.venueList){
@@ -277,17 +258,17 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                             isFind = true;
                             break;
                           }
+
                         if(!isFind) temp.push(art);
                       }
                     }
+
                     this.venueList = [];
                     this.venueList = temp;
                     
                     this.isLoadingVenue = false;
                     this.GetVenuesImages();
-                 //   console.log(this.venueList);
-                  
-                //  }
+                
          });
     }
 
@@ -296,13 +277,14 @@ export class VenuesComponent extends BaseComponent implements OnInit {
           this.venueSearchParams.text = '';
           this.venueSearch();
         }
-      }
-      addressChange(str:string){
+    }
+
+    addressChange(str:string){
         if(str==''){
           this.venueSearchParams.address = '';
           this.venueSearch();
         }
-      }
+    }
 
     GetVenuesImages(){
         for(let a of this.venueList){
@@ -317,89 +299,42 @@ export class VenuesComponent extends BaseComponent implements OnInit {
             }
           else a.object.image_base64_not_given = '../../../../assets/img/show.png';
         }
-      }
+    }
 
 
     addVenueCheck(venue:CheckModel<AccountGetModel>){
         venue.checked = !venue.checked;
-
         if(!this.ifRequestVenue(venue.object.id)&&!this.ifListVenue(venue.object.id)){
           this.requestVenues.push(venue.object);
         }
-        // console.log(this.requestVenues);
-       
-   }
+    }
 
    ifRequestVenue(id){
-    for(let v of this.requestVenues)
-        if(v.id==id) {
-            return true;
-        }   
-    return false;
+        for(let v of this.requestVenues)
+            if(v.id==id) {
+                return true;
+            }   
+        return false;
     }
+
     ifListVenue(id){
         for(let v of this.venueShowsList)
             if(v.id==id) {
                 return true;
             }   
         return false;
-        }
-
-//    ifCheckedVenue(id){
-//     if(this.checkVenue.indexOf(id)<0) return this.ifRequestVenue(id);
-//         else return true;
-// }
+    }
+    
 
 
-// ifShowsVenue(id){
-//     for(let v of this.venueShowsList)
-//         if(v.id==id) {
-//             // //console.log(`IN Request`, id);
-//             return true;
-//         }
-//     // //console.log(`NO in Request`, id);
-//     return false;
-// }
-
-
-getRequestVenue(){
-    // this.requestVenues = [];
-    // for(let venue of this.Event.venues){
-    //     this.accService.GetAccountById(venue.venue_id).
-    //         subscribe((res:AccountGetModel)=>{
-    //             if(this.isNewAccById(this.requestVenues,res)){
-    //                     this.requestVenues.push(res);
-    //                     let index = 0;
-    //                     for(let sh of this.venueShowsList){
-    //                         if(sh.id==res.id) this.venueShowsList.splice(index,1);
-    //                         index = index + 1;
-    //                     }
-    //                     if(this.ifShowsVenue(res.id)){
-    //                         console.log(`ifShowsVenue`);
-    //                         this.addVenueCheck(res);
-    //                     }
-    //                     if(res.image_id){
-    //                         this.imgService.GetImageById(res.image_id)
-    //                             .subscribe((img:Base64ImageModel)=>{
-    //                                 res.image_base64_not_given = img.base64;
-    //                             },
-    //                             (err)=>{
-    //                                 //console.log(`err img`,err);
-    //                             });
-    //                     }
-    //              }
-    //     });
-    // }
-}
-pressEnter(event){
-    if(event.key=="Enter")
-      this.venueSearch();
-  }
+    pressEnter(event){
+        if(event.key=="Enter")
+            this.venueSearch();
+    }
 
 
 
-addVenueById(id:number){
-
+    addVenueById(id:number){
         if(!this.requestVenueForm.invalid){
 
             for (let key in this.requestVenueForm.value) {
@@ -415,7 +350,6 @@ addVenueById(id:number){
             this.addVenue.id = id;
             this.addVenue.account_id = this.Event.creator_id;
             this.addVenue.is_personal = true;
-            console.log(`add venue`,this.addVenue);
             
             this.main.eventService.AddVenue(this.addVenue).
                 subscribe((res)=>{
@@ -443,18 +377,41 @@ addVenueById(id:number){
         else {
             //console.log(`Invalid Request Form!`, this.aboutForm);
         }
-}
+    }
 
-getStatusVenueEventById(id:number){
+    getStatusVenueEventById(id:number){
     
-    for(let v of this.Event.venues)
-        if(v.venue_id == id) return v.status;
+        for(let v of this.Event.venues)
+            if(v.venue_id == id) return v.status;
     
-    return 'not found artist';
-}
+        return 'not found artist';
+    }
 
-acceptVenue(card:AccountGetModel){
-    //console.log(idV);
+    acceptVenue(card:AccountGetModel){
+
+        this.ownerAcceptDecline.account_id = this.Event.creator_id;
+        this.ownerAcceptDecline.id = card.id;
+        this.ownerAcceptDecline.event_id = this.Event.id;
+        let msgId = this.getIdAtMsg(card.id);
+        this.ownerAcceptDecline.message_id = msgId;
+        let msg = this.messagesList[0];
+
+        for(let m of this.messagesList)
+            if(m.id == msgId) msg = m;
+        
+        this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from;
+        this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to;
+
+        this.main.eventService.VenueAcceptOwner(this.ownerAcceptDecline).
+            subscribe((res)=>{
+                this.onError.emit("Venue accepted!");
+                this.updateEvent();
+            },(err)=>{
+                this.onError.emit("Venue NOT accepted!");
+            });
+    }
+
+    declineVenue(card:AccountGetModel){
 
         this.ownerAcceptDecline.account_id = this.Event.creator_id;
         this.ownerAcceptDecline.id = card.id;
@@ -467,70 +424,46 @@ acceptVenue(card:AccountGetModel){
         this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from;
         this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to;
 
-       // console.log(this.ownerAcceptDecline);
-        this.main.eventService.VenueAcceptOwner(this.ownerAcceptDecline).
-            subscribe((res)=>{
-                this.onError.emit("Venue accepted!");
-                //console.log(`ok accept artist`,res);
-                this.updateEvent();
-            },(err)=>{
-                this.onError.emit("Venue NOT accepted!");
-            });
-
-        // //console.log(this.ownerAcceptDecline);   
-}
-
-declineVenue(card:AccountGetModel){
-
-    this.ownerAcceptDecline.account_id = this.Event.creator_id;
-    this.ownerAcceptDecline.id = card.id;
-    this.ownerAcceptDecline.event_id = this.Event.id;
-    let msgId = this.getIdAtMsg(card.id);
-    this.ownerAcceptDecline.message_id = msgId;
-    let msg = this.messagesList[0];
-    for(let m of this.messagesList)
-        if(m.id == msgId) msg = m;
-    this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from;
-    this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to;
-
-    //console.log(this.ownerAcceptDecline);
     
         this.main.eventService.VenueDeclineOwner(this.ownerAcceptDecline).
             subscribe((res)=>{
-                //console.log(`ok accept artist`,res);
                 this.onError.emit("Venue declined!");
                 this.updateEvent();
             },(err)=>{
                 this.onError.emit("Venue NOT declined!");
             });
-
-        //console.log(this.ownerAcceptDecline); 
-}
+    }
 
     sendVenueRequestOpenModal(venue:AccountGetModel){
         $('#modal-send-request-venue').modal('show');
         this.eventForRequest = venue;
     }
 
+    createPrivateRes(){
+        console.log(`submitVenue`);
+        this.updateEvent();
+    }
+
     updateEvent(){
+        console.log(`update Event`);
         this.main.eventService.GetEventById(this.Event.id).
         subscribe((res:EventGetModel)=>{
-           // console.log(`updateEventThis`);
+
            this.venuesList = [];
            setTimeout(() => {
             this.Event = this.main.eventService.EventModelToCreateEventModel(res);
            
             this.venuesList = this.Event.venues;
+            console.log(`get this Event`, this.Event);
             this.GetVenueFromList();
-           }, 250);
-            
-          
-})
+           }, 500); 
+        })
     }
+
 
     submitVenue(){
         this.updateEvent();
-        // this.onSaveEvent.emit(this.Event);
+        this.onSaveEvent.emit(this.Event);
     }
 
     venueOpenMapModal(){
@@ -540,18 +473,10 @@ declineVenue(card:AccountGetModel){
 
 
     openVenue(id:number){
-        // console.log(`click`);
-        // $('#modal-pick-artist').modal('toggle');
-        // setTimeout(() => {
-        //   // this.router.navigate(['/system/profile',id]);
-        // }, 150);
         this.openPreview.emit(id);
     }
 
 
-
-
-    
     dragMarker($event)
     {
         this.mapCoords.lat = $event.coords.lat;
@@ -597,33 +522,24 @@ declineVenue(card:AccountGetModel){
         }
   
        return gnr;
-      }
+    }
 
-      niceViewGenre(g:string){
-          return g.replace('_',' ');
-      }
+    niceViewGenre(g:string){
+        return g.replace('_',' ');
+    }
 
-      isEmptyDeclinedArtists(){
+    isEmptyDeclinedArtists(){
+
         for(let a of this.requestVenues)
-          if(a.status_not_given=='owner_declined'||a.status_not_given=='declined')
-            return false;
+            if(a.status_not_given=='owner_declined'||a.status_not_given=='declined')
+                return false;
+
         for(let a of this.venueShowsList)
-        if(a.status_not_given=='owner_declined'||a.status_not_given=='declined')
-            return false;
+            if(a.status_not_given=='owner_declined'||a.status_not_given=='declined')
+                return false;
+
         return true;
-      }
-
-
-
-
-
-
-
-
-
-
-
-
+    }
 
 
 }
