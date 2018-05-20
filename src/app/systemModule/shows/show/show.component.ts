@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { BaseComponent } from '../../../core/base/base.component';
 import { EventGetModel } from '../../../core/models/eventGet.model';
 import { BaseImages } from '../../../core/base/base.enum';
@@ -10,50 +10,54 @@ import { Base64ImageModel } from '../../../core/models/base64image.model';
     templateUrl: './show.component.html',
     styleUrls: [ './../shows.component.css']
 })
-export class ShowItemComponent extends BaseComponent implements OnInit {
+export class ShowItemComponent extends BaseComponent implements OnChanges {
+    
     @Input() Show: EventGetModel;
     FoundedPercent:number = 0;
     Image:string = BaseImages.Drake;
     IsPromotional = false;
 
-    ngOnInit(): void 
+    ngOnChanges(changes: SimpleChanges): void 
     {
         this.GetExtendedEvent();
     }
 
     GetExtendedEvent()
     {
-        this.WaitBeforeLoading(
-            () => this.main.eventService.GetEventById(this.Show.id),
-            (res:any) =>{
-                this.Show = res;
-                if(this.Show.is_crowdfunding_event)
-                {
-                    this.FoundedPercent = +(100*(this.Show.founded?this.Show.founded:0) / (this.Show.funding_goal?this.Show.funding_goal:0.01)).toFixed(1);
-                    
-                }
+        if(this.Show && this.Show.id)
+        {
+            this.main.eventService.GetEventById(this.Show.id)
+                .subscribe(
+                    (res:any) =>{
+                        this.Show = res;
+                        if(this.Show.is_crowdfunding_event)
+                        {
+                            this.FoundedPercent = +(100*(this.Show.founded?this.Show.founded:0) / (this.Show.funding_goal?this.Show.funding_goal:0.01)).toFixed(1);
+                            
+                        }
 
-                if(this.Show.tickets && this.Show.tickets.length > 0)
-                {
-                    this.IsPromotional = this.Show.tickets.filter(obj => obj.is_promotional).length > 0;
-                }
-                this.GetImage();
-            },
-            (err) => {
-            }
-        );
+                        if(this.Show.tickets && this.Show.tickets.length > 0)
+                        {
+                            this.IsPromotional = this.Show.tickets.filter(obj => obj.is_promotional).length > 0;
+                        }
+                        this.GetImage();
+                    },
+                    (err) => {
+                    }
+                )
+        }
     }
 
     GetImage()
     {
         if(this.Show && this.Show.image_id)
         {
-            this.WaitBeforeLoading(
-                () => this.main.imagesService.GetImageById(this.Show.image_id),
-                (res:Base64ImageModel) => {
-                    this.Image = (res && res.base64) ? res.base64 : BaseImages.Drake;
-                }
-            );
+            this.main.imagesService.GetImageById(this.Show.image_id)
+                .subscribe(
+                    (res:Base64ImageModel) => {
+                        this.Image = (res && res.base64) ? res.base64 : BaseImages.Drake;
+                    }
+                );
         }
     }
 }

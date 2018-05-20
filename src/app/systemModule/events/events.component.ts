@@ -48,6 +48,8 @@ export class EventsComponent extends BaseComponent implements OnInit,AfterViewCh
     
     Events:EventGetModel[] = [];
     SearchParams: EventSearchParams = new EventSearchParams();
+    
+    ScrollDisabled = true;
     constructor(
         protected main           : MainService,
         protected _sanitizer     : DomSanitizer,
@@ -69,6 +71,9 @@ export class EventsComponent extends BaseComponent implements OnInit,AfterViewCh
     {   
         this.SearchParams.only_my = true;
         this.SearchParams.account_id = this.GetCurrentAccId();
+        
+        this.SearchParams.offset = 0;
+        this.SearchParams.limit = 8;
         this.GetEvents();
         this.openSearch();
         this.setHeightSearch();
@@ -80,15 +85,15 @@ export class EventsComponent extends BaseComponent implements OnInit,AfterViewCh
     @ViewChild('analyt') analyt : AnalyticsEventComponent;
     GetEvents(params?:EventSearchParams)
     {
+        this.ScrollDisabled = true;
         this.WaitBeforeLoading(
             () => this.main.eventService.EventsSearch(this.SearchParams),
             (res:EventGetModel[]) =>
             {
                 this.Events = res;
-                // this.CloseSearchWindow();
+                setTimeout(()=>{this.ScrollDisabled = false},500);
             },
             (err) => {
-               // console.log(err);
             }
         );
     }
@@ -148,5 +153,32 @@ export class EventsComponent extends BaseComponent implements OnInit,AfterViewCh
     {
         this.analyt.ShowWindow($event);
     }
+
+    HiddenGetEvents()
+    {
+        this.main.eventService.EventsSearch(this.SearchParams)
+            .subscribe(
+                (res:EventGetModel[]) =>
+                {
+                    if(res && res.length){
+                        for(let item of res)
+                        {
+                            if(!this.Events.find(obj => obj.id == item.id))
+                            {
+                                this.Events.push(item);
+                            }
+                        }
+                    }
+                },
+                (err) => {
+                }
+            );
+    }
+
+    onScroll () 
+    {
+        this.SearchParams.offset = this.Events.length;
+        this.HiddenGetEvents();
+	}
 
 }

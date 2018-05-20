@@ -185,6 +185,7 @@ export class SearchEventComponent extends BaseComponent implements OnInit {
         this.CheckDistance();
 
         this.CloseSearchWindow();
+        this.SearchParams.offset = 0;
         this.onSearch.emit(this.SearchParams);
     }
 
