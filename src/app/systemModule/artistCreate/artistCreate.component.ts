@@ -78,6 +78,8 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
   ArtistId:number = 0;
   ArtistImageId:number = 0;
 
+  isMediaWasOpen:boolean = false;
+
   // isSaveButtonClick:boolean = false;
   // ErrorSave:boolean = false;
   // changePage:boolean = false;
@@ -205,7 +207,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
           () => {
             this.errorCmp.CloseWindow();
             this.router.navigate(["/system","profile",this.ArtistId]);
-            scrollTo(0,0);
+           // scrollTo(0,0);
           },
           2000
         );
@@ -222,6 +224,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
     if(this.errorCmp.isShown)
       this.errorCmp.CloseWindow();
     scrollTo(0,0);
+    
     this.currentPage = this.currentPage + 1;
   }
 

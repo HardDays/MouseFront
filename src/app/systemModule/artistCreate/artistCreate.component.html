@@ -87,7 +87,8 @@
 
         <div class="create-event-body-1">
 
-            <app-artist-media #MediatPage *ngIf="currentPage == pages.media" 
+            <app-artist-media #MediatPage 
+                *ngIf="currentPage == pages.media" 
                 [Artist]="Artist" 
                 [ArtistId]="ArtistId" 
                 (openNextPage)="NextPart()" 

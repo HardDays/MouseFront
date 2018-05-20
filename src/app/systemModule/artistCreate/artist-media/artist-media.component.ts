@@ -233,7 +233,7 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
 GetArtistImages()
 {
   this.ArtistImages = [];
-
+  this.isImageLoading = true;
   this.main.imagesService.GetAccountImages(this.ArtistId,{limit:5})
     .subscribe(
       (res:any)=>{
@@ -248,18 +248,24 @@ GetArtistImages()
             index = index + 1;
           }
         }
-        this.isImageLoading = false;
+        else {
+          this.isImageLoading = false;     
+        }
       }
-    );
+    ),(err)=>{
+      this.isImageLoading = false;
+    };
 }
 
 
 GetArtistImageById(id,saveIndex,text)
 {
+  this.isImageLoading = true;
   this.main.imagesService.GetImageById(id)
     .subscribe(
       (res:Base64ImageModel) =>{
         this.ArtistImages.push({img:res.base64,text:text,id:res.id});
+        this.isImageLoading = false;
       }
     );
 
@@ -274,6 +280,7 @@ SanitizeImage(image: string)
 deleteImage(id:number){
   // this.WaitBeforeLoading(
     // ()=> 
+    this.isImageLoading = true;
     this.main.imagesService.DeleteImageById(id,this.ArtistId)
       .subscribe(
         (res)=>{
@@ -281,6 +288,7 @@ deleteImage(id:number){
           this.GetArtistImages();
         },(err)=>{
           this.showError(this.getResponseErrorMessage(err, 'artist'));
+          this.isImageLoading = false;
         }
       )
 }
@@ -292,7 +300,14 @@ deleteImage(id:number){
   }
 
   saveArtist(){
+    var scrollHeight = window.pageYOffset;
+
     this.onSave.emit(this.Artist);
+
+    setTimeout(() => {
+      window.scrollTo(0,scrollHeight);
+    }, 1100);
+    
   }
 
   showError(str:string){

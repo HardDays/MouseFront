@@ -246,8 +246,9 @@
                 <!--если пустой-->
                 
                 <div [ngStyle]="{'display': ArtistImages.length<=0?'block':'none'}" class="empty-info">
-                    <img src="../../../assets/img/smile.svg" class="img-responsive" alt="">
-                    <p>No Songs Yet</p>
+                    <app-preloader style="max-height: 200px;" *ngIf="isImageLoading"></app-preloader>
+                    <img *ngIf="!isImageLoading" src="../../../assets/img/smile.svg" class="img-responsive" alt="">
+                    <p *ngIf="!isImageLoading">No Songs Yet</p>
                 </div>
                 
                 <!---->
