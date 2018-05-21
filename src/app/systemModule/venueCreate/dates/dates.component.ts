@@ -26,9 +26,9 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
         "minimum_notice": new FormControl("",[Validators.pattern("[0-9]+"),
                                 Validators.min(0),Validators.max(999)]),
         "is_flexible": new FormControl("",[]),
-        "price_for_daytime": new FormControl("",[Validators.pattern("[0-9]+"),
+        "price_for_daytime": new FormControl("",[Validators.required,Validators.pattern("[0-9]+"),
                                 Validators.min(0),Validators.max(1000000)]),
-        "price_for_nighttime": new FormControl("",[Validators.pattern("[0-9]+"),
+        "price_for_nighttime": new FormControl("",[Validators.required,Validators.pattern("[0-9]+"),
                                 Validators.min(0),Validators.max(1000000)]),
         "performance_time_from": new FormControl("",[]),
         "performance_time_to": new FormControl("",[])
