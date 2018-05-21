@@ -402,6 +402,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from;
         this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to;
 
+        console.log(`INFO ABOUT ACCEPTED`,this.ownerAcceptDecline);
         this.main.eventService.VenueAcceptOwner(this.ownerAcceptDecline).
             subscribe((res)=>{
                 this.onError.emit("Venue accepted!");
