@@ -31,9 +31,9 @@ import { AuthService } from 'angular2-social-login';
 import { MapsAPILoader } from '@agm/core';
 import { Http } from '@angular/http';
 import { MainService } from '../../core/services/main.service';
-import { SearchEventComponent } from './search/search.component';
-import { MapEventComponent } from './map/map.component';
 import { AnalyticsEventComponent } from './analytics/analytics.component';
+import { SearchEventsComponent } from '../../shared/search/search_window/search.component';
+import { SearchEventsMapComponent } from '../../shared/search/map/map.component';
 
 declare var $:any;
 
@@ -78,9 +78,9 @@ export class EventsComponent extends BaseComponent implements OnInit,AfterViewCh
         this.openSearch();
         this.setHeightSearch();
     }
-    @ViewChild('search') search: SearchEventComponent;
+    @ViewChild('search') search: SearchEventsComponent;
     
-    @ViewChild('mapForm') mapForm : MapEventComponent;
+    @ViewChild('mapForm') mapForm : SearchEventsMapComponent;
 
     @ViewChild('analyt') analyt : AnalyticsEventComponent;
     GetEvents(params?:EventSearchParams)

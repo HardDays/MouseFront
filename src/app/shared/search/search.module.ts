@@ -3,15 +3,13 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
-import { EventsComponent } from './events.component';
-import { MyEventComponent } from './myEvent/myEvent.component';
+import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { AgmCoreModule } from '@agm/core';
 import { PreloaderModule } from '../../shared/preloader/preloader.module';
-import { AnalyticsEventComponent } from './analytics/analytics.component';
-import { InfiniteScrollModule } from 'angular2-infinite-scroll';
-import { SearchEventsModule } from '../../shared/search/search.module';
+import { SearchEventsComponent } from './search_window/search.component';
+import { SearchEventsMapComponent } from './map/map.component';
 
 @NgModule({
     imports: [ 
@@ -24,17 +22,11 @@ import { SearchEventsModule } from '../../shared/search/search.module';
             libraries: ["places"]
         }),
         PreloaderModule,
-        InfiniteScrollModule,
-        SearchEventsModule
+        InfiniteScrollModule
     ],
     declarations: [ 
-        EventsComponent,
-        MyEventComponent,
-        AnalyticsEventComponent
+        SearchEventsComponent, SearchEventsMapComponent
     ],
-    exports: [ EventsComponent]
+    exports: [ SearchEventsComponent, SearchEventsMapComponent ]
 })
-export class EventsModule {}
-
-
-  
+export class SearchEventsModule {}

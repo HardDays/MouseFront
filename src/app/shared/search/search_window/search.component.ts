@@ -1,21 +1,21 @@
 import { Component, Input, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { BsDatepickerConfig } from 'ngx-bootstrap';
 import { BaseComponent } from '../../../core/base/base.component';
 import { EventSearchParams } from '../../../core/models/eventSearchParams';
 import { GenreModel } from '../../../core/models/genres.model';
 import { CheckModel } from '../../../core/models/check.model';
 import { SelectModel } from '../../../core/models/select.model';
-import { NgForm } from '@angular/forms';
-import { BsDatepickerConfig } from 'ngx-bootstrap';
 
 declare var $:any;
 declare var ionRangeSlider:any;
 
 @Component({
-    selector: 'search-shows-selector',
+    selector: 'search-events-window-cmp',
     templateUrl: './search.component.html',
-    styleUrls: ['./../shows.component.css']
+    styleUrls: ['./../search.component.css']
 })
-export class SearchShowsComponent extends BaseComponent implements OnInit {
+export class SearchEventsComponent extends BaseComponent implements OnInit {
     @Input() SearchParams: EventSearchParams;
     @Output() onSearch:EventEmitter<EventSearchParams> = new EventEmitter<EventSearchParams>();
     @Output() mapClicked:EventEmitter<EventSearchParams> = new EventEmitter<EventSearchParams>();
@@ -29,7 +29,7 @@ export class SearchShowsComponent extends BaseComponent implements OnInit {
         lng:0
     };
 
-    MIN_DISTANCE:number = 0;
+    MIN_DISTANCE:number = 10;
     MAX_DISTANCE:number = 40;
 
     Genres:GenreModel[] = [];
@@ -62,7 +62,7 @@ export class SearchShowsComponent extends BaseComponent implements OnInit {
 
     DistanceChanged(data:any)
     {
-      this.SearchParams.distance = data.from;
+        this.SearchParams.distance = data.from;
     }
 
     initSlider()
@@ -137,8 +137,10 @@ export class SearchShowsComponent extends BaseComponent implements OnInit {
             this.SearchParams.lng = null;
         }
 
-        if(!this.SearchParams.lat || !this.SearchParams.lng)
+        if(!this.SearchParams.lat && !this.SearchParams.lng)
             this.SearchParams.distance = null;
+        else
+            this.SearchParams.distance = this.SearchParams.distance?this.SearchParams.distance:this.MIN_DISTANCE;
     }
 
     ConvertTicketTypes()
@@ -167,9 +169,9 @@ export class SearchShowsComponent extends BaseComponent implements OnInit {
 
     TypeOfSpaceChange($event)
     {
-        this.SearchParams.size = [];
-        if($event)
-            this.SearchParams.size.push($event);
+        this.SearchParams.size = $event;
+        // if($event)
+        //     this.SearchParams.size.push($event);
     }
 
     CreateLocalAutocomplete()
@@ -178,6 +180,8 @@ export class SearchShowsComponent extends BaseComponent implements OnInit {
             (addr,place) =>{
                 this.SearchParams.lat = place.geometry.location.lat();
                 this.SearchParams.lng = place.geometry.location.lng();
+                if(!this.SearchParams.distance)
+                    this.SearchParams.distance = this.MIN_DISTANCE;
             }
         );
     }

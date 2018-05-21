@@ -3,7 +3,7 @@
     <div class="groupe-form">
         <p class="head-input-groupe">Date</p>
         <div class="wrapp-for-triangle">
-            <input type="text" name="date-picker-inp" class="date-picker-inp" bsDaterangepicker ngModel [bsConfig]="bsConfig" [(ngModel)]="SearchDateRange">
+            <input type="text" name="date-picker-inp" class="date-picker-inp" containerClass="transformed" bsDaterangepicker ngModel [bsConfig]="bsConfig" [(ngModel)]="SearchDateRange">
         </div>
     </div>
     <div class="groupe-form">
@@ -17,7 +17,7 @@
     <div class="groupe-form" [ngStyle]="{'display':(SearchParams.lat && SearchParams.lng)? 'block':'none'}">
         <p class="head-input-groupe">Distance</p>
         <div class="for-range-slider">
-            <input type="text" name="distance-range-slider" class="current-slider distance-slider" [ngModel]="SearchParams.distance" [value]="MAX_DISTANCE" (ngModelChange)="SearchParams.distance = $event">
+            <input type="text" name="distance-range-slider" class="current-slider distance-slider">
         </div>
     </div>
     <!-- <div class="groupe-form">
@@ -66,7 +66,7 @@
     </div>
     <div class="groupe-form">
         <p class="head-input-groupe">Type of space</p>
-        <select class="select-type-of-space"  name="select_type_of_space" [ngModel]="SearchParams.size" (ngModelChange)="TypeOfSpaceChange($event)">
+        <select class="select-type-of-space" name="select_type_of_space" [ngModel]="SearchParams.size" (ngModelChange)="TypeOfSpaceChange($event)">
             <option value=""></option>
             <option *ngFor="let item of TypesOfSpace" [value]="item.value">{{item.name}}</option>
         </select>
@@ -75,5 +75,6 @@
         <button type="submit"  class="butt-style-1"><span>Search</span></button>
     </div>
 </form>
-
-
+    
+    
+    

@@ -43,8 +43,8 @@ import { EventSearchParams } from '../../core/models/eventSearchParams';
 import { TicketTypeModel } from '../../core/models/ticketType.model';
 import { BsDatepickerConfig } from 'ngx-bootstrap';
 import { MainService } from '../../core/services/main.service';
-import { MapEventComponent } from '../events/map/map.component';
-import { SearchShowsComponent } from './search/search.component';
+import { SearchEventsComponent } from '../../shared/search/search_window/search.component';
+import { SearchEventsMapComponent } from '../../shared/search/map/map.component';
 
 declare var $:any;
 
@@ -87,9 +87,9 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
         this.cdRef.detectChanges();
     }
 
-    @ViewChild('search') search: SearchShowsComponent;
+    @ViewChild('search') search: SearchEventsComponent;
         
-    @ViewChild('mapForm') mapForm : MapEventComponent;
+    @ViewChild('mapForm') mapForm : SearchEventsMapComponent;
 
     setHeightSearch(){
         if($('.main-router-outlet .main-router-outlet').height() < $(window).height()){
@@ -136,6 +136,7 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
 
     GetEvents(params?:EventSearchParams)
     {
+        
         this.ScrollDisabled = true;
         this.WaitBeforeLoading(
             () => this.main.eventService.EventsSearch(this.SearchParams),

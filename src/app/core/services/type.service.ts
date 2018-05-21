@@ -206,7 +206,7 @@ export class TypeService{
                 name:'Attend'
             }),
             new CheckModel({
-                value:'vip',
+                value:'vr',
                 name:'VR'
             }),
         ];

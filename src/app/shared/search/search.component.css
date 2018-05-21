@@ -1,0 +1,100 @@
+.dropbtn {
+    cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.theme-green .bs-datepicker-head{
+    background-color: rgb(255, 0, 88);
+}
+.dtp div.dtp-date, .dtp div.dtp-time {
+    background-color: rgb(255, 0, 88);
+}
+
+.for-data-picker {
+    margin-top: 10px;
+}
+
+.circle-scroll{
+    cursor: pointer;
+}
+
+.one-checkbox p
+{
+    font-size: 13px;
+    padding-left: 10px;
+}
+
+.pac-container
+{ 
+    z-index: 100000; 
+}
+
+.yes-no
+{
+    margin-left: 80px;
+}
+
+.location-wr .location-inp
+{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.select-type-of-space
+{
+    display: block;
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    border: none;
+    background: transparent;
+    border-bottom: 1px dashed rgba(0,0,0,.2);
+    padding: 10px 0;
+    font-size: 16px;
+    outline: none;
+    box-shadow: none;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAh0lEQVQ4T93TMQrCUAzG8V9x8QziiYSuXdzFC7h4AcELOPQAdXYovZCHEATlgQV5GFTe1ozJlz/kS1IpjKqw3wQBVyy++JI0y1GTe7DCBbMAckeNIQKk/BanALBB+16LtnDELoMcsM/BESDlz2heDR3WePwKSLo5eoxz3z6NNcFD+vu3ij14Aqz/DxGbKB7CAAAAAElFTkSuQmCC) no-repeat 95% 50%;
+    appearance: none;
+}
+
+select{
+    background: url(data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0Ljk1IDEwIj48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6I2ZmZjt9LmNscy0ye2ZpbGw6IzQ0NDt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPmFycm93czwvdGl0bGU+PHJlY3QgY2xhc3M9ImNscy0xIiB3aWR0aD0iNC45NSIgaGVpZ2h0PSIxMCIvPjxwb2x5Z29uIGNsYXNzPSJjbHMtMiIgcG9pbnRzPSIxLjQxIDQuNjcgMi40OCAzLjE4IDMuNTQgNC42NyAxLjQxIDQuNjciLz48cG9seWdvbiBjbGFzcz0iY2xzLTIiIHBvaW50cz0iMy41NCA1LjMzIDIuNDggNi44MiAxLjQxIDUuMzMgMy41NCA1LjMzIi8+PC9zdmc+) no-repeat 95% 50%;
+    -moz-appearance: none; 
+    -webkit-appearance: none;
+
+    height: 40px; 
+    padding: 5px;
+}
+.main_content .for-flex-height {
+    /* height: 100vh; */
+    min-height: 700px;
+ }

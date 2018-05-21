@@ -2,7 +2,7 @@
 <section class="main-router-outlet"  [ngStyle]="{'display': isLoading?'none':'block'}">
     <div class="nav-holder-3" id="nav-holder" [ngClass]="{padding250:Events.length<=3}">
         <div class="wrapp-for-filter">
-            <search-event-selector #search [SearchParams]="SearchParams" (mapClicked)="OpenMap($event)" (onSearch)="GetEvents($event)"></search-event-selector>
+            <search-events-window-cmp #search [SearchParams]="SearchParams" (mapClicked)="OpenMap($event)" (onSearch)="GetEvents($event)"></search-events-window-cmp>
         </div>
     </div>
 
@@ -47,5 +47,5 @@
 
     </section>
     <analyt-event-selector #analyt></analyt-event-selector>
-    <map-event-selector #mapForm (onMapClicked)="TransferMapToSearch($event)"></map-event-selector>
+    <search-events-map-cmp #mapForm (onMapClicked)="TransferMapToSearch($event)"></search-events-map-cmp>
 </section>

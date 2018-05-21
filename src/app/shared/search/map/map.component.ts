@@ -12,11 +12,11 @@ declare var $:any;
 declare var ionRangeSlider:any;
 
 @Component({
-    selector: 'map-shows-selector',
+    selector: 'search-events-map-cmp',
     templateUrl: './map.component.html',
-    styleUrls: ['./../shows.component.css']
+    styleUrls: ['./../search.component.css']
 })
-export class MapShowsComponent extends BaseComponent implements OnInit {
+export class SearchEventsMapComponent extends BaseComponent implements OnInit {
     
     lat:number;
     lng:number;

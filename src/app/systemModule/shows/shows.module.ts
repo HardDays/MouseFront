@@ -9,9 +9,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
 import { AgmCoreModule } from '@agm/core';
 import { ShowsComponent } from './shows.component';
 import { ShowItemComponent } from './show/show.component';
-import { SearchShowsComponent } from './search/search.component';
-import { MapShowsComponent } from './map/map.component';
 import { PreloaderModule } from '../../shared/preloader/preloader.module';
+import { SearchEventsModule } from '../../shared/search/search.module';
 
 @NgModule({
     imports: [ 
@@ -24,13 +23,12 @@ import { PreloaderModule } from '../../shared/preloader/preloader.module';
             libraries: ["places"]
         }),
         PreloaderModule,
-        InfiniteScrollModule
+        InfiniteScrollModule,
+        SearchEventsModule
     ],
     declarations: [ 
         ShowsComponent,
-        ShowItemComponent,
-        SearchShowsComponent,
-        MapShowsComponent
+        ShowItemComponent
     ],
     exports: [ ShowsComponent ]
 })

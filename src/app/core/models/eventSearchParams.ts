@@ -10,7 +10,7 @@ export class EventSearchParams{
         public to_date?:string,
         public genres?: string[],
         public ticket_types?:string[],
-        public size?:string[],
+        public size?:string,
         public only_my?:boolean,
         public account_id?:number,
         public limit?: number,

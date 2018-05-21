@@ -103,7 +103,6 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
 
         this.Lat = this.Account.lat?this.Account.lat:0;
         this.Lng = this.Account.lng?this.Account.lng:0;
-        console.log(this.Lat,this.Lng);
         
         this.GetUpcomingShows();
         this.GetVenueImages();
