@@ -58,6 +58,7 @@ declare var $:any;
 export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChecked{
     Events:EventGetModel[] = [];
     SearchParams: EventSearchParams = new EventSearchParams();
+    ScrollDisabled = true;
 
     constructor(
         protected main           : MainService,
@@ -74,6 +75,8 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
     ngOnInit()
     {
         this.SearchParams.is_active = true;
+        this.SearchParams.offset = 0;
+        this.SearchParams.limit = 6;
         this.GetEvents();
         this.openSearch();
         this.setHeightSearch();
@@ -133,17 +136,44 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
 
     GetEvents(params?:EventSearchParams)
     {
+        this.ScrollDisabled = true;
         this.WaitBeforeLoading(
             () => this.main.eventService.EventsSearch(this.SearchParams),
             (res:EventGetModel[]) =>
             {
-            this.Events = res;
-            // this.CloseSearchWindow();
+                this.Events = res;
+                setTimeout(()=>{this.ScrollDisabled = false},500);
             },
             (err) => {
-            // console.log(err);
             }
         );
     }
+
+    HiddenGetEvents()
+    {
+        this.main.eventService.EventsSearch(this.SearchParams)
+            .subscribe(
+                (res:EventGetModel[]) =>
+                {
+                    if(res && res.length){
+                        for(let item of res)
+                        {
+                            if(!this.Events.find(obj => obj.id == item.id))
+                            {
+                                this.Events.push(item);
+                            }
+                        }
+                    }
+                },
+                (err) => {
+                }
+            );
+    }
+
+    onScroll () 
+    {
+        this.SearchParams.offset = this.Events.length;
+        this.HiddenGetEvents();
+	}
 }
   

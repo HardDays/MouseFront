@@ -22,7 +22,10 @@
                             </a> -->
                             <h1>Shows</h1>
                         </div>
-                        <div class="flex-shows">
+                        <div class="flex-shows" infinite-scroll [infiniteScrollDistance]="2"
+                        [infiniteScrollThrottle]="300"
+                        (scrolled)="onScroll()"
+                        [infiniteScrollDisabled]="ScrollDisabled">
                             <ng-container *ngFor="let item of Events">
                                 <a style="display:block" class="one-show-wr" [routerLink]="['/system','shows_detail',item.id]">
                                     <shows-item-selector [Show]="item"></shows-item-selector>

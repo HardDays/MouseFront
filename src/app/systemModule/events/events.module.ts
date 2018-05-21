@@ -12,6 +12,7 @@ import { SearchEventComponent } from './search/search.component';
 import { MapEventComponent } from './map/map.component';
 import { PreloaderModule } from '../../shared/preloader/preloader.module';
 import { AnalyticsEventComponent } from './analytics/analytics.component';
+import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 
 @NgModule({
     imports: [ 
@@ -23,7 +24,8 @@ import { AnalyticsEventComponent } from './analytics/analytics.component';
             apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",
             libraries: ["places"]
         }),
-        PreloaderModule
+        PreloaderModule,
+        InfiniteScrollModule
     ],
     declarations: [ 
         EventsComponent,
