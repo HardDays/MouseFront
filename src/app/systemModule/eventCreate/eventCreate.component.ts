@@ -170,6 +170,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   SaveEvent()
   {
     this.Event.account_id = this.CurrentAccount.id;
+    this.about.GetEventGenres();
+
     this.WaitBeforeLoading
     (
       () => this.EventId == 0 ? this.main.eventService.CreateEvent(this.Event) : this.main.eventService.UpdateEvent(this.EventId,this.Event),
@@ -193,13 +195,19 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
   NextPart()
   {
+    
+
     setTimeout(() => {
+      if(this.errorCmp.isShown)
+        this.errorCmp.CloseWindow();
+
       if(this.currentPage == this.pages.tickets ||this.isSaveBtnClick)
-      this.router.navigate(["/system","events"]);
-      scrollTo(0,0);
+        this.router.navigate(["/system","events"]);
+      
+        scrollTo(0,0);
       this.currentPage = this.currentPage + 1;
     }
-    , 4500);
+    , 2000);
   }
 
     

@@ -201,14 +201,19 @@ export class AboutComponent extends BaseComponent implements OnInit {
         {
             this.onError.emit(this.getFormErrorMessage(this.aboutForm, 'event'));
             return;
-        }
-        
+        }    
+        this.GetEventGenres();
+    
+        console.log(`thisForm`,this.Event);
+        this.onSaveEvent.emit(this.Event);
+    }
+
+    GetEventGenres(){
         this.Event.genres = [];
         for(let g of this.genres){
           if(g.checked)
             this.Event.genres.push(g.genre);
         }
-        this.onSaveEvent.emit(this.Event);
     }
 
 }

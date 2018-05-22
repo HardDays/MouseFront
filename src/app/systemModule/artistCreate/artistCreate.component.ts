@@ -273,9 +273,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
         }
       } 
     }
-
     this.SaveArtistNav();
-
   }
 
   DeleteImage($event)

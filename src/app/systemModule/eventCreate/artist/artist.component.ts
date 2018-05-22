@@ -200,6 +200,8 @@ export class ArtistComponent extends BaseComponent implements OnInit {
     for(let g of this.genresSearchArtist)
       if(g.checked) this.artistSearchParams.genres.push(g.genre);
 
+    this.artistSearchParams.exclude_event_id = this.Event.id;
+
   this.main.accService.AccountsSearch(this.artistSearchParams).subscribe(
     (res)=>{
       console.log(this.artistSearchParams,` from back `, res);
