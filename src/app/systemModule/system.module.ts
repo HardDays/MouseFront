@@ -30,7 +30,6 @@ import { TicketsComponent } from './tickets/tickets.component';
 import { VenueCreateComponent } from './venueCreate/venueCreate.component';
 import { FanCreateComponent } from './fan-create/fan-create.component';
 import { MessagesComponent } from './messages/messages.component';
-import { MyTicketComponent } from './my-ticket/my-ticket.component';
 import { MyTicketOpenedComponent } from './my-ticket-opened/my-ticket-opened.component';
 import { OneCardComponent } from './eventCreate/one-card/one-card.component';
 import { VenueMediaPhotoComponent } from './venueCreate/venueImage/venueImage.component';
@@ -51,16 +50,15 @@ import { ArtistCreateModule } from './artistCreate/artistCreate.module';
 import { ByTicketComponent } from './showsDetail/buyTicket/buyTicket.component';
 import { ShowDetailGalleryComponent } from './showsDetail/gallery/gallery.component';
 import { ShowsDetailModule } from './showsDetail/showsDetail.module';
+import { SearchTicketsModule } from './tickets/tickets.module';
 
 
 @NgModule({
   declarations: [
     SystemComponent,
     FeedComponent,
-    TicketsComponent,
     FanCreateComponent,
     MessagesComponent,
-    MyTicketComponent,
     MyTicketOpenedComponent
   ],
   imports: [
@@ -85,6 +83,7 @@ import { ShowsDetailModule } from './showsDetail/showsDetail.module';
     PreloaderModule,
     ArtistCreateModule,
     ShowsDetailModule,
+    SearchTicketsModule,
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",
       libraries: ["places"]

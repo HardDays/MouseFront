@@ -2,60 +2,7 @@
 <section [ngStyle]="{'display': isLoading?'none':'block'}" class="main-router-outlet">
     <div class="nav-holder-3" id="nav-holder" [ngClass]="{padding250:Tickets.length<=3}">
         <div class="wrapp-for-filter">
-            <form (ngSubmit)="ShowSearchResults()"  #SearchForm="ngForm">
-                <!--<input type="text" class="inp-style-1" name="serch-text" [ngModel]="SearchParams.text" (ngModelChange)="SearchParams.text = $event" placeholder="Search">-->
-                <div class="groupe-form">
-                    <p class="head-input-groupe">Date</p>
-                    <div class="wrapp-for-triangle">
-                        <input type="text" name="date-picker-inp" class="date-picker-inp" bsDaterangepicker ngModel [bsConfig]="bsConfig" [(ngModel)]="SearchDateRange">
-                    </div>
-                </div>
-                <div class="groupe-form">
-                    <p class="head-input-groupe">Genre</p>
-                    <div class="flex-genres">
-                        <ng-container  *ngFor="let item of Genres;let i = index">
-                            <div class="one-checkbox" *ngIf="item.show || ShowMoreGenres">
-                                <div class="check-style">
-                                    <input type="checkbox" class="checkbox" [ngModel]="item.checked" name="genre_{{i+1}}" (ngModelChange)="item.checked = $event" id="checkbox-{{i+1}}">
-                                    <label for="checkbox-{{i+1}}"></label>
-                                </div>
-                                <p>{{item.genre_show}}</p>
-                            </div>
-                        </ng-container>
-                    </div>
-                    <p class="more" (click)="ShowMoreGenres = !ShowMoreGenres"><span>See more</span></p>
-                </div>
-        
-                <div class="groupe-form">
-                    <p class="head-input-groupe">Ticket type</p>
-                    <div class="flex-genres">
-                        <div class="one-checkbox" *ngFor="let item of TicketTypes; let i = index">
-                            <div class="check-style">
-                                <input type="checkbox" class="checkbox" name="checkboxy-{{i}}" id="checkbox-type-{{i}}">
-                                <label for="checkbox-type-{{i}}"></label>
-                            </div>
-                            <p>{{item.object.name}}</p>
-                        </div>
-                        
-                        
-                        
-                    </div>
-            
-                </div>
-            
-                <div class="groupe-form">
-                    <p class="head-input-groupe">Location</p>
-                    <div class="location-wr">
-                        <div (click)="aboutOpenMapModal()" class="mark">
-                        </div>
-                        <input type="text" class="location-inp" name="search-params-address" autocorrect="off" autocapitalize="off" spellcheck="off" #searchLocal placeholder="" [ngModel]="LocationText" (ngModelChange)="LocationText = $event"  #search id="searchAddress">
-                    </div>
-                </div>
-                
-                <div class="groupe-form">
-                    <button type="submit"  class="butt-style-1"><span>Search</span></button>
-                </div>
-            </form>
+            <search-tickets-window-cmp #search [SearchParams]="SearchParams" (mapClicked)="OpenMap($event)" (onSearch)="ShowSearchResults($event)"></search-tickets-window-cmp>
             
         </div>
     </div>
@@ -131,15 +78,5 @@
             </div>
         </div>
     </section>
-    <div class="modal fade modal-send-request map-1-modal" id="modal-map">
-        <div class="modal-dialog">
-            <div class="modal-body">
-                <h6 class="head-m-p-a">Location</h6>
-                <span class="closee-modal" data-dismiss="modal"></span>
-                <div class="for-map-init-modal-1">
-                        <agm-map style="height:100%" (mapClick)="mapClick($event)" [latitude]="mapCoords.lat" [longitude]="mapCoords.lng"> <agm-marker (dragEnd)="aboutDragMarker($event)" [markerDraggable] = "true" [latitude]="mapCoords.lat"  [longitude]="mapCoords.lng" [visible]="isMarkerVisible"></agm-marker></agm-map>
-                </div>
-            </div>
-        </div>
-    </div>
+    <search-tickets-map-cmp #mapForm (onMapClicked)="TransferMapToSearch($event)"></search-tickets-map-cmp>
 </section>

@@ -1,0 +1,13 @@
+<div class="modal fade modal-send-request map-1-modal" id="modal-map">
+    <div class="modal-dialog">
+        <div class="modal-body">
+            <h6 class="head-m-p-a">Location</h6>
+            <span class="closee-modal" data-dismiss="modal"></span>
+            <div class="for-map-init-modal-1">
+                <agm-map style="height:100%" [latitude]="lat" [longitude]="lng" (mapClick)="MapClick($event)" >
+                     <agm-marker [latitude]="lat" [longitude]="lng" [visible]="isMarkerVisible"></agm-marker>
+                </agm-map>
+            </div>
+        </div>
+    </div>
+</div>
