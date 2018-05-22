@@ -240,31 +240,41 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
   }
 
 
+  SaveArtistNav(){
+    this.main.GetMyAccounts();
+    setTimeout(
+      () => {
+        this.errorCmp.CloseWindow();
+        this.router.navigate(["/system","profile",this.ArtistId]);
+       // scrollTo(0,0);
+      },
+      2000
+    );
+  }
+
   SaveButton()
   {
     switch(this.currentPage){
       case this.pages.about:{
         if(this.AboutPage)
         {
-          if(this.AboutPage.aboutForm.invalid)
-          {
-            this.OpenErrorWindow(this.getFormErrorMessage(this.AboutPage.aboutForm, 'artist'));
+          this.AboutPage.SaveArtist();
+          if(this.AboutPage.aboutForm.invalid){
             return;
           }
         }
       }
       case this.pages.booking:{
         if(this.BookingPage){
-          // if(this.BookingPage.dateForm.invalid)
-          // {
-          //  // this.OpenErrorWindow(this.getFormErrorMessage(this.BookingPage., 'venue'));
-          //   return;
-          // }
+         this.BookingPage.saveArtist();
+         if(!this.BookingPage.Artist.price_from||!this.BookingPage.Artist.price_to){
+            return;
+          }
         }
-      }
-      
+      } 
     }
-    this.SaveArtist();
+
+    this.SaveArtistNav();
 
   }
 
