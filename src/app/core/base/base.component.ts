@@ -188,8 +188,18 @@ export class BaseComponent{
                             () => provider=="google" ? this.main.authService.UserLoginByGoogle(socToken.token) : this.main.authService.UserLoginByFacebook(socToken.token),
                             (res) => {
                                 this.main.authService.BaseInitAfterLogin(res);
-                                this.router.navigate(['/system','shows']);
                                 this.main.authService.onAuthChange$.next(true);
+
+                                setTimeout(() => {
+                                   if(this.main.MyAccounts.length>0){
+                                    this.router.navigate(['/system','shows']);
+                                   } else {
+                                       console.log(`create new acc`);
+                                       this.router.navigate(['/social']);
+                                   }
+                                }, 1000);
+                                
+                               
                             }
                         );
                     }

@@ -33,6 +33,7 @@ import { PhoneService } from './core/services/phone.service';
 import { MainService } from './core/services/main.service';
 import { PreloaderModule } from './shared/preloader/preloader.module';
 import { ErrorModule } from './shared/error/error.module';
+import { SocialNewAccComponent } from './access/login/social-new-acc/social-new-acc.component';
 
 
 
@@ -55,7 +56,8 @@ let providers = {
     RegisterUserComponent,
     RegisterAccComponent,
     RegisterFollowComponent,
-    RegisterPhoneComponent
+    RegisterPhoneComponent,
+    SocialNewAccComponent
   ],
   imports: [
     BrowserModule,

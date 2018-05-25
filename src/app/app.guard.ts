@@ -24,6 +24,15 @@ export class AppAccessGuard extends BaseComponent implements CanActivate{
                     return true;
                 }
             }
+
+            case "social":{
+                if(!login){
+                    return this.LoginNavigate();
+                }
+                else{
+                    return true;
+                }
+            }
            
             case "register":{
                 if(login){
