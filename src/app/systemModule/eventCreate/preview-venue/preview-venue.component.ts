@@ -120,4 +120,12 @@ export class PreviewVenueComponent extends BaseComponent implements OnInit {
     this.OnReturn.emit();
   }
 
+  scrollTo(part:string){
+    let page = '#'+part+'Page';
+    $('html, body').animate({
+      scrollTop: $(page).offset().top
+    }, 1000);
+    
+  }
+
 }

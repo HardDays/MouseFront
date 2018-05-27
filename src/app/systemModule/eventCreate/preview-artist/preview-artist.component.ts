@@ -160,6 +160,14 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
         lightBox.init();
     }
 
+    scrollTo(part:string){
+      let page = '#'+part+'Page';
+      $('html, body').animate({
+        scrollTop: $(page).offset().top
+      }, 1000);
+      
+    }
+
 
 
 

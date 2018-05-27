@@ -136,7 +136,10 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
       this.aboutForm.updateValueAndValidity();
       if(this.aboutForm.invalid)
       {
-          this.onError.emit(this.getFormErrorMessage(this.aboutForm, 'artist'));
+
+        console.log(this.aboutForm,this.getFormErrorMessage(this.aboutForm, 'artist'));
+        this.onError.emit(this.getFormErrorMessage(this.aboutForm, 'artist'));
+          // this.onError.emit(`ERROR`);
           return;
       }
 

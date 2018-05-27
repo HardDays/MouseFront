@@ -363,7 +363,7 @@ export class BaseComponent{
             }
             else if (field.errors.hasOwnProperty('pattern'))
             {
-              if (key === 'email') {
+              if (key === 'email' || key === 'artist_email') {
                 return String(BaseMessages.EmailPattern).replace('_email', keyDict[key]);
               }
               else
@@ -383,7 +383,7 @@ export class BaseComponent{
         Object.keys(form.controls).forEach((key) => {
             if (form.controls[key].status === 'INVALID') {
                 const formControl = form.controls[key];
-
+                console.log(`---`,formControl,key);
                 if (formControl instanceof FormControl) {
                     errors.push(this.getFieldError(formControl, key, keyDict));
                 }

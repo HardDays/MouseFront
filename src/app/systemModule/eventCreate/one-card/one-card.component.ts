@@ -24,7 +24,7 @@ export class OneCardComponent implements OnInit {
   // @Output('addVenue') addVenue = new EventEmitter<AccountGetModel>();
 
   ngOnInit() {
-    // console.log(this.card, this.status);
+    console.log(`card`,this.card, this.status);
   }
 
   toBeatyShowsList( mas:any[]){

@@ -21,8 +21,8 @@ export class SocialNewAccComponent extends BaseComponent implements OnInit {
 
  userForm : FormGroup = new FormGroup({
     "email": new FormControl("", [Validators.required,
-      Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$')]),
-    "register_phone": new FormControl("")
+      Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$')])
+      //,"register_phone": new FormControl("")
   });
 
   ngOnInit(){
@@ -44,10 +44,12 @@ export class SocialNewAccComponent extends BaseComponent implements OnInit {
               this.router.navigate(['/system','fanCreate','new']);
         },
         (err) => {
-            this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'base'));
-
+            console.log(`err`,err);
+            if(err._body.indexOf("password")==0)
+              this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'base'));
             setTimeout(() => {
-              this.errorCmp.CloseWindow();
+              if(this.errorCmp.isShown)
+                this.errorCmp.CloseWindow();
               if(this.type=='venue')
                 this.router.navigate(['/system','venueCreate','new']);
               else if(this.type=='artist')
@@ -55,7 +57,6 @@ export class SocialNewAccComponent extends BaseComponent implements OnInit {
               else
                 this.router.navigate(['/system','fanCreate','new']);
             }, 1000);
-
         });
     } else {
       this.errorCmp.OpenWindow('Error!');

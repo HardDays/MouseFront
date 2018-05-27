@@ -202,7 +202,11 @@ export class AboutComponent extends BaseComponent implements OnInit {
             this.onError.emit(this.getFormErrorMessage(this.aboutForm, 'event'));
             return;
         }    
+
         this.GetEventGenres();
+        
+        if(!this.Event.is_crowdfunding_event)
+            this.Event.is_crowdfunding_event = false;
     
         console.log(`thisForm`,this.Event);
         this.onSaveEvent.emit(this.Event);

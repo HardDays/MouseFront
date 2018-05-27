@@ -30,7 +30,8 @@
         <div *ngIf="status!='pending'&&status!='declined'&&status!='owner_declined'" class="flex-buttons">
             <!-- <span *ngIf="status!='ready'&&status!='accepted'&&status!='owner_accepted'&&status!='active'&&status!='not found artist'" class="button-card" (click)="Check()" >check</span> -->
             <span *ngIf="status=='accepted'" class="button-card" (click)="Accept()">accept</span>
-            <span *ngIf="status=='ready'||(card.account_type == 'venue' && status=='not found artist')" class="button-card" (click)="sendRequest()">Send request</span>
+            <span *ngIf="card.venue_type!='private_residence'&&(status=='ready'||(card.account_type == 'venue' && status=='not found artist'))" class="button-card" (click)="sendRequest()">Send request</span>
+            <span *ngIf="card.venue_type=='private_residence'" class="button-card">Verify request</span>
             <span *ngIf="status=='accepted'" class="button-card" (click)="Decline()">Decline</span>
         </div>
     </div>
