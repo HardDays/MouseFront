@@ -8,6 +8,7 @@ header .main-mw .right-side{
     position: relative;
     padding-bottom: 4px;
 }
+
 .dropdown-hover-profiles:hover .dropdown-settings-ava {
     display: block; }
     .dropdown-hover-profiles .dropdown-settings-ava {
@@ -95,3 +96,19 @@ header .main-mw .right-side{
       }
 
     
+
+      .dropdown-hover-profiles .dropdown-items-wr{
+        position: relative;
+        max-height: 500px;
+        overflow: auto;
+      }
+      .dropdown-hover-profiles .dropdown-items-wr::-webkit-scrollbar {
+        background: #fff;
+        width: 5px;
+    }
+    
+    .dropdown-hover-profiles .dropdown-items-wr::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 2.5px;
+        cursor: pointer;
+    }

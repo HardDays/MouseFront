@@ -51,6 +51,7 @@ import { ByTicketComponent } from './showsDetail/buyTicket/buyTicket.component';
 import { ShowDetailGalleryComponent } from './showsDetail/gallery/gallery.component';
 import { ShowsDetailModule } from './showsDetail/showsDetail.module';
 import { SearchTicketsModule } from './tickets/tickets.module';
+import { TinyCalendarComponent } from './tiny-calendar/tiny-calendar.component';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { SearchTicketsModule } from './tickets/tickets.module';
     FeedComponent,
     FanCreateComponent,
     MessagesComponent,
-    MyTicketOpenedComponent
+    MyTicketOpenedComponent,
+    TinyCalendarComponent
   ],
   imports: [
     CommonModule,

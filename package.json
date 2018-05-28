@@ -31,6 +31,7 @@
     "core-js": "^2.4.1",
     "express": "^4.15.4",
     "express-history-api-fallback": "^2.2.0",
+    "moment": "^2.22.1",
     "ng-youtube-embed-iframe": "^1.2.4",
     "ngx-bootstrap": "^2.0.2",
     "ngx-slick": "^0.1.3",
