@@ -266,6 +266,11 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
   artistOpenMapModal(){
     $('#modal-map-2').modal('show');
+    
+      $('#modal-pick-artist').modal('hide');
+    $('#modal-map-2').on("hidden.bs.modal", function () {
+      $('#modal-pick-artist').modal('show');
+    });
     this.agmMap.triggerResize();
   }
 
