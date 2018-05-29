@@ -54,13 +54,17 @@ export class LoginComponent extends BaseComponent implements OnInit {
       
     if(this.accessVkToken.length>0)
     {
+      
       this.main.authService.UserLoginByVk(this.accessVkToken)
         .subscribe
         (
           (res)=>
           {
             this.main.authService.BaseInitAfterLogin(res);
+            this.main.authService.onAuthChange$.next(true);
+            
             setTimeout(() => {
+              console.log(this.main.MyAccounts);
               if(this.main.MyAccounts.length>0)
                 this.router.navigate(['/system','shows']);
               else {
@@ -104,9 +108,11 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
   signInVK()
   {
-    window.close();
-    //window.open("https://oauth.vk.com/authorize?client_id=6326995&display=page&redirect_uri=http://localhost:4200/login&scope=friends&response_type=token&v=5.73&scope=offline");
-    window.open("https://oauth.vk.com/authorize?client_id=6326995&display=page&redirect_uri=https://mouse-web.herokuapp.com/login&scope=friends&response_type=token&v=5.73&scope=offline");
+    // window.close();
+    
+
+    window.location.replace("https://oauth.vk.com/authorize?client_id=6326995&display=page&redirect_uri=http://localhost:4200/login&scope=friends&response_type=token&v=5.73&scope=offline");
+    //window.open("https://oauth.vk.com/authorize?client_id=6326995&display=page&redirect_uri=https://mouse-web.herokuapp.com/login&scope=friends&response_type=token&v=5.73&scope=offline");
   }
 
   // signInTwitter(){
