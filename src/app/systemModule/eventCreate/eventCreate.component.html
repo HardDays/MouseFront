@@ -65,6 +65,7 @@
          <app-artist #artist *ngIf="!isLoading&&(currentPage==pages.artist)"
             [Event]="Event"
             (onSaveEvent)="SaveEventByPages($event)"
+            (onError)="OpenErrorWindow($event)"
             (openPreview)="openPreviewArtist($event)"
         ></app-artist>
        
