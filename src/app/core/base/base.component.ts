@@ -188,8 +188,18 @@ export class BaseComponent{
                             () => provider=="google" ? this.main.authService.UserLoginByGoogle(socToken.token) : this.main.authService.UserLoginByFacebook(socToken.token),
                             (res) => {
                                 this.main.authService.BaseInitAfterLogin(res);
-                                this.router.navigate(['/system','shows']);
                                 this.main.authService.onAuthChange$.next(true);
+
+                                setTimeout(() => {
+                                   if(this.main.MyAccounts.length>0){
+                                    this.router.navigate(['/system','shows']);
+                                   } else {
+                                       console.log(`create new acc`);
+                                       this.router.navigate(['/social']);
+                                   }
+                                }, 1000);
+                                
+                               
                             }
                         );
                     }
@@ -353,7 +363,7 @@ export class BaseComponent{
             }
             else if (field.errors.hasOwnProperty('pattern'))
             {
-              if (key === 'email') {
+              if (key === 'email' || key === 'artist_email') {
                 return String(BaseMessages.EmailPattern).replace('_email', keyDict[key]);
               }
               else
@@ -373,7 +383,7 @@ export class BaseComponent{
         Object.keys(form.controls).forEach((key) => {
             if (form.controls[key].status === 'INVALID') {
                 const formControl = form.controls[key];
-
+                console.log(`---`,formControl,key);
                 if (formControl instanceof FormControl) {
                     errors.push(this.getFieldError(formControl, key, keyDict));
                 }

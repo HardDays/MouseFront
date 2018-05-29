@@ -15,30 +15,30 @@
                   </h1>
                   <ul>
                       <!--нужным li даем классы active и started."хз нахрена это надо. узнавайте у писателя"-->
-                      <li class="active">
-                          <a href="#" class="nav-second-outlet">about</a>
+                      <li (click)="scrollTo('about')" class="active">
+                          <a class="nav-second-outlet">about</a>
                       </li>
-                      <li class="started">
-                          <a href="#" class="nav-second-outlet">Hours</a>
+                      <!-- <li (click)="scrollTo('about')">
+                          <a class="nav-second-outlet">Hours</a>
+                      </li> -->
+                      <li (click)="scrollTo('listing')">
+                          <a class="nav-second-outlet">Listing</a>
                       </li>
-                      <li>
-                          <a href="#" class="nav-second-outlet">Listing</a>
-                      </li>
-                      <li>
-                          <a href="#" class="nav-second-outlet">Media</a>
+                      <li (click)="scrollTo('media')">
+                          <a class="nav-second-outlet">Media</a>
                       </li>
                       <!-- <li>
-                          <a href="#" class="nav-second-outlet">DAtes</a>
+                          <a   class="nav-second-outlet">DAtes</a>
                       </li> -->
-                      <li>
-                          <a href="#" class="nav-second-outlet">Preview</a>
-                      </li>
+                      <!-- <li>
+                          <a class="nav-second-outlet">Preview</a>
+                      </li> -->
                   </ul>
               </div>
           </div>
       </div>
       <div class="for-white-bg">
-       <div class="all-info-profile all-info-profile-preview">
+       <div id="aboutPage" class="all-info-profile all-info-profile-preview">
            <div class="uniq-padd-2">
               <div class="main-mw">
                   <div class="flex--info">
@@ -58,7 +58,7 @@
            </div>
           <div class="uniq-padd-2">
               <div class="main-mw">
-                  <div class="flex--info">
+                  <div id="listingPage" class="flex--info">
                       <div class="side side-info side-about">
                           <h6>Listing Details</h6>
                           <p class="about-text line-height-hig">
@@ -149,7 +149,7 @@
                   </div>
               </div> -->
               <div class="main-mw">
-                  <div class="flex--info none-padd-sides-b">
+                  <div id="mediaPage" class="flex--info none-padd-sides-b">
                       <div class="side side-info-new-venue-prev side-info side-about">
                           <h6>Media</h6>
                           <p class="vr-availeble">

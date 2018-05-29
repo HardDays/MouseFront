@@ -169,6 +169,11 @@ export class AuthMainService{
             ()=> this.http.PostData('/users.json',JSON.stringify(user))
         );
     }
+    UpdateUser(user:UserCreateModel){
+        return this.http.CommonRequest(
+            ()=> this.http.PatchData('/users/me.json',JSON.stringify(user))
+        );
+    }
 
     CreateAccount(acc:AccountCreateModel){
         return this.http.CommonRequest(

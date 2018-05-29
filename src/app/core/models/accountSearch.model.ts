@@ -13,6 +13,7 @@ export class AccountSearchModel{
         public sort_by_popularity?: boolean,
         public limit?: number,
         public offset?: number, 
-        public genres?: string[]
+        public genres?: string[],
+        public exclude_event_id?:number
 ){}
 }

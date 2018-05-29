@@ -1,0 +1,45 @@
+
+        <section class="login-register">
+          <div class="register">
+              <app-preloader [white]="true" *ngIf="isLoading"></app-preloader>
+              <div [ngStyle]="{'display':isLoading?'none':'block'}" class="m-v-reg">
+                  <form [formGroup]="userForm" class="reg-wr">
+                      <h3>ENTER INFORMATION</h3>
+                      <div class="sigh-up-3-m-w">
+                          <input class="inp-style-2" [(ngModel)]="user.email" formControlName="email" type="text" placeholder="Email Address">
+                          <!-- <input class="inp-style-2" [(ngModel)]="user.register_phone" formControlName="register_phone" [textMask]="MaskTelephone()" type="text" placeholder="Tel. Number"> -->
+  
+                          <p class="type-head">Type of account</p>
+                          <div class="flex-checkboxes one-line-checkbox">
+                          <!--при for обращаем внимания на for у label и id у инпута-->
+                              <div class="one-checkbox">
+                                  <div class="check-style">
+                                      <input (change)="type='fan'" [checked]="type=='fan'" type="checkbox" class="checkbox" name="" id="checkbox-1">
+                                      <label for="checkbox-1"></label>
+                                  </div>
+                                  <p>Fan</p>
+                              </div>
+                              <div class="one-checkbox">
+                                  <div class="check-style">
+                                      <input (change)="type='artist'" [checked]="type=='artist'" type="checkbox" class="checkbox" name="" id="checkbox-2">
+                                      <label for="checkbox-2"></label>
+                                  </div>
+                                  <p>Artist</p>
+                              </div>
+                              <div class="one-checkbox">
+                                  <div class="check-style">
+                                      <input (change)="type='venue'" [checked]="type=='venue'" type="checkbox" class="checkbox" name="" id="checkbox-3">
+                                      <label for="checkbox-3"></label>
+                                  </div>
+                                  <p>Venue</p>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="continue-wr">
+                          <button class="butt-style-1" type="submit" (click)="registerUser()"><span>Continue</span></button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+          </section>
+          <error-cmp #errorCmp></error-cmp>

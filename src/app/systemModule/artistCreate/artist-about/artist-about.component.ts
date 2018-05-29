@@ -33,7 +33,8 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
     "display_name": new FormControl("", [Validators.required]),
     "stage_name": new FormControl(""),
     "manager_name": new FormControl(""),
-    "artist_email": new FormControl("",[Validators.required, Validators.email]),
+    "artist_email": new FormControl("",[Validators.required,
+      Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$')]),
     "about": new FormControl("", [Validators.required]),
   });
   genres:GenreModel[] = [];
@@ -130,10 +131,15 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
 
   SaveArtist()
   {
+      console.log(`SaveArtist`);
+      
       this.aboutForm.updateValueAndValidity();
       if(this.aboutForm.invalid)
       {
-          this.onError.emit(this.getFormErrorMessage(this.aboutForm, 'artist'));
+
+        console.log(this.aboutForm,this.getFormErrorMessage(this.aboutForm, 'artist'));
+        this.onError.emit(this.getFormErrorMessage(this.aboutForm, 'artist'));
+          // this.onError.emit(`ERROR`);
           return;
       }
 
@@ -144,6 +150,7 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
         }
       }
       
+      console.log(`beforeEmit`,this.Artist);
       this.onSaveArtist.emit(this.Artist);
   }
 

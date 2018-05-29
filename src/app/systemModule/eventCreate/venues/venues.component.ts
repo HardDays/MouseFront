@@ -20,7 +20,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { AccountAddToEventModel } from '../../../core/models/artistAddToEvent.model';
 import { InboxMessageModel } from '../../../core/models/inboxMessage.model';
 import { EventCreateModel } from '../../../core/models/eventCreate.model';
-import { BaseImages } from '../../../core/base/base.enum';
+import { BaseImages, BaseErrors, BaseMessages } from '../../../core/base/base.enum';
 
 declare var $:any;
 declare var ionRangeSlider:any;
@@ -408,7 +408,8 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                 this.onError.emit("Venue accepted!");
                 this.updateEvent();
             },(err)=>{
-                this.onError.emit("Venue NOT accepted!");
+                this.onError.emit("Venue NOT accepted! "+this.getResponseErrorMessage(err));
+                console.log(`err`,err);
             });
     }
 
@@ -442,6 +443,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
 
     createPrivateRes(){
         console.log(`submitVenue`);
+        this.onError.emit(BaseMessages.Success);
         this.updateEvent();
     }
 

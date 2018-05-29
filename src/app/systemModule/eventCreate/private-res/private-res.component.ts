@@ -84,7 +84,7 @@ export class PrivateResComponent extends BaseComponent implements OnInit {
                
                 },
                 (err)=>{
-                    //console.log(`err`,err);
+                    console.log(`err`,err);
                 }
             );
         }

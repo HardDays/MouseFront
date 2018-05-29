@@ -195,7 +195,10 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
   }
 
   saveArtist(){
-    this.onSave.emit(this.Artist);
+    if(this.Artist.price_from&&this.Artist.price_to)
+      this.onSave.emit(this.Artist);
+    else
+      this.onError.emit('Entry Price!');
     return;
   }
 

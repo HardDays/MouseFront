@@ -147,9 +147,7 @@
                 <div class="for-padd-cards-art">
                         <app-preloader *ngIf="isLoadingArtist"></app-preloader>
                     <div class="scroll-cards-art">
-
-                       
-                            
+                             
                             <ng-container *ngIf="!isLoadingArtist">
                             <div *ngFor="let item of artistsSearch; let i = index" class="one-card">
                                 <div (click)="closeAddArtist(item.object.id)"  class="l-s">
@@ -221,19 +219,19 @@
                     <div class="flex-input-groupes">
                         <div class="input-groupe-1 more-padd">
                             <select formControlName="time_frame"  id="inp-modal-req-3">
-                                    <option>one_hour</option>
-                                    <option>one_day</option>
-                                    <option>one_week</option>
-                                    <option>one_month</option>
+                                    <option value="one_hour">One Hour</option>
+                                    <option value="one_day">One Day</option>
+                                    <option value="one_week">One Week</option>
+                                    <option value="one_month">One Month</option>
                             </select>
-                            <label for="inp-modal-req-3">Time Frame we expect an answer</label>
+                            <label for="inp-modal-req-3">Time Frame we expect an answer<span>*</span></label>
                         </div>
                         <div class="input-groupe-1 more-padd">
                             <div class="rel-wr">
                                 <span class="abs-backs">$</span>
                                 <input [textMask]="MaskNumbers()" formControlName="estimated_price" id="inp-modal-req-4" class="dollar" name="" type="text">
                             </div>
-                            <label for="inp-modal-req-4">Estimated Price to<br> Perform</label>
+                            <label for="inp-modal-req-4">Estimated Price to<br> Perform<span>*</span></label>
                             
                         </div>
                     </div>
@@ -250,7 +248,7 @@
                     </div>
                     <div class="location-wr">
                         <div class="mark"></div>
-                        <input type="text" [value]="Event.address" class="location-inp" placeholder="location">
+                        <input type="text"  style="background-color: fff" [value]="Event.address" class="location-inp" placeholder="location">
                     </div>
                     <div class="flex-input-groupes">
                         <div class="input-groupe-1 small-textarea whithout-label">

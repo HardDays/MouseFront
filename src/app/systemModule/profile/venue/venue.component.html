@@ -47,30 +47,34 @@
                                                 <p class="head-cont">PHONE:</p>
                                                 <span *ngIf="Account.phone">{{Account.phone}}</span>
                                             </div>
-                                            <div class="one-cont" style="margin-top:auto;min-height:42px" *ngIf="Account.office_hours">
+                                        </div>
+                                        <div class="column-cont">
+                                            <div class="one-cont">    
+                                                <div class="one-cont" *ngIf="Account.emails">
+                                                    <p class="head-cont">CONTACTS:</p>
+                                                    <ng-container *ngFor="let item of Account.emails;let i = index">
+                                                        <span id="contacts_view">{{item.name}},</span>
+                                                        <span id="contacts_view">{{item.email}}</span>
+                                                    </ng-container>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex-contact-venue">
+                                        <div class="column-cont">
+                                            <div class="one-cont" style="min-height:42px" *ngIf="Account.office_hours">
                                                 <p class="head-cont" >OFFICE HOURS:</p>
                                                 <ng-container *ngFor="let item of OffHours;let i = index">
-                                                    
                                                     <span >{{item.begin_time}} - {{item.end_time}}, {{item.day}}</span>
                                                 </ng-container>
                                             </div>
                                         </div>
                                         <div class="column-cont">
-                                            <div class="one-cont">    
-                                                <div class="one-cont" *ngIf="Account.emails">
-                                                        <p class="head-cont">CONTACTS:</p>
-                                                        <ng-container *ngFor="let item of Account.emails;let i = index">
-                                                            <span id="contacts_view">{{item.name}},</span>
-                                                            <span id="contacts_view">{{item.email}}</span>
-                                                        </ng-container>
-                                                </div>
-                                            </div>
-                                            <div class="one-cont" style="margin-top:auto;min-height:42px" *ngIf="Account.office_hours">
-                                                    <p class="head-cont" >OPERATING HOURS:</p>
-                                                    <ng-container *ngFor="let item of OpHours;let i = index">
-                                                        
-                                                        <span>{{item.begin_time}} - {{item.end_time}}, {{item.day}}</span>
-                                                    </ng-container>
+                                            <div class="one-cont" style="min-height:42px" *ngIf="Account.office_hours">
+                                                <p class="head-cont" >OPERATING HOURS:</p>
+                                                <ng-container *ngFor="let item of OpHours;let i = index">
+                                                    <span>{{item.begin_time}} - {{item.end_time}}, {{item.day}}</span>
+                                                </ng-container>
                                             </div>
                                         </div>
                                     </div>

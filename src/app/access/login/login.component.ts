@@ -60,7 +60,15 @@ export class LoginComponent extends BaseComponent implements OnInit {
           (res)=>
           {
             this.main.authService.BaseInitAfterLogin(res);
-            this.router.navigate(['/system','shows']);
+            setTimeout(() => {
+              if(this.main.MyAccounts.length>0)
+                this.router.navigate(['/system','shows']);
+              else {
+                console.log(`create new acc`);
+                this.router.navigate(['/social']);
+              }
+            }, 1000);
+            
           }
         );
     }
@@ -97,7 +105,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
   signInVK()
   {
     window.close();
-    //window.open("https://oauth.vk.com/authorize?client_id=6412516&redirect_uri=http://localhost:4200/login&display=page&response_type=token&v=5.73&state=123456");
+    //window.open("https://oauth.vk.com/authorize?client_id=6326995&display=page&redirect_uri=http://localhost:4200/login&scope=friends&response_type=token&v=5.73&scope=offline");
     window.open("https://oauth.vk.com/authorize?client_id=6326995&display=page&redirect_uri=https://mouse-web.herokuapp.com/login&scope=friends&response_type=token&v=5.73&scope=offline");
   }
 

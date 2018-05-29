@@ -100,9 +100,19 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
       this.getGenres();
 
-      this.artistsList = this.Event.artist;
-      //console.log(this.artistsList);
-      this.GetArtistsFromList();
+      // this.artistsList = this.Event.artist;
+      // //console.log(this.artistsList);
+      // this.GetArtistsFromList();
+    }
+
+    ngOnChanges(){
+      
+
+      // this.artistsList = this.Event.artist;
+      // //console.log(this.artistsList);
+      // this.GetArtistsFromList();
+      // console.log(`ngOnChanges`,this.artistsList, this.Artists);
+      this.updateEvent();
     }
 
     getGenres(){
@@ -200,6 +210,8 @@ export class ArtistComponent extends BaseComponent implements OnInit {
     for(let g of this.genresSearchArtist)
       if(g.checked) this.artistSearchParams.genres.push(g.genre);
 
+    this.artistSearchParams.exclude_event_id = this.Event.id;
+
   this.main.accService.AccountsSearch(this.artistSearchParams).subscribe(
     (res)=>{
       console.log(this.artistSearchParams,` from back `, res);
@@ -264,6 +276,11 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
   artistOpenMapModal(){
     $('#modal-map-2').modal('show');
+    
+      $('#modal-pick-artist').modal('hide');
+    $('#modal-map-2').on("hidden.bs.modal", function () {
+      $('#modal-pick-artist').modal('show');
+    });
     this.agmMap.triggerResize();
   }
 
@@ -339,24 +356,28 @@ export class ArtistComponent extends BaseComponent implements OnInit {
     let msgId = this.getIdAtMsg(card.id);
 
     
+    
     this.ownerAcceptDecline.message_id = msgId;
      let msg = this.messagesList[0];
 
     for(let m of this.messagesList)
         if(m.id == msgId) msg = m;
     
-        console.log(msg,this.messagesList,msgId);    
+    // console.log(msg,this.messagesList,msgId);    
     this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from?msg.message_info.preferred_date_from:new Date().toString();
     this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to?msg.message_info.preferred_date_to:new Date('+3').toString();
 
-    console.log(this.ownerAcceptDecline);
+    // console.log(this.ownerAcceptDecline);
     this.main.eventService.ArtistAcceptOwner(this.ownerAcceptDecline).
         subscribe((res)=>{
            // console.log(`ok accept artist`,res);
             this.onError.emit("Artist accepted!");
             this.updateEvent();
         },(err)=>{
-          this.onError.emit("Artist NOT accepted!");
+          if(err.status === 422)
+            this.onError.emit("Limit of artists was reached!");
+          else
+            this.onError.emit("Artist NOT accepted!");
         });
 
 }
@@ -427,10 +448,12 @@ artistSendRequest(id:number){
 }
 
 updateEvent(){
+
+  console.log(`updateEvent`);
   this.main.eventService.GetEventById(this.Event.id).
             subscribe((res:EventGetModel)=>{
               //  console.log(`updateEventThis`);
-                 this.Event = this.main.eventService.EventModelToCreateEventModel(res);
+                this.Event = this.main.eventService.EventModelToCreateEventModel(res);
                 this.artistsList = [];
                 this.artistsList = this.Event.artist;
             //    console.log(`---`,this.Event,this.artistsList)
