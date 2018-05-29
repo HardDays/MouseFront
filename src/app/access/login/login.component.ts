@@ -62,7 +62,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
           {
             this.main.authService.BaseInitAfterLogin(res);
             this.main.authService.onAuthChange$.next(true);
-            
+
             setTimeout(() => {
               console.log(this.main.MyAccounts);
               if(this.main.MyAccounts.length>0)
@@ -111,8 +111,8 @@ export class LoginComponent extends BaseComponent implements OnInit {
     // window.close();
     
 
-    window.location.replace("https://oauth.vk.com/authorize?client_id=6326995&display=page&redirect_uri=http://localhost:4200/login&scope=friends&response_type=token&v=5.73&scope=offline");
-    //window.open("https://oauth.vk.com/authorize?client_id=6326995&display=page&redirect_uri=https://mouse-web.herokuapp.com/login&scope=friends&response_type=token&v=5.73&scope=offline");
+    // window.location.replace("https://oauth.vk.com/authorize?client_id=6326995&display=page&redirect_uri=http://localhost:4200/login&scope=friends&response_type=token&v=5.73&scope=offline");
+     window.location.replace("https://oauth.vk.com/authorize?client_id=6326995&display=page&redirect_uri=https://mouse-web.herokuapp.com/login&scope=friends&response_type=token&v=5.73&scope=offline");
   }
 
   // signInTwitter(){
