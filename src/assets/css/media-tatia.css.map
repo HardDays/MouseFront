@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,0BAA2B;EACzB,+EAAgF;IAC9E,SAAS,EAAE,IAAI;AAGnB,0BAA2B;EACzB,+EAAgF;IAC9E,SAAS,EAAE,IAAI;;EAEjB,0EAA2E;IACzE,YAAY,EAAE,IAAI;IAClB,aAAa,EAAE,IAAI",
+"sources": ["media-tatia.scss"],
+"names": [],
+"file": "media-tatia.css"
+}

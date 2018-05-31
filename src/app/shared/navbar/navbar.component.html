@@ -126,9 +126,10 @@
                                 
                                 <div class="dropdown-items-wr">
                                     <ng-container *ngIf="CurrentAccount && CurrentAccount.account_type">
-                                        <a *ngIf="CurrentAccount.account_type == 'venue'" [routerLink]="['/system/venueCreate',CurrentAccount.id]">Settings</a>
+                                        <!-- <a *ngIf="CurrentAccount.account_type == 'venue'" [routerLink]="['/system/venueCreate',CurrentAccount.id]">Settings</a>
                                         <a *ngIf="CurrentAccount.account_type == 'artist'" [routerLink]="['/system/artistCreate',CurrentAccount.id]">Settings</a>
-                                        <a *ngIf="CurrentAccount.account_type == 'fan'" [routerLink]="['/system/fanCreate',CurrentAccount.id]">Settings</a>
+                                        <a *ngIf="CurrentAccount.account_type == 'fan'" [routerLink]="['/system/fanCreate',CurrentAccount.id]">Settings</a> -->
+                                        <a [routerLink]="['/system/settings']">Settings</a>
                                     </ng-container>
                                     <span (click)="logout()">Log Out</span>
                                 </div>

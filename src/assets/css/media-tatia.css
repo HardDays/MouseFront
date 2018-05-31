@@ -1,0 +1,12 @@
+@media (max-width: 1400px) {
+  .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_left .zag {
+    font-size: 50px; } }
+@media (max-width: 1300px) {
+  .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_left .zag {
+    font-size: 40px; }
+
+  .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_left {
+    padding-left: 35px;
+    padding-right: 35px; } }
+
+/*# sourceMappingURL=media-tatia.css.map */

@@ -52,6 +52,8 @@ import { ShowDetailGalleryComponent } from './showsDetail/gallery/gallery.compon
 import { ShowsDetailModule } from './showsDetail/showsDetail.module';
 import { SearchTicketsModule } from './tickets/tickets.module';
 import { TinyCalendarComponent } from './tiny-calendar/tiny-calendar.component';
+import { SettingsModule } from './settings/settings.module';
+
 
 
 @NgModule({
@@ -86,6 +88,7 @@ import { TinyCalendarComponent } from './tiny-calendar/tiny-calendar.component';
     ArtistCreateModule,
     ShowsDetailModule,
     SearchTicketsModule,
+    SettingsModule,
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",
       libraries: ["places"]

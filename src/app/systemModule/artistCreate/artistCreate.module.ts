@@ -15,6 +15,7 @@ import { ArtistRidersComponent } from './artist-riders/artist-riders.component';
 import { ArtistCreateComponent } from './artistCreate.component';
 import { ProfileModule } from '../profile/profile.module';
 
+
 @NgModule({
     imports: [ 
         RouterModule,

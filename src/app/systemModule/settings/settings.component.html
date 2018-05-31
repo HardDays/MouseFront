@@ -1,0 +1,45 @@
+<section class="second-router-outlet">
+  <div class="messages-main-wrapp">
+      <div class="main-mw main_for_setts">
+          <div class="flex-massages-wrapp settings_wrap">
+              <div class="left-s settings_left">
+                  <h2 class="zag">Settings</h2>
+                  <ul class="settings_menu">
+                      <li [ngClass]="{'active': CurrentPart==Parts.PersonalInfo}"><a (click)="CurrentPart=Parts.PersonalInfo">Personal info</a></li>
+                      <li [ngClass]="{'active': CurrentPart==Parts.Preferences}"><a (click)="CurrentPart=Parts.Preferences">Preferences</a></li>
+                      <li [ngClass]="{'active': CurrentPart==Parts.FinancialInfo}"><a (click)="CurrentPart=Parts.FinancialInfo">Financial info</a></li>
+                      <li [ngClass]="{'active': CurrentPart==Parts.Feedback}"><a (click)="CurrentPart=Parts.Feedback">Feedback</a></li>
+                      <li>
+                          <span (click)="CurrentPart=Parts.CustomerSupport" class="opening">Customer support</span>
+                          <ul *ngIf="CurrentPart==Parts.CustomerSupport" class="submenu" style="display:block">
+                              <li><a (click)="customerPage = CustomerParts.sendQuestion">How to Create an Event</a></li>
+                              <li><a (click)="customerPage = CustomerParts.sendQuestion">How to Create a Crowdfunding Event</a></li>
+                              <li><a (click)="customerPage = CustomerParts.sendQuestion">How to Search for a Show in my Area</a></li>
+                              <li><a (click)="customerPage = CustomerParts.sendQuestion">How to Upload my Videos (Artist)</a></li>
+                              <li><a (click)="customerPage = CustomerParts.sendQuestion">How to Find My Favourite Artist</a></li>
+                              <li><a (click)="customerPage = CustomerParts.sendQuestion">More Questions</a></li>
+                              <li  [ngClass]="{'active': customerPage==CustomerParts.sendQuestion}"><a (click)="customerPage = CustomerParts.sendQuestion">Send a Question</a></li>
+                          </ul>
+                      </li>
+                      <li [ngClass]="{'active': CurrentPart==Parts.TermsOfService}"><a (click)="CurrentPart=Parts.TermsOfService">Terms of service</a></li>
+                      <li [ngClass]="{'active': CurrentPart==Parts.PrivacyPolicy}"><a (click)="CurrentPart=Parts.PrivacyPolicy">Privacy policy</a></li>
+                  </ul>
+              </div>
+              <!--вместо дива может быть форма-->
+              <div class="right-s settings_right">
+                <app-personal-info *ngIf="CurrentPart==Parts.PersonalInfo"
+                    [User]="User"
+                >
+                </app-personal-info>
+                <app-preferences *ngIf="CurrentPart==Parts.Preferences"></app-preferences>
+                <app-financial-info *ngIf="CurrentPart==Parts.FinancialInfo"></app-financial-info>
+                <app-feedback *ngIf="CurrentPart==Parts.Feedback"></app-feedback>
+                <app-customer-support [page]="customerPage" *ngIf="CurrentPart==Parts.CustomerSupport"></app-customer-support>
+                <app-terms-of-service *ngIf="CurrentPart==Parts.TermsOfService"></app-terms-of-service>
+                <app-privacy-policy *ngIf="CurrentPart==Parts.PrivacyPolicy"></app-privacy-policy>
+              </div>
+
+          </div>
+      </div>
+  </div>
+</section>
