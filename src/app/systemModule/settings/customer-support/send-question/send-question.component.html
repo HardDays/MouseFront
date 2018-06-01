@@ -1,11 +1,12 @@
 <div class="settings_right_wrap">
   <h2 class="zag">Send a question</h2>
-  <form class="setts_padding send_quest_form">
+  <form [formGroup]="FormMessage" class="setts_padding send_quest_form">
       <label class="grey_label">Subject</label>
-      <input type="text" class="settings_dots">
+      <input type="text" class="settings_dots" [(ngModel)]="Message.subject" formControlName="subject">
       <label class="grey_label">Message</label>
-      <textarea class="settings_dots"></textarea>
+      <textarea class="settings_dots" [(ngModel)]="Message.message" formControlName="message" maxlength="1000"></textarea>
       <p class="settings_ta_max">1000 max</p>
-      <button type="submit" class="butt-style-1"><span>Send</span></button>
+      <button [ngStyle]="{'display':FormMessage.invalid?'none':'block'}" type="submit" (click)="sendQuestions()" class="butt-style-1"><span>Send</span></button>
   </form>
 </div>
+<error-cmp #errorCmp></error-cmp>

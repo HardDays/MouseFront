@@ -34,6 +34,8 @@ import { MainService } from './core/services/main.service';
 import { PreloaderModule } from './shared/preloader/preloader.module';
 import { ErrorModule } from './shared/error/error.module';
 import { SocialNewAccComponent } from './access/login/social-new-acc/social-new-acc.component';
+import { QuestionsService } from './core/services/questions.service';
+import { FeedbacksService } from './core/services/feedbacks.service';
 
 
 
@@ -43,7 +45,7 @@ let providers = {
   },
   "facebook": {
     "clientId": "187849948634661",
-    "apiVersion": "v2.11" //like v2.4 
+    "apiVersion": "v2.11" 
   }
 };
 
@@ -86,6 +88,8 @@ let providers = {
     PhoneService,
     HttpModule,
     HttpService,
+    QuestionsService,
+    FeedbacksService,
     MainService
   ],
     bootstrap: [AppComponent],

@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FinancialInfoComponent implements OnInit {
 
+  isTransferPart:boolean = false;
   constructor() { }
 
   ngOnInit() {

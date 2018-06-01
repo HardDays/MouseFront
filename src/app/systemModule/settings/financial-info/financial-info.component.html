@@ -1,48 +1,57 @@
-<div class="settings_right_wrap">
-  <h2 class="zag">Financial info</h2>
-  <form class="setts_padding send_quest_form user_info_form">
-      <p class="fin_info2">
-          Amount to Transfer to Bank
-          <strong>$35,500</strong>
-      </p>
-      <p class="fin_grey">
-          Credit Card on File
-      </p>
-      <div class="input-groupe-1">
-          <input id="inp-info-1" name="" value="JARDSON ALMEIDA" type="text">
-          <label for="inp-info-1">Name on Card</label>
-      </div>
-      <div class="input-groupe-1">
-          <!-- следующий блок может иметь класс mastercard вместо visa -->
-          <div class="card_number visa">
-              <input id="card_number_part1" maxlength="4" type="password">
-              <input id="card_number_part2" maxlength="4" type="password">
-              <input id="card_number_part3" maxlength="4" type="password">
-              <input id="card_number_part4" maxlength="4" type="text">
-          </div>
-          <input id="inp-info-2" class="hidden" name="" type="text">
-          <label for="inp-info-2">Card Number</label>
-      </div>
-      <div class="two_inputs">
-          <div class="input-groupe-1">
-              <input id="inp-info-3" name="" value="06/19" type="text">
-              <label for="inp-info-3">Expiration Date</label>
-          </div>
-          <div class="input-groupe-1">
-              <input id="inp-info-4" name="" maxlength="3" value="123" type="text">
-              <label for="inp-info-4">Security Code<span class="help"></span></label>
-          </div>
-      </div>
-      <div class="input-groupe-1">
-          <input id="inp-info-5" name="" value="456625" type="text">
-          <label for="inp-info-5">Zip / Postal Code <span class="help"></span></label>
-      </div>
-      <button type="submit" class="butt-style-1"><span>Save</span></button>
-  </form>
+<div [ngStyle]="{'display':isTransferPart?'none':'block'}" class="settings_right_wrap">
+    <h2 class="zag">Financial info</h2>
+    <div class="fin_info1">
+        <p class="fin_grey">Transfer to Bank</p>
+        <p class="bold">MOUSE Account</p>
+        <div class="money">
+            <div class="fin_label">Available</div>
+            <div class="sum">$35,500</div>
+        </div>
+        <div class="money">
+            <div class="fin_label">Pending</div>
+            <div class="sum">$35,500</div>
+        </div>
+        <a (click)="isTransferPart = true" class="arr_right"><img src="./../../../../assets/img/fin-info-arr-right.svg" alt="" class="img-responsive"></a>
+    </div>
+    <form class="setts_padding send_quest_form user_info_form">
+        <p class="fin_grey">
+            Credit Card on File
+        </p>
+        <div class="input-groupe-1">
+            <input id="inp-info-1" name="" value="JARDSON ALMEIDA" type="text">
+            <label for="inp-info-1">Name on Card</label>
+        </div>
+        <div class="input-groupe-1">
+            <!-- следующий блок может иметь класс mastercard вместо visa -->
+            <div class="card_number visa">
+                <input id="card_number_part1" maxlength="4" type="password">
+                <input id="card_number_part2" maxlength="4" type="password">
+                <input id="card_number_part3" maxlength="4" type="password">
+                <input id="card_number_part4" maxlength="4" type="text">
+            </div>
+            <input id="inp-info-2" class="hidden" name="" type="text">
+            <label for="inp-info-2">Card Number</label>
+        </div>
+        <div class="two_inputs">
+            <div class="input-groupe-1">
+                <input id="inp-info-3" name="" value="06/19" type="text">
+                <label for="inp-info-3">Expiration Date</label>
+            </div>
+            <div class="input-groupe-1">
+                <input id="inp-info-4" name="" maxlength="3" value="123" type="text">
+                <label for="inp-info-4">Security Code<span class="help"></span></label>
+            </div>
+        </div>
+        <div class="input-groupe-1">
+            <input id="inp-info-5" name="" value="456625" type="text">
+            <label for="inp-info-5">Zip / Postal Code <span class="help"></span></label>
+        </div>
+        <button type="submit" class="butt-style-1"><span>Save</span></button>
+    </form>
 </div>
 
-<div class="settings_right_wrap">
-  <a href="#" class="zag settings_back">Financial info</a>
+<div *ngIf="isTransferPart" class="settings_right_wrap">
+  <a (click)="isTransferPart = false" class="zag settings_back">Financial info</a>
   <form class="setts_padding send_quest_form user_info_form">
       <p class="fin_info2">
           Amount to Transfer to Bank

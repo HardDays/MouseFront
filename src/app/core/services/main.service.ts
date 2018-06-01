@@ -19,6 +19,8 @@ import { EventGetModel } from "../models/eventGet.model";
 import { EventCreateModel } from "../models/eventCreate.model";
 import { Base64ImageModel } from "../models/base64image.model";
 import { BaseImages } from "../base/base.enum";
+import { QuestionsService } from "./questions.service";
+import { FeedbacksService } from "./feedbacks.service";
 
 declare var $:any;
 
@@ -46,6 +48,8 @@ export class MainService{
         public eventService  : EventService,
         public authService   : AuthMainService,
         public accService    : AccountService,
+        public questService  : QuestionsService,
+        public feedbkService : FeedbacksService,
         public _auth         : AuthService,
         public activeRouter  : ActivatedRoute     
     ){
@@ -63,7 +67,7 @@ export class MainService{
                     {
                         this.GetMyAccounts();      
                     }
-                    else{
+                    else{ 
                         this.CurrentAccountChange.next(new AccountGetModel());
                         this.MyAccountsChange.next([]);
                         this.router.navigate(['/system','tickets']);
@@ -156,7 +160,7 @@ export class MainService{
                         let accId = +this.GetCurrentAccId();
                         if(accId)
                         {
-                            this.CurrentAccount = this.MyAccounts.find((acc) => acc.id == accId);
+                            this.CurrentAccount = this.MyAccounts.find((acc) => acc.id === accId);
                         }
                         else
                         {
@@ -183,7 +187,7 @@ export class MainService{
                 error => {                    
                     
                     this.DeleteProcess(process);
-                    if(err && typeof err == "function"){
+                    if(err && typeof err === "function"){
                         err(error); 
                     }
                 }
@@ -200,8 +204,8 @@ export class MainService{
 
     private DeleteProcess(str:string)
     {
-        let index = this.ActiveProcesses.findIndex(x=>x == str);
-        if(index != -1)
+        let index = this.ActiveProcesses.findIndex(x=>x === str);
+        if(index !== -1)
             this.ActiveProcesses.splice(index,1);
         this.ActiveProcessesChanges.next(this.ActiveProcesses);
     }

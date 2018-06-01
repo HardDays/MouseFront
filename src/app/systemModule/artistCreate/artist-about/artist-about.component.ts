@@ -52,7 +52,7 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
     super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
   }
 
-  //##########################################//
+  // ##########################################//
   //  INIT
 
   ngOnInit() {
@@ -89,9 +89,9 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
       }
     )
 
-    var _the = this;
+    let _the = this;
     $(document).mouseup(function (e) {
-      var container = $("#pick-up-genre-modal");
+      let container = $("#pick-up-genre-modal");
       if (container.has(e.target).length === 0 && _the.showMoreGenres){
           _the.showMoreGenres = false;
       }
@@ -100,11 +100,11 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
   }
 
 
-  //##########################################//
+  // ##########################################//
   //  GENRES
 
   GengeSearch($event:string){
-    var search = $event;
+    let search = $event;
     if(search.length>0) {
       for(let g of this.genres)
           if(g.genre_show.indexOf(search.toUpperCase())>=0)
@@ -121,12 +121,12 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
     if(this.Artist&&this.Artist.genres){
       for(let g of this.Artist.genres){
         for(let gnr of this.genres)
-          if(gnr.genre == g) gnr.checked = true;
+          if(gnr.genre === g) gnr.checked = true;
       }
     }
   }
 
-    //##########################################//
+    // ##########################################//
   //  SAVE
 
   SaveArtist()

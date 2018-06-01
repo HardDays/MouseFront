@@ -19,10 +19,10 @@ import { ErrorComponent } from '../../shared/error/error.component';
 
 export class LoginComponent extends BaseComponent implements OnInit {
 
-  isErrorLogin:boolean = false;
-  isForgotPassSend:boolean = false;
-  userLogin:LoginModel = new LoginModel();
-  curPage:number = 1;
+  isErrorLogin: boolean = false;
+  isForgotPassSend: boolean = false;
+  userLogin: LoginModel = new LoginModel();
+  curPage: number = 1;
 
   forgotUsername:string = '';
   forgotEmail:string = '';

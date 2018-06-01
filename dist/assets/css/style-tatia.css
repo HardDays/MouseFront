@@ -170,6 +170,37 @@
         .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_right .settings_right_wrap .preferences_form_group label {
           margin-top: 25px;
           margin-bottom: 0; }
+        .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_right .settings_right_wrap .fin_info1 {
+          border-top: 1px solid rgba(0, 0, 0, 0.1);
+          border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+          margin-top: 30px;
+          margin-bottom: 25px;
+          padding: 23px 0 7px 60px;
+          position: relative; }
+          .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_right .settings_right_wrap .fin_info1 .arr_right {
+            position: absolute;
+            top: 50%;
+            right: 25px;
+            width: 15px;
+            transform: translateY(-50%);
+            cursor: pointer; }
+          .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_right .settings_right_wrap .fin_info1 .fin_grey {
+            margin-bottom: 15px; }
+          .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_right .settings_right_wrap .fin_info1 .bold {
+            font: 16px AvenirLTStdBlack; }
+          .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_right .settings_right_wrap .fin_info1 .money {
+            display: flex;
+            align-items: center;
+            margin-left: 37px;
+            margin-bottom: 20px; }
+            .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_right .settings_right_wrap .fin_info1 .money .fin_label {
+              color: rgba(0, 0, 0, 0.5);
+              font: 14px AvenirLTStdBook;
+              margin-right: 20px;
+              min-width: 60px; }
+            .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_right .settings_right_wrap .fin_info1 .money .sum {
+              color: #eb2d64;
+              font: 14px AvenirLTStdBlack; }
         .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_right .settings_right_wrap .fin_info2 {
           margin-top: 50px;
           font: 16px AvenirLTStdBlack;

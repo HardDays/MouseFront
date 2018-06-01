@@ -1,32 +1,31 @@
 <div class="settings_right_wrap">
   <h2 class="zag">Feedback</h2>
-  <form class="setts_padding send_quest_form feedback_form">
+  <form [formGroup]="FormFeedback" class="setts_padding send_quest_form feedback_form">
       <p class="grey">I'm telling you about...</p>
       <div class="radio_wrap">
-          <input type="radio" name="feedback_topic" class="feedback_radio" id="feedback-radio1" />
+          <input type="radio" [(ngModel)]="Feedback.feedback_type"  [value]="'bug'" formControlName="feedback_topic" name="feedback_topic" class="feedback_radio" id="feedback-radio1" />
           <label for="feedback-radio1">A Bug</label>
       </div>
       <div class="radio_wrap">
-          <input type="radio" name="feedback_topic" class="feedback_radio" id="feedback-radio2" />
+          <input type="radio" [(ngModel)]="Feedback.feedback_type" [value]="'enhancement'" formControlName="feedback_topic" name="feedback_topic" class="feedback_radio" id="feedback-radio2" />
           <label for="feedback-radio2">An Enhancement</label>
       </div>
       <div class="radio_wrap">
-          <input type="radio" name="feedback_topic" class="feedback_radio" id="feedback-radio3" />
+          <input type="radio" [(ngModel)]="Feedback.feedback_type" [value]="'compliment'" formControlName="feedback_topic" name="feedback_topic" class="feedback_radio" id="feedback-radio3" />
           <label for="feedback-radio3">Compliment</label>
       </div>
       <label class="grey_label">Details</label>
-      <textarea class="settings_dots"></textarea>
+      <textarea [(ngModel)]="Feedback.detail" formControlName="detail" class="settings_dots" maxlength="1000"></textarea>
       <p class="settings_ta_max">1000 max</p>
       <p class="grey">How are we doing?</p>
       <div class="stars">
-          <span class="active"></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
+          <ng-container *ngFor="let item of [1,2,3,4,5]">
+                <span [ngClass]="{'active': Rating >= item}" (click)="Rating = item"></span>
+          </ng-container>
       </div>
       <input type="text" class="hidden" name="" id="rate_star">
       <p class="grey_center">Please rate how we're doing</p>
-      <button type="submit" class="butt-style-1"><span>Send</span></button>
+      <button (click)="sendFeedback()" type="submit" class="butt-style-1"><span>Send</span></button>
   </form>
 </div>
+<error-cmp #errorCmp></error-cmp>

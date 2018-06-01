@@ -71,16 +71,16 @@ export class SettingsComponent extends BaseComponent implements OnInit {
         // });
 
             $('.card_number input').keyup(function(e) {
-        if ($(this).val().length == 4) {
+        if ($(this).val().length === 4) {
             $(this).next().focus();
         }
-        else if ($(this).val().length == 0 && e.which == 8) {
+        else if ($(this).val().length === 0 && e.which === 8) {
             $(this).prev().focus();
         }
             });
 
             $('.feedback_form .stars span').mouseover(function(e) {
-        var num = $(this).index();
+        let num = $(this).index();
         $('.feedback_form .stars span').each(function(e) {
             if ($(this).index() <= num) {
                 $(this).addClass('active');
@@ -95,7 +95,7 @@ export class SettingsComponent extends BaseComponent implements OnInit {
                 $('.feedback_form .stars span').removeClass('active');
         });
         $('.feedback_form .stars span').click(function(e) {
-            var num = $(this).index();
+            let num = $(this).index();
             if (!$('.feedback_form .stars').hasClass('choosed')) {
                 $('.feedback_form .stars').addClass('choosed');
             }
