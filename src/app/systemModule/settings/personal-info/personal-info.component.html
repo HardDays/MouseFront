@@ -20,17 +20,18 @@
               <label for="inp-info-4">Email Address</label>
           </div>
           <div class="input-groupe-1">
-              <input id="inp-info-5" name="pass" value="123456789123456" type="password">
+              <input id="inp-info-5" name="pass" [(ngModel)]="User.password" type="password">
               <label for="inp-info-5">Password</label>
           </div>
           <div class="input-groupe-1">
-              <input id="inp-info-6" name="pass_verify" value="123456789123456" type="password">
+              <input id="inp-info-6" name="pass_verify" [(ngModel)]="User.password_confirmation" type="password">
               <label for="inp-info-6">Verify Password</label>
           </div>
           <div class="input-groupe-1">
               <input id="inp-info-7" name="phone" [(ngModel)]="User.register_phone" type="text">
               <label for="inp-info-7">Phone Number (For Verification)</label>
           </div>
-          <button type="submit" class="butt-style-1"><span>Save</span></button>
+          <button (click)="SaveUser()" type="button" class="butt-style-1"><span>Save</span></button>
       </form>
 </div>
+<error-cmp #errorCmp></error-cmp>

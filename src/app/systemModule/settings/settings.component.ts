@@ -54,6 +54,19 @@ export class SettingsComponent extends BaseComponent implements OnInit {
             }
         )
   }
+  SaveUser(user:UserCreateModel){
+      console.log(`save user`,user);
+      this.main.authService.UpdateUser(user)
+        .subscribe(
+            (res:UserGetModel)=>{
+                this.User = res;
+                console.log(`res`,this.User);
+            },
+            (err)=>{
+                console.log(`err`,err);
+            }
+        );
+  }
 
 
     initJS(){

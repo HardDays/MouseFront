@@ -29,6 +29,7 @@
               <div class="right-s settings_right">
                 <app-personal-info *ngIf="CurrentPart==Parts.PersonalInfo"
                     [User]="User"
+                    (OnSave)="SaveUser()"
                 >
                 </app-personal-info>
                 <app-preferences *ngIf="CurrentPart==Parts.Preferences"></app-preferences>
