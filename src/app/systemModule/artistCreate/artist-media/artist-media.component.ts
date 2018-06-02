@@ -84,7 +84,7 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
 
   InitMusicPlayer(){
     setTimeout(() => {
-      var as = audiojs.createAll();
+      let as = audiojs.createAll();
      }, 100);
   }
 
@@ -164,9 +164,9 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
     for(let video of this.Artist.artist_videos){
       let video_id ='';
 
-      if(video.link.indexOf('youtube')!= -1)
+      if(video.link.indexOf('youtube')!== -1)
         video_id = video.link.split('v=')[1];
-      if(video.link.indexOf('youtu.be')!= -1)
+      if(video.link.indexOf('youtu.be')!== -1)
         video_id = video.link.split('be/')[1];
 
       video.preview = 'https://img.youtube.com/vi/'+video_id+'/0.jpg';
@@ -176,11 +176,11 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
   openVideo(video:Video){
 
     let video_id ='';
-    if(video.link.indexOf('youtube') != -1){
+    if(video.link.indexOf('youtube') !== -1){
       video_id = video.link.split('v=')[1];
 
     }
-    if(video.link.indexOf('youtu.be') != -1){
+    if(video.link.indexOf('youtu.be') !== -1){
       video_id = video.link.split('.be/')[1];
     }
 
@@ -192,7 +192,7 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
 
   loadImage($event:any):void{
     let target = $event.target;
-    if(target.files.length == 0)
+    if(target.files.length === 0)
         return;
 
     for(let file of target.files)
@@ -214,13 +214,16 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
 
   this.isImageLoading = true;
  // this.WaitBeforeLoading(
-    //()=> 
+    // ()=> 
     this.main.imagesService.PostAccountImage(this.ArtistId,{image_base64:this.ImageToLoad,image_description: this.imageInfo})
       .subscribe(
         (res:any)=>{
+          console.log(res);
+          this.ArtistImages.push({img:this.ImageToLoad, text: this.imageInfo,id:res.image_id});
           this.ImageToLoad = '';
           this.imageInfo = '';
-          this.GetArtistImages();
+          this.isImageLoading = false;
+          // this.GetArtistImages();
         },
         (err)=>{
           this.isImageLoading = false;
@@ -232,7 +235,7 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
 
 GetArtistImages()
 {
-  this.ArtistImages = [];
+  // this.ArtistImages = [];
   this.isImageLoading = true;
   this.main.imagesService.GetAccountImages(this.ArtistId,{limit:5})
     .subscribe(
@@ -240,25 +243,25 @@ GetArtistImages()
         if(res && res.total_count > 0)
         {
           this.ArtistImages = [];
-          let index = 0;
           for(let img of res.images)
           {
-            var txt = img.description?img.description:'';
-            this.GetArtistImageById(img.id,index,txt);
-            index = index + 1;
+            let txt = img.description?img.description:'';
+            this.GetArtistImageById(img.id,txt);
           }
+          // this.isImageLoading = false;  
         }
         else {
           this.isImageLoading = false;     
         }
       }
-    ),(err)=>{
+    ,(err)=>{
       this.isImageLoading = false;
-    };
+    }
+  );
 }
 
 
-GetArtistImageById(id,saveIndex,text)
+GetArtistImageById(id,text)
 {
   this.isImageLoading = true;
   this.main.imagesService.GetImageById(id)
@@ -300,7 +303,7 @@ deleteImage(id:number){
   }
 
   saveArtist(){
-    var scrollHeight = window.pageYOffset;
+    let scrollHeight = window.pageYOffset;
 
     this.onSave.emit(this.Artist);
 

@@ -99,7 +99,7 @@ export class VenueMediaComponent extends BaseComponent implements OnInit,OnChang
     loadImage($event:any):void
     {
         let target = $event.target;
-        if(target.files.length == 0)
+        if(target.files.length === 0)
             return;
 
         for(let file of target.files)
@@ -119,7 +119,7 @@ export class VenueMediaComponent extends BaseComponent implements OnInit,OnChang
 
     AddVenuePhoto()
     {
-        if(this.ImageToLoad.image_type != "other" && this.ImageToLoad.image_type_description)
+        if(this.ImageToLoad.image_type !== "other" && this.ImageToLoad.image_type_description)
         {
             this.ImageToLoad.image_type_description = "";
         }
@@ -147,7 +147,7 @@ export class VenueMediaComponent extends BaseComponent implements OnInit,OnChang
 
                 this.onError.emit(BaseMessages.Success);
                 this.VenueImages.splice(
-                    this.VenueImages.findIndex( obj => obj.id == image.id),
+                    this.VenueImages.findIndex( obj => obj.id === image.id),
                     1
                 );
                 this.GetVenueImages();
