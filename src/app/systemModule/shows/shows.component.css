@@ -98,3 +98,6 @@ select{
     /* height: 100vh; */
     min-height: 700px;
  }
+ .new-shows-desc{
+     min-height: 165px;
+ }
