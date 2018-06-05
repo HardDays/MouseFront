@@ -24,7 +24,7 @@ export class RegisterFollowComponent extends BaseComponent implements OnInit {
   }
 
   clickItem(index:number,id:number){
-     var ch = "#checkbox-"+index+"-"+index;
+     let ch = "#checkbox-"+index+"-"+index;
 
     let ind = this.followsId.indexOf(id);
     if( ind === -1) {
@@ -49,7 +49,7 @@ export class RegisterFollowComponent extends BaseComponent implements OnInit {
   
   getArtists(){
     this.WaitBeforeLoading(
-      ()=>this.main.accService.AccountsSearch({text:this.text, limit:20}),
+      ()=>this.main.accService.AccountsSearch({text:this.text, limit:20,sort_by_popularity:true,type:'artist'}),
       (res:AccountGetModel[])=>{
         this.artists = res;
         for(let artist of this.artists){

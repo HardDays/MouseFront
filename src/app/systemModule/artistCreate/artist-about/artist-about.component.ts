@@ -87,7 +87,13 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
         for(let i of this.genres) i.show = true;
         this.GetArtistGenres();
       }
-    )
+    );
+
+    if(this.ArtistImageId)
+      this.WaitBeforeLoading(
+        ()=>this.main.imagesService.GetImageById(this.ArtistImageId),
+        (img)=>this.Artist.image_base64 = img.base64
+      );
 
     let _the = this;
     $(document).mouseup(function (e) {
@@ -153,6 +159,39 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
       console.log(`beforeEmit`,this.Artist);
       this.onSaveArtist.emit(this.Artist);
   }
+
+  uploadImage($event){
+    this.ReadImages(
+        $event.target.files,
+        (res:string)=>{
+            this.Artist.image_base64 = res;
+        }
+    );
+}
+
+DeleteImage()
+{
+    if(this.ArtistImageId && this.ArtistId && this.Artist.image_base64)
+    {
+        this.main.imagesService.DeleteImageById(this.ArtistImageId,this.ArtistId)
+            .subscribe(
+                (res) => {
+                    this.ArtistImageId = 0;
+                    this.onImageDeleted.emit(true);
+                    this.DeleteLocalImage();
+                }
+            );
+    }
+    else {
+        this.DeleteLocalImage();
+    }
+}
+
+DeleteLocalImage()
+{
+    this.Artist.image_base64='';
+    this.onArtistChanged.emit(this.Artist);
+}
 
 
 }
