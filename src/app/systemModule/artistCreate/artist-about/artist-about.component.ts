@@ -39,6 +39,7 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
   });
   genres:GenreModel[] = [];
   showMoreGenres:boolean = false;
+  isNewImage = false;
 
   constructor(
     protected main           : MainService,
@@ -156,8 +157,16 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
         }
       }
       
+
+      let img = this.Artist.image_base64;
+      if(!this.isNewImage)
+        this.Artist.image_base64 = null;
+
       console.log(`beforeEmit`,this.Artist);
       this.onSaveArtist.emit(this.Artist);
+
+      if(!this.isNewImage)
+        this.Artist.image_base64 = img;
   }
 
   uploadImage($event){
@@ -165,6 +174,7 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
         $event.target.files,
         (res:string)=>{
             this.Artist.image_base64 = res;
+            this.isNewImage = true;
         }
     );
 }
