@@ -205,7 +205,8 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
         this.main.GetMyAccounts();
         setTimeout(
           () => {
-            this.errorCmp.CloseWindow();
+            if(this.errorCmp.isShown)
+              this.errorCmp.CloseWindow();
             this.router.navigate(["/system","profile",this.ArtistId]);
            // scrollTo(0,0);
           },
@@ -244,7 +245,8 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
     this.main.GetMyAccounts();
     setTimeout(
       () => {
-        this.errorCmp.CloseWindow();
+        if(this.errorCmp.isShown)
+          this.errorCmp.CloseWindow();
         this.router.navigate(["/system","profile",this.ArtistId]);
        // scrollTo(0,0);
       },
