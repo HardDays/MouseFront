@@ -111,7 +111,7 @@
                 
                 <div [ngStyle]="{'display': !Artist.artist_albums||Artist.artist_albums.length<=0?'block':'none'}" class="empty-info">
                     <img src="../../../assets/img/smile.svg" class="img-responsive" alt="">
-                    <p>No Songs Yet</p>
+                    <p>No Albums Yet</p>
                 </div>
                 
                 <!---->
@@ -180,7 +180,7 @@
                 
                 <div [ngStyle]="{'display': !Artist.artist_videos||Artist.artist_videos.length<=0?'block':'none'}" class="empty-info">
                     <img src="../../../assets/img/smile.svg" class="img-responsive" alt="">
-                    <p>No Songs Yet</p>
+                    <p>No Videos Yet</p>
                 </div>
                 
                 <!---->
@@ -248,7 +248,7 @@
                 <div [ngStyle]="{'display': ArtistImages.length<=0?'block':'none'}" class="empty-info">
                     <app-preloader style="max-height: 200px;" *ngIf="isImageLoading"></app-preloader>
                     <img *ngIf="!isImageLoading" src="../../../assets/img/smile.svg" class="img-responsive" alt="">
-                    <p *ngIf="!isImageLoading">No Songs Yet</p>
+                    <p *ngIf="!isImageLoading">No Photos Yet</p>
                 </div>
                 
                 <!---->

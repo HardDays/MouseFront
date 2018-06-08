@@ -3,6 +3,7 @@ import { BaseComponent } from "../../../core/base/base.component";
 import { AccountGetModel } from '../../../core/models/accountGet.model';
 import { TicketsGetModel } from "../../../core/models/ticketsGetModel";
 import { EventGetModel } from "../../../core/models/eventGet.model";
+import { GenreModel } from "../../../core/models/genres.model";
 
 @Component({
     selector: 'fan-profile-selector',
@@ -23,7 +24,7 @@ export class FanProfileComponent extends BaseComponent implements OnInit,OnChang
     TotalTicket:number = 0;
     TicketMass:TicketsGetModel[] = [];
     ticketsMassChecked:TicketsGetModel[] = [];
-
+    genres:GenreModel[] = [];
     EventsMass:EventGetModel[] = [];
     EventsMassChecked:EventGetModel[] = [];
 
@@ -36,7 +37,6 @@ export class FanProfileComponent extends BaseComponent implements OnInit,OnChang
             this.Account = changes.Account.currentValue;
             
         }
-        
         if(changes.Fans)
             this.FansChecked = this.Fans = changes.Fans.currentValue;
 
@@ -45,10 +45,12 @@ export class FanProfileComponent extends BaseComponent implements OnInit,OnChang
 
     ngOnInit(): void {
         this.InitByUser();
+        
     }
 
     InitByUser()
     {
+        
         this.GetTickets();
         this.GetEvents();
     }
