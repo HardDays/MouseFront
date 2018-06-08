@@ -58,6 +58,7 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
           },
           (err)=>{
               console.log(`err`,err);
+              this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
           }
       );
 }

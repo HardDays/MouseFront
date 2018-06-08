@@ -243,7 +243,10 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         for(let space of this.typesSpace)
             if(space.checked) this.venueSearchParams.types_of_space.push(space.object.value)       
 
-         this.main.accService.AccountsSearch(this.venueSearchParams).
+        this.venueSearchParams.exclude_event_id = this.Event.id;
+
+        console.log(`Params`,this.venueSearchParams);
+        this.main.accService.AccountsSearch(this.venueSearchParams).
              subscribe((res)=>{
                 console.log(this.venueSearchParams,`res`,res);
                     let temp = this.convertArrToCheckModel<AccountGetModel>(res);

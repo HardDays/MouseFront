@@ -36,6 +36,7 @@ import { ErrorModule } from './shared/error/error.module';
 import { SocialNewAccComponent } from './access/login/social-new-acc/social-new-acc.component';
 import { QuestionsService } from './core/services/questions.service';
 import { FeedbacksService } from './core/services/feedbacks.service';
+import { FeedService } from './core/services/feed.service';
 
 
 
@@ -90,6 +91,7 @@ let providers = {
     HttpService,
     QuestionsService,
     FeedbacksService,
+    FeedService,
     MainService
   ],
     bootstrap: [AppComponent],

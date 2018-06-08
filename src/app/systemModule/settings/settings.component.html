@@ -6,18 +6,18 @@
                   <h2 class="zag">Settings</h2>
                   <ul class="settings_menu">
                       <li [ngClass]="{'active': CurrentPart==Parts.PersonalInfo}"><a (click)="CurrentPart=Parts.PersonalInfo">Personal info</a></li>
-                      <li [ngClass]="{'active': CurrentPart==Parts.Preferences}"><a (click)="CurrentPart=Parts.Preferences">Preferences</a></li>
-                      <li [ngClass]="{'active': CurrentPart==Parts.FinancialInfo}"><a (click)="CurrentPart=Parts.FinancialInfo">Financial info</a></li>
+                      <!-- <li [ngClass]="{'active': CurrentPart==Parts.Preferences}"><a (click)="CurrentPart=Parts.Preferences">Preferences</a></li> -->
+                      <!-- <li [ngClass]="{'active': CurrentPart==Parts.FinancialInfo}"><a (click)="CurrentPart=Parts.FinancialInfo">Financial info</a></li> -->
                       <li [ngClass]="{'active': CurrentPart==Parts.Feedback}"><a (click)="CurrentPart=Parts.Feedback">Feedback</a></li>
                       <li>
                           <span (click)="CurrentPart=Parts.CustomerSupport" class="opening">Customer support</span>
                           <ul *ngIf="CurrentPart==Parts.CustomerSupport" class="submenu" style="display:block">
-                              <li><a (click)="customerPage = CustomerParts.sendQuestion">How to Create an Event</a></li>
+                              <!-- <li><a (click)="customerPage = CustomerParts.sendQuestion">How to Create an Event</a></li>
                               <li><a (click)="customerPage = CustomerParts.sendQuestion">How to Create a Crowdfunding Event</a></li>
                               <li><a (click)="customerPage = CustomerParts.sendQuestion">How to Search for a Show in my Area</a></li>
                               <li><a (click)="customerPage = CustomerParts.sendQuestion">How to Upload my Videos (Artist)</a></li>
                               <li><a (click)="customerPage = CustomerParts.sendQuestion">How to Find My Favourite Artist</a></li>
-                              <li><a (click)="customerPage = CustomerParts.sendQuestion">More Questions</a></li>
+                              <li><a (click)="customerPage = CustomerParts.sendQuestion">More Questions</a></li> -->
                               <li  [ngClass]="{'active': customerPage==CustomerParts.sendQuestion}"><a (click)="customerPage = CustomerParts.sendQuestion">Send a Question</a></li>
                           </ul>
                       </li>
