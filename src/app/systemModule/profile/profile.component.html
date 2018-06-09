@@ -1,16 +1,16 @@
 <app-preloader *ngIf="isLoading"></app-preloader>
 <section class="main-router-outlet" [ngStyle]="{'display': isLoading?'none':'block'}">
 
-    <venue-profile-selector *ngIf="Account.account_type == Roles.Venue" [Account]="Account" [Image]="baseImageMy"
+    <venue-profile-selector *ngIf="Account.account_type == Roles.Venue" [MyProfileId]="MyAccountId" [Account]="Account" [Image]="baseImageMy"
         [Fans]="Fans" [IsMyAccount]="isMyAccount" [VenueId]="Account.id" [isFolowedAcc]="isFolowedAcc" (onFollow)="FollowOrUnfollowProfile($event)">
     </venue-profile-selector>
 
-    <fan-profile-selector *ngIf="Account.account_type == Roles.Fan" [Account]="Account" [Image]="baseImageMy"
+    <fan-profile-selector *ngIf="Account.account_type == Roles.Fan" [MyProfileId]="MyAccountId" [Account]="Account" [Image]="baseImageMy"
         [Fans]="Fans" [IsMyAccount]="isMyAccount" [isFolowedAcc]="isFolowedAcc" (onFollow)="FollowOrUnfollowProfile($event)">
     </fan-profile-selector>
 
 
-    <artist-profile-selector *ngIf="Account.account_type == Roles.Artist" [Account]="Account" [Image]="baseImageMy"
+    <artist-profile-selector *ngIf="Account.account_type == Roles.Artist" [MyProfileId]="MyAccountId" [Account]="Account" [Image]="baseImageMy"
         [Fans]="Fans" [IsMyAccount]="isMyAccount" [isFolowedAcc]="isFolowedAcc" (onFollow)="FollowOrUnfollowProfile($event)">
     </artist-profile-selector>
 

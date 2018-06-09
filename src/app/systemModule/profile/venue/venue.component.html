@@ -10,7 +10,7 @@
                     </div>
                     <div class="name-venue">
                         <h2 id="lines_view" *ngIf="Account.user_name">{{Account.display_name}}</h2>
-                        <a *ngIf="IsMyAccount" [routerLink]="['/system/venueCreate',Account.id]" class="settings"></a>
+                        <a *ngIf="MyProfileId == Account.id" [routerLink]="['/system/venueCreate',Account.id]" class="settings"></a>
                     </div>
                     <div class="oficial-page">
                         <span id="d_lines_view" *ngIf="Account.display_name" class="of-p">@{{Account.user_name}}</span>
@@ -20,7 +20,7 @@
                     </div>
                     
                         
-                    <ng-container *ngIf="!IsMyAccount" >
+                    <ng-container *ngIf="MyProfileId != Account.id" >
                         <form class="follow-wr" (ngSubmit)="FollowProfile(!isFolowedAcc)">
                             <button [disabled]="IsPreview" class="butt-style-1" type="submit">
                                 <span>{{isFolowedAcc?'Unfollow':'Follow'}}</span>

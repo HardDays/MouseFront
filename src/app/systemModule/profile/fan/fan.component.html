@@ -16,13 +16,13 @@
                         </h3>
                     </div>
                     <div class="side side-3">
-                        <div *ngIf="IsMyAccount" class="edit-and-settings">
+                        <div *ngIf="MyProfileId == Account.id" class="edit-and-settings">
                             <a [routerLink]="['/system/fanCreate',Account.id]" class="edit-profile">Edit profile</a>
                         </div>
                         <div class="desc-wr">
                             <p id="b_lines_view" class="description">{{Account.bio}}</p>
                         </div>
-                        <ng-container *ngIf="!IsMyAccount">
+                        <ng-container *ngIf="MyProfileId != Account.id">
                             <form class="follow-wr" (ngSubmit)="FollowProfile(!isFolowedAcc)">
                                 <button  class="butt-style-1" type="submit">
                                     <span>{{isFolowedAcc?'Unfollow':'Follow'}}</span>

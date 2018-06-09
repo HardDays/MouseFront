@@ -30,6 +30,7 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
     @Input() IsPreview:boolean;
     @Input() Venue: AccountCreateModel;
     @Input() VenueId: number;
+    @Input() MyProfileId: number;
     @Output() onFollow:EventEmitter<boolean> = new EventEmitter<boolean>();
 
     UpcomingShows:any [] = [];
@@ -54,7 +55,9 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
         {
             this.Account = changes.Account.currentValue;
         }
-        
+        if(changes.MyProfileId){
+            this.MyProfileId = changes.MyProfileId.currentValue;
+        }
         if(changes.Fans)
             this.FansChecked = this.Fans = changes.Fans.currentValue;
 

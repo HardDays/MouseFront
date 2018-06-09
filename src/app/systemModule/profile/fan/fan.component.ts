@@ -19,6 +19,7 @@ export class FanProfileComponent extends BaseComponent implements OnInit,OnChang
     @Input() Fans:AccountGetModel[];
     @Input() IsMyAccount:boolean;
     @Input() isFolowedAcc:boolean;
+    @Input() MyProfileId: number;
     @Output() onFollow:EventEmitter<boolean> = new EventEmitter<boolean>();
 
     TotalTicket:number = 0;
@@ -35,14 +36,17 @@ export class FanProfileComponent extends BaseComponent implements OnInit,OnChang
         if(changes.Account)
         {
             this.Account = changes.Account.currentValue;
-            
         }
-        if(changes.Fans)
+        if(changes.MyProfileId){
+            this.MyProfileId = changes.MyProfileId.currentValue;
+        }
+        if(changes.Fans){
             this.FansChecked = this.Fans = changes.Fans.currentValue;
-
+            
+        }    
         this.InitByUser();
     }
-
+    
     ngOnInit(): void {
         this.InitByUser();
         

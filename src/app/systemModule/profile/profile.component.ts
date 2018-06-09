@@ -67,7 +67,6 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
     VideoPath:SafeResourceUrl[] = [];
     baseImageMy:string = '';
     EbanySlider:boolean;
-    
     isFolowedAcc:boolean;
 
     Fans:AccountGetModel[] = [];
@@ -111,7 +110,7 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
                     .subscribe((resMy:AccountGetModel[])=>
                     {
                         this.Accounts = resMy;
-
+                        this.MyAccountId = this.GetCurrentAccId();
                         this.isMyAccount = this.Accounts.find(obj => obj.id == this.UserId) != null;
                         this.isFolowed();
                       

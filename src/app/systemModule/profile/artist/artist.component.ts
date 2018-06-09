@@ -29,6 +29,7 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
     @Input() IsMyAccount:boolean;
     @Input() isFolowedAcc:boolean;
     @Input() IsPreview:boolean;
+    @Input() MyProfileId: number;
     @Output() onFollow:EventEmitter<boolean> = new EventEmitter<boolean>();
 
     UpcomingShows:any [] = [];
@@ -46,7 +47,9 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
         {
             this.Account = changes.Account.currentValue;
         }
-        
+        if(changes.MyProfileId){
+            this.MyProfileId = changes.MyProfileId.currentValue;
+        }
         if(changes.Fans)
             this.FansChecked = this.Fans = changes.Fans.currentValue;
 

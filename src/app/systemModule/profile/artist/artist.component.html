@@ -11,7 +11,7 @@
                             <div class="oficial-page">
                                 <span id="d_lines_view" class="page">@{{Account.user_name}}</span>
                                
-                                <div *ngIf="IsMyAccount" class="edit-and-settings">
+                                <div *ngIf="MyProfileId == Account.id" class="edit-and-settings">
                                     <!-- <a [routerLink]="['/system/edit',UserId]" class="edit-profile">Edit profile</a> -->
                                     <a [routerLink]="['/system/artistCreate',Account.id]" class="edit-profile">Edit profile</a>
 
@@ -20,7 +20,7 @@
                             <p id="b_lines_view" class="desc">
                                 {{Account.about}}
                             </p>
-                            <ng-container *ngIf="!IsMyAccount">
+                            <ng-container *ngIf="MyProfileId != Account.id">
                                 <form class="follow-wr" (ngSubmit)="FollowProfile(!isFolowedAcc)">
                                     <button [disabled]="IsPreview"  class="butt-style-1" type="submit">
                                         <span>{{isFolowedAcc?'Unfollow':'Follow'}}</span>
