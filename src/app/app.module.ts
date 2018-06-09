@@ -37,6 +37,8 @@ import { SocialNewAccComponent } from './access/login/social-new-acc/social-new-
 import { QuestionsService } from './core/services/questions.service';
 import { FeedbacksService } from './core/services/feedbacks.service';
 import { FeedService } from './core/services/feed.service';
+import { CommentService } from './core/services/comment.service';
+import { LikesService } from './core/services/likes.service';
 
 
 
@@ -92,6 +94,8 @@ let providers = {
     QuestionsService,
     FeedbacksService,
     FeedService,
+    CommentService,
+    LikesService,
     MainService
   ],
     bootstrap: [AppComponent],

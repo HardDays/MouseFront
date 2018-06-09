@@ -11,7 +11,7 @@ import { TypeService } from "./type.service";
 import { CommentModel } from "../models/comment.model";
 
 @Injectable()
-export class CommentService{
+export class LikesService{
 
     constructor(private http: HttpService, private typeService:TypeService){
     }
@@ -19,13 +19,13 @@ export class CommentService{
     GetCommentByEventId(eventId:number)
     {
         return this.http.CommonRequest(
-            ()=> this.http.GetData('/events/'+eventId+'/comments.json',this.typeService.ParamsToUrlSearchParams({event_id:eventId, limit:20, offset:0}))
+            ()=> this.http.GetData('/events/'+eventId+'/likes.json',this.typeService.ParamsToUrlSearchParams({event_id:eventId}))
         );
     }
 
     PostComment(comment:CommentModel){
         return this.http.CommonRequest(
-            ()=> this.http.PostData('/events/'+comment.event_id+'/comments.json',JSON.stringify(comment))
+            ()=> this.http.PostData('/events/'+comment.event_id+'/likes.json',JSON.stringify(comment))
         );
     }
 

@@ -22,6 +22,8 @@ import { BaseImages } from "../base/base.enum";
 import { QuestionsService } from "./questions.service";
 import { FeedbacksService } from "./feedbacks.service";
 import { FeedService } from "./feed.service";
+import { CommentService } from "./comment.service";
+import { LikesService } from "./likes.service";
 
 declare var $:any;
 
@@ -52,6 +54,8 @@ export class MainService{
         public questService  : QuestionsService,
         public feedbkService : FeedbacksService,
         public feedService   : FeedService,
+        public commentService: CommentService,
+        public likesService  : LikesService,
         public _auth         : AuthService,
         public activeRouter  : ActivatedRoute   
     ){

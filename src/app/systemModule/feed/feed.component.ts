@@ -3,7 +3,7 @@ import { NgForm,FormControl,FormGroup,Validators} from '@angular/forms';
 import { AuthMainService } from '../../core/services/auth.service';
 
 import { BaseComponent } from '../../core/base/base.component';
-import { OnInit, AfterViewChecked } from '@angular/core/src/metadata/lifecycle_hooks';
+import { OnInit, AfterViewChecked, OnChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 
 import { SelectModel } from '../../core/models/select.model';
 import { FrontWorkingTimeModel } from '../../core/models/frontWorkingTime.model';
@@ -68,19 +68,21 @@ export class FeedComponent extends BaseComponent implements OnInit, AfterViewChe
   }
 
   Feed:any[] = [];
-
+  accId:number = 0;
   ngAfterViewChecked()
   {
       this.cdRef.detectChanges();
   }
   
+
   ngOnInit(){
-    let accId = this.main.CurrentAccount.id;
-    console.log(`acc ID`,accId);
-    this.main.feedService.GetFeedByAccId(accId)
+    this.accId = this.main.CurrentAccount.id;
+    console.log(`acc ID`,this.accId);
+    this.main.feedService.GetFeedByAccId(this.accId)
       .subscribe(
         (res)=>{
           console.log(`res`,res);
+          this.Feed = res;
         },
         (err)=>{
           console.log(`err`,err);

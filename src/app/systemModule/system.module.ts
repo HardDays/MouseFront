@@ -53,6 +53,7 @@ import { ShowsDetailModule } from './showsDetail/showsDetail.module';
 import { SearchTicketsModule } from './tickets/tickets.module';
 import { TinyCalendarComponent } from './tiny-calendar/tiny-calendar.component';
 import { SettingsModule } from './settings/settings.module';
+import { FeedItemComponent } from './feed/feed-item/feed-item.component';
 
 
 
@@ -63,7 +64,8 @@ import { SettingsModule } from './settings/settings.module';
     FanCreateComponent,
     MessagesComponent,
     MyTicketOpenedComponent,
-    TinyCalendarComponent
+    TinyCalendarComponent,
+    FeedItemComponent
   ],
   imports: [
     CommonModule,
