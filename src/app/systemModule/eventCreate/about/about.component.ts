@@ -214,9 +214,11 @@ export class AboutComponent extends BaseComponent implements OnInit {
 
     GetEventGenres(){
         this.Event.genres = [];
-        for(let g of this.genres){
-          if(g.checked)
-            this.Event.genres.push(g.genre);
+        if(this.genres){
+            for(let g of this.genres){
+                if(g.checked)
+                this.Event.genres.push(g.genre);
+            }
         }
     }
 

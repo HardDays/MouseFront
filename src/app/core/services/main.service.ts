@@ -21,6 +21,7 @@ import { Base64ImageModel } from "../models/base64image.model";
 import { BaseImages } from "../base/base.enum";
 import { QuestionsService } from "./questions.service";
 import { FeedbacksService } from "./feedbacks.service";
+import { FeedService } from "./feed.service";
 
 declare var $:any;
 
@@ -50,8 +51,9 @@ export class MainService{
         public accService    : AccountService,
         public questService  : QuestionsService,
         public feedbkService : FeedbacksService,
+        public feedService   : FeedService,
         public _auth         : AuthService,
-        public activeRouter  : ActivatedRoute     
+        public activeRouter  : ActivatedRoute   
     ){
 
         this.CurrentAccountChange = new Subject();

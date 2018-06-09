@@ -67,12 +67,25 @@ export class FeedComponent extends BaseComponent implements OnInit, AfterViewChe
     super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
   }
 
+  Feed:any[] = [];
+
   ngAfterViewChecked()
   {
       this.cdRef.detectChanges();
   }
   
   ngOnInit(){
+    let accId = this.main.CurrentAccount.id;
+    console.log(`acc ID`,accId);
+    this.main.feedService.GetFeedByAccId(accId)
+      .subscribe(
+        (res)=>{
+          console.log(`res`,res);
+        },
+        (err)=>{
+          console.log(`err`,err);
+        }
+      );
   }
 
   
