@@ -185,7 +185,7 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
     this.Account.display_name = this.accForm.value['first_name']+" "+this.accForm.value['last_name'];
     this.Account.first_name = this.accForm.value['first_name'];
     this.Account.last_name = this.accForm.value['last_name'];
-
+    
     this.WaitBeforeLoading(
       ()=>this.main.accService.CreateAccount(this.Account),
       (res)=>{
@@ -204,11 +204,15 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
   {
       this.mapCoords.lat = $event.coords.lat;
       this.mapCoords.lng = $event.coords.lng;
+      this.Account.lat = $event.coords.lat;
+      this.Account.lng = $event.coords.lng;
       this.codeLatLng( this.mapCoords.lat, this.mapCoords.lng);
   }
 
   setMapCoords(event){
       this.mapCoords = {lat:event.coords.lat,lng:event.coords.lng};
+      this.Account.lng = event.coords.lat;
+      this.Account.lng = event.coords.lng;
       this.codeLatLng( this.mapCoords.lat, this.mapCoords.lng);
 
   }
@@ -223,7 +227,7 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
                   if (results[1]) {
 
                       $("#address").val(results[1].formatted_address);
-
+                      this.Account.address = results[1].formatted_address;
                   }
                   else {
                   // alert('No results found');

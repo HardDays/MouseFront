@@ -83,6 +83,8 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
                     // console.log(result);
                     this.avatar = result.base64;
                     this.ImageId = res.image_id;
+                    this.Fun.image_base64 = this.avatar;
+                    console.log(this.Fun);
                   }
                 );
               }
@@ -100,6 +102,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
       if(this.ImageId && this.avatar){
         this.main.imagesService.DeleteImageById(this.ImageId,this.FunId).subscribe(
           (res)=>{
+            this.Fun.image_base64 = '';
             this.errorCmp.OpenWindow(BaseMessages.Success);
             this.LocalDeleteAva();
           },
@@ -153,6 +156,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
     //console.log($event);
     this.cordsMap.lat = $event.coords.lat;
     this.cordsMap.lng = $event.coords.lng;
+   
     this.codeLatLng( this.cordsMap.lat, this.cordsMap.lng);
   }
 
@@ -268,6 +272,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
       this.WaitBeforeLoading(
         ()=> this.FunId == 0 ? this.main.accService.CreateAccount(this.Fun) : this.main.accService.UpdateMyAccount(this.FunId,this.Fun),
         (res:any)=>{
+      
           this.DisplayFunParams(res);
           this.main.GetMyAccounts();
           this.router.navigate(['/system','profile',res.id]);
