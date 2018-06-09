@@ -77,7 +77,7 @@
                                     <div class="flex-genres for-pick">
                                         <!--Добавляем класс picked-->
                                         <ng-container *ngFor="let item of genres; let i = index">
-                                            <span *ngIf="item.show" (click)="item.checked = !item.checked" class="one-genre" [ngClass]="{picked:item.checked}">{{item.genre_show}}</span>
+                                            <span *ngIf="item.show" (click)="item.checked = !item.checked; GetEventGenres()" class="one-genre" [ngClass]="{picked:item.checked}">{{item.genre_show}}</span>
                                         </ng-container>
         
                                     </div>

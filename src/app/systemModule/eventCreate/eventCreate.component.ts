@@ -169,8 +169,11 @@ export class EventCreateComponent extends BaseComponent implements OnInit, After
 
   SaveEvent()
   {
+    //alert(`SAVE EVENT`);
     this.Event.account_id = this.CurrentAccount.id;
-    this.about.GetEventGenres();
+    
+    if(this.about)
+      this.about.GetEventGenres();
 
     this.WaitBeforeLoading
     (
