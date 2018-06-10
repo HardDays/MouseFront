@@ -117,18 +117,18 @@
                                 <app-one-card 
                                     [card] = "shows" 
                                     [status] = "getStatusVenueEventById(shows.id)" 
-                                    [price] = "100" 
+                                    [price] = "getPriceAtMsg(shows.id)"
                                     (accepted) = "acceptVenue($event)"
                                     (requested) = "sendVenueRequestOpenModal($event)"
                                     (declined) = "declineVenue($event)"
                                     (checked) = "updateEvent()"
                                 ></app-one-card>
-                                <p>'1'+{{shows.status_not_given}}</p>
+                                <!-- <p>'1'+{{shows.status_not_given}}</p> -->
                             </div>
                         </ng-container>
                         <!-- [price] = "getPriceAtMsg(shows.id)"  -->
 
-                        <ng-container *ngFor="let shows of venueShowsList" >
+                        <!-- <ng-container *ngFor="let shows of venueShowsList" >
                             <div *ngIf="shows.status_not_given!='owner_declined'&&shows.status_not_given!='declined'" class="one-card">
                                 <app-one-card 
                                     [card] = "shows" 
@@ -141,7 +141,7 @@
                                 ></app-one-card>
                                
                             </div>
-                        </ng-container>
+                        </ng-container> -->
                         
                         
                     </div>
@@ -151,27 +151,20 @@
                     <div class="flex-wrapp-cards">
                         <ng-container *ngFor="let shows of requestVenues">
                             <div *ngIf="shows.status_not_given=='owner_declined'||shows.status_not_given=='declined'" class="one-card">
-                                <div class="card">
-                                    <div class="delete-card"></div>
-                                    <div class="left-side">
-                                   
-                                        <div [routerLink]="['system','profile',shows.id]" class="ava checked" [ngStyle]="{'background-image': shows.image_base64_not_given?'url('+shows.image_base64_not_given+')':''}"></div>
-                                        <p class="desc-head-info">{{getStatusVenueEventById(shows.id)}}</p>
-                                        <p class="status">Accepted by Artist and Event owner</p>
-                                    </div>
-                                    <div class="right-side">
-                                        <p [routerLink]="['system','profile',shows.id]" class="name">{{shows.id}} {{shows.user_name}}</p>
-                                        <p class="desc-head-info">Spaces</p>
-                                        <p class="info">{{shows.type_of_space?shows.type_of_space:''}}</p>
-                                        <p class="desc-head-info">Location</p>
-                                        <p class="info">{{shows.address}}</p>
-                                    </div>
-                                </div>
+                                <app-one-card 
+                                    [card] = "shows" 
+                                    [status] = "getStatusVenueEventById(shows.id)" 
+                                    [price] = "getPriceAtMsg(shows.id)"
+                                    (accepted) = "acceptVenue($event)"
+                                    (requested) = "sendVenueRequestOpenModal($event)"
+                                    (declined) = "declineVenue($event)"
+                                    (checked) = "updateEvent()"
+                                ></app-one-card>
                                 
                             </div>
                         </ng-container>
 
-                        <ng-container *ngFor="let shows of venueShowsList">
+                        <!-- <ng-container *ngFor="let shows of venueShowsList">
                             <div *ngIf="shows.status_not_given=='owner_declined'||shows.status_not_given=='declined'" class="one-card">
                                 <div class="card">
                                     <div class="delete-card"></div>
@@ -191,7 +184,7 @@
                                 </div>
                                
                             </div>
-                        </ng-container>
+                        </ng-container> -->
 
                         <div *ngIf="isEmptyDeclinedArtists()" class="empty-info">
                             <img src="./../../../assets/img/smile-white.svg" class="img-responsive" alt="">

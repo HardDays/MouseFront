@@ -53,7 +53,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     venueSearchParams:AccountSearchModel = new AccountSearchModel();
     typesSpace:CheckModel<SelectModel>[] = [];
 
-    venueShowsList:AccountGetModel[] = [];
+    //venueShowsList:AccountGetModel[] = [];
     requestVenues:AccountGetModel[] = []; // список тех, кому отправлен запрос, брать из Event
     requestVenueForm : FormGroup = new FormGroup({        
         "time_frame": new FormControl(""),
@@ -64,6 +64,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     addVenue:AccountAddToEventModel = new AccountAddToEventModel();
     eventForRequest:AccountGetModel = new AccountGetModel();
     messagesList:InboxMessageModel[] = [];
+    
     ownerAcceptDecline = {
         event_id:0,
         id:0,
@@ -125,7 +126,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     }
 
     GetVenueFromList(){
-        this.venueShowsList = [];
+        this.requestVenues = [];
         if(this.venuesList&&this.venuesList.length>0)
         for(let i of this.venuesList){
         this.main.accService.GetAccountById(i.venue_id)
@@ -139,19 +140,14 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                         acc.image_base64_not_given = img.base64;
                     else
                         acc.image_base64_not_given = '../../../../assets/img/show.png';
-                    this.venueShowsList.push(acc);
+                    this.requestVenues.push(acc);
                 })
             }
             else {
                 acc.image_base64_not_given = '../../../../assets/img/show.png';
-                this.venueShowsList.push(acc);
-            }
+                this.requestVenues.push(acc);
+                }
             });
-        for(let v =0; v<this.requestVenues.length;v++){
-            if (this.requestVenues[v].id==i.venue_id){
-                this.requestVenues.splice(v,1);
-            }
-        }
         }
     }
 
@@ -307,29 +303,20 @@ export class VenuesComponent extends BaseComponent implements OnInit {
 
     addVenueCheck(venue:CheckModel<AccountGetModel>){
         venue.checked = !venue.checked;
-        if(!this.ifRequestVenue(venue.object.id)&&!this.ifListVenue(venue.object.id)){
-          this.requestVenues.push(venue.object);
-        }
+
+        this.addVenue.event_id = this.Event.id;
+        this.addVenue.venue_id = venue.object.id;
+        this.addVenue.account_id = this.Event.creator_id;
+        
+        this.main.eventService.AddVenue(this.addVenue).
+                subscribe((res)=>{
+                    this.updateEvent();
+            },(err)=>{
+                this.onError.emit("Request wasn't sent!")     
+            });
     }
 
-   ifRequestVenue(id){
-        for(let v of this.requestVenues)
-            if(v.id==id) {
-                return true;
-            }   
-        return false;
-    }
-
-    ifListVenue(id){
-        for(let v of this.venueShowsList)
-            if(v.id==id) {
-                return true;
-            }   
-        return false;
-    }
-    
-
-
+  
     pressEnter(event){
         if(event.key=="Enter")
             this.venueSearch();
@@ -354,28 +341,16 @@ export class VenuesComponent extends BaseComponent implements OnInit {
             this.addVenue.account_id = this.Event.creator_id;
             this.addVenue.is_personal = true;
             
-            this.main.eventService.AddVenue(this.addVenue).
-                subscribe((res)=>{
                   //  console.log(`ok add`);
                     $('#modal-send-request-venue').modal('toggle');
                     this.main.eventService.VenueSendRequest(this.addVenue)
                      .subscribe((send)=>{
                       //  console.log(`ok send`);
                         this.onError.emit("Request was sent!");
-                    this.updateEvent();
-                }, (err)=>{
-                  console.log(err);
-                })
-                    
-                },(err)=>{
-                   
-                    this.main.eventService.VenueSendRequest(this.addVenue)
-                        .subscribe((send)=>{
-                            this.onError.emit("Request was sent!");
                         this.updateEvent();
-                }, (err)=>{ this.onError.emit("Request wasn't sent!");});
-            });
-    
+                }, (err)=>{
+                  this.onError.emit("Request wasn't sent!")
+                })
         }
         else {
             //console.log(`Invalid Request Form!`, this.aboutForm);
@@ -383,15 +358,12 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     }
 
     getStatusVenueEventById(id:number){
-    
         for(let v of this.Event.venues)
             if(v.venue_id == id) return v.status;
-    
         return 'not found artist';
     }
 
     acceptVenue(card:AccountGetModel){
-
         this.ownerAcceptDecline.account_id = this.Event.creator_id;
         this.ownerAcceptDecline.id = card.id;
         this.ownerAcceptDecline.event_id = this.Event.id;
@@ -426,16 +398,17 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         let msg = this.messagesList[0];
         for(let m of this.messagesList)
             if(m.id == msgId) msg = m;
-        this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from;
-        this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to;
+        
+        this.ownerAcceptDecline.datetime_from = msg&&msg.message_info&&msg.message_info.preferred_date_from?msg.message_info.preferred_date_from: new Date().toString();
+        this.ownerAcceptDecline.datetime_to =  msg&&msg.message_info&&msg.message_info.preferred_date_to? msg.message_info.preferred_date_to : new Date().toString();
 
     
         this.main.eventService.VenueDeclineOwner(this.ownerAcceptDecline).
             subscribe((res)=>{
-                this.onError.emit("Venue declined!");
+                this.onError.emit("Venue was declined!");
                 this.updateEvent();
             },(err)=>{
-                this.onError.emit("Venue NOT declined!");
+                this.onError.emit("Venue was't declined!");
             });
     }
 
@@ -454,14 +427,13 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         console.log(`update Event`);
         this.main.eventService.GetEventById(this.Event.id).
         subscribe((res:EventGetModel)=>{
-
            this.venuesList = [];
            setTimeout(() => {
             this.Event = this.main.eventService.EventModelToCreateEventModel(res);
-           
             this.venuesList = this.Event.venues;
             console.log(`get this Event`, this.Event);
             this.GetVenueFromList();
+            this.venueSearch();
            }, 500); 
         })
     }
@@ -540,9 +512,9 @@ export class VenuesComponent extends BaseComponent implements OnInit {
             if(a.status_not_given=='owner_declined'||a.status_not_given=='declined')
                 return false;
 
-        for(let a of this.venueShowsList)
-            if(a.status_not_given=='owner_declined'||a.status_not_given=='declined')
-                return false;
+        // for(let a of this.venueShowsList)
+        //     if(a.status_not_given=='owner_declined'||a.status_not_given=='declined')
+        //         return false;
 
         return true;
     }

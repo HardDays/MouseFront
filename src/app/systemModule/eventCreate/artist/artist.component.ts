@@ -548,12 +548,12 @@ dragMarker($event)
     }
 
     niceViewName(obj:AccountGetModel){
-      let s = '';
-      if(obj.display_name)
-        s +=+ obj.display_name.length>10?obj.display_name.slice(0,10):obj.display_name;
-      if(obj.user_name)
-        s +=' '+(obj.user_name.length>10?obj.user_name.slice(0,10):obj.user_name);
-       return s;
+      if(obj.stage_name)
+        return obj.stage_name.length>20?obj.stage_name.slice(0,18)+'..':obj.stage_name;
+      else if(obj.display_name)
+        return obj.display_name.length>20?obj.display_name.slice(0,18)+'..':obj.display_name;
+      else if(obj.user_name)
+        return obj.user_name.length>20?obj.user_name.slice(0,18)+'..':obj.user_name;
     }
 
     niceViewGenres(g:string[]){

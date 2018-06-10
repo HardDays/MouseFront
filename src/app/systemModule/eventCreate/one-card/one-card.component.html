@@ -7,7 +7,6 @@
         <p class="desc-head-info">Status</p>
         <!-- <p class="status"> {{status}}Accepted by {{card.account_type|titlecase}} and Event owner</p> -->
         <p *ngIf="status=='pending'" class="status">Pending</p>
-        <p *ngIf="status=='send_request'" class="status">Request has been send</p> 
         <p *ngIf="status=='request_send'" class="status">Request has been send</p>        
         <p *ngIf="status=='declined'" class="status">Declined by Artist</p>
         <p *ngIf="status=='owner_declined'" class="status">Declined by Event owner</p>
@@ -32,7 +31,7 @@
             <span *ngIf="status=='accepted'" class="button-card" (click)="Accept()">accept</span>
             <span *ngIf="card.venue_type!='private_residence'&&(status=='ready'||(card.account_type == 'venue' && status=='not found artist'))" class="button-card" (click)="sendRequest()">Send request</span>
             <span *ngIf="card.venue_type=='private_residence'" class="button-card">Verify request</span>
-            <span *ngIf="status=='accepted'" class="button-card" (click)="Decline()">Decline</span>
+            <span  class="button-card" (click)="Decline()">Decline</span>
         </div>
     </div>
 </div>
