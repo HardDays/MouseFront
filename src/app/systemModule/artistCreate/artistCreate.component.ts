@@ -149,16 +149,15 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
 
 
 
-    if(!this.Artist.phone)
+    if(!this.Artist.artist_email)
     {
       this.WaitBeforeLoading(
         () => this.main.authService.GetMe(),
         (res:UserGetModel) => {
-          if(res.register_phone)
-            this.Artist.phone = res.register_phone.toString();
+          if(res.email)
+            this.Artist.artist_email = res.email.toString();
         }
       );
-
       
     }
 

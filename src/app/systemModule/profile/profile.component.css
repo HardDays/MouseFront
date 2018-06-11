@@ -8,6 +8,11 @@
    
 }
 
+.venue-main-info .name-venue h2{
+    text-align: center;
+}
+
+
 #d_lines_view {
     max-width: 400px;
     word-wrap: break-word;

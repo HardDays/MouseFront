@@ -195,8 +195,10 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
   }
 
   saveArtist(){
-    if(this.Artist.price_from&&this.Artist.price_to)
+    if(this.Artist.price_from&&this.Artist.price_to){
+      this.Artist.image_base64 = null;
       this.onSave.emit(this.Artist);
+    }
     else
       this.onError.emit('Entry Price!');
     return;

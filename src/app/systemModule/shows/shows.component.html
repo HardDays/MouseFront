@@ -28,7 +28,9 @@
                         [infiniteScrollDisabled]="ScrollDisabled">
                             <ng-container *ngFor="let item of Events">
                                 <a style="display:block" class="one-show-wr" [routerLink]="['/system','shows_detail',item.id]">
+                                    
                                     <shows-item-selector [Show]="item"></shows-item-selector>
+
                                 </a>
                             </ng-container>
                         </div>

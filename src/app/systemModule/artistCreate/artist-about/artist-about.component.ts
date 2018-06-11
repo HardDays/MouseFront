@@ -187,7 +187,7 @@ DeleteImage()
             .subscribe(
                 (res) => {
                     this.ArtistImageId = 0;
-                    this.onImageDeleted.emit(true);
+                  //  this.onImageDeleted.emit(true);
                     this.DeleteLocalImage();
                 }
             );
