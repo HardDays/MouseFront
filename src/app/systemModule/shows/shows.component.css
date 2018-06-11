@@ -98,6 +98,16 @@ select{
     /* height: 100vh; */
     min-height: 700px;
  }
+
+ shows-item-selector{
+     display: flex;
+     flex-direction: column;
+        height: 100%;
+ }
+ .one-show{
+     flex-shrink: 0;
+
+ }
  .new-shows-desc{
-     min-height: 165px;
+     height: 100%;
  }
