@@ -157,28 +157,29 @@ export class MainService{
     }
 
     public GetMyAccounts(){
-        this.accService.GetMyAccount()
-            .subscribe(
-                (res) => {
-                    this.MyAccounts = res;
-                    if(this.MyAccounts.length > 0)
+        this.WaitBeforeLoading(
+            ()=> this.accService.GetMyAccount(),
+            (res) => {
+                this.MyAccounts = res;
+                if(this.MyAccounts.length > 0)
+                {
+                    let accId = +this.GetCurrentAccId();
+                    if(accId)
                     {
-                        let accId = +this.GetCurrentAccId();
-                        if(accId)
-                        {
-                            this.CurrentAccount = this.MyAccounts.find((acc) => acc.id === accId);
-                        }
-                        else
-                        {
-                            this.CurrentAccount = this.MyAccounts[0];
-                        }
+                        this.CurrentAccount = this.MyAccounts.find((acc) => acc.id === accId);
                     }
-                    this.CurrentAccountChange.next(this.CurrentAccount);
-                    this.MyAccountsChange.next(this.MyAccounts);
-                },
-                (err) => {
+                    else
+                    {
+                        this.CurrentAccount = this.MyAccounts[0];
+                    }
                 }
-            );
+                this.CurrentAccountChange.next(this.CurrentAccount);
+                this.MyAccountsChange.next(this.MyAccounts);
+            },
+            (err) => {
+            }
+        );
+       
     }
 
     public WaitBeforeLoading = (fun:()=>Observable<any>,success:(result?:any)=>void, err?:(obj?:any)=>void)=>
