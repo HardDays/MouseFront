@@ -13,7 +13,7 @@
             <h3 class="less-margin">ENTER YOUR PHONE NUMBER</h3>
             <p class="some-small-text-after-head">Enter your number to receive a verification code. Carrier rates may apply.</p>
             <div class="sigh-up-3-m-w">
-                <select #t (change)="phoneCode = t.value" class="inp-style-2">
+                <select #t (input)="changeCode(t.value)" class="inp-style-2">
                     <option *ngFor="let code of codes" [selected]="code.dial_code == curPos" [value]="code.dial_code">{{code.name}} ({{code.dial_code}})</option>
                 </select>
                 <input (input)="inputPhone($event)"  [textMask]="MaskNumbers()" class="inp-style-2" type="text" placeholder="Tel. Number">

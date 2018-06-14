@@ -44,10 +44,15 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
   this.main.phoneService.GetAllPhoneCodes().
     subscribe((res)=>{
       this.codes = res;
-      this.phoneCode = this.codes[0].dial_code;
+      this.phoneCode = '+1';
     });
   }
 
+  changeCode(s){
+    console.log(s);
+    this.phoneCode = s;
+    console.log(`phonecode`,this.phoneCode)
+  }
   inputPhone($event){
     this.phone = $event.target.value;
   }
@@ -55,7 +60,7 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
   sendCode(){
     if(this.phone.length>0){
       this.phoneArr = false;
-      let phone = this.phoneCode + this.phone;
+      let phone:string = this.phoneCode + this.phone;
       this.WaitBeforeLoading(
         ()=>this.main.phoneService.SendCodeToPhone(phone),
           (res)=>{
@@ -96,6 +101,7 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
   sendRequest(){
     if(this.codeRequest.length==4){
       let phone = this.phoneCode+this.phone;
+      console.log(`code`,phone);
       let code = this.codeRequest[0]+this.codeRequest[1]+this.codeRequest[2]+this.codeRequest[3];
 
       this.WaitBeforeLoading(
