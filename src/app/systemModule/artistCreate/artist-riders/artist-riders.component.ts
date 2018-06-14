@@ -5,6 +5,7 @@ import { MainService } from '../../../core/services/main.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MapsAPILoader } from '@agm/core';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-artist-riders',
@@ -200,6 +201,24 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
 
   nextPage(){
     this.openNextPage.emit();
+  }
+
+  downloadTemplate(){
+    const blob = new Blob(['124'],
+      { type: 'application/vnd.ms-excel;charset=utf-16le' });
+     const file = new File([blob], 'template.xls',
+      { type: 'application/vnd.ms-excel;charset=utf-16le' });
+
+    //   var url = window.URL.createObjectURL(file);
+      // url.download = '';
+      // window.open(url);
+     // saveAs(blob, filename+".txt");
+
+     let blob2 = new Blob([], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-16le"
+      });
+
+      FileSaver.saveAs(file, "template.xls"); 
   }
 
 

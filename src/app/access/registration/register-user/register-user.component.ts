@@ -94,6 +94,7 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.phone);
   }
 
   backPage(){

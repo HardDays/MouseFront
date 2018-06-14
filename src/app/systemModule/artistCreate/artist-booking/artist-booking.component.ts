@@ -32,6 +32,9 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
   mapCoords = {lat:55.755826, lng:37.6172999};
   spaceArtistList = [];
 
+  type_min_time_to_free_cancel:string = '';
+  type_min_time_to_book:string = '';
+
   constructor(
     protected main           : MainService,
     protected _sanitizer     : DomSanitizer,
@@ -46,7 +49,8 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     this.CreateAutocomplete();
-   
+    // this.initDateMin();
+    this.initDateMin();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -65,6 +69,46 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
           v.checked = true;
       }
     }
+
+    // this.initDateMin();
+
+  }
+
+  initDateMin(){
+    console.log(`INIT DATE`)
+    if(this.Artist.min_time_to_book){
+      console.log(`time`,this.Artist.min_time_to_book);
+      if(this.Artist.min_time_to_book%30==0)
+      {
+        this.Artist.min_time_to_book = this.Artist.min_time_to_book/30;
+        this.type_min_time_to_book = 'months';
+      }
+      else if(this.Artist.min_time_to_book%7==0)
+      {
+        this.Artist.min_time_to_book = this.Artist.min_time_to_book/7;
+        this.type_min_time_to_book = 'weeks';
+      }
+      else {
+        this.type_min_time_to_book = 'days';
+      }
+    }
+
+    if(this.Artist.min_time_to_free_cancel){
+      if(this.Artist.min_time_to_free_cancel%30==0)
+      {
+        this.Artist.min_time_to_free_cancel = this.Artist.min_time_to_free_cancel/30;
+        this.type_min_time_to_free_cancel = 'months';
+      }
+      else if(this.Artist.min_time_to_free_cancel%7==0)
+      {
+        this.Artist.min_time_to_free_cancel = this.Artist.min_time_to_free_cancel/7;
+        this.type_min_time_to_free_cancel = 'weeks';
+      }
+      else {
+        this.type_min_time_to_free_cancel = 'days';
+      }
+    }
+
   }
 
   setPreferedVenue(index:number){
@@ -197,6 +241,17 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
   saveArtist(){
     if(this.Artist.price_from&&this.Artist.price_to){
       this.Artist.image_base64 = null;
+
+      if(this.type_min_time_to_book=='weeks')
+        this.Artist.min_time_to_book = this.Artist.min_time_to_book*7;
+      else if(this.type_min_time_to_book=='months')
+        this.Artist.min_time_to_book = this.Artist.min_time_to_book*30;
+
+      if(this.type_min_time_to_free_cancel=='weeks')
+        this.Artist.min_time_to_free_cancel = this.Artist.min_time_to_free_cancel*7;
+      else if(this.type_min_time_to_free_cancel=='months')
+        this.Artist.min_time_to_free_cancel = this.Artist.min_time_to_free_cancel*30;
+
       this.onSave.emit(this.Artist);
     }
     else

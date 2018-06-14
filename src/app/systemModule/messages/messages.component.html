@@ -89,10 +89,10 @@
                                 <span class="when">{{openMessage.created_at | date:'MMM d' }}</span>
                             </div>
                             <div class="block-info s-b">
-                                <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                                <div class="ava" [ngStyle]="{'background-image': (accOpen&&accOpen.image_base64_not_given)?'url('+accOpen.image_base64_not_given+')':''}"></div>
                                 <div class="name-hash">
                                     <p class="n">{{accOpen.display_name?accOpen.display_name:''}}</p>
-                                    <p class="hash"><span>@</span>papapa</p>
+                                    <p class="hash"><span>@</span>{{accOpen.user_name?accOpen.user_name:''}}</p>
                                 </div>
                                 
                             </div>
@@ -219,10 +219,10 @@
                                 <span class="when">{{openMessage.created_at | date:'MMM d' }}</span>
                             </div>
                             <div class="block-info s-b">
-                                <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                                <div class="ava" [ngStyle]="{'background-image': (accOpen&&accOpen.image_base64_not_given)?'url('+accOpen.image_base64_not_given+')':''}"></div>
                                 <div class="name-hash">
                                     <p class="n">{{accOpen.display_name?accOpen.display_name:''}}</p>
-                                    <p class="hash"><span>@</span>papapa</p>
+                                    <p class="hash"><span>@</span>{{accOpen.user_name?accOpen.user_name:''}}</p>
                                 </div>
                                 
                             </div>
