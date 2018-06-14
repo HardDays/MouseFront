@@ -29,6 +29,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
         this.getActiveArtVen();
     }
 
+
     getFamilyAndFriendAmount(){
         let sum =  parseFloat(this.familyAndFriendAmount)/100;
         return sum*(0.1*(this.artistSum+this.venueSum+this.additionalCosts)+(this.artistSum+this.venueSum+this.additionalCosts));
@@ -120,6 +121,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
                     if(art.agreement&&!art.agreement.price) 
                         art.agreement.price = 1000;
 
+                    console.log(`art`,art);
                     artist.push(art);
                 }
             }

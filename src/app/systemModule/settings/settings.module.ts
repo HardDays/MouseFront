@@ -16,6 +16,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { CustomerSupportComponent } from './customer-support/customer-support.component';
 import { HowToCreateEventComponent } from './customer-support/how-to-create-event/how-to-create-event.component';
 import { SendQuestionComponent } from './customer-support/send-question/send-question.component';
+import { PhonePipe } from '../../core/pipes/phone.pipe';
 
 @NgModule({
     imports: [ 
@@ -37,7 +38,8 @@ import { SendQuestionComponent } from './customer-support/send-question/send-que
         PrivacyPolicyComponent,
         CustomerSupportComponent,
         HowToCreateEventComponent,
-        SendQuestionComponent
+        SendQuestionComponent,
+        PhonePipe
     ],
     exports: [ SettingsComponent ]
 })
