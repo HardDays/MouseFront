@@ -112,3 +112,10 @@ header .main-mw .right-side{
         border-radius: 2.5px;
         cursor: pointer;
     }
+
+    header .main-mw .right-side .flex-menu-items .name-and-ava-wr .dropdown-settings-ava .dropdown-items-wr span.dog{
+        display: inline;
+        
+    color: #eb2d64;
+    font-size: 14px;
+    }

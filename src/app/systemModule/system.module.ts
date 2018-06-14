@@ -64,7 +64,7 @@ import { FeedItemComponent } from './feed/feed-item/feed-item.component';
     FanCreateComponent,
     MessagesComponent,
     MyTicketOpenedComponent,
-    TinyCalendarComponent,
+    
     FeedItemComponent
   ],
   imports: [

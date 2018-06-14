@@ -63,6 +63,7 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
           },
           (err)=>{
             this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
+            
           }
       );
     }
@@ -106,6 +107,7 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
           },
           (err)=>{
             this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
+            
           }
       );
     }
