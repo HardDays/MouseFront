@@ -40,13 +40,14 @@ export class TicketsComponent extends BaseComponent implements OnInit,AfterViewC
     {mDate: moment('2018-06-24')}
   ];
   EventDates: CalendarDate[] = [
-    {
-        mDate: moment('2018-06-15'),
-        eventId: 31
-    },
+    
     {
         mDate: moment('2018-06-16'),
         eventId: 7
+    },
+    {
+        mDate: moment('2018-06-15'),
+        eventId: 31
     }
   ];
 

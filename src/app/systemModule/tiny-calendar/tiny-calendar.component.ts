@@ -42,7 +42,7 @@ export class TinyCalendarComponent implements OnInit, OnChanges {
         changes.selectedDates.currentValue &&
         changes.selectedDates.currentValue.length  > 1) {
           this.sortedDates = _.sortBy(changes.selectedDates.currentValue, (m: CalendarDate) => m.mDate.valueOf());
-          this.generateCalendar();
+          //this.generateCalendar();
         }
   }
 
@@ -56,69 +56,21 @@ export class TinyCalendarComponent implements OnInit, OnChanges {
       return moment(date).isSame(selectedDate.mDate, 'day');
     }) > -1;
   }
+  
   isEvent(date: moment.Moment): boolean {
-    
-
     return _.findIndex(this.eventDates, (eventDate) => {
       return moment(date).isSame(eventDate.mDate, 'day');
     }) > -1;
-
-
   }
 
-  isEventId(date: moment.Moment) {
-    
-    let index = 0;
-
-    
-    for( let eventDate of this.eventDates){
-
-        if(date.date() ==  eventDate.mDate.date()){
-          
-          return eventDate.eventId
-
+  isEventId(date: moment.Moment,hasEvent:boolean) {
+    if(hasEvent){
+      for(let eventDate of this.eventDates){
+        if(moment(date).isSame(eventDate.mDate, 'day')){
+          return eventDate.eventId;
         }
-        else{
-          return null;
-        }
+      }
     }
-    
-
-    // console.log(
-    //   _.findIndex(this.eventDates, (eventDate) => {
-    //     return moment(date).isSame(eventDate.mDate, 'day');
-     
-      
-    //   })
-
-
-    // );
-    // return _.findIndex(this.eventDates, (eventDate) => {
-      
-     
-      
-    // })
-    // _.findIndex(this.eventDates, (eventDate) => {
-    //   if(moment(date).isSame(eventDate.mDate, 'day')){
-    //     console.log(1);
-    //     return eventDate.eventId;
-    //   }
-    //   else{
-    
-    //     return;
-    //   }
-    // });
-    
-    // for( let eventDate of this.eventDates){
- 
-    //   if(moment(date).isSame(eventDate.mDate, 'day')){
-        
-    //     return eventDate.eventId;
-    //   }
-    //   else{
-    //     return 
-    //   }
-    // }
   }
   
 
@@ -187,7 +139,7 @@ export class TinyCalendarComponent implements OnInit, OnChanges {
                 selected: this.isSelected(d),
                 mDate: d,
                 event:this.isEvent(d),
-                eventId: this.isEventId(d)
+                eventId: this.isEventId(d,this.isEvent(d))
               };
             });
   }
