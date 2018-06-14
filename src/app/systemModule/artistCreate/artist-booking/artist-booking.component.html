@@ -176,7 +176,7 @@
                     <h6>Preferred Location</h6>
                     <div   class="location-wr">
                         <div class="mark" (click)="openMapModal()"></div>
-                        <input [(ngModel)]="Artist.preferred_address" #search type="text" id="address" class="location-inp" placeholder="location">
+                        <input [(ngModel)]="Artist.preferred_address" #search type="text" id="address" class="location-inp" placeholder="Enter your location">
                     </div>
                     <div class="flex-input-groupes">
                         <div class="input-groupe-1 p-style-10">
@@ -263,9 +263,13 @@
                         <p class="hours-label">Minimum Time needed to book before a Concert?</p>
                         </div>
                         <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
-                            <select [(ngModel)]="Artist.min_time_to_book">
-                                <option>30</option>
-                                <option>40</option>
+                            <input type="text" [(ngModel)]="Artist.min_time_to_book">                                                       
+                        </div>
+                        <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
+                            <select [(ngModel)]="type_min_time_to_book">
+                                <option>days</option>
+                                <option>weeks</option>
+                                <option>months</option>
                             </select>                                                         
                         </div>
                     </div>
@@ -273,16 +277,23 @@
                         <div class="input-groupe-1">
                         <p class="hours-label">How much time is needed to cancel before you charge a cancellation fee?</p>
                         </div>
+                        
                         <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
-                            <select [(ngModel)]="Artist.min_time_to_free_cancel">
-                                <option>30</option>
-                                <option>40</option>
+                            <input type="text" [(ngModel)]="Artist.min_time_to_free_cancel">                                                       
+                        </div>
+
+                        <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
+                            
+                            <select [(ngModel)]="type_min_time_to_free_cancel">
+                                <option>days</option>
+                                <option>weeks</option>
+                                <option>months</option>
                             </select>                                                         
                         </div>
                     </div>
                     <div class="flex-input-groupes">
                         <div class="input-groupe-1">
-                        <p class="hours-label">Fee for last minute сancellation</p>
+                        <p class="hours-label">$ Fee for last minute сancellation</p>
                         </div>
                         <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
                             <input [(ngModel)]="Artist.late_cancellation_fee" type="text" class="whithout-padd">                                                      

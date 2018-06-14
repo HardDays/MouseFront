@@ -22,6 +22,8 @@ export class TinyCalendarComponent implements OnInit, OnChanges {
   dayNames = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
   weeks: CalendarDate[][] = [];
   sortedDates: CalendarDate[] = [];
+  
+
 
   @Input() selectedDates: CalendarDate[] = [];
   @Output() onSelectDate = new EventEmitter<CalendarDate>();
@@ -64,11 +66,9 @@ export class TinyCalendarComponent implements OnInit, OnChanges {
     // else{
     //   date.selected = false;
     // }
-    console.log('this.selectedDates ', this.selectedDates);
-    console.log('date ', date);
     this.onSelectDate.emit(date);
-    
-    
+    console.log(this.selectedDates);
+    this.generateCalendar();
   }
 
   GetPrevMonth(): void {
