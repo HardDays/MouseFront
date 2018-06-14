@@ -33,11 +33,21 @@ export class TicketsComponent extends BaseComponent implements OnInit,AfterViewC
   accountId:number;
   Tickets:TicketsGetModel[] = [];
   PastTickets:TicketsGetModel[] = [];
-  ticketsTypesDates = ['current','past']
+  ticketsTypesDates = ['current','past'];
   SelectedDates: CalendarDate[] = [
     {mDate: moment('2018-06-13')},
     {mDate: moment("14-06-2018", "DD-MM-YYYY")},
     {mDate: moment('2018-06-24')}
+  ];
+  EventDates: CalendarDate[] = [
+    {
+        mDate: moment('2018-06-15'),
+        eventId: 31
+    },
+    {
+        mDate: moment('2018-06-16'),
+        eventId: 7
+    }
   ];
 
   @ViewChild('search') search: SearchTicketsComponent;
@@ -74,23 +84,25 @@ export class TicketsComponent extends BaseComponent implements OnInit,AfterViewC
         this.cdRef.detectChanges();
     }
     DisableDate(event){
-        
-        if(!event.selected){
-            this.SelectedDates.push({
-                mDate: event.mDate
-            });
-        }
-        else{
-            let BreakException = {};
-            try {
-                this.SelectedDates.forEach(function(e,index,arr){
-                    if(e.mDate.date() == event.mDate.date()){
-                        arr.splice(index,1);
-                        throw BreakException;
-                    }
+        console.log(event);
+       if(!event.event){ 
+            if(!event.selected){
+                this.SelectedDates.push({
+                    mDate: event.mDate
                 });
-            } catch (e) {
-                if (e !== BreakException) throw e;
+            }
+            else{
+                let BreakException = {};
+                try {
+                    this.SelectedDates.forEach(function(e,index,arr){
+                        if(e.mDate.date() == event.mDate.date()){
+                            arr.splice(index,1);
+                            throw BreakException;
+                        }
+                    });
+                } catch (e) {
+                    if (e !== BreakException) throw e;
+                }
             }
         }
     }

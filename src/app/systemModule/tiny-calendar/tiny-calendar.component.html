@@ -22,10 +22,21 @@
       <div class="days">
           <ng-container *ngFor="let week of weeks">
             <ng-container *ngFor="let day of week">
-                <div class="one-day-wr" [ngClass]="{'today': day.today, 'un-active': day.selected }" (click)="selectDate(day)">
+                <div class="one-day-wr" [ngClass]="{'today': day.today, 'un-active': day.selected, 'has-popup':day.event }" (click)="selectDate(day)">
                     <ng-container *ngIf="isSelectedMonth(day.mDate)">
                         <div class="one-day">
                             <p>{{ day.mDate.date() }}</p>
+                            <div *ngIf="day.event" class="popup-inform-tiny-calendar">
+                                <div class="shadow-wr">
+                                    <div class="top-image"></div>
+                                    <div class="bott-descr-day">
+                                        <p class="f">Tales Of Wonder</p>
+                                        <p class="s">December 15, 2018</p>
+                                        <p class="where">Winstons Beach Club</p>
+                                        <p class="where-2">1921 Bacon St, San Diego, CA 92107</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </ng-container>
                 </div>

@@ -6,6 +6,8 @@ export interface CalendarDate {
   mDate: moment.Moment;
   selected?: boolean;
   today?: boolean;
+  event?:boolean;
+  eventId?:any;
 }
 
 @Component({
@@ -26,14 +28,13 @@ export class TinyCalendarComponent implements OnInit, OnChanges {
 
 
   @Input() selectedDates: CalendarDate[] = [];
+  @Input() eventDates: CalendarDate[] = [];
   @Output() onSelectDate = new EventEmitter<CalendarDate>();
 
   constructor() {}
 
   ngOnInit(): void {
     this.generateCalendar();
-    
-    console.log(this.currentDate);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -45,6 +46,7 @@ export class TinyCalendarComponent implements OnInit, OnChanges {
         }
   }
 
+
   isToday(date: moment.Moment): boolean {
     return moment().isSame(moment(date), 'day');
   }
@@ -54,20 +56,78 @@ export class TinyCalendarComponent implements OnInit, OnChanges {
       return moment(date).isSame(selectedDate.mDate, 'day');
     }) > -1;
   }
+  isEvent(date: moment.Moment): boolean {
+    
+
+    return _.findIndex(this.eventDates, (eventDate) => {
+      return moment(date).isSame(eventDate.mDate, 'day');
+    }) > -1;
+
+
+  }
+
+  isEventId(date: moment.Moment) {
+    
+    let index = 0;
+
+    
+    for( let eventDate of this.eventDates){
+
+        if(date.date() ==  eventDate.mDate.date()){
+          
+          return eventDate.eventId
+
+        }
+        else{
+          return null;
+        }
+    }
+    
+
+    // console.log(
+    //   _.findIndex(this.eventDates, (eventDate) => {
+    //     return moment(date).isSame(eventDate.mDate, 'day');
+     
+      
+    //   })
+
+
+    // );
+    // return _.findIndex(this.eventDates, (eventDate) => {
+      
+     
+      
+    // })
+    // _.findIndex(this.eventDates, (eventDate) => {
+    //   if(moment(date).isSame(eventDate.mDate, 'day')){
+    //     console.log(1);
+    //     return eventDate.eventId;
+    //   }
+    //   else{
+    
+    //     return;
+    //   }
+    // });
+    
+    // for( let eventDate of this.eventDates){
+ 
+    //   if(moment(date).isSame(eventDate.mDate, 'day')){
+        
+    //     return eventDate.eventId;
+    //   }
+    //   else{
+    //     return 
+    //   }
+    // }
+  }
+  
 
   isSelectedMonth(date: moment.Moment): boolean {
     return moment(date).isSame(this.currentDate, 'month');
   }
 
   selectDate(date: CalendarDate): void {
-    // if(!date.selected){
-    //   date.selected = true;
-    // }
-    // else{
-    //   date.selected = false;
-    // }
     this.onSelectDate.emit(date);
-    console.log(this.selectedDates);
     this.generateCalendar();
   }
 
@@ -114,6 +174,7 @@ export class TinyCalendarComponent implements OnInit, OnChanges {
   }
 
   fillDates(currentMoment: moment.Moment): CalendarDate[] {
+    
     const firstOfMonth = moment(currentMoment).startOf('month').day();
     const firstDayOfGrid = moment(currentMoment).startOf('month').subtract(firstOfMonth, 'days');
     const start = firstDayOfGrid.date();
@@ -125,6 +186,8 @@ export class TinyCalendarComponent implements OnInit, OnChanges {
                 today: this.isToday(d),
                 selected: this.isSelected(d),
                 mDate: d,
+                event:this.isEvent(d),
+                eventId: this.isEventId(d)
               };
             });
   }
