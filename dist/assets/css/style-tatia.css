@@ -158,6 +158,23 @@
             padding-left: 15px; }
           .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_right .settings_right_wrap .user_info_form button[type=submit] {
             margin-top: 23px; }
+          .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_right .settings_right_wrap .user_info_form .personal_phone_number {
+            margin-top: 40px; }
+            .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_right .settings_right_wrap .user_info_form .personal_phone_number #change_personal_phone_number {
+              position: absolute;
+              right: 0;
+              bottom: 8px;
+              cursor: pointer;
+              color: #ff0062;
+              border-radius: 16.5px;
+              padding: 3px 20px;
+              font-size: 14px;
+              border: 1px solid #ff0062;
+              z-index: 10;
+              transition: 0.3s; }
+              .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_right .settings_right_wrap .user_info_form .personal_phone_number #change_personal_phone_number:hover {
+                background: #ff0062;
+                color: #fff; }
         .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_right .settings_right_wrap .preferences_form_group select {
           display: block;
           width: 100%;
@@ -325,5 +342,89 @@
           padding-bottom: 30px; }
           .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_right .settings_right_wrap .text_block p {
             line-height: 24px; }
+
+.modal_change_phone .modal-dialog {
+  width: 465px;
+  max-width: 100%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) !important; }
+  .modal_change_phone .modal-dialog .modal-body {
+    background: #fff;
+    padding: 0;
+    border-radius: 6px;
+    overflow: hidden; }
+    .modal_change_phone .modal-dialog .modal-body .head {
+      background: #efefef;
+      font: 16px AvenirLTStdBlack;
+      color: #000;
+      text-transform: uppercase;
+      padding: 15px 35px; }
+    .modal_change_phone .modal-dialog .modal-body .phone_form {
+      padding: 30px 45px; }
+      .modal_change_phone .modal-dialog .modal-body .phone_form .butt-style-1 {
+        width: 115px;
+        margin: auto;
+        border-width: 5px; }
+        .modal_change_phone .modal-dialog .modal-body .phone_form .butt-style-1 span {
+          padding: 7px 21px; }
+    .modal_change_phone .modal-dialog .modal-body .number {
+      display: flex;
+      justify-content: space-between;
+      margin: 15px 35px 25px;
+      align-items: flex-end; }
+      .modal_change_phone .modal-dialog .modal-body .number p {
+        font-size: 14px;
+        font-weight: bold;
+        margin: 0; }
+      .modal_change_phone .modal-dialog .modal-body .number #wrong_number {
+        color: #df205d;
+        text-decoration: underline;
+        font-size: 14px;
+        cursor: pointer; }
+    .modal_change_phone .modal-dialog .modal-body .code_label {
+      margin: 0;
+      color: rgba(0, 0, 0, 0.5);
+      font-size: 12px;
+      text-align: center; }
+    .modal_change_phone .modal-dialog .modal-body .inp-code-wrapp {
+      background: #efefef;
+      margin-top: 10px;
+      margin-bottom: 15px; }
+      .modal_change_phone .modal-dialog .modal-body .inp-code-wrapp input {
+        color: #cf385f; }
+      .modal_change_phone .modal-dialog .modal-body .inp-code-wrapp .line {
+        background: #fff; }
+    .modal_change_phone .modal-dialog .modal-body .note {
+      margin: 0;
+      text-align: center;
+      font-size: 14px;
+      font-weight: bold;
+      color: #000; }
+      .modal_change_phone .modal-dialog .modal-body .note span {
+        cursor: pointer;
+        color: #cf385f;
+        text-decoration: underline; }
+    .modal_change_phone .modal-dialog .modal-body #validate_personal_phone_code {
+      width: 140px;
+      margin: 25px auto 30px;
+      border-width: 5px; }
+      .modal_change_phone .modal-dialog .modal-body #validate_personal_phone_code span {
+        padding: 7px 21px; }
+.modal_change_phone.modal_change_phone_success .modal-dialog {
+  width: 310px; }
+  .modal_change_phone.modal_change_phone_success .modal-dialog .modal-body {
+    padding: 20px 35px; }
+    .modal_change_phone.modal_change_phone_success .modal-dialog .modal-body p {
+      font-size: 18px;
+      text-align: center;
+      margin-bottom: 15px; }
+    .modal_change_phone.modal_change_phone_success .modal-dialog .modal-body .butt-style-1 {
+      width: 115px;
+      margin: auto;
+      border-width: 5px; }
+      .modal_change_phone.modal_change_phone_success .modal-dialog .modal-body .butt-style-1 span {
+        padding: 5px 21px;
+        text-align: center; }
 
 /*# sourceMappingURL=style-tatia.css.map */
