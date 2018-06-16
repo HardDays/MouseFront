@@ -19,6 +19,10 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
 
   myLogo:string = '';
   comment:CommentModel = new CommentModel();
+  comments:CommentModel[] = [];
+  isOpenComment:boolean = false;
+
+  likes:any[] = [];
   
   constructor(
     protected main           : MainService,
@@ -40,9 +44,12 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
         this.Feed.account.img_base64 = img.base64;
       });
     this.myLogo = this.main.MyLogo;
+    this.getLikes();
+    this.GetComments();
   }
   
   ngOnChanges() {
+   
   }
 
   calculateTime(value: Date){
@@ -72,7 +79,48 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
     this.comment.account_id = this.accId;
     this.comment.event_id = this.Feed.event.id;
 
+    this.main.commentService.PostComment(this.comment)
+      .subscribe((res)=>{
+        console.log(res);
+        this.GetComments();
+      },(err)=>{
+        console.log(`err`,err);
+      })
     console.log(this.comment);
+  }
+
+  GetComments(){
+    this.main.commentService.GetCommentByEventId(this.Feed.event.id)
+      .subscribe((res:CommentModel[])=>{
+        this.comments = res;
+          for(let comm of this.comments){
+            this.main.imagesService.GetImageById(comm.account.image_id)
+            .subscribe((img)=>{
+            comm.account.image_base64 = img.base64;
+          });
+        }
+        console.log(this.comments);
+      })
+  }
+
+  likePost(){
+    console.log(this.Feed.event.id,this.accId);
+    this.main.likesService.PostLike(this.Feed.event.id,this.accId)
+      .subscribe((res)=>{
+        console.log(res);
+      },(err)=>{
+        console.log(`err`,err)
+      })
+  }
+
+  getLikes(){
+    this.main.likesService.GetLikesByEventId(this.Feed.event.id)
+      .subscribe((res)=>{
+        console.log(res);
+        this.likes = res;
+      },(err)=>{
+        console.log(`err`,err)
+      })
   }
 }
 

@@ -101,6 +101,7 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
       this.Artist.audio_links.push(params);
       this.saveArtist();
       this.addSongForm.reset();
+      this.InitMusicPlayer();
       // 'http://d.zaix.ru/6yut.mp3'
 
     }

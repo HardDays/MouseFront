@@ -70,18 +70,29 @@ export class AboutComponent extends BaseComponent implements OnInit {
 
     this.getGenres();
 
+    console.log(this.Event);
     if(this.Event.image_id)
-    this.main.imagesService.GetImageById(this.Event.image_id)
-      .subscribe(
-          (img)=>{
+    {
+        console.log(this.Event.image_id);
+        this.main.imagesService.GetImageById(this.Event.image_id)
+        .subscribe(
+            (img)=>{
+                console.log(`succes`);
                 this.Event.image_base64 = img.base64;
-        }
-    )
+            },(err)=>{
+                console.log(`err`,err) 
+            }
+        )
+    }
+    else {
+        console.log(`NO IMAGE`);
+    }
 
     this.mapCoords.lat = (this.Event && this.Event.city_lat)?this.Event.city_lat:55.755826;
     this.mapCoords.lng = (this.Event && this.Event.city_lng)?this.Event.city_lng:37.6172999;
 
   }
+  
 
   CreateAutocompleteAbout(){
     this.mapsAPILoader.load().then(

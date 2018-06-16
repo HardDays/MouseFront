@@ -18,44 +18,35 @@
     <div class="body-feed-item"></div>
     <div class="footer-item">
         <div class="left-side">
-            <span class="coments counter-icon">
-                20
+            <span (click)="isOpenComment = true; GetComments()" class="coments counter-icon">
+               {{comments.length}}
             </span>
             <!--добавляем liked если лайнули-->
-            <span class="likes liked counter-icon">
-                20
+            <span (click)="likePost()" class="likes liked counter-icon">
+                {{likes.length}}
             </span>
         </div>
         <div class="right-side">
-            <div class="dots">
+            <!-- <div class="dots">
                 <div class="dot"></div>
                 <div class="dot"></div>
                 <div class="dot"></div>
-            </div>
+            </div> -->
         </div>
     </div>
     <!--по нажатию на кементы-->
-    <div class="coments-item">
-        <div class="one-coment">
+    <div *ngIf="isOpenComment" class="coments-item">
+        <div *ngFor="let item of comments" class="one-coment">
             <div class="left-side">
-                <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
+                <div class="ava" [ngStyle]="{'background-image':item.account.image_base64?'url('+item.account.image_base64+')':''}"></div>
             </div>
             <div class="right-side">
-                <p class="name">Danielle Green</p>
-                <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in </p>
-                <p class="when">1 day ago</p>
+                <p class="name">{{item.account.user_name}}</p>
+                <p class="description">{{item.text}}</p>
+                <p class="when">{{item.created_at?calculateTime(item.created_at):'A long time'}} ago</p>
             </div>
         </div>
-        <div class="one-coment">
-            <div class="left-side">
-                <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
-            </div>
-            <div class="right-side">
-                <p class="name">Danielle Green</p>
-                <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore</p>
-                <p class="when">1 day ago</p>
-            </div>
-        </div>
+
         <!--оставить комент-->
         <form class="leave-coment-wrapp">
             <div class="left-side">

@@ -31,24 +31,23 @@
                     <p class="price-t-t">Price<span>*</span></p>
                     <div class="flex-input-groupes">
                         <div class="input-groupe-1 from-to-style">
-                            <span class="f-t">$From<span>*</span></span>
+                            <span class="f-t">From<span>*</span></span>
                             <input maxlength="10" [textMask]="MaskNumbers()" [(ngModel)]="Artist.price_from" type="text">
-                            <span class="t-f">/hr</span>
+                            <span class="t-f">$/hr</span>
                         </div>
                         <div class="input-groupe-1 from-to-style">
-                            <span class="f-t">$To<span>*</span></span>
+                            <span class="f-t">To<span>*</span></span>
                             <input maxlength="10" [textMask]="MaskNumbers()" [(ngModel)]="Artist.price_to" type="text">
-                            <span class="t-f">/hr</span>                           
+                            <span class="t-f">$/hr</span>                           
                         </div>
                     </div>
                     <div class="flex-input-groupes">
                         <div class="input-groupe-1 from-to-style">
-                        <p class="hours-label">$ Price for additional Hours:</p>
+                        <p class="hours-label">Price for additional Hours:</p>
                         </div>
                         <div class="input-groupe-1 from-to-style hours-label-groupe">
-                        
                             <input maxlength="10" [textMask]="MaskNumbers()" [(ngModel)]="Artist.additional_hours_price" type="text">
-                            <span class="t-f">/hr</span>                           
+                            <span class="t-f">$/hr</span>                           
                         </div>
                     </div>
                     <div class="flex-mac-checkbox">
@@ -293,10 +292,11 @@
                     </div>
                     <div class="flex-input-groupes">
                         <div class="input-groupe-1">
-                        <p class="hours-label">$ Fee for last minute сancellation</p>
+                        <p class="hours-label">Fee for last minute сancellation</p>
                         </div>
                         <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
-                            <input [(ngModel)]="Artist.late_cancellation_fee" type="text" class="whithout-padd">                                                      
+                            <span class="f-t">$</span>              
+                            <input [(ngModel)]="Artist.late_cancellation_fee" type="text" class="whithout-padd">                                    
                         </div>
                     </div>
                     <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">

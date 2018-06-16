@@ -71,12 +71,15 @@ export class FeedComponent extends BaseComponent implements OnInit, AfterViewChe
   accId:number = 0;
   ngAfterViewChecked()
   {
-      this.cdRef.detectChanges();
+    this.cdRef.detectChanges();
   }
   
-
-  ngOnInit(){
-    this.accId = this.main.CurrentAccount.id;
+  ngOnChanges(){
+   // this.GetFeed();
+  }
+  
+  GetFeed(){
+    this.accId = this.GetCurrentAccId();
     console.log(`acc ID`,this.accId);
     this.main.feedService.GetFeedByAccId(this.accId)
       .subscribe(
@@ -88,6 +91,10 @@ export class FeedComponent extends BaseComponent implements OnInit, AfterViewChe
           console.log(`err`,err);
         }
       );
+  }
+
+  ngOnInit(){
+     this.GetFeed();
   }
 
   
