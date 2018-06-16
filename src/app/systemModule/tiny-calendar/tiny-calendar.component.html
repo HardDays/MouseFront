@@ -27,15 +27,27 @@
                         <div class="one-day">
                             <p>{{ day.mDate.date() }}</p>
                             <div *ngIf="day.event" class="popup-inform-tiny-calendar">
-                                <div class="shadow-wr">
-                                    <div class="top-image"></div>
-                                    <div class="bott-descr-day">
-                                        <p class="f">Tales Of Wonder</p>
-                                        <p class="s">December 15, 2018</p>
-                                        <p class="where">Winstons Beach Club</p>
-                                        <p class="where-2">1921 Bacon St, San Diego, CA 92107</p>
-                                    </div>
-                                </div>
+                                <ng-container *ngFor="let event of eventsThisMonth">
+                                    <ng-container *ngIf="day.eventId == event.id">
+                                        <div class="shadow-wr">
+                                            <ng-container *ngFor="let image of Images">
+                                                <div class="top-image" *ngIf="image.event_id && image.event_id == event.id" [ngStyle]="{'background-image': 'url(' + image.base64 + ')'}"></div>
+                                                
+                                                <p *ngIf="!image.event_id && image.event_id == event.id">{{image.id}} + ' = '+{{event.image_id}}</p>
+                                            </ng-container>
+                                            <div class="bott-descr-day">
+                                                <p class="f">{{event.name}}</p>
+                                                <p class="s" *ngIf='event.event_time'>{{event.event_time}}</p>
+                                                <p class="where" *ngIf='event.venue'>{{event.venue.display_name}}</p>
+                                                <p class="where-2" *ngIf='event.address'>{{event.address}}</p>
+                                            </div>
+                                        </div>
+
+
+                                    </ng-container>
+                                </ng-container>
+                                
+
                             </div>
                         </div>
                     </ng-container>

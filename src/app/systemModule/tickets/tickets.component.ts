@@ -34,20 +34,30 @@ export class TicketsComponent extends BaseComponent implements OnInit,AfterViewC
   Tickets:TicketsGetModel[] = [];
   PastTickets:TicketsGetModel[] = [];
   ticketsTypesDates = ['current','past'];
-  SelectedDates: CalendarDate[] = [
+  
+
+
+  DisabledDates: CalendarDate[] = [
     {mDate: moment('2018-06-13')},
     {mDate: moment("14-06-2018", "DD-MM-YYYY")},
     {mDate: moment('2018-06-24')}
   ];
   EventDates: CalendarDate[] = [
-    
     {
         mDate: moment('2018-06-16'),
-        eventId: 7
+        eventId: 32
     },
     {
         mDate: moment('2018-06-15'),
         eventId: 31
+    },
+    {
+        mDate: moment('2018-07-15'),
+        eventId: 22
+    },
+    {
+        mDate: moment('2018-07-22'),
+        eventId: 28
     }
   ];
 
@@ -85,17 +95,16 @@ export class TicketsComponent extends BaseComponent implements OnInit,AfterViewC
         this.cdRef.detectChanges();
     }
     DisableDate(event){
-        console.log(event);
        if(!event.event){ 
             if(!event.selected){
-                this.SelectedDates.push({
+                this.DisabledDates.push({
                     mDate: event.mDate
                 });
             }
             else{
                 let BreakException = {};
                 try {
-                    this.SelectedDates.forEach(function(e,index,arr){
+                    this.DisabledDates.forEach(function(e,index,arr){
                         if(e.mDate.date() == event.mDate.date()){
                             arr.splice(index,1);
                             throw BreakException;
@@ -154,8 +163,6 @@ export class TicketsComponent extends BaseComponent implements OnInit,AfterViewC
 
     GetTicketsSearch()
     {
-       
-       
         for(let i of this.ticketsTypesDates)
         {
             this.SearchParams.time = i;

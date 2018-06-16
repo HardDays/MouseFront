@@ -1,6 +1,14 @@
-import { Component, OnInit, OnChanges, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter, SimpleChanges, NgZone, ChangeDetectorRef } from '@angular/core';
 import * as moment from 'moment';
 import * as _ from 'lodash';
+import { MainService } from '../../core/services/main.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Router, ActivatedRoute } from '@angular/router';
+import { MapsAPILoader } from '@agm/core';
+import { BaseComponent } from '../../core/base/base.component';
+import { AccountGetModel } from '../../core/models/accountGet.model';
+import { Base64ImageModel } from '../../core/models/base64image.model';
+import { BaseImages } from '../../core/base/base.enum';
 
 export interface CalendarDate {
   mDate: moment.Moment;
@@ -15,7 +23,7 @@ export interface CalendarDate {
   templateUrl: './tiny-calendar.component.html',
   styleUrls: ['./tiny-calendar.component.css']
 })
-export class TinyCalendarComponent implements OnInit, OnChanges {
+export class TinyCalendarComponent extends BaseComponent implements OnInit, OnChanges {
 
   currentDate = moment();
 
@@ -24,17 +32,28 @@ export class TinyCalendarComponent implements OnInit, OnChanges {
   dayNames = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
   weeks: CalendarDate[][] = [];
   sortedDates: CalendarDate[] = [];
-  
-
+  eventsThisMonth :AccountGetModel[] = [];
+  Images:Base64ImageModel[] = [];
 
   @Input() selectedDates: CalendarDate[] = [];
   @Input() eventDates: CalendarDate[] = [];
   @Output() onSelectDate = new EventEmitter<CalendarDate>();
 
-  constructor() {}
+  constructor(
+    protected main           : MainService,
+    protected _sanitizer     : DomSanitizer,
+    protected router         : Router,
+    protected mapsAPILoader  : MapsAPILoader,
+    protected ngZone         : NgZone,
+    protected activatedRoute : ActivatedRoute,
+    protected cdRef          : ChangeDetectorRef
+) {
+super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
+}
 
   ngOnInit(): void {
     this.generateCalendar();
+    this.GetEventsInfo();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -45,7 +64,17 @@ export class TinyCalendarComponent implements OnInit, OnChanges {
           //this.generateCalendar();
         }
   }
-
+  GetEventsInfo(){
+    this.Images = [];
+    this.eventsThisMonth = [];
+    for(let week of this.weeks){
+      for(let day of week){
+        if(day.event){
+          this.GetEventInfo(day.eventId);
+        }
+      }
+    }
+  }
 
   isToday(date: moment.Moment): boolean {
     return moment().isSame(moment(date), 'day');
@@ -94,11 +123,13 @@ export class TinyCalendarComponent implements OnInit, OnChanges {
   prevMonth(): void {
     this.currentDate = moment(this.currentDate).subtract(1, 'months');
     this.generateCalendar();
+    this.GetEventsInfo();
   }
 
   nextMonth(): void {
     this.currentDate = moment(this.currentDate).add(1, 'months');
     this.generateCalendar();
+    this.GetEventsInfo();
   }
 
   firstMonth(): void {
@@ -111,10 +142,40 @@ export class TinyCalendarComponent implements OnInit, OnChanges {
     this.generateCalendar();
   }
 
+
+  GetEventInfo(id:number)
+    {
+        this.main.eventService.GetEventById(id).subscribe(
+          (res:any) =>{
+            //this.InitEvent(res);
+            this.eventsThisMonth.push(res);
+            this.GetImage(res.image_id);
+          },
+          (err)=>{
+            console.log(err);
+          }
+        );
+    }
+    GetImage(imageId)
+    {
+        if(imageId)
+        {
+            this.main.imagesService.GetImageById(imageId)
+              .subscribe(
+                  (res:Base64ImageModel) => {
+                      this.Images.push((res && res.base64) ? res : {base64:BaseImages.Drake,event_id:res.event_id});
+                      console.log(this.eventsThisMonth);
+                      console.log(this.Images);
+                }
+              );
+        }
+    }
+
  
 
   //генератор сетки
   generateCalendar(): void {
+    
     const dates = this.fillDates(this.currentDate);
     const weeks: CalendarDate[][] = [];
     while (dates.length > 0) {
@@ -123,10 +184,11 @@ export class TinyCalendarComponent implements OnInit, OnChanges {
     this.weeks = weeks;
     this.GetPrevMonth();
     this.GetNextMonth();
+   
+
   }
 
-  fillDates(currentMoment: moment.Moment): CalendarDate[] {
-    
+  fillDates(currentMoment: moment.Moment): CalendarDate[] {  
     const firstOfMonth = moment(currentMoment).startOf('month').day();
     const firstDayOfGrid = moment(currentMoment).startOf('month').subtract(firstOfMonth, 'days');
     const start = firstDayOfGrid.date();

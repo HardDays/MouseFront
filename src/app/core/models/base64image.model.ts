@@ -3,6 +3,7 @@ export class Base64ImageModel{
         public id?:number,
         public base64?:string,
         public created_at?:Date,
-        public updated_at?:Date
+        public updated_at?:Date,
+        public event_id?:number
     ){}
 }
