@@ -12,7 +12,7 @@ import { TicketsComponent } from './tickets.component';
 import { MyTicketComponent } from './my-ticket/my-ticket.component';
 import { SearchTicketsMapComponent } from './map/map.component';
 import { SearchTicketsComponent } from './search/search.component';
-import { TinyCalendarComponent } from '../tiny-calendar/tiny-calendar.component';
+
 
 
 @NgModule({
@@ -32,8 +32,7 @@ import { TinyCalendarComponent } from '../tiny-calendar/tiny-calendar.component'
         TicketsComponent,
         MyTicketComponent,
         SearchTicketsMapComponent,
-        SearchTicketsComponent,
-        TinyCalendarComponent
+        SearchTicketsComponent
     ],
     exports: [ TicketsComponent ]
 })

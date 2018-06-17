@@ -263,11 +263,10 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
     {
       this.Fun.account_type = AccountType.Fan;
       this.Fun.genres = [];
-      for(let g of this.Genres)
-      {
-        if(g.checked)
-          this.Fun.genres.push(g.genre);
-      }
+
+      this.Fun.genres = this.main.genreService.GenreModelArrToStringArr(this.Genres);
+
+
 
       this.WaitBeforeLoading(
         ()=> this.FunId == 0 ? this.main.accService.CreateAccount(this.Fun) : this.main.accService.UpdateMyAccount(this.FunId,this.Fun),

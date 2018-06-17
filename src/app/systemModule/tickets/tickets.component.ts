@@ -17,7 +17,6 @@ import { SearchTicketsMapComponent } from './map/map.component';
 import { TicketsSearchParams } from '../../core/models/ticketsSearchParams.model';
 import { TicketsGetModel } from '../../core/models/ticketsGetModel';
 import { MainService } from '../../core/services/main.service';
-import {TinyCalendarComponent, CalendarDate} from '../tiny-calendar/tiny-calendar.component';
 import * as moment from 'moment';
 declare var $:any;
 
@@ -37,32 +36,32 @@ export class TicketsComponent extends BaseComponent implements OnInit,AfterViewC
   
 
 
-  DisabledDates: CalendarDate[] = [
-    {mDate: moment('2018-06-13')},
-    {mDate: moment("14-06-2018", "DD-MM-YYYY")},
-    {mDate: moment('2018-06-24')}
-  ];
-  EventDates: CalendarDate[] = [
-    {
-        mDate: moment('2018-06-16'),
-        eventId: 32
-    },
-    {
-        mDate: moment('2018-06-15'),
-        eventId: 31
-    },
-    {
-        mDate: moment('2018-07-15'),
-        eventId: 22
-    },
-    {
-        mDate: moment('2018-07-22'),
-        eventId: 28
-    }
-  ];
+//   DisabledDates: CalendarDate[] = [
+//     {mDate: moment('2018-06-13')},
+//     {mDate: moment("14-06-2018", "DD-MM-YYYY")},
+//     {mDate: moment('2018-06-24')}
+//   ];
+//   EventDates: CalendarDate[] = [
+//     {
+//         mDate: moment('2018-06-16'),
+//         eventId: 32
+//     },
+//     {
+//         mDate: moment('2018-06-15'),
+//         eventId: 31
+//     },
+//     {
+//         mDate: moment('2018-07-15'),
+//         eventId: 22
+//     },
+//     {
+//         mDate: moment('2018-07-22'),
+//         eventId: 28
+//     }
+//   ];
 
   @ViewChild('search') search: SearchTicketsComponent;
-  @ViewChild('calendar') calendar:TinyCalendarComponent;
+//   @ViewChild('calendar') calendar:TinyCalendarComponent;
     
   @ViewChild('mapForm') mapForm : SearchTicketsMapComponent;
   
@@ -94,28 +93,28 @@ export class TicketsComponent extends BaseComponent implements OnInit,AfterViewC
     {
         this.cdRef.detectChanges();
     }
-    DisableDate(event){
-       if(!event.event){ 
-            if(!event.selected){
-                this.DisabledDates.push({
-                    mDate: event.mDate
-                });
-            }
-            else{
-                let BreakException = {};
-                try {
-                    this.DisabledDates.forEach(function(e,index,arr){
-                        if(e.mDate.date() == event.mDate.date()){
-                            arr.splice(index,1);
-                            throw BreakException;
-                        }
-                    });
-                } catch (e) {
-                    if (e !== BreakException) throw e;
-                }
-            }
-        }
-    }
+    // DisableDate(event){
+    //    if(!event.event){ 
+    //         if(!event.selected){
+    //             this.DisabledDates.push({
+    //                 mDate: event.mDate
+    //             });
+    //         }
+    //         else{
+    //             let BreakException = {};
+    //             try {
+    //                 this.DisabledDates.forEach(function(e,index,arr){
+    //                     if(e.mDate.date() == event.mDate.date()){
+    //                         arr.splice(index,1);
+    //                         throw BreakException;
+    //                     }
+    //                 });
+    //             } catch (e) {
+    //                 if (e !== BreakException) throw e;
+    //             }
+    //         }
+    //     }
+    // }
 
     initUser()
     {
