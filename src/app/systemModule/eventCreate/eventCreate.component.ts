@@ -52,6 +52,7 @@ import { VenuesComponent } from './venues/venues.component';
 import { FundingComponent } from './funding/funding.component';
 import { AddTicketsComponent } from './tickets/tickets.component';
 import { ErrorComponent } from '../../shared/error/error.component';
+import { Observable } from 'rxjs';
 
 
 
@@ -172,6 +173,43 @@ export class EventCreateComponent extends BaseComponent implements OnInit, After
       }
     )
   }
+
+  SaveEventByPagesWithoutNextPart(event:EventCreateModel)
+  {
+    this.Event.account_id = this.CurrentAccount.id;
+    this.FunService
+    (
+      () => this.EventId === 0 ? this.main.eventService.CreateEvent(this.Event) : this.main.eventService.UpdateEvent(this.EventId,this.Event),
+      (res) => {
+        this.DisplayEventParams(res);
+        console.log(`SAVE SUCCESS`);
+        // this.errorCmp.OpenWindow(BaseMessages.Success);
+
+        this.isShowLaunch = this.isShowLaunchBtn();
+      },
+      (err) => {
+        console.log(`err`,err);
+        this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'event'));
+      }
+    )
+  }
+
+  public FunService = (fun:()=>Observable<any>,success:(result?:any)=>void, err?:(obj?:any)=>void)=>
+  {
+    fun()
+    .subscribe(
+        res => {
+            success(res);
+        },
+        error => {                    
+            if(err && typeof err === "function"){
+                err(error); 
+            }
+        }
+    );
+  }
+
+
 
   SaveEvent()
   {

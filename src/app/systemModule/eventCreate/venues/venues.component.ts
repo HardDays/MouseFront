@@ -35,6 +35,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
    
     @Input() Event:EventCreateModel;
     @Output() onSaveEvent:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
+    @Output() onSave:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
     @Output() onError:EventEmitter<string> = new EventEmitter<string>();
     @Output() openPreview = new EventEmitter<number>();
 
@@ -81,6 +82,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         this.venuesList = this.Event.venues;
         this.GetVenueFromList();
     }
+
     
     initSlider(){
         
@@ -126,6 +128,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     }
 
     GetVenueFromList(){
+        console.log(`getList`);
         this.requestVenues = [];
         if(this.venuesList&&this.venuesList.length>0)
         for(let i of this.venuesList){
@@ -311,6 +314,9 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         this.main.eventService.AddVenue(this.addVenue).
                 subscribe((res)=>{
                     this.updateEvent();
+                   
+                    // this.submitVenue();
+                    
             },(err)=>{
                 this.onError.emit("Request wasn't sent!")     
             });
@@ -347,7 +353,8 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                      .subscribe((send)=>{
                       //  console.log(`ok send`);
                         this.onError.emit("Request was sent!");
-                        this.updateEvent();
+                         this.updateEvent();
+                        //this.submitVenue();
                 }, (err)=>{
                   this.onError.emit("Request wasn't sent!")
                 })
@@ -381,7 +388,9 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         this.main.eventService.VenueAcceptOwner(this.ownerAcceptDecline).
             subscribe((res)=>{
                 this.onError.emit("Venue accepted!");
-                this.updateEvent();
+                 this.updateEvent();
+                //this.submitVenue();
+
             },(err)=>{
                 this.onError.emit("Venue NOT accepted! "+this.getResponseErrorMessage(err));
                 console.log(`err`,err);
@@ -432,9 +441,10 @@ export class VenuesComponent extends BaseComponent implements OnInit {
             this.Event = this.main.eventService.EventModelToCreateEventModel(res);
             this.venuesList = this.Event.venues;
             console.log(`get this Event`, this.Event);
+            this.onSave.emit(this.Event);
             this.GetVenueFromList();
             this.venueSearch();
-           }, 500); 
+           }, 300); 
         })
     }
 

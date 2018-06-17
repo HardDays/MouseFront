@@ -72,6 +72,7 @@
         <app-venues #venue *ngIf="!isLoading&&(currentPage==pages.venue)"
             [Event]="Event"
             (onSaveEvent)="SaveEventByPages($event)"
+            (onSave)="SaveEventByPagesWithoutNextPart($event)"
             (openPreview)="openPreviewVenue($event)"
             (onError)="OpenErrorWindow($event)"
         ></app-venues> 
