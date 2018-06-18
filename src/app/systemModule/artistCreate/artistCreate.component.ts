@@ -304,9 +304,9 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
 
 export enum Pages {
     about = 0,
-    // calendar = 1,
-    media = 1,
-    booking = 2,
-    riders = 3,
-    preview = 4
+    calendar = 1,
+    media = 2,
+    booking = 3,
+    riders = 4,
+    preview = 5
 }
