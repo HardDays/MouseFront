@@ -15,6 +15,7 @@ import { ArtistRidersComponent } from './artist-riders/artist-riders.component';
 import { ArtistCreateComponent } from './artistCreate.component';
 import { ProfileModule } from '../profile/profile.module';
 import { TinyCalendarComponent } from './tiny-calendar/tiny-calendar.component';
+import { ArtistCalendarComponent } from './artist-calendar/artist-calendar.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { TinyCalendarComponent } from './tiny-calendar/tiny-calendar.component';
         ArtistMediaComponent,
         ArtistRidersComponent,
         ArtistCreateComponent,
-        TinyCalendarComponent
+        TinyCalendarComponent,
+        ArtistCalendarComponent
         
     ],
     exports: [ ArtistCreateComponent ]

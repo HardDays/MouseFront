@@ -88,7 +88,8 @@ export class AccountCreateModel{
             public stage_name?:string,
             public manager_name?:string,
 
-            public artist_riders?:Rider[]
+            public artist_riders?:Rider[],
+            public events_dates?:any
 ){
     if(!is_flexible)
         this.is_flexible = false;

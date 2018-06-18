@@ -11,9 +11,9 @@
                         <li [ngClass]="{'active':currentPage == pages.about,'started':currentPage != pages.about}">
                             <a (click)="ChangeCurrentPart(pages.about)" class="nav-second-outlet">about</a>
                         </li>
-                        <!-- <li [ngClass]="{'active':currentPage == pages.calendar,'started':currentPage != pages.calendar}">
+                        <li [ngClass]="{'active':currentPage == pages.calendar,'started':currentPage != pages.calendar}">
                             <a (click)="ChangeCurrentPart(pages.calendar)" class="nav-second-outlet">calendar</a>
-                        </li> -->
+                        </li>
                         <li [ngClass]="{'active':currentPage == pages.media,'started':currentPage != pages.media}">
                             <a (click)="ChangeCurrentPart(pages.media)" class="nav-second-outlet">media</a>
                         </li>
@@ -54,36 +54,16 @@
         >
         </app-artist-about>
 
-        <!-- 
-            <div [ngStyle]="{'display': (currentPage==pages.calendar)?'block':'none'}" class="create-event-body-1">
-                <div class="main-mw">
-                    <div class="create-event-body">
-                        <div class="head-ev-body">
-                            <h2>Calendar</h2>
-                            <p>Please fill in all required fields<br>to proceed to the Next Step</p>
-                        </div>
-                        
-                    </div>
-                
-                </div>
-                
-            
-                <div class="calendar-add-artist">
-                    <div class="one-calendar-block">
-                        Календарь тут
-                    </div>
-                    <div class="bg-doted-cal"></div>
-                    
-                
-                </div>
-            
-            
-            
-                <div class="scroll-wrapp">
-                    <div (click)="currentPage = pages.media" class="circle-scroll"></div>
-                </div>
-            </div> 
-        -->
+        
+        
+        <app-artist-calendar *ngIf="currentPage==pages.calendar"
+            [Artist]="Artist"
+        
+        >
+
+
+
+        </app-artist-calendar>
 
         <div class="create-event-body-1">
 

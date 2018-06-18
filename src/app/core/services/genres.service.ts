@@ -160,7 +160,6 @@ export class GenresService{
             if(i.checked){
                 for(let genre in newGenres){
                     if(i.genre == newGenres[genre]){
-                        console.log(genre);
                         result.push(genre);
                     }
                 }
