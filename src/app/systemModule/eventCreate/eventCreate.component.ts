@@ -3,7 +3,7 @@ import { NgForm,FormControl,FormGroup,Validators, FormArray} from '@angular/form
 import { AuthMainService } from '../../core/services/auth.service';
 
 import { BaseComponent } from '../../core/base/base.component';
-import { OnInit, AfterViewChecked } from '@angular/core/src/metadata/lifecycle_hooks';
+import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 
 import { SelectModel } from '../../core/models/select.model';
 import { FrontWorkingTimeModel } from '../../core/models/frontWorkingTime.model';
@@ -69,7 +69,7 @@ declare var ionRangeSlider:any;
 })
 
 
-export class EventCreateComponent extends BaseComponent implements OnInit, AfterViewChecked {
+export class EventCreateComponent extends BaseComponent implements OnInit {
 
 
   Event:EventCreateModel = new EventCreateModel()
@@ -106,14 +106,14 @@ export class EventCreateComponent extends BaseComponent implements OnInit, After
 
   ngAfterViewChecked()
   {
-      this.cdRef.detectChanges();
+    this.cdRef.detectChanges();
   }
 
   ngOnInit()
   {
     this.activatedRoute.params.forEach(
       (params) => {
-        if(params["id"] === 'new')
+        if(params["id"] == 'new')
         {
           this.isNewEvent = true;
           this.DisplayEventParams(null);
@@ -148,7 +148,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit, After
     this.Event.account_id = this.CurrentAccount.id;
     this.WaitBeforeLoading
     (
-      () => this.EventId === 0 ? this.main.eventService.CreateEvent(this.Event) : this.main.eventService.UpdateEvent(this.EventId,this.Event),
+      () => this.EventId == 0 ? this.main.eventService.CreateEvent(this.Event) : this.main.eventService.UpdateEvent(this.EventId,this.Event),
       (res) => {
         this.DisplayEventParams(res);
 
@@ -169,15 +169,10 @@ export class EventCreateComponent extends BaseComponent implements OnInit, After
 
   SaveEvent()
   {
-    //alert(`SAVE EVENT`);
     this.Event.account_id = this.CurrentAccount.id;
-    
-    if(this.about)
-      this.about.GetEventGenres();
-
     this.WaitBeforeLoading
     (
-      () => this.EventId === 0 ? this.main.eventService.CreateEvent(this.Event) : this.main.eventService.UpdateEvent(this.EventId,this.Event),
+      () => this.EventId == 0 ? this.main.eventService.CreateEvent(this.Event) : this.main.eventService.UpdateEvent(this.EventId,this.Event),
       (res) => {
 
         this.errorCmp.OpenWindow(BaseMessages.Success);
@@ -198,29 +193,23 @@ export class EventCreateComponent extends BaseComponent implements OnInit, After
 
   NextPart()
   {
-    
-
     setTimeout(() => {
-      if(this.errorCmp.isShown)
-        this.errorCmp.CloseWindow();
-
-      if(this.currentPage === this.pages.tickets ||this.isSaveBtnClick)
-        this.router.navigate(["/system","events"]);
-      
-        scrollTo(0,0);
+      if(this.currentPage == this.pages.tickets ||this.isSaveBtnClick)
+      this.router.navigate(["/system","events"]);
+      scrollTo(0,0);
       this.currentPage = this.currentPage + 1;
     }
-    , 2000);
+    , 4500);
   }
 
     
 
   ChangeCurrentPart(newPart)
   {
-    if(this.EventId === 0 && newPart > this.pages.about)
+    if(this.EventId == 0 && newPart > this.pages.about)
       return;
 
-    if(this.currentPage === newPart)
+    if(this.currentPage == newPart)
       return;
 
     this.currentPage = newPart;
@@ -232,12 +221,12 @@ export class EventCreateComponent extends BaseComponent implements OnInit, After
 
     if(this.Event&&this.Event.artist)
     for(let a of this.Event.artist)
-      if(a.status==='owner_accepted'||a.status==='active')
+      if(a.status=='owner_accepted'||a.status=='active')
         countA++;
 
     if(this.Event&&this.Event.venues)
     for(let v of this.Event.venues)
-      if(v.status==='owner_accepted'||v.status==='active')
+      if(v.status=='owner_accepted'||v.status=='active')
         countV++;
 
     if(!this.Event.is_active && countA>0 && countV>0 ) return true;
@@ -275,7 +264,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit, After
   {
     for(let key of $event)
     {
-      if(this.Event[key] !== $event[key])
+      if(this.Event[key] != $event[key])
       {
         this.Event[key] = $event[key];
       }
