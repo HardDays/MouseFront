@@ -150,6 +150,14 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
   SaveEventByPages(event:EventCreateModel)
   {
+    if(this.Event.venue){
+      delete this.Event['address'];
+      delete this.Event['city_lat'];
+      delete this.Event['city_lng'];
+    }
+
+    console.log(`TEST`,this.Event);  
+
     this.Event.account_id = this.CurrentAccount.id;
     this.WaitBeforeLoading
     (
@@ -219,6 +227,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     
     if(this.about)
       this.about.GetEventGenres();
+
 
     if(!this.Event.is_active)
     this.WaitBeforeLoading

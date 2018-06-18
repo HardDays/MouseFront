@@ -43,7 +43,7 @@ export class EventService{
     }
     UpdateEvent(id:number,params:EventCreateModel){
         return this.http.CommonRequest(
-            () => this.http.PatchData('/events/'+id+'.json',JSON.stringify(params))
+            () => this.http.PatchData('/events/'+id+'.json',params)
         );
     }
     GetEventById(id:number){
