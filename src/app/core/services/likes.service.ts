@@ -29,4 +29,9 @@ export class LikesService{
         );
     }
 
+    DeleteLike(event_id:number,account_id:number){
+        return this.http.CommonRequest(
+            ()=> this.http.DeleteDataWithBody('/events/'+event_id+'/likes/'+account_id+'.json',JSON.stringify({event_id,account_id}))
+        );
+    }
 }

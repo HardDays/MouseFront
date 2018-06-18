@@ -37,15 +37,15 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
   }
 
   ngOnInit(){
-    console.log(`in`,this.Feed);
+    // console.log(`in`,this.Feed);
     if(this.Feed&&this.Feed.account)
     this.main.imagesService.GetImageById(this.Feed.account.image_id)
       .subscribe((img)=>{
         this.Feed.account.img_base64 = img.base64;
       });
     this.myLogo = this.main.MyLogo;
-    this.getLikes();
-    this.GetComments();
+   // this.getLikes();
+   // this.GetComments();
   }
   
   ngOnChanges() {
@@ -78,7 +78,6 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
   postComment(){
     this.comment.account_id = this.accId;
     this.comment.event_id = this.Feed.event.id;
-
     this.main.commentService.PostComment(this.comment)
       .subscribe((res)=>{
         console.log(res);
@@ -105,23 +104,36 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
 
   likePost(){
     console.log(this.Feed.event.id,this.accId);
-    this.main.likesService.PostLike(this.Feed.event.id,this.accId)
+    if(!this.Feed.is_liked){
+      this.main.likesService.PostLike(this.Feed.event.id,this.accId)
+        .subscribe((res)=>{
+          this.Feed.is_liked = true;
+          this.Feed.likes++;
+          console.log(res);
+        },(err)=>{
+          console.log(`err`,err)
+        })
+    } else {
+      this.main.likesService.DeleteLike(this.Feed.event.id,this.accId)
       .subscribe((res)=>{
+          this.Feed.is_liked = false;
+          this.Feed.likes--;
         console.log(res);
       },(err)=>{
         console.log(`err`,err)
       })
+    }
   }
 
-  getLikes(){
-    this.main.likesService.GetLikesByEventId(this.Feed.event.id)
-      .subscribe((res)=>{
-        console.log(res);
-        this.likes = res;
-      },(err)=>{
-        console.log(`err`,err)
-      })
-  }
+  // getLikes(){
+  //   this.main.likesService.GetLikesByEventId(this.Feed.event.id)
+  //     .subscribe((res)=>{
+  //       console.log(res);
+  //       this.likes = res;
+  //     },(err)=>{
+  //       console.log(`err`,err)
+  //     })
+  // }
 }
 
 

@@ -23,7 +23,7 @@ import { TypeService } from '../../core/services/type.service';
 import { GenresService } from '../../core/services/genres.service';
 import { EventService } from '../../core/services/event.service';
 
-import { } from 'googlemaps';
+// import { } from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
 import { Router, Params, ActivatedRoute } from '@angular/router';
 import { AuthService } from "angular2-social-login";
@@ -74,9 +74,6 @@ export class FeedComponent extends BaseComponent implements OnInit, AfterViewChe
     this.cdRef.detectChanges();
   }
   
-  ngOnChanges(){
-   // this.GetFeed();
-  }
   
   GetFeed(){
     this.accId = this.GetCurrentAccId();

@@ -9,9 +9,9 @@
                 <p class="feed-text">FEED</p>
                 <div class="feed-items">
 
-                    <ng-container *ngFor="let item of Feed">
-                        <app-feed-item [Feed]="item" [accId]="accId"></app-feed-item>
-                    </ng-container>
+                    <!-- <ng-container > -->
+                        <app-feed-item *ngFor="let item of Feed" [Feed]="item" [accId]="accId"></app-feed-item>
+                    <!-- </ng-container> -->
                     
                     
                 </div>

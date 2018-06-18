@@ -19,14 +19,16 @@
     <div class="footer-item">
         <div class="left-side">
             <span (click)="isOpenComment = true; GetComments()" class="coments counter-icon">
-               {{comments.length}}
+               {{Feed.comments}}
             </span>
             <!--добавляем liked если лайнули-->
-            <span (click)="likePost()" class="likes liked counter-icon">
-                {{likes.length}}
+            <span (click)="likePost()" class="likes counter-icon" [ngClass]="{'liked': Feed.is_liked}">
+                {{Feed.likes}}
             </span>
         </div>
         <div class="right-side">
+
+                
             <!-- <div class="dots">
                 <div class="dot"></div>
                 <div class="dot"></div>
