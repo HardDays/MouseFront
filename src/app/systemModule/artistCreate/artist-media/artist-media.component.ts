@@ -9,8 +9,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Base64ImageModel } from '../../../core/models/base64image.model';
 import { BaseMessages } from '../../../core/base/base.enum';
 
-declare var audiojs:any;
+// declare var audiojs:any;
 declare var $:any;
+declare var SC:any;
 
 @Component({
   selector: 'app-artist-media',
@@ -42,12 +43,18 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
     "link": new FormControl("", [Validators.required])
   });
 
+  // openVideoLink = this._sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/8WPsUv1ZUdw?rel=0');
   openVideoLink:any;
+  isVideoOpen:boolean = false;
   ArtistImages:{img:string,text:string,id:number}[] = [];
   imageInfo:string = '';
   ImageToLoad:string = '';
   isImageLoading:boolean = false;
 
+  audioId:number = 0;
+  audioDuration:number = 0;
+  audioCurrentTime:number = 0;
+  player:any;
 
   constructor(
     protected main           : MainService,
@@ -63,6 +70,9 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
 
   ngOnInit(){
     this.getAllMedia();
+    SC.initialize({
+      client_id: "b8f06bbb8e4e9e201f9e6e46001c3acb",
+    });
   }
 
   ngOnChanges(changes:SimpleChanges){
@@ -73,8 +83,8 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
 
   getAllMedia(){
     this.InitMusicPlayer();
-    this.updateVideosPreview();
-    this.GetArtistImages();
+   this.updateVideosPreview();
+   this.GetArtistImages();
   }
 
   Init(artist:AccountCreateModel,id:number){
@@ -84,7 +94,7 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
 
   InitMusicPlayer(){
     setTimeout(() => {
-      let as = audiojs.createAll();
+      // let as = audiojs.createAll();
      }, 100);
   }
 
@@ -113,6 +123,42 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
   deleteAudio(index:number){
     this.Artist.audio_links.splice(index,1);
     this.saveArtist();
+  }
+
+  playAudio(s:string){
+  
+    if(this.player&&  this.player.isPlaying())
+      this.player.pause();
+
+    console.log(s);
+    this.audioDuration = 0;
+    this.audioCurrentTime = 0;
+    SC.resolve(s).then((res)=>{
+      console.log(res);
+      SC.stream('/tracks/'+res.id).then((player)=>{
+        this.player = player;
+        this.player.play();
+  
+        player.on('play-start',()=>{
+          this.audioDuration = this.player.getDuration();
+        })
+        
+        setInterval(()=>{
+           this.audioCurrentTime = this.player.currentTime();
+        },100)
+        
+        // setTimeout(()=>{
+        //   player.pause()
+        //   player.seek(0)
+        // },10000)
+  
+      });
+
+    },(err)=>{console.log(`ERROR`)})
+  }
+
+  stopAudio(){
+    this.player.pause();
   }
 
   addAlbum(){
@@ -187,7 +233,14 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
 
 
     this.openVideoLink = this._sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+video_id+'?rel=0');
-    setTimeout(()=>{$('#modal-movie').modal('show');},100);
+    this.isVideoOpen = true;
+
+    setTimeout(()=>{
+      $('#modal-movie').modal('show');
+      $('#modal-movie').on('hidden.bs.modal', () => {
+        this.isVideoOpen = false;
+      })
+    },100);
   }
 
 

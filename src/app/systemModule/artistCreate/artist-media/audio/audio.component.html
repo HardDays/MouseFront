@@ -1,0 +1,21 @@
+<!-- <div >     -->
+    <div class="delete-track"></div>
+    <span class="name-track">{{Audio.song_name}}</span>
+    <div class="audiojs">
+        <div class="play-pause">
+            <p *ngIf="status=='play'" (click)="status='stop'; playAudio(Audio.audio_link)" id="track-{{index}}" class="play"></p>
+            <p *ngIf="status=='stop'" (click)="status='play'" id="track-{{index}}" class="pause"></p>
+            <!-- <p class="pause"></p>
+            <p class="loading"></p>
+            <p class="error"></p> -->
+        </div>
+        <div class="scrubber" >
+            <div class="progress"></div>
+            <div class="loaded"></div>
+        </div>
+        <div class="time">
+            <em class="played">00:00</em>
+            <strong class="duration">{{duration}}</strong>
+        </div>
+    </div> 
+<!-- </div> -->

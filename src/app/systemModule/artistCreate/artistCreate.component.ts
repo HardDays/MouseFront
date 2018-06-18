@@ -85,7 +85,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
   // changePage:boolean = false;
 
   @ViewChild('AboutPage') AboutPage: ArtistAboutComponent;
-  @ViewChild('MediaPage') MediaPage: ArtistMediaComponent;
+  // @ViewChild('MediaPage') MediaPage: ArtistMediaComponent;
   @ViewChild('BookingPage') BookingPage: ArtistBookingComponent;
   @ViewChild('RidersPage') RidersPage: ArtistRidersComponent;
 

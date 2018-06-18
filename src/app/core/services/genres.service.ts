@@ -42,6 +42,18 @@ export class GenresService{
         return result;
     }
 
+    StringArrayToGenreModelArray(input: string[]):GenreModel[]
+    {
+        let result:GenreModel[] = [];
+        for(let i in input)
+        {
+            result.push(new GenreModel(i,input[i],false,+i<4));
+        }
+        return result;
+    }
+
+
+
     GetAll(check?:GenreModel[]){
         this.genres = [];
         this.GetAllGenres().subscribe((res)=>{

@@ -127,7 +127,7 @@ export class AboutComponent extends BaseComponent implements OnInit {
     this.genres = [];
     this.main.genreService.GetAllGenres()
     .subscribe((res:string[])=>{
-      this.genres = this.main.genreService.StringArrayToGanreModelArray(res);
+      this.genres = this.main.genreService.StringArrayToGenreModelArray(res);
         for(let i of this.genres) {
           i.show = true;
             if(this.Event&&this.Event.genres){

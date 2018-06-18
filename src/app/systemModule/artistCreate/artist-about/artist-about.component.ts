@@ -39,7 +39,7 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
   });
   genres:GenreModel[] = [];
   showMoreGenres:boolean = false;
-  isNewImage = false;
+  // isNewImage = false;
 
   constructor(
     protected main           : MainService,
@@ -84,9 +84,10 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
     this.WaitBeforeLoading(
       ()=>  this.main.genreService.GetAllGenres(),
       (res:string[])=>{
-        this.genres = this.main.genreService.StringArrayToGanreModelArray(res);
+        console.log(`genres`,res);
+        this.genres = this.main.genreService.StringArrayToGenreModelArray(res);
         for(let i of this.genres) i.show = true;
-        this.GetArtistGenres();
+          this.GetArtistGenres();
       }
     );
 
@@ -151,6 +152,7 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
       }
 
       this.Artist.genres = [];
+      console.log(this.genres);
       for(let g of this.genres){
         if(g.checked){
           this.Artist.genres.push(g.genre);
@@ -159,14 +161,14 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
       
 
       let img = this.Artist.image_base64;
-      if(!this.isNewImage)
-        this.Artist.image_base64 = null;
+      // if(!this.isNewImage)
+      //   this.Artist.image_base64 = null;
 
       console.log(`beforeEmit`,this.Artist);
       this.onSaveArtist.emit(this.Artist);
 
-      if(!this.isNewImage)
-        this.Artist.image_base64 = img;
+      // if(!this.isNewImage)
+      //   this.Artist.image_base64 = img;
   }
 
   uploadImage($event){
@@ -174,7 +176,7 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
         $event.target.files,
         (res:string)=>{
             this.Artist.image_base64 = res;
-            this.isNewImage = true;
+            // this.isNewImage = true;
         }
     );
 }

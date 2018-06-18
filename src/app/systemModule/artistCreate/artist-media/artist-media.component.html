@@ -24,7 +24,7 @@
                             <label for="inp-box-2">Album Name</label>
                         </div>
                         <div class="input-groupe-1">
-                            <input id="inp-box-3" [textMask]="MaskSpotify()" formControlName="audio_link" name="" type="text">
+                            <input id="inp-box-3" [textMask]="MaskSoundCloud()" formControlName="audio_link" name="" type="text">
                             <label for="inp-box-3">Link</label>
                         </div>
                         <div class="butt-wrapp-grad">
@@ -56,13 +56,34 @@
                     <!--это слайд. в нем не более 12 треков-->
 
                     
-                    <div  class="one-slide">               
-                        <div *ngFor="let item of Artist.audio_links; let i = index"  class="one-audio">
-                            <div class="delete-track" (click)="deleteAudio(i)"></div>
-                            <span id="track-{{i}}" class="name-track">{{item.song_name}}</span>
-                            <audio src="{{item.audio_link}}" preload="none" ></audio> 
-                        </div>     
-                    </div>
+                
+
+            <div *ngFor="let item of Artist.audio_links; let i = index" class="one-audio">
+                
+                    <div class="delete-track" (click)="deleteAudio(i)"></div>
+                    <span class="name-track">{{item.song_name}}</span>
+                    <div class="audiojs">
+                        <div class="play-pause">
+                            <p *ngIf="audioId != i+1" (click)="audioId = i+1; playAudio(item.audio_link)" id="track-{{i}}" class="play"></p>
+                            <p *ngIf="audioId == i+1" (click)="audioId = 0; stopAudio()" class="pause"></p>
+                            <!-- <p class="loading"></p>
+                            <p class="error"></p> -->
+                        </div>
+                        <div class="scrubber" >
+                            <div class="progress"></div>
+                            <div class="loaded"></div>
+                        </div>
+                        <div class="time">
+                            <em class="played">00:00</em>
+                            <!-- <strong class="duration">{{audioId == i+1 && audioDuration>0 ?audioDuration/100:''}}</strong> -->
+                        </div>
+                    </div> 
+                </div>
+                   
+                
+                    
+
+
                     <!--это типо второй слайд
                     <div class="one-slide">
                         <div class="one-audio">
@@ -160,7 +181,7 @@
                             <label for="inp-box-5">Album Name</label>
                         </div>
                         <div class="input-groupe-1">
-                            <input formControlName="link" id="inp-box-6" name="" type="text">
+                            <input formControlName="link" [textMask]="MaskYoutube()" id="inp-box-6" name="" type="text">
                             <label for="inp-box-6">Link</label>
                         </div>
                         <div class="butt-wrapp-grad">
@@ -307,7 +328,7 @@
     <div class="modal-dialog">
         <div class="modal-contant">
             <div class="modal-body">
-                <iframe id="video-frame" width="560" height="315" [src]="openVideoLink" frameborder="0" allow="autoplay; encrypted-media" ></iframe>
+                <iframe *ngIf="isVideoOpen" id="video-frame" width="560" height="315" [src]="openVideoLink" frameborder="0" allow="autoplay; encrypted-media" ></iframe>
             </div>
         </div>
     </div>

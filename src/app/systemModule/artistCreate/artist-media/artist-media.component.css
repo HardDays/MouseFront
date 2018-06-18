@@ -12,3 +12,8 @@
 .slider-2-albums{
     flex-wrap: wrap;
 }
+
+.slider-audio-wrapp{
+    display: flex !important;
+    flex-wrap: wrap;
+}
