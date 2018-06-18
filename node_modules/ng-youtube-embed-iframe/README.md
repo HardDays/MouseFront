@@ -1,4 +1,4 @@
-# ng-youtube-embed-iframe [![Build Status](https://travis-ci.org/Sibiraj-S/ng-youtube-embed-iframe.svg?branch=master)](https://travis-ci.org/Sibiraj-S/ng-youtube-embed-iframe) [![Maintenance](https://img.shields.io/badge/maintained%20%3F-no-red.svg)](https://github.com/Sibiraj-S/ng-youtube-embed-iframe)
+# ng-youtube-embed-iframe [![Build Status](https://travis-ci.org/Sibiraj-S/ng-youtube-embed-iframe.svg?branch=master)](https://travis-ci.org/Sibiraj-S/ng-youtube-embed-iframe)
 
 <p align="center">
   <a href="https://github.com/Sibiraj-S/ng-youtube-embed-iframe">
@@ -14,29 +14,25 @@ An AngularJS directive for [Youtube Iframe API][ApiReference]. All functions sup
 
 ## Getting started
 
-### Install Package
+### Installation
 
-npm
+Installation can be done via Package managers such as [npm][npm] or [yarn][yarn]
 
 ```bash
 npm install ng-youtube-embed-iframe --save
-```
-
-yarn
-
-```bash
+# or
 yarn add ng-youtube-embed-iframe
 ```
 
-#### CDN
+or use cdn
 
-Minified
+##### Minified
 
 ```bash
 //unpkg.com/ng-youtube-embed-iframe@latest/ng-youtube.min.js
 ```
 
-Pretty Printed
+##### Pretty Printed
 
 ```bash
 //unpkg.com/ng-youtube-embed-iframe@latest/ng-youtube.js
@@ -75,7 +71,9 @@ $scope.options = {
 }
 ```
 
-Check [wiki][wiki] for documentation
+Refer [wiki][wiki] for documentation
 
 [ApiReference]:https://developers.google.com/youtube/iframe_api_reference
 [wiki]:https://github.com/Sibiraj-S/ng-youtube-embed-iframe/wiki
+[npm]: https://www.npmjs.com/
+[yarn]: https://yarnpkg.com/lang/en/

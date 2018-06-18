@@ -16,16 +16,16 @@ export class LikesService{
     constructor(private http: HttpService, private typeService:TypeService){
     }
 
-    GetCommentByEventId(eventId:number)
+    GetLikesByEventId(eventId:number)
     {
         return this.http.CommonRequest(
             ()=> this.http.GetData('/events/'+eventId+'/likes.json',this.typeService.ParamsToUrlSearchParams({event_id:eventId}))
         );
     }
 
-    PostComment(comment:CommentModel){
+    PostLike(event_id:number,account_id:number){
         return this.http.CommonRequest(
-            ()=> this.http.PostData('/events/'+comment.event_id+'/likes.json',JSON.stringify(comment))
+            ()=> this.http.PostData('/events/'+event_id+'/likes.json',JSON.stringify({event_id,account_id}))
         );
     }
 

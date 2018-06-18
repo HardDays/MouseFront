@@ -23,7 +23,7 @@ import { TypeService } from '../../core/services/type.service';
 import { GenresService } from '../../core/services/genres.service';
 import { EventService } from '../../core/services/event.service';
 
-import { } from 'googlemaps';
+// import {} from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
 import { Router, Params,ActivatedRoute  } from '@angular/router';
 import { AuthService } from "angular2-social-login";
@@ -52,6 +52,7 @@ import { VenuesComponent } from './venues/venues.component';
 import { FundingComponent } from './funding/funding.component';
 import { AddTicketsComponent } from './tickets/tickets.component';
 import { ErrorComponent } from '../../shared/error/error.component';
+import { Observable } from 'rxjs';
 
 
 
@@ -85,6 +86,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
   pages = Pages;
   currentPage = this.pages.about;
+
+  isShowLaunch:boolean = false;
 
   isSaveBtnClick:boolean = false;
   isNewEvent = false;
@@ -129,6 +132,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             }
           );
         }
+        
       }
     );
   }
@@ -140,6 +144,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     {
       this.EventId = $event.id;
       this.router.navigateByUrl("/system/eventCreate/"+this.EventId);
+      this.isShowLaunch = this.isShowLaunchBtn();
     }
   }
 
@@ -159,6 +164,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
           2000
         );
         
+        this.isShowLaunch = this.isShowLaunchBtn();
+
       },
       (err) => {
         console.log(`err`,err);
@@ -166,6 +173,43 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       }
     )
   }
+
+  SaveEventByPagesWithoutNextPart(event:EventCreateModel)
+  {
+    this.Event.account_id = this.CurrentAccount.id;
+    this.FunService
+    (
+      () => this.EventId === 0 ? this.main.eventService.CreateEvent(this.Event) : this.main.eventService.UpdateEvent(this.EventId,this.Event),
+      (res) => {
+        this.DisplayEventParams(res);
+        console.log(`SAVE SUCCESS`);
+        // this.errorCmp.OpenWindow(BaseMessages.Success);
+
+        this.isShowLaunch = this.isShowLaunchBtn();
+      },
+      (err) => {
+        console.log(`err`,err);
+        this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'event'));
+      }
+    )
+  }
+
+  public FunService = (fun:()=>Observable<any>,success:(result?:any)=>void, err?:(obj?:any)=>void)=>
+  {
+    fun()
+    .subscribe(
+        res => {
+            success(res);
+        },
+        error => {                    
+            if(err && typeof err === "function"){
+                err(error); 
+            }
+        }
+    );
+  }
+
+
 
   SaveEvent()
   {

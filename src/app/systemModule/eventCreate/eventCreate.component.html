@@ -35,7 +35,7 @@
                                 </span>
                             </button>
                         </li>
-                        <li *ngIf="isShowLaunchBtn()">
+                        <li *ngIf="isShowLaunch">
                             <button (click)="activeButtonClick()" class="butt-style-1" style="width: 159px">
                                 <span style="padding: 10px 0;">
                                 Launch event
@@ -72,6 +72,7 @@
         <app-venues #venue *ngIf="!isLoading&&(currentPage==pages.venue)"
             [Event]="Event"
             (onSaveEvent)="SaveEventByPages($event)"
+            (onSave)="SaveEventByPagesWithoutNextPart($event)"
             (openPreview)="openPreviewVenue($event)"
             (onError)="OpenErrorWindow($event)"
         ></app-venues> 

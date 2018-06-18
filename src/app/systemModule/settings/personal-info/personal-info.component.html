@@ -27,11 +27,66 @@
               <input id="inp-info-6" name="pass_verify" [(ngModel)]="User.password_confirmation" type="password">
               <label for="inp-info-6">Verify Password</label>
           </div>
-          <div class="input-groupe-1">
+          <!-- <div class="input-groupe-1">
               <input id="inp-info-7" name="phone" [(ngModel)]="User.register_phone" type="text">
               <label for="inp-info-7">Phone Number (For Verification)</label>
-          </div>
+          </div> -->
           <button (click)="SaveUser()" type="button" class="butt-style-1"><span>Save</span></button>
-      </form>
+          <div class="input-groupe-1 personal_phone_number">
+                <input id="inp-info-7" disabled [textMask]="MaskTelephone()" [ngModel]="User.register_phone|phone" name="register_phone" type="text" phone>
+                <label for="inp-info-7">Phone Number (For Verification)</label>
+                <span id="change_personal_phone_number">Update</span>
+            </div>
+        </form>
 </div>
 <error-cmp #errorCmp></error-cmp>
+
+<div class="modal fade modal_change_phone" id="modal_change_phone">
+        <div class="modal-dialog">
+            <div class="modal-body">
+                <div class="head">Update phone number</div>
+                <div class="phone_form">
+                    <div class="input-groupe-1">
+                        <input id="inp-info-8" name="new_phone" [textMask]="MaskTelephone()" [(ngModel)]="phone" type="text">
+                        <label for="inp-info-8">New Phone Number</label>
+                    </div>
+                    <button (click)="sendCode()" class="butt-style-1" id="update_personal_phone"><span>UPDATE</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade modal_change_phone" id="modal_change_phone_ver">
+        <div class="modal-dialog">
+            <div class="modal-body">
+                <div class="head">Update phone number</div>
+                <div class="number">
+                    <p>Code has been sent to {{phone}}</p>
+                    <span id="wrong_number">Wrong number?</span>
+                </div>
+                <p class="code_label">Enter Verification Code</p>
+                <div class="inp-code-wrapp">
+                    <input type="text" [(ngModel)]="codeRequest[0]" id="code1" maxlength="1" (input)="inputCode($event,1)" >
+                    <input type="text" [(ngModel)]="codeRequest[1]" id="code2" maxlength="1" (input)="inputCode($event,2)" >
+                    <input type="text" [(ngModel)]="codeRequest[2]" id="code3" maxlength="1" (input)="inputCode($event,3)" >
+                    <input type="text" [(ngModel)]="codeRequest[3]" id="code4" maxlength="1" (input)="inputCode($event,4)" >
+                    <div class="lines">
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                    </div>
+                </div>
+                <p class="note">If you didn't get the code, press <span (click)="sendCode()"class="resend_personal_phone_verification_code">Resend</span></p>
+                <button (click)="sendRequest()" class="butt-style-1" id="validate_personal_phone_code"><span>Enter</span></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade modal_change_phone modal_change_phone_success" id="success_change_phone">
+        <div class="modal-dialog">
+            <div class="modal-body">
+                <p>Phone Number was updated successfully</p>
+                <span class="butt-style-1" data-dismiss="modal"><span>DISMISS</span></span>
+            </div>
+        </div>
+    </div>

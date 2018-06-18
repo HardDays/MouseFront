@@ -26,8 +26,27 @@ export class FundingComponent extends BaseComponent implements OnInit {
     @Output() onError:EventEmitter<string> = new EventEmitter<string>();
 
     ngOnInit() {
+        console.log(`this Event`,this.Event);
         this.getActiveArtVen();
     }
+
+    ngOnChanges(){
+        console.log(`updateEvent`, this.Event);
+        this.main.eventService.GetEventById(this.Event.id).
+                    subscribe((res:EventGetModel)=>{
+                        
+                    //  console.log(`updateEventThis`);
+                        this.Event = this.main.eventService.EventModelToCreateEventModel(res);
+                    //     this.artistsList = [];
+                    //     this.artistsList = this.Event.artist;
+                    // //    console.log(`---`,this.Event,this.artistsList)
+                    //     this.GetArtistsFromList();
+                    this.getActiveArtVen();
+        
+        })
+    }
+    
+
 
     getFamilyAndFriendAmount(){
         let sum =  parseFloat(this.familyAndFriendAmount)/100;
@@ -120,6 +139,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
                     if(art.agreement&&!art.agreement.price) 
                         art.agreement.price = 1000;
 
+                    console.log(`art`,art);
                     artist.push(art);
                 }
             }

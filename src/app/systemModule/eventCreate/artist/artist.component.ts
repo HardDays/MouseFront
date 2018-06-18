@@ -353,9 +353,9 @@ export class ArtistComponent extends BaseComponent implements OnInit {
     this.ownerAcceptDecline.account_id = this.main.CurrentAccount.id;
     this.ownerAcceptDecline.id = card.id;
     this.ownerAcceptDecline.event_id = this.Event.id;
+    
     let msgId = this.getIdAtMsg(card.id);
 
-    
     
     this.ownerAcceptDecline.message_id = msgId;
      let msg = this.messagesList[0];
@@ -367,7 +367,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
     this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from?msg.message_info.preferred_date_from:new Date().toString();
     this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to?msg.message_info.preferred_date_to:new Date('+3').toString();
 
-    // console.log(this.ownerAcceptDecline);
+     console.log(this.ownerAcceptDecline);
     this.main.eventService.ArtistAcceptOwner(this.ownerAcceptDecline).
         subscribe((res)=>{
            // console.log(`ok accept artist`,res);
@@ -480,9 +480,11 @@ getMessages(){
 }
 
 getPriceAtMsg(sender:number){
+
   for(let m of this.messagesList){
       if( m.sender_id == sender &&
           m.receiver_id == this.Event.creator_id &&
+          m.message_info&& m.message_info.event_info&&
           m.message_info.event_info.id == this.Event.id){
             if(m.message_type=='request')
               return m.message_info.estimated_price;
@@ -495,8 +497,10 @@ getPriceAtMsg(sender:number){
 
 getIdAtMsg(sender:number){
   for(let m of this.messagesList){
+    console.log(`m`,m,sender,this.Event.creator_id);
       if( m.sender_id == sender &&
           m.receiver_id == this.Event.creator_id &&
+          m.message_info && m.message_info.event_info &&
           m.message_info.event_info.id == this.Event.id){
              return m.id;
       }

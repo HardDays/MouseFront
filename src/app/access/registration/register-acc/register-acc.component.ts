@@ -185,7 +185,6 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
     this.Account.display_name = this.accForm.value['first_name']+" "+this.accForm.value['last_name'];
     this.Account.first_name = this.accForm.value['first_name'];
     this.Account.last_name = this.accForm.value['last_name'];
-    
     this.WaitBeforeLoading(
       ()=>this.main.accService.CreateAccount(this.Account),
       (res)=>{
