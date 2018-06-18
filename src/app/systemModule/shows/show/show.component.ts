@@ -2,7 +2,6 @@ import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/cor
 import { BaseComponent } from '../../../core/base/base.component';
 import { EventGetModel } from '../../../core/models/eventGet.model';
 import { BaseImages } from '../../../core/base/base.enum';
-import { Base64ImageModel } from '../../../core/models/base64image.model';
 
 
 @Component({
@@ -52,12 +51,17 @@ export class ShowItemComponent extends BaseComponent implements OnChanges {
     {
         if(this.Show && this.Show.image_id)
         {
-            this.main.imagesService.GetImageById(this.Show.image_id)
-                .subscribe(
-                    (res:Base64ImageModel) => {
-                        this.Image = (res && res.base64) ? res.base64 : BaseImages.Drake;
-                    }
-                );
+            this.Image = this.main.imagesService.GetImagePreview(this.Show.image_id,{width:500,height:500});
+            // this.main.imagesService.GetImagePreview(this.Show.image_id,{width:500,height:500})
+            //     .subscribe(
+            //         (res:any) => {
+            //             console.log(res);
+            //             //this.Image = (res && res.base64 ) ? res.base64 : BaseImages.Drake;
+
+            //             //console.log(this.Base64ToFile(this.Image));
+            //         }
+            //     );
         }
     }
+
 }

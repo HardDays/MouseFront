@@ -61,6 +61,11 @@ export class HttpService
             );
     }
 
+    GetQueryStr(method:string, params?:string)
+    {
+        return this.serverUrl + method + "?" + params;
+    }
+
     GetData(method:string,params?:string)
     {
         return this.http.get(this.serverUrl + method + "?"+ params,{headers:this.headers})

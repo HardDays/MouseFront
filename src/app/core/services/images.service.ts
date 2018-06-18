@@ -66,4 +66,12 @@ export class ImagesService{
         //return this.http.GetData('/accounts/my.json', this.typeService.ParamsToUrlSearchParams(params));
     }
 
+    GetImagePreview(Id:number, params:any)
+    {
+        return this.http.GetQueryStr('/images/'+Id+'/preview.json',this.typeService.ParamsToUrlSearchParams(params));
+        // return this.http.CommonRequest(
+        //     ()=> this.http.GetData('/images/'+Id+'/preview.json',this.typeService.ParamsToUrlSearchParams(params))
+        // );
+    }
+
 }

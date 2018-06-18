@@ -77,7 +77,6 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
             this.VenueImageId = changes.VenueImageId.currentValue;
         if(changes.VenueId)
             this.VenueId = changes.VenueId.currentValue;
-
         this.Init();
     }
 
@@ -124,7 +123,7 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
                     }
                     else if(a.search('street-address') > 0)
                     {
-                        this.Venue.address = a.slice(a.search('>')+1,a.search('</'));
+                        //this.Venue.address = a.slice(a.search('>')+1,a.search('</'));
                     }
                     else if(a.search('region') > 0)
                     {

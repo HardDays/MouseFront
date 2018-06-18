@@ -150,7 +150,6 @@ export class AccountService{
     }
 
     UpdateMyAccount(id:number, data: any){
-        console.log(data);
         return this.http.CommonRequest(
             ()=> this.http.PatchData('/accounts/' + id + ".json",data)
         );

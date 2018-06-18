@@ -104,15 +104,15 @@ export class VenueListingComponent extends BaseComponent implements OnInit,OnCha
     GetAgeMask(int:number)
     {
         let str = int?int.toString():"";
-        let mask = [/[0-2]/,(str && +str[0] > 1)?/[0-5]/:/[0-9]/];
+        let mask = [/[0-9]/,(str && +str[0] > 1)?/[0-5]/:/[0-9]/];
 
-        if(str && +str[0] == 0)
-        mask.splice(1,1);
+        if( str && (+str[0] == 0 || +str[0] > 2) )
+            mask.splice(1,1);
 
         return {
-        mask: mask,
-        keepCharPositions: true,
-        guide:false
+            mask: mask,
+            keepCharPositions: true,
+            guide:false
         };
     }
 

@@ -160,6 +160,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
 
   SaveVenueByPages(venue:AccountCreateModel)
   {
+    // console.log("Model",this.Venue);
     this.WaitBeforeLoading
     (
       () => this.VenueId == 0 ? this.main.accService.CreateAccount(this.Venue) : this.main.accService.UpdateMyAccount(this.VenueId,this.Venue),
@@ -182,6 +183,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
 
   SaveVenue()
   {
+    // console.log("Model",this.Venue);
     this.WaitBeforeLoading
     (
       () => this.VenueId == 0 ? this.main.accService.CreateAccount(this.Venue) : this.main.accService.UpdateMyAccount(this.VenueId,this.Venue),
@@ -234,6 +236,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
       case this.Parts.About:{
         if(this.about)
         {
+          this.about.aboutForm.updateValueAndValidity();
           if(this.about.aboutForm.invalid)
           {
             this.OpenErrorWindow(this.getFormErrorMessage(this.about.aboutForm, 'venue'));
