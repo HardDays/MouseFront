@@ -177,6 +177,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit, After
   SaveEventByPagesWithoutNextPart(event:EventCreateModel)
   {
     this.Event.account_id = this.CurrentAccount.id;
+    
+    if(!this.Event.is_active)
     this.FunService
     (
       () => this.EventId === 0 ? this.main.eventService.CreateEvent(this.Event) : this.main.eventService.UpdateEvent(this.EventId,this.Event),
@@ -219,6 +221,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit, After
     if(this.about)
       this.about.GetEventGenres();
 
+    if(!this.Event.is_active)
     this.WaitBeforeLoading
     (
       () => this.EventId === 0 ? this.main.eventService.CreateEvent(this.Event) : this.main.eventService.UpdateEvent(this.EventId,this.Event),
@@ -294,6 +297,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit, After
     this.main.eventService.SetActive(this.EventId,this.main.CurrentAccount.id).
       subscribe((res)=>{
         this.Event.is_active = true;
+        this.isShowLaunchBtn();
       },
       (err)=>{
         console.log(`err`,err);
@@ -306,6 +310,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit, After
     this.main.eventService.SetDeActive(this.EventId,this.main.CurrentAccount.id).
       subscribe((res)=>{
         this.Event.is_active = false;
+        this.isShowLaunchBtn();
       },
       (err)=>{
         console.log(`err`,err);

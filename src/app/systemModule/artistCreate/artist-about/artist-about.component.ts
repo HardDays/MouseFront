@@ -181,20 +181,26 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
 
 DeleteImage()
 {
+    console.log(`delete image`,this.Artist,this.ArtistImageId);
     if(this.ArtistImageId && this.ArtistId && this.Artist.image_base64)
     {
+        console.log(`image del`,this.ArtistImageId,this.ArtistId);
+        this.DeleteLocalImage();
         this.main.imagesService.DeleteImageById(this.ArtistImageId,this.ArtistId)
             .subscribe(
                 (res) => {
                     this.ArtistImageId = 0;
                   //  this.onImageDeleted.emit(true);
                     this.DeleteLocalImage();
+                },(err)=>{
+                  console.log(`err`,err)
                 }
             );
     }
     else {
         this.DeleteLocalImage();
     }
+    // this.DeleteLocalImage();
 }
 
 DeleteLocalImage()

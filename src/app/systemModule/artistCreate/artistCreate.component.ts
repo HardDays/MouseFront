@@ -23,7 +23,7 @@ import { TypeService } from '../../core/services/type.service';
 import { GenresService } from '../../core/services/genres.service';
 import { EventService } from '../../core/services/event.service';
 
-import { } from 'googlemaps';
+// import { } from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
 import { Router, Params, ActivatedRoute } from '@angular/router';
 import { AuthService } from "angular2-social-login";
@@ -134,7 +134,6 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
 
   DisplayArtistParams($artist?:AccountGetModel)
   {
-    console.log('artist',$artist);
     this.Artist = $artist ? this.main.accService.AccountGetModelToCreateAccountModel($artist) : new AccountCreateModel();
     this.Artist.account_type = AccountType.Artist;
     if( $artist && $artist.id)
@@ -146,8 +145,6 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
       this.currentPage = this.pages.about;
       this.ArtistId = 0;
     }
-
-
 
     if(!this.Artist.artist_email)
     {
@@ -184,7 +181,6 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
             2000
           );
         }
-
         this.main.GetMyAccounts();
       },
       (err) => {
@@ -207,7 +203,6 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
             if(this.errorCmp.isShown)
               this.errorCmp.CloseWindow();
             this.router.navigate(["/system","profile",this.ArtistId]);
-           // scrollTo(0,0);
           },
           2000
         );
@@ -233,7 +228,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
     if(this.ArtistId == 0)
       return;
 
-    if(this.currentPage == newPart)
+    if(this.currentPage === newPart)
       return;
 
     this.currentPage = newPart;
@@ -290,6 +285,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
 
   ArtistChanged($event)
   {
+    console.log(`artist changed`);
     for(let key of $event)
     {
       if(this.Artist[key] != $event[key])

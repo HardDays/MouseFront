@@ -17,7 +17,7 @@ import { AccountGetModel } from '../../core/models/accountGet.model';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 
 import { FormControl } from '@angular/forms';
-import { } from 'googlemaps';
+// import { } from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
 import { EventService } from '../../core/services/event.service';
 import { Http } from '@angular/http';
