@@ -58,6 +58,8 @@
         
         <app-artist-calendar *ngIf="currentPage==pages.calendar"
             [Artist]="Artist"
+            (onSave)="SaveArtistByPages($event, false)"
+            [ArtistId]="ArtistId" 
         
         >
 
