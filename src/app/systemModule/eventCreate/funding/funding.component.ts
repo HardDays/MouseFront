@@ -220,8 +220,8 @@ export class FundingComponent extends BaseComponent implements OnInit {
         subscribe((res:EventGetModel)=>{
            
             this.Event = this.main.eventService.EventModelToCreateEventModel(res);
-             console.log(`updateEventThis`,this.Event);
-             this.onSave.emit(this.Event);
+            console.log(`updateEventThis`,this.Event);
+            this.onSave.emit(this.Event);
             this.getActiveArtVen();
            
         })  

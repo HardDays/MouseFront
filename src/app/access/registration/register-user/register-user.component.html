@@ -19,31 +19,8 @@
                             <input class="inp-style-2"  formControlName="password" type="password" placeholder="Password">
                             <input class="inp-style-2"  formControlName="password_confirmation" type="password" placeholder="Verify password">
                             <p style="color:white;">{{Error}}</p>
-                            <p class="type-head">Type of account</p>
-                            <div class="flex-checkboxes one-line-checkbox">
-                            <!--при for обращаем внимания на for у label и id у инпута-->
-                                <div class="one-checkbox">
-                                    <div class="check-style">
-                                        <input (change)="type='fan'" [checked]="type=='fan'" type="checkbox" class="checkbox" name="" id="checkbox-1">
-                                        <label for="checkbox-1"></label>
-                                    </div>
-                                    <p>Fan</p>
-                                </div>
-                                <div class="one-checkbox">
-                                    <div class="check-style">
-                                        <input (change)="type='artist'" [checked]="type=='artist'" type="checkbox" class="checkbox" name="" id="checkbox-2">
-                                        <label for="checkbox-2"></label>
-                                    </div>
-                                    <p>Artist</p>
-                                </div>
-                                <div class="one-checkbox">
-                                    <div class="check-style">
-                                        <input (change)="type='venue'" [checked]="type=='venue'" type="checkbox" class="checkbox" name="" id="checkbox-3">
-                                        <label for="checkbox-3"></label>
-                                    </div>
-                                    <p>Venue</p>
-                                </div>
-                            </div>
+                            
+                            
                         </div>
                         <div class="continue-wr">
                             <button class="butt-style-1" type="submit" (click)="registerUser()"><span>Continue</span></button>

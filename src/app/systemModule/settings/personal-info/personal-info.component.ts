@@ -55,6 +55,13 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
   ngOnChanges(){
     // console.log(`infooo`);
     this.phone = this.User.register_phone;
+    if(this.User.image_id){
+      this.main.imagesService.GetImageById(this.User.image_id)
+        .subscribe((res)=>{
+          console.log(`res img`, res);
+          this.User.image_base64 = res.base64;
+        })
+    }
   }
 
 

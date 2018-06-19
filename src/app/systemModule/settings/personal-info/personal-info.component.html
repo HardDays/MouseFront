@@ -1,18 +1,19 @@
 <div class="settings_right_wrap">
       <h2 class="zag">Personal info</h2>
       <form class="setts_padding send_quest_form user_info_form">
-          <div class="user_photo" style="background-image: url(./../../../../assets/img/drake.jpg)"></div>
+          <div class="user_photo" [ngStyle]="{'background-image': User.image_base64?'url('+User.image_base64+')':'url(./../../../../assets/img/drake.jpg)'}" ></div>
           <p class="text-center"><span class="user_photo_change">Change Photo</span></p>
+          <!-- <input name="photo" accept=".jpg, .jpeg, .png" type="file" (change)="loadLogo($event)"> -->
           <div class="input-groupe-1 username_input">
-              <input id="inp-info-1" name="" value="cooljardson" type="text">
+              <input id="inp-info-1" [(ngModel)]="User.user_name" name="user_name" value="cooljardson" type="text">
               <label for="inp-info-1">Mouse Username</label>
           </div>
           <div class="input-groupe-1">
-              <input id="inp-info-2" name="" value="Jardson" type="text">
+              <input id="inp-info-2" [(ngModel)]="User.first_name" name="first_name" value="Jardson" type="text">
               <label for="inp-info-2">First Name</label>
           </div>
           <div class="input-groupe-1">
-              <input id="inp-info-3" name="" value="Almeida" type="text">
+              <input id="inp-info-3" [(ngModel)]="User.last_name" name="last_name" value="Almeida" type="text">
               <label for="inp-info-3">Last Name</label>
           </div>
           <div class="input-groupe-1">

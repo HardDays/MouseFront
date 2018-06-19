@@ -64,9 +64,10 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
   onSuccesCreateUser(type:string){
     if(type){
       this.currentPage = 'acc';
-       this.typeUser = type;
+      this.typeUser = type;
       }
   }
+
   onSuccesCreateAcc(status:boolean){
    
     if(status){
@@ -74,6 +75,7 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
       
     }
   }
+
   onSuccesValidatePhone(res:{status:boolean,phone:string}){
     if(res.status){
       this.currentPage = 'user';
@@ -101,6 +103,7 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
 export enum Pages {
   phone = 0,
   user = 1,
-  acc = 2,
-  follow = 3
+  info = 2,
+  acc = 3,
+  follow = 4
 }

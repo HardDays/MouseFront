@@ -14,7 +14,7 @@ import { AuthService } from "angular2-social-login";
 
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 
-import { } from 'googlemaps';
+// import { } from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
 import { Http } from '@angular/http';
 import { AccountService } from '../../../core/services/account.service';

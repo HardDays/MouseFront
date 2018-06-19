@@ -170,8 +170,9 @@ export class AuthMainService{
         );
     }
     UpdateUser(user:UserCreateModel){
+        console.log(user);
         return this.http.CommonRequest(
-            ()=> this.http.PatchData('/users/me.json',JSON.stringify(user))
+            ()=> this.http.PatchData('/users/me.json',user)
         );
     }
 
