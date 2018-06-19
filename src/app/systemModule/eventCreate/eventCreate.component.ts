@@ -186,6 +186,12 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   {
     this.Event.account_id = this.CurrentAccount.id;
     
+    //if(this.Event.venue){
+      delete this.Event['address'];
+      delete this.Event['city_lat'];
+      delete this.Event['city_lng'];
+    //}
+
     if(!this.Event.is_active)
     this.FunService
     (
@@ -227,6 +233,12 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     
     if(this.about)
       this.about.GetEventGenres();
+
+    if(this.Event.venue){
+      delete this.Event['address'];
+      delete this.Event['city_lat'];
+      delete this.Event['city_lng'];
+    }
 
 
     if(!this.Event.is_active)

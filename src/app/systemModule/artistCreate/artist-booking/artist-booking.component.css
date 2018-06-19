@@ -18,3 +18,16 @@
 .padd-right10{
     padding-right: 10px;
 }
+.user-name-doll{
+    display: block;
+    position: absolute;
+    top: 29px;
+    left: 0;
+    color: #eb2d64;
+    font-size: 14px;
+    z-index: 300;
+}
+.input-groupe-1.doll input{
+    padding-left: 13px;
+    padding-right: 13px;
+}

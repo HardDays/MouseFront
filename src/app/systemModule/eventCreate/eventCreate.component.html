@@ -84,6 +84,7 @@
             <app-funding #funding *ngIf="!isLoading&&(currentPage==pages.funding)"
                 [Event]="Event"
                 (onSaveEvent)="SaveEventByPages()"
+                (onSave)="SaveEventByPagesWithoutNextPart($event)"
                 (onError)="OpenErrorWindow($event)"
             ></app-funding>
             

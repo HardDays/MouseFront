@@ -23,6 +23,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
 
     @Input() Event:EventCreateModel;
     @Output() onSaveEvent:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
+    @Output() onSave:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
     @Output() onError:EventEmitter<string> = new EventEmitter<string>();
 
     ngOnInit() {
@@ -217,9 +218,12 @@ export class FundingComponent extends BaseComponent implements OnInit {
     updateEvent(){
         this.main.eventService.GetEventById(this.Event.id).
         subscribe((res:EventGetModel)=>{
-            //console.log(`updateEventThis`);
+           
             this.Event = this.main.eventService.EventModelToCreateEventModel(res);
+             console.log(`updateEventThis`,this.Event);
+             this.onSave.emit(this.Event);
             this.getActiveArtVen();
+           
         })  
     }
 

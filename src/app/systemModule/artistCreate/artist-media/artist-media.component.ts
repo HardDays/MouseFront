@@ -272,12 +272,12 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
     this.main.imagesService.PostAccountImage(this.ArtistId,{image_base64:this.ImageToLoad,image_description: this.imageInfo})
       .subscribe(
         (res:any)=>{
-          console.log(res);
+          console.log(`res`,res);
           this.ArtistImages.push({img:this.ImageToLoad, text: this.imageInfo,id:res.image_id});
           this.ImageToLoad = '';
           this.imageInfo = '';
           this.isImageLoading = false;
-          // this.GetArtistImages();
+          this.GetArtistImages();
         },
         (err)=>{
           this.isImageLoading = false;
