@@ -1,16 +1,22 @@
-import { Component, OnInit, ViewChild, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, SimpleChanges, Output, EventEmitter, NgZone, ChangeDetectorRef } from '@angular/core';
 import { TinyCalendarComponent, CalendarDate } from '../tiny-calendar/tiny-calendar.component';
 import * as moment from 'moment';
 import { AccountCreateModel } from '../../../core/models/accountCreate.model';
+import { BaseComponent } from '../../../core/base/base.component';
+import { MainService } from '../../../core/services/main.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Router, ActivatedRoute } from '@angular/router';
+import { MapsAPILoader } from '@agm/core';
+
 @Component({
   selector: 'app-artist-calendar',
   templateUrl: './artist-calendar.component.html',
   styleUrls: ['./artist-calendar.component.css']
 })
-export class ArtistCalendarComponent implements OnInit {
+export class ArtistCalendarComponent extends BaseComponent implements OnInit {
 
   DisabledDates: CalendarDate[] = [];
-
+  @Input('ArtistId') artistId:number;
 
 
 
@@ -22,28 +28,72 @@ export class ArtistCalendarComponent implements OnInit {
   EventDates: CalendarDate[] = [];
 
 @Input('Artist') artist:AccountCreateModel;
+@Output('onSave') onSave = new EventEmitter<AccountCreateModel>();
 
 @ViewChild('calendar') calendar:TinyCalendarComponent;
 
-  constructor() { }
+constructor(
+    protected main           : MainService,
+    protected _sanitizer     : DomSanitizer,
+    protected router         : Router,
+    protected mapsAPILoader  : MapsAPILoader,
+    protected ngZone         : NgZone,
+    protected activatedRoute : ActivatedRoute,
+    protected cdRef          : ChangeDetectorRef
+  ) {
+    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
+  }
 
   ngOnInit() {
-    console.log(this.artist);
+
     
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.artist);
     if(this.artist){
       for(let date of this.artist.events_dates){
         this.EventDates.push({
           mDate: moment(date.date.split("T")[0]),
           eventId: date.event_id 
-
+           
+        });
+      }
+      for(let date of this.artist.disable_dates){
+        this.DisabledDates.push({
+          mDate: moment(date.date.split("T")[0])
         });
       }
     }
+    
   }
+
+
+  SendDisableDates(){
+    //this.DisabledDates[0].mDate.format("YYYY-MM-DD");
+    this.artist.disable_dates = [];
+    for(let date of this.DisabledDates){
+        this.artist.disable_dates.push({
+            date: date.mDate.format("YYYY-MM-DD")
+        });
+    }
+
+
+    
+    // this.onSave.emit(this.artist);
+    this.main.accService.UpdateMyAccount(this.artistId,this.artist).subscribe(
+        (res)=>{
+            console.log(res);
+        }
+        ,(err)=>{
+            console.log(err);
+        }
+    )
+
+
+
+
+  }
+
 
   DisableDate(event){
       if(!event.event){ 
@@ -51,6 +101,7 @@ export class ArtistCalendarComponent implements OnInit {
               this.DisabledDates.push({
                   mDate: event.mDate
               });
+              
           }
           else{
               let BreakException = {};
@@ -65,7 +116,10 @@ export class ArtistCalendarComponent implements OnInit {
                   if (e !== BreakException) throw e;
               }
           }
+          this.SendDisableDates();
+
       }
   }
+
 }
 
