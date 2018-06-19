@@ -58,7 +58,7 @@ constructor(
            
         });
       }
-      for(let date of this.artist.available_dates){
+      for(let date of this.artist.disable_dates){
         this.DisabledDates.push({
           mDate: moment(date.date.split("T")[0])
         });
@@ -70,21 +70,22 @@ constructor(
 
   SendDisableDates(){
     //this.DisabledDates[0].mDate.format("YYYY-MM-DD");
-    this.artist.available_dates = [];
+    this.artist.disable_dates = [];
     for(let date of this.DisabledDates){
-        this.artist.available_dates.push({
+        this.artist.disable_dates.push({
             date: date.mDate.format("YYYY-MM-DD")
         });
     }
+
 
     
     // this.onSave.emit(this.artist);
     this.main.accService.UpdateMyAccount(this.artistId,this.artist).subscribe(
         (res)=>{
-            
+            console.log(res);
         }
         ,(err)=>{
-            
+            console.log(err);
         }
     )
 

@@ -250,6 +250,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
 
   SaveButton()
   {
+    console.log(this.Artist);
     switch(this.currentPage){
       case this.pages.about:{
         if(this.AboutPage)
