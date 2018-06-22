@@ -1,9 +1,18 @@
 <div class="settings_right_wrap">
       <h2 class="zag">Personal info</h2>
       <form class="setts_padding send_quest_form user_info_form">
-          <div class="user_photo" [ngStyle]="{'background-image': User.image_base64?'url('+User.image_base64+')':'url(./../../../../assets/img/drake.jpg)'}" ></div>
-          <p class="text-center"><span class="user_photo_change">Change Photo</span></p>
-          <!-- <input name="photo" accept=".jpg, .jpeg, .png" type="file" (change)="loadLogo($event)"> -->
+          <div class="user_photo" [ngStyle]="{'background-image': User.image_base64?'url('+User.image_base64+')':'url(./../../../../assets/img/non-photo-2.svg)'}" ></div>
+        
+
+        <div class="photo-wr-1 n-i-s">                    
+            <label class="file_upload">
+                <p class="black-text"><span class="user_photo_change">Change Photo</span></p>
+                <input accept=".jpg, .jpeg, .png" (change)="uploadImage($event)" type="file">
+            </label>
+        </div>
+        <br>
+        
+
           <div class="input-groupe-1 username_input">
               <input id="inp-info-1" [(ngModel)]="User.user_name" name="user_name" value="cooljardson" type="text">
               <label for="inp-info-1">Mouse Username</label>
