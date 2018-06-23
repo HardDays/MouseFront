@@ -172,16 +172,17 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
       () => this.ArtistId == 0 ? this.main.accService.CreateAccount(this.Artist) : this.main.accService.UpdateMyAccount(this.ArtistId,this.Artist),
       (res) => {
         this.DisplayArtistParams(res);
+        this.main.SetCurrentAccId(this.ArtistId);
+        this.main.GetMyAccounts();
 
         this.errorCmp.OpenWindow(BaseMessages.Success);
-
         if(goToNextPage){
           setTimeout(
             () => this.NextPart(),
             2000
           );
         }
-        this.main.GetMyAccounts();
+        
       },
       (err) => {
         this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'artist'));
@@ -195,8 +196,8 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
     (
       () => this.ArtistId == 0 ? this.main.accService.CreateAccount(this.Artist) : this.main.accService.UpdateMyAccount(this.ArtistId,this.Artist),
       (res) => {
-
         this.errorCmp.OpenWindow(BaseMessages.Success);
+        this.main.SetCurrentAccId(this.ArtistId);
         this.main.GetMyAccounts();
         setTimeout(
           () => {
@@ -236,12 +237,14 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
 
 
   SaveArtistNav(){
+    this.main.SetCurrentAccId(this.ArtistId);
     this.main.GetMyAccounts();
     setTimeout(
       () => {
+        
         if(this.errorCmp.isShown)
           this.errorCmp.CloseWindow();
-        this.router.navigate(["/system","profile",this.ArtistId]);
+          this.router.navigate(["/system","profile",this.ArtistId]);
        // scrollTo(0,0);
       },
       2000
