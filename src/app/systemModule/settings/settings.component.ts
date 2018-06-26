@@ -21,6 +21,7 @@ export class SettingsComponent extends BaseComponent implements OnInit {
 
   CustomerParts = CustomerPageParts;
   customerPage = CustomerPageParts.sendQuestion;
+  IsShowCustomerSupport = false;
 
     User:UserGetModel = new UserGetModel();
 

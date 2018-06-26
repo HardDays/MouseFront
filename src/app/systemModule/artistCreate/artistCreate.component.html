@@ -58,13 +58,10 @@
         
         <app-artist-calendar *ngIf="currentPage==pages.calendar"
             [Artist]="Artist"
+            (openNextPage)="NextPart()" 
             (onSave)="SaveArtistByPages($event, false)"
             [ArtistId]="ArtistId" 
-        
         >
-
-
-
         </app-artist-calendar>
 
         <div class="create-event-body-1">

@@ -29,6 +29,7 @@ export class ArtistCalendarComponent extends BaseComponent implements OnInit {
 
 @Input('Artist') artist:AccountCreateModel;
 @Output('onSave') onSave = new EventEmitter<AccountCreateModel>();
+@Output('openNextPage') openNextPage = new EventEmitter();
 
 @ViewChild('calendar') calendar:TinyCalendarComponent;
 
@@ -119,6 +120,10 @@ constructor(
           this.SendDisableDates();
 
       }
+  }
+
+  OpenNextPage(){
+    this.openNextPage.emit();
   }
 
 }
