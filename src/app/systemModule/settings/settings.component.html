@@ -10,8 +10,8 @@
                       <!-- <li [ngClass]="{'active': CurrentPart==Parts.FinancialInfo}"><a (click)="CurrentPart=Parts.FinancialInfo">Financial info</a></li> -->
                       <li [ngClass]="{'active': CurrentPart==Parts.Feedback}"><a (click)="CurrentPart=Parts.Feedback">Feedback</a></li>
                       <li [ngClass]="{'active': CurrentPart==Parts.CustomerSupport}">
-                          <span (click)="CurrentPart=Parts.CustomerSupport; IsShowCustomerSupport =! IsShowCustomerSupport" class="opening">Customer support</span>
-                          <ul *ngIf="IsShowCustomerSupport" class="submenu" style="display:block">
+                          <span (click)="CustomerSupportClick()" class="opening">Customer support</span>
+                          <ul *ngIf="IsShowCustomerSupport&&CurrentPart==Parts.CustomerSupport" class="submenu" style="display:block">
                               <!-- <li><a (click)="customerPage = CustomerParts.sendQuestion">How to Create an Event</a></li>
                               <li><a (click)="customerPage = CustomerParts.sendQuestion">How to Create a Crowdfunding Event</a></li>
                               <li><a (click)="customerPage = CustomerParts.sendQuestion">How to Search for a Show in my Area</a></li>

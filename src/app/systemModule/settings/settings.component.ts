@@ -117,6 +117,14 @@ export class SettingsComponent extends BaseComponent implements OnInit {
         });
     }
 
+    CustomerSupportClick(){
+        if( this.CurrentPart == this.Parts.CustomerSupport)
+            this.IsShowCustomerSupport =! this.IsShowCustomerSupport;
+        else
+            this.IsShowCustomerSupport = true;
+        this.CurrentPart = this.Parts.CustomerSupport;
+    }
+   
 
 
 }
