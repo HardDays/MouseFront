@@ -29,6 +29,12 @@ export class PhoneService{
             ()=> this.http.PostData('/phone_validations.json',JSON.stringify({phone:phone}))
         );
     }
+    
+    ReSendCodeToPhone(phone:string){
+        return this.http.CommonRequest(
+            ()=> this.http.PostData('/phone_validations/resend.json',JSON.stringify({phone:phone}))
+        );
+    }
 
     SendRequestCode(phone:string,code:string){
         let params={

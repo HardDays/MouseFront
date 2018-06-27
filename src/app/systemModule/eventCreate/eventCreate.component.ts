@@ -311,7 +311,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     this.main.eventService.SetActive(this.EventId,this.main.CurrentAccount.id).
       subscribe((res)=>{
         this.Event.is_active = true;
-        this.isShowLaunchBtn();
+        // this.isShowLaunchBtn();
+        this.isShowLaunch = false;
       },
       (err)=>{
         console.log(`err`,err);
@@ -324,7 +325,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     this.main.eventService.SetDeActive(this.EventId,this.main.CurrentAccount.id).
       subscribe((res)=>{
         this.Event.is_active = false;
-        this.isShowLaunchBtn();
+        // this.isShowLaunchBtn();
+        this.isShowLaunch = true;
       },
       (err)=>{
         console.log(`err`,err);

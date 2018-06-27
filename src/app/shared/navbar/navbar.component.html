@@ -117,7 +117,8 @@
                             <!--выпадашка если авторизован-->
                             <div *ngIf="isLoggedIn" class="dropdown-settings-ava">
                                 <div class="dropdown-items-wr">
-                                    <a [routerLink]="['/system/profile',CurrentAccount.id]" (click)="curNav = 'profile'"><span class="dog">@</span>{{CurrentAccount.user_name}}</a>
+                                    <!-- <a [routerLink]="['/system/profile',CurrentAccount.id]" (click)="curNav = 'profile'"><span class="dog">@</span>{{CurrentAccount.user_name}}</a> -->
+                                    <a><span class="dog">@</span>{{MyUser.user_name}}</a>
                                     <a (click)="curNav = 'messages'" [routerLink]="['/system','messages']">Messages</a>
                                     <span (click)="curNav = 'profile'" [routerLink]="['/system','fanCreate','new']">Create Fan</span>
                                     <span (click)="curNav = 'profile'" [routerLink]="['/system','artistCreate','new']">Create Artist</span>

@@ -40,6 +40,7 @@ export class BaseComponent{
     public MyAccounts: AccountGetModel[] = [];
     public accId:number = 0;
     public CurrentAccount:AccountGetModel = new AccountGetModel();
+    public MyUser:UserGetModel = new UserGetModel();
 
     public userCreated:boolean = false;
 
@@ -62,6 +63,7 @@ export class BaseComponent{
             this.accId = this.GetCurrentAccId();
             this.MyAccounts = this.main.MyAccounts;
             this.CurrentAccount = this.main.CurrentAccount;
+            this.MyUser = this.main.MyUser;
         }
 
         
@@ -97,6 +99,14 @@ export class BaseComponent{
                 {
                     this.CurrentAccount = val;
                     this.accId = this.CurrentAccount.id;
+                }
+            );
+            
+        this.main.UserChange
+            .subscribe(
+                (val:UserGetModel) =>
+                {
+                    this.MyUser = val;
                 }
             );
 

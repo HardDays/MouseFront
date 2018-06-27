@@ -33,9 +33,11 @@ export class SocialNewAccComponent extends BaseComponent implements OnInit {
 
   registerUser(){
     if(!this.userForm.invalid){
-      this.WaitBeforeLoading(
+      console.log(`to back`, this.user);
+      this.WaitBeforeLoading(       
         ()=>this.main.authService.UpdateUser(this.user),
         (res:UserGetModel) => {
+          console.log(`res`,res);
             if(this.type=='venue')
               this.router.navigate(['/system','venueCreate','new']);
             else if(this.type=='artist')
@@ -63,6 +65,14 @@ export class SocialNewAccComponent extends BaseComponent implements OnInit {
     }
 
    
+    
+  }
+
+  backTo(){
+    this.Logout();
+    setTimeout(
+      ()=>this.router.navigate(['/login']),1000
+    )
     
   }
 

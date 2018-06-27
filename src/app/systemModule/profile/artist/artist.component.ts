@@ -46,6 +46,7 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
         if(changes.Account)
         {
             this.Account = changes.Account.currentValue;
+            this.GetGenres();
         }
         if(changes.MyProfileId){
             this.MyProfileId = changes.MyProfileId.currentValue;
@@ -75,6 +76,12 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
         // this.GetVideo();
         
         this.GetUpcomingShows();
+        
+    }
+
+    GetGenres(){
+        if(this.Account.genres)
+            this.Account.genres = this.main.genreService.BackGenresToShowGenres(this.Account.genres);
     }
 
     // GetVideo()

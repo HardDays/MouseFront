@@ -24,18 +24,24 @@ import { FeedbacksService } from "./feedbacks.service";
 import { FeedService } from "./feed.service";
 import { CommentService } from "./comment.service";
 import { LikesService } from "./likes.service";
+import { UserCreateModel } from "../models/userCreate.model";
+import { UserGetModel } from "../models/userGet.model";
 
 declare var $:any;
 
 @Injectable()
 export class MainService{
 
+    public MyUser: UserGetModel = new UserGetModel;
+    public UserChange: Subject<UserGetModel>;
     public MyAccounts: AccountGetModel[] = [];
     public CurrentAccount:AccountGetModel = new AccountGetModel();
     public CurrentAccountChange: Subject<AccountGetModel>;
     public MyAccountsChange: Subject<AccountGetModel[]>;
     public MyLogo:string = BaseImages.NoneUserImage;
+    public MyUserLogo:string = BaseImages.NoneUserImage;
     public MyLogoChange:Subject<string>;
+    public MyUserLogoChange:Subject<string>;
 
     public ActiveProcesses:string[] = [];
     public ActiveProcessesChanges: Subject<string[]>;
@@ -60,6 +66,9 @@ export class MainService{
         public activeRouter  : ActivatedRoute   
     ){
 
+        this.UserChange = new Subject();
+        this.UserChange.next(new UserGetModel());
+
         this.CurrentAccountChange = new Subject();
         this.CurrentAccountChange.next(new AccountGetModel());
 
@@ -71,15 +80,27 @@ export class MainService{
                 (res:boolean) => {
                     if(res)
                     {
-                        this.GetMyAccounts();      
+                        this.GetMyUser();
+                        this.GetMyAccounts(); 
                     }
                     else{ 
+                        this.UserChange.next(new UserGetModel());
                         this.CurrentAccountChange.next(new AccountGetModel());
                         this.MyAccountsChange.next([]);
                         this.router.navigate(['/system','tickets']);
                     }
                 }
             );
+
+        this.UserChange.subscribe(
+            (val:UserGetModel) => 
+            {
+                this.MyUser = val;
+                // this.SetCurrentAccId(val.id? val.id : 0);
+                // this.GetMyLogo();
+                this.GetMyUserLogo();
+            }
+        );
         
         this.CurrentAccountChange.subscribe(
             (val:AccountGetModel) => 
@@ -87,6 +108,7 @@ export class MainService{
                 this.CurrentAccount = val;
                 this.SetCurrentAccId(val.id? val.id : 0);
                 this.GetMyLogo();
+                //this.GetMyUserLogo();
             }
         );
 
@@ -101,6 +123,14 @@ export class MainService{
         this.MyLogoChange.subscribe(
             (val:string)=>{
                 this.MyLogo = val;
+            }
+        )
+
+        this.MyUserLogoChange = new Subject();
+        this.MyUserLogoChange.next(BaseImages.NoneUserImage);
+        this.MyUserLogoChange.subscribe(
+            (val:string)=>{
+                this.MyUserLogo = val;
             }
         )
 
@@ -128,8 +158,6 @@ export class MainService{
     {
         if(this.CurrentAccount && this.CurrentAccount.image_id)
         {
-
-           
                this.imagesService.GetImageById(this.CurrentAccount.image_id).subscribe(
                 (res:Base64ImageModel) => {
                     this.MyLogoChange.next(res.base64 ? res.base64 : BaseImages.NoneUserImage);
@@ -137,13 +165,32 @@ export class MainService{
                 (err) => {
                     this.MyLogoChange.next(BaseImages.NoneUserImage);
                 }
-            );
-           
+            );  
         }
         else{
             this.MyLogoChange.next(BaseImages.NoneUserImage);
         }
     }
+
+    GetMyUserLogo()
+    {
+        if(this.MyUser && this.MyUser.image_id)
+        {           
+               this.imagesService.GetImageById(this.MyUser.image_id).subscribe(
+                (res:Base64ImageModel) => {
+                    this.MyUserLogoChange.next(res.base64 ? res.base64 : BaseImages.NoneUserImage);
+                },
+                (err) => {
+                    this.MyUserLogoChange.next(BaseImages.NoneUserImage);
+                }
+            );
+           
+        }
+        else{
+            this.MyUserLogoChange.next(BaseImages.NoneUserImage);
+        }
+    }
+
     public GetCurrentAccId()
     {
         if(localStorage.getItem('activeUserId'))
@@ -180,6 +227,24 @@ export class MainService{
             }
         );
        
+    }
+
+    public GetMyUser(){
+        this.WaitBeforeLoading(
+            ()=> this.authService.GetMe(),
+            (res) => {
+                this.MyUser = res;
+                // if(this.MyUser)
+                // {
+                //         this.CurrentAccount = this.MyAccounts.find((acc) => acc.id === accId);
+                    
+                // }
+                this.UserChange.next(this.MyUser);
+                // this.UserChange.next(this.MyAccounts);
+            },
+            (err) => {
+            }
+        );
     }
 
     public WaitBeforeLoading = (fun:()=>Observable<any>,success:(result?:any)=>void, err?:(obj?:any)=>void)=>

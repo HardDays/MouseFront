@@ -42,7 +42,7 @@
                                 </span>
                             </button>
                         </li>
-                        <li *ngIf="Event.is_active">
+                        <li *ngIf="Event.is_active&&!isShowLaunch">
                             <button (click)="unActiveButtonClick()" class="butt-style-1" style="width: 159px">
                                 <span style="padding: 10px 0;">
                                 Delaunch event

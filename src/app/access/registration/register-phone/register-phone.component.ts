@@ -77,6 +77,27 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
       this.phoneArr = true;
     }
   }
+  
+  resendCode(){
+    if(this.phone.length>0){
+      this.phoneArr = false;
+      let phone:string = this.phoneCode + this.phone;
+      this.WaitBeforeLoading(
+        ()=>this.main.phoneService.ReSendCodeToPhone(phone),
+          (res)=>{
+          this.isRequestCodeSend = true;
+          },
+          (err)=>{
+            console.log(`err`,err);
+            this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
+            
+          }
+      );
+    }
+    else{
+      this.phoneArr = true;
+    }
+  }
 
   inputCode($event,num:number){
     if($event.target.value&&$event.target.value.length==1){
