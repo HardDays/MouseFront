@@ -10,7 +10,7 @@
             <div class="left-ticket">
                 <div *ngIf="Event.venue" class="tickets-left-info">
                     <p class="info-text">In Person Tickets Available</p>
-                    <span class="price">20/{{Event.venue.capacity}}</span>
+                    <span class="price">20/{{Event.venue.capacity?Event.venue.capacity:'Max venue capacity'}}</span>
                 </div>
                 <div *ngIf="Event.venue" class="tickets-left-info">
                     <p class="info-text">VR Tickets Available</p>

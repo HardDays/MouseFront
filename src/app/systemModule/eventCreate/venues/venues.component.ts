@@ -137,14 +137,16 @@ export class VenuesComponent extends BaseComponent implements OnInit {
             this.getMessages();
             acc.status_not_given = i.status;
             if(acc.image_id){
-                this.main.imagesService.GetImageById(acc.image_id).
-                subscribe((img)=>{
-                    if(img.base64)
-                        acc.image_base64_not_given = img.base64;
-                    else
-                        acc.image_base64_not_given = '../../../../assets/img/show.png';
-                    this.requestVenues.push(acc);
-                })
+                acc.image_base64_not_given = this.main.imagesService.GetImagePreview(acc.image_id,{width:240,height:240});
+                this.requestVenues.push(acc);
+                // this.main.imagesService.GetImageById(acc.image_id).
+                // subscribe((img)=>{
+                //     if(img.base64)
+                //         acc.image_base64_not_given = img.base64;
+                //     else
+                //         acc.image_base64_not_given = '../../../../assets/img/show.png';
+                //     this.requestVenues.push(acc);
+                // })
             }
             else {
                 acc.image_base64_not_given = '../../../../assets/img/show.png';
@@ -291,13 +293,14 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     GetVenuesImages(){
         for(let a of this.venueList){
           if(a.object.image_id){
-            this.main.imagesService.GetImageById(a.object.image_id)
-              .subscribe((img)=>{
-                  if(img.base64)
-                        a.object.image_base64_not_given = img.base64;
-                    else
-                    a.object.image_base64_not_given = '../../../../assets/img/show.png';
-              });
+            a.object.image_base64_not_given = this.main.imagesService.GetImagePreview(a.object.image_id,{width:140,height:140});
+            // this.main.imagesService.GetImageById(a.object.image_id)
+            //   .subscribe((img)=>{
+            //       if(img.base64)
+            //             a.object.image_base64_not_given = img.base64;
+            //         else
+            //         a.object.image_base64_not_given = '../../../../assets/img/show.png';
+            //   });
             }
           else a.object.image_base64_not_given = '../../../../assets/img/show.png';
         }
