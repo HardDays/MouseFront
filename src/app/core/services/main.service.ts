@@ -150,6 +150,10 @@ export class MainService{
                     $(".nav-holder-3").removeClass("is-active");
                     $(".mask-nav-3").removeClass("is-active");
                 }
+                else if( event instanceof NavigationEnd)
+                {
+                    window.scrollTo(0,0);
+                }
             }
         );
     }
