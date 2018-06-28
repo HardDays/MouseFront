@@ -38,6 +38,8 @@ export class RegisterUserInfoComponent extends BaseComponent implements OnInit {
         }).subscribe((res)=>{
             console.log(`res`,res);
             
+            this.main.GetMyUser();
+
             if(this.type=='venue')
               this.router.navigate(['/system','venueCreate','new']);
             else if(this.type=='artist')

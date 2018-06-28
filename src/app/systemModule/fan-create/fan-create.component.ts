@@ -273,7 +273,11 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
         (res:any)=>{
       
           this.DisplayFunParams(res);
-          this.main.GetMyAccounts();
+          this.main.GetMyAccounts(
+            () => {
+              this.main.CurrentAccountChange.next(res);
+            }
+          );
           this.router.navigate(['/system','profile',res.id]);
         },
         (err:any)=>{

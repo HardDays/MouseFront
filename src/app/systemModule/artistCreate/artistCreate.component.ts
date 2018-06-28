@@ -197,8 +197,12 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
       () => this.ArtistId == 0 ? this.main.accService.CreateAccount(this.Artist) : this.main.accService.UpdateMyAccount(this.ArtistId,this.Artist),
       (res) => {
         this.errorCmp.OpenWindow(BaseMessages.Success);
-        this.main.SetCurrentAccId(this.ArtistId);
-        this.main.GetMyAccounts();
+        //this.main.SetCurrentAccId(this.ArtistId);
+        this.main.GetMyAccounts(
+          () => {
+          this.main.CurrentAccountChange.next(res);
+          }
+        );
         setTimeout(
           () => {
             if(this.errorCmp.isShown)
