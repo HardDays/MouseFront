@@ -26,9 +26,12 @@ export class SocialNewAccComponent extends BaseComponent implements OnInit {
   });
 
   ngOnInit(){
-    if(this.main.GetMyAccounts.length>0){
+
+    // if(this.main.GetMyAccounts.length>0){
+    //   this.router.navigate(['/system','shows']);
+    // }
+    if(this.main.MyUser.email)
       this.router.navigate(['/system','shows']);
-    }
   }
 
   registerUser(){
@@ -70,10 +73,9 @@ export class SocialNewAccComponent extends BaseComponent implements OnInit {
 
   backTo(){
     this.Logout();
-    setTimeout(
-      ()=>this.router.navigate(['/login']),1000
-    )
-    
+    // setTimeout(
+    //   ()=>this.router.navigate(['/login']),1000
+    // )
   }
 
 }
