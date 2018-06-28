@@ -173,7 +173,11 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
           () => this.NextPart(),
           2000
         );
-        this.main.GetMyAccounts();
+        this.main.GetMyAccounts(
+          () => {
+            this.main.CurrentAccountChange.next(res);
+          }
+        );
       },
       (err) => {
         this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'venue'));

@@ -199,8 +199,9 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
         this.errorCmp.OpenWindow(BaseMessages.Success);
         //this.main.SetCurrentAccId(this.ArtistId);
         this.main.GetMyAccounts(
-          () => {
-          this.main.CurrentAccountChange.next(res);
+          () => 
+          { 
+            this.main.CurrentAccountChange.next(res);
           }
         );
         setTimeout(
