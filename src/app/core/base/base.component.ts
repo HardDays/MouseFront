@@ -97,6 +97,7 @@ export class BaseComponent{
             .subscribe(
                 (val:AccountGetModel) =>
                 {
+                    //console.log("acc_change",val);
                     this.CurrentAccount = val;
                     this.accId = this.CurrentAccount.id;
                 }

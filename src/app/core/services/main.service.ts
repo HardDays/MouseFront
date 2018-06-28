@@ -207,7 +207,7 @@ export class MainService{
         localStorage.setItem('activeUserId',id.toString());
     }
 
-    public GetMyAccounts(){
+    public GetMyAccounts(callback?:()=>void){
         this.WaitBeforeLoading(
             ()=> this.accService.GetMyAccount(),
             (res) => {
@@ -226,6 +226,10 @@ export class MainService{
                 }
                 this.CurrentAccountChange.next(this.CurrentAccount);
                 this.MyAccountsChange.next(this.MyAccounts);
+                if(callback && typeof callback == "function")
+                {
+                    callback();
+                }
             },
             (err) => {
             }
