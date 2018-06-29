@@ -34,6 +34,10 @@ export class OneFolowerForProfileComponent extends BaseComponent implements OnIn
                 }
             );
       }
+      else 
+      {
+        this.Image = BaseImages.NoneFolowerImage;
+      }
   }
 
 }

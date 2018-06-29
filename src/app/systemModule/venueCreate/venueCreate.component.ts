@@ -175,6 +175,8 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
         );
         this.main.GetMyAccounts(
           () => {
+            console.log(res);
+            
             this.main.CurrentAccountChange.next(res);
           }
         );
