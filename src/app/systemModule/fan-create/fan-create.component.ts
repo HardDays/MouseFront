@@ -14,7 +14,7 @@ import { EventService } from '../../core/services/event.service';
 import { TypeService } from '../../core/services/type.service';
 import { ImagesService } from '../../core/services/images.service';
 import { AccountGetModel } from '../../core/models/accountGet.model';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { AccountType, BaseMessages } from '../../core/base/base.enum';
 import { Base64ImageModel } from '../../core/models/base64image.model';
 import { MainService } from '../../core/services/main.service';
@@ -39,9 +39,16 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
   avatar:string = '';
   ImageId:number = 0;
   @ViewChild('errorCmp') errorCmp: ErrorComponent;
-  @ViewChild('submitFormFun') form: NgForm;
+  @ViewChild('submitFormFun') form: FormGroup;
   @ViewChild('search') public searchElement: ElementRef;
 
+  // aboutForm : FormGroup = new FormGroup({
+  //   "user_name": new FormControl("", [Validators.required]),
+  //   "first_name": new FormControl("", [Validators.required]),
+  //   "last_name": new FormControl(""),
+  //   "bio": new FormControl("")
+  // });
+  
   constructor(
     protected main           : MainService,
     protected _sanitizer     : DomSanitizer,
@@ -203,7 +210,13 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
       () => this.main.genreService.GetAllGenres(),
       (genres:string[])=> {
 
-        this.Genres = this.main.genreService.GetGendreModelFromString(this.Fun.genres, this.main.genreService.StringArrayToGanreModelArray(genres));
+        this.Genres = this.main.genreService.StringArrayToGenreModelArray(genres);
+        if(this.Fun&&this.Fun.genres){
+          for(let g of this.Fun.genres){
+            for(let gnr of this.Genres)
+              if(gnr.genre === g) gnr.checked = true;
+          }
+        }
         this.seeFirstGenres();
       }
     );
@@ -234,7 +247,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
     {
       for(let g of this.Genres)
       {
-        if(g.genre_show.indexOf(this.search.toUpperCase())>=0)
+        if(g.genre_show.indexOf(this.search.toLowerCase())>=0)
         {
           g.show = true;
         }
@@ -264,8 +277,14 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
       this.Fun.account_type = AccountType.Fan;
       this.Fun.genres = [];
 
-      this.Fun.genres = this.main.genreService.GenreModelArrToStringArr(this.Genres);
-
+     // this.Fun.genres = this.main.genreService.GenreModelArrToStringArr(this.Genres);
+      this.Fun.genres = [];
+      console.log(this.Genres);
+      for(let g of this.Genres){
+        if(g.checked){
+          this.Fun.genres.push(g.genre);
+        }
+      }
 
 
       this.WaitBeforeLoading(
@@ -284,6 +303,10 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
           this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'fan'));
         }
       );
+    }
+    else {
+      console.log(`err`);
+      this.errorCmp.OpenWindow(this.getFormErrorMessage(this.form, 'fan'));
     }
   }
 

@@ -387,6 +387,7 @@ export class BaseComponent{
 
     private getFieldError(field: FormControl, key: string, keyDict: any)
     {
+        console.log(key, keyDict);
         if (field.errors !== null)
         {
             if (field.errors.hasOwnProperty('required'))
