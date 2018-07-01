@@ -19,17 +19,20 @@ export class SocialNewAccComponent extends BaseComponent implements OnInit {
   Error:string = '';
   isFirstOpen:boolean = true;
 
- userForm : FormGroup = new FormGroup({
-    "email": new FormControl("", [Validators.required,
-      Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$')])
-      //,"register_phone": new FormControl("")
-  });
+  userForm : FormGroup = new FormGroup({
+      "email": new FormControl("", [Validators.required,
+        Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$')])
+        //,"register_phone": new FormControl("")
+    });
 
   ngOnInit(){
 
     // if(this.main.GetMyAccounts.length>0){
     //   this.router.navigate(['/system','shows']);
     // }
+    
+    this.user = this.main.MyUser;
+    console.log(this.user);
     if(this.main.MyUser.email)
       this.router.navigate(['/system','shows']);
   }

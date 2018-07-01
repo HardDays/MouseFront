@@ -7,7 +7,7 @@ export class UserGetModel{
         public google_id?:number,
         public twitter_id?:number,
         public vk_id?:number,
-        public register_phone?:number,
+        public register_phone?:string,
         public token?:string,
         public first_name?:string,
         public last_name?:string,
