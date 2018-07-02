@@ -336,6 +336,16 @@ export class BaseComponent{
         };
     }
 
+    MaskHashtag()
+    {
+        return {
+            
+            mask: [/\S/, /\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/],
+            keepCharPositions: false,
+            guide:false
+        };
+    }
+
     /* AUTOCOMPLETE */
     @ViewChild('search') public searchElement: ElementRef;
     protected CreateAutocomplete( callback:(addr:string[], place?:google.maps.places.PlaceResult)=>any)

@@ -41,7 +41,7 @@ export class SocialNewAccComponent extends BaseComponent implements OnInit {
     if(!this.userForm.invalid){
       console.log(`to back`, this.user);
       this.WaitBeforeLoading(       
-        ()=>this.main.authService.UpdateUser(this.user),
+        ()=>this.main.authService.UpdateUserWithoutPass(this.user),
         (res:UserGetModel) => {
           console.log(`res`,res);
             if(this.type=='venue')

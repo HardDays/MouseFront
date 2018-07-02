@@ -175,6 +175,16 @@ export class AuthMainService{
             ()=> this.http.PatchData('/users/me.json',user)
         );
     }
+    UpdateUserWithoutPass(user:UserGetModel){
+        console.log(user);
+        let params={
+            email:user.email,
+        };
+        console.log(params);
+        return this.http.CommonRequest(
+            ()=> this.http.PatchData('/users/me.json',params)
+        );
+    }
 
     CreateAccount(acc:AccountCreateModel){
         return this.http.CommonRequest(
