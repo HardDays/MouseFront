@@ -91,6 +91,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
   isSaveBtnClick:boolean = false;
   isNewEvent = false;
+  isHasVenue = false;
 
   artistPreview:number = 0;
   venuePreview:number = 0;
@@ -145,6 +146,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       this.EventId = $event.id;
       this.router.navigateByUrl("/system/eventCreate/"+this.EventId);
       this.isShowLaunch = this.isShowLaunchBtn();
+      this.isHasVenue = this.Event.venue?true:false;
     }
   }
 
@@ -177,6 +179,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         );
         
         this.isShowLaunch = this.isShowLaunchBtn();
+        this.isHasVenue = this.Event.venue?true:false;
 
       },
       (err) => {
@@ -206,6 +209,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         // this.errorCmp.OpenWindow(BaseMessages.Success);
 
         this.isShowLaunch = this.isShowLaunchBtn();
+        this.isHasVenue = this.Event.venue?true:false;
+
       },
       (err) => {
         console.log(`err`,err);
@@ -317,6 +322,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         this.Event.is_active = true;
         // this.isShowLaunchBtn();
         this.isShowLaunch = false;
+        this.isHasVenue = this.Event.venue?true:false;
+
       },
       (err)=>{
         console.log(`err`,err);
@@ -331,6 +338,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         this.Event.is_active = false;
         // this.isShowLaunchBtn();
         this.isShowLaunch = true;
+        this.isHasVenue = this.Event.venue?true:false;
+
       },
       (err)=>{
         console.log(`err`,err);
