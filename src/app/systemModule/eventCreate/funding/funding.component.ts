@@ -50,8 +50,8 @@ export class FundingComponent extends BaseComponent implements OnInit {
 
 
     getFamilyAndFriendAmount(){
-        let sum =  parseFloat(this.familyAndFriendAmount)/100;
-        return sum*(0.1*(this.artistSum+this.venueSum+this.additionalCosts)+(this.artistSum+this.venueSum+this.additionalCosts));
+        let sum =  this.Event.family_and_friends_amount/100;
+        return sum*(0.1*(this.artistSum+this.venueSum+this.Event.additional_cost)+(this.artistSum+this.venueSum+this.Event.additional_cost));
     }
 
 
