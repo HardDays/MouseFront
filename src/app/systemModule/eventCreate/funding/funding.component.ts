@@ -199,11 +199,12 @@ export class FundingComponent extends BaseComponent implements OnInit {
                         item.object.user_name_not_given = res.user_name;
 
                         if(res.image_id)
-                            this.main.imagesService.GetImageById(res.image_id)
-                            .subscribe((res:Base64ImageModel)=>{
-                                item.object.image_base64_not_given = res.base64;
+                        item.object.image_base64_not_given = this.main.imagesService.GetImagePreview(res.image_id,{width:140,height:140});
+                            // this.main.imagesService.GetImageById(res.image_id)
+                            // .subscribe((res:Base64ImageModel)=>{
+                            //     item.object.image_base64_not_given = res.base64;
                             
-                            });
+                            // });
 
                 });
             }
@@ -220,14 +221,16 @@ export class FundingComponent extends BaseComponent implements OnInit {
         subscribe((res:EventGetModel)=>{
            
             this.Event = this.main.eventService.EventModelToCreateEventModel(res);
-             console.log(`updateEventThis`,this.Event);
-             this.onSave.emit(this.Event);
+            console.log(`updateEventThis`,this.Event);
+            this.onSave.emit(this.Event);
             this.getActiveArtVen();
            
         })  
     }
 
     comleteFunding(){
+        console.log(`before emit`,this.Event);
+        // this.updateEvent();
         this.onSaveEvent.emit(this.Event);
     }
 

@@ -150,19 +150,23 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
   SaveEventByPages(event:EventCreateModel)
   {
+
+    this.Event = event;
+
     if(this.Event.venue){
       delete this.Event['address'];
       delete this.Event['city_lat'];
       delete this.Event['city_lng'];
     }
-
+  
     console.log(`TEST`,this.Event);  
-
+    
     this.Event.account_id = this.CurrentAccount.id;
     this.WaitBeforeLoading
     (
       () => this.EventId == 0 ? this.main.eventService.CreateEvent(this.Event) : this.main.eventService.UpdateEvent(this.EventId,this.Event),
       (res) => {
+        console.log(`WHAT FROM BACK`, res);
         this.DisplayEventParams(res);
 
         this.errorCmp.OpenWindow(BaseMessages.Success);
@@ -311,7 +315,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     this.main.eventService.SetActive(this.EventId,this.main.CurrentAccount.id).
       subscribe((res)=>{
         this.Event.is_active = true;
-        this.isShowLaunchBtn();
+        // this.isShowLaunchBtn();
+        this.isShowLaunch = false;
       },
       (err)=>{
         console.log(`err`,err);
@@ -324,7 +329,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     this.main.eventService.SetDeActive(this.EventId,this.main.CurrentAccount.id).
       subscribe((res)=>{
         this.Event.is_active = false;
-        this.isShowLaunchBtn();
+        // this.isShowLaunchBtn();
+        this.isShowLaunch = true;
       },
       (err)=>{
         console.log(`err`,err);

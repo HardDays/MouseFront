@@ -40,6 +40,7 @@ export class BaseComponent{
     public MyAccounts: AccountGetModel[] = [];
     public accId:number = 0;
     public CurrentAccount:AccountGetModel = new AccountGetModel();
+    public MyUser:UserGetModel = new UserGetModel();
 
     public userCreated:boolean = false;
 
@@ -62,6 +63,7 @@ export class BaseComponent{
             this.accId = this.GetCurrentAccId();
             this.MyAccounts = this.main.MyAccounts;
             this.CurrentAccount = this.main.CurrentAccount;
+            this.MyUser = this.main.MyUser;
         }
 
         
@@ -95,8 +97,17 @@ export class BaseComponent{
             .subscribe(
                 (val:AccountGetModel) =>
                 {
+                    //console.log("acc_change",val);
                     this.CurrentAccount = val;
                     this.accId = this.CurrentAccount.id;
+                }
+            );
+            
+        this.main.UserChange
+            .subscribe(
+                (val:UserGetModel) =>
+                {
+                    this.MyUser = val;
                 }
             );
 
@@ -325,6 +336,16 @@ export class BaseComponent{
         };
     }
 
+    MaskHashtag()
+    {
+        return {
+            
+            mask: [/\S/, /\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/],
+            keepCharPositions: false,
+            guide:false
+        };
+    }
+
     /* AUTOCOMPLETE */
     @ViewChild('search') public searchElement: ElementRef;
     protected CreateAutocomplete( callback:(addr:string[], place?:google.maps.places.PlaceResult)=>any)
@@ -376,6 +397,7 @@ export class BaseComponent{
 
     private getFieldError(field: FormControl, key: string, keyDict: any)
     {
+        console.log(key, keyDict);
         if (field.errors !== null)
         {
             if (field.errors.hasOwnProperty('required'))

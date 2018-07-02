@@ -9,9 +9,9 @@
                       <!-- <li [ngClass]="{'active': CurrentPart==Parts.Preferences}"><a (click)="CurrentPart=Parts.Preferences">Preferences</a></li> -->
                       <!-- <li [ngClass]="{'active': CurrentPart==Parts.FinancialInfo}"><a (click)="CurrentPart=Parts.FinancialInfo">Financial info</a></li> -->
                       <li [ngClass]="{'active': CurrentPart==Parts.Feedback}"><a (click)="CurrentPart=Parts.Feedback">Feedback</a></li>
-                      <li>
-                          <span (click)="CurrentPart=Parts.CustomerSupport" class="opening">Customer support</span>
-                          <ul *ngIf="CurrentPart==Parts.CustomerSupport" class="submenu" style="display:block">
+                      <li [ngClass]="{'active': CurrentPart==Parts.CustomerSupport}">
+                          <span (click)="CustomerSupportClick()" class="opening">Customer support</span>
+                          <ul *ngIf="IsShowCustomerSupport&&CurrentPart==Parts.CustomerSupport" class="submenu" style="display:block">
                               <!-- <li><a (click)="customerPage = CustomerParts.sendQuestion">How to Create an Event</a></li>
                               <li><a (click)="customerPage = CustomerParts.sendQuestion">How to Create a Crowdfunding Event</a></li>
                               <li><a (click)="customerPage = CustomerParts.sendQuestion">How to Search for a Show in my Area</a></li>
@@ -24,6 +24,8 @@
                       <li [ngClass]="{'active': CurrentPart==Parts.TermsOfService}"><a (click)="CurrentPart=Parts.TermsOfService">Terms of service</a></li>
                       <li [ngClass]="{'active': CurrentPart==Parts.PrivacyPolicy}"><a (click)="CurrentPart=Parts.PrivacyPolicy">Privacy policy</a></li>
                   </ul>
+                  <p style="position: relative; left:0; top: 0px; text-align: center;">v.1.1.3</p>
+                 
               </div>
               <!--вместо дива может быть форма-->
               <div class="right-s settings_right">

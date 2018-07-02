@@ -23,9 +23,10 @@ export class NavbarComponent extends BaseComponent implements OnInit
     MyLogo:string = '';
     ngOnInit()
     {
-      this.MyLogo = this.main.MyLogo;
+      // this.MyLogo = this.main.MyLogo;
+      this.MyLogo = this.main.MyUserLogo;
       this.curNav = this.getThisPage();
-      this.main.MyLogoChange.subscribe(
+      this.main.MyUserLogoChange.subscribe(
         (res)=>{
           this.MyLogo = res;
         }
@@ -83,8 +84,14 @@ export class NavbarComponent extends BaseComponent implements OnInit
       setProfile(item:AccountGetModel)
       {
         this.curNav = 'profile';
-        this.router.navigate(['/system/profile',item.id]);
         this.main.CurrentAccountChange.next(item);
+        this.router.navigate(['/system/profile',item.id]);
+        // if (this.router.url === "/system/profile/" + item.id) {
+        //   location.reload();
+        // }
+        // else{
+        //   this.router.navigate(['/system/profile',item.id]);
+        // }
       }
 
       CheckModalWindows(page:string)

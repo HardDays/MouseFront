@@ -15,7 +15,7 @@ import { TokenModel } from '../../../core/models/token.model';
 export class RegisterUserComponent extends BaseComponent implements OnInit {
 
   createUser:UserCreateModel = new UserCreateModel();
-  type:string = 'fan';
+ 
   Error:string = '';
   isFirstOpen:boolean = true;
 
@@ -36,15 +36,14 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
   @ViewChild('errorCmp') errorCmp: ErrorComponent;
 
   registerUser(){
-
     let isNew = true;
     if(!this.isFirstOpen){
       if(this.createUser.email!=this.userForm.value['email'])
       isNew = false;
 
-      if(!isNew){
-        this.backUser.emit(this.type);
-      }
+      // if(!isNew){
+      //   this.backUser.emit(this.type);
+      // }
     }
 
 
@@ -67,7 +66,7 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
         this.errorCmp.OpenWindow('Uncorrect email!');
       else {
 
-        this.createUser.email = this.createUser.email.toLowerCase();
+      this.createUser.email = this.createUser.email.toLowerCase();
 
       this.WaitBeforeLoading(
           ()=>this.main.authService.CreateUser(this.createUser),
@@ -75,12 +74,17 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
               this.main.authService.BaseInitAfterLogin(new TokenModel(res.token));
               this.userCreated = true;
               this.main.authService.onAuthChange$.next(true);
-              if(this.type=='fan')
-                this.backUser.emit(this.type);
-              else if(this.type=='venue')
-                this.router.navigate(['/system','venueCreate','new']);
-              else if(this.type=='artist')
-                this.router.navigate(['/system','artistCreate','new']);
+
+              this.back.emit('info');
+
+              // if(this.type=='fan')
+              //   this.backUser.emit(this.type);
+              // else if(this.type=='venue')
+              //   this.router.navigate(['/system','venueCreate','new']);
+              // else if(this.type=='artist')
+              //   this.router.navigate(['/system','artistCreate','new']);
+
+
           },
           (err) => {
               this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'base'));

@@ -117,7 +117,8 @@
                             <!--выпадашка если авторизован-->
                             <div *ngIf="isLoggedIn" class="dropdown-settings-ava">
                                 <div class="dropdown-items-wr">
-                                    <a [routerLink]="['/system/profile',CurrentAccount.id]" (click)="curNav = 'profile'"><span class="dog">@</span>{{CurrentAccount.user_name}}</a>
+                                    <!-- <a [routerLink]="['/system/profile',CurrentAccount.id]" (click)="curNav = 'profile'"><span class="dog">@</span>{{CurrentAccount.user_name}}</a> -->
+                                    <a><span class="dog">@</span>{{MyUser.user_name}}</a>
                                     <a (click)="curNav = 'messages'" [routerLink]="['/system','messages']">Messages</a>
                                     <span (click)="curNav = 'profile'" [routerLink]="['/system','fanCreate','new']">Create Fan</span>
                                     <span (click)="curNav = 'profile'" [routerLink]="['/system','artistCreate','new']">Create Artist</span>
@@ -125,7 +126,8 @@
                                 </div>
                                 
                                 <div class="dropdown-items-wr">
-                                    <ng-container *ngIf="CurrentAccount && CurrentAccount.account_type">
+                                    <!-- <ng-container *ngIf="CurrentAccount && CurrentAccount.account_type"> -->
+                                    <ng-container>
                                         <!-- <a *ngIf="CurrentAccount.account_type == 'venue'" [routerLink]="['/system/venueCreate',CurrentAccount.id]">Settings</a>
                                         <a *ngIf="CurrentAccount.account_type == 'artist'" [routerLink]="['/system/artistCreate',CurrentAccount.id]">Settings</a>
                                         <a *ngIf="CurrentAccount.account_type == 'fan'" [routerLink]="['/system/fanCreate',CurrentAccount.id]">Settings</a> -->

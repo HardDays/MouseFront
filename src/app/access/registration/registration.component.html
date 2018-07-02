@@ -2,20 +2,26 @@
 <section class="main-router-outlet">
     <section class="login-register">
            
-            <app-register-phone 
-                *ngIf="currentPage=='phone'"
-                (phoneStatus)="onSuccesValidatePhone($event)"
-                (showPhone)="showPhone($event)"
-            ></app-register-phone>
+        <app-register-phone 
+            *ngIf="currentPage=='phone'"
+            (phoneStatus)="onSuccesValidatePhone($event)"
+            (showPhone)="showPhone($event)"
+        ></app-register-phone>
 
 
         <app-register-user 
-               *ngIf="currentPage=='user'"
-                (createUser)="onSuccesCreateUser($event)"
-                (back)="backToPage($event)"
-                [phoneInput]="phone"       
-                [isShowPhone] = "isShowPhone"
+            *ngIf="currentPage=='user'"
+            (createUser)="onSuccesCreateUser($event)"
+            (back)="backToPage($event)"
+            [phoneInput]="phone"       
+            [isShowPhone] = "isShowPhone"
         ></app-register-user>
+
+
+        <app-register-user-info
+            *ngIf="currentPage=='info'"
+            (createUser)="onSuccesCreateUser($event)"
+        ></app-register-user-info>
 
         <app-register-acc  
                 *ngIf="currentPage=='acc'"

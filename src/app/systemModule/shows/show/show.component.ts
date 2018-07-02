@@ -52,15 +52,6 @@ export class ShowItemComponent extends BaseComponent implements OnChanges {
         if(this.Show && this.Show.image_id)
         {
             this.Image = this.main.imagesService.GetImagePreview(this.Show.image_id,{width:500,height:500});
-            // this.main.imagesService.GetImagePreview(this.Show.image_id,{width:500,height:500})
-            //     .subscribe(
-            //         (res:any) => {
-            //             console.log(res);
-            //             //this.Image = (res && res.base64 ) ? res.base64 : BaseImages.Drake;
-
-            //             //console.log(this.Base64ToFile(this.Image));
-            //         }
-            //     );
         }
     }
 
