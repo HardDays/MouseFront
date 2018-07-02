@@ -229,6 +229,8 @@ export class FundingComponent extends BaseComponent implements OnInit {
     }
 
     comleteFunding(){
+        console.log(`before emit`,this.Event);
+        // this.updateEvent();
         this.onSaveEvent.emit(this.Event);
     }
 

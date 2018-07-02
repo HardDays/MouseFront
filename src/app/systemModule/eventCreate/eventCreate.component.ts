@@ -150,19 +150,23 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
   SaveEventByPages(event:EventCreateModel)
   {
+
+    this.Event = event;
+
     if(this.Event.venue){
       delete this.Event['address'];
       delete this.Event['city_lat'];
       delete this.Event['city_lng'];
     }
-
+  
     console.log(`TEST`,this.Event);  
-
+    
     this.Event.account_id = this.CurrentAccount.id;
     this.WaitBeforeLoading
     (
       () => this.EventId == 0 ? this.main.eventService.CreateEvent(this.Event) : this.main.eventService.UpdateEvent(this.EventId,this.Event),
       (res) => {
+        console.log(`WHAT FROM BACK`, res);
         this.DisplayEventParams(res);
 
         this.errorCmp.OpenWindow(BaseMessages.Success);
