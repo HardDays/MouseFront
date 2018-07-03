@@ -58,7 +58,7 @@
                     
                 
 
-            <div *ngFor="let item of Artist.audio_links; let i = index" class="one-audio">
+                <div *ngFor="let item of Artist.audio_links; let i = index" class="one-audio">
                 
                     <div class="delete-track" (click)="deleteAudio(i)"></div>
                     <span class="name-track">{{item.song_name}}</span>
