@@ -1,0 +1,23 @@
+.version-container{
+    width: 410px !important;
+    margin-left: -50px;
+    position: absolute !important; 
+    bottom: 20px !important; 
+}
+.version-text{
+    text-align: center !important;
+}
+
+@media (max-width: 1530px){
+    .version-container{
+        width: calc(30% - 160px) !important;
+        margin-left: 0px;
+    }
+}
+
+@media (max-width: 1199px){
+    .version-container{
+        width:calc( 30% - 80px ) !important;
+        margin-left: -10px;
+    }
+}
