@@ -110,7 +110,8 @@ export class SearchEventsComponent extends BaseComponent implements OnInit {
     {
         this.WaitBeforeLoading(
             () => this.main.genreService.GetAllGenres(),
-            (res:string[]) => {
+            (res:string[]) => 
+            {
                 this.Genres = this.main.genreService.SetHiddenGenres(this.main.genreService.StringArrayToGanreModelArray(res));
             }
         );
