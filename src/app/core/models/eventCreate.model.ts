@@ -51,6 +51,9 @@ export class EventCreateModel{
         public venue?: AccountGetModel,
         public tickets?: TicketModel[],
 
+        public additional_cost?:number,
+        public family_and_friends_amount?:number
+
     )
     {}
 }

@@ -87,10 +87,22 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
 
         //this.Videos = this.accService.GetVideo();
     
+        this.getCurrentProfile();
+        this.main.CurrentAccountChange
+            .subscribe((res)=>
+            {
+                this.getCurrentProfile();
+            }
+            ,(err) =>{console.log(err);
+            })
+    }
+
+    getCurrentProfile()
+    {
         this.initUser();
         this.activatedRoute.params.forEach((params)=>{
             this.UserId = params["id"];
-        this.getUserInfo();
+            this.getUserInfo();
         })
     }
 

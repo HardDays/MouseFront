@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AccountGetModel } from '../../../core/models/accountGet.model';
+import { BaseImages } from '../../../core/base/base.enum';
 
 declare var $:any;
 declare var ionRangeSlider:any;
@@ -22,6 +23,8 @@ export class OneCardComponent implements OnInit {
   @Output('open') open = new EventEmitter<number>();
 
   // @Output('addVenue') addVenue = new EventEmitter<AccountGetModel>();
+
+  emptyImage = BaseImages.NoneUserImage;
 
   ngOnInit() {
     console.log(`card`,this.card, this.status);

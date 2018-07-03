@@ -259,4 +259,14 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
     return;
   }
 
+  preferredVenueTextInput(s:string){
+    console.log(this.preferredVenues);
+    if(s.length>0){
+      this.preferredVenues.find(c=>c.object.type==='other').checked = true;
+    }
+    else {
+      this.preferredVenues.find(c=>c.object.type==='other').checked = false;
+    }
+  }
+
 }

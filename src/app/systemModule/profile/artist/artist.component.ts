@@ -36,7 +36,7 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
     UpcomingShowsChecked:any [] = [];
 
     FansChecked:AccountGetModel[] = [];
-
+    Genres: string[] = [];
     SomeFlagForSlider:boolean = true;
     Albums:Album[] = [];
     AlbumsChecked:Album[] = [];
@@ -51,11 +51,13 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
         if(changes.MyProfileId){
             this.MyProfileId = changes.MyProfileId.currentValue;
         }
-        if(changes.Fans)
+        if(changes.Fans){
             this.FansChecked = this.Fans = changes.Fans.currentValue;
-
+        }
+        // if(changes.Image){
+        //     this.Image = changes.Image.currentValue;
+        // }
         this.InitByUser();
-        
     }
 
     ngOnInit(): void {
@@ -74,7 +76,6 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
         this.AlbumsChecked = this.Albums = this.Account.artist_albums;
     
         // this.GetVideo();
-        
         this.GetUpcomingShows();
         
     }
@@ -84,6 +85,14 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
             this.Account.genres = this.main.genreService.BackGenresToShowGenres(this.Account.genres);
     }
 
+    // GetImage(){
+    //     if (this.Account.image_id) {
+    //         this.main.imagesService.GetImageById(this.Account.image_id)
+    //             .subscribe((res) => {
+    //                 this.Account.image_base64_not_given = res.base64;
+    //             });
+    //     }
+    // }
     // GetVideo()
     // {
     //     this.VideoPath = [];

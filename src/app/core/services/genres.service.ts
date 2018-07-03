@@ -120,6 +120,10 @@ export class GenresService{
     convertToShow(genre:string):string{
         let genre_show = '';
         genre_show = genre.replace('_',' ').toUpperCase();
+        if ( genre_show.indexOf('/') > -1 ) 
+        {
+            genre_show = genre_show.replace("/", " / ");          
+        }
         return genre_show;
     }
 
