@@ -155,6 +155,11 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
       );
     }
 
+    if(!this.Venue.located)
+    {
+      this.Venue.located = "indoors";
+    }
+
     this.VenueImageId = ($venue && $venue.image_id) ? $venue.image_id : 0;
   }
 
@@ -189,7 +194,6 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
 
   SaveVenue()
   {
-    // console.log("Model",this.Venue);
     this.WaitBeforeLoading
     (
       () => this.VenueId == 0 ? this.main.accService.CreateAccount(this.Venue) : this.main.accService.UpdateMyAccount(this.VenueId,this.Venue),

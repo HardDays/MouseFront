@@ -127,3 +127,16 @@ p{
 {
     min-height: 92px;
 }
+.bar-flex-p, .image-type-checkbox{
+    word-break: normal;
+}
+
+.photos-wr-flex-venue .photo-wr-1 .bg-image {
+    width: 100px;
+    height: 100px;
+}
+
+.media-flex-sides .left-side .gradient-box .photo-wr-1 {
+    margin: 20px auto;
+    margin-top: 0px;
+}

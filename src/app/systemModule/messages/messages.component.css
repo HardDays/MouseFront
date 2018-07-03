@@ -4,3 +4,12 @@
     left:50%;
     transform: translate(-50%,-50%);
 }
+.where-when{
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+}
+.messages-main-wrapp .flex-massages-wrapp .left-s .one-msg-l-block .descr-side{
+    min-width: 0;
+}

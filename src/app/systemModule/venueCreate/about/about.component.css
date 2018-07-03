@@ -37,3 +37,16 @@
     background-color: #adadad;
     height: 70px;
 }
+
+.user-name-dog{
+    display: block;
+    position: absolute;
+    top: 29px;
+    left: 0;
+    color: #eb2d64;
+    font-size: 14px;
+    z-index: 300;
+}
+.input-groupe-1.dog input{
+    padding-left: 13px;
+}
