@@ -29,6 +29,8 @@ import { BuyTicketModel } from '../../core/models/buyTicket.model';
 import { MainService } from '../../core/services/main.service';
 import { ErrorComponent } from '../../shared/error/error.component';
 
+import * as moment from 'moment';
+
 declare var $:any;
 declare var PhotoSwipeUI_Default:any;
 declare var PhotoSwipe:any;
@@ -46,6 +48,8 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     Artists:AccountGetModel[] = [];
     Tickets:TicketModel [] = [];
     Venue:AccountGetModel = new AccountGetModel();
+    
+    Date:string = "";
 
     CheckedTickets:any[] = [];
 
@@ -74,6 +78,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     {
         this.activatedRoute.params.forEach((params)=>{
             this.EventId = params["id"];
+            console.log("scroll_position",window.scrollY);
             this.GetEventInfo();
         });
     }
@@ -124,6 +129,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         this.GetFeaturing();
         this.GetVenueInfo();
         this.GetTickets();
+        this.SetDate();
     }
 
     GetFeaturing()
@@ -325,5 +331,32 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
 
         }
         //если да
+    }
+
+    SetDate()
+    {
+        this.Date = "";
+        if(!this.Event.date_from && !this.Event.date_to)
+        {
+            this.Date = this.Event.event_season + ", " + this.Event.event_year;
+            if(this.Event.event_time)
+            {
+                this.Date = this.Date + " - <span>"+this.Event.event_time+"</span>"
+            }
+        }
+        else if (this.Event.date_from && this.Event.date_to)
+        {
+            let from = this.Event.date_from.split("T")[0];
+            let to = this.Event.date_to.split("T")[0];
+            if(from === to){
+                let m = moment(this.Event.date_from);
+                this.Date = m.format('dddd, MMM DD, YYYY HH:mm');
+                this.Date = this.Date + " - <span>"+ moment(this.Event.date_to).format('HH:mm')+"</span>";
+                //this.Date = date.toLocaleDateString('EEEE, MMM d, yyyy HH:mm');
+            }
+            else{
+                this.Date = moment(this.Event.date_from).format('dddd, MMM DD, YYYY HH:mm') + " - " + moment(this.Event.date_to).format('dddd, MMM DD, YYYY HH:mm');
+            }
+        }
     }
 }

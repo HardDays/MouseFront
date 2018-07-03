@@ -14,12 +14,12 @@
                         <label for="inp-create-1">Event name<span>*</span></label>
                     </div>
                     <div class="input-groupe-1">
-                        <input id="inp-create-2" formControlName="hashtag" [(ngModel)]="Event.hashtag" name="" type="text" >
+                        <input id="inp-create-2" formControlName="hashtag" [textMask]="MaskHashtag()" [(ngModel)]="Event.hashtag" name="" type="text" >
                         <label for="inp-create-2">Hashtag<span>*</span></label>
                         
                     </div>
                     <div class="input-groupe-1">
-                        <input id="inp-create-3" name="" type="text" formControlName="tagline" [(ngModel)]="Event.tagline">
+                        <input id="inp-create-3" name="" type="text" [textMask]="MaskHashtag()" formControlName="tagline" [(ngModel)]="Event.tagline">
                         <label for="inp-create-3">Tagline<span>*</span></label>
                        
                     </div>

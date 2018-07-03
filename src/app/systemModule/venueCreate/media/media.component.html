@@ -63,10 +63,7 @@
                             <div *ngIf="ImageToLoad.image_base64" class="bg-image uploaded" (click)="DeleteImageFromLoading()" [ngStyle]="{'background-image': 'url(' + ImageToLoad.image_base64 + ')'}"></div>
                             <!---->
                         </div>
-                        <div class="input-groupe-1 small-textarea whithout-label">
-                            <textarea id="inp-desc-1" name="photo-description" [ngModel]="ImageToLoad.image_description" (ngModelChange)="ImageToLoad.image_description = $event"></textarea>
-                            <label for="inp-desc-1" class="head-groupe">Description</label>
-                        </div>
+                        
                     </div>
                     <div class="flex-genres style-on-add-artist-g">
                         <div class="one-checkbox" *ngFor="let item of ImageTypes;let i = index">
@@ -74,13 +71,17 @@
                                 <input type="radio" class="checkbox" name="image-type-radio" [value]="item.value" [(ngModel)]="ImageToLoad.image_type" id="checkbox-photo-{{+i+1}}">
                                 <label for="checkbox-photo-{{+i+1}}"></label>
                             </div>
-                            <p>{{item.name}}</p>
+                            <p class="image-type-checkbox">{{item.name}}</p>
                         </div>
                     </div>
                     <div class="input-groupe-1 small-textarea whithout-label" *ngIf="ImageToLoad.image_type == 'other'">
                         <textarea id="inp-other-1" [ngModel]="ImageToLoad.image_type_description" (ngModelChange)="ImageToLoad.image_type_description = $event"></textarea>
                         <label for="inp-other-1" class="head-groupe">Other</label>
                     </div>
+                    <div class="input-groupe-1 small-textarea whithout-label">
+                            <textarea id="inp-desc-1" name="photo-description" [ngModel]="ImageToLoad.image_description" (ngModelChange)="ImageToLoad.image_description = $event"></textarea>
+                            <label for="inp-desc-1" class="head-groupe">Description</label>
+                        </div>
                     <div class="butt-wrapp-grad">
                         <button (click)="AddVenuePhoto()" [disabled]="!ImageToLoad" class="butt-style-1 thot-butt" type="submit">
                             <span>Add to Photos</span>

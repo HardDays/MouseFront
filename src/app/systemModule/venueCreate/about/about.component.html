@@ -25,8 +25,9 @@
                             <input id="inp-create-1" autocomplete="off" [(ngModel)]="Venue.display_name" formControlName="venue_name" name="" type="text">
                             <label for="inp-create-1">Venue Name<span>*</span></label>
                         </div>
-                        <div class="input-groupe-1">
-                            <input id="inp-create-2" autocomplete="off" [(ngModel)]="Venue.user_name" formControlName="mouse_name" name="" type="text">
+                        <div class="input-groupe-1 dog">
+                            <span class="user-name-dog">@</span>
+                            <input id="inp-create-2" autocomplete="off" [textMask]="MaskHashtag()" [(ngModel)]="Venue.user_name" formControlName="mouse_name" name="" type="text">
                             <label for="inp-create-2">Mouse Username<span>*</span></label>
                             
                         </div>

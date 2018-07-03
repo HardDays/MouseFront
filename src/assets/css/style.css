@@ -2109,6 +2109,13 @@ footer {
       .head-info-profile-wr .head-info-profile .side-3 .desc-wr .description {
         color: #fff; }
 
+.settings-artist-v {
+  width: 25px;
+  height: 26px;
+  background-image: url(../img/settings.png);
+  display: block;
+  cursor: pointer; }
+
 .for-white-bg {
   background: #fff;
   position: relative; }
@@ -7553,6 +7560,264 @@ footer {
 .new-photos-wr-scroll-preview .rel-wr-photoos .photos-abs-wrapp .one-slide .wrapp-card .descr.m-h-artist-prev {
   min-height: 95px; }
 
+.tiny-calendar-wrapper .days .black-bg-dates {
+  display: none; }
+.tiny-calendar-wrapper .days .popup-set-price-wr {
+  display: none; }
+.tiny-calendar-wrapper .days.set-date-popup .one-day-wr.pickedday {
+  position: relative;
+  z-index: 4000;
+  background: #fff; }
+.tiny-calendar-wrapper .days.set-date-popup .black-bg-dates {
+  position: fixed;
+  left: 0;
+  display: block;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2000;
+  background: rgba(0, 0, 0, 0.5); }
+.tiny-calendar-wrapper .days.set-date-popup .popup-set-price-wr {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 263px;
+  background: #fff;
+  z-index: 3000;
+  border-radius: 6px;
+  padding: 14px; }
+  .tiny-calendar-wrapper .days.set-date-popup .popup-set-price-wr .flex-price-inp {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    position: relative;
+    margin-bottom: 10px; }
+    .tiny-calendar-wrapper .days.set-date-popup .popup-set-price-wr .flex-price-inp .inp-desc {
+      width: 70px;
+      -ms-flex-negative: 0;
+          flex-shrink: 0;
+      font-size: 16px;
+      opacity: 0.5;
+      background-repeat: no-repeat;
+      background-position: center left;
+      padding-left: 24px;
+      margin-bottom: 0; }
+      .tiny-calendar-wrapper .days.set-date-popup .popup-set-price-wr .flex-price-inp .inp-desc.d-inp {
+        background-image: url(../img/sun.png); }
+      .tiny-calendar-wrapper .days.set-date-popup .popup-set-price-wr .flex-price-inp .inp-desc.n-inp {
+        background-image: url(../img/night.png); }
+    .tiny-calendar-wrapper .days.set-date-popup .popup-set-price-wr .flex-price-inp input {
+      font-size: 16px;
+      outline: none;
+      border: none;
+      background: transparent;
+      border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
+      display: block;
+      width: 100%;
+      text-align: right;
+      padding: 8px 25px 8px 0; }
+    .tiny-calendar-wrapper .days.set-date-popup .popup-set-price-wr .flex-price-inp span {
+      display: block;
+      position: absolute;
+      top: 8px;
+      right: 0;
+      color: #918f90; }
+  .tiny-calendar-wrapper .days.set-date-popup .popup-set-price-wr .flex-select-range {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    margin-bottom: 20px; }
+    .tiny-calendar-wrapper .days.set-date-popup .popup-set-price-wr .flex-select-range p {
+      margin-bottom: 0;
+      width: 30px;
+      -ms-flex-negative: 0;
+          flex-shrink: 0;
+      font-size: 16px;
+      opacity: 0.5; }
+    .tiny-calendar-wrapper .days.set-date-popup .popup-set-price-wr .flex-select-range .input-groupe-1 {
+      padding-top: 0;
+      margin-bottom: 0; }
+  .tiny-calendar-wrapper .days.set-date-popup .popup-set-price-wr .buttons-pop {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    padding-top: 10px; }
+    .tiny-calendar-wrapper .days.set-date-popup .popup-set-price-wr .buttons-pop .resend-reg {
+      color: #eb2d64;
+      border-color: #eb2d64;
+      width: 90px;
+      padding: 3px 0; }
+    .tiny-calendar-wrapper .days.set-date-popup .popup-set-price-wr .buttons-pop .continue-wr {
+      width: 71px;
+      margin: 0 auto; }
+      .tiny-calendar-wrapper .days.set-date-popup .popup-set-price-wr .buttons-pop .continue-wr .butt-style-1 {
+        border-width: 5px; }
+        .tiny-calendar-wrapper .days.set-date-popup .popup-set-price-wr .buttons-pop .continue-wr .butt-style-1 span {
+          padding: 5px 0;
+          text-align: center; }
+.tiny-calendar-wrapper.big-calendar-wrapper {
+  width: 100%;
+  background-color: #ffffff;
+  -webkit-box-shadow: 0px 4px 18px 0 rgba(83, 57, 192, 0.19);
+          box-shadow: 0px 4px 18px 0 rgba(83, 57, 192, 0.19);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+  .tiny-calendar-wrapper.big-calendar-wrapper .top-calendar-nav {
+    max-width: 525px; }
+  .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar {
+    max-width: 100%; }
+    .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .weekday-wrapp .one-week-day {
+      text-align: right;
+      padding-right: 10px; }
+    .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days {
+      position: relative; }
+    .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr {
+      height: 105px;
+      padding-top: 5px;
+      padding-right: 5px;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      border-left: 1px solid rgba(0, 0, 0, 0.1);
+      margin-bottom: 0;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+              flex-direction: column; }
+      .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr:first-child {
+        border-left: none !important; }
+      .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr:nth-child(7n + 1) {
+        border-left: none !important; }
+      .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr.un-active {
+        background-color: #e8e8e8; }
+        .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr.un-active .one-day p {
+          font-family: AvenirLTStdBook;
+          color: rgba(0, 0, 0, 0.5); }
+      .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr.not-active-month .one-day p {
+        font-family: AvenirLTStdBook;
+        color: rgba(0, 0, 0, 0.5); }
+      .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr .one-day {
+        margin-right: 0;
+        width: 33px;
+        height: 33px; }
+        .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr .one-day p {
+          font-family: AvenirLTStdMedium;
+          color: #000; }
+        .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr .one-day .popup-inform-tiny-calendar {
+          -webkit-transform: translateY(18%);
+                  transform: translateY(18%); }
+      .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr .prices {
+        margin-bottom: 15px;
+        margin-top: auto;
+        height: 42px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column; }
+        .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr .prices p {
+          margin-bottom: 0;
+          color: rgba(0, 0, 0, 0.5);
+          font-size: 12px;
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-pack: end;
+              -ms-flex-pack: end;
+                  justify-content: flex-end;
+          position: relative; }
+          .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr .prices p span {
+            display: block;
+            padding-right: 30px;
+            background-repeat: no-repeat;
+            background-position: top right 5px;
+            padding-left: 10px;
+            position: relative;
+            border-radius: 50px;
+            z-index: 10; }
+          .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr .prices p.morning {
+            margin-bottom: 6px; }
+            .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr .prices p.morning span {
+              background-image: url(../img/sun.png); }
+          .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr .prices p.night {
+            margin-top: auto; }
+            .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr .prices p.night span {
+              background-image: url(../img/night.png);
+              background-position: top 1px right 5px; }
+      .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr.changed-price .prices p.morning.changed-price-morning span {
+        background-color: #ffc28b;
+        color: #fff;
+        background-image: url(../img/sun-white.png); }
+      .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr.changed-price .prices p.night.changed-price-night span {
+        background-color: #a9bdff;
+        color: #fff;
+        background-image: url(../img/night-white.png); }
+      .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr.changed-price + .changed-price:nth-child(7n + 1) .prices p.morning.changed-price-morning:before {
+        display: none; }
+      .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr.changed-price + .changed-price:nth-child(7n + 1) .prices p.morning.changed-price-morning:after {
+        display: none; }
+      .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr.changed-price + .changed-price:nth-child(7n + 1) .prices p.night.changed-price-night:before {
+        display: none; }
+      .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr.changed-price + .changed-price:nth-child(7n + 1) .prices p.night.changed-price-night:after {
+        display: none; }
+      .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr.changed-price + .changed-price .prices p.morning.changed-price-morning:before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 10px;
+        height: 100%;
+        background-color: #ffc28b;
+        width: 130px; }
+      .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr.changed-price + .changed-price .prices p.morning.changed-price-morning:after {
+        content: "";
+        display: block;
+        position: absolute;
+        right: 100%;
+        top: 0;
+        height: 100%;
+        width: 1px;
+        background: rgba(0, 0, 0, 0.1); }
+      .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr.changed-price + .changed-price .prices p.night.changed-price-night:before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 10px;
+        height: 100%;
+        background-color: #a9bdff;
+        width: 130px; }
+      .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr.changed-price + .changed-price .prices p.night.changed-price-night:after {
+        content: "";
+        display: block;
+        position: absolute;
+        right: 100%;
+        top: 0;
+        height: 100%;
+        width: 1px;
+        background: rgba(0, 0, 0, 0.1); }
 .tiny-calendar-wrapper .top-calendar-nav {
   display: -webkit-box;
   display: -ms-flexbox;

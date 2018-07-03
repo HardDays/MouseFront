@@ -165,7 +165,7 @@
                         </div>
                     </div>
                     <div class="input-groupe-1 whithout-label small-textarea max-500 max-100">  
-                        <textarea maxlength="100" [(ngModel)]="Artist.preferred_venue_text"></textarea>
+                        <textarea maxlength="100" (input)="preferredVenueTextInput($event.target.value)" [(ngModel)]="Artist.preferred_venue_text"></textarea>
                         <span class="max-count">100 max</span>
                     </div>
                 </div>

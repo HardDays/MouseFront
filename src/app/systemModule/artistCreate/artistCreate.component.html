@@ -87,8 +87,9 @@
 
             <app-artist-riders #RidersPage *ngIf="currentPage == pages.riders"
                 [Artist]="Artist" 
-                (OnSave)="SaveArtistByPages($event)" 
+                (OnSave)="SaveArtistByPages($event,false)" 
                 (openNextPage)="NextPart()"
+                (OnSaveButton)="SaveArtist($event)"
             >
             </app-artist-riders>
 

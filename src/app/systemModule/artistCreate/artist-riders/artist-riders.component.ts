@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, NgZone, ChangeDetectorRef, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, NgZone, ChangeDetectorRef, EventEmitter, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { AccountCreateModel, Rider } from '../../../core/models/accountCreate.model';
 import { BaseComponent } from '../../../core/base/base.component';
 import { MainService } from '../../../core/services/main.service';
@@ -6,6 +6,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MapsAPILoader } from '@agm/core';
 import * as FileSaver from 'file-saver';
+import { RiderComponent } from './rider/rider.component';
 
 @Component({
   selector: 'app-artist-riders',
@@ -17,9 +18,15 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
   @Input() Artist:AccountCreateModel;
 
   @Output() OnSave = new EventEmitter<AccountCreateModel>();
+  @Output() OnSaveButton = new EventEmitter<AccountCreateModel>();
+  
   @Output() OnError = new EventEmitter<string>();
-
   @Output() openNextPage = new EventEmitter();
+
+  @ViewChild('STAGE') STAGE: RiderComponent;
+  @ViewChild('BACKSTAGE') BACKSTAGE: RiderComponent;
+  @ViewChild('HOSPITALITY') HOSPITALITY: RiderComponent;
+  @ViewChild('TECHNICAL') TECHNICAL: RiderComponent;
 
   riders:Rider[] = [];
   stageRider:Rider= new Rider();
@@ -42,27 +49,26 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     this.getRiders();
   }
+  ngAfterViewChecked()
+  {
+      this.cdRef.detectChanges();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+      if(changes.Artist)
+          {
+            this.Artist = changes.Artist.currentValue;
+            this.getRiders();
+          }
+  }
+
   Init(artist:AccountCreateModel){
     this.Artist = artist;
     this.getRiders();
   }
 
-  loadRiderFile($event:any){
-    let target = $event.target;
-    let file:File = target.files[0];
-  
-    for(let file of target.files)
-    {
-      let reader:FileReader = new FileReader();
-      reader.onload = (e) =>{
-        this.stageRider.uploaded_file_base64 = reader.result;
-      }
-      reader.readAsDataURL(file);
-    }
- 
-  }
 
-    getRiders(){
+  getRiders(){
     if(this.Artist&&this.Artist.artist_riders){
       this.riders = [];
       for(let r of this.Artist.artist_riders){
@@ -79,147 +85,49 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
     }
   }
 
-
-    confirmStageRider(){
-
-    this.stageRider.rider_type = 'stage';
-
-    if(!this.stageRider.is_flexible)
-      this.stageRider.is_flexible = false;
-    else 
-      this.stageRider.is_flexible = true;
-    this.Artist.artist_riders.push(this.stageRider);
-    
-    this.saveArtist();
-    // this.updateArtistByCreateArtist();
-  }
-
-  confirmTechnicalRider(){
-
-    this.technicalRider.rider_type = 'technical';
-
-    if(!this.technicalRider.is_flexible)
-      this.technicalRider.is_flexible = false;
-    else 
-      this.technicalRider.is_flexible = true;
-    this.Artist.artist_riders.push(this.technicalRider);
-    
-    this.saveArtist();
-    // this.updateArtistByCreateArtist();
-  }
-  loadTechnicalRiderFile($event:any){
-    let target = $event.target;
-    let file:File = target.files[0];
-    
-    for(let file of target.files)
-    {
-      let reader:FileReader = new FileReader();
-      reader.onload = (e) =>{
-        this.technicalRider.uploaded_file_base64 = reader.result;
-      }
-      reader.readAsDataURL(file);
+  DeleteRiderById(id:number){
+    let index = this.riders.indexOf(this.riders.find(r=>r.id===id));
+    if(index>=0){
+      this.riders.splice(index,1);
+      this.Artist.artist_riders = this.riders;
+      this.saveArtist();
     }
-   
   }
 
-  confirmBackstageRider(){
-
-    this.backstageRider.rider_type = 'backstage';
-
-    if(!this.backstageRider.is_flexible)
-    this.backstageRider.is_flexible = false;
-    else 
-    this.backstageRider.is_flexible = true;
-   
-    this.Artist.artist_riders.push(this.backstageRider);
-    
-    this.saveArtist();
-    // this.updateArtistByCreateArtist();
-  }
-  loadBackstageRiderFile($event:any){
-    let target = $event.target;
-    let file:File = target.files[0];
-    
-    for(let file of target.files)
-    {
-      let reader:FileReader = new FileReader();
-      reader.onload = (e) =>{
-        this.backstageRider.uploaded_file_base64 = reader.result;
+  SaveRider(rider:Rider){
+    console.log(rider,this.riders);
+    if(rider.id){
+      let index = this.riders.indexOf(this.riders.find(r=>r.id===rider.id));
+      if(index>=0){
+        this.riders.splice(index,1);
       }
-      reader.readAsDataURL(file);
     }
-   
-  }
-
-  confirmHospitalityRider(){
-
-    this.hospitalityRider.rider_type = 'hospitality';
-
-    if(!this.hospitalityRider.is_flexible)
-    this.hospitalityRider.is_flexible = false;
-      else 
-    this.hospitalityRider.is_flexible = true;
-    
-    this.Artist.artist_riders.push(this.hospitalityRider);
-    
-    this.saveArtist();
-    // this.updateArtistByCreateArtist();
-  }
-  loadHospitalityRiderFile($event:any){
-    let target = $event.target;
-    let file:File = target.files[0];
-    
-    for(let file of target.files)
-    {
-      let reader:FileReader = new FileReader();
-      reader.onload = (e) =>{
-        this.hospitalityRider.uploaded_file_base64 = reader.result;
-      }
-      reader.readAsDataURL(file);
-    }
-   
+    this.riders.push(rider);
+    this.Artist.artist_riders = this.riders;
+    this.saveArtist(); 
   }
 
   saveArtist(){
-    console.log(`riders`,this.Artist);
+    console.log(`to save`, this.Artist);
     this.OnSave.emit(this.Artist);
   }
 
-  downloadFile(data: Response){
-    this.main.accService.GetRiderById(this.Artist.artist_riders[0].id)
-    .subscribe((res)=>{
-      let type = res.uploaded_file_base64.split(';base64,')[0];
-      let file = res.uploaded_file_base64.split(';base64,')[1];
-      var blob = new Blob([file], { type: type });
-      var url = window.URL.createObjectURL(blob);
-      window.open(url);
-    }, (err)=>{
-      console.log(err);
-    })
-   
+  saveAllRiders(){
+    // console.log(this.STAGE.isConfirmRider,this.BACKSTAGE.isConfirmRider,this.HOSPITALITY.isConfirmRider,this.TECHNICAL.isConfirmRider);
+    return this.STAGE.isConfirmRider &&
+    this.BACKSTAGE.isConfirmRider &&
+    this.HOSPITALITY.isConfirmRider &&
+    this.TECHNICAL.isConfirmRider;
+    // this.saveArtist();
+
   }
 
   nextPage(){
+    this.saveArtist();
     this.openNextPage.emit();
   }
 
-  downloadTemplate(){
-    const blob = new Blob(['124'],
-      { type: 'application/vnd.ms-excel;charset=utf-16le' });
-     const file = new File([blob], 'template.xls',
-      { type: 'application/vnd.ms-excel;charset=utf-16le' });
 
-    //   var url = window.URL.createObjectURL(file);
-      // url.download = '';
-      // window.open(url);
-     // saveAs(blob, filename+".txt");
-
-     let blob2 = new Blob([], {
-      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-16le"
-      });
-
-      FileSaver.saveAs(file, "template.xls"); 
-  }
 
 
 

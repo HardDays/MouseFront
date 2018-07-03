@@ -24,7 +24,7 @@ export enum VenueType{
 export enum BaseImages{
     Drake = "../../assets/img/show.png",
     NoneUserImage = "../../assets/img/non-photo.svg",
-    NoneFolowerImage = "../../asses/img/non-photo-2.svg"
+    NoneFolowerImage = "../../assets/img/non-photo-2.svg"
 }
 
 export enum BaseErrors{
@@ -87,6 +87,8 @@ export enum ArtistFields {
 
 export enum FanFields {
   user_name = 'Username',
+  first_name = 'First name',
+  last_name = 'Last name',
 }
 
 export enum EventFields {

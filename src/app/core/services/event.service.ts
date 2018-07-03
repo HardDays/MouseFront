@@ -187,6 +187,12 @@ export class EventService{
         );
     }
 
+    GetAnalytics(id:number){
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/events/'+id+'/analytics.json', this.typeService.ParamsToUrlSearchParams({id}))
+        );
+    }
+
 
     /*тикеты*/
     GetAllTicketsCurrent(myId,CurrOrPass){

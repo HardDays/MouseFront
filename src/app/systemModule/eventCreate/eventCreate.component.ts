@@ -91,6 +91,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
   isSaveBtnClick:boolean = false;
   isNewEvent = false;
+  isHasVenue = false;
 
   artistPreview:number = 0;
   venuePreview:number = 0;
@@ -145,24 +146,29 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       this.EventId = $event.id;
       this.router.navigateByUrl("/system/eventCreate/"+this.EventId);
       this.isShowLaunch = this.isShowLaunchBtn();
+      this.isHasVenue = this.Event.venue?true:false;
     }
   }
 
   SaveEventByPages(event:EventCreateModel)
   {
+
+    this.Event = event;
+
     if(this.Event.venue){
       delete this.Event['address'];
       delete this.Event['city_lat'];
       delete this.Event['city_lng'];
     }
-
+  
     console.log(`TEST`,this.Event);  
-
+    
     this.Event.account_id = this.CurrentAccount.id;
     this.WaitBeforeLoading
     (
       () => this.EventId == 0 ? this.main.eventService.CreateEvent(this.Event) : this.main.eventService.UpdateEvent(this.EventId,this.Event),
       (res) => {
+        console.log(`WHAT FROM BACK`, res);
         this.DisplayEventParams(res);
 
         this.errorCmp.OpenWindow(BaseMessages.Success);
@@ -173,6 +179,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         );
         
         this.isShowLaunch = this.isShowLaunchBtn();
+        this.isHasVenue = this.Event.venue?true:false;
 
       },
       (err) => {
@@ -202,6 +209,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         // this.errorCmp.OpenWindow(BaseMessages.Success);
 
         this.isShowLaunch = this.isShowLaunchBtn();
+        this.isHasVenue = this.Event.venue?true:false;
+
       },
       (err) => {
         console.log(`err`,err);
@@ -313,6 +322,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         this.Event.is_active = true;
         // this.isShowLaunchBtn();
         this.isShowLaunch = false;
+        this.isHasVenue = this.Event.venue?true:false;
+
       },
       (err)=>{
         console.log(`err`,err);
@@ -327,6 +338,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         this.Event.is_active = false;
         // this.isShowLaunchBtn();
         this.isShowLaunch = true;
+        this.isHasVenue = this.Event.venue?true:false;
+
       },
       (err)=>{
         console.log(`err`,err);

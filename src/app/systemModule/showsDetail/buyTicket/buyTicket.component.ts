@@ -28,7 +28,7 @@ export class ByTicketComponent extends BaseComponent implements OnInit {
 
         this.onAddTickets.emit(object);
         this.Ticket.count -= this.Count;
-        this.Count = 0;
+        //this.Count = 0;
     }
 
     ChangeCount(int:number)

@@ -22,23 +22,27 @@ export class ShowDetailGalleryComponent extends BaseComponent implements OnChang
         if(changes.Venue)
         {
             this.Venue = changes.Venue.currentValue;
+           
         }
         if(changes.Artists)
         {
             this.Artists = changes.Artists.currentValue;
+            
         }
         this.GetImages();
     }
 
     GetImages()
     {
-        this.Images = [];
+        // this.Images = [];
         if(this.Venue && this.Venue.id)
         {
+            this.Images = [];
             this.GetImageByAccount(this.Venue.id);
         }
         if(this.Artists && this.Artists.length)
         {
+            this.Images = [];
             for(let item of this.Artists)
             {
                 this.GetImageByAccount(item.id);
@@ -91,7 +95,7 @@ export class ShowDetailGalleryComponent extends BaseComponent implements OnChang
         // }
         setTimeout(()=>{
             this.InitSliderWrapp();
-        },500);
+        },2500);
     }
 
     InitSliderWrapp() 
