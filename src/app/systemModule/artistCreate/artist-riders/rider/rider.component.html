@@ -1,0 +1,66 @@
+
+  <p class="head-side-riders">{{Type}} Rider</p>
+  <p class="desc-riders">{{RidersDesc[Type]}}</p>
+
+  <div class="download-upload">
+      <!--до загрузки файла-->
+  
+      <ng-container *ngIf="!Rider.id&&!Rider.uploaded_file_base64" >
+          <div class="side-dwn">
+              <a (click)="downloadTemplate()" class="dd-ff">
+                  <img src="../../../assets/img/download.png" class="img-responsive" alt="">
+              </a>
+              <p class="desc-side-dwn">Press to Downlod Template</p>
+          </div>
+          <div class="side-dwn">
+              <div class="photo-wr-1 on-riders">
+                  <label class="file_upload">
+                      <div class="bg-image"></div>
+
+                      <input  (change)="loadRiderFile($event)"  type="file">
+                  </label>
+              </div>
+              <p class="desc-side-dwn">Press to Upload filled Template</p>
+          </div>
+      </ng-container>
+      <!--после загрузки файла-->
+      <div  *ngIf="Rider.id||Rider.uploaded_file_base64" class="side-dwn">
+          <div class="file-uploaded">
+              <div class="delete-file" (click)="deleteRider()"></div>    
+          </div>
+          <p class="desc-side-dwn">File uploded</p>
+      </div>
+      <!--//после загрузки файла-->
+      
+  </div>
+  <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">
+      <textarea maxlength="2000"  [(ngModel)]="Rider.description" id="textarea-rider-{{Type}}"></textarea>
+      <label for="textarea-rider-{{Type}}" class="head-groupe">Description</label>
+      <span class="max-count">2000 max</span>
+  </div>
+  <div class="flex-mac-checkbox direction-column on-add-artist-page">
+      <p class="quetion-radio-text">How flexible are you for your preferences?</p>
+      <div  class="flex-radio">
+          <div class="one-radio">
+              <div class="radio-style">
+                  <input [(ngModel)]="Rider.is_flexible" type="radio" class="radio-b" [value]="true" id="radio-{{Type}}" name="grope-rider-{{Type}}" checked="">
+                  <label for="radio-{{Type}}"></label>
+              </div>
+              <p>Flexible</p>
+          </div>
+          <div class="one-radio">
+              <div class="radio-style">
+                  <input [(ngModel)]="Rider.is_flexible" type="radio" class="radio-b" id="radio-{{Type}}-2" [value]="false" name="grope-rider-{{Type}}">
+                  <label for="radio-{{Type}}-2"></label>
+              </div>
+              <p>Not Flexible</p>
+          </div>
+      </div>
+  </div>
+  <!--походу эта кнопка когдато появлятся должна-->
+  <div class="butt-wrapp-grad">
+      <button (click)="confirmRider()" class="butt-style-1 thot-butt" type="submit">
+          <span>confirm</span>
+      </button>   
+  </div>
+  <!--//походу эта кнопка когдато появлятся должна-->

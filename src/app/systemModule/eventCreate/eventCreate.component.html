@@ -20,7 +20,7 @@
                         <li [ngClass]="{'active':currentPage == pages.funding,'started':currentPage != pages.funding}">
                             <a (click)="ChangeCurrentPart(pages.funding)" class="nav-second-outlet">funding</a>
                         </li>
-                        <li [ngClass]="{'active':currentPage == pages.tickets,'started':currentPage != pages.tickets}">
+                        <li *ngIf="isHasVenue" [ngClass]="{'active':currentPage == pages.tickets,'started':currentPage != pages.tickets}">
                             <a (click)="ChangeCurrentPart(pages.tickets)" class="nav-second-outlet">tickets</a>
                         </li>
                         <!-- <li [ngClass]="{'active':currentPage == pages.preview,'started':currentPage != pages.preview}">
@@ -83,12 +83,12 @@
             
             <app-funding #funding *ngIf="!isLoading&&(currentPage==pages.funding)"
                 [Event]="Event"
-                (onSaveEvent)="SaveEventByPages()"
+                (onSaveEvent)="SaveEventByPages($event)"
                 (onSave)="SaveEventByPagesWithoutNextPart($event)"
                 (onError)="OpenErrorWindow($event)"
             ></app-funding>
             
-            <app-add-tickets #tickets *ngIf="!isLoading&&(currentPage==pages.tickets)"
+            <app-add-tickets #tickets *ngIf="!isLoading&&(currentPage==pages.tickets)&&isHasVenue"
                 [Event]="Event"
                 (onSaveEvent)="SaveEventByPages($event)"
                 (onError)="OpenErrorWindow($event)"

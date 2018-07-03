@@ -95,7 +95,7 @@ export class ShowDetailGalleryComponent extends BaseComponent implements OnChang
         // }
         setTimeout(()=>{
             this.InitSliderWrapp();
-        },2500);
+        },2000);
     }
 
     InitSliderWrapp() 

@@ -32,6 +32,8 @@ export class AddTicketsComponent extends BaseComponent implements OnInit {
   ticketsNew:TicketModel[] = [];
   currentTicket:TicketModel = new TicketModel();
   isCurTicketNew:boolean = false;
+
+  analitics:any;
   
   
   ngOnInit() {
@@ -62,14 +64,25 @@ export class AddTicketsComponent extends BaseComponent implements OnInit {
     params.account_id = this.CurrentAccount.id;
     params.event_id = this.Event.id;
   
-    if(this.Event&&this.Event.tickets)
-    for(let t of this.Event.tickets){
-        params.id = t.id;
-        this.main.eventService.GetTickets(params).
-            subscribe((res:TicketModel)=>{
-                this.tickets.push(res);
-                this.currentTicket = this.tickets[0];
-            }); 
+    if(this.Event&&this.Event.tickets){
+
+        this.main.eventService.GetAnalytics(this.Event.id)
+            .subscribe((res)=>{
+                this.analitics = res;
+            },
+            (err)=>{
+                console.log(`err`,err);
+            }
+        )
+        
+        for(let t of this.Event.tickets){
+            params.id = t.id;
+            this.main.eventService.GetTickets(params).
+                subscribe((res:TicketModel)=>{
+                    this.tickets.push(res);
+                    this.currentTicket = this.tickets[0];
+                });
+        }
     }
     
 }

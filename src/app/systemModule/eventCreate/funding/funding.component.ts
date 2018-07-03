@@ -50,8 +50,8 @@ export class FundingComponent extends BaseComponent implements OnInit {
 
 
     getFamilyAndFriendAmount(){
-        let sum =  parseFloat(this.familyAndFriendAmount)/100;
-        return sum*(0.1*(this.artistSum+this.venueSum+this.additionalCosts)+(this.artistSum+this.venueSum+this.additionalCosts));
+        let sum =  this.Event.family_and_friends_amount/100;
+        return sum*(0.1*(this.artistSum+this.venueSum+this.Event.additional_cost)+(this.artistSum+this.venueSum+this.Event.additional_cost));
     }
 
 
@@ -199,11 +199,12 @@ export class FundingComponent extends BaseComponent implements OnInit {
                         item.object.user_name_not_given = res.user_name;
 
                         if(res.image_id)
-                            this.main.imagesService.GetImageById(res.image_id)
-                            .subscribe((res:Base64ImageModel)=>{
-                                item.object.image_base64_not_given = res.base64;
+                        item.object.image_base64_not_given = this.main.imagesService.GetImagePreview(res.image_id,{width:140,height:140});
+                            // this.main.imagesService.GetImageById(res.image_id)
+                            // .subscribe((res:Base64ImageModel)=>{
+                            //     item.object.image_base64_not_given = res.base64;
                             
-                            });
+                            // });
 
                 });
             }
@@ -228,6 +229,8 @@ export class FundingComponent extends BaseComponent implements OnInit {
     }
 
     comleteFunding(){
+        console.log(`before emit`,this.Event);
+        // this.updateEvent();
         this.onSaveEvent.emit(this.Event);
     }
 

@@ -13,7 +13,7 @@
                                
                                 <div *ngIf="MyProfileId == Account.id" class="edit-and-settings">
                                     <!-- <a [routerLink]="['/system/edit',UserId]" class="edit-profile">Edit profile</a> -->
-                                    <a [routerLink]="['/system/artistCreate',Account.id]" class="edit-profile">Edit profile</a>
+                                    <a [routerLink]="['/system/artistCreate',Account.id]" class="settings-artist-v"></a>
 
                                 </div>
                             </div>
@@ -59,6 +59,48 @@
                                     </ng-container>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="uniq-padd-2">
+                        <div class="main-mw">
+                            <div class="flex--info none-padd-sides-b none-padd-sides-t-without-h">
+                                <div class="side side-info side-about ">
+                                    <h6>SONGS</h6>
+                                </div>
+                                <div class="side side-info side-contact un-padd-on-1560"></div>
+                                <div class="side side-info side-map"></div>
+                            </div>
+                        </div>
+                        <div class="main-mw">
+                            <div class="styles-audio-list">
+                                <div *ngFor="let item of Account.audio_links | slice:0:countAudio; let i = index" class="audio-wrapper">
+                                    <div  class="one-audio">
+                
+                                        <!-- <div class="delete-track" (click)="deleteAudio(i)"></div> -->
+                                        <span class="name-track">{{item.song_name}}</span>
+                                        <div class="audiojs">
+                                            <div class="play-pause">
+                                                <p *ngIf="audioId != i+1" (click)="audioId = i+1; playAudio(item.audio_link)" id="track-{{i}}" class="play"></p>
+                                                <p *ngIf="audioId == i+1" (click)="audioId = 0; stopAudio()" class="pause"></p>
+                                                <!-- <p class="loading"></p>
+                                                <p class="error"></p> -->
+                                            </div>
+                                            <div class="scrubber" >
+                                                <div class="progress"></div>
+                                                <div class="loaded"></div>
+                                            </div>
+                                            <div class="time">
+                                                <em class="played">00:00</em>
+                                                <!-- <strong class="duration">{{audioId == i+1 && audioDuration>0 ?audioDuration/100:''}}</strong> -->
+                                            </div>
+                                        </div> 
+                                    </div>
+                                </div>
+                               
+                                
+                                <button *ngIf="countAudio<Account.audio_links.length" class="see-all" (click)="countAudio = Account.audio_links.length">SEE ALL</button>
+                            </div>
+                           
                         </div>
                     </div>
                     <div class="uniq-padd-2">

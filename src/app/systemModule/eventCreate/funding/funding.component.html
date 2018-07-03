@@ -109,13 +109,13 @@
                     </div>
                     <div class="additional-costs">
                         <p class="addit-t">Additional Costs</p>
-                        <p class="price">$ <input class="additionalCosts"  name="" type="number" [(ngModel)]="additionalCosts"></p>
+                        <p class="price">$ <input class="additionalCosts"  name="additional_cost" type="number" [(ngModel)]="Event.additional_cost"></p>
                     </div>
                     
                     
                     <div class="second-funding-info">
                         <p class="info-text">Amount to Mouse (10%)</p>
-                        <span class="price">${{0.1*(artistSum+venueSum+additionalCosts) | number:'3.1-2'}}</span>
+                        <span class="price">${{0.1*(artistSum+venueSum+Event.additional_cost) | number:'3.1-2'}}</span>
                     </div>
                 </div>
                 
@@ -124,10 +124,10 @@
                 <div class="top-gum">
                     <h6 class="lower-case-t">Family and Friends Amount</h6>
                     <div class="input-groupe-1">
-                        <select type="number" [(ngModel)]="familyAndFriendAmount">
-                            <option>0%</option>
-                            <option>5%</option>
-                            <option>10%</option>
+                        <select type="number" [(ngModel)]="Event.family_and_friends_amount">
+                            <option [value]="0">0%</option>
+                            <option [value]="5">5%</option>
+                            <option [value]="10">10%</option>
                         </select>
                         
                     </div>
@@ -146,7 +146,7 @@
                     </div>
                     <div class="second-funding-info">
                         <p class="info-text">Price Per Ticket</p>
-                        <span class="price">{{Event.venue? '$'+0.1*(artistSum+venueSum+additionalCosts)+(artistSum+venueSum+additionalCosts) / Event.venue.capacity : '-'}}</span>
+                        <span class="price">{{Event.venue? '$'+(0.1*(artistSum+venueSum+Event.additional_cost)+(artistSum+venueSum+Event.additional_cost)) / Event.venue.capacity : '-' | number:'3.1-2'}}</span>
                     </div>
                 </div>
             </div>
@@ -155,7 +155,7 @@
             <div class="side">
                 <div class="bottom-expression">
                     <p class="t total">Total</p>
-                    <p class="exp-price">${{0.1*(artistSum+venueSum+additionalCosts)+(artistSum+venueSum+additionalCosts) }}</p>
+                    <p class="exp-price">${{0.1*(artistSum+venueSum+Event.additional_cost)+(artistSum+venueSum+Event.additional_cost) }}</p>
                 </div>
             </div>
         </div>

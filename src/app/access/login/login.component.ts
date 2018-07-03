@@ -64,11 +64,11 @@ export class LoginComponent extends BaseComponent implements OnInit {
             this.main.authService.onAuthChange$.next(true);
 
             setTimeout(() => {
-              console.log(this.main.MyAccounts);
+              // console.log(this.main.MyAccounts);
               if(this.main.MyAccounts.length>0)
                 this.router.navigate(['/system','shows']);
               else {
-                console.log(`create new acc`);
+                // console.log(`create new acc`);
                 this.router.navigate(['/social']);
               }
             }, 1000);

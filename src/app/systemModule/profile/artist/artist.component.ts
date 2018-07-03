@@ -11,6 +11,7 @@ import { SafeResourceUrl } from "@angular/platform-browser";
 declare var $:any;
 declare var PhotoSwipeUI_Default:any;
 declare var PhotoSwipe:any;
+declare var SC:any;
 
 @Component({
     selector: 'artist-profile-selector',
@@ -42,6 +43,12 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
     AlbumsChecked:Album[] = [];
     VideoPath:SafeResourceUrl[] = [];
 
+    audioId:number = 0;
+    audioDuration:number = 0;
+    audioCurrentTime:number = 0;
+    player:any;
+    countAudio = 8;
+
     ngOnChanges(changes: SimpleChanges): void {
         if(changes.Account)
         {
@@ -62,6 +69,9 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
 
     ngOnInit(): void {
         this.InitByUser();
+        SC.initialize({
+            client_id: "b8f06bbb8e4e9e201f9e6e46001c3acb",
+        });
        
     }
 
@@ -199,5 +209,41 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
     {
         this.onFollow.emit(event);
     }
+
+    playAudio(s:string){
+  
+        if(this.player&&  this.player.isPlaying())
+          this.player.pause();
+    
+        console.log(s);
+        this.audioDuration = 0;
+        this.audioCurrentTime = 0;
+        SC.resolve(s).then((res)=>{
+          console.log(res);
+          SC.stream('/tracks/'+res.id).then((player)=>{
+            this.player = player;
+            this.player.play();
+      
+            player.on('play-start',()=>{
+              this.audioDuration = this.player.getDuration();
+            })
+            
+            setInterval(()=>{
+               this.audioCurrentTime = this.player.currentTime();
+            },100)
+            
+            // setTimeout(()=>{
+            //   player.pause()
+            //   player.seek(0)
+            // },10000)
+      
+          });
+    
+        },(err)=>{console.log(`ERROR`)})
+      }
+    
+      stopAudio(){
+        this.player.pause();
+      }
 
 }

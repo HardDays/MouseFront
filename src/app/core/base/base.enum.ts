@@ -87,6 +87,8 @@ export enum ArtistFields {
 
 export enum FanFields {
   user_name = 'Username',
+  first_name = 'First name',
+  last_name = 'Last name',
 }
 
 export enum EventFields {

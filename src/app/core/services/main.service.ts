@@ -145,6 +145,7 @@ export class MainService{
         this.router.events.subscribe(
             (event) => {
                 if (event instanceof NavigationStart) {
+                    ////asdasdsadssa
                     $("body").removeClass("has-active-menu");
                     $(".mainWrapper").removeClass("has-push-left");
                     $(".nav-holder-3").removeClass("is-active");

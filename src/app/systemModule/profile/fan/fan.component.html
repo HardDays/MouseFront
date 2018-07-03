@@ -17,7 +17,7 @@
                     </div>
                     <div class="side side-3">
                         <div *ngIf="MyProfileId == Account.id" class="edit-and-settings">
-                            <a [routerLink]="['/system/fanCreate',Account.id]" class="edit-profile">Edit profile</a>
+                            <a [routerLink]="['/system/fanCreate',Account.id]" class="settings"></a>
                         </div>
                         <div class="desc-wr">
                             <p id="b_lines_view" class="description">{{Account.bio}}</p>

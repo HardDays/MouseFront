@@ -166,6 +166,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
   //////////////////////////////////////////////
   SaveArtistByPages(artist:AccountCreateModel, goToNextPage:boolean = true)
   {
+    // this.Artist = artist;
     console.log(this.ArtistId,this.Artist);
     this.WaitBeforeLoading
     (
@@ -280,8 +281,17 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
             return;
           }
         }
+      }
+      case this.pages.riders:{
+        if(this.RidersPage){
+         if(!this.RidersPage.saveAllRiders()){
+            this.errorCmp.OpenWindow(BaseMessages.Fail);
+            return;
+          }
+        }
       } 
     }
+
     this.SaveArtistNav();
   }
 
