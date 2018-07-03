@@ -298,6 +298,10 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
   }
 
+  openPreviewArtist(id:number){
+    this.openPreview.emit(id);
+  }
+
   openArtist(id:number){
 
     this.router.navigate(['/system','profile',id]);

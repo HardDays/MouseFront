@@ -285,7 +285,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
       case this.pages.riders:{
         if(this.RidersPage){
          if(!this.RidersPage.saveAllRiders()){
-            this.errorCmp.OpenWindow(BaseMessages.Fail);
+            this.errorCmp.OpenWindow('Please confirm or delete your current riders');
             return;
           }
         }

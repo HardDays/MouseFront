@@ -54,12 +54,6 @@ import { AddTicketsComponent } from './tickets/tickets.component';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { Observable } from 'rxjs';
 
-
-
-
-
-
-
 declare var $:any;
 declare var ionRangeSlider:any;
 
@@ -69,9 +63,7 @@ declare var ionRangeSlider:any;
   styleUrls: ['./eventCreate.component.css']
 })
 
-
 export class EventCreateComponent extends BaseComponent implements OnInit {
-
 
   Event:EventCreateModel = new EventCreateModel()
   EventId:number = 0;

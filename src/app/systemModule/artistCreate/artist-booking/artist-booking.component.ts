@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MapsAPILoader, AgmMap } from '@agm/core';
 import { CheckModel } from '../../../core/models/check.model';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Conditional } from '@angular/compiler';
 
 declare var $:any;
 
@@ -239,7 +240,17 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
   }
 
   saveArtist(){
+
+  
     if(this.Artist.price_from&&this.Artist.price_to){
+
+      if(''+this.Artist.price_from[0]==='$')this.Artist.price_from = +(''+this.Artist.price_from).slice(1);
+      if(''+this.Artist.price_to[0]==='$')this.Artist.price_to = +(''+this.Artist.price_to).slice(1);
+
+      if(this.Artist.additional_hours_price)
+        if(''+this.Artist.additional_hours_price[0]==='$') 
+          this.Artist.additional_hours_price = +(''+this.Artist.additional_hours_price).slice(1);
+
       this.Artist.image_base64 = null;
 
       if(this.type_min_time_to_book=='weeks')

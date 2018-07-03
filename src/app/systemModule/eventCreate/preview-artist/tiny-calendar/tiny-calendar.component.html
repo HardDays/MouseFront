@@ -1,0 +1,82 @@
+
+<div class="tiny-calendar-wrapper">
+  <div class=top-calendar-nav>
+      <div class="arrow arrow-left" (click)="prevMonth()"></div>
+      <div class="month">
+          <p (click)="prevMonth()">{{MonthPrev.format('MMM')}} {{ MonthPrev.format('YYYY') }}</p>
+      </div>
+      <div class="month">
+          <p class="active">{{ currentDate.format('MMM') }} {{ currentDate.format('YYYY') }}</p>
+      </div>
+      <div class="month">
+          <p (click)="nextMonth()">{{MonthNext.format('MMM')}} {{ MonthNext.format('YYYY') }}</p>
+      </div>
+      <div class="arrow arrow-right" (click)="nextMonth()"></div>
+  </div>
+  <div class="body-calendar">
+      <div class="weekday-wrapp">
+          <div *ngFor="let name of dayNames" class="one-week-day">
+              {{ name }}
+          </div>
+      </div>
+      <div class="days">
+          <ng-container *ngFor="let week of weeks">
+            <ng-container *ngFor="let day of week">
+                <div class="one-day-wr" [ngClass]="{'today': day.today, 'un-active': day.selected, 'has-popup':day.event }" (click)="selectDate(day)">
+                    <ng-container *ngIf="isSelectedMonth(day.mDate)">
+                        <div class="one-day">
+                            <p>{{ day.mDate.date() }}</p>
+                            <div *ngIf="day.event" class="popup-inform-tiny-calendar">
+                                <ng-container *ngFor="let event of eventsThisMonth">
+                                    <ng-container *ngIf="day.eventId == event.id">
+                                        <div class="shadow-wr">
+                                            <ng-container *ngFor="let image of Images">
+                                                <div class="top-image" *ngIf="image.event_id && image.event_id == event.id" [ngStyle]="{'background-image': 'url(' + image.base64 + ')'}"></div>
+                                                
+                                                <p *ngIf="!image.event_id && image.event_id == event.id">{{image.id}} + ' = '+{{event.image_id}}</p>
+                                            </ng-container>
+                                            <div class="bott-descr-day">
+                                                <p class="f">{{event.name}}</p>
+                                                <p class="s" *ngIf='event.event_time'>{{event.event_time}}</p>
+                                                <p class="where" *ngIf='event.venue'>{{event.venue.display_name}}</p>
+                                                <p class="where-2" *ngIf='event.address'>{{event.address}}</p>
+                                            </div>
+                                        </div>
+
+
+                                    </ng-container>
+                                </ng-container>
+                                
+
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </ng-container>
+          </ng-container>
+          
+         <!--has-popup, кароче если есть попап надо будет внести в инпут в компоненте и в саму модель интерфейса-->
+         <!-- <div class="one-day-wr has-popup">
+            <div class="one-day">
+                <p>20</p>
+                <div class="popup-inform-tiny-calendar">
+                    <div class="shadow-wr">
+                        <div class="top-image" style="background-image: url(img/drake.jpg)"></div>
+                        <div class="bott-descr-day">
+                            <p class="f">Tales Of Wonder</p>
+                            <p class="s">December 15, 2018</p>
+                            <p class="where">Winstons Beach Club</p>
+                            <p class="where-2">1921 Bacon St, San Diego, CA 92107</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+          
+          
+          
+      </div>
+  </div>
+</div>
+
+

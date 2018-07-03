@@ -304,6 +304,16 @@ export class BaseComponent{
         };
     }
 
+    MaskPrice()
+    {
+        return {
+            // mask: ['+',/[1-9]/,' (', /[1-9]/, /\d/, /\d/, ') ',/\d/, /\d/, /\d/, '-', /\d/, /\d/,'-', /\d/, /\d/],
+            mask: ['$',/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/],
+            keepCharPositions: true,
+            guide:false
+        };
+    }
+
     MaskSpotify()
     {
         return {
@@ -418,6 +428,9 @@ export class BaseComponent{
             {
               if (key === 'email' || key === 'artist_email') {
                 return String(BaseMessages.EmailPattern).replace('_email', keyDict[key]);
+              }
+              else if (key === 'link'){
+                return String(BaseMessages.LinkPattern).replace('_link', keyDict[key]);
               }
               else
               {

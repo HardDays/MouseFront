@@ -16,6 +16,7 @@ import { ErrorModule } from '../../shared/error/error.module';
 import { PreloaderModule } from '../../shared/preloader/preloader.module';
 import { PreviewArtistComponent } from './preview-artist/preview-artist.component';
 import { PreviewVenueComponent } from './preview-venue/preview-venue.component';
+import { TinyCalendarComponent } from './preview-artist/tiny-calendar/tiny-calendar.component';
 
 @NgModule({
     imports: [ 
@@ -41,7 +42,8 @@ import { PreviewVenueComponent } from './preview-venue/preview-venue.component';
         VenuesComponent,
         PrivateResComponent,
         PreviewArtistComponent,
-        PreviewVenueComponent
+        PreviewVenueComponent,
+        TinyCalendarComponent
         
     ],
     exports: [ EventCreateComponent ]

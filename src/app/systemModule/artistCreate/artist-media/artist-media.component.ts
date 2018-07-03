@@ -40,8 +40,10 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
   addVideoForm: FormGroup = new FormGroup({
     "album_name": new FormControl("", [Validators.required]),
     "name": new FormControl("", [Validators.required]),
-    "link": new FormControl("", [Validators.required])
+    "link": new FormControl("", [Validators.required, Validators.pattern("https:\/\/youtu.be\/[a-zA-Z0-9]+")])
   });
+
+  // https://youtu.be/amrSC14xpus
 
   // openVideoLink = this._sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/8WPsUv1ZUdw?rel=0');
   openVideoLink:any;

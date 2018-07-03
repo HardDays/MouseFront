@@ -1,4 +1,4 @@
-<section class="second-router-outlet">
+<section *ngIf="!isLoading" class="second-router-outlet">
   <div class="create-event-nav-tabs">
       <div class="for-header-shadow">
           <div class="main-mw">
@@ -18,9 +18,9 @@
                       <li (click)="scrollTo('about')" class="active">
                           <a class="nav-second-outlet">about</a>
                       </li>
-                      <!-- <li (click)="scrollTo('about')">
-                          <a class="nav-second-outlet">Hours</a>
-                      </li> -->
+                      <li (click)="scrollTo('calendar')">
+                          <a class="nav-second-outlet">Dates</a>
+                      </li>
                       
                       <li (click)="scrollTo('media')">
                           <a class="nav-second-outlet">Media</a>
@@ -66,14 +66,14 @@
                   <div class="genres-info">
                       <h3>Genres</h3>
                       <div class="flex-genres">
-                        <ng-container  *ngFor="let g of Artist.genres" >
+                        <ng-container  *ngFor="let g of Artist.genres; let i = index" >
                           <span class="one-genre">{{g}}</span>
                         </ng-container>
                       </div>
                   </div>
               </div>
           </div>
-          <!-- <div class="uniq-padd">
+          <div  id="calendarPage" class="uniq-padd">
               <div class="main-mw">
                   <div class="genres-info less-margin">
                       <h3>Dates Available</h3>
@@ -82,10 +82,10 @@
           </div>
           <div class="calendar-add-artist">
               <div class="one-calendar-block">
-                  Сюда надо ангуларный календарь какой нибудь
+                <app-tiny-calendar #calendar [selectedDates]='DisabledDates' [eventDates]="EventDates" ></app-tiny-calendar>
               </div>
               <div class="bg-doted-cal"></div>
-          </div> -->
+          </div>
           <div id="mediaPage" class="uniq-padd-2">
               <div class="main-mw">
                   <div class="flex--info none-padd-sides-b none-padd-sides-t-without-h">
@@ -96,15 +96,37 @@
                       <div class="side side-info side-map"></div>
                   </div>
               </div>
-              <div class="main-mw">
+              <div *ngIf="Artist.audio_links" class="main-mw">
                   <div class="styles-audio-list">
-                      <div *ngFor="let audio of Artist.audio_links" class="audio-wrapper">
-                          <div class="one-audio">
+                      <div *ngFor="let item of Artist.audio_links| slice:0:countAudio; let i = index" class="audio-wrapper">
+                          <!-- <div class="one-audio">
                               <span class="name-track">{{audio.song_name}}</span>
                               <audio [src]="audio.audio_link" preload="auto"></audio> 
-                          </div>
+                          </div> -->
+                          <div  class="one-audio">
+                
+                            <div class="delete-track"></div>
+                            <span class="name-track">{{item.song_name}}</span>
+                            <div class="audiojs">
+                                <div class="play-pause">
+                                    <p *ngIf="audioId != i+1" (click)="audioId = i+1; playAudio(item.audio_link)" id="track-{{i}}" class="play"></p>
+                                    <p *ngIf="audioId == i+1" (click)="audioId = 0; stopAudio()" class="pause"></p>
+                                    <!-- <p class="loading"></p>
+                                    <p class="error"></p> -->
+                                </div>
+                                <div class="scrubber" >
+                                    <div class="progress"></div>
+                                    <div class="loaded"></div>
+                                </div>
+                                <div class="time">
+                                    <em class="played">00:00</em>
+                                    <!-- <strong class="duration">{{audioId == i+1 && audioDuration>0 ?audioDuration/100:''}}</strong> -->
+                                </div>
+                            </div> 
+                        </div>
+                           
                       </div>      
-                      <button class="see-all">SEE ALL</button>
+                      <button *ngIf="countAudio<Artist.audio_links.length" class="see-all" (click)="countAudio = Artist.audio_links.length">SEE ALL</button>
                   </div>
                  
               </div>
@@ -119,7 +141,7 @@
               </div>
           </div>
           
-          <div class="new-photos-wr-scroll-preview">
+          <div *ngIf="photos.length>0" class="new-photos-wr-scroll-preview">
               <div class="rel-wr-photoos">
                   <div class="photos-abs-wrapp">
                       <div *ngFor="let item of photos; let in = index" class="one-slide">
@@ -146,7 +168,7 @@
                   </div>
               </div>
            </div> 
-           <div class="new-photos-wr-scroll-preview ">
+           <div *ngIf="Artist.artist_albums.length>0" class="new-photos-wr-scroll-preview ">
               <div class="rel-wr-photoos alboms-play">
                   <div class="photos-abs-wrapp">
 
@@ -166,6 +188,37 @@
                   </div>
               </div>
           </div>
+          <div class="uniq-padd-2">
+                <div class="main-mw">
+                    <div class="flex--info none-padd-sides-b none-padd-sides-t-without-h">
+                        <div class="side side-info side-about ">
+                            <h6 class="for-position-left-js">VIDEOS ({{Artist.videos?Artist.videos.length:'-'}})</h6>
+                        </div>
+                        <div class="side side-info side-contact un-padd-on-1560"></div>
+                        <div class="side side-info side-map"></div>
+                    </div>
+                </div>
+             </div> 
+             <div *ngIf="Artist.videos.length>0" class="new-photos-wr-scroll-preview ">
+                <div class="rel-wr-photoos alboms-play min-h-fix-videos">
+                    <div class="photos-abs-wrapp video-abs-wrapp">
+                        <div *ngFor="let item of Artist.videos; let i = index" class="one-slide">
+                            <div class="wrapp-card">
+                                
+                                <div (click)="openVideo(item)" class="cover-image" [ngStyle]="{'background-image': 'url('+item.preview+')'}">
+                                    <div class="butt-play-video">
+                                        <div class="pl"></div>
+                                    </div>
+                                </div>
+                                <div class="descr playing">
+                                    <p class="name">{{item.name}}</p>
+                                    <p class="date">{{item.album_name}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
            <div id="bookingPage" class="uniq-padd-2">
               <div class="main-mw">
                   <div class="flex--info none-padd-sides-b">
@@ -175,57 +228,59 @@
                       <div class="side side-info-new-venue-prev side-info side-about"></div>
                   </div>
               </div>
-              <div class="main-mw">
+              <div *ngIf="Artist" class="main-mw">
                   <div class="flex--info none-padd-sides-t">
                       <div class="side side-info side-about">
                           <h6>Performance</h6>
-                          <p class="about-text flexed">
+                          <p *ngIf="Artist.performance_min_time" class="about-text flexed">
                               <span>Time:</span>
                               <span>{{Artist.performance_min_time}}h - {{Artist.performance_max_time}}h</span>
                           </p>
-                          <p class="about-text flexed">
+                          <p *ngIf="Artist.price_from" class="about-text flexed">
                               <span>Performance Price:</span>
-                              <span>$800/h - $1200/h</span>
+                              <span>${{Artist.price_from}}/h - ${{Artist.price_to}}/h</span>
                           </p>
-                          <p class="about-text flexed">
+                          <p *ngIf="Artist.additional_hours_price" class="about-text flexed">
                               <span>Performance Price for additional Hours:</span>
-                              <span>$1500/h</span>
+                              <span>${{Artist.additional_hours_price}}/h</span>
                           </p>
                       </div>
                       <div class="side side-info side-contact">
                          <h6>Band</h6>
-                          <p *ngIf="Artist&&Artist.is_perform_with_band" class="about-text margened">
-                             Does not perform with a Band
+                          <p class="about-text margened">
+                            Does {{Artist.is_perform_with_band?'':'not'}} perform with a Band
                           </p>
-                           <p *ngIf="Artist&&Artist.can_perform_without_band" class="about-text margened">
-                            Can perform without a Band
+                           <p class="about-text margened">
+                            Can {{Artist.can_perform_without_band?'':'not'}} perform with a Band perform without a Band
                           </p>
-                           <p *ngIf="Artist&&Artist.is_perform_with_backing_vocals" class="about-text margened">
-                             Does perform with Backing Vocals
+                           <p class="about-text margened">
+                            Does {{Artist.is_perform_with_backing_vocals?'':'not'}} perform with Backing Vocals
                           </p>
-                          <p *ngIf="Artist&&Artist.can_perform_without_backing_vocals" class="about-text margened">
-                            Can perform without Backing Vocals
+                          <p class="about-text margened">
+                            Can {{Artist.can_perform_without_backing_vocals?'':'not'}} perform without Backing Vocals
                           </p>
                           
                       </div>
                       <div class="side side-info side-map">
                           <h6>Preferred Venues</h6>
-                          <p *ngIf="Artist&&Artist.preferred_venue_text" class="about-text margened">
-                            {{Artist.preferred_venue_text}}
+                          <p *ngIf="Artist&&Artist.preferred_venues" class="about-text margened">
+                            <span *ngFor="let ven of Artist.preferred_venues">
+                                {{ven.type_of_venue=='other'?Artist.preferred_venue_text:ven.type_of_venue| titlecase }} 
+                            </span>
                           </p>
                       </div>
                   </div>
                   <div class="flex--info none-padd-sides-t">
                       <div class="side side-info side-about">
                           <h6>Preferred Location</h6>
-                          <div class="location-wr margened">
+                          <div *ngIf="Artist.preferred_address" class="location-wr margened">
                               <div class="mark"></div>
                               <p class="location-inp ">
                                 {{Artist.preferred_address}}
                               </p>
                           </div>
-                          <p class="about-text line-height-hig">
-                              <span>{{Artist.days_to_travel}} days </span>  Notice needed to travel
+                          <p *ngIf="Artist.days_to_travel" class="about-text line-height-hig">
+                              <span>{{Artist.days_to_travel}} days </span>  notice needed to travel
                           </p>
                       </div>
                       <div class="side side-info side-contact">
@@ -243,13 +298,13 @@
                       </div>
                       <div class="side side-info side-map">
                           <h6>Other</h6>
-                          <p class="about-text margened">
+                          <p *ngIf="Artist.min_time_to_book" class="about-text margened">
                             <span>{{Artist.min_time_to_book}} days</span> needed to book before concert.
                           </p>
-                          <p class="about-text margened">
+                          <p *ngIf="Artist.min_time_to_free_cancel" class="about-text margened">
                             <span>{{Artist.min_time_to_free_cancel}} days</span> to cancel before charged a cancellation fee.
                           </p>
-                          <p class="about-text margened">
+                          <p *ngIf="Artist.late_cancellation_fee" class="about-text margened">
                             Fee for last minute Cancellation: <span>${{Artist.late_cancellation_fee}}</span>
                           </p>
                           <p class="about-text margened">
@@ -372,7 +427,15 @@
 </section>
 
 
-
+<div class="modal fade modal-movie" id="modal-movie">
+        <div class="modal-dialog">
+            <div class="modal-contant">
+                <div class="modal-body">
+                    <iframe *ngIf="isVideoOpen" id="video-frame" width="560" height="315" [src]="openVideoLink" frameborder="0" allow="autoplay; encrypted-media" ></iframe>
+                </div>
+            </div>
+        </div>
+    </div>   
 
 
                 <!--photo-galary-->

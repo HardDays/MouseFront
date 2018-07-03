@@ -47,7 +47,9 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
     audioDuration:number = 0;
     audioCurrentTime:number = 0;
     player:any;
-    countAudio = 8;
+    countAudio = 6;
+
+    
 
     ngOnChanges(changes: SimpleChanges): void {
         if(changes.Account)

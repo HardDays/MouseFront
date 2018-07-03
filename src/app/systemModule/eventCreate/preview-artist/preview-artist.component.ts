@@ -1,18 +1,21 @@
 import { Component, OnInit, Input, AfterViewInit, SimpleChanges, Output, EventEmitter, NgZone, ChangeDetectorRef } from '@angular/core';
-import { AccountGetModel } from '../../../core/models/accountGet.model';
+import { AccountGetModel, Video } from '../../../core/models/accountGet.model';
 import { BaseComponent } from '../../../core/base/base.component';
 import { MainService } from '../../../core/services/main.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MapsAPILoader } from '@agm/core';
 import { BaseImages } from '../../../core/base/base.enum';
+import * as moment from 'moment';
 import { Base64ImageModel } from '../../../core/models/base64image.model';
+import { TinyCalendarComponent, CalendarDate } from './tiny-calendar/tiny-calendar.component';
 
 
 declare var audiojs:any;
 declare var $:any;
 declare var PhotoSwipeUI_Default:any;
 declare var PhotoSwipe:any;
+declare var SC:any;
 
 @Component({
   selector: 'app-preview-artist',
@@ -27,11 +30,24 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
 
   VenueImages:any;
 
-    itemsPhotoss:any = [];
+  itemsPhotoss:any = [];
 
-    photos:any = [];
+  photos:any = [];
+
+  audioId:number = 0;
+  audioDuration:number = 0;
+  audioCurrentTime:number = 0;
+  player:any;
+  countAudio = 6;
+
+  openVideoLink:any;
+  isVideoOpen:boolean = false;
+
+  DisabledDates: CalendarDate[] = [];
+  EventDates: CalendarDate[] = [];
 
   Artist:AccountGetModel = new AccountGetModel();
+
     constructor(
       protected main           : MainService,
       protected _sanitizer     : DomSanitizer,
@@ -51,7 +67,12 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
       ()=>this.main.accService.GetAccountById(this.ArtistId),
       (res:AccountGetModel)=>{
         this.Artist = res;
+        if(this.Artist.genres)
+          this.Artist.genres = this.main.genreService.BackGenresToShowGenres(this.Artist.genres);
+        console.log(`artist`,res);
         this.GetArtistImages();
+        this.updateVideosPreview();
+        this.GetDates();
        // if(changes['ArtistId'].isFirstChange()) this.InitMusicPlayer();
         if(res.image_id){
          this.main.imagesService.GetImageById(res.image_id)
@@ -65,30 +86,55 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
   }
 
   ngAfterViewInit(){
-    $('.photos-abs-wrapp').css({
-      'max-height': $('.rel-wr-photoos').width()+'px'
-  });
-  $('.new-photos-wr-scroll-preview').css({
-      'padding-left':$('.for-position-left-js').offset().left
-  });
-
-  $(window).resize(function(){
+    setTimeout(() => {
       $('.photos-abs-wrapp').css({
-          'max-height': $('.rel-wr-photoos').width()+'px'
+        'max-height': $('.rel-wr-photoos').width()+'px'
       });
       $('.new-photos-wr-scroll-preview').css({
-          'padding-left':$('.for-position-left-js').offset().left
+        'padding-left': $('.for-position-left-js').offset()?$('.for-position-left-js').offset().left:0
       });
-  });
+  
+    $(window).resize(function(){
+        $('.photos-abs-wrapp').css({
+            'max-height': $('.rel-wr-photoos').width()+'px'
+        });
+        $('.new-photos-wr-scroll-preview').css({
+            'padding-left': $('.for-position-left-js').offset()?$('.for-position-left-js').offset().left:0
+        });
+    });
+    }, 400);
+    
 
   
   // this.InitMusicPlayer();
   }
 
   InitMusicPlayer(){
-    setTimeout(() => {
-      var as = audiojs.createAll();
-     }, 500);
+    // setTimeout(() => {
+    //   var as = audiojs.createAll();
+    //  }, 500);
+    SC.initialize({
+      client_id: "b8f06bbb8e4e9e201f9e6e46001c3acb",
+    });
+  }
+
+  GetDates(){
+    if(this.Artist){
+      if(this.Artist.events_dates)
+        for(let date of this.Artist.events_dates){
+          this.EventDates.push({
+            mDate: moment(date.date.split("T")[0]),
+            eventId: date.event_id 
+            
+          });
+        }
+      if(this.Artist.disable_dates)
+        for(let date of this.Artist.disable_dates){
+          this.DisabledDates.push({
+            mDate: moment(date.date.split("T")[0])
+          });
+        }
+    }
   }
 
 
@@ -166,6 +212,79 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
         scrollTop: $(page).offset().top
       }, 1000);
       
+    }
+
+    playAudio(s:string){
+  
+      if(this.player&&  this.player.isPlaying())
+        this.player.pause();
+  
+      console.log(s);
+      this.audioDuration = 0;
+      this.audioCurrentTime = 0;
+      SC.resolve(s).then((res)=>{
+        console.log(res);
+        SC.stream('/tracks/'+res.id).then((player)=>{
+          this.player = player;
+          this.player.play();
+    
+          player.on('play-start',()=>{
+            this.audioDuration = this.player.getDuration();
+          })
+          
+          setInterval(()=>{
+             this.audioCurrentTime = this.player.currentTime();
+          },100)
+          
+          // setTimeout(()=>{
+          //   player.pause()
+          //   player.seek(0)
+          // },10000)
+    
+        });
+  
+      },(err)=>{console.log(`ERROR`)})
+    }
+  
+    stopAudio(){
+      this.player.pause();
+    }
+
+    openVideo(video:Video){
+
+      let video_id ='';
+      if(video.link.indexOf('youtube') !== -1){
+        video_id = video.link.split('v=')[1];
+  
+      }
+      if(video.link.indexOf('youtu.be') !== -1){
+        video_id = video.link.split('.be/')[1];
+      }
+  
+  
+      this.openVideoLink = this._sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+video_id+'?rel=0');
+      this.isVideoOpen = true;
+  
+      setTimeout(()=>{
+        $('#modal-movie').modal('show');
+        $('#modal-movie').on('hidden.bs.modal', () => {
+          this.isVideoOpen = false;
+        })
+      },100);
+    }
+
+    updateVideosPreview(){
+
+      for(let video of this.Artist.videos){
+        let video_id ='';
+  
+        if(video.link.indexOf('youtube')!== -1)
+          video_id = video.link.split('v=')[1];
+        if(video.link.indexOf('youtu.be')!== -1)
+          video_id = video.link.split('be/')[1];
+  
+        video.preview = 'https://img.youtube.com/vi/'+video_id+'/0.jpg';
+      }
     }
 
 

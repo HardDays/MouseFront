@@ -62,6 +62,7 @@ export class AccountGetModel{
         public video_links?: string[],
         public artist_albums?: Album[],
         public videos?: Video[],
+        public artist_videos?: Video[],
         public image_base64_not_given?: string,
         public status_not_given?: string,
 
@@ -95,7 +96,10 @@ export class AccountGetModel{
 
         public followers_count?: number,
         public following_count?: number,
-        public is_verified?: boolean
+        public is_verified?: boolean,
+        public events_dates?:any,
+        public available_dates?:any,
+        public disable_dates?:any
         
 ){}
 }
