@@ -241,7 +241,6 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
 
   saveArtist(){
 
-  
     if(this.Artist.price_from&&this.Artist.price_to){
 
       if(''+this.Artist.price_from[0]==='$')this.Artist.price_from = +(''+this.Artist.price_from).slice(1);
@@ -263,6 +262,7 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
       else if(this.type_min_time_to_free_cancel=='months')
         this.Artist.min_time_to_free_cancel = this.Artist.min_time_to_free_cancel*30;
 
+      console.log(`to Save`,this.Artist);
       this.onSave.emit(this.Artist);
     }
     else

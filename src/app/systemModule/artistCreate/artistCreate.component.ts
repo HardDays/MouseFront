@@ -276,7 +276,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
       }
       case this.pages.booking:{
         if(this.BookingPage){
-         this.BookingPage.saveArtist();
+         this.BookingPage.addBooking();
          if(!this.BookingPage.Artist.price_from||!this.BookingPage.Artist.price_to){
             return;
           }

@@ -40,7 +40,7 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
   addVideoForm: FormGroup = new FormGroup({
     "album_name": new FormControl("", [Validators.required]),
     "name": new FormControl("", [Validators.required]),
-    "link": new FormControl("", [Validators.required, Validators.pattern("https:\/\/youtu.be\/[a-zA-Z0-9]+")])
+    "link": new FormControl("", [Validators.required, Validators.pattern("https:\/\/youtu.be\/[a-zA-Z0-9-]+")])
   });
 
   // https://youtu.be/amrSC14xpus
@@ -140,27 +140,42 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
       SC.stream('/tracks/'+res.id).then((player)=>{
         this.player = player;
         this.player.play();
-  
+        console.log(`PLAYING`);
+        
         player.on('play-start',()=>{
+          console.log(`start play`);
           this.audioDuration = this.player.getDuration();
+          
+          setInterval(()=>{
+            this.audioCurrentTime = this.player.currentTime();
+          },100)
+        },(err)=>{
+          console.log(`not start play`);
+        })
+
+        player.on('no_streams',()=>{
+          console.log(`audio_error`);
+          this.onError.emit(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
+          
         })
         
-        setInterval(()=>{
-           this.audioCurrentTime = this.player.currentTime();
-        },100)
+       
         
         // setTimeout(()=>{
         //   player.pause()
         //   player.seek(0)
         // },10000)
   
+      },(err)=>{
+        console.log(`error streaming`,err)
       });
 
     },(err)=>{console.log(`ERROR`)})
   }
 
   stopAudio(){
-    this.player.pause();
+    if(!this.player.isDead())
+      this.player.pause();
   }
 
   addAlbum(){

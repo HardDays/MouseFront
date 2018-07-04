@@ -48,6 +48,8 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
 
   Artist:AccountGetModel = new AccountGetModel();
 
+  onHover:boolean[] = [true,false,false,false];
+
     constructor(
       protected main           : MainService,
       protected _sanitizer     : DomSanitizer,

@@ -15,18 +15,18 @@
                   </h1>
                   <ul>
                       <!--нужным li даем классы active и started."хз нахрена это надо. узнавайте у писателя"-->
-                      <li (click)="scrollTo('about')" class="active">
+                      <li (click)="scrollTo('about')" [class.active]="onHover[0]" (mouseout)="onHover[0]=false" (mouseover)="onHover[0]=true" class="active">
                           <a class="nav-second-outlet">about</a>
                       </li>
-                      <li (click)="scrollTo('calendar')">
+                      <li (click)="scrollTo('calendar')" [class.active]="onHover[1]" (mouseout)="onHover[1]=false" (mouseover)="onHover[1]=true">
                           <a class="nav-second-outlet">Dates</a>
                       </li>
                       
-                      <li (click)="scrollTo('media')">
+                      <li (click)="scrollTo('media')" [class.active]="onHover[2]" (mouseout)="onHover[2]=false" (mouseover)="onHover[2]=true">
                           <a class="nav-second-outlet">Media</a>
                       </li>
 
-                      <li (click)="scrollTo('booking')">
+                      <li (click)="scrollTo('booking')" [class.active]="onHover[3]" (mouseout)="onHover[3]=false" (mouseover)="onHover[3]=true">
                         <a class="nav-second-outlet">Booking</a>
                         </li>
                       <!-- <li>
