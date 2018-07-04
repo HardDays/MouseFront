@@ -122,6 +122,7 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
     if(this.Artist){
       if(this.Artist.events_dates)
         for(let date of this.Artist.events_dates){
+          if(date.date)
           this.EventDates.push({
             mDate: moment(date.date.split("T")[0]),
             eventId: date.event_id 
@@ -130,6 +131,7 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
         }
       if(this.Artist.disable_dates)
         for(let date of this.Artist.disable_dates){
+          if(date.date)
           this.DisabledDates.push({
             mDate: moment(date.date.split("T")[0])
           });
