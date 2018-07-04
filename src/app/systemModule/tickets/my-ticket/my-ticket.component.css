@@ -4,3 +4,8 @@
 .icon-icon img{
     margin-left: 5px;
 }
+.name-artist{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
