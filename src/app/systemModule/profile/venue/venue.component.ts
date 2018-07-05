@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, EventEmitter, Input, Output, SimpleChanges } from "@angular/core";
+import { Component, OnInit, OnChanges, EventEmitter, Input, Output, SimpleChanges, ViewChild } from "@angular/core";
 import { BaseComponent } from "../../../core/base/base.component";
 import { AccountGetModel } from '../../../core/models/accountGet.model';
 import { TicketsGetModel } from "../../../core/models/ticketsGetModel";
@@ -6,6 +6,7 @@ import { EventGetModel } from "../../../core/models/eventGet.model";
 import { Base64ImageModel } from "../../../core/models/base64image.model";
 import { BaseImages } from "../../../core/base/base.enum";
 import { AccountCreateModel } from "../../../core/models/accountCreate.model";
+import { AgmMap } from "@agm/core";
 
 declare var $:any;
 declare var PhotoSwipeUI_Default:any;
@@ -33,6 +34,8 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
     @Input() MyProfileId: number;
     @Output() onFollow:EventEmitter<boolean> = new EventEmitter<boolean>();
 
+    @ViewChild('agmMap') agmMap : AgmMap;
+    
     UpcomingShows:any [] = [];
     UpcomingShowsChecked:any [] = [];
 
@@ -71,7 +74,7 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
     }
 
     ngOnInit(): void {
-        
+        this.agmMap.triggerResize();
     }
 
     Init(venue?:AccountCreateModel,id?:number)

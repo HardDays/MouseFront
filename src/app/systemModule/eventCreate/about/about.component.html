@@ -10,16 +10,16 @@
                 <div class="side">
                     <div class="input-groupe-1 lbl-1">
                         
-                        <input id="inp-create-1" name="" type="text" [(ngModel)]="Event.name" formControlName="name"  >
+                        <input id="inp-create-1" name="name" type="text" [(ngModel)]="Event.name" formControlName="name"  >
                         <label for="inp-create-1">Event name<span>*</span></label>
                     </div>
                     <div class="input-groupe-1">
-                        <input id="inp-create-2" formControlName="hashtag" [textMask]="MaskHashtag()" [(ngModel)]="Event.hashtag" name="" type="text" >
+                        <input id="inp-create-2" formControlName="hashtag" [textMask]="MaskHashtag()" [(ngModel)]="Event.hashtag" name="hashtag" type="text" >
                         <label for="inp-create-2">Hashtag<span>*</span></label>
                         
                     </div>
                     <div class="input-groupe-1">
-                        <input id="inp-create-3" name="" type="text" [textMask]="MaskHashtag()" formControlName="tagline" [(ngModel)]="Event.tagline">
+                        <input id="inp-create-3" name="tagline" type="text" [textMask]="MaskHashtag()" formControlName="tagline" [(ngModel)]="Event.tagline">
                         <label for="inp-create-3">Tagline<span>*</span></label>
                        
                     </div>

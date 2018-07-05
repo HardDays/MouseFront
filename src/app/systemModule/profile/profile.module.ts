@@ -16,6 +16,7 @@ import { ShowDetailGalleryComponent } from '../showsDetail/gallery/gallery.compo
 import { ShowsDetailModule } from '../showsDetail/showsDetail.module';
 import { ErrorModule } from '../../shared/error/error.module';
 
+
 @NgModule({
     imports: [ 
         RouterModule,

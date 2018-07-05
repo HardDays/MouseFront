@@ -8,3 +8,7 @@
     background-size: cover;
     background-position: center;
 }
+
+.slideshow-container{
+    overflow: inherit !important
+}
