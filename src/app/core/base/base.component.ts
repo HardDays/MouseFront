@@ -346,7 +346,7 @@ export class BaseComponent{
         };
     }
 
-    MaskHashtag()
+    WithoutSpace()
     {
         return {
             
