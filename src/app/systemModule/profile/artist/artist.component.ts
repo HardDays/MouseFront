@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, EventEmitter, Input, Output, SimpleChanges } from "@angular/core";
+import { Component, OnInit, OnChanges, EventEmitter, Input, Output, SimpleChanges, ViewChild } from "@angular/core";
 import { BaseComponent } from "../../../core/base/base.component";
 import { AccountGetModel, Album } from '../../../core/models/accountGet.model';
 import { TicketsGetModel } from "../../../core/models/ticketsGetModel";
@@ -7,6 +7,7 @@ import { Base64ImageModel } from "../../../core/models/base64image.model";
 import { BaseImages } from "../../../core/base/base.enum";
 import { CheckModel } from "../../../core/models/check.model";
 import { SafeResourceUrl } from "@angular/platform-browser";
+import { ErrorComponent } from "../../../shared/error/error.component";
 
 declare var $:any;
 declare var PhotoSwipeUI_Default:any;
@@ -32,6 +33,8 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
     @Input() IsPreview:boolean;
     @Input() MyProfileId: number;
     @Output() onFollow:EventEmitter<boolean> = new EventEmitter<boolean>();
+
+    @ViewChild('errorCmp') errorCmp: ErrorComponent;
 
     UpcomingShows:any [] = [];
     UpcomingShowsChecked:any [] = [];
@@ -233,6 +236,12 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
             setInterval(()=>{
                this.audioCurrentTime = this.player.currentTime();
             },100)
+
+            player.on('no_streams',()=>{
+                console.log(`audio_error`);
+                this.errorCmp.OpenWindow(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
+                
+            })
             
             // setTimeout(()=>{
             //   player.pause()
@@ -241,11 +250,15 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
       
           });
     
-        },(err)=>{console.log(`ERROR`)})
+        },(err)=>{
+            this.errorCmp.OpenWindow(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
+            console.log(`ERROR`)
+        })
       }
     
       stopAudio(){
-        this.player.pause();
+        if(this.player&&!this.player.isDead())
+            this.player.pause();
       }
 
 }

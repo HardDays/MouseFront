@@ -14,7 +14,7 @@ import { AgmCoreModule } from '@agm/core';
 import { ArtistProfileComponent } from './artist/artist.component';
 import { ShowDetailGalleryComponent } from '../showsDetail/gallery/gallery.component';
 import { ShowsDetailModule } from '../showsDetail/showsDetail.module';
-
+import { ErrorModule } from '../../shared/error/error.module';
 
 @NgModule({
     imports: [ 
@@ -27,7 +27,8 @@ import { ShowsDetailModule } from '../showsDetail/showsDetail.module';
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc'
         }),
-        ShowsDetailModule
+        ShowsDetailModule,
+        ErrorModule
     ],
     declarations: [
         // компоненты
@@ -37,7 +38,8 @@ import { ShowsDetailModule } from '../showsDetail/showsDetail.module';
         UpcomingShowsProfileComponent,
         FanProfileComponent,
         VenueProfileComponent,
-        ArtistProfileComponent
+        ArtistProfileComponent,
+
     ],
     exports: [ ProfileComponent, VenueProfileComponent, ArtistProfileComponent ]
 })

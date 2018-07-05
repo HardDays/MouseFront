@@ -37,6 +37,7 @@ export class PreviewVenueComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
+    scrollTo(0,0);
     this.WaitBeforeLoading(
       ()=>this.main.accService.GetAccountById(this.VenueId),
       (res:AccountGetModel)=>{
@@ -55,22 +56,46 @@ export class PreviewVenueComponent extends BaseComponent implements OnInit {
      )
   }
 
-  ngAfterViewInit(){
-    $('.photos-abs-wrapp').css({
-      'max-height': $('.rel-wr-photoos').width()+'px'
-  });
-  $('.new-photos-wr-scroll-preview').css({
-      'padding-left':$('.for-position-left-js').offset().left
-  });
+  // ngAfterViewInit(){
+  //   $('.photos-abs-wrapp').css({
+  //     'max-height': $('.rel-wr-photoos').width()+'px'
+  // });
+  // $('.new-photos-wr-scroll-preview').css({
+  //     'padding-left':$('.for-position-left-js').offset().left
+  // });
 
-  $(window).resize(function(){
+  // $(window).resize(function(){
+  //     $('.photos-abs-wrapp').css({
+  //         'max-height': $('.rel-wr-photoos').width()+'px'
+  //     });
+  //     $('.new-photos-wr-scroll-preview').css({
+  //         'padding-left':$('.for-position-left-js').offset().left
+  //     });
+  // });
+
+  
+  // // this.InitMusicPlayer();
+  // }
+
+  ngAfterViewInit(){
+    setTimeout(() => {
       $('.photos-abs-wrapp').css({
-          'max-height': $('.rel-wr-photoos').width()+'px'
+        'max-height': $('.rel-wr-photoos').width()+'px'
       });
       $('.new-photos-wr-scroll-preview').css({
-          'padding-left':$('.for-position-left-js').offset().left
+        'padding-left': $('.for-position-left-js').offset()?$('.for-position-left-js').offset().left:0
       });
-  });
+  
+    $(window).resize(function(){
+        $('.photos-abs-wrapp').css({
+            'max-height': $('.rel-wr-photoos').width()+'px'
+        });
+        $('.new-photos-wr-scroll-preview').css({
+            'padding-left': $('.for-position-left-js').offset()?$('.for-position-left-js').offset().left:0
+        });
+    });
+    }, 400);
+    
 
   
   // this.InitMusicPlayer();

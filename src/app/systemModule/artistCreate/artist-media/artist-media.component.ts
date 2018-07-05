@@ -155,6 +155,7 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
             this.audioCurrentTime = this.player.currentTime();
           },100)
         },(err)=>{
+          this.onError.emit(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
           console.log(`not start play`);
         })
 
@@ -172,14 +173,18 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
         // },10000)
   
       },(err)=>{
+        this.onError.emit(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
         console.log(`error streaming`,err)
       });
 
-    },(err)=>{console.log(`ERROR`)})
+    },(err)=>{
+      this.onError.emit(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
+      console.log(`ERROR`)
+    })
   }
 
   stopAudio(){
-    if(!this.player.isDead())
+    if(this.player&&!this.player.isDead())
       this.player.pause();
   }
 
