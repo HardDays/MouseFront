@@ -14,7 +14,7 @@ export class RiderComponent extends BaseComponent implements OnInit {
   @Input('Artist') Artist: AccountCreateModel;
 
   @Output() onDelete = new EventEmitter<number>();
-  @Output() onSave = new EventEmitter<Rider>();
+  @Output() onConfirm = new EventEmitter<Rider>();
 
   isConfirmRider:boolean = true;
 
@@ -64,7 +64,7 @@ export class RiderComponent extends BaseComponent implements OnInit {
 
   confirmRider(){
     this.getRiderInfo();
-    this.onSave.emit(this.Rider);
+    this.onConfirm.emit(this.Rider);
     this.isConfirmRider = true;
   }
 

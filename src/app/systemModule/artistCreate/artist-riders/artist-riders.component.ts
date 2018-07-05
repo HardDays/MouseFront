@@ -47,7 +47,7 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getRiders();
+    //this.getRiders();
   }
   ngAfterViewChecked()
   {
@@ -94,7 +94,7 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
     }
   }
 
-  SaveRider(rider:Rider){
+  ConfirmRider(rider:Rider){
     console.log(rider,this.riders);
     if(rider.id){
       let index = this.riders.indexOf(this.riders.find(r=>r.id===rider.id));
@@ -112,7 +112,7 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
     this.OnSave.emit(this.Artist);
   }
 
-  saveAllRiders(){
+  isSaveAllRiders(){
     // console.log(this.STAGE.isConfirmRider,this.BACKSTAGE.isConfirmRider,this.HOSPITALITY.isConfirmRider,this.TECHNICAL.isConfirmRider);
     return this.STAGE.isConfirmRider &&
     this.BACKSTAGE.isConfirmRider &&
@@ -121,6 +121,8 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
     // this.saveArtist();
 
   }
+
+
 
   nextPage(){
     this.saveArtist();

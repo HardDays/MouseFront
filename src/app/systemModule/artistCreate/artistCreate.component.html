@@ -30,7 +30,7 @@
 
 
                         <li *ngIf="ArtistId !== 0">
-                            <button (click)="SaveButton()" class="butt-style-1" style="width: 127px">
+                            <button (click)="clickSaveButton()" class="butt-style-1" style="width: 127px">
                                 <span style="padding: 10px 21px">
                                 SAVE
                                 </span>
@@ -44,13 +44,15 @@
        
         
         <app-artist-about #AboutPage *ngIf="currentPage == pages.about" 
-            [Artist]="Artist"
+            [(Artist)]="Artist"
             [ArtistImageId]="ArtistImageId" 
-            [ArtistId]="ArtistId" 
-            (onError)="OpenErrorWindow($event)" 
-            (onSaveArtist)="SaveArtistByPages($event)" 
-            (onImageDeleted)="DeleteImage($event)" 
-            (onArtistChanged)="ArtistChanged($event)"
+            [ArtistId]="ArtistId"
+            (onError)="OpenErrorWindow($event)"
+
+            (onSaveArtist)="SaveCurrentPage($event)"
+            (onSaveArtistByCircle)="SaveCurrentPageAndChangePage($event)"
+            (onSaveArtistBySave)="SaveCurrentPageAndNavigate($event)"
+
         >
         </app-artist-about>
 
@@ -66,8 +68,7 @@
 
         <div class="create-event-body-1">
 
-            <app-artist-media #MediaPage 
-                *ngIf="currentPage == pages.media" 
+            <app-artist-media #MediaPage  *ngIf="currentPage == pages.media" 
                 [Artist]="Artist" 
                 [ArtistId]="ArtistId" 
                 (openNextPage)="NextPart()" 
@@ -82,12 +83,17 @@
                 [ArtistId]="ArtistId"  
                 (onSave)="SaveArtistByPages($event)" 
                 (onError)="OpenErrorWindow($event)"
+
+                (onSaveArtistByCircle)="SaveCurrentPageAndChangePage($event)"
+                (onSaveArtist)="SaveCurrentPage($event)"
+                (onSaveArtistBySave)="SaveCurrentPageAndNavigate($event)"
             >
             </app-artist-booking>
 
             <app-artist-riders #RidersPage *ngIf="currentPage == pages.riders"
                 [Artist]="Artist" 
-                (OnSave)="SaveArtistByPages($event,false)" 
+                (OnSave)="SaveCurrentPage($event)"
+
                 (openNextPage)="NextPart()"
                 (OnSaveButton)="SaveArtist($event)"
             >

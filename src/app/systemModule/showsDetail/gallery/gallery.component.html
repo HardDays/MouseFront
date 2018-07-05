@@ -1,4 +1,4 @@
-<div class="iframe-slider-wrapp" *ngIf="Images && Images.length > 0">
+<div class="iframe-slider-wrapp" *ngIf="Images && Images.length > 0 && isShow">
     <!--это слайды с видосами-->
     <ng-container *ngFor="let item of Images">
         <div class="slide" *ngIf="item">

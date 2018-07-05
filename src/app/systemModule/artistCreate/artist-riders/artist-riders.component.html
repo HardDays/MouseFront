@@ -16,7 +16,7 @@
                 [Type]="'Stage'"
                 [Rider]="stageRider"
                 (onDelete)="DeleteRiderById($event)"
-                (onSave)="SaveRider($event)"
+                (onConfirm)="ConfirmRider($event)"
             >
             </app-rider>
         </div>
@@ -26,7 +26,7 @@
                 [Type]="'Backstage'"
                 [Rider]="backstageRider"
                 (onDelete)="DeleteRiderById($event)"
-                (onSave)="SaveRider($event)"
+                (onConfirm)="ConfirmRider($event)"
             >
             </app-rider>
         </div>
@@ -36,7 +36,7 @@
                 [Type]="'Hospitality'"
                 [Rider]="hospitalityRider"
                 (onDelete)="DeleteRiderById($event)"
-                (onSave)="SaveRider($event)"
+                (onConfirm)="ConfirmRider($event)"
             >
             </app-rider>
         </div>
@@ -46,7 +46,7 @@
                 [Type]="'Technical'"
                 [Rider]="technicalRider"
                 (onDelete)="DeleteRiderById($event)"
-                (onSave)="SaveRider($event)"
+                (onConfirm)="ConfirmRider($event)"
             >
             </app-rider>
         </div>

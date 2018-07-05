@@ -70,7 +70,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
   pages = Pages;
   currentPage = Pages.about;
   
-  showAllPages:boolean = false;
+  // showAllPages:boolean = false;
 
 
   // isNewArtist:boolean = true;
@@ -78,7 +78,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
   ArtistId:number = 0;
   ArtistImageId:number = 0;
 
-  isMediaWasOpen:boolean = false;
+  // isMediaWasOpen:boolean = false;
 
   // isSaveButtonClick:boolean = false;
   // ErrorSave:boolean = false;
@@ -211,7 +211,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
         );
         setTimeout(
           () => {
-            if(this.errorCmp.isShown)
+            if(this.errorCmp&&this.errorCmp.isShown)
               this.errorCmp.CloseWindow();
             this.router.navigate(["/system","profile",this.ArtistId]);
           },
@@ -224,75 +224,150 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
     )
   }
 
-  
-  NextPart()
-  {
-    if(this.errorCmp.isShown)
-      this.errorCmp.CloseWindow();
-    scrollTo(0,0);
-    
-    this.currentPage = this.currentPage + 1;
-  }
 
-  ChangeCurrentPart(newPart)
-  {
-    if(this.ArtistId == 0)
-      return;
+  clickSaveButton(){
+    if(this.BookingPage){
+      if(!this.BookingPage.Artist.price_from||!this.BookingPage.Artist.price_to){
+        this.errorCmp.OpenWindow('Please fill in all required fields!');
+        return;
+      }
+      else
+        this.BookingPage.clickSaveButton();
+    }
 
-    if(this.currentPage === newPart)
-      return;
-
-    this.currentPage = newPart;
-  }
-
-
-  SaveArtistNav(){
-    this.main.SetCurrentAccId(this.ArtistId);
-    this.main.GetMyAccounts();
-    setTimeout(
-      () => {
+    else if(this.RidersPage){
+      if(!this.RidersPage.isSaveAllRiders()){
+          this.errorCmp.OpenWindow('Please confirm or delete your current rider(s)');
+          return;
+      }
+      else{
+        this.SaveCurrentPageAndNavigate(this.Artist);
+      }
         
-        if(this.errorCmp.isShown)
-          this.errorCmp.CloseWindow();
-          this.router.navigate(["/system","profile",this.ArtistId]);
-       // scrollTo(0,0);
-      },
-      2000
-    );
+    }
+    
+    else if(this.AboutPage){
+      if(this.AboutPage.aboutForm.invalid){
+        this.errorCmp.OpenWindow(this.getFormErrorMessage(this.AboutPage.aboutForm, 'artist'));
+        return;
+      }
+      else 
+        this.AboutPage.clickSaveButton();
+    }
+    else{
+      this.SaveCurrentPageAndNavigate(this.Artist);
+    }
+
   }
+
+
+  SaveCurrentPageAndChangePage(artist:AccountCreateModel){
+    this.SaveCurrentPage(artist, true);
+  }
+
+  SaveCurrentPageAndNavigate(artist:AccountCreateModel){
+    this.SaveCurrentPage(artist, false, true);
+  }
+
+
+
+  SaveCurrentPage(artist:AccountCreateModel, isChangePage = false, isNavigate = false){
+    this.convertPreferedVenues();
+    console.log(`ARTIST`,artist);
+    this.WaitBeforeLoading
+    (
+      () => this.ArtistId == 0 ? this.main.accService.CreateAccount(artist) : this.main.accService.UpdateMyAccount(this.ArtistId,artist),
+      (res) => {
+        this.DisplayArtistParams(res);
+        this.main.GetMyAccounts(
+          () => 
+          { 
+            this.main.CurrentAccountChange.next(res);
+          }
+        );
+
+        // this.errorCmp.OpenWindow(BaseMessages.Success);
+        // if(goToNextPage){
+        //   setTimeout(
+        //     () => this.NextPart(),
+        //     2000
+        //   );
+        // }
+
+        if(isChangePage){
+          this.NextPart();
+        }
+        if(isNavigate){
+          console.log(`NAVIGATE`);
+          this.router.navigate(["/system","profile",this.ArtistId]);
+        }
+        
+      },
+      (err) => {
+        this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'artist'));
+      }
+    )
+  }
+
+  convertPreferedVenues(){
+    if(this.Artist&&this.Artist.preferred_venues&&this.Artist.preferred_venues.length>0&&this.Artist.preferred_venues[0]['type_of_venue']){
+      let preferredVenues:any = this.Artist.preferred_venues;
+      this.Artist.preferred_venues = [];
+
+      for(let v of preferredVenues){
+        console.log(v);
+          this.Artist.preferred_venues.push(v.type_of_venue);
+      }
+    }
+  }
+
+
 
   SaveButton()
   {
     console.log(this.Artist);
-    switch(this.currentPage){
-      case this.pages.about:{
-        if(this.AboutPage)
-        {
-          this.AboutPage.SaveArtist();
-          if(this.AboutPage.aboutForm.invalid){
-            return;
-          }
-        }
-      }
-      case this.pages.booking:{
-        if(this.BookingPage){
-         this.BookingPage.addBooking();
-         if(!this.BookingPage.Artist.price_from||!this.BookingPage.Artist.price_to){
-            return;
-          }
-        }
-      }
-      case this.pages.riders:{
-        if(this.RidersPage){
-         if(!this.RidersPage.saveAllRiders()){
-            this.errorCmp.OpenWindow('Please confirm or delete your current riders');
-            return;
-          }
-        }
-      } 
-    }
+    // switch(this.currentPage){
+    //   case this.pages.about:{
+    //     if(this.AboutPage)
+    //     {
+    //       this.AboutPage.SaveArtist();
+    //       if(this.AboutPage.aboutForm.invalid){
+    //         return;
+    //       }
+    //     }
+    //   }
+    //   case this.pages.booking:{
+    //     if(this.BookingPage){
+    //      this.BookingPage.addBooking();
+    //      if(!this.BookingPage.Artist.price_from||!this.BookingPage.Artist.price_to){
+    //         return;
+    //       }
+    //     }
+    //   }
+    //   case this.pages.riders:{
+    //     if(this.RidersPage){
+    //      if(!this.RidersPage.saveAllRiders()){
+    //         this.errorCmp.OpenWindow('Please confirm or delete your current rider(s)');
+    //         return;
+    //       }
+    //     }
+    //   } 
+    // }
 
     this.SaveArtistNav();
+  }
+  
+  SaveArtistNav(){
+    //this.main.GetMyAccounts();
+    //this.main.SetCurrentAccId(this.ArtistId);
+    setTimeout(
+      () => {
+        if(this.errorCmp.isShown)
+            this.errorCmp.CloseWindow();
+        this.router.navigate(["/system","profile",this.ArtistId]);
+      },
+      2000
+    );
   }
 
   DeleteImage($event)
@@ -316,6 +391,26 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
         this.Artist[key] = $event[key];
       }
     }
+  }
+
+  NextPart()
+  {
+    if(this.errorCmp&&this.errorCmp.isShown)
+      this.errorCmp.CloseWindow();
+    scrollTo(0,0);
+    
+    this.currentPage = this.currentPage + 1;
+  }
+
+  ChangeCurrentPart(newPart)
+  {
+    if(this.ArtistId == 0)
+      return;
+
+    if(this.currentPage === newPart)
+      return;
+
+    this.currentPage = newPart;
   }
 
   OpenErrorWindow(str:string)

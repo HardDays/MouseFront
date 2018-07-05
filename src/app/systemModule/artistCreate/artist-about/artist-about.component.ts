@@ -20,10 +20,16 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
 
 
   @Input() Artist:AccountCreateModel;
+  @Output() ArtistChange:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
+
   @Input() ArtistImageId:number = 0;
   @Input() ArtistId:number = 0;
 
   @Output() onSaveArtist:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
+  @Output() onSaveArtistByCircle:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
+  @Output() onSaveArtistBySave:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
+  
+
   @Output() onError:EventEmitter<string> = new EventEmitter<string>();
   @Output() onImageDeleted:EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() onArtistChanged:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
@@ -137,38 +143,41 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
     // ##########################################//
   //  SAVE
 
-  SaveArtist()
+  SaveArtistByCircle()
   {
-      console.log(`SaveArtist`);
-      
-      this.aboutForm.updateValueAndValidity();
-      if(this.aboutForm.invalid)
-      {
+    if(this.SaveArtist())
+      this.onSaveArtistByCircle.emit(this.Artist);
+  }
 
-        console.log(this.aboutForm,this.getFormErrorMessage(this.aboutForm, 'artist'));
-        this.onError.emit(this.getFormErrorMessage(this.aboutForm, 'artist'));
-          // this.onError.emit(`ERROR`);
-          return;
-      }
+  clickSaveButton(){
+    if(this.SaveArtist())
+      this.onSaveArtistBySave.emit(this.Artist);
+  }
 
-      this.Artist.genres = [];
-      console.log(this.genres);
-      for(let g of this.genres){
-        if(g.checked){
-          this.Artist.genres.push(g.genre);
-        }
-      }
-      
-
-      let img = this.Artist.image_base64;
-      // if(!this.isNewImage)
-      //   this.Artist.image_base64 = null;
-
-      console.log(`beforeEmit`,this.Artist);
+  SaveArtistAndStay(){
+    if(this.SaveArtist())
       this.onSaveArtist.emit(this.Artist);
+  }
 
-      // if(!this.isNewImage)
-      //   this.Artist.image_base64 = img;
+  protected SaveArtist(){
+    this.aboutForm.updateValueAndValidity();
+    if(this.aboutForm.invalid)
+    {
+      console.log(this.aboutForm,this.getFormErrorMessage(this.aboutForm, 'artist'));
+      this.onError.emit(this.getFormErrorMessage(this.aboutForm, 'artist'));
+        return false;
+    }
+
+    this.Artist.genres = [];
+    console.log(this.genres);
+    for(let g of this.genres){
+      if(g.checked){
+        this.Artist.genres.push(g.genre);
+      }
+    }
+    let img = this.Artist.image_base64;
+    return true;
+ 
   }
 
   uploadImage($event){
@@ -179,7 +188,7 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
             // this.isNewImage = true;
         }
     );
-}
+  }
 
 DeleteImage()
 {

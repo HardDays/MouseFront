@@ -77,6 +77,11 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
     });
   }
 
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   if(changes.Artist)
+  //     this.getAllMedia();
+  // }
+
   ngOnChanges(changes:SimpleChanges){
     if(!changes['Artist'].isFirstChange()){
       this.getAllMedia();
@@ -85,8 +90,8 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
 
   getAllMedia(){
     this.InitMusicPlayer();
-   this.updateVideosPreview();
-   this.GetArtistImages();
+    this.updateVideosPreview();
+    this.GetArtistImages();
   }
 
   Init(artist:AccountCreateModel,id:number){

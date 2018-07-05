@@ -22,6 +22,11 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
   @Input() ArtistId:number;
 
   @Output() onSave = new EventEmitter<AccountCreateModel>();
+  @Output() onSaveArtist = new EventEmitter<AccountCreateModel>();
+  @Output() onSaveArtistByCircle = new EventEmitter<AccountCreateModel>();
+  @Output() onSaveArtistBySave = new EventEmitter<AccountCreateModel>();
+
+
   @Output() onError = new EventEmitter<string>();
 
   @ViewChild('search') public searchElement: ElementRef;
@@ -51,7 +56,7 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     this.CreateAutocomplete();
     // this.initDateMin();
-    this.initDateMin();
+    //this.initDateMin();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -60,6 +65,7 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
     if(changes.ArtistId)
         this.ArtistId = changes.ArtistId.currentValue;
     this.Init();
+    this.initDateMin();
   }
 
   Init(){
@@ -123,7 +129,7 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
   }
 
   addBooking(){
-  
+  console.log(`booking save`);
   this.Artist.preferred_venues = [];
 
     for(let v of this.preferredVenues){
@@ -239,6 +245,21 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
     this.agmMap.triggerResize();
   }
 
+
+  preferredVenueTextInput(s:string){
+    console.log(this.preferredVenues);
+    if(s.length>0){
+      this.preferredVenues.find(c=>c.object.type==='other').checked = true;
+    }
+    else {
+      this.preferredVenues.find(c=>c.object.type==='other').checked = false;
+    }
+  }
+
+
+
+
+
   saveArtist(){
 
     if(this.Artist.price_from&&this.Artist.price_to){
@@ -250,7 +271,14 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
         if(''+this.Artist.additional_hours_price[0]==='$') 
           this.Artist.additional_hours_price = +(''+this.Artist.additional_hours_price).slice(1);
 
-      this.Artist.image_base64 = null;
+      this.Artist.preferred_venues = [];
+
+      for(let v of this.preferredVenues){
+        if(v.checked)
+          this.Artist.preferred_venues.push(v.object.type);
+      }
+
+      //this.Artist.image_base64 = null;
 
       if(this.type_min_time_to_book=='weeks')
         this.Artist.min_time_to_book = this.Artist.min_time_to_book*7;
@@ -262,22 +290,68 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
       else if(this.type_min_time_to_free_cancel=='months')
         this.Artist.min_time_to_free_cancel = this.Artist.min_time_to_free_cancel*30;
 
-      console.log(`to Save`,this.Artist);
+      // console.log(`to Save`,this.Artist);
       this.onSave.emit(this.Artist);
     }
     else
-      this.onError.emit('Entry Price!');
+      this.onError.emit('Please fill in all required fields!');
     return;
   }
 
-  preferredVenueTextInput(s:string){
-    console.log(this.preferredVenues);
-    if(s.length>0){
-      this.preferredVenues.find(c=>c.object.type==='other').checked = true;
+
+
+  SaveArtistByCircle()
+  {
+   // this.saveArtist();
+
+    if(this.SaveArtist())
+      this.onSaveArtistByCircle.emit(this.Artist);
+  }
+
+  clickSaveButton(){
+    if(this.SaveArtist())
+      this.onSaveArtistBySave.emit(this.Artist);
+  }
+
+  SaveArtistAndStay(){
+    if(this.SaveArtist())
+      this.onSaveArtist.emit(this.Artist);
+  }
+
+  protected SaveArtist(){
+    if(this.Artist.price_from&&this.Artist.price_to){
+
+      if(''+this.Artist.price_from[0]==='$')this.Artist.price_from = +(''+this.Artist.price_from).slice(1);
+      if(''+this.Artist.price_to[0]==='$')this.Artist.price_to = +(''+this.Artist.price_to).slice(1);
+
+      if(this.Artist.additional_hours_price)
+        if(''+this.Artist.additional_hours_price[0]==='$') 
+          this.Artist.additional_hours_price = +(''+this.Artist.additional_hours_price).slice(1);
+
+      this.Artist.preferred_venues = [];
+
+      for(let v of this.preferredVenues){
+        if(v.checked)
+          this.Artist.preferred_venues.push(v.object.type);
+      }
+
+      //this.Artist.image_base64 = null;
+
+      if(this.type_min_time_to_book=='weeks')
+        this.Artist.min_time_to_book = this.Artist.min_time_to_book*7;
+      else if(this.type_min_time_to_book=='months')
+        this.Artist.min_time_to_book = this.Artist.min_time_to_book*30;
+
+      if(this.type_min_time_to_free_cancel=='weeks')
+        this.Artist.min_time_to_free_cancel = this.Artist.min_time_to_free_cancel*7;
+      else if(this.type_min_time_to_free_cancel=='months')
+        this.Artist.min_time_to_free_cancel = this.Artist.min_time_to_free_cancel*30;
+
+      // console.log(`to Save`,this.Artist);
+      return true;
+      // this.onSave.emit(this.Artist);
     }
-    else {
-      this.preferredVenues.find(c=>c.object.type==='other').checked = false;
-    }
+    return false;
   }
 
 }
