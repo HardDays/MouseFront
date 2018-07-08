@@ -1,6 +1,6 @@
 <app-preloader *ngIf="isLoading"></app-preloader>
 <section  [ngStyle]="{'display': isLoading?'none':'block'}" class="second-router-outlet">
-    <div class="show-datails-wr">
+    <div class="show-datails-wr ">
         <div class="main-mw">
             <div class="flex-artist-main-info">
                 <div class="side left-side">
@@ -34,14 +34,16 @@
                     </div>
                 </div>
                 <div class="side right-side">
-                    <div class="bg-slider">
-                        <div class="nav-iframe-slider-wrapp">
+                    <!-- <div class="bg-slider"> -->
+                        <!-- <div class="nav-iframe-slider-wrapp"> -->
                             <!--итерируем вместе со слайдами. первому добавляем active-->
                             <!-- <div class="one-slide active">
                                 <span>Adele</span>
                             </div> -->
+                        <!-- </div> -->
+                        <div class="bg-slider">
+                            <show-gallery-cmp [Artists]="Artists" [Venue]="Venue"></show-gallery-cmp>
                         </div>
-                        <show-gallery-cmp [Artists]="Artists" [Venue]="Venue"></show-gallery-cmp>
                         <!-- <div class="iframe-slider-wrapp"> -->
                             <!--это слайды с видосами-->
                                 <!-- <ng-container *ngFor="let item of Artists">
@@ -56,7 +58,7 @@
                                     </div>
                                 </ng-container>
                         </div> -->
-                    </div>
+                    <!-- </div> -->
                 </div>
             </div>
         </div>

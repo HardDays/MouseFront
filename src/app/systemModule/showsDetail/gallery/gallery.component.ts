@@ -39,12 +39,12 @@ export class ShowDetailGalleryComponent extends BaseComponent implements OnChang
         // this.Images = [];
         if(this.Venue && this.Venue.id)
         {
-            this.Images = [];
+           
             this.GetImageByAccount(this.Venue.id);
         }
         if(this.Artists && this.Artists.length)
         {
-            this.Images = [];
+            // this.Images = [];
             for(let item of this.Artists)
             {
                 this.GetImageByAccount(item.id);
@@ -57,6 +57,7 @@ export class ShowDetailGalleryComponent extends BaseComponent implements OnChang
         this.WaitBeforeLoading(
             () => this.main.imagesService.GetAccountImages(accId),
             (res) => {
+                this.Images = [];
                 if ( res.total_count > 0 ) {
                     // tslint:disable-next-line:forin
                     for ( const i in res.images ) {
@@ -68,7 +69,8 @@ export class ShowDetailGalleryComponent extends BaseComponent implements OnChang
                                     if (this.Images.indexOf(res.base64) < 0) {
                                         this.Images[res.id] = res.base64;
                                         this.Images = this.Images.filter(obj => obj && obj.length > 0).map(obj => obj);
-                                        this.InitSlider();
+                                        //this.InitSlider();
+                                        //console.log(res, this.Images);
                                     }
                                 }
                             }

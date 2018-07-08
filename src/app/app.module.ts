@@ -43,6 +43,7 @@ import { RegisterUserInfoComponent } from './access/registration/register-user-i
 
 
 
+
 let providers = {
   "google": {
     "clientId": "318975976374-kgoi5u5qrao13e6u7o2sjinleh5c86vj.apps.googleusercontent.com"

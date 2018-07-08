@@ -1,0 +1,45 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TextMaskModule } from 'angular2-text-mask';
+import { AgmCoreModule } from '@agm/core';
+
+import { ErrorModule } from './../shared/error/error.module';
+import { PreloaderModule } from './../shared/preloader/preloader.module';
+import { AdminComponent } from './admin.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { AdminRoutingModule } from './admin.routing';
+import { AdminAccessGuard } from './admin.guard';
+import { AccountsComponent } from './accounts/accounts.component';
+
+
+
+@NgModule({
+    imports: [ 
+        RouterModule,
+        CommonModule,
+        FormsModule,
+        AdminRoutingModule,
+        ReactiveFormsModule,
+        TextMaskModule,
+        AgmCoreModule.forRoot({
+            apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",
+            libraries: ["places"]
+          }),
+        ErrorModule,
+        PreloaderModule
+    ],
+    declarations: [
+        AdminComponent,
+        DashboardComponent,
+        AccountsComponent
+        
+    ],
+    providers: [AdminAccessGuard]
+})
+export class AdminModule {}
+
+
+  

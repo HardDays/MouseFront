@@ -12,6 +12,11 @@
   font-weight: normal;
   font-style: normal; }
 @font-face {
+  font-family: AvenirLTStdHeavy;
+  src: url(../fonts/AvenirLTStd-Heavy.otf);
+  font-weight: normal;
+  font-style: normal; }
+@font-face {
   font-family: AvenirLTStdMedium;
   src: url(../fonts/AvenirNextCyr-Medium.eot);
   src: local("☺"), url("../fonts/AvenirNextCyr-Medium.ttf") format("truetype");
@@ -2016,10 +2021,10 @@ footer {
             background-position: center; }
             .head-info-profile-wr.head-info-artist .flex-artist-main-info .side.right-side .bg-slider .slick-arrow.slick-prev {
               background-image: url(../img/arrow-left.svg);
-              left: -46px; }
+              left: 35%; }
             .head-info-profile-wr.head-info-artist .flex-artist-main-info .side.right-side .bg-slider .slick-arrow.slick-next {
               background-image: url(../img/arrow-right.svg);
-              right: -46px; }
+              right: 2%; }
             .head-info-profile-wr.head-info-artist .flex-artist-main-info .side.right-side .bg-slider .slick-arrow.slick-disabled {
               cursor: not-allowed; }
   .head-info-profile-wr .head-info-profile {
