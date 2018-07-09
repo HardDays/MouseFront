@@ -15,6 +15,7 @@ const routes: Routes = [
     { path: 'social',component: SocialNewAccComponent, canActivate: [AppAccessGuard]},
     { path: 'register',component: RegistrationComponent, canActivate: [AppAccessGuard]},
     { path: 'system', loadChildren: './systemModule/system.module#SystemModule'},
+    { path: 'admin', loadChildren: './admin/admin.module#AdminModule'},
     { path: '**', redirectTo: 'access'}
 ];
 

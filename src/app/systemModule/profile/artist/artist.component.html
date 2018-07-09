@@ -30,6 +30,7 @@
                         </div>
                         <div class="side right-side">
                             <div class="bg-slider">
+                                    
                                 <show-gallery-cmp [Artists]="[Account]"></show-gallery-cmp>
                                 <!-- <div class="iframe-slider-wrapp" *ngIf="Account.videos.length > 0"> -->
                                     <!-- надо подключить youtube api и тем самым вставлять видео вместо iframe ибо у iframe нет норм функций для остановки видео, либо я хреново покопался.-->
@@ -177,3 +178,4 @@
     </div>
 
 </section>
+<error-cmp #errorCmp></error-cmp>

@@ -11,7 +11,7 @@ import { ShowDetailVideoComponent } from './video/video.component';
 import { ByTicketComponent } from './buyTicket/buyTicket.component';
 import { BiographyComponent } from './biography/biography.component';
 import { ErrorModule } from '../../shared/error/error.module';
-
+import {SlideshowModule} from 'ng-simple-slideshow';
 
 @NgModule({
     imports: [ 
@@ -25,7 +25,8 @@ import { ErrorModule } from '../../shared/error/error.module';
         AgmCoreModule.forRoot({
             apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",
             libraries: ["places"]
-        })
+        }),
+        SlideshowModule
     ],
     declarations: [ 
         ShowsDetailComponent,

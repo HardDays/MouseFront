@@ -230,38 +230,45 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
   SaveEvent()
   {
-    this.Event.account_id = this.CurrentAccount.id;
-    
-    if(this.about)
-      this.about.GetEventGenres();
-
-    if(this.Event.venue){
-      delete this.Event['address'];
-      delete this.Event['city_lat'];
-      delete this.Event['city_lng'];
-    }
-
-
-    if(!this.Event.is_active)
-    this.WaitBeforeLoading
-    (
-      () => this.EventId == 0 ? this.main.eventService.CreateEvent(this.Event) : this.main.eventService.UpdateEvent(this.EventId,this.Event),
-      (res) => {
-
-        this.errorCmp.OpenWindow(BaseMessages.Success);
-        
-        setTimeout(
-          () => {
-            this.errorCmp.CloseWindow();
-            this.router.navigate(["/system","events"]);
-          },
-          2000
-        );
-      },
-      (err) => {
-        this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'event'));
+    if(this.about&&this.about.aboutForm.invalid)
+      {
+        this.errorCmp.OpenWindow(this.getFormErrorMessage(this.about.aboutForm,'event'));
+        return;
       }
-    )
+    else{
+      this.Event.account_id = this.CurrentAccount.id;
+      
+      if(this.about)
+        this.about.GetEventGenres();
+
+      if(this.Event.venue){
+        delete this.Event['address'];
+        delete this.Event['city_lat'];
+        delete this.Event['city_lng'];
+      }
+
+
+      if(!this.Event.is_active)
+      this.WaitBeforeLoading
+      (
+        () => this.EventId == 0 ? this.main.eventService.CreateEvent(this.Event) : this.main.eventService.UpdateEvent(this.EventId,this.Event),
+        (res) => {
+
+          this.errorCmp.OpenWindow(BaseMessages.Success);
+          
+          setTimeout(
+            () => {
+              this.errorCmp.CloseWindow();
+              this.router.navigate(["/system","events"]);
+            },
+            2000
+          );
+        },
+        (err) => {
+          this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'event'));
+        }
+      )
+    }
   }
 
   NextPart()

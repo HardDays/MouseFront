@@ -264,8 +264,14 @@
                       <div class="side side-info side-map">
                           <h6>Preferred Venues</h6>
                           <p *ngIf="Artist&&Artist.preferred_venues" class="about-text margened">
-                            <span *ngFor="let ven of Artist.preferred_venues">
-                                {{ven.type_of_venue=='other'?Artist.preferred_venue_text:ven.type_of_venue| titlecase }} 
+                            <span *ngFor="let ven of Artist.preferred_venues; let last = last">
+                                {{
+                                    ven.type_of_venue === 'other'?
+                                        Artist.preferred_venue_text : 
+                                        ven.type_of_venue.replace('_',' ')
+                                    | titlecase 
+                                }}
+                                {{last?'':','}}
                             </span>
                           </p>
                       </div>

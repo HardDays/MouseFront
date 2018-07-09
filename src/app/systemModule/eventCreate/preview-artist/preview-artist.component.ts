@@ -63,6 +63,7 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
+    scrollTo(0,0);
     this.InitMusicPlayer();
 
     this.WaitBeforeLoading(

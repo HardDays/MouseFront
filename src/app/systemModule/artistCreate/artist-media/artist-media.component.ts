@@ -77,6 +77,11 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
     });
   }
 
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   if(changes.Artist)
+  //     this.getAllMedia();
+  // }
+
   ngOnChanges(changes:SimpleChanges){
     if(!changes['Artist'].isFirstChange()){
       this.getAllMedia();
@@ -85,8 +90,8 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
 
   getAllMedia(){
     this.InitMusicPlayer();
-   this.updateVideosPreview();
-   this.GetArtistImages();
+    this.updateVideosPreview();
+    this.GetArtistImages();
   }
 
   Init(artist:AccountCreateModel,id:number){
@@ -150,6 +155,7 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
             this.audioCurrentTime = this.player.currentTime();
           },100)
         },(err)=>{
+          this.onError.emit(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
           console.log(`not start play`);
         })
 
@@ -167,14 +173,18 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
         // },10000)
   
       },(err)=>{
+        this.onError.emit(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
         console.log(`error streaming`,err)
       });
 
-    },(err)=>{console.log(`ERROR`)})
+    },(err)=>{
+      this.onError.emit(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
+      console.log(`ERROR`)
+    })
   }
 
   stopAudio(){
-    if(!this.player.isDead())
+    if(this.player&&!this.player.isDead())
       this.player.pause();
   }
 
