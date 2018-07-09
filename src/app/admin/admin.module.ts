@@ -13,6 +13,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdminRoutingModule } from './admin.routing';
 import { AdminAccessGuard } from './admin.guard';
 import { AccountsComponent } from './accounts/accounts.component';
+import { TableComponent } from './accounts/table/table.component';
+import { AnalyticsComponent } from './accounts/analytics/analytics.component';
+import { EventsComponent } from './events/events.component';
+import { FeedbackComponent } from './feedback/feedback.component';
+import { AccountComponent } from './accounts/account/account.component';
 
 
 
@@ -34,7 +39,12 @@ import { AccountsComponent } from './accounts/accounts.component';
     declarations: [
         AdminComponent,
         DashboardComponent,
-        AccountsComponent
+        AccountsComponent,
+        TableComponent,
+        AnalyticsComponent,
+        EventsComponent,
+        FeedbackComponent,
+        AccountComponent
         
     ],
     providers: [AdminAccessGuard]

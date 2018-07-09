@@ -6402,7 +6402,7 @@ footer {
       position: absolute;
       border: none;
       background-color: transparent;
-      top: 50%;
+      top: 380px;
       -webkit-transform: translateY(-50%);
               transform: translateY(-50%);
       width: 14px;
@@ -6414,10 +6414,10 @@ footer {
       background-position: center; }
       .show-datails-wr .flex-artist-main-info .right-side .iframe-slider-wrapp .slick-arrow.slick-prev {
         background-image: url(../img/arrow-left.svg);
-        left: -33px; }
+        left: 33px; }
       .show-datails-wr .flex-artist-main-info .right-side .iframe-slider-wrapp .slick-arrow.slick-next {
         background-image: url(../img/arrow-right.svg);
-        right: -33px; }
+        right: 33px; }
       .show-datails-wr .flex-artist-main-info .right-side .iframe-slider-wrapp .slick-arrow.slick-disabled {
         cursor: not-allowed; }
 
