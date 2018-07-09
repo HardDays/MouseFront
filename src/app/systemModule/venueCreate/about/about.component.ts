@@ -111,19 +111,23 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
     {
         this.CreateAutocomplete(
             (addr,place) => {
+                console.log(place, addr);
+                
+                
                 if(place)
                 {
                     this.Venue.address = place.formatted_address;
                 }
                 for(let a of addr)
                 {
+                    
                     if(a.search('locality') > 0)
                     {
                         this.Venue.city = a.slice(a.search('>')+1,a.search('</'));
                     }
                     else if(a.search('street-address') > 0)
                     {
-                        //this.Venue.address = a.slice(a.search('>')+1,a.search('</'));
+                        this.Venue.address = a.slice(a.search('>')+1,a.search('</'));
                     }
                     else if(a.search('region') > 0)
                     {

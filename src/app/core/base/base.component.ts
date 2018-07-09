@@ -375,7 +375,12 @@ export class BaseComponent{
                                 }
                                 else
                                 {
-                                    let addr:string[] = autocomplete.getPlace().adr_address.split(', ');
+                                    console.log(autocomplete.getPlace(), place);
+                                    
+                                    // let addr:string[] = autocomplete.getPlace().adr_address.split(', ');
+                                    let addr:string[] = autocomplete.getPlace().adr_address.replace('<span>', '').split('/span>');
+                                    
+                                    
 
                                     if(callback && typeof callback == "function")
                                     {
