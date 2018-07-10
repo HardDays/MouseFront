@@ -8,7 +8,8 @@ import { Router } from '@angular/router';
 import { MapsAPILoader } from '@agm/core';
 import { ContactModel } from '../../../core/models/contact.model';
 import {BaseMessages} from '../../../core/base/base.enum';
-
+import { BigCalendarComponent, CalendarDate } from '../big-calendar/big-calendar.component';
+import * as moment from 'moment';
 
 @Component({
     selector: 'venue-dates-selector',
@@ -16,6 +17,22 @@ import {BaseMessages} from '../../../core/base/base.enum';
     styleUrls: ['./../venueCreate.component.css']
 })
 export class VenueDatesComponent extends BaseComponent implements OnInit,OnChanges {
+    changedPrice: CalendarDate[] = [
+        {
+            mDate: moment('2018-07-11'),
+            changed: true,
+            dayPrice: 500,
+            nightPrice: 600
+    
+        },
+        {
+            mDate: moment('2018-07-12'),
+            changed: true,
+            nightPrice: 300
+    
+        }
+        
+    ];
     @Input() Venue: AccountCreateModel;
     @Output() onSaveVenue:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
     @Output() onError:EventEmitter<string> = new EventEmitter<string>();
@@ -40,6 +57,7 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
             (value:any) => {
                 this.onVenueChanged.emit(this.Venue);
             });
+            console.log(this.Venue);
     }
     ngOnInit(): void
     {

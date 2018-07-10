@@ -14,6 +14,7 @@ import { ErrorComponent } from '../../shared/error/error.component';
 import { ErrorModule } from '../../shared/error/error.module';
 import { PreloaderModule } from '../../shared/preloader/preloader.module';
 import { ProfileModule } from '../profile/profile.module';
+import { BigCalendarComponent } from './big-calendar/big-calendar.component';
 
 @NgModule({
     imports: [ 
@@ -33,7 +34,8 @@ import { ProfileModule } from '../profile/profile.module';
         VenueHoursComponent,
         VenueListingComponent,
         VenueMediaComponent,
-        VenueMediaPhotoComponent
+        VenueMediaPhotoComponent,
+        BigCalendarComponent
     ],
     exports: [ VenueCreateComponent ]
 })
