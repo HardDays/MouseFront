@@ -1,6 +1,6 @@
 <app-preloader *ngIf="isLoading"></app-preloader>
 <section  [ngStyle]="{'display': isLoading?'none':'block'}" class="second-router-outlet">
-    <div class="show-datails-wr ">
+    <div class="show-datails-wr">
         <div class="main-mw">
             <div class="flex-artist-main-info">
                 <div class="side left-side">
@@ -33,6 +33,8 @@
                         </div>
                     </div>
                 </div>
+
+                
                 <div class="side right-side">
                     <!-- <div class="bg-slider"> -->
                         <!-- <div class="nav-iframe-slider-wrapp"> -->
@@ -41,7 +43,8 @@
                                 <span>Adele</span>
                             </div> -->
                         <!-- </div> -->
-                        <div class="bg-slider">
+                        <div class="iframe-slider-wrapp">
+                            
                             <show-gallery-cmp [Artists]="Artists" [Venue]="Venue"></show-gallery-cmp>
                         </div>
                         <!-- <div class="iframe-slider-wrapp"> -->

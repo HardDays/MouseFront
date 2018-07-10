@@ -6,6 +6,9 @@ import { AdminComponent } from './admin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdminAccessGuard } from './admin.guard';
 import { AccountsComponent } from './accounts/accounts.component';
+import { EventsComponent } from './events/events.component';
+import { FeedbackComponent } from './feedback/feedback.component';
+import { AccountComponent } from './accounts/account/account.component';
 
 
 
@@ -15,7 +18,10 @@ const routes: Routes =
   { path:'',component:AdminComponent, children:
     [
       { path: 'dashboard', component: DashboardComponent, canActivate: [AdminAccessGuard]},
-      { path: 'accounts', component: AccountsComponent, canActivate: [AdminAccessGuard]}
+      { path: 'accounts/:id', component: AccountsComponent, canActivate: [AdminAccessGuard]},
+      { path: 'account/:id', component: AccountComponent, canActivate: [AdminAccessGuard]},
+      { path: 'events/:id', component: EventsComponent, canActivate: [AdminAccessGuard]},
+      { path: 'feedback/:id', component: FeedbackComponent, canActivate: [AdminAccessGuard]}
     ]
   }
 ];
