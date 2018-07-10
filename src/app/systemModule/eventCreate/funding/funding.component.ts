@@ -22,6 +22,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
     familyAndFriendAmount:string = '0%';
 
     @Input() Event:EventCreateModel;
+    @Input() isHasVenue:boolean;
     @Output() onSaveEvent:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
     @Output() onSave:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
     @Output() onError:EventEmitter<string> = new EventEmitter<string>();

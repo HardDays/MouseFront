@@ -21,7 +21,7 @@
                     <!-- <a [routerLink]="['/system','events']" class="ham-ham at-map">
                     </a> -->
                     <h1>Events</h1>
-                    <span *ngIf="isLoggedIn" [routerLink]="['/system','eventCreate','new']" class="add-event-butt"><span>Add Event</span></span>
+                    <span *ngIf="isLoggedIn" (click)="addEvent()" class="add-event-butt"><span>Add Event</span></span>
                 </div>
             </div>
             <div class="main-mw-6">
@@ -49,3 +49,5 @@
     <analyt-event-selector #analyt></analyt-event-selector>
     <search-events-map-cmp #mapForm (onMapClicked)="TransferMapToSearch($event)"></search-events-map-cmp>
 </section>
+
+<error-cmp #errorCmp></error-cmp>

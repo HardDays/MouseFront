@@ -34,6 +34,7 @@ import { MainService } from '../../core/services/main.service';
 import { AnalyticsEventComponent } from './analytics/analytics.component';
 import { SearchEventsComponent } from '../../shared/search/search_window/search.component';
 import { SearchEventsMapComponent } from '../../shared/search/map/map.component';
+import { ErrorComponent } from '../../shared/error/error.component';
 
 declare var $:any;
 
@@ -45,6 +46,8 @@ declare var $:any;
 
 
 export class EventsComponent extends BaseComponent implements OnInit,AfterViewChecked {
+
+    @ViewChild('errorCmp') errCmp:ErrorComponent;
     
     Events:EventGetModel[] = [];
     SearchParams: EventSearchParams = new EventSearchParams();
@@ -179,6 +182,15 @@ export class EventsComponent extends BaseComponent implements OnInit,AfterViewCh
     {
         this.SearchParams.offset = this.Events.length;
         this.HiddenGetEvents();
-	}
+    }
+    
+    addEvent(){
+        
+        if(+this.main.GetCurrentAccId()>0)
+            this.router.navigate(['/system','eventCreate','new']);
+        else
+            // console.log(`No profile`);
+            this.errCmp.OpenWindow('Please create a profile first')
+    }
 
 }

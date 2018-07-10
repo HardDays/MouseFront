@@ -78,16 +78,17 @@ export class FeedComponent extends BaseComponent implements OnInit, AfterViewChe
   GetFeed(){
     this.accId = this.GetCurrentAccId();
     console.log(`acc ID`,this.accId);
-    this.main.feedService.GetFeedByAccId(this.accId)
-      .subscribe(
-        (res)=>{
-          console.log(`res`,res);
-          this.Feed = res;
-        },
-        (err)=>{
-          console.log(`err`,err);
-        }
-      );
+    this.WaitBeforeLoading(
+      ()=>this.main.feedService.GetFeedByAccId(this.accId),
+      (res)=>{
+        console.log(`res`,res);
+        this.Feed = res;
+      },
+      (err)=>{
+        console.log(`err`,err);
+      }
+    )
+  
   }
 
   ngOnInit(){

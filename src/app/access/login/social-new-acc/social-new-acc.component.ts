@@ -53,18 +53,18 @@ export class SocialNewAccComponent extends BaseComponent implements OnInit {
         },
         (err) => {
             console.log(`err`,err);
-            if(err._body.indexOf("password")==0)
+            // if(err._body.indexOf("password")==0)
               this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'base'));
-            setTimeout(() => {
-              if(this.errorCmp.isShown)
-                this.errorCmp.CloseWindow();
-              if(this.type=='venue')
-                this.router.navigate(['/system','venueCreate','new']);
-              else if(this.type=='artist')
-                this.router.navigate(['/system','artistCreate','new']);
-              else
-                this.router.navigate(['/system','fanCreate','new']);
-            }, 1000);
+            // setTimeout(() => {
+            //   if(this.errorCmp.isShown)
+            //     this.errorCmp.CloseWindow();
+            //   if(this.type=='venue')
+            //     this.router.navigate(['/system','venueCreate','new']);
+            //   else if(this.type=='artist')
+            //     this.router.navigate(['/system','artistCreate','new']);
+            //   else
+            //     this.router.navigate(['/system','fanCreate','new']);
+            // }, 1000);
         });
     } else {
       this.errorCmp.OpenWindow('Error!');

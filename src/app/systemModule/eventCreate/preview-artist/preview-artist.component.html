@@ -87,7 +87,7 @@
               <div class="bg-doted-cal"></div>
           </div>
           <div id="mediaPage" class="uniq-padd-2">
-              <div class="main-mw">
+              <div *ngIf="Artist.audio_links.length>0"  class="main-mw">
                   <div class="flex--info none-padd-sides-b none-padd-sides-t-without-h">
                       <div class="side side-info side-about ">
                           <h6>SONGS</h6>
@@ -130,7 +130,7 @@
                   </div>
                  
               </div>
-              <div class="main-mw">
+              <div *ngIf="photos.length>0" class="main-mw">
                   <div class="flex--info none-padd-sides-b">
                       <div class="side side-info side-about ">
                           <h6 class="for-position-left-js">Images ({{photos?photos.length:'-'}})</h6>
@@ -157,7 +157,7 @@
               </div>
 
           </div>
-          <div class="uniq-padd-2">
+          <div *ngIf="Artist.artist_albums.length>0" class="uniq-padd-2">
               <div class="main-mw">
                   <div class="flex--info none-padd-sides-b none-padd-sides-t-without-h">
                       <div class="side side-info side-about ">
@@ -188,7 +188,7 @@
                   </div>
               </div>
           </div>
-          <div class="uniq-padd-2">
+          <div *ngIf="Artist.videos.length>0" class="uniq-padd-2">
                 <div class="main-mw">
                     <div class="flex--info none-padd-sides-b none-padd-sides-t-without-h">
                         <div class="side side-info side-about ">

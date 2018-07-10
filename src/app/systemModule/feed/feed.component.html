@@ -9,22 +9,25 @@
                 <p class="feed-text">FEED</p>
                 <div class="feed-items">
 
-                    <!-- <ng-container > -->
-                        <app-feed-item *ngFor="let item of Feed" [Feed]="item" [accId]="accId"></app-feed-item>
-                    <!-- </ng-container> -->
+                    <ng-container *ngIf="Feed.length>0">
+                        <app-feed-item  *ngFor="let item of Feed" [Feed]="item" [accId]="accId"></app-feed-item>
+                    </ng-container>
+
+                    <div *ngIf="Feed.length === 0" class="empty-info">
+                        <img src="./../../../assets/img/smile.svg" class="img-responsive" alt="">
+                        <p>You have no feed yet</p>
+                        
+                    </div>
                     
                     
                 </div>
             </div>
             <div class="right-white"></div>
         
-        
-        
-        
-        
+        </div>
 
         
-        </div>
+
     </section>
 
 </section>
