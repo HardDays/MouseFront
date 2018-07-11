@@ -94,7 +94,7 @@ export class PreviewVenueComponent extends BaseComponent implements OnInit {
             'padding-left': $('.for-position-left-js').offset()?$('.for-position-left-js').offset().left:0
         });
     });
-    }, 400);
+    }, 5000);
     
 
   

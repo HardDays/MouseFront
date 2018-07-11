@@ -1,27 +1,35 @@
 <app-preloader *ngIf="isLoading"></app-preloader>
-<section  [ngStyle]="{'display': (currentPage!=pages.previewArtist && currentPage!=pages.previewVenue)&&!isLoading?'block':'none'}" class="second-router-outlet">
+<section [ngStyle]="{'display':!isLoading?'block':'none'}" class="second-router-outlet">
     <div class="create-event-nav-tabs">
         <div class="for-header-shadow">
             <div [ngStyle]="{'display': !isLoading?'block':'none'}" class="main-mw">
                 <div class="create-event-header">
                     <h1>Create Event</h1>
+                    <!-- <h1 class="arrow-class">
+                      <div (click)="backPage()" class="arr">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="34" height="29" viewBox="0 0 34 29">
+                            <path fill="#000000" id="Forma_1_copy_3" data-name="Forma 1 copy 3" class="cls-1" d="M857,946.183H828.082L839.5,934.862,837.62,933,823,947.5,837.62,962l1.877-1.862-11.415-11.322H857v-2.633Z" transform="translate(-823 -933)"/>
+                          </svg>
+                      </div>
+                      Add Artist
+                  </h1> -->
                     <ul>
                         <!--нужным li даем классы active и started."хз нахрена это надо. узнавайте у писателя"-->
 
                         <li [ngClass]="{'active':currentPage == pages.about,'started':currentPage != pages.about}">
                             <a (click)="ChangeCurrentPart(pages.about)" class="nav-second-outlet">about</a>
                         </li>
-                        <li [ngClass]="{'active':currentPage == pages.artist,'started':currentPage != pages.artist}">
+                        <li [ngClass]="{'active':currentPage == pages.artist,'started':currentPage != pages.artist && EventId}">
                             <a (click)="ChangeCurrentPart(pages.artist)" class="nav-second-outlet">artist</a>
                         </li>
-                        <li [ngClass]="{'active':currentPage == pages.venue,'started':currentPage != pages.venue}">
+                        <li [ngClass]="{'active':currentPage == pages.venue,'started':currentPage != pages.venue && EventId}">
                             <a (click)="ChangeCurrentPart(pages.venue)" class="nav-second-outlet">venues</a>
                         </li>
-                        <li [ngClass]="{'active':currentPage == pages.funding,'started':currentPage != pages.funding}">
+                        <li [ngClass]="{'active':currentPage == pages.funding,'started':currentPage != pages.funding && EventId}">
                             <a (click)="ChangeCurrentPart(pages.funding)" class="nav-second-outlet">funding</a>
                         </li>
-                        <li *ngIf="isHasVenue" [ngClass]="{'active':currentPage == pages.tickets,'started':currentPage != pages.tickets}">
-                            <a (click)="ChangeCurrentPart(pages.tickets)" class="nav-second-outlet">tickets</a>
+                        <li [ngClass]="{'active':currentPage == pages.tickets,'started':currentPage != pages.funding && isHasVenue}">
+                            <a (click)="isHasVenue?ChangeCurrentPart(pages.tickets):''" class="nav-second-outlet">tickets</a>
                         </li>
                         <!-- <li [ngClass]="{'active':currentPage == pages.preview,'started':currentPage != pages.preview}">
                             <a (click)="ChangeCurrentPart(pages.preview)" class="nav-second-outlet">preview</a>
@@ -59,9 +67,7 @@
             (onSaveEvent)="SaveEventByPages($event)"
             (onError)="OpenErrorWindow($event)"
         ></app-about>
-        
-        
-              
+             
          <app-artist #artist *ngIf="!isLoading&&(currentPage==pages.artist)"
             [Event]="Event"
             (onSaveEvent)="SaveEventByPages($event)"
@@ -78,7 +84,7 @@
         ></app-venues> 
        
 
-        <div class="create-event-body-1">
+        <div *ngIf="currentPage==pages.funding||currentPage==pages.tickets" class="create-event-body-1">
 
             
             <app-funding #funding *ngIf="!isLoading&&(currentPage==pages.funding)"
@@ -98,23 +104,24 @@
 
         </div>
 
+        <div  class="for-white-bg">
+
+            <app-preview-artist  *ngIf="currentPage==pages.previewArtist"
+                    [ArtistId]="artistPreview"
+                    (OnReturn)="currentPage=pages.artist"
+            ></app-preview-artist>
+
+            <app-preview-venue *ngIf="currentPage==pages.previewVenue"
+                [VenueId]="venuePreview"
+                (OnReturn)="currentPage=pages.venue"
+            ></app-preview-venue>
+
+        </div>
+
        
 
     </div>
 
-
-</section>
-<!--  [ngStyle]="{'display': (currentPage==pages.previewArtist)?'block':'none'}" -->
-<section>
-    <app-preview-artist *ngIf="currentPage==pages.previewArtist"
-        [ArtistId]="artistPreview"
-        (OnReturn)="currentPage=pages.artist"
-    ></app-preview-artist>
-
-    <app-preview-venue *ngIf="currentPage==pages.previewVenue"
-        [VenueId]="venuePreview"
-        (OnReturn)="currentPage=pages.venue"
-    ></app-preview-venue>
 
 </section>
 
