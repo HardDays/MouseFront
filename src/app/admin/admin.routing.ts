@@ -26,8 +26,9 @@ const routes: Routes =
       { path: 'account/:id', component: AccountComponent, canActivate: [AdminAccessGuard]},
       { path: 'events/:id', component: EventsComponent, canActivate: [AdminAccessGuard]},
       { path: 'feedback/:id', component: FeedbackComponent, canActivate: [AdminAccessGuard]},
-      { path: 'revenue', component: RevenueComponent, canActivate: [AdminAccessGuard]},
+      { path: 'revenues/:id', component: RevenueComponent, canActivate: [AdminAccessGuard]},
       { path: 'revenue/:id', component: RevenueInfoComponent, canActivate: [AdminAccessGuard]},
+      { path: 'customer/:id', component: RevenueInfoComponent, canActivate: [AdminAccessGuard]},
       { path: 'settings', component: SettingsComponent, canActivate: [AdminAccessGuard]},
       { path: 'add-admin', component: AddNewAdminComponent, canActivate: [AdminAccessGuard]}
     ]

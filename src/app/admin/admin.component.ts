@@ -31,6 +31,10 @@ export class AdminComponent extends BaseComponent implements OnInit {
       switch(url[2]){
         case 'dashboard':  this.currentPage = Parts.dashboard;
           break;
+        case 'settings':  this.currentPage = Parts.settings;
+          break;
+        case 'add-admin':  this.currentPage = Parts.add_new_admin;
+          break;
       }
     }
     else if(url.length === 4){
@@ -124,10 +128,13 @@ export enum Parts {
   events_active = 15,
   events_inactive = 16,
   events_analytics = 17,
-  feedback_analytics = 18,
-  support = 19,
-  revenue = 20,
-  revenue_info = 21,
-  settings = 22,
-  add_new_admin = 23
+  feedback = 18,
+  feedback_analytics = 19,
+  support = 20,
+  revenue = 21,
+  revenue_info = 22,
+  revenue_analytics = 23,
+  settings = 24,
+  add_new_admin = 25,
+  customer_support = 26
 }
