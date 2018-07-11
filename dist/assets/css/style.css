@@ -32,7 +32,6 @@ html,
 body {
   font-family: AvenirLTStdBook;
   height: 100%; }
-
 .inp-style-1 {
   font-family: AvenirLTStdBook;
   display: block;
@@ -1637,7 +1636,37 @@ footer {
           box-shadow: 0px -7px 40px 0 rgba(0, 0, 0, 0.23); }
   .nav-holder-3.is-active {
     -webkit-transform: translateX(80px);
-            transform: translateX(80px); }
+            transform: translateX(80px);
+          }  
+          .nav-holder-3.is-active::-webkit-scrollbar-button {
+            background-repeat:no-repeat;
+            width:5px;
+            height:130px
+            }
+            
+            .nav-holder-3.is-active::-webkit-scrollbar-track {
+            background-color:transparent
+            }
+            
+            .nav-holder-3.is-active::-webkit-scrollbar-thumb {
+            -webkit-border-radius: 5px;
+            border-radius: 5px;
+            background-color:#e2e2e2;
+            }
+            
+            /* .nav-holder-3.is-active::-webkit-scrollbar-thumb:hover{
+            background-color:#56999f;
+            } */
+            
+            .nav-holder-3.is-active::-webkit-resizer{
+            background-repeat:no-repeat;
+            width:4px;
+            height:0px
+            }
+            
+            .nav-holder-3.is-active::-webkit-scrollbar{
+            width: 5px;
+            }
   .nav-holder-3:before {
     content: '';
     display: block;
