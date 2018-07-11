@@ -10,7 +10,7 @@
                 <div class="side">
                     <div class="input-groupe-1 dog">
                         <span class="user-name-dog">@</span>
-                        <input id="inp-create-1" [(ngModel)]="Artist.user_name" formControlName="user_name" name="" [textMask]="MaskHashtag()" type="text">
+                        <input id="inp-create-1" [(ngModel)]="Artist.user_name" formControlName="user_name" name="" [textMask]="WithoutSpace()" type="text">
                         <label for="inp-create-1">Username<span>*</span></label>
                     </div>
                     <div class="input-groupe-1">

@@ -38,7 +38,7 @@ declare var PhotoSwipe:any;
 
 @Component({
     selector: 'shows-detail-main',
-    templateUrl: './showsDetail.component.html',
+    templateUrl: './showsDetail.component.html', 
     styleUrls: ['./showsDetail.component.css'],
 })
 export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterViewChecked {
