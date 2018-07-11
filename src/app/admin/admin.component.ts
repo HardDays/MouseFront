@@ -125,8 +125,9 @@ export enum Parts {
   events_inactive = 16,
   events_analytics = 17,
   feedback_analytics = 18,
-  support = 10,
-  revenue = 11,
-  settings = 12,
-
+  support = 19,
+  revenue = 20,
+  revenue_info = 21,
+  settings = 22,
+  add_new_admin = 23
 }

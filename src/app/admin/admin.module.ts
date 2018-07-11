@@ -18,6 +18,10 @@ import { AnalyticsComponent } from './accounts/analytics/analytics.component';
 import { EventsComponent } from './events/events.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { AccountComponent } from './accounts/account/account.component';
+import { RevenueComponent } from './revenue/revenue.component';
+import { SettingsComponent } from './settings/settings.component';
+import { RevenueInfoComponent } from './revenue/revenue-info/revenue-info.component';
+import { AddNewAdminComponent } from './settings/add-new-admin/add-new-admin.component';
 
 
 
@@ -44,7 +48,11 @@ import { AccountComponent } from './accounts/account/account.component';
         AnalyticsComponent,
         EventsComponent,
         FeedbackComponent,
-        AccountComponent
+        AccountComponent,
+        RevenueComponent,
+        SettingsComponent,
+        RevenueInfoComponent,
+        AddNewAdminComponent
         
     ],
     providers: [AdminAccessGuard]

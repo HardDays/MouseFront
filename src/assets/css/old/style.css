@@ -1151,7 +1151,7 @@ footer {
   transform: translateX(470px); }
 
 .mask-nav-3 {
-  background-color: #000; }
+  background-color: transparent; }
 
 .modal {
   background-color: rgba(0, 0, 0, 0.4); }

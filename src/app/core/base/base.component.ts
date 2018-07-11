@@ -346,7 +346,7 @@ export class BaseComponent{
         };
     }
 
-    MaskHashtag()
+    WithoutSpace()
     {
         return {
             
@@ -375,8 +375,8 @@ export class BaseComponent{
                                 }
                                 else
                                 {
-                                    let addr:string[] = autocomplete.getPlace().adr_address.split(', ');
-
+                                    // let addr:string[] = autocomplete.getPlace().adr_address.split(', ');
+                                    let addr:string[] = autocomplete.getPlace().adr_address.split('/span>');
                                     if(callback && typeof callback == "function")
                                     {
                                         callback(addr,place);
