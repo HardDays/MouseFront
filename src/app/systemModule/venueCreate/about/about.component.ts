@@ -111,13 +111,14 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
     {
         this.CreateAutocomplete(
             (addr,place) => {
-                console.log(place, addr);
-                
-                
+
                 if(place)
                 {
                     this.Venue.address = place.formatted_address;
                 }
+                setTimeout(() => {
+                    
+                
                 for(let a of addr)
                 {
                     
@@ -142,6 +143,7 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
                         this.Venue.zipcode = a.slice(a.search('>')+1,a.search('</'));
                     }
                 }
+                }, 100);
             }
         );
     }
