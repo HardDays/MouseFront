@@ -28,12 +28,7 @@ export class SystemAccessGuard extends BaseComponent implements CanActivate{
                 }
             }
             case "feed":{
-                if(!login){
-                    return this.LoginNavigate();
-                }
-                else{
                     return true;
-                }
             }
             case "tickets":{
                 if(!login){
