@@ -27,6 +27,7 @@ p{
 }
 .additionalCosts:focus{
     outline: -webkit-focus-ring-color auto 0px;
+    outline: none;
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
