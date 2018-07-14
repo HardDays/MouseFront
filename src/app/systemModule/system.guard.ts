@@ -14,10 +14,27 @@ export class SystemAccessGuard extends BaseComponent implements CanActivate{
 
         //потом просто удалить
         if(localStorage.getItem('access')!='true') this.router.navigate(['/access']);
-        
         let login = this.main.authService.IsLogedIn();
+        let admin = this.main.MyUser.is_admin||this.main.MyUser.is_superuser;
+      
+        if(login&&admin){
+            this.router.navigate(['/admin']);
+        }
 
-        switch(router.routeConfig.path){
+        this.main.UserChange.subscribe(
+            ()=>{
+                login = this.main.authService.IsLogedIn();
+                admin = this.main.MyUser.is_admin||this.main.MyUser.is_superuser;
+                if(login&&admin){
+                    this.router.navigate(['/admin']);
+                }
+            }
+        )
+      
+        if(login&&admin){
+            this.router.navigate(['/admin']);
+        }
+        else switch(router.routeConfig.path){
             case "profile":{
                 if(!login){
                     return this.main.authService.onAuthChange$;

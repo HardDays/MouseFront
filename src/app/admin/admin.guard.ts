@@ -17,7 +17,11 @@ export class AdminAccessGuard extends BaseComponent implements CanActivate{
         
         let login = this.main.authService.IsLogedIn();
 
-        if(!login){
+        let admin = this.main.MyUser.is_admin||this.main.MyUser.is_superuser;
+
+        console.log(`is admin`,admin);
+
+        if(!login||!admin){
             return this.LoginNavigate();
         }
         else{
@@ -101,7 +105,7 @@ export class AdminAccessGuard extends BaseComponent implements CanActivate{
     }
     
     LoginNavigate(){
-        this.router.navigate(['/system','shows']);
+        this.router.navigate(['/login']);
         return false;
     }
 }

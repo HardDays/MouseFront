@@ -14,5 +14,8 @@ export class UserGetModel{
         public user_name?:string,
         public image_id?:number,
         public image_base64?:string,
+
+        public is_superuser?: boolean,
+        public is_admin?: boolean
     ){}
 }

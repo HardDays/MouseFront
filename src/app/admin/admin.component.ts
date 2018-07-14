@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../core/base/base.component';
 import { Event, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
+import { UserGetModel } from '../core/models/userGet.model';
 
 declare var $:any;
 
@@ -14,6 +15,8 @@ export class AdminComponent extends BaseComponent implements OnInit {
   pages = Parts;
   currentPage = Parts.dashboard;
 
+  User:UserGetModel = new UserGetModel();
+
   ngOnInit() {
     this.initJs();
     this.GetCurrentRoute();
@@ -22,6 +25,8 @@ export class AdminComponent extends BaseComponent implements OnInit {
           this.GetCurrentRoute();
       }
     });
+    this.User = this.main.MyUser;
+    console.log(this.User);
 
   }
 

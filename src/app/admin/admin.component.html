@@ -24,7 +24,7 @@
               <p class="name">Roman Lenko</p>
               <p class="who">Admin</p>
           </div>
-          <div class="user_ava" style="background-image: url(./../../../assets/img/admin/non-photo.png)"></div>
+          <div class="user_ava" (click)="Logout()" style="background-image: url(./../../../assets/img/admin/non-photo.png)"></div>
       </div>
   </header>
   <div class="admin_page">
@@ -134,7 +134,7 @@
                   </span>
                   <span class="text">Settings</span>
               </a>
-              <div class="submenu">
+              <div *ngIf="User.is_superuser" class="submenu">
                   <a [ngClass]="{'active':currentPage === pages.add_new_admin}" [routerLink]="['add-admin']" class="admin_menu_link" (click)="currentPage = pages.add_new_admin">Add new admin</a>
               </div>
           </div>
