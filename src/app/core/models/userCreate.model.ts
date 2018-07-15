@@ -9,5 +9,14 @@ export class UserCreateModel{
         public password_confirmation?: string,
         public register_phone?:string,
         public image_id?:number,
+
+        public is_superuser?: boolean,
+        public is_admin?: boolean,
+
+        public address?:string,
+        public other_address?:string,
+        public city?:string,
+        public country?:string,
+        public state?:string
     ){}
 }

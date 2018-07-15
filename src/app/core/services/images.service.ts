@@ -74,4 +74,14 @@ export class ImagesService{
         // );
     }
 
+    GetImagePreviewObservable(Id:number, params:any)
+    {
+        return this.http.CommonRequest(
+              ()=>this.http.GetData('/images/'+Id+'/preview.json',this.typeService.ParamsToUrlSearchParams(params))
+        )
+        // return this.http.CommonRequest(
+        //     ()=> this.http.GetData('/images/'+Id+'/preview.json',this.typeService.ParamsToUrlSearchParams(params))
+        // );
+    }
+
 }

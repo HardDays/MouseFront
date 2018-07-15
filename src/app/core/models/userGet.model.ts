@@ -16,6 +16,12 @@ export class UserGetModel{
         public image_base64?:string,
 
         public is_superuser?: boolean,
-        public is_admin?: boolean
+        public is_admin?: boolean,
+
+        public address?:string,
+        public other_address?:string,
+        public city?:string,
+        public country?:string,
+        public state?:string
     ){}
 }

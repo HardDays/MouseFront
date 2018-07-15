@@ -26,6 +26,7 @@ import { CommentService } from "./comment.service";
 import { LikesService } from "./likes.service";
 import { UserCreateModel } from "../models/userCreate.model";
 import { UserGetModel } from "../models/userGet.model";
+import { AdminService } from "./admin.service";
 
 declare var $:any;
 
@@ -62,6 +63,7 @@ export class MainService{
         public feedService   : FeedService,
         public commentService: CommentService,
         public likesService  : LikesService,
+        public adminService  : AdminService,
         public _auth         : AuthService,
         public activeRouter  : ActivatedRoute   
     ){

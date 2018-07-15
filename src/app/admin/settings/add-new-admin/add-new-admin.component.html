@@ -7,37 +7,37 @@
       </div>
       <div class="inputs_flex">
           <div class="input-groupe-1">
-              <input id="inp-info-1" name="" value="" type="text">
+              <input id="inp-info-1" [(ngModel)]="newUser.first_name" name="first_name" type="text">
               <label for="inp-info-1">First Name</label>
           </div>
           <div class="input-groupe-1">
-              <input id="inp-info-2" name="" value="" type="text">
+              <input id="inp-info-2" [(ngModel)]="newUser.last_name" name="last_name" type="text">
               <label for="inp-info-2">Last Name</label>
           </div>
       </div>
       <div class="inputs_flex">
           <div class="input-groupe-1">
-              <input id="inp-info-3" name="" value="" type="text">
+              <input id="inp-info-3" [(ngModel)]="newUser.email" name="email" type="text">
               <label for="inp-info-3">Email Address</label>
           </div>
           <div class="input-groupe-1 username_input">
-              <input id="inp-info-4" name="" value="" type="text">
+              <input id="inp-info-4" [(ngModel)]="newUser.user_name" name="user_name" type="text">
               <label for="inp-info-4">Mouse Username</label>
           </div>
       </div>
       <div class="inputs_flex">
           <div class="input-groupe-1">
-              <input id="inp-info-5" name="" value="" type="password">
+              <input id="inp-info-5" [(ngModel)]="newUser.password" name="password" type="password">
               <label for="inp-info-5">Password</label>
           </div>
           <div class="input-groupe-1">
-              <input id="inp-info-6" name="" value="" type="password">
+              <input id="inp-info-6" [(ngModel)]="newUser.password_confirmation" name="password_confirmation" type="password">
               <label for="inp-info-6">Verify Password</label>
           </div>
       </div>
       <div class="inputs_flex">
           <div class="input-groupe-1">
-              <input id="inp-info-7" name="" value="" type="password">
+              <input id="inp-info-7" [(ngModel)]="newUser.register_phone" name="register_phone" type="password">
               <label for="inp-info-7">Phone Number (For Verification)</label>
           </div>
       </div>
@@ -60,7 +60,7 @@
       </div>
       <div class="inputs_flex">
           <div class="input-groupe-1">
-              <input id="inp-info-8" name="" value="" type="text">
+              <input id="inp-info-8"  [(ngModel)]="newUser.address" name="address" type="text">
               <label for="inp-info-8">Address</label>
           </div>
           <div class="input-groupe-1">
@@ -77,7 +77,7 @@
               <label for="inp-info-9">Address, Other</label>
           </div>
       </div>
-      <button class="butt-style-1" type="submit">
+      <button (click)="createUser()" class="butt-style-1" type="submit">
           <span>Save</span>
       </button>
   </div>
