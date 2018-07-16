@@ -96,7 +96,7 @@ select{
 }
 .main_content .for-flex-height {
     /* height: 100vh; */
-    min-height: 700px;
+    min-height: 700px!important;
  }
 
  shows-item-selector{

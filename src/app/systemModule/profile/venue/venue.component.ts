@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, EventEmitter, Input, Output, SimpleChanges, ViewChild } from "@angular/core";
+import { Component, OnInit, OnChanges, EventEmitter, Input, Output, SimpleChanges, ViewChild, AfterViewInit } from "@angular/core";
 import { BaseComponent } from "../../../core/base/base.component";
 import { AccountGetModel } from '../../../core/models/accountGet.model';
 import { TicketsGetModel } from "../../../core/models/ticketsGetModel";
@@ -21,7 +21,7 @@ declare var PhotoSwipe:any;
 })
 
 
-export class VenueProfileComponent extends BaseComponent implements OnInit,OnChanges {
+export class VenueProfileComponent extends BaseComponent implements OnInit,OnChanges{
     
     @Input() Account: AccountGetModel;
     @Input() Image:string;
@@ -75,8 +75,8 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
 
     ngOnInit(): void {
         this.agmMap.triggerResize();
+        
     }
-
     Init(venue?:AccountCreateModel,id?:number)
     {
         if(venue)

@@ -143,7 +143,7 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
                         this.Venue.zipcode = a.slice(a.search('>')+1,a.search('</'));
                     }
                 }
-                }, 100);
+                }, 400);
             }
         );
     }

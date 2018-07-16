@@ -83,7 +83,7 @@
                                     <h6>Location</h6>
                                     <p class="about-text" *ngIf="Account.address">{{Account.address}}</p>
                                     <div class="map" [ngStyle]="{'display':(Account.lat && Account.lng)?'block':'none'}">
-                                        <agm-map style="height:100%" [latitude]="Account.lat" [longitude]="Account.lng">
+                                        <agm-map #agmMap style="height:100%" [latitude]="Account.lat" [longitude]="Account.lng">
                                             <agm-marker [latitude]="Account.lat" [longitude]="Account.lng"></agm-marker>
                                         </agm-map>
                                     </div>

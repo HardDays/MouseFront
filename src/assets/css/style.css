@@ -227,7 +227,7 @@ body {
     min-height: 800px;
     height: auto; }
     .login-register.add-fan-page .register {
-      min-height: 800px; }
+      min-height: 850px; }
     .login-register.add-fan-page .for-flex-add-fan {
       display: -webkit-box;
       display: -ms-flexbox;
@@ -878,7 +878,8 @@ body {
     -webkit-box-flex: 1;
     -ms-flex: 1 0 auto;
     flex: 1 0 auto;
-    position: relative; }
+    position: relative; 
+    min-height: 100%; }
   .main_content footer {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 auto;
@@ -2588,13 +2589,14 @@ footer {
   padding: 20px 80px;
   background: #fff; }
 .create-event-nav-tabs .create-event-header {
-  padding-top: 40px;
-  padding-bottom: 40px; }
+  /* padding-top: 40px; */
+  /* padding-bottom: 10px;  */
+}
   .create-event-nav-tabs .create-event-header h1 {
-    font-size: 80px;
+    font-size: 40px;
     font-family: AvenirLTStdBlack;
     text-transform: uppercase;
-    margin-bottom: 40px; }
+    margin-bottom: 10px; }
     .create-event-nav-tabs .create-event-header h1.arrow-class {
       position: relative;
       padding-left: 80px; }
@@ -2635,7 +2637,8 @@ footer {
       .create-event-nav-tabs .create-event-header ul li.active .nav-second-outlet {
         color: #eb2d64; }
       .create-event-nav-tabs .create-event-header ul li.started .nav-second-outlet {
-        color: #000; }
+        color: #000;
+       }
 
 .create-event-body-1 {
   background: #fff;
@@ -2825,11 +2828,12 @@ footer {
     z-index: 10;
     width: 100%;
     border: none;
-    background: transparent;
+    /* background: transparent; */
     border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
     padding: 10px 0;
     font-size: 16px;
     outline: none; }
+
   .input-groupe-1 .rel-wr {
     position: relative; }
     .input-groupe-1 .rel-wr .abs-backs {
@@ -2844,7 +2848,8 @@ footer {
   .input-groupe-1 .dollar {
     padding-left: 20px; }
   .input-groupe-1 select option {
-    text-align: center; }
+    text-align: center;
+   }
   .input-groupe-1 label,
   .input-groupe-1 .head-groupe {
     display: block;
@@ -7319,6 +7324,7 @@ footer {
   background-image: url(../img/venue-active.svg); }
 
 .create-event-nav-tabs .create-event-header ul {
+  height: 57px;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center; }
@@ -7361,7 +7367,7 @@ footer {
               transform: translateY(-50%);
       -webkit-box-shadow: 0 0 18px 2px rgba(0, 0, 0, 0.18);
               box-shadow: 0 0 18px 2px rgba(0, 0, 0, 0.18);
-      width: 200px;
+      width: 205px;
       z-index: 600;
       padding: 13px 23px;
       margin: 0;
@@ -7393,6 +7399,8 @@ footer {
         margin-bottom: 20px; }
         .hours-time-wr .hours-hover .hours-drop-show li .left {
           font-size: 16px;
+          width: 40px;
+          text-align: center;
           font-family: AvenirLTStdBlack;
           text-transform: uppercase; }
         .hours-time-wr .hours-hover .hours-drop-show li .right {
