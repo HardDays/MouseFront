@@ -1,742 +1,651 @@
-@media (max-width: 1800px) {
-    .tech-types .categories li a, .tech-types .categories li span{
-        font-size: 13px;
+@media (max-width: 1560px) {
+    .create-event-body-1{
+            padding: 40px 80px;
     }
+    .new-padd-wrapper-m-w{
+        padding: 0 80px;
+    }
+    .venue-week-cal-style .week-day-time-wr .from-to:last-child {
+    padding-left: 0;
 }
-@media (max-width: 1700px) {
-    
-    .add-adv-body-wr .add-adv-body .right-side .price-and-photo .photos-wrapp{
-        max-width: 386px;
+    .venue-week-cal-style .week-day-time-wr{
+        display: block;
+    }
+    .venue-week-cal-style .week-day-time-wr .from-to{
+        width: 100%;
+        margin-bottom: 7px;
+    }
+    .venue-week-cal-style .week-day-time-wr .from-to select{
+        width: 100px;
         
     }
-    .add-adv-body-wr .add-adv-body .right-side .price-and-photo .photos-wrapp .one-photo-wr{
-        width: 50%;
-        
+    .venue-week-cal-style .week-day-time-wr .from-to span{
+        margin-right: auto;
     }
-    .add-adv-body-wr .add-adv-body .right-side .price-and-photo .photos-wrapp .upload-photo{
-        width: 50%;
+    .flex-ticket-wrapp .sides .scrolled-wrapp .one-wr-tick .one-tick p.c{
+        line-height: 41px;
     }
-    
-}
-@media (max-width: 1600px) {
-    .products-wrapp .all-product .one-product-wr .one-product a{
-        font-size: 17px;
+    .hours-time-wr .hours-hover .o-f-h{
+        font-size: 15px;
     }
-    .contacts-map .form-wrapp{
-        right: 80px;
+    .hours-time-wr .hours-hover{
+        padding-right: 0;
     }
-}
-@media (max-width: 1500px) {
-    .tech-types{
-        margin-top: 30px;
+    .hours-time-wr .hours-hover .hours-drop-show{
+        left: calc(100% + 14px);
     }
-    .products-wrapp .all-product-with-ad .all-product .one-product-wr{
-        width: 33.33%;
-    }
-    .products-wrapp .all-product .one-product-wr .one-product a{
-        font-size: 16px;
-    }
-    .product-wr .name-product{
-        flex-direction: column-reverse;
-        align-items: flex-start;
-    }
-    .product-wr .name-product .right-side{
-        margin-bottom: 30px;
-    }
-    .add-adv-body-wr .add-adv-body .right-side .price-and-photo .small-google-adv{
-        left: 0;
-        top: 0;
-        transform: none;
-        position: relative;
-        right: auto;
-        
-    }
-    .add-adv-body-wr .add-adv-body .right-side .price-and-photo .one-checkbox{
-        margin-bottom: 20px;
-    }
-    .add-adv-body-wr .add-adv-body .left-side{
-        width: 55%;
-        
-    }
-    .add-adv-body-wr .add-adv-body .right-side{
-        width: 45%;
-    }
-    .add-adv-body-wr .add-adv-body .right-side .price-and-photo .photos-wrapp {
-        max-width: 100%;
-    }
-    .add-adv-body-wr .add-adv-body .right-side .price-and-photo .photos-wrapp .one-photo-wr{
-        width: 33.33%;
-    }
-    .add-adv-body-wr .add-adv-body .right-side .price-and-photo .photos-wrapp .upload-photo{
-        width: 33.33%;
-    }
-}
-@media (max-width: 1450px) {
-    .contacts-map .some-contact-info .flex-info-contact{
-        max-width: 745px;
-    }
-}
-@media (max-width: 1400px) {
-    .tech-types .categories li {
-        width: 14%;
-    }
-    .logo-wrapp .main-m-w .mid-side .categorys li {
-        padding: 0 17.5px;
-    }
-    .products-wrapp .all-product .one-product-wr{
-        width: 25%;
-    }
-    .product-wr .product-description-wrapp .left-side{
-        max-width: 400px;
-            background-position: top 3px left;
-    }
-    .page-only-text .abs-visa .rel-wrapp{
-        img{
-                max-width: 420px;
+    .all-info-profile .uniq-padd-2 .flex--info .side{
+        &.un-padd-on-1560{
+            padding-left: 30px;
+            padding-right: 30px;
         }
     }
-    .page-only-text .abs-visa .rel-wrapp .item-payment.item-4{
-        left: 98%;
+    
+}
+@media (max-width: 1500px) {
+    .flex-radio .one-radio{
+        margin-right: 14px;
+    }
+    .media-flex-sides .right-side{
+        padding-left: 55px;
+    }
+    .slider-2-albums .one-slide .wrapp-card .cover-image{
+        height: 185px;
+    }
+    .flex-mac-checkbox.on-add-artist-page .quetion-radio-text{
+        max-width: 187px;
+    }
+    .flex-mac-checkbox.on-add-artist-page .quetion-radio-text.none-max-width{
+        max-width: 100%;
+    }
+    .flex-ticket-wrapp .sides .scrolled-wrapp .one-wr-tick .one-tick p.t{
+        font-size: 12px;
+    }
+    .body-tabs-datails-pages .for-flex-contant-d .left-side-tickets{
+        width: 50%;
+    }
+    .body-tabs-datails-pages .for-flex-contant-d .right-side-tickets{
+        width: 50%;
+    }
+    .show-datails-wr .flex-artist-main-info .right-side {
+    width: 69%;
+    padding-left: 66px;
+}
+    
+}
+@media (max-width: 1460px) {
+    .create-event-body-1 .create-event-body .flex-body-1 .side.two-sides-w{
+            padding: 0 20px;
+    }
+}
+
+
+@media (max-width: 1400px) {
+    header .main-mw .left-side .logo-wr{
+        width: 250px;
+    }
+    header .main-mw .left-side{
+        flex-shrink: 0;
+        
+    }
+    header .main-mw .right-side{
+        width: 100%;
+    }
+    .all-info-profile .uniq-padd-2 .flex--info .side.uniq-padd-style-funs .blocks-funs .one-block .photo {
+        height: 80px;
+    }
+    .all-info-profile .uniq-padd-2 .flex--info .side .blocks .one-block {
+        height: 280px;
+    }
+    .content-and-tabs-datails .tabslinks-and-goings .left-s ul li {
+        padding: 0 25px;
     }
     
 }
-@media (max-width: 1300px) {
-    .main-m-w {
-        padding: 0 35px;
+@media (max-width: 1350px) {
+    
+    .media-flex-sides .right-side .slider-audio-wrapp .one-audio{
+        width: 100%;
     }
-    .main-m-w-2 {
-    padding: 0 18.5px;
+    .media-flex-sides .right-side .slider-audio-wrapp .one-slide{
+        padding-left: 20px;
+    }
+    .media-flex-sides .left-side .head-of-left-side.albums-t-s {
+    font-size: 69px;
+    margin-bottom: -37px;
 }
-    .contacts-map .form-wrapp{
-        width: 415px;
-        right: 50px;
+    .media-flex-sides .left-side .head-of-left-side{
+            font-size: 70.1px;
+            margin-bottom: -36px;
     }
-    .contacts-map .some-contact-info .flex-info-contact .contact-info p, .contacts-map .some-contact-info .flex-info-contact .contact-info a{
+    .media-flex-sides .left-side .gradient-box .head-of-gradient-box{
+        font-size: 23px;
+    }
+    .flex-funding-columns .side{
+        padding: 0 15px;
+        .flex-radio{
+            flex-wrap: nowrap;
+        }
+    }
+    .flex-radio .one-radio{
+        margin-bottom: 10px;
+    }
+    .flex-mac-checkbox.on-add-artist-page .quetion-radio-text{
+        max-width: 100%;
+    }
+    .main-feed-wrapp .middle-feed .feed-text{
+        font-size: 60px;
+        right: calc(100% + 20px);
+    }
+    
+    .create-event-body-1 .create-event-body .flex-body-1 .side.two-sides-w .shadow-days-wr .checkboxes-days{
+        width: 105px;
+        padding-right: 13px;
+    }
+    .flex-ticket-wrapp .sides .scrolled-wrapp .one-wr-tick .one-tick p.c{
+        font-size: 25px;
+        line-height: 29px;
+    }
+    .flex-ticket-wrapp .sides .scrolled-wrapp .one-wr-tick .one-tick p.t{
+        margin-bottom: 17px;
+    }
+    .show-datails-wr .flex-artist-main-info .left-side .bg-gradient-info{
+        padding: 51px 25px 35px 25px;
+    }
+    .show-datails-wr .flex-artist-main-info .left-side{
+        width: 315px;
+    }
+    .content-and-tabs-datails .payment-body .one-collapsed-block .flex-top-cart img {
+        margin-right: 5px;
+    }
+    .tabs-artist-wrapp .bg-wr-tabs .tab-artist .flex-wrapp-cards .one-card .card .flex-buttons .button-card{
+        padding: 5px 10px;
+        font-size: 11px;
+    }
+
+    
+}
+
+@media (max-width: 1300px) {
+    
+    .create-event-nav-tabs .create-event-header ul li .nav-second-outlet{font-size: 18px;}
+    .create-event-body-1 .create-event-body .flex-body-1 .side.two-sides-w{
+        &:first-child{
+            padding-left: 0;
+        }
+        &:last-child{
+            padding-right: 0;
+        }
+    }
+    .create-event-body-1 .create-event-body .flex-body-1 .side.two-sides-w .shadow-days-wr .times-days .some-times-days .week-day-time-wr .from-to:last-child {
+        padding-left: 10px;
+    }
+    .content-and-tabs-datails .tabslinks-and-goings .left-s ul li a{
         font-size: 16px;
-        background-position: top 3px left;
     }
-    .contacts-map .some-contact-info .flex-info-contact {
-        max-width: 660px;
+    .messages-main-wrapp .flex-massages-wrapp .left-s .one-msg-l-block .name-ava{
+        width: 100px;
     }
-    .add-adv-header-wr .add-adv-header .left-side p{
-        font-size: 16px;
+    .messages-main-wrapp .flex-massages-wrapp .left-s{
+        width: 38%;
+    }
+    .messages-main-wrapp .flex-massages-wrapp .right-s{
+        width: 62%;
+    }
+}
+@media (max-width: 1250px) {
+    .content-and-tabs-datails{
+        padding: 0 40px;
+    }
+    .all-info-profile .uniq-padd-2 .flex--info .side.un-padd-on-1560 {
+        padding-left: 15px;
+        padding-right: 15px;
     }
 }
 @media (max-width: 1199px) {
-    .logo-wrapp .main-m-w .right-side .adt{
-        padding: 7px 15px;
+    .choose-to-follow .follow-m-w{
+        padding: 65px 40px 125px 40px;
     }
-    .logo-wrapp .main-m-w .right-side .login{
-            padding: 7px 15px;
+    .choose-to-follow .follow-m-w .flex-bands .one-band .label-wr .descr{
+        padding: 7px 55px 7px 13px;
     }
-    .main-baner h1, .main-baner h2, .main-baner h3, .main-baner h4, .main-baner h5, .main-baner h6{
-        font-size: 31px;
+    .choose-to-follow .follow-m-w .flex-bands .one-band .label-wr .descr .checkbox-style-2{
+            right: 11px;
     }
-    .products-wrapp .head-products{
-        flex-direction: column-reverse;
-        align-items: flex-start;
-    }
-    .products-wrapp .head-products{
-        .right-side{
-            margin: 0 auto 20px auto;
-        }
-    }
-    .tech-types .categories li {
-        width: 20%;
-    }
-    .product-wr .product-description-wrapp .right-side{
-        padding-left: 20px;
-    }
-    .product-wr .map-and-send .left-side{
-        padding-right: 20px;
-    }
-    .product-wr .product-description-wrapp .left-side {
-        max-width: 350px;
-    }
-    .product-wr .product-description-wrapp .right-side .butt-product-wr .one-b-wrapp .butt.butt-tel p {
-        font-size: 14px;
-    }
-    .product-wr .product-description-wrapp .right-side .butt-product-wr .one-b-wrapp .butt.butt-send p{
-        font-size: 14px;
-    }
-    .product-wr .product-description-wrapp .right-side .butt-product-wr .one-b-wrapp .butt.butt-tel .look{
-        font-size: 11px;
-    }
-    .product-wr .map-and-send .left-side form .file-and-send .l-s p {
-        padding-left: 25px;
-    }
-    .input_file label{
-         padding-left: 25px;
-    }
-    .products-wrapp .all-product-with-ad .all-product .one-product-wr{
-        width: 50%;
-    }
-    .contacts-map .some-contact-info .flex-info-contact .contact-info{
-        width: 100%;
-    }
-    .contacts-map #map {
-        height: 450px;
-    }
-    
-    .page-only-text .abs-visa .rel-wrapp .item-payment{
-        width: 255px;
-    }
-    .add-adv-header-wr .add-adv-header{
-        flex-direction: column-reverse;
-        justify-content: flex-start;
-        align-items: flex-start;
-    }
-    .add-adv-header-wr .add-adv-header .right-side .google-adv{
-        margin-bottom: 30px;
-    }
-    
-    .add-adv-body-wr .add-adv-body .right-side .price-and-photo .price input{
-        padding-left: 0;
-    }
-    
-    .add-adv-body-wr .add-adv-body .left-side .flex-select-wrapp select{
-        padding-left: 0;
-    }
-    .add-adv-body-wr .add-adv-body .left-side .flex-select-wrapp input{
-        padding-left: 0;
-    }
-    .add-adv-body-wr .add-adv-body .right-side .price-and-photo .photos-wrapp .one-photo-wr{
-        width: 50%;
-    }
-    .add-adv-body-wr .add-adv-body .right-side .price-and-photo .photos-wrapp .upload-photo{
-        width: 50%; 
-    }
-    
-}
-@media (max-width: 1100px) {
-    .products-wrapp .all-product .one-product-wr{
-        width: 33.33%;
-    }
-}
-@media (max-width: 991px) {
-    .products-wrapp .head-products .right-side{
+    header .main-mw .left-side .logo-two{
         display: none;
     }
-    .head-menu .right-pushed-menu .menu-list .first-itm {
-        padding: 0 15px;
+    header .main-mw .left-side .logo-wr {
+        width: 125px;
     }
-    .logo-wrapp .main-m-w .mid-side .categorys li a, .logo-wrapp .main-m-w .mid-side .categorys li span {
-        font-size: 14px;
+    header{
+        padding: 20px 40px 0 40px;
+        
     }
-    .logo-wrapp .main-m-w .mid-side .categorys li {
-        padding: 0 8.5px;
+    .shows-main-wrapp{
+        padding: 0 40px;
     }
-    .logo-wrapp .main-m-w .left-side{
-        a{
-            display: block;
-            max-width: 120px;
-        }
+    footer{
+        padding: 25px 40px 20px 40px;
     }
-    .logo-wrapp .main-m-w .right-side .adt{
-        margin-right: 10px;
-        font-size: 11px;
-          padding: 7px 8px;
+    .head-info-profile-wr {
+        padding: 20px 40px;
     }
-    
-    .logo-wrapp .main-m-w .right-side .login{
-        font-size: 11px;
-        padding: 7px 8px;
+    .all-info-profile .uniq-padd{
+        padding: 0 40px;
     }
-    .main-baner h1, .main-baner h2, .main-baner h3, .main-baner h4, .main-baner h5, .main-baner h6 {
-        font-size: 22px;
+    .all-info-profile .uniq-padd-2{
+        padding: 0;
     }
-    .main-baner {
-        height: 315px;
+    .all-info-profile .uniq-padd-2 .flex--info .side.uniq-padd-style-funs .blocks-funs .one-block{
+        width: 50%;
     }
-    .tech-types .categories li {
-        width: 25%;
+    .all-info-profile .uniq-padd-2 .flex--info .side .blocks .one-block .desc{
+        padding: 10px 10px 20px 10px;
     }
-    .products-wrapp .all-product .one-product-wr .one-product a {
-        font-size: 15px;
-    }
-    .product-wr .product-description-wrapp{
-        display: block;
-    }
-    .product-wr .product-description-wrapp .left-side{
-        margin: 0 auto;
-    }
-    .product-wr .product-description-wrapp .left-side{
-        max-width: 500px;
-    }
-    .product-wr .name-product .left-side{
-        width: 100%;
-    }
-    .product-wr .product-description-wrapp .right-side{
-        padding-left: 0;
-        max-width: 100%;
-    }
-    .product-wr .product-description-wrapp .right-side .m-w-2{
-        max-width: 100%;
-    }
-    
-    .product-wr .product-description-wrapp .right-side .options-ad{
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .product-wr .product-description-wrapp .right-side .butt-product-wr{
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    
-    .product-wr .map-and-send .left-side .line .head-form{
+    .all-info-profile .uniq-padd-2 .flex--info .side .blocks .one-block .desc .name{
         font-size: 21px;
     }
-    .product-wr .name-product .right-side{
-        display: none;
-    }
-    .product-wr .map-and-send{
-        flex-direction: column-reverse;
-    }
-    .product-wr .map-and-send .right-side{
-        max-width: 100%;
-        margin-bottom: 30px;
-    } 
-    .product-wr .map-and-send .left-side{
-        padding-right: 0;
-    }
-    .contacts-map .form-wrapp{
-        position: relative;
-        right: auto;
-        top: -90px;
-        margin: 0 auto;
-    }
-    .contacts-map #map{
-        height: 350px;
-        margin-bottom: 10px;
-    }
-    .contacts-map .form-wrapp .head-form{
-        margin-bottom: 20px;
-    }
-    .contacts-map .form-wrapp form input{
-        margin-bottom: 20px;
-    }
-    .contacts-map .form-wrapp form textarea{
-        margin-bottom: 20px;
-    }
-    .contacts-map .form-wrapp form .captcha-wr{
-        margin-bottom: 20px;
-    }
-    .contacts-map .form-wrapp form .one-checkbox{
-        margin-bottom: 20px;
-    }
-    
-    .contacts-map .some-contact-info .flex-info-contact .contact-info{
-        width: 50%;
-    }
-    .contacts-map .some-contact-info {
-        padding: 0 0 80px 0;
-    }
-    .login-registr .max-w-login-registr{
-        display: block;
-    }
-    .login-registr .max-w-login-registr .login{
-        padding-right: 0;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .login-registr .max-w-login-registr .registration{
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .page-only-text .abs-visa .rel-wrapp img {
-        max-width: 300px;
-    }
-    .page-only-text .abs-visa .rel-wrapp .item-payment {
-        width: 200px;
-        right: auto!important;
-        left: auto!important;
-        top: auto!important;
-        position: relative;
-        width: 50%;
-        padding-left: 50px;
-        padding-right: 10px;
-        margin-bottom: 20px;
-        &:before{
-            left: 0!important;
-            top: 0!important;
-            background-size: contain;
-            width: 40px!important;
-            height: 40px!important;
-            
-        }
-    }
-    
-    .page-only-text .abs-visa .rel-wrapp{
-        width: 100%;
-        display: flex;
+    .all-info-profile .uniq-padd-2 .flex--info{
         flex-wrap: wrap;
-        align-items: flex-start;
     }
-    .page-only-text .abs-visa .rel-wrapp{
-        .img-wrapp{
+    .all-info-profile .uniq-padd-2 .flex--info.disable-flex-wrapp-on-md{
+        flex-wrap: nowrap;
+    }
+    .all-info-profile .uniq-padd-2 .flex--info .side .blocks .one-block {
+        height: 250px;
+    }
+    .venue-main-info .name-venue h2 {
+        font-size: 43px;
+    }
+    
+    .messages-main-wrapp{
+        padding: 0 40px;
+    }
+    
+    .shows-main-wrapp .flex-shows .one-show-wr .one-show {
+        height: 350px;
+    }
+}
+
+
+@media (max-width: 991px) {
+    .choose-to-follow .follow-m-w .flex-bands .one-band{
+        width: 50%;
+    }
+    .choose-to-follow .follow-m-w{
+        max-width: 700px;
+    }
+    header .main-mw .left-side .logo-wr {
+        width: 80px;
+    }
+    header .main-mw .right-side .flex-menu-items .name-and-ava-wr .name-and-ava p{
+        font-size: 11px;
+        line-height: 14px;
+    }
+    header .main-mw .right-side .flex-menu-items .name-and-ava-wr .flex-auth a, header .main-mw .right-side .flex-menu-items .name-and-ava-wr .flex-auth span{
+        font-size: 12px;
+    }
+    .shows-main-wrapp .flex-shows .one-show-wr{
+        width: 50%;
+    }
+    footer .for-flex-footer .side{
+        width: 33.33%;
+        display: block;
+        &.side-1{
             width: 100%;
-            img{
-                margin: 0 auto 20px auto;
+            margin-bottom: 40px;
+            ul{
+                display: flex;
+                justify-content: space-between; 
+            }
+            div{
+                width: 100%;
             }
         }
     }
-    .add-adv-body-wr .add-adv-body .right-side .price-and-photo .small-google-adv{
+    footer .for-flex-footer{
+        flex-wrap: wrap;
+    }
+    header .main-mw .right-side .search-inp .inp-style-1{
+        padding: 9px 3px;
+    }
+    header .main-mw .right-side .flex-menu-items ul li a span{
+        font-size: 12px;
+    }
+    header .main-mw .right-side .flex-menu-items .name-and-ava-wr .name-and-ava p{
         display: none;
     }
+    .nav-holder-3{
+        position: fixed;
+    }
+    .all-info-profile .uniq-padd-2 .flex--info .side{
+        width: 50%;
+    }
+    .all-info-profile .uniq-padd-2 .flex--info .side.uniq-padd-style-funs{
+        width: 100%;
+        padding-top: 20px;
+    }
     
-    .add-adv-body-wr .add-adv-body{
-        display: block;
-    }
-    .add-adv-body-wr .add-adv-body .left-side{
-        width: 100%;
-    }
-    .add-adv-body-wr .add-adv-body .right-side{
-        width: 100%;
-        padding-left: 0;
-    }
-    .add-adv-body-wr .add-adv-body .right-side .price-and-photo .photos-wrapp .one-photo-wr{
+    .all-info-profile .uniq-padd-2 .flex--info .side.uniq-padd-style-funs .blocks-funs .one-block{
         width: 25%;
     }
-    .add-adv-body-wr .add-adv-body .right-side .price-and-photo .photos-wrapp .upload-photo{
-        width: 25%;
+    .head-info-profile-wr .head-info-profile{
+        flex-wrap: wrap;
     }
-    .add-adv-body-wr .add-adv-body .left-side .flex-select-wrapp .l-s-select:before{
-        display: none;
-    }
-    .add-adv-body-wr .add-adv-body .right-side .price-and-photo:before{
-        display: none;
-    }
-    
-    .add-adv-body-wr .add-adv-body .left-side .flex-select-wrapp .l-s-select{
-            padding: 25px 25px 10px 25px;
-    }
-    .add-adv-body-wr .add-adv-body .left-side .flex-select-wrapp .m-w-inputs{
-        margin: 0 auto;
-    }
-    .add-adv-header-wr .add-adv-header .right-side{
-        display: none;
-        
-    }
-    
-}
-@media (max-width: 860px) {
-    .products-wrapp .all-product-with-ad .all-product .one-product-wr{
+    .head-info-profile-wr .head-info-profile .side-1{
         width: 100%;
     }
+    .head-info-profile-wr .head-info-profile .side-1 .mouse-bg-image{
+        margin: 0 auto 20px auto;
+    }
+    .head-info-profile-wr .head-info-profile .side-2 .big-name{
+        font-size: 45px;
+        line-height: 50px;
+    }
+    .all-info-profile .uniq-padd-2 .flex--info .side{
+        border-right: none;
+        &:first-child{
+            border-right: 1px solid #f3f3f3;
+        }
+    } 
+    .all-info-profile .uniq-padd-2 .flex--info .side.scroller .new-scroll-wr{
+        max-height: 532px;
+    }
+    
+
+    .shows-main-wrapp .flex-shows .one-show-wr .one-show {
+        height: 350px;
+    }
+    
+    
 }
 @media (max-width: 767px) {
-    .main-m-w{
+    .register .m-v-reg .reg-wr .for-flex{
+        flex-direction: column-reverse;
+        padding-top: 120px;
+        
+    }
+    .register .m-v-reg .reg-wr .for-flex .side{
+        width: 100%;
+    }
+    .register .m-v-reg .reg-wr .for-flex .side.left-side{
+        padding-top: 0;
+    }
+    .register .m-v-reg .reg-wr .for-flex .photo-wr-1{
+        top: 0;
+        width: 100%;
+    }
+    .register .m-v-reg .reg-wr h3{
+        padding: 0 15px;
+            font-size: 26px;
+    }
+    .register .m-v-reg .reg-wr .flex-checkboxes .one-checkbox{
+        width: 50%;
+    }
+    .choose-to-follow .follow-m-w {
+        padding: 65px 15px 125px 15px;
+    }
+    .choose-to-follow .butt-to-continue{
+        padding: 12px;
+    }
+    .choose-to-follow .follow-m-w .flex-bands .one-band{
+        width: 100%;
+    }
+    .choose-to-follow .follow-m-w .flex-bands{
+        max-width: 272px;
+        margin: 0 auto;
+    }
+    header {
+        padding: 15px;
+    }
+    .navbar-toggle{
+        border: none;
+            top: 1px;
+    }
+    .navbar-toggle .icon-bar{
+        background: #fff;
+    }
+    header .main-mw{
+        display: block;
+    }
+    header .main-mw .right-side .navbar-collapse.in .flex-menu-items{
+        padding-top: 0;
+    }
+
+    .navbar-collapse{
+        box-shadow: none;
+        display: block;
+    }
+    .navbar-collapse.in {
+        overflow-y: visible;
+    }
+    .navbar-collapse.collapsing {
+        position: static;
+    }
+    header .main-mw .right-side .flex-menu-items .name-and-ava-wr {
+        width: 75px;
+        position: absolute;
+        right: 50px;
+        top: 15px;
+    }
+
+    header .main-mw .right-side .flex-menu-items .name-and-ava-wr .name-and-ava{
+        // display: none;
+    }
+    header .main-mw .right-side .search-inp .inp-style-1{
+        max-width: 290px;
+        margin: 0 auto 20px auto;
+    }
+    .shows-main-wrapp{
+        padding: 0 15px;
+    }
+    .shows-main-wrapp .head-shows h1{
+        font-size: 32px;
+    }
+    footer {
+        padding: 25px 15px 20px 15px;
+    }
+    footer .for-flex-footer{
+        
+    }
+    footer .for-flex-footer .side{
+        width: 50%;
+         margin-bottom: 30px;
+    }
+    footer .for-flex-footer .side.side-1{
+        width: 50%;
+        margin-bottom: 30px;
+    }
+    footer .for-flex-footer .side.side-1 ul{
+        display: block;
+    }
+    header .main-mw .right-side .flex-menu-items ul{
+        width: auto;
+        flex-wrap: wrap;
+        justify-content: center;
+        flex:1;
+        margin-top: 20px;
+    }
+    header .main-mw .right-side .collapse .flex-menu-items ul {
+        display: none;
+    }
+    header .main-mw .right-side .collapse.in .flex-menu-items ul {
+        display: flex;
+    }
+    header .main-mw .right-side .flex-menu-items ul li{
+        width: auto;
+        margin: 0 10px;
+    }
+    header .main-mw .right-side .flex-menu-items ul li a span{
+        opacity: 1;
+    }
+    header .main-mw .right-side .flex-menu-items ul li a.icon-5 span{
+        top: 0;
+        margin-top: 8px;
+    }
+    .shows-main-wrapp .flex-shows {
+        margin: 0 -12px;
+    }
+    .shows-main-wrapp .flex-shows .one-show-wr{
+        padding: 0;
+        margin-bottom: 16px;
+        padding: 0 5px;
+    }
+    .new-shows-desc {
+        padding: 12px 10px 15px 10px;
+    }
+    .new-shows-desc .name-show {
+        font-size: 18px;
+        line-height: 1.3;
+    }
+    .new-shows-desc .where {
+        font-size: 14px;
+    }
+    .shows-main-wrapp .flex-shows .one-show-wr .one-show {
+        height: 290px;
+    }
+    .shows-main-wrapp .flex-shows .one-show-wr .one-show .description .bott-info p{
+        font-size: 12px;
+    }
+    .shows-main-wrapp .flex-shows .one-show-wr .one-show .description .bott-info .name{
+        font-size: 18px;
+    }
+    .shows-main-wrapp .flex-shows .one-show-wr .one-show .description{
+        height: 265px;
+    }
+    .nav-holder-3{
+        width: 370px;
+    }
+    .mainWrapper.has-push-left {
+    transform: translateX(250px);
+}
+    .nav-holder-3.is-active {
+    transform: translateX(0);
+}
+    .nav-holder-3:before{
+        top: 122px;
+    }
+    .nav-holder-3 .wrapp-for-filter{
+        padding: 0 15px;
+    }
+    .nav-holder-3{
+        position: fixed;
+    }
+    .one-checkbox p{
+        font-size: 12px;
+    }
+    .all-info-profile .uniq-padd{
+        padding: 0 15px;
+    }
+    .all-info-profile .uniq-padd-2 .flex--info{
+        display: block;
+    }
+    .head-info-profile-wr .head-info-profile .side-1{
+        padding-right: 0;
+    }
+    .head-info-profile-wr {
+        padding: 20px 15px;
+    }
+    
+    .head-info-profile-wr .head-info-profile .side-2{
+        padding-right: 0;
+        margin-bottom: 20px;
+    }
+    
+    .head-info-profile-wr .head-info-profile{
+        display: block;
+    }
+    .circles-info .for-flex-inf .circle{
+        width: 90px;
+        height: 90px;
+        
+            margin: -15px 10px 20px 10px;
+    }
+    .circles-info .for-flex-inf .circle{
+        p{
+            font-size: 12px;
+        }
+    }
+    .all-info-profile .uniq-padd .genres-info .flex-genres .one-genre{
+        font-size: 12px;
+    }
+    
+    .all-info-profile .uniq-padd-2 .flex--info .side:first-child{
+        border: none;
+    }
+    .all-info-profile .uniq-padd-2 .flex--info .side{
+        width: 100%;
+        padding: 0 15px;
+            max-width: 400px;
+    margin: 0 auto;
+    }
+    .all-info-profile .uniq-padd-2 .flex--info .side.uniq-padd-style-funs .uniq-padd-3{
         padding: 0;
     }
-    .logo-wrapp .main-m-w{
-        flex-wrap: wrap;
+    .all-info-profile .uniq-padd-2 .flex--info .side.uniq-padd-style-funs{
+        padding: 20px 15px 10px 15px;
     }
-    .head-menu .right-pushed-menu{
+    .all-info-profile .uniq-padd-2 .flex--info .side.uniq-padd-style-funs .blocks-funs{
+        padding: 0;
+    }
+    .all-info-profile .uniq-padd-2 .flex--info .side.uniq-padd-style-funs .blocks-funs .one-block{
+        width: 50%;
+    }
+    .head-info-profile-wr .head-info-profile .side-2 .big-name{
+        text-align: center;
+    }
+    .head-info-profile-wr .head-info-profile .side-2 .insta-link-sp{
+        text-align: center;
+    }
+   .all-info-profile .uniq-padd-2 .flex--info .side.scroller .new-scroll-wr {
+        padding: 0px 10px;
+        max-height: 263px;
+    }
+    .all-info-profile .uniq-padd-2 .flex--info .side.scroller .for-scroll-padd{
+        padding: 0;
+    }
+    .venue-main-info .name-venue{
+        margin-bottom: 15px;
+    }
+    .venue-main-info .name-venue h2 {
+        font-size: 20px;
+    }
+    .venue-main-info .oficial-page .of-p{
+        font-size: 20px;
+    }
+    .all-info-profile .uniq-padd-2 .flex--info .side.side-contact .flex-contact-venue{
         display: block;
         
     }
-    .logo-wrapp .main-m-w{
-        .mid-side{
-            order: 10;
-            width: 100%;
-        }
+    .all-info-profile .uniq-padd-2 .flex--info .side.side-contact .flex-contact-venue .column-cont:first-child{
+        width: 100%;
+        padding-right: 0;
     }
-    .head-menu .right-pushed-menu{
-        min-height: 50px;
-    }
-    .navbar-toggle{
-        right: auto;
-        left: 5px;
-    }
-    .lang_block{
-        position: absolute;
-        right: 15px;
-        top: 12px;
-    }
-    .head-menu .right-pushed-menu .menu-list{
-        display: block;
-        padding-top: 40px;
-    }
-    .navbar-toggle{
-        margin-top: 0;
-        border: transparent;
-        top: 5px;
-    }
-    .head-menu .right-pushed-menu .menu-list .first-itm{
-        padding: 0;
-    }
-    .logo-wrapp .main-m-w .left-side{
-        width: auto;
-        margin-bottom: 10px;
-    }
-    .logo-wrapp .main-m-w .right-side{
-        width: auto;
-        margin-bottom: 10px;
-    }
-    .logo-wrapp .main-m-w .left-side a{
-        max-width: 105px;
-    }
-    .head-menu{
-        margin-bottom: 10px;
-    }
-    .logo-wrapp .main-m-w .mid-side .categorys{
-        justify-content: center;
-    }
-    .logo-wrapp .main-m-w .mid-side .categorys li a, .logo-wrapp .main-m-w .mid-side .categorys li span{
-        padding: 10px 0;
-    }
-    .logo-wrapp .main-m-w .right-side .adt{
-        margin-right: 5px;
-    }
-    .main-baner {
-        height: 240px;
-    }
-    .main-baner h1, .main-baner h2, .main-baner h3, .main-baner h4, .main-baner h5, .main-baner h6{
-        text-align: center;
-    }
-    .main-baner{
-        margin-bottom: 30px;
-    }
-    .search-wrapper .main-m-w form input{
-            background-position: center left 10px;
-        padding: 7px 0 7px 30px;
-    }
-    .search-wrapper .main-m-w form button {
-        width: 85px;
-    }
-    .tech-types .categories li {
-        width: 50%;
-    }
-    .tech-types .categories li a, .tech-types .categories li span {
-        font-size: 11px;
-    }
-    .products-wrapp .head-products .left-side h1, .products-wrapp .head-products .left-side h2, .products-wrapp .head-products .left-side h3, .products-wrapp .head-products .left-side h4, .products-wrapp .head-products .left-side h5, .products-wrapp .head-products .left-side h6 {
-        font-size: 19px;
-    }
-    .main-m-w-2 {
-        padding: 0 0;
-    }
-    .products-wrapp .all-product .one-product-wr {
-        width: 50%;
-        padding: 0 5px;
-    }
-    .products-wrapp .all-product .one-product-wr .one-product .img-before .top-text{
-        font-size: 13px;
-            width: 55px;
-    }
-    .products-wrapp .all-product .one-product-wr .one-product a {
-    font-size: 13px;
-    }
-    .products-wrapp .all-product .one-product-wr .one-product p{
-        font-size: 12px;
-    }
-    .products-wrapp .all-product-with-ad .ad-big{
-        display: none;
-    }
-    .products-wrapp .all-product-with-ad .all-product .one-product-wr{
-        width: 50%;
-    }
-    .products-wrapp .head-products .left-side.more-padding{
+    .all-info-profile .uniq-padd-2 .flex--info .side.side-contact .flex-contact-venue .column-cont:last-child{
+        width: 100%;
         padding-left: 0;
     }
-    .product-wr .name-product .left-side .name{
-        display: block;
-    }
     
-    .product-wr .product-description-wrapp .right-side .options-ad{
-        flex-wrap: wrap;
-        max-width: 300px;
-    }
-    .product-wr .product-description-wrapp .right-side .options-ad .option-ad{
-        width: 50%;
-        font-size: 14px;
-        margin-bottom: 7px;
-    }
-    .product-wr .name-product .left-side h1{
-        padding-right: 0;
-    }
-    .product-wr .name-product .left-side .name{
-        padding-right: 63px;
-    }
-    .product-wr .name-product .left-side h1{
-        font-size: 21px;
-        margin-bottom: 10px;
-    }
-    .product-wr .name-product .left-side .views{
-        top: 3px;
-    }
-    .product-wr .name-product .left-side .moment{
-        display: inline-block;
-        margin-bottom: 10px;
-    }
-    .product-wr .product-description-wrapp .left-side .sliders-images-wrapp .for-slider-wrapp .add-to-favorite p{
-        font-size: 10px;
-    }
-    .product-wr .product-description-wrapp .left-side .sliders-images-wrapp .for-slider-wrapp .add-to-favorite{
-        top: 10px;
-        right: 10px;
-        width: 95px;
-    }
-    .product-wr .product-description-wrapp .right-side .price{
-        flex-direction: column-reverse;
-    }
-    .product-wr .product-description-wrapp .right-side .price .sides-s .num-ad{
-        margin-bottom: 5px;
-    }
-    .product-wr .product-description-wrapp .right-side .butt-product-wr{
-        display: block;
-        max-width: 300px;
-    }
-    .product-wr .product-description-wrapp .right-side .butt-product-wr .one-b-wrapp:last-child{
-        padding-left: 0;
-    }
-    .product-wr .product-description-wrapp .right-side .butt-product-wr .one-b-wrapp:first-child{
-        padding-right: 0;
-    }
-    .product-wr .product-description-wrapp .right-side .butt-product-wr .one-b-wrapp{
-        width: 100%;
-        margin-bottom: 10px;
-    }
-    .product-wr .product-description-wrapp .right-side .butt-product-wr .one-b-wrapp .butt.butt-tel p{
-        font-size: 19px;
-    }
-    .product-wr .product-description-wrapp .right-side .butt-product-wr .one-b-wrapp .butt.butt-send p{
-        font-size: 19px;
-    }
-    .product-wr .product-description-wrapp .right-side .tech-text-head{
-        font-size: 20px;
-    }
-    .product-wr .product-description-wrapp .right-side .characters .character .velue{
-        font-size: 13px;
-        text-align: right;
-    }
     
-    .product-wr .product-description-wrapp .right-side .characters .character .property{
-        font-size: 14px;
-    }
-    
-    .product-wr .map-and-send .right-side .iframe-wrapp-map .ava{
-        width: 50px;
-        height: 50px;
-        left: 5px;
-        top: 275px;
-    }
-    .product-wr .map-and-send .right-side .iframe-wrapp-map .name-autor p.name{
-        font-size: 19px;
-    }
-    
-    .product-wr .map-and-send .right-side .iframe-wrapp-map .position-abs{
-        top: 5px;
-        left: 5px;
-            padding: 7px 10px;
-    }
-    .product-wr .map-and-send .right-side .iframe-wrapp-map iframe{
-        height: 300px;
-    }
-    .product-wr .map-and-send .right-side .iframe-wrapp-map .position-abs p{
-        font-size: 12px;
-    }
-   
-    .product-wr .map-and-send .left-side .line .head-form{
-        font-size: 18px;
-    }
-    .product-wr .map-and-send .left-side form .file-and-send{
-        display: block;
-    }
-    
-    .product-wr .map-and-send .left-side .second-tel-num img{
-        margin-right: 8px;
-    }
-    .product-wr .map-and-send .left-side form .file-and-send .l-s{
-        margin-bottom: 20px;
-    }
-    .product-wr .map-and-send .left-side form .file-and-send .r-s button{
-        margin: 0 auto;
-    }
-    
-    .contacts-map .some-contact-info .flex-info-contact .contact-info{
+}
+@media (max-width: 500px) {
+    footer .for-flex-footer .side{
         width: 100%;
     }
-    .contacts-map .form-wrapp{
-        width: 100%;
-        top: 0;
-            padding: 20px 25px;
-    }
-    .contacts-map #map{
-        margin-bottom: 0;
-        height: 300px;
-    }
-    .contacts-map .some-contact-info{
-        padding: 30px 0;
-    }
-    .login-registr .max-w-login-registr form .sides-wr{
-        display: block;
-    }
-    .login-registr .max-w-login-registr .login{
-        width: auto;
-        max-width: 320px;
-    }
-    
-    .login-registr .max-w-login-registr .registration{
-        width: auto;
-        max-width: 320px;
-    }
-    
-    .login-registr .max-w-login-registr form .sides-wr .side input{
-        margin-bottom: 20px;
-    }
-    
-    .page-only-text .abs-visa .rel-wrapp .item-payment{
-        width: 100%;
-        padding-right: 0;
-    }
-    
-    .page-only-text .abs-visa{
-        margin-bottom: 30px;
-    }
-    .page-only-text .abs-visa .rel-wrapp img{
-        max-width: 290px;
-    }
-    .page-only-text .centered-header{
-        font-size: 19px;
-    }
-    .add-adv-header-wr .add-adv-header .left-side p{
-        font-size: 14px;
-    }
-    .add-adv-header-wr .add-adv-header .left-side{
-        padding-right: 0;
-    }
-    .add-adv-body-wr .add-adv-body .left-side .flex-select-wrapp{
-        display: block;
-    }
-    .add-adv-body-wr .add-adv-body .left-side .flex-select-wrapp .l-s-select{
-        padding: 15px;
-        width: 100%;
-        margin-right: 0;
-    }
-    .add-adv-body-wr .add-adv-body .left-side .flex-select-wrapp .r-s-select{
-        margin-left: 0;
-        padding: 15px;
+    footer .for-flex-footer .side.side-1{
         width: 100%;
     }
-    .add-adv-body-wr .add-adv-body .left-side .flex-select-wrapp .l-s-select{
-        margin-bottom: 0;
+}
+
+@media (max-width: 479px) {
+    header .main-mw .right-side .flex-menu-items ul li {
+        padding: 0;   
     }
-    .add-adv-body-wr .add-adv-body .right-side .price-and-photo{
-        padding: 15px;
-    }
-    .add-adv-body-wr .add-adv-body .right-side .price-and-photo .photos-wrapp .one-photo-wr{
-        width: 50%;
-    }
-    .add-adv-body-wr .add-adv-body .right-side .price-and-photo .photos-wrapp .upload-photo{
-        width: 50%;
-    }
-    .add-adv-body-wr .add-adv-body.more-margin{
-        margin-bottom: 30px;
-    }
-    .add-adv-body-wr .add-adv-body .right-side .price-and-photo .photos-wrapp {
-        max-width: 386px;
+}
+
+@media (max-width: 359px) {
+    header .main-mw .right-side .flex-menu-items ul li {
+        margin: 0 7px;
     }
 }

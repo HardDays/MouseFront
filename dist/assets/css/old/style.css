@@ -175,11 +175,6 @@ body {
 
 .login-register {
   height: 100vh; }
-
-  .login-register2 {
-    height: auto; 
-  }
-  
   .login-register .login {
     min-height: 100%;
     display: flex;
@@ -1151,7 +1146,7 @@ footer {
   transform: translateX(470px); }
 
 .mask-nav-3 {
-  background-color: transparent; }
+  background-color: #000; }
 
 .modal {
   background-color: rgba(0, 0, 0, 0.4); }
@@ -1380,10 +1375,10 @@ footer {
             background-position: center; }
             .head-info-profile-wr.head-info-artist .flex-artist-main-info .side.right-side .bg-slider .slick-arrow.slick-prev {
               background-image: url(../img/arrow-left.svg);
-              left: 35%; }
+              left: -46px; }
             .head-info-profile-wr.head-info-artist .flex-artist-main-info .side.right-side .bg-slider .slick-arrow.slick-next {
               background-image: url(../img/arrow-right.svg);
-              right: 2%; }
+              right: -46px; }
             .head-info-profile-wr.head-info-artist .flex-artist-main-info .side.right-side .bg-slider .slick-arrow.slick-disabled {
               cursor: not-allowed; }
   .head-info-profile-wr .head-info-profile {
