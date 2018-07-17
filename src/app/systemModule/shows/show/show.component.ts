@@ -64,7 +64,7 @@ export class ShowItemComponent extends BaseComponent implements OnChanges {
         }
         else if (this.Show.date_from && this.Show.date_to)
         {
-            let from = this.Show.date_from.split("T")[0];
+            let from = this.Show.date_from.split("T")[0];            
             let to = this.Show.date_to.split("T")[0];
             if(from === to){
                 let m = moment(this.Show.date_from);
