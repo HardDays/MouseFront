@@ -1,5 +1,5 @@
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot} from "@angular/router";
-import {Observable} from "rxjs/Rx";
+import {Observable} from "rxjs";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { Injectable } from '@angular/core';
 import { BaseComponent } from "./core/base/base.component";

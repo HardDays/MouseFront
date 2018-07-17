@@ -245,6 +245,14 @@ export class MainService{
             ()=> this.authService.GetMe(),
             (res) => {
                 this.MyUser = res;
+            
+                if(this.MyUser.image_id){
+                    this.imagesService.GetImageById(this.MyUser.image_id)
+                        .subscribe((res)=>{
+                        this.MyUser.image_base64 = res.base64;
+                        })
+                }
+                
                 // if(this.MyUser)
                 // {
                 //         this.CurrentAccount = this.MyAccounts.find((acc) => acc.id === accId);

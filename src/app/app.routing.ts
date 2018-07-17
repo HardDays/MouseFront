@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule, } from '@angular/common';
 import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
-import { AppAccessGuard } from '../app/app.guard';
+import { AppAccessGuard } from './app.guard';
 import { StupidAccessComponent } from './stupidAccess/stupidAccess.component';
 import { LoginComponent } from './access/login/login.component';
 import { RegistrationComponent } from './access/registration/registration.component';

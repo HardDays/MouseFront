@@ -7,7 +7,7 @@ import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { AgmCoreModule } from '@agm/core';
-import { PreloaderModule } from '../../shared/preloader/preloader.module';
+import { PreloaderModule } from '../preloader/preloader.module';
 import { SearchEventsComponent } from './search_window/search.component';
 import { SearchEventsMapComponent } from './map/map.component';
 

@@ -26,4 +26,15 @@ export class AddNewAdminComponent extends BaseComponent implements OnInit {
       )
   }
 
+  loadLogo($event:any):void
+  {
+    this.ReadImages(
+        $event.target.files,
+        (res:string)=>
+        {
+            this.newUser.image_base64 = res;
+        }
+    );
+  }
+
 }

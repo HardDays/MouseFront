@@ -6,8 +6,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
 import { AgmCoreModule } from '@agm/core';
 
-import { ErrorModule } from './../shared/error/error.module';
-import { PreloaderModule } from './../shared/preloader/preloader.module';
+import { ErrorModule } from '../shared/error/error.module';
+import { PreloaderModule } from '../shared/preloader/preloader.module';
 import { AdminComponent } from './admin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdminRoutingModule } from './admin.routing';
@@ -20,8 +20,13 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { AccountComponent } from './accounts/account/account.component';
 import { RevenueComponent } from './revenue/revenue.component';
 import { SettingsComponent } from './settings/settings.component';
-import { RevenueInfoComponent } from './revenue/revenue-info/revenue-info.component';
 import { AddNewAdminComponent } from './settings/add-new-admin/add-new-admin.component';
+import { RevenueInfoComponent } from './revenue/revenue-info/revenue-info.component';
+import { RevenueAnalyticsComponent } from './revenue/revenue-analytics/revenue-analytics.component';
+import { FeedbackAnalyticsComponent } from './feedback/feedback-analytics/feedback-analytics.component';
+import { CustomerSupportComponent } from './customer-support/customer-support.component';
+import { CustomerSupportAnswersComponent } from './customer-support/customer-support-answers/customer-support-answers.component';
+import { AnalyticsEventComponent } from './events/analytics-event/analytics-event.component';
 
 
 
@@ -51,8 +56,13 @@ import { AddNewAdminComponent } from './settings/add-new-admin/add-new-admin.com
         AccountComponent,
         RevenueComponent,
         SettingsComponent,
+        AddNewAdminComponent,
         RevenueInfoComponent,
-        AddNewAdminComponent
+        RevenueAnalyticsComponent,
+        FeedbackAnalyticsComponent,
+        CustomerSupportComponent,
+        CustomerSupportAnswersComponent,
+        AnalyticsEventComponent
         
     ],
     providers: [AdminAccessGuard]

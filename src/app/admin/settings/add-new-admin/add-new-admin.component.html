@@ -1,10 +1,11 @@
 <!-- <div class="admin_content"> -->
   <div class="admin_settings_wrap">
       <h2 class="settings_zag">Personal info</h2>
-      <div class="personal_photo">
-          <div class="photo" style="background-image: url(./../../../../assets/img/admin/add_photo.png)"></div>
-          <span>Add Photo</span>
-      </div>
+      <label class="personal_photo">
+            <div class="photo" [ngStyle]="{'background-image': newUser.image_base64?'url('+newUser.image_base64+')':'url(./../../../../assets/img/admin/add_photo.png)'}"></div>
+            <span>Add Photo</span>
+            <input style=" opacity: 0; position: absolute; z-index: -1;" name="photo" accept=".jpg, .jpeg, .png" type="file" (change)="loadLogo($event)"> 
+        </label>
       <div class="inputs_flex">
           <div class="input-groupe-1">
               <input id="inp-info-1" [(ngModel)]="newUser.first_name" name="first_name" type="text">
@@ -44,14 +45,14 @@
       <h2 class="settings_zag second_zag">Address</h2>
       <div class="inputs_flex">
           <div class="input-groupe-1">
-              <select id="settings-country">
+              <select [(ngModel)]="newUser.country" id="settings-country">
                   <option>USA</option>
                   <option>Russia</option>
               </select>
               <label for="settings-country">Country</label>
           </div>
           <div class="input-groupe-1">
-              <select id="settings-city">
+              <select [(ngModel)]="newUser.city" id="settings-city">
                   <option>New York</option>
                   <option>Moscow</option>
               </select>
@@ -64,7 +65,7 @@
               <label for="inp-info-8">Address</label>
           </div>
           <div class="input-groupe-1">
-              <select id="settings-state">
+              <select [(ngModel)]="newUser.state" id="settings-state">
                   <option>NY</option>
                   <option>Moscow Region</option>
               </select>
@@ -73,7 +74,7 @@
       </div>
       <div class="inputs_flex">
           <div class="input-groupe-1">
-              <input id="inp-info-9" name="" value="" type="text">
+              <input id="inp-info-9" [(ngModel)]="newUser.other_address" name="" value="" type="text">
               <label for="inp-info-9">Address, Other</label>
           </div>
       </div>

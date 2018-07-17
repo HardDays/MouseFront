@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../../core/base/base.component';
 import { Params } from '@angular/router';
+import { AccountGetModel } from '../../core/models/accountGet.model';
 
 @Component({
   selector: 'app-accounts',
@@ -12,6 +13,8 @@ export class AccountsComponent extends BaseComponent implements OnInit {
   isApprovedBy:boolean = false;
   isShowTable:boolean = true;
   status:string = 'new';
+
+  Accounts: AccountGetModel[] = [];
   
   ngOnInit() {
     this.activatedRoute.params.subscribe(
@@ -29,6 +32,15 @@ export class AccountsComponent extends BaseComponent implements OnInit {
         }
       }
     );
+
+    this.getAccounts();
+  }
+
+  getAccounts(){
+    this.main.adminService.GetAccountsRequests()
+      .subscribe((res)=>{
+        this.Accounts = res;
+      })
   }
 
 }
