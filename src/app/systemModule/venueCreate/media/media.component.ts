@@ -76,7 +76,6 @@ export class VenueMediaComponent extends BaseComponent implements OnInit,OnChang
         this.WaitBeforeLoading(
         () => this.main.imagesService.GetAccountImages(this.VenueId),
         (res:ImageAccModelAnswer) => {
-            console.log(res);
             if(res && res.total_count > 0)
             {
                 this.VenueImages = res.images;
@@ -128,7 +127,6 @@ export class VenueMediaComponent extends BaseComponent implements OnInit,OnChang
         this.WaitBeforeLoading(
             () => this.main.imagesService.PostAccountImage(this.VenueId,this.ImageToLoad),
             (res:any) => {
-                console.log(res);
                 this.onError.emit(BaseMessages.Success);
                 this.ImageToLoad = new VenueMediaPhotoModel();
                 this.ImageToLoad.image_description = "";

@@ -10,9 +10,13 @@ import { EventsComponent } from './events/events.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { AccountComponent } from './accounts/account/account.component';
 import { RevenueComponent } from './revenue/revenue.component';
-import { RevenueInfoComponent } from './revenue/revenue-info/revenue-info.component';
 import { SettingsComponent } from './settings/settings.component';
 import { AddNewAdminComponent } from './settings/add-new-admin/add-new-admin.component';
+import { RevenueInfoComponent } from './revenue/revenue-info/revenue-info.component';
+import { FeedbackAnalyticsComponent } from './feedback/feedback-analytics/feedback-analytics.component';
+import { CustomerSupportComponent } from './customer-support/customer-support.component';
+import { CustomerSupportAnswersComponent } from './customer-support/customer-support-answers/customer-support-answers.component';
+import { RevenueAnalyticsComponent } from './revenue/revenue-analytics/revenue-analytics.component';
 
 
 
@@ -25,10 +29,13 @@ const routes: Routes =
       { path: 'accounts/:id', component: AccountsComponent, canActivate: [AdminAccessGuard]},
       { path: 'account/:id', component: AccountComponent, canActivate: [AdminAccessGuard]},
       { path: 'events/:id', component: EventsComponent, canActivate: [AdminAccessGuard]},
-      { path: 'feedback/:id', component: FeedbackComponent, canActivate: [AdminAccessGuard]},
-      { path: 'revenues/:id', component: RevenueComponent, canActivate: [AdminAccessGuard]},
+      { path: 'feedback', component: FeedbackComponent, canActivate: [AdminAccessGuard]},
+      { path: 'feedback/analytics', component: FeedbackAnalyticsComponent, canActivate: [AdminAccessGuard]},
+      { path: 'revenues', component: RevenueComponent, canActivate: [AdminAccessGuard]},
+      { path: 'revenues/analytics', component: RevenueAnalyticsComponent, canActivate: [AdminAccessGuard]},
       { path: 'revenue/:id', component: RevenueInfoComponent, canActivate: [AdminAccessGuard]},
-      { path: 'customer/:id', component: RevenueInfoComponent, canActivate: [AdminAccessGuard]},
+      { path: 'customer', component: CustomerSupportComponent, canActivate: [AdminAccessGuard]},
+      { path: 'customer/answers', component: CustomerSupportAnswersComponent, canActivate: [AdminAccessGuard]},
       { path: 'settings', component: SettingsComponent, canActivate: [AdminAccessGuard]},
       { path: 'add-admin', component: AddNewAdminComponent, canActivate: [AdminAccessGuard]}
     ]

@@ -1,9 +1,9 @@
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot} from "@angular/router";
-import {Observable} from "rxjs/Rx";
+import {Observable} from "rxjs";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { Injectable } from '@angular/core';
-import { AccountCreateModel } from './../core/models/accountCreate.model';
-import { AuthMainService } from './../core/services/auth.service';
+import { AccountCreateModel } from '../core/models/accountCreate.model';
+import { AuthMainService } from '../core/services/auth.service';
 import { BaseComponent } from '../core/base/base.component';
 
 @Injectable()
@@ -14,10 +14,27 @@ export class SystemAccessGuard extends BaseComponent implements CanActivate{
 
         //потом просто удалить
         if(localStorage.getItem('access')!='true') this.router.navigate(['/access']);
-        
         let login = this.main.authService.IsLogedIn();
+        let admin = this.main.MyUser.is_admin||this.main.MyUser.is_superuser;
+      
+        if(login&&admin){
+            this.router.navigate(['/admin']);
+        }
 
-        switch(router.routeConfig.path){
+        this.main.UserChange.subscribe(
+            ()=>{
+                login = this.main.authService.IsLogedIn();
+                admin = this.main.MyUser.is_admin||this.main.MyUser.is_superuser;
+                if(login&&admin){
+                    this.router.navigate(['/admin']);
+                }
+            }
+        )
+      
+        if(login&&admin){
+            this.router.navigate(['/admin']);
+        }
+        else switch(router.routeConfig.path){
             case "profile":{
                 if(!login){
                     return this.main.authService.onAuthChange$;

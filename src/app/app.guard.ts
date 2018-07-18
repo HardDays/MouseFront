@@ -1,5 +1,5 @@
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot} from "@angular/router";
-import {Observable} from "rxjs/Rx";
+import {Observable} from "rxjs";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { Injectable } from '@angular/core';
 import { BaseComponent } from "./core/base/base.component";
@@ -10,7 +10,6 @@ export class AppAccessGuard extends BaseComponent implements CanActivate{
     canActivate(router:ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>|boolean{
 
         let login = this.main.authService.IsLogedIn();
-
         switch(router.routeConfig.path){
             case "access":{
                 return this.LoginHandler(router,state);
@@ -33,7 +32,7 @@ export class AppAccessGuard extends BaseComponent implements CanActivate{
                     return true;
                 }
             }
-           
+        
             case "register":{
                 if(login){
                     return this.LoginNavigate();
@@ -42,7 +41,6 @@ export class AppAccessGuard extends BaseComponent implements CanActivate{
                     return true;
                 }
             }
-
 
             default:{
                 return true;

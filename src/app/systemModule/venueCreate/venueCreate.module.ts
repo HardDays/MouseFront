@@ -18,6 +18,7 @@ import { BigCalendarComponent } from './big-calendar/big-calendar.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material';
 
+import { InputModule } from '../../shared/input/input.module';
 
 @NgModule({
     imports: [ 
@@ -30,7 +31,8 @@ import {MatFormFieldModule} from '@angular/material';
         PreloaderModule,
         ProfileModule,
         MatSelectModule,
-        MatFormFieldModule
+        MatFormFieldModule,
+        InputModule
     ],
     declarations: [ 
         VenueCreateComponent,

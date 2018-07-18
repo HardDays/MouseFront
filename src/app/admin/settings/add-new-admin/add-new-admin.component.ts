@@ -1,15 +1,40 @@
 import { Component, OnInit } from '@angular/core';
+import { BaseComponent } from '../../../core/base/base.component';
+import { UserCreateModel } from '../../../core/models/userCreate.model';
 
 @Component({
   selector: 'app-add-new-admin',
   templateUrl: './add-new-admin.component.html',
   styleUrls: ['./add-new-admin.component.css']
 })
-export class AddNewAdminComponent implements OnInit {
+export class AddNewAdminComponent extends BaseComponent implements OnInit {
 
-  constructor() { }
+  newUser: UserCreateModel = new UserCreateModel();
 
   ngOnInit() {
+  }
+
+  createUser(){
+    this.main.adminService.CreateAdmin(this.newUser)
+      .subscribe(
+        (res)=>{
+          console.log(res);
+        },
+        (err)=>{
+          console.log(`err`,err);
+        }
+      )
+  }
+
+  loadLogo($event:any):void
+  {
+    this.ReadImages(
+        $event.target.files,
+        (res:string)=>
+        {
+            this.newUser.image_base64 = res;
+        }
+    );
   }
 
 }

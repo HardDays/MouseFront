@@ -72,11 +72,11 @@
                                 *ngIf="allDaysPriceDay"
                                 [ngClass]="
                                 {
-                                    'changed-price-morning': day.dayPrice
+                                    'changed-price-morning': day.dayPrice != null
                                 }
                                 "
                             >
-                                <span>{{ day.dayPrice? day.dayPrice : allDaysPriceDay}}$</span>
+                                <span>{{ day.dayPrice != null? day.dayPrice : allDaysPriceDay}}$</span>
                                
                             </p>
                             <!--"changed-price-night" добавляем класс блоку "night" если была изменина цена ночи-->
@@ -84,11 +84,11 @@
                                 *ngIf="allDaysPriceNight"
                                 [ngClass]="
                                 {
-                                    'changed-price-night': day.nightPrice
+                                    'changed-price-night': day.nightPrice != null
                                 }
                                 "
                             >
-                                <span>{{ day.nightPrice? day.nightPrice : allDaysPriceNight}}$</span>
+                                <span>{{ day.nightPrice != null? day.nightPrice : allDaysPriceNight}}$</span>
                             </p>
                         </div>
 
@@ -104,13 +104,13 @@
             <div class="black-bg-dates" (click)="CloseModalPrice($event)"></div>
 
             <div class="popup-set-price-wr">
-                <form class="popup-set-price">
+                <form class="popup-set-price" (ngSubmit)="SaveCheckedDate()" #SaveForm="ngForm">
                     <div class="flex-mac-checkbox">
                         <p>Availability</p>
                         <div class="yes-no">
                             <span>Yes</span>
                             <div class="mac-checkbox">
-                                <input class="checkbox" checked="" type="checkbox" id="opt-calendar-1">
+                                <input class="checkbox" name="form-vals-availability" [ngModel]="FormVals.is_available" (ngModelChange)="FormVals.is_available = $event" checked="" type="checkbox" id="opt-calendar-1">
                                 <label for="opt-calendar-1"></label>
                             </div>
                             <span>No</span>
@@ -121,99 +121,24 @@
                         <div class="yes-no">
                             <span>Yes</span>
                             <div class="mac-checkbox">
-                                <input class="checkbox" checked="" type="checkbox" id="opt-calendar-2">
+                                <input class="checkbox" name="form-vals-date-range" [ngModel]="FormVals.date_range" (ngModelChange)="FormVals.date_range = $event" checked="" type="checkbox" id="opt-calendar-2">
                                 <label for="opt-calendar-2"></label>
                             </div>
                             <span>No</span>
                         </div>
                     </div>
-                    <div class="flex-select-range">
-                        <p>From</p>
-                        <div class="input-groupe-1">
-                            <!-- <select>
-                                <option>1</option>
-                                <option>11</option>
-                            </select> -->
-                            <mat-form-field >
-                                <mat-select>
-                                    <mat-option [value]="1">1</mat-option>
-                                    <mat-option [value]="11">11</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                        <div class="input-groupe-1">
-                            <!-- <select>
-                                <option>Sep</option>
-                                <option>Nov</option>
-                            </select> -->
-                            <mat-form-field >
-                                <mat-select >
-                                    <mat-option value="sep">Sep</mat-option>
-                                    <mat-option value="nov">Nov</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                        <div class="input-groupe-1">
-                            <!-- <select>
-                                <option>2018</option>
-                                <option>2019</option>
-                            </select> -->
-                            <mat-form-field >
-                                <mat-select >
-                                    <mat-option [value]="2018">2018</mat-option>
-                                    <mat-option [value]="2019">2019</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="flex-select-range">
-                        <p>To</p>
-                        <div class="input-groupe-1">
-                            <!-- <select>
-                                <option>1</option>
-                                <option>11</option>
-                            </select> -->
-                            <mat-form-field >
-                                <mat-select>
-                                    <mat-option [value]="1">1</mat-option>
-                                    <mat-option [value]="11">11</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                        <div class="input-groupe-1">
-                            <!-- <select>
-                                <option>Sep</option>
-                                <option>Nov</option>
-                            </select> -->
-                            <mat-form-field >
-                                <mat-select >
-                                    <mat-option value="sep">Sep</mat-option>
-                                    <mat-option value="nov">Nov</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                        <div class="input-groupe-1">
-                            <!-- <select>
-                                <option>2018</option>
-                                <option>2019</option>
-                            </select> -->
-                            <mat-form-field >
-                                <mat-select >
-                                    <mat-option [value]="2018">2018</mat-option>
-                                    <mat-option [value]="2019">2019</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="flex-price-inp">
+                    <date-input [Label]="'From'" [DateInput]="FormVals.from" (OnDateChange)="FormVals.from = $event"></date-input>
+                    
+                    <date-input *ngIf="FormVals.date_range" [Label]="'To'" [DateInput]="FormVals.to" (OnDateChange)="FormVals.to = $event"></date-input>
+                    <div class="flex-price-inp" *ngIf="FormVals.is_available">
                         <p class="d-inp inp-desc">Day</p>
-                        <input type="text">
-                        <span>/hr</span>
+                        <input type="text" name="form-vals-day-price" [textMask]="MaskPrice()" [ngModel]="FormVals.price_for_daytime" (ngModelChange)="FormVals.price_for_daytime = $event">
+                        <span>$/hr</span>
                     </div>
-                    <div class="flex-price-inp">
+                    <div class="flex-price-inp" *ngIf="FormVals.is_available">
                         <p class="n-inp inp-desc">Night</p>
-                        <input type="text">
-                        <span>/hr</span>
+                        <input type="text" name="form-vals-night-price" [textMask]="MaskPrice()" [ngModel]="FormVals.price_for_nighttime" (ngModelChange)="FormVals.price_for_nighttime = $event">
+                        <span>$/hr</span>
                     </div>
                     <div class="buttons-pop">
                         <span class="resend-reg" (click)="CloseModalPrice($event)">Cancel</span>

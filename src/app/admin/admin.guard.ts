@@ -1,9 +1,9 @@
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot} from "@angular/router";
-import {Observable} from "rxjs/Rx";
+import {Observable} from "rxjs";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { Injectable } from '@angular/core';
-import { AccountCreateModel } from './../core/models/accountCreate.model';
-import { AuthMainService } from './../core/services/auth.service';
+import { AccountCreateModel } from '../core/models/accountCreate.model';
+import { AuthMainService } from '../core/services/auth.service';
 import { BaseComponent } from '../core/base/base.component';
 
 @Injectable()
@@ -17,7 +17,11 @@ export class AdminAccessGuard extends BaseComponent implements CanActivate{
         
         let login = this.main.authService.IsLogedIn();
 
-        if(!login){
+        let admin = this.main.MyUser.is_admin||this.main.MyUser.is_superuser;
+
+        console.log(`is admin`,admin);
+
+        if(!login||!admin){
             return this.LoginNavigate();
         }
         else{
@@ -101,7 +105,7 @@ export class AdminAccessGuard extends BaseComponent implements CanActivate{
     }
     
     LoginNavigate(){
-        this.router.navigate(['/system','shows']);
+        this.router.navigate(['/login']);
         return false;
     }
 }

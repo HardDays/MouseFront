@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../core/base/base.component';
 import { Event, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
+import { UserGetModel } from '../core/models/userGet.model';
 
 declare var $:any;
 
@@ -14,6 +15,9 @@ export class AdminComponent extends BaseComponent implements OnInit {
   pages = Parts;
   currentPage = Parts.dashboard;
 
+  User:UserGetModel = new UserGetModel();
+  openMenu = false;
+
   ngOnInit() {
     this.initJs();
     this.GetCurrentRoute();
@@ -22,6 +26,21 @@ export class AdminComponent extends BaseComponent implements OnInit {
           this.GetCurrentRoute();
       }
     });
+    this.User = this.main.MyUser;
+
+    this.main.UserChange.subscribe(
+      (res)=>{
+        this.User = this.main.MyUser;
+      }
+    )
+    // if(this.User.image_id){
+    //   this.main.imagesService.GetImageById(this.User.image_id)
+    //     .subscribe((res)=>{
+    //       console.log(`res img`, res);
+    //       this.User.image_base64 = res.base64;
+    //     })
+    // }
+    console.log(this.User);
 
   }
 
@@ -136,5 +155,6 @@ export enum Parts {
   revenue_analytics = 23,
   settings = 24,
   add_new_admin = 25,
-  customer_support = 26
+  customer_support = 26,
+  customer_answers = 27
 }

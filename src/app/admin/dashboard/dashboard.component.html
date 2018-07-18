@@ -1,19 +1,22 @@
 
     <div class="admin_cards">
         <div class="card violet music">
-            <span class="num">234</span>
+            <span class="num">{{Counts.fan}}</span>
             <span class="text">New Fans</span>
         </div>
         <div class="card siren kolonka">
-            <span class="num">1676</span>
+            <span class="num">{{Counts.venue}}</span>
             <span class="text">New Venues</span>
         </div>
         <div class="card blue mic">
-            <span class="num">578</span>
+            <span class="num">{{Counts.artist}}</span>
             <span class="text">New Artists</span>
         </div>
     </div>
-    <section>
+    <section class="dash_table">
+        <span class="admin_dash_delete"><img src="./../../../assets/img/admin/delete.svg" alt=""></span>
+        <span class="admin_dash_look" (click)="openTabsAcc()"><img src="./../../../assets/img/admin/look.svg" alt=""></span>
+        
         <h2 class="admin_table_zag">New account requests</h2>
         <div class="admin_table scroll_table new_accounts_table">
             <div class="admin_table_thead">
@@ -24,83 +27,28 @@
                 <div class="admin_table_th">Address</div>
             </div>
             <div class="admin_table_tbody_scroll">
-                <div class="admin_table_tr">
-                    <div class="admin_table_td check_column">
-                        <div class="admin_table_checkbox">
-                            <input type="checkbox" id="new_acc_1">
-                            <label for="new_acc_1"></label>
+                <ng-container *ngFor="let acc of Accounts; let i = index">
+                    <div class="admin_table_tr" [ngClass]="{'checked':acc.checked}">
+                        <div class="admin_table_td check_column">
+                            <div class="admin_table_checkbox">
+                                <input  (change)="acc.checked = !acc.checked" type="checkbox" id="new_acc_{{i}}">
+                                <label for="new_acc_{{i}}"></label>
+                            </div>
                         </div>
+                        <div class="admin_table_td"><span>{{acc.object.created_at|date:'MM.dd.yyyy'}}</span></div>
+                        <div class="admin_table_td"><span>{{acc.object.display_name}}</span></div>
+                        <div class="admin_table_td"><span>{{acc.object.account_type|titlecase}}</span></div>
+                        <div class="admin_table_td little"><span>{{acc.object.address}}</span></div>
                     </div>
-                    <div class="admin_table_td"><span>12.10.2018</span></div>
-                    <div class="admin_table_td"><span>Mark<br>Smith</span></div>
-                    <div class="admin_table_td"><span>Fan</span></div>
-                    <div class="admin_table_td little"><span>Los Angeles, USA</span></div>
-                </div>
+                </ng-container>
                 <!-- При выделении чекбокса добавляется класс CHECKED: -->
-                <div class="admin_table_tr checked">
-                    <div class="admin_table_td check_column">
-                        <div class="admin_table_checkbox">
-                            <input type="checkbox" id="new_acc_2" checked>
-                            <label for="new_acc_2"></label>
-                        </div>
-                    </div>
-                    <div class="admin_table_td"><span>12.10.2018</span></div>
-                    <div class="admin_table_td"><span>Dasha<br>Chervatsiuk</span></div>
-                    <div class="admin_table_td"><span>Artist</span></div>
-                    <div class="admin_table_td little"><span>Minsk, Belarus</span></div>
-                </div>
-                <div class="admin_table_tr">
-                    <div class="admin_table_td check_column">
-                        <div class="admin_table_checkbox">
-                            <input type="checkbox" id="new_acc_3">
-                            <label for="new_acc_3"></label>
-                        </div>
-                    </div>
-                    <div class="admin_table_td"><span>12.10.2018</span></div>
-                    <div class="admin_table_td"><span>Maxim<br>Kasperovich</span></div>
-                    <div class="admin_table_td"><span>Venue</span></div>
-                    <div class="admin_table_td little"><span>Moscow, Russia</span></div>
-                </div>
-                <div class="admin_table_tr">
-                    <div class="admin_table_td check_column">
-                        <div class="admin_table_checkbox">
-                            <input type="checkbox" id="new_acc_4">
-                            <label for="new_acc_4"></label>
-                        </div>
-                    </div>
-                    <div class="admin_table_td"><span>12.10.2018</span></div>
-                    <div class="admin_table_td"><span>Natalia<br>Smozhevskaia</span></div>
-                    <div class="admin_table_td"><span>Fan</span></div>
-                    <div class="admin_table_td little"><span>Moscow, Russia</span></div>
-                </div>
-                <div class="admin_table_tr">
-                    <div class="admin_table_td check_column">
-                        <div class="admin_table_checkbox">
-                            <input type="checkbox" id="new_acc_5">
-                            <label for="new_acc_5"></label>
-                        </div>
-                    </div>
-                    <div class="admin_table_td"><span>12.10.2018</span></div>
-                    <div class="admin_table_td"><span>Illia<br>Boroda</span></div>
-                    <div class="admin_table_td"><span>Artist</span></div>
-                    <div class="admin_table_td little"><span>Saint Petersburg, Russia</span></div>
-                </div>
-                <div class="admin_table_tr">
-                    <div class="admin_table_td check_column">
-                        <div class="admin_table_checkbox">
-                            <input type="checkbox" id="new_acc_6">
-                            <label for="new_acc_6"></label>
-                        </div>
-                    </div>
-                    <div class="admin_table_td"><span>12.10.2018</span></div>
-                    <div class="admin_table_td"><span>Mark<br>Smith</span></div>
-                    <div class="admin_table_td"><span>Fan</span></div>
-                    <div class="admin_table_td little"><span>Los Angeles, USA</span></div>
-                </div>
             </div>
         </div>
     </section>
-    <section>
+    <section class="dash_table">
+        <span class="admin_dash_delete"><img src="./../../../assets/img/admin/delete.svg" alt=""></span>
+        <span class="admin_dash_look" (click)="openTabsEvent()"><img src="./../../../assets/img/admin/look.svg" alt=""></span>
+
         <h2 class="admin_table_zag">New event requests</h2>
         <div class="admin_table scroll_table new_events_table">
             <div class="admin_table_thead">
@@ -112,72 +60,23 @@
                 <div class="admin_table_th">Funding type</div>
             </div>
             <div class="admin_table_tbody_scroll">
-                <div class="admin_table_tr">
-                    <div class="admin_table_td check_column">
-                        <div class="admin_table_checkbox">
-                            <input type="checkbox" id="new_ev_1">
-                            <label for="new_ev_1"></label>
+                <ng-container *ngFor="let event of Events; let i = index">
+                    <div class="admin_table_tr" [ngClass]="{'checked':event.checked}">
+                        <div class="admin_table_td check_column">
+                            <div class="admin_table_checkbox">
+                                <input (change)="event.checked = !event.checked" type="checkbox" id="new_ev_{{i}}">
+                                <label for="new_ev_{{i}}"></label>
+                            </div>
                         </div>
+                        <div class="admin_table_td"><span>{{event.object.received_date|date:'MM.dd.yyyy'}}</span></div>
+                        <div class="admin_table_td"><span>{{event.object.name}}</span></div>
+                        <div class="admin_table_td"><span>{{event.object.date_from|date:'MM.dd.yyyy h:mm a'}}</span></div>
+                        <div class="admin_table_td little"><span>{{event.object.address}}</span></div>
+                        <div class="admin_table_td little"><span>{{!event.object.is_crowdfunding_event?'Non ':''}}Crowdfund</span></div>
                     </div>
-                    <div class="admin_table_td"><span>12.10.2018</span></div>
-                    <div class="admin_table_td"><span>Cool Event</span></div>
-                    <div class="admin_table_td"><span>23.05.18<br>12:00 pm</span></div>
-                    <div class="admin_table_td little"><span>1200 S Ave W, Westfield, NJ, 07090, USA</span></div>
-                    <div class="admin_table_td little"><span>Crowdfund</span></div>
-                </div>
+                </ng-container>
                 <!-- При выделении чекбокса добавляется класс CHECKED: -->
-                <div class="admin_table_tr checked">
-                    <div class="admin_table_td check_column">
-                        <div class="admin_table_checkbox">
-                            <input type="checkbox" id="new_ev_2" checked>
-                            <label for="new_ev_2"></label>
-                        </div>
-                    </div>
-                    <div class="admin_table_td"><span>12.10.2018</span></div>
-                    <div class="admin_table_td"><span>Summer Fest</span></div>
-                    <div class="admin_table_td"><span>23.05.18<br>12:00 pm</span></div>
-                    <div class="admin_table_td little"><span>1200 S Ave W, Westfield, NJ, 07090, USA</span></div>
-                    <div class="admin_table_td little"><span>Non Crowdfund</span></div>
-                </div>
-                <div class="admin_table_tr">
-                    <div class="admin_table_td check_column">
-                        <div class="admin_table_checkbox">
-                            <input type="checkbox" id="new_ev_3">
-                            <label for="new_ev_3"></label>
-                        </div>
-                    </div>
-                    <div class="admin_table_td"><span>12.10.2018</span></div>
-                    <div class="admin_table_td"><span>Cool Event</span></div>
-                    <div class="admin_table_td"><span>23.05.18<br>12:00 pm</span></div>
-                    <div class="admin_table_td little"><span>1200 S Ave W, Westfield, NJ, 07090, USA</span></div>
-                    <div class="admin_table_td little"><span>Crowdfund</span></div>
-                </div>
-                <div class="admin_table_tr">
-                    <div class="admin_table_td check_column">
-                        <div class="admin_table_checkbox">
-                            <input type="checkbox" id="new_ev_4">
-                            <label for="new_ev_4"></label>
-                        </div>
-                    </div>
-                    <div class="admin_table_td"><span>12.10.2018</span></div>
-                    <div class="admin_table_td"><span>Cool Event</span></div>
-                    <div class="admin_table_td"><span>23.05.18<br>12:00 pm</span></div>
-                    <div class="admin_table_td little"><span>1200 S Ave W, Westfield, NJ, 07090, USA</span></div>
-                    <div class="admin_table_td little"><span>Crowdfund</span></div>
-                </div>
-                <div class="admin_table_tr">
-                    <div class="admin_table_td check_column">
-                        <div class="admin_table_checkbox">
-                            <input type="checkbox" id="new_ev_5">
-                            <label for="new_ev_5"></label>
-                        </div>
-                    </div>
-                    <div class="admin_table_td"><span>12.10.2018</span></div>
-                    <div class="admin_table_td"><span>Cool Event</span></div>
-                    <div class="admin_table_td"><span>23.05.18<br>12:00 pm</span></div>
-                    <div class="admin_table_td little"><span>1200 S Ave W, Westfield, NJ, 07090, USA</span></div>
-                    <div class="admin_table_td little"><span>Crowdfund</span></div>
-                </div>
+                
             </div>
         </div>
     </section>

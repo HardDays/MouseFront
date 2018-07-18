@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
 import { PreloaderModule } from '../../shared/preloader/preloader.module';
 import { AgmCoreModule } from '@agm/core';
-import { ShowDetailGalleryComponent } from '../showsDetail/gallery/gallery.component';
+import { ShowDetailGalleryComponent } from './gallery/gallery.component';
 import { ShowsDetailComponent } from './showsDetail.component';
 import { ShowDetailVideoComponent } from './video/video.component';
 import { ByTicketComponent } from './buyTicket/buyTicket.component';

@@ -137,8 +137,23 @@ export class VenuesComponent extends BaseComponent implements OnInit {
             this.getMessages();
             acc.status_not_given = i.status;
             if(acc.image_id){
-                acc.image_base64_not_given = this.main.imagesService.GetImagePreview(acc.image_id,{width:240,height:240});
-                this.requestVenues.push(acc);
+
+                // acc.image_base64_not_given = this.main.imagesService.GetImagePreview(acc.image_id,{width:240,height:240});
+                // this.requestVenues.push(acc);
+
+
+                this.main.imagesService.GetImageById(acc.image_id).
+                subscribe((img)=>{
+                    if(img.base64)
+                    acc.image_base64_not_given = this.main.imagesService.GetImagePreview(acc.image_id,{width:240,height:240});
+                    else
+                        acc.image_base64_not_given = '../../../../assets/img/show.png';
+                    this.requestVenues.push(acc);
+                },(err)=>{
+                    acc.image_base64_not_given = '../../../../assets/img/show.png';
+                })
+
+
                 // this.main.imagesService.GetImageById(acc.image_id).
                 // subscribe((img)=>{
                 //     if(img.base64)
@@ -293,7 +308,21 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     GetVenuesImages(){
         for(let a of this.venueList){
           if(a.object.image_id){
-            a.object.image_base64_not_given = this.main.imagesService.GetImagePreview(a.object.image_id,{width:140,height:140});
+
+            // a.object.image_base64_not_given = this.main.imagesService.GetImagePreview(a.object.image_id,{width:140,height:140});
+
+
+            this.main.imagesService.GetImageById(a.object.image_id)
+              .subscribe((img)=>{
+                  if(img.base64)
+                     a.object.image_base64_not_given = this.main.imagesService.GetImagePreview(a.object.image_id,{width:140,height:140});
+                    else
+                    a.object.image_base64_not_given = '../../../../assets/img/show.png';
+              },(err)=>{
+                a.object.image_base64_not_given = '../../../../assets/img/show.png';
+            });
+
+
             // this.main.imagesService.GetImageById(a.object.image_id)
             //   .subscribe((img)=>{
             //       if(img.base64)
@@ -530,6 +559,21 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         //         return false;
 
         return true;
+    }
+
+    getImageByUrl(id:number){
+
+        this.main.imagesService.GetImagePreviewObservable(id,{width:20,height:20}).subscribe(
+            (res)=>{
+                //console.log(res);
+                return {'background-image':"url('"+this.main.imagesService.GetImagePreview(id,{width:240,height:240})+"')"}
+            },
+            (err)=>{
+                console.log(`err`,err);
+            }
+        )
+        // console.log(`img`,img);
+        //{'background-image': item.object.image_base64_not_given?'url('+item.object.image_base64_not_given+')':''}
     }
 
 

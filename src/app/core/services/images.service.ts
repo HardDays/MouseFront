@@ -5,7 +5,7 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-import 'rxjs/Rx';
+import 'rxjs';
 import {Subject} from 'rxjs/Subject';
 import { TypeService } from "./type.service";
 import { VenueMediaPhotoModel } from '../models/venueMediaPhoto.model';
@@ -69,6 +69,16 @@ export class ImagesService{
     GetImagePreview(Id:number, params:any)
     {
         return this.http.GetQueryStr('/images/'+Id+'/preview.json',this.typeService.ParamsToUrlSearchParams(params));
+        // return this.http.CommonRequest(
+        //     ()=> this.http.GetData('/images/'+Id+'/preview.json',this.typeService.ParamsToUrlSearchParams(params))
+        // );
+    }
+
+    GetImagePreviewObservable(Id:number, params:any)
+    {
+        return this.http.CommonRequest(
+              ()=>this.http.GetData('/images/'+Id+'/preview.json',this.typeService.ParamsToUrlSearchParams(params))
+        )
         // return this.http.CommonRequest(
         //     ()=> this.http.GetData('/images/'+Id+'/preview.json',this.typeService.ParamsToUrlSearchParams(params))
         // );

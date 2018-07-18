@@ -41,6 +41,7 @@ import { FeedService } from './core/services/feed.service';
 import { CommentService } from './core/services/comment.service';
 import { LikesService } from './core/services/likes.service';
 import { RegisterUserInfoComponent } from './access/registration/register-user-info/register-user-info.component';
+import { AdminService } from './core/services/admin.service';
 
 
 
@@ -103,7 +104,8 @@ let providers = {
     FeedService,
     CommentService,
     LikesService,
-    MainService
+    MainService,
+    AdminService
   ],
     bootstrap: [AppComponent],
     

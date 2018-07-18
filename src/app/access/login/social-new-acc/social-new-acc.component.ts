@@ -54,7 +54,8 @@ export class SocialNewAccComponent extends BaseComponent implements OnInit {
         (err) => {
             console.log(`err`,err);
             // if(err._body.indexOf("password")==0)
-              this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'base'));
+            if(this.getResponseErrorMessage(err, 'base')==='Email already taken')
+              this.errorCmp.OpenWindow('This email is already taken');
             // setTimeout(() => {
             //   if(this.errorCmp.isShown)
             //     this.errorCmp.CloseWindow();

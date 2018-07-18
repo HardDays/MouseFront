@@ -1,56 +1,58 @@
 <div class="admin_settings_wrap">
   <h2 class="settings_zag">Personal info</h2>
-  <div class="personal_photo">
-      <div class="photo" style="background-image: url(./../../../../assets/img/admin/add_photo.png)"></div>
-      <span>Add Photo</span>
-  </div>
+  <label class="personal_photo">
+        <div class="photo" [ngStyle]="{'background-image': User.image_base64?'url('+User.image_base64+')':'url(./../../../../assets/img/admin/add_photo.png)'}"></div>
+        <span>Add Photo</span>
+        <input style=" opacity: 0; position: absolute; z-index: -1;" name="photo" accept=".jpg, .jpeg, .png" type="file" (change)="loadLogo($event)"> 
+    </label>
+
   <div class="inputs_flex">
       <div class="input-groupe-1">
-          <input id="inp-info-1" name="" value="Poman" type="text">
+          <input id="inp-info-1" [(ngModel)]="User.first_name" name="first_name" value="Poman" type="text">
           <label for="inp-info-1">First Name</label>
       </div>
       <div class="input-groupe-1">
-          <input id="inp-info-2" name="" value="Lenko" type="text">
+          <input id="inp-info-2" [(ngModel)]="User.last_name" name="last_name" value="Lenko" type="text">
           <label for="inp-info-2">Last Name</label>
       </div>
   </div>
   <div class="inputs_flex">
       <div class="input-groupe-1">
-          <input id="inp-info-3" name="" value="PomLenko@mouselive.com" type="text">
+          <input id="inp-info-3" [(ngModel)]="User.email" name="email" type="text">
           <label for="inp-info-3">Email Address</label>
       </div>
       <div class="input-groupe-1 username_input">
-          <input id="inp-info-4" name="" value="PomanLenko" type="text">
+          <input id="inp-info-4" [(ngModel)]="User.user_name" name="user_name" name="" type="text">
           <label for="inp-info-4">Mouse Username</label>
       </div>
   </div>
   <div class="inputs_flex">
       <div class="input-groupe-1">
-          <input id="inp-info-5" name="" value="123456" type="password">
+          <input id="inp-info-5" [(ngModel)]="User.password" name="" value="123456" type="password">
           <label for="inp-info-5">Password</label>
       </div>
       <div class="input-groupe-1">
-          <input id="inp-info-6" name="" value="123456" type="password">
+          <input id="inp-info-6" [(ngModel)]="User.password_confirmation" name="" value="123456" type="password">
           <label for="inp-info-6">Verify Password</label>
       </div>
   </div>
   <div class="inputs_flex">
       <div class="input-groupe-1">
-          <input id="inp-info-7" name="" value="(202) 555-8990" type="password">
+          <input id="inp-info-7"  [(ngModel)]="User.register_phone" name="register_phone">
           <label for="inp-info-7">Phone Number (For Verification)</label>
       </div>
   </div>
   <h2 class="settings_zag second_zag">Address</h2>
   <div class="inputs_flex">
       <div class="input-groupe-1">
-          <select id="settings-country">
+          <select [(ngModel)]="User.country" id="settings-country">
               <option>USA</option>
               <option>Russia</option>
           </select>
           <label for="settings-country">Country</label>
       </div>
       <div class="input-groupe-1">
-          <select id="settings-city">
+          <select [(ngModel)]="User.city" id="settings-city">
               <option>New York</option>
               <option>Moscow</option>
           </select>
@@ -59,11 +61,11 @@
   </div>
   <div class="inputs_flex">
       <div class="input-groupe-1">
-          <input id="inp-info-8" name="" value="28 Main Street" type="text">
+          <input id="inp-info-8" [(ngModel)]="User.address" name="" type="text">
           <label for="inp-info-8">Address</label>
       </div>
       <div class="input-groupe-1">
-          <select id="settings-state">
+          <select  [(ngModel)]="User.state" id="settings-state">
               <option>NY</option>
               <option>Moscow Region</option>
           </select>
@@ -72,11 +74,11 @@
   </div>
   <div class="inputs_flex">
       <div class="input-groupe-1">
-          <input id="inp-info-9" name="" value="" type="text">
+          <input id="inp-info-9" [(ngModel)]="User.other_address" name="" type="text">
           <label for="inp-info-9">Address, Other</label>
       </div>
   </div>
-  <button class="butt-style-1" type="submit">
+  <button (click)="SaveUser()" class="butt-style-1" type="submit">
       <span>Save</span>
   </button>
 </div>

@@ -1,0 +1,212 @@
+<!-- <div class="admin_content"> -->
+    <section>
+        <h1 class="admin_big_zag">Event analytics</h1>
+        <div class="admin_cards">
+            <div class="card siren world">
+                <span class="num">2345</span>
+                <span class="text">All Events</span>
+            </div>
+            <div class="card blue cardcheck">
+                <span class="num">1106</span>
+                <span class="text">Successful</span>
+            </div>
+            <div class="card violet canc">
+                <span class="num">539</span>
+                <span class="text">Failed</span>
+            </div>
+        </div>
+    </section>
+    <section>
+        <h2 class="admin_table_zag zag_with_tabs">
+            <span>New status per</span>
+            <span class="zag_tab">Day</span>
+            <span class="zag_tab">Week</span>
+            <span class="zag_tab">Month</span>
+            <span class="zag_tab">Year</span>
+            <span class="zag_tab active">All time</span>
+        </h2>
+        <div class="events_status_wrap">
+            <div class="admin_table events_status_table">
+                <div class="admin_table_thead">
+                    <div class="admin_table_th">Status</div>
+                    <div class="admin_table_th">Amount</div>
+                    <div class="admin_table_th">Percent</div>
+                </div>
+                <div class="admin_table_tbody">
+                    <div class="admin_table_tr">
+                        <div class="admin_table_td"><span class="blue">Successful</span></div>
+                        <div class="admin_table_td"><span>1106</span></div>
+                        <div class="admin_table_td"><span>47.16%</span></div>
+                    </div>
+                    <div class="admin_table_tr">
+                        <div class="admin_table_td"><span class="yellow">Pending</span></div>
+                        <div class="admin_table_td"><span>700</span></div>
+                        <div class="admin_table_td"><span>29.85%</span></div>
+                    </div>
+                    <div class="admin_table_tr">
+                        <div class="admin_table_td"><span class="purple">Failed</span></div>
+                        <div class="admin_table_td"><span>539</span></div>
+                        <div class="admin_table_td"><span>22.98%</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="events_status_diagramm"></div>
+        </div>
+    </section>
+    <section>
+        <h2 class="admin_table_zag zag_with_tabs">
+            <span>New events per</span>
+            <span class="zag_tab">Day</span>
+            <span class="zag_tab">Week</span>
+            <span class="zag_tab active">Month</span>
+            <span class="zag_tab">Year</span>
+            <span class="zag_tab">All time</span>
+        </h2>
+        <div class="diagramm_block"></div>
+        <div class="acc_analytics_diag_desc">
+            <span class="rose">Crowdfund</span>
+            <span class="violet">Regular</span>
+        </div>
+    </section>
+    <section>
+        <h2 class="admin_table_zag">Individual events</h2>
+        <div class="events_filters_wrap">
+            <div class="events_filters_left">
+                <input type="text" placeholder="Search">
+                <p>Sort By</p>
+                <div class="radios">
+                    <div class="filter_radio">
+                        <input type="radio" id="sort_event_name" name="sort_event">
+                        <label for="sort_event_name"></label>
+                        <span>Event Name</span>
+                    </div>
+                    <div class="filter_radio">
+                        <input type="radio" id="sort_event_date" name="sort_event">
+                        <label for="sort_event_date"></label>
+                        <span>Event Date</span>
+                    </div>
+                </div>
+            </div>
+            <div class="events_filters_right">
+                <div class="filter_row">
+                    <div class="filter_checkbox">
+                        <input type="checkbox" id="event_filter1" checked>
+                        <label for="event_filter1"></label>
+                        <span>All</span>
+                    </div>
+                    <div class="filter_checkbox">
+                        <input type="checkbox" id="event_filter2">
+                        <label for="event_filter2"></label>
+                        <span>Crowdfund</span>
+                    </div>
+                    <div class="filter_checkbox">
+                        <input type="checkbox" id="event_filter3">
+                        <label for="event_filter3"></label>
+                        <span>Regular</span>
+                    </div>
+                </div>
+                <div class="filter_row">
+                    <div class="filter_checkbox">
+                        <input type="checkbox" id="event_filter4">
+                        <label for="event_filter4"></label>
+                        <span>Most Viewed</span>
+                    </div>
+                    <div class="filter_checkbox">
+                        <input type="checkbox" id="event_filter5">
+                        <label for="event_filter5"></label>
+                        <span>Most Liked</span>
+                    </div>
+                    <div class="filter_checkbox">
+                        <input type="checkbox" id="event_filter6">
+                        <label for="event_filter6"></label>
+                        <span>Most Commented</span>
+                    </div>
+                </div>
+                <div class="filter_row">
+                    <div class="filter_checkbox">
+                        <input type="checkbox" id="event_filter7">
+                        <label for="event_filter7"></label>
+                        <span>Successful</span>
+                    </div>
+                    <div class="filter_checkbox">
+                        <input type="checkbox" id="event_filter8">
+                        <label for="event_filter8"></label>
+                        <span>Pending</span>
+                    </div>
+                    <div class="filter_checkbox">
+                        <input type="checkbox" id="event_filter9">
+                        <label for="event_filter9"></label>
+                        <span>Failed</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="admin_table scroll_table events_analytic_table">
+            <div class="admin_table_thead">
+                <div class="admin_table_th">Event name</div>
+                <div class="admin_table_th">Event date</div>
+                <div class="admin_table_th">Funding type</div>
+                <div class="admin_table_th">Comments</div>
+                <div class="admin_table_th">Likes</div>
+                <div class="admin_table_th">Views</div>
+                <div class="admin_table_th">Status</div>
+            </div>
+            <div class="admin_table_tbody_scroll">
+                <div class="admin_table_tr">
+                    <div class="admin_table_td"><span>Cool Event</span></div>
+                    <div class="admin_table_td"><span>05.23.18 12:00 pm</span></div>
+                    <div class="admin_table_td"><span>Crowdfund</span></div>
+                    <div class="admin_table_td"><span>5668</span></div>
+                    <div class="admin_table_td"><span>6,568</span></div>
+                    <div class="admin_table_td"><span>75,669,885</span></div>
+                    <div class="admin_table_td text-uppercase"><span class="status_pending">Pending</span></div>
+                </div>
+                <div class="admin_table_tr">
+                    <div class="admin_table_td"><span>Cool Event</span></div>
+                    <div class="admin_table_td"><span>05.23.18 12:00 pm</span></div>
+                    <div class="admin_table_td"><span>Crowdfund</span></div>
+                    <div class="admin_table_td"><span>5668</span></div>
+                    <div class="admin_table_td"><span>6,568</span></div>
+                    <div class="admin_table_td"><span>75,669,885</span></div>
+                    <div class="admin_table_td text-uppercase"><span class="status_approved">Successful</span></div>
+                </div>
+                <div class="admin_table_tr">
+                    <div class="admin_table_td"><span>Cool Event</span></div>
+                    <div class="admin_table_td"><span>05.23.18 12:00 pm</span></div>
+                    <div class="admin_table_td"><span>Crowdfund</span></div>
+                    <div class="admin_table_td"><span>5668</span></div>
+                    <div class="admin_table_td"><span>6,568</span></div>
+                    <div class="admin_table_td"><span>75,669,885</span></div>
+                    <div class="admin_table_td text-uppercase"><span class="status_pending">Pending</span></div>
+                </div>
+                <div class="admin_table_tr">
+                    <div class="admin_table_td"><span>Cool Event</span></div>
+                    <div class="admin_table_td"><span>05.23.18 12:00 pm</span></div>
+                    <div class="admin_table_td"><span>Crowdfund</span></div>
+                    <div class="admin_table_td"><span>5668</span></div>
+                    <div class="admin_table_td"><span>6,568</span></div>
+                    <div class="admin_table_td"><span>75,669,885</span></div>
+                    <div class="admin_table_td text-uppercase"><span class="status_pending">Pending</span></div>
+                </div>
+                <div class="admin_table_tr">
+                    <div class="admin_table_td"><span>Cool Event</span></div>
+                    <div class="admin_table_td"><span>05.23.18 12:00 pm</span></div>
+                    <div class="admin_table_td"><span>Crowdfund</span></div>
+                    <div class="admin_table_td"><span>5668</span></div>
+                    <div class="admin_table_td"><span>6,568</span></div>
+                    <div class="admin_table_td"><span>75,669,885</span></div>
+                    <div class="admin_table_td text-uppercase"><span class="status_approved">Successful</span></div>
+                </div>
+                <div class="admin_table_tr">
+                    <div class="admin_table_td"><span>Cool Event</span></div>
+                    <div class="admin_table_td"><span>05.23.18 12:00 pm</span></div>
+                    <div class="admin_table_td"><span>Crowdfund</span></div>
+                    <div class="admin_table_td"><span>5668</span></div>
+                    <div class="admin_table_td"><span>6,568</span></div>
+                    <div class="admin_table_td"><span>75,669,885</span></div>
+                    <div class="admin_table_td text-uppercase"><span class="status_approved">Successful</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- </div> -->
