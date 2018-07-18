@@ -23,10 +23,10 @@ export class NavbarComponent extends BaseComponent implements OnInit
     MyLogo:string = '';
     ngOnInit()
     {
-      // this.MyLogo = this.main.MyLogo;
-      this.MyLogo = this.main.MyUserLogo;
+      this.MyLogo = this.main.MyLogo;
+      // this.MyLogo = this.main.MyUserLogo;
       this.curNav = this.getThisPage();
-      this.main.MyUserLogoChange.subscribe(
+      this.main.MyLogoChange.subscribe(
         (res)=>{
           this.MyLogo = res;
         }
