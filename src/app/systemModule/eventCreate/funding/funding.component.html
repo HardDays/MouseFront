@@ -124,11 +124,18 @@
                 <div class="top-gum">
                     <h6 class="lower-case-t">Family and Friends Amount</h6>
                     <div class="input-groupe-1">
-                        <select type="number" [(ngModel)]="Event.family_and_friends_amount">
+                        <!-- <select type="number" [(ngModel)]="Event.family_and_friends_amount">
                             <option [value]="0">0%</option>
                             <option [value]="5">5%</option>
                             <option [value]="10">10%</option>
-                        </select>
+                        </select> -->
+                        <mat-form-field >
+                            <mat-select [(ngModel)]="Event.family_and_friends_amount">
+                                <mat-option [value]="0">0%</mat-option>
+                                <mat-option [value]="5">5%</mat-option>
+                                <mat-option [value]="10">10%</mat-option>
+                            </mat-select>
+                        </mat-form-field>
                         
                     </div>
                     <div class="second-funding-info">

@@ -17,6 +17,7 @@ import { EventGetModel } from '../../../core/models/eventGet.model';
 import { EventPatchModel } from '../../../core/models/eventPatch.model';
 import { EventCreateModel } from '../../../core/models/eventCreate.model';
 import { EventCreateComponent } from '../eventCreate.component';
+import { ViewEncapsulation } from '@angular/core';
 
 
 
@@ -25,7 +26,8 @@ declare var $:any;
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',
-  styleUrls: ['./about.component.css']
+  styleUrls: ['./about.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AboutComponent extends BaseComponent implements OnInit {
 
@@ -40,7 +42,6 @@ export class AboutComponent extends BaseComponent implements OnInit {
 
   genres:GenreModel[] = [];
   showMoreGenres:boolean = false;
-
   image:string;
 
   aboutForm : FormGroup = new FormGroup({

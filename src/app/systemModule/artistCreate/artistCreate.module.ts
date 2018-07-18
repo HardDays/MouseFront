@@ -18,6 +18,8 @@ import { TinyCalendarComponent } from './tiny-calendar/tiny-calendar.component';
 import { AudioComponent } from './artist-media/audio/audio.component';
 import { ArtistCalendarComponent } from './artist-calendar/artist-calendar.component';
 import { RiderComponent } from './artist-riders/rider/rider.component';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material';
 
 
 @NgModule({
@@ -27,6 +29,8 @@ import { RiderComponent } from './artist-riders/rider/rider.component';
         FormsModule,
         ReactiveFormsModule,
         TextMaskModule,
+        MatSelectModule,
+        MatFormFieldModule,
         AgmCoreModule.forRoot({
             apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",
             libraries: ["places"]

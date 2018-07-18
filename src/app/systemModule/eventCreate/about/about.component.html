@@ -37,7 +37,7 @@
                     <div class="flex-input-groupes">
                         <div class="input-groupe-1">
                             <!--тут пока селекты. но если вы найдете норм плагин таких селектов которые можно будет стилизовать и которые работают с ангуларом - буду очень признателен-->
-                            <select formControlName="artists_number" id="inp-create-4" [(ngModel)]="Event.artists_number">
+                            <!-- <select formControlName="artists_number" id="inp-create-4" [(ngModel)]="Event.artists_number">
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
@@ -45,7 +45,19 @@
                                 <option>5</option>
                                 <option>6</option>
                                 
-                            </select>
+                            </select> -->
+                            <mat-form-field >
+                                <mat-select [(ngModel)]="Event.artists_number" formControlName="artists_number">
+                                    <mat-option [value]="1">1</mat-option>
+                                    <mat-option [value]="2">2</mat-option>
+                                    <mat-option [value]="3">3</mat-option>
+                                    <mat-option [value]="4">4</mat-option>
+                                    <mat-option [value]="5">5</mat-option>
+                                    <mat-option [value]="6">6</mat-option>
+
+                                </mat-select>
+                            </mat-form-field>
+
                             <label for="inp-create-4">Number of Artists<span>*</span></label>
 
                         </div>
@@ -87,42 +99,59 @@
                     </div>
                     <div class="flex-input-groupes">
                         <div class="input-groupe-1">
-                            <select formControlName="event_season" [(ngModel)]="Event.event_season" class="selectpicker" >
+                            <!-- <select formControlName="event_season" [(ngModel)]="Event.event_season">
                                 <option value="spring">Spring</option>
                                 <option value="summer">Summer</option>
                                 <option value="autumn">Autumn</option>
                                 <option value="winter">Winter</option>
-                            </select>
+                            </select> -->
+                            <mat-form-field >
+                                <mat-select [(ngModel)]="Event.event_season" formControlName="event_season">
+                                    <mat-option value="spring">Spring</mat-option>
+                                    <mat-option value="summer">Summer</mat-option>
+                                    <mat-option value="autumn">Autumn</mat-option>
+                                    <mat-option value="winter">Winter</mat-option>
+                                </mat-select>
+                            </mat-form-field>
                             <label for="inp-create-5">Event Date<span>*</span></label>
 
                         </div>
                         <div class="input-groupe-1">
-                            <select formControlName="event_year" [(ngModel)]="Event.event_year"  id="inp-create-6" >
-                                <option>2018</option>
-                                <option>2019</option>
-                                <option>2020</option>
-                                <option>2021</option>
-                                <option>2022</option>
-                                
-                            </select>
-                            
+                            <mat-form-field >
+                                <mat-select [(ngModel)]="Event.event_year" formControlName="event_year">
+                                    <mat-option [value]="2018">2018</mat-option>
+                                    <mat-option [value]="2019">2019</mat-option>
+                                    <mat-option [value]="2020">2020</mat-option>
+                                    <mat-option [value]="2021">2021</mat-option>
+                                    <mat-option [value]="2022">2022</mat-option>
+                                    <mat-option [value]="2023">2023</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <label for="inp-create-6">Event Year<span>*</span></label>
 
                         </div>
                     </div>
                     <div class="flex-input-groupes">
                         <div class="input-groupe-1">
-                            <select id="inp-create-7" [(ngModel)]="Event.event_time" formControlName="event_time">
+                            <!-- <select id="inp-create-7" [(ngModel)]="Event.event_time" formControlName="event_time">
                                 <option value="morning">Morning</option>
                                 <option value="afternoon">Afternoon</option>
                                 <option value="evening">Evening</option>
-                                <!-- <option value="night">Night</option> -->
+                                <option value="night">Night</option>
                                 
-                            </select>
+                            </select> -->
+                            <mat-form-field >
+                                <mat-select [(ngModel)]="Event.event_time" formControlName="event_time">
+                                    <mat-option value="morning">Morning</mat-option>
+                                    <mat-option value="afternoon">Afternoon</mat-option>
+                                    <mat-option value="evening">Evening</mat-option>
+                                </mat-select>
+                            </mat-form-field>
                             <label for="inp-create-7">Event Time Range<span>*</span></label>
 
                         </div>
                         <div class="input-groupe-1">
-                            <select formControlName="event_length" [(ngModel)]="Event.event_length" id="inp-create-8" >
+                            <!-- <select formControlName="event_length" [(ngModel)]="Event.event_length" id="inp-create-8" >
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
@@ -148,7 +177,35 @@
                                 <option>23</option>
                                 <option>24</option>
                                 
-                            </select>
+                            </select> -->
+                            <mat-form-field >
+                                <mat-select [(ngModel)]="Event.event_length" formControlName="event_length">
+                                    <mat-option [value]="1">1</mat-option>
+                                    <mat-option [value]="2">2</mat-option>
+                                    <mat-option [value]="3">3</mat-option>
+                                    <mat-option [value]="4">4</mat-option>
+                                    <mat-option [value]="5">5</mat-option>
+                                    <mat-option [value]="6">6</mat-option>
+                                    <mat-option [value]="7">7</mat-option>
+                                    <mat-option [value]="8">8</mat-option>
+                                    <mat-option [value]="9">9</mat-option>
+                                    <mat-option [value]="10">10</mat-option>
+                                    <mat-option [value]="11">11</mat-option>
+                                    <mat-option [value]="12">12</mat-option>
+                                    <mat-option [value]="13">13</mat-option>
+                                    <mat-option [value]="14">14</mat-option>
+                                    <mat-option [value]="15">15</mat-option>
+                                    <mat-option [value]="16">16</mat-option>
+                                    <mat-option [value]="17">17</mat-option>
+                                    <mat-option [value]="18">18</mat-option>
+                                    <mat-option [value]="19">19</mat-option>
+                                    <mat-option [value]="20">20</mat-option>
+                                    <mat-option [value]="21">21</mat-option>
+                                    <mat-option [value]="22">22</mat-option>
+                                    <mat-option [value]="23">23</mat-option>
+                                    <mat-option [value]="24">24</mat-option>
+                                </mat-select>
+                            </mat-form-field>
                             <label for="inp-create-8">Event Length<span>*</span></label>
 
                         </div>

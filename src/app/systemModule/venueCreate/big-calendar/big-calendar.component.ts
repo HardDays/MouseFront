@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, Output, EventEmitter, SimpleChanges, NgZone, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter, SimpleChanges, NgZone, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
@@ -31,7 +31,8 @@ export interface CalendarDate {
 @Component({
   selector: 'app-big-calendar',
   templateUrl: './big-calendar.component.html',
-  styleUrls: ['./big-calendar.component.css']
+  styleUrls: ['./big-calendar.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class BigCalendarComponent extends BaseComponent implements OnInit, OnChanges {
 

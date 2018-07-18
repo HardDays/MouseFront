@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, ApplicationRef  } from '@angular/core';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -44,6 +45,8 @@ import { RegisterUserInfoComponent } from './access/registration/register-user-i
 
 
 
+
+
 let providers = {
   "google": {
     "clientId": "318975976374-kgoi5u5qrao13e6u7o2sjinleh5c86vj.apps.googleusercontent.com"
@@ -69,6 +72,7 @@ let providers = {
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpModule,
     RouterModule,

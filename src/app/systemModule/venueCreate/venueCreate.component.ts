@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, NgZone, Input, ViewContainerRef, ComponentFactory, OnChanges, ChangeDetectorRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, NgZone, Input, ViewContainerRef, ComponentFactory, OnChanges, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { NgForm,FormControl,FormGroup,Validators, FormArray} from '@angular/forms';
 import { AuthMainService } from '../../core/services/auth.service';
 

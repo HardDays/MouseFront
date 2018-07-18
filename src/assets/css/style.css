@@ -53,26 +53,8 @@ body {
     color: rgba(255, 255, 255, 0.8); }
   .inp-style-1:-ms-input-placeholder {
     color: rgba(255, 255, 255, 0.8); }
-    
-  /* ::-webkit-scrollbar {
-      margin-right: 5px;
-      background-color: transparent;
-      width: 12px;
-  }
 
-  ::-webkit-scrollbar-track {background: #f3f3f3}
-
-  ::-webkit-scrollbar-thumb {
-      
-      border-radius: 12px;
-      background: rgb(179, 179, 179);
-      
-      -webit-transition: all .3s ease-out;
-      transition: all .3s ease-out;
-  } */
-
-
-.some-small-text-after-head {
+    .some-small-text-after-head {
   max-width: 280px;
   margin: 0 auto;
   color: #b2afb5;
@@ -2817,7 +2799,7 @@ footer {
     z-index: 10;
     width: 100%;
     border: none;
-    /* background: transparent; */
+    background: transparent;
     border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
     padding: 10px 0;
     font-size: 16px;
@@ -7398,7 +7380,7 @@ footer {
           margin-bottom: 0; }
 
 .create-event-body-1 .create-event-body .flex-body-1 .side .add-to-genres {
-  z-index: 1500; }
+  z-index: 1000; }
 
 .new-photos-wr-scroll-preview {
   position: relative;
@@ -7614,7 +7596,7 @@ footer {
   top: 0;
   width: 100%;
   height: 100%;
-  z-index: 2000;
+  z-index: 999;
   background: rgba(0, 0, 0, 0.5); }
 .tiny-calendar-wrapper .days.set-date-popup .popup-set-price-wr {
   display: block;
@@ -7623,7 +7605,7 @@ footer {
   left: 0;
   width: 263px;
   background: #fff;
-  z-index: 3000;
+  z-index: 1000;
   border-radius: 6px;
   padding: 14px; }
   .tiny-calendar-wrapper .days.set-date-popup .popup-set-price-wr .flex-price-inp {
@@ -8038,5 +8020,46 @@ footer {
               .tiny-calendar-wrapper .body-calendar .days .one-day-wr .one-day .popup-inform-tiny-calendar .shadow-wr .bott-descr-day .where-2 {
                 font-size: 14px;
                 color: #a3a3a3; }
+                
+                  /* material select */
+              
+                .mat-select:focus:not(.mat-select-disabled).mat-primary 
+                .mat-select-arrow , .mat-select-underline , .mat-select-trigger 
+                {
+                    color: none;
+                    
+                }
+                
+                .mat-primary .mat-option.mat-selected:not(.mat-option-disabled){
+                    color:black;
+
+                }
+                .mat-form-field-ripple {
+                    background-color: transparent;
+                    }
+                    .mat-input-infix.mat-form-field-infix{
+                        width: 100%;
+                        
+                    }
+                    .mat-input-underline.mat-form-field-underline{
+                      border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
+                      background-color: transparent;
+                      top: 45px;
+                    }
+                    .mat-select-arrow{
+                        width: 8px!important;
+                        height: 8px!important;
+                        border-radius: 50%;
+                        display: inline-block;
+                        border:none!important;
+                        background-color: #c1c1c1;
+                    }
+                    .mat-form-field-wrapper{
+                      padding-bottom: 0;
+                    }
+                    .mat-select-panel:not([class*=mat-elevation-z]){
+                      box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0), 0 8px 10px 1px rgba(0, 0, 0, 0.02), 0 3px 14px 2px rgba(0, 0, 0, 0.08) !important;
+                    }
+
 
 /*# sourceMappingURL=style.css.map */
