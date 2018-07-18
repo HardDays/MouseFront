@@ -22,12 +22,46 @@
                             
                             
                         </div>
+
+                        <form  class="reg-wr">
+                    
+                            <div class="sigh-up-3-m-w">
+                                <p class="type-head">Type of account</p>
+                       <div class="flex-checkboxes one-line-checkbox">
+                        <!--при for обращаем внимания на for у label и id у инпута-->
+                            <div class="one-checkbox">
+                                <div class="check-style">
+                                    <input (change)="type='fan'" [checked]="type=='fan'" type="checkbox" class="checkbox" name="" id="checkbox-1">
+                                    <label for="checkbox-1"></label>
+                                </div>
+                                <p>Fan</p>
+                            </div>
+                            <div class="one-checkbox">
+                                <div class="check-style">
+                                    <input (change)="type='artist'" [checked]="type=='artist'" type="checkbox" class="checkbox" name="" id="checkbox-2">
+                                    <label for="checkbox-2"></label>
+                                </div>
+                                <p>Artist</p>
+                            </div>
+                            <div class="one-checkbox">
+                                <div class="check-style">
+                                    <input (change)="type='venue'" [checked]="type=='venue'" type="checkbox" class="checkbox" name="" id="checkbox-3">
+                                    <label for="checkbox-3"></label>
+                                </div>
+                                <p>Venue</p>
+                            </div>
+                        </div>
+                        </div></form>
+                        
                         <div class="continue-wr">
                             <button class="butt-style-1" type="submit" (click)="registerUser()"><span>Continue</span></button>
                         </div>
                         <p class="text-link-to-login">Already have an account?</p>
                         <p class="al-c"><a [routerLink]="['/login']" class="link-link-to-login">Log In</a></p>
                       
+
+                       
+
                     </form>
                 </div>
             </div>

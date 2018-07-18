@@ -35,6 +35,8 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
 
   @ViewChild('errorCmp') errorCmp: ErrorComponent;
 
+  type:string = 'fan';
+
   registerUser(){
     let isNew = true;
     if(!this.isFirstOpen){
@@ -75,14 +77,14 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
               this.userCreated = true;
               this.main.authService.onAuthChange$.next(true);
 
-              this.back.emit('info');
+              // this.back.emit('info');
 
-              // if(this.type=='fan')
-              //   this.backUser.emit(this.type);
-              // else if(this.type=='venue')
-              //   this.router.navigate(['/system','venueCreate','new']);
-              // else if(this.type=='artist')
-              //   this.router.navigate(['/system','artistCreate','new']);
+              if(this.type=='fan')
+                this.backUser.emit(this.type);
+              else if(this.type=='venue')
+                this.router.navigate(['/system','venueCreate','new']);
+              else if(this.type=='artist')
+                this.router.navigate(['/system','artistCreate','new']);
 
 
           },
