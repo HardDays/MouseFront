@@ -78,6 +78,7 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
               this.main.authService.onAuthChange$.next(true);
 
               // this.back.emit('info');
+              localStorage.setItem('new_user_'+res.id,this.type);
 
               if(this.type=='fan')
                 this.backUser.emit(this.type);
