@@ -484,6 +484,11 @@
         top: 0;
         margin-top: 8px;
     }
+    header .main-mw .right-side .flex-menu-items .name-and-ava-wr .flex-auth {
+        position: absolute;
+        right: 0px;
+        top: 3px;
+    }
     .shows-main-wrapp .flex-shows {
         margin: 0 -12px;
     }
@@ -616,7 +621,6 @@
     }
     .all-info-profile .uniq-padd-2 .flex--info .side.side-contact .flex-contact-venue{
         display: block;
-        
     }
     .all-info-profile .uniq-padd-2 .flex--info .side.side-contact .flex-contact-venue .column-cont:first-child{
         width: 100%;
@@ -626,26 +630,91 @@
         width: 100%;
         padding-left: 0;
     }
-    
-    
-}
-@media (max-width: 500px) {
-    footer .for-flex-footer .side{
-        width: 100%;
+    .transformedDatapicker {
+        position: fixed;
+        top: 0;
+        left: 0;
+        transform: translateX(0);
+        max-height: 100%;
+        overflow-y: auto;
     }
-    footer .for-flex-footer .side.side-1{
-        width: 100%;
+    .main-router-outlet {
+        overflow-x: hidden;
     }
 }
+// @media (max-width: 500px) {
+//     footer .for-flex-footer .side{
+//         width: 100%;
+//     }
+//     footer .for-flex-footer .side.side-1{
+//         width: 100%;
+//     }
+// }
 
 @media (max-width: 479px) {
     header .main-mw .right-side .flex-menu-items ul li {
         padding: 0;   
+    }
+    .shows-main-wrapp .head-shows h1 {
+        font-size: 26px;
+    }
+    .shows-main-wrapp .head-shows .ham-ham {
+        width: 48px;
+        height: 48px;
+    }
+    .shows-main-wrapp .flex-shows .one-show-wr .one-show {
+        height: 200px;
+    }
+    .new-shows-desc .name-show {
+        font-size: 15px;
+    }
+    .new-shows-desc .where {
+        font-size: 12px;
+    }
+    .shows-main-wrapp .flex-shows .one-show-wr .one-show .description .top-info .sale {
+        width: 62px;
+        height: 62px;
+        background-size: contain;
+    }
+    .shows-main-wrapp .flex-shows .one-show-wr .one-show .description .top-info .sale p {
+        font-size: 14px;
+    }
+    .shows-main-wrapp .flex-shows .one-show-wr .one-show .description .top-info .funded p {
+        font-size: 14px;
+    }
+    .shows-main-wrapp .flex-shows .one-show-wr .one-show .description .top-info .funded p span {
+        font-size: 14px;
+    }
+    footer .for-flex-footer .side {
+        padding: 0 8px;
+    }
+    footer .for-flex-footer .side h5 {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+    footer .for-flex-footer .side ul li a {
+        font-size: 14px;
+    }
+    footer .for-flex-footer .side.side-2 .flex-socials {
+        width: auto;
+    }
+    footer .for-flex-footer .side.side-2 .flex-socials a {
+        max-width: 30px;
+    }
+    .nav-holder-3 {
+        width: 300px;
+    }
+
+    .shows-main-wrapp .flex-shows {
+        padding-bottom: 30px;
     }
 }
 
 @media (max-width: 359px) {
     header .main-mw .right-side .flex-menu-items ul li {
         margin: 0 7px;
+    }
+    .nav-holder-3 {
+        width: 290px;
     }
 }

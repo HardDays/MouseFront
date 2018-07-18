@@ -98,3 +98,28 @@ select{
     /* height: 100vh; */
     min-height: 700px;
  }
+
+@media (max-width: 479px) {
+    .one-checkbox {
+        margin-bottom: 15px;
+    }
+    .one-checkbox p {
+        font-size: 12px;
+        padding-left: 6px;
+    }
+    .one-checkbox .check-style label {
+        width: 18px;
+        height: 18px;
+    }
+    .nav-holder-3 .wrapp-for-filter .groupe-form .flex-genres .one-checkbox label:before {
+        width: 15px;
+        top: 3px;
+        right: 0px;
+    }
+}
+
+@media (max-width: 359px) {
+    .one-checkbox p {
+        font-size: 11px;
+    }
+}
