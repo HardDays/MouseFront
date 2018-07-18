@@ -10,6 +10,8 @@ import { ContactModel } from '../../../core/models/contact.model';
 import {BaseMessages} from '../../../core/base/base.enum';
 import { BigCalendarComponent, CalendarDate } from '../big-calendar/big-calendar.component';
 import * as moment from 'moment';
+import { VenueDatesModel } from '../../../core/models/venueDatesModel';
+import { AccountGetModel } from '../../../core/models/accountGet.model';
 
 @Component({
     selector: 'venue-dates-selector',
@@ -17,26 +19,14 @@ import * as moment from 'moment';
     styleUrls: ['./../venueCreate.component.css']
 })
 export class VenueDatesComponent extends BaseComponent implements OnInit,OnChanges {
-    changedPrice: CalendarDate[] = [
-        {
-            mDate: moment('2018-07-11'),
-            changed: true,
-            dayPrice: 500,
-            nightPrice: 600
-    
-        },
-        {
-            mDate: moment('2018-07-12'),
-            changed: true,
-            nightPrice: 300
-    
-        }
-        
-    ];
+    changedPrice: CalendarDate[] = [];
+    disabledDays: CalendarDate[] = [];
+    @Input() VenueId: number;
     @Input() Venue: AccountCreateModel;
     @Output() onSaveVenue:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
     @Output() onError:EventEmitter<string> = new EventEmitter<string>();
     @Output() onVenueChanged:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
+
 
 
     dateForm : FormGroup = new FormGroup({
@@ -57,7 +47,6 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
             (value:any) => {
                 this.onVenueChanged.emit(this.Venue);
             });
-            console.log(this.Venue);
     }
     ngOnInit(): void
     {
@@ -66,6 +55,7 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
 
     ngOnChanges(changes: SimpleChanges): void {
         this.Venue = changes.Venue.currentValue;
+        this.ChangeDates();
     }
 
 
@@ -112,5 +102,73 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
         keepCharPositions: true,
         guide:false
         };
+    }
+
+    SaveDates($event)
+    {
+        let arr:VenueDatesModel[] = [];
+        let curr_date = moment($event.from);
+        let end_date = moment($event.to);
+        arr.push(this.CalendarFormToVenueDate(curr_date.toDate(),$event));
+        if($event.date_range){
+            curr_date.date(curr_date.date() +1);
+            while(curr_date <= end_date){
+                arr.push(this.CalendarFormToVenueDate(curr_date.toDate(),$event));
+                curr_date.date(curr_date.date() +1);
+            }
+        }
+
+        this.main.accService.UpdateMyAccount(this.VenueId,{dates:arr})
+            .subscribe(
+                (res:AccountGetModel) => {
+                    this.Venue = this.main.accService.AccountModelToCreateAccountModel(res);
+                    this.ChangeDates();
+                }
+            )
+    }
+
+    CalendarFormToVenueDate(date:Date, data:any)
+    {
+        let model = new VenueDatesModel();
+        model.date = date;
+        model.is_available = data.is_available;
+        if(model.is_available)
+        {
+            model.price_for_daytime = data.price_for_daytime;
+            model.price_for_nighttime = data.price_for_nighttime;
+        }
+        return model;
+    }
+    ChangeDates()
+    {
+        let arr = [];
+        for(let i in this.Venue.dates)
+        {
+            let item:VenueDatesModel = this.Venue.dates[i];
+            let date = {
+                mDate: moment(item.date),
+                selected: !item.is_available,
+                dayPrice: item.price_for_daytime,
+                nightPrice: item.price_for_nighttime,
+                changed:true
+            };
+            arr.push(date);
+        }
+        this.changedPrice = arr.filter(obj => !obj.selected);
+        this.disabledDays = arr.filter(obj => obj.selected);
+
+        // {
+        //     mDate: moment('2018-07-11'),
+        //     changed: true,
+        //     dayPrice: 500,
+        //     nightPrice: 600
+    
+        // },
+        // {
+        //     mDate: moment('2018-07-12'),
+        //     changed: true,
+        //     nightPrice: 300
+    
+        // }
     }
 }

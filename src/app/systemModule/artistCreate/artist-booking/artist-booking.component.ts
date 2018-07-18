@@ -8,13 +8,15 @@ import { MapsAPILoader, AgmMap } from '@agm/core';
 import { CheckModel } from '../../../core/models/check.model';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Conditional } from '@angular/compiler';
+import { ViewEncapsulation } from '@angular/core';
 
 declare var $:any;
 
 @Component({
   selector: 'app-artist-booking',
   templateUrl: './artist-booking.component.html',
-  styleUrls: ['./artist-booking.component.css']
+  styleUrls: ['./artist-booking.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ArtistBookingComponent extends BaseComponent implements OnInit {
 

@@ -14,17 +14,29 @@
                     <h6>Performance</h6>
                     <div class="flex-input-groupes">
                         <div class="input-groupe-1">
-                            <select [(ngModel)]="Artist.performance_min_time" id="inp-perf-req-1">
+                            <!-- <select [(ngModel)]="Artist.performance_min_time" id="inp-perf-req-1">
                                 <option>1</option>
                                 <option>2</option>
-                            </select>
+                            </select> -->
+                            <mat-form-field >
+                                <mat-select [(ngModel)]="Artist.performance_min_time">
+                                    <mat-option [value]="1">1</mat-option>
+                                    <mat-option [value]="2">2</mat-option>
+                                </mat-select>
+                            </mat-form-field>
                             <label for="inp-perf-req-1">Min Time (hr)</label>
                         </div>
                         <div class="input-groupe-1">
-                            <select [(ngModel)]="Artist.performance_max_time" id="inp-perf-req-2">
+                            <!-- <select [(ngModel)]="Artist.performance_max_time" id="inp-perf-req-2">
                                 <option>3</option>
                                 <option>4</option>
-                            </select>
+                            </select> -->
+                            <mat-form-field >
+                                <mat-select [(ngModel)]="Artist.performance_max_time">
+                                    <mat-option [value]="3">3</mat-option>
+                                    <mat-option [value]="4">4</mat-option>
+                                </mat-select>
+                            </mat-form-field>
                             <label for="inp-perf-req-2">Max Time (hr)</label>
                         </div>
                     </div>
@@ -182,10 +194,16 @@
                         <p class="hours-label">How many days notice do you need to travel?</p>
                         </div>
                         <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
-                            <select [(ngModel)]="Artist.days_to_travel">
+                            <!-- <select [(ngModel)]="Artist.days_to_travel">
                                 <option>30</option>
                                 <option>40</option>
-                            </select>                                                         
+                            </select>                                                          -->
+                            <mat-form-field >
+                                <mat-select [(ngModel)]="Artist.days_to_travel">
+                                    <mat-option [value]="30">30</mat-option>
+                                    <mat-option [value]="40">40</mat-option>
+                                </mat-select>
+                            </mat-form-field>
                         </div>
                     </div>
                     
@@ -265,11 +283,18 @@
                             <input type="text" [(ngModel)]="Artist.min_time_to_book">                                                       
                         </div>
                         <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
-                            <select [(ngModel)]="type_min_time_to_book">
+                            <!-- <select [(ngModel)]="type_min_time_to_book">
                                 <option>days</option>
                                 <option>weeks</option>
                                 <option>months</option>
-                            </select>                                                         
+                            </select>                                                          -->
+                            <mat-form-field >
+                                <mat-select [(ngModel)]="type_min_time_to_book">
+                                    <mat-option value="days">Days</mat-option>
+                                    <mat-option value="weeks">Weeks</mat-option>
+                                    <mat-option value="months">Months</mat-option>
+                                </mat-select>
+                            </mat-form-field>
                         </div>
                     </div>
                     <div class="flex-input-groupes">
@@ -283,11 +308,18 @@
 
                         <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
                             
-                            <select [(ngModel)]="type_min_time_to_free_cancel">
+                            <!-- <select [(ngModel)]="type_min_time_to_free_cancel">
                                 <option>days</option>
                                 <option>weeks</option>
                                 <option>months</option>
-                            </select>                                                         
+                            </select>                                                          -->
+                            <mat-form-field >
+                                <mat-select [(ngModel)]="type_min_time_to_free_cancel">
+                                    <mat-option value="days">Days</mat-option>
+                                    <mat-option value="weeks">Weeks</mat-option>
+                                    <mat-option value="months">Months</mat-option>
+                                </mat-select>
+                            </mat-form-field>
                         </div>
                     </div>
                     <div class="flex-input-groupes">

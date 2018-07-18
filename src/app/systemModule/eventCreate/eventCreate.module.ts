@@ -17,6 +17,8 @@ import { PreloaderModule } from '../../shared/preloader/preloader.module';
 import { PreviewArtistComponent } from './preview-artist/preview-artist.component';
 import { PreviewVenueComponent } from './preview-venue/preview-venue.component';
 import { TinyCalendarComponent } from './preview-artist/tiny-calendar/tiny-calendar.component';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material';
 
 @NgModule({
     imports: [ 
@@ -25,6 +27,8 @@ import { TinyCalendarComponent } from './preview-artist/tiny-calendar/tiny-calen
         FormsModule,
         ReactiveFormsModule,
         TextMaskModule,
+        MatSelectModule,
+        MatFormFieldModule,
         AgmCoreModule.forRoot({
             apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",
             libraries: ["places"]
@@ -44,6 +48,7 @@ import { TinyCalendarComponent } from './preview-artist/tiny-calendar/tiny-calen
         PreviewArtistComponent,
         PreviewVenueComponent,
         TinyCalendarComponent
+
         
     ],
     exports: [ EventCreateComponent ]

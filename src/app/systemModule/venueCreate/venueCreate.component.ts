@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, NgZone, Input, ViewContainerRef, ComponentFactory, OnChanges, ChangeDetectorRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, NgZone, Input, ViewContainerRef, ComponentFactory, OnChanges, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { NgForm,FormControl,FormGroup,Validators, FormArray} from '@angular/forms';
 import { AuthMainService } from '../../core/services/auth.service';
 
@@ -165,7 +165,6 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
 
   SaveVenueByPages(venue:AccountCreateModel)
   {
-    // console.log("Model",this.Venue);
     this.WaitBeforeLoading
     (
       () => this.VenueId == 0 ? this.main.accService.CreateAccount(this.Venue) : this.main.accService.UpdateMyAccount(this.VenueId,this.Venue),
@@ -180,7 +179,6 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
         );
         this.main.GetMyAccounts(
           () => {
-            console.log(res);
             
             this.main.CurrentAccountChange.next(res);
           }

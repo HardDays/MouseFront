@@ -1,0 +1,24 @@
+<div class="flex-select-range">
+    <p>{{Label}}</p>
+    <div class="input-groupe-1">
+        <select [ngModel]="Day" (ngModelChange)="Day = $event">
+            <ng-container *ngFor="let item of DayNumbers">
+                <option [value]="item">{{item}}</option>
+            </ng-container>
+        </select>
+    </div>
+    <div class="input-groupe-1">
+        <select [ngModel]="Month" (ngModelChange)="MonthChanges($event)">
+            <ng-container *ngFor="let item of MonthArray;let i = index">
+                <option [value]="i">{{item}}</option>
+            </ng-container>
+        </select>
+    </div>
+    <div class="input-groupe-1">
+        <select [ngModel]="Year" (ngModelChange)="YearChanges($event)">
+            <ng-container *ngFor="let item of YearArray">
+                <option [value]="item">{{item}}</option>
+            </ng-container>
+        </select>
+    </div>
+</div>

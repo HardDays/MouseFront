@@ -15,6 +15,10 @@ import { ErrorModule } from '../../shared/error/error.module';
 import { PreloaderModule } from '../../shared/preloader/preloader.module';
 import { ProfileModule } from '../profile/profile.module';
 import { BigCalendarComponent } from './big-calendar/big-calendar.component';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material';
+
+import { InputModule } from '../../shared/input/input.module';
 
 @NgModule({
     imports: [ 
@@ -25,7 +29,10 @@ import { BigCalendarComponent } from './big-calendar/big-calendar.component';
         TextMaskModule,
         ErrorModule,
         PreloaderModule,
-        ProfileModule
+        ProfileModule,
+        MatSelectModule,
+        MatFormFieldModule,
+        InputModule
     ],
     declarations: [ 
         VenueCreateComponent,
