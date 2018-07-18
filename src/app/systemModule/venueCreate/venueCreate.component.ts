@@ -74,7 +74,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
 
   Parts = PageParts;
 
-  CurrentPart = this.Parts.About;
+  CurrentPart = this.Parts.Dates;
 
   Venue:AccountCreateModel = new AccountCreateModel();
   VenueId:number = 0;
@@ -165,7 +165,6 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
 
   SaveVenueByPages(venue:AccountCreateModel)
   {
-    // console.log("Model",this.Venue);
     this.WaitBeforeLoading
     (
       () => this.VenueId == 0 ? this.main.accService.CreateAccount(this.Venue) : this.main.accService.UpdateMyAccount(this.VenueId,this.Venue),
@@ -180,7 +179,6 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
         );
         this.main.GetMyAccounts(
           () => {
-            console.log(res);
             
             this.main.CurrentAccountChange.next(res);
           }

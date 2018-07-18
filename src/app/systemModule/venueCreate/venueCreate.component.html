@@ -54,7 +54,7 @@
         </venue-media-selector>
 
         <venue-dates-selector #dates *ngIf="CurrentPart == Parts.Dates" (onError)="OpenErrorWindow($event)" (onSaveVenue)="SaveVenueByPages($event)" 
-            [Venue]="Venue" (onVenueChanged)="VenueChanged($event)">
+            [Venue]="Venue" (onVenueChanged)="VenueChanged($event)" [VenueId]="VenueId">
         </venue-dates-selector>
 
         <venue-profile-selector [Venue]="Venue" [VenueId]="VenueId" *ngIf="CurrentPart == Parts.Preview" [Account]="Venue" [Fans]="[]" [IsPreview]="true">

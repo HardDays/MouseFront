@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, Output, EventEmitter, SimpleChanges, NgZone, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter, SimpleChanges, NgZone, ChangeDetectorRef, ViewChild } from '@angular/core';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
@@ -10,6 +10,7 @@ import { AccountGetModel } from '../../../core/models/accountGet.model';
 import { Base64ImageModel } from '../../../core/models/base64image.model';
 import { MainService } from '../../../core/services/main.service';
 import { BaseImages } from '../../../core/base/base.enum';
+import { NgForm } from '../../../../../node_modules/@angular/forms';
 
 
 interface EventMouseInfo {
@@ -33,7 +34,7 @@ export interface CalendarDate {
   templateUrl: './big-calendar.component.html',
   styleUrls: ['./big-calendar.component.css']
 })
-export class BigCalendarComponent extends BaseComponent implements OnInit, OnChanges {
+export class BigCalendarComponent implements OnInit, OnChanges {
 
   currentDate = moment();
 
@@ -49,14 +50,23 @@ export class BigCalendarComponent extends BaseComponent implements OnInit, OnCha
   ToElement:EventMouseInfo = {};
   newChangedDays:CalendarDate[] = [];
 
-
-
   @Input() allDaysPriceDay: number;
   @Input() allDaysPriceNight: number;
   @Input() selectedDates: CalendarDate[] = [];
   @Input() eventDates: CalendarDate[] = [];
-  @Input() changedPrice: CalendarDate[] = [];
-  @Output() onSelectDate = new EventEmitter<CalendarDate>();
+  @Input() changedPrice: any[] = [];
+  @Output() onSelectDate = new EventEmitter<any>();
+
+  @ViewChild('SaveForm') form: NgForm;
+
+  FormVals = {
+    is_available: true,
+    date_range: true,
+    from: null,
+    to:null,
+    price_for_daytime: 0,
+    price_for_nighttime: 0
+  };
 
   constructor(
     protected main           : MainService,
@@ -67,14 +77,11 @@ export class BigCalendarComponent extends BaseComponent implements OnInit, OnCha
     protected activatedRoute : ActivatedRoute,
     protected cdRef          : ChangeDetectorRef
 ) {
-super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
 }
 
   ngOnInit(): void {
     this.generateCalendar();
     this.GetEventsInfo();
-    
-
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -82,8 +89,8 @@ super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
         changes.selectedDates.currentValue &&
         changes.selectedDates.currentValue.length  > 1) {
           this.sortedDates = _.sortBy(changes.selectedDates.currentValue, (m: CalendarDate) => m.mDate.valueOf());
-          //this.generateCalendar();
-        }
+    }
+    this.generateCalendar();
   }
   GetEventsInfo(){
     this.Images = [];
@@ -102,6 +109,8 @@ super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
   }
 
   MoveForRange(event,day){
+    let selectDayClass = "mouseSelectDay";
+
     if(this.FlagForRangePick){
       this.ToElement.event = event;
       this.ToElement.CalendarDate = day;
@@ -116,23 +125,23 @@ super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
 
       for(var i = 0; i < event.target.offsetParent.children.length; i++){
         
-        if(event.target.offsetParent.children[i].classList.contains("mouseSelectDay")){
-          event.target.offsetParent.children[i].classList.remove("mouseSelectDay");
+        if(event.target.offsetParent.children[i].classList.contains(selectDayClass)){
+          event.target.offsetParent.children[i].classList.remove(selectDayClass);
         }
       }
-      this.FromElement.event.target.classList.add("mouseSelectDay");
+      this.FromElement.event.target.classList.add(selectDayClass);
     
       if(parseInt(fromDate.format("YYYYMMDD")) < parseInt(toDate.format("YYYYMMDD"))){
         for(var i = 0; i <= event.target.offsetParent.children.length; i++){
           if( indexStartElement < indexHoverElement && (i - 1) < indexHoverElement && (i + 1) > indexStartElement){
-            event.target.offsetParent.children[i].classList.add("mouseSelectDay");
+            event.target.offsetParent.children[i].classList.add(selectDayClass);
           }
         }
       }
       else{
         for(var i = 0; i <= event.target.offsetParent.children.length; i++){
           if( indexStartElement > indexHoverElement && (i + 1) > indexHoverElement && (i - 1) < indexStartElement){
-            event.target.offsetParent.children[i].classList.add("mouseSelectDay");
+            event.target.offsetParent.children[i].classList.add(selectDayClass);
           }
         }
       }
@@ -173,10 +182,19 @@ super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
           if(parseInt(day.mDate.format("YYYYMMDD")) <= parseInt(this.FromElement.CalendarDate.mDate.format("YYYYMMDD")) 
           && parseInt(day.mDate.format("YYYYMMDD")) >= parseInt(this.ToElement.CalendarDate.mDate.format("YYYYMMDD"))){
             this.newChangedDays.push(day);
-            //console.log(this.newChangedDays);
           }
         }
       }
+    }
+
+    if(this.FromElement.CalendarDate.mDate.toDate() > this.ToElement.CalendarDate.mDate.toDate())
+    {
+      this.FormVals.from = this.ToElement.CalendarDate.mDate.toDate();
+      this.FormVals.to = this.FromElement.CalendarDate.mDate.toDate();
+    }
+    else{
+      this.FormVals.from = this.FromElement.CalendarDate.mDate.toDate();
+      this.FormVals.to = this.ToElement.CalendarDate.mDate.toDate();
     }
     
     event.target.offsetParent.classList.add("set-date-popup");
@@ -309,8 +327,6 @@ super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
               .subscribe(
                   (res:Base64ImageModel) => {
                       this.Images.push((res && res.base64) ? res : {base64:BaseImages.Drake,event_id:res.event_id});
-                      console.log(this.eventsThisMonth);
-                      console.log(this.Images);
                 }
               );
         }
@@ -353,5 +369,21 @@ super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
               };
             });
   }
+
+  SaveCheckedDate()
+  {
+    this.onSelectDate.emit(this.FormVals);
+    this.CloseModalPrice(null);
+  }
+
+  MaskPrice()
+    {
+        return {
+            // mask: ['+',/[1-9]/,' (', /[1-9]/, /\d/, /\d/, ') ',/\d/, /\d/, /\d/, '-', /\d/, /\d/,'-', /\d/, /\d/],
+            mask: [/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/],
+            keepCharPositions: true,
+            guide:false
+        };
+    }
 
 }

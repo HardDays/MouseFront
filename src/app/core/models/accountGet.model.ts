@@ -3,6 +3,7 @@ import { EventDateModel } from './eventDate.model';
 import { ContactModel } from './contact.model';
 import { WorkingTimeModel } from './workingTime.model';
 import { GenreModel } from './genres.model';
+import { VenueDatesModel } from './venueDatesModel';
 export class AccountGetModel{
     constructor(
         public id?: number,
@@ -37,7 +38,7 @@ export class AccountGetModel{
         public stage_description?: string,
         public lat?: number,
         public lng?: number,
-        public dates?: EventDateModel[], 
+        public dates?: EventDateModel[] | VenueDatesModel[], 
         public emails?: ContactModel[],
         public first_name?:string,
         public last_name?:string,
