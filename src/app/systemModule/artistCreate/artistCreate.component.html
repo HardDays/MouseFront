@@ -8,26 +8,25 @@
                     <ul>
 
 
-                        <li [ngClass]="{'active':currentPage == pages.about,'started':currentPage != pages.about}">
+                        <li [ngClass]="{'active':currentPage == pages.about,'started':currentPage != pages.about }">
                             <a (click)="ChangeCurrentPart(pages.about)" class="nav-second-outlet">about</a>
                         </li>
-                        <li [ngClass]="{'active':currentPage == pages.calendar,'started':currentPage != pages.calendar}">
+                        <li [ngClass]="{'active':currentPage == pages.calendar,'started':currentPage != pages.calendar && ArtistId}">
                             <a (click)="ChangeCurrentPart(pages.calendar)" class="nav-second-outlet">calendar</a>
                         </li>
-                        <li [ngClass]="{'active':currentPage == pages.media,'started':currentPage != pages.media}">
+                        <li [ngClass]="{'active':currentPage == pages.media,'started':currentPage != pages.media && ArtistId}">
                             <a (click)="ChangeCurrentPart(pages.media)" class="nav-second-outlet">media</a>
                         </li>
-                        <li [ngClass]="{'active':currentPage == pages.booking,'started':currentPage != pages.booking}">
+                        <li [ngClass]="{'active':currentPage == pages.booking,'started':currentPage != pages.booking && ArtistId}">
                             <a (click)="ChangeCurrentPart(pages.booking)" class="nav-second-outlet">booking</a>
                         </li>
-                        <li [ngClass]="{'active':currentPage == pages.riders,'started':currentPage != pages.riders}">
+                        <li [ngClass]="{'active':currentPage == pages.riders,'started':currentPage != pages.riders && ArtistId}">
                             <a (click)="ChangeCurrentPart(pages.riders)" class="nav-second-outlet">riders</a>
                         </li>
 
-                        <li [ngClass]="{'active':currentPage == pages.preview,'started':currentPage != pages.preview}">
+                        <li [ngClass]="{'active':currentPage == pages.preview,'started':currentPage != pages.preview && ArtistId}">
                             <a (click)="ChangeCurrentPart(pages.preview)" class="nav-second-outlet">preview</a>
                         </li>
-
 
                         <li *ngIf="ArtistId !== 0">
                             <button (click)="clickSaveButton()" class="butt-style-1" style="width: 127px">
