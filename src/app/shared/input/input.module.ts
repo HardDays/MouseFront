@@ -3,12 +3,16 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DateInput } from './date/date.input';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material';
 
 @NgModule({
     imports: [ 
         RouterModule,
         CommonModule,
-        FormsModule
+        FormsModule,
+        MatSelectModule,
+        MatFormFieldModule,
     ],
     declarations: [ 
         DateInput
