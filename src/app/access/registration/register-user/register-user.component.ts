@@ -77,7 +77,6 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
 
       this.createUser.register_phone = phoneToSend;
           
-
       this.WaitBeforeLoading(
           ()=>this.main.authService.CreateUser(this.createUser),
           (res:UserGetModel) => {

@@ -142,8 +142,7 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
 
   sendRequest(){
     if(this.codeRequest.length==4){
-      // let phone = this.phoneCode+this.phone;
-      // console.log(`code`,phone);
+
       let code = this.codeRequest[0]+this.codeRequest[1]+this.codeRequest[2]+this.codeRequest[3];
 
       let phoneToSend = this.phone.replace(/ /g,'');

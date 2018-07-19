@@ -25,7 +25,7 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
   phoneArr:boolean = false;
   codeRequest:string[]=[];
 
-
+  phoneMask:string='';
 
   @Input() User: UserCreateModel;
   @Output() OnSave = new EventEmitter<UserCreateModel>();
@@ -55,6 +55,7 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
   ngOnChanges(){
     // console.log(`infooo`);
     this.phone = this.User.register_phone;
+    this.phoneMask = this.phone;
     if(this.User.image_id){
       this.main.imagesService.GetImageById(this.User.image_id)
         .subscribe((res)=>{

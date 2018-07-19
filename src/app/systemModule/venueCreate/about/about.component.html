@@ -60,7 +60,7 @@
                     <div class="side">
                         <h6 class="head-col-add-venue hidden-lg hidden-md hidden-sm hidden-xs">Contact Info</h6>
                         <div class="input-groupe-1">
-                            <input id="inp-create-venue-tel-1" autocomplete="off" [textMask]="MaskTelephone()" [(ngModel)]="Venue.phone" formControlName="phone" name="" type="text">
+                            <input id="inp-create-venue-tel-1" autocomplete="off" [textMask]="MaskPhone(phoneMask)" (input)="phoneMask=''" (blur)="phoneMask=Venue.phone" [(ngModel)]="Venue.phone" formControlName="phone" name="" type="text">
                             <label for="inp-create-venue-tel-1">Phone<span>*</span></label>
                         </div>
                         <div class="input-groupe-1">

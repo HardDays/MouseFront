@@ -28,6 +28,7 @@ import { MainService } from '../services/main.service';
 import {ArtistFields, BaseImages, BaseMessages, EventFields, FanFields, VenueFields, BaseFields} from './base.enum';
 import { MapsAPILoader } from '@agm/core';
 import {FormArray, FormControl, FormGroup} from '@angular/forms';
+import { CodegenComponentFactoryResolver } from '../../../../node_modules/@angular/core/src/linker/component_factory_resolver';
 
 @Injectable()
 export class BaseComponent{
@@ -393,6 +394,103 @@ export class BaseComponent{
           mask: countryMask,
           keepCharPositions: true,
           guide:isGuidChar
+        };
+    }
+
+    MaskPhone(phone)
+    {   
+        console.log(phone)
+        let countryMask:any[]=[];
+        let isGuidChar = true;
+
+        if(phone){
+            let codes = this.main.phoneService.GetAllPhoneCodesWithFormat();
+            console.log(`codes`,codes);
+            let code_arr = codes.filter((c)=>phone.indexOf(c.dial_code)>0&&phone.indexOf(c.dial_code)<4);
+            let code = code_arr.find((c)=>phone[1]===c.dial_code);
+            if(!code)code = code_arr[0];
+            let dial_code = code.dial_code;
+            if(code['format']){
+                for(let c of code['format']){
+                    if(c==='.')
+                    {
+                        if(dial_code){
+                            
+                            let dc = dial_code[0];
+                            // console.log(dial_code,dc);
+                            dial_code = dial_code.slice(1, dial_code.length);
+                            countryMask.push(dc);
+                        }
+                        else 
+                            countryMask.push(/\d/);
+                    }
+                    else 
+                        countryMask.push(c);    
+                }
+            }
+        
+            else {
+                isGuidChar = false;
+                countryMask.push('+');
+                for(let c of code.dial_code)
+                    countryMask.push(c);
+                for(let i=0;i<10;i++)
+                    countryMask.push(/\d/);
+            }
+        }
+        else{
+            let isGuidChar = false;
+            countryMask.push('+');
+            for(let i=0;i<12;i++)
+                countryMask.push(/\d/);
+        }
+       
+        // let codes = this.main.phoneService.GetAllPhoneCodesWithFormat();
+        // console.log(`codes`,codes);
+        // let code = codes.find((c)=>phone.indexOf(c.dial_code)>0&&phone.indexOf(c.dial_code)<4);
+        // console.log(`code`,code,phone)
+        // console.log(code);
+       
+        // let dial_code = code.dial_code;
+        // if(code.format){
+        //     for(let c of code.format){
+        //         if(c==='.')
+        //         {
+        //             if(dial_code){
+                        
+        //                 let dc = dial_code[0];
+        //                 // console.log(dial_code,dc);
+        //                 dial_code = dial_code.slice(1, dial_code.length);
+        //                 countryMask.push(dc);
+        //             }
+        //             else 
+        //                 countryMask.push(/\d/);
+        //         }
+        //         else 
+        //             countryMask.push(c);    
+        //     }
+        // }
+    
+        // else {
+        //     isGuidChar = false;
+        //     countryMask.push('+');
+        //     for(let c of code.dial_code)
+        //         countryMask.push(c);
+        //     for(let i=0;i<10;i++)
+        //         countryMask.push(/\d/);
+        // }
+
+       
+            
+           
+        
+    //    console.log(countryMask);
+       
+        return {
+          mask: countryMask,
+          keepCharPositions: true,
+          guide:isGuidChar,
+          showMask:true
         };
     }
 
