@@ -14,7 +14,7 @@
                         <div class="sigh-up-3-m-w">
                             <input class="inp-style-2"  formControlName="email" type="text" placeholder="Email Address (Login)">
                             <ng-container *ngIf="isShowPhone">
-                                <input class="inp-style-2" disabled [(ngModel)]="phone" formControlName="register_phone" [textMask]="MaskTelephone()" type="text" placeholder="Tel. Number">
+                                <input class="inp-style-2" disabled [(ngModel)]="phone" formControlName="register_phone"  type="text" placeholder="Tel. Number">
                             </ng-container>
                             <input class="inp-style-2"  formControlName="password" type="password" placeholder="Password">
                             <input class="inp-style-2"  formControlName="password_confirmation" type="password" placeholder="Verify password">

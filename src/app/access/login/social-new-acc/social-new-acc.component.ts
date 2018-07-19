@@ -43,6 +43,7 @@ export class SocialNewAccComponent extends BaseComponent implements OnInit {
       this.WaitBeforeLoading(       
         ()=>this.main.authService.UpdateUserWithoutPass(this.user),
         (res:UserGetModel) => {
+          localStorage.setItem('new_user_'+this.MyUser.id,this.type);
           console.log(`res`,res);
             if(this.type=='venue')
               this.router.navigate(['/system','venueCreate','new']);
