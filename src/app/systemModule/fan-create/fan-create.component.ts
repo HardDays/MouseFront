@@ -72,6 +72,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
       (params) => {
         if(params["id"] == 'new')
         {
+          this.avatar = "";
           this.flagForText = true;
           this.DisplayFunParams(null);
         }
@@ -201,7 +202,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
       this.FunId = $Fun.id;
       this.router.navigateByUrl("/system/fanCreate/"+this.FunId);
     }
-
+    else{ this.FunId = 0}
     this.Fun = $Fun ? this.main.accService.AccountModelToCreateAccountModel($Fun) : new AccountCreateModel();
     // this.Venue.account_type = AccountType.Venue;
     // this.Venue.venue_type = VenueType.Public;

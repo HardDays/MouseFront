@@ -24,3 +24,6 @@
 .tiny-calendar-wrapper .days.set-date-popup .popup-set-price-wr .flex-price-inp input {
     padding: 8px 35px 8px 0;
 }
+.tiny-calendar-wrapper .days.set-date-popup .popup-set-price-wr .flex-select-range p{
+    width: 45px;
+}

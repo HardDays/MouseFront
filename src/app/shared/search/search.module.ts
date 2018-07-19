@@ -10,12 +10,16 @@ import { AgmCoreModule } from '@agm/core';
 import { PreloaderModule } from '../preloader/preloader.module';
 import { SearchEventsComponent } from './search_window/search.component';
 import { SearchEventsMapComponent } from './map/map.component';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material';
 
 @NgModule({
     imports: [ 
         RouterModule,
         CommonModule,
         FormsModule,
+        MatSelectModule,
+        MatFormFieldModule,
         BsDatepickerModule.forRoot(),
         AgmCoreModule.forRoot({
             apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",

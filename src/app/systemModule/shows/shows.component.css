@@ -111,3 +111,14 @@ select{
  .new-shows-desc{
      height: 100%;
  }
+.nav-holder-3 .wrapp-for-filter{
+    direction: rtl;
+    overflow: scroll;
+ }
+.nav-holder-3 .wrapp-for-filter::-webkit-scrollbar {
+    background: #fff;
+    width: 5px; }
+.nav-holder-3 .wrapp-for-filter::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 2.5px;
+    cursor: pointer; }

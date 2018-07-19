@@ -1,4 +1,5 @@
 <form (ngSubmit)="ShowSearchResult()" #SearchForm="ngForm">
+<div class="major-form">
     <input type="text" class="inp-style-1" name="serch-text" [ngModel]="SearchParams.text" (ngModelChange)="SearchParams.text = $event" placeholder="Search">
     <div class="groupe-form">
         <p class="head-input-groupe">Date</p>
@@ -9,8 +10,7 @@
     <div class="groupe-form">
         <p class="head-input-groupe">Location</p>
         <div class="location-wr">
-            <div (click)="OpenMap()" class="mark">
-            </div>
+            <div (click)="OpenMap()" class="mark"></div>
             <input type="text" class="location-inp" name="search-params-address" autocorrect="off" autocapitalize="off" spellcheck="off" #searchLocal placeholder="" [ngModel]="LocationText" (ngModelChange)="LocationTextChenged($event)"  #search id="searchAddress">
         </div>
     </div>
@@ -66,14 +66,23 @@
     </div>
     <div class="groupe-form">
         <p class="head-input-groupe">Type of space</p>
-        <select class="select-type-of-space" name="select_type_of_space" [ngModel]="SearchParams.size" (ngModelChange)="TypeOfSpaceChange($event)">
+        <!-- <select class="select-type-of-space" name="select_type_of_space" [ngModel]="SearchParams.size" (ngModelChange)="TypeOfSpaceChange($event)">
             <option value=""></option>
             <option *ngFor="let item of TypesOfSpace" [value]="item.value">{{item.name}}</option>
-        </select>
+        </select> -->
+        <mat-form-field >
+            <mat-select [(ngModel)]="SearchParams.size" (ngModelChange)="TypeOfSpaceChange($event)">
+                <mat-option [value]=""></mat-option>
+                <mat-option *ngFor="let item of TypesOfSpace" [value]="item.value">
+                    {{ item.name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
     </div>
     <div class="groupe-form">
         <button type="submit"  class="butt-style-1"><span>Search</span></button>
     </div>
+</div>
 </form>
     
     

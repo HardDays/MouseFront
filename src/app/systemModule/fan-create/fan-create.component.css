@@ -8,3 +8,6 @@
     border-bottom: 1px solid rgba(255,255,255,0.5);
     padding-bottom: 3px;
 }
+.login-register.add-fan-page .register{
+    min-height: calc(100vh - 84px);
+}
