@@ -97,3 +97,6 @@ select{
 .main_content .for-flex-height {
     min-height: 700px;
  }
+ .major-form{
+    direction: ltr !important;
+}

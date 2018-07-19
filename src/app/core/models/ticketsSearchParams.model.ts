@@ -1,5 +1,6 @@
 export class TicketsSearchParams{
     constructor(
+        public text?:string,
         public account_id?:number,
         public time?: string,
         public genres?: string[],

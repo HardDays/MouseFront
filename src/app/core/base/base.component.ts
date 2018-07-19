@@ -399,13 +399,13 @@ export class BaseComponent{
 
     MaskPhone(phone)
     {   
-        console.log(phone)
+        //console.log(phone)
         let countryMask:any[]=[];
         let isGuidChar = true;
 
         if(phone){
             let codes = this.main.phoneService.GetAllPhoneCodesWithFormat();
-            console.log(`codes`,codes);
+            //console.log(`codes`,codes);
             let code_arr = codes.filter((c)=>phone.indexOf(c.dial_code)>0&&phone.indexOf(c.dial_code)<4);
             let code = code_arr.find((c)=>phone[1]===c.dial_code);
             if(!code)code = code_arr[0];

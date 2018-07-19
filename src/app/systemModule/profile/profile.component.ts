@@ -165,8 +165,7 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
 
         if(usr.image_id)
         {
-            this.WaitBeforeLoading(
-                () => this.main.imagesService.GetImageById(usr.image_id),
+            this.main.imagesService.GetImageById(usr.image_id).subscribe(
                 (res:Base64ImageModel)=>{
                     this.baseImageMy = res.base64;
                 }
