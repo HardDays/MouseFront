@@ -356,6 +356,46 @@ export class BaseComponent{
         };
     }
 
+    MaskPhoneByFormat(code)
+    {   
+        // console.log(code);
+        let countryMask:any[]=[];
+        let isGuidChar = true;
+        let dial_code = code.dial_code;
+        if(code.format){
+            for(let c of code.format){
+                if(c==='.')
+                {
+                    if(dial_code){
+                        
+                        let dc = dial_code[0];
+                        // console.log(dial_code,dc);
+                        dial_code = dial_code.slice(1, dial_code.length);
+                        countryMask.push(dc);
+                    }
+                    else 
+                        countryMask.push(/\d/);
+                }
+                else 
+                    countryMask.push(c);    
+            }
+        }
+    
+        else{
+            isGuidChar = false;
+            countryMask.push('+');
+            for(let c of code.dial_code)
+                countryMask.push(c);
+            for(let i=0;i<10;i++)
+                countryMask.push(/\d/);
+        }
+        return {
+          mask: countryMask,
+          keepCharPositions: true,
+          guide:isGuidChar
+        };
+    }
+
     /* AUTOCOMPLETE */
     @ViewChild('search') public searchElement: ElementRef;
     protected CreateAutocomplete( callback:(addr:string[], place?:google.maps.places.PlaceResult)=>any)

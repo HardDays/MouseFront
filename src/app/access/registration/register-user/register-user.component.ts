@@ -70,6 +70,14 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
 
       this.createUser.email = this.createUser.email.toLowerCase();
 
+      let phoneToSend = this.createUser.register_phone.replace(/ /g,'');
+          phoneToSend = phoneToSend.replace(/\(/g,'');
+          phoneToSend = phoneToSend.replace(/\)/g,'');
+          phoneToSend = phoneToSend.replace(/-/g,'');
+
+      this.createUser.register_phone = phoneToSend;
+          
+
       this.WaitBeforeLoading(
           ()=>this.main.authService.CreateUser(this.createUser),
           (res:UserGetModel) => {

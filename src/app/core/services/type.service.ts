@@ -317,6 +317,10 @@ export class TypeService{
 
         return mask;
     }
+
+    GetConvertedStylePhone(){
+        
+    }
 }
 
 
