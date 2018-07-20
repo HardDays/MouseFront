@@ -88,6 +88,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   artistPreview:number = 0;
   venuePreview:number = 0;
 
+  createOrEditText = 'Edit';
+
   constructor(
       protected main           : MainService,
       protected _sanitizer     : DomSanitizer,
@@ -111,6 +113,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       (params) => {
         if(params["id"] == 'new')
         {
+          this.createOrEditText = 'Create';
           this.isNewEvent = true;
           this.DisplayEventParams(null);
         }
@@ -371,6 +374,14 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   openPreviewVenue(id:number){
     this.currentPage = this.pages.previewVenue;
     this.venuePreview = id;
+  }
+
+  backPage(){
+    if(this.currentPage===this.pages.previewArtist)
+      this.currentPage = this.pages.artist;
+    else if(this.currentPage===this.pages.previewVenue)
+      this.currentPage = this.pages.venue;
+
   }
 
 }

@@ -192,12 +192,12 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
             return;
         }
 
-
         let phoneToSend = this.Venue.phone.replace(/ /g,'');
         phoneToSend = phoneToSend.replace(/\(/g,'');
         phoneToSend = phoneToSend.replace(/\)/g,'');
         phoneToSend = phoneToSend.replace(/-/g,'');
         this.Venue.phone =  phoneToSend;
+        
         this.onSaveVenue.emit(this.Venue);
     }
 
