@@ -26,6 +26,10 @@
         right: 80px;
     }
 }
+@media (max-width: 1560px) {
+    .create-event-body-1 {
+      padding: 45px 80px; 
+    }}
 @media (max-width: 1500px) {
     .tech-types{
         margin-top: 30px;
@@ -70,6 +74,15 @@
     .add-adv-body-wr .add-adv-body .right-side .price-and-photo .photos-wrapp .upload-photo{
         width: 33.33%;
     }
+    .show-datails-wr .flex-artist-main-info .right-side {
+        width: 69%;
+        padding-left: 66px; } 
+    .nav-holder-3.is-active {
+        transform: translateX(calc(50vw - 730px));
+        -webkit-transform:translateX(calc(50vw - 730px)) }
+    .mainWrapper.has-push-left{
+        -webkit-transform: translateX(330px);
+        transform: translateX(330px); }
 }
 @media (max-width: 1450px) {
     .contacts-map .some-contact-info .flex-info-contact{
@@ -78,6 +91,17 @@
     .messages-main-wrapp{
         height: 910px;
     }
+    .messages-main-wrapp .main-mw{
+        height: 850px; 
+    }
+    .nav-holder-3.is-active {
+        transform: translateX(calc(50vw - 705px));
+        -webkit-transform:translateX(calc(50vw - 705px))
+     }
+     .messages-main-wrapp{
+        height: 850px;  }
+    .messages-main-wrapp .main-mw{
+        height: 850px; }
 }
 @media (max-width: 1400px) {
     .tech-types .categories li {
@@ -101,8 +125,21 @@
     .page-only-text .abs-visa .rel-wrapp .item-payment.item-4{
         left: 98%;
     }
+    .content-and-tabs-datails .tabslinks-and-goings .left-s ul li {
+        padding: 0 25px; } 
+    .nav-holder-3.is-active {
+        transform: translateX(calc(50vw - 675px));
+        -webkit-transform:translateX(calc(50vw - 675px)) }
     
 }
+@media (max-width: 1350px) {
+.tabs-artist-wrapp .bg-wr-tabs .tab-artist .flex-wrapp-cards .one-card .card .flex-buttons .button-card {
+    padding: 5px 10px;
+    font-size: 11px; } 
+  .nav-holder-3.is-active {
+    transform: translateX(calc(50vw - 650px));
+    -webkit-transform:translateX(calc(50vw - 650px)) }}
+
 @media (max-width: 1300px) {
     .main-m-w {
         padding: 0 35px;
@@ -124,6 +161,23 @@
     .add-adv-header-wr .add-adv-header .left-side p{
         font-size: 16px;
     }
+    .messages-main-wrapp .flex-massages-wrapp .right-s {
+        width: 62%; }   
+    .nav-holder-3.is-active {
+        transform: translateX(calc(50vw - 625px));
+        -webkit-transform:translateX(calc(50vw - 625px)) }
+}
+@media (max-width: 1250px) {
+    .content-and-tabs-datails {
+        padding: 0 40px; }
+    
+    .all-info-profile .uniq-padd-2 .flex--info .side.un-padd-on-1560 {
+        padding-left: 15px;
+        padding-right: 15px; }
+    
+    .nav-holder-3.is-active {
+        transform: translateX(calc(50vw - 600px));
+        -webkit-transform:translateX(calc(50vw - 600px)) }
 }
 @media (max-width: 1199px) {
     .logo-wrapp .main-m-w .right-side .adt{
@@ -209,6 +263,12 @@
     .add-adv-body-wr .add-adv-body .right-side .price-and-photo .photos-wrapp .upload-photo{
         width: 50%; 
     }
+    .messages-main-wrapp {
+        padding: 0 40px; 
+    } 
+    .mainWrapper.has-push-left{
+        -webkit-transform: translateX(350px);
+        transform: translateX(350px); }
     
 }
 @media (max-width: 1100px) {

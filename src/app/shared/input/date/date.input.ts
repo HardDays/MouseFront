@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter, ViewChild, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
+import { BaseComponent } from '../../../core/base/base.component';
 import * as moment from 'moment';
 
 declare var $:any;
@@ -8,12 +9,12 @@ declare var ionRangeSlider:any;
     selector: 'date-input',
     templateUrl: './date.input.html'
 })
-export class DateInput implements OnChanges {
+export class DateInput extends BaseComponent implements OnChanges {
     @Input() Label: String;
     @Input() DateInput: Date;
     @Output() OnDateChange: EventEmitter<Date> = new EventEmitter<Date>();
-
-    DayNumbers:number[] = [];
+    @Output() DayNumbers:number[];
+    
     MonthArray:string[] = [];
     YearArray: number[] = [];
 
