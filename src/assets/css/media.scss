@@ -192,6 +192,9 @@
     .messages-main-wrapp .flex-massages-wrapp .right-s{
         width: 62%;
     }
+    .create-event-body-1 {
+        padding: 40px;
+    }
 }
 @media (max-width: 1250px) {
     .content-and-tabs-datails{
@@ -265,6 +268,31 @@
     
     .shows-main-wrapp .flex-shows .one-show-wr .one-show {
         height: 350px;
+    }
+    .create-event-body-1 .create-event-body .flex-body-1 {
+        flex-wrap: wrap;
+    }
+    .create-event-body-1 .create-event-body .flex-body-1 .side {
+        width: 50%;
+    }
+    .create-event-body-1 .create-event-body .flex-body-1 .side:last-child {
+        width: 100%;
+        display: flex;
+        padding-left: 0;
+    }
+    .create-event-body-1 .create-event-body .flex-body-1 .side:last-child >div:nth-child(2) {
+        flex: 1;
+        margin-left: 40px;
+    }
+    .create-event-body-1 {
+        padding: 40px 60px;
+    }
+    .input-groupe-1 textarea {
+        height: 150px;
+    }
+    .create-event-body-1 .create-event-body .flex-body-1 .side .add-to-genres .absgenres-pick-wr {
+        left: auto;
+        right: -60px;
     }
 }
 
@@ -357,8 +385,38 @@
     .shows-main-wrapp .flex-shows .one-show-wr .one-show {
         height: 350px;
     }
-    
-    
+    .create-event-body-1 {
+        padding: 40px 30px;
+    }
+    .create-event-body-1 .create-event-body .flex-body-1 .side .add-to-genres {
+        display: block;
+        width: 100%;
+    }
+    .create-event-body-1 .create-event-body .flex-body-1 .side .add-to-genres .absgenres-pick-wr {
+        right: -30px;
+    }
+    .create-event-body-1 .create-event-body .flex-body-1 .side .add-to-genres .plus {
+        margin: 0 auto;
+    }
+    .create-event-body-1 .create-event-body .flex-body-1 .side .flex-genres .one-genre {
+        font-size: 13px;
+    }
+    .create-event-nav-tabs .for-header-shadow {
+        padding: 20px 0;
+    }
+    .create-event-nav-tabs .create-event-header h1 {
+        font-size: 75px;
+        text-align: center;
+    }
+    .create-event-nav-tabs .create-event-header ul {
+        justify-content: center;
+    }
+    .create-event-nav-tabs .create-event-header ul li {
+        padding: 0 20px;
+    }
+    .create-event-nav-tabs .create-event-header ul li:last-child {
+        padding-right: 0;
+    }
 }
 @media (max-width: 767px) {
     .register .m-v-reg .reg-wr .for-flex{
