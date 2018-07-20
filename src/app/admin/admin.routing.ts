@@ -27,8 +27,8 @@ const routes: Routes =
     [
       { path: 'dashboard', component: DashboardComponent, canActivate: [AdminAccessGuard]},
       { path: 'accounts/:id', component: AccountsComponent, canActivate: [AdminAccessGuard]},
-      { path: 'account/:id', component: AccountComponent, canActivate: [AdminAccessGuard]},
-      { path: 'events/:id', component: EventsComponent, canActivate: [AdminAccessGuard]},
+      { path: 'account/:id', component: AccountComponent},
+      { path: 'events/:id', component: EventsComponent},
       { path: 'feedback', component: FeedbackComponent, canActivate: [AdminAccessGuard]},
       { path: 'feedback/analytics', component: FeedbackAnalyticsComponent, canActivate: [AdminAccessGuard]},
       { path: 'revenues', component: RevenueComponent, canActivate: [AdminAccessGuard]},
