@@ -14,7 +14,7 @@ export class UserCreateModel{
         public is_admin?: boolean,
 
         public address?:string,
-        public other_address?:string,
+        public address_other?:string,
         public city?:string,
         public country?:string,
         public state?:string

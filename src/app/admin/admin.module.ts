@@ -27,6 +27,7 @@ import { FeedbackAnalyticsComponent } from './feedback/feedback-analytics/feedba
 import { CustomerSupportComponent } from './customer-support/customer-support.component';
 import { CustomerSupportAnswersComponent } from './customer-support/customer-support-answers/customer-support-answers.component';
 import { AnalyticsEventComponent } from './events/analytics-event/analytics-event.component';
+import { EventComponent } from './events/event/event.component';
 
 
 
@@ -62,7 +63,8 @@ import { AnalyticsEventComponent } from './events/analytics-event/analytics-even
         FeedbackAnalyticsComponent,
         CustomerSupportComponent,
         CustomerSupportAnswersComponent,
-        AnalyticsEventComponent
+        AnalyticsEventComponent,
+        EventComponent
         
     ],
     providers: [AdminAccessGuard]

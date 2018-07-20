@@ -26,11 +26,28 @@ export class AdminComponent extends BaseComponent implements OnInit {
           this.GetCurrentRoute();
       }
     });
-    this.User = this.main.MyUser;
+    // this.User = this.main.MyUser;
+
+    this.main.adminService.GetMyAccByIdUser(this.main.MyUser.id)
+          .subscribe(
+            (res)=>{
+              this.User = res;
+              this.User.is_admin = this.main.MyUser.is_admin;
+              this.User.is_superuser = this.main.MyUser.is_superuser;
+            }
+          )
 
     this.main.UserChange.subscribe(
       (res)=>{
-        this.User = this.main.MyUser;
+        this.main.adminService.GetMyAccByIdUser(this.main.MyUser.id)
+          .subscribe(
+            (res)=>{
+              this.User = res;
+              this.User.is_admin = this.main.MyUser.is_admin;
+              this.User.is_superuser = this.main.MyUser.is_superuser;
+            }
+          )
+        // this.User = this.main.MyUser;
       }
     )
     // if(this.User.image_id){
@@ -103,6 +120,10 @@ export class AdminComponent extends BaseComponent implements OnInit {
           case 'account':
             this.currentPage = Parts.artist;
           break;
+
+          case 'event':
+            this.currentPage = Parts.event;
+          break;
       }
     }
 
@@ -139,22 +160,24 @@ export enum Parts {
   accounts_invites = 7,
   accounts_analytics = 8,
   artist = 9,
-  events_all = 10,
-  events_new = 11,
-  events_pending = 12,
-  events_approved = 13,
-  events_denied = 14,
-  events_active = 15,
-  events_inactive = 16,
-  events_analytics = 17,
-  feedback = 18,
-  feedback_analytics = 19,
-  support = 20,
-  revenue = 21,
-  revenue_info = 22,
-  revenue_analytics = 23,
-  settings = 24,
-  add_new_admin = 25,
-  customer_support = 26,
-  customer_answers = 27
+  venue = 10,
+  events_all = 11,
+  events_new = 12,
+  events_pending = 13,
+  events_approved = 14,
+  events_denied = 15,
+  events_active = 16,
+  events_inactive = 17,
+  events_analytics = 18,
+  event = 19,
+  feedback = 20,
+  feedback_analytics = 21,
+  support = 22,
+  revenue = 23,
+  revenue_info = 24,
+  revenue_analytics = 25,
+  settings = 26,
+  add_new_admin = 27,
+  customer_support = 28,
+  customer_answers = 29
 }

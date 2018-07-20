@@ -22,7 +22,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
   }
 
   GetInfo(){
-    this.main.adminService.GetNewAccountsCount()
+    this.main.adminService.GetAccountsNew()
     .subscribe(
       (res)=>{
         this.Counts = res;
@@ -33,7 +33,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
       .subscribe(
         (res)=>{
           this.Accounts = this.convertArrToCheckModel<any>(res);
-           console.log(this.Accounts);
+          //  console.log(this.Accounts);
         }
       )
 
@@ -41,7 +41,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
       .subscribe(
         (res)=>{
           this.Events = this.convertArrToCheckModel<any>(res);
-           console.log(res);
+          //  console.log(res);
         }
       )
   }
@@ -49,9 +49,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
   openTabsAcc(){
     for(let acc of this.Accounts){
       if(acc.checked){
-        setTimeout(() => {
-          window.open('http://localhost:4200/admin/account/'+acc.object.display_name,'_blank');
-        }, 1200);
+        window.open('http://localhost:4200/admin/account/'+acc.object.id,'_blank');
        
         window.blur();
       }
@@ -61,7 +59,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
   openTabsEvent(){
     for(let event of this.Events){
       if(event.checked){
-        window.open('http://localhost:4200/admin/account/'+event.object.name,'_blank');
+        window.open('http://localhost:4200/admin/event/'+event.object.id,'_blank');
         window.blur();
       }
     }

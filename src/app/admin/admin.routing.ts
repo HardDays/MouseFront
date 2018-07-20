@@ -17,6 +17,7 @@ import { FeedbackAnalyticsComponent } from './feedback/feedback-analytics/feedba
 import { CustomerSupportComponent } from './customer-support/customer-support.component';
 import { CustomerSupportAnswersComponent } from './customer-support/customer-support-answers/customer-support-answers.component';
 import { RevenueAnalyticsComponent } from './revenue/revenue-analytics/revenue-analytics.component';
+import { EventComponent } from './events/event/event.component';
 
 
 
@@ -28,7 +29,8 @@ const routes: Routes =
       { path: 'dashboard', component: DashboardComponent, canActivate: [AdminAccessGuard]},
       { path: 'accounts/:id', component: AccountsComponent, canActivate: [AdminAccessGuard]},
       { path: 'account/:id', component: AccountComponent},
-      { path: 'events/:id', component: EventsComponent},
+      { path: 'events/:id', component: EventsComponent, canActivate: [AdminAccessGuard]},
+      { path: 'event/:id', component: EventComponent},
       { path: 'feedback', component: FeedbackComponent, canActivate: [AdminAccessGuard]},
       { path: 'feedback/analytics', component: FeedbackAnalyticsComponent, canActivate: [AdminAccessGuard]},
       { path: 'revenues', component: RevenueComponent, canActivate: [AdminAccessGuard]},

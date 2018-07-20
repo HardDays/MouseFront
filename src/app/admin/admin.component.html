@@ -151,7 +151,7 @@
 
 
 
-      <div class="admin_content" [ngClass]="{'whole_white':currentPage === pages.artist||currentPage === pages.feedback||currentPage === pages.customer_support}">
+      <div class="admin_content" [ngClass]="{'whole_white':currentPage === pages.artist||currentPage === pages.feedback||currentPage === pages.customer_support, 'nopadding':currentPage === pages.event}">
         <router-outlet></router-outlet>
       </div>
 

@@ -18,7 +18,13 @@ export class TableComponent extends BaseComponent implements OnInit {
     console.log(this.Accounts)
   }
 
-  openArtist(){
-    this.router.navigate(["/admin",'account',1])
+  openArtist(id:number){
+    this.router.navigate(["/admin",'account',id])
+  }
+
+  getStatus(status:string){
+    // class="status_pending";
+    let tmp = '\'status_'+status+'\'';
+    return {tmp: true}
   }
 }

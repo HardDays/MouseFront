@@ -26,6 +26,13 @@ export class AdminService{
         "inactive": "inactive"
     }
 
+    GetMyAccByIdUser(id:number){
+
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/admin/'+id+'/my.json','')
+        );
+    }
+
     CreateAdmin(user:UserCreateModel){
         return this.http.CommonRequest(
             ()=> this.http.PostData('/admin.json',JSON.stringify(user))
@@ -34,7 +41,7 @@ export class AdminService{
 
     PatchAdmin(user:UserCreateModel,id:number){
         return this.http.CommonRequest(
-            ()=> this.http.PostData('/admin/'+id+'.json',JSON.stringify(user))
+            ()=> this.http.PatchData('/admin/'+id+'.json',JSON.stringify(user))
         );
     }
 
@@ -54,8 +61,7 @@ export class AdminService{
     {
         if(!params){
             params = {
-                account_type: 'all',
-                limit: 50
+                account_type: 'all'
             }
         }
         return this.http.CommonRequest(

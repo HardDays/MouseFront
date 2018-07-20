@@ -13,7 +13,8 @@
                         <input id="inp-create-1" name="name" type="text" [(ngModel)]="Event.name" formControlName="name"  >
                         <label for="inp-create-1">Event name<span>*</span></label>
                     </div>
-                    <div class="input-groupe-1">
+                    <div class="input-groupe-1 dog">
+                        <span class="user-name-dog">#</span>
                         <input id="inp-create-2" formControlName="hashtag" [textMask]="WithoutSpace()" [(ngModel)]="Event.hashtag" name="" type="text" >
                         <label for="inp-create-2">Hashtag<span>*</span></label>
                         
