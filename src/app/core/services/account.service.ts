@@ -79,6 +79,7 @@ export class AccountService{
             result.price_for_nighttime = this.DefaultCheck(input.price_for_nighttime);
             result.performance_time_from = input.performance_time_from?this.GetTimeFromString(input.performance_time_from):null;
             result.performance_time_to = input.performance_time_to?this.GetTimeFromString(input.performance_time_to):null;
+            result.events_dates = input.events_dates;
         }
 
         return result;
@@ -324,6 +325,27 @@ export class AccountService{
     GetRiderById(id:number){
         return this.http.CommonRequest(
             ()=> this.http.GetData('/artist_riders/'+id+'.json',this.typeService.ParamsToUrlSearchParams(id))
+        );
+    }
+
+    GetVenueDates(Id:number, params?: any)
+    {
+        return this.http.CommonRequest(
+            () => this.http.GetData('/accounts/'+ Id + '/venue_dates.json', this.typeService.ParamsToUrlSearchParams(params))
+        );
+    }
+
+    SaveVenueDates(Id: number, params: any)
+    {
+        return this.http.CommonRequest(
+            () => this.http.PostData('/accounts/'+ Id + '/venue_dates.json', JSON.stringify(params))
+        );
+    }
+
+    SaveVenueDatesAsArray(Id: number, params: any)
+    {
+        return this.http.CommonRequest(
+            () => this.http.PostData('/accounts/'+ Id +'/venue_dates/from_array.json', JSON.stringify(params))
         );
     }
     

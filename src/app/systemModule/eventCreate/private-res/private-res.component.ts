@@ -72,7 +72,7 @@ export class PrivateResComponent extends BaseComponent implements OnInit {
 
                     this.main.eventService.AddVenue(this.addVenue).
                         subscribe((res)=>{
-                            console.log(`create`);
+                            // console.log(`create`);
                             this.OnCreate.emit();
                         });
 
@@ -84,7 +84,7 @@ export class PrivateResComponent extends BaseComponent implements OnInit {
                
                 },
                 (err)=>{
-                    console.log(`err`,err);
+                    // console.log(`err`,err);
                 }
             );
         }

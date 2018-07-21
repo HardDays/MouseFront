@@ -64,11 +64,13 @@
                                     
                                     <div class="from-to">
                                         <span>From</span>
-                                        <input class="inp-style-3 time-mask" [textMask]="GetPerformanceFromTimeMask(Venue)"  autocomplete="off" type="text" [(ngModel)]="Venue.performance_time_from" formControlName="performance_time_from">
+                                        <time-input [Time]="Venue.performance_time_from" (onTimeChange)="Venue.performance_time_from = $event"></time-input>
+                                        <!-- <input class="inp-style-3 time-mask" [textMask]="GetPerformanceFromTimeMask(Venue)"  autocomplete="off" type="text" [(ngModel)]="Venue.performance_time_from" formControlName="performance_time_from"> -->
                                     </div>
                                     <div class="from-to">
                                         <span>To</span>
-                                        <input class="inp-style-3 time-mask" [textMask]="GetPerformanceToTimeMask(Venue)"   autocomplete="off" type="text" [(ngModel)]="Venue.performance_time_to" formControlName="performance_time_to">
+                                        <time-input [Time]="Venue.performance_time_to" (onTimeChange)="Venue.performance_time_to = $event"></time-input>
+                                        <!-- <input class="inp-style-3 time-mask" [textMask]="GetPerformanceToTimeMask(Venue)"   autocomplete="off" type="text" [(ngModel)]="Venue.performance_time_to" formControlName="performance_time_to"> -->
                                     </div>
                                 </div>
                                 <label>Performance time</label>

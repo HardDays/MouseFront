@@ -220,11 +220,11 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
         if(this.player&&  this.player.isPlaying())
           this.player.pause();
     
-        console.log(s);
+        // console.log(s);
         this.audioDuration = 0;
         this.audioCurrentTime = 0;
         SC.resolve(s).then((res)=>{
-          console.log(res);
+        //   console.log(res);
           SC.stream('/tracks/'+res.id).then((player)=>{
             this.player = player;
             this.player.play();
@@ -238,7 +238,7 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
             },100)
 
             player.on('no_streams',()=>{
-                console.log(`audio_error`);
+                // console.log(`audio_error`);
                 this.errorCmp.OpenWindow(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
                 
             })
@@ -252,7 +252,7 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
     
         },(err)=>{
             this.errorCmp.OpenWindow(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
-            console.log(`ERROR`)
+            // console.log(`ERROR`)
         })
       }
     

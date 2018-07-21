@@ -33,7 +33,7 @@ export class EventComponent extends BaseComponent implements OnInit {
         this.eventId = params['id'];
 
         this.getThisEvent();
-        console.log('4')
+        // console.log('4')
       }
     );
   }
@@ -64,8 +64,8 @@ export class EventComponent extends BaseComponent implements OnInit {
 
         this.getCreator();
         this.getArtists();
-        console.log('3')
-        console.log(`Event`,this.Event);
+        // console.log('3')
+        // console.log(`Event`,this.Event);
       }
     )
   }
@@ -75,13 +75,13 @@ export class EventComponent extends BaseComponent implements OnInit {
       this.main.accService.GetAccountById(this.Event.creator_id)
         .subscribe((acc)=>{
           this.Owner = acc;
-          console.log(this.Owner);
+          // console.log(this.Owner);
         })
     }
   }
 
   getArtists(){
-    console.log('0')
+    // console.log('0')
     if(this.Event.artist){
       this.Artists = [];
       this.Videos = [];
@@ -90,14 +90,14 @@ export class EventComponent extends BaseComponent implements OnInit {
           .subscribe(
             (res)=>{
               this.Artists.push(res);
-              console.log(this.Artists);
-              console.log('1')
+              // console.log(this.Artists);
+              // console.log('1')
               if(res.videos){
                 for(let v of res.videos){
                   this.Videos.push(this.getLink(v.link));
-                  console.log(this.Videos)
+                  // console.log(this.Videos)
                 }
-                console.log('2')
+                // console.log('2')
               }
             }
 
@@ -109,7 +109,7 @@ export class EventComponent extends BaseComponent implements OnInit {
   InitJs(){
     setTimeout(() => {
 
-      console.log('5')
+      // console.log('5')
 
       // $('.photos-abs-wrapp').css({
       //   'max-height': $('.rel-wr-photoos').width()+'px'
@@ -132,43 +132,43 @@ export class EventComponent extends BaseComponent implements OnInit {
   }
 
   removeEvent(){
-    console.log(`removeAcc`);
+    // console.log(`removeAcc`);
     this.main.adminService.EventDelete(this.eventId)
       .subscribe(
         (res)=>{
-          console.log(`res`,res);
+          // console.log(`res`,res);
           this.router.navigate(['/admin','dashboard'])
         },
         (err)=>{
-          console.log(`err`,err)
+          // console.log(`err`,err)
         }
       )
   }
 
   denyEvent(){
-    console.log(`denyAcc`);
+    // console.log(`denyAcc`);
     this.main.adminService.EventDeny(this.eventId)
       .subscribe(
         (res)=>{
-          console.log(`res`,res);
+          // console.log(`res`,res);
           this.getThisEvent();
         },
         (err)=>{
-          console.log(`err`,err)
+          // console.log(`err`,err)
         }
       )
   }
 
   approveEvent(){
-    console.log(`approveAcc`);
+    // console.log(`approveAcc`);
     this.main.adminService.EventApprove(this.eventId)
       .subscribe(
         (res)=>{
-          console.log(`res`,res);
+          // console.log(`res`,res);
           this.getThisEvent();
         },
         (err)=>{
-          console.log(`err`,err)
+          // console.log(`err`,err)
         }
       )
   }

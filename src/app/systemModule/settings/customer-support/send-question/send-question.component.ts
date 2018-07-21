@@ -43,7 +43,7 @@ export class SendQuestionComponent extends BaseComponent implements OnInit {
 
   sendQuestions(){
     if(!this.FormMessage.invalid){
-      console.log(this.FormMessage);
+      // console.log(this.FormMessage);
       this.main.questService.PostQuestions(this.Message.subject,this.Message.message)
         .subscribe(
           (res)=>{
@@ -52,7 +52,7 @@ export class SendQuestionComponent extends BaseComponent implements OnInit {
         );
     }
     else {
-      console.log(`empty`);
+      // console.log(`empty`);
     }
   }
 

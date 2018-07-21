@@ -90,7 +90,7 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
     this.WaitBeforeLoading(
       ()=>  this.main.genreService.GetAllGenres(),
       (res:string[])=>{
-        console.log(`genres`,res);
+        // console.log(`genres`,res);
         this.genres = this.main.genreService.StringArrayToGenreModelArray(res);
         for(let i of this.genres) i.show = true;
           this.GetArtistGenres();
@@ -163,13 +163,13 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
     this.aboutForm.updateValueAndValidity();
     if(this.aboutForm.invalid)
     {
-      console.log(this.aboutForm,this.getFormErrorMessage(this.aboutForm, 'artist'));
+      // console.log(this.aboutForm,this.getFormErrorMessage(this.aboutForm, 'artist'));
       this.onError.emit(this.getFormErrorMessage(this.aboutForm, 'artist'));
         return false;
     }
 
     this.Artist.genres = [];
-    console.log(this.genres);
+    // console.log(this.genres);
     for(let g of this.genres){
       if(g.checked){
         this.Artist.genres.push(g.genre);
@@ -192,10 +192,10 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
 
 DeleteImage()
 {
-    console.log(`delete image`,this.Artist,this.ArtistImageId);
+    // console.log(`delete image`,this.Artist,this.ArtistImageId);
     if(this.ArtistImageId && this.ArtistId && this.Artist.image_base64)
     {
-        console.log(`image del`,this.ArtistImageId,this.ArtistId);
+        // console.log(`image del`,this.ArtistImageId,this.ArtistId);
         this.DeleteLocalImage();
         this.main.imagesService.DeleteImageById(this.ArtistImageId,this.ArtistId)
             .subscribe(
@@ -204,7 +204,7 @@ DeleteImage()
                   //  this.onImageDeleted.emit(true);
                     this.DeleteLocalImage();
                 },(err)=>{
-                  console.log(`err`,err)
+                  // console.log(`err`,err)
                 }
             );
     }

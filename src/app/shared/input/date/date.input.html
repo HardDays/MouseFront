@@ -28,7 +28,7 @@
                 </mat-option>
             </mat-select>
         </mat-form-field> -->
-        <input type="text" [(ngModel)]="Day" (ngModelChange)="Day = $event" [textMask]="MaskDays(Month)" >
+        <input type="text" [ngModel]="Day" (ngModelChange)="Day = $event" [textMask]="MaskDays(Day.toString())" >
     </div>
     <div class="input-groupe-1" style="width: 48px;">
         <!-- <select [ngModel]="Year" (ngModelChange)="YearChanges($event)">

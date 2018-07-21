@@ -122,8 +122,8 @@ export class NavbarComponent extends BaseComponent implements OnInit
 
       CheckModalWindows(page:string)
       {
-        console.log("new_page",page);
-        console.log("current_page",this.getThisPage());
+        // console.log("new_page",page);
+        // console.log("current_page",this.getThisPage());
       }
 
 }

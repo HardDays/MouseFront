@@ -66,4 +66,39 @@ export class DashboardComponent extends BaseComponent implements OnInit {
     }
   }
 
+  deleteAccs(){
+    for(let acc of this.Accounts){
+      if(acc.checked){
+        this.main.adminService.AccountDelete(acc.object.id)
+          .subscribe(
+            (res)=>{
+              console.log(acc.object.id,`ok`);
+              this.Accounts.splice(this.Accounts.indexOf(acc),1)
+            },
+            (err)=>{
+              console.log(`err`,err)
+            }
+          )
+      }
+    }
+  }
+
+  deleteEvents(){
+    for(let events of this.Events){
+      if(events.checked){
+        this.main.adminService.EventDelete(events.object.id)
+          .subscribe(
+            (res)=>{
+              console.log(events.object.id,`ok`);
+              this.Events.splice(this.Events.indexOf(events),1)
+            },
+            (err)=>{
+              console.log(`err`,err)
+            }
+          )
+      }
+    }
+  }
+
+
 }

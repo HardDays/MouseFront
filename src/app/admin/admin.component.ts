@@ -60,7 +60,7 @@ export class AdminComponent extends BaseComponent implements OnInit {
     //       this.User.image_base64 = res.base64;
     //     })
     // }
-    console.log(this.User);
+    // console.log(this.User);
 
     this.getNewCounts();
 

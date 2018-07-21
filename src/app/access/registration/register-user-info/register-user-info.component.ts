@@ -36,7 +36,7 @@ export class RegisterUserInfoComponent extends BaseComponent implements OnInit {
           first_name: this.userForm.value['first_name'],
           image_base64: this.image_base64
         }).subscribe((res)=>{
-            console.log(`res`,res);
+            // console.log(`res`,res);
             
             this.main.GetMyUser();
 
@@ -52,7 +52,7 @@ export class RegisterUserInfoComponent extends BaseComponent implements OnInit {
           })
     else {
       this.errorCmp.OpenWindow(this.getFormErrorMessage(this.userForm, 'base'));
-      console.log(`invalid`);
+      // console.log(`invalid`);
     }
    
   }

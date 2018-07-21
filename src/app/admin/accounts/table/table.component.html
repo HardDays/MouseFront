@@ -1,5 +1,5 @@
 <section *ngIf="Accounts" class="admin_table_nav">
-  <span class="admin_delete"><img src="./../../../assets/img/admin/delete.svg" alt=""></span>
+  <span (click)="deleteAll()" class="admin_delete"><img src="./../../../assets/img/admin/delete.svg" alt=""></span>
   <span (click)="openInNewTabs()" class="admin_look"><img src="./../../../assets/img/admin/look.svg" alt=""></span>
   <div class="table_filter">
       <div class="table_search"><input type="text" placeholder="Search"></div>
@@ -27,8 +27,8 @@
 </section>
 
 <section *ngIf="Events" class="admin_table_nav">
-                <span class="admin_delete"><img src="img/admin/delete.svg" alt=""></span>
-                <span class="admin_look"><img src="img/admin/look.svg" alt=""></span>
+                <span (click)="deleteAll()" class="admin_delete"><img src="./../../../assets/img/admin/delete.svg" alt=""></span>
+                <span (click)="openInNewTabs()" class="admin_look"><img src="./../../../assets/img/admin/look.svg" alt=""></span>
                 <div class="table_filter">
                     <div class="table_search"><input type="text" placeholder="Search"></div>
                     <div class="filter_checkbox">

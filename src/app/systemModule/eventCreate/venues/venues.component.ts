@@ -128,7 +128,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     }
 
     GetVenueFromList(){
-        console.log(`getList`);
+        // console.log(`getList`);
         this.requestVenues = [];
         if(this.venuesList&&this.venuesList.length>0)
         for(let i of this.venuesList){
@@ -261,10 +261,10 @@ export class VenuesComponent extends BaseComponent implements OnInit {
 
         this.venueSearchParams.exclude_event_id = this.Event.id;
 
-        console.log(`Params`,this.venueSearchParams);
+        // console.log(`Params`,this.venueSearchParams);
         this.main.accService.AccountsSearch(this.venueSearchParams).
              subscribe((res)=>{
-                console.log(this.venueSearchParams,`res`,res);
+                // console.log(this.venueSearchParams,`res`,res);
                     let temp = this.convertArrToCheckModel<AccountGetModel>(res);
                     
                     for(let art of this.venueList){
@@ -416,7 +416,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from;
         this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to;
 
-        console.log(`INFO ABOUT ACCEPTED`,this.ownerAcceptDecline);
+        // console.log(`INFO ABOUT ACCEPTED`,this.ownerAcceptDecline);
         this.main.eventService.VenueAcceptOwner(this.ownerAcceptDecline).
             subscribe((res)=>{
                 this.onError.emit("Venue accepted!");
@@ -425,7 +425,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
 
             },(err)=>{
                 this.onError.emit("Venue NOT accepted! "+this.getResponseErrorMessage(err));
-                console.log(`err`,err);
+                // console.log(`err`,err);
             });
     }
 
@@ -459,20 +459,20 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     }
 
     createPrivateRes(){
-        console.log(`submitVenue`);
+        // console.log(`submitVenue`);
         this.onError.emit(BaseMessages.Success);
         this.updateEvent();
     }
 
     updateEvent(){
-        console.log(`update Event`);
+        // console.log(`update Event`);
         this.main.eventService.GetEventById(this.Event.id).
         subscribe((res:EventGetModel)=>{
            this.venuesList = [];
            setTimeout(() => {
             this.Event = this.main.eventService.EventModelToCreateEventModel(res);
             this.venuesList = this.Event.venues;
-            console.log(`get this Event`, this.Event);
+            // console.log(`get this Event`, this.Event);
             this.onSave.emit(this.Event);
             this.GetVenueFromList();
             this.venueSearch();
@@ -569,7 +569,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                 return {'background-image':"url('"+this.main.imagesService.GetImagePreview(id,{width:240,height:240})+"')"}
             },
             (err)=>{
-                console.log(`err`,err);
+                // console.log(`err`,err);
             }
         )
         // console.log(`img`,img);

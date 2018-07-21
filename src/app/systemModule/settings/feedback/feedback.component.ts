@@ -45,7 +45,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
     this.Feedback.rate_score = this.Rating+'';
 
     if(!this.FormFeedback.invalid){
-      console.log(this.Feedback);
+      // console.log(this.Feedback);
       this.main.feedbkService.PostFeedback(this.Feedback)
         .subscribe(
           (res)=>{

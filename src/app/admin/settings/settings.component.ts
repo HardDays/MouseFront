@@ -26,18 +26,22 @@ export class SettingsComponent extends BaseComponent implements OnInit {
                 this.userId = res.id
                 // console.log(this.User)
                 this.User = res;
+                console.log(this.User);
+
+                if(this.User.image_id){
+                this.main.imagesService.GetImageById(this.User.image_id)
+                    .subscribe((res)=>{
+                    console.log(`res img`, res);
+                    this.User.image_base64 = res.base64;
+                    })
+                }
+
             }
         )
     // this.User = this.main.MyUser;
     
     
-    // if(this.User.image_id){
-    //   this.main.imagesService.GetImageById(this.User.image_id)
-    //     .subscribe((res)=>{
-    //       console.log(`res img`, res);
-    //       this.User.image_base64 = res.base64;
-    //     })
-    // }
+    
   }
 
   SaveUser(){
@@ -54,14 +58,14 @@ export class SettingsComponent extends BaseComponent implements OnInit {
               //     })
               // }
               // this.errorCmp.OpenWindow(BaseMessages.Success);
-              console.log(`res`,this.User);
+            //   console.log(`res`,this.User);
               this.main.GetMyUser();
               this.User = res;
               this.errCmp.OpenWindow(BaseMessages.Success);
               
           },
           (err)=>{
-              console.log(`err`,err);
+            //   console.log(`err`,err);
               this.errCmp.OpenWindow(this.getResponseErrorMessage(err));
           }
       );
@@ -69,10 +73,10 @@ export class SettingsComponent extends BaseComponent implements OnInit {
         this.main.authService.UpdateUser(this.User)
             .subscribe(
                 (res)=>{
-                    console.log(`pass update`);
+                    // console.log(`pass update`);
                 },
                 (err)=>{
-                    console.log(`err`,err);
+                    // console.log(`err`,err);
                     
                 }
             )

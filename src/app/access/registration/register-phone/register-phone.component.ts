@@ -49,13 +49,13 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
   //   });
     this.codes = this.main.phoneService.GetAllPhoneCodesWithFormat();
     this.selectCode = this.codes.find((s)=>s.iso2==='us');
-    console.log(this.selectCode);
+    // console.log(this.selectCode);
   }
 
   changeCode(s){
-    console.log(s);
+    // console.log(s);
     this.phoneCode = s;
-    console.log(`phonecode`,this.phoneCode)
+    // console.log(`phonecode`,this.phoneCode)
   }
 
   inputPhone($event){
@@ -63,7 +63,7 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
   }
 
   sendCode(){
-    console.log(this.phone)
+    // console.log(this.phone)
     if(this.phone&&this.phone.search('_')<0){
         this.phoneArr = false;
 
@@ -71,7 +71,7 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
           phoneToSend = phoneToSend.replace(/\(/g,'');
           phoneToSend = phoneToSend.replace(/\)/g,'');
           phoneToSend = phoneToSend.replace(/-/g,'');
-      console.log(`ok`,phoneToSend);
+      // console.log(`ok`,phoneToSend);
 
         this.WaitBeforeLoading(
         ()=>this.main.phoneService.SendCodeToPhone(phoneToSend),
@@ -79,7 +79,7 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
           this.isRequestCodeSend = true;
           },
           (err)=>{
-            console.log(`err`,err);
+            // console.log(`err`,err);
             this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
             
           }
@@ -107,7 +107,7 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
           this.isRequestCodeSend = true;
           },
           (err)=>{
-            console.log(`err`,err);
+            // console.log(`err`,err);
             this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
             
           }

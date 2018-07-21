@@ -27,7 +27,7 @@ export class OneCardComponent implements OnInit {
   emptyImage = BaseImages.NoneUserImage;
 
   ngOnInit() {
-    console.log(`card`,this.card, this.status);
+    // console.log(`card`,this.card, this.status);
   }
 
   toBeatyShowsList( mas:any[]){
