@@ -59,6 +59,7 @@ export class AccountCreateModel{
             public artist_videos?: Video[],
             public venue_video_links?: string[],
             public image_base64?:string,
+            public status?: string,
 
 
             public performance_min_time?:number,

@@ -66,6 +66,7 @@ export class AccountGetModel{
         public artist_videos?: Video[],
         public image_base64_not_given?: string,
         public status_not_given?: string,
+        public status?: string,
 
 
         public performance_min_time?:number,
@@ -100,7 +101,9 @@ export class AccountGetModel{
         public is_verified?: boolean,
         public events_dates?:any[],
         public available_dates?:any,
-        public disable_dates?:any
+        public disable_dates?:any,
+
+        public processed_by?:string
         
 ){}
 }

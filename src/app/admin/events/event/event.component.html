@@ -21,30 +21,29 @@
             </div>
         </div>
         <div class="contacts">
-            <span>Event Owner:</span> <a href="#">Kirill Kalino</a><br>
-            <span>Phone:</span> +375 56 788 99 88
+            <span>Event Owner:</span> <a>{{Owner.display_name}}</a><br>
+            <span>Phone:</span> {{Owner.phone?Owner.phone:'-'}}
         </div>
     </h2>
     <section class="event_preview">
         <div class="event_block">
-            <div class="event_photo" style="background-image: url(./../../../../assets/img/admin/event.jpg)"></div>
+            <div class="event_photo" [ngStyle]="{'background-image':'url('+Event.image_base64+')'}"></div>
             <div class="event_info_wrap">
-                <h2>Cool event</h2>
+                <h2>{{Event.name}}</h2>
                 <div class="event_info">
-                    <p class="date">November 30, 2019 - <strong>7:00 PM</strong></p>
-                    <p class="hash">#CoolEvent</p>
+                    <p *ngIf="Event.date_from" class="date">{{Event.date_from|date}} - {{Event.date_to|date}}</p>
+                    <p *ngIf="Event.hashtag" class="hash">#{{Event.hashtag}}</p>
                     <p class="ev_label">Genre</p>
                     <div class="genres">
-                        <span>Singer/songwriter</span>
-                        <span>Pop</span>
+                        <span *ngFor="let g of Genres">{{g}}</span>
                     </div>
-                    <p class="char">Presented by <strong>Rob Roy</strong></p>
-                    <p class="char">Featuring: <strong>Adele, Jill Scott and Sam Shepard</strong></p>
+                    <p class="char">Presented by <strong>{{Owner.display_name}}</strong></p>
+                    <p class="char">Featuring: <strong *ngFor="let art of Artists; let last = last">{{art.display_name}} {{last?'':', '}}</strong></p>
                     <p class="ev_label">Location</p>
                     <div class="location-wr margened">
                         <div class="mark"></div>
                         <p class="location-inp ">
-                            MADISON SQUARE GARDEN<br>4 Pennsylvania Plaza<br>New York, NY 10001
+                            {{Event.address}}
                         </p>
                     </div>
                     <div class="butts">
@@ -61,28 +60,20 @@
             <div class="e_l">Updates <span class="count">(0)</span></div>
         </div>
         <div class="event_videos_slider">
-            <div class="video_item">
+            <ng-container >
+            <div *ngFor="let video of Videos" class="video_item">
                 <div class="video">
-                    <iframe src="https://www.youtube.com/embed/YQHsXMglC9A" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <iframe [src]="video" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                 </div>
             </div>
-            <div class="video_item">
-                <div class="video">
-                    <iframe src="https://www.youtube.com/embed/YQHsXMglC9A" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                </div>
-            </div>
-            <div class="video_item">
-                <div class="video">
-                    <iframe src="https://www.youtube.com/embed/YQHsXMglC9A" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                </div>
-            </div>
+            </ng-container>
+
+            <!-- <slideshow [showArrows]="Videos&&Videos.length>1" [minHeight]="'525px'" [imageUrls]="Videos"></slideshow> -->
         </div>
         <div class="event_text">
-            <h3 class="zag">All your favorite artists in one place!</h3>
+            <h3 class="zag">{{Event.tagline}}</h3>
             <div class="columns_text">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore </p>
+                <p>{{Event.description}}</p>   
             </div>
         </div>
     </section>

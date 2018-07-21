@@ -49,8 +49,8 @@ export class DashboardComponent extends BaseComponent implements OnInit {
   openTabsAcc(){
     for(let acc of this.Accounts){
       if(acc.checked){
-        // window.open('http://localhost:4200/admin/account/'+acc.object.id,'_blank');
-        window.open('http://mouse-web.herokuapp.com/admin/account/'+acc.object.id,'_blank');
+        window.open('http://localhost:4200/admin/account/'+acc.object.id,'_blank');
+        // window.open('http://mouse-web.herokuapp.com/admin/account/'+acc.object.id,'_blank');
         window.blur();
       }
     }
@@ -59,8 +59,8 @@ export class DashboardComponent extends BaseComponent implements OnInit {
   openTabsEvent(){
     for(let event of this.Events){
       if(event.checked){
-        // window.open('http://localhost:4200/admin/event/'+event.object.id,'_blank');
-        window.open('http://mouse-web.herokuapp.com/admin/event/'+event.object.id,'_blank');
+        window.open('http://localhost:4200/admin/event/'+event.object.id,'_blank');
+        // window.open('http://mouse-web.herokuapp.com/admin/event/'+event.object.id,'_blank');
         window.blur();
       }
     }
