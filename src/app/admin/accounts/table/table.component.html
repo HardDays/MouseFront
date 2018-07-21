@@ -1,6 +1,6 @@
 <section class="admin_table_nav">
   <span class="admin_delete"><img src="./../../../assets/img/admin/delete.svg" alt=""></span>
-  <span class="admin_look"><img src="./../../../assets/img/admin/look.svg" alt=""></span>
+  <span (click)="openInNewTabs()" class="admin_look"><img src="./../../../assets/img/admin/look.svg" alt=""></span>
   <div class="table_filter">
       <div class="table_search"><input type="text" placeholder="Search"></div>
       <div class="filter_checkbox">
@@ -51,12 +51,12 @@
             <div *ngIf="status=='all'||acc.status===status||(acc.status==='just_added'&&status==='new')" class="admin_table_tr">
                 <div class="admin_table_td check_column">
                     <div class="admin_table_checkbox">
-                        <input type="checkbox" id="new_acc_{{i}}">
+                        <input (change)="checkIdToOpen(acc.id)" type="checkbox" id="new_acc_{{i}}">
                         <label for="new_acc_{{i}}"></label>
                     </div>
                 </div>
                 <div class="admin_table_td"><span>12.10.2018</span></div>
-                <div (click)="openArtist(acc.id)" class="admin_table_td account">
+                <div (click)="openAccount(acc.id)" class="admin_table_td account">
                     <span class="acc_ava" style="background-image: url(./../../../assets/img/admin/example_revenue_event.jpg)"></span>
                     <span>{{acc.display_name}}</span>
                 </div>
@@ -142,12 +142,12 @@
               <div *ngIf="status=='all'||event.status===status||(event.status==='just_added'&&status==='new')" class="admin_table_tr">
                   <div class="admin_table_td check_column">
                       <div class="admin_table_checkbox">
-                          <input type="checkbox" id="new_acc_1">
-                          <label for="new_acc_1"></label>
+                          <input (change)="checkIdToOpen(event.id)" type="checkbox" id="new_acc_{{i}}">
+                          <label for="new_acc_{{i}}"></label>
                       </div>
                   </div>
                   <div class="admin_table_td"><span>{{event.received_date|date:'dd.MM.yyyy'}}</span></div>
-                  <div (click)="openArtist()" class="admin_table_td account">
+                  <div (click)="openEvent(event.id)" class="admin_table_td account">
                       <!-- <span class="acc_ava" style="background-image: url(./../../../assets/img/admin/example_revenue_event.jpg)"></span> -->
                       <span>{{event.name}}</span>
                   </div>

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BaseComponent } from '../../core/base/base.component';
 import { Params } from '@angular/router';
 import { AccountGetModel } from '../../core/models/accountGet.model';
+import { TableComponent } from './table/table.component';
 
 @Component({
   selector: 'app-accounts',
@@ -15,6 +16,7 @@ export class AccountsComponent extends BaseComponent implements OnInit {
   status:string = 'new';
 
   Accounts: AccountGetModel[] = [];
+
   
   ngOnInit() {
     this.activatedRoute.params.subscribe(
@@ -42,5 +44,6 @@ export class AccountsComponent extends BaseComponent implements OnInit {
         this.Accounts = res;
       })
   }
+
 
 }

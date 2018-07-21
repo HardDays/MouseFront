@@ -28,6 +28,8 @@ import { CustomerSupportComponent } from './customer-support/customer-support.co
 import { CustomerSupportAnswersComponent } from './customer-support/customer-support-answers/customer-support-answers.component';
 import { AnalyticsEventComponent } from './events/analytics-event/analytics-event.component';
 import { EventComponent } from './events/event/event.component';
+import { ArtistComponent } from './accounts/account/artist/artist.component';
+import { VenueComponent } from './accounts/account/venue/venue.component';
 
 
 
@@ -64,7 +66,9 @@ import { EventComponent } from './events/event/event.component';
         CustomerSupportComponent,
         CustomerSupportAnswersComponent,
         AnalyticsEventComponent,
-        EventComponent
+        EventComponent,
+        ArtistComponent,
+        VenueComponent
         
     ],
     providers: [AdminAccessGuard]
