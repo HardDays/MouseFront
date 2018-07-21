@@ -197,8 +197,17 @@ export class BigCalendarComponent implements OnInit, OnChanges {
       this.FormVals.from = this.FromElement.CalendarDate.mDate.toDate();
       this.FormVals.to = this.ToElement.CalendarDate.mDate.toDate();
     }
+
+    this.SetDefaultFormVals();
     
     event.target.offsetParent.classList.add("set-date-popup");
+  }
+
+  SetDefaultFormVals(){
+    this.FormVals.date_range = true;
+    this.FormVals.is_available = true;
+    this.FormVals.price_for_daytime = 0;
+    this.FormVals.price_for_nighttime = 0;
   }
 
 

@@ -29,11 +29,13 @@
                                     <ng-container *ngIf="item.checked">
                                         <div class="from-to">
                                             <span>From</span>
-                                            <input class="inp-style-3 time-mask" [textMask]="GetFromTimeMask(item)"  autocomplete="off" type="text" [name]="'from-time-'+i" [ngModel]="item.start_work" (ngModelChange)="OfficeHoursBeginChange(i,$event)">
+                                            <time-input [Time]="item.start_work" (onTimeChange)="item.start_work = $event"></time-input>
+                                            <!-- <input class="inp-style-3 time-mask" [textMask]="GetFromTimeMask(item)"  autocomplete="off" type="text" [name]="'from-time-'+i" [ngModel]="item.start_work" (ngModelChange)="OfficeHoursBeginChange(i,$event)"> -->
                                         </div>
                                         <div class="from-to">
                                             <span>To</span>
-                                            <input class="inp-style-3 time-mask" [textMask]="GetToTimeMask(item)"  autocomplete="off" type="text" [name]="'to-time-'+i" [ngModel]="item.finish_work" (ngModelChange)="OfficeHoursEndChange(i,$event)">
+                                            <time-input [Time]="item.finish_work" (onTimeChange)="item.finish_work = $event"></time-input>
+                                            <!-- <input class="inp-style-3 time-mask" [textMask]="GetToTimeMask(item)"  autocomplete="off" type="text" [name]="'to-time-'+i" [ngModel]="item.finish_work" (ngModelChange)="OfficeHoursEndChange(i,$event)"> -->
                                         </div>
                                     </ng-container>
                                 </div>

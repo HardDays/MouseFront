@@ -304,16 +304,7 @@ export class BaseComponent{
             guide:false
         };
     }
-    MaskDays(MounthNum)
-    {    
-        let maskArray:any[] = [/[1-9]/,/[0-9]/];    
-        
-        return{
-            mask: maskArray,
-            keepCharPositions: true,
-            guide: false,
-        };
-    }
+    
 
     MaskPrice()
     {

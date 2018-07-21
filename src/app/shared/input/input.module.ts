@@ -6,6 +6,7 @@ import { DateInput } from './date/date.input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material';
 import { TextMaskModule } from '../../../../node_modules/angular2-text-mask';
+import { TimeInput } from './time/time.input';
 
 
 @NgModule({
@@ -19,10 +20,12 @@ import { TextMaskModule } from '../../../../node_modules/angular2-text-mask';
         TextMaskModule
     ],
     declarations: [ 
-        DateInput
+        DateInput,
+        TimeInput
     ],
     exports: [ 
-        DateInput
+        DateInput,
+        TimeInput
      ]
 })
 export class InputModule {}

@@ -71,7 +71,7 @@
             <option *ngFor="let item of TypesOfSpace" [value]="item.value">{{item.name}}</option>
         </select> -->
         <mat-form-field >
-            <mat-select [(ngModel)]="SearchParams.size" (ngModelChange)="TypeOfSpaceChange($event)">
+            <mat-select name="select_type_of_space" [(ngModel)]="SearchParams.size" (ngModelChange)="TypeOfSpaceChange($event)">
                 <mat-option [value]=""></mat-option>
                 <mat-option *ngFor="let item of TypesOfSpace" [value]="item.value">
                     {{ item.name }}
