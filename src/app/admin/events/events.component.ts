@@ -31,7 +31,7 @@ export class EventsComponent extends BaseComponent implements OnInit {
         }
       }
     );
-    console.log(`---`,this.isApprovedBy);
+    // console.log(`---`,this.isApprovedBy);
 
     this.getEvents();
   }

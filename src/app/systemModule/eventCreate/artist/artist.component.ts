@@ -217,7 +217,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
   this.main.accService.AccountsSearch(this.artistSearchParams).subscribe(
     (res)=>{
-      console.log(this.artistSearchParams,` from back `, res);
+      // console.log(this.artistSearchParams,` from back `, res);
       let temp = this.convertArrToCheckModel<AccountGetModel>(res);
 
       for(let art of copy){
@@ -289,7 +289,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
   }
 
   closeAddArtist(id:number){
-    console.log(`click`);
+    // console.log(`click`);
     $('#modal-pick-artist').modal('toggle');
     setTimeout(() => {
       // this.router.navigate(['/system/profile',id]);
@@ -375,7 +375,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
     this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from?msg.message_info.preferred_date_from:new Date().toString();
     this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to?msg.message_info.preferred_date_to:new Date('+3').toString();
 
-     console.log(this.ownerAcceptDecline);
+    //  console.log(this.ownerAcceptDecline);
     this.main.eventService.ArtistAcceptOwner(this.ownerAcceptDecline).
         subscribe((res)=>{
            // console.log(`ok accept artist`,res);
@@ -457,7 +457,7 @@ artistSendRequest(id:number){
 
 updateEvent(){
 
-  console.log(`updateEvent`);
+  // console.log(`updateEvent`);
   this.main.eventService.GetEventById(this.Event.id).
             subscribe((res:EventGetModel)=>{
               //  console.log(`updateEventThis`);
@@ -505,7 +505,7 @@ getPriceAtMsg(sender:number){
 
 getIdAtMsg(sender:number){
   for(let m of this.messagesList){
-    console.log(`m`,m,sender,this.Event.creator_id);
+    // console.log(`m`,m,sender,this.Event.creator_id);
       if( m.sender_id == sender &&
           m.receiver_id == this.Event.creator_id &&
           m.message_info && m.message_info.event_info &&

@@ -325,7 +325,7 @@ export class BigCalendarComponent implements OnInit, OnChanges {
             this.GetImage(res.image_id);
           },
           (err)=>{
-            console.log(err);
+            // console.log(err);
           }
         );
     }

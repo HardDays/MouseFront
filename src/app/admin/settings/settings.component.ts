@@ -41,7 +41,7 @@ export class SettingsComponent extends BaseComponent implements OnInit {
   }
 
   SaveUser(){
-    console.log(`save user`,this.User);
+    // console.log(`save user`,this.User);
     this.main.adminService.PatchAdmin(this.User, this.userId)
       .subscribe(
           (res)=>{
@@ -54,14 +54,14 @@ export class SettingsComponent extends BaseComponent implements OnInit {
               //     })
               // }
               // this.errorCmp.OpenWindow(BaseMessages.Success);
-              console.log(`res`,this.User);
+            //   console.log(`res`,this.User);
               this.main.GetMyUser();
               this.User = res;
               this.errCmp.OpenWindow(BaseMessages.Success);
               
           },
           (err)=>{
-              console.log(`err`,err);
+            //   console.log(`err`,err);
               this.errCmp.OpenWindow(this.getResponseErrorMessage(err));
           }
       );
@@ -69,10 +69,10 @@ export class SettingsComponent extends BaseComponent implements OnInit {
         this.main.authService.UpdateUser(this.User)
             .subscribe(
                 (res)=>{
-                    console.log(`pass update`);
+                    // console.log(`pass update`);
                 },
                 (err)=>{
-                    console.log(`err`,err);
+                    // console.log(`err`,err);
                     
                 }
             )

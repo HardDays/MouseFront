@@ -174,9 +174,9 @@ export class BaseComponent{
                 }
             },
             (err) => {
-                console.log(err);
+                // console.log(err);
                 callback(err);
-                console.log('asdfasdf');
+                // console.log('asdfasdf');
                 //this.main.authService.onAuthChange$.next(false);
             }
         );
@@ -206,7 +206,7 @@ export class BaseComponent{
                                    if(this.main.MyAccounts.length>0){
                                     this.router.navigate(['/system','shows']);
                                    } else {
-                                       console.log(`create new acc`);
+                                    //    console.log(`create new acc`);
                                        this.router.navigate(['/social']);
                                    }
                                 }, 1000);
@@ -546,7 +546,7 @@ export class BaseComponent{
 
     private getFieldError(field: FormControl, key: string, keyDict: any)
     {
-        console.log(key, keyDict);
+        // console.log(key, keyDict);
         if (field.errors !== null)
         {
             if (field.errors.hasOwnProperty('required'))
@@ -588,7 +588,7 @@ export class BaseComponent{
         Object.keys(form.controls).forEach((key) => {
             if (form.controls[key].status === 'INVALID') {
                 const formControl = form.controls[key];
-                console.log(`---`,formControl,key);
+                // console.log(`---`,formControl,key);
                 if (formControl instanceof FormControl) {
                     errors.push(this.getFieldError(formControl, key, keyDict));
                 }

@@ -167,7 +167,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
   SaveArtistByPages(artist:AccountCreateModel, goToNextPage:boolean = true)
   {
     // this.Artist = artist;
-    console.log(this.ArtistId,this.Artist);
+    // console.log(this.ArtistId,this.Artist);
     this.WaitBeforeLoading
     (
       () => this.ArtistId == 0 ? this.main.accService.CreateAccount(this.Artist) : this.main.accService.UpdateMyAccount(this.ArtistId,this.Artist),
@@ -273,7 +273,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
 
   SaveCurrentPage(artist:AccountCreateModel, isChangePage = false, isNavigate = false){
     this.convertPreferedVenues();
-    console.log(`ARTIST`,artist);
+    // console.log(`ARTIST`,artist);
     this.WaitBeforeLoading
     (
       () => this.ArtistId == 0 ? this.main.accService.CreateAccount(artist) : this.main.accService.UpdateMyAccount(this.ArtistId,artist),
@@ -298,7 +298,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
           this.NextPart();
         }
         if(isNavigate){
-          console.log(`NAVIGATE`);
+          // console.log(`NAVIGATE`);
           this.router.navigate(["/system","profile",this.ArtistId]);
         }
         
@@ -315,7 +315,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
       this.Artist.preferred_venues = [];
 
       for(let v of preferredVenues){
-        console.log(v);
+        // console.log(v);
           this.Artist.preferred_venues.push(v.type_of_venue);
       }
     }
@@ -325,7 +325,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
 
   SaveButton()
   {
-    console.log(this.Artist);
+    // console.log(this.Artist);
     // switch(this.currentPage){
     //   case this.pages.about:{
     //     if(this.AboutPage)
@@ -383,7 +383,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
 
   ArtistChanged($event)
   {
-    console.log(`artist changed`);
+    // console.log(`artist changed`);
     for(let key of $event)
     {
       if(this.Artist[key] != $event[key])

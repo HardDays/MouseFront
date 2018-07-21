@@ -42,7 +42,7 @@ export class PreviewVenueComponent extends BaseComponent implements OnInit {
       ()=>this.main.accService.GetAccountById(this.VenueId),
       (res:AccountGetModel)=>{
         this.Venue = res;
-        console.log(`venue`,this.Venue);
+        // console.log(`venue`,this.Venue);
         if(res.image_id){
          this.main.imagesService.GetImageById(res.image_id)
            .subscribe((img)=>{
@@ -110,7 +110,7 @@ export class PreviewVenueComponent extends BaseComponent implements OnInit {
         this.WaitBeforeLoading(
           () => this.main.imagesService.GetImageById(oneRes.id),
           (res:any) => {
-            console.log(oneRes);
+            // console.log(oneRes);
                let p = {
                 id:res.id,
                 base64:res.base64,
@@ -126,7 +126,7 @@ export class PreviewVenueComponent extends BaseComponent implements OnInit {
                 (err) =>{
               });
               this.photos.push(p);
-              console.log(this.photos); 
+              // console.log(this.photos); 
             },
           (err) => {
           }

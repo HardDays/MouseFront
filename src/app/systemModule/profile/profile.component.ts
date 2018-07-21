@@ -93,7 +93,8 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
             {
                 this.getCurrentProfile();
             }
-            ,(err) =>{console.log(err);
+            ,(err) =>{
+                // console.log(err);
             })
     }
 

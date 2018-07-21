@@ -17,7 +17,7 @@ export class TableComponent extends BaseComponent implements OnInit {
   openIds:number[] = [];
 
   ngOnInit() {
-    console.log(this.Accounts)
+    // console.log(this.Accounts)
   }
 
   openAccount(id:number){
@@ -35,7 +35,7 @@ export class TableComponent extends BaseComponent implements OnInit {
     else
       this.openIds.splice(index,1);
     
-      console.log(this.openIds);
+      // console.log(this.openIds);
 
   }
 

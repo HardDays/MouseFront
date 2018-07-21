@@ -80,12 +80,12 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
     this.comment.event_id = this.Feed.event.id;
     this.main.commentService.PostComment(this.comment)
       .subscribe((res)=>{
-        console.log(res);
+        // console.log(res);
         this.GetComments();
       },(err)=>{
-        console.log(`err`,err);
+        // console.log(`err`,err);
       })
-    console.log(this.comment);
+    // console.log(this.comment);
   }
 
   GetComments(){
@@ -98,29 +98,29 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
             comm.account.image_base64 = img.base64;
           });
         }
-        console.log(this.comments);
+        // console.log(this.comments);
       })
   }
 
   likePost(){
-    console.log(this.Feed.event.id,this.accId);
+    // console.log(this.Feed.event.id,this.accId);
     if(!this.Feed.is_liked){
       this.main.likesService.PostLike(this.Feed.event.id,this.accId)
         .subscribe((res)=>{
           this.Feed.is_liked = true;
           this.Feed.likes++;
-          console.log(res);
+          // console.log(res);
         },(err)=>{
-          console.log(`err`,err)
+          // console.log(`err`,err)
         })
     } else {
       this.main.likesService.DeleteLike(this.Feed.event.id,this.accId)
       .subscribe((res)=>{
           this.Feed.is_liked = false;
           this.Feed.likes--;
-        console.log(res);
+        // console.log(res);
       },(err)=>{
-        console.log(`err`,err)
+        // console.log(`err`,err)
       })
     }
   }

@@ -26,7 +26,7 @@ export class EventComponent extends BaseComponent implements OnInit {
             (res)=>{
               this.Event = res;
               this.eventId = this.Event.id;
-              console.log(`Event`,this.Event);
+              // console.log(`Event`,this.Event);
             }
           )
         
@@ -55,40 +55,40 @@ export class EventComponent extends BaseComponent implements OnInit {
   }
 
   removeEvent(){
-    console.log(`removeAcc`);
+    // console.log(`removeAcc`);
     this.main.adminService.EventDelete(this.accId)
       .subscribe(
         (res)=>{
-          console.log(`res`,res);
+          // console.log(`res`,res);
         },
         (err)=>{
-          console.log(`err`,err)
+          // console.log(`err`,err)
         }
       )
   }
 
   denyEvent(){
-    console.log(`denyAcc`);
+    // console.log(`denyAcc`);
     this.main.adminService.EventDeny(this.accId)
       .subscribe(
         (res)=>{
-          console.log(`res`,res);
+          // console.log(`res`,res);
         },
         (err)=>{
-          console.log(`err`,err)
+          // console.log(`err`,err)
         }
       )
   }
 
   approveEvent(){
-    console.log(`approveAcc`);
+    // console.log(`approveAcc`);
     this.main.adminService.EventApprove(this.accId)
       .subscribe(
         (res)=>{
-          console.log(`res`,res);
+          // console.log(`res`,res);
         },
         (err)=>{
-          console.log(`err`,err)
+          // console.log(`err`,err)
         }
       )
   }

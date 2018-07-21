@@ -18,10 +18,10 @@ export class AddNewAdminComponent extends BaseComponent implements OnInit {
     this.main.adminService.CreateAdmin(this.newUser)
       .subscribe(
         (res)=>{
-          console.log(res);
+          // console.log(res);
         },
         (err)=>{
-          console.log(`err`,err);
+          // console.log(`err`,err);
         }
       )
   }

@@ -23,12 +23,12 @@ export class AudioComponent implements OnInit {
   }
 
   playAudio(s:string){
-    console.log(s);
+    // console.log(s);
     SC.resolve(s).then((res)=>{
-      console.log(res);
+      // console.log(res);
       SC.stream('/tracks/'+res.id).then((player)=>{
 
-        console.log(`is actual`,player.isActuallyPlaying());
+        // console.log(`is actual`,player.isActuallyPlaying());
         player.play();
         
         player.on('play-start',()=>{
@@ -36,15 +36,15 @@ export class AudioComponent implements OnInit {
         })
 
         player.on('state-change',(val)=>{
-          console.log(val);
+          // console.log(val);
         })
 
         player.on('no_streams',(val)=>{
-          console.log(`no_streams`,val);
+          // console.log(`no_streams`,val);
         })
 
         player.on('no_connection',()=>{
-          console.log(`no_connection`);
+          // console.log(`no_connection`);
         })
         
         setInterval(()=>{
@@ -58,7 +58,9 @@ export class AudioComponent implements OnInit {
   
       });
 
-    },(err)=>{console.log(`ERROR`)})
+    },(err)=>{
+      // console.log(`ERROR`)
+    })
   }
 
 }
