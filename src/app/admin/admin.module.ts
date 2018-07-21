@@ -32,6 +32,9 @@ import { ArtistComponent } from './accounts/account/artist/artist.component';
 import { VenueComponent } from './accounts/account/venue/venue.component';
 import { TinyCalendarComponent } from './accounts/account/artist/tiny-calendar/tiny-calendar.component';
 import { SlideshowModule } from '../../../node_modules/ng-simple-slideshow';
+import { FanComponent } from './accounts/account/fan/fan.component';
+import { TicketComponent } from './accounts/account/fan/ticket/ticket.component';
+import { OneFollowerComponent } from './accounts/account/fan/one-follower/one-follower.component';
 
 
 
@@ -72,7 +75,10 @@ import { SlideshowModule } from '../../../node_modules/ng-simple-slideshow';
         EventComponent,
         ArtistComponent,
         VenueComponent,
-        TinyCalendarComponent
+        TinyCalendarComponent,
+        FanComponent,
+        TicketComponent,
+        OneFollowerComponent
         
     ],
     providers: [AdminAccessGuard]

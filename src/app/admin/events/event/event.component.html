@@ -15,7 +15,7 @@
                 <button (click)="denyEvent()"><img src="./../../../../assets/img/admin/deny.svg" alt="" class="img-responsive"></button>
                 <span>Deny</span>
             </div>
-            <div class="butt approve">
+            <div *ngIf="Event.status === 'pending'" class="butt approve">
                 <button (click)="approveEvent()"><img src="./../../../../assets/img/admin/approve.svg" alt="" class="img-responsive"></button>
                 <span>Approve</span>
             </div>
@@ -56,8 +56,8 @@
         </div>
         <div class="event_links">
             <div class="e_l active">Additional info</div>
-            <div class="e_l">Comments <span class="count">(0)</span></div>
-            <div class="e_l">Updates <span class="count">(0)</span></div>
+            <!-- <div class="e_l">Comments <span class="count">(0)</span></div>
+            <div class="e_l">Updates <span class="count">(0)</span></div> -->
         </div>
         <div class="event_videos_slider">
             <ng-container >

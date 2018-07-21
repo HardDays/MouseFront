@@ -1,0 +1,113 @@
+<section class="second-router-outlet">
+    <div class="head-info-profile-wr">
+        <div class="head-info-profile">
+            <div class="side side-1">
+                <div class="mouse-bg-image">
+                    <div class="big-avatar" [ngStyle]="{'background-image': 'url('+Image+')'}"></div>
+                </div>
+            </div>
+            <div class="side side-2">
+                <h3 class="big-name">
+                    <span id="lines_view">{{Account.first_name}} {{Account.last_name}}</span>
+                </h3>
+                <a class="insta-link-sp">@{{Account.user_name}}</a>
+            </div>
+            <div class="side side-3">
+                <div class="desc-wr">
+                    <p class="description">{{Account.bio}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="for-white-bg">
+        <div class="circles-info">
+            <div class="main-mw">
+                <div class="for-flex-inf">
+                    <div class="circle">
+                        <span>{{TotalTicket}}</span>
+                        <p>Tickets</p>
+                    </div>
+                    <div class="circle">
+                        <span>{{Account.followers_count}}</span>
+                        <p>Followers</p>
+                    </div>
+                    <div class="circle">
+                        <span>{{Account.following_count}}</span>
+                        <p>Following</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="all-info-profile">
+            <div class="uniq-padd">
+                <div class="main-mw">
+                    <div class="genres-info">
+                        <h3>Genres</h3>
+                        <div class="flex-genres">
+                            <ng-container *ngFor="let item of Account.genres;let i = index">
+                                    <span class="one-genre">{{item.replace('_'," ")}}</span>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="uniq-padd-2">
+                <div class="main-mw">
+                    <div class="flex--info">
+                        <div class="side scroller">
+                            <div class="for-scroll-padd">
+                                <h6>Events ({{EventsMass.length}})</h6>
+                                <input type="text" class="search-profile-inp-style"  placeholder="Search">
+                            </div>
+                            <div class="new-scroll-wr">
+                                <div class="blocks">
+                                    <ng-container *ngIf="!IsMyAccount">
+                                        <ng-container *ngFor="let item of EventsMassChecked">
+                                                <a [routerLink]="['/system','shows_detail',item.id]" style="display:block">
+                                                    <app-ticket [Ticket]="item"></app-ticket>
+                                                </a>
+                                        </ng-container>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="side scroller">
+                            <div class="for-scroll-padd">
+                                <h6>Tickets ({{TotalTicket}})</h6>
+                                <input type="text" class="search-profile-inp-style" placeholder="Search">
+                            </div>
+                            <div class="new-scroll-wr">
+                                <div class="blocks">
+                                        <ng-container *ngIf="!IsMyAccount">
+                                                <ng-container *ngFor="let item of ticketsMassChecked">
+                                                    <a  [routerLink]="['/system','shows_detail',item.id]" style="display:block">
+                                                        <app-ticket [Ticket]="item"></app-ticket>
+                                                    </a>
+                                                </ng-container>
+                                            </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="side scroller uniq-padd-style-funs">
+                            <div class="uniq-padd-3">
+                                <h6>Fans ({{Fans.length}})</h6>
+                                <input type="text" class="search-profile-inp-style" placeholder="Search">
+                            </div>
+                            <div class="new-scroll-wr">
+                                <div class="blocks-funs">
+                                    <ng-container *ngFor="let item of FansChecked">
+                                            <div class="one-block">
+                                                <app-one-follower [Folower]="item"></app-one-follower>
+                                            </div>
+                                        </ng-container>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

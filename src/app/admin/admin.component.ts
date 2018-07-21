@@ -18,6 +18,9 @@ export class AdminComponent extends BaseComponent implements OnInit {
   User:UserGetModel = new UserGetModel();
   openMenu = false;
 
+  newAccCount = 0;
+  newEventCount = 0;
+
   ngOnInit() {
     this.initJs();
     this.GetCurrentRoute();
@@ -59,6 +62,25 @@ export class AdminComponent extends BaseComponent implements OnInit {
     // }
     console.log(this.User);
 
+    this.getNewCounts();
+
+  }
+
+  getNewCounts(){
+    this.main.adminService.GetNewAccountsCount()
+      .subscribe(
+        (res)=>{
+          this.newAccCount = res;
+        }
+      )
+
+    this.main.adminService.GetNewEventsCount()
+      .subscribe(
+        (res)=>{
+          this.newEventCount = res;
+        }
+      )
+    
   }
 
   GetCurrentRoute(){

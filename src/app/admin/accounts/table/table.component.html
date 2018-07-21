@@ -1,4 +1,4 @@
-<section class="admin_table_nav">
+<section *ngIf="Accounts" class="admin_table_nav">
   <span class="admin_delete"><img src="./../../../assets/img/admin/delete.svg" alt=""></span>
   <span (click)="openInNewTabs()" class="admin_look"><img src="./../../../assets/img/admin/look.svg" alt=""></span>
   <div class="table_filter">
@@ -25,7 +25,31 @@
       </div>
   </div>
 </section>
+
+<section *ngIf="Events" class="admin_table_nav">
+                <span class="admin_delete"><img src="img/admin/delete.svg" alt=""></span>
+                <span class="admin_look"><img src="img/admin/look.svg" alt=""></span>
+                <div class="table_filter">
+                    <div class="table_search"><input type="text" placeholder="Search"></div>
+                    <div class="filter_checkbox">
+                        <input type="checkbox" id="fan_acc">
+                        <label for="fan_acc"></label>
+                        <span>Crowdfund</span>
+                    </div>
+                    <div class="filter_checkbox">
+                        <input type="checkbox" id="venue_acc">
+                        <label for="venue_acc"></label>
+                        <span>Regular</span>
+                    </div>
+                    <div class="filter_checkbox">
+                        <input type="checkbox" id="all_acc" checked>
+                        <label for="all_acc"></label>
+                        <span>All</span>
+                    </div>
+                </div>
+            </section>
 <section>
+
   <div class="admin_table" [ngClass]="{'accounts_table':Accounts, 'accounts_table_with_by':isApprovedBy, 'events_table':Events, 'events_table_with_by':isApprovedBy }">
       <div  *ngIf="Accounts" class="admin_table_thead">
           <div class="admin_table_th check_column"><img src="./../../../assets/img/admin/table_check_th.svg" alt=""></div>
@@ -68,74 +92,7 @@
             </div>
           </ng-container>
           <!-- При выделении чекбокса добавляется класс CHECKED: -->
-          <div class="admin_table_tr checked">
-              <div class="admin_table_td check_column">
-                  <div class="admin_table_checkbox">
-                      <input type="checkbox" id="new_acc_2" checked>
-                      <label for="new_acc_2"></label>
-                  </div>
-              </div>
-              <div class="admin_table_td"><span>12.10.2018</span></div>
-              <div class="admin_table_td account">
-                  <span class="acc_ava" style="background-image: url(./../../../assets/img/admin/example_revenue_event.jpg)"></span>
-                  <span>Mark<br>Smith</span>
-              </div>
-              <div class="admin_table_td"><span>Fan</span></div>
-              <div class="admin_table_td"><span>Los Angeles, USA</span></div>
-              <div class="admin_table_td text-uppercase"><span class="status_denied">Denied</span></div>
-              <div *ngIf='isApprovedBy' class="admin_table_td"><span>Sonova<br>Middleton</span></div>
-          </div>
-          <div class="admin_table_tr">
-              <div class="admin_table_td check_column">
-                  <div class="admin_table_checkbox">
-                      <input type="checkbox" id="new_acc_3">
-                      <label for="new_acc_3"></label>
-                  </div>
-              </div>
-              <div class="admin_table_td"><span>12.10.2018</span></div>
-              <div class="admin_table_td account">
-                  <span class="acc_ava" style="background-image: url(./../../../assets/img/admin/example_revenue_event.jpg)"></span>
-                  <span>Mark<br>Smith</span>
-              </div>
-              <div class="admin_table_td"><span>Fan</span></div>
-              <div class="admin_table_td"><span>Los Angeles, USA</span></div>
-              <div class="admin_table_td text-uppercase"><span class="status_inactive">Inactive</span></div>
-              <div *ngIf='isApprovedBy' class="admin_table_td"><span>Sonova<br>Middleton</span></div>
-          </div>
-          <div class="admin_table_tr">
-              <div class="admin_table_td check_column">
-                  <div class="admin_table_checkbox">
-                      <input type="checkbox" id="new_acc_4">
-                      <label for="new_acc_4"></label>
-                  </div>
-              </div>
-              <div class="admin_table_td"><span>12.10.2018</span></div>
-              <div class="admin_table_td account">
-                  <span class="acc_ava" style="background-image: url(./../../../assets/img/admin/example_revenue_event.jpg)"></span>
-                  <span>Mark<br>Smith</span>
-              </div>
-              <div class="admin_table_td"><span>Fan</span></div>
-              <div class="admin_table_td"><span>Los Angeles, USA</span></div>
-              <div class="admin_table_td text-uppercase"><span class="status_new">New</span></div>
-              <div *ngIf='isApprovedBy' class="admin_table_td"><span>Sonova<br>Middleton</span></div>
-          </div>
-          <div class="admin_table_tr">
-              <div class="admin_table_td check_column">
-                  <div class="admin_table_checkbox">
-                      <input type="checkbox" id="new_acc_5">
-                      <label for="new_acc_5"></label>
-                  </div>
-              </div>
-              <div class="admin_table_td"><span>12.10.2018</span></div>
-              <div class="admin_table_td account">
-                  <span class="acc_ava" style="background-image: url(./../../../assets/img/admin/example_revenue_event.jpg)"></span>
-                  <span>Mark<br>Smith</span>
-              </div>
-              <div class="admin_table_td"><span>Fan</span></div>
-              <div class="admin_table_td"><span>Los Angeles, USA</span></div>
-              <div class="admin_table_td text-uppercase"><span class="status_approved">Approved</span></div>
-              <div *ngIf='isApprovedBy' class="admin_table_td"><span>Sonova<br>Middleton</span></div>
-          </div>
+          
       </div>
 
       <div *ngIf="Events" class="admin_table_tbody">

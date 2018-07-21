@@ -10,7 +10,7 @@ import { AccountCreateModel } from '../../../core/models/accountCreate.model';
 })
 export class AccountComponent extends BaseComponent implements OnInit {
 
-  accType = 'fan';
+  accType = '';
   accId = 0;
   Account:AccountCreateModel = new AccountCreateModel();
 
