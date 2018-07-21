@@ -4,151 +4,81 @@
       <div class="uniq-padd-2">
           <div class="flex--info">
               <div class="profile_about side side-info-new-venue-prev side-info side-about">
-                  <h1>The gold Circle Club</h1>
+                  <h1>{{Account.display_name}}</h1>
                   <p class="hash"><span>@</span>{{Account.user_name}}</p>
                   <p class="about-text">
-                      Since its stellar opening in 2003, The Gold Circle Club is a high-profile Euro-style night club that hosted many notables and celebrities over the years. It's a colorful, multi-tiered dance club featuring 30-foot ceilings, LED screens & plenty of night owls. Big-name DJs and a dynamic sound system keep the dance floor pumping at this establishment.
+                    {{Account.description}}
                   </p>
               </div>
               <div class="side side-info-new-venue-prev side-info side-about">
-                  <div class="one-cover" style="background-image: url(./../../../assets/img/drake.jpg)"></div>
+                  <div class="one-cover" [ngStyle]="{'background-image': Account.image_base64_not_given?'url('+Account.image_base64_not_given+')':''}"></div>
               </div>
           </div>
           <div class="flex--info venue_details">
               <div class="side side-info side-about">
                   <h6>Listing Details</h6>
                   <p class="about-text line-height-hig">
-                      Nightclub<br>
-                      <span>300</span> Person Capacity<br>
-                      <span>1</span> Bathroom(s)<br>
-                      Bar Available<br>
-                      Located: <span>Indoors</span><br>
-                      Age Policy: <span>18 and Over</span><br>
-                      Dress Code: <span>Shirts and Shoes Required</span>
+                    {{toBeatyType(Account.type_of_space)|titlecase}}<br>
+                      <span>{{Account.capacity?Account.capacity:'None info'}}</span> Person Capacity<br>
+                      <span>{{Account.num_of_bathrooms?Account.num_of_bathrooms:'None info'}}</span> Bathroom(s)<br>
+                      <span *ngIf="Account.has_bar">Bar Available<br></span>
+                      Located: <span>{{Account.located?Account.located:'None info'}}</span><br>
+                      Age Policy: <span>{{Account.min_age?Account.min_age+' and Over':'None info'}}</span><br>
+                      Dress Code: <span>{{Account.dress_code?Account.dress_code:'None info'}}</span>
                   </p>
               </div>
               <div class="side side-info side-contact un-padd-on-1560">
                   <h6>Contact info</h6>
                   <div class="flex-contact-venue">
                       <div class="column-cont">
-                          <div class="one-cont">
-                              <p class="head-cont">PHONE:</p>
-                              <span>310-358-1881</span>
-                          </div>
-                          <div class="one-cont">
-                              <p class="head-cont">FAX:</p>
-                              <span>310-358-1881</span>
-                          </div>
-                          <div class="one-cont">
-                              <p class="head-cont">LOCAL/REGIONAL ACTS: </p>
-                              <span>leah@laroom.com</span>
-                          </div>
+                        <div *ngIf="Account.phone" class="one-cont">
+                            <p class="head-cont">PHONE:</p>
+                            <span>{{Account.phone}}</span>
+                        </div>
+                            <div *ngIf="Account.fax" class="one-cont">
+                            <p class="head-cont">FAX:</p>
+                            <span>{{Account.fax}}</span>
+                        </div>
 
                           <!--ну и другая контактная инфа-->
 
                           <div class="hours-time-wr">
-                              <div class="hours-hover">
-                                  <span class="o-f-h">Office Hours</span>
-                                  <ul class="hours-drop-show">
-                                      <li>
-                                          <span class="left">Mon</span>
-                                          <span class="right">
-                                                          10pm - 10am
-                                                      </span>
-                                      </li>
-                                      <li>
-                                          <span class="left">Mon</span>
-                                          <span class="right">
-                                                          10pm - 10am
-                                                      </span>
-                                      </li>
-                                      <li>
-                                          <span class="left">Mon</span>
-                                          <span class="right">
-                                                          10pm - 10am
-                                                      </span>
-                                      </li>
-                                      <li>
-                                          <span class="left">Mon</span>
-                                          <span class="right">
-                                                          10pm - 10am
-                                                      </span>
-                                      </li>
-                                      <li>
-                                          <span class="left">Mon</span>
-                                          <span class="right">
-                                                          10pm - 10am
-                                                      </span>
-                                      </li>
-                                      <li>
-                                          <span class="left">Mon</span>
-                                          <span class="right">
-                                                          10pm - 10am
-                                                      </span>
-                                      </li>
-                                  </ul>
-                              </div>
-                          </div>
+                                <div class="hours-hover">
+                                    <span class="o-f-h">Office Hours</span>
+                                    <ul class="hours-drop-show">
+                                        <li *ngFor="let date of Account.office_hours">
+                                            <span class="left">{{date&&date.day?date.day.slice(0,3):''}}</span>
+                                            <span class="right">
+                                                {{date.begin_time|date:'shortTime'}} - {{date.end_time|date:'shortTime'}}
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
                       </div>
                       <div class="column-cont">
-                          <div class="one-cont">
-                              <p class="head-cont">GENERAL INQUIRIES:</p>
-                              <span>info@goldcircle.com</span>
-                          </div>
-                          <div class="one-cont">
-                              <p class="head-cont">BAND BOOKING:</p>
-                              <span>bookings@laroom.com</span>
-                          </div>
-                          <div class="one-cont">
-                              <p class="head-cont">NATIONAL ACTS:</p>
-                              <span>pulsar@laroom.com</span>
-                          </div>
+                          <div *ngFor="let email of Account.emails" class="one-cont">
+                                <p class="head-cont">{{email.name}}:</p>
+                                <span>{{email.email}}</span>
+                            </div>
                           <!--ну и другая контактная инфа-->
 
 
-                          <div class="hours-time-wr hours-time-wr_right">
-                              <div class="hours-hover">
-                                  <span class="o-f-h">Operating Hours</span>
-                                  <ul class="hours-drop-show">
-                                      <li>
-                                          <span class="left">Mon</span>
-                                          <span class="right">
-                                                          10pm - 10am
-                                                      </span>
-                                      </li>
-                                      <li>
-                                          <span class="left">Mon</span>
-                                          <span class="right">
-                                                          10pm - 10am
-                                                      </span>
-                                      </li>
-                                      <li>
-                                          <span class="left">Mon</span>
-                                          <span class="right">
-                                                          10pm - 10am
-                                                      </span>
-                                      </li>
-                                      <li>
-                                          <span class="left">Mon</span>
-                                          <span class="right">
-                                                          10pm - 10am
-                                                      </span>
-                                      </li>
-                                      <li>
-                                          <span class="left">Mon</span>
-                                          <span class="right">
-                                                          10pm - 10am
-                                                      </span>
-                                      </li>
-                                      <li>
-                                          <span class="left">Mon</span>
-                                          <span class="right">
-                                                          10pm - 10am
-                                                      </span>
-                                      </li>
-                                  </ul>
-                              </div>
-                          </div>
+                          <div class="hours-time-wr">
+                                <div class="hours-hover">
+                                    <span class="o-f-h">Operating Hours</span>
+                                    <ul class="hours-drop-show">
+                                        <li *ngFor="let date of Account.operating_hours">
+                                            <span class="left">{{date&&date.day?date.day.slice(0,3):''}}</span>
+                                            <span class="right">
+                                                {{date.begin_time|date:'shortTime'}} - {{date.end_time|date:'shortTime'}}
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
                       </div>
                   </div>
               </div>
@@ -157,10 +87,12 @@
               <div class="side side-info side-map">
                   <h6>Location</h6>
                   <p class="about-text">
-                      6 West 25th Street<br>New York, NY, 10010<br>USA
+                      {{Account.address}}
                   </p>
                   <div class="map" id="map">
-                      карта тут
+                        <agm-map style="height: 100%;" [longitude]="Account.lng" [latitude]="Account.lat"> 
+                                <agm-marker [longitude]="Account.lng" [latitude]="Account.lat"></agm-marker>
+                            </agm-map>
                   </div>
               </div>
           </div>
@@ -180,9 +112,10 @@
               <div class="side side-info-new-venue-prev side-info side-about">
                   <h6>Media</h6>
                   <p class="vr-availeble">
-                      VR Video Equipment
-                      <span>available</span>
-                  </p>
+                        VR Video Equipment
+                        <span *ngIf="!Account.has_vr">not</span>
+                        <span>available</span>
+                    </p>
               </div>
               <div class="side side-info-new-venue-prev side-info side-about"></div>
           </div>
@@ -190,13 +123,13 @@
               <div class="side side-info side-about">
                   <h6>Audio Description</h6>
                   <p class="about-text">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore
+                        {{Account.audio_description}}
                   </p>
               </div>
               <div class="side side-info side-contact">
                   <h6>Lightning Description</h6>
                   <p class="about-text">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore
+                        {{Account.lighting_description}}
                   </p>
               </div>
           </div>
@@ -204,7 +137,7 @@
               <div class="side side-info side-map">
                   <h6>Stage Description</h6>
                   <p class="about-text">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                        {{Account.stage_description}}
                   </p>
               </div>
           </div>
@@ -217,75 +150,15 @@
       <div class="new-photos-wr-scroll-preview">
           <div class="rel-wr-photoos">
               <div class="photos-abs-wrapp">
-                  <div class="one-slide">
-                      <div class="wrapp-card">
-                          <div class="cover-image" style="background-image: url(./../../../assets/img/drake.jpg)"></div>
-                          <div class="descr">
-                              <h6>Night club</h6>
-                              <p class="name">Lorem ipsum dolor sit amet, consectetur adipisicing </p>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="one-slide">
-                      <div class="wrapp-card">
-
-                          <div class="cover-image" style="background-image: url(./../../../assets/img/drake.jpg)"></div>
-                          <div class="descr">
-                              <h6>Night club</h6>
-                              <p class="name">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuminim veniam, quis nostrud</p>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="one-slide">
-                      <div class="wrapp-card">
-
-                          <div class="cover-image" style="background-image: url(./../../../assets/img/drake.jpg)"></div>
-                          <div class="descr">
-                              <h6>Night club</h6>
-                              <p class="name">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuminim veniam, quis nostrud</p>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="one-slide">
-                      <div class="wrapp-card">
-
-                          <div class="cover-image" style="background-image: url(./../../../assets/img/drake.jpg)"></div>
-                          <div class="descr">
-                              <h6>Night club</h6>
-                              <p class="name">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuminim veniam, quis nostrud</p>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="one-slide">
-                      <div class="wrapp-card">
-
-                          <div class="cover-image" style="background-image: url(./../../../assets/img/drake.jpg)"></div>
-                          <div class="descr">
-                              <h6>Night club</h6>
-                              <p class="name">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuminim veniam, quis nostrud</p>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="one-slide">
-                      <div class="wrapp-card">
-
-                          <div class="cover-image" style="background-image: url(./../../../assets/img/drake.jpg)"></div>
-                          <div class="descr">
-                              <h6>Night club</h6>
-                              <p class="name">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuminim veniam, quis nostrud</p>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="one-slide">
-                      <div class="wrapp-card">
-
-                          <div class="cover-image" style="background-image: url(./../../../assets/img/drake.jpg)"></div>
-                          <div class="descr">
-                              <h6>llll Night club</h6>
-                              <p class="name">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuminim veniam, quis nostrud</p>
-                          </div>
-                      </div>
-                  </div>
+                    <div *ngFor="let item of photos; let in = index" class="one-slide">
+                            <div   class="wrapp-card for-gallery-item">
+                            <div class="cover-image" [ngStyle]="{'background-image': 'url(' + item.base64 + ')'}"></div>
+                            <div class="descr">
+                                <h6>{{toBeatyType(item.type)}}</h6>
+                                <p class="name">{{item.description}}</p>
+                            </div>
+                        </div>
+                        </div>
 
 
 

@@ -3,13 +3,13 @@
       <div class="uniq-padd-2">
           <div class="flex--info">
               <div class="profile_about side side-info-new-venue-prev side-info side-about">
-                  <h1>ADele</h1>
+                  <h1>{{Account.display_name}}</h1>
                   <p class="hash"><span>@</span>{{Account.user_name}}</p>
                   <p class="manager">
-                      <span>Full Name:</span> Adele Laurie Blue Adkins<br>
-                      <span>Manager:</span> <a href="#">Jonathan Dickins</a><br>
-                      <span>Email:</span> AdeleLaurie@gmail.com<br>
-                      <span>Phone:</span> +158 58 5 685 855
+                      <span>Stage Name:</span> {{Account.stage_name}}<br>
+                      <span>Manager:</span> <a>{{Account.manager_name}}</a><br>
+                      <span>Email:</span> {{Account.artist_email}}<br>
+                      <span>Phone:</span> {{Account.phone}}
                   </p>
                   <ul class="soc">
                       <li><a href="#"><img src="./../../../../assets/img/admin/contact_vk.svg" alt=""></a></li>
@@ -18,24 +18,24 @@
                       <li><a href="#"><img src="./../../../../assets/img/admin/contact_yt.svg" alt=""></a></li>
                   </ul>
                   <p class="about-text">
-                      Six-time GRAMMY® Award nominee Nnenna Freelon has earned a well-deserved reputation as a compelling and captivating live performer. In 2014, Nnenna starred in the critically acclaimed show “Georgia on My Mind: Celebrating the Music of Ray Charles”.
+                      {{Account.about}}
                   </p>
               </div>
               <div class="side side-info-new-venue-prev side-info side-about">
-                  <div class="one-cover" style="background-image: url(./../../../../assets/img/drake.jpg)"></div>
+                  <div class="one-cover" [ngStyle]="{'background-image': Account.image_base64_not_given?'url('+Account.image_base64_not_given+')':''}"></div>
               </div>
           </div>
       </div>
-      <div class="uniq-padd">
+      <div *ngIf="Genres.length>0" class="uniq-padd">
           <div class="genres-info">
               <h3>Genres</h3>
               <div class="flex-genres">
-                  <span class="one-genre">Jazz</span>
-                  <span class="one-genre">Broadway</span>
+                  <span *ngFor="let g of Genres" class="one-genre">{{g}}</span>
+                  <!-- <span class="one-genre">Broadway</span>
                   <span class="one-genre">Singer/Songwriter</span>
                   <span class="one-genre">Jazz</span>
                   <span class="one-genre">Broadway</span>
-                  <span class="one-genre">Singer/Songwriter</span>
+                  <span class="one-genre">Singer/Songwriter</span> -->
               </div>
           </div>
       </div>
@@ -46,182 +46,124 @@
       </div>
       <div class="calendar-add-artist">
           <div class="one-calendar-block">
-              Сюда надо ангуларный календарь какой нибудь
+            <app-tiny-calendar #calendar [selectedDates]='DisabledDates' [eventDates]="EventDates" ></app-tiny-calendar>
           </div>
       </div>
       <div class="uniq-padd-2">
-          <div class="genres-info">
+          <div *ngIf="Account.audio_links.length>0" class="genres-info">
               <h3>SONGS</h3>
           </div>
-          <div class="styles-audio-list">
-              <div class="audio-wrapper">
-                  <div class="one-audio">
-                      <span class="name-track">Soulcall</span>
-                      <audio src="mp3/lalala.mp3" preload="auto">
-                      </audio></div>
+          <div *ngIf="Account.audio_links.length>0" class="styles-audio-list">
+            <div *ngFor="let item of Account.audio_links| slice:0:countAudio; let i = index" class="audio-wrapper">
+                <!-- <div class="one-audio">
+                    <span class="name-track">{{audio.song_name}}</span>
+                    <audio [src]="audio.audio_link" preload="auto"></audio> 
+                </div> -->
+                <div  class="one-audio">
+      
+                  <div class="delete-track"></div>
+                  <span class="name-track">{{item.song_name}}</span>
+                  <div class="audiojs">
+                      <div class="play-pause">
+                          <p *ngIf="audioId != i+1" (click)="audioId = i+1; playAudio(item.audio_link)" id="track-{{i}}" class="play"></p>
+                          <p *ngIf="audioId == i+1" (click)="audioId = 0; stopAudio()" class="pause"></p>
+                          <!-- <p class="loading"></p>
+                          <p class="error"></p> -->
+                      </div>
+                      <div class="scrubber" >
+                          <div class="progress"></div>
+                          <div class="loaded"></div>
+                      </div>
+                      <div class="time">
+                          <em class="played">00:00</em>
+                          <!-- <strong class="duration">{{audioId == i+1 && audioDuration>0 ?audioDuration/100:''}}</strong> -->
+                      </div>
+                  </div> 
               </div>
-              <div class="audio-wrapper">
-                  <div class="one-audio">
-                      <span class="name-track">Soulcallqweqwe qwe qwe qwe qwe qwe qwe qwe qwe qwe qwe qwe </span>
-                      <audio src="mp3/lala2.mp3" preload="auto">
-                      </audio></div>
-              </div>
-              <div class="audio-wrapper">
-                  <div class="one-audio">
-                      <span class="name-track">Soulcall</span>
-                      <audio src="mp3/lalala.mp3" preload="auto">
-                      </audio></div>
-              </div>
-              <div class="audio-wrapper">
-                  <div class="one-audio">
-                      <span class="name-track">Soulcall</span>
-                      <audio src="mp3/lalala.mp3" preload="auto">
-                      </audio></div>
-              </div>
-              <div class="audio-wrapper">
-                  <div class="one-audio">
-                      <span class="name-track">Soulcallqweqwe qwe qwe qwe qwe qwe qwe qwe qwe qwe qwe qwe </span>
-                      <audio src="mp3/lala2.mp3" preload="auto">
-                      </audio></div>
-              </div>
-              <div class="audio-wrapper">
-                  <div class="one-audio">
-                      <span class="name-track">Soulcall</span>
-                      <audio src="mp3/lalala.mp3" preload="auto">
-                      </audio></div>
-              </div>
+                 
+            </div>
 
-              <button class="see-all">SEE ALL</button>
+              <button *ngIf="countAudio<Account.audio_links.length" class="see-all">SEE ALL</button>
           </div>
+          <div *ngIf="photos.length>0"  class="genres-info">
+              <h3>Images ({{photos?photos.length:'-'}})</h3>
+          </div>
+      </div>
+      <div *ngIf="photos.length>0" class="new-photos-wr-scroll-preview">
+        <div class="rel-wr-photoos">
+            <div class="photos-abs-wrapp">
+                <div *ngFor="let item of photos; let in = index" class="one-slide">
+                    <div (click)='Gallery(in)' [attr.data-eteration]="in" [attr.data-size]="item.size?(item.size.width+'x'+item.size.height):'500x500'" [attr.data-hreff]="item.base64"  class="wrapp-card for-gallery-item">
+                        <div class="cover-image" [ngStyle]="{'background-image': 'url(' + item.base64 + ')'}"></div>
+                        <div class="descr m-h-artist-prev">
+                            <!-- <p class="name">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuminim veniam, quis nostrud</p> -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+      <div *ngIf="Account.videos.length>0" class="uniq-padd-2">
           <div class="genres-info">
-              <h3>Images (20)</h3>
+              <h3>Videos ({{Account.videos?Account.videos.length:'-'}})</h3>
           </div>
       </div>
-      <div class="new-photos-wr-scroll-preview">
-          <div class="rel-wr-photoos">
-              <div class="photos-abs-wrapp">
-                  <div class="one-slide">
-                      <div class="wrapp-card">
-                          <div class="cover-image" style="background-image: url(./../../../assets/img/drake.jpg)"></div>
-                          <div class="descr m-h-artist-prev">
-                              <p class="name">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuminim veniam, quis nostrud</p>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="one-slide">
-                      <div class="wrapp-card">
-                          <div class="cover-image" style="background-image: url(./../../../assets/img/drake.jpg)"></div>
-                          <div class="descr m-h-artist-prev">
-                              <p class="name">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuminim veniam, quis nostrud</p>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="one-slide">
-                      <div class="wrapp-card">
-                          <div class="cover-image" style="background-image: url(./../../../assets/img/drake.jpg)"></div>
-                          <div class="descr m-h-artist-prev">
-                              <p class="name">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuminim veniam, quis nostrud</p>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="one-slide">
-                      <div class="wrapp-card">
-                          <div class="cover-image" style="background-image: url(./../../../assets/img/drake.jpg)"></div>
-                          <div class="descr m-h-artist-prev">
-                              <p class="name">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididuminim veniam, quis nostrud</p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="uniq-padd-2">
-          <div class="genres-info">
-              <h3>Videos (6)</h3>
-          </div>
-      </div>
-      <div class="new-photos-wr-scroll-preview ">
-          <div class="rel-wr-photoos alboms-play min-h-fix-videos">
-              <div class="photos-abs-wrapp video-abs-wrapp">
-                  <div class="one-slide">
-                      <div class="wrapp-card">
-                          <div class="cover-image" style="background-image: url(./../../../assets/img/drake.jpg)">
-                              <div class="butt-play-video">
-                                  <div class="pl"></div>
-                              </div>
-                          </div>
-                          <div class="descr min-heightvideo">
-                              <p class="name">Maiden Voyage</p>
-                              <p class="date">2015</p>
-
-                          </div>
-                      </div>
-                  </div>
-                  <div class="one-slide">
-                      <div class="wrapp-card">
-                          <div class="cover-image" style="background-image: url(./../../../assets/img/drake.jpg)">
-                              <div class="butt-play-video">
-                                  <div class="pl"></div>
-                              </div>
-                          </div>
-                          <div class="descr min-heightvideo">
-                              <p class="name">Maiden Voyage</p>
-                              <p class="date">2015</p>
-
-                          </div>
-                      </div>
-                  </div>
-                  <div class="one-slide">
-                      <div class="wrapp-card">
-                          <div class="cover-image" style="background-image: url(./../../../assets/img/drake.jpg)">
-                              <div class="butt-play-video">
-                                  <div class="pl"></div>
-                              </div>
-                          </div>
-                          <div class="descr min-heightvideo">
-                              <p class="name">Maiden Voyage</p>
-                              <p class="date">2015</p>
-
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
+      <div *ngIf="Account.videos.length>0" class="new-photos-wr-scroll-preview ">
+        <div class="rel-wr-photoos alboms-play min-h-fix-videos">
+            <div class="photos-abs-wrapp video-abs-wrapp">
+                <div *ngFor="let item of Account.videos; let i = index" class="one-slide">
+                    <div class="wrapp-card">
+                        
+                        <div (click)="openVideo(item)" class="cover-image" [ngStyle]="{'background-image': 'url('+item.preview+')'}">
+                            <div class="butt-play-video">
+                                <div class="pl"></div>
+                            </div>
+                        </div>
+                        <div class="descr playing">
+                            <p class="name">{{item.name}}</p>
+                            <p class="date">{{item.album_name}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
       <div class="uniq-padd-2">
           <div class="genres-info">
               <h3>Booking</h3>
           </div>
-          <div class="booking">
+          <div *ngIf="Account" class="booking">
               <div class="flex--info none-padd-sides-t">
                   <div class="side side-info side-about">
                       <h6>Performance</h6>
-                      <p class="about-text flexed">
+                      <p *ngIf="Account.performance_min_time" class="about-text flexed">
                           <span>Time:</span>
-                          <span>1h - 3h</span>
+                          <span>{{Account.performance_min_time}}h - {{Account.performance_max_time}}h</span>
                       </p>
-                      <p class="about-text flexed">
+                      <p *ngIf="Account.price_from" class="about-text flexed">
                           <span>Performance Price:</span>
-                          <span>$800/h - $1200/h</span>
+                          <span>${{Account.price_from}}/h - ${{Account.price_to}}/h</span>
                       </p>
-                      <p class="about-text flexed">
+                      <p *ngIf="Account.additional_hours_price" class="about-text flexed">
                           <span>Performance Price for additional Hours:</span>
-                          <span>$1500/h</span>
+                          <span>${{Account.additional_hours_price}}/h</span>
                       </p>
                   </div>
                   <div class="side side-info side-contact">
                       <h6>Band</h6>
                       <p class="about-text margened">
-                          Does not perform with a Band
+                        Does {{Account.is_perform_with_band?'':'not'}} perform with a Band
                       </p>
                       <p class="about-text margened">
-                          Can perform without a Band
+                        Can{{Account.can_perform_without_band?'':'not'}} perform without a Band
                       </p>
                       <p class="about-text margened">
-                          Does perform with Backing Vocals
+                        Does {{Account.is_perform_with_backing_vocals?'':'not'}} perform with Backing Vocals
                       </p>
                       <p class="about-text margened">
-                          Can perform without Backing Vocals
+                        Can{{Account.can_perform_without_backing_vocals?'':'not'}} perform without Backing Vocals
                       </p>
 
                   </div>
@@ -229,125 +171,133 @@
               <div class="flex--info none-padd-sides-t">
                   <div class="side side-info side-map">
                       <h6>Preferred Venues</h6>
-                      <p class="about-text margened">
-                          Night Club, Restaurant
+                      <p *ngIf="Account&&Account.preferred_venues" class="about-text margened">
+                        <span *ngFor="let ven of Account.preferred_venues; let last = last">
+                            {{
+                                ven.type_of_venue === 'other'?
+                                    Account.preferred_venue_text : 
+                                    ven.type_of_venue.replace('_',' ')
+                                | titlecase 
+                            }}
+                            {{last?'':','}}
+                        </span>
                       </p>
                   </div>
                   <div class="side side-info side-about">
                       <h6>Preferred Location</h6>
-                      <div class="location-wr margened">
+                      <div *ngIf="Account.preferred_address" class="location-wr margened">
                           <div class="mark"></div>
                           <p class="location-inp ">
-                              New York City, NY, USA
+                            {{Account.preferred_address}}
                           </p>
                       </div>
-                      <p class="about-text line-height-hig">
-                          <span>30 days </span>  Notice needed to travel
+                      <p *ngIf="Account.days_to_travel" class="about-text line-height-hig">
+                          <span>{{Account.days_to_travel}} days </span>  Notice needed to travel
                       </p>
                   </div>
               </div>
               <div class="flex--info none-padd-sides-t">
                   <div class="side side-info side-contact">
                       <h6>Video Streaming Preference</h6>
-                      <p class="about-text margened">
+                      <p *ngIf="Account&&Account.is_permitted_to_stream" class="about-text margened">
                           Gives permission to the Venue/Event Organizer to stream performance.
                       </p>
-                      <p class="about-text margened">
+                      <p *ngIf="Account&&Account.is_permitted_to_advertisement" class="about-text margened">
                           Gives permission to the Venue/Event Organizer to have advertisements over streaming performance.
                       </p>
-                      <p class="about-text margened">
+                      <p *ngIf="Account&&!Account.has_conflict_contracts" class="about-text margened">
                           Does not have contracts with any Brands that may conflict with advertisements.
                       </p>
 
                   </div>
                   <div class="side side-info side-map">
                       <h6>Other</h6>
-                      <p class="about-text margened">
-                          <span>30 days</span> needed to book before concert.
+                      <p *ngIf="Account.min_time_to_book" class="about-text margened">
+                          <span>{{Account.min_time_to_book}} days</span> needed to book before concert.
+                      </p>
+                      <p *ngIf="Account.min_time_to_free_cancel" class="about-text margened">
+                          <span>{{Account.min_time_to_free_cancel}} days</span> to cancel before charged a cancellation fee.
+                      </p>
+                      <p *ngIf="Account.late_cancellation_fee" class="about-text margened">
+                          Fee for last minute Cancellation: <span>${{Account.late_cancellation_fee}}</span>
                       </p>
                       <p class="about-text margened">
-                          <span>30 days</span> to cancel before charged a cancellation fee.
-                      </p>
-                      <p class="about-text margened">
-                          Fee for last minute Cancellation: <span>$200</span>
-                      </p>
-                      <p class="about-text margened">
-                          <strong>No Refunds</strong>
+                          <strong>{{Account&&Account.refund_policy?Account.refund_policy:'No Refunds'}}</strong>
                       </p>
                   </div>
               </div>
           </div>
       </div>
-      <div class="uniq-padd-2">
+      <br>
+      <div *ngIf="Account.artist_riders.length>0" class="uniq-padd-2">
           <div class="genres-info">
               <h3>Riders</h3>
           </div>
           <div class="riders-flex-wrapp preview-page">
-              <div class="side">
-                  <p class="head-side-riders">Stage Rider</p>
-                  <div class="download-upload">
-                      <div class="side-dwn">
-                          <a class="dd-ff" href="#">
-                              <img src="./../../../assets/img/download.png" class="img-responsive" alt="">
-                          </a>
-                          <p class="desc-side-dwn">название123123123wafgsfdgbslfgblsbdflgbslfgbaslfgblsdbglsbdflgbsldbfglsdфайла</p>
-                      </div>
-                  </div>
-                  <!--видимый рейден-->
-                  <p class="desc-rider">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse </p>
-                  <p class="desc-rider">
-                      <strong>flexible preferences</strong>
-                  </p>
-              </div>
-              <div class="side">
-                  <p class="head-side-riders">Backstage Rider</p>
-                  <div class="download-upload">
-                      <div class="side-dwn">
-                          <a class="dd-ff" href="#">
-                              <img src="./../../../assets/img/download.png" class="img-responsive" alt="">
-                          </a>
-                          <p class="desc-side-dwn">название123123123wafgsfdgbslfgblsbdflgbslfgbaslfgblsdbglsbdflgbsldbfglsdфайла</p>
-                      </div>
-                  </div>
-                  <!--видимый рейден-->
-                  <p class="desc-rider">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse </p>
-                  <p class="desc-rider">
-                      <strong>flexible preferences</strong>
-                  </p>
-              </div>
-              <div class="side">
-                  <p class="head-side-riders">Hospitality Rider</p>
-                  <div class="download-upload">
-                      <!--до загрузки файла-->
-                      <div class="side-dwn">
-                          <a class="dd-ff" href="#">
-                              <img src="./../../../../assets/img/download.png" class="img-responsive" alt="">
-                          </a>
-                          <p class="desc-side-dwn">название файла</p>
-                      </div>
-                  </div>
-                  <p class="desc-rider">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse </p>
-                  <p class="desc-rider">
-                      <strong>flexible preferences</strong>
-                  </p>
-              </div>
-              <div class="side">
-                  <p class="head-side-riders">Techbical Rider</p>
-                  <div class="download-upload">
-                      <div class="side-dwn">
-                          <a class="dd-ff" href="#">
-                              <img src="./../../../../assets/img/download.png" class="img-responsive" alt="">
-                          </a>
-                          <p class="desc-side-dwn">название123123123wafgsfdgbslfgblsbdflgbslfgbaslfgblsdbglsbdflgbsldbfglsdфайла</p>
-                      </div>
-                  </div>
-                  <!--видимый рейден-->
-                  <p class="desc-rider">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse </p>
-                  <p class="desc-rider">
-                      <strong>flexible preferences</strong>
-                  </p>
-              </div>
+            <div *ngFor="let rider of Account.artist_riders" class="side">
+                <p class="head-side-riders">{{rider.rider_type|titlecase}} Rider</p>
+                <div class="download-upload">
+                    <div class="side-dwn">
+                        <a class="dd-ff" (click)="downloadRider(rider)">
+                            <img src="./../../../assets/img/download.png" class="img-responsive" alt="">
+                        </a>
+                        <p class="desc-side-dwn">Download Rider</p>
+                    </div>
+                </div>
+                <!--видимый рейден-->
+                <p class="desc-rider">{{rider.description}}</p>
+                <p *ngIf="rider.is_flexible" class="desc-rider">
+                    <strong>flexible preferences</strong>
+                </p>
+            </div>
           </div>
       </div>
   </div>
 </section>
+
+
+<div class="modal fade modal-movie" id="modal-movie">
+    <div class="modal-dialog">
+        <div class="modal-contant">
+            <div class="modal-body">
+                <iframe *ngIf="isVideoOpen" id="video-frame" width="560" height="315" [src]="openVideoLink" frameborder="0" allow="autoplay; encrypted-media" ></iframe>
+            </div>
+        </div>
+    </div>
+</div> 
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="pswp__bg"></div>
+    <div class="pswp__scroll-wrap">
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>

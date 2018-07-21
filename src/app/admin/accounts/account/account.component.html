@@ -14,14 +14,14 @@
             <button (click)="denyAcc()"><img src="./../../../../assets/img/admin/deny.svg" alt="" class="img-responsive"></button>
             <span>Deny</span>
         </div>
-        <div class="butt approve">
+        <div *ngIf="Account.status === 'pending'" class="butt approve">
             <button (click)="approveAcc()"><img src="./../../../../assets/img/admin/approve.svg" alt="" class="img-responsive"></button>
             <span>Approve</span>
         </div>
     </div>
     <div class="contacts">
-        <span>Contact Name:</span> <a href="#">Kirill Kalino</a><br>
-        <span>Phone:</span> +375 56 788 99 88
+        <span>Contact Name:</span> <a href="#">{{Account.manager_name}}</a><br>
+        <span>Phone:</span> {{Account.phone}}
     </div>
 </h2>
 

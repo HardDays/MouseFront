@@ -26,7 +26,7 @@
   </div>
 </section>
 <section>
-  <div class="admin_table accounts_table" [ngClass]="{'accounts_table_with_by':isApprovedBy||Events}">
+  <div class="admin_table" [ngClass]="{'accounts_table':Accounts, 'accounts_table_with_by':isApprovedBy, 'events_table':Events, 'events_table_with_by':isApprovedBy }">
       <div  *ngIf="Accounts" class="admin_table_thead">
           <div class="admin_table_th check_column"><img src="./../../../assets/img/admin/table_check_th.svg" alt=""></div>
           <div class="admin_table_th">Date received</div>
@@ -57,13 +57,14 @@
                 </div>
                 <div class="admin_table_td"><span>12.10.2018</span></div>
                 <div (click)="openAccount(acc.id)" class="admin_table_td account">
-                    <span class="acc_ava" style="background-image: url(./../../../assets/img/admin/example_revenue_event.jpg)"></span>
+                        <!-- style="background-image: url(./../../../assets/img/admin/example_revenue_event.jpg); min-width: 37px;" -->
+                    <span class="acc_ava" style="min-width: 37px;" [ngStyle]="getImage(acc.image_id)"></span>
                     <span>{{acc.display_name}}</span>
                 </div>
                 <div class="admin_table_td"><span>{{acc.account_type|titlecase}}</span></div>
                 <div class="admin_table_td"><span>{{acc.address}}</span></div>
                 <div class="admin_table_td text-uppercase"><span [ngClass]="{'status_pending':acc.status=='pending','status_approved':acc.status=='approved','status_new':acc.status=='new','status_denied':acc.status=='denied','status_inactive':acc.status=='inactive'}">{{acc.status|titlecase}}</span></div>
-                <div *ngIf='isApprovedBy' class="admin_table_td"><span>Sonova<br>Middleton</span></div>
+                <div *ngIf='isApprovedBy' class="admin_table_td"><span>{{acc.processed_by}}</span></div>
             </div>
           </ng-container>
           <!-- При выделении чекбокса добавляется класс CHECKED: -->
@@ -155,7 +156,7 @@
                   <div class="admin_table_td"><span>{{event.address}}</span></div>
                   <div class="admin_table_td"><span>{{event.is_crowdfunding_event?'Crowdfund':'Regular'}}</span></div>
                   <div class="admin_table_td text-uppercase"><span class="status_pending">{{event.status.replace('_',' ')}}</span></div>
-                  <div *ngIf='isApprovedBy' class="admin_table_td"><span>Sonova<br>Middleton</span></div>
+                  <div *ngIf='isApprovedBy' class="admin_table_td"><span>{{event.processed_by}}</span></div>
               </div>
             </ng-container>
             <!-- При выделении чекбокса добавляется класс CHECKED: -->

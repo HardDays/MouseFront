@@ -18,17 +18,24 @@ export class AccountComponent extends BaseComponent implements OnInit {
     this.activatedRoute.params.subscribe(
       (params:Params) => {
         this.accId = params['id']; // console.log(params["id"]);
-        this.main.adminService.GetAccountById(this.accId)
-          .subscribe(
-            (res)=>{
-              this.Account = res;
-              this.accType = this.Account.account_type;
-              console.log(`Acc`,this.Account);
-            }
-          )
+        this.getThisAcc();
         
       }
     );
+  }
+
+  getThisAcc(){
+    this.main.adminService.GetAccountById(this.accId)
+    .subscribe(
+      (res)=>{
+        this.Account = res;
+        this.accType = this.Account.account_type;
+        console.log(`Acc`,this.Account);
+      },
+      (err)=>{
+        console.log(`err`,err)
+      }
+    )
   }
 
   removeAcc(){
@@ -37,6 +44,7 @@ export class AccountComponent extends BaseComponent implements OnInit {
       .subscribe(
         (res)=>{
           console.log(`res`,res);
+          this.router.navigate(['/admin','dashboard']);
         },
         (err)=>{
           console.log(`err`,err)
@@ -50,6 +58,7 @@ export class AccountComponent extends BaseComponent implements OnInit {
       .subscribe(
         (res)=>{
           console.log(`res`,res);
+          this.getThisAcc();
         },
         (err)=>{
           console.log(`err`,err)
@@ -63,6 +72,7 @@ export class AccountComponent extends BaseComponent implements OnInit {
       .subscribe(
         (res)=>{
           console.log(`res`,res);
+          this.getThisAcc();
         },
         (err)=>{
           console.log(`err`,err)

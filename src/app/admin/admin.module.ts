@@ -30,6 +30,8 @@ import { AnalyticsEventComponent } from './events/analytics-event/analytics-even
 import { EventComponent } from './events/event/event.component';
 import { ArtistComponent } from './accounts/account/artist/artist.component';
 import { VenueComponent } from './accounts/account/venue/venue.component';
+import { TinyCalendarComponent } from './accounts/account/artist/tiny-calendar/tiny-calendar.component';
+import { SlideshowModule } from '../../../node_modules/ng-simple-slideshow';
 
 
 
@@ -46,7 +48,8 @@ import { VenueComponent } from './accounts/account/venue/venue.component';
             libraries: ["places"]
           }),
         ErrorModule,
-        PreloaderModule
+        PreloaderModule,
+        SlideshowModule
     ],
     declarations: [
         AdminComponent,
@@ -68,7 +71,8 @@ import { VenueComponent } from './accounts/account/venue/venue.component';
         AnalyticsEventComponent,
         EventComponent,
         ArtistComponent,
-        VenueComponent
+        VenueComponent,
+        TinyCalendarComponent
         
     ],
     providers: [AdminAccessGuard]
