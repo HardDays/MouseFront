@@ -17,42 +17,45 @@ export class TimeInput implements OnChanges{
     @Output() onTimeChange: EventEmitter<String> = new EventEmitter();
 
 
-    Hours:string[] = [];
-    Minutes: string[] = [];
+    // Hours:string[] = [];
+    // Minutes: string[] = [];
 
     Vars: string[] = [
         'AM', 'PM'
     ];
 
 
-    CurHour:string = '00';
-    CurMinutes: string = '00';
+    // CurHour:string = '00';
+    // CurMinutes: string = '00';
     CurVar:string = 'AM';
+
+    CurTime: string = '';
 
     constructor()
     {
-        this.CurHour = '00';
-        this.CurMinutes = '00';
-        this.CurVar = 'AM';
-        this.Hours = [];
-        this.Minutes = []
+        // this.CurHour = '00';
+        // this.CurMinutes = '00';
+        this.CurVar = this.Vars[0];
+        // this.Hours = [];
+        // this.Minutes = []
+        this.CurTime = '';
         
-        for(let i = 0; i< 12; i++)
-        {
-            let hour = i.toString();
-            if(i < 10)
-            {
-                hour = '0' + hour;
-            }
-            this.Hours.push(hour);
+        // for(let i = 0; i< 12; i++)
+        // {
+        //     let hour = i.toString();
+        //     if(i < 10)
+        //     {
+        //         hour = '0' + hour;
+        //     }
+        //     this.Hours.push(hour);
 
-            let minute = (i*5).toString();
-            if(i < 2)
-            {
-                minute = '0' + minute;
-            }
-            this.Minutes.push(minute);
-        }
+        //     let minute = (i*5).toString();
+        //     if(i < 2)
+        //     {
+        //         minute = '0' + minute;
+        //     }
+        //     this.Minutes.push(minute);
+        // }
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -63,37 +66,52 @@ export class TimeInput implements OnChanges{
 
             let parts = time.split(':');
 
-            this.CurMinutes = parts[1];
-            if(this.CurMinutes.length < 2)
-                this.CurMinutes = '0' + this.CurMinutes;
-
             let hours = +parts[0];
             this.CurVar = hours < 12 ? 'AM' : 'PM';
-
-            this.CurHour = '' + (hours < 12 ? hours : (hours - 12));
-            if(this.CurHour.length < 2)
+            let hoursStr:string = '' + (hours < 12 ? hours : (hours - 12));
+            if(hoursStr.length < 2)
             {
-                this.CurHour = '0' + this.CurHour;
+                hoursStr = '0' + hoursStr;
             }
+
+            let minutes = parts[1];
+            if(minutes.length < 2)
+            {
+                minutes = '0' + minutes;
+            }
+
+            this.CurTime = hoursStr + ":" + minutes;
+            // this.CurMinutes = parts[1];
+            // if(this.CurMinutes.length < 2)
+            //     this.CurMinutes = '0' + this.CurMinutes;
+
+            // let hours = +parts[0];
+            // this.CurVar = hours < 12 ? 'AM' : 'PM';
+
+            // this.CurHour = '' + (hours < 12 ? hours : (hours - 12));
+            // if(this.CurHour.length < 2)
+            // {
+            //     this.CurHour = '0' + this.CurHour;
+            // }
 
         }
         
 
     }
 
-    OnHoursChange($event)
-    {
-        this.CurHour = $event;
+    // OnHoursChange($event)
+    // {
+    //     this.CurHour = $event;
 
-        this.EmitCurrTime();
-    }
+    //     this.EmitCurrTime();
+    // }
 
-    OnMinutesChange($event)
-    {
-        this.CurMinutes = $event;
+    // OnMinutesChange($event)
+    // {
+    //     this.CurMinutes = $event;
 
-        this.EmitCurrTime();
-    }
+    //     this.EmitCurrTime();
+    // }
 
     OnVarsChange($event)
     {
@@ -102,15 +120,54 @@ export class TimeInput implements OnChanges{
         this.EmitCurrTime();
     }
 
+    OnTimeChange($event)
+    {
+        this.CurTime = $event;
+
+        this.EmitCurrTime();
+    }
+
     EmitCurrTime()
     {
         let result = '';
         
-        result += this.CurVar == "PM" ? (+this.CurHour + 12): this.CurHour;
+        let parts = this.CurTime.split(":");
 
-        result += ':' + this.CurMinutes;
+        result += this.CurVar == "PM" ? (+parts[0] + 12): parts[0];
+
+        result += ':' + parts[1];
 
         this.onTimeChange.emit(result);
+    }
+
+    MaskTime(str: string)
+    {    
+        
+        let maskArray:any[] = [
+                /[0-1]/, 
+                ( str && str[0] && +str[0] < 1 ) ? /[0-9]/ : /[0-1]/, 
+                ':', 
+                /[0-5]/, 
+                /[0-9]/
+            ];
+        // let decDays = Math.floor(this.DaysInMonth / 10);
+        // let singleDays = this.DaysInMonth % 10;
+        // if(str.length > 0 && str.length < 3)
+        // {
+        //     if(+str[0] < decDays)
+        //     {
+        //         maskArray.push(new RegExp("[0-9]"));
+        //     }
+        //     else if(+str[0] == decDays)
+        //     {
+        //         maskArray.push(new RegExp("[0-"+ singleDays+"]"));
+        //     }
+        // }
+        return{
+            mask: maskArray,
+            keepCharPositions: true,
+            guide: false,
+        };
     }
 
 }
