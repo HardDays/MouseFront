@@ -158,6 +158,10 @@ export class AdminComponent extends BaseComponent implements OnInit {
             this.currentPage = Parts.event;
           break;
 
+          case 'revenue':
+            this.currentPage = Parts.revenue_info;
+          break;
+
           
       }
     }

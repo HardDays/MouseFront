@@ -73,7 +73,15 @@
             </div>
             <div class="events_status_diagramm revenue_diagram_wrap">
                 <div class="diagramm">
-
+                        <canvas baseChart width="400" height="300"
+                        [datasets]="lineChartData"
+                        [labels]="lineChartLabels"
+                        [options]="lineChartOptions"
+                        [colors]="lineChartColors"
+                        [legend]="false"
+                        [chartType]="lineChartType"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)"></canvas>
                 </div>
                 <div class="diagramm_tabs">
                     <span class="zag_tab">Day</span>
@@ -268,7 +276,15 @@
             </div>
             <div class="events_status_diagramm revenue_diagram_wrap">
                 <div class="diagramm">
-
+                        <canvas baseChart width="400" height="300"
+                        [datasets]="lineChartData"
+                        [labels]="lineChartLabels"
+                        [options]="lineChartOptions"
+                        [colors]="lineChartColors"
+                        [legend]="false"
+                        [chartType]="lineChartType"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)"></canvas>
                 </div>
                 <div class="diagramm_tabs">
                     <span class="zag_tab">Day</span>

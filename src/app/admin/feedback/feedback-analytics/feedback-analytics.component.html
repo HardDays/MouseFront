@@ -37,11 +37,22 @@
             <span class="zag_tab">Year</span>
             <span class="zag_tab">All time</span>
         </h2>
-        <div class="diagramm_block"></div>
+        <div class="diagramm_block">
+                <canvas baseChart width="400" height="300"
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="false"
+                [chartType]="lineChartType"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+        </div>
         <div class="acc_analytics_diag_desc">
             <span class="rose">Bugs</span>
             <span class="violet">Enchancements</span>
             <span class="crossed">Compliments</span>
         </div>
     </section>
+    <br><br>
 <!-- </div> -->

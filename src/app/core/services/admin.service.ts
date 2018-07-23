@@ -275,8 +275,23 @@ export class AdminService{
     }
 
 
+    //////////////////////////////////////
+    //////         QUESTIONS        //////   
+    //////////////////////////////////////
 
 
+    GetRevenues()
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/admin/revenue.json', '')
+        );
+    }
+    GetRevenueById(id:number)
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/admin/revenue/'+id+'.json', '')
+        );
+    }
 
 
 

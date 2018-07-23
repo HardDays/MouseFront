@@ -4,10 +4,10 @@
             <h2 class="admin_table_zag">Active answers</h2>
             <div class="support_answers">
                 <div class="search">
-                    <input type="text" placeholder="Search">
+                    <input type="text" (input)="searchTemplate($event)" placeholder="Search">
                 </div>
 
-                <div *ngFor="let temp of Templates" class="answer_item">
+                <div *ngFor="let temp of checkedTemplates" class="answer_item">
                     <div class="answer_head">
                         <p>{{temp.subject}}</p>
                         <span (click)="OpenTemplate(temp)"><img src="./../../../../assets/img/admin/answer_edit.png" alt=""></span>

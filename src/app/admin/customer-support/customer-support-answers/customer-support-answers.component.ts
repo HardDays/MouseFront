@@ -11,6 +11,7 @@ declare var $:any;
 export class CustomerSupportAnswersComponent extends BaseComponent implements OnInit {
 
   Templates: {id:number,subject:string,message:string,status:string}[] = [];
+  checkedTemplates: {id:number,subject:string,message:string,status:string}[] = [];
   openTemplate = {id:0,subject:'',message:'',status:''};
   isSuperUser:boolean = false;
   isEdit = false;
@@ -46,8 +47,25 @@ export class CustomerSupportAnswersComponent extends BaseComponent implements On
     .subscribe(
       (res)=>{
         this.Templates = res;
+        this.checkedTemplates = this.Templates;
       }
     )
+  }
+
+  searchTemplate(event){
+    let searchParam = event.target.value;
+    if(searchParam){
+      this.checkedTemplates = this.Templates.filter(obj => obj.subject.indexOf(searchParam)>=0||obj.message.indexOf(searchParam)>=0);
+    }
+    else
+    {
+      this.checkedTemplates = this.Templates;
+    }
+    setTimeout(() => {
+      this.initJs();
+    }, 500);
+      
+        
   }
 
   OpenTemplate(temp){
@@ -77,7 +95,9 @@ export class CustomerSupportAnswersComponent extends BaseComponent implements On
     this.main.adminService.PatchReplyTemplate(this.openTemplate.id,this.openTemplate.subject,this.openTemplate.message)
       .subscribe(
         (res)=>{
+          this.isEdit = false;
           this.GetTemplates();
+         
         }
       )
   }
