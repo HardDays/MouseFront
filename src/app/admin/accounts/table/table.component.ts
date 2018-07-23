@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { BaseComponent } from '../../../core/base/base.component';
 import { AccountGetModel } from '../../../core/models/accountGet.model';
 import { BaseImages } from '../../../core/base/base.enum';
@@ -15,7 +15,33 @@ export class TableComponent extends BaseComponent implements OnInit {
   @Input() Accounts:AccountGetModel[];
   @Input() Events:any[];
 
+  AccountsChecked:AccountGetModel[] = [];
+  EventsChecked:any[] = [];
+
   openIds:number[] = [];
+
+  TypesArtist = {
+    fan: false,
+    venue: false,
+    artist: false,
+    all: true
+  }
+
+  TypesEvent = {
+    crowdfund: false,
+    regular: false,
+    all: true
+  }
+
+ ngOnChanges(changes: SimpleChanges): void {
+    if(changes.Accounts){
+        this.AccountsChecked = this.Accounts = changes.Accounts.currentValue;   
+    }
+    if(changes.Events){
+      this.EventsChecked = this.Events = changes.Events.currentValue;   
+    }
+
+  }
 
   ngOnInit() {
     // console.log(this.Accounts)
@@ -81,7 +107,6 @@ export class TableComponent extends BaseComponent implements OnInit {
     }
   }
 
-
   getImage(id:number){
     let img = '';
     if(id){
@@ -95,4 +120,70 @@ export class TableComponent extends BaseComponent implements OnInit {
     return  {'background-image': 'url('+img+')'};
   }
   // {'background-image': Account.acc.image_id?'url('+Account.image_base64_not_given+')':''}
+
+  filterByName(event){
+    let searchParam = event.target.value;
+        if(searchParam){
+
+          this.TypesArtist = {artist:false,venue:false,fan:false,all:true};
+          this.TypesEvent = {crowdfund:false, regular:false, all:true};
+
+          if(this.Accounts){
+            this.AccountsChecked = this.Accounts.filter(obj => obj.display_name && obj.display_name.indexOf(searchParam)>=0);
+          }
+          if(this.Events){
+            this.EventsChecked = this.Events.filter(obj => obj.name && obj.name.indexOf(searchParam)>=0);
+          }
+        }
+        else{
+          if(this.Accounts){
+            this.AccountsChecked = this.Accounts;
+          }
+          if(this.Events){
+            this.EventsChecked = this.Events;
+          }
+        }      
+  }
+
+  filterByType(){
+    if(this.Accounts){
+      
+      if(!this.TypesArtist.artist&&!this.TypesArtist.fan&&!this.TypesArtist.venue)
+        this.TypesArtist.all = true;
+  
+      if(this.TypesArtist.all){
+        this.AccountsChecked = this.Accounts;
+      }
+      else
+      {
+        this.TypesArtist.all = false;
+        this.AccountsChecked = this.Accounts.filter(
+            obj => obj.account_type && ( 
+              this.TypesArtist.fan && obj.account_type === 'fan' ||
+              this.TypesArtist.venue && obj.account_type === 'venue' ||
+              this.TypesArtist.artist && obj.account_type === 'artist'
+            )
+        );
+      }
+    }
+    if(this.Events){
+      if(!this.TypesEvent.crowdfund&&!this.TypesEvent.regular)
+      this.TypesEvent.all = true;
+
+      if(this.TypesEvent.all){
+        this.EventsChecked = this.Events;
+      }
+      else
+      {
+        this.TypesEvent.all = false;
+        this.EventsChecked = this.Events.filter(
+            obj => 
+              this.TypesEvent.crowdfund && obj.is_crowdfunding_event ||
+              this.TypesEvent.regular && !obj.is_crowdfunding_event
+        );
+      }
+    }
+    
+  }
+
 }

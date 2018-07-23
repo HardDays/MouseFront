@@ -10,7 +10,7 @@ import { AccountGetModel } from '../../../core/models/accountGet.model';
 import { Base64ImageModel } from '../../../core/models/base64image.model';
 import { MainService } from '../../../core/services/main.service';
 import { BaseImages } from '../../../core/base/base.enum';
-import { NgForm } from '../../../../../node_modules/@angular/forms';
+import { NgForm } from '@angular/forms';
 
 
 interface EventMouseInfo {

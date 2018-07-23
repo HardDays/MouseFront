@@ -35,6 +35,10 @@ export class AdminComponent extends BaseComponent implements OnInit {
           .subscribe(
             (res)=>{
               this.User = res;
+
+              if(this.User.image_id)
+                this.User.image_base64 = this.main.imagesService.GetImagePreview(this.User.image_id,{width:100,height:100});
+
               this.User.is_admin = this.main.MyUser.is_admin;
               this.User.is_superuser = this.main.MyUser.is_superuser;
             }
@@ -46,6 +50,10 @@ export class AdminComponent extends BaseComponent implements OnInit {
           .subscribe(
             (res)=>{
               this.User = res;
+              
+              if(this.User.image_id)
+                this.User.image_base64 = this.main.imagesService.GetImagePreview(this.User.image_id,{width:100,height:100});
+
               this.User.is_admin = this.main.MyUser.is_admin;
               this.User.is_superuser = this.main.MyUser.is_superuser;
             }
@@ -115,6 +123,8 @@ export class AdminComponent extends BaseComponent implements OnInit {
               break;
             case 'analytics': this.currentPage = Parts.accounts_analytics;
               break;
+            case 'funding': this.currentPage = Parts.accounts_funding;
+              break;
           }
           break;
 
@@ -136,6 +146,7 @@ export class AdminComponent extends BaseComponent implements OnInit {
               break;
             case 'analytics': this.currentPage = Parts.events_analytics;
               break;
+           
           }
           break;
 
@@ -146,6 +157,12 @@ export class AdminComponent extends BaseComponent implements OnInit {
           case 'event':
             this.currentPage = Parts.event;
           break;
+
+          case 'revenue':
+            this.currentPage = Parts.revenue_info;
+          break;
+
+          
       }
     }
 
@@ -181,25 +198,26 @@ export enum Parts {
   accounts_inactive = 6,
   accounts_invites = 7,
   accounts_analytics = 8,
-  artist = 9,
-  venue = 10,
-  events_all = 11,
-  events_new = 12,
-  events_pending = 13,
-  events_approved = 14,
-  events_denied = 15,
-  events_active = 16,
-  events_inactive = 17,
-  events_analytics = 18,
-  event = 19,
-  feedback = 20,
-  feedback_analytics = 21,
-  support = 22,
-  revenue = 23,
-  revenue_info = 24,
-  revenue_analytics = 25,
-  settings = 26,
-  add_new_admin = 27,
-  customer_support = 28,
-  customer_answers = 29
+  accounts_funding = 9,
+  artist = 10,
+  venue = 11,
+  events_all = 12,
+  events_new = 13,
+  events_pending = 14,
+  events_approved = 15,
+  events_denied = 16,
+  events_active = 17,
+  events_inactive = 18,
+  events_analytics = 19,
+  event = 20,
+  feedback = 21,
+  feedback_analytics = 22,
+  support = 23,
+  revenue = 24,
+  revenue_info = 25,
+  revenue_analytics = 26,
+  settings = 27,
+  add_new_admin = 28,
+  customer_support = 29,
+  customer_answers = 30
 }

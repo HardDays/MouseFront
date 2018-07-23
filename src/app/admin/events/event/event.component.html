@@ -15,7 +15,7 @@
                 <button (click)="denyEvent()"><img src="./../../../../assets/img/admin/deny.svg" alt="" class="img-responsive"></button>
                 <span>Deny</span>
             </div>
-            <div *ngIf="Event.status === 'pending'" class="butt approve">
+            <div *ngIf="Event.status === 'pending'||Event.status === 'new'||Event.status === 'just_added'" class="butt approve">
                 <button (click)="approveEvent()"><img src="./../../../../assets/img/admin/approve.svg" alt="" class="img-responsive"></button>
                 <span>Approve</span>
             </div>

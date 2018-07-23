@@ -61,8 +61,9 @@
                   <a [ngClass]="{'active':currentPage === pages.accounts_approved}" [routerLink]="['accounts','approved']" (click)="currentPage = pages.accounts_approved">Approved accounts</a>
                   <a [ngClass]="{'active':currentPage === pages.accounts_denied}" [routerLink]="['accounts','denied']" (click)="currentPage = pages.accounts_denied">Denied accounts</a>
                   <a [ngClass]="{'active':currentPage === pages.accounts_inactive}" [routerLink]="['accounts','inactive']" (click)="currentPage = pages.accounts_inactive">Inactive accounts</a>
-                  <a [ngClass]="{'active':currentPage === pages.accounts_invites}" [routerLink]="['accounts','invites']" (click)="currentPage = pages.accounts_invites">Invites</a>
+                  <!-- <a [ngClass]="{'active':currentPage === pages.accounts_invites}" [routerLink]="['accounts','invites']" (click)="currentPage = pages.accounts_invites">Invites</a> -->
                   <a [ngClass]="{'active':currentPage === pages.accounts_analytics}" [routerLink]="['accounts','analytics']" (click)="currentPage = pages.accounts_analytics">Analytics</a>
+                  <a [ngClass]="{'active':currentPage === pages.accounts_funding}" [routerLink]="['accounts','funding']" (click)="currentPage = pages.accounts_funding">Funding</a>
               </div>
           </div>
           <div class="opening" [ngClass]="{'opened':currentPage >= pages.events_all && currentPage <= pages.events_analytics}">
@@ -152,7 +153,7 @@
 
 
 
-      <div class="admin_content" [ngClass]="{'whole_white':currentPage === pages.artist||currentPage === pages.feedback||currentPage === pages.customer_support, 'nopadding':currentPage === pages.event}">
+      <div class="admin_content" [ngClass]="{'whole_white':currentPage === pages.artist||currentPage === pages.feedback||currentPage === pages.customer_support||currentPage === pages.revenue_info, 'nopadding':currentPage === pages.event}">
         <router-outlet></router-outlet>
       </div>
 

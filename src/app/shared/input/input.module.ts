@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DateInput } from './date/date.input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material';
-import { TextMaskModule } from '../../../../node_modules/angular2-text-mask';
+import { TextMaskModule } from 'angular2-text-mask';
 import { TimeInput } from './time/time.input';
 
 
