@@ -34,9 +34,7 @@
 .from-to-style.hours-label-groupe input{
     text-align: left;
 }
-.input-groupe-1 input, .input-groupe-1 select{
-    padding: 11px 0;
-}
+
 .input-groupe-1 textarea{
     padding: 10px 15px 15px 15px !important;
 }

@@ -1531,12 +1531,16 @@ header {
                         align-items: flex-start;
                         .side-1 {
                             margin-right: auto;
+                            -webkit-box-align: center;
+                            box-align: center;
+                            display: -webkit-inline-box;
                         }
                         .side-2 {
                             margin-left: auto;
                             cursor: pointer;
                         }
                         .sale {
+                            margin-right: 10px;
                             width: 82px;
                             height: 82px;
                             display: flex;
@@ -4886,7 +4890,7 @@ footer {
         }
         .gradient-box {
             position: relative;
-            z-index: 5;
+            z-index: 10;
             padding: 30px;
             .head-of-gradient-box {
                 text-align: center;
@@ -8686,4 +8690,8 @@ footer {
     font-size: 12px;
     border-radius: 19px; 
     margin-right: 4px;
+}
+.create-event-body-1 .create-event-body .flex-body-1 .side.two-sides-w .shadow-days-wr .times-days .some-times-days .week-day-time-wr .from-to span {
+    display: block;
+    color: rgba(0, 0, 0, 0.5); 
 }

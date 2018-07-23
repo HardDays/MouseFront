@@ -15,9 +15,16 @@
         </option>
     </select> -->
 
-    <select class="time-var-select" [ngModel]="CurVar" (ngModelChange)="OnVarsChange($event)">
+    <!-- <select class="time-var-select" [ngModel]="CurVar" (ngModelChange)="OnVarsChange($event)">
         <option *ngFor="let item of Vars" [value]="item">
             {{ item }}
         </option>
-    </select>
+    </select> -->
+    <mat-form-field >
+        <mat-select [ngModel]="CurVar" (ngModelChange)="OnVarsChange($event)">
+            <mat-option *ngFor="let item of Vars" [value]="item">
+                {{ item }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
 </div>

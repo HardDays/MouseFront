@@ -52,3 +52,6 @@
 .input-groupe-1 textarea{
     padding: 10px 15px 15px 15px !important;
 }
+span.butt-style-1{
+    max-width: 200px;
+}

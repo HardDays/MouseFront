@@ -279,8 +279,8 @@
                         <div class="input-groupe-1 ">
                         <p class="hours-label">Minimum Time needed to book before a Concert?</p>
                         </div>
-                        <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
-                            <input type="text" [(ngModel)]="Artist.min_time_to_book">                                                       
+                        <div class="input-groupe-1 from-to-style hours-label-groupe auto-width" style="margin-bottom: 15px;">
+                            <input type="text" [(ngModel)]="Artist.min_time_to_book" style="height: 35px;" [textMask]="MaskDays()">                                                       
                         </div>
                         <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
                             <!-- <select [(ngModel)]="type_min_time_to_book">
@@ -302,8 +302,8 @@
                         <p class="hours-label">How much time is needed to cancel before you charge a cancellation fee?</p>
                         </div>
                         
-                        <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
-                            <input type="text" [(ngModel)]="Artist.min_time_to_free_cancel">                                                       
+                        <div class="input-groupe-1 from-to-style hours-label-groupe auto-width" style="margin-bottom: 15px;">
+                            <input type="text" [(ngModel)]="Artist.min_time_to_free_cancel"  style="height: 35px;" [textMask]="MaskDays()">                                                       
                         </div>
 
                         <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
