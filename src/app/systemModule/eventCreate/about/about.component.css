@@ -57,3 +57,6 @@
 .flex-input-groupes .input-groupe-1:first-child{
     margin-left: 0!important;
 }
+.input-groupe-1 textarea{
+    padding: 10px 15px 15px 15px !important;
+}

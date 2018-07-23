@@ -49,3 +49,6 @@
 .input-groupe-1.dog input{
     padding-left: 13px;
 }
+.input-groupe-1 textarea{
+    padding: 10px 15px 15px 15px !important;
+}
