@@ -22,7 +22,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
   }
 
   GetInfo(){
-    this.main.adminService.GetNewAccountsCount()
+    this.main.adminService.GetAccountsNew()
     .subscribe(
       (res)=>{
         this.Counts = res;
@@ -33,7 +33,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
       .subscribe(
         (res)=>{
           this.Accounts = this.convertArrToCheckModel<any>(res);
-           console.log(this.Accounts);
+          //  console.log(this.Accounts);
         }
       )
 
@@ -41,7 +41,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
       .subscribe(
         (res)=>{
           this.Events = this.convertArrToCheckModel<any>(res);
-           console.log(res);
+          //  console.log(res);
         }
       )
   }
@@ -49,10 +49,8 @@ export class DashboardComponent extends BaseComponent implements OnInit {
   openTabsAcc(){
     for(let acc of this.Accounts){
       if(acc.checked){
-        setTimeout(() => {
-          window.open('http://localhost:4200/admin/account/'+acc.object.display_name,'_blank');
-        }, 1200);
-       
+        window.open('http://localhost:4200/admin/account/'+acc.object.id,'_blank');
+        // window.open('http://mouse-web.herokuapp.com/admin/account/'+acc.object.id,'_blank');
         window.blur();
       }
     }
@@ -61,10 +59,46 @@ export class DashboardComponent extends BaseComponent implements OnInit {
   openTabsEvent(){
     for(let event of this.Events){
       if(event.checked){
-        window.open('http://localhost:4200/admin/account/'+event.object.name,'_blank');
+        window.open('http://localhost:4200/admin/event/'+event.object.id,'_blank');
+        // window.open('http://mouse-web.herokuapp.com/admin/event/'+event.object.id,'_blank');
         window.blur();
       }
     }
   }
+
+  deleteAccs(){
+    for(let acc of this.Accounts){
+      if(acc.checked){
+        this.main.adminService.AccountDelete(acc.object.id)
+          .subscribe(
+            (res)=>{
+              console.log(acc.object.id,`ok`);
+              this.Accounts.splice(this.Accounts.indexOf(acc),1)
+            },
+            (err)=>{
+              console.log(`err`,err)
+            }
+          )
+      }
+    }
+  }
+
+  deleteEvents(){
+    for(let events of this.Events){
+      if(events.checked){
+        this.main.adminService.EventDelete(events.object.id)
+          .subscribe(
+            (res)=>{
+              console.log(events.object.id,`ok`);
+              this.Events.splice(this.Events.indexOf(events),1)
+            },
+            (err)=>{
+              console.log(`err`,err)
+            }
+          )
+      }
+    }
+  }
+
 
 }

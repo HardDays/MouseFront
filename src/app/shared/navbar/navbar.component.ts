@@ -21,6 +21,7 @@ export class NavbarComponent extends BaseComponent implements OnInit
 
     curNav:string = 'shows';
     MyLogo:string = '';
+
     ngOnInit()
     {
       this.MyLogo = this.main.MyLogo;
@@ -31,8 +32,33 @@ export class NavbarComponent extends BaseComponent implements OnInit
           this.MyLogo = res;
         }
       );
-      this.main.GetMyAccounts();
 
+      this.main.GetMyAccounts();
+     
+      // localStorage.setItem('new_user_134','artist');
+
+      this.main.MyAccountsChange.subscribe(
+        ()=>{
+          if(this.isLoggedIn&&this.MyUser.id){
+          //console.log(`my_accounts`,this.MyAccounts);
+            if(this.MyAccounts.length===0){
+              // console.log('get user_'+this.MyUser.id)
+              let type = localStorage.getItem('new_user_'+this.MyUser.id);
+
+              if(type=='venue')
+                this.router.navigate(['/system','venueCreate','new']);
+              else if(type=='artist')
+                this.router.navigate(['/system','artistCreate','new']);
+              else
+                this.router.navigate(['/system','fanCreate','new']);
+            }
+            else {
+              // console.log('to delete: user_'+this.MyUser.id,' status');
+              localStorage.removeItem('new_user_'+this.MyUser.id);
+            }
+          }
+        }
+      )
     }
 
     getThisPage():string
@@ -96,8 +122,8 @@ export class NavbarComponent extends BaseComponent implements OnInit
 
       CheckModalWindows(page:string)
       {
-        console.log("new_page",page);
-        console.log("current_page",this.getThisPage());
+        // console.log("new_page",page);
+        // console.log("current_page",this.getThisPage());
       }
 
 }

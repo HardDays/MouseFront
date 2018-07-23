@@ -250,6 +250,8 @@ export class MainService{
                     this.imagesService.GetImageById(this.MyUser.image_id)
                         .subscribe((res)=>{
                         this.MyUser.image_base64 = res.base64;
+                        this.MyUserLogo = this.MyUser.image_base64;
+                        this.MyUserLogoChange.next(this.MyUser.image_base64);
                         })
                 }
                 

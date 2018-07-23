@@ -43,7 +43,7 @@
           </div> -->
           <button (click)="SaveUser()" type="button" class="butt-style-1"><span>Save</span></button>
           <div class="input-groupe-1 personal_phone_number">
-                <input id="inp-info-7" disabled [textMask]="MaskTelephone()" [ngModel]="User.register_phone|phone" name="register_phone" type="text" phone>
+                <input id="inp-info-7" disabled [textMask]="MaskPhone(User.register_phone)" [ngModel]="User.register_phone" name="register_phone" type="text" phone>
                 <label for="inp-info-7">Phone Number (For Verification)</label>
                 <span id="change_personal_phone_number">Update</span>
             </div>
@@ -60,7 +60,7 @@
                 <div class="head">Update phone number</div>
                 <div class="phone_form">
                     <div class="input-groupe-1">
-                        <input id="inp-info-8" name="new_phone" [textMask]="MaskTelephone()" [(ngModel)]="phone" type="text">
+                        <input id="inp-info-8" name="new_phone" [textMask]="MaskPhone(phoneMask)" (input)="phoneMask=''" (blur)="phoneMask=phone" [(ngModel)]="phone" type="text">
                         <label for="inp-info-8">New Phone Number</label>
                     </div>
                     <button (click)="sendCode()" class="butt-style-1" id="update_personal_phone"><span>UPDATE</span></button>

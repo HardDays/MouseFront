@@ -1,23 +1,9 @@
 <div class="flex-select-range">
     <p>{{Label}}</p>
-    <div class="input-groupe-1">
+    <div class="input-groupe-1" style="width: 48px;">
         <!-- <select [ngModel]="Day" (ngModelChange)="Day = $event">
             <ng-container *ngFor="let item of DayNumbers">
                 <option [value]="item">{{item}}</option>
-            </ng-container>
-        </select> -->
-        <mat-form-field >
-            <mat-select [(ngModel)]="Day" (ngModelChange)="Day = $event">
-                <mat-option *ngFor="let item of DayNumbers" [value]="item">
-                    {{ item }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div>
-    <div class="input-groupe-1">
-        <!-- <select [ngModel]="Month" (ngModelChange)="MonthChanges($event)">
-            <ng-container *ngFor="let item of MonthArray;let i = index">
-                <option [value]="i">{{item}}</option>
             </ng-container>
         </select> -->
         <mat-form-field >
@@ -28,7 +14,23 @@
             </mat-select>
         </mat-form-field>
     </div>
-    <div class="input-groupe-1">
+    <div class="input-groupe-1" style="width: 39px;">
+        <!-- <select [ngModel]="Month" (ngModelChange)="MonthChanges($event)">
+            <ng-container *ngFor="let item of MonthArray;let i = index">
+                <option [value]="i">{{item}}</option>
+            </ng-container>
+        </select> -->
+<!-- 
+        <mat-form-field >
+            <mat-select [(ngModel)]="Day" (ngModelChange)="Day = $event">
+                <mat-option *ngFor="let item of DayNumbers" [value]="item">
+                    {{ item }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field> -->
+        <input type="text" [ngModel]="Day" (ngModelChange)="Day = $event" [textMask]="MaskDays(Day.toString())" >
+    </div>
+    <div class="input-groupe-1" style="width: 48px;">
         <!-- <select [ngModel]="Year" (ngModelChange)="YearChanges($event)">
             <ng-container *ngFor="let item of YearArray">
                 <option [value]="item">{{item}}</option>

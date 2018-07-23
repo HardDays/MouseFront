@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter, ViewChild, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
+import { BaseComponent } from '../../../core/base/base.component';
 import * as moment from 'moment';
 
 declare var $:any;
@@ -12,10 +13,11 @@ export class DateInput implements OnChanges {
     @Input() Label: String;
     @Input() DateInput: Date;
     @Output() OnDateChange: EventEmitter<Date> = new EventEmitter<Date>();
-
-    DayNumbers:number[] = [];
+    @Output() DayNumbers:number[];
+    
     MonthArray:string[] = [];
     YearArray: number[] = [];
+    DaysInMonth: number = 0;
 
     CurrentMoment = moment();
 
@@ -46,15 +48,11 @@ export class DateInput implements OnChanges {
 
     GetDaysOfCurrentMonth()
     {
-        let days = this.CurrentMoment.daysInMonth();
+        this.DaysInMonth = this.CurrentMoment.daysInMonth();
         this.DayNumbers = [];
-        for(let i = 0; i < days; ++i)
+        if(this.Day > this.DaysInMonth)
         {
-            this.DayNumbers.push(i+1);
-        }
-        if(this.Day > days)
-        {
-            this.Day = days;
+            this.Day = this.DaysInMonth;
         }
     }
 
@@ -99,6 +97,30 @@ export class DateInput implements OnChanges {
     DateEmit()
     {
         this.OnDateChange.emit(this.CurrentMoment.toDate());
+    }
+
+    MaskDays(str: string)
+    {    
+        
+        let maskArray:any[] = [/[1-9]/];
+        let decDays = Math.floor(this.DaysInMonth / 10);
+        let singleDays = this.DaysInMonth % 10;
+        if(str.length > 0 && str.length < 3)
+        {
+            if(+str[0] < decDays)
+            {
+                maskArray.push(new RegExp("[0-9]"));
+            }
+            else if(+str[0] == decDays)
+            {
+                maskArray.push(new RegExp("[0-"+ singleDays+"]"));
+            }
+        }
+        return{
+            mask: maskArray,
+            keepCharPositions: true,
+            guide: false,
+        };
     }
 
 

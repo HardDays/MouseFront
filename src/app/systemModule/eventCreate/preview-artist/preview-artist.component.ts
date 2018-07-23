@@ -72,7 +72,7 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
         this.Artist = res;
         if(this.Artist.genres)
           this.Artist.genres = this.main.genreService.BackGenresToShowGenres(this.Artist.genres);
-        console.log(`artist`,res);
+        // console.log(`artist`,res);
         this.GetArtistImages();
         this.updateVideosPreview();
         this.GetDates();
@@ -224,11 +224,11 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
       if(this.player&&  this.player.isPlaying())
         this.player.pause();
   
-      console.log(s);
+      // console.log(s);
       this.audioDuration = 0;
       this.audioCurrentTime = 0;
       SC.resolve(s).then((res)=>{
-        console.log(res);
+        // console.log(res);
         SC.stream('/tracks/'+res.id).then((player)=>{
           this.player = player;
           this.player.play();
@@ -248,7 +248,9 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
     
         });
   
-      },(err)=>{console.log(`ERROR`)})
+      },(err)=>{
+        // console.log(`ERROR`)
+      })
     }
   
     stopAudio(){

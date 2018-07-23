@@ -1,2 +1,3 @@
 <app-table *ngIf="isShowTable" [Accounts]="Accounts" [isApprovedBy]="isApprovedBy" [status]="status"></app-table>
 <app-analytics *ngIf="status === 'analytics'"></app-analytics>
+<app-funding *ngIf="status === 'funding'"></app-funding>

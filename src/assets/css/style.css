@@ -2559,10 +2559,7 @@ footer {
           box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.13);
   padding: 20px 80px;
   background: #fff; }
-.create-event-nav-tabs .create-event-header {
-  /* padding-top: 40px; */
-  /* padding-bottom: 10px;  */
-}
+
   .create-event-nav-tabs .create-event-header h1 {
     font-size: 40px;
     font-family: AvenirLTStdBlack;
@@ -8047,8 +8044,8 @@ footer {
                       top: 45px;
                     }
                     .mat-select-arrow{
-                        width: 8px!important;
-                        height: 8px!important;
+                        width: 4px!important;
+                        height: 4px!important;
                         border-radius: 50%;
                         display: inline-block;
                         border:none!important;

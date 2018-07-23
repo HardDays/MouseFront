@@ -71,7 +71,7 @@ export class AddTicketsComponent extends BaseComponent implements OnInit {
                 this.analitics = res;
             },
             (err)=>{
-                console.log(`err`,err);
+                // console.log(`err`,err);
             }
         )
         

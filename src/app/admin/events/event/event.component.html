@@ -1,0 +1,80 @@
+<!-- <div class="admin_content nopadding"> -->
+    <h2 class="admin_white_back_zag zag_with_buttons">
+        <div [routerLink]="['/admin','events','all']" class="arr">
+            <svg xmlns="http://www.w3.org/2000/svg" width="34" height="29" viewBox="0 0 34 29">
+                <path fill="#000000" id="Forma_1_copy_3" data-name="Forma 1 copy 3" class="cls-1" d="M857,946.183H828.082L839.5,934.862,837.62,933,823,947.5,837.62,962l1.877-1.862-11.415-11.322H857v-2.633Z" transform="translate(-823 -933)"></path>
+            </svg>
+        </div>
+        <span>Event preview</span>
+        <div class="buttons">
+            <div class="butt remove">
+                <button (click)="removeEvent()"><img src="./../../../../assets/img/admin/delete.svg" alt="" class="img-responsive"></button>
+                <span>Remove</span>
+            </div>
+            <div class="butt deny">
+                <button (click)="denyEvent()"><img src="./../../../../assets/img/admin/deny.svg" alt="" class="img-responsive"></button>
+                <span>Deny</span>
+            </div>
+            <div *ngIf="Event.status === 'pending'||Event.status === 'new'||Event.status === 'just_added'" class="butt approve">
+                <button (click)="approveEvent()"><img src="./../../../../assets/img/admin/approve.svg" alt="" class="img-responsive"></button>
+                <span>Approve</span>
+            </div>
+        </div>
+        <div class="contacts">
+            <span>Event Owner:</span> <a>{{Owner.display_name}}</a><br>
+            <span>Phone:</span> {{Owner.phone?Owner.phone:'-'}}
+        </div>
+    </h2>
+    <section class="event_preview">
+        <div class="event_block">
+            <div class="event_photo" [ngStyle]="{'background-image':'url('+Event.image_base64+')'}"></div>
+            <div class="event_info_wrap">
+                <h2>{{Event.name}}</h2>
+                <div class="event_info">
+                    <p *ngIf="Event.date_from" class="date">{{Event.date_from|date}} - {{Event.date_to|date}}</p>
+                    <p *ngIf="Event.hashtag" class="hash">#{{Event.hashtag}}</p>
+                    <p class="ev_label">Genre</p>
+                    <div class="genres">
+                        <span *ngFor="let g of Genres">{{g}}</span>
+                    </div>
+                    <p class="char">Presented by <strong>{{Owner.display_name}}</strong></p>
+                    <p class="char">Featuring: <strong *ngFor="let art of Artists; let last = last">{{art.display_name}} {{last?'':', '}}</strong></p>
+                    <p class="ev_label">Location</p>
+                    <div class="location-wr margened">
+                        <div class="mark"></div>
+                        <p class="location-inp ">
+                            {{Event.address}}
+                        </p>
+                    </div>
+                    <div class="butts">
+                        <span><img src="./../../../../assets/img/admin/event_but_icon1.png" alt=""></span>
+                        <span><img src="./../../../../assets/img/admin/event_but_icon2.png" alt=""></span>
+                        <span><img src="./../../../../assets/img/admin/event_but_icon3.png" alt=""></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="event_links">
+            <div class="e_l active">Additional info</div>
+            <!-- <div class="e_l">Comments <span class="count">(0)</span></div>
+            <div class="e_l">Updates <span class="count">(0)</span></div> -->
+        </div>
+        <div class="event_videos_slider">
+            <ng-container >
+            <div *ngFor="let video of Videos" class="video_item">
+                <div class="video">
+                    <iframe [src]="video" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                </div>
+            </div>
+            </ng-container>
+
+            <!-- <slideshow [showArrows]="Videos&&Videos.length>1" [minHeight]="'525px'" [imageUrls]="Videos"></slideshow> -->
+        </div>
+        <div class="event_text">
+            <h3 class="zag">{{Event.tagline}}</h3>
+            <div class="columns_text">
+                <p>{{Event.description}}</p>   
+            </div>
+        </div>
+    </section>
+<!-- </div> -->

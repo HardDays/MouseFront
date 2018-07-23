@@ -88,6 +88,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   artistPreview:number = 0;
   venuePreview:number = 0;
 
+  createOrEditText = 'Edit';
+
   constructor(
       protected main           : MainService,
       protected _sanitizer     : DomSanitizer,
@@ -111,6 +113,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       (params) => {
         if(params["id"] == 'new')
         {
+          this.createOrEditText = 'Create';
           this.isNewEvent = true;
           this.DisplayEventParams(null);
         }
@@ -153,14 +156,14 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       delete this.Event['city_lng'];
     }
   
-    console.log(`TEST`,this.Event);  
+    // console.log(`TEST`,this.Event);  
     
     this.Event.account_id = this.CurrentAccount.id;
     this.WaitBeforeLoading
     (
       () => this.EventId == 0 ? this.main.eventService.CreateEvent(this.Event) : this.main.eventService.UpdateEvent(this.EventId,this.Event),
       (res) => {
-        console.log(`WHAT FROM BACK`, res);
+        // console.log(`WHAT FROM BACK`, res);
         this.DisplayEventParams(res);
 
         this.errorCmp.OpenWindow(BaseMessages.Success);
@@ -175,7 +178,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
       },
       (err) => {
-        console.log(`err`,err);
+        // console.log(`err`,err);
         this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'event'));
       }
     )
@@ -197,7 +200,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       () => this.EventId === 0 ? this.main.eventService.CreateEvent(this.Event) : this.main.eventService.UpdateEvent(this.EventId,this.Event),
       (res) => {
         this.DisplayEventParams(res);
-        console.log(`SAVE SUCCESS`);
+        // console.log(`SAVE SUCCESS`);
         // this.errorCmp.OpenWindow(BaseMessages.Success);
 
         this.isShowLaunch = this.isShowLaunchBtn();
@@ -205,7 +208,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
       },
       (err) => {
-        console.log(`err`,err);
+        // console.log(`err`,err);
         this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'event'));
       }
     )
@@ -325,7 +328,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
       },
       (err)=>{
-        console.log(`err`,err);
+        // console.log(`err`,err);
         this.OpenErrorWindow(BaseMessages.Fail);
       }
     )  
@@ -341,7 +344,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
       },
       (err)=>{
-        console.log(`err`,err);
+        // console.log(`err`,err);
         this.OpenErrorWindow(BaseMessages.Fail);
       }
     )  
@@ -371,6 +374,14 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   openPreviewVenue(id:number){
     this.currentPage = this.pages.previewVenue;
     this.venuePreview = id;
+  }
+
+  backPage(){
+    if(this.currentPage===this.pages.previewArtist)
+      this.currentPage = this.pages.artist;
+    else if(this.currentPage===this.pages.previewVenue)
+      this.currentPage = this.pages.venue;
+
   }
 
 }

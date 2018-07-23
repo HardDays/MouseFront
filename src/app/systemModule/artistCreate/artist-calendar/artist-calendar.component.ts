@@ -52,17 +52,21 @@ constructor(
 
   ngOnChanges(changes: SimpleChanges): void {
     if(this.artist){
+        this.EventDates = [];
+        this.DisabledDates = [];
       for(let date of this.artist.events_dates){
-        this.EventDates.push({
-          mDate: moment(date.date.split("T")[0]),
-          eventId: date.event_id 
-           
-        });
+          if(date.date)
+                this.EventDates.push({
+                mDate: moment(date.date.split("T")[0]),
+                eventId: date.event_id 
+                
+                });
       }
       for(let date of this.artist.disable_dates){
-        this.DisabledDates.push({
-          mDate: moment(date.date.split("T")[0])
-        });
+          if(date.date)
+                this.DisabledDates.push({
+                mDate: moment(date.date.split("T")[0])
+                });
       }
     }
     
@@ -83,10 +87,10 @@ constructor(
     // this.onSave.emit(this.artist);
     this.main.accService.UpdateMyAccount(this.artistId,this.artist).subscribe(
         (res)=>{
-            console.log(res);
+            // console.log(res);
         }
         ,(err)=>{
-            console.log(err);
+            // console.log(err);
         }
     )
 

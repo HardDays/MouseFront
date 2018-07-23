@@ -105,7 +105,7 @@ export class RiderComponent extends BaseComponent implements OnInit {
       var url = window.URL.createObjectURL(blob);
       window.open(url);
     }, (err)=>{
-      console.log(err);
+      // console.log(err);
     })
   }
 

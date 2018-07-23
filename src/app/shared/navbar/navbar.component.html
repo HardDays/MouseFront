@@ -20,7 +20,8 @@
                             <input type="text" class="inp-style-1" placeholder="Search">
                         </div>
                         -->
-                        <ul>
+                        <ul style="height: 64px;">
+                            <ng-container *ngIf="MyAccounts.length>0">
                             <li *ngIf="isLoggedIn" class="dropdown-hover-profiles">
                                 <a class="icon-1" [class.active]="curNav=='profile'" >
                                     <div class="">
@@ -98,6 +99,7 @@
                                     <span>Tickets</span>
                                 </a>
                             </li>
+                        </ng-container>
                         </ul>
                         <div class="name-and-ava-wr">
                             <!--не авторизован-->
@@ -116,7 +118,7 @@
                             
                             <!--выпадашка если авторизован-->
                             <div *ngIf="isLoggedIn" class="dropdown-settings-ava">
-                                <div class="dropdown-items-wr">
+                                <div *ngIf="MyAccounts.length>0" class="dropdown-items-wr">
                                     <a [routerLink]="['/system/profile',CurrentAccount.id]" (click)="curNav = 'profile'"><span class="dog">@</span>{{CurrentAccount.user_name}}</a>
                                     <!-- <a><span class="dog">@</span>{{MyUser.user_name}}</a> -->
                                     <a (click)="curNav = 'messages'" [routerLink]="['/system','messages']">Messages</a>
@@ -127,7 +129,7 @@
                                 
                                 <div class="dropdown-items-wr">
                                     <!-- <ng-container *ngIf="CurrentAccount && CurrentAccount.account_type"> -->
-                                    <ng-container>
+                                    <ng-container *ngIf="MyAccounts.length>0">
                                         <!-- <a *ngIf="CurrentAccount.account_type == 'venue'" [routerLink]="['/system/venueCreate',CurrentAccount.id]">Settings</a>
                                         <a *ngIf="CurrentAccount.account_type == 'artist'" [routerLink]="['/system/artistCreate',CurrentAccount.id]">Settings</a>
                                         <a *ngIf="CurrentAccount.account_type == 'fan'" [routerLink]="['/system/fanCreate',CurrentAccount.id]">Settings</a> -->

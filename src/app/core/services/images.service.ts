@@ -84,4 +84,10 @@ export class ImagesService{
         // );
     }
 
+    GetImageByURL(url:string){
+        return this.http.CommonRequest(
+            ()=>this.http.GetDataFromOtherUrl(url)
+        );
+    }
+
 }

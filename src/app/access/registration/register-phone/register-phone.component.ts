@@ -31,7 +31,8 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
 
   isRequestCodeSend:boolean = false;
   inputCodeStatus:number = 1;
-  codes:[{name:string,dial_code:string}];
+  codes:any[]=[];
+  selectCode:any;
 
   phone:string = '';
   phoneCode:string = '';
@@ -41,54 +42,72 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
   curPos = '+1';
 
   ngOnInit() {
-  this.main.phoneService.GetAllPhoneCodes().
-    subscribe((res)=>{
-      this.codes = res;
-      this.phoneCode = '+1';
-    });
+  // this.main.phoneService.GetAllPhoneCodes().
+  //   subscribe((res)=>{
+  //     this.codes = res;
+  //     this.phoneCode = '+1';
+  //   });
+    this.codes = this.main.phoneService.GetAllPhoneCodesWithFormat();
+    this.selectCode = this.codes.find((s)=>s.iso2==='us');
+    // console.log(this.selectCode);
   }
 
   changeCode(s){
-    console.log(s);
+    // console.log(s);
     this.phoneCode = s;
-    console.log(`phonecode`,this.phoneCode)
+    // console.log(`phonecode`,this.phoneCode)
   }
+
   inputPhone($event){
-    this.phone = $event.target.value;
+   // this.phone = $event.target.value;
   }
 
   sendCode(){
-    if(this.phone.length>0){
-      this.phoneArr = false;
-      let phone:string = this.phoneCode + this.phone;
-      this.WaitBeforeLoading(
-        ()=>this.main.phoneService.SendCodeToPhone(phone),
+    // console.log(this.phone)
+    if(this.phone&&this.phone.search('_')<0){
+        this.phoneArr = false;
+
+      let phoneToSend = this.phone.replace(/ /g,'');
+          phoneToSend = phoneToSend.replace(/\(/g,'');
+          phoneToSend = phoneToSend.replace(/\)/g,'');
+          phoneToSend = phoneToSend.replace(/-/g,'');
+      // console.log(`ok`,phoneToSend);
+
+        this.WaitBeforeLoading(
+        ()=>this.main.phoneService.SendCodeToPhone(phoneToSend),
           (res)=>{
           this.isRequestCodeSend = true;
           },
           (err)=>{
-            console.log(`err`,err);
+            // console.log(`err`,err);
             this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
             
           }
       );
     }
-    else{
+
+    else {
       this.phoneArr = true;
     }
+
   }
   
   resendCode(){
     if(this.phone.length>0){
       this.phoneArr = false;
-      let phone:string = this.phoneCode + this.phone;
+
+      let phoneToSend = this.phone.replace(/ /g,'');
+      phoneToSend = phoneToSend.replace(/\(/g,'');
+      phoneToSend = phoneToSend.replace(/\)/g,'');
+      phoneToSend = phoneToSend.replace(/-/g,'');
+
       this.WaitBeforeLoading(
-        ()=>this.main.phoneService.ReSendCodeToPhone(phone),
+        ()=>this.main.phoneService.ReSendCodeToPhone(phoneToSend),
           (res)=>{
           this.isRequestCodeSend = true;
           },
           (err)=>{
-            console.log(`err`,err);
+            // console.log(`err`,err);
             this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
             
           }
@@ -123,15 +142,19 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
 
   sendRequest(){
     if(this.codeRequest.length==4){
-      let phone = this.phoneCode+this.phone;
-      console.log(`code`,phone);
+
       let code = this.codeRequest[0]+this.codeRequest[1]+this.codeRequest[2]+this.codeRequest[3];
 
+      let phoneToSend = this.phone.replace(/ /g,'');
+          phoneToSend = phoneToSend.replace(/\(/g,'');
+          phoneToSend = phoneToSend.replace(/\)/g,'');
+          phoneToSend = phoneToSend.replace(/-/g,'');
+
       this.WaitBeforeLoading(
-        ()=> this.main.phoneService.SendRequestCode(phone,code),
+        ()=> this.main.phoneService.SendRequestCode(phoneToSend,code),
           (res)=>{
             this.isShowPhone.emit(true);
-            this.phoneStatus.emit({status:true,phone:phone});
+            this.phoneStatus.emit({status:true,phone:this.phone});
           },
           (err)=>{
             this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));

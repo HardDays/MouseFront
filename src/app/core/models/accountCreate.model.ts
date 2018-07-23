@@ -59,6 +59,7 @@ export class AccountCreateModel{
             public artist_videos?: Video[],
             public venue_video_links?: string[],
             public image_base64?:string,
+            public status?: string,
 
 
             public performance_min_time?:number,
@@ -90,7 +91,7 @@ export class AccountCreateModel{
             public manager_name?:string,
 
             public artist_riders?:Rider[],
-            public events_dates?:any,
+            public events_dates?:any[],
             public available_dates?:any,
             public disable_dates?:any
 ){

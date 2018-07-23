@@ -10,7 +10,7 @@ import { AccountGetModel } from '../../../core/models/accountGet.model';
 import { Base64ImageModel } from '../../../core/models/base64image.model';
 import { MainService } from '../../../core/services/main.service';
 import { BaseImages } from '../../../core/base/base.enum';
-import { NgForm } from '../../../../../node_modules/@angular/forms';
+import { NgForm } from '@angular/forms';
 
 
 interface EventMouseInfo {
@@ -197,8 +197,17 @@ export class BigCalendarComponent implements OnInit, OnChanges {
       this.FormVals.from = this.FromElement.CalendarDate.mDate.toDate();
       this.FormVals.to = this.ToElement.CalendarDate.mDate.toDate();
     }
+
+    this.SetDefaultFormVals();
     
     event.target.offsetParent.classList.add("set-date-popup");
+  }
+
+  SetDefaultFormVals(){
+    this.FormVals.date_range = true;
+    this.FormVals.is_available = true;
+    this.FormVals.price_for_daytime = 0;
+    this.FormVals.price_for_nighttime = 0;
   }
 
 
@@ -316,7 +325,7 @@ export class BigCalendarComponent implements OnInit, OnChanges {
             this.GetImage(res.image_id);
           },
           (err)=>{
-            console.log(err);
+            // console.log(err);
           }
         );
     }

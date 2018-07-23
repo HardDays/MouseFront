@@ -92,7 +92,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
                     this.avatar = result.base64;
                     this.ImageId = res.image_id;
                     this.Fun.image_base64 = this.avatar;
-                    console.log(this.Fun);
+                    // console.log(this.Fun);
                   }
                 );
               }
@@ -280,7 +280,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
 
      // this.Fun.genres = this.main.genreService.GenreModelArrToStringArr(this.Genres);
       this.Fun.genres = [];
-      console.log(this.Genres);
+      // console.log(this.Genres);
       for(let g of this.Genres){
         if(g.checked){
           this.Fun.genres.push(g.genre);
@@ -306,7 +306,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
       );
     }
     else {
-      console.log(`err`);
+      // console.log(`err`);
       this.errorCmp.OpenWindow(this.getFormErrorMessage(this.form, 'fan'));
     }
   }

@@ -78,7 +78,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     {
         this.activatedRoute.params.forEach((params)=>{
             this.EventId = params["id"];
-            console.log("scroll_position",window.scrollY);
+            // console.log("scroll_position",window.scrollY);
             this.GetEventInfo();
         });
     }

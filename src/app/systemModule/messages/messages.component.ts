@@ -111,7 +111,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
             () => this.main.imagesService.GetImageById(this.accs[index].image_id),
             (img)=>{
               this.accs[index].image_base64_not_given = img.base64;
-               console.log(`acc`,this.accs,this.accOpen);
+              //  console.log(`acc`,this.accs,this.accOpen);
               if(index==0){
                 this.idCurMsg = this.messages[0].id;
                 this.openMessage = this.messages[0];

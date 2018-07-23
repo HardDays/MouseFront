@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BaseComponent } from '../../../core/base/base.component';
 import { UserCreateModel } from '../../../core/models/userCreate.model';
+import { ErrorComponent } from '../../../shared/error/error.component';
+import { BaseMessages } from '../../../core/base/base.enum';
 
 @Component({
   selector: 'app-add-new-admin',
@@ -9,6 +11,8 @@ import { UserCreateModel } from '../../../core/models/userCreate.model';
 })
 export class AddNewAdminComponent extends BaseComponent implements OnInit {
 
+  @ViewChild('errCmp') errCmp:ErrorComponent;
+  
   newUser: UserCreateModel = new UserCreateModel();
 
   ngOnInit() {
@@ -18,10 +22,12 @@ export class AddNewAdminComponent extends BaseComponent implements OnInit {
     this.main.adminService.CreateAdmin(this.newUser)
       .subscribe(
         (res)=>{
-          console.log(res);
+          // console.log(res);
+          this.errCmp.OpenWindow(BaseMessages.Success);
         },
         (err)=>{
-          console.log(`err`,err);
+          // console.log(`err`,err);
+          this.errCmp.OpenWindow(this.getResponseErrorMessage(err))
         }
       )
   }

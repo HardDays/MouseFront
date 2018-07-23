@@ -25,7 +25,7 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
   phoneArr:boolean = false;
   codeRequest:string[]=[];
 
-
+  phoneMask:string='';
 
   @Input() User: UserCreateModel;
   @Output() OnSave = new EventEmitter<UserCreateModel>();
@@ -46,7 +46,7 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
   
   
   ngOnInit() {
-    console.log(`init!`);
+    // console.log(`init!`);
 
     this.InitModals();
    
@@ -55,10 +55,11 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
   ngOnChanges(){
     // console.log(`infooo`);
     this.phone = this.User.register_phone;
+    this.phoneMask = this.phone;
     if(this.User.image_id){
       this.main.imagesService.GetImageById(this.User.image_id)
         .subscribe((res)=>{
-          console.log(`res img`, res);
+          // console.log(`res img`, res);
           this.User.image_base64 = res.base64;
         })
     }
@@ -84,7 +85,7 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
   }
 
   SaveUser(){
-    console.log(`save user`,this.User);
+    // console.log(`save user`,this.User);
     this.main.authService.UpdateUser(this.User)
       .subscribe(
           (res)=>{
@@ -97,12 +98,12 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
               //     })
               // }
               this.errorCmp.OpenWindow(BaseMessages.Success);
-              console.log(`res`,this.User);
+              // console.log(`res`,this.User);
               this.main.GetMyUser();
               
           },
           (err)=>{
-              console.log(`err`,err);
+              // console.log(`err`,err);
               this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
           }
       );
@@ -121,7 +122,7 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
             //this.isRequestCodeSend = true;
             $('#modal_change_phone').modal('hide');
             $('#modal_change_phone_ver').modal('show');
-            console.log(`sendCode`);
+            // console.log(`sendCode`);
           },
           (err)=>{
             this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
@@ -162,7 +163,7 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
       this.WaitBeforeLoading(
         ()=> this.main.phoneService.SendRequestCode(this.phone,code),
           (res)=>{
-            console.log(`sendRequest`);
+            // console.log(`sendRequest`);
             this.User.register_phone = this.phone;
             this.codeRequest = [];
             $('#modal_change_phone_ver').modal('hide');

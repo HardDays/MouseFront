@@ -69,26 +69,24 @@
                         <div class="prices">
                             <!--"changed-price-morning" добавляем класс блоку "morning" если была изменина цена утра-->
                             <p class="morning"
-                                *ngIf="allDaysPriceDay"
                                 [ngClass]="
                                 {
                                     'changed-price-morning': day.dayPrice != null
                                 }
                                 "
                             >
-                                <span>{{ day.dayPrice != null? day.dayPrice : allDaysPriceDay}}$</span>
+                                <span>{{ day.dayPrice != null? day.dayPrice : (allDaysPriceDay?allDaysPriceDay:0)}}$</span>
                                
                             </p>
                             <!--"changed-price-night" добавляем класс блоку "night" если была изменина цена ночи-->
                             <p class="night"
-                                *ngIf="allDaysPriceNight"
                                 [ngClass]="
                                 {
                                     'changed-price-night': day.nightPrice != null
                                 }
                                 "
                             >
-                                <span>{{ day.nightPrice != null? day.nightPrice : allDaysPriceNight}}$</span>
+                                <span>{{ day.nightPrice != null? day.nightPrice : (allDaysPriceNight?allDaysPriceNight:0)}}$</span>
                             </p>
                         </div>
 
@@ -127,17 +125,17 @@
                             <span>No</span>
                         </div>
                     </div>
-                    <date-input [Label]="'From'" [DateInput]="FormVals.from" (OnDateChange)="FormVals.from = $event"></date-input>
+                    <date-input [Label]="FormVals.date_range?'From':'Date'" [DateInput]="FormVals.from" (OnDateChange)="FormVals.from = $event"></date-input>
                     
                     <date-input *ngIf="FormVals.date_range" [Label]="'To'" [DateInput]="FormVals.to" (OnDateChange)="FormVals.to = $event"></date-input>
                     <div class="flex-price-inp" *ngIf="FormVals.is_available">
                         <p class="d-inp inp-desc">Day</p>
-                        <input type="text" name="form-vals-day-price" [textMask]="MaskPrice()" [ngModel]="FormVals.price_for_daytime" (ngModelChange)="FormVals.price_for_daytime = $event">
+                        <input autocomplete="off" type="text" name="form-vals-day-price" [textMask]="MaskPrice()" [ngModel]="FormVals.price_for_daytime" (ngModelChange)="FormVals.price_for_daytime = $event">
                         <span>$/hr</span>
                     </div>
                     <div class="flex-price-inp" *ngIf="FormVals.is_available">
                         <p class="n-inp inp-desc">Night</p>
-                        <input type="text" name="form-vals-night-price" [textMask]="MaskPrice()" [ngModel]="FormVals.price_for_nighttime" (ngModelChange)="FormVals.price_for_nighttime = $event">
+                        <input autocomplete="off" type="text" name="form-vals-night-price" [textMask]="MaskPrice()" [ngModel]="FormVals.price_for_nighttime" (ngModelChange)="FormVals.price_for_nighttime = $event">
                         <span>$/hr</span>
                     </div>
                     <div class="buttons-pop">

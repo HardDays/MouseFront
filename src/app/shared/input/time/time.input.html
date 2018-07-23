@@ -1,0 +1,23 @@
+<div class="dashed-bottom-border">
+    <input class="inp-style-3 time-mask" [textMask]="MaskTime(CurTime)"  autocomplete="off" type="text" [ngModel]="CurTime" (ngModelChange)="OnTimeChange($event)">
+                                        
+    <!-- <select class="time-select" [ngModel]="CurHour" (ngModelChange)="OnHoursChange($event)">
+        <option *ngFor="let item of Hours" [value]="item">
+            {{ item }}
+        </option>
+    </select>
+
+    <span class="time-separator">:</span>
+
+    <select class="time-select" [ngModel]="CurMinutes" (ngModelChange)="OnMinutesChange($event)">
+        <option *ngFor="let item of Minutes" [value]="item">
+            {{ item }}
+        </option>
+    </select> -->
+
+    <select class="time-var-select" [ngModel]="CurVar" (ngModelChange)="OnVarsChange($event)">
+        <option *ngFor="let item of Vars" [value]="item">
+            {{ item }}
+        </option>
+    </select>
+</div>

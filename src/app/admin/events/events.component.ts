@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../../core/base/base.component';
-import { Params } from '../../../../node_modules/@angular/router';
+import { Params } from '@angular/router';
 
 @Component({
   selector: 'app-events',
@@ -31,7 +31,7 @@ export class EventsComponent extends BaseComponent implements OnInit {
         }
       }
     );
-    console.log(`---`,this.isApprovedBy);
+    // console.log(`---`,this.isApprovedBy);
 
     this.getEvents();
   }

@@ -1,0 +1,172 @@
+
+<section class="account_artist account_venue">
+  <div class="all-info-profile all-info-profile-preview">
+      <div class="uniq-padd-2">
+          <div class="flex--info">
+              <div class="profile_about side side-info-new-venue-prev side-info side-about">
+                  <h1>{{Account.display_name}}</h1>
+                  <p class="hash"><span>@</span>{{Account.user_name}}</p>
+                  <p class="about-text">
+                    {{Account.description}}
+                  </p>
+              </div>
+              <div class="side side-info-new-venue-prev side-info side-about">
+                  <div class="one-cover" [ngStyle]="{'background-image': Account.image_base64_not_given?'url('+Account.image_base64_not_given+')':''}"></div>
+              </div>
+          </div>
+          <div class="flex--info venue_details">
+              <div class="side side-info side-about">
+                  <h6>Listing Details</h6>
+                  <p class="about-text line-height-hig">
+                    {{toBeatyType(Account.type_of_space)|titlecase}}<br>
+                      <span>{{Account.capacity?Account.capacity:'None info'}}</span> Person Capacity<br>
+                      <span>{{Account.num_of_bathrooms?Account.num_of_bathrooms:'None info'}}</span> Bathroom(s)<br>
+                      <span *ngIf="Account.has_bar">Bar Available<br></span>
+                      Located: <span>{{Account.located?Account.located:'None info'}}</span><br>
+                      Age Policy: <span>{{Account.min_age?Account.min_age+' and Over':'None info'}}</span><br>
+                      Dress Code: <span>{{Account.dress_code?Account.dress_code:'None info'}}</span>
+                  </p>
+              </div>
+              <div class="side side-info side-contact un-padd-on-1560">
+                  <h6>Contact info</h6>
+                  <div class="flex-contact-venue">
+                      <div class="column-cont">
+                        <div *ngIf="Account.phone" class="one-cont">
+                            <p class="head-cont">PHONE:</p>
+                            <span>{{Account.phone}}</span>
+                        </div>
+                            <div *ngIf="Account.fax" class="one-cont">
+                            <p class="head-cont">FAX:</p>
+                            <span>{{Account.fax}}</span>
+                        </div>
+
+                          <!--ну и другая контактная инфа-->
+
+                          <div class="hours-time-wr">
+                                <div class="hours-hover">
+                                    <span class="o-f-h">Office Hours</span>
+                                    <ul class="hours-drop-show">
+                                        <li *ngFor="let date of Account.office_hours">
+                                            <span class="left">{{date&&date.day?date.day.slice(0,3):''}}</span>
+                                            <span class="right">
+                                                {{date.begin_time|date:'shortTime'}} - {{date.end_time|date:'shortTime'}}
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                      </div>
+                      <div class="column-cont">
+                          <div *ngFor="let email of Account.emails" class="one-cont">
+                                <p class="head-cont">{{email.name}}:</p>
+                                <span>{{email.email}}</span>
+                            </div>
+                          <!--ну и другая контактная инфа-->
+
+
+                          <div class="hours-time-wr">
+                                <div class="hours-hover">
+                                    <span class="o-f-h">Operating Hours</span>
+                                    <ul class="hours-drop-show">
+                                        <li *ngFor="let date of Account.operating_hours">
+                                            <span class="left">{{date&&date.day?date.day.slice(0,3):''}}</span>
+                                            <span class="right">
+                                                {{date.begin_time|date:'shortTime'}} - {{date.end_time|date:'shortTime'}}
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="flex--info venue_details">
+              <div class="side side-info side-map">
+                  <h6>Location</h6>
+                  <p class="about-text">
+                      {{Account.address}}
+                  </p>
+                  <div class="map" id="map">
+                        <agm-map style="height: 100%;" [longitude]="Account.lng" [latitude]="Account.lat"> 
+                                <agm-marker [longitude]="Account.lng" [latitude]="Account.lat"></agm-marker>
+                            </agm-map>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="uniq-padd">
+          <div class="genres-info">
+              <h3 class="text-center">Available dates</h3>
+          </div>
+      </div>
+      <div class="calendar-add-artist">
+          <div class="one-calendar-block venue_calendar">
+              календарь тут
+          </div>
+      </div>
+      <div class="uniq-padd-2">
+          <div class="flex--info venue_details none-padd-sides-b">
+              <div class="side side-info-new-venue-prev side-info side-about">
+                  <h6>Media</h6>
+                  <p class="vr-availeble">
+                        VR Video Equipment
+                        <span *ngIf="!Account.has_vr">not</span>
+                        <span>available</span>
+                    </p>
+              </div>
+              <div class="side side-info-new-venue-prev side-info side-about"></div>
+          </div>
+          <div class="flex--info venue_details big_text none-padd-sides-t">
+              <div class="side side-info side-about">
+                  <h6>Audio Description</h6>
+                  <p class="about-text">
+                        {{Account.audio_description}}
+                  </p>
+              </div>
+              <div class="side side-info side-contact">
+                  <h6>Lightning Description</h6>
+                  <p class="about-text">
+                        {{Account.lighting_description}}
+                  </p>
+              </div>
+          </div>
+          <div class="flex--info venue_details big_text none-padd-sides-t">
+              <div class="side side-info side-map">
+                  <h6>Stage Description</h6>
+                  <p class="about-text">
+                        {{Account.stage_description}}
+                  </p>
+              </div>
+          </div>
+          <div class="flex--info venue_details none-padd-sides-t none-padd-sides-b w-100">
+              <div class="side side-info side-about">
+                  <h6 class="for-position-left-js">Recommended Photos</h6>
+              </div>
+          </div>
+      </div>
+      <div class="new-photos-wr-scroll-preview">
+          <div class="rel-wr-photoos">
+              <div class="photos-abs-wrapp">
+                    <div *ngFor="let item of photos; let in = index" class="one-slide">
+                            <div   class="wrapp-card for-gallery-item">
+                            <div class="cover-image" [ngStyle]="{'background-image': 'url(' + item.base64 + ')'}"></div>
+                            <div class="descr">
+                                <h6>{{toBeatyType(item.type)}}</h6>
+                                <p class="name">{{item.description}}</p>
+                            </div>
+                        </div>
+                        </div>
+
+
+
+
+
+              </div>
+          </div>
+
+      </div>
+  </div>
+</section>

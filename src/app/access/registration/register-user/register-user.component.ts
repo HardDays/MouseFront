@@ -70,6 +70,13 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
 
       this.createUser.email = this.createUser.email.toLowerCase();
 
+      let phoneToSend = this.createUser.register_phone.replace(/ /g,'');
+          phoneToSend = phoneToSend.replace(/\(/g,'');
+          phoneToSend = phoneToSend.replace(/\)/g,'');
+          phoneToSend = phoneToSend.replace(/-/g,'');
+
+      this.createUser.register_phone = phoneToSend;
+          
       this.WaitBeforeLoading(
           ()=>this.main.authService.CreateUser(this.createUser),
           (res:UserGetModel) => {
@@ -78,6 +85,7 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
               this.main.authService.onAuthChange$.next(true);
 
               // this.back.emit('info');
+              localStorage.setItem('new_user_'+res.id,this.type);
 
               if(this.type=='fan')
                 this.backUser.emit(this.type);
@@ -100,7 +108,7 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.phone);
+    // console.log(this.phone);
   }
 
   backPage(){

@@ -1,3 +1,61 @@
-<p>
-  revenue-info works!
-</p>
+<!-- <div class="admin_content whole_white"> -->
+    <h2 class="admin_white_back_zag">
+        <div [routerLink]="['/admin','revenues']" class="arr">
+            <svg xmlns="http://www.w3.org/2000/svg" width="34" height="29" viewBox="0 0 34 29">
+                <path fill="#000000" id="Forma_1_copy_3" data-name="Forma 1 copy 3" class="cls-1" d="M857,946.183H828.082L839.5,934.862,837.62,933,823,947.5,837.62,962l1.877-1.862-11.415-11.322H857v-2.633Z" transform="translate(-823 -933)"></path>
+            </svg>
+        </div>
+        Event revenue
+    </h2>
+    <div class="revenue_content">
+        <div class="flex_event">
+            <div class="event_photo">
+                <img [src]="Event.image_base64" alt="" class="img-responsive">
+            </div>
+            <div class="event_info">
+                <h1>{{Event.name}}</h1>
+                <p class="mouse_name"><span>#</span>{{Event.hashtag}}</p>
+                <p class="desc">{{Event.description}}</p>
+                <div class="about">
+                    <p><span>Owner:</span>{{Revenue&&Revenue.owner?Revenue.owner:'No info'}}</p>
+                    <p><span>Date:</span> {{Event.date_from|date}}</p>
+                    <p><span>Funding Type:</span> {{Revenue&&Revenue.is_crowdfunding_event?'Crowdfunding':'Regular'}}</p>
+                </div>
+                <div class="location-wr">
+                    <div class="mark"></div>
+                    <p class="location-inp ">
+                        {{Event.address}}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="admin_cards font25">
+            <div class="card blue mic">
+                <span class="num">${{Revenue&&Revenue.artist_revenue?Revenue.artist_revenue:'No info'}}</span>
+                <span class="text">Artist Booking Revenue</span>
+            </div>
+            <div class="card siren kolonka">
+                <span class="num">${{Revenue&&Revenue.venue_revenue?Revenue.venue_revenue:'No info'}}</span>
+                <span class="text">Venue Booking Revenue</span>
+            </div>
+            <div class="card violet vr">
+                <span class="num">${{Revenue&&Revenue.vr_revenue?Revenue.vr_revenue:'No info'}}</span>
+                <span class="text">VR Tickets Revenue</span>
+            </div>
+        </div>
+        <div class="admin_cards font25">
+            <div class="card blue ticket">
+                <span class="num">${{Revenue&&Revenue.tickets_revenue?Revenue.tickets_revenue:'No info'}}</span>
+                <span class="text">Ticket Sales Revenue</span>
+            </div>
+            <div class="card siren repost">
+                <span class="num">${{Revenue&&Revenue.advertising_revenue?Revenue.advertising_revenue:'No info'}}</span>
+                <span class="text">Advertising Revenue</span>
+            </div>
+            <div class="card violet coin">
+                <span class="num">${{Revenue&&Revenue.total_revenue?Revenue.total_revenue:'No info'}}</span>
+                <span class="text accent">Total Revenue</span>
+            </div>
+        </div>
+    </div>
+<!-- </div> -->

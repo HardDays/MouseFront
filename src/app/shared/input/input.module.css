@@ -1,0 +1,50 @@
+.time-select{
+    width:35px;
+}
+
+.time-var-select{
+    width:40px;
+}
+
+.venue-week-cal-style .week-day-time-wr .from-to{
+    padding-left: 0px!important;
+}
+
+.dashed-bottom-border
+{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border-bottom: 1px dashed #cecece;
+    margin-left: 10px;
+}
+
+
+select, input{
+    border-bottom: 0!important;
+}
+
+input{
+    width: 70px;
+    margin-right: 10px;
+    margin-left:10px;
+    display: block;
+    position: relative;
+    z-index: 10;
+    border: none;
+    background: transparent;
+    padding: 10px 0;
+    font-size: 16px;
+    outline: none;
+}
+
+.time-separator{
+    padding-left: 0px!important;
+}
+

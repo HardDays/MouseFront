@@ -11,94 +11,14 @@
               <div class="admin_table_th">Revenue</div>
           </div>
           <div class="admin_table_tbody">
-              <div class="admin_table_tr">
-                  <div class="admin_table_td"><span>Festival of Pain</span></div>
-                  <div class="admin_table_td"><span>Mark<br>Smith</span></div>
-                  <div class="admin_table_td"><span>09.07.2018</span></div>
-                  <div class="admin_table_td"><span>Regular</span></div>
-                  <div class="admin_table_td"><span>Stadium Live Club, Moscow, Russian</span></div>
-                  <div class="admin_table_td rose text_bold"><span>$5870.00</span></div>
-              </div>
-              <div class="admin_table_tr">
-                  <div class="admin_table_td"><span>Festival of Pain</span></div>
-                  <div class="admin_table_td"><span>Mark<br>Smith</span></div>
-                  <div class="admin_table_td"><span>09.07.2018</span></div>
-                  <div class="admin_table_td"><span>Regular</span></div>
-                  <div class="admin_table_td"><span>Stadium Live Club, Moscow, Russian</span></div>
-                  <div class="admin_table_td rose text_bold"><span>$5870.00</span></div>
-              </div>
-              <div class="admin_table_tr">
-                  <div class="admin_table_td"><span>Festival of Pain</span></div>
-                  <div class="admin_table_td"><span>Mark<br>Smith</span></div>
-                  <div class="admin_table_td"><span>09.07.2018</span></div>
-                  <div class="admin_table_td"><span>Regular</span></div>
-                  <div class="admin_table_td"><span>Stadium Live Club, Moscow, Russian</span></div>
-                  <div class="admin_table_td rose text_bold"><span>$5870.00</span></div>
-              </div>
-              <div class="admin_table_tr">
-                  <div class="admin_table_td"><span>Festival of Pain</span></div>
-                  <div class="admin_table_td"><span>Mark<br>Smith</span></div>
-                  <div class="admin_table_td"><span>09.07.2018</span></div>
-                  <div class="admin_table_td"><span>Regular</span></div>
-                  <div class="admin_table_td"><span>Stadium Live Club, Moscow, Russian</span></div>
-                  <div class="admin_table_td rose text_bold"><span>$5870.00</span></div>
-              </div>
-              <div class="admin_table_tr">
-                  <div class="admin_table_td"><span>Festival of Pain</span></div>
-                  <div class="admin_table_td"><span>Mark<br>Smith</span></div>
-                  <div class="admin_table_td"><span>09.07.2018</span></div>
-                  <div class="admin_table_td"><span>Regular</span></div>
-                  <div class="admin_table_td"><span>Stadium Live Club, Moscow, Russian</span></div>
-                  <div class="admin_table_td rose text_bold"><span>$5870.00</span></div>
-              </div>
-              <div class="admin_table_tr">
-                  <div class="admin_table_td"><span>Festival of Pain</span></div>
-                  <div class="admin_table_td"><span>Mark<br>Smith</span></div>
-                  <div class="admin_table_td"><span>09.07.2018</span></div>
-                  <div class="admin_table_td"><span>Regular</span></div>
-                  <div class="admin_table_td"><span>Stadium Live Club, Moscow, Russian</span></div>
-                  <div class="admin_table_td rose text_bold"><span>$5870.00</span></div>
-              </div>
-              <div class="admin_table_tr">
-                  <div class="admin_table_td"><span>Festival of Pain</span></div>
-                  <div class="admin_table_td"><span>Mark<br>Smith</span></div>
-                  <div class="admin_table_td"><span>09.07.2018</span></div>
-                  <div class="admin_table_td"><span>Regular</span></div>
-                  <div class="admin_table_td"><span>Stadium Live Club, Moscow, Russian</span></div>
-                  <div class="admin_table_td rose text_bold"><span>$5870.00</span></div>
-              </div>
-              <div class="admin_table_tr">
-                  <div class="admin_table_td"><span>Festival of Pain</span></div>
-                  <div class="admin_table_td"><span>Mark<br>Smith</span></div>
-                  <div class="admin_table_td"><span>09.07.2018</span></div>
-                  <div class="admin_table_td"><span>Regular</span></div>
-                  <div class="admin_table_td"><span>Stadium Live Club, Moscow, Russian</span></div>
-                  <div class="admin_table_td rose text_bold"><span>$5870.00</span></div>
-              </div>
-              <div class="admin_table_tr">
-                  <div class="admin_table_td"><span>Festival of Pain</span></div>
-                  <div class="admin_table_td"><span>Mark<br>Smith</span></div>
-                  <div class="admin_table_td"><span>09.07.2018</span></div>
-                  <div class="admin_table_td"><span>Regular</span></div>
-                  <div class="admin_table_td"><span>Stadium Live Club, Moscow, Russian</span></div>
-                  <div class="admin_table_td rose text_bold"><span>$5870.00</span></div>
-              </div>
-              <div class="admin_table_tr">
-                  <div class="admin_table_td"><span>Festival of Pain</span></div>
-                  <div class="admin_table_td"><span>Mark<br>Smith</span></div>
-                  <div class="admin_table_td"><span>09.07.2018</span></div>
-                  <div class="admin_table_td"><span>Regular</span></div>
-                  <div class="admin_table_td"><span>Stadium Live Club, Moscow, Russian</span></div>
-                  <div class="admin_table_td rose text_bold"><span>$5870.00</span></div>
-              </div>
-              <div class="admin_table_tr">
-                  <div class="admin_table_td"><span>Festival of Pain</span></div>
-                  <div class="admin_table_td"><span>Mark<br>Smith</span></div>
-                  <div class="admin_table_td"><span>09.07.2018</span></div>
-                  <div class="admin_table_td"><span>Regular</span></div>
-                  <div class="admin_table_td"><span>Stadium Live Club, Moscow, Russian</span></div>
-                  <div class="admin_table_td rose text_bold"><span>$5870.00</span></div>
-              </div>
+              <div *ngFor="let revenue of Revenues" [routerLink]="['/admin','revenue',revenue.id]" class="admin_table_tr">
+                  <div class="admin_table_td"><span>{{revenue&&revenue.name?revenue.name:'No info'}}</span></div>
+                  <div class="admin_table_td"><span>{{revenue&&revenue.owner?revenue.owner:'No info'}}</span></div>
+                  <div class="admin_table_td"><span>{{revenue.date_from|date}}</span></div>
+                  <div class="admin_table_td"><span>{{revenue&&revenue.is_crowdfunding_event?'Crowdfunding':'Regular'}}</span></div>
+                  <div class="admin_table_td"><span>{{revenue&&revenue.address?revenue.address:'No info'}}</span></div>
+                  <div class="admin_table_td rose text_bold"><span>${{revenue&&revenue.revenue?revenue.revenue:' No info'}}</span></div>
+              </div> 
           </div>
       </div>
   </section>

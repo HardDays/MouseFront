@@ -71,22 +71,22 @@ export class AboutComponent extends BaseComponent implements OnInit {
 
     this.getGenres();
 
-    console.log(this.Event);
+    // console.log(this.Event);
     if(this.Event.image_id)
     {
-        console.log(this.Event.image_id);
+        // console.log(this.Event.image_id);
         this.main.imagesService.GetImageById(this.Event.image_id)
         .subscribe(
             (img)=>{
-                console.log(`succes`);
+                // console.log(`succes`);
                 this.Event.image_base64 = img.base64;
             },(err)=>{
-                console.log(`err`,err) 
+                // console.log(`err`,err) 
             }
         )
     }
     else {
-        console.log(`NO IMAGE`);
+        // console.log(`NO IMAGE`);
     }
 
     this.mapCoords.lat = (this.Event && this.Event.city_lat)?this.Event.city_lat:55.755826;
@@ -220,7 +220,7 @@ export class AboutComponent extends BaseComponent implements OnInit {
         if(!this.Event.is_crowdfunding_event)
             this.Event.is_crowdfunding_event = false;
     
-        console.log(`thisForm`,this.Event);
+        // console.log(`thisForm`,this.Event);
         this.onSaveEvent.emit(this.Event);
     }
 

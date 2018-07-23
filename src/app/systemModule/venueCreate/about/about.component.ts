@@ -28,7 +28,7 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
     @Output() onImageDeleted:EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() onVenueChanged:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
 
-
+    phoneMask:string='';
 
     EmailFormGroup : FormGroup = new FormGroup({
         "name_email":new FormControl("",[]),
@@ -55,6 +55,7 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
         this.aboutForm.valueChanges.forEach(
             (value:any) => {
                 this.onVenueChanged.emit(this.Venue);
+                this.phoneMask = this.Venue.phone;
             });
         this.aboutForm.controls["emails"].valueChanges.forEach(
             (value:any) => {
@@ -91,6 +92,8 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
 
         this.AddEmailsToForm(this.Venue.emails.length);
         this.GetVenueImage();
+
+        this.phoneMask = this.Venue.phone;
     }
 
     GetVenueImage()
@@ -188,6 +191,13 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
             this.onError.emit(this.getFormErrorMessage(this.aboutForm, 'venue'));
             return;
         }
+
+        let phoneToSend = this.Venue.phone.replace(/ /g,'');
+        phoneToSend = phoneToSend.replace(/\(/g,'');
+        phoneToSend = phoneToSend.replace(/\)/g,'');
+        phoneToSend = phoneToSend.replace(/-/g,'');
+        this.Venue.phone =  phoneToSend;
+        
         this.onSaveVenue.emit(this.Venue);
     }
 

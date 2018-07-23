@@ -1,32 +1,56 @@
-<section class="admin_table_nav">
-  <span class="admin_delete"><img src="./../../../assets/img/admin/delete.svg" alt=""></span>
-  <span class="admin_look"><img src="./../../../assets/img/admin/look.svg" alt=""></span>
+<section *ngIf="Accounts" class="admin_table_nav">
+  <span (click)="deleteAll()" class="admin_delete"><img src="./../../../assets/img/admin/delete.svg" alt=""></span>
+  <span (click)="openInNewTabs()" class="admin_look"><img src="./../../../assets/img/admin/look.svg" alt=""></span>
   <div class="table_filter">
-      <div class="table_search"><input type="text" placeholder="Search"></div>
+      <div class="table_search"><input (input)="filterByName($event)" type="text" placeholder="Search"></div>
       <div class="filter_checkbox">
-          <input type="checkbox" id="fan_acc">
+          <input type="checkbox" id="fan_acc" [(ngModel)]="TypesArtist.fan" (ngModelChange)="filterByType()">
           <label for="fan_acc"></label>
           <span>Fan</span>
       </div>
       <div class="filter_checkbox">
-          <input type="checkbox" id="venue_acc">
+          <input type="checkbox" id="venue_acc" [(ngModel)]="TypesArtist.venue" (ngModelChange)="filterByType()">
           <label for="venue_acc"></label>
           <span>Venue</span>
       </div>
       <div class="filter_checkbox">
-          <input type="checkbox" id="artist_acc">
+          <input type="checkbox" id="artist_acc" [(ngModel)]="TypesArtist.artist" (ngModelChange)="filterByType()">
           <label for="artist_acc"></label>
           <span>Artist</span>
       </div>
       <div class="filter_checkbox">
-          <input type="checkbox" id="all_acc" checked>
+          <input type="checkbox" id="all_acc" [(ngModel)]="TypesArtist.all" (ngModelChange)="filterByType()">
           <label for="all_acc"></label>
           <span>All</span>
       </div>
   </div>
 </section>
+
+<section *ngIf="Events" class="admin_table_nav">
+                <span (click)="deleteAll()" class="admin_delete"><img src="./../../../assets/img/admin/delete.svg" alt=""></span>
+                <span (click)="openInNewTabs()" class="admin_look"><img src="./../../../assets/img/admin/look.svg" alt=""></span>
+                <div class="table_filter">
+                    <div class="table_search"><input (input)="filterByName($event)" type="text" placeholder="Search"></div>
+                    <div class="filter_checkbox">
+                        <input type="checkbox" id="fan_acc" [(ngModel)]="TypesEvent.crowdfund" (ngModelChange)="filterByType()">
+                        <label for="fan_acc"></label>
+                        <span>Crowdfund</span>
+                    </div>
+                    <div class="filter_checkbox">
+                        <input type="checkbox" id="venue_acc" [(ngModel)]="TypesEvent.regular" (ngModelChange)="filterByType()">
+                        <label for="venue_acc"></label>
+                        <span>Regular</span>
+                    </div>
+                    <div class="filter_checkbox">
+                        <input type="checkbox" id="all_acc" [(ngModel)]="TypesEvent.all" (ngModelChange)="filterByType()">
+                        <label for="all_acc"></label>
+                        <span>All</span>
+                    </div>
+                </div>
+            </section>
 <section>
-  <div class="admin_table accounts_table" [ngClass]="{'accounts_table_with_by':isApprovedBy||Events}">
+
+  <div class="admin_table" [ngClass]="{'accounts_table':Accounts, 'accounts_table_with_by':isApprovedBy, 'events_table':Events, 'events_table_with_by':isApprovedBy }">
       <div  *ngIf="Accounts" class="admin_table_thead">
           <div class="admin_table_th check_column"><img src="./../../../assets/img/admin/table_check_th.svg" alt=""></div>
           <div class="admin_table_th">Date received</div>
@@ -47,115 +71,49 @@
             <div *ngIf='isApprovedBy' class="admin_table_th">{{status}} by</div>
         </div>
       <div *ngIf="Accounts" class="admin_table_tbody">
-          <ng-container *ngFor="let acc of Accounts; let i = index">
+          <ng-container *ngFor="let acc of AccountsChecked; let i = index">
             <div *ngIf="status=='all'||acc.status===status||(acc.status==='just_added'&&status==='new')" class="admin_table_tr">
                 <div class="admin_table_td check_column">
                     <div class="admin_table_checkbox">
-                        <input type="checkbox" id="new_acc_1">
-                        <label for="new_acc_1"></label>
+                        <input (change)="checkIdToOpen(acc.id)" type="checkbox" id="new_acc_{{i}}">
+                        <label for="new_acc_{{i}}"></label>
                     </div>
                 </div>
                 <div class="admin_table_td"><span>12.10.2018</span></div>
-                <div (click)="openArtist()" class="admin_table_td account">
-                    <span class="acc_ava" style="background-image: url(./../../../assets/img/admin/example_revenue_event.jpg)"></span>
+                <div (click)="openAccount(acc.id)" class="admin_table_td account">
+                        <!-- style="background-image: url(./../../../assets/img/admin/example_revenue_event.jpg); min-width: 37px;" -->
+                    <span class="acc_ava" style="min-width: 37px;" [ngStyle]="getImage(acc.image_id)"></span>
                     <span>{{acc.display_name}}</span>
                 </div>
                 <div class="admin_table_td"><span>{{acc.account_type|titlecase}}</span></div>
                 <div class="admin_table_td"><span>{{acc.address}}</span></div>
-                <div class="admin_table_td text-uppercase"><span class="status_pending">{{acc.status|titlecase}}</span></div>
-                <div *ngIf='isApprovedBy' class="admin_table_td"><span>Sonova<br>Middleton</span></div>
+                <div class="admin_table_td text-uppercase"><span [ngClass]="{'status_pending':acc.status=='pending','status_approved':acc.status=='approved','status_new':acc.status=='new','status_denied':acc.status=='denied','status_inactive':acc.status=='inactive'}">{{acc.status|titlecase}}</span></div>
+                <div *ngIf='isApprovedBy' class="admin_table_td"><span>{{acc.processed_by}}</span></div>
             </div>
           </ng-container>
           <!-- При выделении чекбокса добавляется класс CHECKED: -->
-          <div class="admin_table_tr checked">
-              <div class="admin_table_td check_column">
-                  <div class="admin_table_checkbox">
-                      <input type="checkbox" id="new_acc_2" checked>
-                      <label for="new_acc_2"></label>
-                  </div>
-              </div>
-              <div class="admin_table_td"><span>12.10.2018</span></div>
-              <div class="admin_table_td account">
-                  <span class="acc_ava" style="background-image: url(./../../../assets/img/admin/example_revenue_event.jpg)"></span>
-                  <span>Mark<br>Smith</span>
-              </div>
-              <div class="admin_table_td"><span>Fan</span></div>
-              <div class="admin_table_td"><span>Los Angeles, USA</span></div>
-              <div class="admin_table_td text-uppercase"><span class="status_denied">Denied</span></div>
-              <div *ngIf='isApprovedBy' class="admin_table_td"><span>Sonova<br>Middleton</span></div>
-          </div>
-          <div class="admin_table_tr">
-              <div class="admin_table_td check_column">
-                  <div class="admin_table_checkbox">
-                      <input type="checkbox" id="new_acc_3">
-                      <label for="new_acc_3"></label>
-                  </div>
-              </div>
-              <div class="admin_table_td"><span>12.10.2018</span></div>
-              <div class="admin_table_td account">
-                  <span class="acc_ava" style="background-image: url(./../../../assets/img/admin/example_revenue_event.jpg)"></span>
-                  <span>Mark<br>Smith</span>
-              </div>
-              <div class="admin_table_td"><span>Fan</span></div>
-              <div class="admin_table_td"><span>Los Angeles, USA</span></div>
-              <div class="admin_table_td text-uppercase"><span class="status_inactive">Inactive</span></div>
-              <div *ngIf='isApprovedBy' class="admin_table_td"><span>Sonova<br>Middleton</span></div>
-          </div>
-          <div class="admin_table_tr">
-              <div class="admin_table_td check_column">
-                  <div class="admin_table_checkbox">
-                      <input type="checkbox" id="new_acc_4">
-                      <label for="new_acc_4"></label>
-                  </div>
-              </div>
-              <div class="admin_table_td"><span>12.10.2018</span></div>
-              <div class="admin_table_td account">
-                  <span class="acc_ava" style="background-image: url(./../../../assets/img/admin/example_revenue_event.jpg)"></span>
-                  <span>Mark<br>Smith</span>
-              </div>
-              <div class="admin_table_td"><span>Fan</span></div>
-              <div class="admin_table_td"><span>Los Angeles, USA</span></div>
-              <div class="admin_table_td text-uppercase"><span class="status_new">New</span></div>
-              <div *ngIf='isApprovedBy' class="admin_table_td"><span>Sonova<br>Middleton</span></div>
-          </div>
-          <div class="admin_table_tr">
-              <div class="admin_table_td check_column">
-                  <div class="admin_table_checkbox">
-                      <input type="checkbox" id="new_acc_5">
-                      <label for="new_acc_5"></label>
-                  </div>
-              </div>
-              <div class="admin_table_td"><span>12.10.2018</span></div>
-              <div class="admin_table_td account">
-                  <span class="acc_ava" style="background-image: url(./../../../assets/img/admin/example_revenue_event.jpg)"></span>
-                  <span>Mark<br>Smith</span>
-              </div>
-              <div class="admin_table_td"><span>Fan</span></div>
-              <div class="admin_table_td"><span>Los Angeles, USA</span></div>
-              <div class="admin_table_td text-uppercase"><span class="status_approved">Approved</span></div>
-              <div *ngIf='isApprovedBy' class="admin_table_td"><span>Sonova<br>Middleton</span></div>
-          </div>
+          
       </div>
 
       <div *ngIf="Events" class="admin_table_tbody">
-            <ng-container *ngFor="let event of Events; let i = index">
+            <ng-container *ngFor="let event of EventsChecked; let i = index">
               <div *ngIf="status=='all'||event.status===status||(event.status==='just_added'&&status==='new')" class="admin_table_tr">
                   <div class="admin_table_td check_column">
                       <div class="admin_table_checkbox">
-                          <input type="checkbox" id="new_acc_1">
-                          <label for="new_acc_1"></label>
+                          <input (change)="checkIdToOpen(event.id)" type="checkbox" id="new_acc_{{i}}">
+                          <label for="new_acc_{{i}}"></label>
                       </div>
                   </div>
                   <div class="admin_table_td"><span>{{event.received_date|date:'dd.MM.yyyy'}}</span></div>
-                  <div (click)="openArtist()" class="admin_table_td account">
+                  <div (click)="openEvent(event.id)" class="admin_table_td account">
                       <!-- <span class="acc_ava" style="background-image: url(./../../../assets/img/admin/example_revenue_event.jpg)"></span> -->
                       <span>{{event.name}}</span>
                   </div>
                   <div class="admin_table_td"><span>{{event.date_from|date:'dd.MM.yyyy'}}</span></div>
                   <div class="admin_table_td"><span>{{event.address}}</span></div>
                   <div class="admin_table_td"><span>{{event.is_crowdfunding_event?'Crowdfund':'Regular'}}</span></div>
-                  <div class="admin_table_td text-uppercase"><span class="status_pending">{{event.status.replace('_',' ')}}</span></div>
-                  <div *ngIf='isApprovedBy' class="admin_table_td"><span>Sonova<br>Middleton</span></div>
+                  <div class="admin_table_td text-uppercase"><span [ngClass]="{'status_pending':event.status=='pending','status_approved':event.status=='approved','status_new':event.status=='new','status_denied':event.status=='denied','status_inactive':event.status=='inactive'}">{{event.status.replace('_',' ')}}</span></div>
+                  <div *ngIf='isApprovedBy' class="admin_table_td"><span>{{event.processed_by}}</span></div>
               </div>
             </ng-container>
             <!-- При выделении чекбокса добавляется класс CHECKED: -->

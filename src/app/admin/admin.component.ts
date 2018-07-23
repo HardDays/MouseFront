@@ -18,6 +18,9 @@ export class AdminComponent extends BaseComponent implements OnInit {
   User:UserGetModel = new UserGetModel();
   openMenu = false;
 
+  newAccCount = 0;
+  newEventCount = 0;
+
   ngOnInit() {
     this.initJs();
     this.GetCurrentRoute();
@@ -26,11 +29,36 @@ export class AdminComponent extends BaseComponent implements OnInit {
           this.GetCurrentRoute();
       }
     });
-    this.User = this.main.MyUser;
+    // this.User = this.main.MyUser;
+
+    this.main.adminService.GetMyAccByIdUser(this.main.MyUser.id)
+          .subscribe(
+            (res)=>{
+              this.User = res;
+
+              if(this.User.image_id)
+                this.User.image_base64 = this.main.imagesService.GetImagePreview(this.User.image_id,{width:100,height:100});
+
+              this.User.is_admin = this.main.MyUser.is_admin;
+              this.User.is_superuser = this.main.MyUser.is_superuser;
+            }
+          )
 
     this.main.UserChange.subscribe(
       (res)=>{
-        this.User = this.main.MyUser;
+        this.main.adminService.GetMyAccByIdUser(this.main.MyUser.id)
+          .subscribe(
+            (res)=>{
+              this.User = res;
+              
+              if(this.User.image_id)
+                this.User.image_base64 = this.main.imagesService.GetImagePreview(this.User.image_id,{width:100,height:100});
+
+              this.User.is_admin = this.main.MyUser.is_admin;
+              this.User.is_superuser = this.main.MyUser.is_superuser;
+            }
+          )
+        // this.User = this.main.MyUser;
       }
     )
     // if(this.User.image_id){
@@ -40,8 +68,27 @@ export class AdminComponent extends BaseComponent implements OnInit {
     //       this.User.image_base64 = res.base64;
     //     })
     // }
-    console.log(this.User);
+    // console.log(this.User);
 
+    this.getNewCounts();
+
+  }
+
+  getNewCounts(){
+    this.main.adminService.GetNewAccountsCount()
+      .subscribe(
+        (res)=>{
+          this.newAccCount = res;
+        }
+      )
+
+    this.main.adminService.GetNewEventsCount()
+      .subscribe(
+        (res)=>{
+          this.newEventCount = res;
+        }
+      )
+    
   }
 
   GetCurrentRoute(){
@@ -76,6 +123,8 @@ export class AdminComponent extends BaseComponent implements OnInit {
               break;
             case 'analytics': this.currentPage = Parts.accounts_analytics;
               break;
+            case 'funding': this.currentPage = Parts.accounts_funding;
+              break;
           }
           break;
 
@@ -97,12 +146,23 @@ export class AdminComponent extends BaseComponent implements OnInit {
               break;
             case 'analytics': this.currentPage = Parts.events_analytics;
               break;
+           
           }
           break;
 
           case 'account':
             this.currentPage = Parts.artist;
           break;
+
+          case 'event':
+            this.currentPage = Parts.event;
+          break;
+
+          case 'revenue':
+            this.currentPage = Parts.revenue_info;
+          break;
+
+          
       }
     }
 
@@ -138,23 +198,26 @@ export enum Parts {
   accounts_inactive = 6,
   accounts_invites = 7,
   accounts_analytics = 8,
-  artist = 9,
-  events_all = 10,
-  events_new = 11,
-  events_pending = 12,
-  events_approved = 13,
-  events_denied = 14,
-  events_active = 15,
-  events_inactive = 16,
-  events_analytics = 17,
-  feedback = 18,
-  feedback_analytics = 19,
-  support = 20,
-  revenue = 21,
-  revenue_info = 22,
-  revenue_analytics = 23,
-  settings = 24,
-  add_new_admin = 25,
-  customer_support = 26,
-  customer_answers = 27
+  accounts_funding = 9,
+  artist = 10,
+  venue = 11,
+  events_all = 12,
+  events_new = 13,
+  events_pending = 14,
+  events_approved = 15,
+  events_denied = 16,
+  events_active = 17,
+  events_inactive = 18,
+  events_analytics = 19,
+  event = 20,
+  feedback = 21,
+  feedback_analytics = 22,
+  support = 23,
+  revenue = 24,
+  revenue_info = 25,
+  revenue_analytics = 26,
+  settings = 27,
+  add_new_admin = 28,
+  customer_support = 29,
+  customer_answers = 30
 }
