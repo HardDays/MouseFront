@@ -59,6 +59,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
                 fb.account.image_base64_not_given = BaseImages.NoneFolowerImage;
             }
           }
+          
           this.FeedbacksChecked = this.Feedbacks;
 
       
