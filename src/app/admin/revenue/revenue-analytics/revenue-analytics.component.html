@@ -9,66 +9,17 @@
                     <div class="admin_table_th">Percent</div>
                 </div>
                 <div class="admin_table_tbody">
-                    <div class="admin_table_tr">
+                    <div *ngFor="let city of citiesTotal.cities" class="admin_table_tr">
                         <div class="admin_table_td">
                             <div class="city_name">
-                                <span class="city_color" style="background-color: #991f72"></span>
-                                <span>New York</span>
+                                <span class="city_color" [ngStyle]="nextColor()"></span>
+                                <span>{{city.address}}</span>
                             </div>
                         </div>
-                        <div class="admin_table_td"><span>7,792,146.12</span></div>
-                        <div class="admin_table_td"><span>21.92%</span></div>
+                        <div class="admin_table_td"><span>{{city.price}}</span></div>
+                        <div class="admin_table_td"><span>{{city.price/citiesTotal.total*100|number}}%</span></div>
                     </div>
-                    <div class="admin_table_tr">
-                        <div class="admin_table_td">
-                            <div class="city_name">
-                                <span class="city_color" style="background-color: #5157b8"></span>
-                                <span>Moscow</span>
-                            </div>
-                        </div>
-                        <div class="admin_table_td"><span>7,792,146.12</span></div>
-                        <div class="admin_table_td"><span>21.92%</span></div>
-                    </div>
-                    <div class="admin_table_tr">
-                        <div class="admin_table_td">
-                            <div class="city_name">
-                                <span class="city_color" style="background-color: #d2365d"></span>
-                                <span>Saint Petersburg</span>
-                            </div>
-                        </div>
-                        <div class="admin_table_td"><span>7,792,146.12</span></div>
-                        <div class="admin_table_td"><span>21.92%</span></div>
-                    </div>
-                    <div class="admin_table_tr">
-                        <div class="admin_table_td">
-                            <div class="city_name">
-                                <span class="city_color" style="background-color: #f2ad0f"></span>
-                                <span>San Francisco</span>
-                            </div>
-                        </div>
-                        <div class="admin_table_td"><span>7,792,146.12</span></div>
-                        <div class="admin_table_td"><span>21.92%</span></div>
-                    </div>
-                    <div class="admin_table_tr">
-                        <div class="admin_table_td">
-                            <div class="city_name">
-                                <span class="city_color" style="background-color: #942541"></span>
-                                <span>Washington</span>
-                            </div>
-                        </div>
-                        <div class="admin_table_td"><span>7,792,146.12</span></div>
-                        <div class="admin_table_td"><span>21.92%</span></div>
-                    </div>
-                    <div class="admin_table_tr">
-                        <div class="admin_table_td">
-                            <div class="city_name">
-                                <span class="city_color" style="background-color: #079391"></span>
-                                <span>Others</span>
-                            </div>
-                        </div>
-                        <div class="admin_table_td"><span>7,792,146.12</span></div>
-                        <div class="admin_table_td"><span>21.92%</span></div>
-                    </div>
+ 
                 </div>
             </div>
             <div class="events_status_diagramm revenue_diagram_wrap">
@@ -95,7 +46,7 @@
         <div class="admin_cards font25">
             <div class="card_with_tabs">
                 <div class="card violet calendar">
-                    <span class="num">$35,418,846.07</span>
+                    <span class="num">${{countsDateTotal}}</span>
                     <span class="text">By Date</span>
                 </div>
                 <div class="card_tabs">
@@ -108,7 +59,7 @@
             </div>
             <div class="card_with_tabs">
                 <div class="card blue mic">
-                    <span class="num">$5,859,008.00</span>
+                    <span class="num">${{countsArtistTotal}}</span>
                     <span class="text">By Artist</span>
                 </div>
                 <div class="card_tabs">
@@ -121,7 +72,7 @@
             </div>
             <div class="card_with_tabs">
                 <div class="card siren kolonka">
-                    <span class="num">$8,345,90.08</span>
+                    <span class="num">${{countsVenueTotal}}</span>
                     <span class="text">By Venue</span>
                 </div>
                 <div class="card_tabs">
@@ -136,7 +87,7 @@
         <div class="admin_cards font25">
             <div class="card_with_tabs">
                 <div class="card violet vr">
-                    <span class="num">$1,996.00</span>
+                    <span class="num">${{countsVrTotal}}</span>
                     <span class="text">By VR Tickets</span>
                 </div>
                 <div class="card_tabs">
@@ -149,7 +100,7 @@
             </div>
             <div class="card_with_tabs">
                 <div class="card blue ticket">
-                    <span class="num">$1,026,759.08</span>
+                    <span class="num">${{countsTicketsTotal}}</span>
                     <span class="text">By Ticket Sales</span>
                 </div>
                 <div class="card_tabs">
@@ -162,7 +113,7 @@
             </div>
             <div class="card_with_tabs">
                 <div class="card siren repost">
-                    <span class="num">$7,899,698.00</span>
+                    <span class="num">${{countsAdvertisingTotal}}</span>
                     <span class="text">By Advertising</span>
                 </div>
                 <div class="card_tabs">
@@ -177,7 +128,7 @@
         <div class="admin_cards font25">
             <div class="card_with_tabs">
                 <div class="card violet ">
-                    <span class="num">$156,539.00</span>
+                    <span class="num">${{countsFundingTotal}}</span>
                     <span class="text">By Funding Type</span>
                     <div class="radios">
                         <div class="filter_radio">
@@ -212,66 +163,18 @@
                     <div class="admin_table_th">Percent</div>
                 </div>
                 <div class="admin_table_tbody">
-                    <div class="admin_table_tr">
-                        <div class="admin_table_td">
-                            <div class="city_name">
-                                <span class="city_color" style="background-color: #991f72"></span>
-                                <span>New York</span>
+                        <div *ngFor="let city of citiesSales.cities" class="admin_table_tr">
+                                <div class="admin_table_td">
+                                    <div class="city_name">
+                                        <span class="city_color" [ngStyle]="nextColor()"></span>
+                                        <span>{{city.address}}</span>
+                                    </div>
+                                </div>
+                                <div class="admin_table_td"><span>{{city.price}}</span></div>
+                                <div class="admin_table_td"><span>{{city.price/citiesSales.total*100|number}}%</span></div>
                             </div>
-                        </div>
-                        <div class="admin_table_td"><span>7,792,146.12</span></div>
-                        <div class="admin_table_td"><span>21.92%</span></div>
-                    </div>
-                    <div class="admin_table_tr">
-                        <div class="admin_table_td">
-                            <div class="city_name">
-                                <span class="city_color" style="background-color: #5157b8"></span>
-                                <span>Moscow</span>
-                            </div>
-                        </div>
-                        <div class="admin_table_td"><span>7,792,146.12</span></div>
-                        <div class="admin_table_td"><span>21.92%</span></div>
-                    </div>
-                    <div class="admin_table_tr">
-                        <div class="admin_table_td">
-                            <div class="city_name">
-                                <span class="city_color" style="background-color: #d2365d"></span>
-                                <span>Saint Petersburg</span>
-                            </div>
-                        </div>
-                        <div class="admin_table_td"><span>7,792,146.12</span></div>
-                        <div class="admin_table_td"><span>21.92%</span></div>
-                    </div>
-                    <div class="admin_table_tr">
-                        <div class="admin_table_td">
-                            <div class="city_name">
-                                <span class="city_color" style="background-color: #f2ad0f"></span>
-                                <span>San Francisco</span>
-                            </div>
-                        </div>
-                        <div class="admin_table_td"><span>7,792,146.12</span></div>
-                        <div class="admin_table_td"><span>21.92%</span></div>
-                    </div>
-                    <div class="admin_table_tr">
-                        <div class="admin_table_td">
-                            <div class="city_name">
-                                <span class="city_color" style="background-color: #942541"></span>
-                                <span>Washington</span>
-                            </div>
-                        </div>
-                        <div class="admin_table_td"><span>7,792,146.12</span></div>
-                        <div class="admin_table_td"><span>21.92%</span></div>
-                    </div>
-                    <div class="admin_table_tr">
-                        <div class="admin_table_td">
-                            <div class="city_name">
-                                <span class="city_color" style="background-color: #079391"></span>
-                                <span>Others</span>
-                            </div>
-                        </div>
-                        <div class="admin_table_td"><span>7,792,146.12</span></div>
-                        <div class="admin_table_td"><span>21.92%</span></div>
-                    </div>
+                    
+                    
                 </div>
             </div>
             <div class="events_status_diagramm revenue_diagram_wrap">
@@ -298,7 +201,7 @@
         <div class="admin_cards font25">
             <div class="card_with_tabs">
                 <div class="card violet calendar">
-                    <span class="num">$35,418,846.07</span>
+                    <span class="num">${{countsDateSales}}</span>
                     <span class="text">By Date</span>
                 </div>
                 <div class="card_tabs">
@@ -311,7 +214,7 @@
             </div>
             <div class="card_with_tabs">
                 <div class="card blue mic">
-                    <span class="num">$5,859,008.00</span>
+                    <span class="num">${{countsArtistSales}}</span>
                     <span class="text">By Artist</span>
                 </div>
                 <div class="card_tabs">
@@ -324,7 +227,7 @@
             </div>
             <div class="card_with_tabs">
                 <div class="card siren kolonka">
-                    <span class="num">$8,345,90.08</span>
+                    <span class="num">${{countsVenueSales}}</span>
                     <span class="text">By Venue</span>
                 </div>
                 <div class="card_tabs">
@@ -339,7 +242,7 @@
         <div class="admin_cards font25">
             <div class="card_with_tabs">
                 <div class="card violet vr">
-                    <span class="num">$1,996.00</span>
+                    <span class="num">${{countsVrSales}}</span>
                     <span class="text">By VR Tickets</span>
                 </div>
                 <div class="card_tabs">
@@ -352,7 +255,7 @@
             </div>
             <div class="card_with_tabs">
                 <div class="card blue ticket">
-                    <span class="num">$1,026,759.08</span>
+                    <span class="num">${{countsTicketsSales}}</span>
                     <span class="text">By Ticket Sales</span>
                 </div>
                 <div class="card_tabs">
@@ -365,7 +268,7 @@
             </div>
             <div class="card_with_tabs">
                 <div class="card siren repost">
-                    <span class="num">$7,899,698.00</span>
+                    <span class="num">${{countsAdvertisingSales}}</span>
                     <span class="text">By Advertising</span>
                 </div>
                 <div class="card_tabs">
@@ -380,7 +283,7 @@
         <div class="admin_cards font25">
             <div class="card_with_tabs">
                 <div class="card violet ">
-                    <span class="num">$156,539.00</span>
+                    <span class="num">${{countsFundingSales}}</span>
                     <span class="text">By Funding Type</span>
                     <div class="radios">
                         <div class="filter_radio">

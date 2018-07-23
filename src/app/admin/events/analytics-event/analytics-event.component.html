@@ -3,15 +3,15 @@
         <h1 class="admin_big_zag">Event analytics</h1>
         <div class="admin_cards">
             <div class="card siren world">
-                <span class="num">2345</span>
+                <span class="num">{{Counts.all}}</span>
                 <span class="text">All Events</span>
             </div>
             <div class="card blue cardcheck">
-                <span class="num">1106</span>
+                <span class="num">{{Counts.successful}}</span>
                 <span class="text">Successful</span>
             </div>
             <div class="card violet canc">
-                <span class="num">539</span>
+                <span class="num">{{Counts.failed}}</span>
                 <span class="text">Failed</span>
             </div>
         </div>
@@ -19,11 +19,11 @@
     <section>
         <h2 class="admin_table_zag zag_with_tabs">
             <span>New status per</span>
-            <span class="zag_tab">Day</span>
-            <span class="zag_tab">Week</span>
-            <span class="zag_tab">Month</span>
-            <span class="zag_tab">Year</span>
-            <span class="zag_tab active">All time</span>
+            <span class="zag_tab" (click)="setGraphNewStatusBy('day')" [ngClass]="{'active':newStatusPer==='day'}">Day</span>
+            <span class="zag_tab" (click)="setGraphNewStatusBy('week')" [ngClass]="{'active':newStatusPer==='week'}">Week</span>
+            <span class="zag_tab" (click)="setGraphNewStatusBy('month')" [ngClass]="{'active':newStatusPer==='month'}">Month</span>
+            <span class="zag_tab" (click)="setGraphNewStatusBy('year')" [ngClass]="{'active':newStatusPer==='year'}">Year</span>
+            <span class="zag_tab" (click)="setGraphNewStatusBy('all')" [ngClass]="{'active':newStatusPer==='all'}">All time</span>
         </h2>
         <div class="events_status_wrap">
             <div class="admin_table events_status_table">
@@ -35,18 +35,18 @@
                 <div class="admin_table_tbody">
                     <div class="admin_table_tr">
                         <div class="admin_table_td"><span class="blue">Successful</span></div>
-                        <div class="admin_table_td"><span>1106</span></div>
-                        <div class="admin_table_td"><span>47.16%</span></div>
+                        <div class="admin_table_td"><span>{{newStatus.successful}}</span></div>
+                        <div class="admin_table_td"><span>{{newStatus.successful/newStatus.all*100|number}}%</span></div>
                     </div>
                     <div class="admin_table_tr">
                         <div class="admin_table_td"><span class="yellow">Pending</span></div>
-                        <div class="admin_table_td"><span>700</span></div>
-                        <div class="admin_table_td"><span>29.85%</span></div>
+                        <div class="admin_table_td"><span>{{newStatus.pending}}</span></div>
+                        <div class="admin_table_td"><span>{{newStatus.pending/newStatus.all*100|number}}%</span></div>
                     </div>
                     <div class="admin_table_tr">
                         <div class="admin_table_td"><span class="purple">Failed</span></div>
-                        <div class="admin_table_td"><span>539</span></div>
-                        <div class="admin_table_td"><span>22.98%</span></div>
+                        <div class="admin_table_td"><span>{{newStatus.failed}}</span></div>
+                        <div class="admin_table_td"><span>{{newStatus.failed/newStatus.all*100|number}}%</span></div>
                     </div>
                 </div>
             </div>
@@ -66,11 +66,11 @@
     <section>
         <h2 class="admin_table_zag zag_with_tabs">
             <span>New events per</span>
-            <span class="zag_tab">Day</span>
-            <span class="zag_tab">Week</span>
-            <span class="zag_tab active">Month</span>
-            <span class="zag_tab">Year</span>
-            <span class="zag_tab">All time</span>
+            <span class="zag_tab" (click)="setGraphNewEventsBy('day')" [ngClass]="{'active':newEventPer==='day'}">Day</span>
+            <span class="zag_tab" (click)="setGraphNewEventsBy('week')" [ngClass]="{'active':newEventPer==='week'}">Week</span>
+            <span class="zag_tab" (click)="setGraphNewEventsBy('month')" [ngClass]="{'active':newEventPer==='month'}">Month</span>
+            <span class="zag_tab" (click)="setGraphNewEventsBy('year')" [ngClass]="{'active':newEventPer==='year'}">Year</span>
+            <span class="zag_tab" (click)="setGraphNewEventsBy('all')" [ngClass]="{'active':newEventPer==='all'}">All time</span>
         </h2>
         <div class="diagramm_block">
                 <canvas baseChart width="400" height="300"
@@ -92,16 +92,16 @@
         <h2 class="admin_table_zag">Individual events</h2>
         <div class="events_filters_wrap">
             <div class="events_filters_left">
-                <input type="text" placeholder="Search">
+                <input type="text" [(ngModel)]="paramsIndividual.text" (ngModelChange)="getIndividuals()" placeholder="Search">
                 <p>Sort By</p>
                 <div class="radios">
                     <div class="filter_radio">
-                        <input type="radio" id="sort_event_name" name="sort_event">
+                        <input [(ngModel)]="paramsIndividual.sort_by" value="name" (ngModelChange)="getIndividuals()" type="radio" id="sort_event_name" name="sort_event">
                         <label for="sort_event_name"></label>
                         <span>Event Name</span>
                     </div>
                     <div class="filter_radio">
-                        <input type="radio" id="sort_event_date" name="sort_event">
+                        <input [(ngModel)]="paramsIndividual.sort_by" value="date" (ngModelChange)="getIndividuals()" type="radio" id="sort_event_date" name="sort_event">
                         <label for="sort_event_date"></label>
                         <span>Event Date</span>
                     </div>
@@ -110,51 +110,51 @@
             <div class="events_filters_right">
                 <div class="filter_row">
                     <div class="filter_checkbox">
-                        <input type="checkbox" id="event_filter1" checked>
+                        <input type="checkbox" id="event_filter1" value="" [(ngModel)]="paramsIndividual.event_type_.all" (ngModelChange)="getIndividuals()">
                         <label for="event_filter1"></label>
                         <span>All</span>
                     </div>
                     <div class="filter_checkbox">
-                        <input type="checkbox" id="event_filter2">
+                        <input type="checkbox" value="crowdfund" [(ngModel)]="paramsIndividual.event_type_.crowdfund" (ngModelChange)="getIndividuals()" id="event_filter2">
                         <label for="event_filter2"></label>
                         <span>Crowdfund</span>
                     </div>
                     <div class="filter_checkbox">
-                        <input type="checkbox" id="event_filter3">
+                        <input type="checkbox" value="regular" [(ngModel)]="paramsIndividual.event_type_.regular" (ngModelChange)="getIndividuals()" id="event_filter3">
                         <label for="event_filter3"></label>
                         <span>Regular</span>
                     </div>
                 </div>
                 <div class="filter_row">
                     <div class="filter_checkbox">
-                        <input type="checkbox" id="event_filter4">
+                        <input type="checkbox" value="viewed" [(ngModel)]="paramsIndividual.event_type_.viewed" (ngModelChange)="getIndividuals()" id="event_filter4">
                         <label for="event_filter4"></label>
                         <span>Most Viewed</span>
                     </div>
                     <div class="filter_checkbox">
-                        <input type="checkbox" id="event_filter5">
+                        <input type="checkbox" value="liked" [(ngModel)]="paramsIndividual.event_type_.liked" (ngModelChange)="getIndividuals()" id="event_filter5">
                         <label for="event_filter5"></label>
                         <span>Most Liked</span>
                     </div>
                     <div class="filter_checkbox">
-                        <input type="checkbox" id="event_filter6">
+                        <input type="checkbox" value="commented" [(ngModel)]="paramsIndividual.event_type_.commented" (ngModelChange)="getIndividuals()" id="event_filter6">
                         <label for="event_filter6"></label>
                         <span>Most Commented</span>
                     </div>
                 </div>
                 <div class="filter_row">
                     <div class="filter_checkbox">
-                        <input type="checkbox" id="event_filter7">
+                        <input type="checkbox" value="successful" [(ngModel)]="paramsIndividual.event_type_.successful" (ngModelChange)="getIndividuals()" id="event_filter7">
                         <label for="event_filter7"></label>
                         <span>Successful</span>
                     </div>
                     <div class="filter_checkbox">
-                        <input type="checkbox" id="event_filter8">
+                        <input type="checkbox" value="pending" [(ngModel)]="paramsIndividual.event_type_.pending" (ngModelChange)="getIndividuals()" id="event_filter8">
                         <label for="event_filter8"></label>
                         <span>Pending</span>
                     </div>
                     <div class="filter_checkbox">
-                        <input type="checkbox" id="event_filter9">
+                        <input type="checkbox" value="failed" [(ngModel)]="paramsIndividual.event_type_.failed" (ngModelChange)="getIndividuals()" id="event_filter9">
                         <label for="event_filter9"></label>
                         <span>Failed</span>
                     </div>
@@ -172,60 +172,16 @@
                 <div class="admin_table_th">Status</div>
             </div>
             <div class="admin_table_tbody_scroll">
-                <div class="admin_table_tr">
-                    <div class="admin_table_td"><span>Cool Event</span></div>
-                    <div class="admin_table_td"><span>05.23.18 12:00 pm</span></div>
-                    <div class="admin_table_td"><span>Crowdfund</span></div>
-                    <div class="admin_table_td"><span>5668</span></div>
-                    <div class="admin_table_td"><span>6,568</span></div>
-                    <div class="admin_table_td"><span>75,669,885</span></div>
-                    <div class="admin_table_td text-uppercase"><span class="status_pending">Pending</span></div>
+                <div *ngFor="let ind of Individual" class="admin_table_tr">
+                    <div class="admin_table_td"><span>{{ind.name}}</span></div>
+                    <div class="admin_table_td"><span>{{ind.date_from|date:"dd.MM.YY hh:mm a"}}</span></div>
+                    <div class="admin_table_td"><span>{{ind.is_crowdfunding_event?'Crowdfunding':'Regular'}}</span></div>
+                    <div class="admin_table_td"><span>{{ind.comments}}</span></div>
+                    <div class="admin_table_td"><span>{{ind.likes}}</span></div>
+                    <div class="admin_table_td"><span>{{ind.views}}</span></div>
+                    <div class="admin_table_td text-uppercase"><span [ngClass]="{'status_pending':ind.status=='pending','status_approved':ind.status=='approved','status_new':ind.status=='new','status_denied':ind.status=='denied','status_inactive':ind.status=='inactive'}">{{ind.status.replace('_',' ')|titlecase}}</span></div>
                 </div>
-                <div class="admin_table_tr">
-                    <div class="admin_table_td"><span>Cool Event</span></div>
-                    <div class="admin_table_td"><span>05.23.18 12:00 pm</span></div>
-                    <div class="admin_table_td"><span>Crowdfund</span></div>
-                    <div class="admin_table_td"><span>5668</span></div>
-                    <div class="admin_table_td"><span>6,568</span></div>
-                    <div class="admin_table_td"><span>75,669,885</span></div>
-                    <div class="admin_table_td text-uppercase"><span class="status_approved">Successful</span></div>
-                </div>
-                <div class="admin_table_tr">
-                    <div class="admin_table_td"><span>Cool Event</span></div>
-                    <div class="admin_table_td"><span>05.23.18 12:00 pm</span></div>
-                    <div class="admin_table_td"><span>Crowdfund</span></div>
-                    <div class="admin_table_td"><span>5668</span></div>
-                    <div class="admin_table_td"><span>6,568</span></div>
-                    <div class="admin_table_td"><span>75,669,885</span></div>
-                    <div class="admin_table_td text-uppercase"><span class="status_pending">Pending</span></div>
-                </div>
-                <div class="admin_table_tr">
-                    <div class="admin_table_td"><span>Cool Event</span></div>
-                    <div class="admin_table_td"><span>05.23.18 12:00 pm</span></div>
-                    <div class="admin_table_td"><span>Crowdfund</span></div>
-                    <div class="admin_table_td"><span>5668</span></div>
-                    <div class="admin_table_td"><span>6,568</span></div>
-                    <div class="admin_table_td"><span>75,669,885</span></div>
-                    <div class="admin_table_td text-uppercase"><span class="status_pending">Pending</span></div>
-                </div>
-                <div class="admin_table_tr">
-                    <div class="admin_table_td"><span>Cool Event</span></div>
-                    <div class="admin_table_td"><span>05.23.18 12:00 pm</span></div>
-                    <div class="admin_table_td"><span>Crowdfund</span></div>
-                    <div class="admin_table_td"><span>5668</span></div>
-                    <div class="admin_table_td"><span>6,568</span></div>
-                    <div class="admin_table_td"><span>75,669,885</span></div>
-                    <div class="admin_table_td text-uppercase"><span class="status_approved">Successful</span></div>
-                </div>
-                <div class="admin_table_tr">
-                    <div class="admin_table_td"><span>Cool Event</span></div>
-                    <div class="admin_table_td"><span>05.23.18 12:00 pm</span></div>
-                    <div class="admin_table_td"><span>Crowdfund</span></div>
-                    <div class="admin_table_td"><span>5668</span></div>
-                    <div class="admin_table_td"><span>6,568</span></div>
-                    <div class="admin_table_td"><span>75,669,885</span></div>
-                    <div class="admin_table_td text-uppercase"><span class="status_approved">Successful</span></div>
-                </div>
+            
             </div>
         </div>
     </section>
