@@ -49,18 +49,18 @@ export class SettingsComponent extends BaseComponent implements OnInit {
     this.main.adminService.PatchAdmin(this.User, this.userId)
       .subscribe(
           (res)=>{
-              // this.User = res;
-              // if(this.User.image_id){
-              //   this.main.imagesService.GetImageById(this.User.image_id)
-              //     .subscribe((res)=>{
-              //       console.log(`res img`, res);
-              //       this.User.image_base64 = res.base64;
-              //     })
-              // }
-              // this.errorCmp.OpenWindow(BaseMessages.Success);
-            //   console.log(`res`,this.User);
-              this.main.GetMyUser();
               this.User = res;
+              if(this.User.image_id){
+                this.main.imagesService.GetImageById(this.User.image_id)
+                  .subscribe((res)=>{
+                    console.log(`res img`, res);
+                    this.User.image_base64 = res.base64;
+                  })
+              }
+            //   this.errorCmp.OpenWindow(BaseMessages.Success);
+              console.log(`res`,this.User);
+              this.main.GetMyUser();
+              //this.User = res;
               this.errCmp.OpenWindow(BaseMessages.Success);
               
           },

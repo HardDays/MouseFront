@@ -2,100 +2,54 @@
     <h1 class="support_zag">Customer support</h1>
     <div class="support_grey">
         <div class="support_dialogs">
-            <div class="support_dialogs_item">
-                <div class="ava" style="background-image: url(img/drake.jpg)"></div>
+                           
+            <div  *ngFor="let item of Questions" (click)="openNewQuestion(item.id)"  class="support_dialogs_item" [ngClass]="{'active': openQuestion&&openQuestion.id === item.id}">
+                <div class="ava" [ngStyle]="{'background-image': item.account?'url('+item.account.image_base64_not_given+')':'url('+nonImage+')'}"></div>
                 <div class="info">
                     <p class="question">
-                        <span class="title">How to create event</span>
-                        <span class="date">Feb 15</span>
+                        <span class="title">{{item.subject?item.subject:''}}</span>
+                        <span class="date">{{item.date?item.date:''}}</span>
                     </p>
-                    <p class="name">Christian Aveen</p>
-                    <p class="username"><span>@</span>Aveen</p>
-                    <p class="address">New York, NY USA</p>
+                    <p class="name">{{item.account&&item.account.display_name?item.account.display_name:''}}</p>
+                    <p class="username"><span>@</span>{{item.account&&item.account.user_name?item.account.user_name:''}}</p>
+                    <p class="address">{{item.account&&item.account.address?item.account.address:''}}</p>
                 </div>
             </div>
-            <div class="support_dialogs_item active">
-                <div class="ava" style="background-image: url(img/drake.jpg)"></div>
-                <div class="info">
-                    <p class="question">
-                        <span class="title">How to create event</span>
-                        <span class="date">Feb 15</span>
-                    </p>
-                    <p class="name">Christian Aveen</p>
-                    <p class="username"><span>@</span>Aveen</p>
-                    <p class="address">New York, NY USA</p>
-                </div>
-            </div>
-            <div class="support_dialogs_item">
-                <div class="ava" style="background-image: url(img/drake.jpg)"></div>
-                <div class="info">
-                    <p class="question">
-                        <span class="title">How to create event</span>
-                        <span class="date">Feb 15</span>
-                    </p>
-                    <p class="name">Christian Aveen</p>
-                    <p class="username"><span>@</span>Aveen</p>
-                    <p class="address">New York, NY USA</p>
-                </div>
-            </div>
-            <div class="support_dialogs_item">
-                <div class="ava" style="background-image: url(img/drake.jpg)"></div>
-                <div class="info">
-                    <p class="question">
-                        <span class="title">How to create event</span>
-                        <span class="date">Feb 15</span>
-                    </p>
-                    <p class="name">Christian Aveen</p>
-                    <p class="username"><span>@</span>Aveen</p>
-                    <p class="address">New York, NY USA</p>
-                </div>
-            </div>
-            <div class="support_dialogs_item">
-                <div class="ava" style="background-image: url(img/drake.jpg)"></div>
-                <div class="info">
-                    <p class="question">
-                        <span class="title">How to create event</span>
-                        <span class="date">Feb 15</span>
-                    </p>
-                    <p class="name">Christian Aveen</p>
-                    <p class="username"><span>@</span>Aveen</p>
-                    <p class="address">New York, NY USA</p>
-                </div>
-            </div>
+                
         </div>
         <div class="support_right">
             <div class="support_head">
-                <p>How to upload video</p>
-                <span class="but_icon"><img src="img/admin/support_delete.png" alt=""></span>
+                <p>{{openQuestion&&openQuestion.subject}}</p>
+                <span (click)="DeleteItem()" class="but_icon"><img src="./../../../assets/img/admin/support_delete.png" alt=""></span>
             </div>
             <div class="support_mes">
                 <div class="mes_head">
-                    <div class="ava" style="background-image: url(img/drake.jpg)"></div>
+                    <div class="ava" [ngStyle]="{'background-image': openQuestion&&openQuestion.account?'url('+openQuestion.account.image_base64_not_given+')':'url('+nonImage+')'}"></div>
                     <div class="info">
-                        <p class="name">Christian Aveen</p>
-                        <p class="username"><span>@</span>Aveen</p>
-                        <p class="address">New York, NY USA</p>
+                        <p class="name">{{openQuestion&&openQuestion.subject}}</p>
+                        <p class="username"><span>@</span>{{openQuestion&&openQuestion.account?openQuestion.account.user_name:''}}</p>
+                        <p class="address">{{openQuestion&&openQuestion.account?openQuestion.account.address:''}}</p>
                     </div>
                 </div>
                 <div class="mes_text">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation? ullamco laboris
+                        {{openQuestion&&openQuestion.message?openQuestion.message:''}}
                 </div>
             </div>
-            <div class="support_mes">
+            <div *ngIf="openQuestion&&openQuestion.question_reply" class="support_mes">
                 <div class="mes_head">
-                    <div class="ava" style="background-image: url(img/drake.jpg)"></div>
+                    <div class="ava" [ngStyle]="{'background-image':openQuestion&&openQuestion.question_reply&&openQuestion.question_reply.sender.image_id?'url('+openQuestion.question_reply.sender.image_base64_not_given+')':'url('+nonImage+')'}"></div>
                     <div class="info">
-                        <p class="username"><span>@</span>MouseAdmin</p>
+                        <p class="username"><span>@</span>{{openQuestion&&openQuestion.question_reply?openQuestion.question_reply.sender.user_name:''}}</p>
                     </div>
                 </div>
                 <div class="mes_text">
-                    Please go to the FAQs - How to Upload Videos, section at the following address: http://mouselive.com/faqs/video
+                    {{openQuestion&&openQuestion.question_reply?openQuestion.question_reply.simple_message:''}}
                 </div>
             </div>
-            <div class="mes_form">
+            <div *ngIf="openQuestion&&!openQuestion.question_reply" class="mes_form">
                 <div class="mes_input">
                     <label>Pre-written Responses</label>
-                    <select>
+                    <select [(ngModel)]="Subject">
                         <option></option>
                         <option>Find Artist</option>
                         <option>Search</option>
@@ -108,11 +62,11 @@
                     <label>Message</label>
                     <div class="mes_text_block">
                         <div class="mes_text_wrap">
-                            <textarea></textarea>
-                            <span><img src="img/admin/answer_attach_file.png"></span>
-                            <input type="file" id="mes_attach_file" class="hidden">
+                            <textarea [(ngModel)]="Message"></textarea>
+                            <!-- <span><img src="./../../../assets/img/admin/answer_attach_file.png"></span>
+                            <input type="file" id="mes_attach_file" class="hidden"> -->
                         </div>
-                        <button>SEND</button>
+                        <button (click)="SendAnswer()">SEND</button>
                     </div>
                 </div>
             </div>

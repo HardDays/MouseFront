@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter, ViewChild, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
 import { BaseComponent } from '../../../core/base/base.component';
 import * as moment from 'moment';
-import { Timestamp } from '../../../../../node_modules/rxjs';
+import { Timestamp } from 'rxjs';
 
 declare var $:any;
 declare var ionRangeSlider:any;

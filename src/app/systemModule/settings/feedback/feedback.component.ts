@@ -43,7 +43,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
 
   sendFeedback(){
     this.Feedback.rate_score = this.Rating+'';
-
+    this.Feedback.account_id = this.main.CurrentAccount.id;
     if(!this.FormFeedback.invalid){
       // console.log(this.Feedback);
       this.main.feedbkService.PostFeedback(this.Feedback)

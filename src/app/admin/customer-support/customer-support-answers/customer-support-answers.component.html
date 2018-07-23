@@ -7,126 +7,37 @@
                     <input type="text" placeholder="Search">
                 </div>
 
-                <div class="answer_item">
+                <div *ngFor="let temp of Templates" class="answer_item">
                     <div class="answer_head">
-                        <p>How to Create an Event</p>
-                        <span><img src="img/admin/answer_edit.png" alt=""></span>
-                        <span><img src="img/admin/answer_delete.png" alt=""></span>
+                        <p>{{temp.subject}}</p>
+                        <span (click)="OpenTemplate(temp)"><img src="./../../../../assets/img/admin/answer_edit.png" alt=""></span>
+                        <span (click)="DeleteTemplate(temp.id)"><img src="./../../../../assets/img/admin/answer_delete.png" alt=""></span>
                     </div>
                     <div class="answer_body">
-                        <p>To create event you have to<br>1) Go to the Events Screen.<br>2) Find a big pink button Create Event.<br>3) Fill in all necessary fields in Create Event page<br>4) Make Your Event active</p>
+                        <p>{{temp.message}}</p>
                     </div>
                 </div>
-                <div class="answer_item">
-                    <div class="answer_head">
-                        <p>How to Create a Crowdfunding Event</p>
-                        <span><img src="img/admin/answer_edit.png" alt=""></span>
-                        <span><img src="img/admin/answer_delete.png" alt=""></span>
-                    </div>
-                    <div class="answer_body">
-                        <p>To create event you have to<br>1) Go to the Events Screen.<br>2) Find a big pink button Create Event.<br>3) Fill in all necessary fields in Create Event page<br>4) Make Your Event active</p>
-                    </div>
-                </div>
-                <div class="answer_item">
-                    <div class="answer_head">
-                        <p>How to Search For a Show in My Area</p>
-                        <span><img src="img/admin/answer_edit.png" alt=""></span>
-                        <span><img src="img/admin/answer_delete.png" alt=""></span>
-                    </div>
-                    <div class="answer_body">
-                        <p>To create event you have to<br>1) Go to the Events Screen.<br>2) Find a big pink button Create Event.<br>3) Fill in all necessary fields in Create Event page<br>4) Make Your Event active</p>
-                    </div>
-                </div>
-                <div class="answer_item">
-                    <div class="answer_head">
-                        <p>How to Upload My Videos (Artist)</p>
-                        <span><img src="img/admin/answer_edit.png" alt=""></span>
-                        <span><img src="img/admin/answer_delete.png" alt=""></span>
-                    </div>
-                    <div class="answer_body">
-                        <p>To create event you have to<br>1) Go to the Events Screen.<br>2) Find a big pink button Create Event.<br>3) Fill in all necessary fields in Create Event page<br>4) Make Your Event active</p>
-                    </div>
-                </div>
-                <div class="answer_item">
-                    <div class="answer_head">
-                        <p>How to Find My Favorite Artist</p>
-                        <span><img src="img/admin/answer_edit.png" alt=""></span>
-                        <span><img src="img/admin/answer_delete.png" alt=""></span>
-                    </div>
-                    <div class="answer_body">
-                        <p>To create event you have to<br>1) Go to the Events Screen.<br>2) Find a big pink button Create Event.<br>3) Fill in all necessary fields in Create Event page<br>4) Make Your Event active</p>
-                    </div>
-                </div>
-                <div class="answer_item">
-                    <div class="answer_head">
-                        <p>How to Invite Venue</p>
-                        <span><img src="img/admin/answer_edit.png" alt=""></span>
-                        <span><img src="img/admin/answer_delete.png" alt=""></span>
-                    </div>
-                    <div class="answer_body">
-                        <p>To create event you have to<br>1) Go to the Events Screen.<br>2) Find a big pink button Create Event.<br>3) Fill in all necessary fields in Create Event page<br>4) Make Your Event active</p>
-                    </div>
-                </div>
-                <div class="answer_item">
-                    <div class="answer_head">
-                        <p>How to Invite Artist</p>
-                        <span><img src="img/admin/answer_edit.png" alt=""></span>
-                        <span><img src="img/admin/answer_delete.png" alt=""></span>
-                    </div>
-                    <div class="answer_body">
-                        <p>To create event you have to<br>1) Go to the Events Screen.<br>2) Find a big pink button Create Event.<br>3) Fill in all necessary fields in Create Event page<br>4) Make Your Event active</p>
-                    </div>
-                </div>
-                <div class="answer_item">
-                    <div class="answer_head">
-                        <p>How to Invite Friends</p>
-                        <span><img src="img/admin/answer_edit.png" alt=""></span>
-                        <span><img src="img/admin/answer_delete.png" alt=""></span>
-                    </div>
-                    <div class="answer_body">
-                        <p>To create event you have to<br>1) Go to the Events Screen.<br>2) Find a big pink button Create Event.<br>3) Fill in all necessary fields in Create Event page<br>4) Make Your Event active</p>
-                    </div>
-                </div>
-                <div class="answer_item">
-                    <div class="answer_head">
-                        <p>How to Create a Crowdfunding Event</p>
-                        <span><img src="img/admin/answer_edit.png" alt=""></span>
-                        <span><img src="img/admin/answer_delete.png" alt=""></span>
-                    </div>
-                    <div class="answer_body">
-                        <p>To create event you have to<br>1) Go to the Events Screen.<br>2) Find a big pink button Create Event.<br>3) Fill in all necessary fields in Create Event page<br>4) Make Your Event active</p>
-                    </div>
-                </div>
-                <div class="answer_item">
-                    <div class="answer_head">
-                        <p>How to Search For a Show in My Area</p>
-                        <span><img src="img/admin/answer_edit.png" alt=""></span>
-                        <span><img src="img/admin/answer_delete.png" alt=""></span>
-                    </div>
-                    <div class="answer_body">
-                        <p>To create event you have to<br>1) Go to the Events Screen.<br>2) Find a big pink button Create Event.<br>3) Fill in all necessary fields in Create Event page<br>4) Make Your Event active</p>
-                    </div>
-                </div>
+
             </div>
         </div>
         <div class="answer_form_block">
-            <h2 class="admin_table_zag">Add new answer</h2>
+            <h2 class="admin_table_zag">{{isEdit?'Edit':'Add new'}} answer</h2>
             <div class="answer_form">
                 <div class="answer_input">
                     <label>Subject</label>
-                    <input type="text">
+                    <input [disabled]="!isSuperUser" [(ngModel)]="openTemplate.subject" type="text">
                 </div>
                 <div class="answer_input">
                     <label>Answer</label>
-                    <textarea></textarea>
+                    <textarea [disabled]="!isSuperUser" [(ngModel)]="openTemplate.message"></textarea>
                 </div>
-                <div class="answer_file">
+                <!-- <div class="answer_file">
                     <span>Attach file</span>
                     <input type="file" class="hidden" id="answer_attach_file">
-                </div>
+                </div> -->
                 <div class="answer_button">
-                    <button class="butt-style-1">
-                        <span>Add</span>
+                    <button (click)="updateTemplate()" class="butt-style-1">
+                        <span>{{isEdit?'Edit':'Add'}}</span>
                     </button>
                 </div>
             </div>

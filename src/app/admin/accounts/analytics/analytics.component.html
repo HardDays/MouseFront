@@ -24,12 +24,24 @@
       <span class="zag_tab">Year</span>
       <span class="zag_tab">All time</span>
   </h2>
-  <div class="diagramm_block"></div>
-  <div class="acc_analytics_diag_desc">
+  <div class="diagramm_block">
+    <!-- <div style="display: block;"> -->
+        <canvas baseChart width="400" height="300"
+                    [datasets]="lineChartData"
+                    [labels]="lineChartLabels"
+                    [options]="lineChartOptions"
+                    [colors]="lineChartColors"
+                    [legend]="lineChartLegend"
+                    [chartType]="lineChartType"
+                    (chartHover)="chartHovered($event)"
+                    (chartClick)="chartClicked($event)"></canvas>
+        <!-- </div> -->
+  </div>
+  <!-- <div class="acc_analytics_diag_desc">
       <span class="rose">Fans</span>
       <span class="violet">Venues</span>
       <span class="crossed">Artists</span>
-  </div>
+  </div> -->
 </section>
 <section>
   <h2 class="admin_table_zag">User Usage</h2>
@@ -48,3 +60,4 @@
       </div>
   </div>
 </section>
+<br><br>

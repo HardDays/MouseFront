@@ -23,7 +23,7 @@ export class AccountsComponent extends BaseComponent implements OnInit {
       (params:Params) => {
         this.status = params['id']; // console.log(params["id"]);
         this.isShowTable = true;
-        if(this.status === 'analytics'||this.status === 'invites'){
+        if(this.status === 'analytics'||this.status === 'invites'||this.status === 'funding'){
           this.isShowTable = false;
         }
         else if(this.status != 'new'&& this.status != 'all'){

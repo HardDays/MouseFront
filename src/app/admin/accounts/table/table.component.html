@@ -112,7 +112,7 @@
                   <div class="admin_table_td"><span>{{event.date_from|date:'dd.MM.yyyy'}}</span></div>
                   <div class="admin_table_td"><span>{{event.address}}</span></div>
                   <div class="admin_table_td"><span>{{event.is_crowdfunding_event?'Crowdfund':'Regular'}}</span></div>
-                  <div class="admin_table_td text-uppercase"><span class="status_pending">{{event.status.replace('_',' ')}}</span></div>
+                  <div class="admin_table_td text-uppercase"><span [ngClass]="{'status_pending':event.status=='pending','status_approved':event.status=='approved','status_new':event.status=='new','status_denied':event.status=='denied','status_inactive':event.status=='inactive'}">{{event.status.replace('_',' ')}}</span></div>
                   <div *ngIf='isApprovedBy' class="admin_table_td"><span>{{event.processed_by}}</span></div>
               </div>
             </ng-container>

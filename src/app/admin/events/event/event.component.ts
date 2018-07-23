@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../../../core/base/base.component';
-import { Params } from '../../../../../node_modules/@angular/router';
+import { Params } from '@angular/router';
 import { EventGetModel } from '../../../core/models/eventGet.model';
 import { AccountGetModel } from '../../../core/models/accountGet.model';
 import { BaseImages } from '../../../core/base/base.enum';
