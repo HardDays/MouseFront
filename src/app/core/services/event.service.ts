@@ -48,7 +48,7 @@ export class EventService{
     }
     GetEventById(id:number){
         return this.http.CommonRequest(
-            () => this.http.GetData('/events/'+id+'.json',this.typeService.ParamsToUrlSearchParams({'id':id}))
+            () => this.http.GetData('/events/'+id+'.json', '')
         );
     }
     EventsSearch(params){
