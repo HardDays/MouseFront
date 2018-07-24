@@ -1,15 +1,93 @@
 import { Component, OnInit } from '@angular/core';
+import { BaseComponent } from '../../../core/base/base.component';
 
 @Component({
   selector: 'app-analytics-event',
   templateUrl: './analytics-event.component.html',
   styleUrls: ['./analytics-event.component.css']
 })
-export class AnalyticsEventComponent implements OnInit {
+export class AnalyticsEventComponent extends BaseComponent implements OnInit {
 
-  constructor() { }
+  Counts = {
+    all: 0,
+    successful: 0,
+    failed: 0
+  }
+
+  newStatusPer = 'month';
+  newStatus = {
+    all: 0,
+    pending: 0,
+    successful: 0,
+    failed: 0
+
+  }
+
+  newEventPer = 'month';
+
+  Individual:{name:string,date_from:string,is_crowdfunding_event:boolean, comments:number, likes:number, views:number, status:string}[] = [];
+  paramsIndividual = {
+    event_type_: {
+      all:false,
+      crowdfund:false,
+      regular:false,
+      viewed:false,
+      liked:false,
+      commented:false,
+      successful:false,
+      pending:false,
+      failed:false,
+    },
+    sort_by: 'name',
+    text: '',
+    event_type:[]
+  }
 
   ngOnInit() {
+    this.GetInfo();
+  }
+
+
+
+  GetInfo(){
+    this.main.adminService.GetEventsCounts()
+      .subscribe(
+        (res)=>{
+          this.Counts = res;
+        }
+      )
+    this.main.adminService.GetEventsNewStatus(this.newStatusPer)
+      .subscribe(
+        (res)=>{
+          this.newStatus = res;
+        }
+    )
+    
+    this.getIndividuals();
+    
+  }
+
+  setGraphNewStatusBy(per:string){
+    this.newStatusPer = per;
+  }
+
+  setGraphNewEventsBy(per:string){
+    this.newEventPer = per;
+  }
+
+  getIndividuals(){
+    this.paramsIndividual.event_type = [];
+    for(let t in this.paramsIndividual.event_type_){
+      if(this.paramsIndividual.event_type_[t])
+        this.paramsIndividual.event_type.push(t);
+    }
+    console.log(this.paramsIndividual);
+    this.main.adminService.GetEventsIndividual(this.paramsIndividual)
+    .subscribe(
+      (res)=>{
+        this.Individual = res;
+      }
+    )
   }
 
 

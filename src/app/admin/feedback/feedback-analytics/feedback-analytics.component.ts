@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BaseComponent } from '../../../core/base/base.component';
 
 @Component({
@@ -8,6 +8,9 @@ import { BaseComponent } from '../../../core/base/base.component';
 })
 export class FeedbackAnalyticsComponent extends BaseComponent implements OnInit {
 
+  //@ViewChild('baseChart') private _chart;
+// _chart.ngOnChanges()
+
   Info = {
       bug: 0,
       enhancement: 0,
@@ -15,6 +18,15 @@ export class FeedbackAnalyticsComponent extends BaseComponent implements OnInit 
   }
 
   Rate = 0;
+
+  graphBy:string  = 'month';
+
+  graphInfo = {
+    axis:[],
+    bugs:[],
+    enhancement:[],
+    compliment:[]
+  } 
 
   ngOnInit() {
     this.main.adminService.GetFeedbacksCounts()
@@ -29,8 +41,62 @@ export class FeedbackAnalyticsComponent extends BaseComponent implements OnInit 
           this.Rate = res;
         }
       )
+
+    this.UpdateGraph();
   }
 
+  UpdateGraph(){
+
+    this.main.adminService.GetFeedbacksGraph(this.graphBy)
+      .subscribe(
+        (res)=>{
+          this.graphInfo = res;
+          console.log(this.graphInfo);
+         
+          this.lineChartLabels.length = 0;
+          this.lineChartLabels.push(...this.graphInfo.axis);
+    
+          let tmpDataBugs = [];
+          let tmpDataCompliment = [];
+          let tmpDataEnhancement = [];
+
+          if(this.graphInfo.bugs){
+            for(let d in this.graphInfo.bugs)
+              tmpDataBugs.push({x:d,y:this.graphInfo.bugs[d]})
+            // tmpDataBugs = [{x:10,y:10},{x:20,y:20},{x:40,y:50}];
+          }
+          if(this.graphInfo.compliment){
+            for(let d in this.graphInfo.compliment)
+              tmpDataCompliment.push({x:d,y:this.graphInfo.compliment[d]})
+            // tmpDataCompliment = [{x:10,y:10},{x:20,y:20},{x:40,y:50}];
+          }
+          if(this.graphInfo.enhancement){
+            for(let d in this.graphInfo.enhancement)
+            tmpDataEnhancement.push({x:d,y:this.graphInfo.enhancement[d]})
+            // tmpDataEnhancement = [{x:10,y:10},{x:20,y:20},{x:40,y:50}];
+          }
+
+      
+          this.lineChartData.length = 0;
+
+          this.lineChartData = [
+            {data: tmpDataBugs, label: 'BUGS'},
+            {data: tmpDataCompliment, label: 'COMPLIMENT'},
+            {data: tmpDataEnhancement, label: 'ENHANCEMENT'}
+          ];
+
+
+        }
+      )
+
+    
+    //this._chart.ngOnChanges();
+  }
+
+  setGraphBy(by:string){
+    this.graphBy = by;
+    this.UpdateGraph();
+  }
 
 
 

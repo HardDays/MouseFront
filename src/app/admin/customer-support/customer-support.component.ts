@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../../core/base/base.component';
 import { AccountGetModel } from '../../core/models/accountGet.model';
 import { BaseImages } from '../../core/base/base.enum';
+import { Subject } from 'rxjs';
 
 
 interface Question {
@@ -26,6 +27,18 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
 
   Subject:string = '';
   Message:string = '';
+
+  AnswerOptions: any[] = [];
+
+  DefaultAnswer = {
+    Subject:'',
+    Messgae: ''
+  };
+
+  Answer = {
+    Subject:'',
+    Messgae: ''
+  };
 
   ngOnInit() {
     this.GetQuestions();
@@ -79,6 +92,17 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
         }
 
       })
+  }
+
+  UpdateAnwerOptions()
+  {
+    this.main.adminService.GetAnswerReplyTemplates()
+      .subscribe(
+        (res:any[]) =>
+        {
+          this.AnswerOptions = res;
+        }
+      )
   }
 
   SendAnswer(){

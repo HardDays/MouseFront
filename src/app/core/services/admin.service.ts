@@ -131,6 +131,8 @@ export class AdminService{
         );
     }
 
+   
+
     GetEventsRequests(params?)
     {
         return this.http.CommonRequest(
@@ -163,6 +165,28 @@ export class AdminService{
     {
         return this.http.CommonRequest(
             ()=> this.http.DeleteDataWithBody('/admin/events/'+id+'.json', JSON.stringify({id}))
+        );
+    }
+  
+    
+    GetEventsCounts()
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/admin/events/counts.json', '')
+        );
+    }
+
+    GetEventsIndividual(params)
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/admin/events/individual.json', this.typeService.ParamsToUrlSearchParams(params))
+        );
+    }
+
+    GetEventsNewStatus(by:string)
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/admin/events/new_status.json', this.typeService.ParamsToUrlSearchParams({by}))
         );
     }
 
@@ -208,7 +232,14 @@ export class AdminService{
             ()=> this.http.GetData('/admin/feedbacks/overall.json', '')
         );
     }
+    GetFeedbacksGraph(by?:string)
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/admin/feedbacks/graph.json', this.typeService.ParamsToUrlSearchParams({by}))
+        );
+    }
 
+    
     //////////////////////////////////////
     //////         QUESTIONS        //////   
     //////////////////////////////////////
@@ -293,8 +324,75 @@ export class AdminService{
         );
     }
 
+    GetRevenueCities(type:string)
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/admin/revenue/cities.json', this.typeService.ParamsToUrlSearchParams({type}))
+        );
+    }
 
+    GetRevenueCounts(type:string)
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/admin/revenue/counts.json', this.typeService.ParamsToUrlSearchParams({type}))
+        );
+    }
 
+    GetRevenueCountsAdvertising(type:string, by:string)
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/admin/revenue/counts/advertising.json', this.typeService.ParamsToUrlSearchParams({type,by}))
+        );
+    }
+
+    GetRevenueCountsDate(type:string, by:string)
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/admin/revenue/counts/date.json', this.typeService.ParamsToUrlSearchParams({type,by}))
+        );
+    }
+
+    GetRevenueCountsArtist(type:string, by:string)
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/admin/revenue/counts/artist.json', this.typeService.ParamsToUrlSearchParams({type,by}))
+        );
+    }
+
+    GetRevenueCountsFunding(type:string, by:string, funding_type:string)
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/admin/revenue/counts/funding.json', this.typeService.ParamsToUrlSearchParams({type,by,funding_type}))
+        );
+    }
+
+    GetRevenueCountsTickets(type:string, by:string)
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/admin/revenue/counts/tickets.json', this.typeService.ParamsToUrlSearchParams({type,by}))
+        );
+    }
+
+    GetRevenueCountsVenue(type:string, by:string)
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/admin/revenue/counts/venue.json', this.typeService.ParamsToUrlSearchParams({type,by}))
+        );
+    }
+
+    GetRevenueCountsVr(type:string, by:string)
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/admin/revenue/counts/vr.json', this.typeService.ParamsToUrlSearchParams({type,by}))
+        );
+    }
+
+    GetAnswerReplyTemplates()
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/admin/reply_templates/to_answer.json', '')
+        );
+    }
 
 
 }

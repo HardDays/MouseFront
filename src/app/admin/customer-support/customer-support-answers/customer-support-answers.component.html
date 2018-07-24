@@ -35,11 +35,19 @@
                     <span>Attach file</span>
                     <input type="file" class="hidden" id="answer_attach_file">
                 </div> -->
-                <div class="answer_button">
-                    <button (click)="updateTemplate()" class="butt-style-1">
-                        <span>{{isEdit?'Edit':'Add'}}</span>
-                    </button>
+                <div class="button-div">
+                    <div class="answer_button">
+                        <button [disabled]="!openTemplate.subject && !openTemplate.message" (click)="updateTemplate()" class="butt-style-1">
+                            <span>{{isEdit?'Edit':'Add'}}</span>
+                        </button>
+                    </div>
+                    <div class="answer_button">
+                        <button [disabled]="!openTemplate.subject && !openTemplate.message" (click)="clearTemplate()" class="butt-style-1">
+                            <span>Cancel</span>
+                        </button>
+                    </div>
                 </div>
+                
             </div>
         </div>
     </div>

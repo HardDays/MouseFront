@@ -129,42 +129,35 @@ export class TimeInput implements OnChanges{
 
     EmitCurrTime()
     {
-        let result = '';
+        
         
         let parts = this.CurTime.split(":");
 
-        result += this.CurVar == "PM" ? (+parts[0] + 12): parts[0];
+        if(parts && parts.length == 2){
+            let result = '';
+            result += this.CurVar == "PM" ? (+parts[0] + 12): parts[0];
 
-        result += ':' + parts[1];
+            result += ':' + parts[1];
 
-        this.onTimeChange.emit(result);
+            if(result.length == 5){
+                this.onTimeChange.emit(result);
+            }
+        }
+        
     }
 
     MaskTime(str: string)
     {    
         
-        let maskArray:any[] = [
-                /[0-1]/, 
-                ( str && str[0] && +str[0] < 1 ) ? /[0-9]/ : /[0-1]/, 
-                ':', 
-                /[0-5]/, 
-                /[0-9]/
-            ];
-        // let decDays = Math.floor(this.DaysInMonth / 10);
-        // let singleDays = this.DaysInMonth % 10;
-        // if(str.length > 0 && str.length < 3)
-        // {
-        //     if(+str[0] < decDays)
-        //     {
-        //         maskArray.push(new RegExp("[0-9]"));
-        //     }
-        //     else if(+str[0] == decDays)
-        //     {
-        //         maskArray.push(new RegExp("[0-"+ singleDays+"]"));
-        //     }
-        // }
+        let mask =  [
+            /[0-2]/, 
+            (str && (+str[0]) > 0) ? /[0-1]/ : /\d/,
+            ':', 
+            /[0-5]/, 
+            /\d/
+        ];
         return{
-            mask: maskArray,
+            mask: mask,
             keepCharPositions: true,
             guide: false,
         };
