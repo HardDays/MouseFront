@@ -387,5 +387,12 @@ export class AdminService{
         );
     }
 
+    GetAnswerReplyTemplates()
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/admin/reply_templates/to_answer.json', '')
+        );
+    }
+
 
 }
