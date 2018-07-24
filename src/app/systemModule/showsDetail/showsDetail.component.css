@@ -8,7 +8,9 @@
     background-size: cover;
     background-position: center;
 }
-
+.creator-name{
+    color:white;
+}
 /* .slideshow-container{
     overflow: inherit !important
 } */

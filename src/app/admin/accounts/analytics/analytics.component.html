@@ -18,20 +18,20 @@
 <section>
   <h2 class="admin_table_zag zag_with_tabs">
       <span>New users per</span>
-      <span class="zag_tab">Day</span>
-      <span class="zag_tab">Week</span>
-      <span class="zag_tab active">Month</span>
-      <span class="zag_tab">Year</span>
-      <span class="zag_tab">All time</span>
+      <span class="zag_tab" (click)="setGraphBy('day')" [ngClass]="{'active':graphBy==='day'}">Day</span>
+      <span class="zag_tab" (click)="setGraphBy('week')" [ngClass]="{'active':graphBy==='week'}">Week</span>
+      <span class="zag_tab" (click)="setGraphBy('month')" [ngClass]="{'active':graphBy==='month'}">Month</span>
+      <span class="zag_tab" (click)="setGraphBy('year')" [ngClass]="{'active':graphBy==='year'}">Year</span>
+      <span class="zag_tab" (click)="setGraphBy('all')" [ngClass]="{'active':graphBy==='all'}">All time</span>
   </h2>
   <div class="diagramm_block">
     <!-- <div style="display: block;"> -->
-        <canvas baseChart width="400" height="300"
+        <canvas baseChart #baseChart width="400" height="300"
                     [datasets]="lineChartData"
                     [labels]="lineChartLabels"
                     [options]="lineChartOptions"
                     [colors]="lineChartColors"
-                    [legend]="lineChartLegend"
+                    [legend]="true"
                     [chartType]="lineChartType"
                     (chartHover)="chartHovered($event)"
                     (chartClick)="chartClicked($event)"></canvas>

@@ -305,7 +305,13 @@ export class BaseComponent{
         };
     }
     
-
+    MaskDays(){
+        return{
+            mask: [/[1-9]/,/[1-9]/],
+            keepCharPositions: true,
+            guide:false
+        };
+    }
     MaskPrice()
     {
         return {

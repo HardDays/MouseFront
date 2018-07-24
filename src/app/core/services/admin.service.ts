@@ -118,6 +118,13 @@ export class AdminService{
         );
     }
 
+    GetAccountsGraph(by?:string)
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/admin/accounts/graph.json', this.typeService.ParamsToUrlSearchParams({by}))
+        );
+    }
+
 
     //////////////////////////////////////
     //////         EVENTS           //////   
@@ -187,6 +194,13 @@ export class AdminService{
     {
         return this.http.CommonRequest(
             ()=> this.http.GetData('/admin/events/new_status.json', this.typeService.ParamsToUrlSearchParams({by}))
+        );
+    }
+
+    GetEventsGraph(by:string)
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/admin/events/graph.json', this.typeService.ParamsToUrlSearchParams({by}))
         );
     }
 

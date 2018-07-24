@@ -11,7 +11,9 @@ p{
     word-wrap: break-word;
     word-break: break-all; 
 }
-
+.input-groupe-1 textarea{
+    padding: 10px 15px 15px 15px !important;
+}
 .pac-container { z-index: 100000; }
 
 .nameTicket{
