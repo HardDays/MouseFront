@@ -11,6 +11,16 @@ export class AnalyticsComponent extends BaseComponent implements OnInit {
   Usage = { clicks:0, comments:0, likes:0};
   New = {fan:0, artist:0, venue:0}
 
+
+graphBy:string  = 'month';
+
+graphInfo = {
+  axis:[],
+  fan:[],
+  artist:[],
+  venue:[]
+} 
+
   ngOnInit() {
 
     this.main.adminService.GetAccountsUserUsage()
@@ -28,9 +38,61 @@ export class AnalyticsComponent extends BaseComponent implements OnInit {
           this.New = res;
         }
       )
-    
+    this.UpdateGraph();
   }
 
+  UpdateGraph(){
+
+    this.main.adminService.GetAccountsGraph(this.graphBy)
+      .subscribe(
+        (res)=>{
+          this.graphInfo = res;
+          console.log(this.graphInfo);
+         
+          this.lineChartLabels.length = 0;
+          this.lineChartLabels.push(...this.graphInfo.axis);
+    
+          let tmpDataFans = [];
+          let tmpDataVenues = [];
+          let tmpDataArtists = [];
+
+          if(this.graphInfo.fan){
+            for(let d in this.graphInfo.fan)
+              tmpDataFans.push({x:d,y:this.graphInfo.fan[d]})
+            // tmpDataBugs = [{x:10,y:10},{x:20,y:20},{x:40,y:50}];
+          }
+          if(this.graphInfo.venue){
+            for(let d in this.graphInfo.venue)
+              tmpDataVenues.push({x:d,y:this.graphInfo.venue[d]})
+            // tmpDataCompliment = [{x:10,y:10},{x:20,y:20},{x:40,y:50}];
+          }
+          if(this.graphInfo.artist){
+            for(let d in this.graphInfo.artist)
+              tmpDataArtists.push({x:d,y:this.graphInfo.artist[d]})
+            // tmpDataEnhancement = [{x:10,y:10},{x:20,y:20},{x:40,y:50}];
+          }
+
+      
+          this.lineChartData.length = 0;
+
+          this.lineChartData = [
+            {data: tmpDataFans, label: 'FANS'},
+            {data: tmpDataVenues, label: 'VENUES'},
+            {data: tmpDataArtists, label: 'ARTISTS'}
+          ];
+
+
+        }
+      )
+
+    
+    //this._chart.ngOnChanges();
+  }
+
+  setGraphBy(by:string){
+    this.graphBy = by;
+    this.UpdateGraph();
+  }
 
 
   public lineChartData:Array<any> = [

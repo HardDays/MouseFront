@@ -28,6 +28,7 @@ export class FeedbackAnalyticsComponent extends BaseComponent implements OnInit 
     compliment:[]
   } 
 
+
   ngOnInit() {
     this.main.adminService.GetFeedbacksCounts()
       .subscribe(

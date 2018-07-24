@@ -9,5 +9,6 @@
         <!-- <show-video-slide [Artist]=item></show-video-slide> -->
     <!-- </ng-container> -->
 <!-- </div> -->
-
-<slideshow [showArrows]="Images&&Images.length>1" [minHeight]="'525px'" [imageUrls]="Images"></slideshow>
+<ng-container *ngIf="Images">
+    <slideshow [showArrows]="Images.length>1" [minHeight]="'525px'" [imageUrls]="Images"></slideshow>
+</ng-container>

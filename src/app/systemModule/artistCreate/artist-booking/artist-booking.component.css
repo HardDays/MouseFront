@@ -30,6 +30,7 @@
 .input-groupe-1.doll input{
     padding-left: 13px;
     padding-right: 13px;
+    padding-bottom: 5px;
 }
 .from-to-style.hours-label-groupe input{
     text-align: left;
@@ -37,4 +38,7 @@
 
 .input-groupe-1 textarea{
     padding: 10px 15px 15px 15px !important;
+}
+span.user-name-dog.doll{
+ margin-top: 4px;   
 }
