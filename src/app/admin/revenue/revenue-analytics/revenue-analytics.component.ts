@@ -7,6 +7,7 @@ import { BaseComponent } from '../../../core/base/base.component';
   styleUrls: ['./revenue-analytics.component.css']
 })
 export class RevenueAnalyticsComponent extends BaseComponent implements OnInit {
+  
 
   citiesTotal= {total:0 , cities:[{price:0,address:''}]};
   citiesSales = {total:0 , cities:[{price:0,address:''}]};
@@ -35,14 +36,53 @@ export class RevenueAnalyticsComponent extends BaseComponent implements OnInit {
   countsVrSales = 0;
 
 
+  //PIEGRAPH
+
+  public pieChartLabels:string[] = [''];
+  public pieChartData:number[] = [20,20,20];
+  public pieChartType:string = 'pie';
+
+  
+  public pieChartColors:Array<any> = [
+    { // pink
+      backgroundColor: 'rgba(213,40,101,0.8)',
+
+    },
+    { // dark grey
+      backgroundColor: 'rgba(95,92,208,0.8)',
+
+    },
+    { // grey
+      backgroundColor: 'rgba(54,196,194,0.8)',
+
+    }
+  ];
+
+  public chartClicked(e:any):void {
+    console.log(e);
+  }
+ 
+  public chartHovered(e:any):void {
+    console.log(e);
+  }
 
 
   ngOnInit() {
-    console.log();
     this.main.adminService.GetRevenueCities('total')
       .subscribe(
         (res)=>{
           this.citiesTotal = res;
+
+          this.pieChartLabels.length = 0;
+          for (let d of this.citiesTotal.cities) {
+            this.pieChartLabels.push(d.address);
+          }
+
+          this.pieChartData.length = 0;
+          for (let d of this.citiesTotal.cities) {
+            this.pieChartData.push(this.GetPercent(d.price));
+          }
+          
         }
       )
 
@@ -159,13 +199,14 @@ export class RevenueAnalyticsComponent extends BaseComponent implements OnInit {
         }
       )
 
-
-
-
-
-
-
-
+  }
+  GetPercent(data:number){
+    console.log("DATA", data);
+    console.log("city", this.citiesTotal.total);
+    
+    data = data/this.citiesTotal.total*100;
+    return parseFloat(data.toFixed(1));
+    
   }
 
 
@@ -179,85 +220,74 @@ nextColor(){
 }
 
 
-  public lineChartData:Array<any> = [
-    {data: [{x:1,y:1},{x:2,y:2},{x:4,y:5}], label: 'FANS'},
-    {data: [{x:1,y:1},{x:2,y:2},{x:3,y:4},{x:4,y:5}], label: 'VENUES'},
-    {data: [{x:1,y:2},{x:2,y:3},{x:3,y:5},{x:4,y:0}], label: 'ARTISTS'}
-  ];
-  public lineChartLabels:Array<any> = [1,2,3,4,5];
+  // public lineChartData:Array<any> = [
+  //   {data: [{x:1,y:1},{x:2,y:2},{x:4,y:5}], label: 'FANS'},
+  //   {data: [{x:1,y:1},{x:2,y:2},{x:3,y:4},{x:4,y:5}], label: 'VENUES'},
+  //   {data: [{x:1,y:2},{x:2,y:3},{x:3,y:5},{x:4,y:0}], label: 'ARTISTS'}
+  // ];
+  // public lineChartLabels:Array<any> = [1,2,3,4,5];
   
-  public lineChartOptions:any = {
-    responsive: true,
-    legend: {
-      position:'bottom',
-      labels: {
-        fontColor: '#0f0f0f',
-        fontFamily: 'AvenirLTStdBlack',
-        fontSize: 15,
-        padding: 50,
-        usePointStyle: true,
-        pointStyle: 'triangle'
-        // color: ;
-        // font: 14px ;
-        // text-transform: uppercase;
+  // public lineChartOptions:any = {
+  //   responsive: true,
+  //   legend: {
+  //     position:'bottom',
+  //     labels: {
+  //       fontColor: '#0f0f0f',
+  //       fontFamily: 'AvenirLTStdBlack',
+  //       fontSize: 15,
+  //       padding: 50,
+  //       usePointStyle: true,
+  //       pointStyle: 'triangle'
+  //       // color: ;
+  //       // font: 14px ;
+  //       // text-transform: uppercase;
 
-      },
-      elements:{
-        point:{
-          radius: 10,
-        }
-      }
-    },
-    tooltips: {
-      titleFontSize: 16,
-      bodyFontSize: 14,
-      displayColors:false,
-      titleMarginBottom: 9,
-      titleSpacing: 6,
-      bodySpacing: 6,
-      xPadding: 15,
-      yPadding: 15
-    }
+  //     },
+  //     elements:{
+  //       point:{
+  //         radius: 10,
+  //       }
+  //     }
+  //   },
+  //   tooltips: {
+  //     titleFontSize: 16,
+  //     bodyFontSize: 14,
+  //     displayColors:false,
+  //     titleMarginBottom: 9,
+  //     titleSpacing: 6,
+  //     bodySpacing: 6,
+  //     xPadding: 15,
+  //     yPadding: 15
+  //   }
     
-  };
+  // };
 
-  public lineChartColors:Array<any> = [
-    { // pink
-      backgroundColor: 'rgba(0,0,0,0)',
-      borderColor: 'rgba(213,40,101,0.8)',
-      pointBackgroundColor: 'rgba(213,40,101,0.8)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    },
-    { // dark grey
-      backgroundColor: 'rgba(0,0,0,0)',
-      borderColor: 'rgba(95,92,208,0.8)',
-      pointBackgroundColor: 'rgba(95,92,208,0.8)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    },
-    { // grey
-      backgroundColor: 'rgba(0,0,0,0)',
-      borderColor: 'rgba(54,196,194,0.8)',
-      pointBackgroundColor: 'rgba(54,196,194,0.8)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    }
-  ];
-  public lineChartLegend:boolean = true;
-  public lineChartType:string = 'line';
- 
- 
-  // events
-  public chartClicked(e:any):void {
-    console.log(e);
-  }
- 
-  public chartHovered(e:any):void {
-    console.log(e);
-  }
-
+  // public lineChartColors:Array<any> = [
+  //   { // pink
+  //     backgroundColor: 'rgba(0,0,0,0)',
+  //     borderColor: 'rgba(213,40,101,0.8)',
+  //     pointBackgroundColor: 'rgba(213,40,101,0.8)',
+  //     pointBorderColor: '#fff',
+  //     pointHoverBackgroundColor: '#fff',
+  //     pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+  //   },
+  //   { // dark grey
+  //     backgroundColor: 'rgba(0,0,0,0)',
+  //     borderColor: 'rgba(95,92,208,0.8)',
+  //     pointBackgroundColor: 'rgba(95,92,208,0.8)',
+  //     pointBorderColor: '#fff',
+  //     pointHoverBackgroundColor: '#fff',
+  //     pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+  //   },
+  //   { // grey
+  //     backgroundColor: 'rgba(0,0,0,0)',
+  //     borderColor: 'rgba(54,196,194,0.8)',
+  //     pointBackgroundColor: 'rgba(54,196,194,0.8)',
+  //     pointBorderColor: '#fff',
+  //     pointHoverBackgroundColor: '#fff',
+  //     pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+  //   }
+  // ];
+  // public lineChartLegend:boolean = true;
+  // public lineChartType:string = 'line';
 }

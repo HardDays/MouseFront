@@ -52,9 +52,31 @@ graphInfo = {
     event_type:[]
   }
 
+  //PIE
+
+  public pieChartLabels:string[] = ['Successful', 'Pending', 'Failed'];
+  public pieChartData:number[] = [0,0,0];
+  public pieChartType:string = 'pie';
+
+  
+  public pieChartColors:Array<any> = [
+    { // pink
+      backgroundColor: ['#079392', '#ffd513', '#6c0a75']
+
+    }
+    // { // dark grey
+    //   backgroundColor: 'rgba(95,92,208,0.8)',
+
+    // },
+    // { // grey
+    //   backgroundColor: 'rgba(54,196,194,0.8)',
+
+    // }
+  ];
   
   ngOnInit() {
     this.GetInfo();
+    this.getIndividuals();
     this.UpdateGraph();
   }
 
@@ -71,18 +93,39 @@ graphInfo = {
       .subscribe(
         (res)=>{
           this.newStatus = res;
+          // console.log("STATUS", this.newStatus);
+
+          let succes = this.GetPercent(this.newStatus.successful);
+          let pending = this.GetPercent(this.newStatus.pending);
+          let failed = this.GetPercent(this.newStatus.failed);
+
+          this.pieChartData.length = 0;
+
+          this.pieChartData=[succes, pending, failed];
+
+          
+          
         }
     )
     
-    this.getIndividuals();
+    
+    
   
     
   }
 
   setGraphNewStatusBy(per:string){
+    // console.log(per);
     this.newStatusPer = per;
+    this.GetInfo();
   }
 
+  GetPercent(data:number){
+    // console.log(data);
+    data = data/this.newStatus.all*100;
+    return parseFloat(data.toFixed(1));
+    
+  }
 
 
   getIndividuals(){
@@ -91,11 +134,13 @@ graphInfo = {
       if(this.paramsIndividual.event_type_[t])
         this.paramsIndividual.event_type.push(t);
     }
-    console.log(this.paramsIndividual);
+    // console.log("PARAMIND", this.paramsIndividual);
     this.main.adminService.GetEventsIndividual(this.paramsIndividual)
     .subscribe(
       (res)=>{
         this.Individual = res;
+        
+        
       }
     )
   }
@@ -137,8 +182,8 @@ graphInfo = {
           this.lineChartData.length = 0;
 
           this.lineChartData = [
-            {data: tmpDataCrowdfund},
-            {data: tmpDataRegular}
+            {data: tmpDataCrowdfund, label: 'CROWDFUNDING'},
+            {data: tmpDataRegular, label: 'REGULAR'}
           ];
 
 
@@ -260,4 +305,6 @@ graphInfo = {
     console.log(e);
   }
 
+ 
+  
 }

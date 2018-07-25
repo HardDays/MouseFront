@@ -133,6 +133,18 @@ graphInfo = {
       bodySpacing: 6,
       xPadding: 15,
       yPadding: 15
+    },
+    scales:{
+      yAxes:[
+        {
+          ticks: { min: 0}
+        }
+      ],
+      xAxes:[
+        {
+          ticks:{ min: 0}
+        }
+      ]
     }
     
   };
