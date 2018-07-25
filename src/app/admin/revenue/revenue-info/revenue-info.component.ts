@@ -4,6 +4,8 @@ import { Params } from '../../../../../node_modules/@angular/router';
 import { EventGetModel } from '../../../core/models/eventGet.model';
 import { BaseImages } from '../../../core/base/base.enum';
 
+declare var $:any;
+
 @Component({
   selector: 'app-revenue-info',
   templateUrl: './revenue-info.component.html',
@@ -14,6 +16,8 @@ export class RevenueInfoComponent extends BaseComponent implements OnInit {
   Id:number = 0;
   Revenue:any = null;
   Event:EventGetModel = new EventGetModel();
+
+  mapCoords =  {lat:55.755826, lng:37.6172999};
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(
@@ -28,6 +32,11 @@ export class RevenueInfoComponent extends BaseComponent implements OnInit {
     
   }
 
+  aboutOpenMapModal(){
+    if(this.Event.city_lat&&this.Event.city_lng)
+      $('#modal-map-1').modal('show');
+  }
+
   getRevenue(){
     this.main.adminService.GetRevenueById(this.Id)
       .subscribe(
@@ -38,6 +47,7 @@ export class RevenueInfoComponent extends BaseComponent implements OnInit {
             .subscribe(
               (event)=>{
                 this.Event = event;
+                this.mapCoords = {lat:+this.Event.city_lat,lng:+this.Event.city_lng};
                 if(this.Event.image_id)
                   this.Event.image_base64 = this.main.imagesService.GetImagePreview(this.Event.image_id,{width:400,height:500})
                 else
