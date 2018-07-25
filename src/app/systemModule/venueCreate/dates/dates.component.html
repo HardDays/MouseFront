@@ -18,14 +18,19 @@
                             <div class="content-bodal input-groupe-1">
                                 <span class="head-type-inp">Advance Notice</span>
                                 <span class="head-type-inp grey">Minimum advance notice you prefer before booking an event date?</span>
-                                <input id="venue-dateform-1" [textMask]="GetMinimumNoticeMask()" [(ngModel)]="Venue.minimum_notice" formControlName="minimum_notice" name="" type="text">
-                                <span class="days-span-label">Days</span>
-                                <!-- <select>
-                                    <option>2 weeks</option>
-                                    <option>2 weeks</option>
-                                    <option>2 weeks</option>
-                                </select> -->
-                                
+                                <div class="flex-day-weeks-month">
+                                    <input id="venue-dateform-1" [textMask]="GetMinimumNoticeMask()" [(ngModel)]="Venue.minimum_notice" formControlName="minimum_notice" name="" type="text">
+                                    <!-- <span class="days-span-label">Days</span> -->
+                                    <div class="mat-w">
+                                        <mat-form-field>
+                                            <mat-select formControlName="minimum_notice_text" [(ngModel)]="type_min_time_to_book">
+                                                <mat-option value="days">Days</mat-option>
+                                                <mat-option value="weeks">Weeks</mat-option>
+                                                <mat-option value="months">Months</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
                             </div>
                             <div class="content-bodal input-groupe-1">
                                 <div class="flex-mac-checkbox">
@@ -78,7 +83,7 @@
                         </div>
                     </div>
                    <div class="side width-66">
-                        <app-big-calendar #calendar [allDaysPriceDay]='Venue.price_for_daytime' [allDaysPriceNight]='Venue.price_for_nighttime' [selectedDates]="disabledDays"  [changedPrice]="changedPrice" (onSelectDate)="SaveDates($event)"></app-big-calendar> 
+                        <app-big-calendar #calendar [allDaysPriceDay]='Venue.price_for_daytime' [allDaysPriceNight]='Venue.price_for_nighttime' [selectedDates]="disabledDays" [eventDates]="eventsDates"  [changedPrice]="changedPrice" (onSelectDate)="SaveDates($event)"></app-big-calendar> 
                     </div>
                 </div>
             </div>

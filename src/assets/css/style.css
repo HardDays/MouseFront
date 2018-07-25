@@ -7840,6 +7840,7 @@ footer {
         height: 100%;
         width: 1px;
         background: rgba(0, 0, 0, 0.1); }
+       
 .tiny-calendar-wrapper .top-calendar-nav {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -8068,5 +8069,10 @@ footer {
                       background: rgba(0, 0, 0, 0.1);
                       border-radius: 2.5px;
                       cursor: pointer; }
-
+                      .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr:hover .popup-inform-tiny-calendar{
+                        display: block!important;
+                    }
+                    .main-mw-5 .tabs-venue-wrapp .one-tab-flex .side .filter-venue .input-groupe-1 label,.main-mw-5 .tabs-venue-wrapp .one-tab-flex .side .filter-venue .input-groupe-1 .head-groupe{
+                      font-size:12px;
+                  }
 /*# sourceMappingURL=style.css.map */

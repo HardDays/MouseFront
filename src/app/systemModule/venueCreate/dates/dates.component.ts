@@ -22,6 +22,7 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
     changedPrice: CalendarDate[] = [];
     disabledDays: CalendarDate[] = [];
     eventsDates:CalendarDate[] = [];
+    type_min_time_to_book:string = '';
     @Input() VenueId: number;
     @Input() Venue: AccountCreateModel;
     @Output() onSaveVenue:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
@@ -39,7 +40,8 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
         "price_for_nighttime": new FormControl("",[Validators.required,Validators.pattern("[0-9]+"),
                                 Validators.min(0),Validators.max(1000000)]),
         "performance_time_from": new FormControl("",[]),
-        "performance_time_to": new FormControl("",[])
+        "performance_time_to": new FormControl("",[]),
+        "minimum_notice_text": new FormControl("",[])
     });
 
     CreateOnModelChangeForParent()
@@ -57,13 +59,20 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
     ngOnChanges(changes: SimpleChanges): void {
         //this.Venue = changes.Venue.currentValue;
         this.ChangeDates();
+        this.initDateMin();
     }
 
 
     SaveVenue()
     {
-
+        if(this.type_min_time_to_book=='weeks'){
+            this.Venue.minimum_notice = this.Venue.minimum_notice*7;
+        }
+        else if(this.type_min_time_to_book=='months'){
+            this.Venue.minimum_notice = this.Venue.minimum_notice*30;
+        }
         this.dateForm.updateValueAndValidity();
+        
         if(this.dateForm.invalid)
         {
             this.onError.emit(this.getFormErrorMessage(this.dateForm, 'venue'));
@@ -86,7 +95,26 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
         keepCharPositions: true
         };
     }
-
+    initDateMin(){
+        if(this.Venue.minimum_notice){
+            console.log(this.type_min_time_to_book);
+          // console.log(`time`,this.Artist.min_time_to_book);
+          if(this.Venue.minimum_notice%30==0)
+          {
+            this.Venue.minimum_notice = this.Venue.minimum_notice/30;
+            this.type_min_time_to_book = 'months';
+          }
+          else if(this.Venue.minimum_notice%7==0)
+          {
+            this.Venue.minimum_notice = this.Venue.minimum_notice/7;
+            this.type_min_time_to_book = 'weeks';
+          }
+          else {
+            this.type_min_time_to_book = 'days';
+          }
+        }
+    
+      }
     GetMinimumNoticeMask()
     {
         return {
@@ -104,6 +132,8 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
         guide:false
         };
     }
+
+    
 
     SaveDates($event)
     {
@@ -184,9 +214,10 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
                     this.changedPrice = arr.filter(obj => !obj.selected);
                     this.disabledDays = arr.filter(obj => obj.selected);
 
-                    if(res.events_dates)
+                    if(res.event_dates)
                     {
-                        for(let item of res.events_dates)
+                        
+                        for(let item of res.event_dates)
                         {
                             this.eventsDates.push({
                                 mDate: moment(item.date_from),
