@@ -204,6 +204,9 @@
         padding-left: 15px;
         padding-right: 15px;
     }
+    .main-mw-5 .tabs-venue-wrapp .one-tab-flex .side.width-66 {
+        padding: 0;
+    }
 }
 @media (max-width: 1199px) {
     .choose-to-follow .follow-m-w{
@@ -293,6 +296,20 @@
     .create-event-body-1 .create-event-body .flex-body-1 .side .add-to-genres .absgenres-pick-wr {
         left: auto;
         right: -60px;
+    }
+    .tabs-artist-wrapp .bg-wr-tabs .tab-artist .flex-wrapp-cards .one-card .card .left-side {
+        padding: 0 15px;
+    }
+    .tabs-artist-wrapp .bg-wr-tabs .tab-artist .flex-wrapp-cards .one-card .card .ava {
+        width: 100px;
+        height: 100px;
+    }
+    .tabs-artist-wrapp .bg-wr-tabs .tab-artist .flex-wrapp-cards .one-card .card .right-side {
+        padding: 0 15px;
+    }
+    .tabs-artist-wrapp .bg-wr-tabs .tab-artist .flex-wrapp-cards .one-card .card .flex-buttons .button-card {
+        padding: 5px;
+        font-size: 10px;
     }
 }
 
@@ -416,6 +433,27 @@
     }
     .create-event-nav-tabs .create-event-header ul li:last-child {
         padding-right: 0;
+    }
+    .tabs-artist-wrapp .bg-wr-tabs .tab-artist .flex-wrapp-cards .one-card {
+        width: 50%;
+    }
+    .tabs-artist-wrapp .bg-wr-tabs .tab-artist .flex-wrapp-cards .one-card .card .flex-buttons {
+        justify-content: flex-start;
+    }
+    .tabs-artist-wrapp .bg-wr-tabs .tab-artist .flex-wrapp-cards .one-card .card .flex-buttons .button-card {
+        margin-right: 10px;
+    }
+    .for-flex-all-events .one-event-wr {
+        width: 33.333%;
+        padding: 12px;
+    }
+    .for-flex-all-events .one-event-wr .one-event .white-desc-event .name-artist {
+        font-size: 18px;
+        margin-bottom: 7px;
+    }
+    .for-flex-all-events .one-event-wr .one-event .white-desc-event .when,
+    .for-flex-all-events .one-event-wr .one-event .white-desc-event .where {
+        font-size: 14px;
     }
 }
 @media (max-width: 767px) {
@@ -699,6 +737,129 @@
     .main-router-outlet {
         overflow-x: hidden;
     }
+    .create-event-nav-tabs .create-event-header {
+        padding: 20px 0;
+    }
+    .create-event-nav-tabs .for-header-shadow {
+        padding: 20px 0 0;
+    }
+    .create-event-nav-tabs .create-event-header h1 {
+        font-size: 50px;
+        margin-bottom: 20px;
+    }
+    .create-event-nav-tabs .create-event-header ul {
+        flex-wrap: wrap;
+    }
+    .create-event-nav-tabs .create-event-header ul li {
+        padding: 0 12px;
+    }
+    .create-event-nav-tabs .create-event-header ul li .nav-second-outlet {
+        font-size: 16px;
+    }
+    .create-event-nav-tabs .create-event-header ul li:last-child {
+        width: 100%;
+        padding: 0;
+        margin-top: 20px;
+    }
+    .create-event-nav-tabs .create-event-header ul li:last-child .butt-style-1 {
+        margin: 0 auto;
+    }
+    .create-event-body-1 {
+        padding: 30px 15px;
+    }
+    .create-event-body-1 .create-event-body .head-ev-body h2 {
+        font-size: 32px;
+    }
+    .create-event-body-1 .create-event-body .flex-body-1 .side:first-child {
+        padding-left: 0;
+        padding-right: 15px;
+    }
+    .create-event-body-1 .create-event-body .flex-body-1 .side:nth-child(2){
+        padding-right: 0;
+        padding-left: 15px;
+    }
+    .create-event-body-1 .create-event-body .flex-body-1 .side:last-child {
+        margin-top: 20px;
+    }
+    .flex-mac-checkbox {
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+    }
+    .flex-mac-checkbox p {
+        width: 100%;
+    }
+    .flex-mac-checkbox .yes-no {
+        margin-top: 7px;
+    }
+    .flex-input-groupes {
+        flex-wrap: wrap;
+    }
+    .flex-input-groupes .input-groupe-1:first-child {
+        margin: 0 0 20px;
+    }
+    .flex-input-groupes .input-groupe-1:last-child {
+        margin: 0 0 20px;
+    }
+    .create-event-body-1 .create-event-body .flex-body-1 .side:last-child > div:nth-child(2) {
+        margin-left: 25px;
+    }
+    .create-event-body-1 .create-event-body .flex-body-1 .side .flex-genres .one-genre {
+        font-size: 11px;
+        padding: 2px 7px;
+        margin-bottom: 8px;
+        margin-right: 7px;
+    }
+    .create-event-body-1 .create-event-body .flex-body-1 .side .add-to-genres .absgenres-pick-wr {
+        width: 420px;
+        right: 0;
+    }
+    .tabs-artist-wrapp .bg-wr-tabs .tab-artist .flex-wrapp-cards .one-card .card {
+        flex-wrap: wrap;
+        height: 100%;
+    }
+    .tabs-artist-wrapp .bg-wr-tabs .tab-artist .flex-wrapp-cards .one-card .card .left-side {
+        width: 100%;
+    }
+
+    .tabs-artist-wrapp .bg-wr-tabs .tab-artist .flex-wrapp-cards .one-card .card .right-side {
+        width: 100%;
+        text-align: center;
+    }
+    .tabs-artist-wrapp .bg-wr-tabs .tab-artist .flex-wrapp-cards .one-card .card .flex-buttons {
+        justify-content: center;
+    }
+    .tabs-artist-wrapp .bg-wr-tabs .tab-artist .flex-wrapp-cards .one-card .card .flex-buttons .button-card {
+        margin: 0 5px;
+    }
+    .for-flex-all-events .one-event-wr {
+        width: 50%;
+    }
+    .for-padd-cards-art .scroll-cards-art .one-card {
+        width: 100%;
+    }
+    .modal-pick-artist .modal-dialog .flex-genres .one-genre {
+        font-size: 12px;
+        margin-bottom: 8px;
+        margin-right: 7px;
+    }
+    .modal-pick-artist .modal-dialog .flex-range-slider {
+        padding: 0 20px;
+    }
+    .modal-pick-artist .modal-dialog .content-bodal {
+        padding: 0 20px;
+    }
+    .for-padd-cards-art .scroll-cards-art .one-card .l-s {
+        width: 100%;
+        justify-content: flex-start;
+        flex: 1;
+    }
+    .for-padd-cards-art .scroll-cards-art .one-card .l-s .ava {
+        margin-right: 20px;
+    }
+    .modal-pick-artist .modal-dialog {
+        max-width: 580px;
+    }
+
 }
 // @media (max-width: 500px) {
 //     footer .for-flex-footer .side{
@@ -762,9 +923,123 @@
     .nav-holder-3 {
         width: 300px;
     }
-
     .shows-main-wrapp .flex-shows {
         padding-bottom: 30px;
+    }
+    .create-event-body-1 .create-event-body .head-ev-body {
+        display: block;
+        text-align: center;
+    }
+    .create-event-body-1 .create-event-body .head-ev-body h2 {
+        margin: 0 0 15px;
+    }
+    .create-event-nav-tabs .create-event-header ul li:first-child {
+        padding-left: 10px;
+    }
+    .create-event-nav-tabs .create-event-header ul li {
+        padding: 0 10px;
+    }
+    .create-event-nav-tabs .create-event-header h1 {
+        font-size: 40px;
+        margin-bottom: 15px;
+    }
+    .create-event-body-1 .create-event-body .flex-body-1 .side:first-child {
+        width: 100%;
+        padding: 0;
+    }
+    .create-event-body-1 .create-event-body .flex-body-1 .side:nth-child(2){
+        width: 100%;
+        padding: 0;
+    }
+    .create-event-body-1 .create-event-body .flex-body-1 .side:last-child {
+        width: 100%;
+        padding: 0;
+        flex-wrap: wrap;
+    }
+    .create-event-body-1 .create-event-body .flex-body-1 .side:last-child > div:nth-child(2) {
+        width: 100%;
+        margin: 0;
+        flex: auto;
+    }
+    .create-event-body-1 .create-event-body .flex-body-1 .side .add-to-genres .absgenres-pick-wr {
+        width: 270px;
+        right: 0;
+        padding: 10px;
+    }
+    .input-groupe-1 textarea {
+        padding: 6px 12px;
+    }
+    .tabs-artist-wrapp .bg-wr-tabs .tab-artist .flex-wrapp-cards .one-card {
+        padding: 0 8px 20px 8px;
+    }
+    .tabs-artist-wrapp .bg-wr-tabs .tab-artist .flex-wrapp-cards .one-card .card .right-side {
+        padding: 0 5px;
+    }
+    .tabs-artist-wrapp .bg-wr-tabs .tab-artist .flex-wrapp-cards .one-card .card .flex-buttons .button-card {
+        margin: 0 4px;
+        font-size: 9px;
+    }
+    .tabs-artist-wrapp .bg-wr-tabs .tab-artist .flex-wrapp-cards .one-card .add-artist-block .add {
+        text-align: center;
+        font-size: 22px;
+    }
+    .new-padd-wrapper-m-w {
+        padding: 0;
+    }
+    .tabs-artist-wrapp .tabs-menu-active-decline {
+        justify-content: center;
+    }
+
+    .tabs-artist-wrapp .tabs-menu-active-decline li:last-child {
+        padding-right: 0;
+    }
+    .tabs-artist-wrapp .bg-wr-tabs .tab-artist .flex-wrapp-cards .one-card {
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
+    }
+    .shows-main-wrapp .head-shows {
+        flex-wrap: wrap;
+    }
+
+    .shows-main-wrapp .head-shows .add-event-butt {
+        margin-top: 20px;
+        width: 100%;
+        max-width: 270px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .main-mw-6 {
+        padding-top: 10px;
+    }
+    .for-flex-all-events {
+        margin: 0 -10px;
+    }
+    .for-flex-all-events .one-event-wr {
+        padding: 7px;
+    }
+    .for-flex-all-events .one-event-wr .one-event .white-desc-event {
+        padding: 10px 7px;
+    }
+    .modal-pick-artist .modal-dialog .flex-range-slider {
+        flex-wrap: wrap;
+    }
+    .modal-pick-artist .modal-dialog .flex-range-slider .left-side {
+        width: auto;
+        flex: 1;
+        margin-right: 20px;
+    }
+    .modal-pick-artist .modal-dialog .flex-range-slider .right-side {
+        width: 100%;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        margin-right: 20px;
+    }
+    .modal-pick-artist .modal-dialog .flex-genres .one-genre {
+        font-size: 10px;
+        margin-bottom: 7px;
+        margin-right: 5px;
     }
 }
 
@@ -774,5 +1049,27 @@
     }
     .nav-holder-3 {
         width: 290px;
+    }
+    .for-flex-all-events {
+        margin: 0;
+    }
+    .for-flex-all-events .one-event-wr {
+        width: 100%;
+    }
+    .for-flex-all-events .one-event-wr .one-event .white-desc-event {
+        padding: 10px 15px;
+    }
+    .for-padd-cards-art .scroll-cards-art .one-card {
+        padding: 0 10px;
+    }
+    .for-padd-cards-art .scroll-cards-art .one-card .l-s .ava {
+        margin-right: 15px;
+    }
+    .for-padd-cards-art .scroll-cards-art .one-card .l-s .desc {
+        width: auto;
+        flex: 1;
+    }
+    .for-padd-cards-art .scroll-cards-art .one-card .r-s {
+        padding-right: 5px;
     }
 }
