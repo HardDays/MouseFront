@@ -2,24 +2,24 @@
   <span (click)="deleteAll()" class="admin_delete"><img src="./../../../assets/img/admin/delete.svg" alt=""></span>
   <span (click)="openInNewTabs()" class="admin_look"><img src="./../../../assets/img/admin/look.svg" alt=""></span>
   <div class="table_filter">
-      <div class="table_search"><input (input)="filterByName($event)" type="text" placeholder="Search"></div>
+      <div class="table_search"><input (input)="filterAccs($event)" type="text" placeholder="Search"></div>
       <div class="filter_checkbox">
-          <input type="checkbox" id="fan_acc" [(ngModel)]="TypesArtist.fan" (ngModelChange)="filterByType()">
+          <input type="radio" id="fan_acc" name="accs_type" value="fan" [(ngModel)]="TypeAcc" (ngModelChange)="filterAccs()">
           <label for="fan_acc"></label>
           <span>Fan</span>
       </div>
       <div class="filter_checkbox">
-          <input type="checkbox" id="venue_acc" [(ngModel)]="TypesArtist.venue" (ngModelChange)="filterByType()">
+          <input type="radio" id="venue_acc" name="accs_type" value="venue" [(ngModel)]="TypeAcc" (ngModelChange)="filterAccs()">
           <label for="venue_acc"></label>
           <span>Venue</span>
       </div>
       <div class="filter_checkbox">
-          <input type="checkbox" id="artist_acc" [(ngModel)]="TypesArtist.artist" (ngModelChange)="filterByType()">
+          <input type="radio" id="artist_acc" name="accs_type" value="artist" [(ngModel)]="TypeAcc" (ngModelChange)="filterAccs()">
           <label for="artist_acc"></label>
           <span>Artist</span>
       </div>
       <div class="filter_checkbox">
-          <input type="checkbox" id="all_acc" [(ngModel)]="TypesArtist.all" (ngModelChange)="filterByType()">
+          <input type="radio" id="all_acc" name="accs_type" value="all" [(ngModel)]="TypeAcc" (ngModelChange)="filterAccs()">
           <label for="all_acc"></label>
           <span>All</span>
       </div>
@@ -30,19 +30,19 @@
                 <span (click)="deleteAll()" class="admin_delete"><img src="./../../../assets/img/admin/delete.svg" alt=""></span>
                 <span (click)="openInNewTabs()" class="admin_look"><img src="./../../../assets/img/admin/look.svg" alt=""></span>
                 <div class="table_filter">
-                    <div class="table_search"><input (input)="filterByName($event)" type="text" placeholder="Search"></div>
+                    <div class="table_search"><input (input)="filterEvents($event)" type="text" placeholder="Search"></div>
                     <div class="filter_checkbox">
-                        <input type="checkbox" id="fan_acc" [(ngModel)]="TypesEvent.crowdfund" (ngModelChange)="filterByType()">
+                        <input type="radio" id="fan_acc" name="event_type" value="crowdfunding" [(ngModel)]="TypeEvent" (ngModelChange)="filterEvents()">
                         <label for="fan_acc"></label>
                         <span>Crowdfund</span>
                     </div>
                     <div class="filter_checkbox">
-                        <input type="checkbox" id="venue_acc" [(ngModel)]="TypesEvent.regular" (ngModelChange)="filterByType()">
+                        <input type="radio" id="venue_acc" name="event_type" value="regular" [(ngModel)]="TypeEvent" (ngModelChange)="filterEvents()">
                         <label for="venue_acc"></label>
                         <span>Regular</span>
                     </div>
                     <div class="filter_checkbox">
-                        <input type="checkbox" id="all_acc" [(ngModel)]="TypesEvent.all" (ngModelChange)="filterByType()">
+                        <input type="radio" id="all_acc" name="event_type" value="all" [(ngModel)]="TypeEvent" (ngModelChange)="filterEvents()">
                         <label for="all_acc"></label>
                         <span>All</span>
                     </div>

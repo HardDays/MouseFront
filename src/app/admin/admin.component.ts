@@ -101,6 +101,17 @@ export class AdminComponent extends BaseComponent implements OnInit {
           break;
         case 'add-admin':  this.currentPage = Parts.add_new_admin;
           break;
+        case 'feedback':
+          this.currentPage = Parts.feedback;
+        break;
+        case 'customer':
+          this.currentPage = Parts.customer_support;
+        break;
+        case 'revenues':
+          this.currentPage = Parts.revenue;
+        break;
+
+        
       }
     }
     else if(url.length === 4){
@@ -146,7 +157,6 @@ export class AdminComponent extends BaseComponent implements OnInit {
               break;
             case 'analytics': this.currentPage = Parts.events_analytics;
               break;
-           
           }
           break;
 
@@ -162,6 +172,27 @@ export class AdminComponent extends BaseComponent implements OnInit {
             this.currentPage = Parts.revenue_info;
           break;
 
+          case 'feedback':
+            if(url[3]==='analytics')
+              this.currentPage = Parts.feedback_analytics;
+          break;
+
+          case 'customer':
+          if(url[3]==='answers')
+              this.currentPage = Parts.customer_answers;
+          break;
+
+          case 'revenues':
+            if(url[3]==='analytics')
+              this.currentPage = Parts.revenue_analytics;
+            else
+              this.currentPage = Parts.revenue_info;
+          break;
+
+          case 'settings':
+            if(url[3]==='add-admin')
+              this.currentPage = Parts.add_new_admin;
+          break;
           
       }
     }
