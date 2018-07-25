@@ -17,22 +17,21 @@
                             </div>
                         </div>
                         <div class="admin_table_td"><span>{{city.price}}</span></div>
-                        <div class="admin_table_td"><span>{{city.price/citiesTotal.total*100|number}}%</span></div>
+                        <div class="admin_table_td"><span>{{city.price/citiesTotal.total*100|number: '1.1-1'}}%</span></div>
                     </div>
  
                 </div>
             </div>
             <div class="events_status_diagramm revenue_diagram_wrap">
                 <div class="diagramm">
-                        <canvas baseChart width="400" height="300"
-                        [datasets]="lineChartData"
-                        [labels]="lineChartLabels"
-                        [options]="lineChartOptions"
-                        [colors]="lineChartColors"
-                        [legend]="false"
-                        [chartType]="lineChartType"
-                        (chartHover)="chartHovered($event)"
-                        (chartClick)="chartClicked($event)"></canvas>
+                    <canvas baseChart
+                            [data]="pieChartData"
+                            [labels]="pieChartLabels"
+                            [colors]="pieChartColors"
+                            [legend]="false"
+                            [chartType]="pieChartType"
+                            (chartHover)="chartHovered($event)"
+                            (chartClick)="chartClicked($event)"></canvas>
                 </div>
                 <div class="diagramm_tabs">
                     <span class="zag_tab">Day</span>
@@ -171,7 +170,7 @@
                                     </div>
                                 </div>
                                 <div class="admin_table_td"><span>{{city.price}}</span></div>
-                                <div class="admin_table_td"><span>{{city.price/citiesSales.total*100|number}}%</span></div>
+                                <div class="admin_table_td"><span>{{city.price/citiesSales.total*100|number: '1.1-1'}}%</span></div>
                             </div>
                     
                     
@@ -179,15 +178,14 @@
             </div>
             <div class="events_status_diagramm revenue_diagram_wrap">
                 <div class="diagramm">
-                        <canvas baseChart width="400" height="300"
-                        [datasets]="lineChartData"
-                        [labels]="lineChartLabels"
-                        [options]="lineChartOptions"
-                        [colors]="lineChartColors"
-                        [legend]="false"
-                        [chartType]="lineChartType"
-                        (chartHover)="chartHovered($event)"
-                        (chartClick)="chartClicked($event)"></canvas>
+                    <canvas baseChart
+                            [data]="pieChartData"
+                            [labels]="pieChartLabels"
+                            [colors]="pieChartColors"
+                            [legend]="false"
+                            [chartType]="pieChartType"
+                            (chartHover)="chartHovered($event)"
+                            (chartClick)="chartClicked($event)"></canvas>
                 </div>
                 <div class="diagramm_tabs">
                     <span class="zag_tab">Day</span>
