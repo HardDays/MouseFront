@@ -1,31 +1,31 @@
 <!-- <div class="admin_content"> -->
-    <!-- <section class="admin_table_nav">
+    <section class="admin_table_nav">
         <span class="admin_delete"><img src="./../../../../assets/img/admin/delete.svg" alt=""></span>
         <span class="admin_look"><img src="./../../../../assets/img/admin/look.svg" alt=""></span>
         <div class="table_filter">
-            <div class="table_search"><input type="text" placeholder="Search"></div>
-            <div class="filter_checkbox">
-                <input type="checkbox" id="fan_acc">
-                <label for="fan_acc"></label>
-                <span>Fan</span>
-            </div>
-            <div class="filter_checkbox">
-                <input type="checkbox" id="venue_acc">
-                <label for="venue_acc"></label>
-                <span>Venue</span>
-            </div>
-            <div class="filter_checkbox">
-                <input type="checkbox" id="artist_acc">
-                <label for="artist_acc"></label>
-                <span>Artist</span>
-            </div>
-            <div class="filter_checkbox">
-                <input type="checkbox" id="all_acc" checked>
-                <label for="all_acc"></label>
-                <span>All</span>
-            </div>
+            <div  class="table_search"><input (input)="SearchAccs($event)" type="text" placeholder="Search"></div>
+                <div class="filter_checkbox">
+                    <input type="radio" [(ngModel)]="AccountsType" (ngModelChange)="SearchAccs()" value="fan"  name="account_type" id="fan_acc">
+                    <label for="fan_acc"></label>
+                    <span>Fan</span>
+                </div>
+                <div class="filter_checkbox">
+                    <input type="radio" [(ngModel)]="AccountsType" (ngModelChange)="SearchAccs()" value="venue" name="account_type" id="venue_acc">
+                    <label for="venue_acc"></label>
+                    <span>Venue</span>
+                </div>
+                <div class="filter_checkbox">
+                    <input type="radio" [(ngModel)]="AccountsType" (ngModelChange)="SearchAccs()" value="artist" name="account_type" id="artist_acc">
+                    <label for="artist_acc"></label>
+                    <span>Artist</span>
+                </div>
+                <div class="filter_checkbox">
+                    <input type="radio" [(ngModel)]="AccountsType" (ngModelChange)="SearchAccs()" value="all" name="account_type" id="all_acc" checked>
+                    <label for="all_acc"></label>
+                    <span>All</span>
+                </div>
         </div>
-    </section> -->
+    </section>
     <section>
         <div class="admin_table accounts_funding_table">
             <div class="admin_table_thead">
@@ -38,7 +38,7 @@
                 <div class="admin_table_th">Response</div>
             </div>
             <div class="admin_table_tbody">
-                <div *ngFor="let acc of Accounts; let i = index" class="admin_table_tr">
+                <div *ngFor="let acc of CheckedAccounts; let i = index" class="admin_table_tr">
                     <div class="admin_table_td check_column">
                         <div class="admin_table_checkbox">
                             <input type="checkbox" id="new_acc_{{i}}">
