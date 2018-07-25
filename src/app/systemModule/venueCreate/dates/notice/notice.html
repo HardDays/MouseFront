@@ -1,0 +1,12 @@
+<div class="flex-day-weeks-month">
+<input id="venue-dateform-1" [textMask]="GetMinimumNoticeMask()" [ngModel]="Num" (ngModelChange)="OnNumChange($event)" name="" type="text">
+<!-- <span class="days-span-label">Days</span> -->
+<div class="mat-w">
+    <mat-form-field>
+        <mat-select [ngModel]="Applyer" (ngModelChange)="OnApplyerChange($event)">
+            <mat-option [value]="1">Days</mat-option>
+            <mat-option [value]="7">Weeks</mat-option>
+            <mat-option [value]="30">Months</mat-option>
+        </mat-select>
+    </mat-form-field>
+</div></div>

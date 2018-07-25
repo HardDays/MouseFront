@@ -59,18 +59,10 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
     ngOnChanges(changes: SimpleChanges): void {
         //this.Venue = changes.Venue.currentValue;
         this.ChangeDates();
-        this.initDateMin();
     }
-
 
     SaveVenue()
     {
-        if(this.type_min_time_to_book=='weeks'){
-            this.Venue.minimum_notice = this.Venue.minimum_notice*7;
-        }
-        else if(this.type_min_time_to_book=='months'){
-            this.Venue.minimum_notice = this.Venue.minimum_notice*30;
-        }
         this.dateForm.updateValueAndValidity();
         
         if(this.dateForm.invalid)
@@ -95,26 +87,6 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
         keepCharPositions: true
         };
     }
-    initDateMin(){
-        if(this.Venue.minimum_notice){
-            console.log(this.type_min_time_to_book);
-          // console.log(`time`,this.Artist.min_time_to_book);
-          if(this.Venue.minimum_notice%30==0)
-          {
-            this.Venue.minimum_notice = this.Venue.minimum_notice/30;
-            this.type_min_time_to_book = 'months';
-          }
-          else if(this.Venue.minimum_notice%7==0)
-          {
-            this.Venue.minimum_notice = this.Venue.minimum_notice/7;
-            this.type_min_time_to_book = 'weeks';
-          }
-          else {
-            this.type_min_time_to_book = 'days';
-          }
-        }
-    
-      }
     GetMinimumNoticeMask()
     {
         return {
@@ -148,20 +120,6 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
                 curr_date.date(curr_date.date() +1);
             }
         }
-
-        // let i = 0; 
-        // let n = arr.length;
-        // for(let item of arr)
-        // {
-        //     this.main.accService.SaveVenueDates(this.VenueId, item)
-        //         .subscribe(
-        //             (res:any) =>{
-        //                 i++;
-        //                 if(i == n)
-        //                     this.ChangeDates();
-        //             }
-        //         );
-        // }
         this.main.accService.SaveVenueDatesAsArray(this.VenueId, {dates: arr})
             .subscribe(
                 (res: any) => {

@@ -8,10 +8,10 @@
             <div class="flex-body-1 more-padding">
                 <div class="side">
                     <h6 class="head-col-add-venue">Venue is a:</h6>
-                    <div class="flex-genres style-on-add-artist-g">
-                        <div class="one-checkbox" *ngFor="let item of TypesOfSpace;let i = index">
-                            <div class="check-style">
-                                <input type="radio" class="checkbox" id="ccc-radio-556{{i}}" name="" [value]="item.value" [(ngModel)]="Venue.type_of_space" formControlName="venue_type" >
+                    <div class="flex-radio style-on-add-artist-g">
+                        <div class="one-radio two-cols" *ngFor="let item of TypesOfSpace;let i = index">
+                            <div class="radio-style">
+                                <input type="radio" class="radio-b" id="ccc-radio-556{{i}}" name="" [value]="item.value" [(ngModel)]="Venue.type_of_space" formControlName="venue_type" >
                                 <label for="ccc-radio-556{{i}}"></label>
                             </div>
                             <p>{{item.name}}</p>

@@ -19,6 +19,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material';
 
 import { InputModule } from '../../shared/input/input.module';
+import { NoticeInputComponent } from './dates/notice/notice';
 
 @NgModule({
     imports: [ 
@@ -42,7 +43,8 @@ import { InputModule } from '../../shared/input/input.module';
         VenueListingComponent,
         VenueMediaComponent,
         VenueMediaPhotoComponent,
-        BigCalendarComponent
+        BigCalendarComponent,
+        NoticeInputComponent
     ],
     exports: [ VenueCreateComponent ]
 })

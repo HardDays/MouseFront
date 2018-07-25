@@ -36,7 +36,7 @@ export class ShowDetailGalleryComponent extends BaseComponent implements OnChang
     GetImages()
     {
         // this.isShow = false;
-        // this.Images = [];
+        this.Images = [];
         if(this.Venue && this.Venue.id)
         {
            
@@ -57,40 +57,15 @@ export class ShowDetailGalleryComponent extends BaseComponent implements OnChang
         this.WaitBeforeLoading(
             () => this.main.imagesService.GetAccountImages(accId),
             (res) => {
-                this.Images = [];
-                if ( res.total_count > 0 ) {
-                    // tslint:disable-next-line:forin
-                    for ( const i in res.images ) {
-                        this.WaitBeforeLoading(
-                            () => this.main.imagesService.GetImageById(res.images[i].id),
-                            // tslint:disable-next-line:no-shadowed-variable
-                            (res: Base64ImageModel) => {
-                                if (res && res.base64) {
-                                    if (this.Images.indexOf(res.base64) < 0) {
-                                        this.Images[res.id] = res.base64;
-                                        this.Images = this.Images.filter(obj => obj && obj.length > 0).map(obj => obj);
-                                        //this.InitSlider();
-                                        //console.log(res, this.Images);
-                                    }
-                                }
-                            }
-                        );
-
-                        
-                           // this.Images[res.id] = this.main.imagesService.GetImagePreview(res.images[i].id,{width:720, height:500});
-                           // this.Images = this.Images.filter(obj => obj && obj.length > 0).map(obj => obj);
-                            //this.InitSlider();
-                            // tslint:disable-next-line:no-shadowed-variable
-                            // (res: Base64ImageModel) => {
-                            //     if (res && res.base64) {
-                            //         if (this.Images.indexOf(res.base64) < 0) {
-                            //             this.Images[res.id] = res.base64;
-                            //             this.Images = this.Images.filter(obj => obj && obj.length > 0).map(obj => obj);
-                            //             this.InitSlider();
-                            //         }
-                            //     }
-                            // }
-                       
+                if ( res.total_count > 0 ) 
+                {
+                    for ( const item of res.images ) 
+                    {
+                        const url = this.main.imagesService.GetImagePreview(item.id,{width:750,height:530});
+                        if(this.Images.indexOf(url) < 0)
+                        {
+                            this.Images.push(url);
+                        };
                     }
                 }
             }

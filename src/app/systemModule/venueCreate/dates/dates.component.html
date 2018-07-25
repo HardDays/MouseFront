@@ -18,10 +18,11 @@
                             <div class="content-bodal input-groupe-1">
                                 <span class="head-type-inp">Advance Notice</span>
                                 <span class="head-type-inp grey">Minimum advance notice you prefer before booking an event date?</span>
-                                <div class="flex-day-weeks-month">
-                                    <input id="venue-dateform-1" [textMask]="GetMinimumNoticeMask()" [(ngModel)]="Venue.minimum_notice" formControlName="minimum_notice" name="" type="text">
+                                <!-- <div class="flex-day-weeks-month"> -->
+                                    <notice-input [Days]="Venue.minimum_notice" (OnDaysChange)="Venue.minimum_notice = $event"></notice-input>
+                                    <!-- <input id="venue-dateform-1" [textMask]="GetMinimumNoticeMask()" [(ngModel)]="Venue.minimum_notice" formControlName="minimum_notice" name="" type="text"> -->
                                     <!-- <span class="days-span-label">Days</span> -->
-                                    <div class="mat-w">
+                                    <!-- <div class="mat-w">
                                         <mat-form-field>
                                             <mat-select formControlName="minimum_notice_text" [(ngModel)]="type_min_time_to_book">
                                                 <mat-option value="days">Days</mat-option>
@@ -29,8 +30,8 @@
                                                 <mat-option value="months">Months</mat-option>
                                             </mat-select>
                                         </mat-form-field>
-                                    </div>
-                                </div>
+                                    </div> -->
+                                <!-- </div> -->
                             </div>
                             <div class="content-bodal input-groupe-1">
                                 <div class="flex-mac-checkbox">

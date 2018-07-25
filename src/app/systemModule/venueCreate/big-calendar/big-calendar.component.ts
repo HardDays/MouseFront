@@ -29,6 +29,15 @@ export interface CalendarDate {
   nightPrice?:number;
 }
 
+export interface FormValsInterface {
+  is_available: boolean;
+  date_range: boolean;
+  from: Date;
+  to?:Date;
+  price_for_daytime?: number;
+  price_for_nighttime?: number;
+}
+
 @Component({
   selector: 'app-big-calendar',
   templateUrl: './big-calendar.component.html',
@@ -60,7 +69,7 @@ export class BigCalendarComponent implements OnInit, OnChanges {
 
   @ViewChild('SaveForm') form: NgForm;
 
-  FormVals = {
+  FormVals: FormValsInterface = {
     is_available: true,
     date_range: true,
     from: null,
@@ -204,10 +213,28 @@ export class BigCalendarComponent implements OnInit, OnChanges {
   }
 
   SetDefaultFormVals(){
-    this.FormVals.date_range = true;
-    this.FormVals.is_available = true;
-    this.FormVals.price_for_daytime = 0;
-    this.FormVals.price_for_nighttime = 0;
+    this.FormVals.date_range = this.FormVals.from.toISOString() != this.FormVals.to.toISOString();
+    if(!this.FormVals.date_range)
+    {
+      const disabled = this.selectedDates.find(obj => obj.mDate.toDate().toISOString() == this.FormVals.from.toISOString());
+      this.FormVals.is_available = disabled == null || disabled == undefined;
+      
+      if(this.FormVals.is_available)
+      {
+        const changed = this.changedPrice.find(obj => obj.mDate.toDate().toISOString() == this.FormVals.from.toISOString());
+        this.FormVals.price_for_daytime = (changed && changed.dayPrice)? changed.dayPrice : (this.allDaysPriceDay ? this.allDaysPriceDay : 0);
+        this.FormVals.price_for_nighttime = (changed && changed.nightPrice)? changed.nightPrice : (this.allDaysPriceNight ? this.allDaysPriceNight : 0);
+      }
+      else {
+        this.FormVals.price_for_daytime = 0;
+        this.FormVals.price_for_nighttime = 0;
+      }
+    }
+    else{
+      this.FormVals.is_available = true;
+      this.FormVals.price_for_daytime = 0;
+      this.FormVals.price_for_nighttime = 0;
+    }
   }
 
 
