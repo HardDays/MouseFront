@@ -51,7 +51,7 @@
                 </div>
             </div>
             <div class="events_status_diagramm">
-                    <canvas baseChart width="400" height="300"
+                    <canvas baseChart #baseChart width="400" height="300"
                     [datasets]="lineChartData"
                     [labels]="lineChartLabels"
                     [options]="lineChartOptions"
@@ -73,7 +73,7 @@
             <span class="zag_tab" (click)="setGraphNewEventsBy('all')" [ngClass]="{'active':newEventPer==='all'}">All time</span>
         </h2>
         <div class="diagramm_block">
-                <canvas baseChart width="400" height="300"
+                <canvas baseChart #baseChart width="400" height="300"
                 [datasets]="lineChartData"
                 [labels]="lineChartLabels"
                 [options]="lineChartOptions"

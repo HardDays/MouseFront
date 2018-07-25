@@ -44,27 +44,28 @@
                         <!--дата-->
                         <div class="one-day">
                             <p>{{ day.mDate.date() }}</p>
+                            <!--event pupup-->
+                            <div *ngIf="day.event" class="popup-inform-tiny-calendar">
+                                <ng-container *ngFor="let event of eventsThisMonth">
+                                    <ng-container *ngIf="day.eventId == event.id">
+                                        <div class="shadow-wr">
+                                            <ng-container *ngFor="let image of Images">
+                                                <div class="top-image" *ngIf="image.event_id && image.event_id == event.id" [ngStyle]="{'background-image': 'url(' + image.base64 + ')'}"></div>
+                                                <p *ngIf="!image.event_id && image.event_id == event.id">{{image.id}} + ' = '+{{event.image_id}}</p>
+                                            </ng-container>
+                                            <div class="bott-descr-day">
+                                                <p class="f">{{event.name}}</p>
+                                                <p class="s" *ngIf='event.event_time'>{{event.event_time}}</p>
+                                                <p class="where-2" *ngIf='event.address'>{{event.address}}</p>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                            </div>
+                            <!--/event pupup-->
                         </div>
                         <!--/дата-->
-                        <!--event pupup-->
-                        <div *ngIf="day.event" class="popup-inform-tiny-calendar">
-                            <ng-container *ngFor="let event of eventsThisMonth">
-                                <ng-container *ngIf="day.eventId == event.id">
-                                    <div class="shadow-wr">
-                                        <ng-container *ngFor="let image of Images">
-                                            <div class="top-image" *ngIf="image.event_id && image.event_id == event.id" [ngStyle]="{'background-image': 'url(' + image.base64 + ')'}"></div>
-                                            <p *ngIf="!image.event_id && image.event_id == event.id">{{image.id}} + ' = '+{{event.image_id}}</p>
-                                        </ng-container>
-                                        <div class="bott-descr-day">
-                                            <p class="f">{{event.name}}</p>
-                                            <p class="s" *ngIf='event.event_time'>{{event.event_time}}</p>
-                                            <p class="where-2" *ngIf='event.address'>{{event.address}}</p>
-                                        </div>
-                                    </div>
-                                </ng-container>
-                            </ng-container>
-                        </div>
-                        <!--/event pupup-->
+                        
 
                         <div class="prices">
                             <!--"changed-price-morning" добавляем класс блоку "morning" если была изменина цена утра-->

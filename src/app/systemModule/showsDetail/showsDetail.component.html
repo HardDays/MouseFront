@@ -13,7 +13,7 @@
                         <div class="flex-genres" *ngIf="Genres.length > 0">
                             <span class="one-genre" *ngFor="let item of Genres">{{item.genre_show}}</span>
                         </div>
-                        <p class="some-tt"><span>Presented by</span> {{Creator.display_name}}</p>
+                        <p class="some-tt"><span>Presented by</span> <a class="creator-name" [routerLink]="['/system/profile',Creator.id]">{{Creator.display_name}}</a> </p>
                         <p class="some-tt"><span>Featuring:</span> {{Featuring}} </p>
                         <p class="gg">Location</p>
                         <p class="location" *ngIf="Venue"><span>{{Venue.display_name}}</span>{{Venue.address}}</p>

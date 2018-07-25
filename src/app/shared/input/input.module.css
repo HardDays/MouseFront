@@ -21,16 +21,16 @@
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    border-bottom: 1px dashed #cecece;
-    margin-left: 10px;
+    /* border-bottom: 1px dashed #cecece; */
 }
 
-
+/* 
 select, input{
     border-bottom: 0!important;
-}
+} */
 
 input{
+    top: 4px;
     width: 70px;
     margin-right: 10px;
     margin-left:10px;
@@ -39,12 +39,20 @@ input{
     z-index: 10;
     border: none;
     background: transparent;
-    padding: 10px 0;
+    padding: 7px 0;
     font-size: 16px;
     outline: none;
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
 }
 
 .time-separator{
     padding-left: 0px!important;
+}
+.create-event-body-1 .create-event-body .flex-body-1 .side.two-sides-w .shadow-days-wr .times-days .some-times-days .week-day-time-wr .from-to span{
+    padding: 0;
+}
+.mat-input-infix.mat-form-field-infix{
+    border-top: 0px;
+    padding: 18px 0;
 }
 

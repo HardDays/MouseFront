@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, SimpleChange } from '@angular/core';
 import { BaseComponent } from '../../../core/base/base.component';
+import * as chart from "ng2-charts";
 
 @Component({
   selector: 'app-analytics-event',
@@ -8,6 +9,7 @@ import { BaseComponent } from '../../../core/base/base.component';
 })
 export class AnalyticsEventComponent extends BaseComponent implements OnInit {
 
+  @ViewChild('baseChart') _chart : chart.BaseChartDirective;
   Counts = {
     all: 0,
     successful: 0,
@@ -23,7 +25,14 @@ export class AnalyticsEventComponent extends BaseComponent implements OnInit {
 
   }
 
-  newEventPer = 'month';
+  newEventPer:string = 'month';
+  
+
+graphInfo = {
+  axis:[],
+  crowdfunding:[],
+  regular:[]
+} 
 
   Individual:{name:string,date_from:string,is_crowdfunding_event:boolean, comments:number, likes:number, views:number, status:string}[] = [];
   paramsIndividual = {
@@ -43,8 +52,10 @@ export class AnalyticsEventComponent extends BaseComponent implements OnInit {
     event_type:[]
   }
 
+  
   ngOnInit() {
     this.GetInfo();
+    this.UpdateGraph();
   }
 
 
@@ -64,6 +75,7 @@ export class AnalyticsEventComponent extends BaseComponent implements OnInit {
     )
     
     this.getIndividuals();
+  
     
   }
 
@@ -71,9 +83,7 @@ export class AnalyticsEventComponent extends BaseComponent implements OnInit {
     this.newStatusPer = per;
   }
 
-  setGraphNewEventsBy(per:string){
-    this.newEventPer = per;
-  }
+
 
   getIndividuals(){
     this.paramsIndividual.event_type = [];
@@ -90,12 +100,77 @@ export class AnalyticsEventComponent extends BaseComponent implements OnInit {
     )
   }
 
+  UpdateGraph(){
 
+    this.main.adminService.GetEventsGraph(this.newEventPer)
+      .subscribe(
+        (res)=>{
+          this.graphInfo = res;
+          console.log("GRAPH", this.graphInfo);
+         
+          this.lineChartLabels.length = 0;
+          this.lineChartLabels.push(...this.graphInfo.axis);
+    
+          let tmpDataCrowdfund = [];
+          let tmpDataRegular = [];
+
+          if(this.graphInfo.crowdfunding){
+            for(let d in this.graphInfo.crowdfunding){
+              const x = d;
+              const y = this.graphInfo.crowdfunding[d];
+              tmpDataCrowdfund.push({x,y});
+            }
+              
+          }
+          if(this.graphInfo.regular){
+            for(let d in this.graphInfo.regular)
+            {
+              const x = d;
+              const y = this.graphInfo.regular[d];
+              tmpDataRegular.push({x,y});
+            }
+          }
+          // this.SetMaxY();
+
+          
+      
+          this.lineChartData.length = 0;
+
+          this.lineChartData = [
+            {data: tmpDataCrowdfund},
+            {data: tmpDataRegular}
+          ];
+
+
+        }
+      )
+
+    
+    //this._chart.ngOnChanges();
+  }
+
+  // SetMaxY(){
+  //   // let y = this.lineChartOptions.scales.yAxes[0].ticks.max;
+  //   console.log(this.lineChartData[0].data);
+  //   let max = Math.max.apply(Math, this.lineChartData[0].data.map(function(obj){return obj.y;}));
+    
+
+  //   this.lineChartOptions.scales.yAxes[0].ticks.max = max + 1;
+  //   console.log(this.lineChartOptions.scales.yAxes[0].ticks);
+  // }
+
+  // SetMinY(){
+  //   let y = this.lineChartOptions.scales.yAxes[0].ticks.min;
+  // }
+
+  setGraphNewEventsBy(per:string){
+    this.newEventPer = per;
+    this.UpdateGraph();
+  }
 
   public lineChartData:Array<any> = [
     {data: [{x:1,y:1},{x:2,y:2},{x:4,y:5}], label: 'FANS'},
-    {data: [{x:1,y:1},{x:2,y:2},{x:3,y:4},{x:4,y:5}], label: 'VENUES'},
-    {data: [{x:1,y:2},{x:2,y:3},{x:3,y:5},{x:4,y:0}], label: 'ARTISTS'}
+    {data: [{x:1,y:1},{x:2,y:2},{x:3,y:4},{x:4,y:5}], label: 'VENUES'}
   ];
   public lineChartLabels:Array<any> = [1,2,3,4,5];
   
@@ -130,6 +205,18 @@ export class AnalyticsEventComponent extends BaseComponent implements OnInit {
       bodySpacing: 6,
       xPadding: 15,
       yPadding: 15
+    },
+    scales:{
+      yAxes:[
+        {
+          ticks: { min: 0}
+        }
+      ],
+      xAxes:[
+        {
+          ticks:{ min: 0}
+        }
+      ]
     }
     
   };

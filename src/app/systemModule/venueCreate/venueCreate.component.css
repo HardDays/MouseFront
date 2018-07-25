@@ -11,7 +11,9 @@ p{
     word-wrap: break-word;
     word-break: break-all; 
 }
-
+.input-groupe-1 textarea{
+    padding: 10px 15px 15px 15px !important;
+}
 .pac-container { z-index: 100000; }
 
 .nameTicket{
@@ -139,4 +141,16 @@ p{
 .media-flex-sides .left-side .gradient-box .photo-wr-1 {
     margin: 20px auto;
     margin-top: 0px;
+}
+
+
+.flex-day-weeks-month{
+    display: flex;
+}
+.mat-w{
+    width: 100%;
+    padding-left: 15px;
+}
+.dashed-bottom-border{
+    margin-left: 0;
 }

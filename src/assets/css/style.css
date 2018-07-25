@@ -1422,11 +1422,15 @@ header {
               -ms-flex-align: start;
                   align-items: flex-start; }
           .shows-main-wrapp .flex-shows .one-show-wr .one-show .description .top-info .side-1 {
-            margin-right: auto; }
+            margin-right: auto;
+            -webkit-box-align: center;
+            box-align: center;
+            display: -webkit-inline-box; }
           .shows-main-wrapp .flex-shows .one-show-wr .one-show .description .top-info .side-2 {
             margin-left: auto;
             cursor: pointer; }
           .shows-main-wrapp .flex-shows .one-show-wr .one-show .description .top-info .sale {
+            margin-right: 10px;
             width: 82px;
             height: 82px;
             display: -webkit-box;
@@ -4494,7 +4498,7 @@ footer {
         margin-bottom: -43px; }
     .media-flex-sides .left-side .gradient-box {
       position: relative;
-      z-index: 5;
+      z-index: 10;
       padding: 30px; }
       .media-flex-sides .left-side .gradient-box .head-of-gradient-box {
         text-align: center;
@@ -5926,7 +5930,7 @@ footer {
             padding-left: 25px; }
           .create-event-body-1 .create-event-body .flex-body-1 .side.two-sides-w .shadow-days-wr .times-days .some-times-days .week-day-time-wr .from-to span {
             display: block;
-            padding-left: 20px;
+            /* padding-left: 20px; */
             color: rgba(0, 0, 0, 0.5); }
           .create-event-body-1 .create-event-body .flex-body-1 .side.two-sides-w .shadow-days-wr .times-days .some-times-days .week-day-time-wr .from-to select {
             display: block;
@@ -7836,6 +7840,7 @@ footer {
         height: 100%;
         width: 1px;
         background: rgba(0, 0, 0, 0.1); }
+       
 .tiny-calendar-wrapper .top-calendar-nav {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -8064,6 +8069,10 @@ footer {
                       background: rgba(0, 0, 0, 0.1);
                       border-radius: 2.5px;
                       cursor: pointer; }
-
-
+                      .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr:hover .popup-inform-tiny-calendar{
+                        display: block!important;
+                    }
+                    .main-mw-5 .tabs-venue-wrapp .one-tab-flex .side .filter-venue .input-groupe-1 label,.main-mw-5 .tabs-venue-wrapp .one-tab-flex .side .filter-venue .input-groupe-1 .head-groupe{
+                      font-size:12px;
+                  }
 /*# sourceMappingURL=style.css.map */

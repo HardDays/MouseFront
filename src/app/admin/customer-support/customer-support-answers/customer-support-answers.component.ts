@@ -3,6 +3,13 @@ import { BaseComponent } from '../../../core/base/base.component';
 
 declare var $:any;
 
+export interface AnswerTemplateInterface{
+  id: number;
+  subject: string;
+  message: string;
+  status: string;
+}
+
 @Component({
   selector: 'app-customer-support-answers',
   templateUrl: './customer-support-answers.component.html',
@@ -117,6 +124,12 @@ export class CustomerSupportAnswersComponent extends BaseComponent implements On
       this.PatchTemplate();
     else
       this.AddTemplate();
+  }
+
+  clearTemplate()
+  {
+    this.openTemplate = {id:0,subject:'',message:'',status:''};
+    this.isEdit = false;
   }
 
 }

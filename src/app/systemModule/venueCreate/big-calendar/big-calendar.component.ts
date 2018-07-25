@@ -32,8 +32,8 @@ export interface CalendarDate {
 @Component({
   selector: 'app-big-calendar',
   templateUrl: './big-calendar.component.html',
-  styleUrls: ['./big-calendar.component.css'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./big-calendar.component.css']//,
+  //encapsulation: ViewEncapsulation.None
 })
 export class BigCalendarComponent implements OnInit, OnChanges {
 

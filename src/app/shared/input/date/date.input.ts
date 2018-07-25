@@ -7,7 +7,8 @@ declare var ionRangeSlider:any;
 
 @Component({
     selector: 'date-input',
-    templateUrl: './date.input.html'
+    templateUrl: './date.input.html',
+    styleUrls: ['./date.input.css']
 })
 export class DateInput implements OnChanges {
     @Input() Label: String;
