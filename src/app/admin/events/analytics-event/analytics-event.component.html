@@ -36,31 +36,30 @@
                     <div class="admin_table_tr">
                         <div class="admin_table_td"><span class="blue">Successful</span></div>
                         <div class="admin_table_td"><span>{{newStatus.successful}}</span></div>
-                        <div class="admin_table_td"><span>{{newStatus.successful/newStatus.all*100|number}}%</span></div>
+                        <div class="admin_table_td"><span>{{newStatus.successful/newStatus.all*100|number: '1.1-1'}}%</span></div>
                     </div>
                     <div class="admin_table_tr">
                         <div class="admin_table_td"><span class="yellow">Pending</span></div>
                         <div class="admin_table_td"><span>{{newStatus.pending}}</span></div>
-                        <div class="admin_table_td"><span>{{newStatus.pending/newStatus.all*100|number}}%</span></div>
+                        <div class="admin_table_td"><span>{{newStatus.pending/newStatus.all*100|number: '1.1-1'}}%</span></div>
                     </div>
                     <div class="admin_table_tr">
                         <div class="admin_table_td"><span class="purple">Failed</span></div>
                         <div class="admin_table_td"><span>{{newStatus.failed}}</span></div>
-                        <div class="admin_table_td"><span>{{newStatus.failed/newStatus.all*100|number}}%</span></div>
+                        <div class="admin_table_td"><span>{{newStatus.failed/newStatus.all*100|number: '1.1-1'}}%</span></div>
                     </div>
                 </div>
             </div>
-            <div class="events_status_diagramm">
-                    <canvas baseChart #baseChart width="400" height="300"
-                    [datasets]="lineChartData"
-                    [labels]="lineChartLabels"
-                    [options]="lineChartOptions"
-                    [colors]="lineChartColors"
-                    [legend]="false"
-                    [chartType]="lineChartType"
-                    (chartHover)="chartHovered($event)"
-                    (chartClick)="chartClicked($event)"></canvas>
-            </div>
+            <div class="pie_graph">
+                <canvas baseChart
+                        [data]="pieChartData"
+                        [labels]="pieChartLabels"
+                        [colors]="pieChartColors"
+                        [legend]="false"
+                        [chartType]="pieChartType"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)"></canvas>
+              </div>
         </div>
     </section>
     <section>
@@ -78,15 +77,15 @@
                 [labels]="lineChartLabels"
                 [options]="lineChartOptions"
                 [colors]="lineChartColors"
-                [legend]="false"
+                [legend]="true"
                 [chartType]="lineChartType"
                 (chartHover)="chartHovered($event)"
                 (chartClick)="chartClicked($event)"></canvas>
         </div>
-        <div class="acc_analytics_diag_desc">
+        <!-- <div class="acc_analytics_diag_desc">
             <span class="rose">Crowdfund</span>
             <span class="violet">Regular</span>
-        </div>
+        </div> -->
     </section>
     <section>
         <h2 class="admin_table_zag">Individual events</h2>
