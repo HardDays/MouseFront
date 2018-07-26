@@ -41,6 +41,7 @@
                                 <p>Tickets</p>
                             </div>
                             <div class="circle">
+                                
                                 <span>{{Fans.length}}</span>
                                 <p>Followers</p>
                             </div>
@@ -68,7 +69,7 @@
                     <div class="uniq-padd-2">
                         <div class="main-mw">
                             <div class="flex--info">
-                                <div class="side scroller">
+                                <div [ngStyle]="{'display':isPreloadEvents?'none':'block'}" class="side scroller">
                                     <div class="for-scroll-padd">
                                         <h6>Events ({{EventsMass.length}})</h6>
                                         <input type="text" class="search-profile-inp-style"  placeholder="Search" (input)='searchEvents($event)'>
@@ -92,7 +93,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="side scroller">
+                                <div [ngStyle]="{'display':!isPreloadEvents?'none':'block'}" class="side scroller">
+                                    <app-preloader style="max-height: 200px;" *ngIf="isPreloadEvents"></app-preloader>
+                                </div>
+                                <div [ngStyle]="{'display':isPreloadTickets?'none':'block'}" class="side scroller">
                                     <div class="for-scroll-padd">
                                         <h6>Tickets ({{TotalTicket}})</h6>
                                         <input type="text" class="search-profile-inp-style" placeholder="Search" (input)='searchTickets($event)'>
@@ -116,7 +120,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="side scroller uniq-padd-style-funs">
+                                <div [ngStyle]="{'display':!isPreloadTickets?'none':'block'}" class="side scroller">
+                                    <app-preloader style="max-height: 200px;" *ngIf="isPreloadTickets"></app-preloader>
+                                </div>
+                                <div [ngStyle]="{'display':isPreloadFans?'none':'block'}"  class="side scroller uniq-padd-style-funs">
                                     <div class="uniq-padd-3">
                                         <h6>Fans ({{Fans.length}})</h6>
                                         <input type="text" class="search-profile-inp-style" placeholder="Search" (input)='searchFans($event)'>
@@ -131,6 +138,9 @@
                                             
                                         </div>
                                     </div>
+                                </div>
+                                <div [ngStyle]="{'display':!isPreloadFans?'none':'block'}" class="side scroller uniq-padd-style-funs">
+                                    <app-preloader style="max-height: 200px;" *ngIf="isPreloadFans"></app-preloader>
                                 </div>
                             </div>
                         </div>
