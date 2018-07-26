@@ -127,7 +127,7 @@ export class EventComponent extends BaseComponent implements OnInit {
           speed: 200
   
       });
-    }, 1000);
+    }, 3000);
 
   }
 
