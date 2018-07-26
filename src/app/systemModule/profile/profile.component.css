@@ -3,10 +3,7 @@
     word-break: break-all;
 }
 
-#lines_view {
-    
-   
-}
+
 
 .venue-main-info .name-venue h2{
     text-align: center;
@@ -19,10 +16,7 @@
     margin-right: 15px;
 }
 
-#b_lines_view {
-    max-width: 400px;
-    word-wrap: break-word;
-}
+
 
 #contacts_view {
     max-width: 400px;
@@ -38,6 +32,4 @@
 .slick-prev:before, .slick-next:before{
     display: none;
 }
-.head-info-profile-wr.head-info-artist .flex-artist-main-info .side.right-side .bg-slider{
-    min-height: 430px;
-}
+
