@@ -48,15 +48,14 @@ export class RevenueAnalyticsComponent extends BaseComponent implements OnInit {
   pieChartLabelsSales:string[] = [''];
   pieChartDataSales:number[] = [];
   pieChartType:string = 'pie';
-  pieChartColors:Array<any> = [
+  pieChartColorsTotal:Array<any> = [
     { 
-      backgroundColor: 'rgba(213,40,101,0.8)',
-    },
+      backgroundColor: ['rgba(153,31,114,0.8)','rgba(210,54,93)','rgba(81,87,184)','rgba(242,173,15)','#942541','#079391']
+    }
+  ];
+  pieChartColorsSales:Array<any> = [
     { 
-      backgroundColor: 'rgba(95,92,208,0.8)',
-    },
-    { 
-      backgroundColor: 'rgba(54,196,194,0.8)',
+      backgroundColor: ['rgba(153,31,114,0.8)','rgba(210,54,93)','rgba(81,87,184)','rgba(242,173,15)','#942541','#079391']
     }
   ];
 
@@ -229,11 +228,11 @@ export class RevenueAnalyticsComponent extends BaseComponent implements OnInit {
       )
   }
 
-
-
+  
+  
   setCitiesColors(type:string){
     let index = 0;
-    let colors = ['#991f72','#d2365d','#5157b8','#f2ad0f','#942541','#079391'];
+    let colors = ['rgba(153,31,114,0.8)','rgba(210,54,93)','rgba(81,87,184)','rgba( 242,173,15)','#942541','#079391'];
     for(let el of type==='total'?this.citiesTotal.cities:this.citiesSales.cities){
       el.color =  colors[index%colors.length];
       index = index+1;
@@ -242,9 +241,15 @@ export class RevenueAnalyticsComponent extends BaseComponent implements OnInit {
 
   setGraphCitiesTotal(){
     this.pieChartLabelsTotal.length = 0;
+    this.pieChartColorsTotal = [];
+    this.pieChartColorsTotal.length = 0;
+    let colors = [];
     for (let d of this.citiesTotal.cities) {
       this.pieChartLabelsTotal.push(d.address);
+      colors.push(d.color);
     }
+
+    this.pieChartColorsTotal = [{backgroundColor: colors}];
 
     this.pieChartDataTotal = [];
     this.pieChartDataTotal.length = 0;
@@ -267,8 +272,8 @@ export class RevenueAnalyticsComponent extends BaseComponent implements OnInit {
   }
 
   GetPercentTotal(data:number){
-    console.log("DATA", data);
-    console.log("city", this.citiesTotal.total);
+    // console.log("DATA", data);
+    // console.log("city", this.citiesTotal.total);
     
     data = data/this.citiesTotal.total*100;
     return parseFloat(data.toFixed(1));
@@ -276,8 +281,8 @@ export class RevenueAnalyticsComponent extends BaseComponent implements OnInit {
   }
 
   GetPercentSales(data:number){
-    console.log("DATA", data);
-    console.log("city", this.citiesSales.total);
+    // console.log("DATA", data);
+    // console.log("city", this.citiesSales.total);
     
     data = data/this.citiesSales.total*100;
     return parseFloat(data.toFixed(1));
