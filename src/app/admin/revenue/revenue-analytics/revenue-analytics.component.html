@@ -12,8 +12,8 @@
                     <div *ngFor="let city of citiesTotal.cities" class="admin_table_tr">
                         <div class="admin_table_td">
                             <div class="city_name">
-                                <span class="city_color" [ngStyle]="nextColor()"></span>
-                                <span>{{city.address}}</span>
+                                <span class="city_color" [ngStyle]="{'background-color':city.color?city.color:''}"></span>
+                                <span>{{city.address?city.address:'No address'}}</span>
                             </div>
                         </div>
                         <div class="admin_table_td"><span>{{city.price}}</span></div>
@@ -25,103 +25,78 @@
             <div class="events_status_diagramm revenue_diagram_wrap">
                 <div class="diagramm">
                     <canvas baseChart
-                            [data]="pieChartData"
-                            [labels]="pieChartLabels"
+                            [data]="pieChartDataTotal"
+                            [labels]="pieChartLabelsTotal"
                             [colors]="pieChartColors"
                             [legend]="false"
                             [chartType]="pieChartType"
-                            (chartHover)="chartHovered($event)"
-                            (chartClick)="chartClicked($event)"></canvas>
+                    ></canvas>
                 </div>
                 <div class="diagramm_tabs">
-                    <span class="zag_tab">Day</span>
-                    <span class="zag_tab">Week</span>
-                    <span class="zag_tab">Month</span>
-                    <span class="zag_tab">Year</span>
-                    <span class="zag_tab active">All time</span>
+                    <span class="zag_tab" (click)="totalCitiesGraphBy='day';GetRevenueCountsCitiesSales()" [ngClass]="{'active':totalCitiesGraphBy==='day'}">Day</span>
+                    <span class="zag_tab" (click)="totalCitiesGraphBy='week';GetRevenueCountsCitiesSales()" [ngClass]="{'active':totalCitiesGraphBy==='week'}">Week</span>
+                    <span class="zag_tab" (click)="totalCitiesGraphBy='month';GetRevenueCountsCitiesSales()" [ngClass]="{'active':totalCitiesGraphBy==='month'}">Month</span>
+                    <span class="zag_tab" (click)="totalCitiesGraphBy='year';GetRevenueCountsCitiesSales()" [ngClass]="{'active':totalCitiesGraphBy==='year'}">Year</span>
+                    <span class="zag_tab" (click)="totalCitiesGraphBy='all';GetRevenueCountsCitiesSales()" [ngClass]="{'active':totalCitiesGraphBy==='all'}">All time</span>
                 </div>
             </div>
         </div>
         <div class="admin_cards font25">
             <div class="card_with_tabs">
-                <div class="card violet calendar">
-                    <span class="num">${{countsDateTotal}}</span>
-                    <span class="text">By Date</span>
-                </div>
-                <div class="card_tabs">
-                    <span class="zag_tab">Day</span>
-                    <span class="zag_tab">Week</span>
-                    <span class="zag_tab">Month</span>
-                    <span class="zag_tab">Year</span>
-                    <span class="zag_tab active">All time</span>
-                </div>
+                <app-analytic-card 
+                    [Total]="countsDateTotal"
+                    [By]="'Date'"
+                    [ColorClass]="'violet'"
+                    [TypeClass]="'calendar'"
+                    (onChangePeriod)="GetRevenueCountsDateTotal($event)"
+                ></app-analytic-card>
             </div>
             <div class="card_with_tabs">
-                <div class="card blue mic">
-                    <span class="num">${{countsArtistTotal}}</span>
-                    <span class="text">By Artist</span>
-                </div>
-                <div class="card_tabs">
-                    <span class="zag_tab">Day</span>
-                    <span class="zag_tab">Week</span>
-                    <span class="zag_tab">Month</span>
-                    <span class="zag_tab">Year</span>
-                    <span class="zag_tab active">All time</span>
-                </div>
+                <app-analytic-card 
+                    [Total]="countsArtistTotal" 
+                    [By]="'Artist'" 
+                    [ColorClass]="'blue'" 
+                    [TypeClass]="'mic'"
+                    (onChangePeriod)="GetRevenueCountsArtistTotal($event)"
+                ></app-analytic-card>
             </div>
             <div class="card_with_tabs">
-                <div class="card siren kolonka">
-                    <span class="num">${{countsVenueTotal}}</span>
-                    <span class="text">By Venue</span>
-                </div>
-                <div class="card_tabs">
-                    <span class="zag_tab">Day</span>
-                    <span class="zag_tab">Week</span>
-                    <span class="zag_tab">Month</span>
-                    <span class="zag_tab">Year</span>
-                    <span class="zag_tab active">All time</span>
-                </div>
+                <app-analytic-card 
+                    [Total]="countsVenueTotal" 
+                    [By]="'Venue'" 
+                    [ColorClass]="'siren'" 
+                    [TypeClass]="'kolonka'"
+                    (onChangePeriod)="GetRevenueCountsVenueTotal($event)"
+                ></app-analytic-card>
             </div>
         </div>
         <div class="admin_cards font25">
             <div class="card_with_tabs">
-                <div class="card violet vr">
-                    <span class="num">${{countsVrTotal}}</span>
-                    <span class="text">By VR Tickets</span>
-                </div>
-                <div class="card_tabs">
-                    <span class="zag_tab">Day</span>
-                    <span class="zag_tab">Week</span>
-                    <span class="zag_tab">Month</span>
-                    <span class="zag_tab">Year</span>
-                    <span class="zag_tab active">All time</span>
-                </div>
+                <app-analytic-card 
+                    [Total]="countsVrTotal" 
+                    [By]="'VR Tickets'"  
+                    [ColorClass]="'violet'" 
+                    [TypeClass]="'vr'"
+                    (onChangePeriod)="GetRevenueCountsVrTotal($event)"
+                ></app-analytic-card>
             </div>
             <div class="card_with_tabs">
-                <div class="card blue ticket">
-                    <span class="num">${{countsTicketsTotal}}</span>
-                    <span class="text">By Ticket Sales</span>
-                </div>
-                <div class="card_tabs">
-                    <span class="zag_tab">Day</span>
-                    <span class="zag_tab">Week</span>
-                    <span class="zag_tab">Month</span>
-                    <span class="zag_tab">Year</span>
-                    <span class="zag_tab active">All time</span>
-                </div>
+                <app-analytic-card 
+                    [Total]="countsTicketsTotal" 
+                    [By]="'Ticket Sales'" 
+                    [ColorClass]="'blue'" 
+                    [TypeClass]="'ticket'"
+                    (onChangePeriod)="GetRevenueCountsTicketsTotal($event)"
+                ></app-analytic-card>
             </div>
             <div class="card_with_tabs">
-                <div class="card siren repost">
-                    <span class="num">${{countsAdvertisingTotal}}</span>
-                    <span class="text">By Advertising</span>
-                </div>
-                <div class="card_tabs">
-                    <span class="zag_tab">Day</span>
-                    <span class="zag_tab">Week</span>
-                    <span class="zag_tab">Month</span>
-                    <span class="zag_tab">Year</span>
-                    <span class="zag_tab active">All time</span>
-                </div>
+                <app-analytic-card 
+                    [Total]="countsAdvertisingTotal" 
+                    [By]="'Advertising'" 
+                    [ColorClass]="'siren'" 
+                    [TypeClass]="'repost'"
+                    (onChangePeriod)="GetRevenueCountsAdvertisingTotal($event)"
+                ></app-analytic-card>
             </div>
         </div>
         <div class="admin_cards font25">
@@ -131,23 +106,23 @@
                     <span class="text">By Funding Type</span>
                     <div class="radios">
                         <div class="filter_radio">
-                            <input type="radio" id="sort_event_name" name="sort_event">
+                            <input type="radio" [(ngModel)]="countsFundingTotalType" value="crownfunding" (ngModelChange)="countsFundingTotalType=$event;GetFundingCountsTotal()" id="sort_event_name" name="sort_event">
                             <label for="sort_event_name"></label>
                             <span>Crowdfund</span>
                         </div>
                         <div class="filter_radio">
-                            <input type="radio" id="sort_event_date" name="sort_event" checked>
+                            <input type="radio" [(ngModel)]="countsFundingTotalType" value="regular" (ngModelChange)="countsFundingTotalType=$event;GetFundingCountsTotal()" id="sort_event_date" name="sort_event" checked>
                             <label for="sort_event_date"></label>
                             <span>Regular</span>
                         </div>
                     </div>
                 </div>
                 <div class="card_tabs">
-                    <span class="zag_tab">Day</span>
-                    <span class="zag_tab">Week</span>
-                    <span class="zag_tab">Month</span>
-                    <span class="zag_tab">Year</span>
-                    <span class="zag_tab active">All time</span>
+                    <span class="zag_tab" (click)="countsFundingTotalBy='day';GetFundingCountsTotal()" [ngClass]="{'active':countsFundingTotalBy==='day'}" >Day</span>
+                    <span class="zag_tab" (click)="countsFundingTotalBy='week';GetFundingCountsTotal()" [ngClass]="{'active':countsFundingTotalBy==='week'}">Week</span>
+                    <span class="zag_tab" (click)="countsFundingTotalBy='month';GetFundingCountsTotal()" [ngClass]="{'active':countsFundingTotalBy==='month'}">Month</span>
+                    <span class="zag_tab" (click)="countsFundingTotalBy='year';GetFundingCountsTotal()" [ngClass]="{'active':countsFundingTotalBy==='year'}">Year</span>
+                    <span class="zag_tab" (click)="countsFundingTotalBy='all';GetFundingCountsTotal()" [ngClass]="{'active':countsFundingTotalBy==='all'}">All time</span>
                 </div>
             </div>
         </div>
@@ -162,122 +137,95 @@
                     <div class="admin_table_th">Percent</div>
                 </div>
                 <div class="admin_table_tbody">
-                        <div *ngFor="let city of citiesSales.cities" class="admin_table_tr">
-                                <div class="admin_table_td">
-                                    <div class="city_name">
-                                        <span class="city_color" [ngStyle]="nextColor()"></span>
-                                        <span>{{city.address}}</span>
-                                    </div>
+                    <div *ngFor="let city of citiesSales.cities" class="admin_table_tr">
+                            <div class="admin_table_td">
+                                <div class="city_name">
+                                    <span class="city_color" [ngStyle]="{'background-color':city.color?city.color:''}"></span>
+                                    <span>{{city.address?city.address:'No address'}}</span>
                                 </div>
-                                <div class="admin_table_td"><span>{{city.price}}</span></div>
-                                <div class="admin_table_td"><span>{{city.price/citiesSales.total*100|number: '1.1-1'}}%</span></div>
                             </div>
-                    
-                    
+                            <div class="admin_table_td"><span>{{city.price}}</span></div>
+                            <div class="admin_table_td"><span>{{city.price/citiesSales.total*100|number: '1.1-1'}}%</span></div>
+                        </div>
                 </div>
             </div>
             <div class="events_status_diagramm revenue_diagram_wrap">
                 <div class="diagramm">
                     <canvas baseChart
-                            [data]="pieChartData"
-                            [labels]="pieChartLabels"
+                            [data]="pieChartDataSales"
+                            [labels]="pieChartLabelsSales"
                             [colors]="pieChartColors"
                             [legend]="false"
                             [chartType]="pieChartType"
-                            (chartHover)="chartHovered($event)"
-                            (chartClick)="chartClicked($event)"></canvas>
+                    ></canvas>
                 </div>
                 <div class="diagramm_tabs">
-                    <span class="zag_tab">Day</span>
-                    <span class="zag_tab">Week</span>
-                    <span class="zag_tab">Month</span>
-                    <span class="zag_tab">Year</span>
-                    <span class="zag_tab active">All time</span>
+                        <span class="zag_tab" (click)="salesCitiesGraphBy='day';GetRevenueCountsCitiesSales()" [ngClass]="{'active':salesCitiesGraphBy==='day'}">Day</span>
+                        <span class="zag_tab" (click)="salesCitiesGraphBy='week';GetRevenueCountsCitiesSales()" [ngClass]="{'active':salesCitiesGraphBy==='week'}">Week</span>
+                        <span class="zag_tab" (click)="salesCitiesGraphBy='month';GetRevenueCountsCitiesSales()" [ngClass]="{'active':salesCitiesGraphBy==='month'}">Month</span>
+                        <span class="zag_tab" (click)="salesCitiesGraphBy='year';GetRevenueCountsCitiesSales()" [ngClass]="{'active':salesCitiesGraphBy==='year'}">Year</span>
+                        <span class="zag_tab" (click)="salesCitiesGraphBy='all';GetRevenueCountsCitiesSales()" [ngClass]="{'active':salesCitiesGraphBy==='all'}">All time</span>
                 </div>
             </div>
         </div>
         <div class="admin_cards font25">
-            <div class="card_with_tabs">
-                <div class="card violet calendar">
-                    <span class="num">${{countsDateSales}}</span>
-                    <span class="text">By Date</span>
+                <div class="card_with_tabs">
+                    <app-analytic-card 
+                        [Total]="countsDateSales"
+                        [By]="'Date'"
+                        [ColorClass]="'violet'"
+                        [TypeClass]="'calendar'"
+                        (onChangePeriod)="GetRevenueCountsDateSales($event)"
+                    ></app-analytic-card>
                 </div>
-                <div class="card_tabs">
-                    <span class="zag_tab">Day</span>
-                    <span class="zag_tab">Week</span>
-                    <span class="zag_tab">Month</span>
-                    <span class="zag_tab">Year</span>
-                    <span class="zag_tab active">All time</span>
+                <div class="card_with_tabs">
+                    <app-analytic-card 
+                        [Total]="countsArtistSales" 
+                        [By]="'Artist'" 
+                        [ColorClass]="'blue'" 
+                        [TypeClass]="'mic'"
+                        (onChangePeriod)="GetRevenueCountsArtistSales($event)"
+                    ></app-analytic-card>
                 </div>
-            </div>
-            <div class="card_with_tabs">
-                <div class="card blue mic">
-                    <span class="num">${{countsArtistSales}}</span>
-                    <span class="text">By Artist</span>
-                </div>
-                <div class="card_tabs">
-                    <span class="zag_tab">Day</span>
-                    <span class="zag_tab">Week</span>
-                    <span class="zag_tab">Month</span>
-                    <span class="zag_tab">Year</span>
-                    <span class="zag_tab active">All time</span>
-                </div>
-            </div>
-            <div class="card_with_tabs">
-                <div class="card siren kolonka">
-                    <span class="num">${{countsVenueSales}}</span>
-                    <span class="text">By Venue</span>
-                </div>
-                <div class="card_tabs">
-                    <span class="zag_tab">Day</span>
-                    <span class="zag_tab">Week</span>
-                    <span class="zag_tab">Month</span>
-                    <span class="zag_tab">Year</span>
-                    <span class="zag_tab active">All time</span>
+                <div class="card_with_tabs">
+                    <app-analytic-card 
+                        [Total]="countsVenueSales" 
+                        [By]="'Venue'" 
+                        [ColorClass]="'siren'" 
+                        [TypeClass]="'kolonka'"
+                        (onChangePeriod)="GetRevenueCountsVenueSales($event)"
+                    ></app-analytic-card>
                 </div>
             </div>
-        </div>
-        <div class="admin_cards font25">
-            <div class="card_with_tabs">
-                <div class="card violet vr">
-                    <span class="num">${{countsVrSales}}</span>
-                    <span class="text">By VR Tickets</span>
+            <div class="admin_cards font25">
+                <div class="card_with_tabs">
+                    <app-analytic-card 
+                        [Total]="countsVrSales" 
+                        [By]="'VR Tickets'"  
+                        [ColorClass]="'violet'" 
+                        [TypeClass]="'vr'"
+                        (onChangePeriod)="GetRevenueCountsVrSales($event)"
+                    ></app-analytic-card>
                 </div>
-                <div class="card_tabs">
-                    <span class="zag_tab">Day</span>
-                    <span class="zag_tab">Week</span>
-                    <span class="zag_tab">Month</span>
-                    <span class="zag_tab">Year</span>
-                    <span class="zag_tab active">All time</span>
+                <div class="card_with_tabs">
+                    <app-analytic-card 
+                        [Total]="countsTicketsSales" 
+                        [By]="'Ticket Sales'" 
+                        [ColorClass]="'blue'" 
+                        [TypeClass]="'ticket'"
+                        (onChangePeriod)="GetRevenueCountsTicketsSales($event)"
+                    ></app-analytic-card>
                 </div>
-            </div>
-            <div class="card_with_tabs">
-                <div class="card blue ticket">
-                    <span class="num">${{countsTicketsSales}}</span>
-                    <span class="text">By Ticket Sales</span>
-                </div>
-                <div class="card_tabs">
-                    <span class="zag_tab">Day</span>
-                    <span class="zag_tab">Week</span>
-                    <span class="zag_tab">Month</span>
-                    <span class="zag_tab">Year</span>
-                    <span class="zag_tab active">All time</span>
-                </div>
-            </div>
-            <div class="card_with_tabs">
-                <div class="card siren repost">
-                    <span class="num">${{countsAdvertisingSales}}</span>
-                    <span class="text">By Advertising</span>
-                </div>
-                <div class="card_tabs">
-                    <span class="zag_tab">Day</span>
-                    <span class="zag_tab">Week</span>
-                    <span class="zag_tab">Month</span>
-                    <span class="zag_tab">Year</span>
-                    <span class="zag_tab active">All time</span>
+                <div class="card_with_tabs">
+                    <app-analytic-card 
+                        [Total]="countsAdvertisingSales" 
+                        [By]="'Advertising'" 
+                        [ColorClass]="'siren'" 
+                        [TypeClass]="'repost'"
+                        (onChangePeriod)="GetRevenueCountsAdvertisingSales($event)"
+                    ></app-analytic-card>
                 </div>
             </div>
-        </div>
         <div class="admin_cards font25">
             <div class="card_with_tabs">
                 <div class="card violet ">
@@ -285,23 +233,23 @@
                     <span class="text">By Funding Type</span>
                     <div class="radios">
                         <div class="filter_radio">
-                            <input type="radio" id="sort_ft1" name="sort_sales">
+                            <input type="radio" [(ngModel)]="countsFundingSalesType" value="crownfunding" (ngModelChange)="countsFundingSalesType=$event;GetFundingCountsSales()" id="sort_ft1" name="sort_sales">
                             <label for="sort_ft1"></label>
                             <span>Crowdfund</span>
                         </div>
                         <div class="filter_radio">
-                            <input type="radio" id="sort_ft2" name="sort_sales" checked>
+                            <input type="radio" [(ngModel)]="countsFundingSalesType" value="regular" (ngModelChange)="countsFundingSalesType=$event;GetFundingCountsSales()" id="sort_ft2" name="sort_sales">
                             <label for="sort_ft2"></label>
                             <span>Regular</span>
                         </div>
                     </div>
                 </div>
                 <div class="card_tabs">
-                    <span class="zag_tab">Day</span>
-                    <span class="zag_tab">Week</span>
-                    <span class="zag_tab">Month</span>
-                    <span class="zag_tab">Year</span>
-                    <span class="zag_tab active">All time</span>
+                        <span class="zag_tab" (click)="countsFundingSalesBy='day';GetFundingCountsSales()" [ngClass]="{'active':countsFundingSalesBy==='day'}" >Day</span>
+                        <span class="zag_tab" (click)="countsFundingSalesBy='week';GetFundingCountsSales()" [ngClass]="{'active':countsFundingSalesBy==='week'}">Week</span>
+                        <span class="zag_tab" (click)="countsFundingSalesBy='month';GetFundingCountsSales()" [ngClass]="{'active':countsFundingSalesBy==='month'}">Month</span>
+                        <span class="zag_tab" (click)="countsFundingSalesBy='year';GetFundingCountsSales()" [ngClass]="{'active':countsFundingSalesBy==='year'}">Year</span>
+                        <span class="zag_tab" (click)="countsFundingSalesBy='all';GetFundingCountsSales()" [ngClass]="{'active':countsFundingSalesBy==='all'}">All time</span>
                 </div>
             </div>
         </div>

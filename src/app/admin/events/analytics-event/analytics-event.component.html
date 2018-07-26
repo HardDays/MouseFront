@@ -51,10 +51,11 @@
                 </div>
             </div>
             <div class="pie_graph">
-                <canvas baseChart
+                <canvas baseChart height="100%"
                         [data]="pieChartData"
                         [labels]="pieChartLabels"
                         [colors]="pieChartColors"
+                        [options]="pieChartOptions"
                         [legend]="false"
                         [chartType]="pieChartType"
                         (chartHover)="chartHovered($event)"

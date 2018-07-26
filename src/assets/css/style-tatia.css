@@ -1803,6 +1803,7 @@
                 opacity: 1; }
     .admin_page .admin_content .events_status_wrap {
       display: flex;
+      align-items: start;
       justify-content: space-between; }
       .admin_page .admin_content .events_status_wrap .events_status_table {
         width: 55%; }

@@ -37,6 +37,7 @@ import { TicketComponent } from './accounts/account/fan/ticket/ticket.component'
 import { OneFollowerComponent } from './accounts/account/fan/one-follower/one-follower.component';
 import { ChartsModule } from 'ng2-charts';
 import { FundingComponent } from './accounts/funding/funding.component';
+import { AnalyticCardComponent } from './revenue/revenue-analytics/analytic-card/analytic-card.component';
 
 
 @NgModule({
@@ -81,7 +82,8 @@ import { FundingComponent } from './accounts/funding/funding.component';
         FanComponent,
         TicketComponent,
         OneFollowerComponent,
-        FundingComponent
+        FundingComponent,
+        AnalyticCardComponent
         
     ],
     providers: [AdminAccessGuard]

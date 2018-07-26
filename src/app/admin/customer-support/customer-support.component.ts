@@ -37,7 +37,7 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
 
   Answer = {
     Subject:'',
-    Messgae: ''
+    Message: ''
   };
 
   ngOnInit() {
