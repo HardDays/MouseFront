@@ -84,8 +84,8 @@ export class RevenueAnalyticsComponent extends BaseComponent implements OnInit {
     this.GetRevenueCountsVrTotal('all');
     this.GetRevenueCountsVrSales('all');
 
-    this.GetFundingCountsTotal('all');
-    this.GetFundingCountsSales('all');
+    this.GetFundingCountsTotal();
+    this.GetFundingCountsSales();
     // crowdfunding
    
 
@@ -211,7 +211,7 @@ export class RevenueAnalyticsComponent extends BaseComponent implements OnInit {
       )
   }
 
-  GetFundingCountsTotal(period:string){
+  GetFundingCountsTotal(){
     this.main.adminService.GetRevenueCountsFunding('total',this.countsFundingTotalBy,this.countsFundingTotalType)
       .subscribe(
         (res)=>{
@@ -219,7 +219,7 @@ export class RevenueAnalyticsComponent extends BaseComponent implements OnInit {
         }
       )
   }
-  GetFundingCountsSales(period:string){
+  GetFundingCountsSales(){
     this.main.adminService.GetRevenueCountsFunding('sales',this.countsFundingSalesBy,this.countsFundingSalesType)
       .subscribe(
         (res)=>{
