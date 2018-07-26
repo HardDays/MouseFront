@@ -46,7 +46,7 @@ import { NoticeInputComponent } from './dates/notice/notice';
         BigCalendarComponent,
         NoticeInputComponent
     ],
-    exports: [ VenueCreateComponent ]
+    exports: [ VenueCreateComponent, BigCalendarComponent ]
 })
 export class VenueCreateModule {}
 

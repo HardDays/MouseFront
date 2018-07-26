@@ -65,6 +65,7 @@ export class BigCalendarComponent implements OnInit, OnChanges {
   @Input() selectedDates: CalendarDate[] = [];
   @Input() eventDates: CalendarDate[] = [];
   @Input() changedPrice: any[] = [];
+  @Input() isPreview:boolean = false;
   @Output() onSelectDate = new EventEmitter<any>();
 
   @ViewChild('SaveForm') form: NgForm;
@@ -167,6 +168,7 @@ export class BigCalendarComponent implements OnInit, OnChanges {
 
 
   StartRangeEvent(event,day){
+    // if (!this.isPreview){}
       this.FlagForRangePick = true;
       this.FromElement.event = event;
       this.FromElement.CalendarDate = day;

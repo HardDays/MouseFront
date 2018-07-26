@@ -42,6 +42,7 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     this.GetQuestions();
+    this.UpdateAnwerOptions();
   }
 
 
@@ -101,6 +102,8 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
         (res:any[]) =>
         {
           this.AnswerOptions = res;
+          console.log("answer", this.AnswerOptions);
+          
         }
       )
   }

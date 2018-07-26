@@ -1459,7 +1459,8 @@
             color: #eb2d64;
             text-decoration: underline; }
             .admin_page .admin_content .admin_white_back_zag.zag_with_buttons .contacts a:hover {
-              text-decoration: none; }
+              /* text-decoration: none;  */
+            }
     .admin_page .admin_content .admin_delete,
     .admin_page .admin_content .admin_look {
       width: 46px;
@@ -1636,7 +1637,7 @@
         margin-bottom: 10px; }
     .admin_page .admin_content .account_venue .venue_calendar {
       width: 800px;
-      height: 615px; }
+      height: 790px; }
     .admin_page .admin_content .dash_table {
       padding-left: 37px;
       position: relative; }

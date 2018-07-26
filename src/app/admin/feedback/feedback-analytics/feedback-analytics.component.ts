@@ -102,11 +102,7 @@ export class FeedbackAnalyticsComponent extends BaseComponent implements OnInit 
 
 
 
-  public lineChartData:Array<any> = [
-    {data: [{x:1,y:1},{x:2,y:2},{x:4,y:5}], label: 'FANS'},
-    {data: [{x:1,y:1},{x:2,y:2},{x:3,y:4},{x:4,y:5}], label: 'VENUES'},
-    {data: [{x:1,y:2},{x:2,y:3},{x:3,y:5},{x:4,y:0}], label: 'ARTISTS'}
-  ];
+  public lineChartData:Array<any> = [0,0,0];
   public lineChartLabels:Array<any> = [1,2,3,4,5];
   
   public lineChartOptions:any = {

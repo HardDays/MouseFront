@@ -36,9 +36,9 @@
                             }
                         "
                         
-                        (mousedown)="StartRangeEvent($event,day)"
-                        (mouseup)="EndRangeEvent($event,day)"
-                        (mouseenter)="MoveForRange($event,day)"
+                        (mousedown)="!isPreview? StartRangeEvent($event,day):0"
+                        (mouseup)="!isPreview? EndRangeEvent($event,day):0"
+                        (mouseenter)="!isPreview? MoveForRange($event,day):0"
                     >
                         <!--(click)="selectDate(day)"-->    
                         <!--дата-->
