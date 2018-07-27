@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, EventEmitter, ViewChild } from '@angular/core';
 import { BaseComponent } from '../../../../core/base/base.component';
 import { AccountGetModel, Video, Rider } from '../../../../core/models/accountGet.model';
 import { GenreModel } from '../../../../core/models/genres.model';
 import { CalendarDate } from '../../../../systemModule/artistCreate/tiny-calendar/tiny-calendar.component';
 import * as moment from 'moment';
 import { BaseImages } from '../../../../core/base/base.enum';
+import { ErrorComponent } from '../../../../shared/error/error.component';
 
 declare var $:any;
 declare var PhotoSwipeUI_Default:any;
@@ -18,6 +19,7 @@ declare var SC:any;
 })
 export class ArtistComponent extends BaseComponent implements OnInit {
 
+  @ViewChild('errCmp') errCmp:ErrorComponent;
   @Input() Account:AccountGetModel;
   Genres:string[] = [];
 
@@ -178,37 +180,58 @@ export class ArtistComponent extends BaseComponent implements OnInit {
   }
 
   playAudio(s:string){
+  
     if(this.player&&  this.player.isPlaying())
       this.player.pause();
 
-    console.log(s);
+    // console.log(s);
     this.audioDuration = 0;
     this.audioCurrentTime = 0;
     SC.resolve(s).then((res)=>{
-      console.log(res);
+      // console.log(res);
       SC.stream('/tracks/'+res.id).then((player)=>{
         this.player = player;
         this.player.play();
-  
+        // console.log(`PLAYING`);
+        
         player.on('play-start',()=>{
+          // console.log(`start play`);
           this.audioDuration = this.player.getDuration();
+          
+          setInterval(()=>{
+            this.audioCurrentTime = this.player.currentTime();
+          },100)
+        },(err)=>{
+          this.errCmp.OpenWindow(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
+          // console.log(`not start play`);
+        })
+
+        player.on('no_streams',()=>{
+          // console.log(`audio_error`);
+          this.errCmp.OpenWindow(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
+          
         })
         
-        setInterval(()=>{
-            this.audioCurrentTime = this.player.currentTime();
-        },100)
+       
         
         // setTimeout(()=>{
         //   player.pause()
         //   player.seek(0)
         // },10000)
   
+      },(err)=>{
+        this.errCmp.OpenWindow(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
+        // console.log(`error streaming`,err)
       });
 
-    },(err)=>{console.log(`ERROR`)})
+    },(err)=>{
+      this.errCmp.OpenWindow(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
+      // console.log(`ERROR`)
+    })
   }
   
   stopAudio(){
+    if(this.player&&!this.player.isDead())
     this.player.pause();
   }
 
