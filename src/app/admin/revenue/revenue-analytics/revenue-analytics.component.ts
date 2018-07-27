@@ -161,6 +161,10 @@ export class RevenueAnalyticsComponent extends BaseComponent implements OnInit {
     .subscribe(
       (res)=>{
         res=>this.countsAdvertisingTotal = res;
+      },
+      (err)=>{
+        console.log("No Advertising content" ,err);
+        
       }
     )
   }
