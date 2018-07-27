@@ -185,8 +185,7 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
     GetUpcomingShows(){
         if(this.Account.id)
         {
-            this.WaitBeforeLoading(
-                () => this.main.accService.GetUpcomingShows(this.Account.id),
+            this.main.accService.GetUpcomingShows(this.Account.id).subscribe(
                 (res:any) =>
                 { 
                     this.UpcomingShowsChecked = this.UpcomingShows = res;

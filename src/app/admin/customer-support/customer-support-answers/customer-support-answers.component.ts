@@ -132,4 +132,14 @@ export class CustomerSupportAnswersComponent extends BaseComponent implements On
     this.isEdit = false;
   }
 
+  approveTemplate(){
+    this.main.adminService.ApproveTemplatyById(this.openTemplate.id)
+      .subscribe(
+        (res)=>{
+          this.GetTemplates();
+          this.openTemplate = {id:0,subject:'',message:'',status:''};
+        }
+      )
+  }
+
 }

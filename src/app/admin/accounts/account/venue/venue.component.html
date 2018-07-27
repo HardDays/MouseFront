@@ -104,7 +104,7 @@
       </div>
       <div class="calendar-add-artist">
           <div class="one-calendar-block venue_calendar">
-              календарь тут
+                <app-big-calendar #calendar [allDaysPriceDay]='Account.price_for_daytime' [allDaysPriceNight]='Account.price_for_nighttime' [selectedDates]="disabledDays" [eventDates]="eventsDates" [isPreview]="true" [changedPrice]="changedPrice"></app-big-calendar>
           </div>
       </div>
       <div class="uniq-padd-2">

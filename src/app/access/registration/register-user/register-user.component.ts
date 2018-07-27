@@ -80,19 +80,25 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
       this.WaitBeforeLoading(
           ()=>this.main.authService.CreateUser(this.createUser),
           (res:UserGetModel) => {
+              localStorage.setItem('is_register','true');
               this.main.authService.BaseInitAfterLogin(new TokenModel(res.token));
               this.userCreated = true;
               this.main.authService.onAuthChange$.next(true);
 
               // this.back.emit('info');
               localStorage.setItem('new_user_'+res.id,this.type);
+             
 
               if(this.type=='fan')
                 this.backUser.emit(this.type);
-              else if(this.type=='venue')
+              else if(this.type=='venue'){
+                localStorage.removeItem('is_register');
                 this.router.navigate(['/system','venueCreate','new']);
-              else if(this.type=='artist')
+              }
+              else if(this.type=='artist'){
+                localStorage.removeItem('is_register');
                 this.router.navigate(['/system','artistCreate','new']);
+              }
 
 
           },

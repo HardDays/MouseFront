@@ -284,6 +284,12 @@ export class AdminService{
         );
     }
 
+    
+    //////////////////////////////////////
+    //////           REPLY          //////   
+    //////////////////////////////////////
+    
+
     GetReplyTemplates()
     {
         return this.http.CommonRequest(
@@ -316,6 +322,13 @@ export class AdminService{
     {
         return this.http.CommonRequest(
             ()=> this.http.GetData('/admin/reply_templates/'+id+'.json', this.typeService.ParamsToUrlSearchParams({id}))
+        );
+    }
+
+    ApproveTemplatyById(id:number)
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.PostData('/admin/reply_templates/'+id+'/approve.json', JSON.stringify({id}))
         );
     }
 

@@ -1,0 +1,13 @@
+
+<div class="card" [ngClass]="[ColorClass,TypeClass]">
+    <span class="num">${{Total| number:'3.1-2'}}</span>
+    <span class="text">By {{By}}</span>
+</div>
+<div class="card_tabs">
+    <span class="zag_tab" (click)="setPeriod('day')" [ngClass]="{'active':Period==='day'}">Day</span>
+    <span class="zag_tab" (click)="setPeriod('week')" [ngClass]="{'active':Period==='week'}">Week</span>
+    <span class="zag_tab" (click)="setPeriod('month')" [ngClass]="{'active':Period==='month'}">Month</span>
+    <span class="zag_tab" (click)="setPeriod('year')" [ngClass]="{'active':Period==='year'}">Year</span>
+    <span class="zag_tab" (click)="setPeriod('all')" [ngClass]="{'active':Period==='all'}">All time</span>
+</div>
+            <!-- </div> -->

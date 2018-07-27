@@ -69,7 +69,6 @@ export class RegisterFollowComponent extends BaseComponent implements OnInit {
     for(let i=0;i<this.artistsChecked.length;i++)
       if(this.artistsChecked[i]) this.followsId.push(this.artists[i].id);
   
-    ;
     let id:number = +this.main.GetCurrentAccId();
     for(let follow of this.followsId){
       this.WaitBeforeLoading(
@@ -77,8 +76,10 @@ export class RegisterFollowComponent extends BaseComponent implements OnInit {
         (res)=>{
         }
     )
+   
     }
     
+    localStorage.removeItem('is_register');
     this.router.navigate(['/system','shows']);
   
   }

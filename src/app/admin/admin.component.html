@@ -43,7 +43,7 @@
                   </svg>
               </span>
               <span class="text">Dashboard</span>
-              <span *ngIf="newEventCount||newEventCount" class="count">{{newEventCount+newEventCount}}</span>
+              <span *ngIf="newEventCount||newEventCount" class="count">{{newEventCount+newAccCount}}</span>
           </a>
           <div class="opening" [ngClass]="{'opened':currentPage >= pages.accounts_all && currentPage <= pages.artist}">
               <a [routerLink]="['accounts','all']" class="admin_menu_link" (click)="currentPage = pages.accounts_all" [ngClass]="{'active':currentPage === pages.accounts_all}">

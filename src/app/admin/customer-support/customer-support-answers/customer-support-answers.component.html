@@ -10,6 +10,7 @@
                 <div *ngFor="let temp of checkedTemplates" class="answer_item">
                     <div class="answer_head">
                         <p>{{temp.subject}}</p>
+                        <span *ngIf="temp.status==='approved'"><img src="./../../../../assets/img/admin/answer_check.png" alt=""></span>
                         <span (click)="OpenTemplate(temp)"><img src="./../../../../assets/img/admin/answer_edit.png" alt=""></span>
                         <span (click)="DeleteTemplate(temp.id)"><img src="./../../../../assets/img/admin/answer_delete.png" alt=""></span>
                     </div>
@@ -36,6 +37,11 @@
                     <input type="file" class="hidden" id="answer_attach_file">
                 </div> -->
                 <div class="button-div">
+                    <div *ngIf="openTemplate.status&&openTemplate.status!='approved'&&isSuperUser" class="answer_button">
+                        <button (click)="approveTemplate()" class="butt-style-1">
+                            <span>Approve</span>
+                        </button>
+                    </div>
                     <div class="answer_button">
                         <button [disabled]="!openTemplate.subject && !openTemplate.message" (click)="updateTemplate()" class="butt-style-1">
                             <span>{{isEdit?'Edit':'Add'}}</span>
@@ -46,6 +52,7 @@
                             <span>Cancel</span>
                         </button>
                     </div>
+                    
                 </div>
                 
             </div>

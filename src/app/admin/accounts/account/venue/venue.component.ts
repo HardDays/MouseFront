@@ -2,6 +2,9 @@ import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { BaseComponent } from '../../../../core/base/base.component';
 import { AccountGetModel } from '../../../../core/models/accountGet.model';
 import { BaseImages } from '../../../../core/base/base.enum';
+import { CalendarDate } from '../../../../systemModule/venueCreate/big-calendar/big-calendar.component';
+import { VenueDatesModel } from '../../../../core/models/venueDatesModel';
+import * as moment from 'moment';
 
 declare var $:any;
 
@@ -12,6 +15,10 @@ declare var $:any;
 })
 export class VenueComponent extends BaseComponent implements OnInit {
 
+  changedPrice: CalendarDate[] = [];
+  disabledDays: CalendarDate[] = [];
+  eventsDates:CalendarDate[] = [];
+  
   @Input() Account:AccountGetModel;
   photos:any = [];
 
@@ -33,6 +40,7 @@ export class VenueComponent extends BaseComponent implements OnInit {
     else this.Account.image_base64_not_given = BaseImages.NoneFolowerImage;
 
     this.getVenueImages();
+    this.ChangeDates();
   }
 
   ngOnChanges(change: SimpleChanges){
@@ -52,6 +60,55 @@ export class VenueComponent extends BaseComponent implements OnInit {
             });
         }
     }
+  }
+
+  ChangeDates(NewDate?:Date)
+  {
+      let params = null;
+      if(NewDate){
+          params = {
+              current_date: NewDate
+          };
+      }
+
+      this.changedPrice = [];
+      this.disabledDays = [];
+      this.eventsDates = [];
+      if(this.Account.id){
+          this.main.accService.GetVenueDates(this.Account.id ,params)
+          .subscribe(
+              (res:any) => {
+                  let arr = [];
+                  for(let i in res.dates)
+                  {
+                      let item:VenueDatesModel = res.dates[i];
+                      let date = {
+                          mDate: moment(item.date),
+                          selected: !item.is_available,
+                          dayPrice: item.price_for_daytime,
+                          nightPrice: item.price_for_nighttime,
+                          changed:true
+                      };
+                      arr.push(date);
+                  }
+                  this.changedPrice = arr.filter(obj => !obj.selected);
+                  this.disabledDays = arr.filter(obj => obj.selected);
+
+                  if(res.event_dates)
+                  {
+                      
+                      for(let item of res.event_dates)
+                      {
+                          this.eventsDates.push({
+                              mDate: moment(item.date_from),
+                              event: true,
+                              eventId: item.id
+                          });
+                      }
+                  }
+              }
+          );
+      }
   }
 
   ngAfterViewInit(){

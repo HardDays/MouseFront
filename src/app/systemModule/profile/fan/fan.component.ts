@@ -22,8 +22,10 @@ export class FanProfileComponent extends BaseComponent implements OnInit,OnChang
     @Input() MyProfileId: number;
     @Output() onFollow:EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    isPreloadTickets:boolean = false;
-    isPreloadEvents:boolean = false;
+    isPreloadTickets:boolean = true;
+    isPreloadEvents:boolean = true;
+    isPreloadFans:boolean = true;
+
     TotalTicket:number = 0;
     TicketMass:TicketsGetModel[] = [];
     ticketsMassChecked:TicketsGetModel[] = [];
@@ -32,9 +34,9 @@ export class FanProfileComponent extends BaseComponent implements OnInit,OnChang
     EventsMassChecked:EventGetModel[] = [];
 
     FansChecked:AccountGetModel[] = [];
-    
 
     ngOnChanges(changes: SimpleChanges): void {
+        
         if(changes.Account)
         {
             this.Account = changes.Account.currentValue;
@@ -43,8 +45,9 @@ export class FanProfileComponent extends BaseComponent implements OnInit,OnChang
             this.MyProfileId = changes.MyProfileId.currentValue;
         }
         if(changes.Fans){
+            this.isPreloadFans = true;
             this.FansChecked = this.Fans = changes.Fans.currentValue;
-            
+            this.isPreloadFans = false;
         }    
         // this.InitByUser();
     }
@@ -103,12 +106,14 @@ export class FanProfileComponent extends BaseComponent implements OnInit,OnChang
     GetEvents()
     {
         this.EventsMassChecked = this.EventsMass = [];
+        this.isPreloadEvents = true;
         if(this.Account.id)
         {
             
                 this.main.eventService.GetEvents(this.Account.id).subscribe(
                 (res:EventGetModel[]) => {
                     this.EventsMassChecked = this.EventsMass = res;
+                    this.isPreloadEvents = false;
                 },
                 (err) => {
                 //  console.log(err);

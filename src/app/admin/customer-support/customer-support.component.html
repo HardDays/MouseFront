@@ -53,12 +53,20 @@
                 <div class="mes_input">
                     <ng-container>
                         <label>Pre-written Responses</label>
-                        <select [ngModel]="Answer" (ngModelChange)="Answer = $event">
+                        <!-- <select [ngModel]="Answer" (ngModelChange)="Answer = $event">
                             <option value="DefaultAnswer"></option>
                             <ng-container *ngFor="let item of AnswerOptions">
                                 <option [value]="item">{{item.subject}}</option>
                             </ng-container>
-                        </select>
+                        </select> -->
+                        <mat-form-field>
+                            <mat-select [ngModel]="Answer" (ngModelChange)="Answer = $event">
+                                <mat-option [value]="DefaultAnswer">DefaultAnswer</mat-option>
+                                <mat-option *ngFor="let item of AnswerOptions" [value]="item">
+                                    {{item.subject}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
                     </ng-container>
                     
                     <label *ngIf="!Answer.Subject">Message</label>

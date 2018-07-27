@@ -137,14 +137,17 @@ graphInfo = {
     scales:{
       yAxes:[
         {
-          ticks: { min: 0}
+          // ticks: { min: 0}
+          ticks:{
+            beginAtZero:true
+          }
         }
       ],
-      xAxes:[
-        {
-          ticks:{ min: 0}
-        }
-      ]
+      // xAxes:[
+      //   {
+      //     ticks:{ min: 0}
+      //   }
+      // ]
     }
     
   };

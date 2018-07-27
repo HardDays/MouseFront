@@ -37,6 +37,11 @@ import { TicketComponent } from './accounts/account/fan/ticket/ticket.component'
 import { OneFollowerComponent } from './accounts/account/fan/one-follower/one-follower.component';
 import { ChartsModule } from 'ng2-charts';
 import { FundingComponent } from './accounts/funding/funding.component';
+import { AnalyticCardComponent } from './revenue/revenue-analytics/analytic-card/analytic-card.component';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material';
+import { VenueCreateModule } from '../systemModule/venueCreate/venueCreate.module';
+
 
 
 @NgModule({
@@ -54,7 +59,11 @@ import { FundingComponent } from './accounts/funding/funding.component';
         ErrorModule,
         PreloaderModule,
         SlideshowModule,
-        ChartsModule
+        ChartsModule,
+        MatSelectModule,
+        MatFormFieldModule,
+        VenueCreateModule
+        
     ],
     declarations: [
         AdminComponent,
@@ -81,7 +90,8 @@ import { FundingComponent } from './accounts/funding/funding.component';
         FanComponent,
         TicketComponent,
         OneFollowerComponent,
-        FundingComponent
+        FundingComponent,
+        AnalyticCardComponent
         
     ],
     providers: [AdminAccessGuard]
