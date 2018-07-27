@@ -224,7 +224,7 @@ export class RevenueAnalyticsComponent extends BaseComponent implements OnInit {
     this.main.adminService.GetRevenueCountsVr('total',period)
       .subscribe(
         (res)=>{
-          this.countsVenueTotal = res
+          this.countsVrTotal = res
         }
       )
   }
@@ -232,7 +232,7 @@ export class RevenueAnalyticsComponent extends BaseComponent implements OnInit {
     this.main.adminService.GetRevenueCountsVr('sales',period)
       .subscribe(
         (res)=>{
-          this.countsVenueSales = res
+          this.countsVrSales = res
         }
       )
   }

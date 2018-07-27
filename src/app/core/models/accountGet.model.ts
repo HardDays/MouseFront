@@ -23,6 +23,7 @@ export class AccountGetModel{
         public account_bank_number?: string,
         public account_bank_routing_number?: string,
         public capacity?: number,
+        public vr_capacity?: number,
         public num_of_bathrooms?: number,
         public min_age?: number,
         public venue_type?: string,

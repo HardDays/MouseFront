@@ -35,10 +35,13 @@ export class AddTicketsComponent extends BaseComponent implements OnInit {
 
   analitics:any;
   
+  maxCountInPerson = 0;
+  maxCountVr = 0;
   
   ngOnInit() {
     // this.CreateAutocompleteArtist();
     this.getTickets();
+    console.log(`INIT`)
     
   }
   Init(event:EventCreateModel){
@@ -83,6 +86,8 @@ export class AddTicketsComponent extends BaseComponent implements OnInit {
                     this.currentTicket = this.tickets[0];
                 });
         }
+        this.maxCountInPerson = this.Event.venue.capacity - this.Event.in_person_tickets;
+        this.maxCountVr = this.Event.venue.vr_capacity - this.Event.vr_tickets;
     }
     
 }
@@ -95,7 +100,7 @@ addTicket(){
     newTicket.name = 'New Name';
     newTicket.type = 'vr';
     newTicket.is_promotional = false;
-    newTicket.is_for_personal_use = false;
+    newTicket.is_for_personal_use = false; 
     this.ticketsNew.push(newTicket);
     this.currentTicket = this.ticketsNew[this.ticketsNew.length-1];
     this.isCurTicketNew = true;
@@ -109,6 +114,20 @@ getNewId(){
 
 updateTicket(){
     if(this.isCurTicketNew) {
+        if(this.currentTicket.type==='vr'){
+            if(this.currentTicket.count>this.maxCountVr){
+                this.onError.emit('<b>Failed!</b> VR Tickets limit expired');
+                // console.log(`error`);
+                return;
+            }
+        }
+        else{
+            if(this.currentTicket.count>this.maxCountInPerson){
+                this.onError.emit('<b>Failed!</b> Tickets limit expired');
+                // console.log(`error`);
+                return;
+            }
+        }
 
         let index:number = -1;
         for(let i in this.ticketsNew)
@@ -127,9 +146,8 @@ updateTicket(){
 
                 this.updateEventTickets();
             },(err)=>{
-                this.onError.emit("Can't get tickets!");
+                this.onError.emit(this.getResponseErrorMessage(err));
             });
-
     }
     else {
         this.currentTicket.account_id = this.CurrentAccount.id;
@@ -138,6 +156,8 @@ updateTicket(){
             .subscribe((res)=>{
                 //console.log(`update`,res);
                 this.updateEventTickets();
+            },(err)=>{
+                this.onError.emit('<b>Failed!</b> Tickets limit expired');
             });
     }
 }

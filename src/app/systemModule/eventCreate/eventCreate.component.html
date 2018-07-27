@@ -28,7 +28,7 @@
                         <li [ngClass]="{'active':currentPage == pages.funding,'started':currentPage != pages.funding && EventId}">
                             <a (click)="ChangeCurrentPart(pages.funding)" class="nav-second-outlet">funding</a>
                         </li>
-                        <li [ngClass]="{'active':currentPage == pages.tickets,'started':currentPage != pages.funding && isHasVenue}">
+                        <li [ngClass]="{'active':currentPage == pages.tickets,'started':currentPage != pages.tickets && isHasVenue }">
                             <a (click)="isHasVenue?ChangeCurrentPart(pages.tickets):''" class="nav-second-outlet">tickets</a>
                         </li>
                         <!-- <li [ngClass]="{'active':currentPage == pages.previewArtist,'started':currentPage != pages.preview}">
@@ -43,20 +43,39 @@
                                 </span>
                             </button>
                         </li>
-                        <li *ngIf="isShowLaunch">
-                            <button (click)="activeButtonClick()" class="butt-style-1" style="width: 159px">
+
+                        <li *ngIf="(EventId !== 0 && !isNewEvent)&&Event.status===eventStatus.New">
+                            <button (click)="launchButtonClick()" class="butt-style-1" style="width: 159px">
                                 <span style="padding: 10px 0;">
-                                Launch event
+                                    Launch event
                                 </span>
                             </button>
                         </li>
-                        <li *ngIf="Event.is_active&&!isShowLaunch">
+                        <!-- <li *ngIf="isShowLaunch">
                             <button (click)="unActiveButtonClick()" class="butt-style-1" style="width: 159px">
                                 <span style="padding: 10px 0;">
-                                Delaunch event
+                                    Delaunch event
+                                </span>
+                            </button>
+                        </li> -->
+
+                        <li *ngIf="Event.status===eventStatus.Approved">
+                            <button (click)="activeButtonClick()" class="butt-style-1" style="width: 159px">
+                                <span style="padding: 10px 0;">
+                                Activate event
                                 </span>
                             </button>
                         </li>
+                        <li *ngIf="Event.status===eventStatus.Active">
+                            <button (click)="unActiveButtonClick()" class="butt-style-1" style="width: 159px">
+                                <span style="padding: 10px 0;">
+                                Deactivate event
+                                </span>
+                            </button>
+                        </li>
+
+                        
+
                     </ul>
                 </div>
             </div>

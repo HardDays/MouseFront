@@ -10,11 +10,13 @@
             <div class="left-ticket">
                 <div *ngIf="Event.venue" class="tickets-left-info">
                     <p class="info-text">In Person Tickets Available</p>
-                    <span class="price">{{analitics?analitics.in_person_tickets_sold:'No info'}}/{{Event.venue.capacity?Event.venue.capacity:'Max venue capacity'}}</span>
+                    <span class="price">{{Event?Event.in_person_tickets:'No info'}}/{{Event.venue.capacity?Event.venue.capacity:'Max venue capacity'}}</span>
+                    <!-- <span class="price">{{analitics?analitics.in_person_tickets_sold:'No info'}}/{{Event.venue.capacity?Event.venue.capacity:'Max venue capacity'}}</span> -->
                 </div>
                 <div *ngIf="Event.venue" class="tickets-left-info">
                     <p class="info-text">VR Tickets Available</p>
-                    <span class="price">{{analitics?analitics.vr_tickets_sold:'No info'}}/200</span>
+                    <!-- <span class="price">{{analitics?analitics.vr_tickets_sold:'No info'}}/200</span> -->
+                    <span class="price">{{Event?Event.vr_tickets:'No info'}}/{{Event.venue.vr_capacity?Event.venue.vr_capacity:'Max venue VR capacity'}}</span>
                 </div>
                
                 <div class="pick-tickets-wr">
@@ -108,7 +110,7 @@
                                 </div>
                                 <div class="input-groupe-1 none-padd-my">
                                     <span class="desc-num">Number Available</span>
-                                    <input  class="num" name="" type="text" [(ngModel)]="currentTicket.count">
+                                    <input  class="num" [max]="maxCountInPerson" name="" type="text" [(ngModel)]="currentTicket.count">
                                    
                                 </div>
                                 

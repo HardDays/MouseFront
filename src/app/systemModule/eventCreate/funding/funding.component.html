@@ -14,18 +14,16 @@
                     <h6>Choose Active Artists</h6>
                     
                   
-                    
-                    <p *ngIf="activeArtist.length==0" class="empty-side">You have no Active Artists.<br>Choose Active Artists.</p>
-                   
-                  
-                    <div *ngIf="activeArtist.length>0" class="artists-venue-wrapp">
+                    <app-preloader *ngIf="isLoadingArtist" class="empty-side"></app-preloader>
+                    <p *ngIf="!isLoadingArtist&&activeArtist.length==0" class="empty-side">You have no Active Artists.<br>Choose Active Artists.</p>
+                    <div *ngIf="!isLoadingArtist&&activeArtist.length>0" class="artists-venue-wrapp">
                         <div *ngFor="let artist of activeArtist; let i = index" class="one-block">
                             <div class="ava-l">
-                                <div class="ava" [ngStyle]="{'background-image': artist.object.image_base64_not_given?'url('+artist.object.image_base64_not_given+')':''}"></div>
-                                <a [routerLink]="['/system/profile',artist.object.artist_id]" class="name">{{artist['object']['user_name_not_given']}}</a>
+                                <div class="ava" [ngStyle]="{'background-image': artist.object.artist.image_base64?'url('+artist.object.artist.image_base64+')':''}"></div>
+                                <a [routerLink]="['/system/profile',artist.object.artist_id]" class="name">{{artist['object']['artist']['user_name']}}</a>
                             </div>
                             <div class="price-r">
-                                <span class="price">${{artist['object']['agreement']?artist['object']['agreement']['price']:'none'}}</span>
+                                <span class="price">${{artist['object']['artist']['is_hide_pricing_from_search']?'No info':artist['object']['artist']['price']}}</span>
                                 <div class="one-checkbox">
                                     <div class="check-style">
                                         <input [checked]="activeArtist[i].checked" (click)="setActiveArtist(i)" type="checkbox" class="checkbox" name="" id="new-checkbox-artist-{{i}}">
@@ -38,7 +36,7 @@
                     </div>
                     
                 </div>
-                <div class="bottom-expression">
+                <div *ngIf="!isLoadingArtist" class="bottom-expression">
                     <p class="t">Price (Plus Additional Costs)</p>
                     <p class="exp-price">${{artistSum}}</p>
                 </div>
@@ -47,18 +45,16 @@
                 <div class="top-gum">
                     <h6>Choose Active Venue</h6>
                   
-                    
-                    <p  *ngIf="activeVenue.length==0" class="empty-side">You Have no Active Venues.<br>Choose Active Venue. </p>
-                    
-                    
-                    <div *ngIf="activeVenue.length>0" class="artists-venue-wrapp">
+                    <app-preloader *ngIf="isLoadingVenue" class="artists-venue-wrapp"></app-preloader>
+                    <p  *ngIf="!isLoadingVenue&&activeVenue.length==0" class="empty-side">You Have no Active Venues.<br>Choose Active Venue. </p>
+                    <div *ngIf="!isLoadingVenue&&activeVenue.length>0" class="artists-venue-wrapp">
                         <div *ngFor="let venue of activeVenue; let i = index" class="one-block">
                             <div class="ava-l">
-                                <div class="ava" [ngStyle]="{'background-image': venue.object.image_base64_not_given?'url('+venue.object.image_base64_not_given+')':''}"></div>
-                                <a [routerLink]="['/system/profile',venue.object.venue_id]" class="name">{{venue['object']['user_name_not_given']}}</a>
+                                <div class="ava" [ngStyle]="{'background-image': venue.object.venue.image_base64?'url('+venue.object.venue.image_base64+')':''}"></div>
+                                <a [routerLink]="['/system/profile',venue.object.venue_id]" class="name">{{venue['object']['venue']['user_name']}}</a>
                             </div>
                             <div class="price-r">
-                                <span class="price">${{venue['object']['agreement']?venue['object']['agreement']['price']:'none'}}</span>
+                                <span class="price">{{venue.object.venue.price?'$'+venue['object']['venue']['price']:'No info'}}</span>
                                 <div class="one-checkbox">
                                     <div class="check-style">
                                         <input [checked]="activeVenue[i].checked" (click)="setActiveVenue(i)" type="checkbox" class="checkbox" name="" id="new-checkbox-venue-{{i}}">
@@ -70,7 +66,7 @@
                     </div>
                    
                 </div>
-                <div class="bottom-expression">
+                <div *ngIf="!isLoadingVenue" class="bottom-expression">
                     <p class="t">Price (Plus Additional Costs)</p>
                     <p class="exp-price">${{venueSum}}</p>
                 </div>
