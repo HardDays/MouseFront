@@ -17,10 +17,43 @@
     top: 10px;
     left: 0; 
 }
+.messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_right .settings_right_wrap .setts_padding.over-none{
+     position: relative;
+     overflow: hidden;
+}
+
+.version-container{
+ 
+  width: auto;
+  left: 50%;
+  transform:translateX(-50%);
+  position: absolute; 
+  bottom: 20px ; 
+  text-align: center;
+}
+.messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_left{
+  position: relative;
+  overflow: inherit;
+}
+.messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_right .settings_right_wrap .feedback_form .stars span{
+  flex-shrink: 0;
+}
 
 
-
-
+@media (max-width: 1460px) {
+  .messages-main-wrapp .main-mw {
+      min-height: 850px;
+      height: auto;
+  }
+  .messages-main-wrapp {
+    min-height: 850px;
+    height: auto;
+  }
+  .messages-main-wrapp .main-mw.main_for_setts .settings_wrap{
+    min-height: 850px;
+  }
+  
+}
 
 
 
@@ -55,9 +88,16 @@
   }
 
 
+  .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_right{
+    margin-right: 5%;
+    width: 47%;
+  }
+  .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_left {
+    width: 40%;
+  }
+  .version-container{
 
-
-
+  }
 
 
 }
@@ -93,6 +133,46 @@
   .all-info-profile .uniq-padd-2 .styles-audio-list .audio-wrapper .one-audio{
     margin: 0 auto 25px auto;
   }
+  .body-tabs-datails-pages .for-flex-contant-d .left-side-tickets .one-ticket{
+    max-width: 350px;
+  }
+  .body-tabs-datails-pages .for-flex-contant-d .left-side-tickets .one-ticket .one-tick-counter .count{
+    font-size: 36px;
+  }
+  .body-tabs-datails-pages .for-flex-contant-d .left-side-tickets .one-ticket .one-tick-counter {
+    max-width: 180px;
+}
+.body-tabs-datails-pages .for-flex-contant-d .left-side-tickets .one-ticket .abs-description-ticket-wr{
+  left: 180px;
+  width: 70%;
+}
+.show-datails-wr{
+  padding: 0 40px;
+}
+.show-datails-wr .flex-artist-main-info .right-side{
+  padding-left: 30px;
+}
+.show-datails-wr .flex-artist-main-info .right-side .slideshow-container{
+  min-height: 400px!important;
+}
+
+.messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_left .zag{
+  font-size: 40px;
+}
+.messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_left .settings_menu li a, .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_left .settings_menu li span{
+  font-size: 17px;
+}
+.messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_right{
+  width: 60%;
+  margin-right: 0;
+}
+
+
+
+
+
+
+
 }
 
 @media (max-width: 1100px) {
@@ -169,15 +249,49 @@
     border-color: transparent transparent transparent #fff;
   }
   
+  .show-datails-wr .flex-artist-main-info .right-side .slideshow-container {
+    min-height: 320px!important;
+  }
+  .other-datails-info h1{
+    font-size: 50px;
+    margin-right: 0;
+    width: 100%;
+  }
+  .other-datails-info{
+    flex-wrap: wrap;
+  }
+  .body-tabs-datails-pages .for-flex-contant-d{
+    display: block;
 
+  }
+  .body-tabs-datails-pages .for-flex-contant-d .left-side-tickets{
+    width: 100%;
+  }
+  .body-tabs-datails-pages .for-flex-contant-d .left-side-tickets .one-ticket .abs-description-ticket-wr{
+    left: 50%;
+  }
+  .body-tabs-datails-pages .for-flex-contant-d .left-side-tickets{
+    padding-right: 0;
+  }
+  .body-tabs-datails-pages .for-flex-contant-d .left-side-tickets .one-ticket{
+    max-width: 100%;
+  }
+  .body-tabs-datails-pages .for-flex-contant-d .left-side-tickets .one-ticket .one-tick-counter {
+    max-width: 46%;
+  }
 
+  .body-tabs-datails-pages .for-flex-contant-d .right-side-tickets{
+    width: 100%;
+    padding-left: 0;
+  }
 
+  .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_left{
+    padding: 30px 15px;
 
-
-
-
-
-
+  }
+  .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_right .settings_right_wrap .setts_padding{
+    padding: 0 15px;
+  }
 
 
 
@@ -372,9 +486,133 @@
   .all-info-profile .uniq-padd-2 .flex--info .side.side-contact .flex-contact-venue .column-cont:last-child .hours-time-wr .hours-hover .hours-drop-show:before{
    display: none;
   }
+  .show-datails-wr{
+    padding: 0 15px;
+  }
+
+  .show-datails-wr .flex-artist-main-info{
+    display: block;
+  }
+  .show-datails-wr .flex-artist-main-info .left-side{
+    width: 100%;
+  }
+  .show-datails-wr .flex-artist-main-info .right-side{
+    padding-left: 0;
+    width: 100%;
+  }
+  .show-datails-wr .flex-artist-main-info .left-side .bg-gradient-info{
+    padding: 15px;
+    min-height: auto;
+  }
   
+  .show-datails-wr .flex-artist-main-info .right-side .slideshow-container {
+      min-height: 265px!important;
+  }
+  .content-and-tabs-datails{
+    padding: 0 15px;
+  }
 
+  .other-datails-info h1 {
+    font-size: 40px;
+  }
+  .other-datails-info{
+    display: block;
+  }
+  .other-datails-info .total{
+    width: 100%;
+  }
 
+  .other-datails-info .total{
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .other-datails-info .butt-style-1{
+    margin: 0 auto;
+  }
+
+  .body-tabs-datails-pages .for-flex-contant-d .left-side-tickets .one-ticket .one-tick-counter .conter-wrapp span{
+    width: 65px;
+    font-size: 33px;
+  }
+  .body-tabs-datails-pages .for-flex-contant-d .left-side-tickets .one-ticket .one-tick-counter .conter-wrapp{
+    margin-bottom: 14px;
+  }
+  .body-tabs-datails-pages .for-flex-contant-d .left-side-tickets .one-ticket .one-tick-counter .count{
+    font-size: 27px;
+    margin-bottom: 10px;
+  }
+  .body-tabs-datails-pages .for-flex-contant-d .left-side-tickets .one-ticket .abs-description-ticket-wr{
+    left: 0;
+    position: relative;
+    transform: none;
+    margin: 0 auto 15px auto
+  }
+  .body-tabs-datails-pages .for-flex-contant-d .left-side-tickets .one-ticket{
+    height: auto;
+    
+  }
+  .body-tabs-datails-pages .for-flex-contant-d .left-side-tickets .one-ticket form{
+      display: flex;
+      flex-direction: column-reverse;
+      padding-bottom: 20px;
+  }
+  .body-tabs-datails-pages .for-flex-contant-d .left-side-tickets .one-ticket .one-tick-counter{
+    margin: 0 auto;
+  }
+  .messages-main-wrapp{
+    padding: 0 15px;
+  }
+  .messages-main-wrapp .main-mw.main_for_setts .settings_wrap{
+    display: block;
+  }
+  .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_left{
+    width: 100%;
+  }
+  .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_right{
+    width: 100%;
+    min-height: auto;
+  }
+  .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_left .settings_menu li{
+    margin-bottom: 8px;
+  }
+  .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_right{
+    padding: 0;
+  }
+  .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_left .zag{
+    font-size: 33px;
+    margin-bottom: 25px;
+  }
+  .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_left .settings_menu li a, .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_left .settings_menu li span{
+    font-size: 14px;
+  }
+  .version-container{
+    bottom: 5px;
+  }
+  .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_left .settings_menu li .opening:after{
+    top: 6px;
+    right: -20px;
+  }
+  .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_left .settings_menu li .submenu{
+    margin-top: 0;
+  }
+  .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_right .settings_right_wrap .setts_padding{
+    padding: 0;
+  }
+  .modal.fade .modal-dialog, .modal.in .modal-dialog{
+    max-width: 290px;
+  }
+  .modal_change_phone .modal-dialog .modal-body .phone_form{
+    padding: 20px;
+  }
+  .modal_change_phone .modal-dialog .modal-body .head{
+    padding: 15px 20px;
+  }
+  .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_right .settings_right_wrap .zag{
+    text-align: center;
+  }
 }
 
 
@@ -441,13 +679,6 @@
   .main-feed-wrapp .middle-feed .feed-item .body-feed-item .iframe-wrapp iframe{
       height: 220px;
   }
-  
-  
-  
-  
-  
-  
-
 }
 @media (max-width: 479px){
   .create-event-nav-tabs .create-event-header h1{
