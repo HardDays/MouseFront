@@ -1,7 +1,7 @@
 <!-- <div class="admin_content"> -->
     <section class="admin_table_nav">
-        <span class="admin_delete"><img src="./../../../../assets/img/admin/delete.svg" alt=""></span>
-        <span class="admin_look"><img src="./../../../../assets/img/admin/look.svg" alt=""></span>
+        <span (click)="deleteAll()" class="admin_delete"><img src="./../../../../assets/img/admin/delete.svg" alt=""></span>
+        <span (click)="openInNewTabs()" class="admin_look"><img src="./../../../../assets/img/admin/look.svg" alt=""></span>
         <div class="table_filter">
             <div  class="table_search"><input (input)="SearchAccs($event)" type="text" placeholder="Search"></div>
                 <div class="filter_checkbox">
@@ -41,11 +41,11 @@
                 <div *ngFor="let acc of CheckedAccounts; let i = index" class="admin_table_tr">
                     <div class="admin_table_td check_column">
                         <div class="admin_table_checkbox">
-                            <input type="checkbox" id="new_acc_{{i}}">
+                            <input (change)="checkIdToOpen(acc.id)" type="checkbox" id="new_acc_{{i}}">
                             <label for="new_acc_{{i}}"></label>
                         </div>
                     </div>
-                    <div class="admin_table_td">{{acc.last_name}}<br>{{acc.first_name}}</div>
+                    <div (click)="openAccount(acc.id)" class="admin_table_td">{{acc.last_name}}<br>{{acc.first_name}}</div>
                     <div class="admin_table_td account" style="cursor: pointer;">
                         <span>@{{acc.user_name}}</span>
                     </div>

@@ -61,7 +61,7 @@
                         </select> -->
                         <mat-form-field>
                             <mat-select [ngModel]="Answer" (ngModelChange)="Answer = $event">
-                                <mat-option [value]="DefaultAnswer">DefaultAnswer</mat-option>
+                                <mat-option [value]="DefaultAnswer">Default Answer</mat-option>
                                 <mat-option *ngFor="let item of AnswerOptions" [value]="item">
                                     {{item.subject}}
                                 </mat-option>
@@ -72,11 +72,11 @@
                     <label *ngIf="!Answer.Subject">Message</label>
                     <div class="mes_text_block">
                         <div *ngIf="!Answer.Subject" class="mes_text_wrap">
-                            <textarea [(ngModel)]="Answer.Message"></textarea>
+                            <textarea [(ngModel)]="Answer.message"></textarea>
                             <!-- <span><img src="./../../../assets/img/admin/answer_attach_file.png"></span>
                             <input type="file" id="mes_attach_file" class="hidden"> -->
                         </div>
-                        <button [disabled]="!Answer.Subject && !Answer.Message" (click)="SendAnswer()">SEND</button>
+                        <button [disabled]="!Answer.subject && !Answer.message" (click)="SendAnswer()">SEND</button>
                     </div>
                 </div>
             </div>
