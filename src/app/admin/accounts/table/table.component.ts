@@ -62,8 +62,8 @@ export class TableComponent extends BaseComponent implements OnInit {
   openInNewTabs(){
     let type = this.Accounts?'account':this.Events?'event':'';
     for(let id of this.openIds){
-        window.open('http://localhost:4200/admin/'+type+'/'+id,'_blank');
-        // window.open('http://mouse-web.herokuapp.com/admin/'+type+'/'+id,'_blank');
+        // window.open('http://localhost:4200/admin/'+type+'/'+id,'_blank');
+        window.open('http://mouse-web.herokuapp.com/admin/'+type+'/'+id,'_blank');
         window.blur();
       }
   }
