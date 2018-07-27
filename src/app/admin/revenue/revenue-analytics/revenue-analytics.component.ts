@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { BaseComponent } from '../../../core/base/base.component';
 
 @Component({
@@ -7,7 +7,6 @@ import { BaseComponent } from '../../../core/base/base.component';
   styleUrls: ['./revenue-analytics.component.css']
 })
 export class RevenueAnalyticsComponent extends BaseComponent implements OnInit {
-  
 
   citiesTotal= {total:0 , cities:[{price:0,address:'',color:'#000000'}]};
   citiesSales = {total:0 , cities:[{price:0,address:'',color:'#000000'}]};
@@ -42,7 +41,6 @@ export class RevenueAnalyticsComponent extends BaseComponent implements OnInit {
   countsVrTotal = 0;
   countsVrSales = 0;
 
-
   pieChartLabelsTotal:string[] = [''];
   pieChartDataTotal:number[] = [];
   pieChartLabelsSales:string[] = [''];
@@ -58,10 +56,40 @@ export class RevenueAnalyticsComponent extends BaseComponent implements OnInit {
       backgroundColor: ['rgba(153,31,114,0.8)','rgba(210,54,93)','rgba(81,87,184)','rgba(242,173,15)','#942541','#079391']
     }
   ];
-
+  pieChartOptionTotal:Array<any> =[
+    {
+      tooltips: {
+        titleFontSize: 16,
+        bodyFontSize: 14,
+        displayColors:false,
+        },
+        elements: {
+          arc: {
+              borderWidth: 8
+          }
+        }
+      }
+  ];
+  pieChartOptionSales:Array<any> =[
+    {
+      tooltips: {
+        titleFontSize: 16,
+        bodyFontSize: 14,
+        displayColors:false,
+        },
+        elements: {
+          arc: {
+              borderWidth: 8
+          }
+        } 
+    }
+  ];
+ 
 
 
   ngOnInit() {
+
+  
 
     this.GetRevenueCountsCitiesTotal();
     this.GetRevenueCountsCitiesSales();
@@ -87,10 +115,8 @@ export class RevenueAnalyticsComponent extends BaseComponent implements OnInit {
     this.GetFundingCountsTotal();
     this.GetFundingCountsSales();
     // crowdfunding
-   
 
   }
-
 
   GetRevenueCountsCitiesTotal(){
     this.main.adminService.GetRevenueCities('total')

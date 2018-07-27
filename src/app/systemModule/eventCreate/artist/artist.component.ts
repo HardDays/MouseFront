@@ -56,7 +56,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
 
   isAcceptedArtistShow:boolean = true;
-  showModalRequest:boolean = false;
+  // showModalRequest:boolean = false;
 
   requestArtistForm : FormGroup = new FormGroup({
     "time_frame": new FormControl(""),
@@ -422,7 +422,7 @@ declineArtist(card:AccountGetModel){
 
 
 sendArtistRequestOpenModal(artist:AccountGetModel){
-  this.showModalRequest = true;
+  // this.showModalRequest = true;
     setTimeout(() => {
       $('#modal-send-request-artist').modal('show');
     }, 50);
@@ -447,9 +447,12 @@ artistSendRequest(id:number){
 
   this.main.eventService.ArtistSendRequest(this.addArtist)
   .subscribe((send)=>{
-      $('#modal-send-request-artist').modal('toggle');
+      $('#modal-send-request-artist').modal('hide');
      // console.log(`send`);
-      this.onError.emit("Request was sent!");
+     setTimeout(() => {
+       this.onError.emit("Request was sent!");
+     }, 400);
+      
 
       this.updateEvent();
   })
