@@ -44,7 +44,7 @@ export class AccountComponent extends BaseComponent implements OnInit {
       .subscribe(
         (res)=>{
           console.log(`res`,res);
-          this.router.navigate(['/admin','dashboard']);
+          this.router.navigate(['/admin','accounts','all'])
         },
         (err)=>{
           console.log(`err`,err)

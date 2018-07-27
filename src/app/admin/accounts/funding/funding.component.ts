@@ -14,6 +14,8 @@ export class FundingComponent extends BaseComponent implements OnInit {
   SearchName: string = '';
   AccountsType: string = 'all'
 
+  openIds:number[] = [];
+
   ngOnInit() {
     this.main.adminService.GetAccountFunding()
       .subscribe(
@@ -54,6 +56,48 @@ export class FundingComponent extends BaseComponent implements OnInit {
         this.CheckedAccounts = this.Accounts.filter(obj => obj.account_type===this.AccountsType);
       }
     }
+  }
+
+
+  openAccount(id:number){
+    this.router.navigate(["/admin",'account',id])
+  }
+
+
+  checkIdToOpen(id:number){
+    let index = this.openIds.indexOf(id);
+    if(index<0)
+      this.openIds.push(id);
+    else
+      this.openIds.splice(index,1);
+    
+      // console.log(this.openIds);
+
+  }
+
+  openInNewTabs(){
+    // let type = this.Accounts?'account':this.Events?'event':'';
+    for(let id of this.openIds){
+        // window.open('http://localhost:4200/admin/'+type+'/'+id,'_blank');
+        window.open('http://mouse-web.herokuapp.com/admin/account/'+id,'_blank');
+        window.blur();
+      }
+  }
+
+  deleteAll(){
+    for(let id of this.openIds){
+        this.main.adminService.AccountDelete(id)
+          .subscribe(
+            (res)=>{
+              console.log(id,`ok`);
+              this.Accounts.splice(this.Accounts.indexOf(this.Accounts.find((a)=>a.id===id)),1)
+            },
+            (err)=>{
+              console.log(`err`,err);
+            }
+          )
+      }
+
   }
 
   // no input
