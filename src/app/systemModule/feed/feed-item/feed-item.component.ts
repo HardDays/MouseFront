@@ -6,6 +6,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MapsAPILoader } from '@agm/core';
 import { CommentModel } from '../../../core/models/comment.model';
 
+declare var $:any;
+
 @Component({
   selector: 'app-feed-item',
   templateUrl: './feed-item.component.html',
@@ -46,6 +48,15 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
     this.myLogo = this.main.MyLogo;
    // this.getLikes();
    // this.GetComments();
+    $('.body-feed-item .photos-wrapp').css({
+        'max-height': $('.for-min-height-photos').width()
+    });
+    $(window).resize(function(){
+      $('.body-feed-item .photos-wrapp').css({
+          'max-height': $('.for-min-height-photos').width()
+      });
+    });
+   
   }
   
   ngOnChanges() {
