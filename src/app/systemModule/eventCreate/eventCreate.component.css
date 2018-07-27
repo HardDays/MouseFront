@@ -41,14 +41,7 @@ select{
 ul li{
     cursor: pointer;
 }
-.create-event-nav-tabs .create-event-header h1.arrow-class {
-    padding-left: 50px; }
 
-.create-event-nav-tabs .create-event-header h1.arrow-class .arr {
 
-    width: 34px;
-    height: 29px;
-    top: 10px;
-    left: 0; 
-}
+
 

@@ -68,6 +68,7 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
     baseImageMy:string = '';
     EbanySlider:boolean;
     isFolowedAcc:boolean;
+    isAccReadyToShow:boolean = false;
 
     Fans:AccountGetModel[] = [];
 
@@ -91,6 +92,7 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
         this.main.CurrentAccountChange
             .subscribe((res)=>
             {
+                this.isAccReadyToShow = false;
                 this.getCurrentProfile();
             }
             ,(err) =>{
@@ -100,7 +102,7 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
 
     getCurrentProfile()
     {
-        this.initUser();
+        //this.initUser();
         this.activatedRoute.params.forEach((params)=>{
             this.UserId = params["id"];
             this.getUserInfo();
@@ -126,7 +128,7 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
                         this.MyAccountId = this.GetCurrentAccId();
                         this.isMyAccount = this.Accounts.find(obj => obj.id == this.UserId) != null;
                         this.isFolowed();
-                      
+                        this.isAccReadyToShow = true;
                     })
             })
     }
@@ -134,8 +136,7 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
     GetFolowersAcc()
     {
         this.Fans = [];
-        this.WaitBeforeLoading(
-            () => this.main.accService.GetAcauntFolowers(this.UserId),
+        this.main.accService.GetAcauntFolowers(this.UserId).subscribe(
             (res:any) =>
             {
                 this.Fans = res.followers;
@@ -205,8 +206,7 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
     }
   
     isFolowed() {
-        this.WaitBeforeLoading(
-            () => this.main.accService.IsAccFolowed(this.MyAccountId, this.UserId),
+            this.main.accService.IsAccFolowed(this.MyAccountId, this.UserId).subscribe(
             (res:any) =>
             { 
                 this.isFolowedAcc = res.status;

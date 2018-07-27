@@ -53,6 +53,9 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
     OffHours: any[] = [];
     OpHours: any[] = [];
 
+    isLoadingGallery:boolean = true;
+    isLoadingUpcoming:boolean = true;
+
     ngOnChanges(changes: SimpleChanges): void {
         if(changes.Account)
         {
@@ -84,7 +87,7 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
         if(id)
             this.VenueId = id;
 
-        this.GetVenueImages();
+        //this.GetVenueImages();
     }
 
     InitByUser()
@@ -125,11 +128,11 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
     GetUpcomingShows(){
         if(this.Account.id)
         {
-            this.WaitBeforeLoading(
-                () => this.main.accService.GetUpcomingShows(this.Account.id),
+         this.main.accService.GetUpcomingShows(this.Account.id).subscribe(
                 (res:any) =>
                 { 
                     this.UpcomingShowsChecked = this.UpcomingShows = res;
+                    this.isLoadingUpcoming = false;
                 },
                 (err) => {
                 
@@ -192,8 +195,7 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
         this.VenueImages = this.VenueImagesChecked = [];
         if(this.VenueId)
         {
-            this.WaitBeforeLoading(
-                () => this.main.accService.GetImagesVenue(this.VenueId),
+             this.main.accService.GetImagesVenue(this.VenueId).subscribe(
                 (res:any) => {
                     this.VenueImages = res.images;
                     this.GetImage();
@@ -208,24 +210,24 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
         for(let i in this.VenueImages){
             if(this.VenueImages[i] && this.VenueImages[i].id)
             {
-                this.WaitBeforeLoading(
-                    () => this.main.imagesService.GetImageById(this.VenueImages[i].id),
+                this.main.imagesService.GetImageById(this.VenueImages[i].id).subscribe(
                     (res:Base64ImageModel) => {
                         this.ImageMassVenue[i] = res;
                         this.VenueImagesChecked = this.ImageMassVenue;
                         this.GetImageSize(+i);
+                        
                     }
                 );
             }
         }
+        this.isLoadingGallery = false;
         
     }
     GetImageSize(i:number)
     {
         if(this.VenueImages[i] && this.VenueImages[i].id)
         {
-            this.WaitBeforeLoading(
-                () => this.main.imagesService.GetImageSize(this.VenueImages[i].id),
+           this.main.imagesService.GetImageSize(this.VenueImages[i].id).subscribe(
                 (res:any) => {
                     if(res)
                     {
