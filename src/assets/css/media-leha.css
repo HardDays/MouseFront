@@ -565,7 +565,6 @@
   .messages-main-wrapp{
     padding: 0 15px;
   }
-
   .messages-main-wrapp .main-mw.main_for_setts .settings_wrap{
     display: block;
   }
@@ -614,9 +613,6 @@
   .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_right .settings_right_wrap .zag{
     text-align: center;
   }
-
-
-
 }
 
 
@@ -683,13 +679,6 @@
   .main-feed-wrapp .middle-feed .feed-item .body-feed-item .iframe-wrapp iframe{
       height: 220px;
   }
-  
-  
-  
-  
-  
-  
-
 }
 @media (max-width: 479px){
   .create-event-nav-tabs .create-event-header h1{
