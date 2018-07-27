@@ -8,6 +8,30 @@
   max-width: 400px;
   word-wrap: break-word;
 }
+.create-event-nav-tabs .create-event-header h1.arrow-class {
+  padding-left: 50px; }
+.create-event-nav-tabs .create-event-header h1.arrow-class .arr {
+
+    width: 34px;
+    height: 29px;
+    top: 10px;
+    left: 0; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @media (max-width: 1400px) {
@@ -63,7 +87,18 @@
   .flex-ticket-wrapp .sides .name-icon-wr h1{
     font-size: 40px;
   }
+  .all-info-profile .uniq-padd-2 .styles-audio-list .audio-wrapper{
+    width: 50%;
+  }
+  .all-info-profile .uniq-padd-2 .styles-audio-list .audio-wrapper .one-audio{
+    margin: 0 auto 25px auto;
+  }
+}
 
+@media (max-width: 1100px) {
+  .main-feed-wrapp .middle-feed .feed-text{
+      display: none;
+  }
 }
 
 @media (max-width: 991px) {
@@ -107,6 +142,47 @@
   .flex-ticket-wrapp .sides .head-sides-2 p{
     line-height: 14px;
   }
+  .all-info-profile .uniq-padd-2 .flex--info .side.side-info-new-venue-prev h1{
+    font-size: 26px;
+  }
+  .all-info-profile .uniq-padd-2 .flex--info .side.side-info-new-venue-prev .one-cover {
+    height: 290px;
+  }
+  .all-info-profile .uniq-padd-2 .flex--info .side.side-info-new-venue-prev .hash {
+    font-size: 20px;
+  }
+  .create-event-nav-tabs .create-event-header h1.arrow-class{
+    padding-left: 0;
+  }
+  .create-event-nav-tabs .create-event-header h1.arrow-class .arr{
+    top: 29px;
+    left: 11px;
+  }
+  .all-info-profile .uniq-padd-2 .flex--info .side.side-contact .flex-contact-venue .column-cont:last-child .hours-time-wr .hours-hover .hours-drop-show{
+    right: calc(100% + 15px);
+    left: auto;
+  }
+  .all-info-profile .uniq-padd-2 .flex--info .side.side-contact .flex-contact-venue .column-cont:last-child .hours-time-wr .hours-hover .hours-drop-show:before{
+    right:auto;
+    left: 100%;
+    border-width: 7px 0 7px 7px;
+    border-color: transparent transparent transparent #fff;
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 @media (max-width: 767px) {
   .login-register.add-fan-page .for-flex-add-fan{
@@ -220,13 +296,164 @@
   .flex-ticket-wrapp .sides .head-sides-2 h2{
     display: none;
   }
+  .create-event-nav-tabs .create-event-header h1.arrow-class .arr {
+    top: 17px;
+  }
+  .all-info-profile .uniq-padd-2 .flex--info .side.side-info-new-venue-prev {
+      width: 100%;
+  }
 
 
+  .all-info-profile .uniq-padd .genres-info h3{
+    font-size: 27px;
+  }
+
+  .all-info-profile .uniq-padd-2 .flex--info .side h6{
+    font-size: 27px;
+  }
+
+  .all-info-profile .uniq-padd-2 .flex--info .side.side-info .about-text.flexed{
+    display: block;
+  }
+  .all-info-profile .uniq-padd-2 .styles-audio-list .audio-wrapper{
+    width: 100%;
+  }
+  .calendar-add-artist .one-calendar-block{
+    max-width: 560px;
+    width: 100%
+  }
+  .tiny-calendar-wrapper .top-calendar-nav .month p{
+    font-size: 15px;
+  }
+  .tiny-calendar-wrapper .body-calendar .weekday-wrapp .one-week-day{
+    font-size: 12px;
+  }
+  .tiny-calendar-wrapper .body-calendar .days .one-day-wr .one-day p{
+    font-size: 13px;
+  }
+  .tiny-calendar-wrapper .top-calendar-nav{
+    padding-top: 21px;
+    margin-bottom: 23px;
+  }
+  .tiny-calendar-wrapper .body-calendar .days .one-day-wr .one-day{
+    width: 34px;
+    height: 34px;
+  }
+  .tiny-calendar-wrapper .body-calendar .days .one-day-wr .one-day{
+    position: static;
+  }
+  .tiny-calendar-wrapper .body-calendar .days .one-day-wr .one-day .popup-inform-tiny-calendar{
+    right: 50%;
+    bottom: 50%;
+    transform: translate(50%,50%);
+    padding-right: 0;
+  }
+  .tiny-calendar-wrapper .body-calendar .days .one-day-wr .one-day .popup-inform-tiny-calendar .shadow-wr:after{
+    display: none;
+  }
+  .calendar-add-artist .one-calendar-block{
+    height: 385px;
+  }
+  .tiny-calendar-wrapper .top-calendar-nav .arrow{
+    height: 18px;
+  }
+  .hours-time-wr .hours-hover .hours-drop-show{
+    top: calc(100% + 14px);
+    left: 0;
+    transform: none;
+  }
+  .all-info-profile .uniq-padd-2 .flex--info .side.side-contact .flex-contact-venue .column-cont:last-child .hours-time-wr .hours-hover .hours-drop-show{
+    right: auto;
+    left: 0;
+  }
+  .hours-time-wr .hours-hover .hours-drop-show:before{
+    display: none;
+  }
+  .all-info-profile .uniq-padd-2 .flex--info .side.side-contact .flex-contact-venue .column-cont:last-child .hours-time-wr .hours-hover .hours-drop-show:before{
+   display: none;
+  }
+  
 
 
+}
 
 
+@media (max-width: 715px) {
+  .main-feed-wrapp .middle-feed{
+      padding: 15px;
+  }
+  .main-feed-wrapp .middle-feed .feed-item .body-feed-item .photos-wrapp{
+      max-height: 669px;
+  }
+  .main-feed-wrapp .middle-feed .feed-item .body-feed-item .for-min-height-photos{
+      overflow: hidden;
+  }
+  .main-feed-wrapp .middle-feed .feed-item .head-feed-item{
+      padding: 15px;
+  }
+  .main-feed-wrapp .middle-feed .feed-item .head-feed-item .flex-ava-n .ava{
+      margin-right: 10px;
+      width: 40px;
+      height: 40px;
+  }
+  .main-feed-wrapp .middle-feed .feed-item .head-feed-item .flex-ava-n .name-desc{
+      padding-top: 0;
+  }
+  .main-feed-wrapp .middle-feed .feed-item .head-feed-item .when{
+     font-size: 12px;
+  }
+  .main-feed-wrapp .middle-feed .feed-item .head-feed-item .flex-ava-n .name-desc .name{
+      display: block;
+  }
+  .main-feed-wrapp .middle-feed .feed-item .head-feed-item .flex-ava-n .name-desc .name p{
+      margin-right: 0;
+  }
+  .main-feed-wrapp .middle-feed .feed-item .head-feed-item .flex-ava-n .name-desc .desc p{
+      font-size: 14px;
+  }
+  
+  .main-feed-wrapp .middle-feed .feed-item .head-feed-item .when{
+      top: 3px;
+      right: 9px;
+  }
+  .main-feed-wrapp .middle-feed .feed-item .footer-item{
+      padding: 8px 15px;
+  }
+  .main-feed-wrapp .middle-feed .feed-item .coments-item .one-coment{
+      padding: 15px;
+  }
+  .main-feed-wrapp .middle-feed .feed-item .coments-item .leave-coment-wrapp{
+      padding: 15px;
+      flex-wrap: wrap;
+  }
+  .main-feed-wrapp .middle-feed .feed-item .coments-item .leave-coment-wrapp .right-side{
+      width: 100%;
+      padding-left: 0;
+  }
+  .main-feed-wrapp .middle-feed .feed-item .coments-item .leave-coment-wrapp .right-side .butt-style-1{
+      max-width: 90px;
+      margin: 0 auto;
+  }
+  .main-feed-wrapp .middle-feed .feed-item .coments-item .leave-coment-wrapp .left-side{
+      padding-right: 0;
+      margin: 0 auto;
+  }
+  .main-feed-wrapp .middle-feed .feed-item .body-feed-item .iframe-wrapp iframe{
+      height: 220px;
+  }
+  
+  
+  
+  
+  
+  
 
-
-
+}
+@media (max-width: 479px){
+  .create-event-nav-tabs .create-event-header h1{
+    font-size: 32px;
+  }
+  .create-event-nav-tabs .create-event-header h1.arrow-class .arr{
+    top: 4px;
+  }
 }

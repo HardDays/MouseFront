@@ -89,23 +89,47 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
   }
 
   ngAfterViewInit(){
-    setTimeout(() => {
-      $('.photos-abs-wrapp').css({
-        'max-height': $('.rel-wr-photoos').width()+'px'
-      });
-      $('.new-photos-wr-scroll-preview').css({
-        'padding-left': $('.for-position-left-js').offset()?$('.for-position-left-js').offset().left:0
-      });
-  
-    $(window).resize(function(){
-        $('.photos-abs-wrapp').css({
-            'max-height': $('.rel-wr-photoos').width()+'px'
-        });
-        $('.new-photos-wr-scroll-preview').css({
-            'padding-left': $('.for-position-left-js').offset()?$('.for-position-left-js').offset().left:0
-        });
-    });
-    }, 2000);
+    
+        setTimeout(() => {
+          if($(window).width() >= 768){
+            $('.photos-abs-wrapp').css({
+              'max-height': $('.rel-wr-photoos').width()+'px'
+            });
+            $('.new-photos-wr-scroll-preview').css({
+              'padding-left': $('.for-position-left-js').offset()?$('.for-position-left-js').offset().left:0
+            });
+        
+          $(window).resize(function(){
+              $('.photos-abs-wrapp').css({
+                  'max-height': $('.rel-wr-photoos').width()+'px'
+              });
+              $('.new-photos-wr-scroll-preview').css({
+                  'padding-left': $('.for-position-left-js').offset()?$('.for-position-left-js').offset().left:0
+              });
+          });
+        }
+        else{
+          console.log('ok');
+          $('.new-photos-wr-scroll-preview').css({
+            'padding-left': '15px'
+          });
+          $('.photos-abs-wrapp').css({
+            'max-height': ($('.rel-wr-photoos').width()) +'px'
+          });
+         
+      
+          $(window).resize(function(){
+            $('.new-photos-wr-scroll-preview').css({
+                'padding-left': '15px'
+            });
+              $('.photos-abs-wrapp').css({
+                  'max-height': ($('.rel-wr-photoos').width())+'px'
+              });
+              
+          });
+        }
+      }, 2000);
+    
     
 
   
