@@ -74,32 +74,34 @@
                         </div>
                         <div class="main-mw">
                             <div class="styles-audio-list">
-                                <div *ngFor="let item of Account.audio_links | slice:0:countAudio; let i = index" class="audio-wrapper">
-                                    <div  class="one-audio">
-                
-                                        <!-- <div class="delete-track" (click)="deleteAudio(i)"></div> -->
-                                        <span class="name-track">{{item.song_name}}</span>
-                                        <div class="audiojs">
-                                            <div class="play-pause">
-                                                <p *ngIf="audioId != i+1" (click)="audioId = i+1; playAudio(item.audio_link)" id="track-{{i}}" class="play"></p>
-                                                <p *ngIf="audioId == i+1" (click)="audioId = 0; stopAudio()" class="pause"></p>
-                                                <!-- <p class="loading"></p>
-                                                <p class="error"></p> -->
-                                            </div>
-                                            <div class="scrubber" >
-                                                <div class="progress"></div>
-                                                <div class="loaded"></div>
-                                            </div>
-                                            <div class="time">
-                                                <em class="played">00:00</em>
-                                                <!-- <strong class="duration">{{audioId == i+1 && audioDuration>0 ?audioDuration/100:''}}</strong> -->
-                                            </div>
-                                        </div> 
+                                <ng-container *ngIf="Account && Account.audio_links && Account.audio_links.length">
+                                    <div *ngFor="let item of Account.audio_links | slice:0:countAudio; let i = index" class="audio-wrapper">
+                                        <div  class="one-audio">
+                    
+                                            <!-- <div class="delete-track" (click)="deleteAudio(i)"></div> -->
+                                            <span class="name-track">{{item.song_name}}</span>
+                                            <div class="audiojs">
+                                                <div class="play-pause">
+                                                    <p *ngIf="audioId != i+1" (click)="audioId = i+1; playAudio(item.audio_link)" id="track-{{i}}" class="play"></p>
+                                                    <p *ngIf="audioId == i+1" (click)="audioId = 0; stopAudio()" class="pause"></p>
+                                                    <!-- <p class="loading"></p>
+                                                    <p class="error"></p> -->
+                                                </div>
+                                                <div class="scrubber" >
+                                                    <div class="progress"></div>
+                                                    <div class="loaded"></div>
+                                                </div>
+                                                <div class="time">
+                                                    <em class="played">00:00</em>
+                                                    <!-- <strong class="duration">{{audioId == i+1 && audioDuration>0 ?audioDuration/100:''}}</strong> -->
+                                                </div>
+                                            </div> 
+                                        </div>
                                     </div>
-                                </div>
-                               
                                 
-                                <button *ngIf="countAudio<Account.audio_links.length" class="see-all" (click)="countAudio = Account.audio_links.length">SEE ALL</button>
+                                    
+                                    <button *ngIf="countAudio<Account.audio_links.length" class="see-all" (click)="countAudio = Account.audio_links.length">SEE ALL</button>
+                                </ng-container>
                             </div>
                            
                         </div>
