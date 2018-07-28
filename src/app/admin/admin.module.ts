@@ -38,6 +38,10 @@ import { OneFollowerComponent } from './accounts/account/fan/one-follower/one-fo
 import { ChartsModule } from 'ng2-charts';
 import { FundingComponent } from './accounts/funding/funding.component';
 import { AnalyticCardComponent } from './revenue/revenue-analytics/analytic-card/analytic-card.component';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material';
+import { VenueCreateModule } from '../systemModule/venueCreate/venueCreate.module';
+
 
 
 @NgModule({
@@ -55,7 +59,11 @@ import { AnalyticCardComponent } from './revenue/revenue-analytics/analytic-card
         ErrorModule,
         PreloaderModule,
         SlideshowModule,
-        ChartsModule
+        ChartsModule,
+        MatSelectModule,
+        MatFormFieldModule,
+        VenueCreateModule
+        
     ],
     declarations: [
         AdminComponent,

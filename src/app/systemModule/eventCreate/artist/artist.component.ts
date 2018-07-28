@@ -13,7 +13,7 @@ import { Http } from '@angular/http';
 import { BaseComponent } from '../../../core/base/base.component';
 import { GetArtists, EventGetModel } from '../../../core/models/eventGet.model';
 import { AccountGetModel } from '../../../core/models/accountGet.model';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AccountAddToEventModel } from '../../../core/models/artistAddToEvent.model';
 import { AccountSearchModel } from '../../../core/models/accountSearch.model';
 import { GenreModel } from '../../../core/models/genres.model';
@@ -56,12 +56,12 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
 
   isAcceptedArtistShow:boolean = true;
-  showModalRequest:boolean = false;
+  // showModalRequest:boolean = false;
 
   requestArtistForm : FormGroup = new FormGroup({
-    "time_frame": new FormControl(""),
+    "time_frame": new FormControl("",[Validators.required]),
     "is_personal": new FormControl(""),
-    "estimated_price": new FormControl(""),
+    "estimated_price": new FormControl("",[Validators.required]),
     "message": new FormControl("")
 });
 
@@ -422,7 +422,7 @@ declineArtist(card:AccountGetModel){
 
 
 sendArtistRequestOpenModal(artist:AccountGetModel){
-  this.showModalRequest = true;
+  // this.showModalRequest = true;
     setTimeout(() => {
       $('#modal-send-request-artist').modal('show');
     }, 50);
@@ -435,24 +435,32 @@ sendArtistRequestOpenModal(artist:AccountGetModel){
 
 
 artistSendRequest(id:number){
-  for (let key in this.requestArtistForm.value) {
-      if (this.requestArtistForm.value.hasOwnProperty(key)) {
-          this.addArtist[key] = this.requestArtistForm.value[key];
-      }
+  if(!this.requestArtistForm.invalid){
+    for (let key in this.requestArtistForm.value) {
+        if (this.requestArtistForm.value.hasOwnProperty(key)) {
+            this.addArtist[key] = this.requestArtistForm.value[key];
+        }
+    }
+    this.addArtist.event_id = this.Event.id;
+    this.addArtist.account_id = this.Event.creator_id;
+    this.addArtist.id = id;
+    //console.log(`request artist`,this.addArtist);
+
+    this.main.eventService.ArtistSendRequest(this.addArtist)
+    .subscribe((send)=>{
+        $('#modal-send-request-artist').modal('hide');
+      // console.log(`send`);
+      setTimeout(() => {
+        this.onError.emit("Request was sent!");
+      }, 400);
+        
+
+        this.updateEvent();
+    })
   }
-  this.addArtist.event_id = this.Event.id;
-  this.addArtist.account_id = this.Event.creator_id;
-  this.addArtist.id = id;
-  //console.log(`request artist`,this.addArtist);
-
-  this.main.eventService.ArtistSendRequest(this.addArtist)
-  .subscribe((send)=>{
-      $('#modal-send-request-artist').modal('toggle');
-     // console.log(`send`);
-      this.onError.emit("Request was sent!");
-
-      this.updateEvent();
-  })
+  else{
+    this.onError.emit(this.getFormErrorMessage(this.requestArtistForm,'request'));
+  }
 }
 
 updateEvent(){

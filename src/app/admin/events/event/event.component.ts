@@ -127,7 +127,7 @@ export class EventComponent extends BaseComponent implements OnInit {
           speed: 200
   
       });
-    }, 1000);
+    }, 3000);
 
   }
 
@@ -137,7 +137,7 @@ export class EventComponent extends BaseComponent implements OnInit {
       .subscribe(
         (res)=>{
           // console.log(`res`,res);
-          this.router.navigate(['/admin','dashboard'])
+          this.router.navigate(['/admin','events','all'])
         },
         (err)=>{
           // console.log(`err`,err)

@@ -94,7 +94,7 @@
                     <div class="uniq-padd-2">
                         <div class="main-mw">
                             <div class="flex--info">
-                                <div class="side scroller flex-header">
+                                <div [ngStyle]="{'display':isLoadingUpcoming?'none':'block'}" class="side scroller flex-header">
                                     <div class="for-scroll-padd">
                                         <h6>Gallery ({{VenueImages?VenueImages.length:'0'}})</h6>
                                         <input type="text" class="search-profile-inp-style"  placeholder="Search" (input)='searchImagesVenue($event)'>
@@ -111,7 +111,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="side flex-header scroller">
+                                <div [ngStyle]="{'display':!isLoadingUpcoming?'none':'block'}" class="side scroller flex-header">
+                                    <app-preloader style="max-height: 200px;" *ngIf="isLoadingUpcoming"></app-preloader>
+                                </div>
+                                <div [ngStyle]="{'display':isLoadingGallery?'none':'block'}" class="side flex-header scroller">
                                     <div class="for-scroll-padd">
                                         <h6>UPCOMING<br>SHOWS ({{UpcomingShows?UpcomingShows.length:'0'}})</h6>
                                         <input type="text" class="search-profile-inp-style" placeholder="Search" (input)='searchUpcomingShows($event)'>
@@ -139,7 +142,9 @@
                                         </div>
                                     </div>
                                 </div>
-                        
+                                <div [ngStyle]="{'display':!isLoadingGallery?'none':'block'}" class="side scroller flex-header">
+                                        <app-preloader style="max-height: 200px;" *ngIf="isLoadingGallery"></app-preloader>
+                                    </div>
                                 <div class="side scroller flex-header uniq-padd-style-funs">
                                     <div class="uniq-padd-3">
                                         <h6>Fans ({{Fans.length}})</h6>

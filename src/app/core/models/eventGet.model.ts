@@ -57,9 +57,11 @@ export class GetArtists{
     constructor(
         public artist_id?: number,
         public reason?: string,
+        public reason_text?: string,
         public status?: string,
-        public image_base64_not_given?: string,
-        public user_name_not_given?: string,
+        public image_base64?: string,
+        public is_active?:boolean,
+        public message_id?:number,
         public agreement?:{
              id?:number,
              price?:number,
@@ -69,6 +71,15 @@ export class GetArtists{
              artist_event_id?:number,
              created_at?:string,
              updated_at?:string,
+        },
+        public artist?:{
+            first_name?:string,
+            last_name?:string,
+            user_name?:string,
+            image_id?:number,
+            image_base64?:string
+            is_hide_pricing_from_search?:boolean,
+            price?:number
         }
     )
     {}
@@ -78,8 +89,7 @@ export class GetVenue{
         public venue_id?: number,
         public reason?: string,
         public status?: string,
-        public image_base64_not_given?: string,
-        public user_name_not_given?: string,
+        public is_active?:boolean,
         public agreement?:{
             id?:number,
             price?:number,
@@ -89,6 +99,13 @@ export class GetVenue{
             artist_event_id?:number,
             created_at?:string,
             updated_at?:string,
+       },
+       public venue?:{
+            display_name?:string,
+            user_name?:string,
+            image_id?:number,
+            image_base64?:string
+            price?:number
        }
     )
     {}

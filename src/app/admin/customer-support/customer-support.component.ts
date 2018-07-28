@@ -25,23 +25,24 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
   openQuestion:Question;
   nonImage = BaseImages.NoneFolowerImage;
 
-  Subject:string = '';
-  Message:string = '';
+  // Subject:string = '';
+  // Message:string = '';
 
-  AnswerOptions: any[] = [];
+  AnswerOptions: {subject:'', message:''}[] = [];
 
   DefaultAnswer = {
-    Subject:'',
-    Messgae: ''
+    subject:'',
+    message: ''
   };
 
   Answer = {
-    Subject:'',
-    Message: ''
+    subject:'',
+    message: ''
   };
 
   ngOnInit() {
     this.GetQuestions();
+    this.UpdateAnwerOptions();
   }
 
 
@@ -71,8 +72,8 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
 
 
   openNewQuestion(id:number){
-    this.Subject = '';
-    this.Message = '';
+
+    this.Answer = this.DefaultAnswer;
 
     this.main.adminService.GetQuestionById(id)
       .subscribe((res)=>{
@@ -101,12 +102,14 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
         (res:any[]) =>
         {
           this.AnswerOptions = res;
+          console.log("answer", this.AnswerOptions);
+          
         }
       )
   }
 
   SendAnswer(){
-    this.main.adminService.QuestionReplyById(this.openQuestion.id,this.Subject,this.Message)
+    this.main.adminService.QuestionReplyById(this.openQuestion.id,this.Answer.subject,this.Answer.message)
       .subscribe(
         (res)=>{
           console.log(res);

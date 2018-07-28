@@ -165,6 +165,17 @@ export class EventService{
         );
     }
 
+    SetLaunch(id:number,account_id:number){
+
+        let params = {
+            id:id,
+            account_id:account_id
+        }
+        return this.http.CommonRequest(
+            () => this.http.PostData('/events/'+id+'/launch.json',JSON.stringify(params))
+        );
+    }
+
     SetActive(id:number,account_id:number){
 
         let params = {

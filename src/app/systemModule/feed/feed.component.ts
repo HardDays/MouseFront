@@ -97,6 +97,14 @@ export class FeedComponent extends BaseComponent implements OnInit, AfterViewChe
 
   ngOnInit(){
      this.GetFeed();
+     $('.body-feed-item .photos-wrapp').css({
+          'max-height': $('.for-min-height-photos').width()
+      });
+      $(window).resize(function(){
+          $('.body-feed-item .photos-wrapp').css({
+              'max-height': $('.for-min-height-photos').width()
+          });
+      });
   }
 
   

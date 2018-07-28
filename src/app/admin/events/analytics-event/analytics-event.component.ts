@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, SimpleChange } from '@angular/core';
+import { Component, OnInit, ViewChild, SimpleChange, ElementRef } from '@angular/core';
 import { BaseComponent } from '../../../core/base/base.component';
 import * as chart from "ng2-charts";
 
@@ -10,6 +10,10 @@ import * as chart from "ng2-charts";
 export class AnalyticsEventComponent extends BaseComponent implements OnInit {
 
   @ViewChild('baseChart') _chart : chart.BaseChartDirective;
+  @ViewChild('myCanvasPie') canvasPie: ElementRef; 
+
+  
+
   Counts = {
     all: 0,
     successful: 0,
@@ -53,34 +57,60 @@ graphInfo = {
   }
 
   //PIE
-
+ 
   public pieChartLabels:string[] = ['Successful', 'Pending', 'Failed'];
   public pieChartData:number[] = [0,0,0];
   public pieChartType:string = 'pie';
 
-  
-  public pieChartColors:Array<any> = [
-    { // pink
-      backgroundColor: ['#079392', '#ffd513', '#6c0a75']
+  public pieChartColors;
+  public pieChartOptions;
 
-    }
-    // { // dark grey
-    //   backgroundColor: 'rgba(95,92,208,0.8)',
 
-    // },
-    // { // grey
-    //   backgroundColor: 'rgba(54,196,194,0.8)',
-
-    // }
-  ];
-  
   ngOnInit() {
     this.GetInfo();
     this.getIndividuals();
     this.UpdateGraph();
+
+    this.pieChartColors = [
+      { 
+        backgroundColor: [this.GetGradient('blue'), this.GetGradient('yellow'), this.GetGradient('purple')],
+        hoverBackgroundColor:[this.GetGradient('blue'), this.GetGradient('yellow'), this.GetGradient('purple')],
+        hoverBorderColor: 'white',
+      }  
+    ];
+    this.pieChartOptions = {
+      tooltips: {
+        titleFontSize: 16,
+        bodyFontSize: 14,
+        displayColors:false,
+        },
+        elements: {
+          arc: {
+              borderWidth: 8
+          }
+        }
+      }
+
   }
 
-
+  GetGradient(type:string){
+    let gradient = this.canvasPie.nativeElement.getContext('2d').createRadialGradient(210, 100, 50, 210, 100, 200);
+    if (type == 'blue'){
+      gradient.addColorStop(0, '#079392');
+      gradient.addColorStop(1, '#031b6f');
+    }
+    if (type == 'yellow'){
+      gradient.addColorStop(0, '#ffd513');
+      gradient.addColorStop(1, '#cb3305');
+    }
+    if (type == 'purple'){
+      gradient.addColorStop(0, '#d1286f');
+      gradient.addColorStop(1, '#6c0a75');
+    }
+    return gradient;
+    
+    
+  }
 
   GetInfo(){
     this.main.adminService.GetEventsCounts()
@@ -253,15 +283,18 @@ graphInfo = {
     },
     scales:{
       yAxes:[
+        // {
+        //   ticks: { min: 0}
+        // }
         {
-          ticks: { min: 0}
-        }
+          ticks:{ beginAtZero:true }
+      }
       ],
-      xAxes:[
-        {
-          ticks:{ min: 0}
-        }
-      ]
+      // xAxes:[
+      //   {
+      //     ticks:{ min: 0}
+      //   }
+      // ]
     }
     
   };
@@ -298,11 +331,11 @@ graphInfo = {
  
   // events
   public chartClicked(e:any):void {
-    console.log(e);
+    // console.log(e);
   }
  
   public chartHovered(e:any):void {
-    console.log(e);
+    // console.log(e);
   }
 
  
