@@ -52,7 +52,16 @@
   .messages-main-wrapp .main-mw.main_for_setts .settings_wrap{
     min-height: 850px;
   }
-  
+
+  .messages-main-wrapp.fix-min-height .main-mw{
+    min-height: auto;
+  }
+  .messages-main-wrapp.fix-min-height {
+    min-height: auto;
+  }
+  .messages-main-wrapp.fix-min-height .main-mw.main_for_setts .settings_wrap{
+    min-height: auto;
+  }
 }
 
 
@@ -166,10 +175,25 @@
   width: 60%;
   margin-right: 0;
 }
+.messages-main-wrapp .flex-massages-wrapp .left-s .one-msg-l-block{
+  display: block;
+}
+.messages-main-wrapp .flex-massages-wrapp .left-s .one-msg-l-block .name-ava{
+  margin: 0 auto 10px auto;
+}
+.messages-main-wrapp .flex-massages-wrapp .left-s .one-msg-l-block .descr-side{
+  padding-right: 55px;
+  padding-left: 0;
+}
 
-
-
-
+.messages-main-wrapp .flex-massages-wrapp .left-s .one-msg-l-block .descr-side .f span.when{
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.messages-main-wrapp .flex-massages-wrapp .left-s .one-msg-l-block .descr-side .f span.some-t{
+  font-size: 12px;
+}
 
 
 
@@ -294,8 +318,15 @@
   }
 
 
-
-
+.messages-main-wrapp .flex-massages-wrapp .right-s .some-request-text-wrapper .block-info.f-b{
+  padding: 15px;
+}
+.messages-main-wrapp .flex-massages-wrapp .right-s .some-request-text-wrapper .block-info{
+  padding: 15px;
+}
+.messages-main-wrapp .flex-massages-wrapp .right-s .some-request-text-wrapper .block-info .flex-buttons{
+  margin-bottom: 0;
+}
 
 }
 @media (max-width: 767px) {
@@ -613,6 +644,93 @@
   .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_right .settings_right_wrap .zag{
     text-align: center;
   }
+  .messages-main-wrapp .flex-massages-wrapp{
+    display: block;
+  }
+  .messages-main-wrapp.fix-min-height{
+    padding: 0;
+  }
+  .messages-main-wrapp .flex-massages-wrapp .left-s{
+    width: 100%;
+  }
+  .messages-main-wrapp .flex-massages-wrapp .left-s .one-msg-l-block .descr-side{
+    display: none;
+  }
+ 
+  .messages-main-wrapp.fix-min-height .flex-massages-wrapp .left-s{
+    padding: 15px 0;
+    position: relative;
+    min-height: 410px;
+   
+  }
+  .messages-main-wrapp.fix-min-height .flex-massages-wrapp .left-s .rotate-xs-wrapper{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 170px;
+    overflow-y: auto;
+    overflow-x: hidden;
+   padding: 5px;
+    transform: rotate(-90deg) translateY(-170px);
+    
+    transform-origin: right top;
+    max-height: 100%;
+  }
+  .messages-main-wrapp.fix-min-height .flex-massages-wrapp .left-s .rotate-xs-wrapper::-webkit-scrollbar {
+    width: 2px;
+    height: 2px;
+}
+.messages-main-wrapp.fix-min-height .flex-massages-wrapp .left-s .rotate-xs-wrapper::-webkit-scrollbar-button {
+    width: 2px;
+    height: 2px;
+}
+.messages-main-wrapp.fix-min-height .main-mw{
+  padding: 0;
+}
+  .messages-main-wrapp .flex-massages-wrapp .left-s .one-msg-l-block{
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    -webkit-transform-origin: center;
+    transform-origin: center;
+    min-height: auto;
+    width: 138px;
+    height: 135px;
+    box-shadow: 0px 0 10px 0 rgba(0, 0, 0, 0.07);
+    padding: 15px 5px;
+    
+  }
+  .messages-main-wrapp.fix-min-height .flex-massages-wrapp .left-s{
+    min-height: auto;
+    height: 185px;
+  }
+  
+  .messages-main-wrapp .flex-massages-wrapp .left-s .one-msg-l-block .name-ava{
+    width: 100%;
+  }
+  .messages-main-wrapp .flex-massages-wrapp .left-s .one-msg-l-block .name-ava .ava{
+    width: 50px;
+    height: 50px;
+  }
+  .messages-main-wrapp .flex-massages-wrapp .left-s .one-msg-l-block .name-ava .n{
+    font-size: 12px;
+    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  }
+  .messages-main-wrapp .flex-massages-wrapp .left-s .one-msg-l-block .name-ava .hash{
+    font-size: 12px;
+    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  }
+  .messages-main-wrapp .flex-massages-wrapp .right-s{
+    width: 100%;
+  }
+  .messages-main-wrapp.fix-min-height .flex-massages-wrapp .right-s{
+    height: auto;
+    padding: 15px;
+  }
+ 
 }
 
 

@@ -63,6 +63,32 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
   ngAfterViewChecked()
   {
       this.cdRef.detectChanges();
+
+      setTimeout(() => {
+        if($(window).width() >= 768){
+          $('.rotate-xs-wrapper').css({
+            'max-height': 'auto'
+          });
+          $(window).resize(function(){
+              $('.rotate-xs-wrapper').css({
+                  'max-height': 'auto'
+              });
+          });
+        }
+        else{
+          $('.rotate-xs-wrapper').css({
+            'max-height': ($('.left-s').width()) +'px'
+          });
+          $(window).resize(function(){
+              $('.rotate-xs-wrapper').css({
+                  'max-height': ($('.left-s').width())+'px'
+              });
+          });
+        }
+      }, 2000);
+  
+  
+  
   }
 
   GetMessages(){

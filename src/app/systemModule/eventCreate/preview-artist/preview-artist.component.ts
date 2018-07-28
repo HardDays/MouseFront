@@ -109,7 +109,6 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
           });
         }
         else{
-          console.log('ok');
           $('.new-photos-wr-scroll-preview').css({
             'padding-left': '15px'
           });
