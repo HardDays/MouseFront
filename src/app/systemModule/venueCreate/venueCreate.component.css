@@ -120,11 +120,7 @@ p{
     display: flex;
     flex-wrap: wrap;
 }
-.slider-2-albums .one-slide
-{
-    width:50%;
-    
-}
+
 .slider-2-albums .one-slide .wrapp-card .descr
 {
     min-height: 92px;
@@ -146,6 +142,7 @@ p{
 
 .flex-day-weeks-month{
     display: flex;
+    align-items: center;
 }
 .mat-w{
     width: 100%;
@@ -155,7 +152,3 @@ p{
     margin-left: 0;
 }
 
-.two-cols{
-    width: 40%;
-    margin: 5px 10px 5px 10px;
-}

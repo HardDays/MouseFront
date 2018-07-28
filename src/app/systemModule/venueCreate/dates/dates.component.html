@@ -12,7 +12,7 @@
             <!--теже табы для ngif-->
             
             <div class="one-tab">
-                <div class="one-tab-flex alighn-items">
+                <div class="one-tab-flex sm-style-my alighn-items">
                     <div [formGroup]="dateForm" class="side">
                         <div class="filter-venue">
                             <div class="content-bodal input-groupe-1">
@@ -69,12 +69,12 @@
                                 <div class="week-day-time-wr">
                                     
                                     <div class="from-to">
-                                        <span>From</span>
+                                        <span class="from-to-width-1560">From</span>
                                         <time-input [Time]="Venue.performance_time_from" (onTimeChange)="Venue.performance_time_from = $event"></time-input>
                                         <!-- <input class="inp-style-3 time-mask" [textMask]="GetPerformanceFromTimeMask(Venue)"  autocomplete="off" type="text" [(ngModel)]="Venue.performance_time_from" formControlName="performance_time_from"> -->
                                     </div>
                                     <div class="from-to">
-                                        <span>To</span>
+                                        <span class="from-to-width-1560">To</span>
                                         <time-input [Time]="Venue.performance_time_to" (onTimeChange)="Venue.performance_time_to = $event"></time-input>
                                         <!-- <input class="inp-style-3 time-mask" [textMask]="GetPerformanceToTimeMask(Venue)"   autocomplete="off" type="text" [(ngModel)]="Venue.performance_time_to" formControlName="performance_time_to"> -->
                                     </div>

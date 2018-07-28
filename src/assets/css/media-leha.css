@@ -1,12 +1,23 @@
 .modal-send-request.map-1-modal .modal-dialog .for-map-init-modal-1{
   border: none;  
 }
+.slider-2-albums .one-slide
+{
+    width:50%;   
+}
 .head-info-profile-wr.head-info-artist .flex-artist-main-info .side.right-side .bg-slider{
   min-height: 430px;
 }
 #b_lines_view {
   max-width: 400px;
   word-wrap: break-word;
+}
+.two-cols{
+  width: 40%;
+  margin: 5px 10px 5px 10px;
+}
+.chasing-dots{
+  flex-shrink: 0;
 }
 .create-event-nav-tabs .create-event-header h1.arrow-class {
   padding-left: 50px; }
@@ -37,6 +48,25 @@
 }
 .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_right .settings_right_wrap .feedback_form .stars span{
   flex-shrink: 0;
+}
+.mat-form-field-infix {
+  padding: 7px 0;
+}
+.tiny-calendar-wrapper .days.set-date-popup .popup-set-price-wr .flex-select-range p.upper-label-fix-class{
+  position: relative;
+  top: 5px;
+}
+#venue-dateform-1{
+  padding: 3px 0;
+  position: relative;
+  top: 8px;
+}
+@media (max-width: 1560px) {
+  .venue-week-cal-style .week-day-time-wr .from-to .from-to-width-1560{
+    width: 37.7px;
+    display: block;
+    flex-shrink: 0;
+  }
 }
 
 
@@ -104,12 +134,20 @@
   .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_left {
     width: 40%;
   }
-  .version-container{
-
-  }
+  
 
 
 }
+
+@media (max-width: 1350px) {
+  .create-event-body-1 .create-event-body .flex-body-1 .side.two-sides-w .shadow-days-wr{
+    padding: 40px 20px;
+  }
+  .create-event-body-1 .create-event-body .flex-body-1 .side.two-sides-w .shadow-days-wr .times-days .some-times-days .week-day-time-wr{
+    margin-left: 0;
+  }
+}
+
 
 @media (max-width: 1199px) {
   .modal-send-request.map-1-modal .modal-dialog {
@@ -194,6 +232,82 @@
 .messages-main-wrapp .flex-massages-wrapp .left-s .one-msg-l-block .descr-side .f span.some-t{
   font-size: 12px;
 }
+.class-for-event-bind .create-event-body-1 .create-event-body .flex-body-1 .side.class-uniq-xs:last-child{
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.class-for-event-bind .create-event-body-1 .create-event-body .flex-body-1 .side.class-uniq-xs:last-child .head-col-add-venue{
+  width: 100%;
+}
+.class-for-event-bind .create-event-body-1 .create-event-body .flex-body-1 .side.class-uniq-xs:last-child .input-groupe-1{
+  width: 47%;
+}
+
+
+.class-for-event-bind .create-event-body-1 .create-event-body .flex-body-1 .side.class-uniq-xs:last-child >div:nth-child(2){
+  flex: auto;
+}
+.class-for-event-bind .create-event-body-1 .create-event-body .flex-body-1 .side.class-uniq-xs:last-child .md-w-100{
+  width: 100%;
+  margin-left: 0;
+
+}
+
+.class-for-event-bind .create-event-body-1 .create-event-body .flex-body-1 .side{
+  margin-bottom: 20px;
+}
+
+
+
+.class-for-event-bind .create-event-body-1 .create-event-body .flex-body-1 .side.two-sides-w:last-child{
+  display: block;
+}
+.class-for-event-bind .create-event-body-1 .create-event-body .flex-body-1.w-50-xs .side{
+  width: 550px;
+  margin: 0 auto 20px auto;
+  padding: 0!important;
+}
+
+.class-for-event-bind .create-event-body-1 .create-event-body .flex-body-1.w-50-xs .side:last-child >div:nth-child(2){
+  margin-left: 0;
+}
+.class-for-event-bind .create-event-body-1 .create-event-body .flex-body-1.textarea-padd-md .side:nth-child(2){
+  padding-right: 0;
+}
+
+
+.class-for-event-bind .create-event-body-1 .create-event-body .flex-body-1.textarea-padd-md .side .input-groupe-1{
+  width: 100%;
+}
+.media-flex-sides.add-venue-some-style .right-side {
+  padding-top: 55px;
+}
+.media-flex-sides .right-side.albums{
+  padding-left: 30px;
+}
+.media-flex-sides .right-side{
+  width: 60%;
+}
+.media-flex-sides .left-side{
+  width: 40%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -327,9 +441,65 @@
 .messages-main-wrapp .flex-massages-wrapp .right-s .some-request-text-wrapper .block-info .flex-buttons{
   margin-bottom: 0;
 }
+.class-for-event-bind .create-event-nav-tabs .create-event-header ul li .nav-second-outlet {
+  font-size: 15px;
+}
+
+
+
+.class-for-event-bind .create-event-body-1 .create-event-body .flex-body-1 .side.class-uniq-xs:last-child >div:nth-child(2){
+  margin-bottom: 20px;
+}
+.slider-2-albums .one-slide{
+  width: 100%;
+}
+.media-flex-sides .left-side{
+  width: 50%;
+}
+.media-flex-sides .right-side.albums{
+  width: 50%;
+}
+
+.class-for-event-bind .main-mw-5 .tabs-venue-wrapp .one-tab-flex.sm-style-my .side{
+  width: 100%;
+  padding: 0!important;
+}
+
+.class-for-event-bind .main-mw-5 .tabs-venue-wrapp .one-tab-flex.sm-style-my .side:first-child{
+  max-width: 420px;
+  margin: 0 auto 10px auto;
+}
+.tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr .one-day{
+  position: static;
+}
+
+.tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr .one-day .popup-inform-tiny-calendar{
+  right: 50%;
+  bottom: 50%;
+  transform: translate(50%,50%);
+  padding-right: 0;
+  position: fixed;
+}
+.tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr .one-day .popup-inform-tiny-calendar .shadow-wr:after{
+  display: none;
+}
+.tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr.un-active + .un-active .one-day:before{
+  display: none!important;
+}
+.tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr .one-day:hover .popup-inform-tiny-calendar{
+  display: block;
+}
+
+
+
+
+
 
 }
 @media (max-width: 767px) {
+  .class-for-event-bind .create-event-nav-tabs .create-event-header ul li:last-child{
+    padding-left: 0;
+  }
   .login-register.add-fan-page .for-flex-add-fan{
     display: block;
   }
@@ -730,7 +900,120 @@
     height: auto;
     padding: 15px;
   }
- 
+  .class-for-event-bind  .create-event-nav-tabs .create-event-header ul li:nth-child(6){
+    width: auto;
+    margin-top: 0;
+  }
+  .class-for-event-bind .create-event-nav-tabs .create-event-header ul li:last-child{
+    width: 100%;
+    
+  }
+  .class-for-event-bind .create-event-nav-tabs .create-event-header ul li:last-child .butt-style-1{
+    margin: 10px auto 0 auto;
+  
+  }
+  
+  .class-for-event-bind .create-event-body-1 .create-event-body .flex-body-1 .side.class-uniq-xs:last-child .input-groupe-1{
+    width: 100%;
+  }
+
+  .create-event-body-1 .create-event-body .flex-body-1 .side.two-sides-w .shadow-days-wr{
+    padding: 15px;
+  }
+  .create-event-body-1 .create-event-body .flex-body-1 .side.two-sides-w .shadow-days-wr .checkboxes-days .days-r .price{
+    font-size: 17px;
+  }
+  .create-event-body-1 .create-event-body .flex-body-1 .side.two-sides-w .shadow-days-wr .checkboxes-days{
+    width: 85px;
+  }
+  .create-event-body-1 .create-event-body .flex-body-1 .side.two-sides-w .shadow-days-wr .times-days .some-times-days .week-day-time-wr{
+    display: block;
+    height: 90px;
+  }
+  .create-event-body-1 .create-event-body .flex-body-1 .side.two-sides-w .shadow-days-wr .times-days .some-times-days .week-day-time-wr .from-to{
+    width: 100%;
+  }
+  .create-event-body-1 .create-event-body .flex-body-1 .side.two-sides-w .shadow-days-wr .checkboxes-days .days-r{
+    margin-bottom: 93px;
+    margin-top: 30px;
+  }
+  .create-event-body-1 .create-event-body .flex-body-1 .side.two-sides-w .shadow-days-wr .times-days .some-times-days .week-day-time-wr .from-to:last-child{
+    padding-left: 0;
+  }
+  .create-event-body-1 .create-event-body .flex-body-1 .side.two-sides-w .shadow-days-wr .times-days .some-times-days .week-day-time-wr .from-to span.xs-dif-width{
+    width: 37.7px;
+    display: block;
+    flex-shrink: 0;
+  }
+  .create-event-body-1 .create-event-body .flex-body-1 .side.two-sides-w .head-of-two-sides{
+    font-size: 23px;
+  }
+  .class-for-event-bind .create-event-body-1 .create-event-body .flex-body-1.xs-none-margin-side .side{
+      margin-bottom: 0;
+  }
+  .class-for-event-bind .create-event-body-1 .create-event-body .flex-body-1.xs-none-margin-side .side:last-child{
+    margin-top: 0;
+  }
+
+  .media-flex-sides{
+    display: block;
+  }
+  .media-flex-sides .left-side{
+    width: 100%;
+  }
+  .media-flex-sides .right-side.albums{
+    width: 100%;
+    padding-left: 0;
+  }
+
+  .media-flex-sides.add-venue-some-style .left-side .gradient-box {
+    padding: 15px 10px;
+}
+.slider-2-albums .one-slide .wrapp-card .descr{
+  padding: 15px;
+}
+
+.tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr .prices p span{
+  padding: 0;
+  background-image: none!important;
+}
+.tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr .prices p{
+  font-size: 10px;
+}
+.tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr .prices{
+  height: 35px;
+}
+.tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr{
+  height: 95px;
+}
+
+.tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr.changed-price + .changed-price .prices p.night.changed-price-night:before{
+  display: none;
+}
+.tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr.changed-price + .changed-price .prices p.morning.changed-price-morning:before{
+  display: none;
+}
+.tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr.changed-price + .changed-price .prices p.night.changed-price-night:after{
+  display: none;
+}
+.tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr.changed-price + .changed-price .prices p.morning.changed-price-morning:after{
+  display: none;
+}
+.tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr.changed-price .prices p.morning.changed-price-morning span{
+  background-color:transparent;
+  color: #ffc28b;
+}
+.tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr.changed-price .prices p.night.changed-price-night span{
+  background-color:transparent;
+  color: #a9bdff;
+}
+.tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr.un-active + .un-active .one-day:before{
+  display: none;
+}
+
+
+
+
 }
 
 
@@ -797,6 +1080,21 @@
   .main-feed-wrapp .middle-feed .feed-item .body-feed-item .iframe-wrapp iframe{
       height: 220px;
   }
+  .class-for-event-bind .create-event-body-1 .create-event-body .flex-body-1.xs-verticall{
+    display: block;
+  }
+  .class-for-event-bind .create-event-body-1 .create-event-body .flex-body-1.xs-verticall.side{
+    width: 100%;
+  }
+  .class-for-event-bind .create-event-body-1 .create-event-body .flex-body-1.xs-verticall .side:first-child{
+    padding-right: 0;
+    width: 100%;
+  }
+  .class-for-event-bind .create-event-body-1 .create-event-body .flex-body-1.xs-verticall .side:nth-child(2){
+    padding-left: 0;
+    width: 100%;
+  }
+ 
 }
 @media (max-width: 479px){
   .create-event-nav-tabs .create-event-header h1{
@@ -804,5 +1102,9 @@
   }
   .create-event-nav-tabs .create-event-header h1.arrow-class .arr{
     top: 4px;
+  }
+  .two-cols{
+    width: 100%;
+    margin: 0 0 10px 0;
   }
 }
