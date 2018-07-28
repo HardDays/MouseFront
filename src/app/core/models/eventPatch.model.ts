@@ -76,7 +76,8 @@ export class GetArtists{
             image_base64?:string
             is_hide_pricing_from_search?:boolean,
             price?:number
-        }
+        },
+        public approximate_price?:number
     )
     {}
 }
@@ -102,7 +103,8 @@ export class GetVenue{
             image_id?:number,
             image_base64?:string
             price?:number
-       }
+       },
+       public approximate_price?:number
     )
     {}
 }

@@ -8,7 +8,9 @@ import { Component, OnInit, Input } from '@angular/core';
 export class PreloaderComponent implements OnInit {
 
   @Input() white:boolean = false;
-
+  @Input() size:string = '70px';
+  @Input() padding:string = '150px';
+  
   constructor() { }
   
   ngOnInit() {

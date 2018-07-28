@@ -203,7 +203,9 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
     let copy = this.artistsSearch;
     this.artistsSearch = [];
-    if($event) this.artistSearchParams.text = $event;
+    
+    if($event||$event==='') 
+      this.artistSearchParams.text = $event;
 
     this.isLoadingArtist = true;
     this.artistSearchParams.type = 'artist';
@@ -217,7 +219,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
   this.main.accService.AccountsSearch(this.artistSearchParams).subscribe(
     (res)=>{
-      // console.log(this.artistSearchParams,` from back `, res);
+       //console.log(this.artistSearchParams,` from back `, res);
       let temp = this.convertArrToCheckModel<AccountGetModel>(res);
 
       for(let art of copy){
