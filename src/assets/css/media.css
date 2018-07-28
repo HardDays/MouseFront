@@ -288,6 +288,12 @@
     -webkit-transform: translateX(350px);
     transform: translateX(350px); 
   }
+  .create-event-nav-tabs .create-event-header ul li {
+    padding: 0 20px;
+  }
+  .create-event-nav-tabs .create-event-header ul li:nth-child(6) {
+    padding: 0 0 0 5px;
+  }
   .create-event-body-1 .create-event-body .flex-body-1 {
       flex-wrap: wrap;
   }
@@ -341,6 +347,9 @@
   }
   .tabs-venue-wrapp .for-padd-cards-art .scroll-cards-art .one-card .l-s .desc {
     padding-left: 10px;
+  }
+  .create-event-body-1 .create-event-body .flex-body-1 .side:last-child .input-groupe-1.whithout-label {
+    width: 100%;
   }
 }
 @media (max-width: 991px) {
@@ -455,10 +464,13 @@
       justify-content: center;
   }
   .create-event-nav-tabs .create-event-header ul li {
-      padding: 0 20px;
+      padding: 0 10px;
   }
   .create-event-nav-tabs .create-event-header ul li:last-child {
       padding-right: 0;
+  }
+  .create-event-nav-tabs .create-event-header ul li.started .nav-second-outlet {
+    font-size: 17px;
   }
   .tabs-artist-wrapp .bg-wr-tabs .tab-artist .flex-wrapp-cards .one-card {
       width: 50%;
@@ -829,7 +841,9 @@
 
   .create-event-nav-tabs .create-event-header ul {
     -ms-flex-wrap: wrap;
-        flex-wrap: wrap; }
+        flex-wrap: wrap;
+    padding-bottom: 80px;
+  }
 
   .create-event-nav-tabs .create-event-header ul li {
     padding: 0 12px; }
@@ -837,13 +851,35 @@
   .create-event-nav-tabs .create-event-header ul li .nav-second-outlet {
     font-size: 16px; }
 
+  .create-event-nav-tabs .create-event-header ul li:nth-child(4) {
+    break-after: always;
+  }
+
+  .create-event-nav-tabs .create-event-header ul li:nth-child(5) {
+    padding-right: 0;
+  }
+
   .create-event-nav-tabs .create-event-header ul li:nth-child(6) {
-    width: 100%;
     padding: 0;
-    margin-top: 20px; }
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-left: -89px;
+  }
 
   .create-event-nav-tabs .create-event-header ul li:nth-child(6) .butt-style-1 {
-    margin: 0 auto; }
+    margin: 0; 
+  }
+
+  .create-event-nav-tabs .create-event-header ul li:nth-child(7) {
+      padding: 0;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 20px;
+      margin-left: 73px;
+  }
 
   .create-event-body-1 {
     padding: 30px 15px; }
@@ -1232,6 +1268,12 @@
   .tabs-artist-wrapp .tabs-menu-active-decline li a,
   .tabs-artist-wrapp .tabs-menu-active-decline li span {
     font-size: 22px;
+  }
+  .create-event-nav-tabs .create-event-header ul li:nth-child(6) {
+    margin-left: -84px;
+  }
+  .create-event-nav-tabs .create-event-header ul li:nth-child(7) {
+    margin-left: 68px;
   }
 }
 

@@ -100,7 +100,7 @@
 
         </div>
 
-        <artist-profile-selector *ngIf="currentPage==pages.preview" 
+        <artist-profile-selector #PreviewPage *ngIf="currentPage==pages.preview" 
             [Account]="Artist" 
             [Fans]="[]" 
             [IsPreview]="true"

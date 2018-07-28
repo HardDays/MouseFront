@@ -176,14 +176,14 @@ export class EventService{
         );
     }
 
-    SetActive(id:number,account_id:number){
+    SetVerify(id:number,account_id:number){
 
         let params = {
             id:id,
             account_id:account_id
         }
         return this.http.CommonRequest(
-            () => this.http.PostData('/events/'+id+'/activate.json',JSON.stringify(params))
+            () => this.http.PostData('/events/'+id+'/verify.json',JSON.stringify(params))
         );
     }
 

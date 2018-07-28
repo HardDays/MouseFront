@@ -43,8 +43,8 @@
                                 </span>
                             </button>
                         </li>
-
-                        <li *ngIf="(EventId !== 0 && !isNewEvent)&&Event.status===eventStatus.New">
+                        
+                        <li *ngIf="Event.status===eventStatus.Approved">
                             <button (click)="launchButtonClick()" class="butt-style-1" style="width: 159px">
                                 <span style="padding: 10px 0;">
                                     Launch event
@@ -58,11 +58,11 @@
                                 </span>
                             </button>
                         </li> -->
-
-                        <li *ngIf="Event.status===eventStatus.Approved">
-                            <button (click)="activeButtonClick()" class="butt-style-1" style="width: 159px">
+                       
+                        <li *ngIf="(EventId !== 0 && !isNewEvent)&&Event.status===eventStatus.New">
+                            <button (click)="verifyButtonClick()" class="butt-style-1" style="width: 159px">
                                 <span style="padding: 10px 0;">
-                                Activate event
+                                Verify event
                                 </span>
                             </button>
                         </li>

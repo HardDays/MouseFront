@@ -19,7 +19,7 @@ import { PreviewVenueComponent } from './preview-venue/preview-venue.component';
 import { TinyCalendarComponent } from './preview-artist/tiny-calendar/tiny-calendar.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material';
-
+import { BsDatepickerModule } from 'ngx-bootstrap';
 @NgModule({
     imports: [ 
         RouterModule,
@@ -34,7 +34,8 @@ import {MatFormFieldModule} from '@angular/material';
             libraries: ["places"]
           }),
         ErrorModule,
-        PreloaderModule
+        PreloaderModule,
+        BsDatepickerModule.forRoot()
     ],
     declarations: [ 
         EventCreateComponent,

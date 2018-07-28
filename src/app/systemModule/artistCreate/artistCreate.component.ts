@@ -88,6 +88,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
   // @ViewChild('MediaPage') MediaPage: ArtistMediaComponent;
   @ViewChild('BookingPage') BookingPage: ArtistBookingComponent;
   @ViewChild('RidersPage') RidersPage: ArtistRidersComponent;
+  @ViewChild('PreviewPage') PreviewPage: ArtistRidersComponent;
 
   @ViewChild('errorCmp') errorCmp: ErrorComponent;
 
@@ -253,6 +254,9 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
       }
       else 
         this.AboutPage.clickSaveButton();
+    }
+    else if(this.PreviewPage){
+      this.router.navigate(["/system","profile",this.ArtistId]);
     }
     else{
       this.SaveCurrentPageAndNavigate(this.Artist);

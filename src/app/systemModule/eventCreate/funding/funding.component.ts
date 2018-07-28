@@ -35,7 +35,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
     @Output() onError:EventEmitter<string> = new EventEmitter<string>();
 
     ngOnInit() {
-
+        
         this.isLoadingArtist = true;
         this.isLoadingVenue = true;
         this.activeArtist = [];
@@ -62,10 +62,14 @@ export class FundingComponent extends BaseComponent implements OnInit {
                         this.messagesList.push(msg);
                         if(this.messagesList.length===res.length)
                             this.getActiveArtVen();
+                },(err)=>{
+                    this.isLoadingArtist = false;
+                    this.isLoadingVenue = false;
                 });
-            
         },
         (err)=>{
+            this.isLoadingArtist = false;
+            this.isLoadingVenue = false;
         });
     }
 
@@ -90,7 +94,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
                     //console.log(`active set ok`,res);
                     this.updateEvent();
                     this.activeArtist[index].checked = true;
-                    this.artistSum += this.activeArtist[index].object.artist.price;
+                    this.artistSum += this.activeArtist[index].object.approximate_price;
 
                 });
         }
@@ -105,7 +109,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
                     //console.log(`active remove ok`,res);
                     this.updateEvent();
                     this.activeArtist[index].checked = false;
-                    this.artistSum -= this.activeArtist[index].object.artist.price;
+                    this.artistSum -= this.activeArtist[index].object.approximate_price;
                 });
         }
 
@@ -123,7 +127,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
                     //console.log(`active set ok`,res);
                     this.updateEvent();
                     this.activeVenue[index].checked = true;
-                    this.venueSum += this.activeVenue[index].object.venue.price;
+                    this.venueSum += this.activeVenue[index].object.approximate_price;
                 });
         }
         else {
@@ -137,7 +141,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
                     //console.log(`active remove ok`,res);
                     this.updateEvent();
                     this.activeVenue[index].checked = false;
-                    this.venueSum -= this.activeVenue[index].object.venue.price;
+                    this.venueSum -= this.activeVenue[index].object.approximate_price;
                 });
         }
 
@@ -172,13 +176,14 @@ export class FundingComponent extends BaseComponent implements OnInit {
                 item.object.status===InviteStatus.Active)
             {    
                 let price = this.getPriceAtMsg(item.object.artist_id);
+                console.log(item,` price`,price);
                 if(price){
-                    this.activeArtist[i].object.artist.price = price;
+                    this.activeArtist[i].object.approximate_price = price;
                 }
             }
             if(item.object.is_active){
                 item.checked = true;
-                this.artistSum += this.activeArtist[i].object.artist.price;
+                this.artistSum += this.activeArtist[i].object.approximate_price;
             }
             i = i + 1;
         }
@@ -193,12 +198,12 @@ export class FundingComponent extends BaseComponent implements OnInit {
                 let price = this.getPriceAtMsg(item.object.venue_id);
                 //console.log(price);
                 if(price){
-                    this.activeVenue[i].object.venue.price = price;
+                    this.activeVenue[i].object.approximate_price = price;
                 }
             }
             if(item.object.is_active){
                 item.checked = true;
-                this.venueSum += this.activeVenue[i].object.venue.price;
+                this.venueSum += this.activeVenue[i].object.approximate_price;
             }
             i = i + 1;
         }
@@ -245,7 +250,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
         this.main.eventService.GetEventById(this.Event.id).
         subscribe((res:EventGetModel)=>{         
             this.Event = this.main.eventService.EventModelToCreateEventModel(res);
-            this.onSave.emit(this.Event);     
+            // this.onSave.emit(this.Event);     
         })  
     }
 
@@ -257,6 +262,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
     getPriceAtMsg(senderId:number){
         if(this.messagesList){
             for(let m of this.messagesList){
+                console.log(m);
                 if( m.sender_id === senderId && 
                     m.receiver_id === this.Event.creator_id &&
                     m.message_info&&m.message_info.event_info&&
