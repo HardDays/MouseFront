@@ -85,7 +85,9 @@
     height: 850px; }
   .nav-holder-3.is-active {
     transform: translateX(calc(50vw - 705px));
-    -webkit-transform:translateX(calc(50vw - 705px)) }}
+    -webkit-transform:translateX(calc(50vw - 705px)) 
+  }
+}
 @media (max-width: 1400px) {
   header .main-mw .left-side .logo-wr {
     width: 250px; }
@@ -107,7 +109,9 @@
     padding: 0 25px; } 
   .nav-holder-3.is-active {
     transform: translateX(calc(50vw - 675px));
-    -webkit-transform:translateX(calc(50vw - 675px)) }}
+    -webkit-transform:translateX(calc(50vw - 675px)) 
+  }
+}
 @media (max-width: 1350px) {
   .media-flex-sides .right-side .slider-audio-wrapp .one-audio {
     width: 100%; }
@@ -167,7 +171,9 @@
     font-size: 11px; } 
   .nav-holder-3.is-active {
     transform: translateX(calc(50vw - 650px));
-    -webkit-transform:translateX(calc(50vw - 650px)) }}
+    -webkit-transform:translateX(calc(50vw - 650px)) 
+  }
+}
 @media (max-width: 1300px) {
   .create-event-nav-tabs .create-event-header ul li .nav-second-outlet {
     font-size: 18px; }
@@ -193,7 +199,12 @@
     width: 62%; }   
   .nav-holder-3.is-active {
     transform: translateX(calc(50vw - 625px));
-    -webkit-transform:translateX(calc(50vw - 625px)) }}
+    -webkit-transform:translateX(calc(50vw - 625px)) 
+  }
+  .main-mw-5 .tabs-venue-wrapp .one-tab-flex .side.width-66 {
+    padding: 0 25px 0 0;
+  }
+}
 @media (max-width: 1250px) {
   .content-and-tabs-datails {
     padding: 0 40px; }
@@ -204,8 +215,17 @@
 
   .nav-holder-3.is-active {
     transform: translateX(calc(50vw - 600px));
-    -webkit-transform:translateX(calc(50vw - 600px)) }}
+    -webkit-transform:translateX(calc(50vw - 600px)) 
+  }
+  .main-mw-5 .tabs-venue-wrapp .one-tab-flex .side.width-66 {
+    padding: 0;
+  }
+}
 @media (max-width: 1199px) {
+  .nav-holder-3.is-active {
+    transform: translateX(0);
+    -webkit-transform:translateX(0);
+  }
   .choose-to-follow .follow-m-w {
     padding: 65px 40px 125px 40px; }
 
@@ -306,6 +326,21 @@
   .tabs-artist-wrapp .bg-wr-tabs .tab-artist .flex-wrapp-cards .one-card .card .flex-buttons .button-card {
       padding: 5px;
       font-size: 10px;
+  }
+  .tabs-venue-wrapp {
+    margin: 0 -35px;
+  }
+  .main-mw-5 .tabs-venue-wrapp .one-tab-flex .side {
+    padding: 0 25px 0 0;
+  }
+  .for-padd-cards-art {
+    padding: 30px 0;
+  }
+  .tabs-venue-wrapp .for-padd-cards-art .scroll-cards-art .one-card {
+    padding: 0 10px;
+  }
+  .tabs-venue-wrapp .for-padd-cards-art .scroll-cards-art .one-card .l-s .desc {
+    padding-left: 10px;
   }
 }
 @media (max-width: 991px) {
@@ -445,7 +480,42 @@
   .for-flex-all-events .one-event-wr .one-event .white-desc-event .when,
   .for-flex-all-events .one-event-wr .one-event .white-desc-event .where {
       font-size: 14px;
-  } 
+  }
+  .tabs-venue-wrapp {
+    margin: 0;
+  }
+  .main-mw-5 .tabs-venue-wrapp .one-tab-flex .side {
+    width: 45%;
+  }
+  .main-mw-5 .tabs-venue-wrapp .one-tab-flex .side.width-66 {
+    width: 55%;
+    padding: 0 25px;
+  }
+  .for-padd-cards-art .scroll-cards-art {
+    max-height: 600px;
+  }
+  .tabs-venue-wrapp .for-padd-cards-art .scroll-cards-art .one-card {
+    width: 100%;
+  }
+  .main-mw-5 .tabs-venue-wrapp .one-tab-flex {
+    flex-wrap: wrap;
+  }
+  .main-mw-5 .tabs-venue-wrapp .one-tab-flex .side {
+    width: 50%;
+  }
+  .main-mw-5 .tabs-venue-wrapp .one-tab-flex .side:nth-child(2) {
+    order: 3;
+  }
+  .main-mw-5 .tabs-venue-wrapp .one-tab-flex .side:nth-child(3) {
+    order: 2;
+  }
+  .flex-funding-columns {
+    flex-wrap: wrap;
+  }
+  .flex-funding-columns .side {
+    width: 50%;
+    margin-bottom: 15px;
+  }
 }
 @media (max-width: 767px) {
   .register .m-v-reg .reg-wr .for-flex {
@@ -767,12 +837,12 @@
   .create-event-nav-tabs .create-event-header ul li .nav-second-outlet {
     font-size: 16px; }
 
-  .create-event-nav-tabs .create-event-header ul li:last-child {
+  .create-event-nav-tabs .create-event-header ul li:nth-child(6) {
     width: 100%;
     padding: 0;
     margin-top: 20px; }
 
-  .create-event-nav-tabs .create-event-header ul li:last-child .butt-style-1 {
+  .create-event-nav-tabs .create-event-header ul li:nth-child(6) .butt-style-1 {
     margin: 0 auto; }
 
   .create-event-body-1 {
@@ -881,6 +951,41 @@
 
   .modal-pick-artist .modal-dialog {
     max-width: 580px; 
+  }
+  .main-mw-5 .tabs-venue-wrapp .one-tab-flex.alighn-items {
+    flex-wrap: wrap;
+  }
+  .main-mw-5 .tabs-venue-wrapp .one-tab-flex .side {
+    width: 100%;
+    padding: 0 15px;
+  }
+  .main-mw-5 .tabs-venue-wrapp .one-tab-flex .side.width-66 {
+    width: 100%;
+    padding: 0 15px;
+  }
+  .main-mw-5 .tabs-venue-wrapp .one-tab-flex .side .filter-venue .flex-genres .one-genre {
+    font-size: 12px;
+    margin-bottom: 8px;
+    margin-right: 8px;
+  }
+  .main-mw-5 .tabs-venue-wrapp .one-tab-flex .side .filter-venue .head-type-inp {
+    margin-bottom: 12px;
+  }
+  .main-mw-5 .tabs-venue-wrapp .one-tab-flex .side .filter-venue .for-range-slider {
+    margin-bottom: 30px;
+  }
+  .main-mw-5 .tabs-venue-wrapp .one-tab-flex .side:nth-child(2) {
+    order: 2;
+  }
+  .main-mw-5 .tabs-venue-wrapp .one-tab-flex .side:nth-child(3) {
+    order: 3;
+  }
+  .flex-funding-columns {
+    margin-bottom: 20px;
+  }
+  .flex-funding-columns .side {
+    width: 100%;
+    margin-bottom: 15px;
   }
 }
 /*@media (max-width: 500px) {
@@ -1070,6 +1175,22 @@
     font-size: 10px;
     margin-bottom: 7px;
     margin-right: 5px; }
+
+  .flex-tabs-menu-venue .v-tabs-menu li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 0;
+    font-size: 18px;
+    line-height: 21px;
+  }
+
+  .main-mw-5 .tabs-venue-wrapp .one-tab-flex .side {
+    padding: 0;
+  }
+  .main-mw-5 .tabs-venue-wrapp .one-tab-flex .side.width-66 {
+    padding: 0;
+  }
 }
 
 @media (max-width: 359px) {
@@ -1102,6 +1223,16 @@
 
   .for-padd-cards-art .scroll-cards-art .one-card .r-s {
     padding-right: 5px; }
+
+  .flex-tabs-menu-venue .v-tabs-menu li {
+    font-size: 16px;
+    line-height: 20px;
+    padding: 6px 0;
+  }
+  .tabs-artist-wrapp .tabs-menu-active-decline li a,
+  .tabs-artist-wrapp .tabs-menu-active-decline li span {
+    font-size: 22px;
+  }
 }
 
 /*# sourceMappingURL=media.css.map */
