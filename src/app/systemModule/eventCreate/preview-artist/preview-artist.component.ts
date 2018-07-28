@@ -73,9 +73,10 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
         if(this.Artist.genres)
           this.Artist.genres = this.main.genreService.BackGenresToShowGenres(this.Artist.genres);
         // console.log(`artist`,res);
+        this.GetDates();
         this.GetArtistImages();
         this.updateVideosPreview();
-        this.GetDates();
+        
        // if(changes['ArtistId'].isFirstChange()) this.InitMusicPlayer();
         if(res.image_id){
          this.main.imagesService.GetImageById(res.image_id)

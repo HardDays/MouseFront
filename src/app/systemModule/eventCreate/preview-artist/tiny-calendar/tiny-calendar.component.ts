@@ -54,8 +54,13 @@ super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
 }
 
   ngOnInit(): void {
-    this.generateCalendar();
-    this.GetEventsInfo();
+    //пока сет тайм аутом, потом надо будет разобратся
+    setTimeout(() => {
+      this.generateCalendar();
+      this.GetEventsInfo();
+     },700);
+   
+   
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -64,7 +69,9 @@ super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
         changes.selectedDates.currentValue.length  > 1) {
           this.sortedDates = _.sortBy(changes.selectedDates.currentValue, (m: CalendarDate) => m.mDate.valueOf());
           //this.generateCalendar();
+          
         }
+    
   }
   GetEventsInfo(){
     this.Images = [];
@@ -179,6 +186,7 @@ super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
   generateCalendar(): void {
     
     const dates = this.fillDates(this.currentDate);
+    console.log('ok');
     const weeks: CalendarDate[][] = [];
     while (dates.length > 0) {
       weeks.push(dates.splice(0, 7));
