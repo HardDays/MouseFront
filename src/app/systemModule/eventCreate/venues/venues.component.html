@@ -23,8 +23,11 @@
                 <!--Public Venue-->
                 
                 <div  [ngStyle]="{'display': !isPrivateVenue?'block':'none'}" class="one-tab">
-                    <div class="one-tab-flex alighn-items">
-                        <div class="side">
+
+                    <div class="one-tab-flex no-wrapp-991 alighn-items">
+
+                        <div class="side side-xs-45">
+
                             <div class="filter-venue">
                                 <div class="content-bodal input-groupe-1">
                                     <input class="search" (change)="venueSearch($event.target.value)" (keyup)="pressEnter($event)" (input)="textChange($event.target.value)" type="text" placeholder="Search Venue">
@@ -247,14 +250,14 @@
                             <option value="one_week">one week</option>
                             <option value="one_month">one month</option>
                         </select>
-                        <label for="inp-modal-req-3">Time Frame we expect an answer</label>
+                        <label for="inp-modal-req-3">Time Frame we expect an answer<span>*</span></label>
                     </div>
                     <div class="input-groupe-1 more-padd">
                         <div class="rel-wr">
                             <span class="abs-backs">$</span>
                             <input [textMask]="MaskNumbers()" formControlName="estimated_price" id="inp-modal-req-4" class="dollar" name="" type="text">
                         </div>
-                        <label for="inp-modal-req-4">Estimated Price to<br> Perform</label>
+                        <label for="inp-modal-req-4">Estimated Price to<br> Perform<span>*</span></label>
                        
                     </div>
                 </div>

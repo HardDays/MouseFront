@@ -1,5 +1,5 @@
-<div class="bg-preloader">
-  <div class="chasing-dots selected">
+<div class="bg-preloader" [ngStyle]="{'padding': padding}">
+  <div class="chasing-dots selected" [ngStyle]="{'width':size,'height':size}">
     <div [ngClass]="{'white':white}" class="dot1"></div>
     <div [ngClass]="{'white':white}" class="dot2"></div>
   </div>

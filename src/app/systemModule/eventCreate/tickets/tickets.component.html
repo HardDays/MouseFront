@@ -10,17 +10,19 @@
             <div class="left-ticket">
                 <div *ngIf="Event.venue" class="tickets-left-info">
                     <p class="info-text">In Person Tickets Available</p>
-                    <span class="price">{{analitics?analitics.in_person_tickets_sold:'No info'}}/{{Event.venue.capacity?Event.venue.capacity:'Max venue capacity'}}</span>
+                    <span class="price">{{Event?Event.in_person_tickets:'No info'}}/{{Event.venue.capacity?Event.venue.capacity:'Max venue capacity'}}</span>
+                    <!-- <span class="price">{{analitics?analitics.in_person_tickets_sold:'No info'}}/{{Event.venue.capacity?Event.venue.capacity:'Max venue capacity'}}</span> -->
                 </div>
                 <div *ngIf="Event.venue" class="tickets-left-info">
                     <p class="info-text">VR Tickets Available</p>
-                    <span class="price">{{analitics?analitics.vr_tickets_sold:'No info'}}/200</span>
+                    <!-- <span class="price">{{analitics?analitics.vr_tickets_sold:'No info'}}/200</span> -->
+                    <span class="price">{{Event?Event.vr_tickets:'No info'}}/{{Event.venue.vr_capacity?Event.venue.vr_capacity:'Max venue VR capacity'}}</span>
                 </div>
                
                 <div class="pick-tickets-wr">
                     <div  class="one-tickets-iteration">
-                        <div  *ngFor="let t of tickets; let i = index" [ngClass]="{active:!isCurTicketNew&&currentTicket.id==t.id}" (click)="currentTicket = t; isCurTicketNew = false;" class="one-ticket">{{t.name}}</div>
-                        <div  *ngFor="let t of ticketsNew; let i = index" [ngClass]="{active:isCurTicketNew&&currentTicket.id==t.id}" (click)="currentTicket = t; isCurTicketNew = true;" class="one-ticket">New Ticket {{i+1}}</div>
+                        <div  *ngFor="let t of tickets; let i = index" [ngClass]="{active:!isCurTicketNew&&currentTicket.id==t.id}" (click)="currentTicket = t; isCurTicketNew = false; setDate()" class="one-ticket">{{t.name}}</div>
+                        <div  *ngFor="let t of ticketsNew; let i = index" [ngClass]="{active:isCurTicketNew&&currentTicket.id==t.id}" (click)="currentTicket = t; isCurTicketNew = true; setDate()" class="one-ticket">New Ticket {{i+1}}</div>
                        
                 </div>
                     <div class="add-ticket">
@@ -108,11 +110,32 @@
                                 </div>
                                 <div class="input-groupe-1 none-padd-my">
                                     <span class="desc-num">Number Available</span>
-                                    <input  class="num" name="" type="text" [(ngModel)]="currentTicket.count">
+                                    <input  class="num" [max]="maxCountInPerson" name="" type="text" [(ngModel)]="currentTicket.count">
                                    
                                 </div>
                                 
                             </div> 
+
+                            <div *ngIf="currentTicket.is_promotional" class="flex-date-inputs">
+                                <div class="one-date-block">
+                                    <div class="date-icon"></div>
+                                    <div class="rr">
+                                        <span class="desc-date">Start Date</span>
+                                        <!--тут дейт пикер.убрать placeholder-->
+                                        <input bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerFromModel" class="input-date">
+                                    </div>
+                                </div>
+                                <div class="one-date-block">
+                                    <div class="date-icon"></div>
+                                    <div class="rr">
+                                        <span class="desc-date">End Date</span>
+                                        <!--тут дейт пикер.убрать placeholder-->
+                                        <input bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerToModel" class="input-date">
+                                    </div>
+                                </div>
+                                
+                            
+                            </div>
 
                            
                         </div>

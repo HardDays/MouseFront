@@ -6,7 +6,7 @@ import { AccountService } from '../../core/services/account.service';
 import { ImagesService } from '../../core/services/images.service';
 import { TypeService } from '../../core/services/type.service';
 import { GenresService } from '../../core/services/genres.service';
-import { Router, Params, ActivatedRoute } from '@angular/router';
+import { Router, Params, ActivatedRoute, NavigationStart } from '@angular/router';
 import { AuthService } from "angular2-social-login";
 
 import { BaseComponent } from '../../core/base/base.component';
@@ -82,31 +82,35 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
         protected cdRef          : ChangeDetectorRef
     ) {
         super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
+
+        this.activatedRoute.params.forEach((params)=>{
+            this.isAccReadyToShow = false;
+            this.UserId = params["id"];
+            this.baseImageMy = '';
+            let acc = this.MyAccounts.find(obj => obj.id == this.UserId);
+            if(acc)
+            {
+                this.InitByUser(acc);
+                this.MyAccountId = this.GetCurrentAccId();
+                this.isFolowed();
+                this.isAccReadyToShow = true;
+                // this.main.accService.GetMyAccount({extended:true})
+                //     .subscribe(
+                //         (res) => {
+                //             this.main.MyAccountsChange.next(res);
+                //         }
+                //     );
+            }
+            else{
+                this.getUserInfo();
+            }
+        })
     }
 
     ngOnInit(){
 
         //this.Videos = this.accService.GetVideo();
     
-        this.getCurrentProfile();
-        this.main.CurrentAccountChange
-            .subscribe((res)=>
-            {
-                this.isAccReadyToShow = false;
-                this.getCurrentProfile();
-            }
-            ,(err) =>{
-                // console.log(err);
-            })
-    }
-
-    getCurrentProfile()
-    {
-        //this.initUser();
-        this.activatedRoute.params.forEach((params)=>{
-            this.UserId = params["id"];
-            this.getUserInfo();
-        })
     }
 
     ngAfterViewChecked()
@@ -167,11 +171,7 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
 
         if(usr.image_id)
         {
-            this.main.imagesService.GetImageById(usr.image_id).subscribe(
-                (res:Base64ImageModel)=>{
-                    this.baseImageMy = res.base64;
-                }
-            );
+            this.baseImageMy = this.main.imagesService.GetImagePreview(usr.image_id,{width:164,height:164});
         }
         else{
             this.baseImageMy = '';

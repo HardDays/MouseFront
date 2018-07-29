@@ -31,12 +31,13 @@ export class EventCreateModel{
         public creator_id?: number,
         public created_at?: string,
         public updated_at?: string,
-        public is_active?: boolean,
+        // public is_active?: boolean,
         public views?: number,
-        public artists?: any[],
+        // public artists?: any[],
         public clicks?: number,
         public has_vr?: boolean,
         public has_in_person?: boolean,
+
         public updates_available?: boolean,
         public comments_available?: boolean,
         public date_from?: string,
@@ -52,8 +53,14 @@ export class EventCreateModel{
         public tickets?: TicketModel[],
 
         public additional_cost?:number,
-        public family_and_friends_amount?:number
+        public family_and_friends_amount?:number,
 
+        public has_private_venue?:boolean,
+        public processed_by?:any,
+        public status?:string,
+
+        public in_person_tickets?:number,
+        public vr_tickets?:number,
     )
     {}
 }
@@ -65,9 +72,11 @@ export class GetArtists{
     constructor(
         public artist_id?: number,
         public reason?: string,
+        public reason_text?: string,
         public status?: string,
-        public image_base64_not_given?: string,
-        public user_name_not_given?: string,
+        public image_base64?: string,
+        public is_active?:boolean,
+        public message_id?:number,
         public agreement?:{
              id?:number,
              price?:number,
@@ -77,7 +86,17 @@ export class GetArtists{
              artist_event_id?:number,
              created_at?:string,
              updated_at?:string,
-        }
+        },
+        public artist?:{
+            first_name?:string,
+            last_name?:string,
+            user_name?:string,
+            image_id?:number,
+            image_base64?:string
+            is_hide_pricing_from_search?:boolean,
+            price?:number
+        },
+        public approximate_price?:number
     )
     {}
 }
@@ -86,8 +105,7 @@ export class GetVenue{
         public venue_id?: number,
         public reason?: string,
         public status?: string,
-        public image_base64_not_given?: string,
-        public user_name_not_given?: string,
+        public is_active?:boolean,
         public agreement?:{
             id?:number,
             price?:number,
@@ -97,7 +115,15 @@ export class GetVenue{
             artist_event_id?:number,
             created_at?:string,
             updated_at?:string,
-       }
+       },
+       public venue?:{
+            display_name?:string,
+            user_name?:string,
+            image_id?:number,
+            image_base64?:string
+            price?:number
+       },
+       public approximate_price?:number
     )
     {}
 }

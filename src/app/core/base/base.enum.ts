@@ -21,6 +21,37 @@ export enum VenueType{
     Private = "private_residence"
 }
 
+export enum EventStatus{
+    New = "just_added",
+    Pending = "pending",
+    Approved = "approved",
+    Denied = "denied",
+    Active = "active",
+    Inactive = "inactive"
+}
+
+export enum AccountStatus {
+    New = "just_added",
+    Pending = "pending",
+    Approved = "approved",
+    Denied = "denied",
+    Active = "active",
+    Inactive = "inactive"
+}
+
+export enum InviteStatus {
+    Ready = "ready",
+    Pending = "pending",
+    InviteSend = "invite_send",
+    RequestSend = "request_send",
+    Accepted = "accepted",
+    Declined = "declined",
+    OwnerAccepted = "owner_accepted",
+    OwnerDeclined = "owner_declined",
+    Active = "active",
+    TimeExpired = "time_expired"
+}
+
 export enum BaseImages{
     Drake = "../../assets/img/show.png",
     NoneUserImage = "../../assets/img/non-photo.svg",
@@ -115,6 +146,13 @@ export enum BaseFields {
   register_phone = 'Phone',
   email = 'Email',
   phone = 'Phone is'
+}
+
+export enum RequestFields {
+    time_frame = 'Time frame',
+    is_personal = 'Type',
+    estimated_price = 'Estimated price',
+    message = 'Message'
 }
 
 

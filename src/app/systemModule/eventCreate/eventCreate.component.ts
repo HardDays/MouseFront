@@ -13,7 +13,7 @@ import { EventDateModel } from '../../core/models/eventDate.model';
 import { ContactModel } from '../../core/models/contact.model';
 import { AccountGetModel } from '../../core/models/accountGet.model';
 import { Base64ImageModel } from '../../core/models/base64image.model';
-import { AccountType, BaseMessages } from '../../core/base/base.enum';
+import { AccountType, BaseMessages, EventStatus } from '../../core/base/base.enum';
 import { GenreModel } from '../../core/models/genres.model';
 import { EventCreateModel } from '../../core/models/eventCreate.model';
 
@@ -89,6 +89,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   venuePreview:number = 0;
 
   createOrEditText = 'Edit';
+
+  eventStatus = EventStatus;
 
   constructor(
       protected main           : MainService,
@@ -170,11 +172,11 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
         setTimeout(
           () => this.NextPart(),
-          2000
+          100
         );
         
         this.isShowLaunch = this.isShowLaunchBtn();
-        this.isHasVenue = this.Event.venue?true:false;
+        // this.isHasVenue = this.Event.venue?true:false;
 
       },
       (err) => {
@@ -194,24 +196,23 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       delete this.Event['city_lng'];
     //}
 
-    if(!this.Event.is_active)
-    this.FunService
-    (
-      () => this.EventId === 0 ? this.main.eventService.CreateEvent(this.Event) : this.main.eventService.UpdateEvent(this.EventId,this.Event),
-      (res) => {
-        this.DisplayEventParams(res);
-        // console.log(`SAVE SUCCESS`);
-        // this.errorCmp.OpenWindow(BaseMessages.Success);
+    if(!this.isNewEvent)
+      this.FunService(
+        () => this.EventId === 0 ? this.main.eventService.CreateEvent(this.Event) : this.main.eventService.UpdateEvent(this.EventId,this.Event),
+        (res) => {
+          this.DisplayEventParams(res);
+          // console.log(`SAVE SUCCESS`);
+          // this.errorCmp.OpenWindow(BaseMessages.Success);
 
-        this.isShowLaunch = this.isShowLaunchBtn();
-        this.isHasVenue = this.Event.venue?true:false;
+          this.isShowLaunch = this.isShowLaunchBtn();
+          // this.isHasVenue = this.Event.venue?true:false;
 
-      },
-      (err) => {
-        // console.log(`err`,err);
-        this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'event'));
-      }
-    )
+        },
+        (err) => {
+          // console.log(`err`,err);
+          this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'event'));
+        }
+      )
   }
 
   public FunService = (fun:()=>Observable<any>,success:(result?:any)=>void, err?:(obj?:any)=>void)=>
@@ -226,6 +227,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
                 err(error); 
             }
         }
+        
     );
   }
 
@@ -251,7 +253,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       }
 
 
-      if(!this.Event.is_active)
+      if(!this.isNewEvent)
       this.WaitBeforeLoading
       (
         () => this.EventId == 0 ? this.main.eventService.CreateEvent(this.Event) : this.main.eventService.UpdateEvent(this.EventId,this.Event),
@@ -274,15 +276,16 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     }
   }
 
+
   NextPart()
   {
     setTimeout(() => {
       if(this.currentPage == this.pages.tickets ||this.isSaveBtnClick)
-      this.router.navigate(["/system","events"]);
+        this.router.navigate(["/system","events"]);
       scrollTo(0,0);
       this.currentPage = this.currentPage + 1;
     }
-    , 4500);
+    , 1000);
   }
 
     
@@ -312,20 +315,36 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       if(v.status=='owner_accepted'||v.status=='active')
         countV++;
 
-    if(!this.Event.is_active && countA>0 && countV>0 ) return true;
+    if(!this.isNewEvent && countA>0 && countV>0 ) return true;
       else return false;
 
   }
 
-  activeButtonClick(){
-    
-    this.main.eventService.SetActive(this.EventId,this.main.CurrentAccount.id).
+  launchButtonClick(){
+    this.main.eventService.SetLaunch(this.EventId,this.main.CurrentAccount.id).
       subscribe((res)=>{
-        this.Event.is_active = true;
+        // this.Event.is_active = true;
         // this.isShowLaunchBtn();
-        this.isShowLaunch = false;
+        // this.isShowLaunch = false;
         this.isHasVenue = this.Event.venue?true:false;
 
+      },
+      (err)=>{
+        // console.log(`err`,err);
+        this.OpenErrorWindow(BaseMessages.Fail);
+      }
+    ) 
+  }
+
+  verifyButtonClick(){
+    
+    this.main.eventService.SetVerify(this.EventId,this.main.CurrentAccount.id).
+      subscribe((res)=>{
+        // this.Event.is_active = true;
+        // this.isShowLaunchBtn();
+        // this.isShowLaunch = false;
+        this.isHasVenue = this.Event.venue?true:false;
+        console.log(`ok`);
       },
       (err)=>{
         // console.log(`err`,err);
@@ -337,9 +356,9 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   unActiveButtonClick(){
     this.main.eventService.SetDeActive(this.EventId,this.main.CurrentAccount.id).
       subscribe((res)=>{
-        this.Event.is_active = false;
+        // this.Event.is_active = false;
         // this.isShowLaunchBtn();
-        this.isShowLaunch = true;
+        // this.isShowLaunch = true;
         this.isHasVenue = this.Event.venue?true:false;
 
       },

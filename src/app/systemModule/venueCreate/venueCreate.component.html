@@ -1,10 +1,11 @@
 <app-preloader *ngIf="isLoading"></app-preloader>
-<section  [ngStyle]="{'display': isLoading?'none':'block'}" class="second-router-outlet">
+<section  [ngStyle]="{'display': isLoading?'none':'block'}" class="second-router-outlet class-for-event-bind">
     <div class="create-event-nav-tabs">
         <div class="for-header-shadow">
             <div class="main-mw">
                 <div class="create-event-header">
                     <h1>{{VenueId?'Edit':'Create'}} Venue</h1>
+                    <div class="new-flex-ul-li">
                     <ul>
                         <!--нужным li даем классы active и started."хз нахрена это надо. узнавайте у писателя"-->
                         <li [ngClass]="{'active':CurrentPart == Parts.About,'started':CurrentPart != Parts.About}">
@@ -34,6 +35,7 @@
                             </button>
                         </li>
                     </ul>
+                </div>
                 </div>
             </div>
         </div>

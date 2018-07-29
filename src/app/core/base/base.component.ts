@@ -25,7 +25,7 @@ import { EventService } from '../services/event.service';
 import { Http, Headers } from '@angular/http';
 import { CheckModel } from '../models/check.model';
 import { MainService } from '../services/main.service';
-import {ArtistFields, BaseImages, BaseMessages, EventFields, FanFields, VenueFields, BaseFields} from './base.enum';
+import {ArtistFields, BaseImages, BaseMessages, EventFields, FanFields, VenueFields, BaseFields, RequestFields} from './base.enum';
 import { MapsAPILoader } from '@agm/core';
 import {FormArray, FormControl, FormGroup} from '@angular/forms';
 import { CodegenComponentFactoryResolver } from '@angular/core/src/linker/component_factory_resolver';
@@ -307,7 +307,7 @@ export class BaseComponent{
     
     MaskDays(){
         return{
-            mask: [/[1-9]/,/[1-9]/],
+            mask: [/[1-9]/,/[0-9]/],
             keepCharPositions: true,
             guide:false
         };
@@ -545,6 +545,8 @@ export class BaseComponent{
         return FanFields;
       } else if (entityType === 'event') {
         return EventFields;
+      } else if(entityType === 'request') {
+        return RequestFields;
       } else if (entityType === 'base') {
         return BaseFields;
       }

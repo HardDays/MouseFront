@@ -1,10 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, SimpleChange } from '@angular/core';
 import { CheckModel } from '../../../core/models/check.model';
 import { GetVenue } from '../../../core/models/eventPatch.model';
 import { GetArtists, EventGetModel } from '../../../core/models/eventGet.model';
 import { BaseComponent } from '../../../core/base/base.component';
 import { Base64ImageModel } from '../../../core/models/base64image.model';
 import { EventCreateModel } from '../../../core/models/eventCreate.model';
+import { BaseImages, RequestFields, AccountStatus, InviteStatus } from '../../../core/base/base.enum';
+import { InboxMessageModel } from '../../../core/models/inboxMessage.model';
 
 @Component({
   selector: 'app-funding',
@@ -21,6 +23,11 @@ export class FundingComponent extends BaseComponent implements OnInit {
     additionalCosts:number = 0;
     familyAndFriendAmount:string = '0%';
 
+    isLoadingArtist = true;
+    isLoadingVenue = true;
+
+    messagesList:InboxMessageModel[] = [];
+
     @Input() Event:EventCreateModel;
     @Input() isHasVenue:boolean;
     @Output() onSaveEvent:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
@@ -28,26 +35,44 @@ export class FundingComponent extends BaseComponent implements OnInit {
     @Output() onError:EventEmitter<string> = new EventEmitter<string>();
 
     ngOnInit() {
-        // console.log(`this Event`,this.Event);
-        this.getActiveArtVen();
+        
+        this.isLoadingArtist = true;
+        this.isLoadingVenue = true;
+        this.activeArtist = [];
+        this.activeVenue = [];
+
+       
+        this.main.eventService.GetEventById(this.Event.id).
+            subscribe(
+                (res:EventGetModel)=>{
+                    this.Event = this.main.eventService.EventModelToCreateEventModel(res); 
+                    this.getMessages();
+                }
+            )
     }
 
-    ngOnChanges(){
-        // console.log(`updateEvent`, this.Event);
-        this.main.eventService.GetEventById(this.Event.id).
-                    subscribe((res:EventGetModel)=>{
-                        
-                    //  console.log(`updateEventThis`);
-                        this.Event = this.main.eventService.EventModelToCreateEventModel(res);
-                    //     this.artistsList = [];
-                    //     this.artistsList = this.Event.artist;
-                    // //    console.log(`---`,this.Event,this.artistsList)
-                    //     this.GetArtistsFromList();
-                    this.getActiveArtVen();
-        
-        })
+    getMessages(){
+        this.messagesList = [];
+
+        this.main.accService.GetInboxMessages(this.Event.creator_id).
+        subscribe((res)=>{
+            for(let m of res)
+                this.main.accService.GetInboxMessageById(this.Event.creator_id, m.id).
+                    subscribe((msg)=>{
+                        this.messagesList.push(msg);
+                        if(this.messagesList.length===res.length)
+                            this.getActiveArtVen();
+                },(err)=>{
+                    this.isLoadingArtist = false;
+                    this.isLoadingVenue = false;
+                });
+        },
+        (err)=>{
+            this.isLoadingArtist = false;
+            this.isLoadingVenue = false;
+        });
     }
-    
+
 
 
     getFamilyAndFriendAmount(){
@@ -58,8 +83,8 @@ export class FundingComponent extends BaseComponent implements OnInit {
 
     setActiveArtist(index:number){
         if(!this.activeArtist[index].checked){
-            this.activeArtist[index].checked = true;
-            this.artistSum += this.activeArtist[index].object.agreement.price;
+            
+            
             this.main.eventService.ArtistSetActive({
                 id:this.activeArtist[index].object.artist_id,
                 event_id:this.Event.id,
@@ -68,11 +93,13 @@ export class FundingComponent extends BaseComponent implements OnInit {
                 subscribe((res)=>{
                     //console.log(`active set ok`,res);
                     this.updateEvent();
+                    this.activeArtist[index].checked = true;
+                    this.artistSum += this.activeArtist[index].object.approximate_price;
+
                 });
         }
         else {
-            this.activeArtist[index].checked = false;
-            this.artistSum -= this.activeArtist[index].object.agreement.price;
+            
             this.main.eventService.ArtistRemoveActive({
                 id:this.activeArtist[index].object.artist_id,
                 event_id:this.Event.id,
@@ -81,6 +108,8 @@ export class FundingComponent extends BaseComponent implements OnInit {
                 subscribe((res)=>{
                     //console.log(`active remove ok`,res);
                     this.updateEvent();
+                    this.activeArtist[index].checked = false;
+                    this.artistSum -= this.activeArtist[index].object.approximate_price;
                 });
         }
 
@@ -88,8 +117,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
 
     setActiveVenue(index:number){
         if(!this.activeVenue[index].checked){
-            this.activeVenue[index].checked = true;
-            this.venueSum += this.activeVenue[index].object.agreement.price;
+            
             this.main.eventService.VenueSetActive({
                 id:this.activeVenue[index].object.venue_id,
                 event_id:this.Event.id,
@@ -98,11 +126,12 @@ export class FundingComponent extends BaseComponent implements OnInit {
                 subscribe((res)=>{
                     //console.log(`active set ok`,res);
                     this.updateEvent();
+                    this.activeVenue[index].checked = true;
+                    this.venueSum += this.activeVenue[index].object.approximate_price;
                 });
         }
         else {
-            this.activeVenue[index].checked = false;
-            this.venueSum -= this.activeVenue[index].object.agreement.price;
+            
             this.main.eventService.VenueRemoveActive({
                 id:this.activeVenue[index].object.venue_id,
                 event_id:this.Event.id,
@@ -111,9 +140,11 @@ export class FundingComponent extends BaseComponent implements OnInit {
                 subscribe((res)=>{
                     //console.log(`active remove ok`,res);
                     this.updateEvent();
+                    this.activeVenue[index].checked = false;
+                    this.venueSum -= this.activeVenue[index].object.approximate_price;
                 });
         }
-        //console.log(this.activeVenue);
+
 
     }
 
@@ -131,86 +162,84 @@ export class FundingComponent extends BaseComponent implements OnInit {
 
         this.artistSum = 0;
         this.venueSum = 0;
-        let artist:GetArtists[] = [], venue:GetVenue[] = [];
-        // console.log(`funding`,this.Event);
 
-        if( this.Event&&this.Event.artist){
-            for(let art of this.Event.artist){
-                if(art.status=='owner_accepted'||art.status=='active'){
-
-                    if(art.agreement&&!art.agreement.price) 
-                        art.agreement.price = 1000;
-
-                    // console.log(`art`,art);
-                    artist.push(art);
-                }
-            }
-        }
-
-        if( this.Event&&this.Event.venues){
-            for(let v of this.Event.venues){
-                if(v.status=='owner_accepted'||v.status=='active'){
-                    
-                    if(v.agreement&&!v.agreement.price)
-                        v.agreement.price = 100;
-                    
-                    venue.push(v);
-                }
-            }
-        }
         
 
-        this.activeArtist = this.convertArrToCheckModel<GetArtists>(artist);
-        this.activeVenue = this.convertArrToCheckModel<GetVenue>(venue);
+        this.activeArtist = this.convertArrToCheckModel<GetArtists>(this.Event.artist);
+        this.activeVenue = this.convertArrToCheckModel<GetVenue>(this.Event.venues);
 
         let i = 0;
         for(let item of this.activeArtist){
-            if(item.object.status=='active'){
+            if(item.object.status===InviteStatus.RequestSend || 
+                item.object.status===InviteStatus.Accepted ||
+                item.object.status===InviteStatus.OwnerAccepted ||
+                item.object.status===InviteStatus.Active)
+            {    
+                let price = this.getPriceAtMsg(item.object.artist_id);
+                console.log(item,` price`,price);
+                if(price){
+                    this.activeArtist[i].object.approximate_price = price;
+                }
+            }
+            if(item.object.is_active){
                 item.checked = true;
-                // this.setActiveArtist();
-                this.artistSum += this.activeArtist[i].object.agreement.price;
+                this.artistSum += this.activeArtist[i].object.approximate_price;
             }
             i = i + 1;
         }
 
         i = 0;
-        for(let item of  this.activeVenue){
-            if(item.object.status=='active'){
+        for(let item of this.activeVenue){
+            if(item.object.status===InviteStatus.RequestSend || 
+                item.object.status===InviteStatus.Accepted ||
+                item.object.status===InviteStatus.OwnerAccepted ||
+                item.object.status===InviteStatus.Active)
+            {    
+                let price = this.getPriceAtMsg(item.object.venue_id);
+                //console.log(price);
+                if(price){
+                    this.activeVenue[i].object.approximate_price = price;
+                }
+            }
+            if(item.object.is_active){
                 item.checked = true;
-                this.venueSum += this.activeVenue[i].object.agreement.price;
+                this.venueSum += this.activeVenue[i].object.approximate_price;
             }
             i = i + 1;
         }
 
-        this.getListName(this.activeArtist);
-        this.getListName(this.activeVenue);
-    //console.log(`active: `,this.activeArtist,this.activeVenue);
+        this.getImagesArtist(this.activeArtist);
+        this.getImagesVenue(this.activeVenue);
+
     }
 
-
-    getListName(list:any[]){
-        if(list)
+    getImagesArtist(list:CheckModel<GetArtists>[]){
         for(let item of list){
-            //console.log(`get id`,item.artist_id,item.venue_id);
-            if(item.object.artist_id||item.object.venue_id){
-                let id = item.object.artist_id||item.object.venue_id;
-            
-                this.main.accService.GetAccountById(id)
-                    .subscribe((res)=>{
-                        item.object.user_name_not_given = res.user_name;
-
-                        if(res.image_id)
-                        item.object.image_base64_not_given = this.main.imagesService.GetImagePreview(res.image_id,{width:140,height:140});
-                            // this.main.imagesService.GetImageById(res.image_id)
-                            // .subscribe((res:Base64ImageModel)=>{
-                            //     item.object.image_base64_not_given = res.base64;
-                            
-                            // });
-
-                });
+            if(item.object.artist.image_id){
+                item.object.artist.image_base64 = this.main.imagesService.GetImagePreview(item.object.artist.image_id,{width:140,height:140});
+            }
+            else{
+                item.object.artist.image_base64 = BaseImages.NoneFolowerImage;
             }
         }
+        setTimeout(() => {
+            this.isLoadingArtist = false;
+        }, 500);
+        
+    }
 
+    getImagesVenue(list:CheckModel<GetVenue>[]){
+        for(let item of list){
+            if(item.object.venue.image_id){
+                item.object.venue.image_base64 = this.main.imagesService.GetImagePreview(item.object.venue.image_id,{width:140,height:140});
+            }
+            else{
+                item.object.venue.image_base64 = BaseImages.NoneFolowerImage;
+            }
+        }
+        setTimeout(() => {
+            this.isLoadingVenue = false;
+        }, 500);
     }
 
 
@@ -219,22 +248,32 @@ export class FundingComponent extends BaseComponent implements OnInit {
 
     updateEvent(){
         this.main.eventService.GetEventById(this.Event.id).
-        subscribe((res:EventGetModel)=>{
-           
+        subscribe((res:EventGetModel)=>{         
             this.Event = this.main.eventService.EventModelToCreateEventModel(res);
-            // console.log(`updateEventThis`,this.Event);
-            this.onSave.emit(this.Event);
-            this.getActiveArtVen();
-           
+            // this.onSave.emit(this.Event);     
         })  
     }
 
     comleteFunding(){
-        // console.log(`before emit`,this.Event);
-        // this.updateEvent();
         this.onSaveEvent.emit(this.Event);
     }
 
+
+    getPriceAtMsg(senderId:number){
+        if(this.messagesList){
+            for(let m of this.messagesList){
+                console.log(m);
+                if( m.sender_id === senderId && 
+                    m.receiver_id === this.Event.creator_id &&
+                    m.message_info&&m.message_info.event_info&&
+                    m.message_info.event_info.id === this.Event.id){
+                        return m.message_info.price;
+                }
+                
+            }
+            return null;
+        }
+    }
 
 
 }

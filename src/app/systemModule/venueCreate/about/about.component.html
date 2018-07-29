@@ -6,7 +6,7 @@
                     <h2>About</h2>
                     <p>Please fill in all required fields<br>to proceed to the Next Step</p>
                 </div>
-                <div class="flex-body-1">
+                <div class="flex-body-1 hidden-md hidden-sm hidden-xs">
                     <div class="side">
                         
                     </div>
@@ -17,7 +17,7 @@
                         <h6 class="head-col-add-venue">Address</h6>
                     </div>
                 </div>
-                <div class="flex-body-1">
+                <div class="flex-body-1 xs-verticall">
                     <div class="side">
                         
                         
@@ -32,20 +32,20 @@
                             
                         </div>
                         <div class="input-groupe-1 whithout-label">
-                
-                                <div class="photo-wr-1 n-i-s">
-                                    
-                                    <label *ngIf="!Venue.image_base64" class="file_upload new-style-img-up">
-                                        <div class="bg-image"></div>
-    
-                                        <input accept=".jpg, .jpeg, .png" (change)="uploadImage($event)" type="file">
-                                    </label>
-    
-                                    <!--появляется этот блок если загружена фотка и в стайл бекграунд имейдж ебануть-->
-                                    <div *ngIf="Venue.image_base64" (click)="DeleteImage()" [ngStyle]="{'background-image': Venue.image_base64?'url('+Venue.image_base64+')':''}" class="bg-image uploaded"></div>
-                                    <!---->
-                                </div>
-                                <label  class="head-groupe">Add Image</label>
+                            <h6 class="head-col-add-venu hidden-lg visible-md">Contact Info</h6>
+                            <div class="photo-wr-1 n-i-s">
+                                
+                                <label *ngIf="!Venue.image_base64" class="file_upload new-style-img-up">
+                                    <div class="bg-image"></div>
+
+                                    <input accept=".jpg, .jpeg, .png" (change)="uploadImage($event)" type="file">
+                                </label>
+
+                                <!--появляется этот блок если загружена фотка и в стайл бекграунд имейдж ебануть-->
+                                <div *ngIf="Venue.image_base64" (click)="DeleteImage()" [ngStyle]="{'background-image': Venue.image_base64?'url('+Venue.image_base64+')':''}" class="bg-image uploaded"></div>
+                                <!---->
+                            </div>
+                            <label  class="head-groupe">Add Image</label>
                         </div>
                         <div class="input-groupe-1 whithout-label small-textarea max-500">
                             <textarea id="inp-create-9" autocomplete="off"  [(ngModel)]="Venue.description" formControlName="short_desc"></textarea>
@@ -58,7 +58,7 @@
                         </div>
                     </div>
                     <div class="side">
-                        <h6 class="head-col-add-venue hidden-lg hidden-md hidden-sm hidden-xs">Contact Info</h6>
+                        
                         <div class="input-groupe-1">
                             <input id="inp-create-venue-tel-1" autocomplete="off" [textMask]="MaskPhone(phoneMask)" (input)="phoneMask=''" (blur)="phoneMask=Venue.phone" [(ngModel)]="Venue.phone" formControlName="phone" name="" type="text">
                             <label for="inp-create-venue-tel-1">Phone<span>*</span></label>
@@ -91,10 +91,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="side">
-                        <h6 class="head-col-add-venue hidden-lg hidden-md hidden-sm hidden-xs">Address</h6>
+                    <div class="side class-uniq-xs">
+                        <h6 class="head-col-add-venue hidden-lg visible-md">Address</h6>
                         
-                        <div class="input-groupe-1">
+                        <div class="input-groupe-1 md-w-100">
                             <input id="inp-create-venue-adr-2" #search placeholder="" autocomplete="off" [(ngModel)]="Venue.address" formControlName="address" name="addr" type="text">
                             <label for="inp-create-venue-adr-2">Address<span>*</span></label>
                         </div>

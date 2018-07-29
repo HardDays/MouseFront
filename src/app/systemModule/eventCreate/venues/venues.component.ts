@@ -16,7 +16,7 @@ import { GetVenue, EventGetModel } from '../../../core/models/eventGet.model';
 import { AccountSearchModel } from '../../../core/models/accountSearch.model';
 import { CheckModel } from '../../../core/models/check.model';
 import { SelectModel } from '../../../core/models/select.model';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AccountAddToEventModel } from '../../../core/models/artistAddToEvent.model';
 import { InboxMessageModel } from '../../../core/models/inboxMessage.model';
 import { EventCreateModel } from '../../../core/models/eventCreate.model';
@@ -57,9 +57,9 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     //venueShowsList:AccountGetModel[] = [];
     requestVenues:AccountGetModel[] = []; // список тех, кому отправлен запрос, брать из Event
     requestVenueForm : FormGroup = new FormGroup({        
-        "time_frame": new FormControl(""),
+        "time_frame": new FormControl("",[Validators.required]),
         "is_personal": new FormControl(""),
-        "estimated_price": new FormControl(),
+        "estimated_price": new FormControl("",[Validators.required]),
         "message": new FormControl("")
     });
     addVenue:AccountAddToEventModel = new AccountAddToEventModel();
@@ -191,6 +191,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         for(let m of this.messagesList){
             if( m.sender_id == sender && 
                 m.receiver_id == this.Event.creator_id &&
+                m.message_info&& m.message_info.event_info&&
                 m.message_info.event_info.id == this.Event.id){
                    return m.message_info.price;
             }
@@ -392,6 +393,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                 })
         }
         else {
+            this.onError.emit(this.getFormErrorMessage(this.requestVenueForm,'request'));
             //console.log(`Invalid Request Form!`, this.aboutForm);
         }
     }
