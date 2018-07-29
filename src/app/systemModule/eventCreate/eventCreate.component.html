@@ -36,7 +36,7 @@
                         </li> -->
                         
 
-                        <li *ngIf="(EventId !== 0 && !isNewEvent) || (isNewEvent && currentPage == pages.tickets)">
+                        <li class="inline-butt-nav-create" *ngIf="(EventId !== 0 && !isNewEvent) || (isNewEvent && currentPage == pages.tickets)">
                             <button (click)="SaveEvent()" class="butt-style-1" style="width: 127px">
                                 <span style="padding: 10px 21px">
                                 SAVE
@@ -44,7 +44,7 @@
                             </button>
                         </li>
 
-                        <li *ngIf="(EventId !== 0 && !isNewEvent)&&Event.status===eventStatus.New">
+                        <li class="inline-butt-nav-create" *ngIf="(EventId !== 0 && !isNewEvent)&&Event.status===eventStatus.New">
                             <button (click)="launchButtonClick()" class="butt-style-1" style="width: 159px">
                                 <span style="padding: 10px 0;">
                                     Launch event

@@ -296,8 +296,12 @@
 
 
 
-
-
+.create-event-nav-tabs .for-header-shadow{
+  padding: 20px 40px;
+}
+.create-event-nav-tabs .create-event-header ul li {
+  padding: 0 18px;
+}
 
 
 
@@ -488,6 +492,9 @@
 }
 .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr .one-day:hover .popup-inform-tiny-calendar{
   display: block;
+}
+.main-mw-5 .tabs-venue-wrapp .one-tab-flex.no-wrapp-991{
+  flex-wrap: nowrap;
 }
 
 
@@ -1009,6 +1016,9 @@
 }
 .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr.un-active + .un-active .one-day:before{
   display: none;
+}
+.main-mw-5 .tabs-venue-wrapp .one-tab-flex.no-wrapp-991{
+  flex-wrap: wrap;
 }
 
 
