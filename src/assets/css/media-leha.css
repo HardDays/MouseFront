@@ -156,6 +156,9 @@
   .create-event-nav-tabs .create-event-header ul li {
       padding: 0 17px;
   }
+  .tickets-flex-body .right-ticket .shadow-wr .ticket-options .r-s .desc-num{
+    font-size: 13px;
+  }
 }
 
 @media (max-width: 1199px) {
@@ -322,9 +325,34 @@
 .create-event-nav-tabs .create-event-header ul li {
   padding: 0 18px;
 }
-
-
-
+.create-event-body-1 .create-event-body .flex-body-1 .side:nth-child(2){
+  padding-right: 0;
+}
+.flex-funding-columns.md-style-col-change{
+  flex-wrap: wrap;
+}
+.flex-funding-columns.md-style-col-change .side{
+  width: 50%;
+}
+.flex-funding-columns.md-style-col-change .side:last-child{
+  padding-left: 0;
+  width: 100%;
+}
+.flex-funding-columns.md-style-col-change .side:nth-child(2){
+  padding-right: 0;
+  
+}
+.tickets-flex-body .right-ticket .shadow-wr .ticket-options.active{
+  display: block;
+}
+.tickets-flex-body .right-ticket .shadow-wr .ticket-options .l-s{
+  width: 100%;
+  padding-right: 0;
+}
+.tickets-flex-body .right-ticket .shadow-wr .ticket-options .r-s{
+  width: 100%;
+  padding-left: 0;
+}
 
 
 
@@ -344,6 +372,17 @@
 }
 
 @media (max-width: 991px) {
+  .tickets-flex-body .left-ticket .tickets-left-info{
+    display: block;
+
+  }
+  .tickets-flex-body .left-ticket .tickets-left-info .info-text{
+    padding-right: 0;
+  }
+  .flex-funding-columns .side .top-gum .artists-venue-wrapp .one-block .ava-l .ava{
+    width: 45px;
+    height: 45px;
+  }
   .abs-arr-left-reg{
     left: 16px;
 
@@ -529,6 +568,11 @@
 
 }
 @media (max-width: 767px) {
+  .flex-funding-columns.md-style-col-change .side{
+    width: 100%;
+    padding-left: 0!important;
+    padding-right: 0!important;
+  }
   .create-event-nav-tabs .create-event-header ul li:nth-child(6){
     position: relative;
     bottom: auto;
@@ -1087,9 +1131,32 @@
 .main-mw-5 .tabs-venue-wrapp .one-tab-flex.no-wrapp-991{
   flex-wrap: wrap;
 }
+.tickets-flex-body{
+  display: block;
+}
+.tickets-flex-body .left-ticket{
+  width: 100%;
+  padding-right: 0;
+}
+.tickets-flex-body .right-ticket{
+  width: 100%;
 
-
-
+}
+.create-event-nav-tabs .create-event-header ul li .nav-second-outlet{
+  font-size: 17px;
+}
+.tickets-flex-body .left-ticket .pick-tickets-wr{
+  padding-top: 5px;
+}
+.tickets-flex-body .left-ticket{
+  margin-bottom: 40px;
+}
+.tickets-flex-body .right-ticket .shadow-wr{
+  padding: 20px 15px;
+}
+.tickets-flex-body .right-ticket .shadow-wr .ticket-options .add-to-active-b{
+  bottom: 0;
+}
 
 }
 
