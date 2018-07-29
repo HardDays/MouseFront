@@ -336,15 +336,15 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     ) 
   }
 
-  activeButtonClick(){
+  verifyButtonClick(){
     
-    this.main.eventService.SetActive(this.EventId,this.main.CurrentAccount.id).
+    this.main.eventService.SetVerify(this.EventId,this.main.CurrentAccount.id).
       subscribe((res)=>{
         // this.Event.is_active = true;
         // this.isShowLaunchBtn();
         // this.isShowLaunch = false;
         this.isHasVenue = this.Event.venue?true:false;
-
+        console.log(`ok`);
       },
       (err)=>{
         // console.log(`err`,err);

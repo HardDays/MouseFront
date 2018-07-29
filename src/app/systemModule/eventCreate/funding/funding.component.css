@@ -53,3 +53,14 @@ select{
     -ms-transform: rotate(270deg);
     transform: rotate(270deg);
 }
+
+.chasing-dots.selected {
+     width: 20px !important;
+     height: 20px !important;
+     position: relative;
+     text-align: center;
+     margin-right: 10px !important;
+     -webkit-animation: rotate 2.0s infinite linear;
+     animation: rotate 2.0s infinite linear;
+    
+ }

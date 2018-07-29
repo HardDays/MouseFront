@@ -28,6 +28,10 @@
     top: 10px;
     left: 0; 
 }
+.new-flex-ul-li{
+  display: flex;
+  align-items: center;
+}
 .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_right .settings_right_wrap .setts_padding.over-none{
      position: relative;
      overflow: hidden;
@@ -147,9 +151,25 @@
     margin-left: 0;
   }
 }
-
+@media (max-width: 1300px) {
+  
+  .create-event-nav-tabs .create-event-header ul li {
+      padding: 0 17px;
+  }
+}
 
 @media (max-width: 1199px) {
+  .new-flex-ul-li{
+    display: block;
+  }
+  .create-event-nav-tabs .create-event-header .new-flex-ul-li ul{
+      margin-top: 15px;
+  }
+  
+  .create-event-nav-tabs .create-event-header ul{
+    height: auto;
+    flex-wrap: wrap;
+  }
   .modal-send-request.map-1-modal .modal-dialog {
       max-width: 730px;
   }
@@ -328,6 +348,9 @@
     left: 16px;
 
   }
+  .create-event-nav-tabs .create-event-header .new-flex-ul-li ul{
+    padding-bottom: 0;
+  }
   .register .m-v-reg .reg-wr h3{
     max-width: 280px;
     margin: 0 auto 20px auto;
@@ -496,7 +519,9 @@
 .main-mw-5 .tabs-venue-wrapp .one-tab-flex.no-wrapp-991{
   flex-wrap: nowrap;
 }
-
+.create-event-nav-tabs .create-event-header ul{
+  flex-wrap: wrap;
+}
 
 
 
@@ -504,6 +529,48 @@
 
 }
 @media (max-width: 767px) {
+  .create-event-nav-tabs .create-event-header ul li:nth-child(6){
+    position: relative;
+    bottom: auto;
+    left: auto;
+    margin: 0;
+    transform: none;
+    padding: 0 18px;
+  }
+  .create-event-nav-tabs .create-event-header ul li:nth-child(7){
+    padding: 0 18px!important;
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    margin: 0;
+  }
+  
+  .create-event-nav-tabs .create-event-header ul li:nth-child(5){
+    padding-right: 18px;
+  }
+  
+  .create-event-nav-tabs .create-event-header .new-flex-ul-li ul li:first-child{
+    padding-left: 20px;
+  }
+  .create-event-nav-tabs .create-event-header .new-flex-ul-li ul li:last-child{
+    padding-right: 20px;
+  }
+  .create-event-nav-tabs .create-event-header .new-flex-ul-li ul li .butt-style-1{
+    font-size: 12px;
+    width: 104px!important;
+    border-width: 3px;
+  }
+  .create-event-nav-tabs .for-header-shadow{
+    padding: 0;
+  }
+  .create-event-nav-tabs .create-event-header .new-flex-ul-li ul.xs-padd-less li{
+    padding: 0 10px;
+    margin-bottom: 10px;
+  }
+  .create-event-nav-tabs .create-event-header .new-flex-ul-li ul li .butt-style-1 span{
+      padding: 5px!important;
+  }
   .class-for-event-bind .create-event-nav-tabs .create-event-header ul li:last-child{
     padding-left: 0;
   }

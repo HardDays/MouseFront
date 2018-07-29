@@ -13,6 +13,7 @@
                       </div>
                       {{createOrEditText}} Event
                   </h1>
+                  <div class="new-flex-ul-li">
                     <ul>
                         <!--нужным li даем классы active и started."хз нахрена это надо. узнавайте у писателя"-->
 
@@ -34,8 +35,8 @@
                         <!-- <li [ngClass]="{'active':currentPage == pages.previewArtist,'started':currentPage != pages.preview}">
                             <a (click)="ChangeCurrentPart(pages.preview)" class="nav-second-outlet">preview</a>
                         </li> -->
-                        
-
+                    </ul>
+                    <ul class="xs-padd-less">
                         <li class="inline-butt-nav-create" *ngIf="(EventId !== 0 && !isNewEvent) || (isNewEvent && currentPage == pages.tickets)">
                             <button (click)="SaveEvent()" class="butt-style-1" style="width: 127px">
                                 <span style="padding: 10px 21px">
@@ -43,8 +44,8 @@
                                 </span>
                             </button>
                         </li>
-
                         <li class="inline-butt-nav-create" *ngIf="(EventId !== 0 && !isNewEvent)&&Event.status===eventStatus.New">
+
                             <button (click)="launchButtonClick()" class="butt-style-1" style="width: 159px">
                                 <span style="padding: 10px 0;">
                                     Launch event
@@ -58,25 +59,23 @@
                                 </span>
                             </button>
                         </li> -->
-
-                        <li *ngIf="Event.status===eventStatus.Approved">
-                            <button (click)="activeButtonClick()" class="butt-style-1" style="width: 159px">
+                       
+                        <li class="inline-butt-nav-create" *ngIf="(EventId !== 0 && !isNewEvent)&&Event.status===eventStatus.New">
+                            <button (click)="verifyButtonClick()" class="butt-style-1" style="width: 159px">
                                 <span style="padding: 10px 0;">
-                                Activate event
+                                Verify event
                                 </span>
                             </button>
                         </li>
-                        <li *ngIf="Event.status===eventStatus.Active">
+                        <li class="inline-butt-nav-create" *ngIf="Event.status===eventStatus.Active">
                             <button (click)="unActiveButtonClick()" class="butt-style-1" style="width: 159px">
                                 <span style="padding: 10px 0;">
                                 Deactivate event
                                 </span>
                             </button>
                         </li>
-
-                        
-
                     </ul>
+                    </div>
                 </div>
             </div>
         </div>

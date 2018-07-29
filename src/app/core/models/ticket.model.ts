@@ -11,7 +11,9 @@ export class TicketModel{
         public type?:string,
         // public category?:string,
         public is_for_personal_use?:boolean,
-        public promotional_description?: string
+        public promotional_description?: string,
+        public promotional_date_from?: string,
+        public promotional_date_to?: string,
         
 ){}
 }
