@@ -10,7 +10,7 @@
                     </div>
                     <div class="name-venue">
                         <h2 id="lines_view" *ngIf="Account.user_name">{{Account.display_name}}</h2>
-                        <a *ngIf="MyProfileId == Account.id" [routerLink]="['/system/venueCreate',Account.id]" class="settings"></a>
+                        <a *ngIf="MyProfileId == Account.id && !IsPreview" [routerLink]="['/system/venueCreate',Account.id]" class="settings"></a>
                     </div>
                     <div class="oficial-page">
                         <span id="d_lines_view" *ngIf="Account.display_name" class="of-p">@{{Account.user_name}}</span>
@@ -20,7 +20,7 @@
                     </div>
                     
                         
-                    <ng-container *ngIf="MyProfileId != Account.id" >
+                    <ng-container *ngIf="MyProfileId != Account.id && !IsPreview" >
                         <form class="follow-wr" (ngSubmit)="FollowProfile(!isFolowedAcc)">
                             <button [disabled]="IsPreview" class="butt-style-1" type="submit">
                                 <span>{{isFolowedAcc?'Unfollow':'Follow'}}</span>
@@ -82,11 +82,13 @@
                                 <div class="side side-info side-map">
                                     <h6>Location</h6>
                                     <p class="about-text" *ngIf="Account.address">{{Account.address}}</p>
-                                    <div class="map" [ngStyle]="{'display':(Account.lat && Account.lng)?'block':'none'}">
-                                        <agm-map #agmMap style="height:100%" [latitude]="Account.lat" [longitude]="Account.lng">
-                                            <agm-marker [latitude]="Account.lat" [longitude]="Account.lng"></agm-marker>
-                                        </agm-map>
-                                    </div>
+                                    <ng-container *ngIf="Account" >
+                                        <div class="map" [ngStyle]="{'display':(Account.lat && Account.lng)?'block':'none'}">
+                                            <agm-map #agmMap style="height:100%" [latitude]="Account.lat" [longitude]="Account.lng">
+                                                <agm-marker [latitude]="Account.lat" [longitude]="Account.lng"></agm-marker>
+                                            </agm-map>
+                                        </div>
+                                    </ng-container>
                                 </div>
                             </div>
                         </div>
@@ -94,7 +96,7 @@
                     <div class="uniq-padd-2">
                         <div class="main-mw">
                             <div class="flex--info">
-                                <div [ngStyle]="{'display':isLoadingUpcoming?'none':'block'}" class="side scroller flex-header">
+                                <div [ngStyle]="{'display':isLoadingGallery?'none':'block'}" class="side scroller flex-header">
                                     <div class="for-scroll-padd">
                                         <h6>Gallery ({{VenueImages?VenueImages.length:'0'}})</h6>
                                         <input type="text" class="search-profile-inp-style"  placeholder="Search" (input)='searchImagesVenue($event)'>
@@ -114,7 +116,7 @@
                                 <div [ngStyle]="{'display':!isLoadingUpcoming?'none':'block'}" class="side scroller flex-header">
                                     <app-preloader style="max-height: 200px;" *ngIf="isLoadingUpcoming"></app-preloader>
                                 </div>
-                                <div [ngStyle]="{'display':isLoadingGallery?'none':'block'}" class="side flex-header scroller">
+                                <div [ngStyle]="{'display':isLoadingUpcoming?'none':'block'}" class="side flex-header scroller">
                                     <div class="for-scroll-padd">
                                         <h6>UPCOMING<br>SHOWS ({{UpcomingShows?UpcomingShows.length:'0'}})</h6>
                                         <input type="text" class="search-profile-inp-style" placeholder="Search" (input)='searchUpcomingShows($event)'>

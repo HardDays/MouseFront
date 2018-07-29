@@ -83,32 +83,32 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
     ) {
         super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
 
-        this.activatedRoute.params.forEach((params)=>{
-            this.isAccReadyToShow = false;
-            this.UserId = params["id"];
-            this.baseImageMy = '';
-            let acc = this.MyAccounts.find(obj => obj.id == this.UserId);
-            if(acc)
-            {
-                this.InitByUser(acc);
-                this.MyAccountId = this.GetCurrentAccId();
-                this.isFolowed();
-                this.isAccReadyToShow = true;
-                // this.main.accService.GetMyAccount({extended:true})
-                //     .subscribe(
-                //         (res) => {
-                //             this.main.MyAccountsChange.next(res);
-                //         }
-                //     );
+        this.main.CurrentAccountChange.subscribe(
+            (val:AccountGetModel) => {
+                this.MyAccountId = val.id;
+                
             }
-            else{
-                this.getUserInfo();
-            }
-        })
+        );
     }
 
     ngOnInit(){
 
+        this.activatedRoute.params.forEach((params)=>{
+                this.isAccReadyToShow = false;
+                this.UserId = params["id"];
+                this.baseImageMy = '';
+                let acc = this.MyAccounts.find(obj => obj.id == this.UserId);
+                if(acc)
+                {
+                    this.InitByUser(acc);
+                    this.MyAccountId = this.GetCurrentAccId();
+                    this.isFolowed();
+                    this.isAccReadyToShow = true;
+                }
+                else{
+                    this.getUserInfo();
+                }
+            })
         //this.Videos = this.accService.GetVideo();
     
     }

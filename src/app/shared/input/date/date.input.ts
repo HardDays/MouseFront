@@ -90,9 +90,12 @@ export class DateInput implements OnChanges {
 
     DateChanges($event)
     {
-        this.Day = $event;
-        this.CurrentMoment.date(this.Day);
-        this.DateEmit();
+        if($event)
+        {
+            this.Day = $event;
+            this.CurrentMoment.date(this.Day);
+            this.DateEmit();
+        }
     }
 
     DateEmit()
