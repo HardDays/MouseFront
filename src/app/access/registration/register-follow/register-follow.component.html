@@ -4,7 +4,8 @@
           <div class="follow-m-w">
               <h3>Choose whom to follow</h3>
               <div class="search-wr"> 
-                  <input type="text" [(ngModel)]="text" (input)="changeText()" [ngModelOptions]="{standalone: true}" class="inp-style-1" placeholder="Search">
+                    <!-- (change)="artistSearch($event.target.value)" (keyup)="pressEnter($event)" (input)="textChange($event)" -->
+                  <input type="text" [(ngModel)]="text" (input)="textChange($event)" (keyup)="pressEnter($event)" [ngModelOptions]="{standalone: true}" class="inp-style-1" placeholder="Search">
               </div>
 
               <app-preloader [white]="true" *ngIf="isLoading"></app-preloader>

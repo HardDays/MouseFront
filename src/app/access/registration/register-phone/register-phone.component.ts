@@ -71,7 +71,7 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
           phoneToSend = phoneToSend.replace(/\(/g,'');
           phoneToSend = phoneToSend.replace(/\)/g,'');
           phoneToSend = phoneToSend.replace(/-/g,'');
-      // console.log(`ok`,phoneToSend);
+       console.log(`phoneToSend`,phoneToSend);
 
         this.WaitBeforeLoading(
         ()=>this.main.phoneService.SendCodeToPhone(phoneToSend),
@@ -79,8 +79,31 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
           this.isRequestCodeSend = true;
           },
           (err)=>{
-            // console.log(`err`,err);
-            this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
+            if(err.json()['phone']){
+              let error = err.json()['phone'].replace('_', ' ').toLowerCase();
+              this.errorCmp.OpenWindow(`Phone is `+error);
+
+              if(err.json()['phone']==='ALREADY_VALIDATED'){
+                setTimeout(()=>{
+                  if(this.errorCmp.isShown)
+                    this.errorCmp.CloseWindow();
+                  this.isShowPhone.emit(true);
+                  this.phoneStatus.emit({status:true,phone:this.phone});
+                },1800)
+              }
+              
+            }
+            else{
+              this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
+            }
+           
+            // .replace('_', ' '):'').toLowerCase()
+            // console.log(`err`,err.json()['phone']);
+            // if(err=="'phone': 'ALREADY_VALIDATED'"){
+            //   this.isShowPhone.emit(true);
+            //   this.phoneStatus.emit({status:true,phone:this.phone});
+            // }
+            // this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
             
           }
       );
@@ -105,9 +128,12 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
         ()=>this.main.phoneService.ReSendCodeToPhone(phoneToSend),
           (res)=>{
           this.isRequestCodeSend = true;
+          this.codeRequest=[];
+          this.errorCmp.OpenWindow(BaseMessages.Success);
           },
           (err)=>{
-            // console.log(`err`,err);
+            console.log(`err`,err);
+
             this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
             
           }
@@ -157,7 +183,8 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
             this.phoneStatus.emit({status:true,phone:this.phone});
           },
           (err)=>{
-            this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
+            // console.log(`err`,err);
+            this.errorCmp.OpenWindow('Code is invalid');
             
           }
       );

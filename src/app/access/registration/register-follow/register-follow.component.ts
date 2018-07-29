@@ -84,8 +84,20 @@ export class RegisterFollowComponent extends BaseComponent implements OnInit {
   
   }
 
-  changeText(){
-    this.getArtists();
+  // changeText(){
+  //   this.getArtists();
+  // }
+
+  textChange(str:string){
+    if(str==''){
+      this.text = '';
+      this.getArtists();
+    }
+  }
+
+  pressEnter(event){
+    if(event.key=="Enter")
+      this.getArtists();
   }
 
 }
