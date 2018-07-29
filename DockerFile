@@ -1,0 +1,12 @@
+FROM node:10
+WORKDIR /home/ubuntu/front/MouseFront
+
+ADD package*.json ./
+
+RUN npm install --only=production
+
+ADD . .
+
+EXPOSE 8080
+
+CMD ["node", "server.js"]

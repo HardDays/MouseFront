@@ -1,3 +1,16 @@
+html, body{
+  min-height: 100vh;
+  height: auto;
+}
+.main-router-outlet{
+  min-height: 100vh;
+}
+.main_content{
+  min-height: 100vh;
+}
+.main_content .for-flex-height{
+  min-height: 100vh;
+}
 .modal-send-request.map-1-modal .modal-dialog .for-map-init-modal-1{
   border: none;  
 }
@@ -1246,6 +1259,15 @@
 .tiny-calendar-wrapper .body-calendar .days .one-day-wr.un-active .one-day p:before{
   display: none!important;
 }
+.artist-media .media-flex-sides .right-side{
+  padding-left: 0;
+}
+
+
+
+
+
+
 
 
 }

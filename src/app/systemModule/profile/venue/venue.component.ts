@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, EventEmitter, Input, Output, SimpleChanges, ViewChild, AfterViewInit } from "@angular/core";
+import { Component, OnInit, OnChanges, EventEmitter, Input, Output, SimpleChanges, ViewChild, AfterViewInit, NgZone, ChangeDetectorRef, AfterViewChecked } from "@angular/core";
 import { BaseComponent } from "../../../core/base/base.component";
 import { AccountGetModel } from '../../../core/models/accountGet.model';
 import { TicketsGetModel } from "../../../core/models/ticketsGetModel";
@@ -6,7 +6,10 @@ import { EventGetModel } from "../../../core/models/eventGet.model";
 import { Base64ImageModel } from "../../../core/models/base64image.model";
 import { BaseImages } from "../../../core/base/base.enum";
 import { AccountCreateModel } from "../../../core/models/accountCreate.model";
-import { AgmMap } from "@agm/core";
+import { AgmMap, MapsAPILoader } from "@agm/core";
+import { MainService } from "../../../core/services/main.service";
+import { DomSanitizer } from "../../../../../node_modules/@angular/platform-browser";
+import { Router, ActivatedRoute } from "../../../../../node_modules/@angular/router";
 
 declare var $:any;
 declare var PhotoSwipeUI_Default:any;
@@ -56,18 +59,28 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
     isLoadingGallery:boolean = true;
     isLoadingUpcoming:boolean = true;
 
+    constructor(
+        protected main           : MainService,
+        protected _sanitizer     : DomSanitizer,
+        protected router         : Router,
+        protected mapsAPILoader  : MapsAPILoader,
+        protected ngZone         : NgZone,
+        protected activatedRoute : ActivatedRoute,
+        protected cdRef          : ChangeDetectorRef
+    ) {
+        super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
+    }
+
+
     ngOnChanges(changes: SimpleChanges): void {
         if(changes.Account)
         {
-            this.Account = changes.Account.currentValue;
+            if(this.agmMap)
+                this.agmMap.triggerResize();
         }
-        if(changes.MyProfileId){
-            this.MyProfileId = changes.MyProfileId.currentValue;
-        }
+
         if(changes.Fans)
             this.FansChecked = this.Fans = changes.Fans.currentValue;
-
-        
 
         if(this.IsPreview){
             this.Init(changes.Venue.currentValue,changes.VenueId.currentValue);
@@ -77,8 +90,7 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
     }
 
     ngOnInit(): void {
-        this.agmMap.triggerResize();
-        
+                
     }
     Init(venue?:AccountCreateModel,id?:number)
     {
@@ -126,9 +138,10 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
     }
 
     GetUpcomingShows(){
-        if(this.Account.id)
+        this.UpcomingShowsChecked = this.UpcomingShows = [];
+        if(this.VenueId)
         {
-         this.main.accService.GetUpcomingShows(this.Account.id).subscribe(
+            this.main.accService.GetUpcomingShows(this.VenueId).subscribe(
                 (res:any) =>
                 { 
                     this.UpcomingShowsChecked = this.UpcomingShows = res;
@@ -141,6 +154,7 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
         }
         else{
             this.UpcomingShowsChecked = this.UpcomingShows = [];
+            this.isLoadingUpcoming = false;
         }
     }
     searchUpcomingShows(event)

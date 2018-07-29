@@ -9,7 +9,7 @@ import { MapsAPILoader } from '@agm/core';
 import { ContactModel } from '../../../core/models/contact.model';
 import { FrontWorkingTimeModel } from '../../../core/models/frontWorkingTime.model';
 
-
+declare var $:any;
 @Component({
     selector: 'venue-hours-selector',
     templateUrl: './hours.component.html',
@@ -76,7 +76,9 @@ export class VenueHoursComponent extends BaseComponent implements OnInit,OnChang
     SaveVenue()
     {
         this.GetHoursToVenueModel();
-
+        $('html,body').animate({
+            scrollTop: 0
+        }, 0);
         this.onSaveVenue.emit(this.Venue);
     }
 

@@ -10,6 +10,7 @@ import { ContactModel } from '../../../core/models/contact.model';
 import { Base64ImageModel } from '../../../core/models/base64image.model';
 import {BaseMessages} from '../../../core/base/base.enum';
 
+declare var $:any;
 
 @Component({
     selector: 'venue-about-selector',
@@ -185,13 +186,20 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
 
     SaveVenue()
     {
+        
+       
+        
         this.aboutForm.updateValueAndValidity();
         if(this.aboutForm.invalid)
         {
             this.onError.emit(this.getFormErrorMessage(this.aboutForm, 'venue'));
             return;
         }
-
+        
+        $('html,body').animate({
+            scrollTop: 0
+        }, 0);
+        
         let phoneToSend = this.Venue.phone.replace(/ /g,'');
         phoneToSend = phoneToSend.replace(/\(/g,'');
         phoneToSend = phoneToSend.replace(/\)/g,'');
