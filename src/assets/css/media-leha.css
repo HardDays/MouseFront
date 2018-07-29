@@ -1,10 +1,17 @@
 .modal-send-request.map-1-modal .modal-dialog .for-map-init-modal-1{
   border: none;  
 }
+
 .slider-2-albums .one-slide
 {
     width:50%;   
 }
+#d_lines_view {
+  max-width: 400px;
+  word-wrap: break-word;
+  margin-right: 15px;
+}
+
 .head-info-profile-wr.head-info-artist .flex-artist-main-info .side.right-side .bg-slider{
   min-height: 430px;
 }
@@ -71,6 +78,15 @@
     display: block;
     flex-shrink: 0;
   }
+  .create-event-body-1.none-padd-un-q .calendar-add-artist{
+   
+      position: relative;
+      padding: 50px 0;
+      width: calc(100% + 160px);
+      left: -80px;
+  
+  }
+ 
 }
 
 
@@ -353,9 +369,18 @@
   width: 100%;
   padding-left: 0;
 }
+.create-event-body-1.none-padd-un-q .calendar-add-artist{
+   
+  position: relative;
+  padding: 50px 0;
+  width: calc(100% + 80px);
+  left: -40px;
 
+}
 
-
+.create-event-body-1.none-padd-un-q{
+  padding: 40px;
+}
 
 
 
@@ -683,7 +708,7 @@
     margin: 0 auto;
   }
   .styles-audio-list .audio-wrapper .one-audio{
-    margin: 0 auto 15px auto!important;
+    margin: 0 0 15px 0!important;
   }
   .styles-audio-list .audio-wrapper{
     padding: 0 15px;
@@ -1157,7 +1182,70 @@
 .tickets-flex-body .right-ticket .shadow-wr .ticket-options .add-to-active-b{
   bottom: 0;
 }
+.for-padd-cards-art .scroll-cards-art .one-card{
+  padding: 0 10px;
+}
+.modal-pick-artist .modal-dialog .flex-range-slider {
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.for-padd-cards-art .scroll-cards-art .one-card .l-s .desc {
+  width: auto;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+.modal-pick-artist .modal-dialog .flex-range-slider .left-side{
+  width: 100%;
+  margin-right: 0;
+  margin-bottom: 20px;
+}
 
+#d_lines_view{
+  text-align: center;
+
+}
+#d_lines_view.margened-xs-auto{
+  margin: 0 auto;
+}
+
+.head-info-profile-wr .head-info-profile .side-3 .desc-wr{
+  margin: 0 auto;
+  text-align: center;
+}
+.head-info-profile-wr .head-info-profile .follow-wr{
+  max-width: 180px;
+  margin: 10px auto;
+}
+.head-info-profile-wr.head-info-artist .flex-artist-main-info .side.left-side .follow-wr{
+  max-width: 180px;
+  margin: 10px auto;
+}
+.head-info-profile-wr.head-info-artist .flex-artist-main-info .side.left-side .follow-wr .butt-style-1{
+  width: 100%;
+  max-width: 100%;
+}
+.styles-audio-list{
+  max-width: 500px;
+  margin: 0 auto;
+}
+.all-info-profile .uniq-padd .genres-info.genres-info-artist{
+  max-width: 470px;
+}
+
+.create-event-body-1.none-padd-un-q .calendar-add-artist{
+  padding: 20px 0;
+  width: calc(100%);
+  left: 0;
+
+}
+
+.create-event-body-1.none-padd-un-q{
+  padding: 20px 0;
+}
+.tiny-calendar-wrapper .body-calendar .days .one-day-wr.un-active .one-day p:before{
+  display: none!important;
+}
 
 
 }
@@ -1239,6 +1327,9 @@
   .class-for-event-bind .create-event-body-1 .create-event-body .flex-body-1.xs-verticall .side:nth-child(2){
     padding-left: 0;
     width: 100%;
+  }
+  .tiny-calendar-wrapper .body-calendar .days .one-day-wr.un-active + .un-active .one-day:before{
+    display: none;
   }
  
 }

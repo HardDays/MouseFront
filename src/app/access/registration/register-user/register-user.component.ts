@@ -21,7 +21,7 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
 
  userForm : FormGroup = new FormGroup({
     "email": new FormControl("", [Validators.required,
-      Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$')]),
+      Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[\.][a-zA-Z]{2,3}')]),
     "password": new FormControl("", [Validators.required]),
     "password_confirmation": new FormControl("", [Validators.required]),
     "register_phone": new FormControl("")
@@ -68,14 +68,14 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
         this.errorCmp.OpenWindow('Uncorrect email!');
       else {
 
-      this.createUser.email = this.createUser.email.toLowerCase();
+        this.createUser.email = this.createUser.email.toLowerCase();
 
-      let phoneToSend = this.createUser.register_phone.replace(/ /g,'');
-          phoneToSend = phoneToSend.replace(/\(/g,'');
-          phoneToSend = phoneToSend.replace(/\)/g,'');
-          phoneToSend = phoneToSend.replace(/-/g,'');
+        let phoneToSend = this.createUser.register_phone.replace(/ /g,'');
+            phoneToSend = phoneToSend.replace(/\(/g,'');
+            phoneToSend = phoneToSend.replace(/\)/g,'');
+            phoneToSend = phoneToSend.replace(/-/g,'');
 
-      this.createUser.register_phone = phoneToSend;
+        this.createUser.register_phone = phoneToSend;
           
       this.WaitBeforeLoading(
           ()=>this.main.authService.CreateUser(this.createUser),

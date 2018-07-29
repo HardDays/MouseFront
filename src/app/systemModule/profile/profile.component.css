@@ -10,13 +10,10 @@
 }
 
 
-#d_lines_view {
-    max-width: 400px;
-    word-wrap: break-word;
-    margin-right: 15px;
+
+button[disabled], html input[disabled]{
+    cursor: not-allowed;
 }
-
-
 
 #contacts_view {
     max-width: 400px;

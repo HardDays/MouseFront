@@ -126,13 +126,16 @@ header .main-mw .right-side{
   }
 
   .dropdown-hover-profiles:hover .dropdown-settings-ava {
-    left: 0;
+    left: auto;
     transform: translateX(0);
+    right: 0;
   }
 
+
   .dropdown-hover-profiles:hover .dropdown-settings-ava:before {
-    left: 0;
-    transform: translateX(50%);
+    left: auto;
+    right: 0;
+    transform: translateX(-85%);
   }
 }
 
@@ -156,6 +159,10 @@ header .main-mw .right-side{
       top: 3px;
       right: 0px;
    }
+   .dropdown-hover-profiles:hover .dropdown-settings-ava:before {
+    transform: translateX(-50%);
+   }
+
 }
 
 @media (max-width: 359px) {
