@@ -21,9 +21,9 @@
 .user-name-doll{
     display: block;
     position: absolute;
-    top: 29px;
+    /* top: 29px; */
     left: 0;
-    color: #eb2d64;
+    /* color: #eb2d64; */
     font-size: 14px;
     z-index: 300;
 }
@@ -40,5 +40,5 @@
     padding: 10px 15px 15px 15px !important;
 }
 span.user-name-dog.doll{
- margin-top: 4px;   
+    margin-top: 5px;
 }

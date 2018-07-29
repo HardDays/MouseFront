@@ -212,7 +212,7 @@ export class MainService{
 
     public GetMyAccounts(callback?:()=>void){
         this.WaitBeforeLoading(
-            ()=> this.accService.GetMyAccount(),
+            ()=> this.accService.GetMyAccount({extended:true}),
             (res) => {
                 this.MyAccounts = res;
                 if(this.MyAccounts.length > 0)

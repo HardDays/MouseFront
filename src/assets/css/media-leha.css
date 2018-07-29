@@ -28,6 +28,10 @@
     top: 10px;
     left: 0; 
 }
+.new-flex-ul-li{
+  display: flex;
+  align-items: center;
+}
 .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_right .settings_right_wrap .setts_padding.over-none{
      position: relative;
      overflow: hidden;
@@ -147,9 +151,28 @@
     margin-left: 0;
   }
 }
-
+@media (max-width: 1300px) {
+  
+  .create-event-nav-tabs .create-event-header ul li {
+      padding: 0 17px;
+  }
+  .tickets-flex-body .right-ticket .shadow-wr .ticket-options .r-s .desc-num{
+    font-size: 13px;
+  }
+}
 
 @media (max-width: 1199px) {
+  .new-flex-ul-li{
+    display: block;
+  }
+  .create-event-nav-tabs .create-event-header .new-flex-ul-li ul{
+      margin-top: 15px;
+  }
+  
+  .create-event-nav-tabs .create-event-header ul{
+    height: auto;
+    flex-wrap: wrap;
+  }
   .modal-send-request.map-1-modal .modal-dialog {
       max-width: 730px;
   }
@@ -296,11 +319,40 @@
 
 
 
-
-
-
-
-
+.create-event-nav-tabs .for-header-shadow{
+  padding: 20px 40px;
+}
+.create-event-nav-tabs .create-event-header ul li {
+  padding: 0 18px;
+}
+.create-event-body-1 .create-event-body .flex-body-1 .side:nth-child(2){
+  padding-right: 0;
+}
+.flex-funding-columns.md-style-col-change{
+  flex-wrap: wrap;
+}
+.flex-funding-columns.md-style-col-change .side{
+  width: 50%;
+}
+.flex-funding-columns.md-style-col-change .side:last-child{
+  padding-left: 0;
+  width: 100%;
+}
+.flex-funding-columns.md-style-col-change .side:nth-child(2){
+  padding-right: 0;
+  
+}
+.tickets-flex-body .right-ticket .shadow-wr .ticket-options.active{
+  display: block;
+}
+.tickets-flex-body .right-ticket .shadow-wr .ticket-options .l-s{
+  width: 100%;
+  padding-right: 0;
+}
+.tickets-flex-body .right-ticket .shadow-wr .ticket-options .r-s{
+  width: 100%;
+  padding-left: 0;
+}
 
 
 
@@ -320,9 +372,23 @@
 }
 
 @media (max-width: 991px) {
+  .tickets-flex-body .left-ticket .tickets-left-info{
+    display: block;
+
+  }
+  .tickets-flex-body .left-ticket .tickets-left-info .info-text{
+    padding-right: 0;
+  }
+  .flex-funding-columns .side .top-gum .artists-venue-wrapp .one-block .ava-l .ava{
+    width: 45px;
+    height: 45px;
+  }
   .abs-arr-left-reg{
     left: 16px;
 
+  }
+  .create-event-nav-tabs .create-event-header .new-flex-ul-li ul{
+    padding-bottom: 0;
   }
   .register .m-v-reg .reg-wr h3{
     max-width: 280px;
@@ -489,7 +555,12 @@
 .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr .one-day:hover .popup-inform-tiny-calendar{
   display: block;
 }
-
+.main-mw-5 .tabs-venue-wrapp .one-tab-flex.no-wrapp-991{
+  flex-wrap: nowrap;
+}
+.create-event-nav-tabs .create-event-header ul{
+  flex-wrap: wrap;
+}
 
 
 
@@ -497,6 +568,53 @@
 
 }
 @media (max-width: 767px) {
+  .flex-funding-columns.md-style-col-change .side{
+    width: 100%;
+    padding-left: 0!important;
+    padding-right: 0!important;
+  }
+  .create-event-nav-tabs .create-event-header ul li:nth-child(6){
+    position: relative;
+    bottom: auto;
+    left: auto;
+    margin: 0;
+    transform: none;
+    padding: 0 18px;
+  }
+  .create-event-nav-tabs .create-event-header ul li:nth-child(7){
+    padding: 0 18px!important;
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    margin: 0;
+  }
+  
+  .create-event-nav-tabs .create-event-header ul li:nth-child(5){
+    padding-right: 18px;
+  }
+  
+  .create-event-nav-tabs .create-event-header .new-flex-ul-li ul li:first-child{
+    padding-left: 20px;
+  }
+  .create-event-nav-tabs .create-event-header .new-flex-ul-li ul li:last-child{
+    padding-right: 20px;
+  }
+  .create-event-nav-tabs .create-event-header .new-flex-ul-li ul li .butt-style-1{
+    font-size: 12px;
+    width: 104px!important;
+    border-width: 3px;
+  }
+  .create-event-nav-tabs .for-header-shadow{
+    padding: 0;
+  }
+  .create-event-nav-tabs .create-event-header .new-flex-ul-li ul.xs-padd-less li{
+    padding: 0 10px;
+    margin-bottom: 10px;
+  }
+  .create-event-nav-tabs .create-event-header .new-flex-ul-li ul li .butt-style-1 span{
+      padding: 5px!important;
+  }
   .class-for-event-bind .create-event-nav-tabs .create-event-header ul li:last-child{
     padding-left: 0;
   }
@@ -1010,7 +1128,35 @@
 .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr.un-active + .un-active .one-day:before{
   display: none;
 }
+.main-mw-5 .tabs-venue-wrapp .one-tab-flex.no-wrapp-991{
+  flex-wrap: wrap;
+}
+.tickets-flex-body{
+  display: block;
+}
+.tickets-flex-body .left-ticket{
+  width: 100%;
+  padding-right: 0;
+}
+.tickets-flex-body .right-ticket{
+  width: 100%;
 
+}
+.create-event-nav-tabs .create-event-header ul li .nav-second-outlet{
+  font-size: 17px;
+}
+.tickets-flex-body .left-ticket .pick-tickets-wr{
+  padding-top: 5px;
+}
+.tickets-flex-body .left-ticket{
+  margin-bottom: 40px;
+}
+.tickets-flex-body .right-ticket .shadow-wr{
+  padding: 20px 15px;
+}
+.tickets-flex-body .right-ticket .shadow-wr .ticket-options .add-to-active-b{
+  bottom: 0;
+}
 
 
 

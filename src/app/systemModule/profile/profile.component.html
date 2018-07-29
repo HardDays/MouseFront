@@ -1,7 +1,8 @@
 <app-preloader *ngIf="isLoading"></app-preloader>
 <section class="main-router-outlet" [ngStyle]="{'display': isLoading?'none':'block'}">
+<!-- <section class="main-router-outlet" *ngIf="!isLoading"> -->
 
-    <venue-profile-selector *ngIf="Account.account_type == Roles.Venue&&isAccReadyToShow" [MyProfileId]="MyAccountId" [Account]="Account" [Image]="baseImageMy"
+    <venue-profile-selector *ngIf="Account.account_type == Roles.Venue&& isAccReadyToShow" [MyProfileId]="MyAccountId" [Account]="Account" [Image]="baseImageMy"
         [Fans]="Fans" [IsMyAccount]="isMyAccount" [VenueId]="Account.id" [isFolowedAcc]="isFolowedAcc" (onFollow)="FollowOrUnfollowProfile($event)">
     </venue-profile-selector>
 
