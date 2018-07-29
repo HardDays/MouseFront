@@ -67,7 +67,7 @@
         >
         </app-artist-calendar>
 
-        <div class="create-event-body-1">
+        <div class="create-event-body-1"  [ngStyle]="{'padding': currentPage==pages.preview ? '0':''}">
 
             <app-artist-media #MediaPage  *ngIf="currentPage == pages.media" 
                 [Artist]="Artist" 
