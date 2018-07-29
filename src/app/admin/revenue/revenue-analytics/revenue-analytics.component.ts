@@ -166,6 +166,7 @@ export class RevenueAnalyticsComponent extends BaseComponent implements OnInit {
         console.log("No Advertising content" ,err);
         
       }
+
     )
   }
   GetRevenueCountsAdvertisingSales(period:string){
@@ -174,6 +175,7 @@ export class RevenueAnalyticsComponent extends BaseComponent implements OnInit {
       (res)=>{
         res=>this.countsAdvertisingSales = res;
       }
+
     )
   }
   GetRevenueCountsArtistTotal(period:string){

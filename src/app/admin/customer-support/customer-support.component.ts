@@ -90,9 +90,11 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
           if(this.openQuestion.question_reply.sender.image_id){
             this.openQuestion.question_reply.sender.image_base64_not_given = this.main.imagesService.GetImagePreview(this.openQuestion.question_reply.sender.image_id,{width:100,height:100})
           }
+          
         }
 
-      })
+      }
+    )
   }
 
   UpdateAnwerOptions()
