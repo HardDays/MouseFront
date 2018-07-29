@@ -37,14 +37,14 @@
                         </li> -->
                     </ul>
                     <ul class="xs-padd-less">
-                        <li class="inline-butt-nav-create" *ngIf="(EventId !== 0 && !isNewEvent) || (isNewEvent && currentPage == pages.tickets)">
+                        <li class="inline-butt-nav-create" *ngIf="(EventId !== 0 && !isNewEvent) || (isNewEvent && currentPage == pages.venue)">
                             <button (click)="SaveEvent()" class="butt-style-1" style="width: 127px">
                                 <span style="padding: 10px 21px">
                                 SAVE
                                 </span>
                             </button>
                         </li>
-                        <li class="inline-butt-nav-create" *ngIf="(EventId !== 0 && !isNewEvent)&&Event.status===eventStatus.New">
+                        <li class="inline-butt-nav-create" *ngIf="Event.status===eventStatus.Approved||Event.status===eventStatus.Inactive">
 
                             <button (click)="launchButtonClick()" class="butt-style-1" style="width: 159px">
                                 <span style="padding: 10px 0;">
@@ -60,7 +60,7 @@
                             </button>
                         </li> -->
                        
-                        <li class="inline-butt-nav-create" *ngIf="(EventId !== 0 && !isNewEvent)&&Event.status===eventStatus.New">
+                        <li class="inline-butt-nav-create" *ngIf="Event.status===eventStatus.New">
                             <button (click)="verifyButtonClick()" class="butt-style-1" style="width: 159px">
                                 <span style="padding: 10px 0;">
                                 Verify event

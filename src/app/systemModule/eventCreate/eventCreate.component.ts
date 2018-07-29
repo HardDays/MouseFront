@@ -176,7 +176,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         );
         
         this.isShowLaunch = this.isShowLaunchBtn();
-        // this.isHasVenue = this.Event.venue?true:false;
+        this.isHasVenue = this.Event.venue?true:false;
 
       },
       (err) => {
@@ -205,7 +205,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
           // this.errorCmp.OpenWindow(BaseMessages.Success);
 
           this.isShowLaunch = this.isShowLaunchBtn();
-          // this.isHasVenue = this.Event.venue?true:false;
+          this.isHasVenue = this.Event.venue?true:false;
 
         },
         (err) => {
@@ -327,7 +327,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         // this.isShowLaunchBtn();
         // this.isShowLaunch = false;
         this.isHasVenue = this.Event.venue?true:false;
-
+        this.Event.status = EventStatus.Active;
+        console.log(`ok`);
       },
       (err)=>{
         // console.log(`err`,err);
@@ -343,6 +344,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         // this.Event.is_active = true;
         // this.isShowLaunchBtn();
         // this.isShowLaunch = false;
+        this.Event.status = EventStatus.Pending;
         this.isHasVenue = this.Event.venue?true:false;
         console.log(`ok`);
       },
@@ -359,6 +361,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         // this.Event.is_active = false;
         // this.isShowLaunchBtn();
         // this.isShowLaunch = true;
+        this.Event.status = EventStatus.Inactive;
         this.isHasVenue = this.Event.venue?true:false;
 
       },

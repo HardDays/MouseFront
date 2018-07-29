@@ -57,9 +57,10 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
   isAcceptedArtistShow:boolean = true;
   // showModalRequest:boolean = false;
-
+  
   requestArtistForm : FormGroup = new FormGroup({
-    "time_frame": new FormControl("",[Validators.required]),
+    "time_frame_range": new FormControl("",[Validators.required]),
+    "time_frame_number": new FormControl("",[Validators.required]),
     "is_personal": new FormControl(""),
     "estimated_price": new FormControl("",[Validators.required]),
     "message": new FormControl("")

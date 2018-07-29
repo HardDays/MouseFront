@@ -19,7 +19,7 @@
                     <div *ngIf="!isLoadingArtist&&activeArtist.length>0" class="artists-venue-wrapp">
                         <div *ngFor="let artist of activeArtist; let i = index" class="one-block">
                             <div class="ava-l">
-                                <div class="ava" [ngStyle]="{'background-image': artist.object.artist.image_base64?'url('+artist.object.artist.image_base64+')':''}"></div>
+                                <div class="ava" [ngClass]="{'checked':artist.object.status===Statuses.Active||artist.object.status===Statuses.OwnerAccepted}" [ngStyle]="{'background-image': artist.object.artist.image_base64?'url('+artist.object.artist.image_base64+')':''}"></div>
                                 <a [routerLink]="['/system/profile',artist.object.artist_id]" class="name">{{artist['object']['artist']['user_name']}}</a>
                             </div>
                             <div class="price-r">
@@ -50,7 +50,7 @@
                     <div *ngIf="!isLoadingVenue&&activeVenue.length>0" class="artists-venue-wrapp">
                         <div *ngFor="let venue of activeVenue; let i = index" class="one-block">
                             <div class="ava-l">
-                                <div class="ava" [ngStyle]="{'background-image': venue.object.venue.image_base64?'url('+venue.object.venue.image_base64+')':''}"></div>
+                                <div class="ava" [ngClass]="{'checked':venue.object.status===Statuses.Active||venue.object.status===Statuses.OwnerAccepted}" [ngStyle]="{'background-image': venue.object.venue.image_base64?'url('+venue.object.venue.image_base64+')':''}"></div>
                                 <a [routerLink]="['/system/profile',venue.object.venue_id]" class="name">{{venue['object']['venue']['user_name']}}</a>
                             </div>
                             <div class="price-r">

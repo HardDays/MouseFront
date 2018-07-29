@@ -1,5 +1,13 @@
 import { EventGetModel } from "./eventGet.model";
 
+interface Sender{
+    image_id: number,
+    image_base64:string,
+    user_name: string,
+    account_type: string,
+    full_name: string
+}
+
 export class InboxMessageModel{
     constructor(
            public id?: number,
@@ -12,7 +20,7 @@ export class InboxMessageModel{
            public is_read?:boolean,
            public simple_message?:any,
            public message_info?: MessageInfoModel,
-         
+           public sender?: Sender
     ){}
 }
 
@@ -32,6 +40,10 @@ export class MessageInfoModel{
         public event_info?:EventGetModel,
         public estimated_price?:number,
         public time_frame?:string,
-        public message?: string
+        public time_frame_range?:string,
+        public time_frame_number?:number,
+        public message?: string,
+        public expiration_date?:string,
+        public status?:string,
     ){}
 }

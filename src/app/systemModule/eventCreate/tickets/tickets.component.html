@@ -118,19 +118,19 @@
 
                             <div *ngIf="currentTicket.is_promotional" class="flex-date-inputs">
                                 <div class="one-date-block">
-                                    <div class="date-icon"></div>
+                                    <div (click)="dpFrom.show()" class="date-icon"></div>
                                     <div class="rr">
                                         <span class="desc-date">Start Date</span>
                                         <!--тут дейт пикер.убрать placeholder-->
-                                        <input bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerFromModel" class="input-date">
+                                        <input #dpFrom="bsDatepicker" bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerFromModel" class="input-date">
                                     </div>
                                 </div>
                                 <div class="one-date-block">
-                                    <div class="date-icon"></div>
+                                    <div (click)="dpTo.show()" class="date-icon"></div>
                                     <div class="rr">
                                         <span class="desc-date">End Date</span>
                                         <!--тут дейт пикер.убрать placeholder-->
-                                        <input bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerToModel" class="input-date">
+                                        <input #dpTo bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerToModel" class="input-date">
                                     </div>
                                 </div>
                                 

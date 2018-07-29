@@ -64,3 +64,19 @@ select{
      animation: rotate 2.0s infinite linear;
     
  }
+ 
+ .flex-funding-columns .side .top-gum .artists-venue-wrapp .one-block .ava-l .ava.checked:after {
+    content: "";
+    display: block;
+    position: absolute;
+    /* top: 0; */
+    /* right: 0; */
+    width: 26px;
+    height: 26px;
+    background-image: url(./../../../../assets/img/checked.svg);
+    background-color: #eb2d64;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 50%;
+    background-size: 15px; 
+}

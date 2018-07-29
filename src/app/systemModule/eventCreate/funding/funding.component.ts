@@ -5,7 +5,7 @@ import { GetArtists, EventGetModel } from '../../../core/models/eventGet.model';
 import { BaseComponent } from '../../../core/base/base.component';
 import { Base64ImageModel } from '../../../core/models/base64image.model';
 import { EventCreateModel } from '../../../core/models/eventCreate.model';
-import { BaseImages, RequestFields, AccountStatus, InviteStatus } from '../../../core/base/base.enum';
+import { BaseImages, RequestFields, AccountStatus, InviteStatus, ArtistFields } from '../../../core/base/base.enum';
 import { InboxMessageModel } from '../../../core/models/inboxMessage.model';
 
 @Component({
@@ -27,6 +27,8 @@ export class FundingComponent extends BaseComponent implements OnInit {
     isLoadingVenue = true;
 
     messagesList:InboxMessageModel[] = [];
+
+    Statuses = InviteStatus;
 
     @Input() Event:EventCreateModel;
     @Input() isHasVenue:boolean;
@@ -61,7 +63,11 @@ export class FundingComponent extends BaseComponent implements OnInit {
                     subscribe((msg)=>{
                         this.messagesList.push(msg);
                         if(this.messagesList.length===res.length)
-                            this.getActiveArtVen();
+                            setTimeout(() => {
+                                console.log(this.messagesList)
+                                this.getActiveArtVen();
+                            }, 300);
+                            
                 },(err)=>{
                     this.isLoadingArtist = false;
                     this.isLoadingVenue = false;
@@ -262,12 +268,13 @@ export class FundingComponent extends BaseComponent implements OnInit {
     getPriceAtMsg(senderId:number){
         if(this.messagesList){
             for(let m of this.messagesList){
-                console.log(m);
+               
                 if( m.sender_id === senderId && 
                     m.receiver_id === this.Event.creator_id &&
                     m.message_info&&m.message_info.event_info&&
                     m.message_info.event_info.id === this.Event.id){
-                        return m.message_info.price;
+                        console.log(m);
+                        return m.message_info.price||m.message_info.estimated_price;
                 }
                 
             }

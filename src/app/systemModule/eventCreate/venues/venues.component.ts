@@ -57,7 +57,8 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     //venueShowsList:AccountGetModel[] = [];
     requestVenues:AccountGetModel[] = []; // список тех, кому отправлен запрос, брать из Event
     requestVenueForm : FormGroup = new FormGroup({        
-        "time_frame": new FormControl("",[Validators.required]),
+        "time_frame_range": new FormControl("",[Validators.required]),
+        "time_frame_number": new FormControl("",[Validators.required]),
         "is_personal": new FormControl(""),
         "estimated_price": new FormControl("",[Validators.required]),
         "message": new FormControl("")

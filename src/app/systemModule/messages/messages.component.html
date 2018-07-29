@@ -4,19 +4,19 @@
         <div class="main-mw">
             <div class="flex-massages-wrapp" style="position:relative;">
 
-
-                
                     <div *ngIf="messages.length<=0" class="empty-info">
                         <img src="./../../../assets/img/smile.svg" class="img-responsive" alt="">
                         <p>You have no messages yet</p>
-                        
                     </div>
                
-                
                     <div class="left-s">
                         <div class="rotate-xs-wrapper">
                         <!--задаем класс active при клике-->
+
+
                             <ng-container *ngFor="let item of messages; let i = index">
+
+
                                 <div *ngIf="item.message_type != 'blank'" [ngClass]="{'active':item.id==idCurMsg}" (click)="changeItem(item,i);" class="one-msg-l-block active">
                                     <div class="name-ava">
                                         <div class="ava" [ngStyle]="{'background-image': (accs[i]&&accs[i].image_base64_not_given)?'url('+accs[i].image_base64_not_given+')':''}"></div>
@@ -29,11 +29,11 @@
                                             <span [ngClass]="{'active':!item.is_read}" class="some-t active">{{item.message_type}} to Perform</span>
                                             <span class="when">{{item.created_at | date:'MMM d' }}</span>
                                         </p>
-                                        <p class="name-e">{{item.message_info.event_info.name}}</p>
+                                        <p class="name-e">{{item.message_info&&item.message_info.event_info&&item.message_info.event_info.name?item.message_info.event_info.name:''}}</p>
                                         <p  class="where-when">
-                                                {{item.message_info.event_info.address}}
+                                                {{item.message_info.event_info?item.message_info.event_info.address:''}}
                                             <br>
-                                            {{item.message_info.event_info.event_season | titlecase}} {{item.message_info.event_info.event_year}}
+                                            {{item.message_info.event_info?item.message_info.event_info.event_season:'' | titlecase}} {{item.message_info.event_info?item.message_info.event_info.event_year:''}}
 
                                         </p>
                                         
@@ -46,8 +46,8 @@
                                 <div *ngIf="item.message_type == 'blank'" [ngClass]="{'active':item.id==idCurMsg}" (click)="changeItem(item,i);" class="one-msg-l-block active">
                                     <div class="name-ava">
                                         <div class="ava" [ngStyle]="{'background-image': (accs[i]&&accs[i].image_base64_not_given)?'url('+accs[i].image_base64_not_given+')':''}"></div>
-                                        <p class="n">{{accs[i]?accs[i].display_name:''}}</p>
-                                        <p class="hash"><span>@</span>{{accs[i]?accs[i].user_name:''}}</p>
+                                        <p class="n">{{accs[i]&&accs[i].display_name?accs[i].display_name:''}}</p>
+                                        <p *ngIf="accs[i]&&accs[i].user_name" class="hash"><span>@</span>{{accs[i]&&accs[i].user_name?accs[i].user_name:''}}</p>
                                     </div>
                                     <div  class="descr-side">
                                         <p class="f">
@@ -213,7 +213,7 @@
                         </div>
                     </div>
 
-                    <div *ngIf="openMessage.message_type == 'blank'" class="right-s">
+                    <!-- <div *ngIf="openMessage.message_type == 'blank'" class="right-s">
                         <div *ngIf="openMessage.id" class="some-request-text-wrapper">
                             <div class="block-info f-b">
                                 <span class="some-t">{{openMessage.name}}</span>
@@ -232,7 +232,7 @@
                                 
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                
             </div>
         </div>

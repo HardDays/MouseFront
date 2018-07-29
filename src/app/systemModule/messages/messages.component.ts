@@ -23,7 +23,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
   bsRangeValue: Date[];
   maxDate = new Date();
   minDate = new Date();
-  bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-red' });;
+  bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-default' });;
 
   accountId:number;
   type:string;
