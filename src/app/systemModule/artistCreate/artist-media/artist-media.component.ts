@@ -318,7 +318,7 @@ GetArtistImages()
 {
   // this.ArtistImages = [];
   this.isImageLoading = true;
-  this.main.imagesService.GetAccountImages(this.ArtistId,{limit:5})
+  this.main.imagesService.GetAccountImages(this.ArtistId)
     .subscribe(
       (res:any)=>{
         if(res && res.total_count > 0)
