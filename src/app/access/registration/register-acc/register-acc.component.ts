@@ -117,7 +117,8 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
 
   backTo()
   {
-    this.back.emit('phone');
+    this.main.authService.DeleteMyUser();
+    this.back.emit('user');
   }
 
   loadLogo($event:any):void

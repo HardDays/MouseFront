@@ -17,3 +17,9 @@
     display: flex !important;
     flex-wrap: wrap;
 }
+
+@media (max-width: 991px) {
+    .slider-2-albums{
+        margin: 0 -10px;
+    }
+}

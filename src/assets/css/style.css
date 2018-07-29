@@ -8025,11 +8025,15 @@ footer {
                 color: #a3a3a3; }
                 
                   /* material select */
-              
+                .mat-form-field{
+                  display: block!important;
+                  }
                 .mat-select:focus:not(.mat-select-disabled).mat-primary 
                 .mat-select-arrow , .mat-select-underline , .mat-select-trigger 
                 {
                     color: none;
+                    
+                    /* min-width: 120px; */
                     
                 }
                 
@@ -8076,4 +8080,5 @@ footer {
                     .main-mw-5 .tabs-venue-wrapp .one-tab-flex .side .filter-venue .input-groupe-1 label,.main-mw-5 .tabs-venue-wrapp .one-tab-flex .side .filter-venue .input-groupe-1 .head-groupe{
                       font-size:12px;
                   }
+                  
 /*# sourceMappingURL=style.css.map */
