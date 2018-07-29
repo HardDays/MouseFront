@@ -78,6 +78,8 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
   ArtistId:number = 0;
   ArtistImageId:number = 0;
 
+  isNewArtist = false;
+
   // isMediaWasOpen:boolean = false;
 
   // isSaveButtonClick:boolean = false;
@@ -110,6 +112,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
       (params:Params) => {
         if(params["id"] == 'new')
         {
+          this.isNewArtist = true;
           this.DisplayArtistParams(null);
         }
         else

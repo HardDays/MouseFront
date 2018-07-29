@@ -80,6 +80,8 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
   VenueId:number = 0;
   VenueImageId:number = 0;
 
+  isNewVenue = false;
+
 
   @ViewChild('about') about:VenueAboutComponent;
   @ViewChild('hours') hours:VenueHoursComponent;
@@ -109,6 +111,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
       (params) => {
         if(params["id"] == 'new')
         {
+          this.isNewVenue = true;
           this.DisplayVenueParams(null);
         }
         else
