@@ -12,6 +12,7 @@ import { VenueMediaPhotoModel } from '../../../core/models/venueMediaPhoto.model
 import { ImageAccModel, ImageAccModelAnswer } from '../../../core/models/imageAcc.model';
 import { BaseMessages } from '../../../core/base/base.enum';
 
+declare var $:any;
 
 @Component({
     selector: 'venue-media-selector',
@@ -93,6 +94,9 @@ export class VenueMediaComponent extends BaseComponent implements OnInit,OnChang
             this.onError.emit(this.getFormErrorMessage(this.mediaForm, 'venue'));
             return;
         }
+        $('html,body').animate({
+            scrollTop: 0
+        }, 0);
         this.onSaveVenue.emit(this.Venue);
     }
 

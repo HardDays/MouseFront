@@ -13,6 +13,8 @@ import * as moment from 'moment';
 import { VenueDatesModel } from '../../../core/models/venueDatesModel';
 import { AccountGetModel } from '../../../core/models/accountGet.model';
 
+declare var $:any;
+
 @Component({
     selector: 'venue-dates-selector',
     templateUrl: './dates.component.html',
@@ -70,6 +72,9 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
             this.onError.emit(this.getFormErrorMessage(this.dateForm, 'venue'));
             return;
         }
+        $('html,body').animate({
+            scrollTop: 0
+        }, 0);
         this.onSaveVenue.emit(this.Venue);
     }
 

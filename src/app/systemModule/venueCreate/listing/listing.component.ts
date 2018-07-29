@@ -10,6 +10,7 @@ import { ContactModel } from '../../../core/models/contact.model';
 import { SelectModel } from '../../../core/models/select.model';
 import {BaseMessages} from '../../../core/base/base.enum';
 
+declare var $:any;
 
 @Component({
     selector: 'venue-listing-selector',
@@ -73,7 +74,9 @@ export class VenueListingComponent extends BaseComponent implements OnInit,OnCha
             this.onError.emit(this.getFormErrorMessage(this.detailsForm, 'venue'));
             return;
         }
-
+        $('html,body').animate({
+            scrollTop: 0
+        }, 0);
 
         if(this.Venue.type_of_space != "other" && this.Venue.other_genre_description)
         {
