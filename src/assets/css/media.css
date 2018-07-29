@@ -348,7 +348,7 @@
   .tabs-venue-wrapp .for-padd-cards-art .scroll-cards-art .one-card .l-s .desc {
     padding-left: 10px;
   }
-  .create-event-body-1 .create-event-body .flex-body-1 .side:last-child .input-groupe-1.whithout-label {
+  .create-event-body-1.create-artist .create-event-body .flex-body-1 .side:last-child .input-groupe-1.whithout-label {
     width: 100%;
   }
 }
@@ -496,7 +496,7 @@
   .tabs-venue-wrapp {
     margin: 0;
   }
-  .main-mw-5 .tabs-venue-wrapp .one-tab-flex .side {
+  .main-mw-5 .tabs-venue-wrapp .one-tab-flex .side.side-xs-45 {
     width: 45%;
   }
   .main-mw-5 .tabs-venue-wrapp .one-tab-flex .side.width-66 {
@@ -994,6 +994,9 @@
   .main-mw-5 .tabs-venue-wrapp .one-tab-flex .side {
     width: 100%;
     padding: 0 15px;
+  }
+  .main-mw-5 .tabs-venue-wrapp .one-tab-flex .side.side-xs-45 {
+    width: 100%;
   }
   .main-mw-5 .tabs-venue-wrapp .one-tab-flex .side.width-66 {
     width: 100%;
