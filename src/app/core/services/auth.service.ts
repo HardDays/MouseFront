@@ -169,6 +169,18 @@ export class AuthMainService{
             ()=> this.http.PostData('/users.json',JSON.stringify(user))
         );
     }
+
+    DeleteMyUser(){
+        return this.http.CommonRequest(
+            ()=> this.http.DeleteData('/users.json')
+        ).subscribe(()=>{
+            this.http.token = null;
+            this.http.headers.delete('Authorization');
+            localStorage.removeItem('token');
+            localStorage.removeItem('activeUserId');
+        })
+    }
+
     UpdateUser(user:UserCreateModel){
         // console.log(user);
         return this.http.CommonRequest(
