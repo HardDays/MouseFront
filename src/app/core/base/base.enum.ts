@@ -149,6 +149,8 @@ export enum BaseFields {
 }
 
 export enum RequestFields {
+    time_frame_range = 'Time frame range',
+    time_frame_number = 'Time frame number',
     time_frame = 'Time frame',
     is_personal = 'Type',
     estimated_price = 'Estimated price',

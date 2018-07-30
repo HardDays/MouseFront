@@ -120,8 +120,9 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
   GengeSearch($event:string){
     let search = $event;
     if(search.length>0) {
+      console.log(this.genres,search)
       for(let g of this.genres)
-          if(g.genre_show.indexOf(search.toUpperCase())>=0)
+          if(g.genre_show.indexOf(search.toLowerCase())>=0)
           g.show = true;
           else
           g.show = false;

@@ -143,7 +143,7 @@ export class AboutComponent extends BaseComponent implements OnInit {
     var search = $event;
      if(search.length>0) {
        for(let g of this.genres)
-          if(g.genre_show.indexOf(search.toUpperCase())>=0)
+          if(g.genre_show.indexOf(search.toLowerCase())>=0)
            g.show = true;
           else
            g.show = false;
