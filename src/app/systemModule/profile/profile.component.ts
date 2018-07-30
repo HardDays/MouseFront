@@ -86,7 +86,7 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
         this.main.CurrentAccountChange.subscribe(
             (val:AccountGetModel) => {
                 this.MyAccountId = val.id;
-                
+                this.Account = val;
             }
         );
     }
