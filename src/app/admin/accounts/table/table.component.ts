@@ -26,6 +26,8 @@ export class TableComponent extends BaseComponent implements OnInit {
 
   SearchName = '';
 
+  ScrollArtistDisabled = false;
+
  ngOnChanges(changes: SimpleChanges): void {
     if(changes.Accounts){
         this.AccountsChecked = this.Accounts = changes.Accounts.currentValue;   
@@ -34,6 +36,20 @@ export class TableComponent extends BaseComponent implements OnInit {
       this.EventsChecked = this.Events = changes.Events.currentValue;   
     }
 
+  }
+
+  onScrollArtist(){
+    console.log(`123`)
+    this.ScrollArtistDisabled = true;
+      this.main.adminService.GetAccountsRequests({account_type: this.TypeAcc,limit:20,offset:this.Accounts.length})
+        .subscribe((res)=>{
+          this.Accounts.push(...res);
+  
+          setTimeout(() => {
+            this.ScrollArtistDisabled = false;
+          }, 300);
+         
+        })
   }
 
   ngOnInit() {

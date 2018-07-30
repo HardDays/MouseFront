@@ -39,7 +39,7 @@ export class AccountsComponent extends BaseComponent implements OnInit {
   }
 
   getAccounts(){
-    this.main.adminService.GetAccountsRequests()
+    this.main.adminService.GetAccountsRequests({account_type: 'all',limit:20,offset:0})
       .subscribe((res)=>{
         this.Accounts = res;
       })

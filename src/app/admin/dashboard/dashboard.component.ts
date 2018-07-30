@@ -16,6 +16,8 @@ export class DashboardComponent extends BaseComponent implements OnInit {
   Counts = {fan:0, artist:0, venue:0};
   Accounts: CheckModel<AccountGetModel>[] = [];
   Events:CheckModel<any>[] = [];
+  ScrollArtistDisabled = true;
+  ScrollEventsDisabled = true;
 
   ngOnInit() {
     this.GetInfo();
@@ -29,19 +31,51 @@ export class DashboardComponent extends BaseComponent implements OnInit {
       }
     )
 
-    this.main.adminService.GetAccountsRequests()
+    this.main.adminService.GetAccountsRequests({account_type: 'all',limit:20,offset:0})
       .subscribe(
         (res)=>{
           this.Accounts = this.convertArrToCheckModel<any>(res);
-          //  console.log(this.Accounts);
+          setTimeout(() => {
+            this.ScrollArtistDisabled = false;
+          }, 200);
         }
       )
 
-    this.main.adminService.GetEventsRequests()
+    this.main.adminService.GetEventsRequests({limit:20,offset:0})
       .subscribe(
         (res)=>{
           this.Events = this.convertArrToCheckModel<any>(res);
           //  console.log(res);
+          setTimeout(() => {
+            this.ScrollEventsDisabled = false;
+          }, 200);
+        }
+      )
+  }
+
+  onScrollArtist(){
+    this.ScrollArtistDisabled = true;
+    this.main.adminService.GetAccountsRequests({account_type: 'all',limit:20,offset:this.Accounts.length})
+      .subscribe(
+        (res)=>{
+          this.Accounts.push(...this.convertArrToCheckModel<any>(res));
+          setTimeout(() => {
+            this.ScrollArtistDisabled = false;
+          }, 200);
+        }
+      )
+  }
+
+  onScrollEvent(){
+    this.ScrollEventsDisabled = true;
+    this.main.adminService.GetEventsRequests({limit:20,offset:this.Events.length})
+      .subscribe(
+        (res)=>{
+          this.Events.push(...this.convertArrToCheckModel<any>(res));
+          //  console.log(res);
+          setTimeout(() => {
+            this.ScrollEventsDisabled = false;
+          }, 200);
         }
       )
   }

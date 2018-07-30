@@ -26,7 +26,14 @@
                 <div class="admin_table_th">Account</div>
                 <div class="admin_table_th">Address</div>
             </div>
-            <div class="admin_table_tbody_scroll">
+            
+            <div class="admin_table_tbody_scroll" infinite-scroll 
+                [infiniteScrollDistance]="2"
+                [scrollWindow]="false" 
+                [infiniteScrollThrottle]="50"
+                (scrolled)="onScrollArtist()"
+                [infiniteScrollDisabled]="ScrollArtistDisabled"
+            >
                 <ng-container *ngFor="let acc of Accounts; let i = index">
                     <div class="admin_table_tr" [ngClass]="{'checked':acc.checked}">
                         <div class="admin_table_td check_column">
@@ -59,7 +66,12 @@
                 <div class="admin_table_th">Place</div>
                 <div class="admin_table_th">Funding type</div>
             </div>
-            <div class="admin_table_tbody_scroll">
+            <div class="admin_table_tbody_scroll" infinite-scroll 
+            [infiniteScrollDistance]="2"
+            [scrollWindow]="false" 
+            [infiniteScrollThrottle]="50"
+            (scrolled)="onScrollEvent()"
+            [infiniteScrollDisabled]="ScrollEventsDisabled">
                 <ng-container *ngFor="let event of Events; let i = index">
                     <div class="admin_table_tr" [ngClass]="{'checked':event.checked}">
                         <div class="admin_table_td check_column">
