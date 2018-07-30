@@ -14,7 +14,6 @@ html, body{
 .modal-send-request.map-1-modal .modal-dialog .for-map-init-modal-1{
   border: none;  
 }
-
 .slider-2-albums .one-slide
 {
     width:50%;   
@@ -24,7 +23,6 @@ html, body{
   word-wrap: break-word;
   margin-right: 15px;
 }
-
 .head-info-profile-wr.head-info-artist .flex-artist-main-info .side.right-side .bg-slider{
   min-height: 430px;
 }
@@ -58,7 +56,6 @@ html, body{
 }
 
 .version-container{
- 
   width: auto;
   left: 50%;
   transform:translateX(-50%);
@@ -92,12 +89,10 @@ html, body{
     flex-shrink: 0;
   }
   .create-event-body-1.none-padd-un-q .calendar-add-artist{
-   
       position: relative;
       padding: 50px 0;
       width: calc(100% + 160px);
       left: -80px;
-  
   }
  
 }
@@ -126,19 +121,6 @@ html, body{
     min-height: auto;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 @media (max-width: 1400px) {
   .modal-send-request.map-1-modal .modal-dialog .for-map-init-modal-1 {
     height: 500px;
@@ -158,8 +140,6 @@ html, body{
   .head-info-profile-wr.head-info-artist .flex-artist-main-info .side.right-side .bg-slider .slideshow-container{
     min-height: 400px!important;
   }
-
-
   .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_right{
     margin-right: 5%;
     width: 47%;
@@ -167,9 +147,6 @@ html, body{
   .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_left {
     width: 40%;
   }
-  
-
-
 }
 
 @media (max-width: 1350px) {
@@ -294,8 +271,6 @@ html, body{
 .class-for-event-bind .create-event-body-1 .create-event-body .flex-body-1 .side.class-uniq-xs:last-child .input-groupe-1{
   width: 47%;
 }
-
-
 .class-for-event-bind .create-event-body-1 .create-event-body .flex-body-1 .side.class-uniq-xs:last-child >div:nth-child(2){
   flex: auto;
 }
@@ -304,13 +279,9 @@ html, body{
   margin-left: 0;
 
 }
-
 .class-for-event-bind .create-event-body-1 .create-event-body .flex-body-1 .side{
   margin-bottom: 20px;
 }
-
-
-
 .class-for-event-bind .create-event-body-1 .create-event-body .flex-body-1 .side.two-sides-w:last-child{
   display: block;
 }
@@ -343,11 +314,6 @@ html, body{
 .media-flex-sides .left-side{
   width: 40%;
 }
-
-
-
-
-
 .create-event-nav-tabs .for-header-shadow{
   padding: 20px 40px;
 }
@@ -394,13 +360,6 @@ html, body{
 .create-event-body-1.none-padd-un-q{
   padding: 40px;
 }
-
-
-
-
-
-
-
 }
 
 @media (max-width: 1100px) {
@@ -549,8 +508,6 @@ html, body{
   font-size: 15px;
 }
 
-
-
 .class-for-event-bind .create-event-body-1 .create-event-body .flex-body-1 .side.class-uniq-xs:last-child >div:nth-child(2){
   margin-bottom: 20px;
 }
@@ -599,11 +556,6 @@ html, body{
 .create-event-nav-tabs .create-event-header ul{
   flex-wrap: wrap;
 }
-
-
-
-
-
 }
 @media (max-width: 767px) {
   .flex-funding-columns.md-style-col-change .side{
@@ -627,7 +579,6 @@ html, body{
     transform: none;
     margin: 0;
   }
-  
   .create-event-nav-tabs .create-event-header ul li:nth-child(5){
     padding-right: 18px;
   }
@@ -773,8 +724,6 @@ html, body{
   .all-info-profile .uniq-padd-2 .flex--info .side.side-info-new-venue-prev {
       width: 100%;
   }
-
-
   .all-info-profile .uniq-padd .genres-info h3{
     font-size: 27px;
   }
@@ -1262,13 +1211,6 @@ html, body{
 .artist-media .media-flex-sides .right-side{
   padding-left: 0;
 }
-
-
-
-
-
-
-
 
 }
 
