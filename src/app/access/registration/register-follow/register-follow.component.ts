@@ -71,16 +71,21 @@ export class RegisterFollowComponent extends BaseComponent implements OnInit {
   
     let id:number = +this.main.GetCurrentAccId();
     for(let follow of this.followsId){
-      this.WaitBeforeLoading(
-        ()=>this.main.accService.AccountFollow(id,follow),
-        (res)=>{
-        }
-    )
+        this.WaitBeforeLoading(
+          ()=>this.main.accService.AccountFollow(id,follow),
+          (res)=>{
+            localStorage.removeItem('is_register');
+            this.router.navigate(['/system','shows']);
+          }
+      )
    
     }
+    if(!this.followsId.length){
+       localStorage.removeItem('is_register');
+        this.router.navigate(['/system','shows']);
+    }
     
-    localStorage.removeItem('is_register');
-    this.router.navigate(['/system','shows']);
+  
   
   }
 
