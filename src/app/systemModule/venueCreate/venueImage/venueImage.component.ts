@@ -23,12 +23,7 @@ export class VenueMediaPhotoComponent extends BaseComponent implements OnInit {
 
     GetImage()
     {
-        this.WaitBeforeLoading(
-            () => this.main.imagesService.GetImageById(this.Image.id),
-            (res:Base64ImageModel) => {
-                this.Base64 = res.base64?res.base64:BaseImages.Drake;
-            }
-        );
+        this.Base64 = this.main.imagesService.GetImagePreview(this.Image.id,{width:500,height:240});
     }
 
     DeleteImage()

@@ -36,7 +36,7 @@ export class AccountCreateModel{
             public stage_description?: string,
             public lat?: number,
             public lng?: number,
-            public dates?: EventDateModel[] | VenueDatesModel[], 
+            //public dates?: EventDateModel[] | VenueDatesModel[], 
             public emails?: ContactModel[],
 
             public country?: string,

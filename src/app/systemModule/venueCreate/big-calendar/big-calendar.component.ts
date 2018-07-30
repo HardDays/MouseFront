@@ -365,7 +365,17 @@ export class BigCalendarComponent implements OnInit, OnChanges {
             this.main.imagesService.GetImageById(imageId)
               .subscribe(
                   (res:Base64ImageModel) => {
-                      this.Images.push((res && res.base64) ? res : {base64:BaseImages.Drake,event_id:res.event_id});
+                      const url = this.main.imagesService.GetImagePreview(imageId,{width:270,height:175});
+                      const model = {
+                        base64: url,
+                        event_id:res.event_id
+                      };
+                      if(this.Images.findIndex(obj => obj.event_id == model.event_id && obj.base64 == model.base64) < 0)
+                      {
+                        this.Images.push(model);
+                      }
+                      console.log(this.eventDates);
+                      // this.Images.push((res && res.base64) ? res : {base64:BaseImages.Drake,event_id:res.event_id});
                 }
               );
         }
