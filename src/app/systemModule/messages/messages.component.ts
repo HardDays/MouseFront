@@ -64,7 +64,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
 
     this.main.MyAccountsChange.subscribe(
       (acc)=>{
-        console.log(acc);
+        //console.log(acc);
         if(acc){
           this.accountId = this.main.CurrentAccount.id;
           this.type = this.main.CurrentAccount.account_type;
@@ -182,6 +182,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
   changeItem(msg:InboxMessageModel,i:number)
   {
     this.openMessage = msg;
+    console.log(this.openMessage);
     this.idCurMsg = msg.id;
     this.accOpen =  this.accs[i];
     if( this.openMessage.message_type!='blank')

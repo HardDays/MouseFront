@@ -27,19 +27,19 @@
                                         <div  class="descr-side">
                                             <p class="f">
                                                 <!--задаем класс active если нужен кружочек. нахуй он всрался - хз-->
-                                                <span [ngClass]="{'active':!item.is_read}" class="some-t active">{{item.message_type}} to Perform</span>
-                                                <span class="when">{{item.created_at | date:'MMM d' }}</span>
+                                                <span [ngClass]="{'active':!item.is_read}" class="some-t active">{{item.message_type?item.message_type:''}} to Perform</span>
+                                                <span class="when">{{item.created_at?item.created_at:'' | date:'MMM d' }}</span>
                                             </p>
                                             <p class="name-e">{{item.message_info&&item.message_info.event_info&&item.message_info.event_info.name?item.message_info.event_info.name:''}}</p>
                                             <p  class="where-when">
-                                                    {{item.message_info.event_info?item.message_info.event_info.address:''}}
+                                                    {{item.message_info&&item.message_info.event_info?item.message_info.event_info.address:''}}
                                                 <br>
-                                                {{item.message_info.event_info?item.message_info.event_info.event_season:'' | titlecase}} {{item.message_info.event_info?item.message_info.event_info.event_year:''}}
+                                                {{item.message_info&&item.message_info.event_info?item.message_info.event_info.event_season:'' | titlecase}} {{item.message_info.event_info?item.message_info.event_info.event_year:''}}
 
                                             </p>
                                             
-                                            <p *ngIf="item.message_type == 'request'" class="price">${{item.message_info.estimated_price}}</p>
-                                            <p *ngIf="item.message_type == 'accept'" class="price">${{item.message_info.price }}</p>
+                                            <p *ngIf="item.message_type == 'request'" class="price">${{item.message_info&&item.message_info.estimated_price}}</p>
+                                            <p *ngIf="item.message_type == 'accept'" class="price">${{item.message_info&&item.message_info.price }}</p>
                                             <p *ngIf="isExpiresSoon(item.created_at, item.message_info.time_frame)=='soon'&&item.message_type == 'request'" class="expires-soon">Expires<br>Soon</p>
                                         </div>
                                     </div>
@@ -54,7 +54,7 @@
                                             <p class="f">
                                                 <!--задаем класс active если нужен кружочек. нахуй он всрался - хз-->
                                                 <span [ngClass]="{'active':!item.is_read}" class="some-t active">{{item.name}}</span>
-                                                <span class="when">{{item.created_at | date:'MMM d' }}</span>
+                                                <span class="when">{{item.created_at?item.created_at:'' | date:'MMM d' }}</span>
                                             </p>
                                             <!-- <p class="name-e">{{item.name}}</p> -->
                                             <!-- <p  class="where-when">
@@ -87,7 +87,7 @@
                         <div  *ngIf="openMessage.message_type != 'blank'" class="right-s">
                             <div *ngIf="openMessage.id" class="some-request-text-wrapper">
                                 <div class="block-info f-b">
-                                    <span class="some-t">{{openMessage.message_type}} to Perform</span>
+                                    <span class="some-t">{{openMessage.message_type?openMessage.message_type:''}} to Perform</span>
                                     <span class="when">{{openMessage.created_at | date:'MMM d' }}</span>
                                 </div>
                                 <div class="block-info s-b">
@@ -99,15 +99,15 @@
                                     
                                 </div>
                                 <div class="block-info t-b">
-                                    <p class="name-event">{{openMessage.message_info.event_info.name}}</p>
+                                    <p class="name-event">{{openMessage.message_info&&openMessage.message_info.event_info?openMessage.message_info.event_info.name:''}}</p>
                                     <p class="descr">{{openMessage.message_info.event_info.description | titlecase}}</p>
-                                    <p *ngIf="openMessage.message_type == 'request'" class="fot-edit">{{openMessage.message_info.event_info.event_season | titlecase}} {{openMessage.message_info.event_info.event_year}}, {{openMessage.message_info.event_info.event_time | titlecase}}, {{openMessage.message_info.event_info.event_length}} Hours
+                                    <p *ngIf="openMessage.message_type == 'request'" class="fot-edit">{{openMessage.message_info&&openMessage.message_info.event_info?openMessage.message_info.event_info.event_season:'' | titlecase}} {{openMessage.message_info&&openMessage.message_info.event_info?openMessage.message_info.event_info.event_year:''}}, {{openMessage.message_info&&openMessage.message_info.event_info?openMessage.message_info.event_info.event_time:'' | titlecase}}, {{openMessage.message_info&&openMessage.message_info.event_info?openMessage.message_info.event_info.event_length:''}} Hours
                                         <img *ngIf="!openMessage.is_read"  src="../../assets/img/edit-img.png"  class="img-responsive for-edit-img" alt="">
                                     </p>
                                     <input *ngIf="openMessage.message_type == 'request'" [disabled]="openMessage.is_read" class="form-control" #drp="bsDaterangepicker" bsDaterangepicker [bsConfig]="bsConfig" 
                                     [minDate]="minDate" [maxDate]="maxDate" [(ngModel)]="bsRangeValue">
 
-                                    <p *ngIf="openMessage.message_type == 'accept'" class="fot-edit">{{openMessage.message_info.preferred_date_from | date}} - {{openMessage.message_info.preferred_date_to | date}} </p>
+                                    <p *ngIf="openMessage.message_type == 'accept'" class="fot-edit">{{openMessage.message_info?openMessage.message_info.preferred_date_from:'' | date}} - {{openMessage.message_info?openMessage.message_info.preferred_date_to:'' | date}} </p>
                                     
                                     <!--появлется если нажать на верхнюю картинку for-edit-img-->
                                     <!-- <div *ngIf="isEditShow" class="selects-wrapper">
@@ -164,7 +164,7 @@
                                 <div class="block-info fourth-b">
                                     <p class="fot-edit">
                                             
-                                        Price to Perform <span> ${{(openMessage.message_type == 'request')?openMessage.message_info.estimated_price:openMessage.message_info.price}}</span>
+                                        Price to Perform <span> ${{(openMessage.message_type&&openMessage.message_info&&openMessage.message_type == 'request')?openMessage.message_info.estimated_price:openMessage.message_info.price}}</span>
                                         <img *ngIf="openMessage.message_type == 'request'&&!openMessage.is_read" src="../../assets/img/edit-img.png" (click)="isEditPrice = true" class="img-responsive for-edit-img" alt="">
                                     </p>
                                     
