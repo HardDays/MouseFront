@@ -100,7 +100,6 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
                 let acc = this.MyAccounts.find(obj => obj.id == this.UserId);
                 if(acc)
                 {
-                    console.log(acc);
                     this.InitByUser(acc);
                     this.MyAccountId = this.GetCurrentAccId();
                     this.isFolowed();
