@@ -204,10 +204,12 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         for(let m of this.messagesList){
             if( m.sender_id == sender && 
                 m.receiver_id == this.Event.creator_id &&
+                m.message_info &&  m.message_info.event_info &&
                 m.message_info.event_info.id == this.Event.id){
                    return m.id;
             }
         }
+        return null;
     }
 
     VenuePriceChanged(data){

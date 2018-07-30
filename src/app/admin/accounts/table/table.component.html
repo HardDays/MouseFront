@@ -87,7 +87,7 @@
                 <div (click)="openAccount(acc.id)" class="admin_table_td account"  style="cursor: pointer;">
                         <!-- style="background-image: url(./../../../assets/img/admin/example_revenue_event.jpg); min-width: 37px;" -->
                     <span class="acc_ava" style="min-width: 37px;" [ngStyle]="getImage(acc.image_id)"></span>
-                    <span>{{acc.display_name}}</span>
+                    <span>{{acc.full_name}}</span>
                 </div>
                 <div class="admin_table_td"><span>{{acc.account_type|titlecase}}</span></div>
                 <div class="admin_table_td"><span>{{acc.address}}</span></div>

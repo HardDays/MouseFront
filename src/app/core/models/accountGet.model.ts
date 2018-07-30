@@ -9,6 +9,7 @@ export class AccountGetModel{
         public id?: number,
         public user_name?: string,
         public display_name?: string,
+        public full_name?: string,
         public phone?: string,
         public genres?: string[],
         public created_at?: string,
