@@ -1,12 +1,12 @@
 <!-- CREATED -->
-<div *ngIf="Feed.action==='add_ticket '" class="feed-item">
+<div class="feed-item">
     <div class="head-feed-item">
         <div class="flex-ava-n">
             <div class="ava" [ngStyle]="{'background-image':Feed.account.img_base64?'url('+Feed.account.img_base64+')':''}"></div>
             <div class="name-desc">
                 <div class="name">
                     <p>{{Feed.account.user_name}}</p>
-                    <a [routerLink]="['/system','profile',Feed.account.id]" class="hash"><span>@</span>centimia</a>
+                    <a [routerLink]="['/system','profile',Feed.account.id]" class="hash"><span>@</span>{{Feed.account.user_name}}</a>
                 </div>
                 <div class="desc">
                     <p>{{Feed.action.replace('_',' ')|titlecase}} <a [routerLink]="['/system','shows_detail',Feed.event.id]">#{{Feed.event.name}}</a> Event.</p>
@@ -66,9 +66,6 @@
     </div>
     <!--/по нажатию на кементы-->
 </div>
-
-
-
 
 <!-- VIDEO -->
 <div *ngIf="Feed.action==='video'" class="feed-item">

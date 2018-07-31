@@ -39,7 +39,7 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
   }
 
   ngOnInit(){
-    // console.log(`in`,this.Feed);
+     console.log(`in`,this.Feed);
     if(this.Feed&&this.Feed.account)
     this.main.imagesService.GetImageById(this.Feed.account.image_id)
       .subscribe((img)=>{
@@ -89,7 +89,7 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
   postComment(){
     this.comment.account_id = this.accId;
     this.comment.event_id = this.Feed.event.id;
-    this.main.commentService.PostComment(this.comment)
+    this.main.commentService.PostComment(this.accId,this.Feed.id,this.comment.text)
       .subscribe((res)=>{
         // console.log(res);
         this.GetComments();
@@ -100,14 +100,16 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
   }
 
   GetComments(){
-    this.main.commentService.GetCommentByEventId(this.Feed.event.id)
+    this.main.commentService.GetCommentByFeedId(this.accId,this.Feed.id)
       .subscribe((res:CommentModel[])=>{
         this.comments = res;
           for(let comm of this.comments){
-            this.main.imagesService.GetImageById(comm.account.image_id)
-            .subscribe((img)=>{
-            comm.account.image_base64 = img.base64;
-          });
+            if(comm.account.image_id)
+            comm.account.image_base64 = this.main.imagesService.GetImagePreview(comm.account.image_id,{width:300,height:300});
+          //   this.main.imagesService.GetImageById(comm.account.image_id)
+          //   .subscribe((img)=>{
+          //   comm.account.image_base64 = img.base64;
+          // });
         }
         // console.log(this.comments);
       })
@@ -116,7 +118,7 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
   likePost(){
     // console.log(this.Feed.event.id,this.accId);
     if(!this.Feed.is_liked){
-      this.main.likesService.PostLike(this.Feed.event.id,this.accId)
+      this.main.likesService.PostLike(this.accId,this.Feed.id)
         .subscribe((res)=>{
           this.Feed.is_liked = true;
           this.Feed.likes++;
@@ -125,7 +127,7 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
           // console.log(`err`,err)
         })
     } else {
-      this.main.likesService.DeleteLike(this.Feed.event.id,this.accId)
+      this.main.likesService.DeleteLike(this.accId,this.Feed.id,this.Feed.id)
       .subscribe((res)=>{
           this.Feed.is_liked = false;
           this.Feed.likes--;
