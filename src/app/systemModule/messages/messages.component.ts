@@ -226,6 +226,16 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
       return 'soon';
   }
 
+  isExpiresSoonByExpireDate(date:string)
+  {
+    // let expire = this.getExpireDate(date,frame);
+    let today = new Date();
+    let expire = new Date(date);
+      today.setDate(today.getDate()+1);
+      if(today > expire)
+      return 'soon';
+  }
+
   setDateRange()
   {
     if(this.openMessage&&this.openMessage.message_info&&this.openMessage.message_info.event_info&&this.openMessage.message_info.event_info.event_season){
