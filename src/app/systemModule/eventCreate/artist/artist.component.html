@@ -204,13 +204,13 @@
                 <div class="content-modal">
                     <p class="e-n">{{Event.name}}</p>
                     <div class="flex-input-groupes">
-                        <div class="input-groupe-1">
+                        <div class="input-groupe-1 font-size-label">
                                 <div class="rel-wr">
                                 <input disabled [value]="Event.event_season" name="" type="text">
                             </div>
                             <label for="inp-modal-req-4">Date Range</label>
                         </div>
-                        <div class="input-groupe-1">
+                        <div class="input-groupe-1 font-size-label">
                                 <div class="rel-wr">
                                 <input disabled [value]="Event.event_length" name="" type="text">
                             </div>
@@ -218,7 +218,7 @@
                         </div>
                     </div>
                     <div class="flex-input-groupes">
-                        <div class="input-groupe-1 more-padd">
+                        <div class="input-groupe-1 font-size-label more-padd">
                             <select formControlName="time_frame_range"  id="inp-modal-req-3">
                                     <option value="one_hour">Hour</option>
                                     <option value="one_day">Day</option>
@@ -227,7 +227,7 @@
                             </select>
                             <label for="inp-modal-req-3">Time Frame we expect an answer<span>*</span></label>
                         </div>
-                        <div class="input-groupe-1 more-padd">
+                        <div class="input-groupe-1 font-size-label more-padd">
                                 <div class="rel-wr">
                                     <!-- <span class="abs-backs">$</span> -->
                                     <input [textMask]="MaskNumbers()" formControlName="time_frame_number" id="inp-modal-req-412" name="" type="text">
@@ -235,7 +235,7 @@
                                 <label for="inp-modal-req-4">Time Frame<br> Number<span>*</span></label>
                                 
                             </div>
-                        <div class="input-groupe-1 more-padd">
+                        <div class="input-groupe-1 font-size-label more-padd">
                             <div class="rel-wr">
                                 <span class="abs-backs">$</span>
                                 <input [textMask]="MaskNumbers()" formControlName="estimated_price" id="inp-modal-req-4" class="dollar" name="" type="text">

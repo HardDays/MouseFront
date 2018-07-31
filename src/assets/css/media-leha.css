@@ -82,6 +82,9 @@ html, body{
   position: relative;
   top: 8px;
 }
+.input-groupe-1.font-size-label label, .input-groupe-1.font-size-label .head-groupe{
+  font-size: 13px;
+}
 @media (max-width: 1560px) {
   .venue-week-cal-style .week-day-time-wr .from-to .from-to-width-1560{
     width: 37.7px;
