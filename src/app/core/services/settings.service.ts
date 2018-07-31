@@ -1,7 +1,7 @@
-import { Injectable } from "../../../../node_modules/@angular/core";
+import { Injectable } from "@angular/core";
 import { HttpService } from "./http.service";
 import { TypeService } from "./type.service";
-import { Subject } from "../../../../node_modules/rxjs";
+import { Subject } from "rxjs";
 import { PreferencesModel } from '../models/preferences.model';
 
 @Injectable()

@@ -18,7 +18,7 @@
     <div class="body-feed-item"></div>
     <div class="footer-item">
         <div class="left-side">
-            <span (click)="isOpenComment = true; GetComments()" class="coments counter-icon">
+            <span (click)="isOpenComment = !isOpenComment; GetComments()" class="coments counter-icon">
                {{Feed.comments}}
             </span>
             <!--добавляем liked если лайнули-->
@@ -40,10 +40,10 @@
     <div *ngIf="isOpenComment" class="coments-item">
         <div *ngFor="let item of comments" class="one-coment">
             <div class="left-side">
-                <div class="ava" [ngStyle]="{'background-image':item.account.image_base64?'url('+item.account.image_base64+')':''}"></div>
+                <div class="ava" [ngStyle]="{'background-image':item.account?.image_base64?'url('+item.account.image_base64+')':''}"></div>
             </div>
             <div class="right-side">
-                <p class="name">{{item.account.user_name}}</p>
+                <p class="name">{{item.account?.user_name?item.account.user_name:''}}</p>
                 <p class="description">{{item.text}}</p>
                 <p class="when">{{item.created_at?calculateTime(item.created_at):'A long time'}} ago</p>
             </div>

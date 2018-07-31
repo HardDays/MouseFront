@@ -41,7 +41,7 @@ import { AnalyticCardComponent } from './revenue/revenue-analytics/analytic-card
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material';
 import { VenueCreateModule } from '../systemModule/venueCreate/venueCreate.module';
-import { InfiniteScrollModule } from '../../../node_modules/angular2-infinite-scroll';
+import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 
 
 

@@ -32,13 +32,13 @@ export class CommentService{
     GetCommentByFeedId(account_id:number,feed_item_id:number)
     {
         return this.http.CommonRequest(
-            ()=> this.http.GetData('/accounts/'+account_id+'feed/'+feed_item_id+'/comments.json',this.typeService.ParamsToUrlSearchParams({account_id,feed_item_id}))
+            ()=> this.http.GetData('/accounts/'+account_id+'/feed/'+feed_item_id+'/comments.json',this.typeService.ParamsToUrlSearchParams({account_id,feed_item_id}))
         );
     }
 
     PostComment(account_id:number,feed_item_id:number,text:string){
         return this.http.CommonRequest(
-            ()=> this.http.PostData('/accounts/'+account_id+'feed/'+feed_item_id+'/comments.json',JSON.stringify({account_id,feed_item_id,text}))
+            ()=> this.http.PostData('/accounts/'+account_id+'/feed/'+feed_item_id+'/comments.json',JSON.stringify({account_id,feed_item_id,text}))
         );
     }
 

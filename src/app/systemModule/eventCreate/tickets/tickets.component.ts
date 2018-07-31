@@ -15,7 +15,7 @@ import { TicketModel } from '../../../core/models/ticket.model';
 import { TicketGetParamsModel } from '../../../core/models/ticketGetParams.model';
 import { EventGetModel } from '../../../core/models/eventGet.model';
 import { EventCreateModel } from '../../../core/models/eventCreate.model';
-import { BsDatepickerConfig } from '../../../../../node_modules/ngx-bootstrap';
+import { BsDatepickerConfig } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-add-tickets',
