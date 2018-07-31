@@ -115,21 +115,22 @@
                     </h1>
                     
                         <p class="total">Total price: <span>${{TotalPrice}}</span></p>
-                        <button [disabled]="!Event.is_active || !CurrentAccount || CurrentAccount.account_type != 'fan' || !Event.tickets || !Event.tickets.length || !TicketsToBuy.length"
+                        <button [disabled]="!(Event.status===Statuses.Active) || !CurrentAccount || CurrentAccount.account_type != 'fan' || !Event.tickets || !Event.tickets.length || !TicketsToBuy.length"
                             (click)="BuyTickets()" class="butt-style-1" 
-                            [ngClass]="{'cursor-disabled':!Event.is_active || !CurrentAccount || CurrentAccount.account_type != 'fan' || !Event.tickets || !Event.tickets.length || !TicketsToBuy.length}">
+                            [ngClass]="{'cursor-disabled':!(Event.status===Statuses.Active) || !CurrentAccount || CurrentAccount.account_type != 'fan' || !Event.tickets || !Event.tickets.length || !TicketsToBuy.length}">
                             <span>Buy</span>
                         </button>
                 </div>
             <div class="body-tabs-datails-pages">
                 <div class="for-flex-contant-d">
                     <div class="left-side-tickets">
-                        <ng-container *ngIf="Event.is_active">
+                        <!-- <ng-container *ngIf="Event.is_active"> -->
+                        <ng-container *ngIf="Event.status===Statuses.Active">
                                 <ng-container *ngFor="let item of Tickets">
                                     <buy-ticket-selector (onAddTickets)="AddTicketsToPrice($event)" [Ticket]="item"></buy-ticket-selector>
                                 </ng-container>
                         </ng-container>
-                        <h2 class="total" *ngIf="!Event.is_active"> Show is unactive!</h2>
+                        <h2 class="total" *ngIf="!(Event.status===Statuses.Active)"> Show is unactive!</h2>
                     </div>
                     <div class="right-side-tickets">
                         <div class="third-router-outlet">

@@ -15,7 +15,7 @@ import { UserCreateModel } from '../../core/models/userCreate.model';
 import { GenreModel } from '../../core/models/genres.model';
 import { AccountGetModel } from '../../core/models/accountGet.model';
 import { SafeHtml, DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { AccountType, BaseMessages } from '../../core/base/base.enum';
+import { AccountType, BaseMessages, EventStatus } from '../../core/base/base.enum';
 import { Base64ImageModel } from '../../core/models/base64image.model';
 import { MapsAPILoader } from '@agm/core';
 import { AccountSearchParams } from '../../core/models/accountSearchParams.model';
@@ -60,6 +60,8 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
 
     Featuring:string = '';
 
+    Statuses = EventStatus;
+    
     constructor(
         protected main           : MainService,
         protected _sanitizer     : DomSanitizer,
