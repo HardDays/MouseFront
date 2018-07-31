@@ -8,8 +8,10 @@ html, body{
 .main_content{
   min-height: 100vh;
 }
+
 .main_content .for-flex-height{
   min-height: 100vh;
+  overflow: hidden;
 }
 .modal-send-request.map-1-modal .modal-dialog .for-map-init-modal-1{
   border: none;  
