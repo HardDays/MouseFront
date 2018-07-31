@@ -14,7 +14,8 @@ export class EventSearchParams{
         public only_my?:boolean,
         public account_id?:number,
         public limit?: number,
-        public offset?: number
+        public offset?: number,
+        public units?: string
     ){
 
     }

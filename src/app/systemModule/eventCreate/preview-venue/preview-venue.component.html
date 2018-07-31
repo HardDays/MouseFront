@@ -52,10 +52,10 @@
                                       <div class="hours-hover">
                                           <span class="o-f-h">Office Hours</span>
                                           <ul class="hours-drop-show">
-                                              <li *ngFor="let date of Venue.office_hours">
-                                                  <span class="left">{{date&&date.day?date.day.slice(0,3):''}}</span>
+                                              <li *ngFor="let date of OffHours">
+                                                  <span class="left">{{date&&date.day?date.day:''}}</span>
                                                   <span class="right">
-                                                      {{date.begin_time|date:'shortTime'}} - {{date.end_time|date:'shortTime'}}
+                                                      {{date.begin_time | timepipe}} - {{date.end_time | timepipe}}
                                                   </span>
                                               </li>
                                           </ul>
@@ -75,10 +75,10 @@
                                       <div class="hours-hover">
                                           <span class="o-f-h">Operating Hours</span>
                                           <ul class="hours-drop-show">
-                                              <li *ngFor="let date of Venue.operating_hours">
-                                                  <span class="left">{{date&&date.day?date.day.slice(0,3):''}}</span>
+                                              <li *ngFor="let date of OpHours">
+                                                  <span class="left">{{date&&date.day?date.day:''}}</span>
                                                   <span class="right">
-                                                      {{date.begin_time|date:'shortTime'}} - {{date.end_time|date:'shortTime'}}
+                                                      {{date.begin_time | timepipe}} - {{date.end_time | timepipe}}
                                                   </span>
                                               </li>
                                           </ul>

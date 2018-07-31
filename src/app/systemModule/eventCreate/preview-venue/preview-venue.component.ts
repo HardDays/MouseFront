@@ -24,6 +24,9 @@ export class PreviewVenueComponent extends BaseComponent implements OnInit {
 
   Venue:AccountGetModel = new AccountGetModel();
 
+  OffHours: any[] = [];
+  OpHours: any[] = [];
+
     constructor(
       protected main           : MainService,
       protected _sanitizer     : DomSanitizer,
@@ -42,7 +45,7 @@ export class PreviewVenueComponent extends BaseComponent implements OnInit {
       ()=>this.main.accService.GetAccountById(this.VenueId),
       (res:AccountGetModel)=>{
         this.Venue = res;
-        // console.log(`venue`,this.Venue);
+        this.GetVenueHours();
         if(res.image_id){
          this.main.imagesService.GetImageById(res.image_id)
            .subscribe((img)=>{
@@ -55,6 +58,17 @@ export class PreviewVenueComponent extends BaseComponent implements OnInit {
       }
      )
   }
+
+  GetVenueHours()
+    {
+        this.OpHours = [];
+        this.OffHours = [];
+        if(this.Venue.office_hours)
+            this.OffHours = this.main.accService.ParseWorkingTimeModelArr(this.Venue.office_hours);
+        
+        if(this.Venue.operating_hours)
+            this.OpHours = this.main.accService.ParseWorkingTimeModelArr(this.Venue.operating_hours);
+    }
 
   // ngAfterViewInit(){
   //   $('.photos-abs-wrapp').css({

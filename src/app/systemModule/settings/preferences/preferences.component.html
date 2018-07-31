@@ -3,35 +3,37 @@
     <form class="setts_padding send_quest_form" [formGroup]="SettingsForm" (ngSubmit)="SaveSettings()">
         <div class="preferences_form_group">
             <label for="pref-1" class="grey_label">Interface Language</label>
-            <select id="pref-1" [(ngModel)]="Settings.Lang" formControlName="Lang" name="">
+            <select id="pref-1" [(ngModel)]="Settings.preferred_username" formControlName="Lang" name="">
                 <option value="en">English</option>
-                <!-- <option>France</option> -->
+                <option value="ru">Russian</option>
             </select>
         </div>
         <div class="preferences_form_group">
             <label for="pref-2" class="grey_label">Date</label>
-            <select id="pref-2" [(ngModel)]="Settings.DateFormat" formControlName="DateFormat" name="">
-                <option value="MM/DD/YYYY">MMDDYYYY</option>
-                <option value="YYYY-MM-DD">YYYYMMDD</option>
-                <option value="DD.MM.YYYY">DDMMYYYY</option>
+            <select id="pref-2" [(ngModel)]="Settings.preferred_date" formControlName="DateFormat" name="">
+                <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                <option value="DD.MM.YYYY">DD.MM.YYYY</option>
             </select>
         </div>
         <div class="preferences_form_group">
             <label for="pref-3" class="grey_label">Distance</label>
-            <select id="pref-3" [(ngModel)]="Settings.Distance" formControlName="Distance" name="">
+            <select id="pref-3" [(ngModel)]="Settings.preferred_distance" formControlName="Distance" name="">
                 <option value="km">Kilometers (km)</option>
                 <option value="mi">Miles (mi)</option>
             </select>
         </div>
         <div class="preferences_form_group">
             <label for="pref-4" class="grey_label">Currency</label>
-            <select id="pref-4" [(ngModel)]="Settings.Currency" formControlName="Currency" name="">
-              <option value="$">US Dollar ($)</option>
+            <select id="pref-4" [(ngModel)]="Settings.preferred_currency" formControlName="Currency" name="">
+              <option value="USD">USD ($)</option>
+              <option value="RUB">RUB (₽)</option>
+              <option value="EUR">EUR (€)</option>
             </select>
         </div>
         <div class="preferences_form_group">
             <label for="pref-5" class="grey_label">Time</label>
-            <select id="pref-5" [(ngModel)]="Settings.TimeFormat" formControlName="TimeFormat" name="">
+            <select id="pref-5" [(ngModel)]="Settings.preferred_time" formControlName="TimeFormat" name="">
               <option value="12">12 Hour</option>
               <option value="24">24 Hour</option>
             </select>

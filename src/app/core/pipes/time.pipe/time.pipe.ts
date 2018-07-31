@@ -1,17 +1,18 @@
-import {Pipe} from '@angular/core';
-import { SettingsService } from '../services/settings.service';
+import {Pipe, PipeTransform} from '@angular/core';
+import { SettingsService } from '../../services/settings.service';
+import { TimeFormat } from '../../models/preferences.model';
 
 @Pipe({
     name: 'timepipe'
 })
-export class TimePipe{
+export class TimePipe implements PipeTransform{
     constructor(protected settings: SettingsService)
     {
         
     }
     transform(val:string, args) {
-        const format = this.settings.GetSettings().TimeFormat;
-        if(format == '24')
+        const format = this.settings.GetTimeFormat();
+        if(format == TimeFormat.CIS)
         {
             return val;
         }

@@ -3,6 +3,7 @@ import { BaseComponent } from '../../../core/base/base.component';
 import { EventGetModel } from '../../../core/models/eventGet.model';
 import { BaseImages } from '../../../core/base/base.enum';
 import * as moment from 'moment';
+import { TimeFormat } from '../../../core/models/preferences.model';
 
 
 @Component({
@@ -53,7 +54,7 @@ export class ShowItemComponent extends BaseComponent implements OnChanges {
     SetDate()
     {
         this.Date = "";
-        const timeFormat = (this.main.settings.GetSettings()).TimeFormat == '24' ? 'HH:mm' : 'hh:mm A';
+        const timeFormat = this.main.settings.GetTimeFormat() == TimeFormat.CIS ? 'HH:mm' : 'hh:mm A';
         const dateTimeFromat = "dddd, MMM DD, YYYY " + timeFormat;
         if(!this.Show.date_from && !this.Show.date_to)
         {

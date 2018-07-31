@@ -52,6 +52,7 @@ import { VenueListingComponent } from './listing/listing.component';
 import { VenueDatesComponent } from './dates/dates.component';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { UserGetModel } from '../../core/models/userGet.model';
+import { Currency } from '../../core/models/preferences.model';
 
 
 
@@ -125,6 +126,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
         }
       }
     );
+    
   }
 
   ngAfterViewChecked()

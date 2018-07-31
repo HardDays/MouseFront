@@ -3,6 +3,7 @@ import { BaseComponent } from '../../../core/base/base.component';
 import * as moment from 'moment';
 import { Timestamp } from 'rxjs';
 import { SettingsService } from '../../../core/services/settings.service';
+import { TimeFormat } from '../../../core/models/preferences.model';
 
 declare var $:any;
 declare var ionRangeSlider:any;
@@ -17,19 +18,12 @@ export class TimeInput implements OnChanges{
     @Input() Time: String;
     @Output() onTimeChange: EventEmitter<String> = new EventEmitter();
 
-
-    CISFormat:string = '24';
-    Format: string = '12';
-    // Hours:string[] = [];
-    // Minutes: string[] = [];
+    Format: string = TimeFormat.EURO;
 
     Vars: string[] = [
         'AM', 'PM'
     ];
 
-
-    // CurHour:string = '00';
-    // CurMinutes: string = '00';
     CurVar:string = 'AM';
 
     CurTime: string = '';
@@ -38,12 +32,12 @@ export class TimeInput implements OnChanges{
     {
         this.CurVar = this.Vars[0];
         this.CurTime = '';
-        this.Format = this.settings.GetSettings().TimeFormat;
+        this.Format = this.settings.GetTimeFormat();
         this.settings.SettingsChange.subscribe(
             (Val) => {
                 if(Val)
                 {
-                    this.Format = this.settings.GetSettings().TimeFormat;
+                    this.Format = this.settings.GetTimeFormat();
                 }
             }
         );
@@ -53,10 +47,9 @@ export class TimeInput implements OnChanges{
 
         if(changes && changes.Time && changes.Time.currentValue)
         {
-            this.Format = this.settings.GetSettings().TimeFormat;
+            this.Format = this.settings.GetTimeFormat();
             let time = changes.Time.currentValue;
-            console.log(time);
-            if(this.Format != this.CISFormat)
+            if(this.Format != TimeFormat.CIS)
             {
                 let parts = time.split(':');
     
@@ -101,7 +94,7 @@ export class TimeInput implements OnChanges{
 
     EmitCurrTime()
     {
-        if(this.Format != this.CISFormat)
+        if(this.Format != TimeFormat.CIS)
         {
             let parts = this.CurTime.split(":");
 
@@ -127,7 +120,7 @@ export class TimeInput implements OnChanges{
     MaskTime(str: string)
     {    
         let mask = [];
-        if(this.Format != this.CISFormat)
+        if(this.Format != TimeFormat.CIS)
         {
             mask.push(/[0-1]/);
             mask.push((str && (+str[0]) > 0) ? /[0-1]/ : /\d/);

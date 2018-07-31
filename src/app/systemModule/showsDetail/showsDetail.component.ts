@@ -30,6 +30,7 @@ import { MainService } from '../../core/services/main.service';
 import { ErrorComponent } from '../../shared/error/error.component';
 
 import * as moment from 'moment';
+import { TimeFormat } from '../../core/models/preferences.model';
 
 declare var $:any;
 declare var PhotoSwipeUI_Default:any;
@@ -338,7 +339,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     SetDate()
     {
         this.Date = "";
-        const timeFormat = (this.main.settings.GetSettings()).TimeFormat == '24' ? 'HH:mm' : 'hh:mm A';
+        const timeFormat = this.main.settings.GetTimeFormat() == TimeFormat.CIS ? 'HH:mm' : 'hh:mm A';
         const dateTimeFromat = "dddd, MMM DD, YYYY " + timeFormat;
         if(!this.Event.date_from && !this.Event.date_to)
         {

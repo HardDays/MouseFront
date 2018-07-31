@@ -11,6 +11,7 @@ import { Base64ImageModel } from '../../../core/models/base64image.model';
 import { MainService } from '../../../core/services/main.service';
 import { BaseImages } from '../../../core/base/base.enum';
 import { NgForm } from '@angular/forms';
+import { CurrencyIcons, Currency } from '../../../core/models/preferences.model';
 
 
 interface EventMouseInfo {
@@ -27,6 +28,7 @@ export interface CalendarDate {
   changed?:boolean;
   dayPrice?:number;
   nightPrice?:number;
+  currency?: string
 }
 
 export interface FormValsInterface {
@@ -67,6 +69,7 @@ export class BigCalendarComponent implements OnInit, OnChanges {
   @Input() changedPrice: any[] = [];
   @Input() isPreview:boolean = false;
   @Output() onSelectDate = new EventEmitter<any>();
+  @Input() CurrencyIcon:string;
 
   @ViewChild('SaveForm') form: NgForm;
 
@@ -287,6 +290,14 @@ export class BigCalendarComponent implements OnInit, OnChanges {
     }) > -1;
   }
 
+  isCurrency(date: moment.Moment): string{
+    const index =  _.findIndex(this.changedPrice, (changed) => {
+      return moment(date).isSame(changed.mDate, 'day');
+    });
+
+    return (index < 0)? this.CurrencyIcon : CurrencyIcons[this.main.settings.GetCurrency()];
+  }
+
   
   isEvent(date: moment.Moment): boolean {
     return _.findIndex(this.eventDates, (eventDate) => {
@@ -414,7 +425,8 @@ export class BigCalendarComponent implements OnInit, OnChanges {
                 eventId: this.isEventId(d,this.isEvent(d)),
                 changed:this.isChangedPrice(d),
                 dayPrice:this.isPriceMorning(d,this.isChangedPrice(d)),
-                nightPrice:this.isPriceNight(d,this.isChangedPrice(d))
+                nightPrice:this.isPriceNight(d,this.isChangedPrice(d)),
+                currency: this.isCurrency(d)
               };
             });
   }

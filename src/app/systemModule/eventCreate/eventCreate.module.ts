@@ -20,6 +20,7 @@ import { TinyCalendarComponent } from './preview-artist/tiny-calendar/tiny-calen
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material';
 import { BsDatepickerModule } from 'ngx-bootstrap';
+import { TimePipeModule } from '../../core/pipes/time.pipe/time.pipe.module';
 @NgModule({
     imports: [ 
         RouterModule,
@@ -35,7 +36,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
           }),
         ErrorModule,
         PreloaderModule,
-        BsDatepickerModule.forRoot()
+        BsDatepickerModule.forRoot(),
+        TimePipeModule
     ],
     declarations: [ 
         EventCreateComponent,
