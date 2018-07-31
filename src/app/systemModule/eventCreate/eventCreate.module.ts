@@ -20,6 +20,7 @@ import { TinyCalendarComponent } from './preview-artist/tiny-calendar/tiny-calen
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material';
 import { BsDatepickerModule } from 'ngx-bootstrap';
+import { BigCalendarComponent } from './big-calendar/big-calendar.component';
 @NgModule({
     imports: [ 
         RouterModule,
@@ -48,8 +49,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
         PrivateResComponent,
         PreviewArtistComponent,
         PreviewVenueComponent,
-        TinyCalendarComponent
-
+        TinyCalendarComponent,
+        BigCalendarComponent
         
     ],
     exports: [ EventCreateComponent ]
