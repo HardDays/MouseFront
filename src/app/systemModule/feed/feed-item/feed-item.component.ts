@@ -41,7 +41,7 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
   }
 
   ngOnInit(){
-     console.log(`in`,this.Feed);
+    //  console.log(`in`,this.Feed);
     if(this.Feed&&this.Feed.account)
 
       if(this.Feed.account.image_id){
