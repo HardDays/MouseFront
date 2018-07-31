@@ -18,7 +18,7 @@ declare var $:any;
 export class SettingsComponent extends BaseComponent implements OnInit {
 
   Parts = PageParts;
-  CurrentPart = PageParts.Preferences;
+  CurrentPart = PageParts.PersonalInfo;
 
   CustomerParts = CustomerPageParts;
   customerPage = CustomerPageParts.sendQuestion;
