@@ -84,8 +84,8 @@
                         </div>
                     </div>
                    <div class="side width-66">
-                        <app-big-calendar #calendar [allDaysPriceDay]='Venue.price_for_daytime' 
-                            [allDaysPriceNight]='Venue.price_for_nighttime' 
+                        <app-big-calendar #calendar [allDaysPriceDay]="Venue.price_for_daytime" 
+                            [allDaysPriceNight]="Venue.price_for_nighttime" 
                             [selectedDates]="disabledDays" 
                             [eventDates]="eventsDates"  
                             [changedPrice]="changedPrice" 

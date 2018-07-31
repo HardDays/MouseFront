@@ -6,9 +6,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MapsAPILoader } from '@agm/core';
 import { BaseImages } from '../../../core/base/base.enum';
-import { BigCalendarComponent, CalendarDate } from '../big-calendar/big-calendar.component';
 import { VenueDatesModel } from '../../../core/models/venueDatesModel';
 import * as moment from 'moment';
+import { CalendarDate } from '../../venueCreate/big-calendar/big-calendar.component';
 declare var $:any;
 
 @Component({

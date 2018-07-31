@@ -1,6 +1,6 @@
 import { Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitter } from '@angular/core';
 import { SettingsService } from '../../../core/services/settings.service';
-import { FormGroup, FormControl, Validators, FormArray } from '../../../../../node_modules/@angular/forms';
+import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { PreferencesModel } from '../../../core/models/preferences.model';
 
 @Component({
@@ -50,7 +50,6 @@ export class PreferencesComponent implements OnInit, OnChanges {
   GetSettings()
   {
     this.Settings = this.settings.GetSettings();
-    console.log(this.Settings);
   }
 
   SaveSettings()

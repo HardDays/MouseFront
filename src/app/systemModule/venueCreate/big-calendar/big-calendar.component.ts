@@ -67,9 +67,9 @@ export class BigCalendarComponent implements OnInit, OnChanges {
   @Input() selectedDates: CalendarDate[] = [];
   @Input() eventDates: CalendarDate[] = [];
   @Input() changedPrice: any[] = [];
-  @Input() isPreview:boolean = false;
   @Output() onSelectDate = new EventEmitter<any>();
   @Input() CurrencyIcon:string;
+  @Input() isPreview:boolean
 
   @ViewChild('SaveForm') form: NgForm;
 
