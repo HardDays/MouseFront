@@ -365,7 +365,6 @@ export class BigCalendarComponent implements OnInit, OnChanges {
             this.GetImage(res.image_id);
           },
           (err)=>{
-            // console.log(err);
           }
         );
     }
@@ -385,7 +384,6 @@ export class BigCalendarComponent implements OnInit, OnChanges {
                       {
                         this.Images.push(model);
                       }
-                      console.log(this.eventDates);
                       // this.Images.push((res && res.base64) ? res : {base64:BaseImages.Drake,event_id:res.event_id});
                 }
               );
