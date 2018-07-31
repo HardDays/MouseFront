@@ -780,7 +780,7 @@ body {
         left: -5000px;
         width: 0;
         height: 0;
-        display: block;
+        display: none;
         top: 0; }
       .choose-to-follow .follow-m-w .flex-bands .one-band .checkbox:checked + .label-wr .descr .checkbox-style-2 {
         background: #eb2d64;

@@ -24,7 +24,7 @@ export class RegisterFollowComponent extends BaseComponent implements OnInit {
   }
 
   clickItem(index:number,id:number){
-     let ch = "#checkbox-"+index+"-"+index;
+    //  let ch = "#checkbox-"+index+"-"+index;
 
     let ind = this.followsId.indexOf(id);
     if( ind === -1) {
