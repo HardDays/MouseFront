@@ -98,17 +98,17 @@
                       </div>
                   </div>
               </div>
-              <!-- <div class="main-mw">
-                  <div class="flex--info disable-flex-wrapp-on-md">
+              <div class="main-mw">
+                  <div class="flex--info block-1300-display disable-flex-wrapp-on-md">
                       <div class="side side-calendars-l side-info side-about">
                           <p class="head-cont">Available Dates</p>
                       </div>
-                      <div class="side side-calendars-m side-info side-about">
-                          календарь тут
+                      <div class="side side-calendars-m side-info side-about padd-right-1199-pre">
+                            <app-big-calendar #calendar [allDaysPriceDay]='Venue.price_for_daytime' [allDaysPriceNight]='Venue.price_for_nighttime' [selectedDates]="disabledDays" [eventDates]="eventsDates"  [changedPrice]="changedPrice"></app-big-calendar>
                       </div>
-                      <div class="side side-calendars-l side-info side-about"></div>
+                      <div class="side side-calendars-l side-info side-about none-1300"></div>
                   </div>
-              </div> -->
+              </div>
               <div class="main-mw">
                   <div id="mediaPage" class="flex--info none-padd-sides-b">
                       <div class="side side-info-new-venue-prev side-info side-about">
