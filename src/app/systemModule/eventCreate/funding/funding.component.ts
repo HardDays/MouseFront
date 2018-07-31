@@ -174,10 +174,22 @@ export class FundingComponent extends BaseComponent implements OnInit {
         this.artistSum = 0;
         this.venueSum = 0;
 
-        
+        let artists = [], venues = [];
 
-        this.activeArtist = this.convertArrToCheckModel<GetArtists>(this.Event.artist);
-        this.activeVenue = this.convertArrToCheckModel<GetVenue>(this.Event.venues);
+        for(let art of this.Event.artist){
+            if(art.status!=this.Statuses.Declined&&art.status!=this.Statuses.OwnerDeclined){
+                artists.push(art); 
+            }
+        }
+
+        for(let venue of this.Event.venues){
+            if(venue.status!=this.Statuses.Declined&&venue.status!=this.Statuses.OwnerDeclined){
+                venues.push(venue); 
+            }
+        }
+
+        this.activeArtist = this.convertArrToCheckModel<GetArtists>(artists);
+        this.activeVenue = this.convertArrToCheckModel<GetVenue>(venues);
 
         let i = 0;
         if(this.activeArtist.length>0){

@@ -40,7 +40,7 @@ export class AccountGetModel{
         public stage_description?: string,
         public lat?: number,
         public lng?: number,
-        public dates?: EventDateModel[] | VenueDatesModel[], 
+        //public dates?: EventDateModel[] | VenueDatesModel[], 
         public emails?: ContactModel[],
         public first_name?:string,
         public last_name?:string,

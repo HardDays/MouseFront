@@ -3,6 +3,7 @@ import { BaseComponent } from '../../../core/base/base.component';
 import { EventGetModel } from '../../../core/models/eventGet.model';
 import { BaseImages } from '../../../core/base/base.enum';
 import * as moment from 'moment';
+import { TimeFormat } from '../../../core/models/preferences.model';
 
 
 @Component({
@@ -53,6 +54,8 @@ export class ShowItemComponent extends BaseComponent implements OnChanges {
     SetDate()
     {
         this.Date = "";
+        const timeFormat = this.main.settings.GetTimeFormat() == TimeFormat.CIS ? 'HH:mm' : 'hh:mm A';
+        const dateTimeFromat = "dddd, MMM DD, YYYY " + timeFormat;
         if(!this.Show.date_from && !this.Show.date_to)
         {
             this.Date = this.Show.event_season + ", " + this.Show.event_year;
@@ -67,12 +70,12 @@ export class ShowItemComponent extends BaseComponent implements OnChanges {
             let to = this.Show.date_to.split("T")[0];
             if(from === to){
                 let m = moment(this.Show.date_from);
-                this.Date = m.format('dddd, MMM DD, YYYY HH:mm');
-                this.Date = this.Date + " - <span>"+ moment(this.Show.date_to).format('HH:mm')+"</span>";
+                this.Date = m.format(dateTimeFromat);
+                this.Date = this.Date + " - <span>"+ moment(this.Show.date_to).format(timeFormat)+"</span>";
                 //this.Date = date.toLocaleDateString('EEEE, MMM d, yyyy HH:mm');
             }
             else{
-                this.Date = moment(this.Show.date_from).format('dddd, MMM DD, YYYY HH:mm') + " - " + moment(this.Show.date_to).format('dddd, MMM DD, YYYY HH:mm');
+                this.Date = moment(this.Show.date_from).format(dateTimeFromat) + " - " + moment(this.Show.date_to).format(dateTimeFromat);
             }
         }
     }

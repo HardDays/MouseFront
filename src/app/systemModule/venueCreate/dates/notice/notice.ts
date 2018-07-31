@@ -1,4 +1,4 @@
-import { Component, OnChanges, SimpleChanges, Input, Output, EventEmitter } from "../../../../../../node_modules/@angular/core";
+import { Component, OnChanges, SimpleChanges, Input, Output, EventEmitter } from "@angular/core";
 
 @Component({
     selector: 'notice-input',

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { BsDatepickerConfig } from 'ngx-bootstrap';
+import { BsDatepickerConfig, BsDaterangepickerDirective, BsDaterangepickerConfig } from 'ngx-bootstrap';
 import { BaseComponent } from '../../../core/base/base.component';
 import { EventSearchParams } from '../../../core/models/eventSearchParams';
 import { GenreModel } from '../../../core/models/genres.model';
@@ -41,8 +41,9 @@ export class SearchEventsComponent extends BaseComponent implements OnInit {
     SearchDateRange:Date[] = [];
 
     LocationText:string = '';
-    bsConfig: Partial<BsDatepickerConfig>;
+    bsConfig: Partial<BsDaterangepickerConfig>;
     @ViewChild('SearchForm') form: NgForm;
+    @ViewChild('dp') datepicker: BsDaterangepickerDirective;
     
     ngOnInit(): void 
     {
@@ -75,7 +76,7 @@ export class SearchEventsComponent extends BaseComponent implements OnInit {
             max: this.MAX_DISTANCE,
             from: this.MIN_DISTANCE,
             hide_min_max: false,
-            postfix: " km",
+            postfix: " " + this.main.settings.GetDisatance(),
             grid: false,
             prettify_enabled: true,
             prettify_separator: ',',
@@ -121,7 +122,13 @@ export class SearchEventsComponent extends BaseComponent implements OnInit {
 
     InitBsConfig()
     {
-        this.bsConfig = Object.assign({}, { containerClass: 'theme-default transformedDatapicker',showWeekNumbers:false });
+        this.bsConfig = Object.assign({}, { 
+            containerClass: 'theme-default transformedDatapicker',
+            showWeekNumbers:false,
+            rangeInputFormat: this.main.settings.GetDateFormat()
+        });
+        // this.datepicker.bsConfig = this.bsConfig;
+        // this.datepicker.setConfig();
     }
 
     
@@ -140,8 +147,11 @@ export class SearchEventsComponent extends BaseComponent implements OnInit {
 
         if(!this.SearchParams.lat && !this.SearchParams.lng)
             this.SearchParams.distance = null;
-        else
+        else{
             this.SearchParams.distance = this.SearchParams.distance?this.SearchParams.distance:this.MIN_DISTANCE;
+            this.SearchParams.units = this.main.settings.GetDisatance();
+        }
+            
     }
 
     ConvertTicketTypes()
@@ -196,6 +206,7 @@ export class SearchEventsComponent extends BaseComponent implements OnInit {
 
         this.CloseSearchWindow();
         this.SearchParams.offset = 0;
+        console.log(this.SearchParams);
         this.onSearch.emit(this.SearchParams);
     }
 

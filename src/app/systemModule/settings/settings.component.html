@@ -6,7 +6,7 @@
                   <h2 class="zag">Settings</h2>
                   <ul class="settings_menu">
                       <li [ngClass]="{'active': CurrentPart==Parts.PersonalInfo}"><a (click)="CurrentPart=Parts.PersonalInfo">Personal info</a></li>
-                      <!-- <li [ngClass]="{'active': CurrentPart==Parts.Preferences}"><a (click)="CurrentPart=Parts.Preferences">Preferences</a></li> -->
+                      <li [ngClass]="{'active': CurrentPart==Parts.Preferences}"><a (click)="CurrentPart=Parts.Preferences">Preferences</a></li>
                       <!-- <li [ngClass]="{'active': CurrentPart==Parts.FinancialInfo}"><a (click)="CurrentPart=Parts.FinancialInfo">Financial info</a></li> -->
                       <li [ngClass]="{'active': CurrentPart==Parts.Feedback}"><a (click)="CurrentPart=Parts.Feedback">Feedback</a></li>
                       <li [ngClass]="{'active': CurrentPart==Parts.CustomerSupport}">
@@ -43,7 +43,7 @@
                     (OnSave)="SaveUser()"
                 >
                 </app-personal-info>
-                <app-preferences *ngIf="CurrentPart==Parts.Preferences"></app-preferences>
+                <app-preferences *ngIf="CurrentPart==Parts.Preferences" [UserId]="User.id" (OnSuccess)="Success($event)"></app-preferences>
                 <app-financial-info *ngIf="CurrentPart==Parts.FinancialInfo"></app-financial-info>
                 <app-feedback *ngIf="CurrentPart==Parts.Feedback"></app-feedback>
                 <app-customer-support [page]="customerPage" *ngIf="CurrentPart==Parts.CustomerSupport"></app-customer-support>
@@ -55,3 +55,4 @@
       </div>
   </div>
 </section>
+<error-cmp #errorCmp></error-cmp>

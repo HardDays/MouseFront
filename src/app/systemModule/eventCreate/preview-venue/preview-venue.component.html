@@ -52,10 +52,10 @@
                                       <div class="hours-hover">
                                           <span class="o-f-h">Office Hours</span>
                                           <ul class="hours-drop-show">
-                                              <li *ngFor="let date of Venue.office_hours">
-                                                  <span class="left">{{date&&date.day?date.day.slice(0,3):''}}</span>
+                                              <li *ngFor="let date of OffHours">
+                                                  <span class="left">{{date&&date.day?date.day:''}}</span>
                                                   <span class="right">
-                                                      {{date.begin_time|date:'shortTime'}} - {{date.end_time|date:'shortTime'}}
+                                                      {{date.begin_time | timepipe}} - {{date.end_time | timepipe}}
                                                   </span>
                                               </li>
                                           </ul>
@@ -75,10 +75,10 @@
                                       <div class="hours-hover">
                                           <span class="o-f-h">Operating Hours</span>
                                           <ul class="hours-drop-show">
-                                              <li *ngFor="let date of Venue.operating_hours">
-                                                  <span class="left">{{date&&date.day?date.day.slice(0,3):''}}</span>
+                                              <li *ngFor="let date of OpHours">
+                                                  <span class="left">{{date&&date.day?date.day:''}}</span>
                                                   <span class="right">
-                                                      {{date.begin_time|date:'shortTime'}} - {{date.end_time|date:'shortTime'}}
+                                                      {{date.begin_time | timepipe}} - {{date.end_time | timepipe}}
                                                   </span>
                                               </li>
                                           </ul>
@@ -98,17 +98,29 @@
                       </div>
                   </div>
               </div>
-              <!-- <div class="main-mw">
-                  <div class="flex--info disable-flex-wrapp-on-md">
+              <div class="main-mw">
+                  <div class="flex--info block-1300-display disable-flex-wrapp-on-md">
                       <div class="side side-calendars-l side-info side-about">
                           <p class="head-cont">Available Dates</p>
                       </div>
-                      <div class="side side-calendars-m side-info side-about">
-                          календарь тут
+                      <div class="side side-calendars-m side-info side-about padd-right-1199-pre">
+                            <app-big-calendar #calendar 
+                                [allDaysPriceDay]='Venue.price_for_daytime' 
+                                [allDaysPriceNight]='Venue.price_for_nighttime' 
+                                [selectedDates]="disabledDays" 
+                                [eventDates]="eventsDates" 
+                                [isPreview]="true" 
+                                [changedPrice]="changedPrice"></app-big-calendar>
+                            <!-- <cmp-big-calendar #calendar 
+                                [allDaysPriceDay]='Venue.price_for_daytime' 
+                                [allDaysPriceNight]='Venue.price_for_nighttime' 
+                                [selectedDates]="disabledDays" 
+                                [eventDates]="eventsDates"  
+                                [changedPrice]="changedPrice"></cmp-big-calendar> -->
                       </div>
-                      <div class="side side-calendars-l side-info side-about"></div>
+                      <div class="side side-calendars-l side-info side-about none-1300"></div>
                   </div>
-              </div> -->
+              </div>
               <div class="main-mw">
                   <div id="mediaPage" class="flex--info none-padd-sides-b">
                       <div class="side side-info-new-venue-prev side-info side-about">

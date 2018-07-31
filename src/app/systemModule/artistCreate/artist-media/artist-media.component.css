@@ -17,7 +17,9 @@
     display: flex !important;
     flex-wrap: wrap;
 }
-
+.photo-wr-1.just-senter{
+justify-content: center;
+}
 @media (max-width: 991px) {
     .slider-2-albums{
         margin: 0 -10px;

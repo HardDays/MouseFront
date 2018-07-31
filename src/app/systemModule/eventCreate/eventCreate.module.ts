@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { EventCreateComponent } from './eventCreate.component';
@@ -20,6 +20,8 @@ import { TinyCalendarComponent } from './preview-artist/tiny-calendar/tiny-calen
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material';
 import { BsDatepickerModule } from 'ngx-bootstrap';
+import { TimePipeModule } from '../../core/pipes/time.pipe/time.pipe.module';
+import { VenueCreateModule } from '../venueCreate/venueCreate.module';
 @NgModule({
     imports: [ 
         RouterModule,
@@ -35,7 +37,9 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
           }),
         ErrorModule,
         PreloaderModule,
-        BsDatepickerModule.forRoot()
+        BsDatepickerModule.forRoot(),
+        TimePipeModule,
+        VenueCreateModule
     ],
     declarations: [ 
         EventCreateComponent,
@@ -49,10 +53,10 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
         PreviewArtistComponent,
         PreviewVenueComponent,
         TinyCalendarComponent
-
         
     ],
-    exports: [ EventCreateComponent ]
+    exports: [ EventCreateComponent ],
+    schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
 })
 export class EventCreateModule {}
 

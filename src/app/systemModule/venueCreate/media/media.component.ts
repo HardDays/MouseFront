@@ -108,9 +108,12 @@ export class VenueMediaComponent extends BaseComponent implements OnInit,OnChang
 
         for(let file of target.files)
         {
+            const image = new Image();
             let reader:FileReader = new FileReader();
             reader.onload = (e) =>{
                 this.ImageToLoad.image_base64 = reader.result;
+                
+                image.src = reader.result;
             }
             reader.readAsDataURL(file);
         }

@@ -11,6 +11,7 @@ import { Base64ImageModel } from '../../../core/models/base64image.model';
 import { MainService } from '../../../core/services/main.service';
 import { BaseImages } from '../../../core/base/base.enum';
 import { NgForm } from '@angular/forms';
+import { CurrencyIcons, Currency } from '../../../core/models/preferences.model';
 
 
 interface EventMouseInfo {
@@ -27,6 +28,7 @@ export interface CalendarDate {
   changed?:boolean;
   dayPrice?:number;
   nightPrice?:number;
+  currency?: string
 }
 
 export interface FormValsInterface {
@@ -65,8 +67,9 @@ export class BigCalendarComponent implements OnInit, OnChanges {
   @Input() selectedDates: CalendarDate[] = [];
   @Input() eventDates: CalendarDate[] = [];
   @Input() changedPrice: any[] = [];
-  @Input() isPreview:boolean = false;
   @Output() onSelectDate = new EventEmitter<any>();
+  @Input() CurrencyIcon:string;
+  @Input() isPreview:boolean
 
   @ViewChild('SaveForm') form: NgForm;
 
@@ -287,6 +290,14 @@ export class BigCalendarComponent implements OnInit, OnChanges {
     }) > -1;
   }
 
+  isCurrency(date: moment.Moment): string{
+    const index =  _.findIndex(this.changedPrice, (changed) => {
+      return moment(date).isSame(changed.mDate, 'day');
+    });
+
+    return (index < 0)? this.CurrencyIcon : CurrencyIcons[this.main.settings.GetCurrency()];
+  }
+
   
   isEvent(date: moment.Moment): boolean {
     return _.findIndex(this.eventDates, (eventDate) => {
@@ -365,7 +376,17 @@ export class BigCalendarComponent implements OnInit, OnChanges {
             this.main.imagesService.GetImageById(imageId)
               .subscribe(
                   (res:Base64ImageModel) => {
-                      this.Images.push((res && res.base64) ? res : {base64:BaseImages.Drake,event_id:res.event_id});
+                      const url = this.main.imagesService.GetImagePreview(imageId,{width:270,height:175});
+                      const model = {
+                        base64: url,
+                        event_id:res.event_id
+                      };
+                      if(this.Images.findIndex(obj => obj.event_id == model.event_id && obj.base64 == model.base64) < 0)
+                      {
+                        this.Images.push(model);
+                      }
+                      console.log(this.eventDates);
+                      // this.Images.push((res && res.base64) ? res : {base64:BaseImages.Drake,event_id:res.event_id});
                 }
               );
         }
@@ -404,7 +425,8 @@ export class BigCalendarComponent implements OnInit, OnChanges {
                 eventId: this.isEventId(d,this.isEvent(d)),
                 changed:this.isChangedPrice(d),
                 dayPrice:this.isPriceMorning(d,this.isChangedPrice(d)),
-                nightPrice:this.isPriceNight(d,this.isChangedPrice(d))
+                nightPrice:this.isPriceNight(d,this.isChangedPrice(d)),
+                currency: this.isCurrency(d)
               };
             });
   }

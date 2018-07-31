@@ -76,7 +76,7 @@
                                 }
                                 "
                             >
-                                <span>{{ day.dayPrice != null? day.dayPrice : (allDaysPriceDay?allDaysPriceDay:0)}}$</span>
+                                <span>{{ day.dayPrice != null? day.dayPrice : (allDaysPriceDay?allDaysPriceDay:0)}}{{day.currency}}</span>
                                
                             </p>
                             <!--"changed-price-night" добавляем класс блоку "night" если была изменина цена ночи-->
@@ -87,7 +87,7 @@
                                 }
                                 "
                             >
-                                <span>{{ day.nightPrice != null? day.nightPrice : (allDaysPriceNight?allDaysPriceNight:0)}}$</span>
+                                <span>{{ day.nightPrice != null? day.nightPrice : (allDaysPriceNight?allDaysPriceNight:0)}}{{day.currency}}</span>
                             </p>
                         </div>
 
@@ -132,12 +132,12 @@
                     <div class="flex-price-inp" *ngIf="FormVals.is_available">
                         <p class="d-inp inp-desc">Day</p>
                         <input autocomplete="off" type="text" name="form-vals-day-price" [textMask]="MaskPrice()" [ngModel]="FormVals.price_for_daytime" (ngModelChange)="FormVals.price_for_daytime = $event">
-                        <span>$/hr</span>
+                        <span>{{CurrencyIcon}}/hr</span>
                     </div>
                     <div class="flex-price-inp" *ngIf="FormVals.is_available">
                         <p class="n-inp inp-desc">Night</p>
                         <input autocomplete="off" type="text" name="form-vals-night-price" [textMask]="MaskPrice()" [ngModel]="FormVals.price_for_nighttime" (ngModelChange)="FormVals.price_for_nighttime = $event">
-                        <span>$/hr</span>
+                        <span>{{CurrencyIcon}}/hr</span>
                     </div>
                     <div class="buttons-pop">
                         <span class="resend-reg" (click)="CloseModalPrice($event)">Cancel</span>

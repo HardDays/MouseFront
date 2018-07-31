@@ -15,7 +15,7 @@ import { UserCreateModel } from '../../core/models/userCreate.model';
 import { GenreModel } from '../../core/models/genres.model';
 import { AccountGetModel } from '../../core/models/accountGet.model';
 import { SafeHtml, DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { AccountType, BaseMessages } from '../../core/base/base.enum';
+import { AccountType, BaseMessages, EventStatus } from '../../core/base/base.enum';
 import { Base64ImageModel } from '../../core/models/base64image.model';
 import { MapsAPILoader } from '@agm/core';
 import { AccountSearchParams } from '../../core/models/accountSearchParams.model';
@@ -30,6 +30,7 @@ import { MainService } from '../../core/services/main.service';
 import { ErrorComponent } from '../../shared/error/error.component';
 
 import * as moment from 'moment';
+import { TimeFormat } from '../../core/models/preferences.model';
 
 declare var $:any;
 declare var PhotoSwipeUI_Default:any;
@@ -60,6 +61,8 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
 
     Featuring:string = '';
 
+    Statuses = EventStatus;
+    
     constructor(
         protected main           : MainService,
         protected _sanitizer     : DomSanitizer,
@@ -336,6 +339,8 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     SetDate()
     {
         this.Date = "";
+        const timeFormat = this.main.settings.GetTimeFormat() == TimeFormat.CIS ? 'HH:mm' : 'hh:mm A';
+        const dateTimeFromat = "dddd, MMM DD, YYYY " + timeFormat;
         if(!this.Event.date_from && !this.Event.date_to)
         {
             this.Date = this.Event.event_season + ", " + this.Event.event_year;
@@ -346,16 +351,16 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         }
         else if (this.Event.date_from && this.Event.date_to)
         {
-            let from = this.Event.date_from.split("T")[0];
+            let from = this.Event.date_from.split("T")[0];            
             let to = this.Event.date_to.split("T")[0];
             if(from === to){
                 let m = moment(this.Event.date_from);
-                this.Date = m.format('dddd, MMM DD, YYYY HH:mm');
-                this.Date = this.Date + " - <span>"+ moment(this.Event.date_to).format('HH:mm')+"</span>";
+                this.Date = m.format(dateTimeFromat);
+                this.Date = this.Date + " - <span>"+ moment(this.Event.date_to).format(timeFormat)+"</span>";
                 //this.Date = date.toLocaleDateString('EEEE, MMM d, yyyy HH:mm');
             }
             else{
-                this.Date = moment(this.Event.date_from).format('dddd, MMM DD, YYYY HH:mm') + " - " + moment(this.Event.date_to).format('dddd, MMM DD, YYYY HH:mm');
+                this.Date = moment(this.Event.date_from).format(dateTimeFromat) + " - " + moment(this.Event.date_to).format(dateTimeFromat);
             }
         }
     }

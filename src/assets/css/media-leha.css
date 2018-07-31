@@ -82,6 +82,9 @@ html, body{
   position: relative;
   top: 8px;
 }
+.input-groupe-1.font-size-label label, .input-groupe-1.font-size-label .head-groupe{
+  font-size: 13px;
+}
 @media (max-width: 1560px) {
   .venue-week-cal-style .week-day-time-wr .from-to .from-to-width-1560{
     width: 37.7px;
@@ -165,9 +168,18 @@ html, body{
   .tickets-flex-body .right-ticket .shadow-wr .ticket-options .r-s .desc-num{
     font-size: 13px;
   }
+ 
+  .all-info-profile .uniq-padd-2 .flex--info .side.side-calendars-l.none-1300{
+      display: none;
+}
+
 }
 
 @media (max-width: 1199px) {
+  .all-info-profile .uniq-padd-2 .flex--info .side.side-calendars-m.padd-right-1199-pre{
+    padding-right:47.5px;
+  }
+  
   .new-flex-ul-li{
     display: block;
   }
@@ -369,9 +381,25 @@ html, body{
 }
 
 @media (max-width: 991px) {
+  .all-info-profile .uniq-padd-2 .flex--info.block-1300-display .side.side-info{
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+  .all-info-profile .uniq-padd-2 .flex--info.block-1300-display {
+    display: block;
+  }
+  .all-info-profile .uniq-padd-2 .flex--info .side.side-calendars-m.padd-right-1199-pre{
+    padding-left: 47.5px;
+  }
+  .all-info-profile .uniq-padd-2 .flex--info.block-1300-display .side:first-child{
+    border: none;
+  }
   .tickets-flex-body .left-ticket .tickets-left-info{
     display: block;
 
+  }
+  .all-info-profile .uniq-padd-2 .flex--info .side.side-calendars-l .head-cont{
+    text-align: left;
   }
   .tickets-flex-body .left-ticket .tickets-left-info .info-text{
     padding-right: 0;
@@ -558,6 +586,14 @@ html, body{
 }
 }
 @media (max-width: 767px) {
+  .all-info-profile .uniq-padd-2 .flex--info .side.side-calendars-l .head-cont{
+    font-size: 27px;
+    text-align: center;
+  }
+  
+  .all-info-profile .uniq-padd-2 .flex--info.block-1300-display .side.side-info{
+    padding: 20px 15px;
+  }
   .flex-funding-columns.md-style-col-change .side{
     width: 100%;
     padding-left: 0!important;

@@ -20,7 +20,7 @@
             {{ item }}
         </option>
     </select> -->
-    <mat-form-field >
+    <mat-form-field *ngIf="Format == '12'">
         <mat-select [ngModel]="CurVar" (ngModelChange)="OnVarsChange($event)">
             <mat-option *ngFor="let item of Vars" [value]="item">
                 {{ item }}

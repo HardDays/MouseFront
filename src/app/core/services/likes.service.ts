@@ -16,22 +16,22 @@ export class LikesService{
     constructor(private http: HttpService, private typeService:TypeService){
     }
 
-    GetLikesByEventId(eventId:number)
+    GetLikesByFeedId(account_id:number, feed_item_id:number)
     {
         return this.http.CommonRequest(
-            ()=> this.http.GetData('/events/'+eventId+'/likes.json',this.typeService.ParamsToUrlSearchParams({event_id:eventId}))
+            ()=> this.http.GetData('/accounts/'+account_id+'/feed/'+feed_item_id+'/likes.json',this.typeService.ParamsToUrlSearchParams({account_id,feed_item_id}))
         );
     }
 
-    PostLike(event_id:number,account_id:number){
+    PostLike(account_id:number,feed_item_id:number){
         return this.http.CommonRequest(
-            ()=> this.http.PostData('/events/'+event_id+'/likes.json',JSON.stringify({event_id,account_id}))
+            ()=> this.http.PostData('/accounts/'+account_id+'/feed/'+feed_item_id+'/likes.json',JSON.stringify({feed_item_id,account_id}))
         );
     }
 
-    DeleteLike(event_id:number,account_id:number){
+    DeleteLike(account_id:number, feed_item_id:number,id:number){
         return this.http.CommonRequest(
-            ()=> this.http.DeleteDataWithBody('/events/'+event_id+'/likes/'+account_id+'.json',JSON.stringify({event_id,account_id}))
+            ()=> this.http.DeleteDataWithBody('/accounts/'+account_id+'/feed/'+feed_item_id+'/likes'+id+'.json',JSON.stringify({feed_item_id,account_id,id}))
         );
     }
 }

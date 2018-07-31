@@ -6,7 +6,8 @@ export class AccountSendRequestModel{
         public preferred_date_from?: Date,
         public preferred_date_to?: Date,
         public message_id?:number,
-        public message?:string
+        public message?:string,
+        public currency?:string,
     ){     
     }
 }

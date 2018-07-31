@@ -20,10 +20,11 @@
                     </div>
                     
                         
-                    <ng-container *ngIf="MyProfileId != Account.id && !IsPreview" >
+                    <ng-container *ngIf="MyProfileId != Account.id || IsPreview" >
                         <form class="follow-wr" (ngSubmit)="FollowProfile(!isFolowedAcc)">
                             <button [disabled]="IsPreview" class="butt-style-1" type="submit">
-                                <span>{{isFolowedAcc?'Unfollow':'Follow'}}</span>
+                                <span *ngIf="!IsPreview">{{isFolowedAcc?'Unfollow':'Follow'}}</span>
+                                <span *ngIf="IsPreview">Follow</span>
                             </button>
                         </form>
                     </ng-container>
@@ -65,7 +66,7 @@
                                             <div class="one-cont" style="min-height:42px" *ngIf="Account.office_hours">
                                                 <p class="head-cont" >OFFICE HOURS:</p>
                                                 <ng-container *ngFor="let item of OffHours;let i = index">
-                                                    <span >{{item.begin_time}} - {{item.end_time}}, {{item.day}}</span>
+                                                    <span >{{item.begin_time | timepipe}} - {{item.end_time | timepipe}}, {{item.day}}</span>
                                                 </ng-container>
                                             </div>
                                         </div>
@@ -73,7 +74,7 @@
                                             <div class="one-cont" style="min-height:42px" *ngIf="Account.office_hours">
                                                 <p class="head-cont" >OPERATING HOURS:</p>
                                                 <ng-container *ngFor="let item of OpHours;let i = index">
-                                                    <span>{{item.begin_time}} - {{item.end_time}}, {{item.day}}</span>
+                                                    <span>{{item.begin_time | timepipe}} - {{item.end_time | timepipe}}, {{item.day}}</span>
                                                 </ng-container>
                                             </div>
                                         </div>

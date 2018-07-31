@@ -8,8 +8,8 @@ import { BaseImages } from "../../../core/base/base.enum";
 import { AccountCreateModel } from "../../../core/models/accountCreate.model";
 import { AgmMap, MapsAPILoader } from "@agm/core";
 import { MainService } from "../../../core/services/main.service";
-import { DomSanitizer } from "../../../../../node_modules/@angular/platform-browser";
-import { Router, ActivatedRoute } from "../../../../../node_modules/@angular/router";
+import { DomSanitizer } from "@angular/platform-browser";
+import { Router, ActivatedRoute } from "@angular/router";
 
 declare var $:any;
 declare var PhotoSwipeUI_Default:any;

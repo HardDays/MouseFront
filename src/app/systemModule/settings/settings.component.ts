@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, NgZone, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { BaseComponent } from '../../core/base/base.component';
 import { MainService } from '../../core/services/main.service';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MapsAPILoader } from '@agm/core';
 import { UserGetModel } from '../../core/models/userGet.model';
 import { UserCreateModel } from '../../core/models/userCreate.model';
+import { ErrorComponent } from '../../shared/error/error.component';
 
 declare var $:any;
 
@@ -36,7 +37,8 @@ export class SettingsComponent extends BaseComponent implements OnInit {
   ) {
     super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
   }
-  
+
+  @ViewChild('errorCmp') errorCmp: ErrorComponent;
 
   ngOnInit() {
     this.initJS();
@@ -48,7 +50,6 @@ export class SettingsComponent extends BaseComponent implements OnInit {
         .subscribe(
             (res:UserGetModel)=>{
                 this.User = res;
-                // console.log(`res`,this.User);
             },
             (err)=>{
                 // console.log(`err`,err);
@@ -59,9 +60,8 @@ export class SettingsComponent extends BaseComponent implements OnInit {
     //   console.log(`save user`,user);
       this.main.authService.UpdateUser(user)
         .subscribe(
-            (res:UserGetModel)=>{
+            (res:any)=>{
                 this.User = res;
-                // console.log(`res`,this.User);
             },
             (err)=>{
                 // console.log(`err`,err);
@@ -123,6 +123,11 @@ export class SettingsComponent extends BaseComponent implements OnInit {
         else
             this.IsShowCustomerSupport = true;
         this.CurrentPart = this.Parts.CustomerSupport;
+    }
+
+    Success($event)
+    {
+        this.errorCmp.OpenWindow("Success");
     }
    
 

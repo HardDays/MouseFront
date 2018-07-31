@@ -118,7 +118,7 @@
                   <a [ngClass]="{'active':currentPage === pages.customer_answers}" [routerLink]="['customer','answers']" (click)="currentPage = pages.customer_answers">Answers</a>
               </div>
           </div>
-          <div class="opening" [ngClass]="{'opened':currentPage >= pages.revenue && currentPage <= pages.revenue_analytics}">
+          <div *ngIf="User.is_superuser"  class="opening" [ngClass]="{'opened':currentPage >= pages.revenue && currentPage <= pages.revenue_analytics}">
               <a [routerLink]="['revenues']" [ngClass]="{'active':currentPage === pages.revenue}" class="admin_menu_link" (click)="currentPage = pages.revenue" class="admin_menu_link">
                   <span class="icon">
                       <svg xmlns="http://www.w3.org/2000/svg" width="29" height="29">

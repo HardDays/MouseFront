@@ -210,6 +210,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
           // console.log(`SAVE SUCCESS`);
           // this.errorCmp.OpenWindow(BaseMessages.Success);
 
+          
           this.isShowLaunch = this.isShowLaunchBtn();
           this.isHasVenue = this.Event.venue?true:false;
 
@@ -262,7 +263,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       }
 
 
-      if(!this.isNewEvent)
+      // if(!this.isNewEvent)
       this.WaitBeforeLoading
       (
         () => this.EventId == 0 ? this.main.eventService.CreateEvent(this.Event) : this.main.eventService.UpdateEvent(this.EventId,this.Event),

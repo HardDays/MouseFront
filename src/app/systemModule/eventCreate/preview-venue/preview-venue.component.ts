@@ -6,7 +6,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MapsAPILoader } from '@agm/core';
 import { BaseImages } from '../../../core/base/base.enum';
-
+import { VenueDatesModel } from '../../../core/models/venueDatesModel';
+import * as moment from 'moment';
+import { CalendarDate } from '../../venueCreate/big-calendar/big-calendar.component';
 declare var $:any;
 
 @Component({
@@ -15,7 +17,9 @@ declare var $:any;
   styleUrls: ['./preview-venue.component.css']
 })
 export class PreviewVenueComponent extends BaseComponent implements OnInit {
-
+  changedPrice: CalendarDate[] = [];
+  disabledDays: CalendarDate[] = [];
+  eventsDates:CalendarDate[] = [];
  
   @Input() VenueId:number;
   @Output() OnReturn = new EventEmitter();
@@ -23,6 +27,9 @@ export class PreviewVenueComponent extends BaseComponent implements OnInit {
   photos:any = [];
 
   Venue:AccountGetModel = new AccountGetModel();
+
+  OffHours: any[] = [];
+  OpHours: any[] = [];
 
     constructor(
       protected main           : MainService,
@@ -42,7 +49,7 @@ export class PreviewVenueComponent extends BaseComponent implements OnInit {
       ()=>this.main.accService.GetAccountById(this.VenueId),
       (res:AccountGetModel)=>{
         this.Venue = res;
-        // console.log(`venue`,this.Venue);
+        this.GetVenueHours();
         if(res.image_id){
          this.main.imagesService.GetImageById(res.image_id)
            .subscribe((img)=>{
@@ -54,7 +61,19 @@ export class PreviewVenueComponent extends BaseComponent implements OnInit {
          this.getVenueImages();
       }
      )
+     this.ChangeDates();
   }
+
+  GetVenueHours()
+    {
+        this.OpHours = [];
+        this.OffHours = [];
+        if(this.Venue.office_hours)
+            this.OffHours = this.main.accService.ParseWorkingTimeModelArr(this.Venue.office_hours);
+        
+        if(this.Venue.operating_hours)
+            this.OpHours = this.main.accService.ParseWorkingTimeModelArr(this.Venue.operating_hours);
+    }
 
   // ngAfterViewInit(){
   //   $('.photos-abs-wrapp').css({
@@ -152,5 +171,62 @@ export class PreviewVenueComponent extends BaseComponent implements OnInit {
     }, 1000);
     
   }
+
+  ChangeDates(NewDate?:Date)
+  {
+      let params = null;
+      if(NewDate){
+          params = {
+              current_date: NewDate
+          };
+      }
+
+      this.changedPrice = [];
+      this.disabledDays = [];
+      this.eventsDates = [];
+      if(this.VenueId){
+          this.main.accService.GetVenueDates(this.VenueId,params)
+          .subscribe(
+              (res:any) => {
+                  let arr = [];
+                  for(let i in res.dates)
+                  {
+                      let item:VenueDatesModel = res.dates[i];
+                      let date = {
+                          mDate: moment(item.date),
+                          selected: !item.is_available,
+                          dayPrice: item.price_for_daytime,
+                          nightPrice: item.price_for_nighttime,
+                          changed:true
+                      };
+                      arr.push(date);
+                  }
+                  this.changedPrice = arr.filter(obj => !obj.selected);
+                  this.disabledDays = arr.filter(obj => obj.selected);
+
+                  if(res.event_dates)
+                  {
+                      
+                      for(let item of res.event_dates)
+                      {
+                          this.eventsDates.push({
+                              mDate: moment(item.date_from),
+                              event: true,
+                              eventId: item.id
+                          });
+                      }
+                  }
+              }
+          );
+      }
+      
+      
+
+      
+      
+  }
+
+
+
 
 }

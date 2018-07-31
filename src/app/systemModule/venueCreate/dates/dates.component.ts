@@ -12,6 +12,7 @@ import { BigCalendarComponent, CalendarDate } from '../big-calendar/big-calendar
 import * as moment from 'moment';
 import { VenueDatesModel } from '../../../core/models/venueDatesModel';
 import { AccountGetModel } from '../../../core/models/accountGet.model';
+import { Currency, CurrencyIcons } from '../../../core/models/preferences.model';
 
 declare var $:any;
 
@@ -31,6 +32,8 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
     @Output() onError:EventEmitter<string> = new EventEmitter<string>();
     @Output() onVenueChanged:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
 
+    MyCurrency:string = Currency.USD;
+    CurIcons = CurrencyIcons;
 
 
     dateForm : FormGroup = new FormGroup({
@@ -56,11 +59,14 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
     ngOnInit(): void
     {
         this.CreateOnModelChangeForParent();
+        this.ChangeDates();
+        this.MyCurrency = this.main.settings.GetCurrency();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
         //this.Venue = changes.Venue.currentValue;
         this.ChangeDates();
+        this.MyCurrency = this.main.settings.GetCurrency();
     }
 
     SaveVenue()
@@ -142,6 +148,7 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
         {
             model.price_for_daytime = data.price_for_daytime;
             model.price_for_nighttime = data.price_for_nighttime;
+            model.currency = this.MyCurrency;
         }
         return model;
     }
@@ -170,7 +177,8 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
                             selected: !item.is_available,
                             dayPrice: item.price_for_daytime,
                             nightPrice: item.price_for_nighttime,
-                            changed:true
+                            changed:true,
+                            currency: item.currency? item.currency : this.MyCurrency
                         };
                         arr.push(date);
                     }

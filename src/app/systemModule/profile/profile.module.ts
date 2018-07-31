@@ -15,6 +15,7 @@ import { ArtistProfileComponent } from './artist/artist.component';
 import { ShowDetailGalleryComponent } from '../showsDetail/gallery/gallery.component';
 import { ShowsDetailModule } from '../showsDetail/showsDetail.module';
 import { ErrorModule } from '../../shared/error/error.module';
+import { TimePipeModule } from '../../core/pipes/time.pipe/time.pipe.module';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { ErrorModule } from '../../shared/error/error.module';
             apiKey: 'AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc'
         }),
         ShowsDetailModule,
-        ErrorModule
+        ErrorModule,
+        TimePipeModule
     ],
     declarations: [
         // компоненты
@@ -39,8 +41,7 @@ import { ErrorModule } from '../../shared/error/error.module';
         UpcomingShowsProfileComponent,
         FanProfileComponent,
         VenueProfileComponent,
-        ArtistProfileComponent,
-
+        ArtistProfileComponent
     ],
     exports: [ ProfileComponent, VenueProfileComponent, ArtistProfileComponent ]
 })

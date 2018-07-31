@@ -38,7 +38,7 @@ export class AccountService{
             result.account_type = input.account_type;
             result.image_base64 = '';
             result.emails = this.typeService.ValidateArray(input.emails)?input.emails:[new ContactModel()];
-            result.dates = input.dates;
+            //result.dates = input.dates;
             result.type_of_space = input.type_of_space;
             result.other_genre_description = this.DefaultCheck(input.other_genre_description),
             result.genres = input.genres?input.genres:null;
