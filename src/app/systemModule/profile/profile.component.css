@@ -8,7 +8,9 @@
 .venue-main-info .name-venue h2{
     text-align: center;
 }
-
+.main_content .for-flex-height{
+    background: #fff;
+}
 
 
 button[disabled], html input[disabled]{

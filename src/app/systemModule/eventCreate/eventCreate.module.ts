@@ -21,6 +21,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { TimePipeModule } from '../../core/pipes/time.pipe/time.pipe.module';
+import { BigCalendarComponent } from './big-calendar/big-calendar.component';
 @NgModule({
     imports: [ 
         RouterModule,
@@ -50,8 +51,8 @@ import { TimePipeModule } from '../../core/pipes/time.pipe/time.pipe.module';
         PrivateResComponent,
         PreviewArtistComponent,
         PreviewVenueComponent,
-        TinyCalendarComponent
-
+        TinyCalendarComponent,
+        BigCalendarComponent
         
     ],
     exports: [ EventCreateComponent ]

@@ -6,7 +6,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MapsAPILoader } from '@agm/core';
 import { BaseImages } from '../../../core/base/base.enum';
-
+import { BigCalendarComponent, CalendarDate } from '../big-calendar/big-calendar.component';
+import { VenueDatesModel } from '../../../core/models/venueDatesModel';
+import * as moment from 'moment';
 declare var $:any;
 
 @Component({
@@ -15,7 +17,9 @@ declare var $:any;
   styleUrls: ['./preview-venue.component.css']
 })
 export class PreviewVenueComponent extends BaseComponent implements OnInit {
-
+  changedPrice: CalendarDate[] = [];
+  disabledDays: CalendarDate[] = [];
+  eventsDates:CalendarDate[] = [];
  
   @Input() VenueId:number;
   @Output() OnReturn = new EventEmitter();
@@ -57,6 +61,7 @@ export class PreviewVenueComponent extends BaseComponent implements OnInit {
          this.getVenueImages();
       }
      )
+     this.ChangeDates();
   }
 
   GetVenueHours()
@@ -166,5 +171,62 @@ export class PreviewVenueComponent extends BaseComponent implements OnInit {
     }, 1000);
     
   }
+
+  ChangeDates(NewDate?:Date)
+  {
+      let params = null;
+      if(NewDate){
+          params = {
+              current_date: NewDate
+          };
+      }
+
+      this.changedPrice = [];
+      this.disabledDays = [];
+      this.eventsDates = [];
+      if(this.VenueId){
+          this.main.accService.GetVenueDates(this.VenueId,params)
+          .subscribe(
+              (res:any) => {
+                  let arr = [];
+                  for(let i in res.dates)
+                  {
+                      let item:VenueDatesModel = res.dates[i];
+                      let date = {
+                          mDate: moment(item.date),
+                          selected: !item.is_available,
+                          dayPrice: item.price_for_daytime,
+                          nightPrice: item.price_for_nighttime,
+                          changed:true
+                      };
+                      arr.push(date);
+                  }
+                  this.changedPrice = arr.filter(obj => !obj.selected);
+                  this.disabledDays = arr.filter(obj => obj.selected);
+
+                  if(res.event_dates)
+                  {
+                      
+                      for(let item of res.event_dates)
+                      {
+                          this.eventsDates.push({
+                              mDate: moment(item.date_from),
+                              event: true,
+                              eventId: item.id
+                          });
+                      }
+                  }
+              }
+          );
+      }
+      
+      
+
+      
+      
+  }
+
+
+
 
 }
