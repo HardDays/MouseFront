@@ -67,6 +67,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
   Event:EventCreateModel = new EventCreateModel()
   EventId:number = 0;
+  
 
   @ViewChild('about') about:AboutComponent;
   @ViewChild('artist') artist:ArtistComponent;
@@ -111,6 +112,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
   ngOnInit()
   {
+
     this.activatedRoute.params.forEach(
       (params) => {
         if(params["id"] == 'new')
@@ -151,6 +153,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   {
 
     this.Event = event;
+    this.Event.currency = this.main.settings.GetCurrency();
 
     if(this.Event.venue){
       delete this.Event['address'];
@@ -192,7 +195,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   SaveEventByPagesWithoutNextPart(event:EventCreateModel)
   {
     this.Event.account_id = this.CurrentAccount.id;
-    
+    this.Event.currency = this.main.settings.GetCurrency();
     //if(this.Event.venue){
       delete this.Event['address'];
       delete this.Event['city_lat'];
@@ -261,7 +264,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         delete this.Event['date_from'];
         delete this.Event['date_to'];
       }
-
+      this.Event.currency = this.main.settings.GetCurrency();
 
       // if(!this.isNewEvent)
       this.WaitBeforeLoading

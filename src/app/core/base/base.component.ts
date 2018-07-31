@@ -29,6 +29,7 @@ import {ArtistFields, BaseImages, BaseMessages, EventFields, FanFields, VenueFie
 import { MapsAPILoader } from '@agm/core';
 import {FormArray, FormControl, FormGroup} from '@angular/forms';
 import { CodegenComponentFactoryResolver } from '@angular/core/src/linker/component_factory_resolver';
+import { CurrencyIcons } from '../models/preferences.model';
 
 @Injectable()
 export class BaseComponent{
@@ -314,9 +315,10 @@ export class BaseComponent{
     }
     MaskPrice()
     {
+        let CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
         return {
             // mask: ['+',/[1-9]/,' (', /[1-9]/, /\d/, /\d/, ') ',/\d/, /\d/, /\d/, '-', /\d/, /\d/,'-', /\d/, /\d/],
-            mask: ['$',/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/],
+            mask: [CurrencySymbol,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/],
             keepCharPositions: true,
             guide:false
         };

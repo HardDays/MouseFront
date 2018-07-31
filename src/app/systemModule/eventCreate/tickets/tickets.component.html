@@ -103,7 +103,7 @@
                             <div class="flex-input-groupes">
                                 <div class="input-groupe-1">
                                     <div class="rel-wr">
-                                        <span class="abs-backs">$</span>
+                                        <span class="abs-backs">{{getCurrencyPrice(currentTicket.currency)}}</span>
                                         <input id="inp-price-id-1" class="dollar" name="" type="text" [(ngModel)]="currentTicket.price">
                                     </div>
                                     <label for="inp-price-id-1">Price</label>
