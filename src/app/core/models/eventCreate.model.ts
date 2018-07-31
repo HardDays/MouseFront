@@ -23,6 +23,9 @@ export class EventCreateModel{
         public genres?:string[],
         public event_season?:string,
 
+        public currency?:string,
+
+
         public id?: number,
 
         public funding_from?: string,
@@ -62,7 +65,11 @@ export class EventCreateModel{
         public in_person_tickets?:number,
         public vr_tickets?:number,
     )
-    {}
+    {
+        if(!currency){
+            this.currency = 'RUB';
+        }
+    }
 }
 
 

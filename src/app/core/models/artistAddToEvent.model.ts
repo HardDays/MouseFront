@@ -8,9 +8,13 @@ export class AccountAddToEventModel{
         public message_id?:number,
         public time_frame_range?:string,
         public time_frame_number?:number,
+        public currency?:string,
         public is_personal?:boolean,
         public estimated_price?:number,
         public message?:string
-    ){     
+    ){
+        if(!currency){
+            this.currency = 'RUB';
+        }
     }
 }
