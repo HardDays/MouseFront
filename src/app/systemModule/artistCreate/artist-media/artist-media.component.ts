@@ -345,10 +345,13 @@ GetArtistImages()
 GetArtistImageById(id,text)
 {
   this.isImageLoading = true;
+
+
+
   this.main.imagesService.GetImageById(id)
     .subscribe(
       (res:Base64ImageModel) =>{
-        this.ArtistImages.push({img:res.base64,text:text,id:res.id});
+        this.ArtistImages.push({img:this.main.imagesService.GetImagePreview(id,{width:420,height:240}),text:text,id:res.id});
         this.isImageLoading = false;
       }
     );
