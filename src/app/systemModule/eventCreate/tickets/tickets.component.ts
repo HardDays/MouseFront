@@ -80,14 +80,14 @@ export class AddTicketsComponent extends BaseComponent implements OnInit {
   
     if(this.Event&&this.Event.tickets){
 
-        this.main.eventService.GetAnalytics(this.Event.id)
-            .subscribe((res)=>{
-                this.analitics = res;
-            },
-            (err)=>{
-                // console.log(`err`,err);
-            }
-        )
+        // this.main.eventService.GetAnalytics(this.Event.id)
+        //     .subscribe((res)=>{
+        //         this.analitics = res;
+        //     },
+        //     (err)=>{
+        //         // console.log(`err`,err);
+        //     }
+        // )
         
         for(let t of this.Event.tickets){
             params.id = t.id;
