@@ -77,12 +77,24 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.updateEvent();
+        console.log(`0`,this.Event);
         this.CreateAutocompleteVenue();
         this.initSlider()
         this.getAllSpaceTypes();
         this.venuesList = this.Event.venues;
         this.GetVenueFromList();
     }
+
+    // ngOnChanges(change:SimpleChanges){
+    //     // if(change.Event){
+    //     //     console.log(`1`,this.Event);
+    //     //     this.Event = change.Event.currentValue;
+    //     //     console.log(`2`,this.Event);
+    //     //     this.venuesList = this.Event.venues;
+    //     //     this.GetVenueFromList();
+    //     // }
+    // }
 
     
     initSlider(){
@@ -475,12 +487,12 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         subscribe((res:EventGetModel)=>{
            this.venuesList = [];
            setTimeout(() => {
-            this.Event = this.main.eventService.EventModelToCreateEventModel(res);
-            this.venuesList = this.Event.venues;
-            // console.log(`get this Event`, this.Event);
-            this.onSave.emit(this.Event);
-            this.GetVenueFromList();
-            this.venueSearch();
+                this.Event = this.main.eventService.EventModelToCreateEventModel(res);
+                this.venuesList = this.Event.venues;
+                // console.log(`get this Event`, this.Event);
+                this.onSave.emit(this.Event);
+                this.GetVenueFromList();
+                this.venueSearch();
            }, 300); 
         })
     }
