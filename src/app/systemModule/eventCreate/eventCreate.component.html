@@ -37,7 +37,7 @@
                         </li> -->
                     </ul>
                     <ul class="xs-padd-less">
-                        <li class="inline-butt-nav-create" *ngIf="(EventId !== 0 && !isNewEvent) || (isNewEvent && currentPage == pages.venue)">
+                        <li class="inline-butt-nav-create" *ngIf="EventId !== 0">
                             <button (click)="SaveEvent()" class="butt-style-1" style="width: 127px">
                                 <span style="padding: 10px 21px">
                                 SAVE

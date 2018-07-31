@@ -9,6 +9,7 @@ import { MainService } from '../../core/services/main.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MapsAPILoader } from '@agm/core';
+import { BaseImages } from '../../core/base/base.enum';
 
 declare var $:any;
 
@@ -57,7 +58,21 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
   
   ngOnInit() 
   {
+    this.accountId = this.main.CurrentAccount.id;
+    this.type = this.main.CurrentAccount.account_type;
     this.GetMessages();
+
+    this.main.MyAccountsChange.subscribe(
+      (acc)=>{
+        //console.log(acc);
+        if(acc){
+          this.accountId = this.main.CurrentAccount.id;
+          this.type = this.main.CurrentAccount.account_type;
+          this.GetMessages();
+        }
+      }
+    )
+    // this.GetMessages();
   }
 
   ngAfterViewChecked()
@@ -93,74 +108,81 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
 
   GetMessages(){
     this.messages = [];
+
+   
+
     this.WaitBeforeLoading(
-      () => this.main.accService.GetMyAccount({extended:true}),
-      (users:any[])=>{
-        let id = this.GetCurrentAccId();
-        for(let u of users)
-        {
-          if(u.id == id)
-          {
-            this.accountId = u.id;
-            this.type = u.account_type;
-            this.WaitBeforeLoading(
-              () => this.main.accService.GetInboxMessages(this.accountId),
-              (res:InboxMessageModel[])=>{
-                let index = 0;
-                for(let m of res)
-                {
-                  this.WaitBeforeLoading(
-                    () => this.main.accService.GetInboxMessageById(this.accountId,m.id),
-                    (info:InboxMessageModel)=>{
-                      this.messages.push(info);
-                      this.getUser(info.sender_id,index);
-                      index = index + 1;
-                    }
-                  );
-                }
-              }
-            );
+      () => this.main.accService.GetInboxMessages(this.accountId),
+      (res:InboxMessageModel[])=>{
+        this.messages = res;
+        console.log(res);
+        for(let m of this.messages){
+          if(m.sender){
+            if(m.sender.image_id){
+              m.sender.image_base64 = this.main.imagesService.GetImagePreview(m.sender.image_id,{width:140,height:140});
+            }
+            else{
+              m.sender.image_base64 = BaseImages.NoneFolowerImage;
+            }
           }
         }
-      }
-    );
+        if(this.messages.length>0){
+          this.openMessage = this.messages[0];
+          this.idCurMsg = this.messages[0].id;
+          this.setDateRange();  
+        }
+        // let index = 0;
+        // for(let m of res)
+        // {
+        //   this.WaitBeforeLoading(
+        //     () => this.main.accService.GetInboxMessageById(this.accountId,m.id),
+        //     (info:InboxMessageModel)=>{
+        //       this.messages.push(info);
+        //       //this.getUser(info.sender_id,index);
+        //       index = index + 1;
+        //     }
+        //   );
+        // }
+      });
+          
   }
 
-  getUser(sender:number, index:number){
-    this.WaitBeforeLoading(
-      () => this.main.accService.GetAccountById(sender,{extended:true}),
-      (acc)=>{
-        this.accs[index] = acc;
-        if(this.accs[index].image_id)
-        {
-          this.WaitBeforeLoading(
-            () => this.main.imagesService.GetImageById(this.accs[index].image_id),
-            (img)=>{
-              this.accs[index].image_base64_not_given = img.base64;
-              //  console.log(`acc`,this.accs,this.accOpen);
-              if(index==0){
-                this.idCurMsg = this.messages[0].id;
-                this.openMessage = this.messages[0];
-                this.accOpen =  this.accs[0];
-                this.setDateRange();          
-              }
-            }
-          );
-        }
-        else if(index==0)
-        {
-          this.idCurMsg = this.messages[0].id;
-          this.openMessage = this.messages[0];
-          this.accOpen =  this.accs[0];
-          this.setDateRange();          
-        }
-      }
-    );
-  }
+  // getUser(sender:number, index:number){
+  //   this.WaitBeforeLoading(
+  //     () => this.main.accService.GetAccountById(sender,{extended:true}),
+  //     (acc)=>{
+  //       this.accs[index] = acc;
+  //       if(this.accs[index].image_id)
+  //       {
+  //         this.WaitBeforeLoading(
+  //           () => this.main.imagesService.GetImageById(this.accs[index].image_id),
+  //           (img)=>{
+  //             this.accs[index].image_base64_not_given = img.base64;
+  //             //  console.log(`acc`,this.accs,this.accOpen);
+  //             if(index==0){
+  //               this.idCurMsg = this.messages[0].id;
+  //               this.openMessage = this.messages[0];
+  //               this.accOpen =  this.accs[0];
+  //               this.setDateRange();          
+  //             }
+  //           }
+  //         );
+  //       }
+  //       else if(index==0)
+  //       {
+  //         this.idCurMsg = this.messages[0].id;
+  //         this.openMessage = this.messages[0];
+  //         this.accOpen =  this.accs[0];
+  //         this.setDateRange();          
+  //       }
+  //     }
+  //   );
+  // }
 
   changeItem(msg:InboxMessageModel,i:number)
   {
     this.openMessage = msg;
+    console.log(this.openMessage);
     this.idCurMsg = msg.id;
     this.accOpen =  this.accs[i];
     if( this.openMessage.message_type!='blank')
@@ -204,13 +226,23 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
       return 'soon';
   }
 
+  isExpiresSoonByExpireDate(date:string)
+  {
+    // let expire = this.getExpireDate(date,frame);
+    let today = new Date();
+    let expire = new Date(date);
+      today.setDate(today.getDate()+1);
+      if(today > expire)
+      return 'soon';
+  }
+
   setDateRange()
   {
     if(this.openMessage&&this.openMessage.message_info&&this.openMessage.message_info.event_info&&this.openMessage.message_info.event_info.event_season){
       if(this.openMessage.message_info.event_info.event_season=='spring')
       {
         this.minDate = new Date(+this.openMessage.message_info.event_info.event_year,2,1);
-        this.maxDate = new Date(+this.openMessage.message_info.event_info.event_year,4,31);
+        this.maxDate = new Date(+this.openMessage.message_info.event_info.event_year,5,31);
       }
       else if(this.openMessage.message_info.event_info.event_season=='summer')
       {
@@ -220,7 +252,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
       else if(this.openMessage.message_info.event_info.event_season=='autumn')
       {
         this.minDate = new Date(+this.openMessage.message_info.event_info.event_year,8,1);
-        this.maxDate = new Date(+this.openMessage.message_info.event_info.event_year,9,31);
+        this.maxDate = new Date(+this.openMessage.message_info.event_info.event_year,10,30);
       }
       else if(this.openMessage.message_info.event_info.event_season=='winter')
       {

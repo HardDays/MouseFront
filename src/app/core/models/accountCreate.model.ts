@@ -9,6 +9,7 @@ export class AccountCreateModel{
     constructor(
             public user_name?: string,	
             public display_name?: string,
+            public full_name?: string,
             public phone?: string,	
             public account_type?: string,
         public bio?: string, // fan

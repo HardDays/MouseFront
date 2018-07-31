@@ -104,6 +104,7 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
                     this.MyAccountId = this.GetCurrentAccId();
                     this.isFolowed();
                     this.isAccReadyToShow = true;
+                    
                 }
                 else{
                     this.getUserInfo();
@@ -123,7 +124,6 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
         .subscribe(
             (resAccount:AccountGetModel)=>
             {
-                
                 this.InitByUser(resAccount);
                 this.main.accService.GetMyAccount()
                     .subscribe((resMy:AccountGetModel[])=>
@@ -144,6 +144,7 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
             (res:any) =>
             {
                 this.Fans = res.followers;
+            
             },
             (err) => {
               //  console.log(err);
@@ -210,6 +211,7 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
             (res:any) =>
             { 
                 this.isFolowedAcc = res.status;
+                
             },
             (err) => {
                 // console.log(err);

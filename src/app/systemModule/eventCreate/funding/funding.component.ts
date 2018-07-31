@@ -58,20 +58,25 @@ export class FundingComponent extends BaseComponent implements OnInit {
 
         this.main.accService.GetInboxMessages(this.Event.creator_id).
         subscribe((res)=>{
-            for(let m of res)
-                this.main.accService.GetInboxMessageById(this.Event.creator_id, m.id).
-                    subscribe((msg)=>{
-                        this.messagesList.push(msg);
-                        if(this.messagesList.length===res.length)
-                            setTimeout(() => {
-                                console.log(this.messagesList)
-                                this.getActiveArtVen();
-                            }, 300);
-                            
-                },(err)=>{
-                    this.isLoadingArtist = false;
-                    this.isLoadingVenue = false;
-                });
+            if(res.length>0){
+                for(let m of res)
+                    this.main.accService.GetInboxMessageById(this.Event.creator_id, m.id).
+                        subscribe((msg)=>{
+                            this.messagesList.push(msg);
+                            if(this.messagesList.length===res.length)
+                                setTimeout(() => {
+                                    console.log(this.messagesList)
+                                    this.getActiveArtVen();
+                                }, 300);
+                                
+                    },(err)=>{
+                        this.isLoadingArtist = false;
+                        this.isLoadingVenue = false;
+                    });
+            }
+            else {
+                this.getActiveArtVen();   
+            }
         },
         (err)=>{
             this.isLoadingArtist = false;
@@ -175,47 +180,57 @@ export class FundingComponent extends BaseComponent implements OnInit {
         this.activeVenue = this.convertArrToCheckModel<GetVenue>(this.Event.venues);
 
         let i = 0;
-        for(let item of this.activeArtist){
-            if(item.object.status===InviteStatus.RequestSend || 
-                item.object.status===InviteStatus.Accepted ||
-                item.object.status===InviteStatus.OwnerAccepted ||
-                item.object.status===InviteStatus.Active)
-            {    
-                let price = this.getPriceAtMsg(item.object.artist_id);
-                console.log(item,` price`,price);
-                if(price){
-                    this.activeArtist[i].object.approximate_price = price;
+        if(this.activeArtist.length>0){
+            for(let item of this.activeArtist){
+                if(item.object.status===InviteStatus.RequestSend || 
+                    item.object.status===InviteStatus.Accepted ||
+                    item.object.status===InviteStatus.OwnerAccepted ||
+                    item.object.status===InviteStatus.Active)
+                {    
+                    let price = this.getPriceAtMsg(item.object.artist_id);
+                    console.log(item,` price`,price);
+                    if(price){
+                        this.activeArtist[i].object.approximate_price = price;
+                    }
                 }
+                if(item.object.is_active){
+                    item.checked = true;
+                    this.artistSum += this.activeArtist[i].object.approximate_price;
+                }
+                i = i + 1;
             }
-            if(item.object.is_active){
-                item.checked = true;
-                this.artistSum += this.activeArtist[i].object.approximate_price;
-            }
-            i = i + 1;
+            this.getImagesArtist(this.activeArtist);
+        }
+        else{
+            this.isLoadingArtist = false;
         }
 
         i = 0;
-        for(let item of this.activeVenue){
-            if(item.object.status===InviteStatus.RequestSend || 
-                item.object.status===InviteStatus.Accepted ||
-                item.object.status===InviteStatus.OwnerAccepted ||
-                item.object.status===InviteStatus.Active)
-            {    
-                let price = this.getPriceAtMsg(item.object.venue_id);
-                //console.log(price);
-                if(price){
-                    this.activeVenue[i].object.approximate_price = price;
+        if(this.activeVenue.length>0){
+            for(let item of this.activeVenue){
+                if(item.object.status===InviteStatus.RequestSend || 
+                    item.object.status===InviteStatus.Accepted ||
+                    item.object.status===InviteStatus.OwnerAccepted ||
+                    item.object.status===InviteStatus.Active)
+                {    
+                    let price = this.getPriceAtMsg(item.object.venue_id);
+                    //console.log(price);
+                    if(price){
+                        this.activeVenue[i].object.approximate_price = price;
+                    }
                 }
+                if(item.object.is_active){
+                    item.checked = true;
+                    this.venueSum += this.activeVenue[i].object.approximate_price;
+                }
+                i = i + 1;
             }
-            if(item.object.is_active){
-                item.checked = true;
-                this.venueSum += this.activeVenue[i].object.approximate_price;
-            }
-            i = i + 1;
-        }
 
-        this.getImagesArtist(this.activeArtist);
-        this.getImagesVenue(this.activeVenue);
+            this.getImagesVenue(this.activeVenue);
+        }
+        else{
+            this.isLoadingVenue = false;
+        }
 
     }
 

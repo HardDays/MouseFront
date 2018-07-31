@@ -298,7 +298,10 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
               this.main.CurrentAccountChange.next(res);
             }
           );
-          this.router.navigate(['/system','profile',res.id]);
+          setTimeout(() => {
+            this.router.navigate(['/system','profile',res.id]);
+          }, 500);
+          
         },
         (err:any)=>{
           this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'fan'));
