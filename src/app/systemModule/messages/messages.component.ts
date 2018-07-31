@@ -64,7 +64,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
 
     this.main.MyAccountsChange.subscribe(
       (acc)=>{
-        console.log(acc);
+        //console.log(acc);
         if(acc){
           this.accountId = this.main.CurrentAccount.id;
           this.type = this.main.CurrentAccount.account_type;
@@ -129,6 +129,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
         if(this.messages.length>0){
           this.openMessage = this.messages[0];
           this.idCurMsg = this.messages[0].id;
+          this.setDateRange();  
         }
         // let index = 0;
         // for(let m of res)
@@ -181,6 +182,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
   changeItem(msg:InboxMessageModel,i:number)
   {
     this.openMessage = msg;
+    console.log(this.openMessage);
     this.idCurMsg = msg.id;
     this.accOpen =  this.accs[i];
     if( this.openMessage.message_type!='blank')
@@ -224,13 +226,23 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
       return 'soon';
   }
 
+  isExpiresSoonByExpireDate(date:string)
+  {
+    // let expire = this.getExpireDate(date,frame);
+    let today = new Date();
+    let expire = new Date(date);
+      today.setDate(today.getDate()+1);
+      if(today > expire)
+      return 'soon';
+  }
+
   setDateRange()
   {
     if(this.openMessage&&this.openMessage.message_info&&this.openMessage.message_info.event_info&&this.openMessage.message_info.event_info.event_season){
       if(this.openMessage.message_info.event_info.event_season=='spring')
       {
         this.minDate = new Date(+this.openMessage.message_info.event_info.event_year,2,1);
-        this.maxDate = new Date(+this.openMessage.message_info.event_info.event_year,4,31);
+        this.maxDate = new Date(+this.openMessage.message_info.event_info.event_year,5,31);
       }
       else if(this.openMessage.message_info.event_info.event_season=='summer')
       {
@@ -240,7 +252,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
       else if(this.openMessage.message_info.event_info.event_season=='autumn')
       {
         this.minDate = new Date(+this.openMessage.message_info.event_info.event_year,8,1);
-        this.maxDate = new Date(+this.openMessage.message_info.event_info.event_year,9,31);
+        this.maxDate = new Date(+this.openMessage.message_info.event_info.event_year,10,30);
       }
       else if(this.openMessage.message_info.event_info.event_season=='winter')
       {
