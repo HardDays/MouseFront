@@ -77,13 +77,28 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.updateEvent();
-        console.log(`0`,this.Event);
+        
+        // console.log(`0`,this.Event);
         this.CreateAutocompleteVenue();
         this.initSlider()
         this.getAllSpaceTypes();
+        
         this.venuesList = this.Event.venues;
-        this.GetVenueFromList();
+        // this.updateEvent();
+        // this.GetVenueFromList();
+
+        this.main.eventService.GetEventById(this.Event.id).
+        subscribe((res:EventGetModel)=>{
+           this.venuesList = [];
+           setTimeout(() => {
+                this.Event = this.main.eventService.EventModelToCreateEventModel(res);
+                this.venuesList = this.Event.venues;
+                // console.log(`get this Event`, this.Event);
+                // this.onSave.emit(this.Event);
+                this.GetVenueFromList();
+                this.venueSearch();
+           }, 300); 
+        })
     }
 
     // ngOnChanges(change:SimpleChanges){
