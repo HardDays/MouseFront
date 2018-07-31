@@ -37,19 +37,19 @@ export class FanProfileComponent extends BaseComponent implements OnInit,OnChang
 
     ngOnChanges(changes: SimpleChanges): void {
         
-        if(changes.Account)
-        {
-            this.Account = changes.Account.currentValue;
-        }
-        if(changes.MyProfileId){
-            this.MyProfileId = changes.MyProfileId.currentValue;
-        }
+        // if(changes.Account)
+        // {
+        //     this.Account = changes.Account.currentValue;
+        // }
+        // if(changes.MyProfileId){
+        //     this.MyProfileId = changes.MyProfileId.currentValue;
+        // }
         if(changes.Fans){
             this.isPreloadFans = true;
             this.FansChecked = this.Fans = changes.Fans.currentValue;
             this.isPreloadFans = false;
         }    
-        // this.InitByUser();
+        this.InitByUser();
     }
     
     ngOnInit(): void {
@@ -87,7 +87,6 @@ export class FanProfileComponent extends BaseComponent implements OnInit,OnChang
                     this.isPreloadTickets = false;
                 },
                 (err) => {
-                //   console.log(err);
                 }
             );
         }
@@ -116,7 +115,6 @@ export class FanProfileComponent extends BaseComponent implements OnInit,OnChang
                     this.isPreloadEvents = false;
                 },
                 (err) => {
-                //  console.log(err);
                 }
             );
         }

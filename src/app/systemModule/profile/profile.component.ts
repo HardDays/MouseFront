@@ -69,6 +69,11 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
     EbanySlider:boolean;
     isFolowedAcc:boolean;
     isAccReadyToShow:boolean = false;
+    ArtistAcc = new AccountGetModel();
+    VenueAcc = new AccountGetModel();
+    FanAcc = new AccountGetModel();
+
+    AccType = this.Roles.Fan;
 
     Fans:AccountGetModel[] = [];
 
@@ -103,7 +108,7 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
                     this.InitByUser(acc);
                     this.MyAccountId = this.GetCurrentAccId();
                     this.isFolowed();
-                    this.isAccReadyToShow = true;
+                    
                     
                 }
                 else{
@@ -147,7 +152,6 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
             
             },
             (err) => {
-              //  console.log(err);
             
             }
         );
@@ -159,7 +163,6 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
         //let player = window.document.getElementById('video-iframe-0');
         let player = $('#video-iframe-0');
         
-        //console.log(player);
         //$('#video-iframe-'+index).pauseVideo();
     }
 
@@ -167,7 +170,20 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
 
     InitByUser(usr:any)
     {
-        this.Account = usr;
+        this.AccType = usr.account_type;
+        if(this.AccType == this.Roles.Fan)
+        {
+            this.FanAcc = usr;
+        }
+        else if(this.AccType == this.Roles.Venue)
+        {
+            this.VenueAcc = usr;
+        }
+        else if(this.AccType == this.Roles.Artist)
+        {
+            this.ArtistAcc = usr;
+        }
+        
         this.GetFolowersAcc();
 
         if(usr.image_id)
@@ -177,6 +193,7 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
         else{
             this.baseImageMy = '';
         }
+        this.isAccReadyToShow = true;
     
     }
 
@@ -214,7 +231,6 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
                 
             },
             (err) => {
-                // console.log(err);
             
             }
         );
