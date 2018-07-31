@@ -44,7 +44,9 @@ export class EventPatchModel{
         public venue?: AccountGetModel,
         public tickets?: TicketModel[],
         public event_season?:string,
-        public image_base64?:string
+        public image_base64?:string,
+
+        public currency?:string,
     )
     {}
 }

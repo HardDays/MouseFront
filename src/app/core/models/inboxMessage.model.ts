@@ -45,5 +45,6 @@ export class MessageInfoModel{
         public message?: string,
         public expiration_date?:string,
         public status?:string,
+        public currency?:string
     ){}
 }

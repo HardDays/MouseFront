@@ -47,7 +47,9 @@ export class EventGetModel{
         public image_base64?:string,
         public additional_cost?:number,
         public family_and_friends_amount?:number,
-        public status?:string
+        public status?:string,
+
+        public currency?:string
         
     )
     {}

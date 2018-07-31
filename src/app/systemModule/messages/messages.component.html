@@ -38,8 +38,13 @@
 
                                             </p>
                                             
-                                            <p *ngIf="item.message_type == 'request'" class="price">${{item.message_info&&item.message_info.estimated_price}}</p>
-                                            <p *ngIf="item.message_type == 'accept'" class="price">${{item.message_info&&item.message_info.price }}</p>
+                                            <p *ngIf="item.message_type == 'request'" class="price">
+                                                {{item.message_info?.currency?(item.message_info.currency==='USD'?'$':item.message_info.currency==='RUB'?'₽':item.message_info.currency==='EUR'?'€':''):''}}
+                                                {{item.message_info&&item.message_info.estimated_price}}
+                                            </p>
+                                            <p *ngIf="item.message_type == 'accept'" class="price">
+                                                {{item.message_info?.currency?(item.message_info.currency==='USD'?'$':item.message_info.currency==='RUB'?'₽':item.message_info.currency==='EUR'?'€':''):''}}
+                                                {{item.message_info&&item.message_info.price }}</p>
                                             <p *ngIf="isExpiresSoonByExpireDate(item.message_info.expiration_date)=='soon'&&item.message_type == 'request'" class="expires-soon">Expires<br>Soon</p>
                                         </div>
                                     </div>
@@ -164,7 +169,9 @@
                                 <div class="block-info fourth-b">
                                     <p class="fot-edit">
                                             
-                                        Price to Perform <span> ${{(openMessage.message_type&&openMessage.message_info&&openMessage.message_type == 'request')?openMessage.message_info.estimated_price:openMessage.message_info.price}}</span>
+                                        Price to Perform <span>
+                                            {{openMessage.message_info?.currency?(openMessage.message_info.currency==='USD'?'$':openMessage.message_info.currency==='RUB'?'₽':openMessage.message_info.currency==='EUR'?'€':''):''}}
+                                            {{(openMessage.message_type&&openMessage.message_info&&openMessage.message_type == 'request')?openMessage.message_info.estimated_price:openMessage.message_info.price}}</span>
                                         <img *ngIf="openMessage.message_type == 'request'&&!openMessage.is_read" src="../../assets/img/edit-img.png" (click)="isEditPrice = true" class="img-responsive for-edit-img" alt="">
                                     </p>
                                     
@@ -173,7 +180,7 @@
                                     <div *ngIf="isEditPrice" class="flex-price-change">
                                         <p class="your-price">Change price</p>
                                         <div class="rel-dog">
-                                            <span>$</span>
+                                            <span>{{openMessage.message_info?.currency?(openMessage.message_info.currency==='USD'?'$':openMessage.message_info.currency==='RUB'?'₽':openMessage.message_info.currency==='EUR'?'€':''):''}}</span>
                                             <input [(ngModel)]="changePrice" class="inp-style-2" type="text">
                                         </div>
                                     </div>
