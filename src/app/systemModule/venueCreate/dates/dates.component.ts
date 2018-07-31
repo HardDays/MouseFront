@@ -163,7 +163,6 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
             .subscribe(
                 (res:any) => {
                     let arr = [];
-                    console.log(res);
                     for(let i in res.dates)
                     {
                         let item:VenueDatesModel = res.dates[i];

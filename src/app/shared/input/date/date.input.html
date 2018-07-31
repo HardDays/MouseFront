@@ -1,11 +1,6 @@
 <div class="flex-select-range">
     <p class="upper-label-fix-class">{{Label}}</p>
     <div class="input-groupe-1" style="width: 48px;">
-        <!-- <select [ngModel]="Day" (ngModelChange)="Day = $event">
-            <ng-container *ngFor="let item of DayNumbers">
-                <option [value]="item">{{item}}</option>
-            </ng-container>
-        </select> -->
         <mat-form-field >
             <mat-select [(ngModel)]="Month" (ngModelChange)="MonthChanges($event) ">
                 <mat-option *ngFor="let item of MonthArray; let i = index" [value]="i">
@@ -15,27 +10,9 @@
         </mat-form-field>
     </div>
     <div class="input-groupe-1" style="width: 39px;height: 31px;">
-        <!-- <select [ngModel]="Month" (ngModelChange)="MonthChanges($event)">
-            <ng-container *ngFor="let item of MonthArray;let i = index">
-                <option [value]="i">{{item}}</option>
-            </ng-container>
-        </select> -->
-<!-- 
-        <mat-form-field >
-            <mat-select [(ngModel)]="Day" (ngModelChange)="Day = $event">
-                <mat-option *ngFor="let item of DayNumbers" [value]="item">
-                    {{ item }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field> -->
         <input type="text" [ngModel]="Day" (ngModelChange)="DateChanges($event)" [textMask]="MaskDays(Day.toString())" >
     </div>
     <div class="input-groupe-1" style="width: 48px;">
-        <!-- <select [ngModel]="Year" (ngModelChange)="YearChanges($event)">
-            <ng-container *ngFor="let item of YearArray">
-                <option [value]="item">{{item}}</option>
-            </ng-container>
-        </select> -->
         <mat-form-field >
             <mat-select [(ngModel)]="Year" (ngModelChange)="YearChanges($event) ">
                 <mat-option *ngFor="let item of YearArray" [value]="item">

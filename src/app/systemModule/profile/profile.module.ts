@@ -15,6 +15,7 @@ import { ArtistProfileComponent } from './artist/artist.component';
 import { ShowDetailGalleryComponent } from '../showsDetail/gallery/gallery.component';
 import { ShowsDetailModule } from '../showsDetail/showsDetail.module';
 import { ErrorModule } from '../../shared/error/error.module';
+import { TimePipe } from '../../core/pipes/time.pipe';
 
 
 @NgModule({
@@ -40,8 +41,9 @@ import { ErrorModule } from '../../shared/error/error.module';
         FanProfileComponent,
         VenueProfileComponent,
         ArtistProfileComponent,
-
+        TimePipe
     ],
-    exports: [ ProfileComponent, VenueProfileComponent, ArtistProfileComponent ]
+    exports: [ ProfileComponent, VenueProfileComponent, ArtistProfileComponent ],
+    providers: [ TimePipe ]
 })
 export class ProfileModule {}

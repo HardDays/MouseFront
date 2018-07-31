@@ -27,6 +27,7 @@ import { LikesService } from "./likes.service";
 import { UserCreateModel } from "../models/userCreate.model";
 import { UserGetModel } from "../models/userGet.model";
 import { AdminService } from "./admin.service";
+import { SettingsService } from "./settings.service";
 
 declare var $:any;
 
@@ -65,7 +66,8 @@ export class MainService{
         public likesService  : LikesService,
         public adminService  : AdminService,
         public _auth         : AuthService,
-        public activeRouter  : ActivatedRoute   
+        public activeRouter  : ActivatedRoute,
+        public settings      : SettingsService
     ){
 
         this.UserChange = new Subject();

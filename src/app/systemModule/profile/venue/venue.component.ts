@@ -10,6 +10,7 @@ import { AgmMap, MapsAPILoader } from "@agm/core";
 import { MainService } from "../../../core/services/main.service";
 import { DomSanitizer } from "../../../../../node_modules/@angular/platform-browser";
 import { Router, ActivatedRoute } from "../../../../../node_modules/@angular/router";
+import { TimePipe } from '../../../core/pipes/time.pipe';
 
 declare var $:any;
 declare var PhotoSwipeUI_Default:any;

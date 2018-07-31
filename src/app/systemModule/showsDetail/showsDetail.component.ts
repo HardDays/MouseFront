@@ -336,6 +336,8 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     SetDate()
     {
         this.Date = "";
+        const timeFormat = (this.main.settings.GetSettings()).TimeFormat == '24' ? 'HH:mm' : 'hh:mm A';
+        const dateTimeFromat = "dddd, MMM DD, YYYY " + timeFormat;
         if(!this.Event.date_from && !this.Event.date_to)
         {
             this.Date = this.Event.event_season + ", " + this.Event.event_year;
@@ -346,16 +348,16 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         }
         else if (this.Event.date_from && this.Event.date_to)
         {
-            let from = this.Event.date_from.split("T")[0];
+            let from = this.Event.date_from.split("T")[0];            
             let to = this.Event.date_to.split("T")[0];
             if(from === to){
                 let m = moment(this.Event.date_from);
-                this.Date = m.format('dddd, MMM DD, YYYY HH:mm');
-                this.Date = this.Date + " - <span>"+ moment(this.Event.date_to).format('HH:mm')+"</span>";
+                this.Date = m.format(dateTimeFromat);
+                this.Date = this.Date + " - <span>"+ moment(this.Event.date_to).format(timeFormat)+"</span>";
                 //this.Date = date.toLocaleDateString('EEEE, MMM d, yyyy HH:mm');
             }
             else{
-                this.Date = moment(this.Event.date_from).format('dddd, MMM DD, YYYY HH:mm') + " - " + moment(this.Event.date_to).format('dddd, MMM DD, YYYY HH:mm');
+                this.Date = moment(this.Event.date_from).format(dateTimeFromat) + " - " + moment(this.Event.date_to).format(dateTimeFromat);
             }
         }
     }
