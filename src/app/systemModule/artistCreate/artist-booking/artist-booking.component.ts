@@ -8,6 +8,7 @@ import { MapsAPILoader, AgmMap } from '@agm/core';
 import { CheckModel } from '../../../core/models/check.model';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Conditional } from '@angular/compiler';
+import { CurrencyIcons } from '../../../core/models/preferences.model';
 
 declare var $:any;
 
@@ -41,6 +42,8 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
   type_min_time_to_free_cancel:string = '';
   type_min_time_to_book:string = '';
 
+  CurrencySymbol = '$';
+
   constructor(
     protected main           : MainService,
     protected _sanitizer     : DomSanitizer,
@@ -54,6 +57,9 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
+
+  
     this.CreateAutocomplete();
     // this.initDateMin();
     //this.initDateMin();
@@ -264,11 +270,11 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
 
     if(this.Artist.price_from&&this.Artist.price_to){
 
-      if(''+this.Artist.price_from[0]==='$')this.Artist.price_from = +(''+this.Artist.price_from).slice(1);
-      if(''+this.Artist.price_to[0]==='$')this.Artist.price_to = +(''+this.Artist.price_to).slice(1);
+      if(''+this.Artist.price_from[0]===this.CurrencySymbol)this.Artist.price_from = +(''+this.Artist.price_from).slice(1);
+      if(''+this.Artist.price_to[0]===this.CurrencySymbol)this.Artist.price_to = +(''+this.Artist.price_to).slice(1);
 
       if(this.Artist.additional_hours_price)
-        if(''+this.Artist.additional_hours_price[0]==='$') 
+        if(''+this.Artist.additional_hours_price[0]===this.CurrencySymbol) 
           this.Artist.additional_hours_price = +(''+this.Artist.additional_hours_price).slice(1);
 
       this.Artist.preferred_venues = [];
@@ -322,11 +328,11 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
   protected SaveArtist(){
     if(this.Artist.price_from&&this.Artist.price_to){
 
-      if(''+this.Artist.price_from[0]==='$')this.Artist.price_from = +(''+this.Artist.price_from).slice(1);
-      if(''+this.Artist.price_to[0]==='$')this.Artist.price_to = +(''+this.Artist.price_to).slice(1);
+      if(''+this.Artist.price_from[0]===this.CurrencySymbol)this.Artist.price_from = +(''+this.Artist.price_from).slice(1);
+      if(''+this.Artist.price_to[0]===this.CurrencySymbol)this.Artist.price_to = +(''+this.Artist.price_to).slice(1);
 
       if(this.Artist.additional_hours_price)
-        if(''+this.Artist.additional_hours_price[0]==='$') 
+        if(''+this.Artist.additional_hours_price[0]===this.CurrencySymbol) 
           this.Artist.additional_hours_price = +(''+this.Artist.additional_hours_price).slice(1);
 
       this.Artist.preferred_venues = [];

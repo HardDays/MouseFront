@@ -34,7 +34,9 @@ export class TicketsGetModel{
         public video_link?: string,
         public in_person_tickets?: boolean,
         public vr_tickets?: boolean,
-        public tickets_count?:number
+        public tickets_count?:number,
+        public currency?:string
+        
     )
     {}
 }

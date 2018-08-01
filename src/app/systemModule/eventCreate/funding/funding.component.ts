@@ -7,6 +7,7 @@ import { Base64ImageModel } from '../../../core/models/base64image.model';
 import { EventCreateModel } from '../../../core/models/eventCreate.model';
 import { BaseImages, RequestFields, AccountStatus, InviteStatus, ArtistFields } from '../../../core/base/base.enum';
 import { InboxMessageModel } from '../../../core/models/inboxMessage.model';
+import { CurrencyIcons } from '../../../core/models/preferences.model';
 
 @Component({
   selector: 'app-funding',
@@ -30,6 +31,8 @@ export class FundingComponent extends BaseComponent implements OnInit {
 
     Statuses = InviteStatus;
 
+    CurrencySymbol = '$';
+
     @Input() Event:EventCreateModel;
     @Input() isHasVenue:boolean;
     @Output() onSaveEvent:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
@@ -42,6 +45,8 @@ export class FundingComponent extends BaseComponent implements OnInit {
         this.isLoadingVenue = true;
         this.activeArtist = [];
         this.activeVenue = [];
+
+        this.CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
 
        
         this.main.eventService.GetEventById(this.Event.id).

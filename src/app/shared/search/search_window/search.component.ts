@@ -206,7 +206,6 @@ export class SearchEventsComponent extends BaseComponent implements OnInit {
 
         this.CloseSearchWindow();
         this.SearchParams.offset = 0;
-        console.log(this.SearchParams);
         this.onSearch.emit(this.SearchParams);
     }
 

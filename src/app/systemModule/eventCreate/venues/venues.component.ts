@@ -21,6 +21,7 @@ import { AccountAddToEventModel } from '../../../core/models/artistAddToEvent.mo
 import { InboxMessageModel } from '../../../core/models/inboxMessage.model';
 import { EventCreateModel } from '../../../core/models/eventCreate.model';
 import { BaseImages, BaseErrors, BaseMessages } from '../../../core/base/base.enum';
+import { CurrencyIcons } from '../../../core/models/preferences.model';
 
 declare var $:any;
 declare var ionRangeSlider:any;
@@ -50,6 +51,8 @@ export class VenuesComponent extends BaseComponent implements OnInit {
 
     mapCoords =  {lat:55.755826, lng:37.6172999};
     isLoadingVenue:boolean = false;
+
+    CurrencySymbol = '$';
    
     venueSearchParams:AccountSearchModel = new AccountSearchModel();
     typesSpace:CheckModel<SelectModel>[] = [];
@@ -78,6 +81,8 @@ export class VenuesComponent extends BaseComponent implements OnInit {
 
     ngOnInit() {
         
+        this.CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
+
         // console.log(`0`,this.Event);
         this.CreateAutocompleteVenue();
         this.initSlider()

@@ -8,8 +8,10 @@ html, body{
 .main_content{
   min-height: 100vh;
 }
+
 .main_content .for-flex-height{
   min-height: 100vh;
+  overflow: hidden;
 }
 .modal-send-request.map-1-modal .modal-dialog .for-map-init-modal-1{
   border: none;  
@@ -81,6 +83,9 @@ html, body{
   padding: 3px 0;
   position: relative;
   top: 8px;
+}
+.input-groupe-1.font-size-label label, .input-groupe-1.font-size-label .head-groupe{
+  font-size: 13px;
 }
 @media (max-width: 1560px) {
   .venue-week-cal-style .week-day-time-wr .from-to .from-to-width-1560{

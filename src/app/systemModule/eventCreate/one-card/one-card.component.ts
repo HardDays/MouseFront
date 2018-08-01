@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AccountGetModel } from '../../../core/models/accountGet.model';
 import { BaseImages } from '../../../core/base/base.enum';
+import { CurrencyIcons } from '../../../core/models/preferences.model';
+import { BaseComponent } from '../../../core/base/base.component';
 
 declare var $:any;
 declare var ionRangeSlider:any;
@@ -10,7 +12,7 @@ declare var ionRangeSlider:any;
   templateUrl: './one-card.component.html',
   styleUrls: ['./one-card.component.css']
 })
-export class OneCardComponent implements OnInit {
+export class OneCardComponent extends BaseComponent implements OnInit {
 
   @Input('card') card: AccountGetModel;
   @Input('status') status: string;
@@ -22,11 +24,14 @@ export class OneCardComponent implements OnInit {
   @Output('checked') checked = new EventEmitter();
   @Output('open') open = new EventEmitter<number>();
 
+
+  CurrencySymbol = '$';
   // @Output('addVenue') addVenue = new EventEmitter<AccountGetModel>();
 
   emptyImage = BaseImages.NoneUserImage;
 
   ngOnInit() {
+    this.CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
     // console.log(`card`,this.card, this.status);
   }
 

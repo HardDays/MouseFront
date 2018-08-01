@@ -53,18 +53,16 @@ import { ShowsDetailModule } from './showsDetail/showsDetail.module';
 import { SearchTicketsModule } from './tickets/tickets.module';
 import { SettingsModule } from './settings/settings.module';
 import { FeedItemComponent } from './feed/feed-item/feed-item.component';
+import { FeedModule } from './feed/feed.module';
 
 
 
 @NgModule({
   declarations: [
     SystemComponent,
-    FeedComponent,
     FanCreateComponent,
     MessagesComponent,
-    MyTicketOpenedComponent,
-    
-    FeedItemComponent
+    MyTicketOpenedComponent
   ],
   imports: [
     CommonModule,
@@ -90,6 +88,7 @@ import { FeedItemComponent } from './feed/feed-item/feed-item.component';
     ShowsDetailModule,
     SearchTicketsModule,
     SettingsModule,
+    FeedModule,
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",
       libraries: ["places"]

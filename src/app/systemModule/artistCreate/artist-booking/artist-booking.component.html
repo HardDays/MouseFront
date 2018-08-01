@@ -44,12 +44,12 @@
                     <div class="flex-input-groupes">
                         <div class="input-groupe-1 from-to-style">
                             <span class="f-t">From<span>*</span></span>
-                            <input maxlength="10" [textMask]="MaskPrice()" placeholder="$" [(ngModel)]="Artist.price_from" type="text">
+                            <input maxlength="10" [textMask]="MaskPrice()" placeholder="{{CurrencySymbol}}" [(ngModel)]="Artist.price_from" type="text">
                             <span class="t-f">/hr</span>
                         </div>
                         <div class="input-groupe-1 from-to-style">
                             <span class="f-t">To<span>*</span></span>
-                            <input maxlength="10" [textMask]="MaskPrice()" placeholder="$" [(ngModel)]="Artist.price_to" type="text">
+                            <input maxlength="10" [textMask]="MaskPrice()" placeholder="{{CurrencySymbol}}" [(ngModel)]="Artist.price_to" type="text">
                             <span class="t-f">/hr</span>                           
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                         <p class="hours-label">Price for additional Hours:</p>
                         </div>
                         <div class="input-groupe-1 from-to-style hours-label-groupe">
-                            <input maxlength="10" [textMask]="MaskPrice()" placeholder="$" [(ngModel)]="Artist.additional_hours_price" type="text">
+                            <input maxlength="10" [textMask]="MaskPrice()" placeholder="{{CurrencySymbol}}" [(ngModel)]="Artist.additional_hours_price" type="text">
                             <span class="t-f">/hr</span>                           
                         </div>
                     </div>
@@ -327,7 +327,7 @@
                         <p class="hours-label">Fee for last minute сancellation</p>
                         </div>
                         <div class="input-groupe-1 doll from-to-style hours-label-groupe auto-width">
-                            <span class="user-name-dog doll">$</span>          
+                            <span class="doll fix-31">{{CurrencySymbol}}</span>          
                             <input [(ngModel)]="Artist.late_cancellation_fee" type="text" class="whithout-padd">                                    
                         </div>
                     </div>

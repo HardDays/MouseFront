@@ -15,10 +15,10 @@ export class FeedService{
     constructor(private http: HttpService, private typeService:TypeService){
     }
 
-    GetFeedByAccId(accId:number)
+    GetFeedByAccId(accId:number,limit:number,offset:number)
     {
         return this.http.CommonRequest(
-            ()=> this.http.GetData('/accounts/'+accId+'/feed.json',this.typeService.ParamsToUrlSearchParams({account_id:accId}))
+            ()=> this.http.GetData('/accounts/'+accId+'/feed.json',this.typeService.ParamsToUrlSearchParams({account_id:accId,limit,offset}))
         );
     }
 

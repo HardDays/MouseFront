@@ -12,3 +12,17 @@
 ul li{
     cursor: pointer;
 }
+
+.create-event-nav-tabs{
+    position: relative;
+
+}
+.create-event-nav-tabs:before{
+    content: "";
+    position: absolute;
+    height: 500px;
+    width: 100%;
+    left: 0;
+    top: 100%;
+    background: #fff;
+}

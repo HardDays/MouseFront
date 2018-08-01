@@ -1,0 +1,10 @@
+
+.create-event-body-1:before{
+    content: "";
+    position: absolute;
+    height: 500px;
+    width: 100%;
+    left: 0;
+    top: 100%;
+    background: #fff;
+}

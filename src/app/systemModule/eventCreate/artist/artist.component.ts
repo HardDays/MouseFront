@@ -21,6 +21,7 @@ import { CheckModel } from '../../../core/models/check.model';
 import { InboxMessageModel } from '../../../core/models/inboxMessage.model';
 import { EventCreateModel } from '../../../core/models/eventCreate.model';
 import { BaseImages } from '../../../core/base/base.enum';
+import { CurrencyIcons } from '../../../core/models/preferences.model';
 
 
 declare var $:any;
@@ -54,6 +55,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
   mapCoords =  {lat:55.755826, lng:37.6172999};
 
+  CurrencySymbol = '$';
 
   isAcceptedArtistShow:boolean = true;
   // showModalRequest:boolean = false;
@@ -79,6 +81,9 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
 
     ngOnInit() {
+
+      this.CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
+
       this.CreateAutocompleteArtist();
       this.artistSearchParams.price_to = 100000;
       let _the = this;
