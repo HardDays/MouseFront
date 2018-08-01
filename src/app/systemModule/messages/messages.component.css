@@ -14,3 +14,6 @@
 .messages-main-wrapp .flex-massages-wrapp .left-s .one-msg-l-block .descr-side{
     min-width: 0;
 }
+.messages-main-wrapp .flex-massages-wrapp{
+    min-height: calc(100vh - 84px);
+}
