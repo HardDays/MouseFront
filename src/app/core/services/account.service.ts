@@ -348,7 +348,4 @@ export class AccountService{
             () => this.http.PostData('/accounts/'+ Id +'/venue_dates/from_array.json', JSON.stringify(params))
         );
     }
-    
-
-
 }
