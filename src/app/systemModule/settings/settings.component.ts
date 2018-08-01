@@ -52,19 +52,16 @@ export class SettingsComponent extends BaseComponent implements OnInit {
                 this.User = res;
             },
             (err)=>{
-                // console.log(`err`,err);
             }
         )
   }
   SaveUser(user:UserCreateModel){
-    //   console.log(`save user`,user);
       this.main.authService.UpdateUser(user)
         .subscribe(
             (res:any)=>{
                 this.User = res;
             },
             (err)=>{
-                // console.log(`err`,err);
             }
         );
   }
@@ -127,7 +124,7 @@ export class SettingsComponent extends BaseComponent implements OnInit {
 
     Success($event)
     {
-        this.errorCmp.OpenWindow("Success");
+        this.errorCmp.OpenWindow($event);
     }
    
 

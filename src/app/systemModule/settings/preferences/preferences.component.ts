@@ -10,7 +10,7 @@ import { PreferencesModel } from '../../../core/models/preferences.model';
 })
 export class PreferencesComponent implements OnInit, OnChanges {
   @Input() UserId: number;
-  @Output() OnSuccess = new EventEmitter<boolean>();
+  @Output() OnSuccess = new EventEmitter<string>();
 
   Settings: PreferencesModel = new PreferencesModel();
 
@@ -54,7 +54,10 @@ export class PreferencesComponent implements OnInit, OnChanges {
 
   SaveSettings()
   {
-    this.settings.SaveSettings(this.Settings);
-    this.OnSuccess.emit(true);
+    this.settings.SaveSettings(this.Settings,
+      (msg:string) => {
+        this.OnSuccess.emit(msg);
+      });
+    
   }
 }

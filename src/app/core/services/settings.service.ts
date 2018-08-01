@@ -59,7 +59,7 @@ export class SettingsService{
         );
     }
 
-    SaveSettings(params:PreferencesModel)
+    SaveSettings(params:PreferencesModel, callback?:(str:string) => void)
     {
         this.http.CommonRequest(
             () => this.http.PatchData("/users/preferences.json", params)
@@ -67,6 +67,16 @@ export class SettingsService{
         .subscribe(
             (res:PreferencesModel) => {
                 this.SaveBackSettings(res);
+                if(callback && typeof callback == "function")
+                {
+                    callback("Success")
+                }
+            },
+            (err) => {
+                if(callback && typeof callback == "function")
+                {
+                    callback("Error")
+                }
             }
         );
         
