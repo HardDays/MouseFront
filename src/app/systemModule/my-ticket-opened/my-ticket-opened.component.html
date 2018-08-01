@@ -21,7 +21,7 @@
                       <div class="sides">
                           <div class="head-sides-2">
                               <h2>Tickets</h2>
-                              <p><strong>Total price: <span>$ {{TotalPrice}}</span></strong><br>
+                              <p><strong>Total price: <span>{{Currency}} {{TotalPrice}}</span></strong><br>
                               Includes $2 service fee. One ticket per person
                               </p>
                           </div>
@@ -31,7 +31,7 @@
                                       <p class="f" *ngIf="item.ticket.type == 'in_person'">In person ticket</p>
                                       <p class="f" *ngIf="item.ticket.type == 'vr'">Vr ticket</p>
                                       <p class="s">(Regular)</p>
-                                      <p class="c">${{item.price}}</p>
+                                      <p class="c">{{Currency}}{{item.ticket.price}}</p>
                                       <p class="t">{{item.ticket.description?item.ticket.description:''}}</p>
                                       <p class="last" *ngIf="item.tickets_left">({{item.tickets_left}} tickets left)</p>
                                       <p class="last" *ngIf="!item.tickets_left">(Sold out)</p>

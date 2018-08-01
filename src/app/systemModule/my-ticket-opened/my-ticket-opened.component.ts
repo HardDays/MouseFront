@@ -19,6 +19,7 @@ import { TicketsGetModel } from '../../core/models/ticketsGetModel';
 import { BaseImages } from '../../core/base/base.enum';
 import { TicketsByEventModel } from '../../core/models/ticketsByEvent.model';
 import { MainService } from '../../core/services/main.service';
+import { Currency, CurrencyIcons } from '../../core/models/preferences.model';
 
 @Component({
   selector: 'app-my-ticket-opened',
@@ -31,6 +32,8 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit,Aft
   TotalPrice:number = 0;
   TicketsByEvent:TicketsByEventModel = new TicketsByEventModel();
   Image:string = BaseImages.Drake;
+
+  Currency = CurrencyIcons[this.main.settings.GetCurrency()];
   
   constructor(
     protected main           : MainService,
@@ -49,6 +52,7 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit,Aft
     this.activatedRoute.params.forEach(
       (params) => {
         this.event_id = params["id"];
+        // this.Currency = CurrencyIcons[this.main.settings.GetCurrency()];
         this.initUser();
       }
     );
@@ -107,6 +111,7 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit,Aft
       () => this.main.eventService.GetTicketsByEvent(this.accountId,this.event_id),
       (res:TicketsByEventModel) =>
       {
+        console.log(res);
         this.TicketsByEvent = res;
         this.GetImage();
         this.CountTotalPrice();
@@ -122,7 +127,8 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit,Aft
     this.TotalPrice = 0;
     for(let i of this.TicketsByEvent.tickets)
     {
-      this.TotalPrice+=i.price;
+      this.TotalPrice+=i.ticket.price;
+      this.Currency = CurrencyIcons[i.currency];
     }
   }
 }
