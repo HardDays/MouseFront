@@ -41,7 +41,7 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
   }
 
   ngOnInit(){
-    //  console.log(`in`,this.Feed);
+      // console.log(`in`,this.Feed);
     if(this.Feed&&this.Feed.account)
 
       if(this.Feed.account.image_id){
@@ -112,10 +112,12 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
       .subscribe((res:CommentModel[])=>{
         this.comments = res;
           for(let comm of this.comments){
-            if(comm.account.image_id)
-              comm.account.image_base64 = this.main.imagesService.GetImagePreview(comm.account.image_id,{width:300,height:300});
-            else{
-              this.Feed.account.img_base64 = BaseImages.NoneFolowerImage;
+            if(comm.account){
+              if(comm.account.image_id)
+                comm.account.image_base64 = this.main.imagesService.GetImagePreview(comm.account.image_id,{width:300,height:300});
+              else{
+                this.Feed.account.img_base64 = BaseImages.NoneFolowerImage;
+              }
             }
           //   this.main.imagesService.GetImageById(comm.account.image_id)
           //   .subscribe((img)=>{
@@ -127,18 +129,18 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
   }
 
   likePost(){
-    // console.log(this.Feed.event.id,this.accId);
+     console.log(this.Feed.event.id,this.accId);
     if(!this.Feed.is_liked){
       this.main.likesService.PostLike(this.accId,this.Feed.id)
         .subscribe((res)=>{
           this.Feed.is_liked = true;
           this.Feed.likes++;
-          // console.log(res);
+          console.log(res);
         },(err)=>{
           // console.log(`err`,err)
         })
     } else {
-      this.main.likesService.DeleteLike(this.accId,this.Feed.id,this.Feed.id)
+      this.main.likesService.DeleteLike(this.accId,this.Feed.id)
       .subscribe((res)=>{
           this.Feed.is_liked = false;
           this.Feed.likes--;

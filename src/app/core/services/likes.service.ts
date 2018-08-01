@@ -25,13 +25,13 @@ export class LikesService{
 
     PostLike(account_id:number,feed_item_id:number){
         return this.http.CommonRequest(
-            ()=> this.http.PostData('/accounts/'+account_id+'/feed/'+feed_item_id+'/likes.json',JSON.stringify({feed_item_id,account_id}))
+            ()=> this.http.PostData('/feed_items/'+feed_item_id+'/likes.json',JSON.stringify({feed_item_id,account_id}))
         );
     }
 
-    DeleteLike(account_id:number, feed_item_id:number,id:number){
+    DeleteLike(account_id:number, feed_item_id:number){
         return this.http.CommonRequest(
-            ()=> this.http.DeleteDataWithBody('/accounts/'+account_id+'/feed/'+feed_item_id+'/likes'+id+'.json',JSON.stringify({feed_item_id,account_id,id}))
+            ()=> this.http.DeleteDataWithBody('/feed_items/'+feed_item_id+'/likes.json',JSON.stringify({feed_item_id,account_id}))
         );
     }
 }
