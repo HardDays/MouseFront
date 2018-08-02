@@ -52,7 +52,7 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
       (res)=>{
         console.log(res);
         this.Questions = res;
-        if(this.Questions)
+        if(this.Questions&&this.Questions[0]&&this.Questions[0].id)
           this.openNewQuestion(this.Questions[0].id)
 
         for(let q of this.Questions){

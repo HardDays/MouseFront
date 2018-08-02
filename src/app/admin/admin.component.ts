@@ -21,6 +21,15 @@ export class AdminComponent extends BaseComponent implements OnInit {
   newAccCount = 0;
   newEventCount = 0;
 
+  openSubmenu = {
+    account:false,
+    event: false,
+    feedback:false,
+    support:false,
+    revenue: false,
+    settings: false
+  };
+
   ngOnInit() {
     this.initJs();
     this.GetCurrentRoute();

@@ -45,8 +45,8 @@
               <span class="text">Dashboard</span>
               <span *ngIf="newEventCount||newEventCount" class="count">{{newEventCount+newAccCount}}</span>
           </a>
-          <div class="opening" [ngClass]="{'opened':currentPage >= pages.accounts_all && currentPage <= pages.artist}">
-              <a [routerLink]="['accounts','all']" class="admin_menu_link" (click)="currentPage = pages.accounts_all" [ngClass]="{'active':currentPage === pages.accounts_all}">
+          <div class="opening" [ngClass]="{'opened':currentPage >= pages.accounts_all && currentPage <= pages.artist && openSubmenu.account }">
+              <a [routerLink]="['accounts','all']" class="admin_menu_link" (click)="currentPage = pages.accounts_all; openSubmenu.account = !openSubmenu.account" [ngClass]="{'active':currentPage === pages.accounts_all}">
                   <span class="icon">
                       <svg xmlns="http://www.w3.org/2000/svg" width="30" height="27">
                           <path class="menu_icon" fill-rule="evenodd" d="M28.633 22.512l-1.298-2.608c-.904-1.818-3.155-2.922-4.911-3.075-.62-.053-1.792-.259-2.788-.49-.8-.186-1.264-.332-1.521-.428.062-.229.178-.459.355-.699 1.98-1.543 3.16-4.119 3.16-6.908 0-4.577-3.189-8.301-7.107-8.301S7.416 3.727 7.416 8.304c0 2.79 1.179 5.365 3.159 6.91.174.23.295.466.359.706-.264.101-.733.25-1.544.438-1.116.257-2.245.462-2.814.51-1.703.144-4.002 1.285-4.915 3.12L.368 22.666c-.483.968-.489 2.084-.013 2.843.582.93 1.492 1.487 2.436 1.487h23.418c.941 0 1.851-.555 2.436-1.487.478-.762.473-2.023-.012-2.997zm-1.111 2.305c-.262.418-.747.867-1.313.867H2.791c-.568 0-1.051-.447-1.313-.866-.229-.364-.196-1.026.079-1.578l1.293-2.676c.67-1.348 2.477-2.272 3.838-2.389.771-.064 2.099-.33 3.002-.538 1.916-.444 2.272-.743 2.389-.842a.66.66 0 0 0 .232-.514c-.015-.685-.264-1.337-.734-1.928a.567.567 0 0 0-.128-.126c-1.697-1.292-2.711-3.505-2.711-5.922 0-3.854 2.595-6.989 5.785-6.989 3.191 0 5.784 3.135 5.784 6.988 0 2.416-1.012 4.63-2.71 5.919a.705.705 0 0 0-.12.118c-.477.597-.726 1.247-.742 1.931a.652.652 0 0 0 .229.51c.113.097.453.39 2.37.836 1.049.243 2.301.461 2.976.519 1.372.118 3.183 1.029 3.839 2.349l1.298 2.608c.301.605.281 1.394.075 1.723z"/>
@@ -66,8 +66,8 @@
                   <a [ngClass]="{'active':currentPage === pages.accounts_funding}" [routerLink]="['accounts','funding']" (click)="currentPage = pages.accounts_funding">Funding</a>
               </div>
           </div>
-          <div class="opening" [ngClass]="{'opened':currentPage >= pages.events_all && currentPage <= pages.events_analytics}">
-              <a [routerLink]="['events','all']" class="admin_menu_link" (click)="currentPage = pages.events_all">
+          <div class="opening" [ngClass]="{'opened':currentPage >= pages.events_all && currentPage <= pages.events_analytics && openSubmenu.event}">
+              <a [routerLink]="['events','all']" class="admin_menu_link" (click)="currentPage = pages.events_all; openSubmenu.event = !openSubmenu.event">
                   <span class="icon">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35 35">
                           <g id="Layer_1" class="menu_icon">
@@ -90,8 +90,8 @@
                   <a [ngClass]="{'active':currentPage === pages.events_analytics}" [routerLink]="['events','analytics']" (click)="currentPage = pages.events_analytics">Analytics</a>
               </div>
           </div>
-          <div class="opening" [ngClass]="{'opened':currentPage >= pages.feedback && currentPage <= pages.feedback_analytics}">
-              <a  [ngClass]="{'active':currentPage === pages.feedback}" [routerLink]="['feedback']" class="admin_menu_link" (click)="currentPage = pages.feedback" class="admin_menu_link">
+          <div class="opening" [ngClass]="{'opened':currentPage >= pages.feedback && currentPage <= pages.feedback_analytics && openSubmenu.feedback}">
+              <a  [ngClass]="{'active':currentPage === pages.feedback}" [routerLink]="['feedback']" class="admin_menu_link" (click)="currentPage = pages.feedback; openSubmenu.feedback = !openSubmenu.feedback" class="admin_menu_link">
                   <span class="icon">
                       <svg xmlns="http://www.w3.org/2000/svg" width="28" height="24">
                           <path class="menu_icon" fill-rule="evenodd" d="M2.614 22.966c-.826.011-1.741-.234-2.232-.864-1.971-2.524 3.99-8.819 10.597-13.464A47.09 47.09 0 0 1 21.2 3.043c1.384-.507 2.914-.991 4.418-.93.772.031 1.594.31 2.058.921.575.754.279 1.74-.139 2.497a.87.87 0 0 1-.238.298c-.106.075-.257.106-.373.044-.116-.061-.166-.194-.182-.319-.047-.4.22-.691.377-1.037.099-.216.147-.458.099-.689-.531-2.477-5.67-.047-7.001.525-3.111 1.338-6.012 3-8.753 4.925-3.751 2.634-7.67 6.031-10.15 10.038-.584.944-.798 2.616.924 2.867.362.054.729-.026 1.096-.042.145-.006.305.003.417.093.219.178-.004.457-.192.561-.13.073-.282.106-.433.129a3.846 3.846 0 0 1-.514.042zm11.558 1.036c-7.011.02-12.712-5.335-12.734-11.964C1.418 5.411 7.085.023 14.097.004c6.975-.02 12.661 5.282 12.733 11.874v.125c.004 6.614-5.659 11.983-12.658 11.999zM14.173.716C7.576.697 2.211 5.736 2.192 11.973c-.02 6.235 5.312 11.305 11.909 11.324 6.563.019 11.913-4.97 11.982-11.172v-.122C26.082 5.783 20.758.736 14.176.716h-.003zm11.722 11.871H2.172c-.263.053-.529-.083-.592-.303-.063-.221.098-.444.362-.496a.557.557 0 0 1 .23 0h23.461c1.128 0 1.027-.339 1.027.408.001.673-.656.484-.762.391h-.003zM23.859 5.43H4.766a.395.395 0 0 1-.476-.304.412.412 0 0 1 .291-.497.413.413 0 0 1 .185 0h18.882c.907 0 .298.893.214.801h-.003zm-.003 13.874H4.542a.4.4 0 0 1-.482-.303.412.412 0 0 1 .295-.497.37.37 0 0 1 .187 0h19.1c.918 0 .303.892.216.8h-.002zm-9.687 4.643a.641.641 0 0 1-.334-.095C9.95 21.397 7.54 16.863 7.54 12.009c0-4.856 2.413-9.385 6.298-11.836a.624.624 0 0 1 .832.15c0 .006 0 .006.004.006a.357.357 0 0 1-.01.524c-.038.035-.27-.153-.32-.135-3.553 2.245-5.953 6.825-5.953 11.294 0 4.471 2.399 9.042 5.952 11.282.278.18.516.134.331.398a.639.639 0 0 1-.503.255h-.002zm.067 0a.638.638 0 0 1-.502-.255c-.185-.264.053-.218.33-.398 3.553-2.24 5.952-6.811 5.952-11.282 0-4.469-2.399-9.049-5.954-11.294-.049-.018-.28.17-.319.135a.357.357 0 0 1-.009-.524c.004 0 .004 0 .004-.006a.623.623 0 0 1 .831-.15c3.886 2.451 6.299 6.98 6.299 11.836 0 4.854-2.41 9.388-6.296 11.843a.638.638 0 0 1-.333.095h-.003z"/>
@@ -105,8 +105,8 @@
           </div>
 
 
-          <div class="opening" [ngClass]="{'opened':currentPage >= pages.customer_support && currentPage <= pages.customer_answers}">
-              <a [ngClass]="{'active':currentPage === pages.customer_support}" [routerLink]="['customer']" class="admin_menu_link" (click)="currentPage = pages.customer_support" class="admin_menu_link">
+          <div class="opening" [ngClass]="{'opened':currentPage >= pages.customer_support && currentPage <= pages.customer_answers && openSubmenu.support}">
+              <a [ngClass]="{'active':currentPage === pages.customer_support}" [routerLink]="['customer']" class="admin_menu_link" (click)="currentPage = pages.customer_support; openSubmenu.support = !openSubmenu.support" class="admin_menu_link">
                   <span class="icon">
                       <svg xmlns="http://www.w3.org/2000/svg" width="28" height="27">
                           <path class="menu_icon" fill-rule="evenodd" d="M18.004 18.718v-.49a5.02 5.02 0 0 0 .397-.363 7.307 7.307 0 0 0 1.834-4.064 3.553 3.553 0 0 0 2.3-1.376c.768-1.093.837-2.666.196-4.639a.534.534 0 0 0-.212-.278l-.291-.197a7.263 7.263 0 0 0-1.717-4.869C19.085.827 16.896.011 13.998 0 11.104 0 8.91.827 7.484 2.421A7.258 7.258 0 0 0 5.767 7.29l-.292.197a.533.533 0 0 0-.211.278c-.642 1.983-.573 3.545.196 4.639a3.573 3.573 0 0 0 2.3 1.392 7.309 7.309 0 0 0 1.839 4.069c.126.128.258.248.397.363v.49c-2.029.395-10.132 2.309-9.995 7.749 0 .294.238.533.53.533h26.938a.531.531 0 0 0 .529-.533c.138-5.44-7.965-7.354-9.994-7.749zM7.442 12.607a2.303 2.303 0 0 1-1.124-.827l.027.006c-.53-.779-.578-1.958-.106-3.515l.387-.261a.536.536 0 0 0 .233-.496 6.327 6.327 0 0 1 1.442-4.389c1.197-1.365 3.121-2.048 5.697-2.058 2.575-.011 4.499.693 5.718 2.058a6.33 6.33 0 0 1 1.441 4.389.534.534 0 0 0 .233.496l.387.261c.472 1.552.44 2.736-.106 3.515a2.32 2.32 0 0 1-1.129.826c.64-.732.952-1.696.864-2.666a2.496 2.496 0 0 0-.853-1.493c-.228-5.333-3.943-5.931-5.543-5.931a6.582 6.582 0 0 0-1.012.075 6.614 6.614 0 0 0-1.013-.075c-1.59 0-5.299.587-5.543 5.931a2.495 2.495 0 0 0-.864 1.488c-.089.97.224 1.934.864 2.666zm12.056-4.373a10.869 10.869 0 0 1-6.333-1.6.528.528 0 0 0-.689.069C11.417 7.85 9.482 8.116 8.549 8.175c.286-3.77 2.555-4.591 4.462-4.591.304-.003.607.022.907.074.07.015.142.015.212 0 .299-.051.602-.076.906-.074 1.892 0 4.171.842 4.436 4.645l.026.005zM8.735 12.708l.021.005a.538.538 0 0 0-.132-.357c-.726-.837-1.06-1.6-.97-2.229.043-.35.215-.672.482-.901.699 0 3.18-.133 4.77-1.514a11.9 11.9 0 0 0 5.882 1.599c.355 0 .715 0 1.092-.059.26.224.429.535.477.875.09.619-.244 1.392-.97 2.229a.533.533 0 0 0-.132.357v.278l-3.085 1.663a1.521 1.521 0 0 0-2.158.06 1.545 1.545 0 0 0 .059 2.172 1.521 1.521 0 0 0 2.158-.06c.269-.286.419-.664.418-1.057a1.729 1.729 0 0 0 0-.144l2.433-1.312a5.883 5.883 0 0 1-1.421 2.816 4.706 4.706 0 0 1-3.513 1.323h-.265a4.72 4.72 0 0 1-3.508-1.317c-1.675-1.68-1.638-4.401-1.638-4.427zm6.852 3.061a.473.473 0 0 1-.471.475.474.474 0 0 1 0-.949c.26 0 .471.212.471.474zm-2.12 10.132H1.077c.419-4.005 6.89-5.679 8.914-6.111v.955c0 1.21 1.463 2.133 3.476 2.288v2.868zm-2.416-5.156v-1.84a6.375 6.375 0 0 0 2.814.597h.265a6.378 6.378 0 0 0 2.814-.597v1.84c0 .506-1.15 1.237-2.946 1.237-1.797 0-2.947-.731-2.947-1.237zm3.476 5.173v-2.891c2.014-.138 3.477-1.066 3.477-2.288v-.933c2.04.427 8.479 2.101 8.914 6.112H14.527z"/>
@@ -118,8 +118,8 @@
                   <a [ngClass]="{'active':currentPage === pages.customer_answers}" [routerLink]="['customer','answers']" (click)="currentPage = pages.customer_answers">Answers</a>
               </div>
           </div>
-          <div *ngIf="User.is_superuser"  class="opening" [ngClass]="{'opened':currentPage >= pages.revenue && currentPage <= pages.revenue_analytics}">
-              <a [routerLink]="['revenues']" [ngClass]="{'active':currentPage === pages.revenue}" class="admin_menu_link" (click)="currentPage = pages.revenue" class="admin_menu_link">
+          <div *ngIf="User.is_superuser"  class="opening" [ngClass]="{'opened':currentPage >= pages.revenue && currentPage <= pages.revenue_analytics &&openSubmenu.revenue}">
+              <a [routerLink]="['revenues']" [ngClass]="{'active':currentPage === pages.revenue}" class="admin_menu_link" (click)="currentPage = pages.revenue; openSubmenu.revenue = !openSubmenu.revenue" class="admin_menu_link">
                   <span class="icon">
                       <svg xmlns="http://www.w3.org/2000/svg" width="29" height="29">
                           <path class="menu_icon" fill-rule="evenodd" d="M14.502 29v-.697L14.5 29C6.506 29 .001 22.495 0 14.5 0 6.505 6.505 0 14.5 0S29 6.505 29 14.5 22.496 29 14.502 29zM14.5 1.393c-7.227 0-13.106 5.88-13.106 13.107 0 7.227 5.88 13.106 13.106 13.106h.002c7.226 0 13.104-5.879 13.104-13.106S21.727 1.393 14.5 1.393zm4.778 16.912c0 2.299-1.844 4.179-4.208 4.448v1.439a.697.697 0 1 1-1.394 0v-1.463c-2.241-.371-3.954-2.207-3.954-4.424a.697.697 0 1 1 1.394 0c0 1.451 1.093 2.664 2.56 3.004v-6.191c-2.241-.37-3.954-2.207-3.954-4.423 0-2.217 1.713-4.053 3.954-4.423V4.808a.697.697 0 1 1 1.394 0v1.444c1.196.136 2.303.666 3.088 1.547a.696.696 0 1 1-1.04.927c-.523-.586-1.251-.957-2.048-1.082v6.213c2.364.269 4.208 2.15 4.208 4.448zm-1.394 0c0-1.535-1.22-2.805-2.814-3.055v6.111c1.595-.251 2.814-1.521 2.814-3.056zm-6.768-7.61c0 1.451 1.093 2.664 2.56 3.004V7.69c-1.467.341-2.56 1.553-2.56 3.005z"/>
@@ -131,8 +131,8 @@
                   <a (click)="currentPage = pages.revenue_analytics" [ngClass]="{'active':currentPage === pages.revenue_analytics}" [routerLink]="['revenues','analytics']">Analytics</a>
               </div>
           </div>
-          <div class="opening" [ngClass]="{'opened':currentPage >= pages.settings&&currentPage <= pages.add_new_admin}">
-              <a [routerLink]="['settings']" [ngClass]="{'active':currentPage === pages.settings}" class="admin_menu_link" (click)="currentPage = pages.settings" class="admin_menu_link">
+          <div class="opening" [ngClass]="{'opened':currentPage >= pages.settings&&currentPage <= pages.add_new_admin && openSubmenu.settings}">
+              <a [routerLink]="['settings']" [ngClass]="{'active':currentPage === pages.settings}" class="admin_menu_link" (click)="currentPage = pages.settings; openSubmenu.settings = !openSubmenu.settings" class="admin_menu_link">
                   <span class="icon">
                       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 478.703 478.703" style="enable-background:new 0 0 478.703 478.703;" xml:space="preserve" width="25px" height="26px">
                           <g class="menu_icon">

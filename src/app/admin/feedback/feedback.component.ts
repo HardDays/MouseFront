@@ -47,7 +47,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
           this.Feedbacks = res;
          
 
-          if(this.Feedbacks)
+          if(this.Feedbacks&&this.Feedbacks[0]&&this.Feedbacks[0].id)
             this.openNewFeedback(this.Feedbacks[0].id);
          
 
