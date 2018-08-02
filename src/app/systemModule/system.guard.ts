@@ -10,28 +10,29 @@ import { BaseComponent } from '../core/base/base.component';
 export class SystemAccessGuard extends BaseComponent implements CanActivate{
     /*constructor(private service: MainService,private router: Router){
     }*/
+    admin = false;
     canActivate(router:ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>|boolean{
 
         //потом просто удалить
         if(localStorage.getItem('access')!='true') this.router.navigate(['/access']);
         let login = this.main.authService.IsLogedIn();
-        let admin = this.main.MyUser.is_admin||this.main.MyUser.is_superuser;
+        this.admin = this.main.MyUser.is_admin||this.main.MyUser.is_superuser;
       
-        if(login&&admin){
+        if(login&&this.admin){
             this.router.navigate(['/admin']);
         }
 
         this.main.UserChange.subscribe(
             ()=>{
                 login = this.main.authService.IsLogedIn();
-                admin = this.main.MyUser.is_admin||this.main.MyUser.is_superuser;
-                if(login&&admin){
+                this.admin = this.main.MyUser.is_admin||this.main.MyUser.is_superuser;
+                if(login&&this.admin){
                     this.router.navigate(['/admin']);
                 }
             }
         )
       
-        if(login&&admin){
+        if(login&&this.admin){
             this.router.navigate(['/admin']);
         }
         else switch(router.routeConfig.path){
@@ -106,7 +107,11 @@ export class SystemAccessGuard extends BaseComponent implements CanActivate{
     }
     
     LoginNavigate(){
-        this.router.navigate(['/system','shows']);
+
+        if(this.admin)
+            this.router.navigate(['/admin','dashboard']);
+        else
+            this.router.navigate(['/system','shows']);
         return false;
     }
 }
