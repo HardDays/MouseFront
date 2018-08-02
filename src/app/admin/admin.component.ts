@@ -31,6 +31,8 @@ export class AdminComponent extends BaseComponent implements OnInit {
     });
     // this.User = this.main.MyUser;
 
+    console.log(this.main.MyUser.id);
+
     this.main.adminService.GetMyAccByIdUser(this.main.MyUser.id)
           .subscribe(
             (res)=>{
