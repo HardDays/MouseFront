@@ -9,7 +9,6 @@ import 'rxjs';
 import {Subject} from 'rxjs/Subject';
 import { FeedbackModel } from '../models/feedback.model';
 
-
 @Injectable()
 export class FeedbacksService{
  
@@ -18,13 +17,13 @@ export class FeedbacksService{
 
     GetFeedback(){
         return this.http.CommonRequest(
-            ()=> this.http.GetData('/questions.json','')
+            ()=> this.http.GetData('/feedbacks.json','')
         );
     }
 
     PostFeedback(fb:FeedbackModel){
         return this.http.CommonRequest(
-            ()=> this.http.PostData('/questions.json',JSON.stringify(fb))
+            ()=> this.http.PostData('/feedbacks.json',JSON.stringify(fb))
         );
     }
 
