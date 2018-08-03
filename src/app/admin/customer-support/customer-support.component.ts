@@ -87,7 +87,7 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
         this.openQuestion.account.image_base64_not_given = BaseImages.NoneFolowerImage;
 
         if(this.openQuestion.question_reply){
-          if(this.openQuestion.question_reply.sender.image_id){
+          if(this.openQuestion.question_reply.sender&&this.openQuestion.question_reply.sender.image_id){
             this.openQuestion.question_reply.sender.image_base64_not_given = this.main.imagesService.GetImagePreview(this.openQuestion.question_reply.sender.image_id,{width:100,height:100})
           }
           
