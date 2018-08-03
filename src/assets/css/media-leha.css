@@ -4,6 +4,8 @@ html, body{
 }
 .main-router-outlet{
   min-height: 100vh;
+  position: relative;
+  overflow: hidden;
 }
 .main_content{
   min-height: 100vh;
@@ -11,8 +13,9 @@ html, body{
 
 .main_content .for-flex-height{
   min-height: 100vh;
-  overflow: hidden;
+ 
 }
+
 .modal-send-request.map-1-modal .modal-dialog .for-map-init-modal-1{
   border: none;  
 }
