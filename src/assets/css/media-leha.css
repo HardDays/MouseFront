@@ -386,6 +386,14 @@ html, body{
 }
 
 @media (max-width: 991px) {
+  .modal{
+    display: none!important;
+    visibility: inherit;
+  }
+  .modal.in{
+    display: block!important;
+    visibility: inherit;
+  }
   .all-info-profile .uniq-padd-2 .flex--info.block-1300-display .side.side-info{
     padding-top: 30px;
     padding-bottom: 30px;
