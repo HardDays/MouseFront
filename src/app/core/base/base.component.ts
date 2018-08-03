@@ -167,8 +167,28 @@ export class BaseComponent{
             (res:TokenModel) => {
                 
                 this.main.authService.BaseInitAfterLogin(res);
-                this.router.navigate(['/system','shows']);
+                
                 this.main.authService.onAuthChange$.next(true);
+
+                this.main.UserChange.first().subscribe(
+                    ()=>{
+                        // this.main.UserChange.unsubscribe();
+                        let admin = this.main.MyUser.is_admin||this.main.MyUser.is_superuser;
+
+                        console.log(`base login`, admin);
+                        if(!admin)
+                        {
+                            this.router.navigate(['/system','shows']);
+                        }
+                        else
+                        {
+                            this.router.navigate(['/admin','dashboard']);
+                        }
+                    }
+                )
+
+                
+
 
                 if(callbackOk && typeof callbackOk == "function"){
                     callbackOk(res);

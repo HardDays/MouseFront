@@ -50,6 +50,7 @@ export class SettingsComponent extends BaseComponent implements OnInit {
       .subscribe(
           (res)=>{
               this.User = res;
+              this.errCmp.OpenWindow(BaseMessages.Success);
               if(this.User.image_id){
                 this.main.imagesService.GetImageById(this.User.image_id)
                   .subscribe((res)=>{
@@ -59,9 +60,14 @@ export class SettingsComponent extends BaseComponent implements OnInit {
               }
             //   this.errorCmp.OpenWindow(BaseMessages.Success);
               console.log(`res`,this.User);
-              this.main.GetMyUser();
+              setTimeout(() => {
+                  if(this.errCmp.isShown)
+                    this.errCmp.CloseWindow();
+                this.main.GetMyUser();
+              }, 2000);
+              
               //this.User = res;
-              this.errCmp.OpenWindow(BaseMessages.Success);
+              
               
           },
           (err)=>{
