@@ -13,9 +13,14 @@ import { UserCreateModel } from "../models/userCreate.model";
 @Injectable()
 export class AdminService{
 
+    public NewCountChange:Subject<boolean>;
     // this.typeService.ParamsToUrlSearchParams({})
     constructor(private http: HttpService, private typeService:TypeService){
+        this.NewCountChange = new Subject();
+        this.NewCountChange.next(true);
     }
+
+   
 
     Statuses = {
         "just_added": "new",

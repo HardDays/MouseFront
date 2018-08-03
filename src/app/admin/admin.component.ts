@@ -64,8 +64,8 @@ export class AdminComponent extends BaseComponent implements OnInit {
               
               if(this.User.image_id)
                 this.User.image_base64 = this.main.imagesService.GetImagePreview(this.User.image_id,{width:100,height:100});
+                this.User.is_admin = this.main.MyUser.is_admin;
 
-              this.User.is_admin = this.main.MyUser.is_admin;
               this.User.is_superuser = this.main.MyUser.is_superuser;
             }
           )
@@ -82,10 +82,17 @@ export class AdminComponent extends BaseComponent implements OnInit {
     // console.log(this.User);
 
     this.getNewCounts();
+    this.main.adminService.NewCountChange.subscribe(
+      ()=>{
+        this.getNewCounts();
+        // this.newAccCount =  this.newAccCount - 1;
+      }
+    )
 
   }
 
   getNewCounts(){
+
     this.main.adminService.GetNewAccountsCount()
       .subscribe(
         (res)=>{
