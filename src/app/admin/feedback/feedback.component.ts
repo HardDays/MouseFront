@@ -114,8 +114,11 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
         this.openFeedback = fb;
         if(this.openFeedback.reply){
           this.Answer.message =  this.openFeedback.reply.simple_message;
-          this.Answer.user_name =  this.openFeedback.reply.sender.user_name;
-          if(this.openFeedback.reply.sender.image_id)
+          if(this.openFeedback.reply&&this.openFeedback.reply.sender&&this.openFeedback.reply.sender.user_name)
+            this.Answer.user_name =  this.openFeedback.reply.sender.user_name;
+          else
+            this.Answer.user_name = 'Admin';
+          if(this.openFeedback.reply&&this.openFeedback.reply.sender&&this.openFeedback.reply.sender.image_id)
             this.Answer.image = this.main.imagesService.GetImagePreview(this.openFeedback.reply.sender.image_id,{width:100,height:100})
           else
             this.Answer.image = BaseImages.NoneFolowerImage;
@@ -128,12 +131,12 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
   }
 
   sendAnswer(){
-    console.log(`Message`,this.openFeedback,this.Message);
+    // console.log(`Message`,this.openFeedback,this.Message);
     if(this.Message)
       this.main.adminService.FeedbackThankYou(this.openFeedback.id,this.Message)
         .subscribe(
           (res)=>{
-            console.log(res);
+            // console.log(res);
             this.errCmp.OpenWindow(BaseMessages.Success);
             this.getFeedbacks();
           },

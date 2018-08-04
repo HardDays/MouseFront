@@ -50,7 +50,7 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
     this.main.adminService.GetQuestions()
     .subscribe(
       (res)=>{
-        console.log(res);
+        // console.log(res);
         this.Questions = res;
         if(this.Questions&&this.Questions[0]&&this.Questions[0].id)
           this.openNewQuestion(this.Questions[0].id)
@@ -77,7 +77,7 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
 
     this.main.adminService.GetQuestionById(id)
       .subscribe((res)=>{
-        console.log(res);
+        // console.log(res);
         this.openQuestion = res;
 
         if(this.openQuestion.account&&this.openQuestion.account.image_id){
@@ -104,7 +104,7 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
         (res:any[]) =>
         {
           this.AnswerOptions = res;
-          console.log("answer", this.AnswerOptions);
+          // console.log("answer", this.AnswerOptions);
           
         }
       )

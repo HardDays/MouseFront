@@ -102,7 +102,7 @@
                             <div class="mes_head feedback_head">
                                 <div class="ava" [ngStyle]="{'background-image':'url('+Answer.image+')'}"></div>
                                 <div class="info">
-                                    <p class="username"><span>@</span>{{Answer.user_name}}</p>
+                                    <p *ngIf="Answer.user_name" class="username"><span>@</span>{{Answer?.user_name?Answer.user_name:''}}</p>
                                 </div>
                             </div>
                             <div class="mes_text">
