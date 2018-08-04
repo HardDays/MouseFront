@@ -26,7 +26,7 @@ export class ShowItemComponent extends BaseComponent implements OnChanges {
 
     GetExtendedEvent()
     {
-        if(this.Show && this.Show.id)
+        if(this.Show && this.Show.id &&this.Show.creator_id)
         {
             this.main.eventService.GetEventById(this.Show.id)
                 .subscribe(
@@ -46,6 +46,7 @@ export class ShowItemComponent extends BaseComponent implements OnChanges {
                         this.GetImage();
                     },
                     (err) => {
+                        console.log(`err`,err)
                     }
                 )
         }
