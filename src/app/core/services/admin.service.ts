@@ -130,6 +130,14 @@ export class AdminService{
         );
     }
 
+    AccountView(id:number)
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.PostData('/admin/accounts/'+id+'/view.json', JSON.stringify({id}))
+        );
+    }
+
+
 
     //////////////////////////////////////
     //////         EVENTS           //////   
@@ -206,6 +214,13 @@ export class AdminService{
     {
         return this.http.CommonRequest(
             ()=> this.http.GetData('/admin/events/graph.json', this.typeService.ParamsToUrlSearchParams({by}))
+        );
+    }
+
+    EventView(id:number)
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.PostData('/admin/events/'+id+'/view.json', JSON.stringify({id}))
         );
     }
 

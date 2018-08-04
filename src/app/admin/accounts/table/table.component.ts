@@ -57,12 +57,14 @@ export class TableComponent extends BaseComponent implements OnInit {
   }
 
   openAccount(id:number){
-    this.main.adminService.NewCountChange.next(true);
+    this.main.adminService.AccountView(id)
+      .subscribe(res => this.main.adminService.NewCountChange.next(true));
     this.router.navigate(["/admin",'account',id])
   }
 
   openEvent(id:number){
-    this.main.adminService.NewCountChange.next(true);
+    this.main.adminService.EventView(id)
+      .subscribe(res => this.main.adminService.NewCountChange.next(true));
     this.router.navigate(["/admin",'event',id])
   }
 

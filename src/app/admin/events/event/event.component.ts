@@ -47,7 +47,7 @@ export class EventComponent extends BaseComponent implements OnInit {
 
         this.Genres = this.main.genreService.BackGenresToShowGenres(this.Event.genres);
 
-        if(this.Event.id){
+        if(this.Event&&this.Event.id&&this.Event.image_id){
           this.main.imagesService.GetImageById(this.Event.image_id)
             .subscribe(
               (img)=>{
