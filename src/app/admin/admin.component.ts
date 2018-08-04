@@ -42,33 +42,37 @@ export class AdminComponent extends BaseComponent implements OnInit {
 
     console.log(this.main.MyUser.id);
 
-    this.main.adminService.GetMyAccByIdUser(this.main.MyUser.id)
-          .subscribe(
-            (res)=>{
-              this.User = res;
+    if(this.main.MyUser.id && (this.main.MyUser.is_admin||this.main.MyUser.is_superuser)){
+      this.main.adminService.GetMyAccByIdUser(this.main.MyUser.id)
+            .subscribe(
+              (res)=>{
+                this.User = res;
 
-              if(this.User.image_id)
-                this.User.image_base64 = this.main.imagesService.GetImagePreview(this.User.image_id,{width:100,height:100});
+                if(this.User.image_id)
+                  this.User.image_base64 = this.main.imagesService.GetImagePreview(this.User.image_id,{width:100,height:100});
 
-              this.User.is_admin = this.main.MyUser.is_admin;
-              this.User.is_superuser = this.main.MyUser.is_superuser;
-            }
-          )
+                this.User.is_admin = this.main.MyUser.is_admin;
+                this.User.is_superuser = this.main.MyUser.is_superuser;
+              }
+            )
+    }
 
     this.main.UserChange.subscribe(
       (res)=>{
-        this.main.adminService.GetMyAccByIdUser(this.main.MyUser.id)
-          .subscribe(
-            (res)=>{
-              this.User = res;
-              
-              if(this.User.image_id)
-                this.User.image_base64 = this.main.imagesService.GetImagePreview(this.User.image_id,{width:100,height:100});
-                this.User.is_admin = this.main.MyUser.is_admin;
+        if(res&&this.main.MyUser.id&& (this.main.MyUser.is_admin||this.main.MyUser.is_superuser)){
+          this.main.adminService.GetMyAccByIdUser(this.main.MyUser.id)
+            .subscribe(
+              (res)=>{
+                this.User = res;
+                
+                if(this.User.image_id)
+                  this.User.image_base64 = this.main.imagesService.GetImagePreview(this.User.image_id,{width:100,height:100});
+                  this.User.is_admin = this.main.MyUser.is_admin;
 
-              this.User.is_superuser = this.main.MyUser.is_superuser;
-            }
-          )
+                this.User.is_superuser = this.main.MyUser.is_superuser;
+              }
+            )
+        }
         // this.User = this.main.MyUser;
       }
     )
@@ -93,19 +97,21 @@ export class AdminComponent extends BaseComponent implements OnInit {
 
   getNewCounts(){
 
-    this.main.adminService.GetNewAccountsCount()
-      .subscribe(
-        (res)=>{
-          this.newAccCount = res;
-        }
-      )
+    if(this.User.is_admin||this.User.is_superuser){
+      this.main.adminService.GetNewAccountsCount()
+        .subscribe(
+          (res)=>{
+            this.newAccCount = res;
+          }
+        )
 
-    this.main.adminService.GetNewEventsCount()
-      .subscribe(
-        (res)=>{
-          this.newEventCount = res;
-        }
-      )
+      this.main.adminService.GetNewEventsCount()
+        .subscribe(
+          (res)=>{
+            this.newEventCount = res;
+          }
+        )
+    }
     
   }
 

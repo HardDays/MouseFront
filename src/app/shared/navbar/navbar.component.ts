@@ -33,7 +33,8 @@ export class NavbarComponent extends BaseComponent implements OnInit
         }
       );
 
-      this.main.GetMyAccounts();
+      if(this.isLoggedIn)
+        this.main.GetMyAccounts();
      
       // localStorage.setItem('new_user_134','artist');
 

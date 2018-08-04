@@ -58,7 +58,7 @@ export class BaseComponent{
     )
     {
         this.isLoggedIn = this.main.authService.IsLogedIn();
-
+        
         this.isLoading = this.main.ActiveProcesses.length > 0;
         if(this.isLoggedIn)
         {
@@ -69,7 +69,6 @@ export class BaseComponent{
         }
 
         
-
         this.main.authService.onAuthChange$
             .subscribe(
                 (res:boolean) => {

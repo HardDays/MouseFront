@@ -50,6 +50,9 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
         .subscribe(
           (res)=>{
             this.errorCmp.OpenWindow(BaseMessages.Success);
+            this.Feedback.detail = '';
+            this.Feedback.feedback_type = '';
+            this.Rating = 3;
           }
         );
     }
