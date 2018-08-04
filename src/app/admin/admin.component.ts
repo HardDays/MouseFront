@@ -30,15 +30,24 @@ export class AdminComponent extends BaseComponent implements OnInit {
     settings: false
   };
 
+  currentPosition = 200;
+
   ngOnInit() {
     this.initJs();
     this.GetCurrentRoute();
     this.router.events.subscribe( (event: Event) => {
+     
       if (event instanceof NavigationEnd) {
           this.GetCurrentRoute();
+          window.scroll(0,this.currentPosition);
       }
     });
-    // this.User = this.main.MyUser;
+
+
+    window.addEventListener('scroll', ()=> {
+      this.currentPosition =  window.scrollY ;
+    });
+
 
     console.log(this.main.MyUser.id);
 
@@ -231,17 +240,17 @@ export class AdminComponent extends BaseComponent implements OnInit {
 
 
   initJs(){
-    $(document).ready(function () {
-      $('.photos-abs-wrapp').css({
-          'max-height': $('.rel-wr-photoos').width()+'px'
-      });
+  //   $(document).ready(function () {
+  //     $('.photos-abs-wrapp').css({
+  //         //'max-height': $('.rel-wr-photoos').width()+'px'
+  //     });
   
-      $(window).resize(function(){
-          $('.photos-abs-wrapp').css({
-              'max-height': $('.rel-wr-photoos').width()+'px'
-          });
-      });
-  });
+  //     $(window).resize(function(){
+  //         $('.photos-abs-wrapp').css({
+  //             //'max-height': $('.rel-wr-photoos').width()+'px'
+  //         });
+  //     });
+  // });
   }
 
 }
