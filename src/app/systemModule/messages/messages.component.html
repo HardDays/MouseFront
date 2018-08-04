@@ -48,9 +48,9 @@
 
                                     <div *ngIf="item.message_type == 'blank'" [ngClass]="{'active':item.id==idCurMsg}" (click)="changeItem(item,i);" class="one-msg-l-block active">
                                         <div class="name-ava">
-                                            <div class="ava" [ngStyle]="{'background-image': item.sender?'url('+item.sender.image_base64+')':''}"></div>
-                                            <p class="n">{{item.sender?.full_name?item.sender.full_name:''}}</p>
-                                            <p *ngIf="item.sender&&item.sender.user_name" class="hash"><span>@</span>{{item.sender?.user_name?item.sender.user_name:''}}</p>
+                                            <div class="ava" [ngStyle]="{'background-image': item.sender?.image_base64?'url('+item.sender.image_base64+')':'./../../assets/img/non-photo-2.svg'}"></div>
+                                            <p class="n">{{item.sender?.full_name?item.sender.full_name:'No name'}}</p>
+                                            <p *ngIf="item.sender&&item.sender.user_name" class="hash"><span>@</span>{{item.sender?.user_name?item.sender.user_name:'No username'}}</p>
                                         </div>
                                         <div  class="descr-side">
                                             <p class="f">
@@ -224,11 +224,11 @@
                                     <span class="some-t">{{openMessage.name}}</span>
                                     <span class="when">{{openMessage.created_at | date:'MMM d' }}</span>
                                 </div>
-                                <div class="block-info s-b">
+                                <div *ngIf="openMessage.sender" class="block-info s-b">
                                     <div class="ava" [ngStyle]="{'background-image': (openMessage.sender&&openMessage.sender.image_base64)?'url('+openMessage.sender.image_base64+')':''}"></div>
                                     <div class="name-hash">
-                                        <p class="n">{{openMessage.sender.full_name?openMessage.sender.full_name:''}}</p>
-                                        <p class="hash"><span>@</span>{{openMessage.sender.user_name?openMessage.sender.user_name:''}}</p>
+                                        <p class="n">{{openMessage.sender?.full_name?openMessage.sender.full_name:''}}</p>
+                                        <p class="hash"><span>@</span>{{openMessage.sender?.user_name?openMessage.sender.user_name:''}}</p>
                                     </div>
                                     
                                 </div>

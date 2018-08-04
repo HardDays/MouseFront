@@ -21,6 +21,8 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
     all: true
   }
 
+  Type = 'all';
+
   Feedbacks:FeedbackAdminModel[] = [];
   FeedbacksChecked:FeedbackAdminModel[] = [];
   openFeedback:FeedbackAdminModel = new FeedbackAdminModel();
@@ -69,26 +71,34 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
   }
 
 
+  // filterByType(){
+
+  //     if(!this.Types.enchancements&&!this.Types.compliments&&!this.Types.bugs)
+  //       this.Types.all = true;
+  
+  //     if(this.Types.all){
+  //       this.FeedbacksChecked = this.Feedbacks;
+  //     }
+  //     else
+  //     {
+  //       this.Types.all = false;
+  //       this.FeedbacksChecked = this.Feedbacks.filter(
+  //           obj => obj.feedback_type && ( 
+  //             this.Types.enchancements && obj.feedback_type === 'enchancement' ||
+  //             this.Types.compliments && obj.feedback_type === 'compliment' ||
+  //             this.Types.bugs && obj.feedback_type === 'bug'
+  //           )
+  //       );
+  //     }
+    
+  // }
+
   filterByType(){
 
-      if(!this.Types.enchancements&&!this.Types.compliments&&!this.Types.bugs)
-        this.Types.all = true;
-  
-      if(this.Types.all){
-        this.FeedbacksChecked = this.Feedbacks;
-      }
-      else
-      {
-        this.Types.all = false;
-        this.FeedbacksChecked = this.Feedbacks.filter(
-            obj => obj.feedback_type && ( 
-              this.Types.enchancements && obj.feedback_type === 'enchancement' ||
-              this.Types.compliments && obj.feedback_type === 'compliment' ||
-              this.Types.bugs && obj.feedback_type === 'bug'
-            )
-        );
-      }
-    
+    if(this.Type === 'all')
+      this.FeedbacksChecked = this.Feedbacks;
+    else 
+      this.FeedbacksChecked = this.Feedbacks.filter(obj => obj.feedback_type && (this.Type === obj.feedback_type));
   }
 
   InitJs(){

@@ -4,22 +4,22 @@
             <h1 class="support_zag">Feedback</h1>
             <div class="checks">
                 <div class="filter_checkbox">
-                    <input [(ngModel)]="Types.bugs" (ngModelChange)="filterByType()" type="checkbox" id="feedback_bug">
+                    <input [(ngModel)]="Type" value="bug" (ngModelChange)="filterByType()" type="radio" name="radio_type" id="feedback_bug">
                     <label for="feedback_bug"></label>
                     <span>Bugs</span>
                 </div>
                 <div class="filter_checkbox">
-                    <input [(ngModel)]="Types.enchancements" (ngModelChange)="filterByType()" type="checkbox" id="feedback_ench">
+                    <input [(ngModel)]="Type" value="enhancement" (ngModelChange)="filterByType()" type="radio" name="radio_type" id="feedback_ench">
                     <label for="feedback_ench"></label>
                     <span>Enchancements</span>
                 </div>
                 <div class="filter_checkbox">
-                    <input [(ngModel)]="Types.compliments" (ngModelChange)="filterByType()" type="checkbox" id="feedback_compl">
+                    <input [(ngModel)]="Type" value="compliment" (ngModelChange)="filterByType()" type="radio" name="radio_type" id="feedback_compl">
                     <label for="feedback_compl"></label>
                     <span>Compliments</span>
                 </div>
                 <div class="filter_checkbox">
-                    <input [(ngModel)]="Types.all" (ngModelChange)="filterByType()" type="checkbox" id="feedback_all" checked>
+                    <input [(ngModel)]="Type" value="all" (ngModelChange)="filterByType()" type="radio" name="radio_type" id="feedback_all" checked>
                     <label for="feedback_all"></label>
                     <span>All</span>
                 </div>
