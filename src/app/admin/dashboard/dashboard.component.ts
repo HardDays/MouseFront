@@ -24,33 +24,35 @@ export class DashboardComponent extends BaseComponent implements OnInit {
   }
 
   GetInfo(){
-    this.main.adminService.GetAccountsNew()
-    .subscribe(
-      (res)=>{
-        this.Counts = res;
-      }
-    )
+    if(this.MyUser.is_admin||this.MyUser.is_superuser){
+      this.main.adminService.GetAccountsNew()
+        .subscribe(
+          (res)=>{
+            this.Counts = res;
+          }
+        )
 
-    this.main.adminService.GetAccountsRequests({account_type: 'all',limit:20,offset:0})
-      .subscribe(
-        (res)=>{
-          this.Accounts = this.convertArrToCheckModel<any>(res);
-          setTimeout(() => {
-            this.ScrollArtistDisabled = false;
-          }, 200);
-        }
-      )
+      this.main.adminService.GetAccountsRequests({account_type: 'all',limit:20,offset:0})
+        .subscribe(
+          (res)=>{
+            this.Accounts = this.convertArrToCheckModel<any>(res);
+            setTimeout(() => {
+              this.ScrollArtistDisabled = false;
+            }, 200);
+          }
+        )
 
-    this.main.adminService.GetEventsRequests({limit:20,offset:0})
-      .subscribe(
-        (res)=>{
-          this.Events = this.convertArrToCheckModel<any>(res);
-          //  console.log(res);
-          setTimeout(() => {
-            this.ScrollEventsDisabled = false;
-          }, 200);
-        }
-      )
+      this.main.adminService.GetEventsRequests({limit:20,offset:0})
+        .subscribe(
+          (res)=>{
+            this.Events = this.convertArrToCheckModel<any>(res);
+            //  console.log(res);
+            setTimeout(() => {
+              this.ScrollEventsDisabled = false;
+            }, 200);
+          }
+        )
+    }
   }
 
   onScrollArtist(){

@@ -18,6 +18,7 @@ import { EventPatchModel } from '../../../core/models/eventPatch.model';
 import { EventCreateModel } from '../../../core/models/eventCreate.model';
 import { EventCreateComponent } from '../eventCreate.component';
 import { ViewEncapsulation } from '@angular/core';
+import { CurrencyIcons } from '../../../core/models/preferences.model';
 
 
 
@@ -44,6 +45,8 @@ export class AboutComponent extends BaseComponent implements OnInit {
   showMoreGenres:boolean = false;
   image:string;
 
+  CurrencySymbol = '$';
+
   aboutForm : FormGroup = new FormGroup({
     "name": new FormControl("", [Validators.required]),
     "tagline": new FormControl("", [Validators.required]),
@@ -59,6 +62,7 @@ export class AboutComponent extends BaseComponent implements OnInit {
   });
 
   ngOnInit() {
+    this.CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
     this.CreateAutocompleteAbout();
 
     var _the = this;

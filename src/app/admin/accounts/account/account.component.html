@@ -14,7 +14,7 @@
             <button (click)="denyAcc()"><img src="./../../../../assets/img/admin/deny.svg" alt="" class="img-responsive"></button>
             <span>Deny</span>
         </div>
-        <div *ngIf="Account.status === 'pending'" class="butt approve">
+        <div *ngIf="Account.status === 'pending'||Account.status === 'just_added'" class="butt approve">
             <button (click)="approveAcc()"><img src="./../../../../assets/img/admin/approve.svg" alt="" class="img-responsive"></button>
             <span>Approve</span>
         </div>

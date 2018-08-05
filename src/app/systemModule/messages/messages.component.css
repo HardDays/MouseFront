@@ -1,6 +1,6 @@
 .empty-info{
     position: absolute;
-    padding-top:500px;
+    /* padding-top:500px; */
     top:50%;
     left:50%;
     transform: translate(-50%,-50%);
@@ -13,4 +13,7 @@
 }
 .messages-main-wrapp .flex-massages-wrapp .left-s .one-msg-l-block .descr-side{
     min-width: 0;
+}
+.messages-main-wrapp .flex-massages-wrapp{
+    min-height: calc(100vh - 84px);
 }

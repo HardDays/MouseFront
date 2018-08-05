@@ -50,9 +50,9 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
     this.main.adminService.GetQuestions()
     .subscribe(
       (res)=>{
-        console.log(res);
+        // console.log(res);
         this.Questions = res;
-        if(this.Questions)
+        if(this.Questions&&this.Questions[0]&&this.Questions[0].id)
           this.openNewQuestion(this.Questions[0].id)
 
         for(let q of this.Questions){
@@ -77,7 +77,7 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
 
     this.main.adminService.GetQuestionById(id)
       .subscribe((res)=>{
-        console.log(res);
+        // console.log(res);
         this.openQuestion = res;
 
         if(this.openQuestion.account&&this.openQuestion.account.image_id){
@@ -87,7 +87,7 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
         this.openQuestion.account.image_base64_not_given = BaseImages.NoneFolowerImage;
 
         if(this.openQuestion.question_reply){
-          if(this.openQuestion.question_reply.sender.image_id){
+          if(this.openQuestion.question_reply.sender&&this.openQuestion.question_reply.sender.image_id){
             this.openQuestion.question_reply.sender.image_base64_not_given = this.main.imagesService.GetImagePreview(this.openQuestion.question_reply.sender.image_id,{width:100,height:100})
           }
           
@@ -104,7 +104,7 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
         (res:any[]) =>
         {
           this.AnswerOptions = res;
-          console.log("answer", this.AnswerOptions);
+          // console.log("answer", this.AnswerOptions);
           
         }
       )

@@ -1,4 +1,5 @@
 import { TicketsGetModel } from "./ticketsGetModel";
+import { Currency } from "./preferences.model";
 
 
 export class TicketsByEventModel{
@@ -25,12 +26,15 @@ export class ticketsMass{
         public created_at?: string,
         public updated_at?: string,
         public ticket?: ticketsInfo,
-        public tickets_left?:number
+        public tickets_left?:number,
+        public currency?: string
 )
 {
     if(!ticket){
         this.ticket = new ticketsInfo();
     }
+    if(!currency)
+        this.currency = Currency.USD;
 }
 }
 

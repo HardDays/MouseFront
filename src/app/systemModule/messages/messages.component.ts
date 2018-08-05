@@ -44,6 +44,8 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
   accs:AccountGetModel[] = [];
   accOpen:AccountGetModel = new AccountGetModel();
 
+  nonPhoto = BaseImages.NoneFolowerImage;
+
   constructor(
     protected main           : MainService,
     protected _sanitizer     : DomSanitizer,

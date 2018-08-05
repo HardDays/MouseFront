@@ -47,16 +47,16 @@ export class EventComponent extends BaseComponent implements OnInit {
 
         this.Genres = this.main.genreService.BackGenresToShowGenres(this.Event.genres);
 
-        if(this.Event.id){
-          this.main.imagesService.GetImageById(this.Event.image_id)
-            .subscribe(
-              (img)=>{
-                this.Event.image_base64 = img.base64;
-              },
-              (err)=>{
-                this.Event.image_base64 = BaseImages.NoneFolowerImage;
-              }
-            )
+        if(this.Event&&this.Event.id&&this.Event.image_id){
+          this.Event.image_base64 = this.main.imagesService.GetImagePreview(this.Event.image_id,{width:900,height:700});
+            // .subscribe(
+            //   (img)=>{
+            //     this.Event.image_base64 = img.base64;
+            //   },
+            //   (err)=>{
+            //     this.Event.image_base64 = BaseImages.NoneFolowerImage;
+            //   }
+            // )
         }
         else{
           this.Event.image_base64 = BaseImages.NoneFolowerImage;
@@ -92,10 +92,10 @@ export class EventComponent extends BaseComponent implements OnInit {
               this.Artists.push(res);
               // console.log(this.Artists);
               // console.log('1')
-              if(res.videos){
+              if(res.videos.length>0){
                 for(let v of res.videos){
                   this.Videos.push(this.getLink(v.link));
-                  // console.log(this.Videos)
+                   console.log(this.Videos)
                 }
                 // console.log('2')
               }
@@ -121,13 +121,15 @@ export class EventComponent extends BaseComponent implements OnInit {
       //     });
       // });
   
-      $('.event_videos_slider').slick({
-          dots: false,
-          arrows: true,
-          speed: 200
-  
-      });
-    }, 3000);
+      if(this.Videos.length>0){
+        $('.event_videos_slider').slick({
+            dots: false,
+            arrows: true,
+            speed: 200
+    
+        });
+      }
+    }, 2500);
 
   }
 

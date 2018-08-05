@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BaseComponent } from '../../../core/base/base.component';
 import { TicketModel } from '../../../core/models/ticket.model';
 import { BuyTicketModel } from '../../../core/models/buyTicket.model';
+import { Currency, CurrencyIcons } from '../../../core/models/preferences.model';
 
 
 @Component({
@@ -15,9 +16,11 @@ export class ByTicketComponent extends BaseComponent implements OnInit {
     Count:number = 0;
     IsPlusDisabled:boolean = false;
     IsMinusDisabled:boolean = false;
+    Currency:string = CurrencyIcons[Currency.USD];
 
     ngOnInit(): void 
     {
+        this.Currency = CurrencyIcons[this.main.settings.GetCurrency()];
     }
 
     AddTickets()

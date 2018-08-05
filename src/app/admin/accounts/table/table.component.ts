@@ -57,10 +57,14 @@ export class TableComponent extends BaseComponent implements OnInit {
   }
 
   openAccount(id:number){
+    this.main.adminService.AccountView(id)
+      .subscribe(res => this.main.adminService.NewCountChange.next(true));
     this.router.navigate(["/admin",'account',id])
   }
 
   openEvent(id:number){
+    this.main.adminService.EventView(id)
+      .subscribe(res => this.main.adminService.NewCountChange.next(true));
     this.router.navigate(["/admin",'event',id])
   }
 
@@ -82,6 +86,7 @@ export class TableComponent extends BaseComponent implements OnInit {
         window.open('http://mouse-web.herokuapp.com/admin/'+type+'/'+id,'_blank');
         window.blur();
       }
+    this.main.adminService.NewCountChange.next(true);
   }
 
   deleteAll(){

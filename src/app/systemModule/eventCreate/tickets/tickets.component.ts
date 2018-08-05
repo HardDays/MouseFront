@@ -15,7 +15,8 @@ import { TicketModel } from '../../../core/models/ticket.model';
 import { TicketGetParamsModel } from '../../../core/models/ticketGetParams.model';
 import { EventGetModel } from '../../../core/models/eventGet.model';
 import { EventCreateModel } from '../../../core/models/eventCreate.model';
-import { BsDatepickerConfig } from '../../../../../node_modules/ngx-bootstrap';
+import { BsDatepickerConfig } from 'ngx-bootstrap';
+import { CurrencyIcons } from '../../../core/models/preferences.model';
 
 @Component({
   selector: 'app-add-tickets',
@@ -40,6 +41,8 @@ export class AddTicketsComponent extends BaseComponent implements OnInit {
     maxCountVr = 0;
 
  
+    CurrencySymbol = '$';
+
     bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-default' });
 
      datepickerFromModel:Date;
@@ -47,7 +50,7 @@ export class AddTicketsComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     // this.CreateAutocompleteArtist();
-
+    this.CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
 
     this.getTickets();
     console.log(`INIT`);
@@ -107,6 +110,7 @@ export class AddTicketsComponent extends BaseComponent implements OnInit {
 addTicket(){
     let newTicket:TicketModel = new TicketModel();
     newTicket.id = this.getNewId();
+    newTicket.currency = this.main.settings.GetCurrency();
     newTicket.event_id = this.Event.id;
     newTicket.account_id = this.CurrentAccount.id;
     newTicket.name = 'New Name';
@@ -124,6 +128,10 @@ getNewId(){
     for(let t of this.ticketsNew)
         id+=t.id;
     return id;
+}
+
+getCurrencyPrice(currency:string){
+  return  CurrencyIcons[currency];
 }
 
 updateTicket(){

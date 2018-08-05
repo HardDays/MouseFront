@@ -29,6 +29,7 @@ import {ArtistFields, BaseImages, BaseMessages, EventFields, FanFields, VenueFie
 import { MapsAPILoader } from '@agm/core';
 import {FormArray, FormControl, FormGroup} from '@angular/forms';
 import { CodegenComponentFactoryResolver } from '@angular/core/src/linker/component_factory_resolver';
+import { CurrencyIcons } from '../models/preferences.model';
 
 @Injectable()
 export class BaseComponent{
@@ -57,7 +58,7 @@ export class BaseComponent{
     )
     {
         this.isLoggedIn = this.main.authService.IsLogedIn();
-
+        
         this.isLoading = this.main.ActiveProcesses.length > 0;
         if(this.isLoggedIn)
         {
@@ -68,7 +69,6 @@ export class BaseComponent{
         }
 
         
-
         this.main.authService.onAuthChange$
             .subscribe(
                 (res:boolean) => {
@@ -166,8 +166,28 @@ export class BaseComponent{
             (res:TokenModel) => {
                 
                 this.main.authService.BaseInitAfterLogin(res);
-                this.router.navigate(['/system','shows']);
+                
                 this.main.authService.onAuthChange$.next(true);
+
+                this.main.UserChange.first().subscribe(
+                    ()=>{
+                        // this.main.UserChange.unsubscribe();
+                        let admin = this.main.MyUser.is_admin||this.main.MyUser.is_superuser;
+
+                        console.log(`base login`, admin);
+                        if(!admin)
+                        {
+                            this.router.navigate(['/system','shows']);
+                        }
+                        else
+                        {
+                            this.router.navigate(['/admin','dashboard']);
+                        }
+                    }
+                )
+
+                
+
 
                 if(callbackOk && typeof callbackOk == "function"){
                     callbackOk(res);
@@ -314,9 +334,10 @@ export class BaseComponent{
     }
     MaskPrice()
     {
+        let CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
         return {
             // mask: ['+',/[1-9]/,' (', /[1-9]/, /\d/, /\d/, ') ',/\d/, /\d/, /\d/, '-', /\d/, /\d/,'-', /\d/, /\d/],
-            mask: ['$',/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/],
+            mask: [CurrencySymbol,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/],
             keepCharPositions: true,
             guide:false
         };

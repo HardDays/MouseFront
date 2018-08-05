@@ -19,7 +19,7 @@ export class SettingsComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
 
-
+    
     this.main.adminService.GetMyAccByIdUser(this.main.MyUser.id)
         .subscribe(
             (res)=>{
@@ -50,6 +50,7 @@ export class SettingsComponent extends BaseComponent implements OnInit {
       .subscribe(
           (res)=>{
               this.User = res;
+              this.errCmp.OpenWindow(BaseMessages.Success);
               if(this.User.image_id){
                 this.main.imagesService.GetImageById(this.User.image_id)
                   .subscribe((res)=>{
@@ -59,9 +60,14 @@ export class SettingsComponent extends BaseComponent implements OnInit {
               }
             //   this.errorCmp.OpenWindow(BaseMessages.Success);
               console.log(`res`,this.User);
-              this.main.GetMyUser();
+              setTimeout(() => {
+                  if(this.errCmp.isShown)
+                    this.errCmp.CloseWindow();
+                this.main.GetMyUser();
+              }, 2000);
+              
               //this.User = res;
-              this.errCmp.OpenWindow(BaseMessages.Success);
+              
               
           },
           (err)=>{
@@ -70,13 +76,17 @@ export class SettingsComponent extends BaseComponent implements OnInit {
           }
       );
     if(this.User.password){
-        this.main.authService.UpdateUser(this.User)
+        // delete this.User['id']; // = this.main.MyUser.id
+        let user: UserCreateModel = new UserCreateModel();
+        user.password_confirmation = this.User.password;
+        user.password = this.User.password;
+        this.main.authService.UpdateUser(user)
             .subscribe(
                 (res)=>{
-                    // console.log(`pass update`);
+                     console.log(`pass update`);
                 },
                 (err)=>{
-                    // console.log(`err`,err);
+                     console.log(`err`,err);
                     
                 }
             )

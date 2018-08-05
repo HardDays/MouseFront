@@ -21,6 +21,8 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
     all: true
   }
 
+  Type = 'all';
+
   Feedbacks:FeedbackAdminModel[] = [];
   FeedbacksChecked:FeedbackAdminModel[] = [];
   openFeedback:FeedbackAdminModel = new FeedbackAdminModel();
@@ -47,7 +49,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
           this.Feedbacks = res;
          
 
-          if(this.Feedbacks)
+          if(this.Feedbacks&&this.Feedbacks[0]&&this.Feedbacks[0].id)
             this.openNewFeedback(this.Feedbacks[0].id);
          
 
@@ -69,26 +71,34 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
   }
 
 
+  // filterByType(){
+
+  //     if(!this.Types.enchancements&&!this.Types.compliments&&!this.Types.bugs)
+  //       this.Types.all = true;
+  
+  //     if(this.Types.all){
+  //       this.FeedbacksChecked = this.Feedbacks;
+  //     }
+  //     else
+  //     {
+  //       this.Types.all = false;
+  //       this.FeedbacksChecked = this.Feedbacks.filter(
+  //           obj => obj.feedback_type && ( 
+  //             this.Types.enchancements && obj.feedback_type === 'enchancement' ||
+  //             this.Types.compliments && obj.feedback_type === 'compliment' ||
+  //             this.Types.bugs && obj.feedback_type === 'bug'
+  //           )
+  //       );
+  //     }
+    
+  // }
+
   filterByType(){
 
-      if(!this.Types.enchancements&&!this.Types.compliments&&!this.Types.bugs)
-        this.Types.all = true;
-  
-      if(this.Types.all){
-        this.FeedbacksChecked = this.Feedbacks;
-      }
-      else
-      {
-        this.Types.all = false;
-        this.FeedbacksChecked = this.Feedbacks.filter(
-            obj => obj.feedback_type && ( 
-              this.Types.enchancements && obj.feedback_type === 'enchancement' ||
-              this.Types.compliments && obj.feedback_type === 'compliment' ||
-              this.Types.bugs && obj.feedback_type === 'bug'
-            )
-        );
-      }
-    
+    if(this.Type === 'all')
+      this.FeedbacksChecked = this.Feedbacks;
+    else 
+      this.FeedbacksChecked = this.Feedbacks.filter(obj => obj.feedback_type && (this.Type === obj.feedback_type));
   }
 
   InitJs(){
@@ -114,8 +124,11 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
         this.openFeedback = fb;
         if(this.openFeedback.reply){
           this.Answer.message =  this.openFeedback.reply.simple_message;
-          this.Answer.user_name =  this.openFeedback.reply.sender.user_name;
-          if(this.openFeedback.reply.sender.image_id)
+          if(this.openFeedback.reply&&this.openFeedback.reply.sender&&this.openFeedback.reply.sender.user_name)
+            this.Answer.user_name =  this.openFeedback.reply.sender.user_name;
+          else
+            this.Answer.user_name = 'Admin';
+          if(this.openFeedback.reply&&this.openFeedback.reply.sender&&this.openFeedback.reply.sender.image_id)
             this.Answer.image = this.main.imagesService.GetImagePreview(this.openFeedback.reply.sender.image_id,{width:100,height:100})
           else
             this.Answer.image = BaseImages.NoneFolowerImage;
@@ -128,12 +141,12 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
   }
 
   sendAnswer(){
-    console.log(`Message`,this.openFeedback,this.Message);
+    // console.log(`Message`,this.openFeedback,this.Message);
     if(this.Message)
       this.main.adminService.FeedbackThankYou(this.openFeedback.id,this.Message)
         .subscribe(
           (res)=>{
-            console.log(res);
+            // console.log(res);
             this.errCmp.OpenWindow(BaseMessages.Success);
             this.getFeedbacks();
           },

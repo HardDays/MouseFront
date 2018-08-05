@@ -85,12 +85,10 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
         if(this.IsPreview){
             this.Init(changes.Venue.currentValue,changes.VenueId.currentValue);
         }
-        
         this.InitByUser();
     }
 
     ngOnInit(): void {
-                
     }
     Init(venue?:AccountCreateModel,id?:number)
     {
@@ -124,6 +122,9 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
 
         this.Lat = this.Account.lat?this.Account.lat:0;
         this.Lng = this.Account.lng?this.Account.lng:0;
+
+        if(!this.VenueId && this.Account.id)
+            this.VenueId = this.Account.id;
         
         this.GetUpcomingShows();
         this.GetVenueImages();
@@ -148,7 +149,6 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
                     this.isLoadingUpcoming = false;
                 },
                 (err) => {
-                
                 }
             );
         }

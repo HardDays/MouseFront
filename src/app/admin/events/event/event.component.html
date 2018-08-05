@@ -27,7 +27,7 @@
     </h2>
     <section class="event_preview">
         <div class="event_block">
-            <div class="event_photo" [ngStyle]="{'background-image':'url('+Event.image_base64+')'}"></div>
+            <div class="event_photo" [ngStyle]="{'background-image':Event.image_base64?'url('+Event.image_base64+')':''}"></div>
             <div class="event_info_wrap">
                 <h2>{{Event.name}}</h2>
                 <div class="event_info">

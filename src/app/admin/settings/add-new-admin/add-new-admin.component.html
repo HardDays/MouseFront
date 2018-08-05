@@ -1,58 +1,59 @@
 <!-- <div class="admin_content"> -->
   <div class="admin_settings_wrap">
+      <form [formGroup]="userForm">
       <h2 class="settings_zag">Personal info</h2>
       <label class="personal_photo">
             <div class="photo" [ngStyle]="{'background-image': newUser.image_base64?'url('+newUser.image_base64+')':'url(./../../../../assets/img/admin/add_photo.png)'}"></div>
             <span>Add Photo</span>
-            <input style=" opacity: 0; position: absolute; z-index: -1;" name="photo" accept=".jpg, .jpeg, .png" type="file" (change)="loadLogo($event)"> 
+            <input style=" opacity: 0; position: absolute; z-index: -1;" name="photo" accept=".jpg, .jpeg, .png" name="photo" type="file" (change)="loadLogo($event)"> 
         </label>
       <div class="inputs_flex">
           <div class="input-groupe-1">
-              <input id="inp-info-1" [(ngModel)]="newUser.first_name" name="first_name" type="text">
-              <label for="inp-info-1">First Name</label>
+              <input id="inp-info-1" formControlName="first_name" [(ngModel)]="newUser.first_name" name="first_name" type="text">
+              <label for="inp-info-1">First Name<span>*</span></label>
           </div>
           <div class="input-groupe-1">
-              <input id="inp-info-2" [(ngModel)]="newUser.last_name" name="last_name" type="text">
-              <label for="inp-info-2">Last Name</label>
+              <input id="inp-info-2" formControlName="last_name" [(ngModel)]="newUser.last_name" name="last_name" type="text">
+              <label for="inp-info-2">Last Name<span>*</span></label>
           </div>
       </div>
       <div class="inputs_flex">
           <div class="input-groupe-1">
-              <input id="inp-info-3" [(ngModel)]="newUser.email" name="email" type="text">
+              <input id="inp-info-3" formControlName="email" [(ngModel)]="newUser.email" name="email" type="text">
               <label for="inp-info-3">Email Address</label>
           </div>
           <div class="input-groupe-1 username_input">
-              <input id="inp-info-4" [(ngModel)]="newUser.user_name" name="user_name" type="text">
-              <label for="inp-info-4">Mouse Username</label>
+              <input id="inp-info-4" formControlName="user_name" [(ngModel)]="newUser.user_name" name="user_name" type="text">
+              <label for="inp-info-4">Mouse Username<span>*</span></label>
           </div>
       </div>
       <div class="inputs_flex">
           <div class="input-groupe-1">
-              <input id="inp-info-5" [(ngModel)]="newUser.password" name="password" type="password">
+              <input id="inp-info-5" formControlName="password" [(ngModel)]="newUser.password"  name="password" type="password">
               <label for="inp-info-5">Password</label>
           </div>
           <div class="input-groupe-1">
-              <input id="inp-info-6" [(ngModel)]="newUser.password_confirmation" name="password_confirmation" type="password">
+              <input id="inp-info-6" formControlName="password_confirmation" [(ngModel)]="newUser.password_confirmation" name="password_confirmation" type="password">
               <label for="inp-info-6">Verify Password</label>
           </div>
       </div>
       <div class="inputs_flex">
           <div class="input-groupe-1">
-              <input id="inp-info-7" [(ngModel)]="newUser.register_phone" name="register_phone" type="password">
+              <input id="inp-info-7" formControlName="register_phone" [(ngModel)]="newUser.register_phone" name="register_phone" type="password">
               <label for="inp-info-7">Phone Number (For Verification)</label>
           </div>
       </div>
       <h2 class="settings_zag second_zag">Address</h2>
       <div class="inputs_flex">
           <div class="input-groupe-1">
-              <select [(ngModel)]="newUser.country" id="settings-country">
+              <select formControlName="country" [(ngModel)]="newUser.country" name="country" id="settings-country">
                   <option>USA</option>
                   <option>Russia</option>
               </select>
               <label for="settings-country">Country</label>
           </div>
           <div class="input-groupe-1">
-              <select [(ngModel)]="newUser.city" id="settings-city">
+              <select formControlName="city" [(ngModel)]="newUser.city" name="city" id="settings-city">
                   <option>New York</option>
                   <option>Moscow</option>
               </select>
@@ -61,11 +62,11 @@
       </div>
       <div class="inputs_flex">
           <div class="input-groupe-1">
-              <input id="inp-info-8"  [(ngModel)]="newUser.address" name="address" type="text">
+              <input id="inp-info-8" formControlName="address"  [(ngModel)]="newUser.address" name="address" type="text">
               <label for="inp-info-8">Address</label>
           </div>
           <div class="input-groupe-1">
-              <select [(ngModel)]="newUser.state" id="settings-state">
+              <select formControlName="state" [(ngModel)]="newUser.state" id="settings-state">
                   <option>NY</option>
                   <option>Moscow Region</option>
               </select>
@@ -74,14 +75,16 @@
       </div>
       <div class="inputs_flex">
           <div class="input-groupe-1">
-              <input id="inp-info-9" [(ngModel)]="newUser.address_other" name="" value="" type="text">
+              <input id="inp-info-9" formControlName="address_other" [(ngModel)]="newUser.address_other" name="other" value="" type="text">
               <label for="inp-info-9">Address, Other</label>
           </div>
       </div>
       <button (click)="createUser()" class="butt-style-1" type="submit">
           <span>Save</span>
       </button>
+    </form>
   </div>
+  
 <!-- </div> -->
 
 <error-cmp #errCmp></error-cmp>

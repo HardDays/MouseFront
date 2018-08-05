@@ -12,6 +12,7 @@ import { MainService } from '../../../core/services/main.service';
 import { BaseImages } from '../../../core/base/base.enum';
 import { NgForm } from '@angular/forms';
 import { CurrencyIcons, Currency } from '../../../core/models/preferences.model';
+import createNumberMask from '../../../../../node_modules/text-mask-addons/dist/createNumberMask';
 
 
 interface EventMouseInfo {
@@ -294,8 +295,7 @@ export class BigCalendarComponent implements OnInit, OnChanges {
     const index =  _.findIndex(this.changedPrice, (changed) => {
       return moment(date).isSame(changed.mDate, 'day');
     });
-
-    return (index < 0)? this.CurrencyIcon : CurrencyIcons[this.main.settings.GetCurrency()];
+    return (index < 0)? this.CurrencyIcon : CurrencyIcons[this.changedPrice[index].currency];
   }
 
   
@@ -365,7 +365,6 @@ export class BigCalendarComponent implements OnInit, OnChanges {
             this.GetImage(res.image_id);
           },
           (err)=>{
-            // console.log(err);
           }
         );
     }
@@ -385,7 +384,6 @@ export class BigCalendarComponent implements OnInit, OnChanges {
                       {
                         this.Images.push(model);
                       }
-                      console.log(this.eventDates);
                       // this.Images.push((res && res.base64) ? res : {base64:BaseImages.Drake,event_id:res.event_id});
                 }
               );
@@ -439,12 +437,19 @@ export class BigCalendarComponent implements OnInit, OnChanges {
 
   MaskPrice()
     {
-        return {
-            // mask: ['+',/[1-9]/,' (', /[1-9]/, /\d/, /\d/, ') ',/\d/, /\d/, /\d/, '-', /\d/, /\d/,'-', /\d/, /\d/],
-            mask: [/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/],
-            keepCharPositions: true,
-            guide:false
-        };
+      let mask = createNumberMask(
+        {
+            prefix: '',
+            suffix: '',
+            allowDecimal: true,
+            includeThousandsSeparator: false
+        }
+      );
+      return {
+      mask: mask,
+      keepCharPositions: true,
+      guide:false
+      };
     }
 
 }

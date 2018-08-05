@@ -1,7 +1,7 @@
-import { Injectable } from "../../../../node_modules/@angular/core";
+import { Injectable } from "@angular/core";
 import { HttpService } from "./http.service";
 import { TypeService } from "./type.service";
-import { Subject } from "../../../../node_modules/rxjs";
+import { Subject } from "rxjs";
 import { PreferencesModel } from '../models/preferences.model';
 
 @Injectable()
@@ -59,7 +59,7 @@ export class SettingsService{
         );
     }
 
-    SaveSettings(params:PreferencesModel)
+    SaveSettings(params:PreferencesModel, callback?:(str:string) => void)
     {
         this.http.CommonRequest(
             () => this.http.PatchData("/users/preferences.json", params)
@@ -67,6 +67,16 @@ export class SettingsService{
         .subscribe(
             (res:PreferencesModel) => {
                 this.SaveBackSettings(res);
+                if(callback && typeof callback == "function")
+                {
+                    callback("Success")
+                }
+            },
+            (err) => {
+                if(callback && typeof callback == "function")
+                {
+                    callback("Error")
+                }
             }
         );
         

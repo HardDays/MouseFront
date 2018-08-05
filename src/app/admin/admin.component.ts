@@ -21,43 +21,71 @@ export class AdminComponent extends BaseComponent implements OnInit {
   newAccCount = 0;
   newEventCount = 0;
 
+  openSubmenu = {
+    account:false,
+    event: false,
+    feedback:false,
+    support:false,
+    revenue: false,
+    settings: false
+  };
+
+  currentPosition = 200;
+
   ngOnInit() {
     this.initJs();
     this.GetCurrentRoute();
     this.router.events.subscribe( (event: Event) => {
+     
       if (event instanceof NavigationEnd) {
           this.GetCurrentRoute();
+          window.scroll(0,this.currentPosition);
       }
     });
-    // this.User = this.main.MyUser;
 
-    this.main.adminService.GetMyAccByIdUser(this.main.MyUser.id)
-          .subscribe(
-            (res)=>{
-              this.User = res;
 
-              if(this.User.image_id)
-                this.User.image_base64 = this.main.imagesService.GetImagePreview(this.User.image_id,{width:100,height:100});
+    window.addEventListener('scroll', ()=> {
+      this.currentPosition =  window.scrollY ;
+    });
 
-              this.User.is_admin = this.main.MyUser.is_admin;
-              this.User.is_superuser = this.main.MyUser.is_superuser;
-            }
-          )
+
+    console.log(this.main.MyUser.id);
+
+    if(this.main.MyUser.id && (this.main.MyUser.is_admin||this.main.MyUser.is_superuser)){
+      this.main.adminService.GetMyAccByIdUser(this.main.MyUser.id)
+            .subscribe(
+              (res)=>{
+                this.User = res;
+                
+                if(this.User.image_id)
+                  this.User.image_base64 = this.main.imagesService.GetImagePreview(this.User.image_id,{width:100,height:100});
+
+                this.User.is_admin = this.main.MyUser.is_admin;
+                this.User.is_superuser = this.main.MyUser.is_superuser;
+
+                this.getNewCounts();
+              }
+            )
+    }
 
     this.main.UserChange.subscribe(
       (res)=>{
-        this.main.adminService.GetMyAccByIdUser(this.main.MyUser.id)
-          .subscribe(
-            (res)=>{
-              this.User = res;
-              
-              if(this.User.image_id)
-                this.User.image_base64 = this.main.imagesService.GetImagePreview(this.User.image_id,{width:100,height:100});
+        if(res&&this.main.MyUser.id&& (this.main.MyUser.is_admin||this.main.MyUser.is_superuser)){
+          this.main.adminService.GetMyAccByIdUser(this.main.MyUser.id)
+            .subscribe(
+              (res)=>{
+                this.User = res;
+                
+                if(this.User.image_id)
+                  this.User.image_base64 = this.main.imagesService.GetImagePreview(this.User.image_id,{width:100,height:100});
+                  
+                this.User.is_admin = this.main.MyUser.is_admin;
+                this.User.is_superuser = this.main.MyUser.is_superuser;
 
-              this.User.is_admin = this.main.MyUser.is_admin;
-              this.User.is_superuser = this.main.MyUser.is_superuser;
-            }
-          )
+                this.getNewCounts();
+              }
+            )
+        }
         // this.User = this.main.MyUser;
       }
     )
@@ -70,24 +98,33 @@ export class AdminComponent extends BaseComponent implements OnInit {
     // }
     // console.log(this.User);
 
-    this.getNewCounts();
+    // this.getNewCounts();
+    this.main.adminService.NewCountChange.subscribe(
+      ()=>{
+        this.getNewCounts();
+        // this.newAccCount =  this.newAccCount - 1;
+      }
+    )
 
   }
 
   getNewCounts(){
-    this.main.adminService.GetNewAccountsCount()
-      .subscribe(
-        (res)=>{
-          this.newAccCount = res;
-        }
-      )
 
-    this.main.adminService.GetNewEventsCount()
-      .subscribe(
-        (res)=>{
-          this.newEventCount = res;
-        }
-      )
+    if(this.User.is_admin||this.User.is_superuser){
+      this.main.adminService.GetNewAccountsCount()
+        .subscribe(
+          (res)=>{
+            this.newAccCount = res;
+          }
+        )
+
+      this.main.adminService.GetNewEventsCount()
+        .subscribe(
+          (res)=>{
+            this.newEventCount = res;
+          }
+        )
+    }
     
   }
 
@@ -203,17 +240,17 @@ export class AdminComponent extends BaseComponent implements OnInit {
 
 
   initJs(){
-    $(document).ready(function () {
-      $('.photos-abs-wrapp').css({
-          'max-height': $('.rel-wr-photoos').width()+'px'
-      });
+  //   $(document).ready(function () {
+  //     $('.photos-abs-wrapp').css({
+  //         //'max-height': $('.rel-wr-photoos').width()+'px'
+  //     });
   
-      $(window).resize(function(){
-          $('.photos-abs-wrapp').css({
-              'max-height': $('.rel-wr-photoos').width()+'px'
-          });
-      });
-  });
+  //     $(window).resize(function(){
+  //         $('.photos-abs-wrapp').css({
+  //             //'max-height': $('.rel-wr-photoos').width()+'px'
+  //         });
+  //     });
+  // });
   }
 
 }

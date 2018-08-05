@@ -14,6 +14,8 @@ import { VenueDatesModel } from '../../../core/models/venueDatesModel';
 import { AccountGetModel } from '../../../core/models/accountGet.model';
 import { Currency, CurrencyIcons } from '../../../core/models/preferences.model';
 
+import createNumberMask from 'text-mask-addons/dist/createNumberMask';
+
 declare var $:any;
 
 @Component({
@@ -40,9 +42,9 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
         "minimum_notice": new FormControl("",[Validators.pattern("[0-9]+"),
                                 Validators.min(0),Validators.max(999)]),
         "is_flexible": new FormControl("",[]),
-        "price_for_daytime": new FormControl("",[Validators.required,Validators.pattern("[0-9]+"),
+        "price_for_daytime": new FormControl("",[Validators.required,
                                 Validators.min(0),Validators.max(1000000)]),
-        "price_for_nighttime": new FormControl("",[Validators.required,Validators.pattern("[0-9]+"),
+        "price_for_nighttime": new FormControl("",[Validators.required,,
                                 Validators.min(0),Validators.max(1000000)]),
         "performance_time_from": new FormControl("",[]),
         "performance_time_to": new FormControl("",[]),
@@ -109,8 +111,16 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
 
     GetPerfomancePriceMask()
     {
+        let mask = createNumberMask(
+            {
+                prefix: '',
+                suffix: '',
+                allowDecimal: true,
+                includeThousandsSeparator: false
+            }
+        );
         return {
-        mask: [/[1-9]/,/[0-9]/,/[0-9]/,/[0-9]/,/[0-9]/,/[0-9]/,/[0-9]/],
+        mask: mask,
         keepCharPositions: true,
         guide:false
         };
@@ -146,8 +156,8 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
         model.is_available = data.is_available;
         if(model.is_available)
         {
-            model.price_for_daytime = data.price_for_daytime;
-            model.price_for_nighttime = data.price_for_nighttime;
+            model.price_for_daytime = parseFloat(data.price_for_daytime);
+            model.price_for_nighttime = parseFloat(data.price_for_nighttime);
             model.currency = this.MyCurrency;
         }
         return model;

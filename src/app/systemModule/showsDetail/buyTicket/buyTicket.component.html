@@ -1,7 +1,7 @@
 <div class="one-ticket">
     <form (ngSubmit)="AddTickets()">
         <div class="one-tick-counter">
-            <p class="count">${{Ticket.price}}</p>
+            <p class="count">{{Currency}}{{Ticket.price}}</p>
             <div class="conter-wrapp">
                 <div class="arrow l-a" (click)="ChangeCount(-1)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="15" height="27">

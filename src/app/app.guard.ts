@@ -6,10 +6,16 @@ import { BaseComponent } from "./core/base/base.component";
 
 @Injectable()
 export class AppAccessGuard extends BaseComponent implements CanActivate{
-    
+    admin = false;
+
     canActivate(router:ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>|boolean{
 
         let login = this.main.authService.IsLogedIn();
+
+        this.admin = this.main.MyUser.is_admin||this.main.MyUser.is_superuser;
+
+        console.log(`app`,this.admin);
+
         switch(router.routeConfig.path){
             case "access":{
                 return this.LoginHandler(router,state);
@@ -52,15 +58,25 @@ export class AppAccessGuard extends BaseComponent implements CanActivate{
 
         if(localStorage.getItem('access')==='true')
         {
-            this.router.navigate(['/system','shows']);
-                return false;
+            if(!this.admin)
+            {
+                this.router.navigate(['/system','shows']);
+            }
+            else
+            {
+                this.router.navigate(['/admin','dashboard']);
+            }
+            return false;
         }
         return true;
         
     }
 
     LoginNavigate(){
-        this.router.navigate(['/system','shows']);
+        if(this.admin)
+            this.router.navigate(['/admin','dashboard']);
+        else
+            this.router.navigate(['/system','shows']);
         return false;
     }
 }

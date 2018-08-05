@@ -71,10 +71,10 @@
             <div *ngIf='isApprovedBy' class="admin_table_th">{{status}} by</div>
         </div>
       <div *ngIf="Accounts" class="admin_table_tbody" infinite-scroll 
-      [infiniteScrollDistance]="2"
-      [infiniteScrollThrottle]="200"
-      (scrolled)="onScrollArtist()"
-      [infiniteScrollDisabled]="ScrollArtistDisabled">
+            [infiniteScrollDistance]="2"
+            [infiniteScrollThrottle]="200"
+            (scrolled)="onScrollArtist()"
+            [infiniteScrollDisabled]="ScrollArtistDisabled">
           <ng-container *ngFor="let acc of AccountsChecked; let i = index">
             <div *ngIf="status=='all'||acc.status===status||(acc.status==='just_added'&&status==='new')" class="admin_table_tr">
                 <div class="admin_table_td check_column">
@@ -91,7 +91,7 @@
                 </div>
                 <div class="admin_table_td"><span>{{acc.account_type|titlecase}}</span></div>
                 <div class="admin_table_td"><span>{{acc.address}}</span></div>
-                <div class="admin_table_td text-uppercase"><span [ngClass]="{'status_pending':acc.status=='pending','status_approved':acc.status=='approved','status_new':acc.status=='new','status_denied':acc.status=='denied','status_inactive':acc.status=='inactive'}">{{acc.status|titlecase}}</span></div>
+                <div class="admin_table_td text-uppercase"><span [ngClass]="{'status_pending':acc.status=='pending','status_approved':acc.status=='approved','status_new':acc.status=='new','status_denied':acc.status=='denied','status_inactive':acc.status=='inactive'}">{{acc.status.replace('_',' ')|titlecase}}</span></div>
                 <div *ngIf='isApprovedBy' class="admin_table_td"><span>{{acc.processed_by}}</span></div>
             </div>
           </ng-container>

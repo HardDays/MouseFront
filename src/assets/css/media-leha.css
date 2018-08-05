@@ -4,13 +4,26 @@ html, body{
 }
 .main-router-outlet{
   min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  height: auto;
 }
 .main_content{
   min-height: 100vh;
 }
+.login-register {
+  min-height: 100vh;
+  height: auto;
+}
+.register{
+  min-height: 100vh;
+  height: auto;
+}
 .main_content .for-flex-height{
   min-height: 100vh;
+ 
 }
+
 .modal-send-request.map-1-modal .modal-dialog .for-map-init-modal-1{
   border: none;  
 }
@@ -381,6 +394,14 @@ html, body{
 }
 
 @media (max-width: 991px) {
+  .modal{
+    display: none!important;
+    visibility: inherit;
+  }
+  .modal.in{
+    display: block!important;
+    visibility: inherit;
+  }
   .all-info-profile .uniq-padd-2 .flex--info.block-1300-display .side.side-info{
     padding-top: 30px;
     padding-bottom: 30px;
