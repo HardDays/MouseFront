@@ -21,3 +21,8 @@
 .empty-info p{
     color: white;
 }
+.for-padd-cards-art .scroll-cards-art .one-card .l-s .desc .name{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}

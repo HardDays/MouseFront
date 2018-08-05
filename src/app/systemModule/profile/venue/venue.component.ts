@@ -134,7 +134,7 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
     {
         let searchParam = event.target.value;
         if(searchParam)
-            this.FansChecked = this.Fans.filter(obj => obj.user_name.indexOf(searchParam)>=0);
+            this.FansChecked = this.Fans.filter(obj => obj.user_name.toLowerCase().indexOf(searchParam.toLowerCase())>=0);
         else this.FansChecked = this.Fans;
     }
 
@@ -161,7 +161,7 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
     {
         let searchParam = event.target.value;
         if(searchParam)
-            this.UpcomingShowsChecked = this.UpcomingShows.filter(obj => obj.name && obj.name.indexOf(searchParam)>=0);
+            this.UpcomingShowsChecked = this.UpcomingShows.filter(obj => obj.name && obj.name.toLowerCase().indexOf(searchParam.toLowerCase())>=0);
         else this.UpcomingShowsChecked = this.UpcomingShows;
     }
 
@@ -263,7 +263,7 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
     searchImagesVenue(event){
         let searchParam = event.target.value;
         if(searchParam)
-            this.VenueImagesChecked = this.ImageMassVenue.filter(obj => obj.description && obj.description.indexOf(searchParam)>=0);
+            this.VenueImagesChecked = this.ImageMassVenue.filter(obj => obj.description && obj.description.toLowerCase().indexOf(searchParam.toLowerCase())>=0);
         else this.VenueImagesChecked = this.ImageMassVenue;
     }
 }

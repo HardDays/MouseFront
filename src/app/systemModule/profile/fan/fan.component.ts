@@ -83,7 +83,7 @@ export class FanProfileComponent extends BaseComponent implements OnInit,OnChang
                 .subscribe(
                 (res:TicketsGetModel[]) =>
                 {
-                    console.log(this.TicketMass);
+                    //console.log(res);
                     this.ticketsMassChecked = this.TicketMass = res;
                     this.CountTickets();
                     this.isPreloadTickets = false;
@@ -100,7 +100,7 @@ export class FanProfileComponent extends BaseComponent implements OnInit,OnChang
     {
         let searchParam = event.target.value;
         if(searchParam)
-            this.ticketsMassChecked = this.TicketMass.filter(obj => obj.name && obj.name.indexOf(searchParam)>=0);
+            this.ticketsMassChecked = this.TicketMass.filter(obj => obj.name && obj.name.toLowerCase().indexOf(searchParam.toLowerCase())>=0);
         else this.ticketsMassChecked = this.TicketMass;
     }
 
@@ -126,7 +126,7 @@ export class FanProfileComponent extends BaseComponent implements OnInit,OnChang
     {
         let searchParam = event.target.value;
         if(searchParam)
-            this.EventsMassChecked = this.EventsMass.filter(obj => obj.name.indexOf(searchParam)>=0);
+            this.EventsMassChecked = this.EventsMass.filter(obj => obj.name.toLowerCase().indexOf(searchParam.toLowerCase())>=0);
         else this.EventsMassChecked = this.EventsMass;
     }
 
@@ -134,7 +134,7 @@ export class FanProfileComponent extends BaseComponent implements OnInit,OnChang
     {
         let searchParam = event.target.value;
         if(searchParam)
-            this.FansChecked = this.Fans.filter(obj => obj.user_name.indexOf(searchParam)>=0);
+            this.FansChecked = this.Fans.filter(obj => obj.user_name.toLowerCase().indexOf(searchParam.toLowerCase())>=0);
         else this.FansChecked = this.Fans;
     }
 

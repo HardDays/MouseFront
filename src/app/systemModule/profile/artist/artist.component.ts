@@ -154,7 +154,7 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
     {
         let searchParam = event.target.value;
         if(searchParam)
-            this.AlbumsChecked = this.Albums.filter(obj => obj.album_name.indexOf(searchParam)>=0);
+            this.AlbumsChecked = this.Albums.filter(obj => obj.album_name.toLowerCase().indexOf(searchParam.toLowerCase())>=0);
         else this.AlbumsChecked = this.Albums;
     }
 
@@ -178,7 +178,7 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
     {
         let searchParam = event.target.value;
         if(searchParam)
-            this.FansChecked = this.Fans.filter(obj => obj.user_name.indexOf(searchParam)>=0);
+            this.FansChecked = this.Fans.filter(obj => obj.user_name.toLowerCase().indexOf(searchParam.toLowerCase())>=0);
         else this.FansChecked = this.Fans;
     }
 
@@ -203,7 +203,7 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
     {
         let searchParam = event.target.value;
         if(searchParam)
-            this.UpcomingShowsChecked = this.UpcomingShows.filter(obj => obj.name && obj.name.indexOf(searchParam)>=0);
+            this.UpcomingShowsChecked = this.UpcomingShows.filter(obj => obj.name && obj.name.toLowerCase().indexOf(searchParam.toLowerCase())>=0);
         else this.UpcomingShowsChecked = this.UpcomingShows;
     }
 

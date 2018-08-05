@@ -15,6 +15,10 @@ html, body{
   min-height: 100vh;
   height: auto;
 }
+.login-register .login{
+  min-height: 100vh;
+  height: auto;
+}
 .register{
   min-height: 100vh;
   height: auto;
