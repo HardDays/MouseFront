@@ -11,7 +11,14 @@ html, body{
 .main_content{
   min-height: 100vh;
 }
-
+.login-register {
+  min-height: 100vh;
+  height: auto;
+}
+.register{
+  min-height: 100vh;
+  height: auto;
+}
 .main_content .for-flex-height{
   min-height: 100vh;
  
