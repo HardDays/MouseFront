@@ -52,7 +52,7 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
   @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
       if(this.isShowMap){
           if (event.keyCode === this.ESCAPE_KEYCODE || event.keyCode === this.ENTER_KEYCODE) {
-            $('#modal-map-1').modal('hide');
+            $('#modal-map').modal('hide');
             this.isShowMap = false;
           }
       }
@@ -263,7 +263,10 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
   openMapModal(){
     $('#modal-map').modal('show');
     this.isShowMap = true;
-    this.agmMap.triggerResize();
+    setTimeout(() => {
+      this.agmMap.triggerResize();
+    }, 200);
+    
   }
 
 

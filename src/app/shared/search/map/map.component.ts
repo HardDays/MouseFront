@@ -32,7 +32,7 @@ export class SearchEventsMapComponent extends BaseComponent implements OnInit {
     @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
         if(this.isShowMap){
             if (event.keyCode === this.ESCAPE_KEYCODE || event.keyCode === this.ENTER_KEYCODE) {
-              $('#modal-map-1').modal('hide');
+              $('#modal-map').modal('hide');
               this.isShowMap = false;
             }
         }

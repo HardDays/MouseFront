@@ -540,7 +540,9 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     venueOpenMapModal(){
         $('#modal-map-3').modal('show');
         this.isShowMap = true;
-        this.agmMap.triggerResize();
+        setTimeout(() => {
+            this.agmMap.triggerResize();
+          }, 200);
     }
 
 

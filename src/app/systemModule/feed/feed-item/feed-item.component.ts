@@ -88,7 +88,9 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
         } else if (delta < 86400) { // sent on last day
           result = Math.floor(delta / 3600) + ' Hours';
         } else { // sent more than one day ago
-          result = Math.floor(delta / 86400) + ' Days';
+          result = Math.floor(delta / 86400) + ' Day';
+          if(Math.floor(delta / 86400)>1) 
+            result+='s';
         }
         return result;
   }
