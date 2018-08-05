@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, ViewChild, ElementRef, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild, ElementRef, Input, Output, EventEmitter, SimpleChanges, HostListener } from '@angular/core';
 import { GenreModel } from '../../../core/models/genres.model';
 import { BaseComponent } from '../../../core/base/base.component';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -60,6 +60,20 @@ export class AboutComponent extends BaseComponent implements OnInit {
     "description": new FormControl("", [Validators.required]),
     "funding_goal":new FormControl("", [Validators.pattern("[0-9]+")])
   });
+
+  isShowMap = false;
+
+  ESCAPE_KEYCODE = 27;
+  ENTER_KEYCODE = 13;
+
+  @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+      if(this.isShowMap){
+          if (event.keyCode === this.ESCAPE_KEYCODE || event.keyCode === this.ENTER_KEYCODE) {
+            $('#modal-map-1').modal('hide');
+            this.isShowMap = false;
+          }
+      }
+  }
 
   ngOnInit() {
     this.CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
@@ -169,6 +183,7 @@ export class AboutComponent extends BaseComponent implements OnInit {
 
   aboutOpenMapModal(){
     $('#modal-map-1').modal('show');
+    this.isShowMap = true;
   }
 
 

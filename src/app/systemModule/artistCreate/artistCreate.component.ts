@@ -127,7 +127,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
           );
         }
       }
-    );
+    );  
   }
 
   ngAfterViewChecked()

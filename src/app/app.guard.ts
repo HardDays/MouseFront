@@ -14,7 +14,7 @@ export class AppAccessGuard extends BaseComponent implements CanActivate{
 
         this.admin = this.main.MyUser.is_admin||this.main.MyUser.is_superuser;
 
-        console.log(`app`,this.admin);
+        // console.log(`app`,this.admin);
 
         switch(router.routeConfig.path){
             case "access":{

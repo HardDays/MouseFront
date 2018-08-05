@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { BaseComponent } from '../../../core/base/base.component';
 import { Params } from '@angular/router';
 import { EventGetModel } from '../../../core/models/eventGet.model';
@@ -19,6 +19,20 @@ export class RevenueInfoComponent extends BaseComponent implements OnInit {
 
   mapCoords =  {lat:55.755826, lng:37.6172999};
 
+  isShowMap = false;
+
+  ESCAPE_KEYCODE = 27;
+  ENTER_KEYCODE = 13;
+
+  @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+      if(this.isShowMap){
+          if (event.keyCode === this.ESCAPE_KEYCODE || event.keyCode === this.ENTER_KEYCODE) {
+            $('#modal-map-1').modal('hide');
+            this.isShowMap = false;
+          }
+      }
+  }
+
   ngOnInit() {
     this.activatedRoute.params.subscribe(
       (params:Params) => {
@@ -33,8 +47,10 @@ export class RevenueInfoComponent extends BaseComponent implements OnInit {
   }
 
   aboutOpenMapModal(){
-    if(this.Event.city_lat&&this.Event.city_lng)
+    if(this.Event.city_lat&&this.Event.city_lng){
       $('#modal-map-1').modal('show');
+      this.isShowMap = true;
+    }
   }
 
   getRevenue(){

@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, Input, Output, ViewChild, ElementRef, EventEmitter, SimpleChanges } from '@angular/core';
+import { Component, OnInit, NgZone, Input, Output, ViewChild, ElementRef, EventEmitter, SimpleChanges, HostListener } from '@angular/core';
 import { AuthMainService } from '../../../core/services/auth.service';
 import { AccountService } from '../../../core/services/account.service';
 import { ImagesService } from '../../../core/services/images.service';
@@ -78,6 +78,20 @@ export class ArtistComponent extends BaseComponent implements OnInit {
     }
 
     messagesList:InboxMessageModel[] = [];
+
+    isShowMap = false;
+
+    ESCAPE_KEYCODE = 27;
+    ENTER_KEYCODE = 13;
+  
+    @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+        if(this.isShowMap){
+            if (event.keyCode === this.ESCAPE_KEYCODE || event.keyCode === this.ENTER_KEYCODE) {
+              $('#modal-map-2').modal('hide');
+              this.isShowMap = false;
+            }
+        }
+    }
 
 
     ngOnInit() {
@@ -288,6 +302,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
   artistOpenMapModal(){
     $('#modal-map-2').modal('show');
+    this.isShowMap = true;
     
       $('#modal-pick-artist').modal('hide');
     $('#modal-map-2').on("hidden.bs.modal", function () {
