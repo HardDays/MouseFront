@@ -23,7 +23,8 @@ export class SendQuestionComponent extends BaseComponent implements OnInit {
   });
   Message = {
     subject: '',
-    message: ''
+    message: '',
+    account_id: 0
   }
   
   constructor(
@@ -43,8 +44,9 @@ export class SendQuestionComponent extends BaseComponent implements OnInit {
 
   sendQuestions(){
     if(!this.FormMessage.invalid){
+      this.Message.account_id = this.main.CurrentAccount.id;
       // console.log(this.FormMessage);
-      this.main.questService.PostQuestions(this.Message.subject,this.Message.message)
+      this.main.questService.PostQuestions(this.Message.subject,this.Message.message, this.Message.account_id)
         .subscribe(
           (res)=>{
             this.errorCmp.OpenWindow(BaseMessages.Success);

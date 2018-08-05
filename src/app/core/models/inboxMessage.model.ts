@@ -13,13 +13,17 @@ export class InboxMessageModel{
            public id?: number,
            public receiver_id?:number,
            public message_type?:string,
+           public message?:string,
+           public message_id?:number,
+           public subject?:string,
            public created_at?:string,
-           public updated_at?:string,
-           public name?:string,
-           public sender_id?:number,
+        //    public updated_at?:string,
+        //    public name?:string,
+         
            public is_read?:boolean,
-           public simple_message?:any,
+        //    public simple_message?:any,
            public message_info?: MessageInfoModel,
+            public sender_id?:number,
            public sender?: Sender
     ){}
 }

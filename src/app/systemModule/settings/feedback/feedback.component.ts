@@ -22,7 +22,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
   Feedback:FeedbackModel = new FeedbackModel();
   FormFeedback : FormGroup = new FormGroup({
     "feedback_topic":new FormControl("",[Validators.required]),
-    "detail":new FormControl("",[Validators.required])
+    "message":new FormControl("",[Validators.required])
   });
   Rating:number = 3;
 
@@ -50,7 +50,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
         .subscribe(
           (res)=>{
             this.errorCmp.OpenWindow(BaseMessages.Success);
-            this.Feedback.detail = '';
+            this.Feedback.message = '';
             this.Feedback.feedback_type = '';
             this.Rating = 3;
           }

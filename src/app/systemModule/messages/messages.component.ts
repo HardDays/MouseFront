@@ -124,7 +124,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
               m.sender.image_base64 = this.main.imagesService.GetImagePreview(m.sender.image_id,{width:140,height:140});
             }
             else{
-              m.sender.image_base64 = BaseImages.NoneFolowerImage;
+              m.sender.image_base64 = './../'+BaseImages.NoneFolowerImage;
             }
           }
         }

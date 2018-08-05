@@ -21,10 +21,11 @@ export class QuestionsService{
         );
     }
 
-    PostQuestions(subject:string, message:string){
+    PostQuestions(subject:string, message:string, account_id:number){
         const params = {
             subject,
-            message
+            message,
+            account_id
         }
         return this.http.CommonRequest(
             ()=> this.http.PostData('/questions.json',JSON.stringify(params))

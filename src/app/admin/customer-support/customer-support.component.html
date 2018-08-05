@@ -4,15 +4,15 @@
         <div class="support_dialogs">
                            
             <div  *ngFor="let item of Questions" (click)="openNewQuestion(item.id)"  class="support_dialogs_item" [ngClass]="{'active': openQuestion&&openQuestion.id === item.id}">
-                <div class="ava" [ngStyle]="{'background-image': item.account?'url('+item.account.image_base64_not_given+')':'url('+nonImage+')'}"></div>
+                <div class="ava" [ngStyle]="{'background-image': item.sender?'url('+item.sender.image_base64+')':'url('+nonImage+')'}"></div>
                 <div class="info">
                     <p class="question">
                         <span class="title">{{item.subject?item.subject:''}}</span>
                         <span class="date">{{item.date?item.date:''}}</span>
                     </p>
-                    <p class="name">{{item.account&&item.account.display_name?item.account.display_name:''}}</p>
-                    <p class="username"><span>@</span>{{item.account&&item.account.user_name?item.account.user_name:''}}</p>
-                    <p class="address">{{item.account&&item.account.address?item.account.address:''}}</p>
+                    <p class="name">{{item.sender?.full_name?item.sender.full_name:''}}</p>
+                    <p class="username"><span>@</span>{{item.sender&&item.sender.user_name?item.sender.user_name:''}}</p>
+                    <!-- <p class="address">{{item.sender?.address?item.sender.address:''}}</p> -->
                 </div>
             </div>
                 
@@ -24,15 +24,15 @@
             </div>
             <div class="support_mes">
                 <div class="mes_head">
-                    <div class="ava" [ngStyle]="{'background-image': openQuestion&&openQuestion.account?'url('+openQuestion.account.image_base64_not_given+')':'url('+nonImage+')'}"></div>
+                    <div class="ava" [ngStyle]="{'background-image': openQuestion&&openQuestion.sender?'url('+openQuestion.sender.image_base64+')':'url('+nonImage+')'}"></div>
                     <div class="info">
                         <p class="name">{{openQuestion&&openQuestion.subject}}</p>
-                        <p class="username"><span>@</span>{{openQuestion&&openQuestion.account?openQuestion.account.user_name:''}}</p>
-                        <p class="address">{{openQuestion&&openQuestion.account?openQuestion.account.address:''}}</p>
+                        <p class="username"><span>@</span>{{openQuestion?.sender?openQuestion.sender.user_name:''}}</p>
+                        <!-- <p class="address">{{openQuestion?.sender?openQuestion.sender.address:''}}</p> -->
                     </div>
                 </div>
                 <div class="mes_text">
-                        {{openQuestion&&openQuestion.message?openQuestion.message:''}}
+                        {{openQuestion?.message?openQuestion.message:''}}
                 </div>
             </div>
             <div *ngIf="openQuestion&&openQuestion.question_reply" class="support_mes">

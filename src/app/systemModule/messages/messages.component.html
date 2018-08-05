@@ -18,8 +18,8 @@
                                     <div *ngIf="item.message_type != 'blank'" [ngClass]="{'active':item.id==idCurMsg}" (click)="changeItem(item,i);" class="one-msg-l-block active">
                                         <div class="name-ava">
                                             <div class="ava" [ngStyle]="{'background-image': item.sender?'url('+item.sender.image_base64+')':''}"></div>
-                                            <p class="n">{{item.sender?.full_name?item.sender.full_name:''}}</p>
-                                            <p class="hash"><span>@</span>{{item.sender?.user_name?item.sender.user_name:''}}</p>
+                                            <p class="n">{{item.sender?.full_name?item.sender.full_name:'No name'}}</p>
+                                            <p class="hash"><span>@</span>{{item.sender?.user_name?item.sender.user_name:'No username'}}</p>
                                         </div>
                                         <div  class="descr-side">
                                             <p class="f">
@@ -55,7 +55,7 @@
                                         <div  class="descr-side">
                                             <p class="f">
                                                 <!--задаем класс active если нужен кружочек. нахуй он всрался - хз-->
-                                                <span [ngClass]="{'active':!item.is_read}" class="some-t active">{{item.name?item.name:''}}</span>
+                                                <span [ngClass]="{'active':!item.is_read}" class="some-t active">{{item.subject?item.subject:'No subject'}}</span>
                                                 <span *ngIf="item.created_at" class="when">{{item.created_at| date:'MMM d' }}</span>
                                             </p>
                                             <!-- <p class="name-e">{{item.name}}</p> -->
@@ -191,7 +191,7 @@
                                 </div>
                                 <div class="block-info sixth-b">
                                     <div  *ngIf="openMessage.message_type == 'request'" class="input-groupe-1 whithout-label small-textarea max-500">
-                                        <textarea disabled [value]="openMessage.message_info?.message"  id="inp-media-venue-2"></textarea>
+                                        <textarea disabled [value]="openMessage?.message"  id="inp-media-venue-2"></textarea>
                                         <label for="inp-media-venue-2" class="head-groupe">Personal Message</label>
                                     </div>
                                     <div *ngIf="!openMessage.is_read&&openMessage.message_type == 'request'" class="flex-buttons">
@@ -221,7 +221,7 @@
                         <div *ngIf="openMessage.message_type == 'blank'" class="right-s">
                             <div *ngIf="openMessage.id" class="some-request-text-wrapper">
                                 <div class="block-info f-b">
-                                    <span class="some-t">{{openMessage.name}}</span>
+                                    <span class="some-t">{{openMessage.subject}}</span>
                                     <span class="when">{{openMessage.created_at | date:'MMM d' }}</span>
                                 </div>
                                 <div *ngIf="openMessage.sender" class="block-info s-b">
@@ -233,7 +233,7 @@
                                     
                                 </div>
                                 <div class="block-info t-b">
-                                    <p class="descr">{{openMessage.simple_message | titlecase}}</p>
+                                    <p class="descr">{{openMessage.message | titlecase}}</p>
                                     
                                 </div>
                             </div>
