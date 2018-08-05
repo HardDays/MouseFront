@@ -80,7 +80,7 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
         let delta = (now - old) / 1000;
         // format string
         if (delta < 10) {
-          result = 'jetzt';
+          result = 'just';
         } else if (delta < 60) { // sent in last minute
           result = Math.floor(delta) + ' Seconds';
         } else if (delta < 3600) { // sent in last hour
