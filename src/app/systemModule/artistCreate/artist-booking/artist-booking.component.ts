@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, NgZone, ChangeDetectorRef, ElementRef, EventEmitter, ViewChild, Output, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, NgZone, ChangeDetectorRef, ElementRef, EventEmitter, ViewChild, Output, SimpleChanges, HostListener } from '@angular/core';
 import { AccountCreateModel } from '../../../core/models/accountCreate.model';
 import { BaseComponent } from '../../../core/base/base.component';
 import { MainService } from '../../../core/services/main.service';
@@ -43,6 +43,20 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
   type_min_time_to_book:string = '';
 
   CurrencySymbol = '$';
+
+  isShowMap = false;
+
+  ESCAPE_KEYCODE = 27;
+  ENTER_KEYCODE = 13;
+
+  @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+      if(this.isShowMap){
+          if (event.keyCode === this.ESCAPE_KEYCODE || event.keyCode === this.ENTER_KEYCODE) {
+            $('#modal-map-1').modal('hide');
+            this.isShowMap = false;
+          }
+      }
+  }
 
   constructor(
     protected main           : MainService,
@@ -248,6 +262,7 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
 
   openMapModal(){
     $('#modal-map').modal('show');
+    this.isShowMap = true;
     this.agmMap.triggerResize();
   }
 

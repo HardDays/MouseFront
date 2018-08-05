@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, ViewChild, EventEmitter, NgZone, ElementRef, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, ViewChild, EventEmitter, NgZone, ElementRef, SimpleChanges, HostListener } from '@angular/core';
 import { AccountGetModel } from '../../../core/models/accountGet.model';
 import { AuthMainService } from '../../../core/services/auth.service';
 import { AccountService } from '../../../core/services/account.service';
@@ -77,6 +77,20 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         account_id:0,
         datetime_from:'',
         datetime_to:''
+    }
+
+    isShowMap = false;
+
+    ESCAPE_KEYCODE = 27;
+    ENTER_KEYCODE = 13;
+  
+    @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+        if(this.isShowMap){
+            if (event.keyCode === this.ESCAPE_KEYCODE || event.keyCode === this.ENTER_KEYCODE) {
+              $('#modal-map-3').modal('hide');
+              this.isShowMap = false;
+            }
+        }
     }
 
     ngOnInit() {
@@ -525,6 +539,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
 
     venueOpenMapModal(){
         $('#modal-map-3').modal('show');
+        this.isShowMap = true;
         this.agmMap.triggerResize();
     }
 

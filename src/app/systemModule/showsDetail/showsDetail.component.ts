@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone, ChangeDetectorRef, AfterViewChecked, HostListener } from '@angular/core';
 import { NgForm} from '@angular/forms';
 import { AuthMainService } from '../../core/services/auth.service';
 import { AccountService } from '../../core/services/account.service';
@@ -62,6 +62,20 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     Featuring:string = '';
 
     Statuses = EventStatus;
+
+    isShowMap = false;
+
+    ESCAPE_KEYCODE = 27;
+    ENTER_KEYCODE = 13;
+  
+    @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+        if(this.isShowMap){
+            if (event.keyCode === this.ESCAPE_KEYCODE || event.keyCode === this.ENTER_KEYCODE) {
+              $('#modal-map').modal('hide');
+              this.isShowMap = false;
+            }
+        }
+    }
     
     constructor(
         protected main           : MainService,
@@ -299,6 +313,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
 
     aboutOpenMapModal(){
         $('#modal-map').modal('show');
+        this.isShowMap = true;
     }
 
     InitSlider(bool:boolean)

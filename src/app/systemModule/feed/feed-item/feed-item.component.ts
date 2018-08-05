@@ -100,6 +100,7 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
       .subscribe((res)=>{
         // console.log(res);
         this.Feed.comments++;
+        this.comment.text = '';
         this.GetComments();
       },(err)=>{
         // console.log(`err`,err);

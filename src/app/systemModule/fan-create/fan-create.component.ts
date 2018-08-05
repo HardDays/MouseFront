@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, ViewChild, ElementRef, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild, ElementRef, ChangeDetectorRef, AfterViewChecked, HostListener } from '@angular/core';
 import { BaseComponent } from '../../core/base/base.component';
 import { GenreModel } from '../../core/models/genres.model';
 import { AccountCreateModel } from '../../core/models/accountCreate.model';
@@ -48,6 +48,20 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
   //   "last_name": new FormControl(""),
   //   "bio": new FormControl("")
   // });
+
+  isShowMap = false;
+
+  ESCAPE_KEYCODE = 27;
+  ENTER_KEYCODE = 13;
+
+  @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+      if(this.isShowMap){
+          if (event.keyCode === this.ESCAPE_KEYCODE || event.keyCode === this.ENTER_KEYCODE) {
+            $('#modal-map-2').modal('hide');
+            this.isShowMap = false;
+          }
+      }
+  }
   
   constructor(
     protected main           : MainService,
@@ -317,6 +331,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
   OpenMap()
   {
     $('#modal-map-2').modal('show');
+    this.isShowMap = true;
   }
 
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, NgZone  } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, NgZone, HostListener  } from '@angular/core';
 import { UserGetModel } from '../../../core/models/userGet.model';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
 import { GenreModel } from '../../../core/models/genres.model';
@@ -62,6 +62,20 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
   Error:string = '';
   mapCoords =  {lat:55.755826, lng:37.6172999};
 
+  isShowMap = false;
+
+  ESCAPE_KEYCODE = 27;
+  ENTER_KEYCODE = 13;
+
+  @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+      if(this.isShowMap){
+          if (event.keyCode === this.ESCAPE_KEYCODE || event.keyCode === this.ENTER_KEYCODE) {
+            $('#modal-map-reg').modal('hide');
+            this.isShowMap = false;
+          }
+      }
+  }
+
   ngOnInit()
   {
     this.CreateAutocomplete();
@@ -76,6 +90,7 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
   }
   openMap(){
     $('#modal-map-reg').modal(`show`);
+    this.isShowMap = true;
   }
   CreateAutocomplete()
   {

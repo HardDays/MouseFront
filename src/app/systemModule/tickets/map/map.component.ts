@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter, ViewChild, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, ViewChild, ElementRef, OnChanges, SimpleChanges, HostListener } from '@angular/core';
 import { BaseComponent } from '../../../core/base/base.component';
 import { EventSearchParams } from '../../../core/models/eventSearchParams';
 import { GenreModel } from '../../../core/models/genres.model';
@@ -23,6 +23,21 @@ export class SearchTicketsMapComponent extends BaseComponent implements OnInit {
     @Output() onMapClicked:EventEmitter<any> = new EventEmitter<any>();
 
     isMarkerVisible: boolean = false;
+
+    isShowMap = false;
+
+    ESCAPE_KEYCODE = 27;
+    ENTER_KEYCODE = 13;
+  
+    @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+        if(this.isShowMap){
+            if (event.keyCode === this.ESCAPE_KEYCODE || event.keyCode === this.ENTER_KEYCODE) {
+              $('#modal-map').modal('hide');
+              this.isShowMap = false;
+            }
+        }
+    }
+    
     ngOnInit(): void 
     {
         this.lat = 55.755826;
@@ -43,6 +58,7 @@ export class SearchTicketsMapComponent extends BaseComponent implements OnInit {
         }
 
         $('#modal-map').modal('show');
+        this.isShowMap = true;
     }
 
     MapClick($event)

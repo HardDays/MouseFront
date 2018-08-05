@@ -9,7 +9,7 @@
         </ng-container>
         
         <ng-container *ngIf="AccType == Roles.Fan" >
-            <fan-profile-selector [MyProfileId]="MyAccountId" [Account]="FanAcc " [Image]="baseImageMy"
+            <fan-profile-selector [MyProfileId]="MyAccountId" [Account]="FanAcc" [Image]="baseImageMy"
                 [Fans]="Fans" [IsMyAccount]="isMyAccount" [isFolowedAcc]="isFolowedAcc" (onFollow)="FollowOrUnfollowProfile($event)">
             </fan-profile-selector>
         </ng-container>
