@@ -4,7 +4,7 @@ import { AccountGetModel, Album } from '../../../core/models/accountGet.model';
 import { TicketsGetModel } from "../../../core/models/ticketsGetModel";
 import { EventGetModel } from "../../../core/models/eventGet.model";
 import { Base64ImageModel } from "../../../core/models/base64image.model";
-import { BaseImages } from "../../../core/base/base.enum";
+import { BaseImages, AccountStatus } from "../../../core/base/base.enum";
 import { CheckModel } from "../../../core/models/check.model";
 import { SafeResourceUrl } from "@angular/platform-browser";
 import { ErrorComponent } from "../../../shared/error/error.component";
@@ -52,7 +52,7 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
     player:any;
     countAudio = 6;
 
-    
+    Status = AccountStatus;
 
     ngOnChanges(changes: SimpleChanges): void {
         if(changes.Account)

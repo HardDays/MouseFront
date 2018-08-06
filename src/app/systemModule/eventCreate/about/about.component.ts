@@ -52,6 +52,7 @@ export class AboutComponent extends BaseComponent implements OnInit {
     "tagline": new FormControl("", [Validators.required]),
     "hashtag": new FormControl("", [Validators.required]),
     "is_crowdfunding_event": new FormControl(),
+    "comments_available": new FormControl(),
     "event_time": new FormControl("", [Validators.required]),
     "event_length": new FormControl("", [Validators.required]),
     "event_year": new FormControl("", [Validators.required]),

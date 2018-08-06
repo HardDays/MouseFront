@@ -13,7 +13,7 @@ import { EventDateModel } from '../../core/models/eventDate.model';
 import { ContactModel } from '../../core/models/contact.model';
 import { AccountGetModel } from '../../core/models/accountGet.model';
 import { Base64ImageModel } from '../../core/models/base64image.model';
-import { AccountType } from '../../core/base/base.enum';
+import { AccountType, AccountStatus } from '../../core/base/base.enum';
 import { GenreModel } from '../../core/models/genres.model';
 import { AccountSearchParams } from '../../core/models/accountSearchParams.model';
 import { EventGetModel } from '../../core/models/eventGet.model';
@@ -51,6 +51,9 @@ export class EventsComponent extends BaseComponent implements OnInit,AfterViewCh
     
     Events:EventGetModel[] = [];
     SearchParams: EventSearchParams = new EventSearchParams();
+
+    Acc = this.main.CurrentAccount;
+    Status = AccountStatus;
     
     ScrollDisabled = true;
     constructor(

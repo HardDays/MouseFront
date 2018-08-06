@@ -4,7 +4,7 @@ import { AccountGetModel } from '../../../core/models/accountGet.model';
 import { TicketsGetModel } from "../../../core/models/ticketsGetModel";
 import { EventGetModel } from "../../../core/models/eventGet.model";
 import { Base64ImageModel } from "../../../core/models/base64image.model";
-import { BaseImages } from "../../../core/base/base.enum";
+import { BaseImages, AccountStatus } from "../../../core/base/base.enum";
 import { AccountCreateModel } from "../../../core/models/accountCreate.model";
 import { AgmMap, MapsAPILoader } from "@agm/core";
 import { MainService } from "../../../core/services/main.service";
@@ -58,6 +58,8 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
 
     isLoadingGallery:boolean = true;
     isLoadingUpcoming:boolean = true;
+
+    Status = AccountStatus;
 
     constructor(
         protected main           : MainService,

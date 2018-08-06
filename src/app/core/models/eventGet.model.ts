@@ -50,7 +50,6 @@ export class EventGetModel{
         public status?:string,
 
         public currency?:string
-        
     )
     {}
 }

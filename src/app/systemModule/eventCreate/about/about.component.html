@@ -35,6 +35,7 @@
                             <span>No</span>
                         </div>
                     </div>
+                    
                     <div class="flex-input-groupes">
                         <div class="input-groupe-1">
                             <!--тут пока селекты. но если вы найдете норм плагин таких селектов которые можно будет стилизовать и которые работают с ангуларом - буду очень признателен-->
@@ -73,6 +74,19 @@
                             
                         </div>
                     </div>
+
+                    <div class="flex-mac-checkbox">
+                        <p>Comments  Available?</p>
+                        <div class="yes-no">
+                            <span>Yes</span>
+                            <div class="mac-checkbox">
+                                <input class="checkbox" type="checkbox" id="mac-checkbox-2" formControlName="comments_available" [(ngModel)]="Event.comments_available">
+                                <label for="mac-checkbox-2"></label>
+                            </div>
+                            <span>No</span>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="side">
                     <div class="input-groupe-1 whithout-label">

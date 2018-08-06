@@ -18,7 +18,7 @@ interface Question {
     image_id:number,
     image_base64:string
   },
-  question_reply:any
+  reply:any
 }
 
 @Component({
@@ -87,15 +87,19 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
         // console.log(res);
         this.openQuestion = res;
 
-        if(this.openQuestion.sender&&this.openQuestion.sender.image_id){
-          this.openQuestion.sender.image_base64 = this.main.imagesService.GetImagePreview(this.openQuestion.sender.image_id,{width:100,height:100})
+        if(this.openQuestion.sender){
+          if(this.openQuestion.sender.image_id)
+            this.openQuestion.sender.image_base64 = this.main.imagesService.GetImagePreview(this.openQuestion.sender.image_id,{width:100,height:100})
+          else
+            this.openQuestion.sender.image_base64 = BaseImages.NoneFolowerImage;
         }
-        else
-        this.openQuestion.sender.image_base64 = BaseImages.NoneFolowerImage;
 
-        if(this.openQuestion.question_reply){
-          if(this.openQuestion.question_reply.sender&&this.openQuestion.question_reply.sender.image_id){
-            this.openQuestion.question_reply.sender.image_base64 = this.main.imagesService.GetImagePreview(this.openQuestion.question_reply.sender.image_id,{width:100,height:100})
+        if(this.openQuestion.reply){
+          if(this.openQuestion.reply.sender){
+            if(this.openQuestion.reply.sender.image_id)
+              this.openQuestion.reply.sender.image_base64 = this.main.imagesService.GetImagePreview(this.openQuestion.reply.sender.image_id,{width:100,height:100});
+            else
+              this.openQuestion.reply.sender.image_base64 = BaseImages.NoneFolowerImage;
           }
           
         }

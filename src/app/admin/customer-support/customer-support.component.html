@@ -35,18 +35,18 @@
                         {{openQuestion?.message?openQuestion.message:''}}
                 </div>
             </div>
-            <div *ngIf="openQuestion&&openQuestion.question_reply" class="support_mes">
+            <div *ngIf="openQuestion&&openQuestion.reply" class="support_mes">
                 <div class="mes_head">
-                    <div class="ava" [ngStyle]="{'background-image':openQuestion&&openQuestion.question_reply&&openQuestion.question_reply.sender?.image_id?'url('+openQuestion.question_reply.sender.image_base64_not_given+')':'url('+nonImage+')'}"></div>
+                    <div class="ava" [ngStyle]="{'background-image':openQuestion&&openQuestion.reply&&openQuestion.reply.sender?.image_id?'url('+openQuestion.reply.sender.image_base64+')':'url('+nonImage+')'}"></div>
                     <div class="info">
-                        <p class="username"><span>@</span>{{openQuestion&&openQuestion.question_reply?.sender?openQuestion.question_reply.sender.user_name:'Admin'}}</p>
+                        <p class="username"><span>@</span>{{openQuestion&&openQuestion.reply?.sender?openQuestion.reply.sender.user_name:'Admin'}}</p>
                     </div>
                 </div>
                 <div class="mes_text">
-                    {{openQuestion&&openQuestion.question_reply?openQuestion.question_reply.simple_message:''}}
+                    {{openQuestion&&openQuestion.reply?openQuestion.reply.message:''}}
                 </div>
             </div>
-            <div *ngIf="openQuestion&&!openQuestion.question_reply" class="mes_form">
+            <div *ngIf="openQuestion&&!openQuestion.reply" class="mes_form">
                 <div class="mes_input">
                     
                 </div>

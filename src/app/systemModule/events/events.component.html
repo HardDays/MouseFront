@@ -21,7 +21,7 @@
                     <!-- <a [routerLink]="['/system','events']" class="ham-ham at-map">
                     </a> -->
                     <h1>Events</h1>
-                    <span *ngIf="isLoggedIn" (click)="addEvent()" class="add-event-butt"><span>Add Event</span></span>
+                    <span *ngIf="isLoggedIn && Acc.status != Status.Denied && Acc.status != Status.Inactive" (click)="addEvent()" class="add-event-butt"><span>Add Event</span></span>
                 </div>
             </div>
             <div class="main-mw-6">

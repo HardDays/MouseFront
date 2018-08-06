@@ -20,7 +20,7 @@
                     </div>
                     
                         
-                    <ng-container *ngIf="MyProfileId&&MyProfileId != Account.id || IsPreview" >
+                    <ng-container *ngIf="MyProfileId&&MyProfileId != Account.id && Account.status != Status.Denied && Account.status != Status.Inactive || IsPreview" >
                         <form class="follow-wr" (ngSubmit)="FollowProfile(!isFolowedAcc)">
                             <button [disabled]="IsPreview" class="butt-style-1" type="submit">
                                 <span *ngIf="!IsPreview">{{isFolowedAcc?'Unfollow':'Follow'}}</span>

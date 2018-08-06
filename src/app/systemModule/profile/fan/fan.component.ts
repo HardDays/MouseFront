@@ -4,6 +4,7 @@ import { AccountGetModel } from '../../../core/models/accountGet.model';
 import { TicketsGetModel } from "../../../core/models/ticketsGetModel";
 import { EventGetModel } from "../../../core/models/eventGet.model";
 import { GenreModel } from "../../../core/models/genres.model";
+import { AccountStatus } from "../../../core/base/base.enum";
 
 @Component({
     selector: 'fan-profile-selector',
@@ -34,6 +35,8 @@ export class FanProfileComponent extends BaseComponent implements OnInit,OnChang
     EventsMassChecked:EventGetModel[] = [];
 
     FansChecked:AccountGetModel[] = [];
+
+    Status = AccountStatus;
 
     ngOnChanges(changes: SimpleChanges): void {
         

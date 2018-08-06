@@ -46,7 +46,7 @@ export class EventPatchModel{
         public event_season?:string,
         public image_base64?:string,
 
-        public currency?:string,
+        public currency?:string
     )
     {}
 }
