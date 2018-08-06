@@ -102,11 +102,9 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
                 this.WaitBeforeLoading(
                   () => this.main.imagesService.GetImageById(res.image_id),
                   (result:Base64ImageModel) =>{
-                    // console.log(result);
                     this.avatar = result.base64;
                     this.ImageId = res.image_id;
                     this.Fun.image_base64 = this.avatar;
-                    // console.log(this.Fun);
                   }
                 );
               }
@@ -164,6 +162,8 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
                     this.Fun.address = autocomplete.getPlace().formatted_address;
                     this.cordsMap.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
                     this.cordsMap.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
+                    this.Fun.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
+                    this.Fun.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
                   }
                 }
               );
@@ -175,10 +175,10 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
 
   artistDragMarker($event)
   {
-    //console.log($event);
     this.cordsMap.lat = $event.coords.lat;
     this.cordsMap.lng = $event.coords.lng;
-   
+    this.Fun.lat = $event.coords.lat;
+    this.Fun.lng = $event.coords.lng;
     this.codeLatLng( this.cordsMap.lat, this.cordsMap.lng);
   }
 
@@ -294,7 +294,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
 
      // this.Fun.genres = this.main.genreService.GenreModelArrToStringArr(this.Genres);
       this.Fun.genres = [];
-      // console.log(this.Genres);
+
       for(let g of this.Genres){
         if(g.checked){
           this.Fun.genres.push(g.genre);
@@ -313,14 +313,8 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
             }
           this.main.GetMyAccounts(
             () => {
-              
-              this.main.CurrentAccountChange.next(res);
-              console.log(res);
-              // setTimeout(()=>{
-                this.router.navigate(['/system','profile',res.id]);
-
-              // },500);
-              
+              this.main.CurrentAccountChange.next(res);       
+              this.router.navigate(['/system','profile',res.id]);
             }
           );
           
@@ -332,7 +326,6 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
       );
     }
     else {
-      // console.log(`err`);
       this.errorCmp.OpenWindow(this.getFormErrorMessage(this.form, 'fan'));
     }
   }
