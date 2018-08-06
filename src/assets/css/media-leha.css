@@ -22,6 +22,7 @@ html, body{
 .register{
   min-height: 100vh;
   height: auto;
+  background-attachment: fixed;
 }
 .main_content .for-flex-height{
   min-height: 100vh;

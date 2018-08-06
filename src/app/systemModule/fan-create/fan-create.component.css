@@ -11,3 +11,6 @@
 .login-register.add-fan-page .register{
     min-height: calc(100vh - 84px);
 }
+.register .m-v-reg{
+    min-height: 850px;
+}
