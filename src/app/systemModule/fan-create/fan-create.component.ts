@@ -301,27 +301,32 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
         }
       }
 
-    
+     
       this.WaitBeforeLoading(
         ()=> this.FunId == 0 ? this.main.accService.CreateAccount(this.Fun) : this.main.accService.UpdateMyAccount(this.FunId,this.Fun),
         (res:any)=>{
-      
-          this.DisplayFunParams(res);
+          // this.DisplayFunParams(res);
+          if(this.Fun.lat&&this.Fun.lng)
+            {
+              this.cordsMap.lat = this.Fun.lat;
+              this.cordsMap.lng = this.Fun.lng;
+            }
           this.main.GetMyAccounts(
             () => {
               
               this.main.CurrentAccountChange.next(res);
-             
-              this.router.navigate(['/system','profile',res.id]);
-             
+              console.log(res);
+              // setTimeout(()=>{
+                this.router.navigate(['/system','profile',res.id]);
+
+              // },500);
+              
             }
           );
-          setTimeout(() => {
-           
-          }, 500);
           
         },
         (err:any)=>{
+      
           this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'fan'));
         }
       );
