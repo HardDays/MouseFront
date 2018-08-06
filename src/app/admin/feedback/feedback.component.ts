@@ -54,11 +54,11 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
          
 
           for(let fb of this.Feedbacks){
-            if(fb.account){
-              if(fb.account.image_id)
-                fb.account.image_base64_not_given = this.main.imagesService.GetImagePreview(fb.account.image_id,{width:100,height:100})
+            if(fb.sender){
+              if(fb.sender.image_id)
+                fb.sender.image_base64 = this.main.imagesService.GetImagePreview(fb.sender.image_id,{width:100,height:100})
               else
-                fb.account.image_base64_not_given = BaseImages.NoneFolowerImage;
+                fb.sender.image_base64 = BaseImages.NoneFolowerImage;
             }
           }
           
@@ -98,7 +98,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
     if(this.Type === 'all')
       this.FeedbacksChecked = this.Feedbacks;
     else 
-      this.FeedbacksChecked = this.Feedbacks.filter(obj => obj.feedback_type && (this.Type === obj.feedback_type));
+      this.FeedbacksChecked = this.Feedbacks.filter(obj => obj.message_info.feedback_type && (this.Type === obj.message_info.feedback_type));
   }
 
   InitJs(){

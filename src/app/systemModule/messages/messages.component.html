@@ -86,7 +86,7 @@
 
 
                         <!--вместо дива может быть форма-->
-                        <div  *ngIf="openMessage.message_type != 'blank'" class="right-s">
+                        <div  *ngIf="openMessage?.message_type != 'blank'" class="right-s">
                             <div *ngIf="openMessage.id&&(openMessage.message_type=='request'&&openMessage.message_info||openMessage.message_type!='request')" class="some-request-text-wrapper">
                                 <div class="block-info f-b">
                                     <span class="some-t">{{openMessage.message_type?openMessage.message_type:''}} to Perform</span>
@@ -218,25 +218,42 @@
                             </div>
                         </div>
 
-                        <div *ngIf="openMessage.message_type == 'blank'" class="right-s">
-                            <div *ngIf="openMessage.id" class="some-request-text-wrapper">
-                                <div class="block-info f-b">
-                                    <span class="some-t">{{openMessage.subject}}</span>
-                                    <span class="when">{{openMessage.created_at | date:'MMM d' }}</span>
-                                </div>
-                                <div *ngIf="openMessage.sender" class="block-info s-b">
-                                    <div class="ava" [ngStyle]="{'background-image': (openMessage.sender&&openMessage.sender.image_base64)?'url('+openMessage.sender.image_base64+')':''}"></div>
-                                    <div class="name-hash">
-                                        <p class="n">{{openMessage.sender?.full_name?openMessage.sender.full_name:''}}</p>
-                                        <p class="hash"><span>@</span>{{openMessage.sender?.user_name?openMessage.sender.user_name:''}}</p>
+                        <div *ngIf="openMessage?.message_type == 'blank'" class="right-s">
+                                <div class="some-request-text-wrapper">
+                                    <div class="block-info f-b">
+                                        <span class="some-t">{{openMessage.subject}}</span>
+                                        <span class="when">{{openMessage.created_at | date:'MMM d' }}</span>
                                     </div>
-                                    
+                                    <ng-container *ngFor="let reply of openMessage.reply">
+                                        <div class="block-info s-b">
+                                            <div class="ava" [ngStyle]="{'background-image': (reply.sender&&reply.sender.image_base64)?'url('+reply.sender.image_base64+')':''}"></div>
+                                            <div class="name-hash">
+                                                <p class="n">{{reply.sender?.full_name?reply.sender.full_name:''}}</p>
+                                                <p class="hash"><span>@</span>{{reply.sender?.user_name?reply.sender.user_name:''}}</p>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="block-info t-b">
+                                            <p class="descr">{{reply.message | titlecase}}</p>
+                                        </div>
+                                    </ng-container>
+
+                                    <div *ngIf="false" class="block-info sixth-b">
+                                            <div  class="input-groupe-1 whithout-label small-textarea max-500">
+                                                <textarea id="inp-media-venue-2"></textarea>
+                                                <label for="inp-media-venue-2" class="head-groupe">Personal Message</label>
+                                            </div>
+                                            <div class="flex-buttons">
+                                                <div class="accept-wr">
+                                                    <button class="butt-style-1" type="submit">
+                                                        <span >Send</span>
+                                                    </button>
+                                                </div>
+                
+                                            </div>
+                                        </div>
+
                                 </div>
-                                <div class="block-info t-b">
-                                    <p class="descr">{{openMessage.message | titlecase}}</p>
-                                    
-                                </div>
-                            </div>
                         </div>
                     </ng-container>
                

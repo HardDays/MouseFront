@@ -24,7 +24,9 @@ export class InboxMessageModel{
         //    public simple_message?:any,
            public message_info?: MessageInfoModel,
             public sender_id?:number,
-           public sender?: Sender
+           public sender?: Sender,
+
+           public reply?:any[]
     ){}
 }
 

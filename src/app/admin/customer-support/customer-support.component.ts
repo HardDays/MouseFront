@@ -16,9 +16,24 @@ interface Question {
     full_name:string,
     user_name:string,
     image_id:number,
-    image_base64:string
+    image_base64:string,
+    account_type:string
   },
-  reply:any
+  reply:{
+    created_at:string,
+    id:number,
+    message:string,
+    message_type:string,
+    sender: {
+      full_name:string,
+      user_name:string,
+      image_id:number,
+      image_base64:string,
+      account_type:string
+    },
+    sender_id:number,
+    subject:string
+  }[]
 }
 
 @Component({
@@ -86,23 +101,28 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
       .subscribe((res)=>{
         // console.log(res);
         this.openQuestion = res;
+        
 
-        if(this.openQuestion.sender){
-          if(this.openQuestion.sender.image_id)
-            this.openQuestion.sender.image_base64 = this.main.imagesService.GetImagePreview(this.openQuestion.sender.image_id,{width:100,height:100})
-          else
-            this.openQuestion.sender.image_base64 = BaseImages.NoneFolowerImage;
-        }
-
-        if(this.openQuestion.reply){
-          if(this.openQuestion.reply.sender){
-            if(this.openQuestion.reply.sender.image_id)
-              this.openQuestion.reply.sender.image_base64 = this.main.imagesService.GetImagePreview(this.openQuestion.reply.sender.image_id,{width:100,height:100});
+        for(let reply of this.openQuestion.reply){
+          if(reply.sender){
+            if(reply.sender.image_id)
+              reply.sender.image_base64 = this.main.imagesService.GetImagePreview(reply.sender.image_id,{width:100,height:100})
             else
-              this.openQuestion.reply.sender.image_base64 = BaseImages.NoneFolowerImage;
+              reply.sender.image_base64 = BaseImages.NoneFolowerImage;
           }
-          
         }
+        console.log(`open message`,this.openQuestion)
+        
+
+        // if(this.openQuestion.reply){
+        //   if(this.openQuestion.reply[0].sender){
+        //     if(this.openQuestion.reply[0].sender.image_id)
+        //       this.openQuestion.reply[0].sender.image_base64 = this.main.imagesService.GetImagePreview(this.openQuestion.reply[0].sender.image_id,{width:100,height:100});
+        //     else
+        //       this.openQuestion.reply[0].sender.image_base64 = BaseImages.NoneFolowerImage;
+        //   }
+          
+        // }
 
       }
     )

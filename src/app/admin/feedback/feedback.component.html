@@ -26,28 +26,28 @@
             </div>
             <div class="big_stars_right_block">
                 <div class="stars">
-                    <span class="star" [ngClass]="{'full':openFeedback.rate_score>=0.5}"></span>
-                    <span class="star" [ngClass]="{'full':openFeedback.rate_score>=1.5}"></span>
-                    <span class="star" [ngClass]="{'full':openFeedback.rate_score>=2.5}"></span>
-                    <span class="star" [ngClass]="{'full':openFeedback.rate_score>=3.5}"></span>
-                    <span class="star" [ngClass]="{'full':openFeedback.rate_score>=4.5}"></span>
+                    <span class="star" [ngClass]="{'full':openFeedback?.message_info?.rate_score>=0.5}"></span>
+                    <span class="star" [ngClass]="{'full':openFeedback?.message_info?.rate_score>=1.5}"></span>
+                    <span class="star" [ngClass]="{'full':openFeedback?.message_info?.rate_score>=2.5}"></span>
+                    <span class="star" [ngClass]="{'full':openFeedback?.message_info?.rate_score>=3.5}"></span>
+                    <span class="star" [ngClass]="{'full':openFeedback?.message_info?.rate_score>=4.5}"></span>
                 </div>
-                <p class="rate">{{openFeedback.rate_score}} / 5.0</p>
+                <p class="rate">{{openFeedback?.message_info?.rate_score}} / 5.0</p>
             </div>
         </div>
         <div class="support_grey">
             <div class="support_dialogs">
                 <ng-container *ngFor="let fb of FeedbacksChecked">
                     <div (click)="openNewFeedback(fb.id)" class="support_dialogs_item" [ngClass]="{'active':fb.id===openFeedback.id}">
-                        <div class="ava" [ngStyle]="{'background-image':fb.account?'url('+fb.account.image_base64_not_given+')':'url('+nonImage+')'}" ></div>
+                        <div class="ava" [ngStyle]="{'background-image':fb.sender?'url('+fb.sender.image_base64+')':'url('+nonImage+')'}" ></div>
                         <div class="info">
                             <p class="question">
                                 <span class="title">{{fb.feedback_type|titlecase}}</span>
                                 <span class="date">{{fb.created_at|date}}</span>
                             </p>
-                            <p class="name">{{fb.account?fb.account.display_name:'No name'}}</p>
-                            <p class="username"><span>@</span>{{fb.account?fb.account.user_name:'No username'}}</p>
-                            <p class="address">{{fb.account?fb.account.address:'No address'}}</p>
+                            <p class="name">{{fb.sender?fb.sender.display_name:'No name'}}</p>
+                            <p class="username"><span>@</span>{{fb.sender?fb.sender.user_name:'No username'}}</p>
+                            <!-- <p class="address">{{fb.sender?fb.sender.address:'No address'}}</p> -->
                         </div>
                         <div class="stars">
                             <span class="star" [ngClass]="{'full':fb.rate_score>=0.5}"></span>
@@ -61,12 +61,12 @@
             </div>
             <div class="support_right">
                 <div class="support_head">
-                    <p>{{openFeedback.feedback_type}}</p>
+                    <p>{{openFeedback?.message_info?.feedback_type}}</p>
                     <span (click)="DeleteItem()" class="but_icon"><img src="./../../../assets/img/admin/support_delete.png" alt=""></span>
                 </div>
                 <div class="support_mes">
                     <div class="mes_text feedback_forward_text">
-                        {{openFeedback.detail}}
+                        {{openFeedback.message}}
                     </div>
                 </div>
                 <div class="forward_form">

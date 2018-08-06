@@ -18,7 +18,7 @@
     <div class="body-feed-item"></div>
     <div class="footer-item">
         <div class="left-side">
-            <span (click)="isOpenComment = !isOpenComment; GetComments()" class="coments counter-icon">
+            <span *ngIf="Feed.event.comments_available" (click)="isOpenComment = !isOpenComment; GetComments()" class="coments counter-icon">
                {{Feed.comments}}
             </span>
             <!--добавляем liked если лайнули-->

@@ -129,9 +129,27 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
           }
         }
         if(this.messages.length>0){
-          this.openMessage = this.messages[0];
-          this.idCurMsg = this.messages[0].id;
-          this.setDateRange();  
+          if(this.messages[0].message_type ==='blank'){
+            // this.openMessage = null;
+            this.main.accService.GetInboxMessageById(this.accountId,this.messages[0].id)
+              .subscribe((res)=>{
+                console.log(res);
+                this.openMessage = res;
+                for(let m of this.openMessage.reply){
+                  if(m.sender&&m.sender.image_id)
+                    m.sender.image_base64 = this.main.imagesService.GetImagePreview(m.sender.image_id,{width:140,height:140});
+                  else
+                    m.sender.image_base64 = BaseImages.NoneFolowerImage;
+                }
+                this.idCurMsg = res.id;
+                // this.setDateRange();
+              })
+          }
+          else{
+            this.openMessage = this.messages[0];
+            this.idCurMsg = this.messages[0].id;
+            this.setDateRange();
+          }
         }
         // let index = 0;
         // for(let m of res)
@@ -183,12 +201,29 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
 
   changeItem(msg:InboxMessageModel,i:number)
   {
-    this.openMessage = msg;
-    console.log(this.openMessage);
-    this.idCurMsg = msg.id;
-    this.accOpen =  this.accs[i];
-    if( this.openMessage.message_type!='blank')
-    this.setDateRange();
+    
+    if(this.openMessage.message_type ==='blank'){
+      // this.openMessage = null;
+      this.main.accService.GetInboxMessageById(this.accountId,msg.id)
+        .subscribe((res)=>{
+          console.log(res);
+          this.openMessage = res;
+          for(let m of this.openMessage.reply){
+            if(m.sender&&m.sender.image_id)
+              m.sender.image_base64 = this.main.imagesService.GetImagePreview(m.sender.image_id,{width:140,height:140});
+            else
+              m.sender.image_base64 = BaseImages.NoneFolowerImage;
+          }
+          this.idCurMsg = res.id;
+          this.accOpen =  this.accs[i];
+        })
+    }
+    else{
+      this.openMessage = msg;
+      this.idCurMsg = msg.id;
+      this.accOpen =  this.accs[i];
+      this.setDateRange();
+    }
   }
 
   getExpireDate(d:string, frame:string)

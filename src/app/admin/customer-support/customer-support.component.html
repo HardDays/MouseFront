@@ -14,41 +14,43 @@
                     <p class="username"><span>@</span>{{item.sender&&item.sender.user_name?item.sender.user_name:''}}</p>
                     <!-- <p class="address">{{item.sender?.address?item.sender.address:''}}</p> -->
                 </div>
-            </div>
-                
+            </div>      
         </div>
+
+
         <div class="support_right">
             <div class="support_head">
                 <p>{{openQuestion&&openQuestion.subject}}</p>
                 <span (click)="DeleteItem()" class="but_icon"><img src="./../../../assets/img/admin/support_delete.png" alt=""></span>
             </div>
-            <div class="support_mes">
-                <div class="mes_head">
-                    <div class="ava" [ngStyle]="{'background-image': openQuestion&&openQuestion.sender?'url('+openQuestion.sender.image_base64+')':'url('+nonImage+')'}"></div>
-                    <div class="info">
-                        <p class="name">{{openQuestion&&openQuestion.subject}}</p>
-                        <p class="username"><span>@</span>{{openQuestion?.sender?openQuestion.sender.user_name:''}}</p>
-                        <!-- <p class="address">{{openQuestion?.sender?openQuestion.sender.address:''}}</p> -->
+            <ng-container *ngIf="openQuestion?.reply">
+                <div *ngFor="let reply of openQuestion.reply" class="support_mes">
+                    <div class="mes_head">
+                        <div class="ava" [ngStyle]="{'background-image': reply&&reply.sender?'url('+reply.sender.image_base64+')':'url('+nonImage+')'}"></div>
+                        <div class="info">
+                            <p class="name">{{reply&&reply.subject}}</p>
+                            <p class="username"><span>@</span>{{reply?.sender?reply.sender.user_name:''}}</p>
+                            <!-- <p class="address">{{openQuestion?.sender?openQuestion.sender.address:''}}</p> -->
+                        </div>
+                    </div>
+                    <div class="mes_text">
+                            {{reply?.message?reply.message:''}}
                     </div>
                 </div>
-                <div class="mes_text">
-                        {{openQuestion?.message?openQuestion.message:''}}
-                </div>
-            </div>
-            <div *ngIf="openQuestion&&openQuestion.reply" class="support_mes">
+            </ng-container>
+            <!-- <div *ngIf="openQuestion&&openQuestion.reply" class="support_mes">
                 <div class="mes_head">
                     <div class="ava" [ngStyle]="{'background-image':openQuestion&&openQuestion.reply&&openQuestion.reply.sender?.image_id?'url('+openQuestion.reply.sender.image_base64+')':'url('+nonImage+')'}"></div>
                     <div class="info">
-                        <p class="username"><span>@</span>{{openQuestion&&openQuestion.reply?.sender?openQuestion.reply.sender.user_name:'Admin'}}</p>
+                        <p class="username"><span>@</span>{{openQuestion&&openQuestion.reply[0]?.sender?openQuestion.reply[0].sender.user_name:'Admin'}}</p>
                     </div>
                 </div>
                 <div class="mes_text">
-                    {{openQuestion&&openQuestion.reply?openQuestion.reply.message:''}}
+                    {{openQuestion&&openQuestion.reply?openQuestion.reply[0].message:''}}
                 </div>
-            </div>
-            <div *ngIf="openQuestion&&!openQuestion.reply" class="mes_form">
+            </div> -->
+            <div class="mes_form">
                 <div class="mes_input">
-                    
                 </div>
                 <div class="mes_input">
                     <ng-container>

@@ -49,6 +49,8 @@ export class SendQuestionComponent extends BaseComponent implements OnInit {
       this.main.questService.PostQuestions(this.Message.subject,this.Message.message, this.Message.account_id)
         .subscribe(
           (res)=>{
+            this.Message.subject = '';
+            this.Message.message = '';
             this.errorCmp.OpenWindow(BaseMessages.Success);
           }
         );
