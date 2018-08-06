@@ -301,7 +301,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
         }
       }
 
-
+    
       this.WaitBeforeLoading(
         ()=> this.FunId == 0 ? this.main.accService.CreateAccount(this.Fun) : this.main.accService.UpdateMyAccount(this.FunId,this.Fun),
         (res:any)=>{
@@ -309,11 +309,15 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
           this.DisplayFunParams(res);
           this.main.GetMyAccounts(
             () => {
+              
               this.main.CurrentAccountChange.next(res);
+             
+              this.router.navigate(['/system','profile',res.id]);
+             
             }
           );
           setTimeout(() => {
-            this.router.navigate(['/system','profile',res.id]);
+           
           }, 500);
           
         },
