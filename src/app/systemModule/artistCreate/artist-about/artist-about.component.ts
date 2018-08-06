@@ -104,15 +104,23 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
       );
 
     let _the = this;
-    $(document).mouseup(function (e) {
-      let container = $("#pick-up-genre-modal");
-      if (container.has(e.target).length === 0 && _the.showMoreGenres){
-          _the.showMoreGenres = false;
-      }
-    });
+    // $(document).mouseup(function (e) {
+    //   let container = $("#pick-up-genre-modal");
+    //   if (container.has(e.target).length === 0 && _the.showMoreGenres){
+    //       _the.showMoreGenres = false;
+    //   }
+    // });
 
   }
-
+  ShowHideGenres(event){
+    event.stopPropagation();
+    this.showMoreGenres = !this.showMoreGenres
+}
+HideGenresIfShowed(){
+  if(this.showMoreGenres){
+      this.showMoreGenres = false;
+  }
+} 
 
   // ##########################################//
   //  GENRES

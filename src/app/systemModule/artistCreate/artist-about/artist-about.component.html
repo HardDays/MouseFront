@@ -1,4 +1,4 @@
-<div class="create-event-body-1 create-artist">
+<div class="create-event-body-1 create-artist" (click)="HideGenresIfShowed()">
     <div class="main-mw">
         <form [formGroup]="aboutForm">
         <div class="create-event-body">
@@ -60,9 +60,9 @@
                             </ng-container>
                             <div class="add-to-genres">
                                 
-                                <span class="plus" (click)="showMoreGenres = !showMoreGenres"></span>
+                                <span class="plus" (click)="ShowHideGenres($event)"></span>
                                 <!--клик на плюсик добавляем absgenres-pick-wr класс showed-->
-                                <div id="pick-up-genre-modal" class="absgenres-pick-wr" [ngClass]="{showed:showMoreGenres}">
+                                <div id="pick-up-genre-modal" class="absgenres-pick-wr" [ngClass]="{showed:showMoreGenres}" (click)="$event.stopPropagation()">
                                     <input class="search" (input)="GengeSearch($event.target.value)" type="text" placeholder="Search">
                                     <div class="flex-genres for-pick">
                                         <!--Добавляем класс picked-->
