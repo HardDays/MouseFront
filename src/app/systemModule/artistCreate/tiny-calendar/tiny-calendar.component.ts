@@ -110,8 +110,11 @@ super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
   }
 
   selectDate(date: CalendarDate): void {
-    this.onSelectDate.emit(date);
-    this.generateCalendar();
+    
+    if(moment().endOf('day').valueOf()<= date.mDate.endOf('day').valueOf()){
+      this.onSelectDate.emit(date);
+      this.generateCalendar();
+    }
   }
 
   GetPrevMonth(): void {

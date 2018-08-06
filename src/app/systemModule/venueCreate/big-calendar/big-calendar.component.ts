@@ -124,6 +124,7 @@ export class BigCalendarComponent implements OnInit, OnChanges {
   }
 
   MoveForRange(event,day){
+    if(moment().endOf('day').valueOf()<= day.mDate.endOf('day').valueOf()){
     let selectDayClass = "mouseSelectDay";
 
     if(this.FlagForRangePick){
@@ -162,7 +163,7 @@ export class BigCalendarComponent implements OnInit, OnChanges {
       }
     }
     
-
+  }
 
 
   }
@@ -172,50 +173,54 @@ export class BigCalendarComponent implements OnInit, OnChanges {
 
 
   StartRangeEvent(event,day){
-    // if (!this.isPreview){}
+    if(moment().endOf('day').valueOf()<= day.mDate.endOf('day').valueOf()){
       this.FlagForRangePick = true;
       this.FromElement.event = event;
       this.FromElement.CalendarDate = day;
       this.FromElement.event.target.classList.add("mouseSelectDay");
+    }
   }
   EndRangeEvent(event,day){
-    this.FlagForRangePick = false;
-    this.ToElement.event = event;
-    this.ToElement.CalendarDate = day;
-    if(parseInt(this.FromElement.CalendarDate.mDate.format("YYYYMMDD")) <= parseInt(this.ToElement.CalendarDate.mDate.format("YYYYMMDD"))){
-      for(let week of this.weeks){
-        for(let day of week){
-          if(parseInt(day.mDate.format("YYYYMMDD")) >= parseInt(this.FromElement.CalendarDate.mDate.format("YYYYMMDD")) 
-          && parseInt(day.mDate.format("YYYYMMDD")) <= parseInt(this.ToElement.CalendarDate.mDate.format("YYYYMMDD"))){
-            this.newChangedDays.push(day);
+    if(moment().endOf('day').valueOf()<= day.mDate.endOf('day').valueOf()){
+      this.FlagForRangePick = false;
+      this.ToElement.event = event;
+      this.ToElement.CalendarDate = day;
+      if(parseInt(this.FromElement.CalendarDate.mDate.format("YYYYMMDD")) <= parseInt(this.ToElement.CalendarDate.mDate.format("YYYYMMDD"))){
+        for(let week of this.weeks){
+          for(let day of week){
+            if(parseInt(day.mDate.format("YYYYMMDD")) >= parseInt(this.FromElement.CalendarDate.mDate.format("YYYYMMDD")) 
+            && parseInt(day.mDate.format("YYYYMMDD")) <= parseInt(this.ToElement.CalendarDate.mDate.format("YYYYMMDD"))){
+              this.newChangedDays.push(day);
+            }
           }
         }
       }
-    }
-    else{
-      for(let week of this.weeks){
-        for(let day of week){
-          if(parseInt(day.mDate.format("YYYYMMDD")) <= parseInt(this.FromElement.CalendarDate.mDate.format("YYYYMMDD")) 
-          && parseInt(day.mDate.format("YYYYMMDD")) >= parseInt(this.ToElement.CalendarDate.mDate.format("YYYYMMDD"))){
-            this.newChangedDays.push(day);
+      else{
+        for(let week of this.weeks){
+          for(let day of week){
+           
+            if(parseInt(day.mDate.format("YYYYMMDD")) <= parseInt(this.FromElement.CalendarDate.mDate.format("YYYYMMDD")) 
+            && parseInt(day.mDate.format("YYYYMMDD")) >= parseInt(this.ToElement.CalendarDate.mDate.format("YYYYMMDD"))){
+              this.newChangedDays.push(day);
+            }
           }
         }
       }
-    }
 
-    if(this.FromElement.CalendarDate.mDate.toDate() > this.ToElement.CalendarDate.mDate.toDate())
-    {
-      this.FormVals.from = this.ToElement.CalendarDate.mDate.toDate();
-      this.FormVals.to = this.FromElement.CalendarDate.mDate.toDate();
-    }
-    else{
-      this.FormVals.from = this.FromElement.CalendarDate.mDate.toDate();
-      this.FormVals.to = this.ToElement.CalendarDate.mDate.toDate();
-    }
+      if(this.FromElement.CalendarDate.mDate.toDate() > this.ToElement.CalendarDate.mDate.toDate())
+      {
+        this.FormVals.from = this.ToElement.CalendarDate.mDate.toDate();
+        this.FormVals.to = this.FromElement.CalendarDate.mDate.toDate();
+      }
+      else{
+        this.FormVals.from = this.FromElement.CalendarDate.mDate.toDate();
+        this.FormVals.to = this.ToElement.CalendarDate.mDate.toDate();
+      }
 
-    this.SetDefaultFormVals();
-    
-    event.target.offsetParent.classList.add("set-date-popup");
+      this.SetDefaultFormVals();
+      
+      event.target.offsetParent.classList.add("set-date-popup");
+    }
   }
 
   SetDefaultFormVals(){

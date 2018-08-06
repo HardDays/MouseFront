@@ -80,12 +80,12 @@ export class AboutComponent extends BaseComponent implements OnInit {
     this.CreateAutocompleteAbout();
 
     var _the = this;
-    $(document).mouseup(function (e) {
-        var container = $("#pick-up-genre-modal");
-        if (container.has(e.target).length === 0 && _the.showMoreGenres){
-            _the.showMoreGenres = false;
-        }
-    });
+    // $(document).mouseup(function (e) {
+    //     var container = $("#pick-up-genre-modal");
+    //     if (container.has(e.target).length === 0 && _the.showMoreGenres){
+    //         _the.showMoreGenres = false;
+    //     }
+    // });
 
     this.getGenres();
 
@@ -111,7 +111,15 @@ export class AboutComponent extends BaseComponent implements OnInit {
     this.mapCoords.lng = (this.Event && this.Event.city_lng)?this.Event.city_lng:37.6172999;
 
   }
-  
+ShowHideGenres(event){
+    event.stopPropagation();
+    this.showMoreGenres = !this.showMoreGenres
+}
+HideGenresIfShowed(){
+    if(this.showMoreGenres){
+        this.showMoreGenres = false;
+    }
+}  
 
   CreateAutocompleteAbout(){
     this.mapsAPILoader.load().then(
