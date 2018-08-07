@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../../core/base/base.component';
 import { AccountGetModel } from '../../core/models/accountGet.model';
 import { BaseImages } from '../../core/base/base.enum';
-import { Subject } from 'rxjs';
+import { Subject, ReplaySubject } from 'rxjs';
 
 
 interface Question {
@@ -12,6 +12,7 @@ interface Question {
   date:string,
   message:string,
   sender_id:number,
+  created_at:string,
   sender: {
     full_name:string,
     user_name:string,
@@ -102,6 +103,20 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
         // console.log(res);
         this.openQuestion = res;
         
+        // if(this.openQuestion.reply.length === 0){
+          this.openQuestion.reply.unshift({
+            created_at: this.openQuestion.created_at,
+            id:this.openQuestion.id,
+            message:this.openQuestion.message,
+            message_type:'Support',
+            sender: this.openQuestion.sender,
+            sender_id:this.openQuestion.sender_id,
+            subject:this.openQuestion.subject
+            }
+          )
+        // }
+
+        
 
         for(let reply of this.openQuestion.reply){
           if(reply.sender){
@@ -111,6 +126,7 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
               reply.sender.image_base64 = BaseImages.NoneFolowerImage;
           }
         }
+        
         console.log(`open message`,this.openQuestion)
         
 
@@ -145,6 +161,7 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
     this.main.adminService.QuestionReplyById(this.openQuestion.id,this.Answer.subject,this.Answer.message)
       .subscribe(
         (res)=>{
+          this.Answer.message = '';
           console.log(res);
           this.GetQuestions();
         }

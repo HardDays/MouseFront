@@ -1,6 +1,6 @@
 <section *ngIf="Accounts" class="admin_table_nav">
-  <span (click)="deleteAll()" class="admin_delete"><img src="./../../../assets/img/admin/delete.svg" alt=""></span>
-  <span (click)="openInNewTabs()" class="admin_look"><img src="./../../../assets/img/admin/look.svg" alt=""></span>
+  <!-- <span (click)="deleteAll()" class="admin_delete"><img src="./../../../assets/img/admin/delete.svg" alt=""></span>
+  <span (click)="openInNewTabs()" class="admin_look"><img src="./../../../assets/img/admin/look.svg" alt=""></span> -->
   <div class="table_filter">
       <div class="table_search"><input (input)="filterAccs($event)" type="text" placeholder="Search"></div>
       <div class="filter_checkbox">
@@ -27,8 +27,8 @@
 </section>
 
 <section *ngIf="Events" class="admin_table_nav">
-                <span (click)="deleteAll()" class="admin_delete"><img src="./../../../assets/img/admin/delete.svg" alt=""></span>
-                <span (click)="openInNewTabs()" class="admin_look"><img src="./../../../assets/img/admin/look.svg" alt=""></span>
+                <!-- <span (click)="deleteAll()" class="admin_delete"><img src="./../../../assets/img/admin/delete.svg" alt=""></span>
+                <span (click)="openInNewTabs()" class="admin_look"><img src="./../../../assets/img/admin/look.svg" alt=""></span> -->
                 <div class="table_filter">
                     <div class="table_search"><input (input)="filterEvents($event)" type="text" placeholder="Search"></div>
                     <div class="filter_checkbox">
@@ -52,7 +52,7 @@
 
   <div class="admin_table" [ngClass]="{'accounts_table':Accounts, 'accounts_table_with_by':isApprovedBy, 'events_table':Events, 'events_table_with_by':isApprovedBy }">
       <div  *ngIf="Accounts" class="admin_table_thead">
-          <div class="admin_table_th check_column"><img src="./../../../assets/img/admin/table_check_th.svg" alt=""></div>
+          <!-- <div class="admin_table_th check_column"><img src="./../../../assets/img/admin/table_check_th.svg" alt=""></div> -->
           <div class="admin_table_th">Date received</div>
           <div class="admin_table_th">Name</div>
           <div class="admin_table_th">Account</div>
@@ -61,7 +61,7 @@
           <div *ngIf='isApprovedBy' class="admin_table_th">{{status}} by</div>
       </div>
       <div  *ngIf="Events" class="admin_table_thead">
-            <div class="admin_table_th check_column"><img src="./../../../assets/img/admin/table_check_th.svg" alt=""></div>
+            <!-- <div class="admin_table_th check_column"><img src="./../../../assets/img/admin/table_check_th.svg" alt=""></div> -->
             <div class="admin_table_th">Date received</div>
             <div class="admin_table_th">Event Name</div>
             <div class="admin_table_th">Event Date</div>
@@ -77,12 +77,12 @@
             [infiniteScrollDisabled]="ScrollArtistDisabled">
           <ng-container *ngFor="let acc of AccountsChecked; let i = index">
             <div *ngIf="status=='all'||acc.status===status||(acc.status==='just_added'&&status==='new')"  class="admin_table_tr">
-                <div class="admin_table_td check_column">
+                <!-- <div class="admin_table_td check_column">
                     <div class="admin_table_checkbox">
                         <input (change)="checkIdToOpen(acc.id)" type="checkbox" id="new_acc_{{i}}">
                         <label for="new_acc_{{i}}"></label>
                     </div>
-                </div>
+                </div> -->
                 <div class="admin_table_td"><span>{{acc.created_at|date:'dd.MM.yyyy'}}</span></div>
                 <div (click)="openAccount(acc.id)" class="admin_table_td account"  style="cursor: pointer;">
                         <!-- style="background-image: url(./../../../assets/img/admin/example_revenue_event.jpg); min-width: 37px;" -->
@@ -102,12 +102,12 @@
       <div *ngIf="Events" class="admin_table_tbody">
             <ng-container *ngFor="let event of EventsChecked; let i = index">
               <div *ngIf="status=='all'||event.status===status||(event.status==='just_added'&&status==='new')" [ngClass]="{'checked':!event.is_viewed}" class="admin_table_tr">
-                  <div class="admin_table_td check_column">
+                  <!-- <div class="admin_table_td check_column">
                       <div class="admin_table_checkbox">
                           <input (change)="checkIdToOpen(event.id)" type="checkbox" id="new_acc_{{i}}">
                           <label for="new_acc_{{i}}"></label>
                       </div>
-                  </div>
+                  </div> -->
                   <div class="admin_table_td"><span>{{event.received_date|date:'dd.MM.yyyy'}}</span></div>
                   <div (click)="openEvent(event.id)" class="admin_table_td account" style="cursor: pointer;">
                       <!-- <span class="acc_ava" style="background-image: url(./../../../assets/img/admin/example_revenue_event.jpg)"></span> -->

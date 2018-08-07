@@ -135,6 +135,19 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
               .subscribe((res)=>{
                 console.log(res);
                 this.openMessage = res;
+
+                this.openMessage.reply.unshift({
+                  created_at: this.openMessage.created_at,
+                  id:this.openMessage.id,
+                  message:this.openMessage.message,
+                  message_type:'Support',
+                  sender: this.openMessage.sender,
+                  sender_id:this.openMessage.sender_id,
+                  subject:this.openMessage.subject
+                  }
+                )
+
+
                 for(let m of this.openMessage.reply){
                   if(m.sender&&m.sender.image_id)
                     m.sender.image_base64 = this.main.imagesService.GetImagePreview(m.sender.image_id,{width:140,height:140});
@@ -208,6 +221,18 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
         .subscribe((res)=>{
           console.log(res);
           this.openMessage = res;
+          
+          this.openMessage.reply.unshift({
+            created_at: this.openMessage.created_at,
+            id:this.openMessage.id,
+            message:this.openMessage.message,
+            message_type:'Support',
+            sender: this.openMessage.sender,
+            sender_id:this.openMessage.sender_id,
+            subject:this.openMessage.subject
+            }
+          )
+
           for(let m of this.openMessage.reply){
             if(m.sender&&m.sender.image_id)
               m.sender.image_base64 = this.main.imagesService.GetImagePreview(m.sender.image_id,{width:140,height:140});
