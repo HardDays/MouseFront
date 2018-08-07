@@ -107,23 +107,23 @@
                     <div class="flex-mac-checkbox">
                         <p>Availability</p>
                         <div class="yes-no">
-                            <span>Yes</span>
+                            <span>No</span>
                             <div class="mac-checkbox">
                                 <input class="checkbox" name="form-vals-availability" [ngModel]="FormVals.is_available" (ngModelChange)="FormVals.is_available = $event" checked="" type="checkbox" id="opt-calendar-1">
                                 <label for="opt-calendar-1"></label>
                             </div>
-                            <span>No</span>
+                            <span>Yes</span>
                         </div>
                     </div>
                     <div class="flex-mac-checkbox">
                         <p>Date Range</p>
                         <div class="yes-no">
-                            <span>Yes</span>
+                            <span>No</span>
                             <div class="mac-checkbox">
                                 <input class="checkbox" name="form-vals-date-range" [ngModel]="FormVals.date_range" (ngModelChange)="FormVals.date_range = $event" checked="" type="checkbox" id="opt-calendar-2">
                                 <label for="opt-calendar-2"></label>
                             </div>
-                            <span>No</span>
+                            <span>Yes</span>
                         </div>
                     </div>
                     <date-input [Label]="FormVals.date_range?'From':'Date'" [DateInput]="FormVals.from" (OnDateChange)="FormVals.from = $event"></date-input>
