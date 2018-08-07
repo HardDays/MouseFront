@@ -71,9 +71,9 @@
                         </mat-form-field>
                     </ng-container>
                     
-                    <label *ngIf="!Answer.Subject">Message</label>
+                    <label *ngIf="!Answer.subject">Message</label>
                     <div class="mes_text_block">
-                        <div *ngIf="!Answer.Subject" class="mes_text_wrap">
+                        <div *ngIf="!Answer.subject" class="mes_text_wrap">
                             <textarea [(ngModel)]="Answer.message"></textarea>
                             <!-- <span><img src="./../../../assets/img/admin/answer_attach_file.png"></span>
                             <input type="file" id="mes_attach_file" class="hidden"> -->
