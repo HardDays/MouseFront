@@ -37,6 +37,8 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
     message:''
   }
 
+  showSuccess = false;
+
   ngOnInit() {
     this.InitJs();
     this.getFeedbacks();
@@ -141,22 +143,31 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
   }
 
   sendAnswer(){
+    console.log(`send answer`);
     // console.log(`Message`,this.openFeedback,this.Message);
-    if(this.Message)
-      this.main.adminService.FeedbackThankYou(this.openFeedback.id,this.Message)
-        .subscribe(
-          (res)=>{
-            // console.log(res);
-            this.errCmp.OpenWindow(BaseMessages.Success);
-            this.getFeedbacks();
-          },
-          (err)=>{
-            console.log(`err`,err);
-            this.errCmp.OpenWindow(BaseMessages.Fail);
-          }
-        )
-    else
-      this.errCmp.OpenWindow(BaseMessages.Fail);
+    if(!this.showSuccess){
+      if(this.Message)
+        this.main.adminService.FeedbackThankYou(this.openFeedback.id,this.Message)
+          .subscribe(
+            (res)=>{
+              // console.log(res); 
+              this.showSuccess = true;
+              this.errCmp.OpenWindow(BaseMessages.Success);
+              setTimeout(() => {
+                if(this.errCmp.isShown)
+                  this.errCmp.CloseWindow();
+                  this.showSuccess = false; 
+              }, 2500);
+              this.getFeedbacks();
+            },
+            (err)=>{
+              console.log(`err`,err);
+              this.errCmp.OpenWindow(BaseMessages.Fail);
+            }
+          )
+      else
+        this.errCmp.OpenWindow(BaseMessages.Fail);
+    }
   }
 
   DeleteItem(){
