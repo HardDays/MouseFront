@@ -53,7 +53,7 @@
   <div class="admin_table" [ngClass]="{'accounts_table':Accounts, 'accounts_table_with_by':isApprovedBy, 'events_table':Events, 'events_table_with_by':isApprovedBy }">
       <div  *ngIf="Accounts" class="admin_table_thead">
           <!-- <div class="admin_table_th check_column"><img src="./../../../assets/img/admin/table_check_th.svg" alt=""></div> -->
-          <div class="admin_table_th">Date received</div>
+          <div class="admin_table_th width-fixed">Date received</div>
           <div class="admin_table_th">Name</div>
           <div class="admin_table_th">Account</div>
           <div class="admin_table_th">Address</div>
@@ -62,7 +62,7 @@
       </div>
       <div  *ngIf="Events" class="admin_table_thead">
             <!-- <div class="admin_table_th check_column"><img src="./../../../assets/img/admin/table_check_th.svg" alt=""></div> -->
-            <div class="admin_table_th">Date received</div>
+            <div class="admin_table_th width-fixed">Date received</div>
             <div class="admin_table_th">Event Name</div>
             <div class="admin_table_th">Event Date</div>
             <div class="admin_table_th">Place</div>
@@ -90,7 +90,7 @@
                     <span>{{acc.full_name}}</span>
                 </div>
                 <div class="admin_table_td"><span>{{acc.account_type|titlecase}}</span></div>
-                <div class="admin_table_td"><span>{{acc.address}}</span></div>
+                <div class="admin_table_td"><span class="ellips-text">{{acc.address}}</span></div>
                 <div class="admin_table_td text-uppercase"><span [ngClass]="{'status_pending':acc.status=='pending','status_approved':acc.status=='approved','status_new':acc.status=='new','status_denied':acc.status=='denied','status_inactive':acc.status=='inactive'}">{{acc.status.replace('_',' ')|titlecase}}</span></div>
                 <div *ngIf='isApprovedBy' class="admin_table_td"><span>{{acc.processed_by}}</span></div>
             </div>
@@ -114,7 +114,7 @@
                       <span>{{event.name}}</span>
                   </div>
                   <div class="admin_table_td"><span>{{event.date_from|date:'dd.MM.yyyy'}}</span></div>
-                  <div class="admin_table_td"><span>{{event.address}}</span></div>
+                  <div class="admin_table_td"><span class="ellips-text">{{event.address}}</span></div>
                   <div class="admin_table_td"><span>{{event.is_crowdfunding_event?'Crowdfund':'Regular'}}</span></div>
                   <div class="admin_table_td text-uppercase"><span [ngClass]="{'status_pending':event.status=='pending','status_approved':event.status=='approved','status_new':event.status=='new','status_denied':event.status=='denied','status_inactive':event.status=='inactive'}">{{event.status.replace('_',' ')}}</span></div>
                   <div *ngIf='isApprovedBy' class="admin_table_td"><span>{{event.processed_by}}</span></div>

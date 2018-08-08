@@ -26,9 +26,11 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
   Feedbacks:FeedbackAdminModel[] = [];
   FeedbacksChecked:FeedbackAdminModel[] = [];
   openFeedback:FeedbackAdminModel = new FeedbackAdminModel();
-
+  transformedFb:any;
   Message: string = '';
   nonImage = BaseImages.NoneFolowerImage;
+  fbTransformed:any;
+  midScore:number;
   // Subject: string = '';
 
   Answer = {
@@ -49,13 +51,15 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
       .subscribe(
         (res)=>{
           this.Feedbacks = res;
-         
+          
 
           if(this.Feedbacks&&this.Feedbacks[0]&&this.Feedbacks[0].id)
-            this.openNewFeedback(this.Feedbacks[0].id);
+            this.openNewFeedback(this.Feedbacks[0].id,this.Feedbacks[0]);
          
 
           for(let fb of this.Feedbacks){
+            //вот блядь не могу взять от сюда fb.rate_score поэтому буду прогонять другим циклом
+
             if(fb.sender){
               if(fb.sender.image_id)
                 fb.sender.image_base64 = this.main.imagesService.GetImagePreview(fb.sender.image_id,{width:100,height:100})
@@ -63,9 +67,12 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
                 fb.sender.image_base64 = BaseImages.NoneFolowerImage;
             }
           }
+         
+          
+          
           
           this.FeedbacksChecked = this.Feedbacks;
-
+        
       
         }
       )
@@ -118,8 +125,9 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
     });
   }
 
-  openNewFeedback(id:number){
+  openNewFeedback(id:number,fb:any){
     this.Message = '';
+    this.fbTransformed = fb;
     this.main.adminService.GetFeedbackById(id)
     .subscribe(
       (fb)=>{
@@ -143,14 +151,11 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
   }
 
   sendAnswer(){
-    console.log(`send answer`);
-    // console.log(`Message`,this.openFeedback,this.Message);
     if(!this.showSuccess){
       if(this.Message)
         this.main.adminService.FeedbackThankYou(this.openFeedback.id,this.Message)
           .subscribe(
             (res)=>{
-              // console.log(res); 
               this.showSuccess = true;
               this.errCmp.OpenWindow(BaseMessages.Success);
               setTimeout(() => {

@@ -21,7 +21,7 @@
         <div class="admin_table scroll_table new_accounts_table">
             <div class="admin_table_thead">
                 <!-- <div class="admin_table_th check_column"><img src="./../../../assets/img/admin/table_check_th.svg" alt=""></div> -->
-                <div class="admin_table_th">Data received</div>
+                <div class="admin_table_th width-fixed">Date received</div>
                 <div class="admin_table_th">Name</div>
                 <div class="admin_table_th">Account</div>
                 <div class="admin_table_th">Address</div>
@@ -45,7 +45,7 @@
                         <div class="admin_table_td"><span>{{acc.object.created_at|date:'MM.dd.yyyy'}}</span></div>
                         <div class="admin_table_td"><span>{{acc.object.full_name}}</span></div>
                         <div class="admin_table_td"><span>{{acc.object.account_type|titlecase}}</span></div>
-                        <div class="admin_table_td little"><span>{{acc.object.address}}</span></div>
+                        <div class="admin_table_td little"><span class="ellips-text">{{acc.object.address}}</span></div>
                     </div>
                 </ng-container>
                 <!-- При выделении чекбокса добавляется класс CHECKED: -->
@@ -60,7 +60,7 @@
         <div class="admin_table scroll_table new_events_table">
             <div class="admin_table_thead">
                 <!-- <div class="admin_table_th check_column"><img src="./../../../assets/img/admin/table_check_th.svg" alt=""></div> -->
-                <div class="admin_table_th">Data received</div>
+                <div class="admin_table_th width-fixed">Date received</div>
                 <div class="admin_table_th">Event name</div>
                 <div class="admin_table_th">Event date</div>
                 <div class="admin_table_th">Place</div>
@@ -83,7 +83,7 @@
                         <div class="admin_table_td"><span>{{event.object.received_date|date:'MM.dd.yyyy'}}</span></div>
                         <div class="admin_table_td"><span>{{event.object.name}}</span></div>
                         <div class="admin_table_td"><span>{{event.object.date_from|date:'MM.dd.yyyy h:mm a'}}</span></div>
-                        <div class="admin_table_td little"><span>{{event.object.address}}</span></div>
+                        <div class="admin_table_td little"><span class="ellips-text">{{event.object.address}}</span></div>
                         <div class="admin_table_td little"><span>{{!event.object.is_crowdfunding_event?'Non ':''}}Crowdfund</span></div>
                     </div>
                 </ng-container>
