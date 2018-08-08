@@ -93,12 +93,12 @@
                             </div>
                         </div>
                     </div>
-                    <div *ngIf="!openFeedback.reply" class="comment_ta">
+                    <div *ngIf="openFeedback?.reply?.length===0" class="comment_ta">
                         <label>Comment</label>
                         <textarea [(ngModel)]="Message"></textarea>
                         <p class="com_max">1000 max</p>
                     </div>
-                    <div *ngIf="openFeedback.reply" class="support_mes">
+                    <div *ngIf="openFeedback?.reply?.length>0" class="support_mes">
                             <div class="mes_head feedback_head">
                                 <div class="ava" [ngStyle]="{'background-image':'url('+Answer.image+')'}"></div>
                                 <div class="info">
@@ -111,7 +111,7 @@
                         </div>
                 </div>
                 <div class="feedback_buts">
-                    <button *ngIf="!openFeedback.reply" (click)="sendAnswer()">Send</button>
+                    <button *ngIf="openFeedback?.reply?.length===0" (click)="sendAnswer()">Send</button>
                 </div>
             </div>
         </div>
