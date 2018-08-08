@@ -1417,8 +1417,8 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        /* 115px */
-        padding: 20px 50px 10px 50px; }
+        /* 50px */
+        padding: 20px 50px 10px 115px; }
         .admin_page .admin_content .admin_white_back_zag.zag_with_buttons .arr {
           top: 38px; }
         .admin_page .admin_content .admin_white_back_zag.zag_with_buttons .buttons {

@@ -9,7 +9,7 @@
                     <a [routerLink]="['/system','profile',Feed.account.id]" class="hash"><span>@</span>{{Feed.account.user_name}}</a>
                 </div>
                 <div class="desc">
-                    <p>{{Feed.action.replace('_',' ')|titlecase}} <a [routerLink]="['/system','shows_detail',Feed.event.id]">#{{Feed.event.name}}</a> Event.</p>
+                    <p>{{replaceAll(Feed.action)|titlecase}} <a [routerLink]="['/system','shows_detail',Feed.event.id]">#{{Feed.event.name}}</a> Event.</p>
                 </div>
             </div>
         </div>

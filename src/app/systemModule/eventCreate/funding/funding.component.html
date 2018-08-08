@@ -23,7 +23,7 @@
                                 <a [routerLink]="['/system/profile',artist.object.artist_id]" class="name">{{artist['object']['artist']['user_name']}}</a>
                             </div>
                             <div class="price-r">
-                                <span class="price">{{CurrencySymbol}}{{artist['object']['approximate_price']?artist['object']['approximate_price']:'No info'}}</span>
+                                <span class="price">{{artist['object']['currency']?artist['object']['currency']:'$'}}{{artist['object']['approximate_price']?artist['object']['approximate_price']:'No info'}}</span>
                                 <div class="one-checkbox">
                                     <div class="check-style">
                                         <input [checked]="activeArtist[i].checked" (click)="setActiveArtist(i)" type="checkbox" class="checkbox" name="" id="new-checkbox-artist-{{i}}">
@@ -38,7 +38,9 @@
                 </div>
                 <div *ngIf="!isLoadingArtist" class="bottom-expression">
                     <p class="t">Price (Plus Additional Costs)</p>
-                    <p class="exp-price">{{CurrencySymbol}}{{artistSum}}</p>
+                    <p class="exp-price">
+                        {{CurrencySymbol}}
+                        {{artistSum}}</p>
                 </div>
             </div>
             <div class="side">
@@ -54,7 +56,7 @@
                                 <a [routerLink]="['/system/profile',venue.object.venue_id]" class="name">{{venue['object']['venue']['user_name']}}</a>
                             </div>
                             <div class="price-r">
-                                <span class="price">{{venue['object']['approximate_price']?CurrencySymbol+venue['object']['approximate_price']:'No info'}}</span>
+                                <span class="price">{{venue['object']['currency']?venue['object']['currency']:'$'}}{{venue['object']['approximate_price']?venue['object']['approximate_price']:'No info'}}</span>
                                 <div class="one-checkbox">
                                     <div class="check-style">
                                         <input [checked]="activeVenue[i].checked" (click)="setActiveVenue(i)" type="checkbox" class="checkbox" name="" id="new-checkbox-venue-{{i}}">
@@ -68,7 +70,9 @@
                 </div>
                 <div *ngIf="!isLoadingVenue" class="bottom-expression">
                     <p class="t">Price (Plus Additional Costs)</p>
-                    <p class="exp-price">{{CurrencySymbol}}{{venueSum}}</p>
+                    <p class="exp-price">
+                        {{CurrencySymbol}}
+                        {{venueSum}}</p>
                 </div>
             </div>
             <div class="side">

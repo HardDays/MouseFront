@@ -154,6 +154,10 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
     }
   }
 
+  replaceAll(s:string){
+    return s.replace(new RegExp('_', 'g'), ' ');
+  }
+
   // getLikes(){
   //   this.main.likesService.GetLikesByEventId(this.Feed.event.id)
   //     .subscribe((res)=>{
@@ -166,3 +170,4 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
 }
 
 
+// update_tagline update_name

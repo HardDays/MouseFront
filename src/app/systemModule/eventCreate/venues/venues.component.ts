@@ -245,6 +245,17 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         }
         return '-';
     }
+    getCurrencyAtMsg(sender:number){
+        for(let m of this.messagesList){
+            if( m.sender_id == sender && 
+                m.receiver_id == this.Event.creator_id &&
+                m.message_info&& m.message_info.event_info&&
+                m.message_info.event_info.id == this.Event.id){
+                   return m.message_info.currency;
+            }
+        }
+        return '-';
+    }
 
     getIdAtMsg(sender:number){
         for(let m of this.messagesList){

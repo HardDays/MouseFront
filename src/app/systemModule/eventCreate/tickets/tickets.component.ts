@@ -110,7 +110,7 @@ export class AddTicketsComponent extends BaseComponent implements OnInit {
 addTicket(){
     let newTicket:TicketModel = new TicketModel();
     newTicket.id = this.getNewId();
-    newTicket.currency = this.main.settings.GetCurrency();
+    newTicket.currency = this.Event.currency;
     newTicket.event_id = this.Event.id;
     newTicket.account_id = this.CurrentAccount.id;
     newTicket.name = 'New Name';

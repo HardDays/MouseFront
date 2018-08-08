@@ -146,14 +146,17 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       this.router.navigateByUrl("/system/eventCreate/"+this.EventId);
       this.isShowLaunch = this.isShowLaunchBtn();
       this.isHasVenue = this.Event.venue?true:false;
+      // this.Event.currency = this.main.settings.GetCurrency();
     }
+    else
+      this.Event.currency = this.main.settings.GetCurrency();
   }
 
   SaveEventByPages(event:EventCreateModel)
   {
 
     this.Event = event;
-    this.Event.currency = this.main.settings.GetCurrency();
+    // this.Event.currency = this.main.settings.GetCurrency();
 
     if(this.Event.venue){
       delete this.Event['address'];
@@ -195,7 +198,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   SaveEventByPagesWithoutNextPart(event:EventCreateModel)
   {
     this.Event.account_id = this.CurrentAccount.id;
-    this.Event.currency = this.main.settings.GetCurrency();
+    // this.Event.currency = this.main.settings.GetCurrency();
     //if(this.Event.venue){
       delete this.Event['address'];
       delete this.Event['city_lat'];
@@ -264,7 +267,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         delete this.Event['date_from'];
         delete this.Event['date_to'];
       }
-      this.Event.currency = this.main.settings.GetCurrency();
+      // this.Event.currency = this.main.settings.GetCurrency();
 
       // if(!this.isNewEvent)
       this.WaitBeforeLoading

@@ -38,7 +38,8 @@
                                         <app-one-card 
                                             [card] = "item" 
                                             [status] = "item.status_not_given" 
-                                            [price] = "getPriceAtMsg(item.id)" 
+                                            [price] = "getPriceAtMsg(item.id)"
+                                            [currency] = "getCurrencyAtMsg(item.id)"
                                             (accepted) = "acceptArtistCard($event)"
                                             (requested) = "sendArtistRequestOpenModal($event)"
                                             (declined) = "declineArtist($event)"
