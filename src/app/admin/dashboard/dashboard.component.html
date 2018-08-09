@@ -92,11 +92,19 @@
             </div>
         </div>
     </section>
-    <br><br>
-    <!-- <section>
+    <section>
         <h2 class="admin_table_zag">New users for the month</h2>
-        <div class="diagramm_block"></div>
-    </section> -->
+        <div class="diagramm_block">
+            <canvas baseChart #baseChart width="400" height="300"
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="true"
+                [chartType]="lineChartType"
+            ></canvas>
+        </div>
+    </section>
 <!-- </div> -->
 
 
