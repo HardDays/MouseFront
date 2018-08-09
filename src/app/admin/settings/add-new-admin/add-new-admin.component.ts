@@ -40,6 +40,7 @@ export class AddNewAdminComponent extends BaseComponent implements OnInit {
         .subscribe(
           (res)=>{
             // console.log(res);
+            this.userForm.reset();
             this.errCmp.OpenWindow(BaseMessages.Success);
           },
           (err)=>{

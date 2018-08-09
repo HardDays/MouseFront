@@ -1,0 +1,36 @@
+<div class="some-request-text-wrapper">
+
+    <div class="block-info f-b">
+        <span class="some-t">{{Message.message_type?Message.message_type:''}} to Perform</span>
+        <span class="when">{{Message.created_at | date:'MMM d' }}</span>
+    </div>
+
+    <div class="block-info s-b">
+        <div class="ava" [ngStyle]="{'background-image': (Message.sender&&Message.sender.image_base64)?'url('+Message.sender.image_base64+')':''}"></div>
+        <div class="name-hash">
+            <p class="n">{{Message.sender?.full_name?Message.sender.full_name:''}}</p>
+            <p class="hash"><span>@</span>{{Message.sender?.user_name?Message.sender.user_name:''}}</p>
+        </div>
+    </div>
+    
+  
+    <div class="block-info t-b">
+        <p class="descr">{{Message.message | titlecase}}</p>
+    </div>
+
+
+    <div class="block-info sixth-b">
+        <div  class="input-groupe-1 whithout-label small-textarea max-500">
+            <textarea [(ngModel)]="ReplyText" id="inp-media-venue-2"></textarea>
+            <label for="inp-media-venue-2" class="head-groupe">Message</label>
+        </div>
+        <div class="flex-buttons">
+            <div class="accept-wr">
+                <button class="butt-style-1" type="submit">
+                    <span (click)="sendReply()">Send</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+ </div>

@@ -32,6 +32,18 @@ export class QuestionsService{
         );
     }
 
+    ReplyQuestion(id:number, subject:string, message:string, account_id:number){
+        const params = {
+            subject,
+            message,
+            account_id,
+            id
+        }
+        return this.http.CommonRequest(
+            ()=> this.http.PostData('/questions/'+id+'/reply.json',JSON.stringify(params))
+        );
+    }
+
 
 
 }

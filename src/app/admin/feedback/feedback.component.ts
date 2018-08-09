@@ -41,9 +41,18 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
 
   showSuccess = false;
 
+  Rate = 0;
+
   ngOnInit() {
     this.InitJs();
     this.getFeedbacks();
+
+    this.main.adminService.GetFeedbacksOverall()
+    .subscribe(
+      (res)=>{
+        this.Rate = res;
+      }
+    )
   }
 
   getFeedbacks(){
@@ -107,7 +116,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
     if(this.Type === 'all')
       this.FeedbacksChecked = this.Feedbacks;
     else 
-      this.FeedbacksChecked = this.Feedbacks.filter(obj => obj.message_info.feedback_type && (this.Type === obj.message_info.feedback_type));
+      this.FeedbacksChecked = this.Feedbacks.filter(obj => obj.feedback_type && (this.Type === obj.feedback_type));
   }
 
   InitJs(){

@@ -26,13 +26,13 @@
             </div>
             <div class="big_stars_right_block">
                 <div class="stars">
-                    <span class="star" [ngClass]="{'full':openFeedback?.message_info?.rate_score>=0.5}"></span>
-                    <span class="star" [ngClass]="{'full':openFeedback?.message_info?.rate_score>=1.5}"></span>
-                    <span class="star" [ngClass]="{'full':openFeedback?.message_info?.rate_score>=2.5}"></span>
-                    <span class="star" [ngClass]="{'full':openFeedback?.message_info?.rate_score>=3.5}"></span>
-                    <span class="star" [ngClass]="{'full':openFeedback?.message_info?.rate_score>=4.5}"></span>
+                    <span class="star" [ngClass]="{'full':Rate>=0.5}"></span>
+                    <span class="star" [ngClass]="{'full':Rate>=1.5}"></span>
+                    <span class="star" [ngClass]="{'full':Rate>=2.5}"></span>
+                    <span class="star" [ngClass]="{'full':Rate>=3.5}"></span>
+                    <span class="star" [ngClass]="{'full':Rate>=4.5}"></span>
                 </div>
-                <p class="rate">{{openFeedback?.message_info?.rate_score}} / 5.0</p>
+                <p class="rate">{{Rate}} / 5.0</p>
             </div>
         </div>
         <div class="support_grey">

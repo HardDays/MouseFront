@@ -215,7 +215,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
   changeItem(msg:InboxMessageModel,i:number)
   {
     
-    if(this.openMessage.message_type ==='blank'){
+    if(msg.message_type ==='blank'){
       // this.openMessage = null;
       this.main.accService.GetInboxMessageById(this.accountId,msg.id)
         .subscribe((res)=>{

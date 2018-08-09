@@ -41,12 +41,13 @@ export class TableComponent extends BaseComponent implements OnInit {
   onScrollArtist(){
     console.log(`123`)
     this.ScrollArtistDisabled = true;
-      this.main.adminService.GetAccountsRequests({account_type: this.TypeAcc,limit:20,offset:this.Accounts.length})
+      this.main.adminService.GetAccountsRequests({text:this.SearchName,account_type: this.TypeAcc,limit:20,offset:this.Accounts.length})
         .subscribe((res)=>{
           this.Accounts.push(...res);
   
           setTimeout(() => {
             this.ScrollArtistDisabled = false;
+            // this.filterAccs();
           }, 300);
          
         })
@@ -215,34 +216,40 @@ export class TableComponent extends BaseComponent implements OnInit {
   filterAccs(event?){
     if(event)
       this.SearchName = event.target.value;
-
-    if(this.SearchName){
-      this.SearchName = this.SearchName.toLowerCase();
-      if(this.TypeAcc==='all'){
-        this.AccountsChecked = this.Accounts.filter(obj => 
-          obj.display_name && obj.display_name.toLowerCase().indexOf(this.SearchName)>=0 || 
-          obj.user_name && obj.user_name.toLowerCase().indexOf(this.SearchName)>=0 || 
-          obj.last_name && obj.last_name.toLowerCase().indexOf(this.SearchName)>=0 || 
-          obj.first_name && obj.first_name.toLowerCase().indexOf(this.SearchName)>=0
-        );
-      }  
-      else{
-        this.AccountsChecked = this.Accounts.filter(obj => 
-          obj.display_name && obj.display_name.toLowerCase().indexOf(this.SearchName)>=0 && obj.account_type===this.TypeAcc || 
-          obj.user_name && obj.user_name.toLowerCase().indexOf(this.SearchName)>=0 && obj.account_type===this.TypeAcc || 
-          obj.last_name && obj.last_name.toLowerCase().indexOf(this.SearchName)>=0 && obj.account_type===this.TypeAcc || 
-          obj.first_name && obj.first_name.toLowerCase().indexOf(this.SearchName)>=0 && obj.account_type===this.TypeAcc
-        );
-      }
-    }
-    else {
-      if(this.TypeAcc==='all'){
-        this.AccountsChecked = this.Accounts;
-      }
-      else{
-        this.AccountsChecked = this.Accounts.filter(obj => obj.account_type===this.TypeAcc);
-      }
-    }
+    
+      this.Accounts = [];
+    this.onScrollArtist();
+    // if(this.SearchName){
+    //   this.SearchName = this.SearchName.toLowerCase();
+    //   if(this.TypeAcc==='all'){
+    //     this.AccountsChecked = this.Accounts.filter(obj => 
+    //       obj.display_name && obj.display_name.toLowerCase().indexOf(this.SearchName)>=0 || 
+    //       obj.user_name && obj.user_name.toLowerCase().indexOf(this.SearchName)>=0 || 
+    //       obj.last_name && obj.last_name.toLowerCase().indexOf(this.SearchName)>=0 || 
+    //       obj.first_name && obj.first_name.toLowerCase().indexOf(this.SearchName)>=0
+    //     );
+    //   }  
+    //   else{
+    //     this.AccountsChecked = this.Accounts.filter(obj => 
+    //       obj.display_name && obj.display_name.toLowerCase().indexOf(this.SearchName)>=0 && obj.account_type===this.TypeAcc || 
+    //       obj.user_name && obj.user_name.toLowerCase().indexOf(this.SearchName)>=0 && obj.account_type===this.TypeAcc || 
+    //       obj.last_name && obj.last_name.toLowerCase().indexOf(this.SearchName)>=0 && obj.account_type===this.TypeAcc || 
+    //       obj.first_name && obj.first_name.toLowerCase().indexOf(this.SearchName)>=0 && obj.account_type===this.TypeAcc
+    //     );
+    //   }
+    // }
+    // else {
+    //   if(this.TypeAcc==='all'){
+    //     this.AccountsChecked = this.Accounts;
+    //   }
+    //   else{
+    //     this.AccountsChecked = this.Accounts.filter(obj => obj.account_type===this.TypeAcc);
+    //   }
+    // }
+    // if(this.AccountsChecked.length===0){
+    //   this.onScrollArtist();
+     
+    // }
   }
 
   filterEvents(event?){

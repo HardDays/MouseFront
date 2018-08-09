@@ -1,0 +1,20 @@
+<div class="some-request-text-wrapper">
+    <div class="block-info f-b">
+        <span class="some-t">{{Message.subject}}</span>
+        <span class="when">{{Message.created_at | date:'MMM d' }}</span>
+    </div>
+    <ng-container *ngFor="let reply of Message.reply">
+        <div class="block-info s-b">
+            <div class="ava" [ngStyle]="{'background-image': (reply.sender&&reply.sender.image_base64)?'url('+reply.sender.image_base64+')':''}"></div>
+            <div class="name-hash">
+                <p class="n">{{reply.sender?.full_name?reply.sender.full_name:''}}</p>
+                <p class="hash"><span>@</span>{{reply.sender?.user_name?reply.sender.user_name:''}}</p>
+            </div>
+            
+        </div>
+        <div class="block-info t-b">
+            <p class="descr">{{reply.message | titlecase}}</p>
+        </div>
+    </ng-container>
+
+</div>
