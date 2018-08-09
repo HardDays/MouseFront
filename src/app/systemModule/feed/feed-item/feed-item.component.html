@@ -8,17 +8,22 @@
                     <p>{{Feed.account.user_name}}</p>
                     <a [routerLink]="['/system','profile',Feed.account.id]" class="hash"><span>@</span>{{Feed.account.user_name}}</a>
                 </div>
-                <div class="desc">
-                    <p>{{replaceAll(Feed.action)|titlecase}} <a [routerLink]="['/system','shows_detail',Feed.event.id]">#{{Feed.event.name}}</a> Event.</p>
+                <div *ngIf="Feed.type === 'account_update'" class="desc">
+                    <p>{{replaceAll(Feed.action)|titlecase}} <a [routerLink]="['/system','profile',Feed.account.id]">{{Feed.account.display_name}}</a> to "{{Feed.value}}"</p>
+
                 </div>
+                <div *ngIf="Feed.type === 'event_update'" class="desc">
+                    <p>{{replaceAll(Feed.action)|titlecase}} <a [routerLink]="['/system','shows_detail',Feed.event.id]">#{{Feed.event.name}}</a> Event to "{{getValue()}}" </p>
+                </div>
+                
             </div>
         </div>
         <p class="when">{{Feed.created_at?calculateTime(Feed.created_at):'A long time'}} ago</p>
     </div>
     <div class="body-feed-item"></div>
-    <div class="footer-item">
+    <div *ngIf="Feed.type === 'event_update'" class="footer-item">
         <div class="left-side">
-            <span *ngIf="Feed.event.comments_available" (click)="isOpenComment = !isOpenComment; GetComments()" class="coments counter-icon">
+            <span *ngIf="Feed.event?.comments_available" (click)="isOpenComment = !isOpenComment; GetComments()" class="coments counter-icon">
                {{Feed.comments}}
             </span>
             <!--добавляем liked если лайнули-->

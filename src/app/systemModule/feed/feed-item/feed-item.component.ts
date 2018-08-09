@@ -158,6 +158,53 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
     return s.replace(new RegExp('_', 'g'), ' ');
   }
 
+  getValue(){
+    if(this.Feed.type === 'event_update'){
+      switch(this.Feed.action){
+        case 'update_updates_available':
+          if(this.Feed.value === 'f')
+            return 'No';
+          else 
+            return 'Yes';
+        
+        case 'update_genres':{
+          if(this.Feed.value&&this.Feed.value.length>0){
+            let genresString:string = this.Feed.value.replace(new RegExp('_', 'g'), ' ');
+            genresString = genresString.substring(1, genresString.length-1);
+            genresString = genresString.replace(new RegExp('"', 'g'), '');
+            
+            return genresString;
+          }
+           return 'No Genres';
+        }
+         
+        case 'update_updates_available':
+          if(this.Feed.value === 'f')
+            return 'No';
+          else 
+            return 'Yes';
+        
+        case 'update_collaborators':
+          if(this.Feed.value&&this.Feed.value.length>0)
+            return this.Feed.value;
+          else 
+            return 'No Collaborators';
+        
+        case 'update_comments_available':
+          if(this.Feed.value === 'f')
+            return 'No';
+          else 
+            return 'Yes';
+        
+      }
+      if(this.Feed.value)
+        return this.Feed.value;
+      else
+        return 'No info';
+    }
+
+  }
+
   // getLikes(){
   //   this.main.likesService.GetLikesByEventId(this.Feed.event.id)
   //     .subscribe((res)=>{
