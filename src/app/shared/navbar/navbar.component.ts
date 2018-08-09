@@ -45,14 +45,19 @@ export class NavbarComponent extends BaseComponent implements OnInit
             if(this.MyAccounts.length===0){
               // console.log('get user_'+this.MyUser.id)
               if(!localStorage.getItem('is_register')){
+                
                 let type = localStorage.getItem('new_user_'+this.MyUser.id);
-
-                if(type=='venue')
-                  this.router.navigate(['/system','venueCreate','new']);
-                else if(type=='artist')
-                  this.router.navigate(['/system','artistCreate','new']);
-                else
-                  this.router.navigate(['/system','fanCreate','new']);
+                // localStorage.removeItem('new_user_'+this.MyUser.id);
+                localStorage.setItem('new_user','true');
+                // console.log(this.MyUser.id, type);
+                // if(type){
+                  if(type=='venue')
+                    this.router.navigate(['/system','venueCreate','new']);
+                  else if(type=='artist')
+                    this.router.navigate(['/system','artistCreate','new']);
+                  else
+                    this.router.navigate(['/system','fanCreate','new']);
+                // }
               }
             }
             else {

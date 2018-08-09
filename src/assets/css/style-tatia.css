@@ -920,7 +920,8 @@
       .admin_page .admin_content .admin_table .admin_table_tr {
         display: flex;
         justify-content: space-between;
-        background: #fff; }
+        background: #fff; 
+        cursor: pointer;}
         .admin_page .admin_content .admin_table .admin_table_tr.checked {
           background: #f8f8f8; }
         .admin_page .admin_content .admin_table .admin_table_tr .admin_table_td {
@@ -1416,6 +1417,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        /* 50px */
         padding: 20px 50px 10px 115px; }
         .admin_page .admin_content .admin_white_back_zag.zag_with_buttons .arr {
           top: 38px; }
@@ -1483,6 +1485,7 @@
       .admin_page .admin_content .admin_table_nav .table_filter {
         flex-grow: 1;
         background: #fff;
+        height: 46px;
         border-radius: 5px;
         box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.07);
         display: flex;
@@ -1639,7 +1642,7 @@
       width: 800px;
       height: 790px; }
     .admin_page .admin_content .dash_table {
-      padding-left: 37px;
+      /* padding-left: 37px; */
       position: relative; }
       .admin_page .admin_content .dash_table .admin_dash_delete {
         width: 46px;

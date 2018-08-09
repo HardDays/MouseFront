@@ -26,9 +26,11 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
   Feedbacks:FeedbackAdminModel[] = [];
   FeedbacksChecked:FeedbackAdminModel[] = [];
   openFeedback:FeedbackAdminModel = new FeedbackAdminModel();
-
+  transformedFb:any;
   Message: string = '';
   nonImage = BaseImages.NoneFolowerImage;
+  fbTransformed:any;
+  midScore:number;
   // Subject: string = '';
 
   Answer = {
@@ -37,9 +39,20 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
     message:''
   }
 
+  showSuccess = false;
+
+  Rate = 0;
+
   ngOnInit() {
     this.InitJs();
     this.getFeedbacks();
+
+    this.main.adminService.GetFeedbacksOverall()
+    .subscribe(
+      (res)=>{
+        this.Rate = res;
+      }
+    )
   }
 
   getFeedbacks(){
@@ -47,13 +60,15 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
       .subscribe(
         (res)=>{
           this.Feedbacks = res;
-         
+          
 
           if(this.Feedbacks&&this.Feedbacks[0]&&this.Feedbacks[0].id)
-            this.openNewFeedback(this.Feedbacks[0].id);
+            this.openNewFeedback(this.Feedbacks[0].id,this.Feedbacks[0]);
          
 
           for(let fb of this.Feedbacks){
+            //вот блядь не могу взять от сюда fb.rate_score поэтому буду прогонять другим циклом
+
             if(fb.sender){
               if(fb.sender.image_id)
                 fb.sender.image_base64 = this.main.imagesService.GetImagePreview(fb.sender.image_id,{width:100,height:100})
@@ -61,9 +76,12 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
                 fb.sender.image_base64 = BaseImages.NoneFolowerImage;
             }
           }
+         
+          
+          
           
           this.FeedbacksChecked = this.Feedbacks;
-
+        
       
         }
       )
@@ -98,7 +116,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
     if(this.Type === 'all')
       this.FeedbacksChecked = this.Feedbacks;
     else 
-      this.FeedbacksChecked = this.Feedbacks.filter(obj => obj.message_info.feedback_type && (this.Type === obj.message_info.feedback_type));
+      this.FeedbacksChecked = this.Feedbacks.filter(obj => obj.feedback_type && (this.Type === obj.feedback_type));
   }
 
   InitJs(){
@@ -116,20 +134,21 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
     });
   }
 
-  openNewFeedback(id:number){
+  openNewFeedback(id:number,fb:any){
     this.Message = '';
+    this.fbTransformed = fb;
     this.main.adminService.GetFeedbackById(id)
     .subscribe(
       (fb)=>{
         this.openFeedback = fb;
-        if(this.openFeedback.reply){
-          this.Answer.message =  this.openFeedback.reply.simple_message;
-          if(this.openFeedback.reply&&this.openFeedback.reply.sender&&this.openFeedback.reply.sender.user_name)
-            this.Answer.user_name =  this.openFeedback.reply.sender.user_name;
+        if(this.openFeedback.reply.length>0){
+          this.Answer.message =  this.openFeedback.reply[0].message;
+          if(this.openFeedback.reply[0]&&this.openFeedback.reply[0].sender&&this.openFeedback.reply[0].sender.user_name)
+            this.Answer.user_name =  this.openFeedback.reply[0].sender.user_name;
           else
             this.Answer.user_name = 'Admin';
-          if(this.openFeedback.reply&&this.openFeedback.reply.sender&&this.openFeedback.reply.sender.image_id)
-            this.Answer.image = this.main.imagesService.GetImagePreview(this.openFeedback.reply.sender.image_id,{width:100,height:100})
+          if(this.openFeedback.reply[0]&&this.openFeedback.reply[0].sender&&this.openFeedback.reply[0].sender.image_id)
+            this.Answer.image = this.main.imagesService.GetImagePreview(this.openFeedback.reply[0].sender.image_id,{width:100,height:100})
           else
             this.Answer.image = BaseImages.NoneFolowerImage;
         }
@@ -141,22 +160,28 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
   }
 
   sendAnswer(){
-    // console.log(`Message`,this.openFeedback,this.Message);
-    if(this.Message)
-      this.main.adminService.FeedbackThankYou(this.openFeedback.id,this.Message)
-        .subscribe(
-          (res)=>{
-            // console.log(res);
-            this.errCmp.OpenWindow(BaseMessages.Success);
-            this.getFeedbacks();
-          },
-          (err)=>{
-            console.log(`err`,err);
-            this.errCmp.OpenWindow(BaseMessages.Fail);
-          }
-        )
-    else
-      this.errCmp.OpenWindow(BaseMessages.Fail);
+    if(!this.showSuccess){
+      if(this.Message)
+        this.main.adminService.FeedbackThankYou(this.openFeedback.id,this.Message)
+          .subscribe(
+            (res)=>{
+              this.showSuccess = true;
+              this.errCmp.OpenWindow(BaseMessages.Success);
+              setTimeout(() => {
+                if(this.errCmp.isShown)
+                  this.errCmp.CloseWindow();
+                  this.showSuccess = false; 
+              }, 2500);
+              this.getFeedbacks();
+            },
+            (err)=>{
+              console.log(`err`,err);
+              this.errCmp.OpenWindow(BaseMessages.Fail);
+            }
+          )
+      else
+        this.errCmp.OpenWindow(BaseMessages.Fail);
+    }
   }
 
   DeleteItem(){

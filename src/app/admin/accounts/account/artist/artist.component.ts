@@ -91,17 +91,13 @@ export class ArtistComponent extends BaseComponent implements OnInit {
       $('.photos-abs-wrapp').css({
         'max-height': $('.rel-wr-photoos').width()+'px'
       });
-      $('.new-photos-wr-scroll-preview').css({
-        'padding-left': $('.for-position-left-js').offset()?$('.for-position-left-js').offset().left:0
-      });
+     
   
     $(window).resize(function(){
         $('.photos-abs-wrapp').css({
             'max-height': $('.rel-wr-photoos').width()+'px'
         });
-        $('.new-photos-wr-scroll-preview').css({
-            'padding-left': $('.for-position-left-js').offset()?$('.for-position-left-js').offset().left:0
-        });
+       
     });
     }, 2000);
 

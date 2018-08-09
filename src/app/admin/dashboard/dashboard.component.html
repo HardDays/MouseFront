@@ -14,14 +14,14 @@
         </div>
     </div>
     <section class="dash_table">
-        <span class="admin_dash_delete" (click)="deleteAccs()"><img src="./../../../assets/img/admin/delete.svg" alt=""></span>
-        <span class="admin_dash_look" (click)="openTabsAcc()"><img src="./../../../assets/img/admin/look.svg" alt=""></span>
+        <!-- <span class="admin_dash_delete" (click)="deleteAccs()"><img src="./../../../assets/img/admin/delete.svg" alt=""></span>
+        <span class="admin_dash_look" (click)="openTabsAcc()"><img src="./../../../assets/img/admin/look.svg" alt=""></span> -->
         
         <h2 class="admin_table_zag">New account requests</h2>
         <div class="admin_table scroll_table new_accounts_table">
             <div class="admin_table_thead">
-                <div class="admin_table_th check_column"><img src="./../../../assets/img/admin/table_check_th.svg" alt=""></div>
-                <div class="admin_table_th">Data received</div>
+                <!-- <div class="admin_table_th check_column"><img src="./../../../assets/img/admin/table_check_th.svg" alt=""></div> -->
+                <div class="admin_table_th width-fixed">Date received</div>
                 <div class="admin_table_th">Name</div>
                 <div class="admin_table_th">Account</div>
                 <div class="admin_table_th">Address</div>
@@ -35,17 +35,17 @@
                 [infiniteScrollDisabled]="ScrollArtistDisabled"
             >
                 <ng-container *ngFor="let acc of Accounts; let i = index">
-                    <div class="admin_table_tr" [ngClass]="{'checked':acc.checked}">
-                        <div class="admin_table_td check_column">
+                    <div [routerLink]="['/admin','account',acc.object.id]" class="admin_table_tr" [ngClass]="{'checked':acc.checked}">
+                        <!-- <div class="admin_table_td check_column">
                             <div class="admin_table_checkbox">
                                 <input  (change)="acc.checked = !acc.checked" type="checkbox" id="new_acc_{{i}}">
                                 <label for="new_acc_{{i}}"></label>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="admin_table_td"><span>{{acc.object.created_at|date:'MM.dd.yyyy'}}</span></div>
                         <div class="admin_table_td"><span>{{acc.object.full_name}}</span></div>
                         <div class="admin_table_td"><span>{{acc.object.account_type|titlecase}}</span></div>
-                        <div class="admin_table_td little"><span>{{acc.object.address}}</span></div>
+                        <div class="admin_table_td little"><span class="ellips-text">{{acc.object.address}}</span></div>
                     </div>
                 </ng-container>
                 <!-- При выделении чекбокса добавляется класс CHECKED: -->
@@ -53,37 +53,37 @@
         </div>
     </section>
     <section class="dash_table">
-        <span class="admin_dash_delete" (click)="deleteEvents()"><img src="./../../../assets/img/admin/delete.svg" alt=""></span>
-        <span class="admin_dash_look" (click)="openTabsEvent()"><img src="./../../../assets/img/admin/look.svg" alt=""></span>
+        <!-- <span class="admin_dash_delete" (click)="deleteEvents()"><img src="./../../../assets/img/admin/delete.svg" alt=""></span>
+        <span class="admin_dash_look" (click)="openTabsEvent()"><img src="./../../../assets/img/admin/look.svg" alt=""></span> -->
 
         <h2 class="admin_table_zag">New event requests</h2>
         <div class="admin_table scroll_table new_events_table">
             <div class="admin_table_thead">
-                <div class="admin_table_th check_column"><img src="./../../../assets/img/admin/table_check_th.svg" alt=""></div>
-                <div class="admin_table_th">Data received</div>
+                <!-- <div class="admin_table_th check_column"><img src="./../../../assets/img/admin/table_check_th.svg" alt=""></div> -->
+                <div class="admin_table_th width-fixed">Date received</div>
                 <div class="admin_table_th">Event name</div>
                 <div class="admin_table_th">Event date</div>
                 <div class="admin_table_th">Place</div>
                 <div class="admin_table_th">Funding type</div>
             </div>
             <div class="admin_table_tbody_scroll" infinite-scroll 
-            [infiniteScrollDistance]="2"
-            [scrollWindow]="false" 
-            [infiniteScrollThrottle]="50"
-            (scrolled)="onScrollEvent()"
-            [infiniteScrollDisabled]="ScrollEventsDisabled">
+                [infiniteScrollDistance]="2"
+                [scrollWindow]="false" 
+                [infiniteScrollThrottle]="50"
+                (scrolled)="onScrollEvent()"
+                [infiniteScrollDisabled]="ScrollEventsDisabled">
                 <ng-container *ngFor="let event of Events; let i = index">
-                    <div class="admin_table_tr" [ngClass]="{'checked':event.checked}">
-                        <div class="admin_table_td check_column">
+                    <div [routerLink]="['/admin','event',event.object.id]" class="admin_table_tr" [ngClass]="{'checked':event.checked}">
+                        <!-- <div class="admin_table_td check_column">
                             <div class="admin_table_checkbox">
                                 <input (change)="event.checked = !event.checked" type="checkbox" id="new_ev_{{i}}">
                                 <label for="new_ev_{{i}}"></label>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="admin_table_td"><span>{{event.object.received_date|date:'MM.dd.yyyy'}}</span></div>
                         <div class="admin_table_td"><span>{{event.object.name}}</span></div>
                         <div class="admin_table_td"><span>{{event.object.date_from|date:'MM.dd.yyyy h:mm a'}}</span></div>
-                        <div class="admin_table_td little"><span>{{event.object.address}}</span></div>
+                        <div class="admin_table_td little"><span class="ellips-text">{{event.object.address}}</span></div>
                         <div class="admin_table_td little"><span>{{!event.object.is_crowdfunding_event?'Non ':''}}Crowdfund</span></div>
                     </div>
                 </ng-container>
@@ -92,11 +92,19 @@
             </div>
         </div>
     </section>
-    <br><br>
-    <!-- <section>
+    <section>
         <h2 class="admin_table_zag">New users for the month</h2>
-        <div class="diagramm_block"></div>
-    </section> -->
+        <div class="diagramm_block">
+            <canvas baseChart #baseChart width="400" height="300"
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="true"
+                [chartType]="lineChartType"
+            ></canvas>
+        </div>
+    </section>
 <!-- </div> -->
 
 

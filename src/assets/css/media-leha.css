@@ -103,6 +103,39 @@ html, body{
 .input-groupe-1.font-size-label label, .input-groupe-1.font-size-label .head-groupe{
   font-size: 13px;
 }
+/* adminfix */
+
+.admin_page .admin_content .admin_table .admin_table_tr .admin_table_td span.ellips-text{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.admin_page .admin_content .admin_table .admin_table_tr{
+  border-bottom: 1px solid #f3f3f3;
+}
+.admin_page .admin_content .admin_table .admin_table_thead .admin_table_th.width-fixed{
+  white-space: nowrap;
+  width: 112.25px;
+}
+
+
+@media (max-width: 1600px) {
+  .admin_page .admin_content .events_status_wrap .events_status_diagramm{
+    width: 43%;
+    padding: 15px;
+  }
+  
+}
+
+
+
+
+
+
+
+
+
 @media (max-width: 1560px) {
   .venue-week-cal-style .week-day-time-wr .from-to .from-to-width-1560{
     width: 37.7px;
@@ -117,7 +150,27 @@ html, body{
   }
  
 }
+@media (max-width: 1500px) {
+  .admin_page .admin_content .events_status_wrap .events_status_diagramm.revenue_diagram_wrap{
+    display: block;
+    
+  }
+  .admin_page .admin_content .events_status_wrap .events_status_diagramm.revenue_diagram_wrap .diagramm_tabs{
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    transform: translateX(30px);
+    width: 100%;
+  }
 
+
+  .admin_page .admin_content .events_status_wrap .events_status_diagramm.revenue_diagram_wrap .diagramm_tabs .zag_tab{
+    margin: 10px 5px 0;
+  }
+
+
+
+}
 
 @media (max-width: 1460px) {
   .messages-main-wrapp .main-mw {

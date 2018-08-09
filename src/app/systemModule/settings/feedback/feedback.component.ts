@@ -25,6 +25,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
     "message":new FormControl("",[Validators.required])
   });
   Rating:number = 3;
+  showSuccess = false;
 
   constructor(
     protected main           : MainService,
@@ -44,20 +45,26 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
   sendFeedback(){
     this.Feedback.rate_score = this.Rating+'';
     this.Feedback.account_id = this.main.CurrentAccount.id;
-    if(!this.FormFeedback.invalid){
-      // console.log(this.Feedback);
-      this.main.feedbkService.PostFeedback(this.Feedback)
-        .subscribe(
-          (res)=>{
-            this.errorCmp.OpenWindow(BaseMessages.Success);
-            this.Feedback.message = '';
-            this.Feedback.feedback_type = '';
-            this.Rating = 3;
-          }
-        );
-    }
-    else {
-      this.errorCmp.OpenWindow(BaseMessages.Fail);
+    if(!this.showSuccess){
+      if(!this.FormFeedback.invalid){
+        this.main.feedbkService.PostFeedback(this.Feedback)
+          .subscribe(
+            (res)=>{
+              this.showSuccess = true;
+              this.errorCmp.OpenWindow(BaseMessages.Success);
+              setTimeout(() => {
+                this.errorCmp.CloseWindow();
+                this.showSuccess = false;
+              }, 3000);
+              this.Feedback.message = '';
+              this.Feedback.feedback_type = '';
+              this.Rating = 3;
+            }
+          );
+      }
+      else {
+          this.errorCmp.OpenWindow(BaseMessages.Fail);  
+      }
     }
    
     

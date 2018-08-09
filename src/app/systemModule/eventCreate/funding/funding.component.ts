@@ -209,6 +209,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
                     if(price){
                         this.activeArtist[i].object.approximate_price = price;
                     }
+                    this.activeArtist[i].object.currency = CurrencyIcons[this.getCurrencyAtMsg(item.object.artist_id)];
                 }
                 if(item.object.is_active){
                     item.checked = true;
@@ -235,6 +236,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
                     if(price){
                         this.activeVenue[i].object.approximate_price = price;
                     }
+                    this.activeVenue[i].object.currency = CurrencyIcons[this.getCurrencyAtMsg(item.object.venue_id)];
                 }
                 if(item.object.is_active){
                     item.checked = true;
@@ -307,6 +309,22 @@ export class FundingComponent extends BaseComponent implements OnInit {
                     m.message_info.event_info.id === this.Event.id){
                         console.log(m);
                         return m.message_info.price||m.message_info.estimated_price;
+                }
+                
+            }
+            return null;
+        }
+    }
+
+    getCurrencyAtMsg(senderId:number){
+        if(this.messagesList){
+            for(let m of this.messagesList){
+               
+                if( m.sender_id === senderId && 
+                    m.receiver_id === this.Event.creator_id &&
+                    m.message_info&&m.message_info.event_info&&
+                    m.message_info.event_info.id === this.Event.id){
+                        return m.message_info.currency;
                 }
                 
             }

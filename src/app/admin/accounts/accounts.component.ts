@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BaseComponent } from '../../core/base/base.component';
-import { Params } from '@angular/router';
+import { Params, NavigationEnd } from '@angular/router';
 import { AccountGetModel } from '../../core/models/accountGet.model';
 import { TableComponent } from './table/table.component';
 
@@ -36,6 +36,8 @@ export class AccountsComponent extends BaseComponent implements OnInit {
     );
 
     this.getAccounts();
+
+    
   }
 
   getAccounts(){

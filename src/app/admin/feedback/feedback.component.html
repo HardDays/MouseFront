@@ -26,19 +26,19 @@
             </div>
             <div class="big_stars_right_block">
                 <div class="stars">
-                    <span class="star" [ngClass]="{'full':openFeedback?.message_info?.rate_score>=0.5}"></span>
-                    <span class="star" [ngClass]="{'full':openFeedback?.message_info?.rate_score>=1.5}"></span>
-                    <span class="star" [ngClass]="{'full':openFeedback?.message_info?.rate_score>=2.5}"></span>
-                    <span class="star" [ngClass]="{'full':openFeedback?.message_info?.rate_score>=3.5}"></span>
-                    <span class="star" [ngClass]="{'full':openFeedback?.message_info?.rate_score>=4.5}"></span>
+                    <span class="star" [ngClass]="{'full':Rate>=0.5}"></span>
+                    <span class="star" [ngClass]="{'full':Rate>=1.5}"></span>
+                    <span class="star" [ngClass]="{'full':Rate>=2.5}"></span>
+                    <span class="star" [ngClass]="{'full':Rate>=3.5}"></span>
+                    <span class="star" [ngClass]="{'full':Rate>=4.5}"></span>
                 </div>
-                <p class="rate">{{openFeedback?.message_info?.rate_score}} / 5.0</p>
+                <p class="rate">{{Rate}} / 5.0</p>
             </div>
         </div>
         <div class="support_grey">
             <div class="support_dialogs">
                 <ng-container *ngFor="let fb of FeedbacksChecked">
-                    <div (click)="openNewFeedback(fb.id)" class="support_dialogs_item" [ngClass]="{'active':fb.id===openFeedback.id}">
+                    <div (click)="openNewFeedback(fb.id ,fb)" class="support_dialogs_item" [ngClass]="{'active':fb.id===openFeedback.id}">
                         <div class="ava" [ngStyle]="{'background-image':fb.sender?'url('+fb.sender.image_base64+')':'url('+nonImage+')'}" ></div>
                         <div class="info">
                             <p class="question">
@@ -64,7 +64,27 @@
                     <p>{{openFeedback?.message_info?.feedback_type}}</p>
                     <span (click)="DeleteItem()" class="but_icon"><img src="./../../../assets/img/admin/support_delete.png" alt=""></span>
                 </div>
+          
                 <div class="support_mes">
+                    <div *ngIf="fbTransformed"  class="mes_head feedback_head">
+                        <div class="ava" [ngStyle]="{'background-image':fbTransformed.sender ? 'url('+fbTransformed.sender.image_base64+')':'url('+nonImage+')'}"></div>
+                        <div class="info">
+                            <p class="name">{{fbTransformed.sender ? fbTransformed.sender.display_name :'No name'}}</p>
+                            <p class="username"><span>@</span>{{fbTransformed.sender?fbTransformed.sender.user_name:'No username'}}</p>
+                            <!-- <p class="address">New York, NY USA</p> -->
+                        </div>
+                        <div class="stars_block">
+
+                            <div class="stars">
+                                <span class="star" [ngClass]="{'full':fbTransformed?.rate_score>=0.5}"></span>
+                                <span class="star" [ngClass]="{'full':fbTransformed?.rate_score>=1.5}"></span>
+                                <span class="star" [ngClass]="{'full':fbTransformed?.rate_score>=2.5}"></span>
+                                <span class="star" [ngClass]="{'full':fbTransformed?.rate_score>=3.5}"></span>
+                                <span class="star" [ngClass]="{'full':fbTransformed?.rate_score>=4.5}"></span>
+                            </div>
+                            <p class="rate">Rated at {{fbTransformed?.rate_score}} stars</p>
+                        </div>
+                    </div>
                     <div class="mes_text feedback_forward_text">
                         {{openFeedback.message}}
                     </div>
@@ -93,25 +113,25 @@
                             </div>
                         </div>
                     </div>
-                    <div *ngIf="!openFeedback.reply" class="comment_ta">
+                    <div *ngIf="openFeedback?.reply?.length===0" class="comment_ta">
                         <label>Comment</label>
                         <textarea [(ngModel)]="Message"></textarea>
                         <p class="com_max">1000 max</p>
                     </div>
-                    <div *ngIf="openFeedback.reply" class="support_mes">
-                            <div class="mes_head feedback_head">
-                                <div class="ava" [ngStyle]="{'background-image':'url('+Answer.image+')'}"></div>
-                                <div class="info">
-                                    <p *ngIf="Answer.user_name" class="username"><span>@</span>{{Answer?.user_name?Answer.user_name:''}}</p>
-                                </div>
-                            </div>
-                            <div class="mes_text">
-                              {{Answer.message}}
+                    <div *ngIf="openFeedback?.reply?.length>0" class="support_mes">
+                        <div class="mes_head feedback_head">
+                            <div class="ava" [ngStyle]="{'background-image':'url('+Answer.image+')'}"></div>
+                            <div class="info">
+                                <p *ngIf="Answer.user_name" class="username"><span>@</span>{{Answer?.user_name?Answer.user_name:''}}</p>
                             </div>
                         </div>
+                        <div class="mes_text">
+                            {{Answer.message}}
+                        </div>
+                    </div>
                 </div>
                 <div class="feedback_buts">
-                    <button *ngIf="!openFeedback.reply" (click)="sendAnswer()">Send</button>
+                    <button *ngIf="openFeedback?.reply?.length===0" (click)="sendAnswer()">Send</button>
                 </div>
             </div>
         </div>

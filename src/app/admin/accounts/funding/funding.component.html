@@ -1,7 +1,7 @@
 <!-- <div class="admin_content"> -->
     <section class="admin_table_nav">
-        <span (click)="deleteAll()" class="admin_delete"><img src="./../../../../assets/img/admin/delete.svg" alt=""></span>
-        <span (click)="openInNewTabs()" class="admin_look"><img src="./../../../../assets/img/admin/look.svg" alt=""></span>
+        <!-- <span (click)="deleteAll()" class="admin_delete"><img src="./../../../../assets/img/admin/delete.svg" alt=""></span>
+        <span (click)="openInNewTabs()" class="admin_look"><img src="./../../../../assets/img/admin/look.svg" alt=""></span> -->
         <div class="table_filter">
             <div  class="table_search"><input (input)="SearchAccs($event)" type="text" placeholder="Search"></div>
                 <div class="filter_checkbox">
@@ -29,7 +29,7 @@
     <section>
         <div class="admin_table accounts_funding_table">
             <div class="admin_table_thead">
-                <div class="admin_table_th check_column"><img src="./../../../../assets/img/admin/table_check_th.svg" alt=""></div>
+                <!-- <div class="admin_table_th check_column"><img src="./../../../../assets/img/admin/table_check_th.svg" alt=""></div> -->
                 <div class="admin_table_th">Name</div>
                 <div class="admin_table_th">Username</div>
                 <div class="admin_table_th">Account type</div>
@@ -38,21 +38,21 @@
                 <div class="admin_table_th">Response</div>
             </div>
             <div class="admin_table_tbody">
-                <div *ngFor="let acc of CheckedAccounts; let i = index" class="admin_table_tr">
-                    <div class="admin_table_td check_column">
+                <div *ngFor="let acc of CheckedAccounts; let i = index" class="admin_table_tr" (click)="openAccount(acc.id)">
+                    <!-- <div class="admin_table_td check_column">
                         <div class="admin_table_checkbox">
                             <input (change)="checkIdToOpen(acc.id)" type="checkbox" id="new_acc_{{i}}">
                             <label for="new_acc_{{i}}"></label>
                         </div>
-                    </div>
-                    <div (click)="openAccount(acc.id)" class="admin_table_td">{{acc.last_name}}<br>{{acc.first_name}}</div>
+                    </div> -->
+                    <div  style=" width:15%;" class="admin_table_td">{{acc.full_name}}</div>
                     <div class="admin_table_td account" style="cursor: pointer;">
                         <span>@{{acc.user_name}}</span>
                     </div>
                     <div class="admin_table_td"><span>{{acc.account_type|titlecase}}</span></div>
-                    <div class="admin_table_td"><span>{{acc.address}}</span></div>
+                    <div class="admin_table_td"><span class="ellips-text">{{acc.address}}</span></div>
                     <div class="admin_table_td"><span>{{acc.banking}}</span></div>
-                    <div class="admin_table_td text-uppercase"><span [ngClass]="{'status_pending':acc.status=='pending','status_approved':acc.status=='approved','status_new':acc.status=='new','status_denied':acc.status=='denied','status_inactive':acc.status=='inactive'}">{{acc.status|titlecase}}</span></div>
+                    <div class="admin_table_td text-uppercase"><span [ngClass]="{'status_pending':acc.status=='pending','status_approved':acc.status=='approved','status_new':acc.status=='new','status_denied':acc.status=='denied','status_inactive':acc.status=='inactive'}">{{acc.status.replace('_',' ')|titlecase}}</span></div>
                 </div>
             </div>
         </div>

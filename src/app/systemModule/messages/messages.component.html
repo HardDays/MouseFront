@@ -10,6 +10,7 @@
                     </div>
             
                     <ng-container *ngIf="messages.length>0">
+
                         <div  class="left-s">
                             <div class="rotate-xs-wrapper">
                             <!--задаем класс active при клике-->
@@ -70,23 +71,13 @@
                                     </div>
 
 
-
-
-
-
-
-
-
-
-
-
                                 </ng-container>
                             </div>
                         </div>
 
 
                         <!--вместо дива может быть форма-->
-                        <div  *ngIf="openMessage?.message_type != 'blank'" class="right-s">
+                        <div  *ngIf="openMessage?.message_type === 'request'" class="right-s">
                             <div *ngIf="openMessage.id&&(openMessage.message_type=='request'&&openMessage.message_info||openMessage.message_type!='request')" class="some-request-text-wrapper">
                                 <div class="block-info f-b">
                                     <span class="some-t">{{openMessage.message_type?openMessage.message_type:''}} to Perform</span>
@@ -218,82 +209,158 @@
                             </div>
                         </div>
 
-                        <div *ngIf="openMessage?.message_type == 'blank'" class="right-s">
-                                <div class="some-request-text-wrapper">
+                        <div  *ngIf="openMessage?.message_type === 'accept'" class="right-s">
+                                <div *ngIf="openMessage.id&&(openMessage.message_type=='request'&&openMessage.message_info||openMessage.message_type!='request')" class="some-request-text-wrapper">
                                     <div class="block-info f-b">
-                                        <span class="some-t">{{openMessage.subject}}</span>
+                                        <span class="some-t">{{openMessage.message_type?openMessage.message_type:''}} to Perform</span>
                                         <span class="when">{{openMessage.created_at | date:'MMM d' }}</span>
                                     </div>
-                                    <ng-container *ngFor="let reply of openMessage.reply">
-                                        <div class="block-info s-b">
-                                            <div class="ava" [ngStyle]="{'background-image': (reply.sender&&reply.sender.image_base64)?'url('+reply.sender.image_base64+')':''}"></div>
-                                            <div class="name-hash">
-                                                <p class="n">{{reply.sender?.full_name?reply.sender.full_name:''}}</p>
-                                                <p class="hash"><span>@</span>{{reply.sender?.user_name?reply.sender.user_name:''}}</p>
-                                            </div>
-                                            
+                                    <div class="block-info s-b">
+                                        <div class="ava" [ngStyle]="{'background-image': (openMessage.sender&&openMessage.sender.image_base64)?'url('+openMessage.sender.image_base64+')':''}"></div>
+                                        <div class="name-hash">
+                                            <p class="n">{{openMessage.sender?.full_name?openMessage.sender.full_name:''}}</p>
+                                            <p class="hash"><span>@</span>{{openMessage.sender?.user_name?openMessage.sender.user_name:''}}</p>
                                         </div>
-                                        <div class="block-info t-b">
-                                            <p class="descr">{{reply.message | titlecase}}</p>
-                                        </div>
-                                    </ng-container>
-
-                                    <div *ngIf="false" class="block-info sixth-b">
-                                            <div  class="input-groupe-1 whithout-label small-textarea max-500">
-                                                <textarea id="inp-media-venue-2"></textarea>
-                                                <label for="inp-media-venue-2" class="head-groupe">Personal Message</label>
+                                        
+                                    </div>
+                                    <div class="block-info t-b">
+                                        <p class="name-event">{{openMessage.message_info?.event_info?openMessage.message_info?.event_info.name:''}}</p>
+                                        <p class="descr">{{openMessage.message_info?.event_info?.description?openMessage.message_info?.event_info.description:'' | titlecase}}</p>
+                                        <p *ngIf="openMessage.message_type == 'request'" class="fot-edit">{{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_season:'' | titlecase}} {{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_year:''}}, {{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_time:'' | titlecase}}, {{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_length:''}} Hours
+                                            <img *ngIf="!openMessage.is_read"  src="../../assets/img/edit-img.png"  class="img-responsive for-edit-img" alt="">
+                                        </p>
+                                        <input *ngIf="openMessage.message_type == 'request'" [disabled]="openMessage.is_read" class="form-control" #drp="bsDaterangepicker" bsDaterangepicker [bsConfig]="bsConfig" 
+                                        [minDate]="minDate" [maxDate]="maxDate" [(ngModel)]="bsRangeValue">
+    
+                                        <p *ngIf="openMessage.message_type == 'accept' &&openMessage.message_info" class="fot-edit">{{openMessage.message_info?.preferred_date_from| date}} - {{openMessage.message_info?.preferred_date_to| date}} </p>
+                                        
+                                        <!--появлется если нажать на верхнюю картинку for-edit-img-->
+                                        <!-- <div *ngIf="isEditShow" class="selects-wrapper">
+                                            <div class="flex-input-groupes">
+                                                <div class="input-groupe-1">
+                                                    <select [(ngModel)]="openMessage.message_info?.event_info.event_season" id="inp-create-5">
+                                                        <option>spring</option>
+                                                        <option>summer</option>
+                                                        <option>autumn</option>
+                                                        <option>winter</option>
+                                                
+                                                    </select>
+                                                    <label for="inp-create-5">Event Date</label>
+                                                </div>
+                                                <div class="input-groupe-1">
+                                                    <select id="inp-create-6">
+                                                        <option>2018</option>
+                                                        <option>2019</option>
+                                                        <option>2020</option>
+                                                        <option>2021</option>
+                                                        <option>2022</option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                            <div class="flex-buttons">
+                                            <div class="flex-input-groupes">
+                                                <div class="input-groupe-1">
+                                                    <select id="inp-create-7">
+                                                        <option>morning</option>
+                                                        <option>afternoon</option>
+                                                        <option>evening</option>
+                                                    </select>
+                                                    <label for="inp-create-7">Time Range</label>
+                                                </div>
+                                                <div class="input-groupe-1">
+                                                    <select id="inp-create-8">
+                                                        <option>1</option>
+                                                        <option>2</option>
+                                                        <option>3</option>
+                                                        <option>4</option>
+                                                        <option>5</option>
+    
+                                                    </select>
+                                                    <label for="inp-create-8">Event Length</label>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                        <!--/появлется если нажать на верхнюю картинку for-edit-img-->
+                                        
+                                        
+                                        
+                                        <p *ngIf="openMessage.message_type == 'request'" class="desc-for-edit">(You can pick the dates you are available to perform)</p>
+                                        <p *ngIf="openMessage&&openMessage.message_info&&openMessage.message_info?.event_info&&openMessage.message_info?.event_info.is_crowdfunding_event" class="event-type">Crowdfunded Event</p>
+                                    </div>
+                                    <div class="block-info fourth-b">
+                                        <p class="fot-edit">
+                                                
+                                            Price to Perform <span>
+                                                {{openMessage.message_info?.currency?(openMessage.message_info?.currency==='USD'?'$':openMessage.message_info?.currency==='RUB'?'₽':openMessage.message_info?.currency==='EUR'?'€':''):''}}
+                                                {{(openMessage.message_type&&openMessage.message_info&&openMessage.message_type == 'request')?openMessage.message_info?.estimated_price:openMessage.message_info?.price}}</span>
+                                            <img *ngIf="openMessage.message_type == 'request'&&!openMessage.is_read" src="../../assets/img/edit-img.png" (click)="isEditPrice = true" class="img-responsive for-edit-img" alt="">
+                                        </p>
+                                        
+                                        
+                                        <!--поялвляется если нажать на картинку "for-edit-img"-->
+                                        <div *ngIf="isEditPrice" class="flex-price-change">
+                                            <p class="your-price">Change price</p>
+                                            <div class="rel-dog">
+                                                <span>{{openMessage.message_info?.currency?(openMessage.message_info?.currency==='USD'?'$':openMessage.message_info?.currency==='RUB'?'₽':openMessage.message_info?.currency==='EUR'?'€':''):''}}</span>
+                                                <input [(ngModel)]="changePrice" class="inp-style-2" type="text">
+                                            </div>
+                                        </div>
+                                        <!--/поялвляется если нажать на картинку "for-edit-img"-->
+                                        
+                                        
+                                        <p *ngIf="openMessage.message_type == 'request'" class="desc-for-edit">You can change the Price to Perform</p>
+                                    </div>
+                                    <div *ngIf="openMessage.message_type == 'request'" class="block-info fifth-b">
+                                        <p *ngIf="openMessage.message_info?.expiration_date" class="will-expire">This request will expire on {{ openMessage.message_info?.expiration_date | date }}</p>
+                                    </div>
+                                    <div class="block-info sixth-b">
+                                        <div  *ngIf="openMessage.message_type == 'request'" class="input-groupe-1 whithout-label small-textarea max-500">
+                                            <textarea disabled [value]="openMessage?.message"  id="inp-media-venue-2"></textarea>
+                                            <label for="inp-media-venue-2" class="head-groupe">Personal Message</label>
+                                        </div>
+                                        <div *ngIf="!openMessage.is_read&&openMessage.message_type == 'request'" class="flex-buttons">
+                                            <div class="accept-wr">
+                                                <button class="butt-style-1" type="submit">
+                                                    <span (click)="acceptRequest()">Accept</span>
+                                                </button>
+                                            </div>
+                                            <div class="decline-wr">
+                                                <button (click)="declineRequest()" class="decline">
+                                                    <span>Decline</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="openMessage.message_type == 'accept'" class="flex-buttons">
                                                 <div class="accept-wr">
-                                                    <button class="butt-style-1" type="submit">
-                                                        <span >Send</span>
+                                                    <button [routerLink]="['/system','eventCreate',openMessage.message_info?.event_info.id]" class="butt-style-1" type="submit">
+                                                        <span>Go to Event</span>
                                                     </button>
                                                 </div>
-                
-                                            </div>
+                                                
                                         </div>
-
+                                    </div>
                                 </div>
                         </div>
+
+
+
+
+                        <div  *ngIf="openMessage?.message_type === 'support'" class="right-s">
+                            <app-message-support
+                                [Message] = "openMessage"
+                                [AccId] = "accountId"
+                            ></app-message-support>
+                        </div>
+
+                        <div *ngIf="openMessage?.message_type === 'blank'" class="right-s">
+                            <app-message-blank 
+                                [Message]="openMessage"
+                            ></app-message-blank>
+                        </div>
+
+
                     </ng-container>
                
             </div>
         </div>
     </div>
 </section>
-
-
-<div class="modal fade modal-slider" id="modal-slider">
-    <div class="modal-dialog">
-        <div class="modal-body">
-            <div class="rel-modal">
-                <div class="close-modal" data-dismiss="modal"></div>
-                <div class="slider-padd">
-                    <div class="slider-modal-wr">
-                        <div class="one-slide">
-                            <h4><span>Share</span> shows you like <span>with friends</span></h4>
-                        </div>
-                        <div class="one-slide">
-                            <h4>Watch shows in <span>360°</span> virtual reality devices</h4>
-                        </div>
-                        <div class="one-slide">
-                            <h4>Crowdfund <span>shows</span> of your favorite artists <span>in your hometown</span></h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-buttons-modal">
-                    <div class="one-butt-wr">
-                        <div class="style-b-op">
-                            <span data-dismiss="modal">Sign up later</span>
-                        </div>
-                    </div>
-                    <div class="one-butt-wr">
-                        <div class="style-b-op">
-                            <a href="#">Sign up</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { AccountGetModel } from '../../../core/models/accountGet.model';
 import { BaseImages } from '../../../core/base/base.enum';
 import { CurrencyIcons } from '../../../core/models/preferences.model';
@@ -17,6 +17,8 @@ export class OneCardComponent extends BaseComponent implements OnInit {
   @Input('card') card: AccountGetModel;
   @Input('status') status: string;
   @Input('price') price: number;
+  @Input('currency') currency: string;
+  
 
   @Output('accepted') accept = new EventEmitter<AccountGetModel>();
   @Output('requested') requested = new EventEmitter<AccountGetModel>();
@@ -31,8 +33,15 @@ export class OneCardComponent extends BaseComponent implements OnInit {
   emptyImage = BaseImages.NoneUserImage;
 
   ngOnInit() {
-    this.CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
+    console.log(this.currency);
+    this.CurrencySymbol = CurrencyIcons[this.currency];
     // console.log(`card`,this.card, this.status);
+  }
+  ngOnChanges(change:SimpleChanges){
+    if(change.currency){
+      this.currency = change.currency.currentValue;
+      this.CurrencySymbol = CurrencyIcons[this.currency];
+    }
   }
 
   toBeatyShowsList( mas:any[]){

@@ -19,7 +19,6 @@ export class AccountComponent extends BaseComponent implements OnInit {
       (params:Params) => {
         this.accId = params['id']; // console.log(params["id"]);
         this.getThisAcc();
-        
       }
     );
   }

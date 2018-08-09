@@ -77,7 +77,12 @@ export class AboutComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
+
+    if(this.Event.currency)
+        this.CurrencySymbol = CurrencyIcons[this.Event.currency];
+    else
+        this.CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
+   
     this.CreateAutocompleteAbout();
 
     var _the = this;
