@@ -20,7 +20,8 @@ export class ByTicketComponent extends BaseComponent implements OnInit {
 
     ngOnInit(): void 
     {
-        this.Currency = CurrencyIcons[this.main.settings.GetCurrency()];
+        this.Currency = CurrencyIcons[this.Ticket.currency];
+        // console.log(this.Ticket);
     }
 
     AddTickets()

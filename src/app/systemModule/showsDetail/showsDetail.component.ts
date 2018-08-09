@@ -31,6 +31,7 @@ import { ErrorComponent } from '../../shared/error/error.component';
 
 import * as moment from 'moment';
 import { TimeFormat } from '../../core/models/preferences.model';
+import { Currency, CurrencyIcons } from '../../core/models/preferences.model';
 
 declare var $:any;
 declare var PhotoSwipeUI_Default:any;
@@ -76,6 +77,8 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
             }
         }
     }
+
+    Currency = CurrencyIcons[this.main.settings.GetCurrency()];
     
     constructor(
         protected main           : MainService,
@@ -140,6 +143,9 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
 
         if(this.Event.hashtag)
             this.Event.hashtag = this.Event.hashtag.replace("#","");
+
+        console.log(this.Event);
+        this.Currency = CurrencyIcons[this.Event.currency];
 
         this.GetGenres();
         this.GetCreatorInfo();

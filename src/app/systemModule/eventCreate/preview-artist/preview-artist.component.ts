@@ -66,7 +66,8 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
+   
+
 
     scrollTo(0,0);
     this.InitMusicPlayer();
@@ -75,6 +76,7 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
       ()=>this.main.accService.GetAccountById(this.ArtistId),
       (res:AccountGetModel)=>{
         this.Artist = res;
+        this.CurrencySymbol = CurrencyIcons[this.Artist.currency];
         if(this.Artist.genres)
           this.Artist.genres = this.main.genreService.BackGenresToShowGenres(this.Artist.genres);
         // console.log(`artist`,res);
