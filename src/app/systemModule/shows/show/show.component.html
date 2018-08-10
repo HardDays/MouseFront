@@ -40,5 +40,5 @@
     <div class="where" *ngIf="!Show.date_from && !Show.date_to">{{Show.event_season}}, {{Show.event_year}} - <span>{{Show.event_time}}</span></div> -->
 
     <div *ngIf="Date && Show.address" class="where">-</div>
-    <div class="where">{{Show.address}}</div> 
+    <div class="where">{{Show.address}}, {{Show.venue?.city?Show.venue.city:''}}, {{Show.venue?.state?Show.venue.state:''}}</div> 
 </div>

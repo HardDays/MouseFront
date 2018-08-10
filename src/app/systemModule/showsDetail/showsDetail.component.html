@@ -114,7 +114,7 @@
                         <!-- <span>Includes $2 service fee. One ticket per person</span> -->
                     </h1>
                     
-                        <p class="total">Total price: <span>${{TotalPrice}}</span></p>
+                        <p class="total">Total price: <span>{{Currency}}{{TotalPrice}}</span></p>
                         <button [disabled]="!(Event.status===Statuses.Active) || !CurrentAccount || CurrentAccount.account_type != 'fan' || !Event.tickets || !Event.tickets.length || !TicketsToBuy.length"
                             (click)="BuyTickets()" class="butt-style-1" 
                             [ngClass]="{'cursor-disabled':!(Event.status===Statuses.Active) || !CurrentAccount || CurrentAccount.account_type != 'fan' || !Event.tickets || !Event.tickets.length || !TicketsToBuy.length}">

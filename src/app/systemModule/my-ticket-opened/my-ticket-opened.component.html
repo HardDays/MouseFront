@@ -1,5 +1,5 @@
 <app-preloader *ngIf="isLoading"></app-preloader>
-<section class="second-router-outlet" [ngStyle]="{'display': isLoading?'none':'block'}">
+<section id="print"  class="second-router-outlet" [ngStyle]="{'display': isLoading?'none':'block'}">
   <div class="create-event-nav-tabs">
       
       <div class="create-event-body-1">
@@ -23,13 +23,13 @@
                               <h2>Tickets</h2>
                               <p><strong>Total price: <span>{{Currency}} {{TotalPrice}}</span></strong><br></p>
                           </div>
-                          <div class="scrolled-wrapp">
+                          <div id="scrolled-wrapp" class="scrolled-wrapp">
                               <div class="one-wr-tick" *ngFor="let item of TicketsByEvent.tickets; let i = index">
                                   <div class="one-tick">
                                       <p class="f" *ngIf="item.ticket.type == 'in_person'">In person ticket</p>
                                       <p class="f" *ngIf="item.ticket.type == 'vr'">Vr ticket</p>
                                       <p class="s">(Regular)</p>
-                                      <p class="c">{{Currency}}{{item.ticket.price}}</p>
+                                      <p class="c">{{getCurrency(item.currency)}}{{item.ticket.price}}</p>
                                       <p class="t">{{item.ticket.description?item.ticket.description:''}}</p>
                                       <p class="last" *ngIf="item.tickets_left">({{item.tickets_left}} tickets left)</p>
                                       <p class="last" *ngIf="!item.tickets_left">(Sold out)</p>
@@ -38,11 +38,11 @@
                               
                           </div>
                           <div class="butt-wrapp-grad">
-                            <!--
-                              <span class="butt-style-1">
+                            
+                              <span (click)="printTicket()" class="butt-style-1">
                                   <span>Print tickets</span>
                               </span>
-                              -->   
+                              
                           </div>
                       </div>
                   </div>

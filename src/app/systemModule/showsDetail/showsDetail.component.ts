@@ -30,7 +30,7 @@ import { MainService } from '../../core/services/main.service';
 import { ErrorComponent } from '../../shared/error/error.component';
 
 import * as moment from 'moment';
-import { TimeFormat } from '../../core/models/preferences.model';
+import { TimeFormat, CurrencyIcons } from '../../core/models/preferences.model';
 
 declare var $:any;
 declare var PhotoSwipeUI_Default:any;
@@ -67,6 +67,8 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
 
     ESCAPE_KEYCODE = 27;
     ENTER_KEYCODE = 13;
+
+    Currency = CurrencyIcons[this.main.settings.GetCurrency()];
   
     @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
         if(this.isShowMap){
@@ -154,7 +156,8 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         this.Featuring = '';
         let artistArr:string[] = [];
         this.Artists = [];
-        let arr = this.Event.artist.filter( obj => obj.status == "active" );
+        console.log(this.Event.artist);
+        let arr = this.Event.artist.filter( obj => obj.status == "active"|| obj.status == "owner_accepted");
         for(let i in arr)
         {
             this.WaitBeforeLoading
@@ -203,6 +206,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     GetTickets()
     {
         this.Tickets = this.Event.tickets;
+        // this.Currency = CurrencyIcons[this.Event.tickets[0].currency];
     }
 
     AddTicketsToPrice(object:BuyTicketModel)
