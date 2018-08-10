@@ -11,7 +11,7 @@ import { BaseImages } from '../../../core/base/base.enum';
 export class TableComponent extends BaseComponent implements OnInit {
 
   @Input() isApprovedBy;
-  @Input() status;
+  @Input() status = '';
   @Input() Accounts:AccountGetModel[];
   @Input() Events:any[];
 
@@ -28,12 +28,24 @@ export class TableComponent extends BaseComponent implements OnInit {
 
   ScrollArtistDisabled = false;
 
- ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges): void {
     if(changes.Accounts){
-        this.AccountsChecked = this.Accounts = changes.Accounts.currentValue;   
+       this.Accounts = changes.Accounts.currentValue;
+    }
+    if(changes.status){
+      if(changes.status.currentValue === 'all')
+        this.status = '';
+      else if(changes.status.currentValue === 'new')
+        this.status = 'just_added';
+      else
+        this.status = changes.status.currentValue;
+      // this.status =
+      // console.log( changes.status);
+      this.Accounts = [];
+      this.onScrollArtist();
     }
     if(changes.Events){
-      this.EventsChecked = this.Events = changes.Events.currentValue;   
+      this.EventsChecked = this.Events = changes.Events.currentValue;
     }
 
   }
@@ -41,11 +53,28 @@ export class TableComponent extends BaseComponent implements OnInit {
   onScrollArtist(){
     console.log(`123`)
     this.ScrollArtistDisabled = true;
-      this.main.adminService.GetAccountsRequests({text:this.SearchName,account_type: this.TypeAcc,limit:20,offset:this.Accounts.length})
+    let params = {status: this.status,text:this.SearchName,account_type: this.TypeAcc,limit:20,offset:this.Accounts.length};
+    // if(this.status === '') delete params['status'];
+      this.main.adminService.GetAccountsRequests(params)
         .subscribe((res)=>{
-          this.Accounts = [];
+          // this.Accounts = [];
          
-          this.Accounts = res; //((x, y) => x.includes(y) ? x : [...x, y], []);
+          // this.Accounts.push(...res); //((x, y) => x.includes(y) ? x : [...x, y], []);
+
+          for(let r of res){
+            if(this.Accounts.findIndex((val)=>val.id === r.id)<0){
+              this.Accounts.push(r);
+            }
+          }
+
+          // setTimeout(() => {
+          //   this.Accounts.filter((item, pos, self)=>{
+          //       return self.indexOf(item) == pos;
+          //     });
+          // }, 300);
+          
+
+
           // let set = new Set(this.Accounts);
           // this.Accounts = [new Set(this.Accounts)]
           setTimeout(() => {
@@ -218,10 +247,12 @@ export class TableComponent extends BaseComponent implements OnInit {
 
 
   filterAccs(event?){
-    if(event)
+    if(event){
       this.SearchName = event.target.value;
-    
       this.Accounts = [];
+    }
+    
+      // this.Accounts = [];
     this.onScrollArtist();
     // if(this.SearchName){
     //   this.SearchName = this.SearchName.toLowerCase();
