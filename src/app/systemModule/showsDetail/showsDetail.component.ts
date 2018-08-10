@@ -59,7 +59,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
 
     Genres:GenreModel[] = [];
 
-    Featuring:string = '';
+    Featuring:{name:string,id:number}[] = [];
 
     Statuses = EventStatus;
 
@@ -153,7 +153,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
 
     GetFeaturing()
     {
-        this.Featuring = '';
+        this.Featuring = [];
         let artistArr:string[] = [];
         this.Artists = [];
         console.log(this.Event.artist);
@@ -165,16 +165,22 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
                 () => this.main.accService.GetAccountById(arr[i].artist_id),
                 (res:AccountGetModel) => {
                     this.Artists.push(res);
-                    if( +i < (arr.length - 1))
-                    {
-                        artistArr.push(res.display_name)
-                    }
 
-                    if(arr.length - 1 == artistArr.length)
-                    {
-                        this.Featuring = artistArr.join(", ");
-                        this.Featuring += " and " + res.display_name;
-                    }
+                    // if( +i < (arr.length -1 ) )
+                    let name = res.display_name;
+                    let id = res.id;
+                    this.Featuring.push({name,id});
+                    // if( +i < (arr.length - 1))
+                    // {
+                    //     artistArr.push(res.display_name)
+                    // }
+
+
+                    // if(arr.length - 1 == artistArr.length)
+                    // {
+                    //     this.Featuring = artistArr.join(", ");
+                    //     this.Featuring += " and " + res.display_name;
+                    // }
                 }
             );
         }
