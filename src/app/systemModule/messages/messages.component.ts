@@ -103,15 +103,11 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
           });
         }
       }, 2000);
-  
-  
-  
   }
+
 
   GetMessages(){
     this.messages = [];
-
-   
 
     this.WaitBeforeLoading(
       () => this.main.accService.GetInboxMessages(this.accountId),
@@ -155,14 +151,15 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
                     m.sender.image_base64 = BaseImages.NoneFolowerImage;
                 }
                 this.idCurMsg = res.id;
-                // this.setDateRange();
+                this.setDateRange();
               })
           }
-          else{
-            this.openMessage = this.messages[0];
-            this.idCurMsg = this.messages[0].id;
-            this.setDateRange();
-          }
+          // else{
+          //   this.openMessage = this.messages[0];
+          //   this.idCurMsg = this.messages[0].id;
+          //   //this.openFullMessage();
+          //   this.setDateRange();
+          // }
         }
         // let index = 0;
         // for(let m of res)
@@ -180,46 +177,12 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
           
   }
 
-  // getUser(sender:number, index:number){
-  //   this.WaitBeforeLoading(
-  //     () => this.main.accService.GetAccountById(sender,{extended:true}),
-  //     (acc)=>{
-  //       this.accs[index] = acc;
-  //       if(this.accs[index].image_id)
-  //       {
-  //         this.WaitBeforeLoading(
-  //           () => this.main.imagesService.GetImageById(this.accs[index].image_id),
-  //           (img)=>{
-  //             this.accs[index].image_base64_not_given = img.base64;
-  //             //  console.log(`acc`,this.accs,this.accOpen);
-  //             if(index==0){
-  //               this.idCurMsg = this.messages[0].id;
-  //               this.openMessage = this.messages[0];
-  //               this.accOpen =  this.accs[0];
-  //               this.setDateRange();          
-  //             }
-  //           }
-  //         );
-  //       }
-  //       else if(index==0)
-  //       {
-  //         this.idCurMsg = this.messages[0].id;
-  //         this.openMessage = this.messages[0];
-  //         this.accOpen =  this.accs[0];
-  //         this.setDateRange();          
-  //       }
-  //     }
-  //   );
-  // }
-
   changeItem(msg:InboxMessageModel,i:number)
   {
-    
-    if(msg.message_type ==='blank'){
+    // if(msg.message_type ==='blank'){
       // this.openMessage = null;
       this.main.accService.GetInboxMessageById(this.accountId,msg.id)
         .subscribe((res)=>{
-          console.log(res);
           this.openMessage = res;
           
           this.openMessage.reply.unshift({
@@ -241,15 +204,27 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
           }
           this.idCurMsg = res.id;
           this.accOpen =  this.accs[i];
+
+           this.setDateRange();
         })
     }
-    else{
-      this.openMessage = msg;
-      this.idCurMsg = msg.id;
-      this.accOpen =  this.accs[i];
-      this.setDateRange();
-    }
-  }
+    // else{
+    //   this.openMessage = msg;
+    //   //this.openFullMessage();
+    //   this.idCurMsg = msg.id;
+    //   this.accOpen =  this.accs[i];
+    //   this.setDateRange();
+    // }
+  
+
+  // openFullMessage(){
+  //   this.main.accService.GetInboxMessageById(this.main.CurrentAccount.id,this.openMessage.id)
+  //     .subscribe(
+  //       (res)=>{
+  //         this.openMessage = res;
+  //       }
+  //     )
+  // }
 
   getExpireDate(d:string, frame:string)
   {

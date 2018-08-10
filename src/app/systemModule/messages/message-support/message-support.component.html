@@ -1,22 +1,23 @@
 <div class="some-request-text-wrapper">
 
     <div class="block-info f-b">
-        <span class="some-t">{{Message.message_type?Message.message_type:''}} to Perform</span>
+        <span class="some-t">{{Message.subject}}</span>
         <span class="when">{{Message.created_at | date:'MMM d' }}</span>
     </div>
 
-    <div class="block-info s-b">
-        <div class="ava" [ngStyle]="{'background-image': (Message.sender&&Message.sender.image_base64)?'url('+Message.sender.image_base64+')':''}"></div>
-        <div class="name-hash">
-            <p class="n">{{Message.sender?.full_name?Message.sender.full_name:''}}</p>
-            <p class="hash"><span>@</span>{{Message.sender?.user_name?Message.sender.user_name:''}}</p>
+    <ng-container *ngFor="let msg of Message.reply">
+        <div class="block-info s-b">
+            <div class="ava" [ngStyle]="{'background-image': (msg.sender&&msg.sender.image_base64)?'url('+msg.sender.image_base64+')':''}"></div>
+            <div class="name-hash">
+                <p class="n">{{msg.sender?.account_type==='admin'?'Admin':msg.sender?.full_name?msg.sender.full_name:''}}</p>
+                <p class="hash"><span>@</span>{{msg.sender?.user_name?msg.sender.user_name:''}}</p>
+            </div>
         </div>
-    </div>
     
-  
-    <div class="block-info t-b">
-        <p class="descr">{{Message.message | titlecase}}</p>
-    </div>
+        <div class="block-info t-b">
+            <p class="descr">{{msg.message | titlecase}}</p>
+        </div>
+    </ng-container>
 
 
     <div class="block-info sixth-b">

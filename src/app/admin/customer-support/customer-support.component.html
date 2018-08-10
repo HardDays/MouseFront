@@ -28,7 +28,7 @@
                     <div class="mes_head">
                         <div class="ava" [ngStyle]="{'background-image': reply&&reply.sender?'url('+reply.sender.image_base64+')':'url('+nonImage+')'}"></div>
                         <div class="info">
-                            <p class="name">{{reply&&reply.subject}}</p>
+                            <p class="name">{{reply?.sender?.full_name?reply.sender.full_name:''}}</p>
                             <p class="username"><span>@</span>{{reply?.sender?reply.sender.user_name:''}}</p>
                             <!-- <p class="address">{{openQuestion?.sender?openQuestion.sender.address:''}}</p> -->
                         </div>

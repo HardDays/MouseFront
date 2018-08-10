@@ -174,6 +174,7 @@ export class AdminComponent extends BaseComponent implements OnInit {
             case 'funding': this.currentPage = Parts.accounts_funding;
               break;
           }
+          this.openSubmenu.account = true;
           break;
 
         case 'events':
@@ -195,6 +196,7 @@ export class AdminComponent extends BaseComponent implements OnInit {
             case 'analytics': this.currentPage = Parts.events_analytics;
               break;
           }
+          this.openSubmenu.event = true;
           break;
 
           case 'account':
