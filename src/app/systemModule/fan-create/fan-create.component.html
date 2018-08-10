@@ -45,7 +45,7 @@
                     </div>
                     <div class="flex-checkboxes">
                         <ng-container *ngFor="let item of Genres; let i = index">
-                            <div *ngIf="item.show" class="one-checkbox" >
+                            <div *ngIf="item.show" class="one-checkbox" [ngClass]="{'check-start': item.checked}">
                                 <div  class="check-style">
                                     <input type="checkbox"  [ngModel]="item.checked" (ngModelChange)="item.checked = $event" class="checkbox" name="genre-{{i}}" id='checkbox-{{i}}'>
                                     <label for='checkbox-{{i}}'></label>

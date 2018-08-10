@@ -68,7 +68,6 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
 
           for(let fb of this.Feedbacks){
             //вот блядь не могу взять от сюда fb.rate_score поэтому буду прогонять другим циклом
-
             if(fb.sender){
               if(fb.sender.image_id)
                 fb.sender.image_base64 = this.main.imagesService.GetImagePreview(fb.sender.image_id,{width:100,height:100})

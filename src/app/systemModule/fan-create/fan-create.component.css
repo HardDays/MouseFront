@@ -14,3 +14,13 @@
 .register .m-v-reg{
     min-height: 850px;
 }
+.register .m-v-reg .reg-wr .flex-checkboxes .one-checkbox.check-start{
+    order: 0;
+}
+.register .m-v-reg .reg-wr .flex-checkboxes .one-checkbox{
+    order: 1;
+}
+.one-checkbox p{
+    font-size: 12px;
+    padding-left: 11px;
+}

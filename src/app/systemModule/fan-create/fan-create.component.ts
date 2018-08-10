@@ -224,7 +224,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
     this.WaitBeforeLoading(
       () => this.main.genreService.GetAllGenres(),
       (genres:string[])=> {
-
+        console.log(genres);
         this.Genres = this.main.genreService.StringArrayToGenreModelArray(genres);
         if(this.Fun&&this.Fun.genres){
           for(let g of this.Fun.genres){
@@ -245,8 +245,30 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
 
   seeFirstGenres()
   {
-    for(let i in this.Genres)
-      this.Genres[i].show = +i < 4;
+    let count = 0;
+
+    for(let g of this.Genres){
+      if(g.checked && count < 4){
+        count++;
+        g.show = true;
+      }
+    }
+    
+    for(let g of this.Genres){
+      if(count < 4){
+        if(!g.checked){
+          count++;
+          g.show = true;
+        }
+      }
+      else{
+        break;
+      }
+    }
+
+    // for(let i in this.Genres){
+    //   this.Genres[i].show = +i < 4;
+    // }
     /*this.Genres[0].show = true;
     this.Genres[1].show = true;
     this.Genres[2].show = true;

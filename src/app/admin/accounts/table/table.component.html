@@ -101,7 +101,7 @@
 
       <div *ngIf="Events" class="admin_table_tbody">
             <ng-container *ngFor="let event of EventsChecked; let i = index">
-              <div *ngIf="status=='all'||event.status===status||(event.status==='just_added'&&status==='new')" [ngClass]="{'checked':!event.is_viewed}" class="admin_table_tr">
+              <div *ngIf="status=='all'||event.status===status||(event.status==='just_added'&&status==='new')" [ngClass]="{'checked':!event.is_viewed}" class="admin_table_tr flex-wrapp">
                   <!-- <div class="admin_table_td check_column">
                       <div class="admin_table_checkbox">
                           <input (change)="checkIdToOpen(event.id)" type="checkbox" id="new_acc_{{i}}">

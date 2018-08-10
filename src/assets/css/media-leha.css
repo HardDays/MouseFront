@@ -24,11 +24,17 @@ html, body{
   height: auto;
   background-attachment: fixed;
 }
+.register .m-v-reg{
+  max-width: 725px;
+}
 .main_content .for-flex-height{
   min-height: 100vh;
  
 }
 
+.admin_page .admin_content .admin_table .admin_table_tr.flex-wrapp{
+  flex-wrap: wrap;
+}
 .modal-send-request.map-1-modal .modal-dialog .for-map-init-modal-1{
   border: none;  
 }
