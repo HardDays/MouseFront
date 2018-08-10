@@ -51,7 +51,7 @@ export class TableComponent extends BaseComponent implements OnInit {
   }
 
   onScrollArtist(){
-    console.log(`123`)
+    // console.log(`123`)
     this.ScrollArtistDisabled = true;
     let params = {status: this.status,text:this.SearchName,account_type: this.TypeAcc,limit:20,offset:this.Accounts.length};
     // if(this.status === '') delete params['status'];
@@ -141,7 +141,7 @@ export class TableComponent extends BaseComponent implements OnInit {
         this.main.adminService.AccountDelete(id)
           .subscribe(
             (res)=>{
-              console.log(id,`ok`);
+              // console.log(id,`ok`);
               this.Accounts.splice(this.Accounts.indexOf(this.Accounts.find((a)=>a.id===id)),1)
             },
             (err)=>{
@@ -153,7 +153,7 @@ export class TableComponent extends BaseComponent implements OnInit {
         this.main.adminService.EventDelete(id)
           .subscribe(
             (res)=>{
-              console.log(id,`ok`);
+              // console.log(id,`ok`);
               this.Events.splice(this.Events.indexOf(this.Events.find((e)=>e.id===id)),1)
             },
             (err)=>{

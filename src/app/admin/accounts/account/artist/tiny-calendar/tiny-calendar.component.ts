@@ -167,8 +167,8 @@ super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
               .subscribe(
                   (res:Base64ImageModel) => {
                       this.Images.push((res && res.base64) ? res : {base64:BaseImages.Drake,event_id:res.event_id});
-                      console.log(this.eventsThisMonth);
-                      console.log(this.Images);
+                      // console.log(this.eventsThisMonth);
+                      // console.log(this.Images);
                 }
               );
         }

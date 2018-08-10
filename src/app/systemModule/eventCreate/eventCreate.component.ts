@@ -344,7 +344,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         // this.isShowLaunch = false;
         this.isHasVenue = this.Event.venue?true:false;
         this.Event.status = EventStatus.Active;
-        console.log(`ok`);
+        // console.log(`ok`);
       },
       (err)=>{
         // console.log(`err`,err);
@@ -362,7 +362,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         // this.isShowLaunch = false;
         this.Event.status = EventStatus.Pending;
         this.isHasVenue = this.Event.venue?true:false;
-        console.log(`ok`);
+        // console.log(`ok`);
       },
       (err)=>{
         // console.log(`err`,err);

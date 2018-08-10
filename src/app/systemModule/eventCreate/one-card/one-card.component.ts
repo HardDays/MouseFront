@@ -33,7 +33,7 @@ export class OneCardComponent extends BaseComponent implements OnInit {
   emptyImage = BaseImages.NoneUserImage;
 
   ngOnInit() {
-    console.log(this.currency);
+    // console.log(this.currency);
     this.CurrencySymbol = CurrencyIcons[this.currency];
     // console.log(`card`,this.card, this.status);
   }

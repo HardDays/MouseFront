@@ -53,7 +53,7 @@ export class AddTicketsComponent extends BaseComponent implements OnInit {
     this.CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
 
     this.getTickets();
-    console.log(`INIT`);
+    // console.log(`INIT`);
 
 
     

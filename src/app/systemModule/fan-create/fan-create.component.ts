@@ -224,7 +224,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
     this.WaitBeforeLoading(
       () => this.main.genreService.GetAllGenres(),
       (genres:string[])=> {
-        console.log(genres);
+        // console.log(genres);
         this.Genres = this.main.genreService.StringArrayToGenreModelArray(genres);
         if(this.Fun&&this.Fun.genres){
           for(let g of this.Fun.genres){

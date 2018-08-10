@@ -29,7 +29,7 @@ export class AccountComponent extends BaseComponent implements OnInit {
       (res)=>{
         this.Account = res;
         this.accType = this.Account.account_type;
-        console.log(`Acc`,this.Account);
+        // console.log(`Acc`,this.Account);
       },
       (err)=>{
         console.log(`err`,err)
@@ -38,11 +38,11 @@ export class AccountComponent extends BaseComponent implements OnInit {
   }
 
   removeAcc(){
-    console.log(`removeAcc`);
+    // console.log(`removeAcc`);
     this.main.adminService.AccountDelete(this.accId)
       .subscribe(
         (res)=>{
-          console.log(`res`,res);
+          // console.log(`res`,res);
           this.router.navigate(['/admin','accounts','all'])
         },
         (err)=>{
@@ -52,7 +52,7 @@ export class AccountComponent extends BaseComponent implements OnInit {
   }
 
   denyAcc(){
-    console.log(`denyAcc`);
+    // console.log(`denyAcc`);
     this.main.adminService.AccountDeny(this.accId)
       .subscribe(
         (res)=>{
@@ -66,7 +66,7 @@ export class AccountComponent extends BaseComponent implements OnInit {
   }
 
   approveAcc(){
-    console.log(`approveAcc`);
+    // console.log(`approveAcc`);
     this.main.adminService.AccountApprove(this.accId)
       .subscribe(
         (res)=>{

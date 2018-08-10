@@ -70,7 +70,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
                             this.messagesList.push(msg);
                             if(this.messagesList.length===res.length)
                                 setTimeout(() => {
-                                    console.log(this.messagesList)
+                                    // console.log(this.messagesList)
                                     this.getActiveArtVen();
                                 }, 300);
                                 
@@ -205,7 +205,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
                     item.object.status===InviteStatus.Active)
                 {    
                     let price = this.getPriceAtMsg(item.object.artist_id);
-                    console.log(item,` price`,price);
+                    // console.log(item,` price`,price);
                     if(price){
                         this.activeArtist[i].object.approximate_price = price;
                     }
@@ -307,7 +307,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
                     m.receiver_id === this.Event.creator_id &&
                     m.message_info&&m.message_info.event_info&&
                     m.message_info.event_info.id === this.Event.id){
-                        console.log(m);
+                        // console.log(m);
                         return m.message_info.price||m.message_info.estimated_price;
                 }
                 

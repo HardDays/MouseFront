@@ -156,7 +156,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         this.Featuring = [];
         let artistArr:string[] = [];
         this.Artists = [];
-        console.log(this.Event.artist);
+        // console.log(this.Event.artist);
         let arr = this.Event.artist.filter( obj => obj.status == "active"|| obj.status == "owner_accepted");
         for(let i in arr)
         {

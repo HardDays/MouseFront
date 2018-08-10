@@ -16,7 +16,7 @@
 
                                 <ng-container *ngFor="let item of messages; let i = index">
 
-                                    <div *ngIf="item.message_type == 'request' || item.message_type == 'accept'" [ngClass]="{'active':item.id==idCurMsg}" (click)="changeItem(item,i);" class="one-msg-l-block active">
+                                    <div *ngIf="item.message_type == 'request' || item.message_type == 'accept' || item.message_type == 'blank'" [ngClass]="{'active':item.id==idCurMsg}" (click)="changeItem(item,i);" class="one-msg-l-block active">
                                         <div class="name-ava">
                                             <div class="ava" [ngStyle]="{'background-image': item.sender?'url('+item.sender.image_base64+')':''}"></div>
                                             <p class="n">{{item.sender?.full_name?item.sender.full_name:'No name'}}</p>
@@ -292,6 +292,32 @@
                                 [Message]="openMessage"
                             ></app-message-feedback>
                         </div>
+
+                         <div *ngIf="openMessage?.message_type === 'blank'" class="right-s">
+                            <div class="some-request-text-wrapper">
+                                <div class="block-info f-b">
+                                    <span class="some-t">{{openMessage.subject}}</span>
+                                    <span class="when">{{openMessage.created_at | date:'MMM d' }}</span>
+                                </div>
+                                <ng-container *ngFor="let reply of openMessage.reply">
+                                    <div *ngIf="reply.sender" class="block-info s-b">
+                                        <div class="ava" [ngStyle]="{'background-image': (reply.sender&&reply.sender.image_base64)?'url('+reply.sender.image_base64+')':''}"></div>
+                                        <div class="name-hash">
+                                            <p class="n">{{reply.sender?.full_name?reply.sender.full_name:''}}</p>
+                                            <p class="hash"><span>@</span>{{reply.sender?.user_name?reply.sender.user_name:''}}</p>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="block-info t-b">
+                                        <p class="descr">{{reply.message | titlecase}}</p>
+                                    </div>
+                                </ng-container>
+
+                            </div>
+                        </div>
+
+
+
 
                     </ng-container>
                

@@ -17,7 +17,7 @@ export class MessageSupportComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     //this.openFullMessage();
-    console.log(this.Message);
+    // console.log(this.Message);
   }
 
   // ngOnChanges(change:SimpleChanges){

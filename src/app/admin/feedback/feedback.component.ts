@@ -63,7 +63,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
         (res)=>{
           this.Feedbacks = res;
           
-          console.log(res);
+          // console.log(res);
           if(this.Feedbacks&&this.Feedbacks[0]&&this.Feedbacks[0].id)
             this.openNewFeedback(this.Feedbacks[0].id,this.Feedbacks[0]);
          
@@ -117,7 +117,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
     if(this.Type === 'all')
       this.FeedbacksChecked = this.Feedbacks;
     else 
-      this.FeedbacksChecked = this.Feedbacks.filter(obj => obj.feedback_type && (this.Type === obj.feedback_type));
+      this.FeedbacksChecked = this.Feedbacks.filter(obj => obj.message_info.feedback_type && (this.Type === obj.message_info.feedback_type));
   }
 
   InitJs(){

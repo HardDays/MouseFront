@@ -186,7 +186,7 @@ super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
   generateCalendar(): void {
     
     const dates = this.fillDates(this.currentDate);
-    console.log('ok');
+    // console.log('ok');
     const weeks: CalendarDate[][] = [];
     while (dates.length > 0) {
       weeks.push(dates.splice(0, 7));

@@ -163,7 +163,7 @@ export class RevenueAnalyticsComponent extends BaseComponent implements OnInit {
         res=>this.countsAdvertisingTotal = res;
       },
       (err)=>{
-        console.log("No Advertising content" ,err);
+        // console.log("No Advertising content" ,err);
         
       }
 

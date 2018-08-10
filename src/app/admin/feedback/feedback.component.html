@@ -1,5 +1,5 @@
 <div class="admin_content whole_white">
-    <div class="support_container">
+    <div  class="support_container">
         <div class="feedback_zag_block">
             <h1 class="support_zag">Feedback</h1>
             <div class="checks">
@@ -35,7 +35,7 @@
                 <p class="rate">{{Rate}} / 5.0</p>
             </div>
         </div>
-        <div class="support_grey" infinite-scroll 
+        <div *ngIf="FeedbacksChecked.length>0" class="support_grey" infinite-scroll 
                 [infiniteScrollDistance]="1"
                 [scrollWindow]="true" 
                 [infiniteScrollThrottle]="5"

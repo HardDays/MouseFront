@@ -316,7 +316,7 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
 
       // console.log(`to Save`,this.Artist);
       this.onSave.emit(this.Artist);
-      console.log(`ok ok okd`);
+      // console.log(`ok ok okd`);
     }
     else
       this.onError.emit('Please fill in all required fields!');

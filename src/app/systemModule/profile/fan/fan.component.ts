@@ -51,7 +51,7 @@ export class FanProfileComponent extends BaseComponent implements OnInit,OnChang
             this.isPreloadFans = true;
             this.FansChecked = this.Fans = changes.Fans.currentValue;
             this.isPreloadFans = false;
-            console.log('ok');
+            // console.log('ok');
         }    
         this.InitByUser();
     }

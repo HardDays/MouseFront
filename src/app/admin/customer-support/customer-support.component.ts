@@ -127,7 +127,7 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
           }
         }
         
-        console.log(`open message`,this.openQuestion)
+        // console.log(`open message`,this.openQuestion)
         
 
         // if(this.openQuestion.reply){

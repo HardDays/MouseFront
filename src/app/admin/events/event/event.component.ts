@@ -110,7 +110,7 @@ export class EventComponent extends BaseComponent implements OnInit {
               if(res.videos.length>0){
                 for(let v of res.videos){
                   this.Videos.push(this.getLink(v.link));
-                   console.log(this.Videos)
+                  //  console.log(this.Videos)
                 }
                 // console.log('2')
               }
@@ -192,7 +192,7 @@ export class EventComponent extends BaseComponent implements OnInit {
 
   getLink(link:string){
 
-    console.log(`--------`);
+    // console.log(`--------`);
     let url = 'http://www.youtube.com/embed/';
         url+= link.split('/').pop();
     return this._sanitizer.bypassSecurityTrustResourceUrl(url);

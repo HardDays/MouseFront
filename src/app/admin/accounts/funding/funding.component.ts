@@ -89,7 +89,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
         this.main.adminService.AccountDelete(id)
           .subscribe(
             (res)=>{
-              console.log(id,`ok`);
+              // console.log(id,`ok`);
               this.Accounts.splice(this.Accounts.indexOf(this.Accounts.find((a)=>a.id===id)),1)
             },
             (err)=>{

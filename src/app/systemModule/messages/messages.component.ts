@@ -113,7 +113,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
       () => this.main.accService.GetInboxMessages(this.accountId),
       (res:InboxMessageModel[])=>{
         this.messages = res;
-        console.log(res);
+        // console.log(res);
         for(let m of this.messages){
           if(m.sender){
             if(m.sender.image_id){
@@ -124,19 +124,20 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
             }
           }
         }
-        if(this.messages.length>0){
-          if(this.messages[0].message_type ==='blank'){
+        if(this.messages.length>=0){
+          // console.log(`1111`);
+          // if(this.messages[0].message_type ==='blank'){
             // this.openMessage = null;
             this.main.accService.GetInboxMessageById(this.accountId,this.messages[0].id)
               .subscribe((res)=>{
-                console.log(res);
+                // console.log(res);
                 this.openMessage = res;
 
                 this.openMessage.reply.unshift({
                   created_at: this.openMessage.created_at,
                   id:this.openMessage.id,
                   message:this.openMessage.message,
-                  message_type:'Support',
+                  message_type:this.openMessage.message_type,
                   sender: this.openMessage.sender,
                   sender_id:this.openMessage.sender_id,
                   subject:this.openMessage.subject
@@ -153,7 +154,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
                 this.idCurMsg = res.id;
                 this.setDateRange();
               })
-          }
+          // }
           // else{
           //   this.openMessage = this.messages[0];
           //   this.idCurMsg = this.messages[0].id;
@@ -197,10 +198,12 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
           )
 
           for(let m of this.openMessage.reply){
-            if(m.sender&&m.sender.image_id)
-              m.sender.image_base64 = this.main.imagesService.GetImagePreview(m.sender.image_id,{width:140,height:140});
-            else
-              m.sender.image_base64 = BaseImages.NoneFolowerImage;
+            if(m.sender){
+              if(m.sender.image_id)
+                m.sender.image_base64 = this.main.imagesService.GetImagePreview(m.sender.image_id,{width:140,height:140});
+              else
+                m.sender.image_base64 = BaseImages.NoneFolowerImage;
+            }
           }
           this.idCurMsg = res.id;
           this.accOpen =  this.accs[i];

@@ -132,13 +132,13 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
   }
 
   likePost(){
-     console.log(this.Feed.event.id,this.accId);
+    //  console.log(this.Feed.event.id,this.accId);
     if(!this.Feed.is_liked){
       this.main.likesService.PostLike(this.accId,this.Feed.id)
         .subscribe((res)=>{
           this.Feed.is_liked = true;
           this.Feed.likes++;
-          console.log(res);
+          // console.log(res);
         },(err)=>{
           console.log(`err`,err)
         })

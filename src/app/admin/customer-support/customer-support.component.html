@@ -1,6 +1,6 @@
 <div class="support_container">
     <h1 class="support_zag">Customer support</h1>
-    <div class="support_grey">
+    <div *ngIf="Questions.length>0" class="support_grey">
         <div class="support_dialogs">
                            
             <div  *ngFor="let item of Questions" (click)="openNewQuestion(item.id)"  class="support_dialogs_item" [ngClass]="{'active': openQuestion&&openQuestion.id === item.id}">
