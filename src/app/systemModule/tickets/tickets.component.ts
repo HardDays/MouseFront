@@ -2,7 +2,7 @@ import { Component, ViewChild, ElementRef, NgZone, Input, ViewContainerRef, Comp
 import { NgForm,FormControl,FormGroup,Validators} from '@angular/forms';
 import { BaseComponent } from '../../core/base/base.component';
 import { OnInit, AfterViewChecked } from '@angular/core/src/metadata/lifecycle_hooks';
-// import { } from 'googlemaps';
+import { } from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
 import { Router, Params, ActivatedRoute } from '@angular/router';
 import { AuthService } from "angular2-social-login";
