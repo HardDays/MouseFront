@@ -8634,12 +8634,19 @@ footer {
 }
 .mat-input-infix.mat-form-field-infix{
     width: 100%;
+    font-size: 14px;
 }
 .mat-input-underline.mat-form-field-underline{
     border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
     background-color: transparent;
     top: 45px;
 }
+.mat-select{
+    font-family: AvenirLTStdBook;
+}
+.mat-option-text{
+    font-family: AvenirLTStdBook;
+  }
 .mat-select-arrow{
     width: 4px!important;
     height: 4px!important;
