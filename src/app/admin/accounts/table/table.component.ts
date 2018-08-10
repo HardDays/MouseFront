@@ -28,6 +28,7 @@ export class TableComponent extends BaseComponent implements OnInit {
 
   ScrollArtistDisabled = false;
 
+
   ngOnChanges(changes: SimpleChanges): void {
     if(changes.Accounts){
        this.Accounts = changes.Accounts.currentValue;
@@ -88,6 +89,7 @@ export class TableComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     // console.log(this.Accounts)
+    this.onScrollArtist();
   }
 
   openAccount(id:number){

@@ -76,7 +76,7 @@
             (scrolled)="onScrollArtist()"
             [infiniteScrollDisabled]="ScrollArtistDisabled">
           <ng-container *ngFor="let acc of Accounts; let i = index">
-            <div [ngClass]="{'checked':acc.status==='just_added'}"  class="admin_table_tr">
+            <div *ngIf="acc.status === status || (acc.status==='just_added' && status == 'new') || status == 'all' || !status" [ngClass]="{'checked':acc.status==='just_added'}"  class="admin_table_tr">
                 <!-- <div class="admin_table_td check_column">
                     <div class="admin_table_checkbox">
                         <input (change)="checkIdToOpen(acc.id)" type="checkbox" id="new_acc_{{i}}">

@@ -214,11 +214,13 @@ export class AdminComponent extends BaseComponent implements OnInit {
           case 'feedback':
             if(url[3]==='analytics')
               this.currentPage = Parts.feedback_analytics;
+            this.openSubmenu.feedback = true;
           break;
 
           case 'customer':
           if(url[3]==='answers')
               this.currentPage = Parts.customer_answers;
+            this.openSubmenu.support = true;
           break;
 
           case 'revenues':
@@ -226,11 +228,13 @@ export class AdminComponent extends BaseComponent implements OnInit {
               this.currentPage = Parts.revenue_analytics;
             else
               this.currentPage = Parts.revenue_info;
+            this.openSubmenu.revenue = true;
           break;
 
           case 'settings':
             if(url[3]==='add-admin')
               this.currentPage = Parts.add_new_admin;
+            this.openSubmenu.settings = true;
           break;
           
       }
