@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { BaseComponent } from '../../../core/base/base.component';
 import { Params } from '@angular/router';
 import { EventGetModel } from '../../../core/models/eventGet.model';
@@ -14,6 +14,21 @@ declare var $:any;
   styleUrls: ['./event.component.css']
 })
 export class EventComponent extends BaseComponent implements OnInit {
+
+  @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+    if(this.isShowMap){
+        if (event.keyCode === this.ESCAPE_KEYCODE || event.keyCode === this.ENTER_KEYCODE) {
+          $('#modal-map-1').modal('hide');
+          this.isShowMap = false;
+        }
+    }
+  }
+
+  isShowMap = false;
+
+  
+  ESCAPE_KEYCODE = 27;
+  ENTER_KEYCODE = 13;
 
   eventId = 0;
   Event:EventGetModel = new EventGetModel();
@@ -183,6 +198,12 @@ export class EventComponent extends BaseComponent implements OnInit {
     return this._sanitizer.bypassSecurityTrustResourceUrl(url);
     // return url;
   }
+
+  openMap(){
+    $('#modal-map-1').modal('show');
+    this.isShowMap = true;
+  }
+
     
   
   

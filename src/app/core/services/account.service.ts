@@ -271,7 +271,7 @@ export class AccountService{
             follower_id:follower_id
         }
         return this.http.CommonRequest(
-            ()=> this.http.PostData('/accounts/+'+id+'/follow.json',JSON.stringify(params))
+            ()=> this.http.PostData('/accounts/'+id+'/follow.json',JSON.stringify(params))
         );
         //return this.http.PostData('/accounts/+'+id+'/follow.json',JSON.stringify(params));
     }

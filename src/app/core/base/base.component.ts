@@ -532,6 +532,7 @@ export class BaseComponent{
                 autocomplete.addListener(
                     "place_changed",
                     () => {
+                        console.log(`place_changed`);
                         this.ngZone.run(
                             () => {
                                 let place: google.maps.places.PlaceResult = autocomplete.getPlace();

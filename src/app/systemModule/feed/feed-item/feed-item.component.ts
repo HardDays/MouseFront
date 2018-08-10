@@ -140,16 +140,15 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
           this.Feed.likes++;
           console.log(res);
         },(err)=>{
-          // console.log(`err`,err)
+          console.log(`err`,err)
         })
     } else {
       this.main.likesService.DeleteLike(this.accId,this.Feed.id)
       .subscribe((res)=>{
           this.Feed.is_liked = false;
           this.Feed.likes--;
-        // console.log(res);
       },(err)=>{
-        // console.log(`err`,err)
+        console.log(`err`,err)
       })
     }
   }

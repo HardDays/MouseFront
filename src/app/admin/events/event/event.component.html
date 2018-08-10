@@ -41,7 +41,7 @@
                     <p class="char">Featuring: <strong *ngFor="let art of Artists; let last = last">{{art.display_name}} {{last?'':', '}}</strong></p>
                     <p class="ev_label">Location</p>
                     <div class="location-wr margened">
-                        <div class="mark"></div>
+                        <div (click)="openMap()" class="mark"></div>
                         <p class="location-inp ">
                             {{Event.address}}
                         </p>
@@ -78,3 +78,17 @@
         </div>
     </section>
 <!-- </div> -->
+
+<div class="modal fade modal-send-request map-1-modal" id="modal-map-1">
+    <div class="modal-dialog">
+        <div class="modal-body">
+            <h6 class="head-m-p-a">Location</h6>
+            <span class="closee-modal" data-dismiss="modal"></span>
+            <div class="for-map-init-modal-1">
+                    <agm-map  style="height:100%" [latitude]="Event.city_lat" [longitude]="Event.city_lng">
+                            <agm-marker  [latitude]="Event.city_lat" [longitude]="Event.city_lng"></agm-marker>
+                    </agm-map>
+            </div>
+        </div>
+    </div>
+</div>
