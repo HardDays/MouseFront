@@ -32,7 +32,7 @@ export class TableComponent extends BaseComponent implements OnInit {
     if(changes.Accounts){
        this.Accounts = changes.Accounts.currentValue;
     }
-    if(changes.status){
+    if(changes.status&&this.Accounts){
       if(changes.status.currentValue === 'all')
         this.status = '';
       else if(changes.status.currentValue === 'new')
