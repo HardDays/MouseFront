@@ -43,11 +43,15 @@ export class TableComponent extends BaseComponent implements OnInit {
     this.ScrollArtistDisabled = true;
       this.main.adminService.GetAccountsRequests({text:this.SearchName,account_type: this.TypeAcc,limit:20,offset:this.Accounts.length})
         .subscribe((res)=>{
-          this.Accounts.push(...res);
-  
+          this.Accounts = [];
+         
+          this.Accounts = res; //((x, y) => x.includes(y) ? x : [...x, y], []);
+          // let set = new Set(this.Accounts);
+          // this.Accounts = [new Set(this.Accounts)]
           setTimeout(() => {
             this.ScrollArtistDisabled = false;
             // this.filterAccs();
+            
           }, 300);
          
         })
