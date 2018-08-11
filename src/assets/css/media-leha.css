@@ -141,7 +141,9 @@ html, body{
 .admin_page .admin_content .admin_table.accounts_table .admin_table_th.change-w-adr, .admin_page .admin_content .admin_table.accounts_table .admin_table_td.change-w-adr{
   width: 26%;
 }
-
+.admin_page .admin_content .admin_cards .card .num{
+  line-height: 50px;
+}
 @media (max-width: 1600px) {
   .admin_page .admin_content .events_status_wrap .events_status_diagramm{
     width: 43%;
