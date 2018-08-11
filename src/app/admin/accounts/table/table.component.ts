@@ -251,9 +251,8 @@ export class TableComponent extends BaseComponent implements OnInit {
   filterAccs(event?){
     if(event){
       this.SearchName = event.target.value;
-      this.Accounts = [];
     }
-    
+    this.Accounts = [];
       // this.Accounts = [];
     this.onScrollArtist();
     // if(this.SearchName){

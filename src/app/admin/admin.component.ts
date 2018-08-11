@@ -147,8 +147,6 @@ export class AdminComponent extends BaseComponent implements OnInit {
         case 'revenues':
           this.currentPage = Parts.revenue;
         break;
-
-        
       }
     }
     else if(url.length === 4){
@@ -174,7 +172,7 @@ export class AdminComponent extends BaseComponent implements OnInit {
             case 'funding': this.currentPage = Parts.accounts_funding;
               break;
           }
-          this.openSubmenu.account = true;
+          if(url[3]!='all')this.openSubmenu.account = true;
           break;
 
         case 'events':
@@ -196,7 +194,7 @@ export class AdminComponent extends BaseComponent implements OnInit {
             case 'analytics': this.currentPage = Parts.events_analytics;
               break;
           }
-          this.openSubmenu.event = true;
+          if(url[3]!='all')this.openSubmenu.event = true;
           break;
 
           case 'account':
@@ -218,9 +216,10 @@ export class AdminComponent extends BaseComponent implements OnInit {
           break;
 
           case 'customer':
-          if(url[3]==='answers')
+          if(url[3]==='answers'){
               this.currentPage = Parts.customer_answers;
-            this.openSubmenu.support = true;
+              this.openSubmenu.support = true;
+          }
           break;
 
           case 'revenues':
@@ -232,9 +231,10 @@ export class AdminComponent extends BaseComponent implements OnInit {
           break;
 
           case 'settings':
-            if(url[3]==='add-admin')
+            if(url[3]==='add-admin'){
               this.currentPage = Parts.add_new_admin;
-            this.openSubmenu.settings = true;
+              this.openSubmenu.settings = true;
+            }
           break;
           
       }
