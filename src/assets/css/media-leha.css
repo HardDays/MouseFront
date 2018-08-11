@@ -124,6 +124,9 @@ html, body{
   white-space: nowrap;
   width: 112.25px;
 }
+.admin_page .admin_content .admin_table .admin_table_tr{
+  flex-wrap: wrap;
+}
 
 
 @media (max-width: 1600px) {
@@ -131,7 +134,13 @@ html, body{
     width: 43%;
     padding: 15px;
   }
-  
+  .admin_page .admin_content {
+    padding: 0 24px;
+  }
+  .admin_page nav .admin_menu_link {
+    padding: 25px 30px 25px 35px;}
+    .admin_page nav {
+      width: 345px;}
 }
 
 
@@ -200,6 +209,12 @@ html, body{
   .messages-main-wrapp.fix-min-height .main-mw.main_for_setts .settings_wrap{
     min-height: auto;
   }
+  .admin_page .admin_content .admin_table .admin_table_tr .admin_table_td{
+    font-size: 12px;
+  }
+  .admin_page .admin_content .admin_table .admin_table_thead .admin_table_th.width-fixed{
+    width: 101.92px;
+  }
 }
 @media (max-width: 1400px) {
   .modal-send-request.map-1-modal .modal-dialog .for-map-init-modal-1 {
@@ -235,6 +250,12 @@ html, body{
   }
   .create-event-body-1 .create-event-body .flex-body-1 .side.two-sides-w .shadow-days-wr .times-days .some-times-days .week-day-time-wr{
     margin-left: 0;
+  }
+  .admin_page .admin_content .support_container{
+    padding: 0 15px 0 15px;
+  }
+  .admin_page .admin_content .support_container .feedback_zag_block .checks .filter_checkbox{
+    margin-left: 10px;
   }
 }
 @media (max-width: 1300px) {

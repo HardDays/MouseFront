@@ -1,3 +1,32 @@
 button[disabled]{
     cursor: not-allowed;
 }
+.support_dialogs{
+    width: 45%;
+    max-height: calc(100vh - 169px);
+    overflow: auto;
+    direction: rtl;
+    position: relative;
+    padding-left: 10px;
+    left: -10px;
+}
+.support_dialogs_item{
+    direction: ltr;
+}
+.support_right{
+    margin-bottom: 30px;
+}
+
+.support_dialogs::-webkit-scrollbar {
+    background: #f1f1f1;
+    width: 5px;
+}
+
+.support_dialogs::-webkit-scrollbar-thumb {
+    background: #d9d9d9;
+    border-radius: 2.5px;
+    cursor: pointer;
+}
+.support_right .support_mes .mes_head{
+    margin-bottom: 20px;
+}
