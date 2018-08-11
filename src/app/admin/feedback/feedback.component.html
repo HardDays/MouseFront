@@ -52,7 +52,7 @@
                             </p>
                             <p class="name">{{fb.sender?fb.sender.full_name:'No name'}}</p>
                             <p class="username"><span>@</span>{{fb.sender?fb.sender.user_name:'No username'}}</p>
-                            <!-- <p class="address">{{fb.sender?fb.sender.address:'No address'}}</p> -->
+                            <p class="address">{{fb.sender?fb.sender.address:'No address'}}</p>
                         </div>
                         <div class="stars">
                             <span class="star" [ngClass]="{'full':fb.rate_score>=0.5}"></span>
@@ -76,7 +76,7 @@
                         <div class="info">
                             <p class="name">{{fbTransformed.sender ? fbTransformed.sender.full_name :'No name'}}</p>
                             <p class="username"><span>@</span>{{fbTransformed.sender?fbTransformed.sender.user_name:'No username'}}</p>
-                            <!-- <p class="address">New York, NY USA</p> -->
+                            <p class="address">{{fbTransformed.sender?fbTransformed.sender.address:'No address'}}</p>
                         </div>
                         <div class="stars_block">
 
