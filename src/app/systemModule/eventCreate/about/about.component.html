@@ -73,7 +73,30 @@
                             <label for="inp-create-5">Funding Goal</label>
                             
                         </div>
+
+                        
                     </div>
+
+                    <div *ngIf="Event.is_crowdfunding_event" class="flex-date-inputs">
+                                <div class="one-date-block">
+                                    <div (click)="dpFrom.show()" class="date-icon"></div>
+                                    <div class="rr">
+                                        <span class="desc-date">Start Date</span>
+                                       
+                                        <input #dpFrom="bsDatepicker" bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerFromModel" class="input-date">
+                                    </div>
+                                </div>
+                                <div class="one-date-block">
+                                    <div (click)="dpTo.show()" class="date-icon"></div>
+                                    <div class="rr">
+                                        <span class="desc-date">End Date</span>
+                                        
+                                        <input #dpTo="bsDatepicker" bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerToModel" class="input-date">
+                                    </div>
+                                </div>
+                    </div>
+
+                    <br>                    
 
                     <div class="flex-mac-checkbox">
                         <p>Comments  Available?</p>

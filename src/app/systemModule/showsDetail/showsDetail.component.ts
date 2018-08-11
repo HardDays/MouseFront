@@ -245,6 +245,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     BuyTicket()
     {
         let items = this.CheckedTickets;
+        console.log(`checked`,this.CheckedTickets)
         for(let item of items)
         {
             this.WaitBeforeLoading(
@@ -287,12 +288,16 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
                 let object = {
                     ticket_id:key,
                     count:0,
-                    account_id:accId
+                    account_id:accId,
+                    price: 0
                 }
 
                 for(let item of element)
                 {
                     object.count += item.count;
+                    
+                    // добавить цену за один билет \\
+                    object.price = item.ticket.price;
                 }
 
                 result.push(object);

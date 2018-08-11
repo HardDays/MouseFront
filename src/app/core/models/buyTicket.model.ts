@@ -3,6 +3,7 @@ export class BuyTicketModel
 {
     constructor(
         public count?:number,
-        public ticket?:TicketModel
+        public ticket?:TicketModel,
+        public price?:number
     ){}
 }
