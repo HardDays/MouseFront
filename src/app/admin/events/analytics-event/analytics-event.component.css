@@ -1,9 +1,10 @@
 .pie_graph{
     width: 40%;
-    height: 225px;
+    min-height: 225px;
+    height: auto;
     margin-top: 20px;
     background-color: white;
-    padding: 3% 0;
+    padding: 1% 0;
     -webkit-box-shadow: 0px 8px 20px 0 rgba(0, 0, 0, 0.07);
     box-shadow: 0px 8px 20px 0 rgba(0, 0, 0, 0.07);
 }
