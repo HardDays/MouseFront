@@ -17,7 +17,7 @@
                         <p class="some-tt"><span>Featuring:</span>
                             <ng-container *ngFor="let f of Featuring; let i = index" >
                                 <a style="color:white" [routerLink]="['/system/profile',f.id]">
-                                    {{f.name}}{{Featuring.length-1===i?' and ':', '}}
+                                    {{f.name}}{{ Featuring.length-1>i?Featuring.length-2===i?' and ':', ' :''}}
                                 </a>
                             </ng-container>
                         </p>
