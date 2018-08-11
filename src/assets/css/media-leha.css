@@ -127,7 +127,20 @@ html, body{
 .admin_page .admin_content .admin_table .admin_table_tr{
   flex-wrap: wrap;
 }
-
+.admin_page .admin_content .admin_table.accounts_table.accounts_table_with_by .admin_table_th.change-w-acc, .admin_page .admin_content .admin_table.accounts_table.accounts_table_with_by .admin_table_td.change-w-acc
+{
+  width: 10.6%;
+}
+.admin_page .admin_content .admin_table.accounts_table.accounts_table_with_by .admin_table_th.change-w-adr, .admin_page .admin_content .admin_table.accounts_table.accounts_table_with_by .admin_table_td.change-w-adr
+{
+  width: 22.7%;
+}
+.admin_page .admin_content .admin_table.accounts_table .admin_table_th.change-w-acc, .admin_page .admin_content .admin_table.accounts_table .admin_table_td.change-w-acc{
+  width: 11%;
+}
+.admin_page .admin_content .admin_table.accounts_table .admin_table_th.change-w-adr, .admin_page .admin_content .admin_table.accounts_table .admin_table_td.change-w-adr{
+  width: 26%;
+}
 
 @media (max-width: 1600px) {
   .admin_page .admin_content .events_status_wrap .events_status_diagramm{
@@ -269,6 +282,23 @@ html, body{
  
   .all-info-profile .uniq-padd-2 .flex--info .side.side-calendars-l.none-1300{
       display: none;
+}
+.admin_page .admin_content .admin_table .admin_table_tr .admin_table_td{
+  font-size: 11px;
+
+}
+.admin_page .admin_content .admin_table .admin_table_thead .admin_table_th.width-fixed{
+  width: 76.77px;
+}
+.admin_page .admin_content .admin_table .admin_table_tr .admin_table_td{
+  padding: 13px 10px;
+}
+.admin_page .admin_content .admin_table .admin_table_thead .admin_table_th{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.admin_page .admin_content .admin_table .admin_table_thead .admin_table_th{
+  font-size: 10px;
 }
 
 }

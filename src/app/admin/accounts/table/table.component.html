@@ -55,8 +55,8 @@
           <!-- <div class="admin_table_th check_column"><img src="./../../../assets/img/admin/table_check_th.svg" alt=""></div> -->
           <div class="admin_table_th width-fixed">Date received</div>
           <div class="admin_table_th">Name</div>
-          <div class="admin_table_th">Account</div>
-          <div class="admin_table_th">Address</div>
+          <div class="admin_table_th change-w-acc">Account</div>
+          <div class="admin_table_th change-w-adr">Address</div>
           <div class="admin_table_th">Status</div>
           <div *ngIf='isApprovedBy' class="admin_table_th">{{status}} by</div>
       </div>
@@ -89,8 +89,8 @@
                     <span class="acc_ava" style="min-width: 37px;" [ngStyle]="getImage(acc.image_id)"></span>
                     <span>{{acc.full_name}}</span>
                 </div>
-                <div class="admin_table_td"><span>{{acc.account_type|titlecase}}</span></div>
-                <div class="admin_table_td"><span class="ellips-text">{{acc.address}}</span></div>
+                <div class="admin_table_td change-w-acc"><span>{{acc.account_type|titlecase}}</span></div>
+                <div class="admin_table_td change-w-adr"><span class="ellips-text">{{acc.address}}</span></div>
                 <div class="admin_table_td text-uppercase"><span [ngClass]="{'status_pending':acc.status=='pending','status_approved':acc.status=='approved','status_new':acc.status=='new','status_denied':acc.status=='denied','status_inactive':acc.status=='inactive'}">{{acc.status.replace('_',' ')|titlecase}}</span></div>
                 <div *ngIf='isApprovedBy' class="admin_table_td"><span>{{acc.processed_by}}</span></div>
             </div>
