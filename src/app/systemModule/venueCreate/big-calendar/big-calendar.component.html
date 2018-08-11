@@ -66,30 +66,31 @@
                         </div>
                         <!--/дата-->
                         
-
-                        <div class="prices">
-                            <!--"changed-price-morning" добавляем класс блоку "morning" если была изменина цена утра-->
-                            <p class="morning"
-                                [ngClass]="
-                                {
-                                    'changed-price-morning': day.dayPrice != null
-                                }
-                                "
-                            >
-                                <span>{{ day.dayPrice != null? day.dayPrice : (allDaysPriceDay?allDaysPriceDay:0)}}{{day.currency}}</span>
-                               
-                            </p>
-                            <!--"changed-price-night" добавляем класс блоку "night" если была изменина цена ночи-->
-                            <p class="night"
-                                [ngClass]="
-                                {
-                                    'changed-price-night': day.nightPrice != null
-                                }
-                                "
-                            >
-                                <span>{{ day.nightPrice != null? day.nightPrice : (allDaysPriceNight?allDaysPriceNight:0)}}{{day.currency}}</span>
-                            </p>
-                        </div>
+                        <ng-container *ngIf="!day.selected">
+                            <div class="prices">
+                                <!--"changed-price-morning" добавляем класс блоку "morning" если была изменина цена утра-->
+                                <p class="morning"
+                                    [ngClass]="
+                                    {
+                                        'changed-price-morning': day.dayPrice != null
+                                    }
+                                    "
+                                >
+                                    <span>{{ day.dayPrice != null? day.dayPrice : (allDaysPriceDay?allDaysPriceDay:0)}}{{day.currency}}</span>
+                                
+                                </p>
+                                <!--"changed-price-night" добавляем класс блоку "night" если была изменина цена ночи-->
+                                <p class="night"
+                                    [ngClass]="
+                                    {
+                                        'changed-price-night': day.nightPrice != null
+                                    }
+                                    "
+                                >
+                                    <span>{{ day.nightPrice != null? day.nightPrice : (allDaysPriceNight?allDaysPriceNight:0)}}{{day.currency}}</span>
+                                </p>
+                            </div>
+                        </ng-container>
 
                     </div>
 

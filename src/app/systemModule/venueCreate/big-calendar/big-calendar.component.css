@@ -28,6 +28,9 @@
     width: 45px;
 }
 
+.tiny-calendar-wrapper .body-calendar .days .one-day-wr.today .one-day p {
+  color: #fff !important;
+}
 /* .one-day:hover .popup-inform-tiny-calendar {
     display: block; }
 
