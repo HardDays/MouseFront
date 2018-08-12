@@ -9,7 +9,7 @@ import { BaseImages } from '../../../core/base/base.enum';
 import * as moment from 'moment';
 import { Base64ImageModel } from '../../../core/models/base64image.model';
 import { TinyCalendarComponent, CalendarDate } from './tiny-calendar/tiny-calendar.component';
-import { CurrencyIcons } from '../../../core/models/preferences.model';
+import { CurrencyIcons, Currency } from '../../../core/models/preferences.model';
 
 
 declare var audiojs:any;
@@ -49,7 +49,7 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
 
   Artist:AccountGetModel = new AccountGetModel();
 
-  CurrencySymbol = '$';
+  CurrencySymbol = CurrencyIcons[Currency.USD];
 
   onHover:boolean[] = [true,false,false,false];
 
@@ -66,7 +66,7 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
+    // this.CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
 
     scrollTo(0,0);
     this.InitMusicPlayer();
@@ -78,6 +78,7 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
         if(this.Artist.genres)
           this.Artist.genres = this.main.genreService.BackGenresToShowGenres(this.Artist.genres);
         // console.log(`artist`,res);
+        this.CurrencySymbol = CurrencyIcons[this.Artist.currency];
         this.GetDates();
         this.GetArtistImages();
         this.updateVideosPreview();
