@@ -20,8 +20,19 @@
                       </div>
                       <div class="sides">
                           <div class="head-sides-2">
-                              <h2>Tickets</h2>
-                              <p><strong>Total price: <span>{{Currency}} {{TotalPrice}}</span></strong><br></p>
+                                <h2>Tickets</h2>
+                                <p>
+                                    <strong>
+                                        Total price: 
+                                        <span>
+                                          {{MyCurrency}} {{TotalAproxPrice}} 
+                                          <ng-container *ngIf="OriginalCurrency != MyCurrency">
+                                                ({{OriginalCurrency}} {{TotalOriginalPrice}})
+                                          </ng-container>
+                                        </span>
+                                    </strong>
+                                    <br>
+                                </p>
                           </div>
                           <div id="scrolled-wrapp" class="scrolled-wrapp">
                               <div class="one-wr-tick" *ngFor="let item of TicketsByEvent.tickets; let i = index">
@@ -29,7 +40,12 @@
                                       <p class="f" *ngIf="item.ticket.type == 'in_person'">In person ticket</p>
                                       <p class="f" *ngIf="item.ticket.type == 'vr'">Vr ticket</p>
                                       <p class="s">(Regular)</p>
-                                      <p class="c">{{getCurrency(item.currency)}}{{item.ticket.price}}</p>
+                                      <p class="c" [ngClass]="
+                                      {
+                                          'with-original-price': MyCurrency != OriginalCurrency
+                                      }
+                                      ">{{MyCurrency}}{{item.price}}</p>
+                                      <p *ngIf="MyCurrency != OriginalCurrency" class="c c-original">({{OriginalCurrency}} {{item.original_price}})</p>
                                       <p class="t">{{item.ticket.description?item.ticket.description:''}}</p>
                                       <p class="last" *ngIf="item.tickets_left">({{item.tickets_left}} tickets left)</p>
                                       <p class="last" *ngIf="!item.tickets_left">(Sold out)</p>
@@ -37,9 +53,9 @@
                               </div>
                               
                           </div>
-                          <div class="butt-wrapp-grad">
+                          <div *ngIf="!isPrint && TicketsByEvent?.tickets?.length>0" class="butt-wrapp-grad">
                             
-                              <span (click)="printTicket()" class="butt-style-1">
+                              <span *ngIf="!isPrint" (click)="printTicket()" class="butt-style-1">
                                   <span>Print tickets</span>
                               </span>
                               

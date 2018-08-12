@@ -29,11 +29,17 @@ import { Currency, CurrencyIcons } from '../../core/models/preferences.model';
 export class MyTicketOpenedComponent extends BaseComponent implements OnInit,AfterViewChecked{
   event_id:number;
   accountId:number;
-  TotalPrice:number = 0;
+  TotalOriginalPrice:number = 0;
+  TotalAproxPrice:number = 0;
   TicketsByEvent:TicketsByEventModel = new TicketsByEventModel();
   Image:string = BaseImages.Drake;
 
-  Currency = CurrencyIcons[this.main.settings.GetCurrency()];
+  // Currency = CurrencyIcons[this.main.settings.GetCurrency()];
+
+  isPrint = false;
+  
+  MyCurrency = CurrencyIcons[this.main.settings.GetCurrency()];
+  OriginalCurrency = CurrencyIcons[Currency.USD];
   
   constructor(
     protected main           : MainService,
@@ -45,6 +51,8 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit,Aft
     protected cdRef          : ChangeDetectorRef
   ) {
     super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
+
+    this.MyCurrency = CurrencyIcons[this.main.settings.GetCurrency()];
   }
 
   ngOnInit() 
@@ -111,8 +119,8 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit,Aft
       () => this.main.eventService.GetTicketsByEvent(this.accountId,this.event_id),
       (res:TicketsByEventModel) =>
       {
-        // console.log(res);
         this.TicketsByEvent = res;
+        // console.log(this.TicketsByEvent);
         this.GetImage();
         this.CountTotalPrice();
       },
@@ -124,17 +132,25 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit,Aft
 
   CountTotalPrice()
   {
-    this.TotalPrice = 0;
+    this.TotalOriginalPrice = 0;
+    this.TotalAproxPrice = 0;
     for(let i of this.TicketsByEvent.tickets)
     {
-      this.TotalPrice+=i.ticket.price;
-      this.Currency = CurrencyIcons[i.currency];
+      if(i.original_price)
+        this.TotalOriginalPrice+=i.original_price;
+      if(i.price)
+        this.TotalAproxPrice += i.price;
+      this.OriginalCurrency = CurrencyIcons[i.currency];
     }
   }
 
   printTicket(){
 
-    var css = '@page { size: landscape; }',
+    // var originalContents = document.body.innerHTML;
+    this.isPrint = true;
+   
+    setTimeout(() => {
+     var css = '@page { size: landscape; }',
     head = document.head || document.getElementsByTagName('head')[0],
     style = document.createElement('style');
 
@@ -151,14 +167,20 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit,Aft
 
 
 
-    var printContents = document.getElementById('print').innerHTML;
-    var originalContents = document.body.innerHTML;
-
-     document.body.innerHTML = printContents;
+    // var printContents = document.getElementById('print').innerHTML;
+    
+    //  document.body.innerHTML = printContents;
 
      window.print();
 
-     document.body.innerHTML = originalContents;
+      setTimeout(() => {
+        this.isPrint = false;
+      }, 100);
+     
+
+    //  document.body.innerHTML = originalContents;
+    }, 100);
+    
 
   }
 

@@ -9,6 +9,15 @@
     background: #fff;
 }
 
+
 @media print {
     .flex-ticket-wrapp .sides .butt-wrapp-grad .butt-style-1 { display: none !important; }
  }
+
+.c-original{
+    font-size:25px !important;
+    line-height: 30px !important;
+}
+.with-original-price{
+    margin-bottom: 0px !important;
+}

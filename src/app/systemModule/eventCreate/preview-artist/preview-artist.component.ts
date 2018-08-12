@@ -9,7 +9,7 @@ import { BaseImages } from '../../../core/base/base.enum';
 import * as moment from 'moment';
 import { Base64ImageModel } from '../../../core/models/base64image.model';
 import { TinyCalendarComponent, CalendarDate } from './tiny-calendar/tiny-calendar.component';
-import { CurrencyIcons } from '../../../core/models/preferences.model';
+import { CurrencyIcons, Currency } from '../../../core/models/preferences.model';
 
 
 declare var audiojs:any;
@@ -50,7 +50,7 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
 
   Artist:AccountGetModel = new AccountGetModel();
 
-  CurrencySymbol = '$';
+  CurrencySymbol = CurrencyIcons[Currency.USD];
 
   onHover:boolean[] = [true,false,false,false];
 
@@ -67,7 +67,7 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
+    // this.CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
 
     scrollTo(0,0);
     this.InitMusicPlayer();
@@ -79,6 +79,7 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
         if(this.Artist.genres)
           this.Artist.genres = this.main.genreService.BackGenresToShowGenres(this.Artist.genres);
         // console.log(`artist`,res);
+        this.CurrencySymbol = CurrencyIcons[this.Artist.currency];
         this.GetDates();
         this.GetArtistImages();
         this.updateVideosPreview();
@@ -91,55 +92,62 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
            });
          }
          else this.Artist.image_base64_not_given = BaseImages.NoneFolowerImage;
+         this.positionScroller();
       }
      )
   }
 
   ngAfterViewInit(){
-    
-        setTimeout(() => {
-          if($(window).width() >= 768){
-            $('.photos-abs-wrapp').css({
-              'max-height': $('.rel-wr-photoos').width()+'px'
-            });
-            $('.new-photos-wr-scroll-preview').css({
-              'padding-left': $('.for-position-left-js').offset()?$('.for-position-left-js').offset().left:0
-            });
+    this.positionScroller();
         
-          $(window).resize(function(){
-              $('.photos-abs-wrapp').css({
-                  'max-height': $('.rel-wr-photoos').width()+'px'
-              });
-              $('.new-photos-wr-scroll-preview').css({
-                  'padding-left': $('.for-position-left-js').offset()?$('.for-position-left-js').offset().left:0
-              });
-          });
-        }
-        else{
-          $('.new-photos-wr-scroll-preview').css({
-            'padding-left': '15px'
-          });
-          $('.photos-abs-wrapp').css({
-            'max-height': ($('.rel-wr-photoos').width()) +'px'
-          });
-         
+    
+    
       
-          $(window).resize(function(){
-            $('.new-photos-wr-scroll-preview').css({
-                'padding-left': '15px'
-            });
-              $('.photos-abs-wrapp').css({
-                  'max-height': ($('.rel-wr-photoos').width())+'px'
-              });
-              
-          });
-        }
-      }, 2000);
-    
-    
-
   
   // this.InitMusicPlayer();
+  }
+
+  positionScroller(){
+    
+    setTimeout(() => {
+      console.log('ok');
+      if($(window).width() >= 768){
+        $('.photos-abs-wrapp').css({
+          'max-height': $('.rel-wr-photoos').width()+'px'
+        });
+        $('.new-photos-wr-scroll-preview').css({
+          'padding-left': $('.for-position-left-js').offset()?$('.for-position-left-js').offset().left:0
+        });
+    
+      $(window).resize(function(){
+          $('.photos-abs-wrapp').css({
+              'max-height': $('.rel-wr-photoos').width()+'px'
+          });
+          $('.new-photos-wr-scroll-preview').css({
+              'padding-left': $('.for-position-left-js').offset()?$('.for-position-left-js').offset().left:0
+          });
+      });
+    }
+    else{
+      $('.new-photos-wr-scroll-preview').css({
+        'padding-left': '15px'
+      });
+      $('.photos-abs-wrapp').css({
+        'max-height': ($('.rel-wr-photoos').width()) +'px'
+      });
+     
+  
+      $(window).resize(function(){
+        $('.new-photos-wr-scroll-preview').css({
+            'padding-left': '15px'
+        });
+          $('.photos-abs-wrapp').css({
+              'max-height': ($('.rel-wr-photoos').width())+'px'
+          });
+          
+      });
+    }
+  }, 2500);
   }
 
 
@@ -200,6 +208,7 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
               (err) =>{
             });
             this.photos.push(p);
+            this.positionScroller();
             // console.log(`photos2`,this.photos);  
           },
         (err) => {

@@ -19,6 +19,7 @@ import { EventCreateModel } from '../../../core/models/eventCreate.model';
 import { EventCreateComponent } from '../eventCreate.component';
 import { ViewEncapsulation } from '@angular/core';
 import { CurrencyIcons } from '../../../core/models/preferences.model';
+import { BsDatepickerConfig } from '../../../../../node_modules/ngx-bootstrap';
 
 
 
@@ -76,6 +77,11 @@ export class AboutComponent extends BaseComponent implements OnInit {
       }
   }
 
+  bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-default' });
+
+     datepickerFromModel:Date = new Date();
+     datepickerToModel:Date = new Date();
+
   ngOnInit() {
 
     if(this.Event.currency)
@@ -94,6 +100,10 @@ export class AboutComponent extends BaseComponent implements OnInit {
     // });
 
     this.getGenres();
+
+    if(this.Event.is_crowdfunding_event){
+        this.setDate();
+    }
 
     // console.log(this.Event);
     if(this.Event.image_id)
@@ -251,6 +261,11 @@ HideGenresIfShowed(){
         
         if(!this.Event.is_crowdfunding_event)
             this.Event.is_crowdfunding_event = false;
+        else{
+            this.Event.funding_from = this.datepickerFromModel.toString();
+            this.Event.funding_to = this.datepickerToModel.toString();
+        }
+        
     
         // console.log(`thisForm`,this.Event);
         this.onSaveEvent.emit(this.Event);
@@ -264,6 +279,11 @@ HideGenresIfShowed(){
                 this.Event.genres.push(g.genre);
             }
         }
+    }
+
+    setDate(){
+        this.datepickerToModel = new Date(this.Event.funding_to);
+        this.datepickerFromModel = new Date(this.Event.funding_from);
     }
 
 }

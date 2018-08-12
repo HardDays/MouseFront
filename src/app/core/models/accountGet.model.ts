@@ -105,7 +105,8 @@ export class AccountGetModel{
         public available_dates?:any,
         public disable_dates?:any,
 
-        public processed_by?:string
+        public processed_by?:string,
+        public currency?: string
         
 ){}
 }

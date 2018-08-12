@@ -26,13 +26,14 @@ export class OneFolowerForProfileComponent extends BaseComponent implements OnIn
   {
       if(this.Folower && this.Folower.image_id)
       {
-          this.main.imagesService.GetImageById(this.Folower.image_id)
-            .subscribe(
-                (res:Base64ImageModel) => {
+        this.Image = this.main.imagesService.GetImagePreview(this.Folower.image_id,{width:140,height:140})
+          // this.main.imagesService.GetImageById(this.Folower.image_id)
+          //   .subscribe(
+          //       (res:Base64ImageModel) => {
                 
-                    this.Image = (res && res.base64) ? res.base64 : BaseImages.NoneFolowerImage;
-                }
-            );
+          //           this.Image = (res && res.base64) ? res.base64 : BaseImages.NoneFolowerImage;
+          //       }
+          //   );
       }
       else 
       {

@@ -54,10 +54,12 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
 
     Status = AccountStatus;
 
+
+
     ngOnChanges(changes: SimpleChanges): void {
         if(changes.Account)
         {
-            // this.Account = changes.Account.currentValue;
+            this.Account = changes.Account.currentValue;
             this.GetGenres();
         }
         // if(changes.MyProfileId){
@@ -96,8 +98,10 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
     }
 
     GetGenres(){
-        if(this.Account.genres)
-            this.Account.genres = this.main.genreService.BackGenresToShowGenres(this.Account.genres);
+        if(this.Account.genres){
+            // console.log(this.Account.genres);
+            this.Genres = this.main.genreService.BackGenresToShowGenres(this.Account.genres);
+        }
     }
 
     // GetImage(){

@@ -33,7 +33,7 @@ export class VenueComponent extends BaseComponent implements OnInit {
               this.Account.image_base64_not_given = BaseImages.NoneFolowerImage;
           },
           (err)=>{
-            console.log(err);
+            // console.log(err);
             this.Account.image_base64_not_given = BaseImages.NoneFolowerImage;
           });
       }
@@ -55,7 +55,7 @@ export class VenueComponent extends BaseComponent implements OnInit {
                 this.Account.image_base64_not_given = BaseImages.NoneFolowerImage;
             },
             (err)=>{
-              console.log(err);
+              // console.log(err);
               this.Account.image_base64_not_given = BaseImages.NoneFolowerImage;
             });
         }

@@ -52,15 +52,17 @@ export class TableComponent extends BaseComponent implements OnInit {
   }
 
   onScrollArtist(){
-    // console.log(`123`)
+    console.log(`123`)
     this.ScrollArtistDisabled = true;
-    let params = {status: this.status,text:this.SearchName,account_type: this.TypeAcc,limit:20,offset:this.Accounts.length};
+    let params = {status: this.status,text:this.SearchName,account_type: this.TypeAcc,limit:20,offset:this.Accounts&&this.Accounts.length?this.Accounts.length:0};
     // if(this.status === '') delete params['status'];
       this.main.adminService.GetAccountsRequests(params)
         .subscribe((res)=>{
           // this.Accounts = [];
          
-          // this.Accounts.push(...res); //((x, y) => x.includes(y) ? x : [...x, y], []);
+          this.Accounts.push(...res);
+          this.Accounts = this.Accounts.filter(obj=>this.SearchName?obj.full_name === this.SearchName:true);
+           //((x, y) => x.includes(y) ? x : [...x, y], []);
 
           for(let r of res){
             if(this.Accounts.findIndex((val)=>val.id === r.id)<0){
@@ -89,7 +91,7 @@ export class TableComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     // console.log(this.Accounts)
-    this.onScrollArtist();
+    if(this.Accounts)this.onScrollArtist();
   }
 
   openAccount(id:number){
@@ -147,7 +149,7 @@ export class TableComponent extends BaseComponent implements OnInit {
               this.Accounts.splice(this.Accounts.indexOf(this.Accounts.find((a)=>a.id===id)),1)
             },
             (err)=>{
-              console.log(`err`,err);
+              // console.log(`err`,err);
             }
           )
       }
@@ -159,7 +161,7 @@ export class TableComponent extends BaseComponent implements OnInit {
               this.Events.splice(this.Events.indexOf(this.Events.find((e)=>e.id===id)),1)
             },
             (err)=>{
-              console.log(`err`,err);
+              // console.log(`err`,err);
             }
           )
       }

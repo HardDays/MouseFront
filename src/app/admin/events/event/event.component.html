@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="contacts">
-            <span>Event Owner:</span> <a>{{Owner.display_name}}</a><br>
+            <span>Event Owner:</span> <a>{{Owner.display_name?Owner.display_name:Owner.first_name&&Owner.last_name?Owner.first_name+' '+Owner.last_name:'@'+Owner.user_name}}</a><br>
             <span>Phone:</span> {{Owner.phone?Owner.phone:'-'}}
         </div>
     </h2>
@@ -59,13 +59,13 @@
             <!-- <div class="e_l">Comments <span class="count">(0)</span></div>
             <div class="e_l">Updates <span class="count">(0)</span></div> -->
         </div>
-        <div class="event_videos_slider">
-            <ng-container >
-            <div *ngFor="let video of Videos" class="video_item">
-                <div class="video">
-                    <iframe [src]="video" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <div *ngIf="Videos.length>0" class="event_videos_slider">
+            <ng-container>
+                <div *ngFor="let video of Videos" class="video_item">
+                    <div class="video">
+                        <iframe [src]="video" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    </div>
                 </div>
-            </div>
             </ng-container>
 
             <!-- <slideshow [showArrows]="Videos&&Videos.length>1" [minHeight]="'525px'" [imageUrls]="Videos"></slideshow> -->
