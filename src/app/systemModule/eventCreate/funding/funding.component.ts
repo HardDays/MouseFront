@@ -209,6 +209,9 @@ export class FundingComponent extends BaseComponent implements OnInit {
                     if(price){
                         this.activeArtist[i].object.approximate_price = price;
                     }
+                    else if(this.activeArtist[i].object.price){
+                        this.activeArtist[i].object.approximate_price = this.activeArtist[i].object.price;
+                    }
                     this.activeArtist[i].object.currency = CurrencyIcons[this.getCurrencyAtMsg(item.object.artist_id)];
                 }
                 if(item.object.is_active){
@@ -235,6 +238,9 @@ export class FundingComponent extends BaseComponent implements OnInit {
                     //console.log(price);
                     if(price){
                         this.activeVenue[i].object.approximate_price = price;
+                    }
+                    else if(this.activeVenue[i].object.price){
+                        this.activeVenue[i].object.approximate_price = this.activeVenue[i].object.price;
                     }
                     this.activeVenue[i].object.currency = CurrencyIcons[this.getCurrencyAtMsg(item.object.venue_id)];
                 }
@@ -312,6 +318,19 @@ export class FundingComponent extends BaseComponent implements OnInit {
                 }
                 
             }
+            // for(let m of this.messagesList){
+               
+            //     if( m.sender_id === this.Event.creator_id && 
+            //         m.receiver_id === senderId &&
+            //         m.message_info&&m.message_info.event_info&&
+            //         m.message_info.event_info.id === this.Event.id){
+            //             // console.log(m);
+            //             return m.message_info.price||m.message_info.estimated_price;
+            //     }
+                
+            // }
+
+
             return null;
         }
     }

@@ -174,12 +174,12 @@
                       <p *ngIf="Account&&Account.preferred_venues" class="about-text margened">
                         <span *ngFor="let ven of Account.preferred_venues; let last = last">
                             {{
-                                ven.type_of_venue === 'other'?
+                                ven.type_of_venue?(ven.type_of_venue === 'other'?
                                     Account.preferred_venue_text : 
-                                    ven.type_of_venue.replace('_',' ')
+                                    ven.type_of_venue.replace('_',' ')):''
                                 | titlecase 
                             }}
-                            {{last?'':','}}
+                            {{ven.type_of_venue&&!last?',':''}}
                         </span>
                       </p>
                   </div>

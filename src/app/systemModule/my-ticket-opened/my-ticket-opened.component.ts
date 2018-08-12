@@ -40,6 +40,7 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit,Aft
   
   MyCurrency = CurrencyIcons[this.main.settings.GetCurrency()];
   OriginalCurrency = CurrencyIcons[Currency.USD];
+  
   constructor(
     protected main           : MainService,
     protected _sanitizer     : DomSanitizer,

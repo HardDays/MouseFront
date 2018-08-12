@@ -214,7 +214,9 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     GetTickets()
     {
         this.Tickets = this.Event.tickets;
-        this.OriginalCurrency = CurrencyIcons[this.Event.tickets[0].currency];
+        if(this.Event.tickets.length>0)
+            this.OriginalCurrency = CurrencyIcons[this.Event.tickets[0].currency];
+        else this.OriginalCurrency = CurrencyIcons[this.main.settings.GetCurrency()];
         // console.log(this.Tickets);
         // this.Currency = CurrencyIcons[this.Event.tickets[0].currency];
     }
