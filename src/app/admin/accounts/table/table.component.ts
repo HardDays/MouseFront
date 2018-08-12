@@ -52,9 +52,9 @@ export class TableComponent extends BaseComponent implements OnInit {
   }
 
   onScrollArtist(){
-    // console.log(`123`)
+    console.log(`123`)
     this.ScrollArtistDisabled = true;
-    let params = {status: this.status,text:this.SearchName,account_type: this.TypeAcc,limit:20,offset:this.Accounts.length};
+    let params = {status: this.status,text:this.SearchName,account_type: this.TypeAcc,limit:20,offset:this.Accounts&&this.Accounts.length?this.Accounts.length:0};
     // if(this.status === '') delete params['status'];
       this.main.adminService.GetAccountsRequests(params)
         .subscribe((res)=>{
@@ -91,7 +91,7 @@ export class TableComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     // console.log(this.Accounts)
-    this.onScrollArtist();
+    if(this.Accounts)this.onScrollArtist();
   }
 
   openAccount(id:number){
