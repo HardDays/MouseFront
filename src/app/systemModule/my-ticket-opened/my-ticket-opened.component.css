@@ -8,3 +8,7 @@
     top: 100%;
     background: #fff;
 }
+
+@media print {
+    .flex-ticket-wrapp .sides .butt-wrapp-grad .butt-style-1 { display: none !important; }
+ }

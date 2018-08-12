@@ -144,6 +144,45 @@ html, body{
 .admin_page .admin_content .admin_cards .card .num{
   line-height: 50px;
 }
+.modal-send-request.fix-style .modal-dialog .flex-input-groupes{
+  padding: 0 20px;
+}
+
+.modal-send-request.fix-style .modal-dialog .flex-input-groupes .input-groupe-1.none-margin-fix{
+  margin-right: 0;
+}
+.modal-send-request.fix-style .modal-dialog .name-and-ava{
+  padding: 15px 20px;
+}
+.modal-send-request.fix-style .modal-dialog .flex-input-groupes select{
+  height: 44px;
+}
+.flex-funding-columns .side .top-gum .artists-venue-wrapp .one-block .ava-l .name{
+  flex: 1 1 auto;
+  text-overflow: ellipsis;
+  white-space: nowrap; /* Отменяем перенос текста */
+    overflow: hidden;
+}
+.flex-funding-columns .side .top-gum .artists-venue-wrapp .one-block .ava-l{
+  min-width: 0;
+}
+.new-photos-wr-scroll-preview .rel-wr-photoos .photos-abs-wrapp::-webkit-scrollbar{
+  background: #fff;
+  width: 5px;
+}
+.new-photos-wr-scroll-preview .rel-wr-photoos .photos-abs-wrapp::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 2.5px;
+  cursor: pointer; }
+  .new-photos-wr-scroll-preview .rel-wr-photoos .photos-abs-wrapp{
+  width: 412px;
+}
+.new-photos-wr-scroll-preview .rel-wr-photoos.alboms-play .photos-abs-wrapp.video-abs-wrapp{
+  transform: rotate(-90deg) translateY(-389px);
+  width: 373px;
+}
+
+
 @media (max-width: 1600px) {
   .admin_page .admin_content .events_status_wrap .events_status_diagramm{
     width: 43%;
@@ -156,6 +195,7 @@ html, body{
     padding: 25px 30px 25px 35px;}
     .admin_page nav {
       width: 345px;}
+      
 }
 
 
@@ -1384,6 +1424,11 @@ html, body{
 }
 .artist-media .media-flex-sides .right-side{
   padding-left: 0;
+}
+.modal-send-request.fix-style .modal-dialog .name-and-ava .ava{
+  width: 45px;
+  height: 45px;
+  margin-right: 7px;
 }
 
 }

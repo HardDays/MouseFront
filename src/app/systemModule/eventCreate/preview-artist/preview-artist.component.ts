@@ -40,7 +40,8 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
   audioCurrentTime:number = 0;
   player:any;
   countAudio = 6;
-
+  canScrolling:boolean = false;
+  startMouseX:number;
   openVideoLink:any;
   isVideoOpen:boolean = false;
 
@@ -140,6 +141,7 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
   
   // this.InitMusicPlayer();
   }
+
 
   InitMusicPlayer(){
     // setTimeout(() => {
