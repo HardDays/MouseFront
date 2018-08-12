@@ -135,6 +135,7 @@ html, body{
 {
   width: 22.7%;
 }
+
 .admin_page .admin_content .admin_table.accounts_table .admin_table_th.change-w-acc, .admin_page .admin_content .admin_table.accounts_table .admin_table_td.change-w-acc{
   width: 11%;
 }
@@ -144,7 +145,6 @@ html, body{
 .admin_page .admin_content .admin_cards .card .num{
   line-height: 50px;
 }
-<<<<<<< HEAD
 .modal-send-request.fix-style .modal-dialog .flex-input-groupes{
   padding: 0 20px;
 }

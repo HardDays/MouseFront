@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../../../core/base/base.component';
 import { Params } from '@angular/router';
 import { AccountCreateModel } from '../../../core/models/accountCreate.model';
-
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
@@ -15,6 +14,7 @@ export class AccountComponent extends BaseComponent implements OnInit {
   Account:AccountCreateModel = new AccountCreateModel();
 
   ngOnInit() {
+    window.scrollTo(0,0);
     this.activatedRoute.params.subscribe(
       (params:Params) => {
         this.accId = params['id']; // console.log(params["id"]);
