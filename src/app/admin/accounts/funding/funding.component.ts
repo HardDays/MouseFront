@@ -93,7 +93,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
               this.Accounts.splice(this.Accounts.indexOf(this.Accounts.find((a)=>a.id===id)),1)
             },
             (err)=>{
-              console.log(`err`,err);
+              // console.log(`err`,err);
             }
           )
       }

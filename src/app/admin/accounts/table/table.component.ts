@@ -147,7 +147,7 @@ export class TableComponent extends BaseComponent implements OnInit {
               this.Accounts.splice(this.Accounts.indexOf(this.Accounts.find((a)=>a.id===id)),1)
             },
             (err)=>{
-              console.log(`err`,err);
+              // console.log(`err`,err);
             }
           )
       }
@@ -159,7 +159,7 @@ export class TableComponent extends BaseComponent implements OnInit {
               this.Events.splice(this.Events.indexOf(this.Events.find((e)=>e.id===id)),1)
             },
             (err)=>{
-              console.log(`err`,err);
+              // console.log(`err`,err);
             }
           )
       }
