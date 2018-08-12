@@ -30,7 +30,7 @@ import { MainService } from '../../core/services/main.service';
 import { ErrorComponent } from '../../shared/error/error.component';
 
 import * as moment from 'moment';
-import { TimeFormat, CurrencyIcons } from '../../core/models/preferences.model';
+import { TimeFormat, CurrencyIcons, Currency } from '../../core/models/preferences.model';
 
 declare var $:any;
 declare var PhotoSwipeUI_Default:any;
@@ -56,6 +56,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
 
     TicketsToBuy:BuyTicketModel[] = [];
     TotalPrice:number = 0;
+    TotalOriginalPrice: number = 0;
 
     Genres:GenreModel[] = [];
 
@@ -69,6 +70,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     ENTER_KEYCODE = 13;
 
     Currency = CurrencyIcons[this.main.settings.GetCurrency()];
+    OriginalCurrency = CurrencyIcons[Currency.USD];
   
     @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
         if(this.isShowMap){
@@ -212,7 +214,8 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     GetTickets()
     {
         this.Tickets = this.Event.tickets;
-        console.log(this.Tickets);
+        this.OriginalCurrency = CurrencyIcons[this.Event.tickets[0].currency];
+        // console.log(this.Tickets);
         // this.Currency = CurrencyIcons[this.Event.tickets[0].currency];
     }
 
@@ -220,15 +223,20 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     {
         this.TicketsToBuy.push(object);
         this.CalculateCurrentPrice();
+        this.OpenErrorWindow(object.count + " ticket" + (object.count > 1 ?"s ": " ") + "added to your cart!");
     }
 
     CalculateCurrentPrice()
     {
         this.TotalPrice = 0;
+        this.TotalOriginalPrice = 0;
         for(let item of this.TicketsToBuy)
         {
             this.TotalPrice += item.count * item.ticket.price;
+            this.TotalOriginalPrice += item.count * item.ticket.original_price;
         }
+        this.TotalPrice = Math.round(this.TotalPrice * 100) / 100;
+        this.TotalOriginalPrice = Math.round(this.TotalOriginalPrice * 100) / 100;
     }
 
     BuyTickets()
