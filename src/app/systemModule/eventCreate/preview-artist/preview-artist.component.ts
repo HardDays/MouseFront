@@ -110,7 +110,6 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
   positionScroller(){
     
     setTimeout(() => {
-      console.log('ok');
       if($(window).width() >= 768){
         $('.photos-abs-wrapp').css({
           'max-height': $('.rel-wr-photoos').width()+'px'
