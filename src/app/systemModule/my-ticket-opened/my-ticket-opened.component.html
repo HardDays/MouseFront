@@ -53,9 +53,9 @@
                               </div>
                               
                           </div>
-                          <div class="butt-wrapp-grad">
+                          <div *ngIf="!isPrint && TicketsByEvent?.tickets?.length>0" class="butt-wrapp-grad">
                             
-                              <span (click)="printTicket()" class="butt-style-1">
+                              <span *ngIf="!isPrint" (click)="printTicket()" class="butt-style-1">
                                   <span>Print tickets</span>
                               </span>
                               

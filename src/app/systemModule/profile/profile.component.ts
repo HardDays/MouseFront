@@ -103,17 +103,23 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
                 this.UserId = params["id"];
                 this.baseImageMy = '';
                 let acc = this.MyAccounts.find(obj => obj.id == this.UserId);
-                if(acc)
-                {
-                    this.InitByUser(acc);
-                    this.MyAccountId = this.GetCurrentAccId();
-                    this.isFolowed();
+
+                // используя этот блок - не грузится обновленная инфа
+                // if(acc)
+                // {
+                //     this.InitByUser(acc);
+                //     this.MyAccountId = this.GetCurrentAccId();
+                //     this.isFolowed();
+                //     console.log(`acc acc acc acc acc`,acc)
                     
-                    
-                }
-                else{
-                    this.getUserInfo();
-                }
+                // }
+                // else{
+                //      console.log(` no acc no acc no acc no acc no acc`)
+                //     this.getUserInfo();
+                // }
+
+
+                 this.getUserInfo();
             })
         //this.Videos = this.accService.GetVideo();
     
@@ -181,6 +187,7 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
         }
         else if(this.AccType == this.Roles.Artist)
         {
+            // console.log(`INIT`,usr);
             this.ArtistAcc = usr;
         }
         

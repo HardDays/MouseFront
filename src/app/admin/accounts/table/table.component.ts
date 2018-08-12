@@ -60,7 +60,9 @@ export class TableComponent extends BaseComponent implements OnInit {
         .subscribe((res)=>{
           // this.Accounts = [];
          
-          // this.Accounts.push(...res); //((x, y) => x.includes(y) ? x : [...x, y], []);
+          this.Accounts.push(...res);
+          this.Accounts = this.Accounts.filter(obj=>this.SearchName?obj.full_name === this.SearchName:true);
+           //((x, y) => x.includes(y) ? x : [...x, y], []);
 
           for(let r of res){
             if(this.Accounts.findIndex((val)=>val.id === r.id)<0){
