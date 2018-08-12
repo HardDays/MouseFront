@@ -29,14 +29,17 @@ import { Currency, CurrencyIcons } from '../../core/models/preferences.model';
 export class MyTicketOpenedComponent extends BaseComponent implements OnInit,AfterViewChecked{
   event_id:number;
   accountId:number;
-  TotalPrice:number = 0;
+  TotalOriginalPrice:number = 0;
+  TotalAproxPrice:number = 0;
   TicketsByEvent:TicketsByEventModel = new TicketsByEventModel();
   Image:string = BaseImages.Drake;
 
-  Currency = CurrencyIcons[this.main.settings.GetCurrency()];
+  // Currency = CurrencyIcons[this.main.settings.GetCurrency()];
 
   isPrint = false;
   
+  MyCurrency = CurrencyIcons[this.main.settings.GetCurrency()];
+  OriginalCurrency = CurrencyIcons[Currency.USD];
   constructor(
     protected main           : MainService,
     protected _sanitizer     : DomSanitizer,
@@ -47,6 +50,8 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit,Aft
     protected cdRef          : ChangeDetectorRef
   ) {
     super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
+
+    this.MyCurrency = CurrencyIcons[this.main.settings.GetCurrency()];
   }
 
   ngOnInit() 
@@ -113,8 +118,8 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit,Aft
       () => this.main.eventService.GetTicketsByEvent(this.accountId,this.event_id),
       (res:TicketsByEventModel) =>
       {
-        // console.log(res);
         this.TicketsByEvent = res;
+        // console.log(this.TicketsByEvent);
         this.GetImage();
         this.CountTotalPrice();
       },
@@ -126,11 +131,15 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit,Aft
 
   CountTotalPrice()
   {
-    this.TotalPrice = 0;
+    this.TotalOriginalPrice = 0;
+    this.TotalAproxPrice = 0;
     for(let i of this.TicketsByEvent.tickets)
     {
-      this.TotalPrice+=i.ticket.price;
-      this.Currency = CurrencyIcons[i.currency];
+      if(i.original_price)
+        this.TotalOriginalPrice+=i.original_price;
+      if(i.price)
+        this.TotalAproxPrice += i.price;
+      this.OriginalCurrency = CurrencyIcons[i.currency];
     }
   }
 

@@ -85,7 +85,8 @@ export class MainService{
                     if(res)
                     {
                         this.GetMyUser();
-                        this.GetMyAccounts(); 
+                        this.GetMyAccounts();
+                        this.settings.GetBackSettings(); 
                     }
                     else{ 
                         this.UserChange.next(new UserGetModel());
@@ -251,9 +252,9 @@ export class MainService{
                 if(this.MyUser.image_id){
                     this.imagesService.GetImageById(this.MyUser.image_id)
                         .subscribe((res)=>{
-                        this.MyUser.image_base64 = res.base64;
-                        this.MyUserLogo = this.MyUser.image_base64;
-                        this.MyUserLogoChange.next(this.MyUser.image_base64);
+                            this.MyUser.image_base64 = res.base64;
+                            this.MyUserLogo = this.MyUser.image_base64;
+                            this.MyUserLogoChange.next(this.MyUser.image_base64);
                         })
                 }
                 

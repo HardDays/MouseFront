@@ -59,6 +59,7 @@ export class PreviewVenueComponent extends BaseComponent implements OnInit {
          else this.Venue.image_base64_not_given = BaseImages.NoneFolowerImage;
 
          this.getVenueImages();
+         this.scrollerPhotos();
       }
      )
      this.ChangeDates();
@@ -97,6 +98,14 @@ export class PreviewVenueComponent extends BaseComponent implements OnInit {
   // }
 
   ngAfterViewInit(){
+    this.scrollerPhotos();
+    
+
+  
+  // this.InitMusicPlayer();
+  }
+
+  scrollerPhotos(){
     setTimeout(() => {
       $('.photos-abs-wrapp').css({
         'max-height': $('.rel-wr-photoos').width()+'px'
@@ -114,10 +123,6 @@ export class PreviewVenueComponent extends BaseComponent implements OnInit {
         });
     });
     }, 5000);
-    
-
-  
-  // this.InitMusicPlayer();
   }
 
   getVenueImages(){

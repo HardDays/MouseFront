@@ -144,6 +144,29 @@ html, body{
 .admin_page .admin_content .admin_cards .card .num{
   line-height: 50px;
 }
+.new-photos-wr-scroll-preview .rel-wr-photoos .photos-abs-wrapp::-webkit-scrollbar {
+  background: #fff;
+  width: 7px; }
+
+  .new-photos-wr-scroll-preview .rel-wr-photoos .photos-abs-wrapp::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 2.5px;
+  cursor: pointer; }
+  .new-photos-wr-scroll-preview .rel-wr-photoos .photos-abs-wrapp{
+    width: 412px;
+  }
+  .new-photos-wr-scroll-preview .rel-wr-photoos.alboms-play .photos-abs-wrapp.video-abs-wrapp{
+    transform: rotate(-90deg) translateY(-398px);
+    width: 380px;
+  }
+
+
+
+
+
+
+
+
 @media (max-width: 1600px) {
   .admin_page .admin_content .events_status_wrap .events_status_diagramm{
     width: 43%;
