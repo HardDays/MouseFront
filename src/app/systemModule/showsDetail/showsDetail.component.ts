@@ -212,6 +212,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     GetTickets()
     {
         this.Tickets = this.Event.tickets;
+        console.log(this.Tickets);
         // this.Currency = CurrencyIcons[this.Event.tickets[0].currency];
     }
 
@@ -245,7 +246,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     BuyTicket()
     {
         let items = this.CheckedTickets;
-        console.log(`checked`,this.CheckedTickets)
+        // console.log(`checked`,this.CheckedTickets)
         for(let item of items)
         {
             this.WaitBeforeLoading(

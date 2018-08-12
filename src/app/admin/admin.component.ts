@@ -49,7 +49,7 @@ export class AdminComponent extends BaseComponent implements OnInit {
     });
 
 
-    console.log(this.main.MyUser.id);
+    // console.log(this.main.MyUser.id);
 
     if(this.main.MyUser.id && (this.main.MyUser.is_admin||this.main.MyUser.is_superuser)){
       this.main.adminService.GetMyAccByIdUser(this.main.MyUser.id)

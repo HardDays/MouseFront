@@ -155,7 +155,7 @@ super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
             this.GetImage(res.image_id);
           },
           (err)=>{
-            console.log(err);
+            // console.log(err);
           }
         );
     }

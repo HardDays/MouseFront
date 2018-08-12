@@ -132,7 +132,7 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
           this.errorCmp.OpenWindow(BaseMessages.Success);
           },
           (err)=>{
-            console.log(`err`,err);
+            // console.log(`err`,err);
 
             this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
             

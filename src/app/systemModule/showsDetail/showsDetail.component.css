@@ -11,6 +11,17 @@
 .creator-name{
     color:white;
 }
+.original-price{
+    font-size: 25px;
+    color: #eb2d64;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: AvenirLTStdBlack;
+}
+.count-mylty-value {
+    margin-bottom: 0px !important;
+    line-height: 60px;
+}
 /* .slideshow-container{
     overflow: inherit !important
 } */
