@@ -81,7 +81,7 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
         this.GetDates();
         this.GetArtistImages();
         this.updateVideosPreview();
-        
+        this.positionScroller();
        // if(changes['ArtistId'].isFirstChange()) this.InitMusicPlayer();
         if(res.image_id){
          this.main.imagesService.GetImageById(res.image_id)
@@ -95,50 +95,54 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
   }
 
   ngAfterViewInit(){
-    
-        setTimeout(() => {
-          if($(window).width() >= 768){
-            $('.photos-abs-wrapp').css({
-              'max-height': $('.rel-wr-photoos').width()+'px'
-            });
-            $('.new-photos-wr-scroll-preview').css({
-              'padding-left': $('.for-position-left-js').offset()?$('.for-position-left-js').offset().left:0
-            });
+    this.positionScroller();
         
-          $(window).resize(function(){
-              $('.photos-abs-wrapp').css({
-                  'max-height': $('.rel-wr-photoos').width()+'px'
-              });
-              $('.new-photos-wr-scroll-preview').css({
-                  'padding-left': $('.for-position-left-js').offset()?$('.for-position-left-js').offset().left:0
-              });
-          });
-        }
-        else{
-          $('.new-photos-wr-scroll-preview').css({
-            'padding-left': '15px'
-          });
-          $('.photos-abs-wrapp').css({
-            'max-height': ($('.rel-wr-photoos').width()) +'px'
-          });
-         
+    
+    
       
-          $(window).resize(function(){
-            $('.new-photos-wr-scroll-preview').css({
-                'padding-left': '15px'
-            });
-              $('.photos-abs-wrapp').css({
-                  'max-height': ($('.rel-wr-photoos').width())+'px'
-              });
-              
-          });
-        }
-      }, 2000);
-    
-    
-
   
   // this.InitMusicPlayer();
+  }
+
+  positionScroller(){
+    setTimeout(() => {
+      if($(window).width() >= 768){
+        $('.photos-abs-wrapp').css({
+          'max-height': $('.rel-wr-photoos').width()+'px'
+        });
+        $('.new-photos-wr-scroll-preview').css({
+          'padding-left': $('.for-position-left-js').offset()?$('.for-position-left-js').offset().left:0
+        });
+    
+      $(window).resize(function(){
+          $('.photos-abs-wrapp').css({
+              'max-height': $('.rel-wr-photoos').width()+'px'
+          });
+          $('.new-photos-wr-scroll-preview').css({
+              'padding-left': $('.for-position-left-js').offset()?$('.for-position-left-js').offset().left:0
+          });
+      });
+    }
+    else{
+      $('.new-photos-wr-scroll-preview').css({
+        'padding-left': '15px'
+      });
+      $('.photos-abs-wrapp').css({
+        'max-height': ($('.rel-wr-photoos').width()) +'px'
+      });
+     
+  
+      $(window).resize(function(){
+        $('.new-photos-wr-scroll-preview').css({
+            'padding-left': '15px'
+        });
+          $('.photos-abs-wrapp').css({
+              'max-height': ($('.rel-wr-photoos').width())+'px'
+          });
+          
+      });
+    }
+  }, 2500);
   }
 
   InitMusicPlayer(){
