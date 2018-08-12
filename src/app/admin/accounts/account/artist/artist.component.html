@@ -83,7 +83,7 @@
                  
             </div>
 
-              <button *ngIf="countAudio<Account.audio_links.length" class="see-all">SEE ALL</button>
+              <button *ngIf="countAudio<Account.audio_links.length" (click)="countAudio=Account.audio_links.length" class="see-all">SEE ALL</button>
           </div>
           <div *ngIf="photos.length>0"  class="genres-info">
               <h3>Images ({{photos?photos.length:'-'}})</h3>

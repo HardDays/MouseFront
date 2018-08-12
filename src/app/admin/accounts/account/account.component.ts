@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BaseComponent } from '../../../core/base/base.component';
 import { Params } from '@angular/router';
 import { AccountCreateModel } from '../../../core/models/accountCreate.model';
+import { ErrorComponent } from '../../../shared/error/error.component';
+import { BaseMessages } from '../../../core/base/base.enum';
 
 @Component({
   selector: 'app-account',
@@ -13,6 +15,8 @@ export class AccountComponent extends BaseComponent implements OnInit {
   accType = '';
   accId = 0;
   Account:AccountCreateModel = new AccountCreateModel();
+
+  @ViewChild('errCmp') errCmp: ErrorComponent = new ErrorComponent;
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(
@@ -71,6 +75,7 @@ export class AccountComponent extends BaseComponent implements OnInit {
       .subscribe(
         (res)=>{
           console.log(`res`,res);
+          this.errCmp.OpenWindow(BaseMessages.Success);
           this.getThisAcc();
         },
         (err)=>{
@@ -78,5 +83,7 @@ export class AccountComponent extends BaseComponent implements OnInit {
         }
       )
   }
+
+
 
 }

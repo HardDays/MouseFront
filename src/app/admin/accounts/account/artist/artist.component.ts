@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, EventEmitter, ViewChild, Output } from '@angular/core';
 import { BaseComponent } from '../../../../core/base/base.component';
 import { AccountGetModel, Video, Rider } from '../../../../core/models/accountGet.model';
 import { GenreModel } from '../../../../core/models/genres.model';
@@ -21,6 +21,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
   @ViewChild('errCmp') errCmp:ErrorComponent;
   @Input() Account:AccountGetModel;
+
   Genres:string[] = [];
 
   DisabledDates: CalendarDate[] = [];
