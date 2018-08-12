@@ -290,6 +290,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
       () => this.ArtistId == 0 ? this.main.accService.CreateAccount(artist) : this.main.accService.UpdateMyAccount(this.ArtistId,artist),
       (res) => {
         this.DisplayArtistParams(res);
+        // this.main.CurrentAccountChange.next(res);
         this.main.GetMyAccounts(
           () => 
           { 

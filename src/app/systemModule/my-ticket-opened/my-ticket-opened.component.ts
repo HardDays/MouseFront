@@ -34,6 +34,8 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit,Aft
   Image:string = BaseImages.Drake;
 
   Currency = CurrencyIcons[this.main.settings.GetCurrency()];
+
+  isPrint = false;
   
   constructor(
     protected main           : MainService,
@@ -134,7 +136,11 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit,Aft
 
   printTicket(){
 
-    var css = '@page { size: landscape; }',
+    // var originalContents = document.body.innerHTML;
+    this.isPrint = true;
+   
+    setTimeout(() => {
+     var css = '@page { size: landscape; }',
     head = document.head || document.getElementsByTagName('head')[0],
     style = document.createElement('style');
 
@@ -151,14 +157,20 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit,Aft
 
 
 
-    var printContents = document.getElementById('print').innerHTML;
-    var originalContents = document.body.innerHTML;
-
-     document.body.innerHTML = printContents;
+    // var printContents = document.getElementById('print').innerHTML;
+    
+    //  document.body.innerHTML = printContents;
 
      window.print();
 
-     document.body.innerHTML = originalContents;
+      setTimeout(() => {
+        this.isPrint = false;
+      }, 100);
+     
+
+    //  document.body.innerHTML = originalContents;
+    }, 100);
+    
 
   }
 
