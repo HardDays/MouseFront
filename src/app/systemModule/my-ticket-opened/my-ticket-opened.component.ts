@@ -141,6 +141,9 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit,Aft
         this.TotalAproxPrice += i.price;
       this.OriginalCurrency = CurrencyIcons[i.currency];
     }
+
+    this.TotalAproxPrice = Math.round(this.TotalAproxPrice * 100) / 100;
+    this.TotalOriginalPrice = Math.round(this.TotalOriginalPrice * 100) / 100;
   }
 
   printTicket(){
