@@ -59,7 +59,7 @@ export class TableComponent extends BaseComponent implements OnInit {
       this.main.adminService.GetAccountsRequests(params)
         .subscribe((res)=>{
           // this.Accounts = [];
-         
+         if(res.length>0){
           this.Accounts.push(...res);
           this.Accounts = this.Accounts.filter(obj=>this.SearchName?obj.full_name === this.SearchName:true);
            //((x, y) => x.includes(y) ? x : [...x, y], []);
@@ -75,7 +75,7 @@ export class TableComponent extends BaseComponent implements OnInit {
           //       return self.indexOf(item) == pos;
           //     });
           // }, 300);
-          
+         }
 
 
           // let set = new Set(this.Accounts);

@@ -72,7 +72,7 @@
         </div>
       <div *ngIf="Accounts" class="admin_table_tbody" infinite-scroll 
             [infiniteScrollDistance]="2"
-            [infiniteScrollThrottle]="200"
+            [infiniteScrollThrottle]="50"
             (scrolled)="onScrollArtist()"
             [infiniteScrollDisabled]="ScrollArtistDisabled">
           <ng-container *ngFor="let acc of Accounts; let i = index">

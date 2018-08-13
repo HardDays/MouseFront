@@ -1,10 +1,11 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
 import { BaseComponent } from '../../../core/base/base.component';
 import { Params } from '@angular/router';
 import { EventGetModel } from '../../../core/models/eventGet.model';
 import { AccountGetModel } from '../../../core/models/accountGet.model';
-import { BaseImages } from '../../../core/base/base.enum';
+import { BaseImages, BaseMessages } from '../../../core/base/base.enum';
 import { Video } from '../../../core/models/accountCreate.model';
+import { ErrorComponent } from '../../../shared/error/error.component';
 
 declare var $:any;
 
@@ -14,6 +15,8 @@ declare var $:any;
   styleUrls: ['./event.component.css']
 })
 export class EventComponent extends BaseComponent implements OnInit {
+
+  @ViewChild('errCmp') errCmp: ErrorComponent = new ErrorComponent;
 
   @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
     if(this.isShowMap){
@@ -187,6 +190,7 @@ export class EventComponent extends BaseComponent implements OnInit {
       .subscribe(
         (res)=>{
           // console.log(`res`,res);
+          this.errCmp.OpenWindow(BaseMessages.Success);
           this.getThisEvent();
         },
         (err)=>{

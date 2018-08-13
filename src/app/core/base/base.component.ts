@@ -206,7 +206,7 @@ export class BaseComponent{
     {
         this.main.authService.Logout();
         this.SocialLogout(`gf`);
-        this.VkLogout();
+        // this.VkLogout();
     }
 
     protected SocialLogin(provider)
@@ -256,7 +256,7 @@ export class BaseComponent{
 
     VkLogout(){
          
-        window.location.replace("https://api.vk.com/method/authorize?client_id=6326995&display=page&redirect_uri=https://mouse-web.herokuapp.com/login&scope=friends&response_type=token&v=5.73&scope=offline");
+        // window.location.replace("https://api.vk.com/method/authorize?client_id=6326995&display=page&redirect_uri=https://mouse-web.herokuapp.com/login&scope=friends&response_type=token&v=5.73&scope=offline");
   }
 
     CreateAcc(account:AccountCreateModel,callbackOk:(res)=>any,callback:(error)=>any)

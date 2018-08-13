@@ -201,6 +201,7 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
       else
         return 'No info';
     }
+    
 
   }
 
