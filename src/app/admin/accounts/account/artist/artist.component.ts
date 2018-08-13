@@ -103,6 +103,10 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
 
   ngAfterViewInit(){
+    this.AddScrollToImages();
+
+  }
+  AddScrollToImages(){
     setTimeout(() => {
       $('.photos-abs-wrapp').css({
         'max-height': $('.rel-wr-photoos').width()+'px'
@@ -116,8 +120,8 @@ export class ArtistComponent extends BaseComponent implements OnInit {
        
     });
     }, 2000);
-
   }
+
 
   GetArtistImages(){
     this.photos = [];
@@ -136,6 +140,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
               .subscribe((res:any) => {
                 p.size.width = res.width;
                 p.size.height = res.height;
+                this.AddScrollToImages();
             },
               (err) =>{
             });
@@ -258,6 +263,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
         video_id = video.link.split('be/')[1];
 
       video.preview = 'https://img.youtube.com/vi/'+video_id+'/0.jpg';
+      this.AddScrollToImages();
     }
   }
 

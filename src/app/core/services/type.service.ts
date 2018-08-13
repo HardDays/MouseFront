@@ -29,7 +29,7 @@ export class TypeService{
             new SelectModel("Stage", "stage"),
             new SelectModel("Audience", "audience"),
             new SelectModel("Seating", "seating"),
-            new SelectModel("Dressing Room", "dressing_room"),
+            new SelectModel("Dressing room", "dressing_room"),
             new SelectModel("Other", "other")
         ];
     }

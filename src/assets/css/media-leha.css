@@ -192,7 +192,9 @@ html, body{
   }
 
 
-
+  .flex-ticket-wrapp .sides .head-sides-2 p{
+    line-height: normal;
+  }
 
 
 
@@ -313,6 +315,22 @@ html, body{
   .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_left {
     width: 40%;
   }
+  .flex-mac-checkbox.direction-column.one-column-1400 .flex-radio{
+    display: block;
+  }
+  .flex-mac-checkbox.one-column-1400{
+    display: block;
+  }
+  .flex-mac-checkbox.one-column-1400 .bar-flex-p{
+    margin-bottom: 12px;
+  }
+  .style-on-add-artist-g.fix-1400-one-col{
+    display: block;
+  }
+  .style-on-add-artist-g.fix-1400-one-col .two-cols{
+    width: 100%;
+  }
+
 }
 
 @media (max-width: 1350px) {
@@ -777,6 +795,9 @@ html, body{
 }
 .create-event-nav-tabs .create-event-header ul{
   flex-wrap: wrap;
+}
+.flex-ticket-wrapp .sides .head-sides-2 p{
+  line-height: normal!important;
 }
 }
 @media (max-width: 767px) {
