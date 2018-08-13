@@ -184,7 +184,7 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
             return 'Yes';
         
         case 'update_collaborators':
-          if(this.Feed.value&&this.Feed.value.length>0)
+          if(this.Feed.value&&this.Feed.value.length>0&&this.Feed.value!='[]')
             return this.Feed.value;
           else 
             return 'No Collaborators';

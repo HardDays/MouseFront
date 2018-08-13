@@ -186,7 +186,7 @@
                   <div class="side side-info side-about">
                       <h6>Preferred Location</h6>
                       <div *ngIf="Account.preferred_address" class="location-wr margened">
-                          <div class="mark"></div>
+                          <div (click)="openMap()" class="mark"></div>
                           <p class="location-inp ">
                             {{Account.preferred_address}}
                           </p>
@@ -301,4 +301,19 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade modal-send-request map-1-modal" id="modal-map-1">
+    <div class="modal-dialog">
+        <div class="modal-body">
+            <h6 class="head-m-p-a">Location</h6>
+            <span class="closee-modal" data-dismiss="modal"></span>
+            <div class="for-map-init-modal-1">
+                    <agm-map  style="height:100%" [latitude]="Account.lat" [longitude]="Account.lng">
+                            <agm-marker  [latitude]="Account.lat" [longitude]="Account.lng"></agm-marker>
+                    </agm-map>
+            </div>
+        </div>
+    </div>
+</div>
+
 <error-cmp #errCmp></error-cmp>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges, EventEmitter, ViewChild, Output } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, EventEmitter, ViewChild, Output, HostListener } from '@angular/core';
 import { BaseComponent } from '../../../../core/base/base.component';
 import { AccountGetModel, Video, Rider } from '../../../../core/models/accountGet.model';
 import { GenreModel } from '../../../../core/models/genres.model';
@@ -39,6 +39,21 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
   openVideoLink:any;
   isVideoOpen:boolean = false;
+
+  @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+    if(this.isShowMap){
+        if (event.keyCode === this.ESCAPE_KEYCODE || event.keyCode === this.ENTER_KEYCODE) {
+          $('#modal-map-1').modal('hide');
+          this.isShowMap = false;
+        }
+    }
+  }
+
+  isShowMap = false;
+
+  
+  ESCAPE_KEYCODE = 27;
+  ENTER_KEYCODE = 13;
 
   ngOnInit() {
 
@@ -286,6 +301,11 @@ export class ArtistComponent extends BaseComponent implements OnInit {
     }, (err)=>{
       console.log(err);
     })
+  }
+
+  openMap(){
+    $('#modal-map-1').modal('show');
+    this.isShowMap = true;
   }
 
 
