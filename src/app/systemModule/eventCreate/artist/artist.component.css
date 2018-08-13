@@ -27,6 +27,7 @@
 .empty-info p{
     color: white;
 }
+
 @media (max-width: 1350px) {
     
     .tabs-artist-wrapp .bg-wr-tabs .tab-artist .flex-wrapp-cards .one-card .card .flex-buttons .button-card{

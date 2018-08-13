@@ -19,6 +19,7 @@ export class AccountComponent extends BaseComponent implements OnInit {
   @ViewChild('errCmp') errCmp: ErrorComponent = new ErrorComponent;
 
   ngOnInit() {
+    window.scrollTo(0,0);
     this.activatedRoute.params.subscribe(
       (params:Params) => {
         this.accId = params['id']; // console.log(params["id"]);

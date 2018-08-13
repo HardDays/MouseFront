@@ -40,7 +40,8 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
   audioCurrentTime:number = 0;
   player:any;
   countAudio = 6;
-
+  canScrolling:boolean = false;
+  startMouseX:number;
   openVideoLink:any;
   isVideoOpen:boolean = false;
 
@@ -82,7 +83,7 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
         this.GetDates();
         this.GetArtistImages();
         this.updateVideosPreview();
-        this.positionScroller();
+        
        // if(changes['ArtistId'].isFirstChange()) this.InitMusicPlayer();
         if(res.image_id){
          this.main.imagesService.GetImageById(res.image_id)
@@ -91,6 +92,7 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
            });
          }
          else this.Artist.image_base64_not_given = BaseImages.NoneFolowerImage;
+         this.positionScroller();
       }
      )
   }
@@ -106,6 +108,7 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
   }
 
   positionScroller(){
+    
     setTimeout(() => {
       if($(window).width() >= 768){
         $('.photos-abs-wrapp').css({
@@ -145,6 +148,7 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
     }
   }, 2500);
   }
+
 
   InitMusicPlayer(){
     // setTimeout(() => {
@@ -203,6 +207,7 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
               (err) =>{
             });
             this.photos.push(p);
+            this.positionScroller();
             // console.log(`photos2`,this.photos);  
           },
         (err) => {

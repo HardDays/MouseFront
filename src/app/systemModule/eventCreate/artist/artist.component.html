@@ -188,7 +188,7 @@
     <!--//конец модалки для кликов на плюс и текст-->
 
     <!--модалка для кликов на send request-->
-    <div class="modal fade modal-send-request" id="modal-send-request-artist">
+    <div class="modal fade modal-send-request fix-style" id="modal-send-request-artist">
          <div class="modal-dialog">
                <form [formGroup]="requestArtistForm">
             <div class="modal-body">
@@ -261,7 +261,7 @@
                         <input type="text" disabled  style="background-color: white" [value]="Event.address" class="location-inp" placeholder="location">
                     </div>
                     <div class="flex-input-groupes">
-                        <div class="input-groupe-1 small-textarea whithout-label">
+                        <div class="input-groupe-1 small-textarea whithout-label none-margin-fix">
 
                             <textarea formControlName="message" id="inp-desc-2-modal"></textarea>
                             <label for="inp-desc-2-modal" class="head-groupe">Message</label>
