@@ -148,8 +148,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       this.isHasVenue = this.Event.venue?true:false;
       // this.Event.currency = this.main.settings.GetCurrency();
     }
-    else
-      this.Event.currency = this.main.settings.GetCurrency();
+    // else
+      // this.Event.currency = this.main.settings.GetCurrency();
   }
 
   SaveEventByPages(event:EventCreateModel)

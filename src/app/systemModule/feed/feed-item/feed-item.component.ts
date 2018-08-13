@@ -195,6 +195,9 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
           else 
             return 'Yes';
         
+        case 'update_image_base64':
+          
+
       }
       if(this.Feed.value)
         return this.Feed.value;
@@ -203,6 +206,13 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
     }
     
 
+  }
+
+  getImage(){
+    if(this.Feed.value)
+      return this.main.imagesService.GetImagePreview(this.Feed.value, {width:1000, height:1000});
+    else 
+      return BaseImages.NoneFolowerImage;
   }
 
   // getLikes(){

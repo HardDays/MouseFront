@@ -66,9 +66,9 @@ export class EventCreateModel{
         public vr_tickets?:number,
     )
     {
-        if(!currency){
-            this.currency = 'RUB';
-        }
+        // if(!currency){
+        //     this.currency = 'RUB';
+        // }
     }
 }
 

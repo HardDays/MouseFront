@@ -1,0 +1,10 @@
+.feed-item .body-feed-item{
+    height: 100%;
+    /* background-size: cover;
+    background-position: center; */
+}
+.feed-item .body-feed-item .one-photo {
+            height: 600px;
+            background-size: cover;
+            background-position: center; 
+}
