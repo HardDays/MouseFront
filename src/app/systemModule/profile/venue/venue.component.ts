@@ -85,7 +85,10 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
             this.FansChecked = this.Fans = changes.Fans.currentValue;
 
         if(this.IsPreview){
-            this.Init(changes.Venue.currentValue,changes.VenueId.currentValue);
+            this.Init(
+                changes.Venue && changes.Venue.currentValue ? changes.Venue.currentValue:null,
+                changes.VenueId && changes.VenueId.currentValue ? changes.VenueId.currentValue:null
+            );
         }
         this.InitByUser();
     }
@@ -141,7 +144,8 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
     }
 
     GetUpcomingShows(){
-        this.UpcomingShowsChecked = this.UpcomingShows = [];
+        this.UpcomingShowsChecked = [];
+        this.UpcomingShows = [];
         if(this.VenueId)
         {
             this.main.accService.GetUpcomingShows(this.VenueId).subscribe(
@@ -208,7 +212,8 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
 
     GetVenueImages()
     {
-        this.VenueImages = this.VenueImagesChecked = [];
+        this.VenueImages = [];
+        this.VenueImagesChecked = [];
         if(this.VenueId)
         {
              this.main.accService.GetImagesVenue(this.VenueId).subscribe(

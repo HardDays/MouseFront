@@ -15,6 +15,7 @@ export class SettingsService{
     {
         this.Settings = this.GetLocalSettings();
         this.SettingsChange.next(true);
+        // this.GetBackSettings();
     }
 
     GetSettings()
@@ -50,10 +51,11 @@ export class SettingsService{
     GetBackSettings()
     {
         this.http.CommonRequest(
-            () => this.http.GetData("/users/preferences.json")
+            () => this.http.GetData("/users/preferences.json","")
         )
         .subscribe(
             (res: PreferencesModel) => {
+                // console.log(res);
                 this.SaveBackSettings(res);
             }
         );
