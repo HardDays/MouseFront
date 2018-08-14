@@ -15,7 +15,7 @@ import { UserCreateModel } from '../../core/models/userCreate.model';
 import { GenreModel } from '../../core/models/genres.model';
 import { AccountGetModel } from '../../core/models/accountGet.model';
 import { SafeHtml, DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { AccountType, BaseMessages, EventStatus } from '../../core/base/base.enum';
+import { AccountType, BaseMessages, EventStatus, AccountStatus } from '../../core/base/base.enum';
 import { Base64ImageModel } from '../../core/models/base64image.model';
 import { MapsAPILoader } from '@agm/core';
 import { AccountSearchParams } from '../../core/models/accountSearchParams.model';
@@ -69,8 +69,12 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     ESCAPE_KEYCODE = 27;
     ENTER_KEYCODE = 13;
 
+    Status = AccountStatus;
+
     Currency = CurrencyIcons[this.main.settings.GetCurrency()];
     OriginalCurrency = CurrencyIcons[Currency.USD];
+
+    MyAcc = this.main.CurrentAccount;
   
     @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
         if(this.isShowMap){

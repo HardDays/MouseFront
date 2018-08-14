@@ -47,7 +47,7 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
     UserId:number;
     Roles = AccountType;
     SearchParams: AccountSearchParams = new AccountSearchParams();
-    Account:AccountGetModel = new AccountGetModel();
+    Account:AccountGetModel = this.main.CurrentAccount;
     Accounts:AccountGetModel[] = [];
     isMyAccount = false;
     Videos:SafeResourceUrl[] = [];
@@ -121,6 +121,7 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
 
                  this.getUserInfo();
             })
+
         //this.Videos = this.accService.GetVideo();
     
     }

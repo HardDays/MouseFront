@@ -35,7 +35,9 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
     @Input() Venue: AccountCreateModel;
     @Input() VenueId: number;
     @Input() MyProfileId: number;
+    @Input() AccStatus: string;
     @Output() onFollow:EventEmitter<boolean> = new EventEmitter<boolean>();
+
 
     @ViewChild('agmMap') agmMap : AgmMap;
     

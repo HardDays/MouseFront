@@ -75,7 +75,7 @@
     
     <!--контент-->
     <div class="content-and-tabs-datails">
-        <div class="main-mw" *ngIf="Tickets && Tickets.length">
+        <div class="main-mw" *ngIf="Tickets && Tickets.length &&MyAcc.status && MyAcc.status != Status.Denied && MyAcc.status != Status.Inactive">
             <div class="tabslinks-and-goings">
                 <div class="left-s">
                     <ul>

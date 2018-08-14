@@ -21,7 +21,7 @@
                                 {{Account.about}}
                             </p>
                             
-                            <ng-container *ngIf="MyProfileId&&MyProfileId != Account.id&&Account.status != Status.Denied && Account.status != Status.Inactive">
+                            <ng-container *ngIf="MyProfileId&&MyProfileId != Account.id&& AccStatus != Status.Denied && AccStatus != Status.Inactive">
                                 <form class="follow-wr" (ngSubmit)="FollowProfile(!isFolowedAcc)">
                                     <button [disabled]="IsPreview"  class="butt-style-1" type="submit">
                                         <span>{{isFolowedAcc?'Unfollow':'Follow'}}</span>

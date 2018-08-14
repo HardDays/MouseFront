@@ -72,7 +72,7 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
   }
 
   calculateTime(value: Date){
-        let result: string;
+        let result: string ='';
         // current time
         let now = new Date().getTime();
         let old = new Date(value).getTime();

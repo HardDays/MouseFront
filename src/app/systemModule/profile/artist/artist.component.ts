@@ -32,6 +32,7 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
     @Input() isFolowedAcc:boolean;
     @Input() IsPreview:boolean;
     @Input() MyProfileId: number;
+    @Input() AccStatus: string;
     @Output() onFollow:EventEmitter<boolean> = new EventEmitter<boolean>();
 
     @ViewChild('errorCmp') errorCmp: ErrorComponent;
@@ -68,6 +69,10 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
         if(changes.Fans){
             this.FansChecked = this.Fans = changes.Fans.currentValue;
         }
+        if(changes.AccStatus){
+            this.AccStatus = changes.AccStatus.currentValue;
+        }
+        // console.log(this.AccStatus);
         // if(changes.Image){
         //     this.Image = changes.Image.currentValue;
         // }
