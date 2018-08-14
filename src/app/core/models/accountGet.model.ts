@@ -5,6 +5,7 @@ import { WorkingTimeModel } from './workingTime.model';
 import { GenreModel } from './genres.model';
 import { VenueDatesModel } from './venueDatesModel';
 export class AccountGetModel{
+
     constructor(
         public id?: number,
         public user_name?: string,
@@ -106,7 +107,21 @@ export class AccountGetModel{
         public disable_dates?:any,
 
         public processed_by?:string,
-        public currency?: string
+        public currency?: string,
+        public approximate_price?:number,
+        public price_not_given?:number,
+
+        public agreement?:{
+             id?:number,
+             price?:number,
+             datetime_from?:string,
+             datetime_to?:string,
+             venue_event_id?:number,
+             artist_event_id?:number,
+             created_at?:string,
+             updated_at?:string,
+        },
+        public message_id?: number
         
 ){}
 }

@@ -97,8 +97,8 @@
                                     <p class="fot-edit">
                                             
                                         Price to Perform <span>
-                                            {{openMessage.message_info?.currency?(openMessage.message_info?.currency==='USD'?'$':openMessage.message_info?.currency==='RUB'?'₽':openMessage.message_info?.currency==='EUR'?'€':''):''}}
-                                            {{(openMessage.message_type&&openMessage.message_info&&openMessage.message_type == 'request')?openMessage.message_info?.estimated_price:openMessage.message_info?.price}}</span>
+                                            {{CurrentCurrency}}
+                                            {{(openMessage.message_type&&openMessage.message_info&&openMessage.message_type == 'request')?openMessage.message_info?.price:''}}</span>
                                         <img *ngIf="openMessage.message_type == 'request'&&!openMessage.is_read" src="../../assets/img/edit-img.png" (click)="isEditPrice = true" class="img-responsive for-edit-img" alt="">
                                     </p>
                                     
@@ -107,7 +107,7 @@
                                     <div *ngIf="isEditPrice" class="flex-price-change">
                                         <p class="your-price">Change price</p>
                                         <div class="rel-dog">
-                                            <span>{{openMessage.message_info?.currency?(openMessage.message_info?.currency==='USD'?'$':openMessage.message_info?.currency==='RUB'?'₽':openMessage.message_info?.currency==='EUR'?'€':''):''}}</span>
+                                            <span>{{CurrentCurrency}}</span>
                                             <input [(ngModel)]="changePrice" class="inp-style-2" type="text">
                                         </div>
                                     </div>
@@ -121,7 +121,7 @@
                                 </div>
                                 <div class="block-info sixth-b">
                                     <div  *ngIf="openMessage.message_type == 'request'" class="input-groupe-1 whithout-label small-textarea max-500">
-                                        <textarea disabled [value]="openMessage?.message"  id="inp-media-venue-2"></textarea>
+                                        <textarea disabled [value]="openMessage?.message_info?.message"  id="inp-media-venue-2"></textarea>
                                         <label for="inp-media-venue-2" class="head-groupe">Personal Message</label>
                                     </div>
                                     <div *ngIf="!openMessage.is_read&&openMessage.message_type == 'request'" class="flex-buttons">

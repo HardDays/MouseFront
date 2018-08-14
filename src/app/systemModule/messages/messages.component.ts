@@ -10,6 +10,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MapsAPILoader } from '@agm/core';
 import { BaseImages } from '../../core/base/base.enum';
+import { CurrencyIcons } from '../../core/models/preferences.model';
 
 declare var $:any;
 
@@ -45,6 +46,8 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
   accOpen:AccountGetModel = new AccountGetModel();
 
   nonPhoto = BaseImages.NoneFolowerImage;
+
+  CurrentCurrency = '$';
 
   constructor(
     protected main           : MainService,
@@ -107,6 +110,9 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
 
 
   GetMessages(){
+
+    this.CurrentCurrency = CurrencyIcons[this.main.settings.GetCurrency()];
+
     this.messages = [];
 
     this.WaitBeforeLoading(
@@ -319,6 +325,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
     this.request.price = +this.changePrice;
     this.request.preferred_date_from = this.bsRangeValue[0];
     this.request.preferred_date_to = this.bsRangeValue[1];
+    this.request.currency = this.main.settings.GetCurrency();
 
     if(this.type=="artist"){
       this.WaitBeforeLoading(

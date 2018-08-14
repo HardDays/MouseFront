@@ -119,9 +119,9 @@
                                 
                                 <app-one-card 
                                     [card] = "shows" 
-                                    [status] = "getStatusVenueEventById(shows.id)" 
-                                    [price] = "getPriceAtMsg(shows.id)"
-                                    [currency] = "getCurrencyAtMsg(shows.id)"
+                                    [status] = "shows.status_not_given" 
+                                    [price] = "shows.price_not_given"
+                                    [currency] = "Event.currency"
                                     (accepted) = "acceptVenue($event)"
                                     (requested) = "sendVenueRequestOpenModal($event)"
                                     (declined) = "declineVenue($event)"
@@ -158,9 +158,9 @@
                             <div *ngIf="shows.status_not_given=='owner_declined'||shows.status_not_given=='declined'" class="one-card">
                                 <app-one-card 
                                     [card] = "shows" 
-                                    [status] = "getStatusVenueEventById(shows.id)" 
-                                    [price] = "getPriceAtMsg(shows.id)"
-                                    [currency] = "getCurrencyAtMsg(shows.id)"
+                                    [status] = "shows.status_not_given" 
+                                    [price] = "shows.price_not_given"
+                                    [currency] = "Event.currency"
                                     (accepted) = "acceptVenue($event)"
                                     (requested) = "sendVenueRequestOpenModal($event)"
                                     (declined) = "declineVenue($event)"

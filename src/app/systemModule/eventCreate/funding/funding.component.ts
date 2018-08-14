@@ -46,14 +46,15 @@ export class FundingComponent extends BaseComponent implements OnInit {
         this.activeArtist = [];
         this.activeVenue = [];
 
-        this.CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
+        this.CurrencySymbol = CurrencyIcons[this.Event.currency];
 
        
         this.main.eventService.GetEventById(this.Event.id).
             subscribe(
                 (res:EventGetModel)=>{
                     this.Event = this.main.eventService.EventModelToCreateEventModel(res); 
-                    this.getMessages();
+                    // this.getMessages();
+                      this.getActiveArtVen();
                 }
             )
     }
@@ -204,15 +205,12 @@ export class FundingComponent extends BaseComponent implements OnInit {
                     item.object.status===InviteStatus.OwnerAccepted ||
                     item.object.status===InviteStatus.Active)
                 {    
-                    let price = this.getPriceAtMsg(item.object.artist_id);
-                    // console.log(item,` price`,price);
-                    if(price){
-                        this.activeArtist[i].object.approximate_price = price;
+                    if(item.object.agreement&&item.object.agreement.price){
+                        this.activeArtist[i].object.approximate_price = item.object.agreement.price;
                     }
-                    else if(this.activeArtist[i].object.price){
-                        this.activeArtist[i].object.approximate_price = this.activeArtist[i].object.price;
+                    else if(item.object.price){
+                        this.activeArtist[i].object.approximate_price = item.object.price;
                     }
-                    this.activeArtist[i].object.currency = CurrencyIcons[this.getCurrencyAtMsg(item.object.artist_id)];
                 }
                 if(item.object.is_active){
                     item.checked = true;
@@ -234,15 +232,12 @@ export class FundingComponent extends BaseComponent implements OnInit {
                     item.object.status===InviteStatus.OwnerAccepted ||
                     item.object.status===InviteStatus.Active)
                 {    
-                    let price = this.getPriceAtMsg(item.object.venue_id);
-                    //console.log(price);
-                    if(price){
-                        this.activeVenue[i].object.approximate_price = price;
+                    if(item.object.agreement&&item.object.agreement.price){
+                        this.activeVenue[i].object.approximate_price = item.object.agreement.price;
                     }
-                    else if(this.activeVenue[i].object.price){
-                        this.activeVenue[i].object.approximate_price = this.activeVenue[i].object.price;
+                    else if(item.object.price){
+                        this.activeVenue[i].object.approximate_price = item.object.price;
                     }
-                    this.activeVenue[i].object.currency = CurrencyIcons[this.getCurrencyAtMsg(item.object.venue_id)];
                 }
                 if(item.object.is_active){
                     item.checked = true;
@@ -305,51 +300,51 @@ export class FundingComponent extends BaseComponent implements OnInit {
     }
 
 
-    getPriceAtMsg(senderId:number){
-        if(this.messagesList){
-            for(let m of this.messagesList){
+    // getPriceAtMsg(senderId:number){
+    //     if(this.messagesList){
+    //         for(let m of this.messagesList){
                
-                if( m.sender_id === senderId && 
-                    m.receiver_id === this.Event.creator_id &&
-                    m.message_info&&m.message_info.event_info&&
-                    m.message_info.event_info.id === this.Event.id){
-                        // console.log(m);
-                        return m.message_info.price||m.message_info.estimated_price;
-                }
+    //             if( m.sender_id === senderId && 
+    //                 m.receiver_id === this.Event.creator_id &&
+    //                 m.message_info&&m.message_info.event_info&&
+    //                 m.message_info.event_info.id === this.Event.id){
+    //                     // console.log(m);
+    //                     return m.message_info.price||m.message_info.estimated_price;
+    //             }
                 
-            }
-            // for(let m of this.messagesList){
+    //         }
+    //         // for(let m of this.messagesList){
                
-            //     if( m.sender_id === this.Event.creator_id && 
-            //         m.receiver_id === senderId &&
-            //         m.message_info&&m.message_info.event_info&&
-            //         m.message_info.event_info.id === this.Event.id){
-            //             // console.log(m);
-            //             return m.message_info.price||m.message_info.estimated_price;
-            //     }
+    //         //     if( m.sender_id === this.Event.creator_id && 
+    //         //         m.receiver_id === senderId &&
+    //         //         m.message_info&&m.message_info.event_info&&
+    //         //         m.message_info.event_info.id === this.Event.id){
+    //         //             // console.log(m);
+    //         //             return m.message_info.price||m.message_info.estimated_price;
+    //         //     }
                 
-            // }
+    //         // }
 
 
-            return null;
-        }
-    }
+    //         return null;
+    //     }
+    // }
 
-    getCurrencyAtMsg(senderId:number){
-        if(this.messagesList){
-            for(let m of this.messagesList){
+    // getCurrencyAtMsg(senderId:number){
+    //     if(this.messagesList){
+    //         for(let m of this.messagesList){
                
-                if( m.sender_id === senderId && 
-                    m.receiver_id === this.Event.creator_id &&
-                    m.message_info&&m.message_info.event_info&&
-                    m.message_info.event_info.id === this.Event.id){
-                        return m.message_info.currency;
-                }
+    //             if( m.sender_id === senderId && 
+    //                 m.receiver_id === this.Event.creator_id &&
+    //                 m.message_info&&m.message_info.event_info&&
+    //                 m.message_info.event_info.id === this.Event.id){
+    //                     return m.message_info.currency;
+    //             }
                 
-            }
-            return null;
-        }
-    }
+    //         }
+    //         return null;
+    //     }
+    // }
 
 
 }

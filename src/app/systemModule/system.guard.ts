@@ -20,9 +20,9 @@ export class SystemAccessGuard extends BaseComponent implements CanActivate{
         let login = this.main.authService.IsLogedIn();
         this.admin = this.main.MyUser.is_admin||this.main.MyUser.is_superuser;
       
-        if(login&&this.admin){
-            this.router.navigate(['/admin']);
-        }
+        // if(login&&this.admin){
+        //     this.router.navigate(['/admin']);
+        // }
 
         this.main.UserChange.subscribe(
             ()=>{

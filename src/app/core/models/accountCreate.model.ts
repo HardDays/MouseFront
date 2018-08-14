@@ -97,7 +97,19 @@ export class AccountCreateModel{
             public available_dates?:any,
             public disable_dates?:any,
 
-            public currency?:string
+            public currency?:string,
+            public approximate_price?:number,
+            public price_not_given?:number,
+            public agreement?:{
+                id?:number,
+                price?:number,
+                datetime_from?:string,
+                datetime_to?:string,
+                venue_event_id?:number,
+                artist_event_id?:number,
+                created_at?:string,
+                updated_at?:string,
+            },
 ){
     if(!is_flexible)
         this.is_flexible = false;

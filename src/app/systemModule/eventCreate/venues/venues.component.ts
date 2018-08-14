@@ -95,7 +95,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
 
     ngOnInit() {
         
-        this.CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
+        this.CurrencySymbol = CurrencyIcons[this.Event.currency];
 
         // console.log(`0`,this.Event);
         this.CreateAutocompleteVenue();
@@ -145,7 +145,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
             step: 5,
             type: "single",
             hide_min_max: false,
-            prefix: "$ ",
+            prefix: _the.CurrencySymbol+" ",
             grid: false,
             prettify_enabled: true,
             prettify_separator: ',',
@@ -183,6 +183,23 @@ export class VenuesComponent extends BaseComponent implements OnInit {
             .subscribe((acc:AccountGetModel)=>{
             this.getMessages();
             acc.status_not_given = i.status;
+            
+
+        if(i.agreement&&i.agreement.price)
+            acc.price_not_given = i.agreement.price;
+          else if(i.price){
+             acc.price_not_given = i.price;
+          }
+          else if(i.approximate_price){
+            acc.price_not_given = i.approximate_price;
+          }
+          else{
+            acc.price_not_given = 0;
+          }
+
+        //   acc.message_id = i.message_id;
+
+
             if(acc.image_id){
 
                 // acc.image_base64_not_given = this.main.imagesService.GetImagePreview(acc.image_id,{width:240,height:240});
@@ -439,6 +456,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
             this.addVenue.id = id;
             this.addVenue.account_id = this.Event.creator_id;
             this.addVenue.is_personal = true;
+            this.addVenue.currency = this.Event.currency;
             
                   //  console.log(`ok add`);
                     $('#modal-send-request-venue').modal('toggle');

@@ -1,12 +1,12 @@
 <!-- CREATED -->
 <ng-container *ngIf="Feed.action != 'update_phone' && Feed.value != '' && Feed.value != '[]'">
-    <div *ngIf="Feed.action != 'update_image_base64'" class="feed-item">
+    <div *ngIf="Feed.action != 'update_image' && Feed.action != 'update_gallery_image'" class="feed-item">
         <div class="head-feed-item">
             <div class="flex-ava-n">
                 <div class="ava" [ngStyle]="{'background-image':Feed.account.img_base64?'url('+Feed.account.img_base64+')':''}"></div>
                 <div class="name-desc">
                     <div class="name">
-                        <p>{{Feed.account.user_name}}</p>
+                        <p>{{Feed.account?.display_name?Feed.account.display_name:Feed.account.user_name}}</p>
                         <a [routerLink]="['/system','profile',Feed.account.id]" class="hash"><span>@</span>{{Feed.account.user_name}}</a>
                     </div>
                     <div *ngIf="Feed.type === 'account_update'" class="desc">
@@ -75,17 +75,17 @@
 
 
 
-    <div *ngIf="Feed.action === 'update_image_base64'" class="feed-item">
+    <div *ngIf="Feed.action === 'update_image' || Feed.action === 'update_gallery_image'" class="feed-item">
         <div class="head-feed-item">
             <div class="flex-ava-n">
                 <div class="ava" [ngStyle]="{'background-image':Feed.account.img_base64?'url('+Feed.account.img_base64+')':''}"></div>
                 <div class="name-desc">
                     <div class="name">
-                        <p>{{Feed.account.user_name}}</p>
+                        <p>{{Feed.account.display_name}}</p>
                         <a [routerLink]="['/system','profile',Feed.account.id]" class="hash"><span>@</span>{{Feed.account.user_name}}</a>
                     </div>
                     <div *ngIf="Feed.type === 'account_update'" class="desc">
-                        <p>Update Image <a [routerLink]="['/system','profile',Feed.account.id]">{{Feed.account.display_name}}</a></p>
+                        <p> {{Feed.action === 'update_image'?'Update image':'Add gallery image'}} <a [routerLink]="['/system','profile',Feed.account.id]">{{Feed.account.display_name}}</a></p>
 
                     </div>
                     <div *ngIf="Feed.type === 'event_update'" class="desc">
@@ -96,7 +96,7 @@
             </div>
             <p class="when">{{Feed.created_at?calculateTime(Feed.created_at):'A long time'}} ago</p>
         </div>
-        <div *ngIf="Feed.action === 'update_image_base64'" class="body-feed-item">
+        <div class="body-feed-item">
             <div class="one-photo" [ngStyle]="{'background-image': 'url('+getImage()+')'}"></div>
         </div>
 

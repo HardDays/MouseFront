@@ -18,7 +18,7 @@ export class OneCardComponent extends BaseComponent implements OnInit {
   @Input('status') status: string;
   @Input('price') price: number;
   @Input('currency') currency: string;
-  
+  // @Input('messageId') messageId: number;
 
   @Output('accepted') accept = new EventEmitter<AccountGetModel>();
   @Output('requested') requested = new EventEmitter<AccountGetModel>();
@@ -35,6 +35,8 @@ export class OneCardComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     // console.log(this.currency);
     this.CurrencySymbol = CurrencyIcons[this.currency];
+    // this.getPrice();
+
     // console.log(`card`,this.card, this.status);
   }
   ngOnChanges(change:SimpleChanges){
@@ -42,7 +44,12 @@ export class OneCardComponent extends BaseComponent implements OnInit {
       this.currency = change.currency.currentValue;
       this.CurrencySymbol = CurrencyIcons[this.currency];
     }
+    if(change.price){
+      this.price = change.price.currentValue;
+    }
+    
   }
+
 
   toBeatyShowsList( mas:any[]){
     let list: string = '';
