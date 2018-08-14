@@ -31,6 +31,8 @@ import {FormArray, FormControl, FormGroup} from '@angular/forms';
 import { CodegenComponentFactoryResolver } from '@angular/core/src/linker/component_factory_resolver';
 import { CurrencyIcons } from '../models/preferences.model';
 
+declare var VK:any;
+
 @Injectable()
 export class BaseComponent{
 
@@ -204,9 +206,34 @@ export class BaseComponent{
 
     public Logout()
     {
+        VK.init({apiId: 6326995});
+
+        VK.Auth.getLoginStatus((status)=>{
+            console.log(status);
+            if(status.session&&status.status!='not_authorized'&&status.status!='unknown'){
+                VK.Auth.login((res)=>{
+                // console.log(res);
+                });
+
+                setTimeout(() => {
+                    VK.Auth.logout((res)=>{
+                        console.log(res);
+                    });
+                }, 1000);
+
+                VK.Observer.subscribe('auth.logout',(res)=>{
+                    // console.log(`subscribe`,res);
+                })
+            }
+        })
+        
+
         this.main.authService.Logout();
         this.SocialLogout(`gf`);
         // this.VkLogout();
+
+       
+            
     }
 
     protected SocialLogin(provider)

@@ -9,6 +9,7 @@ import { LoginModel } from '../../core/models/login.model';
 import { BaseMessages } from '../../core/base/base.enum';
 import { ErrorComponent } from '../../shared/error/error.component';
 
+declare var VK:any;
 
 @Component({
   selector: 'login',
@@ -109,10 +110,58 @@ export class LoginComponent extends BaseComponent implements OnInit {
   signInVK()
   {
     // window.close();
+    // VK.init({apiId: 6326995});
+
+    // setTimeout(() => {
+    //   VK.Auth.login((res)=>{
+    //     console.log(res);
+    //     if(res.session.sid.length>0)
+    //     {
+    //       console.log(res.session.sid);
+    //       this.main.authService.UserLoginByVk(res.session.sid)
+    //         .subscribe
+    //         (
+    //           (res)=>
+    //           {
+    //             this.main.authService.BaseInitAfterLogin(res);
+    //             this.main.authService.onAuthChange$.next(true);
+
+    //             setTimeout(() => {
+    //               // console.log(this.main.MyAccounts);
+    //               if(this.main.MyAccounts.length>0)
+    //                 this.router.navigate(['/system','shows']);
+    //               else {
+    //                 // console.log(`create new acc`);
+    //                 this.router.navigate(['/social']);
+    //               }
+    //             }, 1000);
+                
+    //           }
+    //         );
+    //     }
+    //   });
+    // }, 500);
+
+    // VK.Observer.subscribe('auth.logout',(res)=>{
+    //   console.log(`subscribe`,res);
+    // })
+
     
     
-    //window.location.replace("https://oauth.vk.com/authorize?client_id=6326995&display=page&redirect_uri=http://localhost:4200/login&scope=friends&response_type=token&v=5.73&scope=offline");
+    // window.location.replace("https://oauth.vk.com/authorize?client_id=6326995&display=page&redirect_uri=http://localhost:4200/login&scope=friends&response_type=token&v=5.73&scope=offline");
      window.location.replace("https://oauth.vk.com/authorize?client_id=6326995&display=page&redirect_uri=https://mouse-web.herokuapp.com/login&scope=friends&response_type=token&v=5.73&scope=offline");
+  }
+
+  VkLogout(){
+     VK.init({apiId: 6326995});
+    setTimeout(() => {
+      VK.Auth.logout((res)=>{
+        console.log(res);
+      });
+    }, 500);
+    VK.Observer.subscribe('auth.logout',(res)=>{
+      console.log(`subscribe`,res);
+    })
   }
 
   // signInTwitter(){
