@@ -217,7 +217,7 @@ export class BaseComponent{
 
                 setTimeout(() => {
                     VK.Auth.logout((res)=>{
-                        console.log(res);
+                        // console.log(res);
                     });
                 }, 1000);
 
