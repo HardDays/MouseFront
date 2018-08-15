@@ -112,7 +112,7 @@
                             <div class="flex--info">
                                 <div class="side flex-header scroller">
                                     <div class="for-scroll-padd">
-                                        <h6>Albums ({{Albums.length}})</h6>
+                                        <h6>Albums ({{AlbumsChecked.length}})</h6>
                                         <input type="text" class="search-profile-inp-style"  placeholder="Search" (input)='searchAlbums($event)'>
                                     </div>
                                     <div class="new-scroll-wr">
@@ -130,7 +130,7 @@
                                 </div>
                                 <div class="side flex-header scroller">
                                     <div class="for-scroll-padd">
-                                        <h6>UPCOMING<br>SHOWS ({{UpcomingShows.length}})</h6>
+                                        <h6>UPCOMING<br>SHOWS ({{UpcomingShowsChecked.length}})</h6>
                                         <input type="text" class="search-profile-inp-style" placeholder="Search" (input)='searchUpcomingShows($event)'>
                                     </div>
                                     <div class="new-scroll-wr">
@@ -159,7 +159,7 @@
                                 </div>
                                 <div class="side flex-header scroller uniq-padd-style-funs">
                                     <div class="uniq-padd-3">
-                                        <h6>Fans ({{Fans.length}})</h6>
+                                        <h6>Fans ({{FansChecked.length}})</h6>
                                         <input type="text" class="search-profile-inp-style" placeholder="Search" (input)='searchFans($event)'>
                                     </div>
                                     <div class="new-scroll-wr">
