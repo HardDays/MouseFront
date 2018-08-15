@@ -1,5 +1,5 @@
 <app-preloader *ngIf="isLoading"></app-preloader>
-<section id="print"  class="second-router-outlet" [ngStyle]="{'display': isLoading?'none':'block'}">
+<section   class="second-router-outlet" [ngStyle]="{'display': isLoading?'none':'block'}">
   <div class="create-event-nav-tabs">
       
       <div class="create-event-body-1">
@@ -69,4 +69,71 @@
           </div>
       </div>
   </div>
+</section>
+<section id="print" class="for-print">
+    <div class="flex-header">
+        <div class="left-side">
+            <img src="../../assets/img/print-logo.png" class="img-responsive" alt="">
+            <img src='../../assets/img/print-logo-2.png' class="img-responsive" alt="">
+            <span>E-ticket</span>
+        </div>
+        <div class="circle">16+</div>
+    </div>
+    <div class="content-print" >
+        <p class="f1">Concert</p>
+        <p class="name-concert">{{TicketsByEvent.event.name}}</p>
+        <p class="when">{{TicketsByEvent.event.date_from && TicketsByEvent.event.date_to?(TicketsByEvent.event.date_from|date:'fullDate':'shortTime')+" - "+(TicketsByEvent.event.date_to|date:'fullDate':'shortTime'):TicketsByEvent.event.event_season+' '+TicketsByEvent.event.event_year}}</p>
+        <p class="where">
+            {{TicketsByEvent.event.address}}
+        </p>
+        <div class="tickets-for-ng" *ngFor="let item of TicketsByEvent.tickets; let i = index">
+            <p class="name-ticket" *ngIf="item.ticket.type == 'in_person'">{{i + 1}}. In person ticket </p>
+            <p class="name-ticket" *ngIf="item.ticket.type == 'vr'">{{i + 1}}. Vr ticket</p>
+            
+            <div class="flex-info-ticket">
+                <div class="col-info">
+                    <p class="name-col">Verification code</p>
+                    <p class="value">{{item.code}}</p>
+                </div>
+                <div class="col-info">
+                    <p class="name-col">Customer</p>
+                    <p class="value">{{accountForPrint.first_name}} {{accountForPrint.last_name}}</p>
+                </div>
+                <div class="col-info">
+                    <p class="name-col">order date</p>
+                    <p class="value">{{item.created_at | date:'shortDate'}}</p>
+                </div>
+                <div class="col-info">
+                    <p class="name-col">Price</p>
+                    <p class="value">{{MyCurrency}}{{item.price}} {{MyCurrency != OriginalCurrency? '('+OriginalCurrency + item.original_price+')':''}}</p>
+                    <p *ngIf="MyCurrency != OriginalCurrency" class="c c-original"></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="some-info-print">
+        <p class="head-tt">use and refund of a ticket</p>
+        <p class="some-text">Lorem ipsum dolor sit amet, consectetur
+             adipisicing elit, sed do eiusmod tempor incididunt ut l
+             abore et dolore magna aliqua. Ut enim ad minim veniam, quis 
+             nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+              commodo consequat. Duis aute irure dolor in reprehenderit
+               in voluptate velit esse cillum dolore eu fugiat nulla pa
+               riatur. Excepteur sint occaecat cupidatat non proident, 
+               sunt in culpa qui officia deserunt mollit anim id est la
+               borum. Sed ut perspiciatis unde omnis iste natus error sit vo
+               luptatem accusantium doloremque lauda</p>
+            
+    </div>
+    <div class="foot-print">
+        <p class="support">If you have any questions, please contact Mouse support  80 29 596 58 47</p>
+        <p class="seller">seller</p>
+        <div class="flex-logo-foot">
+                <img src="../../assets/img/print-logo.png" class="img-responsive" alt="">
+                <img src='../../assets/img/print-logo-2.png' class="img-responsive" alt="">
+
+        </div>
+    </div>
+
 </section>

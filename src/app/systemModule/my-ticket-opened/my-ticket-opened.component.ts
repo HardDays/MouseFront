@@ -33,7 +33,7 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit,Aft
   TotalAproxPrice:number = 0;
   TicketsByEvent:TicketsByEventModel = new TicketsByEventModel();
   Image:string = BaseImages.Drake;
-
+  accountForPrint:AccountGetModel = new AccountGetModel();
   // Currency = CurrencyIcons[this.main.settings.GetCurrency()];
 
   isPrint = false;
@@ -105,6 +105,8 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit,Aft
         {
           if(u.id == id)
           {
+            this.accountForPrint = u;
+
             this.accountId = u.id;
             this.GetTicketsByEvent();
           }
@@ -153,7 +155,7 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit,Aft
     this.isPrint = true;
    
     setTimeout(() => {
-     var css = '@page { size: landscape; }',
+     var css = '@page { size: portrait; }',
     head = document.head || document.getElementsByTagName('head')[0],
     style = document.createElement('style');
 

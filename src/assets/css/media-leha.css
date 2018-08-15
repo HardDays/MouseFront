@@ -2,6 +2,14 @@ html, body{
   min-height: 100vh;
   height: auto;
 }
+@media print {
+  header{
+    display: none!important;
+  }
+  .main_content footer{
+    display: none!important;
+  }
+}
 .main-router-outlet{
   min-height: 100vh;
   position: relative;
