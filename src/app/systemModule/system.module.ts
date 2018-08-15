@@ -99,7 +99,8 @@ import { MessageSupportComponent } from './messages/message-support/message-supp
     FeedModule,
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",
-      libraries: ["places"]
+      libraries: ["places"],
+      language: 'en'
     }),
       CommonModule,
       FormsModule

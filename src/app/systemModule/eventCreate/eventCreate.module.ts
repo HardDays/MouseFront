@@ -33,7 +33,8 @@ import { VenueCreateModule } from '../venueCreate/venueCreate.module';
         MatFormFieldModule,
         AgmCoreModule.forRoot({
             apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",
-            libraries: ["places"]
+            libraries: ["places"],
+            language: 'en'
           }),
         ErrorModule,
         PreloaderModule,

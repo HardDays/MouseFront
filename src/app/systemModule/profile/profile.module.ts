@@ -27,7 +27,8 @@ import { TimePipeModule } from '../../core/pipes/time.pipe/time.pipe.module';
         TextMaskModule,
         PreloaderModule,
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc'
+            apiKey: 'AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc',
+            language: 'en'
         }),
         ShowsDetailModule,
         ErrorModule,
