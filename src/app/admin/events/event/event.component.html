@@ -11,7 +11,7 @@
                 <button (click)="removeEvent()"><img src="./../../../../assets/img/admin/delete.svg" alt="" class="img-responsive"></button>
                 <span>Remove</span>
             </div>
-            <div class="butt deny">
+            <div *ngIf="Event.status != 'denied'&& Event.status != 'inactive'" class="butt deny">
                 <button (click)="denyEvent()"><img src="./../../../../assets/img/admin/deny.svg" alt="" class="img-responsive"></button>
                 <span>Deny</span>
             </div>
