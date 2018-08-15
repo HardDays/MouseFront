@@ -10,7 +10,7 @@
             <button (click)="removeAcc()"><img src="./../../../../assets/img/admin/delete.svg" alt="" class="img-responsive"></button>
             <span>Remove</span>
         </div>
-        <div class="butt deny">
+        <div *ngIf="Account.status != 'denied'&&Account.status != 'inactive'" class="butt deny">
             <button (click)="denyAcc()"><img src="./../../../../assets/img/admin/deny.svg" alt="" class="img-responsive"></button>
             <span>Deny</span>
         </div>

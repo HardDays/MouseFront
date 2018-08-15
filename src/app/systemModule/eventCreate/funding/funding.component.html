@@ -153,7 +153,7 @@
                     </div>
                     <div class="second-funding-info">
                         <p class="info-text">Price Per Ticket</p>
-                        <span class="price">{{Event.venue? CurrencySymbol+(0.1*(artistSum+venueSum+Event.additional_cost)+(artistSum+venueSum+Event.additional_cost)) / Event.venue.capacity : '' | number:'3.1-2'}}</span>
+                        <span class="price">{{Event.venue? CurrencySymbol+(0.1*(artistSum+venueSum+Event.additional_cost)+(artistSum+venueSum+Event.additional_cost)) / Event.venue.capacity : '-' | number:'3.1-2'}}</span>
                     </div>
                 </div>
             </div>
@@ -162,7 +162,7 @@
             <div class="side">
                 <div class="bottom-expression">
                     <p class="t total">Total</p>
-                    <p class="exp-price">{{CurrencySymbol}}{{0.1*(artistSum+venueSum+Event.additional_cost)+(artistSum+venueSum+Event.additional_cost) }}</p>
+                    <p class="exp-price">{{CurrencySymbol}}{{0.1*(artistSum+venueSum+Event.additional_cost)+(artistSum+venueSum+Event.additional_cost) | number:'3.1-2'}}</p>
                 </div>
             </div>
         </div>

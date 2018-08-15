@@ -176,6 +176,7 @@ export class EventComponent extends BaseComponent implements OnInit {
       .subscribe(
         (res)=>{
           // console.log(`res`,res);
+          this.errCmp.OpenWindow(BaseMessages.Success);
           this.getThisEvent();
         },
         (err)=>{
