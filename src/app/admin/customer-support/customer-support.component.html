@@ -50,26 +50,27 @@
                 </div>
             </div> -->
             <div class="mes_form">
-                <div class="mes_input">
+                <div class="mes_input" style="margin-bottom:20px">
+                        <ng-container>
+                                <label>Pre-written Responses</label>
+                                <!-- <select [ngModel]="Answer" (ngModelChange)="Answer = $event">
+                                    <option value="DefaultAnswer"></option>
+                                    <ng-container *ngFor="let item of AnswerOptions">
+                                        <option [value]="item">{{item.subject}}</option>
+                                    </ng-container>
+                                </select> -->
+                                <mat-form-field>
+                                    <mat-select [ngModel]="Answer" (ngModelChange)="Answer = $event">
+                                        <mat-option [value]="DefaultAnswer">Default Answer</mat-option>
+                                        <mat-option *ngFor="let item of AnswerOptions" [value]="item">
+                                            {{item.subject}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </ng-container>
                 </div>
                 <div class="mes_input">
-                    <ng-container>
-                        <label>Pre-written Responses</label>
-                        <!-- <select [ngModel]="Answer" (ngModelChange)="Answer = $event">
-                            <option value="DefaultAnswer"></option>
-                            <ng-container *ngFor="let item of AnswerOptions">
-                                <option [value]="item">{{item.subject}}</option>
-                            </ng-container>
-                        </select> -->
-                        <mat-form-field>
-                            <mat-select [ngModel]="Answer" (ngModelChange)="Answer = $event">
-                                <mat-option [value]="DefaultAnswer">Default Answer</mat-option>
-                                <mat-option *ngFor="let item of AnswerOptions" [value]="item">
-                                    {{item.subject}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </ng-container>
+                    
                     
                     <label *ngIf="!Answer.subject">Message</label>
                     <div class="mes_text_block">
