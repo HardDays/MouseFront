@@ -46,7 +46,7 @@
                                         <div class="column-cont">
                                             <div class="one-cont">
                                                 <p class="head-cont">PHONE:</p>
-                                                <span *ngIf="Account.phone">{{Account.phone}}</span>
+                                                <span *ngIf="Account.phone">{{Account.phone.replace('_','')}}</span>
                                             </div>
                                         </div>
                                         <div class="column-cont">
