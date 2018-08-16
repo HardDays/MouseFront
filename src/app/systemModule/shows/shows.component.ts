@@ -141,8 +141,7 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
             () => this.main.eventService.EventsSearch(this.SearchParams),
             (res:EventGetModel[]) =>
             {
-                this.Events = res;
-                setTimeout(()=>{this.ScrollDisabled = false},500);
+              this.Events = res;
             },
             (err) => {
             }
