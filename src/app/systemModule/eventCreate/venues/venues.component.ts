@@ -52,7 +52,11 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     mapCoords =  {lat:55.755826, lng:37.6172999};
     isLoadingVenue:boolean = false;
 
-    CurrencySymbol = '$';
+    CurrencySymbol = '';
+    currency ='';
+    maxValue = 100000;
+    postfix = '';
+    prefix = '';
    
     venueSearchParams:AccountSearchModel = new AccountSearchModel();
     typesSpace:CheckModel<SelectModel>[] = [];
@@ -99,6 +103,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
 
         // console.log(`0`,this.Event);
         this.CreateAutocompleteVenue();
+        this.getSliderParametres();
         this.initSlider()
         this.getAllSpaceTypes();
         
@@ -140,9 +145,9 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     
         var hu_3 = $(".current-slider-price-venue").ionRangeSlider({
             min: 1,
-            max: 100000,
-            from: 100000,
-            step: 5,
+            max: this.maxValue,
+            from: this.maxValue,
+            step: 10,
             type: "single",
             hide_min_max: false,
             prefix: _the.CurrencySymbol+" ",
@@ -173,6 +178,28 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         });
 
     }
+
+    getSliderParametres(){
+        if(this.CurrencySymbol == "$"){
+          this.maxValue = 100000;
+          this.postfix = "";
+          this.prefix = "$ ";
+          
+        }
+        else if(this.CurrencySymbol == "₽"){
+          this.maxValue = 1000000;
+          this.postfix = " ₽";
+          this.prefix = "";
+          
+        }
+        else {
+          this.maxValue = 100000;
+          this.postfix = " €";
+          this.prefix = "";
+          
+        }
+        
+      }
 
     GetVenueFromList(){
         // console.log(`getList`);

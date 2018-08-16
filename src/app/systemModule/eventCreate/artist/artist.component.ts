@@ -21,7 +21,7 @@ import { CheckModel } from '../../../core/models/check.model';
 import { InboxMessageModel } from '../../../core/models/inboxMessage.model';
 import { EventCreateModel } from '../../../core/models/eventCreate.model';
 import { BaseImages } from '../../../core/base/base.enum';
-import { CurrencyIcons } from '../../../core/models/preferences.model';
+import { CurrencyIcons, Currency} from '../../../core/models/preferences.model';
 
 
 declare var $:any;
@@ -55,7 +55,11 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
   mapCoords =  {lat:55.755826, lng:37.6172999};
 
-  CurrencySymbol = '$';
+  CurrencySymbol = '';
+  currency ='';
+  maxValue = 100000;
+  postfix = '';
+  prefix = '';
 
   isAcceptedArtistShow:boolean = true;
   // showModalRequest:boolean = false;
@@ -104,8 +108,8 @@ export class ArtistComponent extends BaseComponent implements OnInit {
       let _the = this;
       var hu_2 = $(".current-slider").ionRangeSlider({
           min: 1,
-          max: 100000,
-          from: 100000,
+          max: this.maxValue,
+          from: this.maxValue,
           step: 10,
           type: "single",
           hide_min_max: false,
@@ -134,6 +138,27 @@ export class ArtistComponent extends BaseComponent implements OnInit {
       // this.GetArtistsFromList();
       // console.log(`ngOnChanges`,this.artistsList, this.Artists);
       this.updateEvent();
+    }
+    getSliderParametres(){
+      if(this.CurrencySymbol == "$"){
+        this.maxValue = 100000;
+        this.postfix = "";
+        this.prefix = "$ ";
+        
+      }
+      else if(this.CurrencySymbol == "₽"){
+        this.maxValue = 1000000;
+        this.postfix = " ₽";
+        this.prefix = "";
+        
+      }
+      else {
+        this.maxValue = 100000;
+        this.postfix = " €";
+        this.prefix = "";
+        
+      }
+      
     }
 
     getGenres(){

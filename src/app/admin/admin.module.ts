@@ -68,6 +68,7 @@ import { InfiniteScrollModule } from 'angular2-infinite-scroll';
         InfiniteScrollModule
     ],
     declarations: [
+        
         AdminComponent,
         DashboardComponent,
         AccountsComponent,

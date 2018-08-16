@@ -1747,38 +1747,64 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between; }
-        .admin_page .admin_content .events_filters_wrap .events_filters_right .filter_row {
+            .admin_page .admin_content .events_filters_wrap .events_filters_right .radios .filter_radio label {
+              display: block;
+              width: 21px;
+              flex-shrink: 0;
+              height: 21px;
+              border-radius: 50%;
+              background-color: #fff;
+              border: 1px solid #eb2d64;
+              position: relative;
+              cursor: pointer;
+              margin-right: 14px; }
+              .admin_page .admin_content .events_filters_wrap .events_filters_right .radios .filter_radio label:before {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 2px;
+                left: 2px;
+                width: 15px;
+                height: 15px;
+                background-color: #eb2d64;
+                border-radius: 50%;
+                opacity: 0; }
+            .admin_page .admin_content .events_filters_wrap .events_filters_right .radios .filter_radio span {
+              font-size: 14px; }
+            .admin_page .admin_content .events_filters_wrap .events_filters_right .radios .filter_radio input:checked + label:before {
+              opacity: 1; }
+        .admin_page .admin_content .events_filters_wrap .events_filters_right .radios {
           display: flex;
           justify-content: space-between;
           padding-left: 35px;
           position: relative; }
-          .admin_page .admin_content .events_filters_wrap .events_filters_right .filter_row:before {
+          .admin_page .admin_content .events_filters_wrap .events_filters_right .radios:before {
             color: #eb2d64;
             font: 14px AvenirLTStdBlack;
             position: absolute;
             left: 0;
             top: 50%;
             transform: translateY(-50%); }
-          .admin_page .admin_content .events_filters_wrap .events_filters_right .filter_row:nth-child(1):before {
+          .admin_page .admin_content .events_filters_wrap .events_filters_right .radios:nth-child(1):before {
             content: '1.'; }
-          .admin_page .admin_content .events_filters_wrap .events_filters_right .filter_row:nth-child(2):before {
+          .admin_page .admin_content .events_filters_wrap .events_filters_right .radios:nth-child(2):before {
             content: '2.'; }
-          .admin_page .admin_content .events_filters_wrap .events_filters_right .filter_row:nth-child(3):before {
+          .admin_page .admin_content .events_filters_wrap .events_filters_right .radios:nth-child(3):before {
             content: '3.'; }
-          .admin_page .admin_content .events_filters_wrap .events_filters_right .filter_row .filter_checkbox {
+          .admin_page .admin_content .events_filters_wrap .events_filters_right .radios .filter_radio {
             position: relative;
             display: flex;
             align-items: center;
             width: 33.3%;
             flex-shrink: 0; }
-            .admin_page .admin_content .events_filters_wrap .events_filters_right .filter_row .filter_checkbox input {
+            .admin_page .admin_content .events_filters_wrap .events_filters_right .radios .filter_radio input {
               width: 0;
               height: 0;
               display: block;
               position: absolute;
               left: -5000px;
               top: 0; }
-            .admin_page .admin_content .events_filters_wrap .events_filters_right .filter_row .filter_checkbox label {
+            .admin_page .admin_content .events_filters_wrap .events_filters_right .radios .filter_checkbox label {
               display: block;
               width: 21px;
               height: 21px;

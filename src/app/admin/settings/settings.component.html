@@ -45,17 +45,29 @@
   <h2 class="settings_zag second_zag">Address</h2>
   <div class="inputs_flex">
       <div class="input-groupe-1">
-          <select [(ngModel)]="User.country" id="settings-country">
+          <!-- <select [(ngModel)]="User.country" id="settings-country">
               <option>USA</option>
               <option>Russia</option>
-          </select>
+          </select> -->
+          <mat-form-field >
+            <mat-select [(ngModel)]="User.country" id="settings-country">
+                <mat-option value="USA">USA</mat-option>
+                <mat-option value="Russia">Russia</mat-option>
+            </mat-select>
+        </mat-form-field>
           <label for="settings-country">Country</label>
       </div>
       <div class="input-groupe-1">
-          <select [(ngModel)]="User.city" id="settings-city">
+          <!-- <select [(ngModel)]="User.city" id="settings-city">
               <option>New York</option>
               <option>Moscow</option>
-          </select>
+          </select> -->
+          <mat-form-field >
+            <mat-select [(ngModel)]="User.city" id="settings-city">
+                <mat-option value="NewYork">New York</mat-option>
+                <mat-option value="Moscow">Moscow</mat-option>
+            </mat-select>
+        </mat-form-field>
           <label for="settings-city">City</label>
       </div>
   </div>
@@ -65,10 +77,16 @@
           <label for="inp-info-8">Address</label>
       </div>
       <div class="input-groupe-1">
-          <select  [(ngModel)]="User.state" id="settings-state">
+          <!-- <select  [(ngModel)]="User.state" id="settings-state">
               <option>NY</option>
               <option>Moscow Region</option>
-          </select>
+          </select> -->
+          <mat-form-field >
+            <mat-select [(ngModel)]="User.state" id="settings-state">
+                <mat-option value="NY">NY</mat-option>
+                <mat-option value="MoscowRegion">Moscow Region</mat-option>
+            </mat-select>
+        </mat-form-field>
           <label for="settings-state">State</label>
       </div>
   </div>

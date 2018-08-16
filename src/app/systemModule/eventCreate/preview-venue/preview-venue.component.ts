@@ -9,6 +9,7 @@ import { BaseImages } from '../../../core/base/base.enum';
 import { VenueDatesModel } from '../../../core/models/venueDatesModel';
 import * as moment from 'moment';
 import { CalendarDate } from '../../venueCreate/big-calendar/big-calendar.component';
+import { Currency } from '../../../core/models/preferences.model';
 declare var $:any;
 
 @Component({
@@ -30,6 +31,7 @@ export class PreviewVenueComponent extends BaseComponent implements OnInit {
 
   OffHours: any[] = [];
   OpHours: any[] = [];
+  MyCurrency:string = Currency.USD;
 
     constructor(
       protected main           : MainService,
@@ -45,6 +47,7 @@ export class PreviewVenueComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     scrollTo(0,0);
+    this.MyCurrency = this.main.settings.GetCurrency();
     this.WaitBeforeLoading(
       ()=>this.main.accService.GetAccountById(this.VenueId),
       (res:AccountGetModel)=>{
@@ -202,7 +205,8 @@ export class PreviewVenueComponent extends BaseComponent implements OnInit {
                           selected: !item.is_available,
                           dayPrice: item.price_for_daytime,
                           nightPrice: item.price_for_nighttime,
-                          changed:true
+                          changed:true,
+                          currency: item.currency? item.currency : this.MyCurrency
                       };
                       arr.push(date);
                   }

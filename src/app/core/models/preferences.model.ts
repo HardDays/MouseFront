@@ -17,7 +17,7 @@ export class PreferencesModel{
             this.preferred_distance = Distance.Km;
 
         if(!preferred_currency)
-            this.preferred_currency = Currency.USD;
+            this.preferred_currency = Currency.RUB;
         
         if(!preferred_time)
             this.preferred_time = TimeFormat.EURO;
