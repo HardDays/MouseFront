@@ -19,6 +19,7 @@ import { EventCreateModel } from '../../../core/models/eventCreate.model';
 import { EventCreateComponent } from '../eventCreate.component';
 import { ViewEncapsulation } from '@angular/core';
 import { CurrencyIcons } from '../../../core/models/preferences.model';
+import { BsDatepickerConfig } from '../../../../../node_modules/ngx-bootstrap';
 
 
 
@@ -59,7 +60,8 @@ export class AboutComponent extends BaseComponent implements OnInit {
     "event_season": new FormControl("", [Validators.required]),
     "artists_number":new FormControl("", [Validators.required]),
     "description": new FormControl("", [Validators.required]),
-    "funding_goal":new FormControl("", [Validators.pattern("[0-9]+")])
+    "funding_goal":new FormControl("", [Validators.pattern("[0-9]+")]),
+    "currency": new FormControl("", [Validators.required]),
   });
 
   isShowMap = false;
@@ -76,13 +78,13 @@ export class AboutComponent extends BaseComponent implements OnInit {
       }
   }
 
+    bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-default' });
+
+    datepickerFromModel:Date = new Date();
+    datepickerToModel:Date = new Date();
+
   ngOnInit() {
 
-    if(this.Event.currency)
-        this.CurrencySymbol = CurrencyIcons[this.Event.currency];
-    else
-        this.CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
-   
     this.CreateAutocompleteAbout();
 
     var _the = this;
@@ -94,6 +96,11 @@ export class AboutComponent extends BaseComponent implements OnInit {
     // });
 
     this.getGenres();
+    this.GetCurrentCurrency();
+
+    if(this.Event.is_crowdfunding_event){
+        this.setDate();
+    }
 
     // console.log(this.Event);
     if(this.Event.image_id)
@@ -125,14 +132,20 @@ HideGenresIfShowed(){
     if(this.showMoreGenres){
         this.showMoreGenres = false;
     }
-}  
+}
+
+GetCurrentCurrency(){
+    if(!this.Event.currency){
+         this.Event.currency = this.main.settings.GetCurrency();
+    }
+    this.CurrencySymbol = CurrencyIcons[this.Event.currency];
+}
 
   CreateAutocompleteAbout(){
     this.mapsAPILoader.load().then(
         () => {
 
           let autocomplete = new google.maps.places.Autocomplete(this.searchElementAbout.nativeElement, {types:[`(cities)`]});
-
 
             autocomplete.addListener("place_changed", () => {
                 this.ngZone.run(() => {
@@ -252,6 +265,11 @@ HideGenresIfShowed(){
         
         if(!this.Event.is_crowdfunding_event)
             this.Event.is_crowdfunding_event = false;
+        else{
+            this.Event.funding_from = this.datepickerFromModel.toString();
+            this.Event.funding_to = this.datepickerToModel.toString();
+        }
+        
     
         // console.log(`thisForm`,this.Event);
         this.onSaveEvent.emit(this.Event);
@@ -265,6 +283,11 @@ HideGenresIfShowed(){
                 this.Event.genres.push(g.genre);
             }
         }
+    }
+
+    setDate(){
+        this.datepickerToModel = new Date(this.Event.funding_to);
+        this.datepickerFromModel = new Date(this.Event.funding_from);
     }
 
 }

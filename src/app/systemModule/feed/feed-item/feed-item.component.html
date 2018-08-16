@@ -1,76 +1,166 @@
 <!-- CREATED -->
-<div class="feed-item">
-    <div class="head-feed-item">
-        <div class="flex-ava-n">
-            <div class="ava" [ngStyle]="{'background-image':Feed.account.img_base64?'url('+Feed.account.img_base64+')':''}"></div>
-            <div class="name-desc">
-                <div class="name">
-                    <p>{{Feed.account.user_name}}</p>
-                    <a [routerLink]="['/system','profile',Feed.account.id]" class="hash"><span>@</span>{{Feed.account.user_name}}</a>
-                </div>
-                <div *ngIf="Feed.type === 'account_update'" class="desc">
-                    <p>{{replaceAll(Feed.action)|titlecase}} <a [routerLink]="['/system','profile',Feed.account.id]">{{Feed.account.display_name}}</a> to "{{Feed.value}}"</p>
+<ng-container *ngIf="Feed.action != 'update_phone' && Feed.value != '' && Feed.value != '[]'">
+    <div *ngIf="Feed.action != 'update_image' && Feed.action != 'update_gallery_image'" class="feed-item">
+        <div class="head-feed-item">
+            <div class="flex-ava-n">
+                <div class="ava" [ngStyle]="{'background-image':Feed.account.img_base64?'url('+Feed.account.img_base64+')':''}"></div>
+                <div class="name-desc">
+                    <div class="name">
+                        <p>{{Feed.account?.display_name?Feed.account.display_name:Feed.account.user_name}}</p>
+                        <a [routerLink]="['/system','profile',Feed.account.id]" class="hash"><span>@</span>{{Feed.account.user_name}}</a>
+                    </div>
+                    <div *ngIf="Feed.type === 'account_update'" class="desc">
+                        <p>{{replaceAll(Feed.action)|titlecase}} <a [routerLink]="['/system','profile',Feed.account.id]">{{Feed.account.display_name}}</a> to "{{Feed.value}}"</p>
 
+                    </div>
+                    <div *ngIf="Feed.type === 'event_update'" class="desc">
+                        <p>{{replaceAll(Feed.action)|titlecase}} <a [routerLink]="['/system','shows_detail',Feed.event.id]">#{{Feed.event.name}}</a> Event to "{{getValue()}}" </p>
+                    </div>
+                    
                 </div>
-                <div *ngIf="Feed.type === 'event_update'" class="desc">
-                    <p>{{replaceAll(Feed.action)|titlecase}} <a [routerLink]="['/system','shows_detail',Feed.event.id]">#{{Feed.event.name}}</a> Event to "{{getValue()}}" </p>
-                </div>
-                
             </div>
+            <p class="when">{{Feed.created_at?calculateTime(Feed.created_at):'A long time'}} ago</p>
         </div>
-        <p class="when">{{Feed.created_at?calculateTime(Feed.created_at):'A long time'}} ago</p>
-    </div>
-    <div class="body-feed-item"></div>
-    <div *ngIf="Feed.type === 'event_update'" class="footer-item">
-        <div class="left-side">
-            <span *ngIf="Feed.event?.comments_available" (click)="isOpenComment = !isOpenComment; GetComments()" class="coments counter-icon">
-               {{Feed.comments}}
-            </span>
-            <!--добавляем liked если лайнули-->
-            <span (click)="likePost()" class="likes counter-icon" [ngClass]="{'liked': Feed.is_liked}">
-                {{Feed.likes}}
-            </span>
-        </div>
-        <div class="right-side">
 
-                
-            <!-- <div class="dots">
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-            </div> -->
-        </div>
-    </div>
-    <!--по нажатию на кементы-->
-    <div *ngIf="isOpenComment" class="coments-item">
-        <div *ngFor="let item of comments" class="one-coment">
+        <div *ngIf="Feed.type === 'event_update'" class="footer-item">
             <div class="left-side">
-                <div class="ava" [ngStyle]="{'background-image':item.account?.image_base64?'url('+item.account.image_base64+')':''}"></div>
+                <span *ngIf="Feed.event?.comments_available" (click)="isOpenComment = !isOpenComment; GetComments()" class="coments counter-icon">
+                {{Feed.comments}}
+                </span>
+                <!--добавляем liked если лайнули-->
+                <span (click)="likePost()" class="likes counter-icon" [ngClass]="{'liked': Feed.is_liked}">
+                    {{Feed.likes}}
+                </span>
             </div>
             <div class="right-side">
-                <p class="name">{{item.account?.user_name?item.account.user_name:''}}</p>
-                <p class="description">{{item.text}}</p>
-                <p class="when">{{item.created_at?calculateTime(item.created_at):'A long time'}} ago</p>
+
+                    
+                <!-- <div class="dots">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div> -->
             </div>
         </div>
-
-        <!--оставить комент-->
-        <form class="leave-coment-wrapp">
-            <div class="left-side">
-                <div class="ava" [ngStyle]="{'background-image':myLogo?'url('+myLogo+')':''}"></div>
+        <!--по нажатию на кементы-->
+        <div *ngIf="isOpenComment" class="coments-item">
+            <div *ngFor="let item of comments" class="one-coment">
+                <div class="left-side">
+                    <div class="ava" [ngStyle]="{'background-image':item.account?.image_base64?'url('+item.account.image_base64+')':''}"></div>
+                </div>
+                <div class="right-side">
+                    <p class="name">{{item.account?.user_name?item.account.user_name:''}}</p>
+                    <p class="description">{{item.text}}</p>
+                    <p class="when">{{item.created_at?calculateTime(item.created_at):'A long time'}} ago</p>
+                </div>
             </div>
-            <div class="input-wrapp">
-                <input type="text"  name="text_comment" [(ngModel)]="comment.text" placeholder="Leave a comment...">
+
+            <!--оставить комент-->
+            <form class="leave-coment-wrapp">
+                <div class="left-side">
+                    <div class="ava" [ngStyle]="{'background-image':myLogo?'url('+myLogo+')':''}"></div>
+                </div>
+                <div class="input-wrapp">
+                    <input type="text"  name="text_comment" [(ngModel)]="comment.text" placeholder="Leave a comment...">
+                </div>
+                <div class="right-side">
+                    <button (click)="postComment()" class="butt-style-1" type="button">
+                        <span>post</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+        <!--/по нажатию на кементы-->
+    </div>
+
+
+
+    <div *ngIf="Feed.action === 'update_image' || Feed.action === 'update_gallery_image'" class="feed-item">
+        <div class="head-feed-item">
+            <div class="flex-ava-n">
+                <div class="ava" [ngStyle]="{'background-image':Feed.account.img_base64?'url('+Feed.account.img_base64+')':''}"></div>
+                <div class="name-desc">
+                    <div class="name">
+                        <p>{{Feed.account.display_name}}</p>
+                        <a [routerLink]="['/system','profile',Feed.account.id]" class="hash"><span>@</span>{{Feed.account.user_name}}</a>
+                    </div>
+                    <div *ngIf="Feed.type === 'account_update'" class="desc">
+                        <p> {{Feed.action === 'update_image'?'Update image':'Add gallery image'}} <a [routerLink]="['/system','profile',Feed.account.id]">{{Feed.account.display_name}}</a></p>
+
+                    </div>
+                    <div *ngIf="Feed.type === 'event_update'" class="desc">
+                        <p>Update Image <a [routerLink]="['/system','shows_detail',Feed.event.id]">#{{Feed.event.name}}</a> Event</p>
+                    </div>
+                    
+                </div>
+            </div>
+            <p class="when">{{Feed.created_at?calculateTime(Feed.created_at):'A long time'}} ago</p>
+        </div>
+        <div class="body-feed-item">
+            <div class="one-photo" [ngStyle]="{'background-image': 'url('+getImage()+')'}"></div>
+        </div>
+
+        <div *ngIf="Feed.type === 'event_update'" class="footer-item">
+            <div class="left-side">
+                <span *ngIf="Feed.event?.comments_available" (click)="isOpenComment = !isOpenComment; GetComments()" class="coments counter-icon">
+                {{Feed.comments}}
+                </span>
+                <!--добавляем liked если лайнули-->
+                <span (click)="likePost()" class="likes counter-icon" [ngClass]="{'liked': Feed.is_liked}">
+                    {{Feed.likes}}
+                </span>
             </div>
             <div class="right-side">
-                <button (click)="postComment()" class="butt-style-1" type="button">
-                    <span>post</span>
-                </button>
+
+                    
+                <!-- <div class="dots">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div> -->
             </div>
-        </form>
+        </div>
+        <!--по нажатию на кементы-->
+        <div *ngIf="isOpenComment" class="coments-item">
+            <div *ngFor="let item of comments" class="one-coment">
+                <div class="left-side">
+                    <div class="ava" [ngStyle]="{'background-image':item.account?.image_base64?'url('+item.account.image_base64+')':''}"></div>
+                </div>
+                <div class="right-side">
+                    <p class="name">{{item.account?.user_name?item.account.user_name:''}}</p>
+                    <p class="description">{{item.text}}</p>
+                    <p class="when">{{item.created_at?calculateTime(item.created_at):'A long time'}} ago</p>
+                </div>
+            </div>
+
+            <!--оставить комент-->
+            <form class="leave-coment-wrapp">
+                <div class="left-side">
+                    <div class="ava" [ngStyle]="{'background-image':myLogo?'url('+myLogo+')':''}"></div>
+                </div>
+                <div class="input-wrapp">
+                    <input type="text"  name="text_comment" [(ngModel)]="comment.text" placeholder="Leave a comment...">
+                </div>
+                <div class="right-side">
+                    <button (click)="postComment()" class="butt-style-1" type="button">
+                        <span>post</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+        <!--/по нажатию на кементы-->
     </div>
-    <!--/по нажатию на кементы-->
-</div>
+
+</ng-container>
+
+
+
+
+
+
+
+
+
 
 <!-- VIDEO -->
 <div *ngIf="Feed.action==='video'" class="feed-item">

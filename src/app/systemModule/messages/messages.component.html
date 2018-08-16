@@ -13,10 +13,10 @@
 
                         <div  class="left-s">
                             <div class="rotate-xs-wrapper">
-                            <!--задаем класс active при клике-->
+
                                 <ng-container *ngFor="let item of messages; let i = index">
 
-                                    <div *ngIf="item.message_type != 'blank'" [ngClass]="{'active':item.id==idCurMsg}" (click)="changeItem(item,i);" class="one-msg-l-block active">
+                                    <div *ngIf="item.message_type == 'request' || item.message_type == 'accept' || item.message_type == 'blank'" [ngClass]="{'active':item.id==idCurMsg}" (click)="changeItem(item,i);" class="one-msg-l-block active">
                                         <div class="name-ava">
                                             <div class="ava" [ngStyle]="{'background-image': item.sender?'url('+item.sender.image_base64+')':''}"></div>
                                             <p class="n">{{item.sender?.full_name?item.sender.full_name:'No name'}}</p>
@@ -24,7 +24,6 @@
                                         </div>
                                         <div  class="descr-side">
                                             <p class="f">
-                                                <!--задаем класс active если нужен кружочек. нахуй он всрался - хз-->
                                                 <span [ngClass]="{'active':!item.is_read}" class="some-t active">{{item.message_type?item.message_type:''}} to Perform</span>
                                                 <span *ngIf="item.created_at" class="when">{{item.created_at| date:'MMM d' }}</span>
                                             </p>
@@ -47,36 +46,24 @@
                                         </div>
                                     </div>
 
-                                    <div *ngIf="item.message_type == 'blank'" [ngClass]="{'active':item.id==idCurMsg}" (click)="changeItem(item,i);" class="one-msg-l-block active">
+                                    <div *ngIf="item.message_type == 'feedback' || item.message_type == 'support'" [ngClass]="{'active':item.id==idCurMsg}" (click)="changeItem(item,i);" class="one-msg-l-block active">
                                         <div class="name-ava">
-                                            <div class="ava" [ngStyle]="{'background-image': item.sender?.image_base64?'url('+item.sender.image_base64+')':'./../../assets/img/non-photo-2.svg'}"></div>
-                                            <p class="n">{{item.sender?.full_name?item.sender.full_name:'No name'}}</p>
-                                            <p *ngIf="item.sender&&item.sender.user_name" class="hash"><span>@</span>{{item.sender?.user_name?item.sender.user_name:'No username'}}</p>
+                                            <div class="ava" [ngStyle]="{'background-image': 'url(./../../../../assets/img/ping-sun.png)'}"></div>
+                                            <p class="n">Admin</p>
                                         </div>
                                         <div  class="descr-side">
                                             <p class="f">
-                                                <!--задаем класс active если нужен кружочек. нахуй он всрался - хз-->
-                                                <span [ngClass]="{'active':!item.is_read}" class="some-t active">{{item.subject?item.subject:'No subject'}}</span>
+                                    
+                                                <span [ngClass]="{'active':!item.is_read}" class="some-t active">{{item.message_type?item.message_type:'No subject'}}</span>
                                                 <span *ngIf="item.created_at" class="when">{{item.created_at| date:'MMM d' }}</span>
                                             </p>
-                                            <!-- <p class="name-e">{{item.name}}</p> -->
-                                            <!-- <p  class="where-when">
-                                                    {{item.message_info?.event_info.address}}
-                                                <br>
-                                                {{item.message_info?.event_info.event_season | titlecase}} {{item.message_info?.event_info.event_year}}
-
-                                            </p> -->
-                                        
+                                            <p *ngIf="item.subject" class="name-e">{{item.subject}}</p>
                                         </div>
                                     </div>
-
-
                                 </ng-container>
                             </div>
                         </div>
 
-
-                        <!--вместо дива может быть форма-->
                         <div  *ngIf="openMessage?.message_type === 'request'" class="right-s">
                             <div *ngIf="openMessage.id&&(openMessage.message_type=='request'&&openMessage.message_info||openMessage.message_type!='request')" class="some-request-text-wrapper">
                                 <div class="block-info f-b">
@@ -102,54 +89,6 @@
 
                                     <p *ngIf="openMessage.message_type == 'accept' &&openMessage.message_info" class="fot-edit">{{openMessage.message_info?.preferred_date_from| date}} - {{openMessage.message_info?.preferred_date_to| date}} </p>
                                     
-                                    <!--появлется если нажать на верхнюю картинку for-edit-img-->
-                                    <!-- <div *ngIf="isEditShow" class="selects-wrapper">
-                                        <div class="flex-input-groupes">
-                                            <div class="input-groupe-1">
-                                                <select [(ngModel)]="openMessage.message_info?.event_info.event_season" id="inp-create-5">
-                                                    <option>spring</option>
-                                                    <option>summer</option>
-                                                    <option>autumn</option>
-                                                    <option>winter</option>
-                                            
-                                                </select>
-                                                <label for="inp-create-5">Event Date</label>
-                                            </div>
-                                            <div class="input-groupe-1">
-                                                <select id="inp-create-6">
-                                                    <option>2018</option>
-                                                    <option>2019</option>
-                                                    <option>2020</option>
-                                                    <option>2021</option>
-                                                    <option>2022</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="flex-input-groupes">
-                                            <div class="input-groupe-1">
-                                                <select id="inp-create-7">
-                                                    <option>morning</option>
-                                                    <option>afternoon</option>
-                                                    <option>evening</option>
-                                                </select>
-                                                <label for="inp-create-7">Time Range</label>
-                                            </div>
-                                            <div class="input-groupe-1">
-                                                <select id="inp-create-8">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-
-                                                </select>
-                                                <label for="inp-create-8">Event Length</label>
-                                            </div>
-                                        </div>
-                                    </div> -->
-                                    <!--/появлется если нажать на верхнюю картинку for-edit-img-->
-                                    
-                                    
                                     
                                     <p *ngIf="openMessage.message_type == 'request'" class="desc-for-edit">(You can pick the dates you are available to perform)</p>
                                     <p *ngIf="openMessage&&openMessage.message_info&&openMessage.message_info?.event_info&&openMessage.message_info?.event_info.is_crowdfunding_event" class="event-type">Crowdfunded Event</p>
@@ -158,8 +97,8 @@
                                     <p class="fot-edit">
                                             
                                         Price to Perform <span>
-                                            {{openMessage.message_info?.currency?(openMessage.message_info?.currency==='USD'?'$':openMessage.message_info?.currency==='RUB'?'₽':openMessage.message_info?.currency==='EUR'?'€':''):''}}
-                                            {{(openMessage.message_type&&openMessage.message_info&&openMessage.message_type == 'request')?openMessage.message_info?.estimated_price:openMessage.message_info?.price}}</span>
+                                            {{CurrentCurrency}}
+                                            {{(openMessage.message_type&&openMessage.message_info&&openMessage.message_type == 'request')?openMessage.message_info?.price:''}}</span>
                                         <img *ngIf="openMessage.message_type == 'request'&&!openMessage.is_read" src="../../assets/img/edit-img.png" (click)="isEditPrice = true" class="img-responsive for-edit-img" alt="">
                                     </p>
                                     
@@ -168,7 +107,7 @@
                                     <div *ngIf="isEditPrice" class="flex-price-change">
                                         <p class="your-price">Change price</p>
                                         <div class="rel-dog">
-                                            <span>{{openMessage.message_info?.currency?(openMessage.message_info?.currency==='USD'?'$':openMessage.message_info?.currency==='RUB'?'₽':openMessage.message_info?.currency==='EUR'?'€':''):''}}</span>
+                                            <span>{{CurrentCurrency}}</span>
                                             <input [(ngModel)]="changePrice" class="inp-style-2" type="text">
                                         </div>
                                     </div>
@@ -182,7 +121,7 @@
                                 </div>
                                 <div class="block-info sixth-b">
                                     <div  *ngIf="openMessage.message_type == 'request'" class="input-groupe-1 whithout-label small-textarea max-500">
-                                        <textarea disabled [value]="openMessage?.message"  id="inp-media-venue-2"></textarea>
+                                        <textarea disabled [value]="openMessage?.message_info?.message"  id="inp-media-venue-2"></textarea>
                                         <label for="inp-media-venue-2" class="head-groupe">Personal Message</label>
                                     </div>
                                     <div *ngIf="!openMessage.is_read&&openMessage.message_type == 'request'" class="flex-buttons">
@@ -341,9 +280,6 @@
                                 </div>
                         </div>
 
-
-
-
                         <div  *ngIf="openMessage?.message_type === 'support'" class="right-s">
                             <app-message-support
                                 [Message] = "openMessage"
@@ -351,11 +287,36 @@
                             ></app-message-support>
                         </div>
 
-                        <div *ngIf="openMessage?.message_type === 'blank'" class="right-s">
-                            <app-message-blank 
+                        <div *ngIf="openMessage?.message_type === 'feedback'" class="right-s">
+                            <app-message-feedback 
                                 [Message]="openMessage"
-                            ></app-message-blank>
+                            ></app-message-feedback>
                         </div>
+
+                         <div *ngIf="openMessage?.message_type === 'blank'" class="right-s">
+                            <div class="some-request-text-wrapper">
+                                <div class="block-info f-b">
+                                    <span class="some-t">{{openMessage.subject}}</span>
+                                    <span class="when">{{openMessage.created_at | date:'MMM d' }}</span>
+                                </div>
+                                <ng-container *ngFor="let reply of openMessage.reply">
+                                    <div *ngIf="reply.sender" class="block-info s-b">
+                                        <div class="ava" [ngStyle]="{'background-image': (reply.sender&&reply.sender.image_base64)?'url('+reply.sender.image_base64+')':''}"></div>
+                                        <div class="name-hash">
+                                            <p class="n">{{reply.sender?.full_name?reply.sender.full_name:''}}</p>
+                                            <p class="hash"><span>@</span>{{reply.sender?.user_name?reply.sender.user_name:''}}</p>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="block-info t-b">
+                                        <p class="descr">{{reply.message | titlecase}}</p>
+                                    </div>
+                                </ng-container>
+
+                            </div>
+                        </div>
+
+
 
 
                     </ng-container>

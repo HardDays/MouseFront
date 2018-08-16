@@ -1,5 +1,5 @@
 <div class="admin_content whole_white">
-    <div class="support_container">
+    <div  class="support_container">
         <div class="feedback_zag_block">
             <h1 class="support_zag">Feedback</h1>
             <div class="checks">
@@ -35,19 +35,24 @@
                 <p class="rate">{{Rate}} / 5.0</p>
             </div>
         </div>
-        <div class="support_grey">
-            <div class="support_dialogs">
+        <div *ngIf="FeedbacksChecked.length>0" class="support_grey" infinite-scroll 
+                [infiniteScrollDistance]="1"
+                [scrollWindow]="true" 
+                [infiniteScrollThrottle]="5"
+                (scrolled)="onScroll()"
+                [infiniteScrollDisabled]="ScrollDisabled">
+            <div class="support_dialogs" >
                 <ng-container *ngFor="let fb of FeedbacksChecked">
                     <div (click)="openNewFeedback(fb.id ,fb)" class="support_dialogs_item" [ngClass]="{'active':fb.id===openFeedback.id}">
                         <div class="ava" [ngStyle]="{'background-image':fb.sender?'url('+fb.sender.image_base64+')':'url('+nonImage+')'}" ></div>
                         <div class="info">
                             <p class="question">
-                                <span class="title">{{fb.feedback_type|titlecase}}</span>
+                                <span class="title">{{fb?.message_info?.feedback_type|titlecase}}</span>
                                 <span class="date">{{fb.created_at|date}}</span>
                             </p>
-                            <p class="name">{{fb.sender?fb.sender.display_name:'No name'}}</p>
+                            <p class="name">{{fb.sender?fb.sender.full_name:'No name'}}</p>
                             <p class="username"><span>@</span>{{fb.sender?fb.sender.user_name:'No username'}}</p>
-                            <!-- <p class="address">{{fb.sender?fb.sender.address:'No address'}}</p> -->
+                            <p class="address">{{fb.sender?fb.sender.address:'No address'}}</p>
                         </div>
                         <div class="stars">
                             <span class="star" [ngClass]="{'full':fb.rate_score>=0.5}"></span>
@@ -69,9 +74,9 @@
                     <div *ngIf="fbTransformed"  class="mes_head feedback_head">
                         <div class="ava" [ngStyle]="{'background-image':fbTransformed.sender ? 'url('+fbTransformed.sender.image_base64+')':'url('+nonImage+')'}"></div>
                         <div class="info">
-                            <p class="name">{{fbTransformed.sender ? fbTransformed.sender.display_name :'No name'}}</p>
+                            <p class="name">{{fbTransformed.sender ? fbTransformed.sender.full_name :'No name'}}</p>
                             <p class="username"><span>@</span>{{fbTransformed.sender?fbTransformed.sender.user_name:'No username'}}</p>
-                            <!-- <p class="address">New York, NY USA</p> -->
+                            <p class="address">{{fbTransformed.sender?fbTransformed.sender.address:'No address'}}</p>
                         </div>
                         <div class="stars_block">
 

@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
 import { BaseComponent } from '../../../core/base/base.component';
 import { Params } from '@angular/router';
 import { EventGetModel } from '../../../core/models/eventGet.model';
 import { AccountGetModel } from '../../../core/models/accountGet.model';
-import { BaseImages } from '../../../core/base/base.enum';
+import { BaseImages, BaseMessages } from '../../../core/base/base.enum';
 import { Video } from '../../../core/models/accountCreate.model';
+import { ErrorComponent } from '../../../shared/error/error.component';
 
 declare var $:any;
 
@@ -14,6 +15,23 @@ declare var $:any;
   styleUrls: ['./event.component.css']
 })
 export class EventComponent extends BaseComponent implements OnInit {
+
+  @ViewChild('errCmp') errCmp: ErrorComponent = new ErrorComponent;
+
+  @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+    if(this.isShowMap){
+        if (event.keyCode === this.ESCAPE_KEYCODE || event.keyCode === this.ENTER_KEYCODE) {
+          $('#modal-map-1').modal('hide');
+          this.isShowMap = false;
+        }
+    }
+  }
+
+  isShowMap = false;
+
+  
+  ESCAPE_KEYCODE = 27;
+  ENTER_KEYCODE = 13;
 
   eventId = 0;
   Event:EventGetModel = new EventGetModel();
@@ -71,11 +89,16 @@ export class EventComponent extends BaseComponent implements OnInit {
   }
 
   getCreator(){
+    console.log(this.Event);
     if(this.Event.creator_id){
       this.main.accService.GetAccountById(this.Event.creator_id)
         .subscribe((acc)=>{
+
           this.Owner = acc;
-          // console.log(this.Owner);
+          console.log(this.Owner);
+        },(err)=>
+        {
+          console.log(`err`,err);
         })
     }
   }
@@ -95,7 +118,7 @@ export class EventComponent extends BaseComponent implements OnInit {
               if(res.videos.length>0){
                 for(let v of res.videos){
                   this.Videos.push(this.getLink(v.link));
-                   console.log(this.Videos)
+                  //  console.log(this.Videos)
                 }
                 // console.log('2')
               }
@@ -153,6 +176,7 @@ export class EventComponent extends BaseComponent implements OnInit {
       .subscribe(
         (res)=>{
           // console.log(`res`,res);
+          this.errCmp.OpenWindow(BaseMessages.Success);
           this.getThisEvent();
         },
         (err)=>{
@@ -167,6 +191,7 @@ export class EventComponent extends BaseComponent implements OnInit {
       .subscribe(
         (res)=>{
           // console.log(`res`,res);
+          this.errCmp.OpenWindow(BaseMessages.Success);
           this.getThisEvent();
         },
         (err)=>{
@@ -177,12 +202,18 @@ export class EventComponent extends BaseComponent implements OnInit {
 
   getLink(link:string){
 
-    console.log(`--------`);
+    // console.log(`--------`);
     let url = 'http://www.youtube.com/embed/';
         url+= link.split('/').pop();
     return this._sanitizer.bypassSecurityTrustResourceUrl(url);
     // return url;
   }
+
+  openMap(){
+    $('#modal-map-1').modal('show');
+    this.isShowMap = true;
+  }
+
     
   
   

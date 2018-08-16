@@ -49,7 +49,7 @@ export class AdminComponent extends BaseComponent implements OnInit {
     });
 
 
-    console.log(this.main.MyUser.id);
+    // console.log(this.main.MyUser.id);
 
     if(this.main.MyUser.id && (this.main.MyUser.is_admin||this.main.MyUser.is_superuser)){
       this.main.adminService.GetMyAccByIdUser(this.main.MyUser.id)
@@ -147,8 +147,6 @@ export class AdminComponent extends BaseComponent implements OnInit {
         case 'revenues':
           this.currentPage = Parts.revenue;
         break;
-
-        
       }
     }
     else if(url.length === 4){
@@ -174,6 +172,7 @@ export class AdminComponent extends BaseComponent implements OnInit {
             case 'funding': this.currentPage = Parts.accounts_funding;
               break;
           }
+          if(url[3]!='all')this.openSubmenu.account = true;
           break;
 
         case 'events':
@@ -195,6 +194,7 @@ export class AdminComponent extends BaseComponent implements OnInit {
             case 'analytics': this.currentPage = Parts.events_analytics;
               break;
           }
+          if(url[3]!='all')this.openSubmenu.event = true;
           break;
 
           case 'account':
@@ -212,11 +212,14 @@ export class AdminComponent extends BaseComponent implements OnInit {
           case 'feedback':
             if(url[3]==='analytics')
               this.currentPage = Parts.feedback_analytics;
+            this.openSubmenu.feedback = true;
           break;
 
           case 'customer':
-          if(url[3]==='answers')
+          if(url[3]==='answers'){
               this.currentPage = Parts.customer_answers;
+              this.openSubmenu.support = true;
+          }
           break;
 
           case 'revenues':
@@ -224,11 +227,14 @@ export class AdminComponent extends BaseComponent implements OnInit {
               this.currentPage = Parts.revenue_analytics;
             else
               this.currentPage = Parts.revenue_info;
+            this.openSubmenu.revenue = true;
           break;
 
           case 'settings':
-            if(url[3]==='add-admin')
+            if(url[3]==='add-admin'){
               this.currentPage = Parts.add_new_admin;
+              this.openSubmenu.settings = true;
+            }
           break;
           
       }

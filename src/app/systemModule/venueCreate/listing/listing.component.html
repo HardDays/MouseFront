@@ -8,7 +8,7 @@
             <div class="flex-body-1 xs-verticall more-padding">
                 <div class="side">
                     <h6 class="head-col-add-venue">Venue is a:</h6>
-                    <div class="flex-radio style-on-add-artist-g">
+                    <div class="flex-radio style-on-add-artist-g fix-1400-one-col">
                         <div class="one-radio two-cols" *ngFor="let item of TypesOfSpace;let i = index">
                             <div class="radio-style">
                                 <input type="radio" class="radio-b" id="ccc-radio-556{{i}}" name="" [value]="item.value" [(ngModel)]="Venue.type_of_space" formControlName="venue_type" >
@@ -31,7 +31,7 @@
                         <input id="venue-datails-2" [textMask]="GetNumOfBathrooms(Venue.num_of_bathrooms)" [(ngModel)]="Venue.num_of_bathrooms" formControlName="bathrooms" name="" type="text">
                         <label for="venue-datails-2">Number of Bathrooms</label>
                     </div>
-                    <div class="flex-mac-checkbox">
+                    <div class="flex-mac-checkbox one-column-1400">
                         <p class="bar-flex-p">Does your Venue have a Bar?</p>
                         <div class="yes-no">
                             <span>No</span>
@@ -42,7 +42,7 @@
                             <span>Yes</span>
                         </div>
                     </div>
-                    <div class="flex-mac-checkbox direction-column on-add-artist-page">
+                    <div class="flex-mac-checkbox direction-column on-add-artist-page one-column-1400">
                         <p class="quetion-radio-text none-max-width">Located?</p>
                         <div class="flex-radio">
                             <div class="one-radio" *ngFor="let item of LocatedTypes;let i = index">

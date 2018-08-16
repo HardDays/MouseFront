@@ -20,7 +20,7 @@
                     </div>
                     
                         
-                    <ng-container *ngIf="MyProfileId&&MyProfileId != Account.id && Account.status != Status.Denied && Account.status != Status.Inactive || IsPreview" >
+                    <ng-container *ngIf="MyProfileId&&MyProfileId != Account.id && AccStatus != Status.Denied && AccStatus != Status.Inactive || IsPreview" >
                         <form class="follow-wr" (ngSubmit)="FollowProfile(!isFolowedAcc)">
                             <button [disabled]="IsPreview" class="butt-style-1" type="submit">
                                 <span *ngIf="!IsPreview">{{isFolowedAcc?'Unfollow':'Follow'}}</span>
@@ -99,7 +99,7 @@
                             <div class="flex--info">
                                 <div [ngStyle]="{'display':isLoadingGallery?'none':'block'}" class="side scroller flex-header">
                                     <div class="for-scroll-padd">
-                                        <h6>Gallery ({{VenueImages?VenueImages.length:'0'}})</h6>
+                                        <h6>Gallery ({{VenueImagesChecked?VenueImagesChecked.length:'0'}})</h6>
                                         <input type="text" class="search-profile-inp-style"  placeholder="Search" (input)='searchImagesVenue($event)'>
                                     </div>
                                     <div class="new-scroll-wr">
@@ -119,7 +119,7 @@
                                 </div>
                                 <div [ngStyle]="{'display':isLoadingUpcoming?'none':'block'}" class="side flex-header scroller">
                                     <div class="for-scroll-padd">
-                                        <h6>UPCOMING<br>SHOWS ({{UpcomingShows?UpcomingShows.length:'0'}})</h6>
+                                        <h6>UPCOMING<br>SHOWS ({{UpcomingShowsChecked?UpcomingShowsChecked.length:'0'}})</h6>
                                         <input type="text" class="search-profile-inp-style" placeholder="Search" (input)='searchUpcomingShows($event)'>
                                     </div>
                                     <div class="new-scroll-wr">

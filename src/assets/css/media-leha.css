@@ -2,6 +2,14 @@ html, body{
   min-height: 100vh;
   height: auto;
 }
+@media print {
+  header{
+    display: none!important;
+  }
+  .main_content footer{
+    display: none!important;
+  }
+}
 .main-router-outlet{
   min-height: 100vh;
   position: relative;
@@ -24,11 +32,17 @@ html, body{
   height: auto;
   background-attachment: fixed;
 }
+.register .m-v-reg{
+  max-width: 725px;
+}
 .main_content .for-flex-height{
   min-height: 100vh;
  
 }
 
+.admin_page .admin_content .admin_table .admin_table_tr.flex-wrapp{
+  flex-wrap: wrap;
+}
 .modal-send-request.map-1-modal .modal-dialog .for-map-init-modal-1{
   border: none;  
 }
@@ -118,6 +132,81 @@ html, body{
   white-space: nowrap;
   width: 112.25px;
 }
+.admin_page .admin_content .admin_table .admin_table_tr{
+  flex-wrap: wrap;
+}
+.admin_page .admin_content .admin_table.accounts_table.accounts_table_with_by .admin_table_th.change-w-acc, .admin_page .admin_content .admin_table.accounts_table.accounts_table_with_by .admin_table_td.change-w-acc
+{
+  width: 10.6%;
+}
+.admin_page .admin_content .admin_table.accounts_table.accounts_table_with_by .admin_table_th.change-w-adr, .admin_page .admin_content .admin_table.accounts_table.accounts_table_with_by .admin_table_td.change-w-adr
+{
+  width: 22.7%;
+}
+
+.admin_page .admin_content .admin_table.accounts_table .admin_table_th.change-w-acc, .admin_page .admin_content .admin_table.accounts_table .admin_table_td.change-w-acc{
+  width: 11%;
+}
+.admin_page .admin_content .admin_table.accounts_table .admin_table_th.change-w-adr, .admin_page .admin_content .admin_table.accounts_table .admin_table_td.change-w-adr{
+  width: 26%;
+}
+.admin_page .admin_content .admin_cards .card .num{
+  line-height: 50px;
+}
+.modal-send-request.fix-style .modal-dialog .flex-input-groupes{
+  padding: 0 20px;
+}
+
+.modal-send-request.fix-style .modal-dialog .flex-input-groupes .input-groupe-1.none-margin-fix{
+  margin-right: 0;
+}
+.modal-send-request.fix-style .modal-dialog .name-and-ava{
+  padding: 15px 20px;
+}
+.modal-send-request.fix-style .modal-dialog .flex-input-groupes select{
+  height: 44px;
+}
+.flex-funding-columns .side .top-gum .artists-venue-wrapp .one-block .ava-l .name{
+  flex: 1 1 auto;
+  text-overflow: ellipsis;
+  white-space: nowrap; /* Отменяем перенос текста */
+    overflow: hidden;
+}
+.flex-funding-columns .side .top-gum .artists-venue-wrapp .one-block .ava-l{
+  min-width: 0;
+}
+
+
+.new-photos-wr-scroll-preview .rel-wr-photoos .photos-abs-wrapp::-webkit-scrollbar {
+  background: #fff;
+  width: 7px; }
+
+  .new-photos-wr-scroll-preview .rel-wr-photoos .photos-abs-wrapp::-webkit-scrollbar-thumb {
+
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 2.5px;
+  cursor: pointer; }
+  .new-photos-wr-scroll-preview .rel-wr-photoos .photos-abs-wrapp{
+
+  width: 412px;
+}
+
+
+   
+  
+  .new-photos-wr-scroll-preview .rel-wr-photoos.alboms-play .photos-abs-wrapp.video-abs-wrapp{
+    transform: rotate(-90deg) translateY(-398px);
+    width: 380px;
+  }
+
+
+  .flex-ticket-wrapp .sides .head-sides-2 p{
+    line-height: normal;
+  }
+
+
+
+
 
 
 @media (max-width: 1600px) {
@@ -125,7 +214,14 @@ html, body{
     width: 43%;
     padding: 15px;
   }
-  
+  .admin_page .admin_content {
+    padding: 0 24px;
+  }
+  .admin_page nav .admin_menu_link {
+    padding: 25px 30px 25px 35px;}
+    .admin_page nav {
+      width: 345px;}
+      
 }
 
 
@@ -194,6 +290,12 @@ html, body{
   .messages-main-wrapp.fix-min-height .main-mw.main_for_setts .settings_wrap{
     min-height: auto;
   }
+  .admin_page .admin_content .admin_table .admin_table_tr .admin_table_td{
+    font-size: 12px;
+  }
+  .admin_page .admin_content .admin_table .admin_table_thead .admin_table_th.width-fixed{
+    width: 101.92px;
+  }
 }
 @media (max-width: 1400px) {
   .modal-send-request.map-1-modal .modal-dialog .for-map-init-modal-1 {
@@ -221,6 +323,22 @@ html, body{
   .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_left {
     width: 40%;
   }
+  .flex-mac-checkbox.direction-column.one-column-1400 .flex-radio{
+    display: block;
+  }
+  .flex-mac-checkbox.one-column-1400{
+    display: block;
+  }
+  .flex-mac-checkbox.one-column-1400 .bar-flex-p{
+    margin-bottom: 12px;
+  }
+  .style-on-add-artist-g.fix-1400-one-col{
+    display: block;
+  }
+  .style-on-add-artist-g.fix-1400-one-col .two-cols{
+    width: 100%;
+  }
+
 }
 
 @media (max-width: 1350px) {
@@ -229,6 +347,12 @@ html, body{
   }
   .create-event-body-1 .create-event-body .flex-body-1 .side.two-sides-w .shadow-days-wr .times-days .some-times-days .week-day-time-wr{
     margin-left: 0;
+  }
+  .admin_page .admin_content .support_container{
+    padding: 0 15px 0 15px;
+  }
+  .admin_page .admin_content .support_container .feedback_zag_block .checks .filter_checkbox{
+    margin-left: 10px;
   }
 }
 @media (max-width: 1300px) {
@@ -242,6 +366,23 @@ html, body{
  
   .all-info-profile .uniq-padd-2 .flex--info .side.side-calendars-l.none-1300{
       display: none;
+}
+.admin_page .admin_content .admin_table .admin_table_tr .admin_table_td{
+  font-size: 11px;
+
+}
+.admin_page .admin_content .admin_table .admin_table_thead .admin_table_th.width-fixed{
+  width: 76.77px;
+}
+.admin_page .admin_content .admin_table .admin_table_tr .admin_table_td{
+  padding: 13px 10px;
+}
+.admin_page .admin_content .admin_table .admin_table_thead .admin_table_th{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.admin_page .admin_content .admin_table .admin_table_thead .admin_table_th{
+  font-size: 10px;
 }
 
 }
@@ -662,6 +803,9 @@ html, body{
 }
 .create-event-nav-tabs .create-event-header ul{
   flex-wrap: wrap;
+}
+.flex-ticket-wrapp .sides .head-sides-2 p{
+  line-height: normal!important;
 }
 }
 @media (max-width: 767px) {
@@ -1325,6 +1469,11 @@ html, body{
 }
 .artist-media .media-flex-sides .right-side{
   padding-left: 0;
+}
+.modal-send-request.fix-style .modal-dialog .name-and-ava .ava{
+  width: 45px;
+  height: 45px;
+  margin-right: 7px;
 }
 
 }

@@ -51,7 +51,7 @@ export class FeedbackAnalyticsComponent extends BaseComponent implements OnInit 
       .subscribe(
         (res)=>{
           this.graphInfo = res;
-          console.log(this.graphInfo);
+          // console.log(this.graphInfo);
          
           this.lineChartLabels.length = 0;
           this.lineChartLabels.push(...this.graphInfo.axis);

@@ -33,7 +33,7 @@ export class VenueComponent extends BaseComponent implements OnInit {
               this.Account.image_base64_not_given = BaseImages.NoneFolowerImage;
           },
           (err)=>{
-            console.log(err);
+            // console.log(err);
             this.Account.image_base64_not_given = BaseImages.NoneFolowerImage;
           });
       }
@@ -55,7 +55,7 @@ export class VenueComponent extends BaseComponent implements OnInit {
                 this.Account.image_base64_not_given = BaseImages.NoneFolowerImage;
             },
             (err)=>{
-              console.log(err);
+              // console.log(err);
               this.Account.image_base64_not_given = BaseImages.NoneFolowerImage;
             });
         }
@@ -116,17 +116,13 @@ export class VenueComponent extends BaseComponent implements OnInit {
       $('.photos-abs-wrapp').css({
         'max-height': $('.rel-wr-photoos').width()+'px'
       });
-      $('.new-photos-wr-scroll-preview').css({
-        'padding-left': $('.for-position-left-js').offset()?$('.for-position-left-js').offset().left:0
-      });
+     
   
     $(window).resize(function(){
         $('.photos-abs-wrapp').css({
             'max-height': $('.rel-wr-photoos').width()+'px'
         });
-        $('.new-photos-wr-scroll-preview').css({
-            'padding-left': $('.for-position-left-js').offset()?$('.for-position-left-js').offset().left:0
-        });
+        
     });
     }, 5000);
     
@@ -144,7 +140,7 @@ export class VenueComponent extends BaseComponent implements OnInit {
       this.WaitBeforeLoading(
         () => this.main.imagesService.GetImageById(oneRes.id),
         (res:any) => {
-          console.log(oneRes);
+          // console.log(oneRes);
              let p = {
               id:res.id,
               base64:res.base64,
@@ -160,7 +156,7 @@ export class VenueComponent extends BaseComponent implements OnInit {
               (err) =>{
             });
             this.photos.push(p);
-            console.log(this.photos); 
+            // console.log(this.photos); 
           },
         (err) => {
         }

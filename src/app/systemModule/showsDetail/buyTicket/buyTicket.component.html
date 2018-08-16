@@ -1,7 +1,12 @@
 <div class="one-ticket">
     <form (ngSubmit)="AddTickets()">
         <div class="one-tick-counter">
-            <p class="count">{{Currency}}{{Ticket.original_price}}</p>
+            <p class="count" [ngClass]="
+            {
+                'count-mylty-value': Currency != OriginalCurrency
+            }
+            ">{{Currency}}{{Ticket.price}}</p>
+            <p *ngIf="Currency != OriginalCurrency" class="original-price">({{OriginalCurrency}}{{Ticket.original_price}})</p>
             <div class="conter-wrapp">
                 <div class="arrow l-a" (click)="ChangeCount(-1)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="15" height="27">

@@ -71,7 +71,7 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
           phoneToSend = phoneToSend.replace(/\(/g,'');
           phoneToSend = phoneToSend.replace(/\)/g,'');
           phoneToSend = phoneToSend.replace(/-/g,'');
-       console.log(`phoneToSend`,phoneToSend);
+      //  console.log(`phoneToSend`,phoneToSend);
 
         this.WaitBeforeLoading(
         ()=>this.main.phoneService.SendCodeToPhone(phoneToSend),
@@ -132,7 +132,7 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
           this.errorCmp.OpenWindow(BaseMessages.Success);
           },
           (err)=>{
-            console.log(`err`,err);
+            // console.log(`err`,err);
 
             this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
             

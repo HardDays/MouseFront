@@ -50,10 +50,10 @@ export class AddTicketsComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     // this.CreateAutocompleteArtist();
-    this.CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
+    this.CurrencySymbol = CurrencyIcons[this.Event.currency];
 
     this.getTickets();
-    console.log(`INIT`);
+    // console.log(`INIT`);
 
 
     
@@ -138,7 +138,8 @@ updateTicket(){
 
     this.currentTicket.promotional_date_from = this.datepickerFromModel.toString();
     this.currentTicket.promotional_date_to = this.datepickerToModel.toString();
-    
+    this.currentTicket.currency = this.Event.currency;
+
     if(this.isCurTicketNew) {
         if(this.currentTicket.type==='vr'){
             if(this.currentTicket.count>this.maxCountVr){

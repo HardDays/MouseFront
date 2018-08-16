@@ -26,7 +26,7 @@ export class AccountsComponent extends BaseComponent implements OnInit {
         if(this.status === 'analytics'||this.status === 'invites'||this.status === 'funding'){
           this.isShowTable = false;
         }
-        else if(this.status != 'new'&& this.status != 'all'){
+        else if(this.status != 'new'&& this.status != 'all'&& this.status != 'just_added'&& this.status != 'pending'){
           this.isApprovedBy = true;
         }
         else {

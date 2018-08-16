@@ -34,19 +34,17 @@
                         <ng-container *ngIf="Artists&&Artists.length>0">
                             <ng-container *ngFor="let item of Artists; let i = index">
                                 <div *ngIf="item.status_not_given!='owner_declined'&&item.status_not_given!='declined'" class="one-card">
-                                
                                         <app-one-card 
                                             [card] = "item" 
                                             [status] = "item.status_not_given" 
-                                            [price] = "getPriceAtMsg(item.id)"
-                                            [currency] = "getCurrencyAtMsg(item.id)"
+                                            [price] = "item.price_not_given"
+                                            [currency] = "Event.currency"
                                             (accepted) = "acceptArtistCard($event)"
                                             (requested) = "sendArtistRequestOpenModal($event)"
                                             (declined) = "declineArtist($event)"
                                             (checked) = "updateEvent()"
                                             (open) = "openPreviewArtist($event)"
                                         ></app-one-card>
-                                        
                                 </div>
                             </ng-container>
                         </ng-container>
@@ -75,7 +73,7 @@
                                         [card] = "item" 
                                         [status] = "item.status_not_given" 
                                         [price] = " "
-
+                                        [currency] = "Event.currency"
                                         (accepted) = "acceptArtistCard($event)"
                                         (requested) = "sendArtistRequestOpenModal($event)"
                                         (declined) = "declineArtist($event)"
@@ -188,7 +186,7 @@
     <!--//конец модалки для кликов на плюс и текст-->
 
     <!--модалка для кликов на send request-->
-    <div class="modal fade modal-send-request" id="modal-send-request-artist">
+    <div class="modal fade modal-send-request fix-style" id="modal-send-request-artist">
          <div class="modal-dialog">
                <form [formGroup]="requestArtistForm">
             <div class="modal-body">
@@ -220,22 +218,23 @@
                     </div>
                     <div class="flex-input-groupes">
                         <div class="input-groupe-1 font-size-label more-padd">
-                            <select formControlName="time_frame_range"  id="inp-modal-req-3">
-                                    <option value="one_hour">Hour</option>
-                                    <option value="one_day">Day</option>
-                                    <option value="one_week">Week</option>
-                                    <option value="one_month">Month</option>
-                            </select>
-                            <label for="inp-modal-req-3">Time Frame we expect an answer<span>*</span></label>
-                        </div>
-                        <div class="input-groupe-1 font-size-label more-padd">
                                 <div class="rel-wr">
                                     <!-- <span class="abs-backs">$</span> -->
                                     <input [textMask]="MaskNumbers()" formControlName="time_frame_number" id="inp-modal-req-412" name="" type="text">
                                 </div>
                                 <label for="inp-modal-req-4">Time Frame<br> Number<span>*</span></label>
                                 
-                            </div>
+                        </div>
+                        <div class="input-groupe-1 font-size-label more-padd">
+                            <select formControlName="time_frame_range"  id="inp-modal-req-3">
+                                    <option value="hour">Hour(s)</option>
+                                    <option value="day">Day(s)</option>
+                                    <option value="week">Week(s)</option>
+                                    <option value="month">Month(s)</option>
+                            </select>
+                            <label for="inp-modal-req-3">Time Frame we expect an answer<span>*</span></label>
+                        </div>
+                        
                         <div class="input-groupe-1 font-size-label more-padd">
                             <div class="rel-wr">
                                 <span class="abs-backs">{{CurrencySymbol}}</span>
@@ -261,7 +260,7 @@
                         <input type="text" disabled  style="background-color: white" [value]="Event.address" class="location-inp" placeholder="location">
                     </div>
                     <div class="flex-input-groupes">
-                        <div class="input-groupe-1 small-textarea whithout-label">
+                        <div class="input-groupe-1 small-textarea whithout-label none-margin-fix">
 
                             <textarea formControlName="message" id="inp-desc-2-modal"></textarea>
                             <label for="inp-desc-2-modal" class="head-groupe">Message</label>

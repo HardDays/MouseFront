@@ -7445,12 +7445,13 @@ footer {
               transform: rotate(-90deg) translateY(-410px);
       -webkit-transform-origin: right top;
               transform-origin: right top; }
-      .new-photos-wr-scroll-preview .rel-wr-photoos .photos-abs-wrapp::-webkit-scrollbar {
+            
+      /* .new-photos-wr-scroll-preview .rel-wr-photoos .photos-abs-wrapp::-webkit-scrollbar {
         width: 2px;
         height: 2px; }
       .new-photos-wr-scroll-preview .rel-wr-photoos .photos-abs-wrapp::-webkit-scrollbar-button {
         width: 2px;
-        height: 2px; }
+        height: 2px; } */
       .new-photos-wr-scroll-preview .rel-wr-photoos .photos-abs-wrapp .one-slide {
         outline: none;
         width: 410px;

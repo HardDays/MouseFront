@@ -242,10 +242,10 @@ export class AdminService{
             ()=> this.http.DeleteDataWithBody('/admin/feedbacks/'+id+'.json', JSON.stringify({id}))
         );
     }
-    GetFeedbacks()
+    GetFeedbacks(params:any)
     {
         return this.http.CommonRequest(
-            ()=> this.http.GetData('/admin/feedbacks.json', '')
+            ()=> this.http.GetData('/admin/feedbacks.json', this.typeService.ParamsToUrlSearchParams(params))
         );
     }
     GetFeedbackById(id)

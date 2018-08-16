@@ -56,7 +56,7 @@ import { FeedItemComponent } from './feed/feed-item/feed-item.component';
 import { FeedModule } from './feed/feed.module';
 import { MessageRequestComponent } from './messages/message-request/message-request.component';
 import { MessageAcceptComponent } from './messages/message-accept/message-accept.component';
-import { MessageBlankComponent } from './messages/message-blank/message-blank.component';
+import { MessageFeedbackComponent } from './messages/message-feedback/message-feedback.component';
 import { MessageSupportComponent } from './messages/message-support/message-support.component';
 
 
@@ -69,7 +69,7 @@ import { MessageSupportComponent } from './messages/message-support/message-supp
     MyTicketOpenedComponent,
     MessageRequestComponent,
     MessageAcceptComponent,
-    MessageBlankComponent,
+    MessageFeedbackComponent,
     MessageSupportComponent
   ],
   imports: [
@@ -99,7 +99,8 @@ import { MessageSupportComponent } from './messages/message-support/message-supp
     FeedModule,
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",
-      libraries: ["places"]
+      libraries: ["places"],
+      language: 'en'
     }),
       CommonModule,
       FormsModule

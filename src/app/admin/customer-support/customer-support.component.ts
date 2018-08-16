@@ -127,7 +127,7 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
           }
         }
         
-        console.log(`open message`,this.openQuestion)
+        // console.log(`open message`,this.openQuestion)
         
 
         // if(this.openQuestion.reply){
@@ -158,7 +158,7 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
   }
 
   SendAnswer(){
-    this.main.adminService.QuestionReplyById(this.openQuestion.id,this.Answer.subject,this.Answer.message)
+    this.main.adminService.QuestionReplyById(this.openQuestion.reply[this.openQuestion.reply.length-1].id,this.Answer.subject,this.Answer.message)
       .subscribe(
         (res)=>{
           this.Answer.message = '';

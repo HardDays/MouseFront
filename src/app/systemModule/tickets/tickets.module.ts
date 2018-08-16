@@ -23,7 +23,8 @@ import { SearchTicketsComponent } from './search/search.component';
         BsDatepickerModule.forRoot(),
         AgmCoreModule.forRoot({
             apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",
-            libraries: ["places"]
+            libraries: ["places"],
+            language: 'en'
         }),
         PreloaderModule,
         InfiniteScrollModule

@@ -10,6 +10,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MapsAPILoader } from '@agm/core';
 import { BaseImages } from '../../core/base/base.enum';
+import { CurrencyIcons } from '../../core/models/preferences.model';
 
 declare var $:any;
 
@@ -45,6 +46,8 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
   accOpen:AccountGetModel = new AccountGetModel();
 
   nonPhoto = BaseImages.NoneFolowerImage;
+
+  CurrentCurrency = '$';
 
   constructor(
     protected main           : MainService,
@@ -103,21 +106,20 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
           });
         }
       }, 2000);
-  
-  
-  
   }
 
-  GetMessages(){
-    this.messages = [];
 
-   
+  GetMessages(){
+
+    this.CurrentCurrency = CurrencyIcons[this.main.settings.GetCurrency()];
+
+    this.messages = [];
 
     this.WaitBeforeLoading(
       () => this.main.accService.GetInboxMessages(this.accountId),
       (res:InboxMessageModel[])=>{
         this.messages = res;
-        console.log(res);
+        // console.log(res);
         for(let m of this.messages){
           if(m.sender){
             if(m.sender.image_id){
@@ -128,19 +130,20 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
             }
           }
         }
-        if(this.messages.length>0){
-          if(this.messages[0].message_type ==='blank'){
+        if(this.messages.length>=0){
+          // console.log(`1111`);
+          // if(this.messages[0].message_type ==='blank'){
             // this.openMessage = null;
             this.main.accService.GetInboxMessageById(this.accountId,this.messages[0].id)
               .subscribe((res)=>{
-                console.log(res);
+                // console.log(res);
                 this.openMessage = res;
 
                 this.openMessage.reply.unshift({
                   created_at: this.openMessage.created_at,
                   id:this.openMessage.id,
                   message:this.openMessage.message,
-                  message_type:'Support',
+                  message_type:this.openMessage.message_type,
                   sender: this.openMessage.sender,
                   sender_id:this.openMessage.sender_id,
                   subject:this.openMessage.subject
@@ -155,14 +158,15 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
                     m.sender.image_base64 = BaseImages.NoneFolowerImage;
                 }
                 this.idCurMsg = res.id;
-                // this.setDateRange();
+                this.setDateRange();
               })
-          }
-          else{
-            this.openMessage = this.messages[0];
-            this.idCurMsg = this.messages[0].id;
-            this.setDateRange();
-          }
+          // }
+          // else{
+          //   this.openMessage = this.messages[0];
+          //   this.idCurMsg = this.messages[0].id;
+          //   //this.openFullMessage();
+          //   this.setDateRange();
+          // }
         }
         // let index = 0;
         // for(let m of res)
@@ -180,46 +184,12 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
           
   }
 
-  // getUser(sender:number, index:number){
-  //   this.WaitBeforeLoading(
-  //     () => this.main.accService.GetAccountById(sender,{extended:true}),
-  //     (acc)=>{
-  //       this.accs[index] = acc;
-  //       if(this.accs[index].image_id)
-  //       {
-  //         this.WaitBeforeLoading(
-  //           () => this.main.imagesService.GetImageById(this.accs[index].image_id),
-  //           (img)=>{
-  //             this.accs[index].image_base64_not_given = img.base64;
-  //             //  console.log(`acc`,this.accs,this.accOpen);
-  //             if(index==0){
-  //               this.idCurMsg = this.messages[0].id;
-  //               this.openMessage = this.messages[0];
-  //               this.accOpen =  this.accs[0];
-  //               this.setDateRange();          
-  //             }
-  //           }
-  //         );
-  //       }
-  //       else if(index==0)
-  //       {
-  //         this.idCurMsg = this.messages[0].id;
-  //         this.openMessage = this.messages[0];
-  //         this.accOpen =  this.accs[0];
-  //         this.setDateRange();          
-  //       }
-  //     }
-  //   );
-  // }
-
   changeItem(msg:InboxMessageModel,i:number)
   {
-    
-    if(msg.message_type ==='blank'){
+    // if(msg.message_type ==='blank'){
       // this.openMessage = null;
       this.main.accService.GetInboxMessageById(this.accountId,msg.id)
         .subscribe((res)=>{
-          console.log(res);
           this.openMessage = res;
           
           this.openMessage.reply.unshift({
@@ -234,22 +204,36 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
           )
 
           for(let m of this.openMessage.reply){
-            if(m.sender&&m.sender.image_id)
-              m.sender.image_base64 = this.main.imagesService.GetImagePreview(m.sender.image_id,{width:140,height:140});
-            else
-              m.sender.image_base64 = BaseImages.NoneFolowerImage;
+            if(m.sender){
+              if(m.sender.image_id)
+                m.sender.image_base64 = this.main.imagesService.GetImagePreview(m.sender.image_id,{width:140,height:140});
+              else
+                m.sender.image_base64 = BaseImages.NoneFolowerImage;
+            }
           }
           this.idCurMsg = res.id;
           this.accOpen =  this.accs[i];
+
+           this.setDateRange();
         })
     }
-    else{
-      this.openMessage = msg;
-      this.idCurMsg = msg.id;
-      this.accOpen =  this.accs[i];
-      this.setDateRange();
-    }
-  }
+    // else{
+    //   this.openMessage = msg;
+    //   //this.openFullMessage();
+    //   this.idCurMsg = msg.id;
+    //   this.accOpen =  this.accs[i];
+    //   this.setDateRange();
+    // }
+  
+
+  // openFullMessage(){
+  //   this.main.accService.GetInboxMessageById(this.main.CurrentAccount.id,this.openMessage.id)
+  //     .subscribe(
+  //       (res)=>{
+  //         this.openMessage = res;
+  //       }
+  //     )
+  // }
 
   getExpireDate(d:string, frame:string)
   {
@@ -341,6 +325,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
     this.request.price = +this.changePrice;
     this.request.preferred_date_from = this.bsRangeValue[0];
     this.request.preferred_date_to = this.bsRangeValue[1];
+    this.request.currency = this.main.settings.GetCurrency();
 
     if(this.type=="artist"){
       this.WaitBeforeLoading(

@@ -21,6 +21,7 @@ export class FanProfileComponent extends BaseComponent implements OnInit,OnChang
     @Input() IsMyAccount:boolean;
     @Input() isFolowedAcc:boolean;
     @Input() MyProfileId: number;
+    @Input() AccStatus: string;
     @Output() onFollow:EventEmitter<boolean> = new EventEmitter<boolean>();
 
     isPreloadTickets:boolean = true;
@@ -51,7 +52,7 @@ export class FanProfileComponent extends BaseComponent implements OnInit,OnChang
             this.isPreloadFans = true;
             this.FansChecked = this.Fans = changes.Fans.currentValue;
             this.isPreloadFans = false;
-            console.log('ok');
+            // console.log('ok');
         }    
         this.InitByUser();
     }

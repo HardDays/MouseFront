@@ -1,6 +1,6 @@
 <div class="support_container">
     <h1 class="support_zag">Customer support</h1>
-    <div class="support_grey">
+    <div *ngIf="Questions.length>0" class="support_grey">
         <div class="support_dialogs">
                            
             <div  *ngFor="let item of Questions" (click)="openNewQuestion(item.id)"  class="support_dialogs_item" [ngClass]="{'active': openQuestion&&openQuestion.id === item.id}">
@@ -28,7 +28,7 @@
                     <div class="mes_head">
                         <div class="ava" [ngStyle]="{'background-image': reply&&reply.sender?'url('+reply.sender.image_base64+')':'url('+nonImage+')'}"></div>
                         <div class="info">
-                            <p class="name">{{reply&&reply.subject}}</p>
+                            <p class="name">{{reply?.sender?.full_name?reply.sender.full_name:''}}</p>
                             <p class="username"><span>@</span>{{reply?.sender?reply.sender.user_name:''}}</p>
                             <!-- <p class="address">{{openQuestion?.sender?openQuestion.sender.address:''}}</p> -->
                         </div>

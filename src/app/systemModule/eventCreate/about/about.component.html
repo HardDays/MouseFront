@@ -24,6 +24,28 @@
                         <label for="inp-create-3">Tagline<span>*</span></label>
                        
                     </div>
+                    <div class="input-groupe-1">
+                            <!--тут пока селекты. но если вы найдете норм плагин таких селектов которые можно будет стилизовать и которые работают с ангуларом - буду очень признателен-->
+                            <!-- <select formControlName="artists_number" id="inp-create-4" [(ngModel)]="Event.artists_number">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                                
+                            </select> -->
+                            <mat-form-field >
+                                <mat-select [(ngModel)]="Event.currency" (ngModelChange)="GetCurrentCurrency()" formControlName="currency">
+                                    <mat-option [value]="'USD'">USD ($)</mat-option>
+                                    <mat-option [value]="'EUR'">EUR (€)</mat-option>
+                                    <mat-option [value]="'RUB'">RUB (₽)</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <label for="inp-create-4">Event currency<span>*</span></label>
+
+                    </div>
                     <div class="flex-mac-checkbox">
                         <p>Crowdfunding  Event?</p>
                         <div class="yes-no">
@@ -73,7 +95,30 @@
                             <label for="inp-create-5">Funding Goal</label>
                             
                         </div>
+
+                        
                     </div>
+
+                    <div *ngIf="Event.is_crowdfunding_event" class="flex-date-inputs">
+                                <div class="one-date-block">
+                                    <div (click)="dpFrom.show()" class="date-icon"></div>
+                                    <div class="rr">
+                                        <span class="desc-date">Start Date</span>
+                                       
+                                        <input #dpFrom="bsDatepicker" bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerFromModel" class="input-date">
+                                    </div>
+                                </div>
+                                <div class="one-date-block">
+                                    <div (click)="dpTo.show()" class="date-icon"></div>
+                                    <div class="rr">
+                                        <span class="desc-date">End Date</span>
+                                        
+                                        <input #dpTo="bsDatepicker" bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerToModel" class="input-date">
+                                    </div>
+                                </div>
+                    </div>
+
+                    <br>                    
 
                     <div class="flex-mac-checkbox">
                         <p>Comments  Available?</p>

@@ -40,7 +40,7 @@ export class ErrorComponent{
     }
 
     pressEnter(){
-        console.log(`pressEnter`);
+        // console.log(`pressEnter`);
     }
 
 

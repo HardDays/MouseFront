@@ -22,7 +22,7 @@
       <div class="days">
           <ng-container *ngFor="let week of weeks">
             <ng-container *ngFor="let day of week">
-                <div class="one-day-wr" [ngClass]="{'today': day.today, 'un-active': day.selected, 'has-popup':day.event }" (click)="selectDate(day)">
+                <div class="one-day-wr" [ngClass]="{'today': day.today, 'un-active': (day.selected && isSelectedMonth(day.mDate)? day.selected : false), 'has-popup':day.event }" (click)="selectDate(day)">
                     <ng-container *ngIf="isSelectedMonth(day.mDate)">
                         <div class="one-day">
                             <p>{{ day.mDate.date() }}</p>

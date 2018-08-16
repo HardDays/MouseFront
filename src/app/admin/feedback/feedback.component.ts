@@ -43,6 +43,8 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
 
   Rate = 0;
 
+  ScrollDisabled = false;
+
   ngOnInit() {
     this.InitJs();
     this.getFeedbacks();
@@ -56,19 +58,18 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
   }
 
   getFeedbacks(){
-    this.main.adminService.GetFeedbacks()
+    this.main.adminService.GetFeedbacks({limit:8,offset:0})
       .subscribe(
         (res)=>{
           this.Feedbacks = res;
-          
-
+        
+          // console.log(res);
           if(this.Feedbacks&&this.Feedbacks[0]&&this.Feedbacks[0].id)
             this.openNewFeedback(this.Feedbacks[0].id,this.Feedbacks[0]);
          
 
           for(let fb of this.Feedbacks){
             //вот блядь не могу взять от сюда fb.rate_score поэтому буду прогонять другим циклом
-
             if(fb.sender){
               if(fb.sender.image_id)
                 fb.sender.image_base64 = this.main.imagesService.GetImagePreview(fb.sender.image_id,{width:100,height:100})
@@ -116,7 +117,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
     if(this.Type === 'all')
       this.FeedbacksChecked = this.Feedbacks;
     else 
-      this.FeedbacksChecked = this.Feedbacks.filter(obj => obj.feedback_type && (this.Type === obj.feedback_type));
+      this.FeedbacksChecked = this.Feedbacks.filter(obj => obj.message_info.feedback_type && (this.Type === obj.message_info.feedback_type));
   }
 
   InitJs(){
@@ -189,6 +190,30 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
       .subscribe(
         (res)=>{
           this.getFeedbacks();
+        }
+      )
+  }
+
+  onScroll(){
+    this.ScrollDisabled = true;
+    this.main.adminService.GetFeedbacks({limit:8,offset:this.Feedbacks.length})
+      .subscribe(
+        (res)=>{
+          for(let fb of res){
+            //вот блядь не могу взять от сюда fb.rate_score поэтому буду прогонять другим циклом
+            if(fb.sender){
+              if(fb.sender.image_id)
+                fb.sender.image_base64 = this.main.imagesService.GetImagePreview(fb.sender.image_id,{width:100,height:100})
+              else
+                fb.sender.image_base64 = BaseImages.NoneFolowerImage;
+            }
+          }
+          
+          this.Feedbacks.push(...res);
+
+          setTimeout(() => {
+            this.ScrollDisabled = false;
+          }, 200);
         }
       )
   }

@@ -17,11 +17,12 @@ export class ByTicketComponent extends BaseComponent implements OnInit {
     IsPlusDisabled:boolean = false;
     IsMinusDisabled:boolean = false;
     Currency:string = CurrencyIcons[Currency.USD];
+    OriginalCurrency:string = CurrencyIcons[Currency.USD];
 
     ngOnInit(): void 
     {
-        this.Currency = CurrencyIcons[this.Ticket.currency];
-        // console.log(this.Ticket);
+        this.Currency = CurrencyIcons[this.main.settings.GetCurrency()];
+        this.OriginalCurrency = CurrencyIcons[this.Ticket.currency];
     }
 
     AddTickets()

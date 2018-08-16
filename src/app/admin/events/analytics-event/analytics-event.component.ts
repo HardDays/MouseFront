@@ -175,7 +175,7 @@ graphInfo = {
       .subscribe(
         (res)=>{
           this.graphInfo = res;
-          console.log("GRAPH", this.graphInfo);
+          // console.log("GRAPH", this.graphInfo);
          
           this.lineChartLabels.length = 0;
           this.lineChartLabels.push(...this.graphInfo.axis);

@@ -13,8 +13,14 @@
                         <div class="flex-genres" *ngIf="Genres.length > 0">
                             <span class="one-genre" *ngFor="let item of Genres">{{item.genre_show}}</span>
                         </div>
-                        <p class="some-tt"><span>Presented by</span> <a class="creator-name" [routerLink]="['/system/profile',Creator.id]">{{Creator.display_name}}</a> </p>
-                        <p class="some-tt"><span>Featuring:</span> {{Featuring}} </p>
+                        <p class="some-tt"><span>Presented by</span> <a class="creator-name" [routerLink]="['/system/profile',Creator.id]">{{Creator.display_name?Creator.display_name:Creator.last_name&&Creator.first_name?Creator.first_name+' '+Creator.last_name:Creator.user_name}}</a> </p>
+                        <p class="some-tt"><span>Featuring:</span>
+                            <ng-container *ngFor="let f of Featuring; let i = index" >
+                                <a style="color:white" [routerLink]="['/system/profile',f.id]">
+                                    {{f.name}}{{ Featuring.length-1>i?Featuring.length-2===i?' and ':', ' :''}}
+                                </a>
+                            </ng-container>
+                        </p>
                         <p class="gg">Location</p>
                         <p class="location" *ngIf="Venue"><span>{{Venue.display_name}}</span>{{Venue.address}}</p>
                         <p class="location" *ngIf="!Venue">{{Event.address}}</p>
@@ -69,7 +75,7 @@
     
     <!--контент-->
     <div class="content-and-tabs-datails">
-        <div class="main-mw" *ngIf="Tickets && Tickets.length">
+        <div class="main-mw" *ngIf="Tickets && Tickets.length &&MyAcc.status && MyAcc.status != Status.Denied && MyAcc.status != Status.Inactive">
             <div class="tabslinks-and-goings">
                 <div class="left-s">
                     <ul>
@@ -114,7 +120,14 @@
                         <!-- <span>Includes $2 service fee. One ticket per person</span> -->
                     </h1>
                     
-                        <p class="total">Total price: <span>{{Currency}} {{TotalPrice}}</span></p>
+                        <p class="total">Total price: 
+                            <span>
+                                {{Currency}}{{TotalPrice}}
+                                <ng-container *ngIf="Currency != OriginalCurrency">
+                                        ({{OriginalCurrency}}{{TotalOriginalPrice}})
+                                </ng-container>
+                            </span>
+                        </p>
                         <button [disabled]="!(Event.status===Statuses.Active) || !CurrentAccount || CurrentAccount.account_type != 'fan' || !Event.tickets || !Event.tickets.length || !TicketsToBuy.length"
                             (click)="BuyTickets()" class="butt-style-1" 
                             [ngClass]="{'cursor-disabled':!(Event.status===Statuses.Active) || !CurrentAccount || CurrentAccount.account_type != 'fan' || !Event.tickets || !Event.tickets.length || !TicketsToBuy.length}">

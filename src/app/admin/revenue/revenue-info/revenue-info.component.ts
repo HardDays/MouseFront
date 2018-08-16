@@ -58,7 +58,7 @@ export class RevenueInfoComponent extends BaseComponent implements OnInit {
       .subscribe(
         (res)=>{
           this.Revenue = res;
-          console.log(this.Revenue);
+          // console.log(this.Revenue);
           this.main.eventService.GetEventById(this.Revenue.id)
             .subscribe(
               (event)=>{
@@ -68,7 +68,7 @@ export class RevenueInfoComponent extends BaseComponent implements OnInit {
                   this.Event.image_base64 = this.main.imagesService.GetImagePreview(this.Event.image_id,{width:400,height:500})
                 else
                   this.Event.image_base64 = BaseImages.NoneFolowerImage;
-                console.log(this.Event);
+                // console.log(this.Event);
               }
             )
         }

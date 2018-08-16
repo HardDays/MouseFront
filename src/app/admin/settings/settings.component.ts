@@ -26,12 +26,12 @@ export class SettingsComponent extends BaseComponent implements OnInit {
                 this.userId = res.id
                 // console.log(this.User)
                 this.User = res;
-                console.log(this.User);
+                // console.log(this.User);
 
                 if(this.User.image_id){
                 this.main.imagesService.GetImageById(this.User.image_id)
                     .subscribe((res)=>{
-                    console.log(`res img`, res);
+                    // console.log(`res img`, res);
                     this.User.image_base64 = res.base64;
                     })
                 }
@@ -45,7 +45,7 @@ export class SettingsComponent extends BaseComponent implements OnInit {
   }
 
   SaveUser(){
-    console.log(`save user`,this.User);
+    // console.log(`save user`,this.User);
     this.main.adminService.PatchAdmin(this.User, this.userId)
       .subscribe(
           (res)=>{
@@ -54,12 +54,12 @@ export class SettingsComponent extends BaseComponent implements OnInit {
               if(this.User.image_id){
                 this.main.imagesService.GetImageById(this.User.image_id)
                   .subscribe((res)=>{
-                    console.log(`res img`, res);
+                    // console.log(`res img`, res);
                     this.User.image_base64 = res.base64;
                   })
               }
             //   this.errorCmp.OpenWindow(BaseMessages.Success);
-              console.log(`res`,this.User);
+            //   console.log(`res`,this.User);
               setTimeout(() => {
                   if(this.errCmp.isShown)
                     this.errCmp.CloseWindow();
@@ -83,7 +83,7 @@ export class SettingsComponent extends BaseComponent implements OnInit {
         this.main.authService.UpdateUser(user)
             .subscribe(
                 (res)=>{
-                     console.log(`pass update`);
+                    //  console.log(`pass update`);
                 },
                 (err)=>{
                      console.log(`err`,err);

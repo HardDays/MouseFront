@@ -15,7 +15,7 @@ import { UserCreateModel } from '../../core/models/userCreate.model';
 import { GenreModel } from '../../core/models/genres.model';
 import { AccountGetModel } from '../../core/models/accountGet.model';
 import { SafeHtml, DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { AccountType, BaseMessages, EventStatus } from '../../core/base/base.enum';
+import { AccountType, BaseMessages, EventStatus, AccountStatus } from '../../core/base/base.enum';
 import { Base64ImageModel } from '../../core/models/base64image.model';
 import { MapsAPILoader } from '@agm/core';
 import { AccountSearchParams } from '../../core/models/accountSearchParams.model';
@@ -30,8 +30,7 @@ import { MainService } from '../../core/services/main.service';
 import { ErrorComponent } from '../../shared/error/error.component';
 
 import * as moment from 'moment';
-import { TimeFormat } from '../../core/models/preferences.model';
-import { Currency, CurrencyIcons } from '../../core/models/preferences.model';
+import { TimeFormat, CurrencyIcons, Currency } from '../../core/models/preferences.model';
 
 declare var $:any;
 declare var PhotoSwipeUI_Default:any;
@@ -57,10 +56,11 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
 
     TicketsToBuy:BuyTicketModel[] = [];
     TotalPrice:number = 0;
+    TotalOriginalPrice: number = 0;
 
     Genres:GenreModel[] = [];
 
-    Featuring:string = '';
+    Featuring:{name:string,id:number}[] = [];
 
     Statuses = EventStatus;
 
@@ -68,6 +68,13 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
 
     ESCAPE_KEYCODE = 27;
     ENTER_KEYCODE = 13;
+
+    Status = AccountStatus;
+
+    Currency = CurrencyIcons[this.main.settings.GetCurrency()];
+    OriginalCurrency = CurrencyIcons[Currency.USD];
+
+    MyAcc = this.main.CurrentAccount;
   
     @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
         if(this.isShowMap){
@@ -77,8 +84,6 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
             }
         }
     }
-
-    Currency = CurrencyIcons[this.main.settings.GetCurrency()];
     
     constructor(
         protected main           : MainService,
@@ -157,10 +162,11 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
 
     GetFeaturing()
     {
-        this.Featuring = '';
+        this.Featuring = [];
         let artistArr:string[] = [];
         this.Artists = [];
-        let arr = this.Event.artist.filter( obj => obj.status == "active" );
+        // console.log(this.Event.artist);
+        let arr = this.Event.artist.filter( obj => obj.status == "active"|| obj.status == "owner_accepted");
         for(let i in arr)
         {
             this.WaitBeforeLoading
@@ -168,16 +174,22 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
                 () => this.main.accService.GetAccountById(arr[i].artist_id),
                 (res:AccountGetModel) => {
                     this.Artists.push(res);
-                    if( +i < (arr.length - 1))
-                    {
-                        artistArr.push(res.display_name)
-                    }
 
-                    if(arr.length - 1 == artistArr.length)
-                    {
-                        this.Featuring = artistArr.join(", ");
-                        this.Featuring += " and " + res.display_name;
-                    }
+                    // if( +i < (arr.length -1 ) )
+                    let name = res.display_name;
+                    let id = res.id;
+                    this.Featuring.push({name,id});
+                    // if( +i < (arr.length - 1))
+                    // {
+                    //     artistArr.push(res.display_name)
+                    // }
+
+
+                    // if(arr.length - 1 == artistArr.length)
+                    // {
+                    //     this.Featuring = artistArr.join(", ");
+                    //     this.Featuring += " and " + res.display_name;
+                    // }
                 }
             );
         }
@@ -209,21 +221,31 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     GetTickets()
     {
         this.Tickets = this.Event.tickets;
+        if(this.Event.tickets.length>0)
+            this.OriginalCurrency = CurrencyIcons[this.Event.tickets[0].currency];
+        else this.OriginalCurrency = CurrencyIcons[this.main.settings.GetCurrency()];
+        // console.log(this.Tickets);
+        // this.Currency = CurrencyIcons[this.Event.tickets[0].currency];
     }
 
     AddTicketsToPrice(object:BuyTicketModel)
     {
         this.TicketsToBuy.push(object);
         this.CalculateCurrentPrice();
+        this.OpenErrorWindow(object.count + " ticket" + (object.count > 1 ?"s ": " ") + "added to your cart!");
     }
 
     CalculateCurrentPrice()
     {
         this.TotalPrice = 0;
+        this.TotalOriginalPrice = 0;
         for(let item of this.TicketsToBuy)
         {
             this.TotalPrice += item.count * item.ticket.price;
+            this.TotalOriginalPrice += item.count * item.ticket.original_price;
         }
+        this.TotalPrice = Math.round(this.TotalPrice * 100) / 100;
+        this.TotalOriginalPrice = Math.round(this.TotalOriginalPrice * 100) / 100;
     }
 
     BuyTickets()
@@ -241,6 +263,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     BuyTicket()
     {
         let items = this.CheckedTickets;
+        // console.log(`checked`,this.CheckedTickets)
         for(let item of items)
         {
             this.WaitBeforeLoading(
@@ -283,12 +306,16 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
                 let object = {
                     ticket_id:key,
                     count:0,
-                    account_id:accId
+                    account_id:accId,
+                    price: 0
                 }
 
                 for(let item of element)
                 {
                     object.count += item.count;
+                    
+                    // добавить цену за один билет \\
+                    object.price = item.ticket.price;
                 }
 
                 result.push(object);

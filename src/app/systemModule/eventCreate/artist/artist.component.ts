@@ -99,10 +99,9 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
 
     ngOnInit() {
-
-      this.CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
       
-      this.getSliderParametres();
+    this.CurrencySymbol = CurrencyIcons[this.Event.currency];
+      
 
       this.CreateAutocompleteArtist();
       this.artistSearchParams.price_to = 100000;
@@ -114,8 +113,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
           step: 10,
           type: "single",
           hide_min_max: false,
-          prefix: this.prefix,
-          postfix: this.postfix,
+          prefix: _the.CurrencySymbol+" ",
           grid: false,
           prettify_enabled: true,
           prettify_separator: ',',
@@ -126,7 +124,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
       });
 
       this.getGenres();
-
+      
       // this.artistsList = this.Event.artist;
       // //console.log(this.artistsList);
       // this.GetArtistsFromList();
@@ -226,6 +224,21 @@ export class ArtistComponent extends BaseComponent implements OnInit {
         .subscribe((acc:AccountGetModel)=>{
           this.getMessages();
           acc.status_not_given = i.status;
+        
+          if(i.agreement&&i.agreement.price)
+            acc.price_not_given = i.agreement.price;
+          else if(i.price){
+             acc.price_not_given = i.price;
+          }
+          else if(i.approximate_price){
+            acc.price_not_given = i.approximate_price;
+          }
+          else{
+            acc.price_not_given = 0;
+          }
+
+          acc.message_id = i.message_id;
+
           if(acc.image_id){
             acc.image_base64_not_given = this.main.imagesService.GetImagePreview(acc.image_id,{width:240,height:240});
             this.Artists.push(acc);
@@ -450,6 +463,7 @@ declineArtist(card:AccountGetModel){
 
   let msgId = this.getIdAtMsg(card.id);
   this.ownerAcceptDecline.message_id = msgId;
+
    let msg = this.messagesList[0];
   for(let m of this.messagesList)
       if(m.id == msgId) msg = m;
@@ -495,7 +509,8 @@ artistSendRequest(id:number){
     this.addArtist.event_id = this.Event.id;
     this.addArtist.account_id = this.Event.creator_id;
     this.addArtist.id = id;
-    //console.log(`request artist`,this.addArtist);
+    this.addArtist.currency = this.Event.currency;
+    // console.log(`request artist`,this.addArtist);
 
     this.main.eventService.ArtistSendRequest(this.addArtist)
     .subscribe((send)=>{

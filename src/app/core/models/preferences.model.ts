@@ -53,9 +53,9 @@ export enum Currency
 
 export var CurrencyIcons = [
 ];
-CurrencyIcons["RUB"] = "₽";
-CurrencyIcons["USD"] = "$";
-CurrencyIcons["EUR"] = "€";
+CurrencyIcons[Currency.RUB] = "₽";
+CurrencyIcons[Currency.USD] = "$";
+CurrencyIcons[Currency.EUR] = "€";
 
 export enum TimeFormat
 {

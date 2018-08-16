@@ -142,41 +142,45 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
     this.audioCurrentTime = 0;
     SC.resolve(s).then((res)=>{
       // console.log(res);
-      SC.stream('/tracks/'+res.id).then((player)=>{
-        this.player = player;
-        this.player.play();
-        // console.log(`PLAYING`);
-        
-        player.on('play-start',()=>{
-          // console.log(`start play`);
-          this.audioDuration = this.player.getDuration();
+      if(res.streamable){
+        SC.stream('/tracks/'+res.id).then((player)=>{
+          this.player = player;
+          this.player.play();
+          // console.log(`PLAYING`);
           
-          setInterval(()=>{
-            this.audioCurrentTime = this.player.currentTime();
-          },100)
+          player.on('play-start',()=>{
+            // console.log(`start play`);
+            this.audioDuration = this.player.getDuration();
+            
+            setInterval(()=>{
+              this.audioCurrentTime = this.player.currentTime();
+            },100)
+          },(err)=>{
+            this.onError.emit(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
+            // console.log(`not start play`);
+          })
+
+          player.on('no_streams',()=>{
+            // console.log(`audio_error`);
+            this.onError.emit(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
+            
+          })
+          
+        
+          
+          // setTimeout(()=>{
+          //   player.pause()
+          //   player.seek(0)
+          // },10000)
+    
         },(err)=>{
           this.onError.emit(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
-          // console.log(`not start play`);
-        })
-
-        player.on('no_streams',()=>{
-          // console.log(`audio_error`);
-          this.onError.emit(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
-          
-        })
-        
-       
-        
-        // setTimeout(()=>{
-        //   player.pause()
-        //   player.seek(0)
-        // },10000)
-  
-      },(err)=>{
-        this.onError.emit(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
-        // console.log(`error streaming`,err)
-      });
-
+          // console.log(`error streaming`,err)
+        });
+    }
+    else {
+      this.onError.emit(`<b>Warning:</b> uploaded song is not streamable! It will be impossible to play it!`);
+    }
     },(err)=>{
       this.onError.emit(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
       // console.log(`ERROR`)

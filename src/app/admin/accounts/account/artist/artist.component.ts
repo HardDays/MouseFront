@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, EventEmitter, ViewChild, Output, HostListener } from '@angular/core';
 import { BaseComponent } from '../../../../core/base/base.component';
 import { AccountGetModel, Video, Rider } from '../../../../core/models/accountGet.model';
 import { GenreModel } from '../../../../core/models/genres.model';
@@ -21,6 +21,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
   @ViewChild('errCmp') errCmp:ErrorComponent;
   @Input() Account:AccountGetModel;
+
   Genres:string[] = [];
 
   DisabledDates: CalendarDate[] = [];
@@ -38,6 +39,21 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
   openVideoLink:any;
   isVideoOpen:boolean = false;
+
+  @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+    if(this.isShowMap){
+        if (event.keyCode === this.ESCAPE_KEYCODE || event.keyCode === this.ENTER_KEYCODE) {
+          $('#modal-map-1').modal('hide');
+          this.isShowMap = false;
+        }
+    }
+  }
+
+  isShowMap = false;
+
+  
+  ESCAPE_KEYCODE = 27;
+  ENTER_KEYCODE = 13;
 
   ngOnInit() {
 
@@ -87,6 +103,10 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
 
   ngAfterViewInit(){
+    this.AddScrollToImages();
+
+  }
+  AddScrollToImages(){
     setTimeout(() => {
       $('.photos-abs-wrapp').css({
         'max-height': $('.rel-wr-photoos').width()+'px'
@@ -100,8 +120,8 @@ export class ArtistComponent extends BaseComponent implements OnInit {
        
     });
     }, 2000);
-
   }
+
 
   GetArtistImages(){
     this.photos = [];
@@ -120,6 +140,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
               .subscribe((res:any) => {
                 p.size.width = res.width;
                 p.size.height = res.height;
+                this.AddScrollToImages();
             },
               (err) =>{
             });
@@ -242,6 +263,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
         video_id = video.link.split('be/')[1];
 
       video.preview = 'https://img.youtube.com/vi/'+video_id+'/0.jpg';
+      this.AddScrollToImages();
     }
   }
 
@@ -285,6 +307,11 @@ export class ArtistComponent extends BaseComponent implements OnInit {
     }, (err)=>{
       console.log(err);
     })
+  }
+
+  openMap(){
+    $('#modal-map-1').modal('show');
+    this.isShowMap = true;
   }
 
 

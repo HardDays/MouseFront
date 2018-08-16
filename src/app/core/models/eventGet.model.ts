@@ -84,6 +84,7 @@ export class GetArtists{
             
         },
         public approximate_price?:number,
+        public price?:number,
         public currency?:string
     )
     {}
@@ -112,6 +113,7 @@ export class GetVenue{
             price?:number
        },
        public approximate_price?:number,
+       public price?:number,
        public currency?:string
     )
     {}

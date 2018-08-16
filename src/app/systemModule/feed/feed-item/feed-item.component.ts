@@ -72,7 +72,7 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
   }
 
   calculateTime(value: Date){
-        let result: string;
+        let result: string ='';
         // current time
         let now = new Date().getTime();
         let old = new Date(value).getTime();
@@ -132,24 +132,23 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
   }
 
   likePost(){
-     console.log(this.Feed.event.id,this.accId);
+    //  console.log(this.Feed.event.id,this.accId);
     if(!this.Feed.is_liked){
       this.main.likesService.PostLike(this.accId,this.Feed.id)
         .subscribe((res)=>{
           this.Feed.is_liked = true;
           this.Feed.likes++;
-          console.log(res);
+          // console.log(res);
         },(err)=>{
-          // console.log(`err`,err)
+          console.log(`err`,err)
         })
     } else {
       this.main.likesService.DeleteLike(this.accId,this.Feed.id)
       .subscribe((res)=>{
           this.Feed.is_liked = false;
           this.Feed.likes--;
-        // console.log(res);
       },(err)=>{
-        // console.log(`err`,err)
+        console.log(`err`,err)
       })
     }
   }
@@ -185,7 +184,7 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
             return 'Yes';
         
         case 'update_collaborators':
-          if(this.Feed.value&&this.Feed.value.length>0)
+          if(this.Feed.value&&this.Feed.value.length>0&&this.Feed.value!='[]')
             return this.Feed.value;
           else 
             return 'No Collaborators';
@@ -196,13 +195,24 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
           else 
             return 'Yes';
         
+        case 'update_image_base64':
+          
+
       }
       if(this.Feed.value)
         return this.Feed.value;
       else
         return 'No info';
     }
+    
 
+  }
+
+  getImage(){
+    if(this.Feed.value)
+      return this.main.imagesService.GetImagePreview(this.Feed.value, {width:1000, height:1000});
+    else 
+      return BaseImages.NoneFolowerImage;
   }
 
   // getLikes(){

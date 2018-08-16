@@ -11,7 +11,7 @@
                 <button (click)="removeEvent()"><img src="./../../../../assets/img/admin/delete.svg" alt="" class="img-responsive"></button>
                 <span>Remove</span>
             </div>
-            <div class="butt deny">
+            <div *ngIf="Event.status != 'denied'&& Event.status != 'inactive'" class="butt deny">
                 <button (click)="denyEvent()"><img src="./../../../../assets/img/admin/deny.svg" alt="" class="img-responsive"></button>
                 <span>Deny</span>
             </div>
@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="contacts">
-            <span>Event Owner:</span> <a>{{Owner.display_name}}</a><br>
+            <span>Event Owner:</span> <a>{{Owner.display_name?Owner.display_name:Owner.first_name&&Owner.last_name?Owner.first_name+' '+Owner.last_name:'@'+Owner.user_name}}</a><br>
             <span>Phone:</span> {{Owner.phone?Owner.phone:'-'}}
         </div>
     </h2>
@@ -41,7 +41,7 @@
                     <p class="char">Featuring: <strong *ngFor="let art of Artists; let last = last">{{art.display_name}} {{last?'':', '}}</strong></p>
                     <p class="ev_label">Location</p>
                     <div class="location-wr margened">
-                        <div class="mark"></div>
+                        <div (click)="openMap()" class="mark"></div>
                         <p class="location-inp ">
                             {{Event.address}}
                         </p>
@@ -59,13 +59,13 @@
             <!-- <div class="e_l">Comments <span class="count">(0)</span></div>
             <div class="e_l">Updates <span class="count">(0)</span></div> -->
         </div>
-        <div class="event_videos_slider">
-            <ng-container >
-            <div *ngFor="let video of Videos" class="video_item">
-                <div class="video">
-                    <iframe [src]="video" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <div *ngIf="Videos.length>0" class="event_videos_slider">
+            <ng-container>
+                <div *ngFor="let video of Videos" class="video_item">
+                    <div class="video">
+                        <iframe [src]="video" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    </div>
                 </div>
-            </div>
             </ng-container>
 
             <!-- <slideshow [showArrows]="Videos&&Videos.length>1" [minHeight]="'525px'" [imageUrls]="Videos"></slideshow> -->
@@ -78,3 +78,19 @@
         </div>
     </section>
 <!-- </div> -->
+
+<div class="modal fade modal-send-request map-1-modal" id="modal-map-1">
+    <div class="modal-dialog">
+        <div class="modal-body">
+            <h6 class="head-m-p-a">Location</h6>
+            <span class="closee-modal" data-dismiss="modal"></span>
+            <div class="for-map-init-modal-1">
+                    <agm-map  style="height:100%" [latitude]="Event.city_lat" [longitude]="Event.city_lng">
+                            <agm-marker  [latitude]="Event.city_lat" [longitude]="Event.city_lng"></agm-marker>
+                    </agm-map>
+            </div>
+        </div>
+    </div>
+</div>
+
+<error-cmp #errCmp></error-cmp>

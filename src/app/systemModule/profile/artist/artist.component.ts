@@ -32,6 +32,7 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
     @Input() isFolowedAcc:boolean;
     @Input() IsPreview:boolean;
     @Input() MyProfileId: number;
+    @Input() AccStatus: string;
     @Output() onFollow:EventEmitter<boolean> = new EventEmitter<boolean>();
 
     @ViewChild('errorCmp') errorCmp: ErrorComponent;
@@ -54,10 +55,12 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
 
     Status = AccountStatus;
 
+
+
     ngOnChanges(changes: SimpleChanges): void {
         if(changes.Account)
         {
-            // this.Account = changes.Account.currentValue;
+            this.Account = changes.Account.currentValue;
             this.GetGenres();
         }
         // if(changes.MyProfileId){
@@ -66,6 +69,10 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
         if(changes.Fans){
             this.FansChecked = this.Fans = changes.Fans.currentValue;
         }
+        if(changes.AccStatus){
+            this.AccStatus = changes.AccStatus.currentValue;
+        }
+        // console.log(this.AccStatus);
         // if(changes.Image){
         //     this.Image = changes.Image.currentValue;
         // }
@@ -96,8 +103,10 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
     }
 
     GetGenres(){
-        if(this.Account.genres)
-            this.Account.genres = this.main.genreService.BackGenresToShowGenres(this.Account.genres);
+        if(this.Account.genres){
+            // console.log(this.Account.genres);
+            this.Genres = this.main.genreService.BackGenresToShowGenres(this.Account.genres);
+        }
     }
 
     // GetImage(){

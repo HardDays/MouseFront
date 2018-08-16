@@ -80,7 +80,8 @@ export class GetArtists{
             price?:number
         },
         public approximate_price?:number,
-        public currency?:string
+        public currency?:string,
+         public price?:number,
     )
     {}
 }
@@ -108,7 +109,8 @@ export class GetVenue{
             price?:number
        },
        public approximate_price?:number,
-       public currency?:string
+       public currency?:string,
+        public price?:number,
     )
     {}
 }
