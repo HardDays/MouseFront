@@ -41,15 +41,9 @@ graphInfo = {
   Individual:{name:string,date_from:string,is_crowdfunding_event:boolean, comments:number, likes:number, views:number, status:string}[] = [];
   paramsIndividual = {
     event_type_: {
-      all:false,
-      crowdfund:false,
-      regular:false,
-      viewed:false,
-      liked:false,
-      commented:false,
-      successful:false,
-      pending:false,
-      failed:false,
+      funding: 'all',
+      most: '',
+      status: ''
     },
     sort_by: 'name',
     text: '',
@@ -160,11 +154,11 @@ graphInfo = {
 
   getIndividuals(){
     this.paramsIndividual.event_type = [];
-    for(let t in this.paramsIndividual.event_type_){
-      if(this.paramsIndividual.event_type_[t])
-        this.paramsIndividual.event_type.push(t);
+    for(let t in this.paramsIndividual.event_type_)
+    {
+        this.paramsIndividual.event_type.push(this.paramsIndividual.event_type_[t]);
     }
-    // console.log("PARAMIND", this.paramsIndividual);
+    console.log("PARAMIND", this.paramsIndividual);
     this.main.adminService.GetEventsIndividual(this.paramsIndividual)
     .subscribe(
       (res)=>{

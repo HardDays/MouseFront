@@ -108,53 +108,53 @@
                 </div>
             </div>
             <div class="events_filters_right">
-                <div class="filter_row">
-                    <div class="filter_checkbox">
-                        <input type="checkbox" id="event_filter1" value="" [(ngModel)]="paramsIndividual.event_type_.all" (ngModelChange)="getIndividuals()">
+                <div class="radios">
+                    <div class="filter_radio">
+                        <input type="radio" value="all" [(ngModel)]="paramsIndividual.event_type_.funding" (ngModelChange)="getIndividuals()" id="event_filter1" name="sort_funding_type">
                         <label for="event_filter1"></label>
                         <span>All</span>
                     </div>
-                    <div class="filter_checkbox">
-                        <input type="checkbox" value="crowdfund" [(ngModel)]="paramsIndividual.event_type_.crowdfund" (ngModelChange)="getIndividuals()" id="event_filter2">
+                    <div class="filter_radio">
+                        <input type="radio" value="crowdfund" [(ngModel)]="paramsIndividual.event_type_.funding" (ngModelChange)="getIndividuals()" id="event_filter2" name="sort_funding_type">
                         <label for="event_filter2"></label>
                         <span>Crowdfund</span>
                     </div>
-                    <div class="filter_checkbox">
-                        <input type="checkbox" value="regular" [(ngModel)]="paramsIndividual.event_type_.regular" (ngModelChange)="getIndividuals()" id="event_filter3">
+                    <div class="filter_radio">
+                        <input type="radio" value="regular" [(ngModel)]="paramsIndividual.event_type_.funding" (ngModelChange)="getIndividuals()" id="event_filter3" name="sort_funding_type">
                         <label for="event_filter3"></label>
                         <span>Regular</span>
                     </div>
                 </div>
-                <div class="filter_row">
-                    <div class="filter_checkbox">
-                        <input type="checkbox" value="viewed" [(ngModel)]="paramsIndividual.event_type_.viewed" (ngModelChange)="getIndividuals()" id="event_filter4">
+                <div class="radios">
+                    <div class="filter_radio">
+                        <input type="radio" value="viewed" [(ngModel)]="paramsIndividual.event_type_.most" (ngModelChange)="getIndividuals()" id="event_filter4" name="sort_most">
                         <label for="event_filter4"></label>
                         <span>Most Viewed</span>
                     </div>
-                    <div class="filter_checkbox">
-                        <input type="checkbox" value="liked" [(ngModel)]="paramsIndividual.event_type_.liked" (ngModelChange)="getIndividuals()" id="event_filter5">
+                    <div class="filter_radio">
+                        <input type="radio" value="liked" [(ngModel)]="paramsIndividual.event_type_.most" (ngModelChange)="getIndividuals()" id="event_filter5" name="sort_most">
                         <label for="event_filter5"></label>
                         <span>Most Liked</span>
                     </div>
-                    <div class="filter_checkbox">
-                        <input type="checkbox" value="commented" [(ngModel)]="paramsIndividual.event_type_.commented" (ngModelChange)="getIndividuals()" id="event_filter6">
+                    <div class="filter_radio">
+                        <input type="radio" value="commented" [(ngModel)]="paramsIndividual.event_type_.most" (ngModelChange)="getIndividuals()" id="event_filter6" name="sort_most">
                         <label for="event_filter6"></label>
                         <span>Most Commented</span>
                     </div>
                 </div>
-                <div class="filter_row">
-                    <div class="filter_checkbox">
-                        <input type="checkbox" value="successful" [(ngModel)]="paramsIndividual.event_type_.successful" (ngModelChange)="getIndividuals()" id="event_filter7">
+                <div class="radios">
+                    <div class="filter_radio">
+                        <input type="radio" value="successful" [(ngModel)]="paramsIndividual.event_type_.status" (ngModelChange)="getIndividuals()" id="event_filter7" name="sort_status">
                         <label for="event_filter7"></label>
                         <span>Successful</span>
                     </div>
-                    <div class="filter_checkbox">
-                        <input type="checkbox" value="pending" [(ngModel)]="paramsIndividual.event_type_.pending" (ngModelChange)="getIndividuals()" id="event_filter8">
+                    <div class="filter_radio">
+                        <input type="radio" value="pending" [(ngModel)]="paramsIndividual.event_type_.status" (ngModelChange)="getIndividuals()" id="event_filter8" name="sort_status">
                         <label for="event_filter8"></label>
                         <span>Pending</span>
                     </div>
-                    <div class="filter_checkbox">
-                        <input type="checkbox" value="failed" [(ngModel)]="paramsIndividual.event_type_.failed" (ngModelChange)="getIndividuals()" id="event_filter9">
+                    <div class="filter_radio">
+                        <input type="radio" value="failed" [(ngModel)]="paramsIndividual.event_type_.status" (ngModelChange)="getIndividuals()" id="event_filter9" name="sort_status">
                         <label for="event_filter9"></label>
                         <span>Failed</span>
                     </div>

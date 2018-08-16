@@ -12,7 +12,7 @@ import { MainService } from '../../../core/services/main.service';
 import { BaseImages } from '../../../core/base/base.enum';
 import { NgForm } from '@angular/forms';
 import { CurrencyIcons, Currency } from '../../../core/models/preferences.model';
-import createNumberMask from '../../../../../node_modules/text-mask-addons/dist/createNumberMask';
+import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 
 
 interface EventMouseInfo {

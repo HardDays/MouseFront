@@ -3,7 +3,7 @@ import { BaseComponent } from '../../../core/base/base.component';
 import { UserCreateModel } from '../../../core/models/userCreate.model';
 import { ErrorComponent } from '../../../shared/error/error.component';
 import { BaseMessages } from '../../../core/base/base.enum';
-import { FormGroup, FormControl, Validators } from '../../../../../node_modules/@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-new-admin',
