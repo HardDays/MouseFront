@@ -20,7 +20,7 @@
       <p class="grey">How are we doing?</p>
       <div class="stars">
           <ng-container *ngFor="let item of [1,2,3,4,5]">
-                <span [ngClass]="{'active': Rating >= item}" (click)="Rating = item"></span>
+                <span [ngClass]="{'active': Rating >= item}" (click)="item===Rating?Rating=0:Rating = item"></span>
           </ng-container>
       </div>
       <input type="text" class="hidden" name="" id="rate_star">

@@ -150,7 +150,8 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
             this.Event.hashtag = this.Event.hashtag.replace("#","");
 
         console.log(this.Event);
-        this.Currency = CurrencyIcons[this.Event.currency];
+
+        // this.Currency = CurrencyIcons[this.Event.currency];
 
         this.GetGenres();
         this.GetCreatorInfo();
