@@ -23,7 +23,7 @@ import { TypeService } from '../../core/services/type.service';
 import { GenresService } from '../../core/services/genres.service';
 import { EventService } from '../../core/services/event.service';
 
-import { MapsAPILoader } from '@agm/core';
+import { MapsAPILoader, AgmMap } from '@agm/core';
 import { Router, Params, ActivatedRoute } from '@angular/router';
 import { AuthService } from "angular2-social-login";
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
@@ -58,6 +58,13 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
     Events:EventGetModel[] = [];
     SearchParams: EventSearchParams = new EventSearchParams();
     ScrollDisabled = true;
+    isShowMap = false;
+    MyCoords = {
+        lat:0,
+        lng:0
+    }
+
+    @ViewChild('map') map : AgmMap;
 
     constructor(
         protected main           : MainService,
@@ -79,6 +86,20 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
         this.GetEvents();
         this.openSearch();
         this.setHeightSearch();
+
+        navigator.geolocation.getCurrentPosition((position) => {
+            this.MyCoords.lat = position.coords.latitude;
+            this.MyCoords.lng = position.coords.longitude - 2;
+        })
+    }
+
+    openMap(){
+        this.isShowMap = !this.isShowMap;
+        this.map.triggerResize();
+    }
+
+    mapClick(){
+        console.log(`click`);
     }
 
     ngAfterViewChecked()
