@@ -9,36 +9,47 @@
 
     <section class="second-router-outlet">
         <div class="mask-nav-3"></div>
-        
-        <div class="shows-main-wrapp mainWrapper grey-bg">
-            <div class="main-mw">
-                <div class="head-shows">
-                    <button class="ham-ham nav-button">
-                        <div class="ham"></div>
-                        <div class="ham"></div>
-                        <div class="ham"></div>
-                    </button>
-                    <!-- <a [routerLink]="['/system','events']" class="ham-ham at-map">
-                    </a> -->
-                    <h1>Events</h1>
-                    <span *ngIf="isLoggedIn && Acc.status != Status.Denied && Acc.status != Status.Inactive" (click)="addEvent()" class="add-event-butt"><span>Add Event</span></span>
+
+        <div *ngIf="isShowMap" class="map-here" >
+                    <agm-map #map [latitude]="MyCoords.lat" [zoom]="7" [longitude]="MyCoords.lng" #map style="height: 1200px">
+                        <agm-marker *ngFor="let mark of Events" [latitude]="mark.city_lat" [longitude]="mark.city_lng">
+
+                        </agm-marker>
+                    </agm-map>
                 </div>
-            </div>
-            <div class="main-mw-6">
-                    <div *ngIf="!Events.length" class="empty-info">
-                        <img src="./../../../assets/img/smile.svg" class="img-responsive" alt="">
-                        <p>You have no events yet</p>
-                        
+
+        <!-- grey-bg none-bg-map -->
+        <div class="shows-main-wrapp mainWrapper none-bg-map">
+            <div [ngClass]="{'width-for-map':isShowMap}">
+                <div class="main-mw">
+                    <div class="head-shows">
+                        <button class="ham-ham nav-button">
+                            <div class="ham"></div>
+                            <div class="ham"></div>
+                            <div class="ham"></div>
+                        </button>
+                        <a (click)="isShowMap = !isShowMap" class="ham-ham at-map">
+                        </a>
+                        <h1>Events</h1>
+                        <span *ngIf="isLoggedIn && Acc.status != Status.Denied && Acc.status != Status.Inactive" (click)="addEvent()" class="add-event-butt"><span>Add Event</span></span>
                     </div>
-                <div class="for-flex-all-events" infinite-scroll [infiniteScrollDistance]="2"
-                [infiniteScrollThrottle]="300"
-                (scrolled)="onScroll()"
-                [infiniteScrollDisabled]="ScrollDisabled">
-                     
-                        <div *ngFor="let item of Events" class="one-event-wr">
-                            <my-event-selector [Event]="item" (onGetAnalytics)="ShowAnalytics($event)"></my-event-selector>
+                </div>
+                <div class="main-mw-6">
+                        <div *ngIf="!Events.length" class="empty-info">
+                            <img src="./../../../assets/img/smile.svg" class="img-responsive" alt="">
+                            <p>You have no events yet</p>
+                            
                         </div>
-                   
+                    <div class="for-flex-all-events" infinite-scroll [infiniteScrollDistance]="2"
+                    [infiniteScrollThrottle]="300"
+                    (scrolled)="onScroll()"
+                    [infiniteScrollDisabled]="ScrollDisabled">
+                        
+                            <div *ngFor="let item of Events" class="one-event-wr">
+                                <my-event-selector [Event]="item" (onGetAnalytics)="ShowAnalytics($event)"></my-event-selector>
+                            </div>
+                    
+                    </div>
                 </div>
             </div>
         </div>

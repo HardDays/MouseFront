@@ -28,7 +28,7 @@ import { EventService } from '../../core/services/event.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'angular2-social-login';
-import { MapsAPILoader } from '@agm/core';
+import { MapsAPILoader, AgmMap } from '@agm/core';
 import { Http } from '@angular/http';
 import { MainService } from '../../core/services/main.service';
 import { AnalyticsEventComponent } from './analytics/analytics.component';
@@ -54,6 +54,12 @@ export class EventsComponent extends BaseComponent implements OnInit,AfterViewCh
 
     Acc = this.main.CurrentAccount;
     Status = AccountStatus;
+
+    MyCoords = {
+        lat:0,
+        lng:0
+    }
+    isShowMap = false;
     
     ScrollDisabled = true;
     constructor(
@@ -83,10 +89,16 @@ export class EventsComponent extends BaseComponent implements OnInit,AfterViewCh
         this.GetEvents();
         this.openSearch();
         this.setHeightSearch();
+
+        navigator.geolocation.getCurrentPosition((position) => {
+            this.MyCoords.lat = position.coords.latitude;
+            this.MyCoords.lng = position.coords.longitude - 2;
+        })
     }
     @ViewChild('search') search: SearchEventsComponent;
     
     @ViewChild('mapForm') mapForm : SearchEventsMapComponent;
+     @ViewChild('map') map : AgmMap;
 
     @ViewChild('analyt') analyt : AnalyticsEventComponent;
     GetEvents(params?:EventSearchParams)
@@ -116,6 +128,11 @@ export class EventsComponent extends BaseComponent implements OnInit,AfterViewCh
              "height": '100%'
           }); 
       }
+    }
+
+    openMap(){
+        this.isShowMap = !this.isShowMap;
+        this.map.triggerResize();
     }
 
     
