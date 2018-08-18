@@ -384,6 +384,8 @@ export class ArtistComponent extends BaseComponent implements OnInit {
   addNewArtist(){
     this.addArtist.event_id = this.Event.id;
     this.addArtist.account_id = this.Event.creator_id;
+    this.addArtist.currency = this.Event.currency;
+
     $('#modal-pick-artist').modal('toggle');
       let step = 1;
       for(let item of this.artistsSearch){
@@ -520,8 +522,10 @@ artistSendRequest(id:number){
         this.onError.emit("Request was sent!");
       }, 400);
         
-
+      setTimeout(() => {
         this.updateEvent();
+      }, 200);
+        
     })
   }
   else{
@@ -534,12 +538,16 @@ updateEvent(){
   // console.log(`updateEvent`);
   this.main.eventService.GetEventById(this.Event.id).
             subscribe((res:EventGetModel)=>{
+              this.artistsList = [];
               //  console.log(`updateEventThis`);
                 this.Event = this.main.eventService.EventModelToCreateEventModel(res);
-                this.artistsList = [];
-                this.artistsList = this.Event.artist;
-            //    console.log(`---`,this.Event,this.artistsList)
-                this.GetArtistsFromList();
+                
+                setTimeout(() => {
+                  this.artistsList = this.Event.artist;
+                  console.log(`---`,this.Event,this.artistsList)
+                  this.GetArtistsFromList();
+                }, 300);
+               
 
   })
 
