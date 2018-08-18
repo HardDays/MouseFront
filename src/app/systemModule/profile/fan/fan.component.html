@@ -71,7 +71,7 @@
                             <div class="flex--info">
                                 <div [ngStyle]="{'display':isPreloadEvents?'none':'block'}" class="side scroller">
                                     <div class="for-scroll-padd">
-                                        <h6>Events ({{EventsMass.length}})</h6>
+                                        <h6>Events ({{EventsMassChecked.length}})</h6>
                                         <input type="text" class="search-profile-inp-style"  placeholder="Search" (input)='searchEvents($event)'>
                                     </div>
                                     <div class="new-scroll-wr">
@@ -125,7 +125,7 @@
                                 </div>
                                 <div [ngStyle]="{'display':isPreloadFans?'none':'block'}"  class="side scroller uniq-padd-style-funs">
                                     <div class="uniq-padd-3">
-                                        <h6>Fans ({{Fans.length}})</h6>
+                                        <h6>Fans ({{FansChecked.length}})</h6>
                                         <input type="text" class="search-profile-inp-style" placeholder="Search" (input)='searchFans($event)'>
                                     </div>
                                     <div class="new-scroll-wr">
