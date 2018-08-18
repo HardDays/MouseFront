@@ -36,7 +36,7 @@ export class TicketsGetModel{
         public vr_tickets?: boolean,
         public tickets_count?:number,
         public currency?:string,
-        public sity?:string,
+        public city?:string,
         public state?:string
         
     )
