@@ -19,7 +19,7 @@
                 </div>
 
                 <!-- none-bg-map grey-bg -->
-                <div class="shows-main-wrapp grey-bg mainWrapper none-bg-map">
+                <div  class="shows-main-wrapp grey-bg mainWrapper" [ngClass]="{'none-bg-map':isShowMap, 'grey-bg':!isShowMap}">
                     <div [ngClass]="{'width-for-map':isShowMap}">
                         <div class="main-mw">
                             <div class="head-shows">
@@ -28,7 +28,7 @@
                                     <div class="ham"></div>
                                     <div class="ham"></div>
                                 </button>
-                                <a (click)="openMap()" class="ham-ham at-map">
+                                <a (click)="openMap()" class="ham-ham at-map" [ngClass]="{'deactive':isShowMap}">
                                     
                                 </a>
                                 <h1>Shows</h1>

@@ -16,6 +16,7 @@ import { ShowDetailGalleryComponent } from '../showsDetail/gallery/gallery.compo
 import { ShowsDetailModule } from '../showsDetail/showsDetail.module';
 import { ErrorModule } from '../../shared/error/error.module';
 import { TimePipeModule } from '../../core/pipes/time.pipe/time.pipe.module';
+import { PhonePipe } from '../../core/pipes/phone.pipe';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { TimePipeModule } from '../../core/pipes/time.pipe/time.pipe.module';
         UpcomingShowsProfileComponent,
         FanProfileComponent,
         VenueProfileComponent,
-        ArtistProfileComponent
+        ArtistProfileComponent,
+        PhonePipe
     ],
     exports: [ ProfileComponent, VenueProfileComponent, ArtistProfileComponent ]
 })

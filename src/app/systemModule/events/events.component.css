@@ -47,3 +47,15 @@ select{
     height: 40px; 
     padding: 5px;
 }
+
+.shows-main-wrapp.none-bg-map{
+    pointer-events: none;
+}
+.width-for-map .main-mw{
+   pointer-events: auto;
+}
+.shows-main-wrapp .head-shows .ham-ham.at-map.deactive{
+    background-color: #C1C1C1;
+    -webkit-box-shadow: 0px 3px 10px 0  rgba(193, 193, 193, 0.61);
+            box-shadow: 0px 3px 10px 0 rgba(193, 193, 193, 0.61);
+}
