@@ -12,6 +12,7 @@ import { TicketGetParamsModel } from "../models/ticketGetParams.model";
 import { TicketModel } from "../models/ticket.model";
 import { AccountSendRequestModel } from "../models/accountSendRequest.model";
 import { identifierModuleUrl } from "@angular/compiler";
+import { PurchaseModel } from "../models/purchase.model";
 
 @Injectable()
 export class EventService{
@@ -259,6 +260,20 @@ export class EventService{
     {
         return this.http.CommonRequest(
             () => this.http.PostData('/fan_tickets/many.json',params)
+        );
+    }
+
+    StartPurchaseTickets(params:PurchaseModel)
+    {
+        return this.http.CommonRequest(
+            () => this.http.PostData('/fan_tickets/start_purchase.json', params)
+        );
+    }
+
+    FinishPayPal(params:any)
+    {
+        return this.http.CommonRequest(
+            () => this.http.GetData('/fan_tickets/finish_paypal.json', this.typeService.ParamsToUrlSearchParams(params))
         );
     }
 

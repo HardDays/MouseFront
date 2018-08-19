@@ -64,6 +64,23 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit,Aft
         this.initUser();
       }
     );
+
+    this.activatedRoute.queryParams.subscribe(
+      params => {
+        if(params.paymentId)
+        {
+          this.main.eventService.FinishPayPal({paymentId: params.paymentId})
+            .subscribe(
+              res => {
+                if(this.event_id)
+                {
+                  this.initUser();
+                }
+              }
+            )
+        }
+      }
+    );
   }
   ngAfterViewChecked()
   {
