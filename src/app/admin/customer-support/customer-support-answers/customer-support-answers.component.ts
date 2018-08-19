@@ -86,6 +86,7 @@ export class CustomerSupportAnswersComponent extends BaseComponent implements On
     .subscribe(
       (res)=>{
         this.GetTemplates();
+        this.clearTemplate();
         // console.log(`ok`)
         // this.Templates.push(this.openTemplate);111
 
@@ -102,7 +103,7 @@ export class CustomerSupportAnswersComponent extends BaseComponent implements On
     this.main.adminService.PatchReplyTemplate(this.openTemplate.id,this.openTemplate.subject,this.openTemplate.message)
       .subscribe(
         (res)=>{
-          this.isEdit = false;
+         this.clearTemplate();
           this.GetTemplates();
          
         }
