@@ -1,5 +1,5 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 
 import { Router } from '@angular/router';
@@ -21,7 +21,8 @@ export class NavbarComponent extends BaseComponent implements OnInit
 
     curNav:string = 'shows';
     MyLogo:string = '';
-
+    SearchParams:string = '';
+    @ViewChild('SearchForm') form: NgForm;
     ngOnInit()
     {
       this.MyLogo = this.main.MyLogo;
@@ -68,7 +69,9 @@ export class NavbarComponent extends BaseComponent implements OnInit
         }
       )
     }
-
+    ShowSearchResult(){
+      console.log(this.SearchParams);
+    }
     getThisPage():string
     {
       var page:string = 'shows';

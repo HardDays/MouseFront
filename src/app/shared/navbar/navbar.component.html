@@ -15,11 +15,12 @@
                 </button>
                 <div class="collapse navbar-collapse my-fixed" id="menu">
                     <div class="flex-menu-items">
-                        <!--
-                        <div class="search-inp">
-                            <input type="text" class="inp-style-1" placeholder="Search">
-                        </div>
-                        -->
+                        
+                        <form class="search-inp" (ngSubmit)="ShowSearchResult()" #SearchForm="ngForm">
+                            <input type="text" class="inp-style-1" placeholder="Search" name="serch-text" [ngModel]="SearchParams" (ngModelChange)="SearchParams = $event">
+                            <button type="submit"></button>
+                        </form>
+                       
                         <ul style="height: 64px;">
                             <ng-container *ngIf="MyAccounts.length>0">
                            
@@ -101,6 +102,13 @@
                                         </a>
                                     </div>
                                 </div>
+                            </li>
+                            <li class="hidden-lg hidden-md hidden-sm visible-xs">
+                                <form class="search-inp" (ngSubmit)="ShowSearchResult()" #SearchForm="ngForm">
+                                    <input type="text" class="inp-style-1" placeholder="Search" name="serch-text" [ngModel]="SearchParams" (ngModelChange)="SearchParams = $event">
+                                    <button type="submit"></button>
+                                </form>
+
                             </li>
                         </ng-container>
                         </ul>
