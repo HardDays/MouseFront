@@ -95,7 +95,9 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
 
     openMap(){
         this.isShowMap = !this.isShowMap;
-        this.map.triggerResize();
+        
+        if(this.map)
+            this.map.triggerResize();
     }
 
     mapClick(){
@@ -105,6 +107,10 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
     ngAfterViewChecked()
     {
         this.cdRef.detectChanges();
+    }
+
+    openShow(id:number){
+        this.router.navigate(['/system','shows_detail',id]);
     }
 
     @ViewChild('search') search: SearchEventsComponent;
@@ -162,7 +168,8 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
             () => this.main.eventService.EventsSearch(this.SearchParams),
             (res:EventGetModel[]) =>
             {
-              this.Events = res;
+                this.Events = res;
+                this.ScrollDisabled = false;
             },
             (err) => {
             }
