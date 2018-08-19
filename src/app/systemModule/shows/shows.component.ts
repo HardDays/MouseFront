@@ -90,7 +90,7 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
         navigator.geolocation.getCurrentPosition((position) => {
             this.MyCoords.lat = position.coords.latitude;
             this.MyCoords.lng = position.coords.longitude - 2;
-        })
+        },(err)=>{console.log(err)},{timeout:5000});
     }
 
     openMap(){
