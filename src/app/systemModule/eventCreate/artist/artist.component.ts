@@ -241,7 +241,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
           if(acc.image_id){
             acc.image_base64_not_given = this.main.imagesService.GetImagePreview(acc.image_id,{width:240,height:240});
-            this.Artists.push(acc);
+            
             //console.log(acc.image_base64_not_given);
             // this.main.imagesService.GetImageById(acc.image_id).
             //   subscribe((img)=>{
@@ -254,8 +254,9 @@ export class ArtistComponent extends BaseComponent implements OnInit {
           }
           else {
             acc.image_base64_not_given = '../../../../assets/img/non-photo-2.svg';
-            this.Artists.push(acc);
+            // this.Artists.push(acc);
           }
+          this.Artists.push(acc);
         })
     }
   }
@@ -388,6 +389,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
     $('#modal-pick-artist').modal('toggle');
       let step = 1;
+      let itemCount = 0;
       for(let item of this.artistsSearch){
         if(item.checked){
           let isFind = false;
@@ -401,6 +403,14 @@ export class ArtistComponent extends BaseComponent implements OnInit {
             this.main.eventService.AddArtist(this.addArtist).
               subscribe((res)=>{
                 //  console.log(`add `,this.addArtist.artist_id);
+                itemCount++;
+                console.log(itemCount,this.artistsSearch.length)
+                if(itemCount===this.artistsSearch.length){
+                setTimeout(() => {
+                          console.log(`update`);
+                          this.updateEvent();
+                        }, 500);
+                }
 
               }, (err)=>{
                 this.onError.emit(this.getResponseErrorMessage(err, 'event'));
@@ -408,14 +418,22 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
               });
 
+          } else {
+            itemCount++;
           }
-
+        }
+        else{
+          itemCount++;
+        }
+        if(itemCount===this.artistsSearch.length){
+            setTimeout(() => {
+                    console.log(`update`);
+                    this.updateEvent();
+                  }, 500);
         }
 
       }
-      setTimeout(() => {
-        this.updateEvent();
-      }, 1000);
+     
 
 
   }
@@ -541,12 +559,12 @@ updateEvent(){
               this.artistsList = [];
               //  console.log(`updateEventThis`);
                 this.Event = this.main.eventService.EventModelToCreateEventModel(res);
-                
-                setTimeout(() => {
                   this.artistsList = this.Event.artist;
+                setTimeout(() => {
+                
                   console.log(`---`,this.Event,this.artistsList)
                   this.GetArtistsFromList();
-                }, 300);
+                }, 500);
                
 
   })
