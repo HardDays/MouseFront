@@ -86,7 +86,7 @@ export class SettingsService{
 
     private SaveBackSettings(params:PreferencesModel)
     {
-        this.Settings = params;
+        this.Settings = PreferencesModel.Validate(params);
         this.SetLocalSettings();
         this.SettingsChange.next(true);
     }

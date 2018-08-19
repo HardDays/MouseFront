@@ -40,7 +40,7 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
   type:string = 'fan';
 
   registerUser(){
-    console.log(!this.isRegister);
+    // console.log(!this.isRegister);
     if(!this.isRegister){
 
       this.isRegister = true;
