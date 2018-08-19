@@ -97,6 +97,12 @@ export class MainService{
                 }
             );
 
+        // this.settings.SettingsChange.subscribe(
+        //     (res) => {
+        //         console.log("settings", this.settings.GetSettings());
+        //     }
+        // );
+
         this.UserChange.subscribe(
             (val:UserGetModel) => 
             {

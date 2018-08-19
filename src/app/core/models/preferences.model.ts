@@ -17,11 +17,24 @@ export class PreferencesModel{
             this.preferred_distance = Distance.Km;
 
         if(!preferred_currency)
-            this.preferred_currency = Currency.RUB;
+            this.preferred_currency = Currency.USD;
         
         if(!preferred_time)
             this.preferred_time = TimeFormat.EURO;
 
+    }
+
+    public static Validate(input: PreferencesModel):PreferencesModel
+    {
+        let result = new PreferencesModel();
+
+        result.preferred_currency = input.preferred_currency ? input.preferred_currency : Currency.USD;
+        result.preferred_username = input.preferred_username ? input.preferred_username : Languages.English;
+        result.preferred_date = input.preferred_date ? input.preferred_date : DateFormat.EURO;
+        result.preferred_distance = input.preferred_distance ? input.preferred_distance : Distance.Km;
+        result.preferred_time = input.preferred_time ? input.preferred_time : TimeFormat.EURO;
+
+        return result;
     }
 }
 
