@@ -87,13 +87,16 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
         this.openSearch();
         this.setHeightSearch();
 
+        
+        
+    } 
+
+    openMap(){
         navigator.geolocation.getCurrentPosition((position) => {
             this.MyCoords.lat = position.coords.latitude;
             this.MyCoords.lng = position.coords.longitude - 2;
-        },(err)=>{console.log(err)},{timeout:5000});
-    }
+        });
 
-    openMap(){
         this.isShowMap = !this.isShowMap;
         
         if(this.map)
@@ -107,6 +110,12 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
     ngAfterViewChecked()
     {
         this.cdRef.detectChanges();
+        setTimeout(() => {
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.MyCoords.lat = position.coords.latitude;
+                this.MyCoords.lng = position.coords.longitude - 2;
+            });
+        }, 500);
     }
 
     openShow(id:number){

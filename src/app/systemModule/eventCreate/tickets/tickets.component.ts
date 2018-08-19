@@ -123,6 +123,7 @@ addTicket(){
     this.datepickerToModel = new Date();
     this.datepickerFromModel = new Date();
 }
+
 getNewId(){
     let id = 1;
     for(let t of this.ticketsNew)
@@ -163,7 +164,7 @@ updateTicket(){
         //console.log(`index`,index);
 
         this.currentTicket.id = null;
-        //console.log(`new create`,this.currentTicket);
+        console.log(`new create`,this.currentTicket);
         this.main.eventService.AddTicket(this.currentTicket)
             .subscribe((res)=>{
                 //console.log(`create`,res);
