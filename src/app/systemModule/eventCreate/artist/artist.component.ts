@@ -173,7 +173,6 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
     isPriceSearch = false;
     PriceArtistChanged(data:any){
-        
           setTimeout(() => {
             this.artistSearchParams.price_to = data.from;
             this.artistSearch();
