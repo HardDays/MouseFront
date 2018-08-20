@@ -174,14 +174,8 @@ export class MainService{
     {
         if(this.CurrentAccount && this.CurrentAccount.image_id)
         {
-               this.imagesService.GetImageById(this.CurrentAccount.image_id).subscribe(
-                (res:Base64ImageModel) => {
-                    this.MyLogoChange.next(res.base64 ? res.base64 : BaseImages.NoneUserImage);
-                },
-                (err) => {
-                    this.MyLogoChange.next(BaseImages.NoneUserImage);
-                }
-            );  
+            this.MyLogoChange.next(this.imagesService.GetImagePreview(this.CurrentAccount.image_id,{width:40, height:40}));
+            
         }
         else{
             this.MyLogoChange.next(BaseImages.NoneUserImage);
@@ -191,15 +185,17 @@ export class MainService{
     GetMyUserLogo()
     {
         if(this.MyUser && this.MyUser.image_id)
-        {           
-               this.imagesService.GetImageById(this.MyUser.image_id).subscribe(
-                (res:Base64ImageModel) => {
-                    this.MyUserLogoChange.next(res.base64 ? res.base64 : BaseImages.NoneUserImage);
-                },
-                (err) => {
-                    this.MyUserLogoChange.next(BaseImages.NoneUserImage);
-                }
-            );
+        {      
+            this.MyUserLogoChange.next(this.imagesService.GetImagePreview(this.MyUser.image_id,{width:40, height:40}));  
+
+            //    this.imagesService.GetImageById(this.MyUser.image_id).subscribe(
+            //     (res:Base64ImageModel) => {
+            //         this.MyUserLogoChange.next(res.base64 ? res.base64 : BaseImages.NoneUserImage);
+            //     },
+            //     (err) => {
+            //         this.MyUserLogoChange.next(BaseImages.NoneUserImage);
+            //     }
+            // );
            
         }
         else{
@@ -255,14 +251,15 @@ export class MainService{
             (res) => {
                 this.MyUser = res;
             
-                if(this.MyUser.image_id){
-                    this.imagesService.GetImageById(this.MyUser.image_id)
-                        .subscribe((res)=>{
-                            this.MyUser.image_base64 = res.base64;
-                            this.MyUserLogo = this.MyUser.image_base64;
-                            this.MyUserLogoChange.next(this.MyUser.image_base64);
-                        })
-                }
+                this.GetMyUserLogo();
+                // if(this.MyUser.image_id){
+                //     this.imagesService.GetImageById(this.MyUser.image_id)
+                //         .subscribe((res)=>{
+                //             this.MyUser.image_base64 = res.base64;
+                //             this.MyUserLogo = this.MyUser.image_base64;
+                //             this.MyUserLogoChange.next(this.MyUser.image_base64);
+                //         })
+                // }
                 
                 // if(this.MyUser)
                 // {

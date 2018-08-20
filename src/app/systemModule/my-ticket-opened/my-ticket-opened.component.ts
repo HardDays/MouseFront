@@ -91,14 +91,15 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit,Aft
   {
       if(this.TicketsByEvent.event && this.TicketsByEvent.event.image_id)
       {
-          this.WaitBeforeLoading(
-              () => this.main.imagesService.GetImageById(this.TicketsByEvent.event.image_id),
-              (res:Base64ImageModel) => {
-                  this.Image = (res && res.base64) ? res.base64 : BaseImages.Drake;
-              },
-              (err) =>{
-              }
-          );
+        this.Image = this.main.imagesService.GetImagePreview(this.TicketsByEvent.event.image_id,{width: 613, height: 422})
+          // this.WaitBeforeLoading(
+          //     () => this.main.imagesService.GetImageById(this.TicketsByEvent.event.image_id),
+          //     (res:Base64ImageModel) => {
+          //         this.Image = (res && res.base64) ? res.base64 : BaseImages.Drake;
+          //     },
+          //     (err) =>{
+          //     }
+          // );
       }
   }
 

@@ -2,17 +2,37 @@ export class PurchaseModel{
     constructor(
         public platform = Platforms.PayPal,
         public account_id?: number,
-        public ticket_id?: number,
-        public count?: number,
+        public tickets?: TicketPurchaseModel[],
         public redirect_url?: string
     ){}
 
-    public ExportFromTicket(ticket:any)
+    
+}
+
+export class TicketPurchaseModel
+{
+    constructor(
+        public ticket_id?: number,
+        public count?: number
+    ){}
+
+    public static TicketPurchaseModelFromObject(obj:any): TicketPurchaseModel
     {
-        this.ticket_id = ticket.ticket_id;
-        this.account_id = ticket.account_id;
-        this.count = ticket.count;
+        return new TicketPurchaseModel(obj.ticket_id, obj.count);
     }
+
+    public static TicketPurchaseArrayFromObjectArray(arr: any[]): TicketPurchaseModel[]
+    {
+        let result: TicketPurchaseModel[] = [];
+
+        for(let i of arr)
+        {
+            result.push(TicketPurchaseModel.TicketPurchaseModelFromObject(i));
+        }
+
+        return result;
+    }
+
 }
 
 export enum Platforms{
