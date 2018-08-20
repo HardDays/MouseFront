@@ -1,5 +1,7 @@
 $main_color: #eb2d64;
 
+
+
 .main-mw.flexed-search{
     display: flex;
     .results-left-side{
@@ -432,4 +434,91 @@ $main_color: #eb2d64;
         }
     }
 }
+.new-modal-inv{
+    .close-modal {
+        position: absolute;
+        right: 24px;
+    top: 16px;
+        width: 15px;
+        height: 15px;
+        display: block;
+        cursor: pointer;
+        &:before {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: #828282;
+            top: 6px;
+            left: 0;
+            transform-origin: center;
+            transform: rotate(45deg);
+        }
+        &:after {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: #828282;
+            top: 6px;
+            left: 0;
+            transform-origin: center;
+            transform: rotate(-45deg);
+        }
+    }
+    .checkboxes-decline-wrapp .desc-decil{
+        margin-bottom: 0;
+    }
+    .checkboxes-decline-wrapp .checkbox-decline{
+        justify-content: space-between;
+        
+    }
+    .checkboxes-decline-wrapp .one-checkbox{
+        margin-right: 0;
+        margin-left: 20px;
+    }
+    .social-links-head{
+        display: block;
+        margin-bottom: 10px;
+        color: #828282;
+        
+    }
+    .username-soc{
+        color: #828282;
+    }
+    .butt-style-1{
+        border-width: 5px;
+        max-width: 115px!important;
+        span{
+            padding: 9px 21px;
+        }
+        
+        &:hover{
+            border-width: 5px;
+        }
+    }
+}
+.modal-send-request.new-modal-inv .modal-dialog{
+    max-width: 390px;
+}
+//responcive shows-map
 
+
+@media (max-width: 1500px) {
+    .shows-main-wrapp .width-for-map .flex-shows .one-show-wr{
+        width: 100%;
+    }
+    .shows-main-wrapp .width-for-map {
+           max-width: 455px;
+         margin: 0;
+         transform: none;
+        
+    }
+    .width-for-map .main-mw{
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+   
+}
