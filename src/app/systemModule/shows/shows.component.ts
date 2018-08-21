@@ -103,11 +103,11 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
 
     getPosition(){
         console.log(`api.ipstack`);
-            $.getJSON('http://api.ipstack.com/check?access_key=428075a8fe82f2d6de7696b9bfec35b8', (data)=>{
-                console.log(data);
-                this.MyCoords.lat = data.latitude;
-                this.MyCoords.lng = data.longitude - 2;
-            });
+        $.getJSON('http://api.ipstack.com/check?access_key=428075a8fe82f2d6de7696b9bfec35b8', (data)=>{
+            console.log(data);
+            this.MyCoords.lat = data.latitude;
+            this.MyCoords.lng = data.longitude - 2;
+        });
     }
 
     openMap(){

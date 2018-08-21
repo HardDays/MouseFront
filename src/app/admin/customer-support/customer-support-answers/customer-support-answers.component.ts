@@ -60,9 +60,9 @@ export class CustomerSupportAnswersComponent extends BaseComponent implements On
   }
 
   searchTemplate(event){
-    let searchParam = event.target.value;
+    let searchParam:string = event.target.value;
     if(searchParam){
-      this.checkedTemplates = this.Templates.filter(obj => obj.subject.indexOf(searchParam)>=0||obj.message.indexOf(searchParam)>=0);
+      this.checkedTemplates = this.Templates.filter(obj => obj.subject.toUpperCase().indexOf(searchParam.toUpperCase())>=0||obj.message.toUpperCase().indexOf(searchParam.toUpperCase())>=0);
     }
     else
     {
