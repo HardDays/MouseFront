@@ -113,8 +113,11 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
     openMap(){
         this.isShowMap = !this.isShowMap;
         
-        if(this.map)
-            this.map.triggerResize();
+        if(this.map){
+            this.map.triggerResize(); 
+        }
+      
+       
     }
 
     mapClick(){
@@ -145,7 +148,12 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
             "height": '100%'
             }); 
         }
+
+
+        
     }
+
+
 
     openSearch()
     {

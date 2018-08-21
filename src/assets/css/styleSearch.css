@@ -399,4 +399,34 @@
     padding-left: 15px;
     padding-right: 15px; } }
 
+
+
+    @media (max-width: 991px) {
+      .shows-main-wrapp .width-for-map .head-shows h1{
+          font-size: 36px;
+      }
+      .shows-main-wrapp .width-for-map {
+          max-width: 350px;
+      }
+  }
+
+
+  @media (max-width: 767px) {
+    .shows-main-wrapp.none-bg-map .head-shows{
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .shows-main-wrapp .width-for-map .head-shows h1{
+      font-size: 26px;
+    }
+    .new-relative{
+      position: relative;
+      width: 100;
+      margin-left: auto;
+      min-height: 210px;
+    }
+   
+
+
+  }
 /*# sourceMappingURL=styleSearch.css.map */
