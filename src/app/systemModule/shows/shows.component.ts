@@ -87,18 +87,19 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
         this.openSearch();
         this.setHeightSearch();
        
-        if(navigator.geolocation){
-            console.log(`navigator.geolocation`);
-            navigator.geolocation.getCurrentPosition((position) => {
-                this.MyCoords.lat = position.coords.latitude;
-                this.MyCoords.lng = position.coords.longitude - 2;
+        this.getPosition();
+        // if(navigator.geolocation){
+        //     console.log(`navigator.geolocation`);
+        //     navigator.geolocation.getCurrentPosition((position) => {
+        //         this.MyCoords.lat = position.coords.latitude;
+        //         this.MyCoords.lng = position.coords.longitude - 2;
 
-                if(!this.MyCoords.lat&&!this.MyCoords.lng)
-                    this.getPosition();
-            });
-        } else {
-           this.getPosition()
-        }
+        //         if(!this.MyCoords.lat&&!this.MyCoords.lng)
+        //             this.getPosition();
+        //     });
+        // } else {
+        //    this.getPosition()
+        // }
     } 
 
     getPosition(){
