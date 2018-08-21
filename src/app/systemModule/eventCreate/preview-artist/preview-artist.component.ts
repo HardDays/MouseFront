@@ -10,6 +10,8 @@ import * as moment from 'moment';
 import { Base64ImageModel } from '../../../core/models/base64image.model';
 import { TinyCalendarComponent, CalendarDate } from './tiny-calendar/tiny-calendar.component';
 import { CurrencyIcons, Currency } from '../../../core/models/preferences.model';
+import { TranslateService } from '../../../../../node_modules/@ngx-translate/core';
+import { SettingsService } from '../../../core/services/settings.service';
 
 
 declare var audiojs:any;
@@ -61,9 +63,11 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
       protected mapsAPILoader  : MapsAPILoader,
       protected ngZone         : NgZone,
       protected activatedRoute : ActivatedRoute,
-      protected cdRef          : ChangeDetectorRef
+      protected cdRef          : ChangeDetectorRef,
+      protected translate      :TranslateService,
+      protected settings       :SettingsService
   ) {
-    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
+    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,settings);
   }
 
   ngOnInit() {

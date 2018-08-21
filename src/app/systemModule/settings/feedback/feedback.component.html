@@ -1,31 +1,31 @@
 <div class="settings_right_wrap">
-  <h2 class="zag">Feedback</h2>
+  <h2 class="zag" translate>setting.feedback</h2>
   <form [formGroup]="FormFeedback" class="setts_padding over-none send_quest_form feedback_form">
-      <p class="grey">I'm telling you about...</p>
+      <p class="grey" translate>setting.feed-back.I'm telling you about</p>
       <div class="radio_wrap">
           <input type="radio" [(ngModel)]="Feedback.feedback_type"  [value]="'bug'" formControlName="feedback_topic" name="feedback_topic" class="feedback_radio" id="feedback-radio1" />
-          <label for="feedback-radio1">A Bug</label>
+          <label for="feedback-radio1" translate>setting.feed-back.A Bug</label>
       </div>
       <div class="radio_wrap">
           <input type="radio" [(ngModel)]="Feedback.feedback_type" [value]="'enhancement'" formControlName="feedback_topic" name="feedback_topic" class="feedback_radio" id="feedback-radio2" />
-          <label for="feedback-radio2">An Enhancement</label>
+          <label for="feedback-radio2" translate>setting.feed-back.An Enhancement</label>
       </div>
       <div class="radio_wrap">
           <input type="radio" [(ngModel)]="Feedback.feedback_type" [value]="'compliment'" formControlName="feedback_topic" name="feedback_topic" class="feedback_radio" id="feedback-radio3" />
-          <label for="feedback-radio3">Compliment</label>
+          <label for="feedback-radio3" translate>setting.feed-back.Compliment</label>
       </div>
-      <label class="grey_label">Details</label>
+      <label class="grey_label" translate>setting.feed-back.Details</label>
       <textarea [(ngModel)]="Feedback.message" formControlName="message" class="settings_dots" maxlength="1000"></textarea>
-      <p class="settings_ta_max">1000 max</p>
-      <p class="grey">How are we doing?</p>
+      <p class="settings_ta_max" translate>setting.feed-back.1000 max</p>
+      <p class="grey" translate>setting.feed-back.How are we doing?</p>
       <div class="stars">
           <ng-container *ngFor="let item of [1,2,3,4,5]">
                 <span [ngClass]="{'active': Rating >= item}" (click)="Rating = item"></span>
           </ng-container>
       </div>
       <input type="text" class="hidden" name="" id="rate_star">
-      <p class="grey_center">Please rate how we're doing</p>
-      <button (click)="sendFeedback()" type="button" class="butt-style-1"><span>Send</span></button>
+      <p class="grey_center" translate>setting.feed-back.Please rate how we're doing</p>
+      <button (click)="sendFeedback()" type="button" class="butt-style-1"><span translate>Send</span></button>
       <br>
       <!-- <p style="text-align: center">v.1.1.3</p>
       <br> -->

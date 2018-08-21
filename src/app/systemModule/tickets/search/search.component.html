@@ -1,13 +1,13 @@
 <form (ngSubmit)="ShowSearchResult()"  #SearchForm="ngForm">
     <input type="text" class="inp-style-1" name="serch-text" [ngModel]="SearchParams.text" (ngModelChange)="SearchParams.text = $event" placeholder="Search">
     <div class="groupe-form">
-        <p class="head-input-groupe">Date</p>
+        <p class="head-input-groupe" translate>Tickets.Data</p>
         <div class="wrapp-for-triangle">
             <input type="text" name="date-picker-inp" class="date-picker-inp" bsDaterangepicker ngModel [bsConfig]="bsConfig" [(ngModel)]="SearchDateRange">
         </div>
     </div>
     <div class="groupe-form">
-        <p class="head-input-groupe">Genre</p>
+        <p class="head-input-groupe" translate>Genre</p>
         <div class="flex-genres">
             <ng-container  *ngFor="let item of Genres;let i = index">
                 <div class="one-checkbox" *ngIf="item.show || ShowMoreGenres">
@@ -19,11 +19,11 @@
                 </div>
             </ng-container>
         </div>
-        <p class="more" (click)="ShowMoreGenres = !ShowMoreGenres"><span>See more</span></p>
+        <p class="more" (click)="ShowMoreGenres = !ShowMoreGenres"><span translate>See more</span></p>
     </div>
 
     <div class="groupe-form">
-        <p class="head-input-groupe">Ticket type</p>
+        <p class="head-input-groupe" translate>Tickets.Ticket type</p>
         <div class="flex-genres">
             <div class="one-checkbox" *ngFor="let item of TicketTypes; let i = index">
                 <div class="check-style">
@@ -40,7 +40,7 @@
     </div>
 
     <div class="groupe-form">
-        <p class="head-input-groupe">Location</p>
+        <p class="head-input-groupe" translate>Location</p>
         <div class="location-wr">
             <div (click)="OpenMap()" class="mark">
             </div>
@@ -49,6 +49,6 @@
     </div>
     
     <div class="groupe-form">
-        <button type="submit"  class="butt-style-1"><span>Search</span></button>
+        <button type="submit"  class="butt-style-1"><span translate>Search</span></button>
     </div>
 </form>

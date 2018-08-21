@@ -3,25 +3,25 @@
         <form [formGroup]="aboutForm">
         <div class="create-event-body">
            <div class="head-ev-body">
-                <h2>About</h2>
-                <p>Please fill in all required fields <br>to proceed to the Next Step</p>
+                <h2 translate>event.about</h2>
+                <p translate>Please fill in all required fields <br translate>to proceed to the Next Step</p>
             </div>
             <div class="groupe-form" class="flex-body-1">
                 <div class="side">
                     <div class="input-groupe-1 lbl-1">
                         
                         <input id="inp-create-1" name="name" type="text" [(ngModel)]="Event.name" formControlName="name"  >
-                        <label for="inp-create-1">Event name<span>*</span></label>
+                        <label for="inp-create-1" translate>event.about-fold.Event name<span>*</span></label>
                     </div>
                     <div class="input-groupe-1 dog">
                         <span class="user-name-dog">#</span>
                         <input id="inp-create-2" formControlName="hashtag" [textMask]="WithoutSpace()" [(ngModel)]="Event.hashtag" name="" type="text" >
-                        <label for="inp-create-2">Hashtag<span>*</span></label>
+                        <label for="inp-create-2" translate>event.about-fold.Hashtag<span>*</span></label>
                         
                     </div>
                     <div class="input-groupe-1">
                         <input id="inp-create-3" name="" type="text" formControlName="tagline" [(ngModel)]="Event.tagline">
-                        <label for="inp-create-3">Tagline<span>*</span></label>
+                        <label for="inp-create-3" translate>event.about-fold.Tagline<span>*</span></label>
                        
                     </div>
                     <div class="input-groupe-1">
@@ -35,26 +35,33 @@
                                 <option>6</option>
                                 
                             </select> -->
-                            <mat-form-field >
+                            <mat-form-field *ngIf="isEng">
                                 <mat-select [(ngModel)]="Event.currency" (ngModelChange)="GetCurrentCurrency()" formControlName="currency">
                                     <mat-option [value]="'USD'">USD ($)</mat-option>
                                     <mat-option [value]="'EUR'">EUR (€)</mat-option>
                                     <mat-option [value]="'RUB'">RUB (₽)</mat-option>
                                 </mat-select>
                             </mat-form-field>
+                            <mat-form-field *ngIf="!isEng">
+                                <mat-select [(ngModel)]="Event.currency" (ngModelChange)="GetCurrentCurrency()" formControlName="currency">
+                                    <mat-option [value]="'USD'">Доллары ($)</mat-option>
+                                    <mat-option [value]="'EUR'">Евро (€)</mat-option>
+                                    <mat-option [value]="'RUB'">Рубли (₽)</mat-option>
+                                </mat-select>
+                            </mat-form-field>
 
-                            <label for="inp-create-4">Event currency<span>*</span></label>
+                            <label for="inp-create-4" translate>event.about-fold.Event currency<span>*</span></label>
 
                     </div>
                     <div class="flex-mac-checkbox">
-                        <p>Crowdfunding  Event?</p>
+                        <p translate>event.about-fold.Crowdfunding  Event?</p>
                         <div class="yes-no">
-                            <span>No</span>
+                            <span translate>No</span>
                             <div class="mac-checkbox">
                                 <input class="checkbox" type="checkbox" id="mac-checkbox-1" formControlName="is_crowdfunding_event" [(ngModel)]="Event.is_crowdfunding_event">
                                 <label for="mac-checkbox-1"></label>
                             </div>
-                            <span>Yes</span>
+                            <span translate>Yes</span>
                         </div>
                     </div>
                     
@@ -82,7 +89,7 @@
                                 </mat-select>
                             </mat-form-field>
 
-                            <label for="inp-create-4">Number of Artists<span>*</span></label>
+                            <label for="inp-create-4" translate>event.about-fold.Number of Artists<span>*</span></label>
 
                         </div>
                         <div *ngIf="Event.is_crowdfunding_event" class="input-groupe-1">
@@ -92,7 +99,7 @@
 
                                 <input formControlName="funding_goal" [(ngModel)]="Event.funding_goal" [textMask]="MaskNumbers()" id="inp-create-5" class="dollar" name="" type="text">
                             </div>
-                            <label for="inp-create-5">Funding Goal</label>
+                            <label for="inp-create-5" translate>event.about-fold.Funding Goal</label>
                             
                         </div>
 
@@ -103,7 +110,7 @@
                                 <div class="one-date-block">
                                     <div (click)="dpFrom.show()" class="date-icon"></div>
                                     <div class="rr">
-                                        <span class="desc-date">Start Date</span>
+                                        <span class="desc-date" translate>event.about-fold.Start Date</span>
                                        
                                         <input #dpFrom="bsDatepicker" bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerFromModel" class="input-date">
                                     </div>
@@ -111,7 +118,7 @@
                                 <div class="one-date-block">
                                     <div (click)="dpTo.show()" class="date-icon"></div>
                                     <div class="rr">
-                                        <span class="desc-date">End Date</span>
+                                        <span class="desc-date" translate>event.about-fold.End Date</span>
                                         
                                         <input #dpTo="bsDatepicker" bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerToModel" class="input-date">
                                     </div>
@@ -121,21 +128,21 @@
                     <br>                    
 
                     <div class="flex-mac-checkbox">
-                        <p>Comments  Available?</p>
+                        <p translate>event.about-fold.Comments  Available?</p>
                         <div class="yes-no">
-                            <span>No</span>
+                            <span translate>No</span>
                             <div class="mac-checkbox">
                                 <input class="checkbox" type="checkbox" id="mac-checkbox-2" formControlName="comments_available" [(ngModel)]="Event.comments_available">
                                 <label for="mac-checkbox-2"></label>
                             </div>
-                            <span>Yes</span>
+                            <span translate>Yes</span>
                         </div>
                     </div>
 
                 </div>
                 <div class="side">
                     <div class="input-groupe-1 whithout-label">
-                        <span class="head-groupe">Genre</span>
+                        <span class="head-groupe" translate>Genre</span>
                         <div class="flex-genres">
                                 <ng-container *ngFor="let item of genres; let i = index">
                                     <span *ngIf="item.checked"  class="one-genre">{{item.genre_show}}</span>
@@ -165,7 +172,7 @@
                                 <option value="autumn">Autumn</option>
                                 <option value="winter">Winter</option>
                             </select> -->
-                            <mat-form-field >
+                            <mat-form-field *ngIf="isEng">
                                 <mat-select [(ngModel)]="Event.event_season" formControlName="event_season">
                                     <mat-option value="spring">Spring</mat-option>
                                     <mat-option value="summer">Summer</mat-option>
@@ -173,7 +180,15 @@
                                     <mat-option value="winter">Winter</mat-option>
                                 </mat-select>
                             </mat-form-field>
-                            <label for="inp-create-5">Event Date<span>*</span></label>
+                            <mat-form-field *ngIf="!isEng">
+                                <mat-select [(ngModel)]="Event.event_season" formControlName="event_season">
+                                    <mat-option value="spring">Весна</mat-option>
+                                    <mat-option value="summer">Лето</mat-option>
+                                    <mat-option value="autumn">Осень</mat-option>
+                                    <mat-option value="winter">Зима</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <label for="inp-create-5" translate>event.about-fold.Event Date<span>*</span></label>
 
                         </div>
                         <div class="input-groupe-1">
@@ -187,7 +202,7 @@
                                     <mat-option [value]="2023">2023</mat-option>
                                 </mat-select>
                             </mat-form-field>
-                            <label for="inp-create-6">Event Year<span>*</span></label>
+                            <label for="inp-create-6" translate>event.about-fold.Event Year<span>*</span></label>
 
                         </div>
                     </div>
@@ -200,14 +215,21 @@
                                 <option value="night">Night</option>
                                 
                             </select> -->
-                            <mat-form-field >
+                            <mat-form-field *ngIf="isEng">
                                 <mat-select [(ngModel)]="Event.event_time" formControlName="event_time">
                                     <mat-option value="morning">Morning</mat-option>
                                     <mat-option value="afternoon">Afternoon</mat-option>
                                     <mat-option value="evening">Evening</mat-option>
                                 </mat-select>
                             </mat-form-field>
-                            <label for="inp-create-7">Event Time Range<span>*</span></label>
+                            <mat-form-field *ngIf="!isEng">
+                                <mat-select [(ngModel)]="Event.event_time" formControlName="event_time">
+                                    <mat-option value="morning">Утро</mat-option>
+                                    <mat-option value="afternoon">После полудня</mat-option>
+                                    <mat-option value="evening">Вечер</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <label for="inp-create-7" translate>event.about-fold.Event Time Range<span>*</span></label>
 
                         </div>
                         <div class="input-groupe-1">
@@ -266,7 +288,7 @@
                                     <mat-option [value]="24">24</mat-option>
                                 </mat-select>
                             </mat-form-field>
-                            <label for="inp-create-8">Event Length<span>*</span></label>
+                            <label for="inp-create-8" translate>event.about-fold.Event Length<span>*</span></label>
 
                         </div>
                     </div>
@@ -274,12 +296,12 @@
                     <div class="flex-input-groupes">
                         <div *ngIf="Event.date_from" class="input-groupe-1">
                             <input disabled id="inp-create-3" name="" type="text" [value]="Event.date_from|date">
-                            <label for="inp-create-3">Exact date from</label>
+                            <label for="inp-create-3" translate>event.about-fold.Exact date from</label>
                            
                         </div>
                         <div *ngIf="Event.date_to" class="input-groupe-1">
                             <input disabled id="inp-create-3" name="" type="text" [value]="Event.date_to|date">
-                            <label for="inp-create-3">Exact date to</label>
+                            <label for="inp-create-3" translate>event.about-fold.Exact date to</label>
                            
                         </div>
                     </div>
@@ -306,13 +328,13 @@
                                 <div *ngIf="Event.image_base64" (click)="Event.image_base64=''" [ngStyle]="{'background-image': Event.image_base64?'url('+Event.image_base64+')':''}" class="bg-image uploaded"></div>
                                 <!---->
                             </div>
-                            <label  class="head-groupe">Add Image</label>
+                            <label  class="head-groupe" translate>Add Image</label>
                     </div>
 
                         <div class="input-groupe-1 whithout-label">
                             
                             <textarea formControlName="description" [(ngModel)]="Event.description"  id="inp-create-9"></textarea>
-                            <label for="inp-create-9" class="head-groupe">Short Description<span>*</span></label>
+                            <label for="inp-create-9" class="head-groupe" translate>Short Description<span>*</span></label>
                             
                         </div>
                     
@@ -330,7 +352,7 @@
 <div class="modal fade modal-send-request map-1-modal" id="modal-map-1">
     <div class="modal-dialog">
         <div class="modal-body">
-            <h6 class="head-m-p-a">Location</h6>
+            <h6 class="head-m-p-a" translate>Location</h6>
             <span class="closee-modal" data-dismiss="modal"></span>
             <div class="for-map-init-modal-1">
                     <agm-map  style="height:100%" (mapClick)="setMapCoords($event)" [latitude]="mapCoords.lat" [longitude]="mapCoords.lng">

@@ -2,8 +2,8 @@
         <div class="main-mw">
             <div class="create-event-body">
                 <div class="head-ev-body">
-                    <h2 >Artist</h2>
-                    <p>Please fill in all required fields in the Artist Screen<br>to Add a Venue. (You can add only {{Event.artists_number}} artists)</p>
+                    <h2 translate>event.artist</h2>
+                    <p translate>Please fill in all required fields in the Artist Screen<br translate>to Add a Venue(You can add only <span>{{Event.artists_number}}</span> artists)</p>
                 </div>
                 
             </div>
@@ -17,10 +17,10 @@
                 <ul class="tabs-menu-active-decline">
                     <li>
                         <!--Добавляем active табу или удаляем "p.s. наш любимый ngClass"-->
-                        <span [ngClass]="{active:isAcceptedArtistShow}" (click)="isAcceptedArtistShow = true">Active</span>
+                        <span [ngClass]="{active:isAcceptedArtistShow}" (click)="isAcceptedArtistShow = true" translate>event.artist-fold.Active</span>
                     </li>
                     <li>
-                        <span [ngClass]="{active:!isAcceptedArtistShow}" (click)="isAcceptedArtistShow = false">declined</span>
+                        <span [ngClass]="{active:!isAcceptedArtistShow}" (click)="isAcceptedArtistShow = false" translate>event.artist-fold.declined</span>
                     </li>
                 </ul>
             </div>
@@ -53,7 +53,7 @@
                         <div class="one-card">
                             <div class="add-artist-block artist-modal-open">
                                 <div (click)="addNewArtistOpenModal()" class="plus"></div>
-                                <span (click)="addNewArtistOpenModal()" class="add">Add New Artist</span>
+                                <span (click)="addNewArtistOpenModal()" class="add" translate>event.artist-fold.Add New Artist</span>
                                 <!-- <span class="or">or</span>
                                 <span class="invite">Artist Invite</span> -->
                             </div>
@@ -86,7 +86,7 @@
 
                         <div *ngIf="isEmptyDeclinedArtists()" class="empty-info">
                             <img src="./../../../assets/img/smile-white.svg" class="img-responsive" alt="">
-                            <p>No artists yet</p>
+                            <p translate>event.artist-fold.No artists yet</p>
                             
                         </div>
 
@@ -111,10 +111,10 @@
         <div class="modal-dialog">
             <div class="modal-body">
 
-                <h3 class="head-m-p-a">Add Artist</h3>
+                <h3 class="head-m-p-a" translate>event.artist-fold.Add Artist</h3>
                 <div class="for-slideing-wr">
                     <div class="content-bodal input-groupe-1">
-                        <input class="search" (change)="artistSearch($event.target.value)" (keyup)="pressEnter($event)" (input)="textChange($event)" type="text" placeholder="Search">
+                        <input class="search" (change)="artistSearch($event.target.value)" (keyup)="pressEnter($event)" (input)="textChange($event)" type="text" placeholder="{{'Search' | translate}}">
                         <div class="flex-genres for-pick">
                                 <!--Добавляем класс picked-->
                             <ng-container *ngFor="let item of genresSearchArtist; let i = index">
@@ -123,7 +123,7 @@
                         </div>
                     </div>
                     <div class="flex-range-slider">
-                        <span class="d-l-s">Price</span>
+                        <span class="d-l-s" translate>Price</span>
                         <div class="left-side">
 
                             <div class="for-range-slider">
@@ -133,14 +133,14 @@
                         <div class="right-side">
                             <div class="location-wr">
                                 <div class="mark" (click)="artistOpenMapModal()"></div>
-                                <input type="text" [(ngModel)]="artistSearchParams.address" (input)="addressChange($event.target.value)" class="location-inp" placeholder="Location" #searchArtist id="artistAddress">
+                                <input type="text" [(ngModel)]="artistSearchParams.address" (input)="addressChange($event.target.value)" class="location-inp" placeholder="{{ 'Location' | translate}}" #searchArtist id="artistAddress">
                             </div>
                         </div>
                     </div>  
                 </div>
                 <div class="more-padd">
                     <div class="for-hide-filter">
-                        <span>Roll up</span>
+                        <span translate>event.artist-fold.Roll up</span>
                     </div>
 
                 </div>
@@ -175,7 +175,7 @@
                 <div class="buttons-wrapp-add-inv">
                     <!-- можете баттоном или span. как удобнее-->
                     <button class="butt-style-1" type="submit" (click)="addNewArtist()">
-                        <span>Add to Active</span>
+                        <span translate>event.artist-fold.Add to Active</span>
                     </button>
                     <!-- <span class="second-button-inv">Artist Invite</span> -->
                 </div>
@@ -191,7 +191,7 @@
                <form [formGroup]="requestArtistForm">
             <div class="modal-body">
                 
-                <h6 class="head-m-p-a">Event Request</h6>
+                <h6 class="head-m-p-a" translate>event.artist-fold.Event Request</h6>
                 
                 <div class="name-and-ava">
                     <div class="ava" [ngStyle]="{'background-image': artistForRequest.image_base64_not_given?'url('+artistForRequest.image_base64_not_given+')':''}"></div>
@@ -207,13 +207,13 @@
                                 <div class="rel-wr">
                                 <input disabled [value]="Event.event_season" name="" type="text">
                             </div>
-                            <label for="inp-modal-req-4">Date Range</label>
+                            <label for="inp-modal-req-4" translate>event.artist-fold.Date Range</label>
                         </div>
                         <div class="input-groupe-1 font-size-label">
                                 <div class="rel-wr">
                                 <input disabled [value]="Event.event_length" name="" type="text">
                             </div>
-                            <label for="inp-modal-req-4">Performance Time</label> 
+                            <label for="inp-modal-req-4" translate>event.artist-fold.Performance Time</label> 
                         </div>
                     </div>
                     <div class="flex-input-groupes">
@@ -222,17 +222,33 @@
                                     <!-- <span class="abs-backs">$</span> -->
                                     <input [textMask]="MaskNumbers()" formControlName="time_frame_number" id="inp-modal-req-412" name="" type="text">
                                 </div>
-                                <label for="inp-modal-req-4">Time Frame<br> Number<span>*</span></label>
+                                <label for="inp-modal-req-4" translate>event.artist-fold.Time Frame<br translate> event.artist-fold.Number<span>*</span></label>
                                 
                         </div>
                         <div class="input-groupe-1 font-size-label more-padd">
-                            <select formControlName="time_frame_range"  id="inp-modal-req-3">
+                            <!-- <select formControlName="time_frame_range"  id="inp-modal-req-3">
                                     <option value="hour">Hour(s)</option>
                                     <option value="day">Day(s)</option>
                                     <option value="week">Week(s)</option>
                                     <option value="month">Month(s)</option>
-                            </select>
-                            <label for="inp-modal-req-3">Time Frame we expect an answer<span>*</span></label>
+                            </select> -->
+                            <mat-form-field >
+                                <mat-select formControlName="time_frame_range"  id="inp-modal-req-3">
+                                    <mat-option value="hour">{{'event.artist-fold.Hour(s)' |translate}}</mat-option>
+                                    <mat-option value="day">Day(s)</mat-option>
+                                    <mat-option value="week">Week(s)</mat-option>
+                                    <mat-option value="month">Month(s)</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <!-- <mat-form-field *ngIf="!isEng">
+                                <mat-select formControlName="time_frame_range"  id="inp-modal-req-3">
+                                    <mat-option value="hour">Час(с)</mat-option>
+                                    <mat-option value="day">День(с)</mat-option>
+                                    <mat-option value="week">Неделя(с)</mat-option>
+                                    <mat-option value="month">Месяц(с)</mat-option>
+                                </mat-select>
+                            </mat-form-field> -->
+                            <label for="inp-modal-req-3" translate>event.artist-fold.Time Frame we expect an answer<span>*</span></label>
                         </div>
                         
                         <div class="input-groupe-1 font-size-label more-padd">
@@ -240,19 +256,19 @@
                                 <span class="abs-backs">{{CurrencySymbol}}</span>
                                 <input [textMask]="MaskNumbers()" formControlName="estimated_price" id="inp-modal-req-4" class="dollar" name="" type="text">
                             </div>
-                            <label for="inp-modal-req-4">Estimated Price to<br> Perform<span>*</span></label>
+                            <label for="inp-modal-req-4" translate>event.artist-fold.Estimated Price to<br translate> event.artist-fold.Perform<span>*</span></label>
                             
                         </div>
                     </div>
                     <div class="flex-mac-checkbox">
-                        <p>Crowdfunding  Event?</p>
+                        <p translate>event.about-fold.Crowdfunding  Event?</p>
                         <div class="yes-no">
-                            <span>No</span>
+                            <span translate>No</span>
                             <div class="mac-checkbox">
                                 <input class="checkbox" type="checkbox" id="crowdfunding-1-check">
                                 <label for="crowdfunding-1-check"></label>
                             </div>
-                            <span>Yes</span>
+                            <span translate>Yes</span>
                         </div>
                     </div>
                     <div class="location-wr">
@@ -263,13 +279,13 @@
                         <div class="input-groupe-1 small-textarea whithout-label none-margin-fix">
 
                             <textarea formControlName="message" id="inp-desc-2-modal"></textarea>
-                            <label for="inp-desc-2-modal" class="head-groupe">Message</label>
+                            <label for="inp-desc-2-modal" class="head-groupe" translate>event.artist-fold.Message</label>
 
                         </div>
                     </div>
                         <div class="send-request-b">
                         <button class="butt-style-1" type="submit" (click)="artistSendRequest(artistForRequest.id)">
-                            <span>Send Request</span>
+                            <span translate>event.artist-fold.Send Request</span>
                         </button>
                     </div>
                 </div>
@@ -282,7 +298,7 @@
         <div class="modal fade modal-send-request map-1-modal" id="modal-map-2">
             <div class="modal-dialog">
                 <div class="modal-body">
-                    <h6 class="head-m-p-a">Location</h6>
+                    <h6 class="head-m-p-a" translate>Location</h6>
                     <span class="closee-modal" data-dismiss="modal"></span>
                     <div class="for-map-init-modal-1">
                             <agm-map  #agmMap triggerResize='true' style="height:100%" (mapClick)="setMapCoords($event)" [latitude]="mapCoords.lat" [longitude]="mapCoords.lng">

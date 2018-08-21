@@ -58,6 +58,7 @@ import { MessageRequestComponent } from './messages/message-request/message-requ
 import { MessageAcceptComponent } from './messages/message-accept/message-accept.component';
 import { MessageFeedbackComponent } from './messages/message-feedback/message-feedback.component';
 import { MessageSupportComponent } from './messages/message-support/message-support.component';
+import { TranslateModule } from '../../../node_modules/@ngx-translate/core';
 
 
 
@@ -103,7 +104,8 @@ import { MessageSupportComponent } from './messages/message-support/message-supp
       language: 'en'
     }),
       CommonModule,
-      FormsModule
+      FormsModule,
+      TranslateModule
   ],
   providers: [ SystemAccessGuard]
 })

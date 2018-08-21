@@ -2,8 +2,8 @@
     <div class="main-mw">
         <div class="create-event-body">
             <div class="head-ev-body">
-                <h2>Funding</h2>
-                <p>Please fill in all required fields in<br>the About Screen to Add Tickets</p>
+                <h2 translate>event.funding</h2>
+                <p translate>Please fill in all required fields in<br translate>the About Screen to Add Tickets</p>
             </div>
         </div>
     </div>
@@ -11,11 +11,11 @@
         <div class="flex-funding-columns md-style-col-change">
             <div class="side">
                 <div class="top-gum">
-                    <h6>Choose Active Artists</h6>
+                    <h6 translate>event.funding-fold.Choose Active Artists</h6>
                     
                   
                     <app-preloader *ngIf="isLoadingArtist" [size]="'50px'" [padding]="'70px'" class="empty-side"></app-preloader>
-                    <p *ngIf="!isLoadingArtist&&activeArtist.length==0" class="empty-side">You have no Active Artists.<br>Choose Active Artists.</p>
+                    <p *ngIf="!isLoadingArtist&&activeArtist.length==0" class="empty-side" translate>event.funding-fold.You have no Active Artists<br translate>event.funding-fold.Choose Active Artists</p>
                     <div *ngIf="!isLoadingArtist&&activeArtist.length>0" class="artists-venue-wrapp">
                         <div *ngFor="let artist of activeArtist; let i = index" class="one-block">
                             <div class="ava-l">
@@ -37,7 +37,7 @@
                     
                 </div>
                 <div *ngIf="!isLoadingArtist" class="bottom-expression">
-                    <p class="t">Price (Plus Additional Costs)</p>
+                    <p class="t" translate>event.funding-fold.Price (Plus Additional Costs)</p>
                     <p class="exp-price">
                         {{CurrencySymbol}}
                         {{artistSum}}</p>
@@ -45,10 +45,10 @@
             </div>
             <div class="side">
                 <div class="top-gum">
-                    <h6>Choose Active Venue</h6>
+                    <h6 translate>event.funding-fold.Choose Active Venue</h6>
                   
                     <app-preloader *ngIf="isLoadingVenue" [size]="'50px'" [padding]="'70px'" class="artists-venue-wrapp"></app-preloader>
-                    <p  *ngIf="!isLoadingVenue&&activeVenue.length==0" class="empty-side">You Have no Active Venues.<br>Choose Active Venue. </p>
+                    <p  *ngIf="!isLoadingVenue&&activeVenue.length==0" class="empty-side" translate>event.funding-fold.You Have no Active Venues<br translate>event.funding-fold.Choose Active Venue </p>
                     <div *ngIf="!isLoadingVenue&&activeVenue.length>0" class="artists-venue-wrapp">
                         <div *ngFor="let venue of activeVenue; let i = index" class="one-block">
                             <div class="ava-l">
@@ -69,7 +69,7 @@
                    
                 </div>
                 <div *ngIf="!isLoadingVenue" class="bottom-expression">
-                    <p class="t">Price (Plus Additional Costs)</p>
+                    <p class="t" translate>event.funding-fold.Price (Plus Additional Costs)</p>
                     <p class="exp-price">
                         {{CurrencySymbol}}
                         {{venueSum}}</p>
@@ -77,14 +77,14 @@
             </div>
             <div class="side">
                 <div class="top-gum">
-                    <h6>Event Funding Status</h6>
-                    <p class="some-text">When this Event is Successfully Completed, your Status will change to Approved.</p>
-                    <p class="some-text">Go to Settings/Financial Info to transfer your money.</p>
-                    <p class="status">Status: <span>Pending</span></p>
+                    <h6 translate>event.funding-fold.Event Funding Status</h6>
+                    <p class="some-text" translate>event.funding-fold.When this Event is Successfully Completed, your Status will change to Approved</p>
+                    <p class="some-text" translate>event.funding-fold.Go to Settings/Financial Info to transfer your money</p>
+                    <p class="status" translate>Venue.About-folder.Status: <span translate>Pending</span></p>
                     
                 </div>
                 <div class="bottom-expression">
-                    <p class="t total">Total</p>
+                    <p class="t total" translate>event.Totals</p>
                     <p class="exp-price">{{CurrencySymbol}}{{Event.founded}}</p>
                 </div>
             
@@ -92,29 +92,29 @@
             </div>
         </div>
        
-        <h4 class="padd-head-event">Amounts</h4>
+        <h4 class="padd-head-event" translate>event.funding-fold.Amounts</h4>
         <div class="flex-funding-columns no-marg">
             <div class="side no-border">
                 <div class="top-gum">
-                    <h6 class="lower-case-t">Breakeven Amount</h6>
+                    <h6 class="lower-case-t" translate>event.funding-fold.Breakeven Amount</h6>
                     <div class="second-funding-info">
-                        <p class="info-text">Artists Price</p>
+                        <p class="info-text" translate>event.funding-fold.Artists Price</p>
                         <span *ngIf="artistSum>0" class="price">{{CurrencySymbol}}{{artistSum  | number:'3.1-2'}}</span>
                         <span *ngIf="!artistSum||artistSum==0" class="price">{{CurrencySymbol}}0</span>
                     </div>
                     <div class="second-funding-info">
-                        <p class="info-text">Venue Price</p>
+                        <p class="info-text" translate>event.funding-fold.Venue Price</p>
                         <span *ngIf="venueSum>0" class="price">{{CurrencySymbol}}{{venueSum  | number:'3.1-2'}}</span>
                         <span *ngIf="!venueSum||venueSum==0" class="price">{{CurrencySymbol}}0</span>
                     </div>
                     <div class="additional-costs">
-                        <p class="addit-t">Additional Costs</p>
+                        <p class="addit-t" translate>event.funding-fold.Additional Costs</p>
                         <p class="price">{{CurrencySymbol}} <input class="additionalCosts"  name="additional_cost" type="number" [(ngModel)]="Event.additional_cost"></p>
                     </div>
                     
                     
                     <div class="second-funding-info">
-                        <p class="info-text">Amount to Mouse (10%)</p>
+                        <p class="info-text" translate>event.funding-fold.Amount to Mouse (10%)</p>
                         <span class="price">{{CurrencySymbol}}{{0.1*(artistSum+venueSum+Event.additional_cost) | number:'3.1-2'}}</span>
                     </div>
                 </div>
@@ -122,7 +122,7 @@
             </div>
             <div class="side no-border">
                 <div class="top-gum">
-                    <h6 class="lower-case-t">Family and Friends Amount</h6>
+                    <h6 class="lower-case-t" translate>event.funding-fold.Family and Friends Amount</h6>
                     <div class="input-groupe-1">
                         <!-- <select type="number" [(ngModel)]="Event.family_and_friends_amount">
                             <option [value]="0">0%</option>
@@ -139,20 +139,20 @@
                         
                     </div>
                     <div class="second-funding-info">
-                        <p class="info-text">Amount</p>
+                        <p class="info-text" translate>event.funding-fold.Amount</p>
                         <span class="price">{{CurrencySymbol}}{{getFamilyAndFriendAmount()  | number:'3.1-2'}}</span>
                     </div>
                 </div>
             </div>
             <div class="side no-border">
                 <div class="top-gum">
-                    <h6 class="lower-case-t">Min Amount per Ticket</h6>
+                    <h6 class="lower-case-t" translate>event.funding-fold.Min Amount per Ticket</h6>
                     <div class="second-funding-info">
-                        <p class="info-text">Capacity</p>
+                        <p class="info-text" translate>event.funding-fold.Capacity</p>
                         <span class="price">{{Event.venue?Event.venue.capacity:'-'}}</span>
                     </div>
                     <div class="second-funding-info">
-                        <p class="info-text">Price Per Ticket</p>
+                        <p class="info-text" translate>event.funding-fold.Price Per Ticket</p>
                         <span class="price">{{Event.venue? CurrencySymbol+(0.1*(artistSum+venueSum+Event.additional_cost)+(artistSum+venueSum+Event.additional_cost)) / Event.venue.capacity : '-' | number:'3.1-2'}}</span>
                     </div>
                 </div>
@@ -161,7 +161,7 @@
          <div class="flex-funding-columns no-marg">
             <div class="side">
                 <div class="bottom-expression">
-                    <p class="t total">Total</p>
+                    <p class="t total" translate>event.Totals</p>
                     <p class="exp-price">{{CurrencySymbol}}{{0.1*(artistSum+venueSum+Event.additional_cost)+(artistSum+venueSum+Event.additional_cost) | number:'3.1-2'}}</p>
                 </div>
             </div>

@@ -4,33 +4,34 @@
         <div class="for-header-shadow">
             <div class="main-mw">
                 <div class="create-event-header">
-                    <h1>{{isNewVenue?'Create':'Edit'}} Venue</h1>
+                    <h1 *ngIf="isEnglish()">{{isNewVenue?'Create':'Edit'}} <span translate>Venue.Venue</span></h1>
+                    <h1 *ngIf="!isEnglish()">{{isNewVenue?'Создать':'Изменить'}} <span translate>Venue.Venue</span></h1>
                     <div class="new-flex-ul-li">
                     <ul>
                         <!--нужным li даем классы active и started."хз нахрена это надо. узнавайте у писателя"-->
                         <li [ngClass]="{'active':CurrentPart == Parts.About,'started':CurrentPart != Parts.About}">
-                            <a (click)="ChangeCurrentPart(Parts.About)" class="nav-second-outlet">About</a>
+                            <a (click)="ChangeCurrentPart(Parts.About)" class="nav-second-outlet" translate>Venue.About</a>
                         </li>
                         <li [ngClass]="{'active':CurrentPart == Parts.Hours,'started':(VenueId != 0 && CurrentPart != Parts.Hours)}">
-                            <a (click)="ChangeCurrentPart(Parts.Hours)" class="nav-second-outlet">Hours</a>
+                            <a (click)="ChangeCurrentPart(Parts.Hours)" class="nav-second-outlet" translate>Venue.Hours</a>
                         </li>
                         <li [ngClass]="{'active':CurrentPart == Parts.Listing,'started':(VenueId != 0 && CurrentPart != Parts.Listing)}">
-                            <a (click)="ChangeCurrentPart(Parts.Listing)" class="nav-second-outlet">Listing</a>
+                            <a (click)="ChangeCurrentPart(Parts.Listing)" class="nav-second-outlet" translate>Venue.Listing</a>
                         </li>
                         <li [ngClass]="{'active':CurrentPart == Parts.Media,'started':(VenueId != 0 && CurrentPart != Parts.Media)}">
-                            <a (click)="ChangeCurrentPart(Parts.Media)" class="nav-second-outlet">Media</a>
+                            <a (click)="ChangeCurrentPart(Parts.Media)" class="nav-second-outlet" translate>Venue.Media</a>
                         </li>
                         <li [ngClass]="{'active':CurrentPart == Parts.Dates,'started':(VenueId != 0 && CurrentPart != Parts.Dates)}">
-                            <a (click)="ChangeCurrentPart(Parts.Dates)" class="nav-second-outlet">Dates</a>
+                            <a (click)="ChangeCurrentPart(Parts.Dates)" class="nav-second-outlet" translate>Venue.Dates</a>
                         </li>
                         <li [ngClass]="{'active':CurrentPart == Parts.Preview,'started':(VenueId != 0 && CurrentPart != Parts.Preview)}">
-                            <a (click)="ChangeCurrentPart(Parts.Preview)" class="nav-second-outlet">Preview</a>
+                            <a (click)="ChangeCurrentPart(Parts.Preview)" class="nav-second-outlet" translate>Venue.Preview</a>
                         </li>
                       
                         <li>
                             <button class="butt-style-1" style="width: 127px" (click)="SuperPuperImportantSaveButton()">
-                                <span style="padding: 10px 21px">
-                                    SAVE
+                                <span style="padding: 10px 21px" translate>
+                                    Venue.SAVE
                                 </span>
                             </button>
                         </li>

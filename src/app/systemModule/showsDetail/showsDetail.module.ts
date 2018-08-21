@@ -12,6 +12,8 @@ import { ByTicketComponent } from './buyTicket/buyTicket.component';
 import { BiographyComponent } from './biography/biography.component';
 import { ErrorModule } from '../../shared/error/error.module';
 import {SlideshowModule} from 'ng-simple-slideshow';
+import { TranslateModule } from '@ngx-translate/core';
+
 
 @NgModule({
     imports: [ 
@@ -26,7 +28,8 @@ import {SlideshowModule} from 'ng-simple-slideshow';
             apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",
             libraries: ["places"]
         }),
-        SlideshowModule
+        SlideshowModule,
+        TranslateModule
     ],
     declarations: [ 
         ShowsDetailComponent,

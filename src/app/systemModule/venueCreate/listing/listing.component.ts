@@ -25,6 +25,7 @@ export class VenueListingComponent extends BaseComponent implements OnInit,OnCha
 
     TypesOfSpace:SelectModel[] = [];
     LocatedTypes:SelectModel[] = [];
+    isEng: boolean;
 
     detailsForm : FormGroup = new FormGroup({
         "venue_type": new FormControl("", [Validators.required]),
@@ -58,6 +59,8 @@ export class VenueListingComponent extends BaseComponent implements OnInit,OnCha
     {
         this.TypesOfSpace = this.main.typeService.GetAllSpaceTypes();
         this.LocatedTypes = this.main.typeService.GetAllLocatedTypes();
+        this.isEng = this.isEnglish();
+        
         this.CreateOnModelChangeForParent();
     }
 

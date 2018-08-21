@@ -19,6 +19,8 @@ import { AccountType, BaseMessages } from '../../core/base/base.enum';
 import { Base64ImageModel } from '../../core/models/base64image.model';
 import { MainService } from '../../core/services/main.service';
 import { ErrorComponent } from '../../shared/error/error.component';
+import { TranslateService } from '../../../../node_modules/@ngx-translate/core';
+import { SettingsService } from '../../core/services/settings.service';
 
 declare var $:any;
 
@@ -38,6 +40,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
   cordsMap = {lat:55.755826, lng:37.6172999};
   avatar:string = '';
   ImageId:number = 0;
+  isEng:boolean;
   @ViewChild('errorCmp') errorCmp: ErrorComponent;
   @ViewChild('submitFormFun') form: FormGroup;
   @ViewChild('search') public searchElement: ElementRef;
@@ -70,9 +73,11 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
     protected mapsAPILoader  : MapsAPILoader,
     protected ngZone         : NgZone,
     protected activatedRoute : ActivatedRoute,
-    protected cdRef          : ChangeDetectorRef
+    protected cdRef          : ChangeDetectorRef,
+    protected translate      :TranslateService,
+    protected settings       :SettingsService
   ) {
-    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
+    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,settings);
   }
 
   ngAfterViewChecked()
@@ -117,6 +122,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
       }
     );
     this.CreateAutocomplete();
+    this.isEng = this.isEnglish();
   }
     DeleteAva(){
       if(this.ImageId && this.avatar){

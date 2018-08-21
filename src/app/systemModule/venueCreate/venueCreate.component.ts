@@ -53,6 +53,8 @@ import { VenueDatesComponent } from './dates/dates.component';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { UserGetModel } from '../../core/models/userGet.model';
 import { Currency } from '../../core/models/preferences.model';
+import { TranslateService } from '../../../../node_modules/@ngx-translate/core';
+import { SettingsService } from '../../core/services/settings.service';
 
 
 
@@ -100,9 +102,11 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
     protected mapsAPILoader  : MapsAPILoader,
     protected ngZone         : NgZone,
     protected activatedRoute : ActivatedRoute,
-    protected cdRef          : ChangeDetectorRef
+    protected cdRef          : ChangeDetectorRef,
+    protected translate      :TranslateService,
+    protected settings       :SettingsService
   ) {
-    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
+    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,settings);
   }
 
   ngOnInit()
@@ -222,6 +226,11 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
         this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'venue'));
       }
     )
+  }
+
+  isEnglish(){
+    if (this.settings.GetLang() == 'en') 
+      return true;
   }
 
   NextPart()

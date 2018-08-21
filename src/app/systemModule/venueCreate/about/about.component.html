@@ -3,18 +3,18 @@
         <form [formGroup]="aboutForm">
             <div class="create-event-body">
             <div class="head-ev-body">
-                    <h2>About</h2>
-                    <p>Please fill in all required fields<br>to proceed to the Next Step</p>
+                    <h2 translate>Venue.About</h2>
+                    <p translate>Please fill in all required fields<br translate>to proceed to the Next Step</p>
                 </div>
                 <div class="flex-body-1 hidden-md hidden-sm hidden-xs">
                     <div class="side">
                         
                     </div>
                     <div class="side">
-                        <h6 class="head-col-add-venue">Contact Info</h6>
+                        <h6 class="head-col-add-venue" translate>Contact Info</h6>
                     </div>
                     <div class="side">
-                        <h6 class="head-col-add-venue">Address</h6>
+                        <h6 class="head-col-add-venue" translate>Address</h6>
                     </div>
                 </div>
                 <div class="flex-body-1 xs-verticall">
@@ -23,16 +23,16 @@
                         
                         <div class="input-groupe-1 lbl-1">
                             <input id="inp-create-1" autocomplete="off" [(ngModel)]="Venue.display_name" formControlName="venue_name" name="" type="text">
-                            <label for="inp-create-1">Venue Name<span>*</span></label>
+                            <label for="inp-create-1" translate>Venue.About-folder.Venue Name<span>*</span></label>
                         </div>
                         <div class="input-groupe-1 dog">
                             <span class="user-name-dog">@</span>
                             <input id="inp-create-2" autocomplete="off" [textMask]="WithoutSpace()" [(ngModel)]="Venue.user_name" formControlName="mouse_name" name="" type="text">
-                            <label for="inp-create-2">Mouse Username<span>*</span></label>
+                            <label for="inp-create-2" translate>Venue.About-folder.Mouse Username<span>*</span></label>
                             
                         </div>
                         <div class="input-groupe-1 whithout-label">
-                            <h6 class="head-col-add-venu hidden-lg visible-md">Contact Info</h6>
+                            <h6 class="head-col-add-venu hidden-lg visible-md" translate>Contact Info</h6>
                             <div class="photo-wr-1 n-i-s">
                                 
                                 <label *ngIf="!Venue.image_base64" class="file_upload new-style-img-up">
@@ -45,27 +45,27 @@
                                 <div *ngIf="Venue.image_base64" (click)="DeleteImage()" [ngStyle]="{'background-image': Venue.image_base64?'url('+Venue.image_base64+')':''}" class="bg-image uploaded"></div>
                                 <!---->
                             </div>
-                            <label  class="head-groupe">Add Image</label>
+                            <label  class="head-groupe" translate>Add Image</label>
                         </div>
                         <div class="input-groupe-1 whithout-label small-textarea max-500">
                             <textarea id="inp-create-9" autocomplete="off"  [(ngModel)]="Venue.description" formControlName="short_desc"></textarea>
-                            <label for="inp-create-9" class="head-groupe">Short Description<span>*</span></label>
-                            <span class="max-count">1000 max</span>
+                            <label for="inp-create-9" class="head-groupe" translate>Short Description<span>*</span></label>
+                            <span class="max-count" translate>setting.feed-back.1000 max</span>
                         </div>
                         <div class="status-information">
-                            <h6 class="head-col-add-venue">Funding Information</h6>
-                            <p class="status-t">Status:<span>Pending</span></p>
+                            <h6 class="head-col-add-venue" translate>Venue.About-folder.Funding Information</h6>
+                            <p class="status-t" translate>Venue.About-folder.Status:<span translate>Pending</span></p>
                         </div>
                     </div>
                     <div class="side">
                         
                         <div class="input-groupe-1">
                             <input id="inp-create-venue-tel-1" autocomplete="off" [textMask]="MaskPhone(phoneMask)" (input)="phoneMask=''" (blur)="phoneMask=Venue.phone" [(ngModel)]="Venue.phone" formControlName="phone" name="" type="text">
-                            <label for="inp-create-venue-tel-1">Phone<span>*</span></label>
+                            <label for="inp-create-venue-tel-1" translate>Venue.About-folder.Phone<span>*</span></label>
                         </div>
                         <div class="input-groupe-1">
                             <input id="inp-create-venue-tel-2" autocomplete="off" [(ngModel)]="Venue.fax" formControlName="fax" name="" type="text">
-                            <label for="inp-create-venue-tel-2">Fax</label>
+                            <label for="inp-create-venue-tel-2" translate>Venue.About-folder.Fax</label>
                         </div>
                     
                         <h6 class="head-col-add-venue">EMAILS<span>*</span></h6>
@@ -75,7 +75,7 @@
                                     <span class="count">{{+i+1}}.</span>
                                     <div class="input-groupe-1">
                                         <input autocomplete="off" id="inp-create-venue-name-{{+i+1}}" [(ngModel)]="Venue.emails[i].name" formControlName="name_email" name="" type="text">
-                                        <label for="inp-create-venue-name-{{+i+1}}">Email Name {{+i+1}}</label>
+                                        <label for="inp-create-venue-name-{{+i+1}}"><span translate>Venue.About-folder.Email Name</span> {{+i+1}}</label>
                                     </div>
                                     <div class="input-groupe-1">
                                         <input autocomplete="off" id="inp-create-venue-email-{{+i+1}}" [(ngModel)]="Venue.emails[i].email" formControlName="email" name="" type="text">
@@ -86,33 +86,33 @@
                             </div>
                             <div class="emeil-gen-butt-add">
                                 <span class="butt-style-1" (click)="AddEmail()" style="max-width: 200px;">
-                                    <span>Add Another Email</span>
+                                    <span translate>Venue.About-folder.Add Another Email</span>
                                 </span>
                             </div>
                         </div>
                     </div>
                     <div class="side class-uniq-xs">
-                        <h6 class="head-col-add-venue hidden-lg visible-md">Address</h6>
+                        <h6 class="head-col-add-venue hidden-lg visible-md" translate>Address</h6>
                         
                         <div class="input-groupe-1 md-w-100">
                             <input id="inp-create-venue-adr-2" #search placeholder="" autocomplete="off" [(ngModel)]="Venue.address" formControlName="address" name="addr" type="text">
-                            <label for="inp-create-venue-adr-2">Address<span>*</span></label>
+                            <label for="inp-create-venue-adr-2" translate>Address<span>*</span></label>
                         </div>
                         <div class="input-groupe-1">
                             <input id="inp-create-venue-adr-1" autocomplete="off" [(ngModel)]="Venue.country" formControlName="country" name="" type="text">
-                            <label for="inp-create-venue-adr-1">Country<span>*</span></label>
+                            <label for="inp-create-venue-adr-1" translate>Country<span>*</span></label>
                         </div>
                         <div class="input-groupe-1">
                             <input id="inp-create-venue-adr-3" autocomplete="off" [(ngModel)]="Venue.city" formControlName="city" name="" type="text">
-                            <label for="inp-create-venue-adr-3">City<span>*</span></label>
+                            <label for="inp-create-venue-adr-3" translate>City<span>*</span></label>
                         </div>
                         <div class="input-groupe-1">
                             <input id="inp-create-venue-adr-4" autocomplete="off" [(ngModel)]="Venue.state" formControlName="state" name="" type="text">
-                            <label for="inp-create-venue-adr-4">State<span>*</span></label>
+                            <label for="inp-create-venue-adr-4" translate>State<span>*</span></label>
                         </div>
                         <div class="input-groupe-1">
                             <input id="inp-create-venue-adr-5" autocomplete="off" [(ngModel)]="Venue.zipcode" formControlName="zipcode" name="" type="text">
-                            <label for="inp-create-venue-adr-5">Zipcode</label>
+                            <label for="inp-create-venue-adr-5" translate>Zipcode</label>
                         </div>
                         
                     </div>

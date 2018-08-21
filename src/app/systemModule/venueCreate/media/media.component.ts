@@ -31,6 +31,7 @@ export class VenueMediaComponent extends BaseComponent implements OnInit,OnChang
     VenueImages:ImageAccModel[] = [];
 
     ImageTypes: SelectModel[] = [];
+    isEng: boolean;
 
     mediaForm : FormGroup = new FormGroup({
         "vr": new FormControl("",[]),
@@ -53,7 +54,7 @@ export class VenueMediaComponent extends BaseComponent implements OnInit,OnChang
     ngOnInit(): void
     {
         this.ImageTypes = this.main.typeService.GetAllImageTypes();
-
+        this.isEng = this.isEnglish();
         this.Init();
     }
 

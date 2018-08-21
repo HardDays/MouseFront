@@ -6,14 +6,14 @@
             <div class="side side-1">
                 <!--весртка красной фиговины-->
                 <div *ngIf="IsPromotional" class="sale">
-                        <p>Promo</p>
+                        <p translate>show-folder.Promo</p>
                 </div>
                 <div *ngIf="Show.is_crowdfunding_event" class="funded" style="overflow: hidden">
                     <!-- тут ебошим высоту, скок собрали баблища-->
                     <div class="complete" [ngStyle]="{'height':+FoundedPercent +'%'}"></div>
                     <p>
                         <!-- 12 days<br>to go<br> -->
-                        <span>{{FoundedPercent | number}} %<br>funded</span>
+                        <span translate>{{FoundedPercent | number}} %<br>show-folder.funded</span>
                     </p>
                 </div>
 

@@ -35,6 +35,8 @@ import { AnalyticsEventComponent } from './analytics/analytics.component';
 import { SearchEventsComponent } from '../../shared/search/search_window/search.component';
 import { SearchEventsMapComponent } from '../../shared/search/map/map.component';
 import { ErrorComponent } from '../../shared/error/error.component';
+import { TranslateService } from '../../../../node_modules/@ngx-translate/core';
+import { SettingsService } from '../../core/services/settings.service';
 
 declare var $:any;
 
@@ -63,9 +65,11 @@ export class EventsComponent extends BaseComponent implements OnInit,AfterViewCh
         protected mapsAPILoader  : MapsAPILoader,
         protected ngZone         : NgZone,
         protected activatedRoute : ActivatedRoute,
-        protected cdRef          : ChangeDetectorRef
+        protected cdRef          : ChangeDetectorRef,
+        protected translate      :TranslateService,
+        protected settings       :SettingsService
     ) {
-        super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
+        super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,settings);
     }
 
     ngAfterViewChecked()

@@ -2,20 +2,20 @@
     <div class="main-mw">
         <div [formGroup]="mediaForm" class="create-event-body">
             <div class="head-ev-body">
-                <h2>Media</h2>
-                <p>Please fill in all required fields<br> to proceed to the Next Step</p>
+                <h2 translate>Venue.Media</h2>
+                <p translate>Please fill in all required fields<br translate> to proceed to the Next Step</p>
             </div>
             <div class="flex-body-1 more-padding">
                 <div class="side">
                     <div class="flex-mac-checkbox">
-                        <p>VR Video Equipment</p>
+                        <p translate>Venue.Media-folder.VR Video Equipment</p>
                         <div class="yes-no">
-                            <span>No</span>
+                            <span translate>No</span>
                             <div class="mac-checkbox">
                                 <input class="checkbox" [(ngModel)]="Venue.has_vr" formControlName="vr" checked="" type="checkbox" id="checkbox-set-option-vr">
                                 <label for="checkbox-set-option-vr"></label>
                             </div>
-                            <span>Yes</span>
+                            <span translate>Yes</span>
                         </div>
                     </div>
                 </div>
@@ -25,22 +25,22 @@
                 <div class="side">
                     <div class="input-groupe-1 whithout-label small-textarea max-500">
                         <textarea id="inp-media-venue-1" [(ngModel)]="Venue.audio_description" formControlName="audio_description"></textarea>
-                        <label for="inp-media-venue-1" class="head-groupe">Audio Description<span>*</span></label>
-                        <span class="max-count">1000 max</span>
+                        <label for="inp-media-venue-1" class="head-groupe" translate>Venue.Media-folder.Audio Description<span>*</span></label>
+                        <span class="max-count" translate>setting.feed-back.1000 max</span>
                     </div>
                 </div>
                 <div class="side">
                     <div class="input-groupe-1 whithout-label small-textarea max-500">
                         <textarea id="inp-media-venue-2" [(ngModel)]="Venue.lighting_description" formControlName="lighting_description"></textarea>
-                        <label for="inp-media-venue-2" class="head-groupe">Lighting Description<span>*</span></label>
-                        <span class="max-count">1000 max</span>
+                        <label for="inp-media-venue-2" class="head-groupe" translate>Venue.Media-folder.Lighting Description<span>*</span></label>
+                        <span class="max-count" translate>setting.feed-back.1000 max</span>
                     </div>
                 </div>
                 <div class="side">
                     <div class="input-groupe-1 whithout-label small-textarea max-500">
                         <textarea id="inp-media-venue-3" [(ngModel)]="Venue.stage_description" formControlName="stage_description"></textarea>
-                        <label for="inp-media-venue-3" class="head-groupe">Stage Description<span>*</span></label>
-                        <span class="max-count">1000 max</span>
+                        <label for="inp-media-venue-3" class="head-groupe" translate>Venue.Media-folder.Stage Description<span>*</span></label>
+                        <span class="max-count" translate>setting.feed-back.1000 max</span>
                     </div>
                 </div>
             </div>
@@ -48,9 +48,9 @@
         
         <div class="media-flex-sides add-venue-some-style">
             <div class="left-side">
-                <h6 class="head-col-add-venue">Recommended Photos</h6>
+                <h6 class="head-col-add-venue" translate>Venue.Media-folder.Recommended Photos</h6>
                 <div class="gradient-box gradient-4">
-                    <h6 class="head-of-gradient-box">Add new photo</h6>
+                    <h6 class="head-of-gradient-box" translate>Venue.Media-folder.Add new photo</h6>
                     <div class="photos-wr-flex-venue">
                         <div class="photo-wr-1">
 
@@ -66,25 +66,28 @@
                         
                     </div>
                     <div class="flex-genres style-on-add-artist-g">
-                        <div class="one-checkbox" *ngFor="let item of ImageTypes;let i = index">
-                            <div class="check-style">
-                                <input type="radio" class="checkbox" name="image-type-radio" [value]="item.value" [(ngModel)]="ImageToLoad.image_type" id="checkbox-photo-{{+i+1}}">
-                                <label for="checkbox-photo-{{+i+1}}"></label>
+                        <ng-container>
+                            <div class="one-checkbox" *ngFor="let item of ImageTypes;let i = index">
+                                <div class="check-style">
+                                    <input type="radio" class="checkbox" name="image-type-radio" [value]="item.value" [(ngModel)]="ImageToLoad.image_type" id="checkbox-photo-{{+i+1}}">
+                                    <label for="checkbox-photo-{{+i+1}}"></label>
+                                </div>
+                                <p class="image-type-checkbox">{{item.name}}</p>
                             </div>
-                            <p class="image-type-checkbox">{{item.name}}</p>
-                        </div>
+                        </ng-container>
+
                     </div>
                     <div class="input-groupe-1 small-textarea whithout-label" *ngIf="ImageToLoad.image_type == 'other'">
                         <textarea id="inp-other-1" [ngModel]="ImageToLoad.image_type_description" (ngModelChange)="ImageToLoad.image_type_description = $event"></textarea>
-                        <label for="inp-other-1" class="head-groupe">Other</label>
+                        <label for="inp-other-1" class="head-groupe" translate>Venue.Media-folder.Other</label>
                     </div>
                     <div class="input-groupe-1 small-textarea whithout-label">
                             <textarea id="inp-desc-1" name="photo-description" [ngModel]="ImageToLoad.image_description" (ngModelChange)="ImageToLoad.image_description = $event"></textarea>
-                            <label for="inp-desc-1" class="head-groupe">Description</label>
+                            <label for="inp-desc-1" class="head-groupe" translate>Description</label>
                         </div>
                     <div class="butt-wrapp-grad">
                         <button (click)="AddVenuePhoto()" [disabled]="!ImageToLoad" class="butt-style-1 thot-butt" type="submit">
-                            <span>Add to Photos</span>
+                            <span translate>Venue.Media-folder.Add to Photos</span>
                         </button>   
                     </div>
                     
@@ -95,7 +98,7 @@
                 <!--если пустой-->
                 <div [ngStyle]="{'display': VenueImages.length == 0 ? 'block' : 'none'}" class="empty-info">
                     <img src="assets/img/smile.svg" class="img-responsive" alt="">
-                    <p>No Photos Yet</p>
+                    <p translate>Venue.Media-folder.No Photos Yet</p>
                 </div>
                 <!---->
                 <!--если не пустой.-->

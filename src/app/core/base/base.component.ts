@@ -30,6 +30,8 @@ import { MapsAPILoader } from '@agm/core';
 import {FormArray, FormControl, FormGroup} from '@angular/forms';
 import { CodegenComponentFactoryResolver } from '@angular/core/src/linker/component_factory_resolver';
 import { CurrencyIcons } from '../models/preferences.model';
+import { TranslateService } from '../../../../node_modules/@ngx-translate/core';
+import { SettingsService } from '../services/settings.service';
 
 declare var VK:any;
 
@@ -56,9 +58,13 @@ export class BaseComponent{
         protected router         : Router,
         protected mapsAPILoader  : MapsAPILoader,
         protected ngZone         : NgZone,
-        protected activatedRoute : ActivatedRoute
+        protected activatedRoute : ActivatedRoute,
+        protected translate      :TranslateService,
+        protected settings       :SettingsService
     )
     {
+        this.translate.setDefaultLang(this.settings.GetLang());
+        
         this.isLoggedIn = this.main.authService.IsLogedIn();
         
         this.isLoading = this.main.ActiveProcesses.length > 0;
@@ -685,6 +691,9 @@ export class BaseComponent{
 
       /* AUTOCOMPLETE */
 
-
+      isEnglish(){
+          if(this.settings.GetLang() == 'en')
+            return true;
+        }
 
 }

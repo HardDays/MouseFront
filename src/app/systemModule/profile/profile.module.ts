@@ -16,6 +16,7 @@ import { ShowDetailGalleryComponent } from '../showsDetail/gallery/gallery.compo
 import { ShowsDetailModule } from '../showsDetail/showsDetail.module';
 import { ErrorModule } from '../../shared/error/error.module';
 import { TimePipeModule } from '../../core/pipes/time.pipe/time.pipe.module';
+import { TranslateModule } from '../../../../node_modules/@ngx-translate/core';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { TimePipeModule } from '../../core/pipes/time.pipe/time.pipe.module';
         }),
         ShowsDetailModule,
         ErrorModule,
-        TimePipeModule
+        TimePipeModule,
+        TranslateModule
     ],
     declarations: [
         // компоненты

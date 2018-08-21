@@ -2,8 +2,8 @@
     <div class="main-mw">
         <div class="create-event-body">
             <div class="head-ev-body">
-                <h2>Media</h2>
-                <p>Please fill in all required fields<br>to proceed to the Next Step</p>
+                <h2 translate>Artist-create.Media</h2>
+                <p translate>Please fill in all required fields<br translate>to proceed to the Next Step</p>
             </div>
         </div>
         
@@ -11,25 +11,25 @@
     <div class="main-mw artist-media">
         <div class="media-flex-sides">
             <div class="left-side">
-                <h6 class="head-of-left-side">Songs</h6>
+                <h6 class="head-of-left-side" translate>Artist-create.Songs</h6>
                 <div class="gradient-box gradient-1">
-                    <h6 class="head-of-gradient-box">Add new Song</h6>
+                    <h6 class="head-of-gradient-box" translate>Artist-create.Add new Song</h6>
                     <form [formGroup]="addSongForm">
                         <div class="input-groupe-1">
                             <input id="inp-box-1" formControlName="song_name" name="" type="text">
-                            <label for="inp-box-1">Song Name</label>
+                            <label for="inp-box-1" translate>Artist-create.Song Name</label>
                         </div>
                         <div class="input-groupe-1">
                             <input id="inp-box-2" formControlName="album_name" name="" type="text">
-                            <label for="inp-box-2">Album Name</label>
+                            <label for="inp-box-2" translate>Artist-create.Album Name</label>
                         </div>
                         <div class="input-groupe-1">
                             <input id="inp-box-3" [textMask]="MaskSoundCloud()" formControlName="audio_link" name="" type="text">
-                            <label for="inp-box-3">Link</label>
+                            <label for="inp-box-3" translate>Artist-create.Link</label>
                         </div>
                         <div class="butt-wrapp-grad">
                             <button (click)="addAudio()" class="butt-style-1" type="submit">
-                                <span>Add to List</span>
+                                <span translate>Artist-create.Add to List</span>
                             </button>   
                         </div>
                     </form>
@@ -37,14 +37,14 @@
             </div>
             <div class="right-side">
                 <div class="head-of-right-side">
-                    <p class="head-text-r">SONGS UPLOADED</p>
-                    <p class="limit">Limit of 20 Songs</p>
+                    <p class="head-text-r" translate>Artist-create.SONGS UPLOADED</p>
+                    <p class="limit" translate>Artist-create.Limit of 20 Songs</p>
                 </div>
                 <!--если пустой-->
                 
                 <div [ngStyle]="{'display': !Artist.audio_links||Artist.audio_links.length<=0?'block':'none'}" class="empty-info">
                     <img src="./../../../assets/img/smile.svg" class="img-responsive" alt="">
-                    <p>No Songs Yet</p>
+                    <p translate>Artist-create.No Songs Yet</p>
                 </div>
                 
 
@@ -99,25 +99,25 @@
         </div>
         <div class="media-flex-sides">
             <div class="left-side">
-                <h6 class="head-of-left-side albums-t-s">Albums</h6>
+                <h6 class="head-of-left-side albums-t-s" translate>Artist-create.Albums</h6>
                 <div class="gradient-box gradient-2">
-                    <h6 class="head-of-gradient-box">Add new album</h6>
+                    <h6 class="head-of-gradient-box" translate>Artist-create.Add new album</h6>
                     <form [formGroup]="addAlbumForm">
                         <div class="input-groupe-1">
                             <input formControlName="album_name" id="inp-box-4" name="" type="text">
-                            <label for="inp-box-4">Album Name</label>
+                            <label for="inp-box-4" translate>Artist-create.Album Name</label>
                         </div>
                         <div class="input-groupe-1">
                             <input formControlName="album_artwork" id="inp-box-5" name="" type="text">
-                            <label for="inp-box-5">Album Artwork</label>
+                            <label for="inp-box-5" translate>Artist-create.Album Artwork</label>
                         </div>
                         <div class="input-groupe-1">
                             <input formControlName="album_link" id="inp-box-6" name="" type="text">
-                            <label for="inp-box-6">Link</label>
+                            <label for="inp-box-6" translate>Artist-create.Link</label>
                         </div>
                         <div class="butt-wrapp-grad">
                             <button class="butt-style-1" type="submit">
-                                <span (click)="addAlbum()">Add to List</span>
+                                <span (click)="addAlbum()" translate>Artist-create.Add to List</span>
                             </button>   
                         </div>
                     </form>
@@ -125,14 +125,14 @@
             </div>
             <div class="right-side albums">
                 <div class="head-of-right-side">
-                    <p class="head-text-r">Albums UPLOADED</p>
-                    <p class="limit">Limit of 20 Albums</p>
+                    <p class="head-text-r" translate>Artist-create.Albums UPLOADED</p>
+                    <p class="limit" translate>Artist-create.Limit of 20 Albums</p>
                 </div>
                 <!--если пустой-->
                 
                 <div [ngStyle]="{'display': !Artist.artist_albums||Artist.artist_albums.length<=0?'block':'none'}" class="empty-info">
                     <img src="../../../assets/img/smile.svg" class="img-responsive" alt="">
-                    <p>No Albums Yet</p>
+                    <p translate>Artist-create.No Albums Yet</p>
                 </div>
                 
                 <!---->
@@ -150,7 +150,7 @@
                                     <!-- <p class="date">2015</p> -->
                                 
                                     <span class="butt-style-1">
-                                        <a target="_blank" style="color:white" href="{{item.album_link}}"><span>play</span></a>
+                                        <a target="_blank" style="color:white" href="{{item.album_link}}"><span translate>Artist-create.play</span></a>
                                     </span>   
                                 
                                 </div>
@@ -168,25 +168,25 @@
         
         <div class="media-flex-sides">
             <div class="left-side">
-                <h6 class="head-of-left-side albums-t-s">Videos</h6>
+                <h6 class="head-of-left-side albums-t-s" translate>Artist-create.Videos</h6>
                 <div class="gradient-box gradient-3">
-                    <h6 class="head-of-gradient-box">Add new Video</h6>
+                    <h6 class="head-of-gradient-box" translate>Artist-create.Add new Video</h6>
                     <form [formGroup]="addVideoForm">
                         <div class="input-groupe-1">
                             <input formControlName="name" id="inp-box-4" name="" type="text">
-                            <label for="inp-box-4">Song Name</label>
+                            <label for="inp-box-4" translate>Artist-create.Song Name</label>
                         </div>
                         <div class="input-groupe-1">
                             <input formControlName="album_name" id="inp-box-5" name="" type="text">
-                            <label for="inp-box-5">Album Name</label>
+                            <label for="inp-box-5" translate>Artist-create.Album Name</label>
                         </div>
                         <div class="input-groupe-1">
                             <input formControlName="link" [textMask]="MaskYoutube()" id="inp-box-6" name="" type="text">
-                            <label for="inp-box-6">Link</label>
+                            <label for="inp-box-6" translate>Artist-create.Link</label>
                         </div>
                         <div class="butt-wrapp-grad">
                             <button class="butt-style-1" type="submit">
-                                <span (click)="addVideo()">Add to List</span>
+                                <span (click)="addVideo()" translate>Artist-create.Add to List</span>
                             </button>   
                         </div>
                     </form>
@@ -194,14 +194,14 @@
             </div>
             <div class="right-side albums">
                 <div class="head-of-right-side">
-                    <p class="head-text-r">Videos UPLOADED</p>
-                    <p class="limit">Limit of 20 Videos</p>
+                    <p class="head-text-r" translate>Artist-create.Videos UPLOADED</p>
+                    <p class="limit" translate>Artist-create.Limit of 20 Videos</p>
                 </div>
                 <!--если пустой-->
                 
                 <div [ngStyle]="{'display': !Artist.artist_videos||Artist.artist_videos.length<=0?'block':'none'}" class="empty-info">
                     <img src="../../../assets/img/smile.svg" class="img-responsive" alt="">
-                    <p>No Videos Yet</p>
+                    <p translate>Artist-create.No Videos Yet</p>
                 </div>
                 
                 <!---->
@@ -233,9 +233,9 @@
         
         <div class="media-flex-sides">
             <div class="left-side">
-                <h6 class="head-of-left-side albums-t-s">Photos</h6>
+                <h6 class="head-of-left-side albums-t-s" translate>Artist-create.Photos</h6>
                 <div class="gradient-box gradient-4">
-                    <h6 class="head-of-gradient-box">Add new photo</h6>
+                    <h6 class="head-of-gradient-box" translate>Artist-create.Add new photo</h6>
                     <div class="photo-wr-1 just-senter">
                         <label *ngIf="!ImageToLoad" class="file_upload">
                             <div class="bg-image"></div>
@@ -248,12 +248,12 @@
                     </div>
                     <div class="input-groupe-1 small-textarea whithout-label">
                         <textarea [(ngModel)]="imageInfo" id="inp-desc-1"></textarea>
-                        <label for="inp-desc-1" class="head-groupe">Description</label>
+                        <label for="inp-desc-1" class="head-groupe" translate>Description</label>
                     </div>
                     
                     <div *ngIf="!isImageLoading" class="butt-wrapp-grad">
                         <button class="butt-style-1 thot-butt" type="submit">
-                            <span (click)="AddArtistPhoto()">Add to Photos</span>
+                            <span (click)="AddArtistPhoto()" translate>Artist-create.Add to Photos</span>
                         </button>   
                     </div>
                     
@@ -261,15 +261,15 @@
             </div>
             <div class="right-side albums">
                 <div  class="head-of-right-side">
-                    <p class="head-text-r">Photos UPLOADED</p>
-                    <p class="limit">Limit of 20 Photos</p>
+                    <p class="head-text-r" translate>Artist-create.Photos UPLOADED</p>
+                    <p class="limit" translate>Artist-create.Limit of 20 Photos</p>
                 </div>
                 <!--если пустой-->
                 
                 <div [ngStyle]="{'display': ArtistImages.length<=0?'block':'none'}" class="empty-info">
                     <app-preloader style="max-height: 200px;" *ngIf="isImageLoading"></app-preloader>
                     <img *ngIf="!isImageLoading" src="../../../assets/img/smile.svg" class="img-responsive" alt="">
-                    <p *ngIf="!isImageLoading">No Photos Yet</p>
+                    <p *ngIf="!isImageLoading" translate>Artist-create.No Photos Yet</p>
                 </div>
                 
                 <!---->

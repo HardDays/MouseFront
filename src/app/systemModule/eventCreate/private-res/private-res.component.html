@@ -4,56 +4,56 @@
           <div class="side">
               <div class="input-groupe-1 lbl-1">
                   <input id="inp-private-v-1" name="" type="text" formControlName="user_name">
-                  <label for="inp-private-v-1">Venue Name</label>
+                  <label for="inp-private-v-1" translate>event.private-res.Venue Name</label>
 
               </div>
               <div class="input-groupe-1">
                   <input [textMask]="MaskNumbers()" id="inp-private-v-2" name="" type="text" formControlName="phone">
-                  <label for="inp-private-v-2">Phone number</label>
+                  <label for="inp-private-v-2" translate>event.private-res.Phone number</label>
 
               </div>
               <div class="input-groupe-1">
                   <input [textMask]="MaskNumbers()" id="inp-private-v-3" name="" type="text" formControlName="capacity">
-                  <label for="inp-private-v-3">Capacity</label>
+                  <label for="inp-private-v-3" translate>event.private-res.Capacity</label>
 
               </div>
               <div class="flex-mac-checkbox">
-                  <p>VR Ready?</p>
+                  <p translate>event.private-res.VR Ready?</p>
                   <div class="yes-no">
-                      <span>No</span>
+                      <span translate>No</span>
                       <div class="mac-checkbox">
                           <input class="checkbox" type="checkbox" id="mac-checkbox-2" formControlName="has_vr">
                           <label for="mac-checkbox-2"></label>
                       </div>
-                      <span>Yes</span>
+                      <span translate>Yes</span>
                   </div>
               </div>
           </div>
           <div class="side">
               <div class="input-groupe-1 lbl-1">
                   <input id="inp-private-v-4" name="" type="text" formControlName="country">
-                  <label for="inp-private-v-4">Country</label>
+                  <label for="inp-private-v-4" translate>Country</label>
 
               </div>
               <div class="input-groupe-1">
                   <input id="inp-private-v-5" name="" type="text" formControlName="city">
-                  <label for="inp-private-v-5">City</label>
+                  <label for="inp-private-v-5" translate>City</label>
 
               </div>
               <div class="input-groupe-1">
                   <input id="inp-private-v-6" name="" type="text" formControlName="address">
-                  <label for="inp-private-v-6">Address</label>
+                  <label for="inp-private-v-6" translate>Address</label>
 
               </div>
               <div class="input-groupe-1 small-textarea whithout-label">
 
                   <textarea id="inp-desc-1" formControlName="description"></textarea>
-                  <label for="inp-desc-1" class="head-groupe">Short Description</label>
+                  <label for="inp-desc-1" class="head-groupe" translate>Short Description</label>
 
               </div>
           </div>
           <div class="side">
-              <span class="head-black">Photos</span>
+              <span class="head-black" translate>Artist-create.Photos</span>
               <div class="flex-photos">
 
 
@@ -69,21 +69,21 @@
                   </div>
                 
               </div>
-              <span class="head-black">Videos</span>
+              <span class="head-black" translate>Artist-create.Videos</span>
               <ng-container formArrayName="venue_video_links">
               <div  *ngFor="let item of privateVenueForm.controls['venue_video_links']['controls']; let i = index" class="input-groupe-1">
                   <input id="inp-private-link-{{i}}" type="text" formControlName="{{i}}">
-                  <label for="inp-private-link-{{i}}">Link</label>
+                  <label for="inp-private-link-{{i}}" translate>Artist-create.Link</label>
               </div>
           </ng-container>
-              <span class="add-to-active-b" style="cursor: pointer;" (click)="addPhone()">ADD LINK</span>
+              <span class="add-to-active-b" style="cursor: pointer;" (click)="addPhone()" translate>event.private-res.ADD LINK</span>
           </div>
           
       </div>
       
       <div class="add-to-active-b">
           <button (click)="addPriateVenue()" class="butt-style-1" type="button">
-              <span>Add to Active</span>
+              <span translate>event.private-res.Add to Active</span>
           </button>
       </div>
   </form>

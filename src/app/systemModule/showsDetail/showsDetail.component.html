@@ -9,24 +9,24 @@
                         <p class="st" *ngIf="Date" [innerHTML]="Date"></p>
                         <span class="hashtag" *ngIf="Event.hashtag"><span>#</span>{{Event.hashtag}}</span>
                         <p class="descr">{{Event.description}}</p>
-                        <p class="gg">Genre</p>
+                        <p class="gg" translate>Genre</p>
                         <div class="flex-genres" *ngIf="Genres.length > 0">
                             <span class="one-genre" *ngFor="let item of Genres">{{item.genre_show}}</span>
                         </div>
-                        <p class="some-tt"><span>Presented by</span> <a class="creator-name" [routerLink]="['/system/profile',Creator.id]">{{Creator.display_name?Creator.display_name:Creator.last_name&&Creator.first_name?Creator.first_name+' '+Creator.last_name:Creator.user_name}}</a> </p>
-                        <p class="some-tt"><span>Featuring:</span>
+                        <p class="some-tt"><span translate>show-folder.Presented by</span> <a class="creator-name" [routerLink]="['/system/profile',Creator.id]">{{Creator.display_name?Creator.display_name:Creator.last_name&&Creator.first_name?Creator.first_name+' '+Creator.last_name:Creator.user_name}}</a> </p>
+                        <p class="some-tt"><span translate>show-folder.Featuring:</span>
                             <ng-container *ngFor="let f of Featuring; let i = index" >
                                 <a style="color:white" [routerLink]="['/system/profile',f.id]">
                                     {{f.name}}{{ Featuring.length-1>i?Featuring.length-2===i?' and ':', ' :''}}
                                 </a>
                             </ng-container>
                         </p>
-                        <p class="gg">Location</p>
+                        <p class="gg" translate>Location</p>
                         <p class="location" *ngIf="Venue"><span>{{Venue.display_name}}</span>{{Venue.address}}</p>
                         <p class="location" *ngIf="!Venue">{{Event.address}}</p>
                         <div *ngIf="(Venue.lat && Venue.lng) || ( Event.city_lat && Event.city_lng)" class="location-wr" (click)="aboutOpenMapModal()">
                             <div class="mark"></div>
-                            <p class="location-inp">View map</p>
+                            <p class="location-inp" translate>View map</p>
                         </div>
                         <div class="flex-icons-show-datails">
                             <!-- <a>
@@ -80,7 +80,7 @@
                 <div class="left-s">
                     <ul>
                         <li>
-                            <a class="active">Additional info</a>
+                            <a class="active" translate>show-folder.Additional info</a>
                         </li>
                         <!-- <li>
                             <a >Comments <span>(57)</span></a>
@@ -116,11 +116,11 @@
                 
             </div>
                 <div class="other-datails-info">
-                    <h1>Tickets
+                    <h1 translate>show-folder.Tickets
                         <!-- <span>Includes $2 service fee. One ticket per person</span> -->
                     </h1>
                     
-                        <p class="total">Total price: 
+                        <p class="total" translate>show-folder.Total price:
                             <span>
                                 {{Currency}}{{TotalPrice}}
                                 <ng-container *ngIf="Currency != OriginalCurrency">
@@ -131,7 +131,7 @@
                         <button [disabled]="!(Event.status===Statuses.Active) || !CurrentAccount || CurrentAccount.account_type != 'fan' || !Event.tickets || !Event.tickets.length || !TicketsToBuy.length"
                             (click)="BuyTickets()" class="butt-style-1" 
                             [ngClass]="{'cursor-disabled':!(Event.status===Statuses.Active) || !CurrentAccount || CurrentAccount.account_type != 'fan' || !Event.tickets || !Event.tickets.length || !TicketsToBuy.length}">
-                            <span>Buy</span>
+                            <span translate>show-folder.Buy</span>
                         </button>
                 </div>
             <div class="body-tabs-datails-pages">
@@ -143,12 +143,12 @@
                                     <buy-ticket-selector (onAddTickets)="AddTicketsToPrice($event)" [Ticket]="item"></buy-ticket-selector>
                                 </ng-container>
                         </ng-container>
-                        <h2 class="total" *ngIf="!(Event.status===Statuses.Active)"> Show is unactive!</h2>
+                        <h2 class="total" *ngIf="!(Event.status===Statuses.Active)" translate>show-folder.Show is unactive!</h2>
                     </div>
                     <div class="right-side-tickets">
                         <div class="third-router-outlet">
                             <div class="biography-wrapper">
-                                <h6>Description</h6>
+                                <h6 translate>Description</h6>
                                 <ng-container *ngFor="let item of Artists">
                                     <biography-selector *ngIf="item.about" [Account]="item"></biography-selector>
                                 </ng-container>
@@ -163,7 +163,7 @@
     <div class="modal fade modal-send-request map-1-modal" id="modal-map">
         <div class="modal-dialog">
             <div class="modal-body">
-                <h6 class="head-m-p-a">Location</h6>
+                <h6 class="head-m-p-a" translate>Location</h6>
                 <span class="closee-modal" data-dismiss="modal"></span>
                 <div class="for-map-init-modal-1">
                     <agm-map *ngIf="Venue.lat && Venue.lng" style="height:100%" [latitude]="Venue.lat" [longitude]="Venue.lng"> 

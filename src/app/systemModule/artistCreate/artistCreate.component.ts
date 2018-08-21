@@ -48,6 +48,8 @@ import { ArtistMediaComponent } from './artist-media/artist-media.component';
 import { ArtistBookingComponent } from './artist-booking/artist-booking.component';
 import { ArtistRidersComponent } from './artist-riders/artist-riders.component';
 import { UserGetModel } from '../../core/models/userGet.model';
+import { TranslateService } from '../../../../node_modules/@ngx-translate/core';
+import { SettingsService } from '../../core/services/settings.service';
 
 
 declare var $:any;
@@ -101,9 +103,11 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
     protected mapsAPILoader  : MapsAPILoader,
     protected ngZone         : NgZone,
     protected activatedRoute : ActivatedRoute,
-    protected cdRef          : ChangeDetectorRef
+    protected cdRef          : ChangeDetectorRef,
+    protected translate      :TranslateService,
+    protected settings       :SettingsService
   ) {
-    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
+    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,settings);
   }
 
   ngOnInit()

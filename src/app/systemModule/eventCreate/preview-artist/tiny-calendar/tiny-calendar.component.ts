@@ -10,6 +10,8 @@ import { AccountGetModel } from '../../../../core/models/accountGet.model';
 import { Base64ImageModel } from '../../../../core/models/base64image.model';
 import { MainService } from '../../../../core/services/main.service';
 import { BaseImages } from '../../../../core/base/base.enum';
+import { TranslateService } from '../../../../../../node_modules/@ngx-translate/core';
+import { SettingsService } from '../../../../core/services/settings.service';
 
 
 export interface CalendarDate {
@@ -48,9 +50,11 @@ export class TinyCalendarComponent extends BaseComponent implements OnInit, OnCh
     protected mapsAPILoader  : MapsAPILoader,
     protected ngZone         : NgZone,
     protected activatedRoute : ActivatedRoute,
-    protected cdRef          : ChangeDetectorRef
+    protected cdRef          : ChangeDetectorRef,
+    protected translate      :TranslateService,
+    protected settings       :SettingsService
 ) {
-super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
+super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,settings);
 }
 
   ngOnInit(): void {

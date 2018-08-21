@@ -60,7 +60,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
   maxValue = 100000;
   postfix = '';
   prefix = '';
-
+  isEng: boolean;
   isAcceptedArtistShow:boolean = true;
   // showModalRequest:boolean = false;
   
@@ -102,7 +102,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
       
     this.CurrencySymbol = CurrencyIcons[this.Event.currency];
       
-
+      this.isEng = this.isEnglish();
       this.CreateAutocompleteArtist();
       this.artistSearchParams.price_to = 100000;
       let _the = this;

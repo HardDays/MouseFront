@@ -53,6 +53,8 @@ import { FundingComponent } from './funding/funding.component';
 import { AddTicketsComponent } from './tickets/tickets.component';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { Observable } from 'rxjs';
+import { TranslateService } from '../../../../node_modules/@ngx-translate/core';
+import { SettingsService } from '../../core/services/settings.service';
 
 declare var $:any;
 declare var ionRangeSlider:any;
@@ -90,7 +92,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   venuePreview:number = 0;
 
   createOrEditText = 'Edit';
-
+  ruCreateOrEdit = 'Изменить';
+  isEng:boolean;
   eventStatus = EventStatus;
 
   constructor(
@@ -100,9 +103,11 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       protected mapsAPILoader  : MapsAPILoader,
       protected ngZone         : NgZone,
       protected activatedRoute : ActivatedRoute,
-      protected cdRef          : ChangeDetectorRef
+      protected cdRef          : ChangeDetectorRef,
+      protected translate      :TranslateService,
+      protected settings       :SettingsService
   ) {
-    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
+    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,settings);
   }
 
   ngAfterViewChecked()
@@ -117,6 +122,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       (params) => {
         if(params["id"] == 'new')
         {
+          this.ruCreateOrEdit = 'Создать';
           this.createOrEditText = 'Create';
           this.isNewEvent = true;
           this.DisplayEventParams(null);

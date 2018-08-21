@@ -2,19 +2,19 @@
     <div class="main-mw">
         <div class="create-event-body">
             <div class="head-ev-body">
-                <h2>Tickets</h2>
-                <p>Сongratulations!<br>This is the last step.</p>
+                <h2 translate>Tickets.Tickets</h2>
+                <p translate>Сongratulations!<br translate>This is the last step</p>
             </div>
         </div>
         <div  class="tickets-flex-body">
             <div class="left-ticket">
                 <div *ngIf="Event.venue" class="tickets-left-info">
-                    <p class="info-text">In Person Tickets Available</p>
+                    <p class="info-text" translate>event.tickets.In Person Tickets Available</p>
                     <span class="price">{{Event?Event.in_person_tickets:'No info'}}/{{Event.venue.capacity?Event.venue.capacity:'Max venue capacity'}}</span>
                     <!-- <span class="price">{{analitics?analitics.in_person_tickets_sold:'No info'}}/{{Event.venue.capacity?Event.venue.capacity:'Max venue capacity'}}</span> -->
                 </div>
                 <div *ngIf="Event.venue" class="tickets-left-info">
-                    <p class="info-text">VR Tickets Available</p>
+                    <p class="info-text" translate>event.tickets.VR Tickets Available</p>
                     <!-- <span class="price">{{analitics?analitics.vr_tickets_sold:'No info'}}/200</span> -->
                     <span class="price">{{Event?Event.vr_tickets:'No info'}}/{{Event.venue.vr_capacity?Event.venue.vr_capacity:'Max venue VR capacity'}}</span>
                 </div>
@@ -22,12 +22,12 @@
                 <div class="pick-tickets-wr">
                     <div  class="one-tickets-iteration">
                         <div  *ngFor="let t of tickets; let i = index" [ngClass]="{active:!isCurTicketNew&&currentTicket.id==t.id}" (click)="currentTicket = t; isCurTicketNew = false; setDate()" class="one-ticket">{{t.name}}</div>
-                        <div  *ngFor="let t of ticketsNew; let i = index" [ngClass]="{active:isCurTicketNew&&currentTicket.id==t.id}" (click)="currentTicket = t; isCurTicketNew = true; setDate()" class="one-ticket">New Ticket {{i+1}}</div>
+                        <div  *ngFor="let t of ticketsNew; let i = index" [ngClass]="{active:isCurTicketNew&&currentTicket.id==t.id}" (click)="currentTicket = t; isCurTicketNew = true; setDate()" class="one-ticket" translate>event.tickets.New Ticket <span>{{i+1}}</span></div>
                        
                 </div>
                     <div class="add-ticket">
                         <span class="butt-style-1" type="submit">
-                            <span (click)="addTicket()">Add Tickets</span>
+                            <span (click)="addTicket()" translate>event.tickets.Add Tickets</span>
                         </span>
                     </div>
                 </div>
@@ -40,10 +40,10 @@
                     
                     <div *ngIf="tickets.length<=0&&ticketsNew.length<=0" class="havent-tickets">
                         <img src="../../assets/img/smile.svg" class="img-responsive" alt="">
-                        <p class="p-1">You have no tickets yet</p>
+                        <p class="p-1" translate>event.tickets.You have no tickets yet</p>
                         <div class="add-ticket">
                             <span class="butt-style-1">
-                                <span (click)="addTicket()">Add Tickets</span>
+                                <span (click)="addTicket()" translate>event.tickets.Add Tickets</span>
                             </span>
                         </div>
                     </div>
@@ -54,9 +54,9 @@
                             <h5 class="head-ticket-settings"><input class="nameTicket"  name="" type="text" [(ngModel)]="currentTicket.name"></h5>
                             
                             <div class="flex-mac-checkbox">
-                                <p>Ticket Type</p>
+                                <p translate>event.tickets.Ticket Type</p>
                                 <div class="yes-no">
-                                    <span>In person</span>
+                                    <span translate>event.tickets.In person</span>
                                     <div class="mac-checkbox">
                                         <input class="checkbox" [checked]="currentTicket.type=='in_person'" (change)="currentTicket.type=='in_person'?currentTicket.type=currentTicket.type=='vr':currentTicket.type='in_person'" type="checkbox" id="checkbox-set-tick-1" >
                                         <label for="checkbox-set-tick-1"></label>
@@ -65,37 +65,37 @@
                                 </div>
                             </div>
                             <div class="flex-mac-checkbox">
-                                <p>For Personal <br>Use/Distribution</p>
+                                <p translate>event.tickets.For Personal <br translate>event.tickets.Use/Distribution</p>
                                 <div class="yes-no">
-                                    <span>No</span>
+                                    <span translate>No</span>
                                     <div class="mac-checkbox">
                                         <input class="checkbox" [checked]="currentTicket.is_for_personal_use" (change)="currentTicket.is_for_personal_use=!currentTicket.is_for_personal_use" type="checkbox" id="checkbox-set-tick-2">
                                         <label for="checkbox-set-tick-2"></label>
                                     </div>
-                                    <span>Yes</span>
+                                    <span translate>Yes</span>
                                 </div>
                             </div>
                             <div class="flex-mac-checkbox">
-                                <p>Promotional<br>Ticket?</p>
+                                <p translate>event.tickets.Promotional<br translate>event.tickets.Ticket?</p>
                                 <div class="yes-no">
-                                    <span>No</span>
+                                    <span translate>No</span>
                                     <div class="mac-checkbox">
                                         <input class="checkbox" [checked]="currentTicket.is_promotional" (change)="currentTicket.is_promotional=!currentTicket.is_promotional" type="checkbox" id="checkbox-set-tick-3">
                                         <label for="checkbox-set-tick-3"></label>
                                     </div>
-                                    <span>Yes</span>
+                                    <span translate>Yes</span>
                                 </div>
                             </div>
                         </div>
                         <div class="r-s">
                             <div *ngIf="currentTicket.is_promotional" class="input-groupe-1 small-textarea whithout-label">
                                     <textarea id="area-desc-tick-1" [(ngModel)]="currentTicket.promotional_description	"></textarea>
-                                    <label for="area-desc-tick-1" class="head-groupe">Promotional Description<span>*</span></label>
+                                    <label for="area-desc-tick-1" class="head-groupe" translate>event.tickets.Promotional Description<span>*</span></label>
                             </div>
 
                             <div class="input-groupe-1 small-textarea whithout-label">
                                 <textarea id="area-desc-tick-1" [(ngModel)]="currentTicket.description"></textarea>
-                                <label for="area-desc-tick-1" class="head-groupe">Short Description</label>
+                                <label for="area-desc-tick-1" class="head-groupe" translate>event.tickets.Short Description</label>
                             </div>
                             
                            
@@ -106,10 +106,10 @@
                                         <span class="abs-backs">{{getCurrencyPrice(currentTicket.currency)}}</span>
                                         <input id="inp-price-id-1" class="dollar" name="" type="text" [(ngModel)]="currentTicket.price">
                                     </div>
-                                    <label for="inp-price-id-1">Price</label>
+                                    <label for="inp-price-id-1" translate>Price</label>
                                 </div>
                                 <div class="input-groupe-1 none-padd-my">
-                                    <span class="desc-num">Number Available</span>
+                                    <span class="desc-num" translate>event.tickets.Number Available</span>
                                     <input  class="num" [max]="maxCountInPerson" name="" type="text" [(ngModel)]="currentTicket.count">
                                    
                                 </div>
@@ -120,7 +120,7 @@
                                 <div class="one-date-block">
                                     <div (click)="dpFrom.show()" class="date-icon"></div>
                                     <div class="rr">
-                                        <span class="desc-date">Start Date</span>
+                                        <span class="desc-date" translate>event.about-fold.Start Date</span>
                                         <!--тут дейт пикер.убрать placeholder-->
                                         <input #dpFrom="bsDatepicker" bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerFromModel" class="input-date">
                                     </div>
@@ -128,7 +128,7 @@
                                 <div class="one-date-block">
                                     <div (click)="dpTo.show()" class="date-icon"></div>
                                     <div class="rr">
-                                        <span class="desc-date">End Date</span>
+                                        <span class="desc-date" translate>event.about-fold.End Date</span>
                                         <!--тут дейт пикер.убрать placeholder-->
                                         <input #dpTo bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerToModel" class="input-date">
                                     </div>
@@ -140,8 +140,11 @@
                            
                         </div>
                         <div class="add-to-active-b">
-                            <button class="butt-style-1" type="submit">
+                            <button class="butt-style-1" type="submit" *ngIf="isEng">
                                 <span (click)="updateTicket()">{{isCurTicketNew?'add':'update'}}</span>
+                            </button>
+                            <button class="butt-style-1" type="submit" *ngIf="!isEng">
+                                <span (click)="updateTicket()">{{isCurTicketNew?'добавить':'обновить'}}</span>
                             </button>
                         </div>
                        

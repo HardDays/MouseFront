@@ -22,7 +22,7 @@
                         <div class="ham"></div>
                     </button>
                 
-                    <h1>Tickets</h1>
+                    <h1 translate>show-folder.Tickets</h1>
                 </div>
                 
             </div>
@@ -41,12 +41,12 @@
                 </ng-container>
                 <div class="empty-info" *ngIf="!Tickets.length">
                     <img src="../../assets/img/smile.svg" class="img-responsive" alt="">
-                    <p>No Tickets Yet</p>
+                    <p translate>Tickets.No Tickets Yet</p>
                 </div>
 
                 <ng-container *ngIf="PastTickets.length">
                     <div class="past-header">
-                        <p>Past</p>
+                        <p translate>Tickets.Past</p>
                     </div>
                     <div class="for-flex-all-events" *ngIf="PastTickets.length">
                         <div class="one-event-wr" *ngFor="let item of PastTickets" class="one-event-wr">
@@ -56,7 +56,7 @@
                     </div>
                     <div class="empty-info" *ngIf="!PastTickets.length">
                         <img src="../../assets/img/smile.svg" class="img-responsive" alt="">
-                        <p>No Tickets Yet</p>
+                        <p translate>Tickets.No Tickets Yet</p>
                     </div>
                 </ng-container>
                 <!--прелоадер анимейшн-->

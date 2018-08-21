@@ -3,19 +3,19 @@
         <form [formGroup]="aboutForm">
         <div class="create-event-body">
             <div class="head-ev-body">
-                <h2>About</h2>
-                <p>Please fill in all required fields <br>to proceed to the Next Step</p>
+                <h2 translate>Artist-create.about</h2>
+                <p translate>Please fill in all required fields <br translate>to proceed to the Next Step</p>
             </div>
             <div class="flex-body-1">
                 <div class="side">
                     <div class="input-groupe-1 dog">
                         <span class="user-name-dog">@</span>
                         <input id="inp-create-1" [(ngModel)]="Artist.user_name" formControlName="user_name" name="" [textMask]="WithoutSpace()" type="text">
-                        <label for="inp-create-1">Username<span>*</span></label>
+                        <label for="inp-create-1" translate>Venue.About-folder.Mouse Username<span>*</span></label>
                     </div>
                     <div class="input-groupe-1">
                         <input id="inp-create-2"  [(ngModel)]="Artist.display_name" formControlName="display_name" name="" type="text">
-                        <label for="inp-create-2">Full Name<span>*</span></label>
+                        <label for="inp-create-2" translate>Full Name<span>*</span></label>
                         
                     </div>
                     <div class="input-groupe-1 whithout-label">
@@ -31,7 +31,7 @@
                             <div *ngIf="Artist.image_base64" (click)="DeleteImage()" [ngStyle]="{'background-image': Artist.image_base64?'url('+Artist.image_base64+')':''}" class="bg-image uploaded"></div>
                             <!---->
                         </div>
-                        <label  class="head-groupe">Add Image</label>
+                        <label  class="head-groupe" translate>Add Image</label>
                     </div>
                     
                 </div>
@@ -39,21 +39,21 @@
                     <div class="input-groupe-1">
                         
                         <input id="inp-create-4" [(ngModel)]="Artist.artist_email" formControlName="artist_email" name="" type="text">
-                        <label for="inp-create-4">Email Address<span>*</span></label>
+                        <label for="inp-create-4" translate>Email Address<span>*</span></label>
                     </div>
                     <div class="input-groupe-1">
                         
                         <input id="inp-create-5" [(ngModel)]="Artist.manager_name" formControlName="manager_name" name="" type="text">
-                        <label for="inp-create-5">Manager Name</label>
+                        <label for="inp-create-5" translate>Manager Name</label>
                     </div>
                     <div class="input-groupe-1">
                         <input id="inp-create-3" [(ngModel)]="Artist.stage_name" formControlName="stage_name" name="" type="text">
-                        <label for="inp-create-3">Stage name</label>
+                        <label for="inp-create-3" translate>Stage name</label>
                         
                     </div>
                     
                     <div class="input-groupe-1 whithout-label">
-                        <span class="head-groupe">Genre</span>
+                        <span class="head-groupe" translate>Genre</span>
                         <div class="flex-genres">
                             <ng-container *ngFor="let item of genres; let i = index">
                                 <span *ngIf="item.checked"  class="one-genre">{{item.genre_show}}</span>
@@ -80,8 +80,8 @@
                     <div class="input-groupe-1 whithout-label small-textarea max-500">
                         
                         <textarea maxlength="500" [(ngModel)]="Artist.about" formControlName="about" id="inp-create-9"></textarea>
-                        <label for="inp-create-9" class="head-groupe">Short Description<span>*</span></label>
-                        <span class="max-count">500 max</span>
+                        <label for="inp-create-9" class="head-groupe" translate>Short Description<span>*</span></label>
+                        <span class="max-count" translate>500 max</span>
                     </div>
                     
                 </div>

@@ -1,5 +1,5 @@
 <div class="settings_right_wrap">
-      <h2 class="zag">Personal info</h2>
+      <h2 class="zag" translate>setting.personalinfo</h2>
       <form class="setts_padding send_quest_form user_info_form">
         <br>
         <!-- <div class="user_photo" [ngStyle]="{'background-image': User.image_base64?'url('+User.image_base64+')':'url(./../../../../assets/img/non-photo-2.svg)'}" ></div>
@@ -28,25 +28,25 @@
           </div> -->
           <div class="input-groupe-1">
               <input id="inp-info-4" name="email" [(ngModel)]="User.email" type="email">
-              <label for="inp-info-4">Email Address</label>
+              <label for="inp-info-4" translate>setting.email</label>
           </div>
           <div class="input-groupe-1">
               <input id="inp-info-5" name="pass" [(ngModel)]="User.password" type="password">
-              <label for="inp-info-5">Password</label>
+              <label for="inp-info-5" translate>setting.Password</label>
           </div>
           <div class="input-groupe-1">
               <input id="inp-info-6" name="pass_verify" [(ngModel)]="User.password_confirmation" type="password">
-              <label for="inp-info-6">Verify Password</label>
+              <label for="inp-info-6" translate>setting.Verify Password</label>
           </div>
           <!-- <div class="input-groupe-1">
               <input id="inp-info-7" name="phone" [(ngModel)]="User.register_phone" type="text">
               <label for="inp-info-7">Phone Number (For Verification)</label>
           </div> -->
-          <button (click)="SaveUser()" type="button" class="butt-style-1"><span>Save</span></button>
+          <button (click)="SaveUser()" type="button" class="butt-style-1"><span translate>Save</span></button>
           <div class="input-groupe-1 personal_phone_number">
                 <input id="inp-info-7" disabled [textMask]="MaskPhone(User.register_phone)" [ngModel]="User.register_phone" name="register_phone" type="text" phone>
-                <label for="inp-info-7">Phone Number (For Verification)</label>
-                <span id="change_personal_phone_number">Update</span>
+                <label for="inp-info-7" translate>setting.Phone Number (For Verification)</label>
+                <span id="change_personal_phone_number" translate>Update</span>
             </div>
             <br>
             <!-- <p style="text-align: center">v.1.1.3</p> -->
@@ -58,13 +58,13 @@
 <div class="modal fade modal_change_phone" id="modal_change_phone">
         <div class="modal-dialog">
             <div class="modal-body">
-                <div class="head">Update phone number</div>
+                <div class="head" translate>setting.Update phone number</div>
                 <div class="phone_form">
                     <div class="input-groupe-1">
                         <input id="inp-info-8" name="new_phone" [textMask]="MaskPhone(phoneMask)" (input)="phoneMask=''" (blur)="phoneMask=phone" [(ngModel)]="phone" type="text">
-                        <label for="inp-info-8">New Phone Number</label>
+                        <label for="inp-info-8" translate>setting.New Phone Number</label>
                     </div>
-                    <button (click)="sendCode()" class="butt-style-1" id="update_personal_phone"><span>UPDATE</span></button>
+                    <button (click)="sendCode()" class="butt-style-1" id="update_personal_phone"><span translate>Update</span></button>
                 </div>
             </div>
         </div>
@@ -73,12 +73,12 @@
     <div class="modal fade modal_change_phone" id="modal_change_phone_ver">
         <div class="modal-dialog">
             <div class="modal-body">
-                <div class="head">Update phone number</div>
+                <div class="head" translate>setting.Update phone number</div>
                 <div class="number">
-                    <p>Code has been sent to {{phone}}</p>
-                    <span id="wrong_number">Wrong number?</span>
+                    <p translate >setting.Code has been sent to <span>{{phone}}</span> </p>
+                    <span id="wrong_number" translate>setting.Wrong number?</span>
                 </div>
-                <p class="code_label">Enter Verification Code</p>
+                <p class="code_label" translate>setting.Enter Verification Code</p>
                 <div class="inp-code-wrapp">
                     <input type="text" [(ngModel)]="codeRequest[0]" id="code1" maxlength="1" (input)="inputCode($event,1)" >
                     <input type="text" [(ngModel)]="codeRequest[1]" id="code2" maxlength="1" (input)="inputCode($event,2)" >
@@ -90,8 +90,8 @@
                         <div class="line"></div>
                     </div>
                 </div>
-                <p class="note">If you didn't get the code, press <span (click)="sendCode()"class="resend_personal_phone_verification_code">Resend</span></p>
-                <button (click)="sendRequest()" class="butt-style-1" id="validate_personal_phone_code"><span>Enter</span></button>
+                <p class="note" translate>setting.If you didn't get the code, press <span (click)="sendCode()"class="resend_personal_phone_verification_code" translate>Resend</span></p>
+                <button (click)="sendRequest()" class="butt-style-1" id="validate_personal_phone_code"><span translate>Enter</span></button>
             </div>
         </div>
     </div>
@@ -99,8 +99,8 @@
     <div class="modal fade modal_change_phone modal_change_phone_success" id="success_change_phone">
         <div class="modal-dialog">
             <div class="modal-body">
-                <p>Phone Number was updated successfully</p>
-                <span class="butt-style-1" data-dismiss="modal"><span>DISMISS</span></span>
+                <p translate>setting.Phone Number was updated successfully</p>
+                <span class="butt-style-1" data-dismiss="modal"><span translate>DISMISS</span></span>
             </div>
         </div>
     </div>

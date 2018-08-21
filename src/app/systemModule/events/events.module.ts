@@ -13,6 +13,7 @@ import { AnalyticsEventComponent } from './analytics/analytics.component';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 import { SearchEventsModule } from '../../shared/search/search.module';
 import { ErrorModule } from '../../shared/error/error.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
     imports: [ 
@@ -28,7 +29,8 @@ import { ErrorModule } from '../../shared/error/error.module';
         PreloaderModule,
         InfiniteScrollModule,
         SearchEventsModule,
-        ErrorModule
+        ErrorModule,
+        TranslateModule
     ],
     declarations: [ 
         EventsComponent,

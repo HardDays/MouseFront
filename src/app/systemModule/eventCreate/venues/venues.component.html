@@ -2,16 +2,16 @@
         <div class="main-mw">
             <div class="create-event-body">
                 <div class="head-ev-body">
-                    <h2>Venue</h2>
-                    <p>Please fill in all required fields in<br>the Venue Screen to Add a Funding</p>
+                    <h2 translate>Venue.Venue</h2>
+                    <p translate>Please fill in all required fields in<br translate>the Venue Screen to Add a Funding</p>
                 </div>
             
                 <div class="flex-tabs-menu-venue">
-                    <p class="some-text">At first choose residence :)</p>
+                    <p class="some-text" translate>At first choose residence :)</p>
                     <ul class="v-tabs-menu">
                         <!--теже табы-->
-                        <li [ngClass]="{active:!isPrivateVenue}" (click)="isPrivateVenue = false">Public Venue</li>
-                        <li [ngClass]="{active:isPrivateVenue}" (click)="isPrivateVenue = true">Private Residence</li>
+                        <li [ngClass]="{active:!isPrivateVenue}" (click)="isPrivateVenue = false" translate>event.venue.Public Venue</li>
+                        <li [ngClass]="{active:isPrivateVenue}" (click)="isPrivateVenue = true" translate>event.venue.Private Residence</li>
                     </ul>
                 </div>
             </div>
@@ -30,24 +30,24 @@
 
                             <div class="filter-venue">
                                 <div class="content-bodal input-groupe-1">
-                                    <input class="search" (change)="venueSearch($event.target.value)" (keyup)="pressEnter($event)" (input)="textChange($event.target.value)" type="text" placeholder="Search Venue">
-                                    <span class="head-type-inp">Type of place</span>
+                                    <input class="search" (change)="venueSearch($event.target.value)" (keyup)="pressEnter($event)" (input)="textChange($event.target.value)" type="text" placeholder="{{'event.venue.Search Venue' | translate}}">
+                                    <span class="head-type-inp" translate>event.venue.Type of place</span>
                                     <div class="flex-genres for-pick">
                                             <span *ngFor="let space of typesSpace" (click)="space.checked=!space.checked; venueSearch()" [ngClass]="{picked:space.checked}" class="one-genre">{{space.object.name}}</span>
                                        
                                     </div>
-                                    <span class="head-type-inp">Price</span>
+                                    <span class="head-type-inp" translate>Price</span>
                                     <div class="for-range-slider">
                                         <input type="text" class="current-slider-price-venue" value="">
                                     </div>
-                                    <span class="head-type-inp">Capacity</span>
+                                    <span class="head-type-inp" translate>listing.Capacity</span>
                                     <div class="for-range-slider">
                                         <input type="text" class="current-slider-capacity-venue" value="">
                                     </div>
 
                                     <div class="location-wr">
                                         <div class="mark" (click)="venueOpenMapModal()" ></div>
-                                        <input type="text" [(ngModel)]="venueSearchParams.address" (input)="addressChange($event.target.value)" class="location-inp" placeholder="Location" #searchVenue id="venueAddress">
+                                        <input type="text" [(ngModel)]="venueSearchParams.address" (input)="addressChange($event.target.value)" class="location-inp" placeholder="{{'Location' | translate}}" #searchVenue id="venueAddress">
                                     </div>
                                 </div>
                             </div>
@@ -100,10 +100,10 @@
                 <ul class="tabs-menu-active-decline">
                     <li>
                         <!--Добавляем active табу или удаляем "p.s. наш любимый ngClass"-->
-                        <span [ngClass]="{active:isAcceptedVenueShow}" (click)="isAcceptedVenueShow = true">Active</span>
+                        <span [ngClass]="{active:isAcceptedVenueShow}" (click)="isAcceptedVenueShow = true" translate>Active</span>
                     </li>
                     <li>
-                        <span [ngClass]="{active:!isAcceptedVenueShow}" (click)="isAcceptedVenueShow = false">declined</span>
+                        <span [ngClass]="{active:!isAcceptedVenueShow}" (click)="isAcceptedVenueShow = false" translate>event.artist-fold.declined</span>
                     </li>
                 </ul>
             </div>
@@ -195,7 +195,7 @@
 
                         <div *ngIf="isEmptyDeclinedArtists()" class="empty-info">
                             <img src="./../../../assets/img/smile-white.svg" class="img-responsive" alt="">
-                            <p>No venues yet</p>
+                            <p translate>event.venue.No venues yet</p>
                             
                         </div>
 
@@ -219,7 +219,7 @@
             <form [formGroup]="requestVenueForm">
         <div class="modal-body">
             
-            <h6 class="head-m-p-a">Event Request</h6>
+            <h6 class="head-m-p-a" translate>event.artist-fold.Event Request</h6>
             
             <div class="name-and-ava">
                 <div class="ava" [ngStyle]="{'background-image': eventForRequest.image_base64_not_given?'url('+eventForRequest.image_base64_not_given+')':''}"></div>
@@ -235,13 +235,13 @@
                                 <div class="rel-wr">
                                 <input disabled [value]="Event.event_season" name="" type="text">
                             </div>
-                            <label for="inp-modal-req-4">Date Range</label>
+                            <label for="inp-modal-req-4" translate>event.artist-fold.Date Range</label>
                         </div>
                         <div class="input-groupe-1">
                                 <div class="rel-wr">
                                 <input disabled [value]="Event.event_length" name="" type="text">
                             </div>
-                            <label for="inp-modal-req-4">Performance Time</label> 
+                            <label for="inp-modal-req-4" translate>event.artist-fold.Performance Time</label> 
                         </div>
                 </div>
                 <div class="flex-input-groupes">
@@ -250,7 +250,7 @@
                                 
                                 <input [textMask]="MaskNumbers()" formControlName="time_frame_number" id="inp-modal-req-42"  name="" type="text">
                             </div>
-                            <label for="inp-modal-req-4">Time Frame<br> Number<span>*</span></label>
+                            <label for="inp-modal-req-4" translate>event.artist-fold.Time Frame<br translate> Number<span>*</span></label>
                            
                     </div>
                     <div class="input-groupe-1 more-padd">

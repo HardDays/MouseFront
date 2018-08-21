@@ -34,6 +34,8 @@ export class TypeService{
         ];
     }
 
+
+
     GetAllSpaceTypes()
     {
         return [
@@ -48,6 +50,7 @@ export class TypeService{
         ];
     }
 
+
     GetAllLocatedTypes()
     {
         return [
@@ -57,6 +60,7 @@ export class TypeService{
         ];
     }
 
+
     GetAllVenueTypes()
     {
         return [
@@ -64,6 +68,7 @@ export class TypeService{
             new SelectModel("Private residence", "private_residence")
         ];
     }
+
 
     GetAllTicketTypes()
     {
@@ -73,6 +78,7 @@ export class TypeService{
         ];
     }
 
+
     GetAllAccountTypes()
     {
         return [
@@ -81,7 +87,7 @@ export class TypeService{
             new SelectModel("Venue", "venue")
         ];
     }
-   
+
     GetAllLocationTypes()
     {
         return [
@@ -111,6 +117,7 @@ export class TypeService{
             new FrontWorkingTimeModel('saturday', null, null, false)
         ];
     }
+
 
     public GetTime()
     {
