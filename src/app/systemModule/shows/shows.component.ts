@@ -90,18 +90,25 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
         if(navigator.geolocation){
             console.log(`navigator.geolocation`);
             navigator.geolocation.getCurrentPosition((position) => {
-                this.MyCoords.lat = position.coords.latitude, 
-                this.MyCoords.lng = position.coords.longitude - 2
+                this.MyCoords.lat = position.coords.latitude;
+                this.MyCoords.lng = position.coords.longitude - 2;
+
+                if(!this.MyCoords.lat&&!this.MyCoords.lng)
+                    this.getPosition();
             });
         } else {
-            console.log(`api.ipstack`);
-            $.getJSON('http://api.ipstack.com/check?access_key=428075a8fe82f2d6de7696b9bfec35b8', (data)=>{
-                console.log(data);
-                this.MyCoords.lat = data.latitude, 
-                this.MyCoords.lng = data.longitude - 2
-            });
+           this.getPosition()
         }
     } 
+
+    getPosition(){
+        console.log(`api.ipstack`);
+            $.getJSON('http://api.ipstack.com/check?access_key=428075a8fe82f2d6de7696b9bfec35b8', (data)=>{
+                console.log(data);
+                this.MyCoords.lat = data.latitude;
+                this.MyCoords.lng = data.longitude - 2;
+            });
+    }
 
     openMap(){
         this.isShowMap = !this.isShowMap;
