@@ -1,14 +1,22 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 import { Base64ImageModel } from '../../core/models/base64image.model';
 import { BaseComponent } from '../../core/base/base.component';
 
 import { AccountGetModel } from '../../core/models/accountGet.model';
 import { BaseImages } from '../../core/base/base.enum';
+
+export enum Pages {
+  Shows = "shows",
+  Events = "event",
+  Tickets = "tickets",
+  Feed = "feed",
+  Profile = "profile"
+}
 
 @Component({
     selector: 'navbar-cmp',
@@ -21,7 +29,8 @@ export class NavbarComponent extends BaseComponent implements OnInit
 
     curNav:string = 'shows';
     MyLogo:string = '';
-
+    SearchParams:string = '';
+    @ViewChild('SearchForm') form: NgForm;
     ngOnInit()
     {
       this.MyLogo = this.main.MyLogo;
@@ -33,9 +42,22 @@ export class NavbarComponent extends BaseComponent implements OnInit
         }
       );
 
+      this.router.events.subscribe(
+        (Val) => {
+          if(Val instanceof NavigationEnd)
+          {
+            this.curNav = this.getThisPage();
+            
+          }
+          //console.log(Val);
+        }
+      );
       if(this.isLoggedIn)
         this.main.GetMyAccounts();
      
+
+
+      
       // localStorage.setItem('new_user_134','artist');
 
       this.main.MyAccountsChange.subscribe(
@@ -68,21 +90,30 @@ export class NavbarComponent extends BaseComponent implements OnInit
         }
       )
     }
-
+    ShowSearchResult(){
+      //console.log(this.SearchParams);
+    }
     getThisPage():string
     {
-      var page:string = 'shows';
+      // var page:string = 'shows';
       var url = this.router.routerState.snapshot.url;
-      
-      if(url){
-        var url_comp = url.split('/');
-        page = url_comp[2];
+      for (const item of Object.values(Pages))
+      {
+        if( url.indexOf(item) != -1)
+        {
+          return item;
+        }
       }
+      return Pages.Profile;
+      // if(url){
+      //   var url_comp = url.split('/');
+      //   page = url_comp[2];
+      // }
 
-      if (page == 'eventCreate')
-        page = 'events';
+      // if (page == 'eventCreate')
+      //   page = 'events';
 
-      return page;
+      // return page;
     }
 
     Navigate(params?:string[])

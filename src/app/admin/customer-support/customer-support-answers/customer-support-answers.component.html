@@ -11,8 +11,8 @@
                     <div class="answer_head">
                         <p>{{temp.subject}}</p>
                         <span *ngIf="temp.status==='approved'"><img src="./../../../../assets/img/admin/answer_check.png" alt=""></span>
-                        <span (click)="OpenTemplate(temp)"><img src="./../../../../assets/img/admin/answer_edit.png" alt=""></span>
-                        <span (click)="DeleteTemplate(temp.id)"><img src="./../../../../assets/img/admin/answer_delete.png" alt=""></span>
+                        <span *ngIf="!(temp.status==='approved'&&!isSuperUser)" (click)="OpenTemplate(temp)"><img src="./../../../../assets/img/admin/answer_edit.png" alt=""></span>
+                        <span *ngIf="!(temp.status==='approved'&&!isSuperUser)" (click)="DeleteTemplate(temp.id)"><img src="./../../../../assets/img/admin/answer_delete.png" alt=""></span>
                     </div>
                     <div class="answer_body">
                         <p>{{temp.message}}</p>
@@ -26,11 +26,11 @@
             <div class="answer_form">
                 <div class="answer_input">
                     <label>Subject</label>
-                    <input [disabled]="!isSuperUser" [(ngModel)]="openTemplate.subject" type="text">
+                    <input [disabled]="!isSuperUser&&openTemplate.status==='approved'" [(ngModel)]="openTemplate.subject" type="text">
                 </div>
                 <div class="answer_input">
                     <label>Answer</label>
-                    <textarea [disabled]="!isSuperUser" [(ngModel)]="openTemplate.message"></textarea>
+                    <textarea [disabled]="!isSuperUser&&openTemplate.status==='approved'" [(ngModel)]="openTemplate.message"></textarea>
                 </div>
                 <!-- <div class="answer_file">
                     <span>Attach file</span>

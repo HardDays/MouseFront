@@ -27,6 +27,13 @@ export class ImagesService{
         // return this.http.GetData('/images/'+imageId,"");
     }
 
+    GetImageInfo(imageId:number)
+    {
+        return this.http.CommonRequest(
+            () => this.http.GetData('/images/' + imageId + '/info.json','')
+        );
+    }
+
 
     PostAccountImage(accountId:number,object?: VenueMediaPhotoModel)
     {

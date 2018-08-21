@@ -23,7 +23,7 @@ import { TypeService } from '../../core/services/type.service';
 import { GenresService } from '../../core/services/genres.service';
 import { EventService } from '../../core/services/event.service';
 
-import { MapsAPILoader } from '@agm/core';
+import { MapsAPILoader, AgmMap } from '@agm/core';
 import { Router, Params, ActivatedRoute } from '@angular/router';
 import { AuthService } from "angular2-social-login";
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
@@ -60,6 +60,13 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
     Events:EventGetModel[] = [];
     SearchParams: EventSearchParams = new EventSearchParams();
     ScrollDisabled = true;
+    isShowMap = false;
+    MyCoords = {
+        lat:0,
+        lng:0
+    }
+
+    @ViewChild('map') map : AgmMap;
 
     constructor(
         protected main           : MainService,
@@ -83,11 +90,52 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
         this.GetEvents();
         this.openSearch();
         this.setHeightSearch();
+       
+        this.getPosition();
+        // if(navigator.geolocation){
+        //     console.log(`navigator.geolocation`);
+        //     navigator.geolocation.getCurrentPosition((position) => {
+        //         this.MyCoords.lat = position.coords.latitude;
+        //         this.MyCoords.lng = position.coords.longitude - 2;
+
+        //         if(!this.MyCoords.lat&&!this.MyCoords.lng)
+        //             this.getPosition();
+        //     });
+        // } else {
+        //    this.getPosition()
+        // }
+    } 
+
+    getPosition(){
+        console.log(`api.ipstack`);
+        $.getJSON('http://api.ipstack.com/check?access_key=428075a8fe82f2d6de7696b9bfec35b8', (data)=>{
+            console.log(data);
+            this.MyCoords.lat = data.latitude;
+            this.MyCoords.lng = data.longitude - 2;
+        });
+    }
+
+    openMap(){
+        this.isShowMap = !this.isShowMap;
+        
+        if(this.map){
+            this.map.triggerResize(); 
+        }
+      
+       
+    }
+
+    mapClick(){
+        console.log(`click`);
     }
 
     ngAfterViewChecked()
     {
         this.cdRef.detectChanges();
+    }
+
+    openShow(id:number){
+        this.router.navigate(['/system','shows_detail',id]);
     }
 
     @ViewChild('search') search: SearchEventsComponent;
@@ -105,7 +153,12 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
             "height": '100%'
             }); 
         }
+
+
+        
     }
+
+
 
     openSearch()
     {
@@ -146,7 +199,7 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
             (res:EventGetModel[]) =>
             {
                 this.Events = res;
-                setTimeout(()=>{this.ScrollDisabled = false},500);
+                this.ScrollDisabled = false;
             },
             (err) => {
             }

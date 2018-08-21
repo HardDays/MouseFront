@@ -30,7 +30,7 @@ export class SearchEventsComponent extends BaseComponent implements OnInit {
     };
 
     MIN_DISTANCE:number = 10;
-    MAX_DISTANCE:number = 40;
+    MAX_DISTANCE:number = 300;
 
     Genres:GenreModel[] = [];
     ShowMoreGenres:boolean = false;

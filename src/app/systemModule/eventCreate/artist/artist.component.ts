@@ -173,7 +173,6 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
     isPriceSearch = false;
     PriceArtistChanged(data:any){
-        
           setTimeout(() => {
             this.artistSearchParams.price_to = data.from;
             this.artistSearch();
@@ -241,7 +240,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
           if(acc.image_id){
             acc.image_base64_not_given = this.main.imagesService.GetImagePreview(acc.image_id,{width:240,height:240});
-            this.Artists.push(acc);
+            
             //console.log(acc.image_base64_not_given);
             // this.main.imagesService.GetImageById(acc.image_id).
             //   subscribe((img)=>{
@@ -254,8 +253,9 @@ export class ArtistComponent extends BaseComponent implements OnInit {
           }
           else {
             acc.image_base64_not_given = '../../../../assets/img/non-photo-2.svg';
-            this.Artists.push(acc);
+            // this.Artists.push(acc);
           }
+          this.Artists.push(acc);
         })
     }
   }
@@ -384,8 +384,11 @@ export class ArtistComponent extends BaseComponent implements OnInit {
   addNewArtist(){
     this.addArtist.event_id = this.Event.id;
     this.addArtist.account_id = this.Event.creator_id;
+    this.addArtist.currency = this.Event.currency;
+
     $('#modal-pick-artist').modal('toggle');
       let step = 1;
+      let itemCount = 0;
       for(let item of this.artistsSearch){
         if(item.checked){
           let isFind = false;
@@ -399,6 +402,14 @@ export class ArtistComponent extends BaseComponent implements OnInit {
             this.main.eventService.AddArtist(this.addArtist).
               subscribe((res)=>{
                 //  console.log(`add `,this.addArtist.artist_id);
+                itemCount++;
+                console.log(itemCount,this.artistsSearch.length)
+                if(itemCount===this.artistsSearch.length){
+                setTimeout(() => {
+                          console.log(`update`);
+                          this.updateEvent();
+                        }, 500);
+                }
 
               }, (err)=>{
                 this.onError.emit(this.getResponseErrorMessage(err, 'event'));
@@ -406,14 +417,22 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
               });
 
+          } else {
+            itemCount++;
           }
-
+        }
+        else{
+          itemCount++;
+        }
+        if(itemCount===this.artistsSearch.length){
+            setTimeout(() => {
+                    console.log(`update`);
+                    this.updateEvent();
+                  }, 500);
         }
 
       }
-      setTimeout(() => {
-        this.updateEvent();
-      }, 1000);
+     
 
 
   }
@@ -520,8 +539,10 @@ artistSendRequest(id:number){
         this.onError.emit("Request was sent!");
       }, 400);
         
-
+      setTimeout(() => {
         this.updateEvent();
+      }, 200);
+        
     })
   }
   else{
@@ -534,12 +555,16 @@ updateEvent(){
   // console.log(`updateEvent`);
   this.main.eventService.GetEventById(this.Event.id).
             subscribe((res:EventGetModel)=>{
+              this.artistsList = [];
               //  console.log(`updateEventThis`);
                 this.Event = this.main.eventService.EventModelToCreateEventModel(res);
-                this.artistsList = [];
-                this.artistsList = this.Event.artist;
-            //    console.log(`---`,this.Event,this.artistsList)
-                this.GetArtistsFromList();
+                  this.artistsList = this.Event.artist;
+                setTimeout(() => {
+                
+                  console.log(`---`,this.Event,this.artistsList)
+                  this.GetArtistsFromList();
+                }, 500);
+               
 
   })
 
@@ -672,5 +697,75 @@ dragMarker($event)
       return true;
     }
 
+
+    ArtistInvite = {
+      account_id: this.CurrentAccount.id,
+      name:'',
+      email:'',
+      facebook:'',
+      twitter:'',
+      vk:'',
+      youtube:''
+    }
+
+    InviteSocials = {
+      facebook: false,
+      vk: false,
+      twitter: false,
+      youtube: false
+    }
+
+
+    openInvite(){
+       $('#modal-send-unauth').modal('show');
+    }
+
+    inviteArtist(){
+      
+      if(this.ArtistInvite.name){
+        for(let i in this.InviteSocials){
+          if(!this.InviteSocials[i]){
+            this.ArtistInvite[i] = null
+          }
+          else{
+            if(!this.ArtistInvite[i])
+              {
+                this.onError.emit('Please, fill social ('+i+') username!');
+                return;
+              }
+          }
+        }
+
+        console.log(this.ArtistInvite, this.InviteSocials);
+        this.main.inviteService.PostInviteArtist(this.ArtistInvite)
+          .subscribe(
+            (res)=>{
+              console.log(`ok`);
+              $('#modal-send-unauth').modal('hide');
+               this.ArtistInvite = {
+                account_id: this.CurrentAccount.id,
+                name:'',
+                email:'',
+                facebook:'',
+                twitter:'',
+                vk:'',
+                youtube:''
+              }
+              this.InviteSocials = {
+                facebook: false,
+                vk: false,
+                twitter: false,
+                youtube: false
+              }
+            },
+            (err)=>{
+              this.onError.emit(this.getResponseErrorMessage(err, 'event'));
+            }
+          )
+      }
+      else {
+        this.onError.emit('Please, fill name field!');
+      }
+    }
 
 }

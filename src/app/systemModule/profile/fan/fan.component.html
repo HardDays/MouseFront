@@ -72,8 +72,8 @@
                             <div class="flex--info">
                                 <div [ngStyle]="{'display':isPreloadEvents?'none':'block'}" class="side scroller">
                                     <div class="for-scroll-padd">
-                                        <h6> <span translate>fan-create.Events</span> ({{EventsMass.length}})</h6>
-                                        <input type="text" class="search-profile-inp-style"  placeholder="{{ 'Search' | translate }}" (input)='searchEvents($event)'>
+                                        <h6>Events ({{EventsMassChecked.length}})</h6>
+                                        <input type="text" class="search-profile-inp-style"  placeholder="Search" (input)='searchEvents($event)'>
                                     </div>
                                     <div class="new-scroll-wr">
                                         <div class="blocks">
@@ -126,8 +126,13 @@
                                 </div>
                                 <div [ngStyle]="{'display':isPreloadFans?'none':'block'}"  class="side scroller uniq-padd-style-funs">
                                     <div class="uniq-padd-3">
+<<<<<<< HEAD
                                         <h6><span translate>Fans</span> ({{Fans.length}})</h6>
                                         <input type="text" class="search-profile-inp-style" placeholder="{{ 'Search' | translate }}" (input)='searchFans($event)'>
+=======
+                                        <h6>Fans ({{FansChecked.length}})</h6>
+                                        <input type="text" class="search-profile-inp-style" placeholder="Search" (input)='searchFans($event)'>
+>>>>>>> c275cf8d9ffd9ca0cbe831ccb2a845abc8393b8d
                                     </div>
                                     <div class="new-scroll-wr">
                                         <div class="blocks-funs">

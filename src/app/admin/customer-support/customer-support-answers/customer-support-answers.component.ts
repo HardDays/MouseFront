@@ -60,9 +60,9 @@ export class CustomerSupportAnswersComponent extends BaseComponent implements On
   }
 
   searchTemplate(event){
-    let searchParam = event.target.value;
+    let searchParam:string = event.target.value;
     if(searchParam){
-      this.checkedTemplates = this.Templates.filter(obj => obj.subject.indexOf(searchParam)>=0||obj.message.indexOf(searchParam)>=0);
+      this.checkedTemplates = this.Templates.filter(obj => obj.subject.toUpperCase().indexOf(searchParam.toUpperCase())>=0||obj.message.toUpperCase().indexOf(searchParam.toUpperCase())>=0);
     }
     else
     {
@@ -86,6 +86,7 @@ export class CustomerSupportAnswersComponent extends BaseComponent implements On
     .subscribe(
       (res)=>{
         this.GetTemplates();
+        this.clearTemplate();
         // console.log(`ok`)
         // this.Templates.push(this.openTemplate);111
 
@@ -102,7 +103,7 @@ export class CustomerSupportAnswersComponent extends BaseComponent implements On
     this.main.adminService.PatchReplyTemplate(this.openTemplate.id,this.openTemplate.subject,this.openTemplate.message)
       .subscribe(
         (res)=>{
-          this.isEdit = false;
+         this.clearTemplate();
           this.GetTemplates();
          
         }

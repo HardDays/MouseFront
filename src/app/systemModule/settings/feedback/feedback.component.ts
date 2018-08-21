@@ -26,7 +26,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
     "feedback_topic":new FormControl("",[Validators.required]),
     "message":new FormControl("",[Validators.required])
   });
-  Rating:number = 3;
+  Rating:number = 0;
   showSuccess = false;
 
   constructor(

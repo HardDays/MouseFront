@@ -74,9 +74,10 @@ export class FeedComponent extends BaseComponent implements OnInit, AfterViewChe
   Feed:any[] = [];
   accId:number = 0;
   ScrollDisabled = false;
-
+  EnableScroll = false;
 
   ngOnInit(){
+    this.EnableScroll = true;
     this.GetFeed();
     $('.body-feed-item .photos-wrapp').css({
          'max-height': $('.for-min-height-photos').width()
@@ -89,14 +90,23 @@ export class FeedComponent extends BaseComponent implements OnInit, AfterViewChe
 
 
     window.addEventListener('scroll', ()=> {
-
-      if(($(window).scrollTop()+$(window).height())>=$('footer').offset().top){
-            if(!this.ScrollDisabled)
-              this.onScroll();
-           }
+      if(this.EnableScroll){
+        if(($(window).scrollTop()+$(window).height())>=$('footer').offset().top){
+              if(!this.ScrollDisabled)
+                this.onScroll();
+            }
+      }
     });
 
   }
+
+   ngOnDestroy(){
+     console.log(`ng on destroy`);
+     this.EnableScroll = false;
+     window.removeEventListener('scroll',()=>{
+       console.log(`scroll remove`)
+     });
+    }
 
   ngAfterViewChecked()
   {
@@ -125,6 +135,7 @@ export class FeedComponent extends BaseComponent implements OnInit, AfterViewChe
   }
 
   onScroll(){
+
     this.ScrollDisabled = true;
     this.main.feedService.GetFeedByAccId(this.accId,10,this.Feed.length)
       .subscribe(

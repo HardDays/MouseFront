@@ -67,6 +67,8 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
   ESCAPE_KEYCODE = 27;
   ENTER_KEYCODE = 13;
 
+  isCreate = false;
+
   @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
       if(this.isShowMap){
           if (event.keyCode === this.ESCAPE_KEYCODE || event.keyCode === this.ENTER_KEYCODE) {
@@ -189,28 +191,38 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
 
   registerAcc()
   {
-    if(this.accForm.invalid)
-    {
-      this.errorCmp.OpenWindow(this.getFormErrorMessage(this.accForm, 'base'));
-      return;
-    }
-
-    this.Account.genres = this.main.genreService.GenreModelArrToStringArr(this.genres);
-    this.Account.account_type = this.typeUser;
-    this.Account.user_name = this.accForm.value['user_name'];
-    this.Account.display_name = this.accForm.value['first_name']+" "+this.accForm.value['last_name'];
-    this.Account.first_name = this.accForm.value['first_name'];
-    this.Account.last_name = this.accForm.value['last_name'];
-    this.WaitBeforeLoading(
-      ()=>this.main.accService.CreateAccount(this.Account),
-      (res)=>{
-        this.createStatus.emit(true);
-        this.main.SetCurrentAccId(res.id);
-      },
-      (err)=>{
-        this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
+    if(!this.isCreate){
+      this.isCreate = true;
+      if(this.accForm.invalid)
+      {
+        this.errorCmp.OpenWindow(this.getFormErrorMessage(this.accForm, 'base'));
+        return;
       }
-    )
+
+      this.Account.genres = this.main.genreService.GenreModelArrToStringArr(this.genres);
+      this.Account.account_type = this.typeUser;
+      this.Account.user_name = this.accForm.value['user_name'];
+      this.Account.display_name = this.accForm.value['first_name']+" "+this.accForm.value['last_name'];
+      this.Account.first_name = this.accForm.value['first_name'];
+      this.Account.last_name = this.accForm.value['last_name'];
+      this.WaitBeforeLoading(
+        ()=>this.main.accService.CreateAccount(this.Account),
+        (res)=>{
+          this.isCreate = false;
+          this.createStatus.emit(true);
+          this.main.SetCurrentAccId(res.id);
+        },
+        (err)=>{
+          this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
+          setTimeout(() => {
+            this.isCreate = false;
+            if(this.errorCmp.isShown)
+              this.errorCmp.CloseWindow();
+          }, 3500);
+        }
+      )
+  }
+  
   }
 
 

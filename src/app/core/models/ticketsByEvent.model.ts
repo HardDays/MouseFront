@@ -28,7 +28,8 @@ export class ticketsMass{
         public ticket?: ticketsInfo,
         public tickets_left?:number,
         public currency?: string,
-        public original_price?: number
+        public original_price?: number,
+        
 )
 {
     if(!ticket){
@@ -53,6 +54,7 @@ export class ticketsInfo{
         public updated_at?: string,
         public video?: any,
         public is_promotional?: boolean,
-        public type?: any          
+        public type?: any,
+        public min_age?:number          
      ){}
 }

@@ -1152,7 +1152,7 @@ header {
   height: 100%;
   background: #fff;
   z-index: 0;
-  border: 1px solid red; }
+  border: 1px solid rgba(0, 0, 0, 0); }
 
 .mainWrapper.has-push-left .map-here {
   -webkit-transform: translateX(-470px);

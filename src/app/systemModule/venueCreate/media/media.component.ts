@@ -78,9 +78,14 @@ export class VenueMediaComponent extends BaseComponent implements OnInit,OnChang
         this.WaitBeforeLoading(
         () => this.main.imagesService.GetAccountImages(this.VenueId),
         (res:ImageAccModelAnswer) => {
-            if(res && res.total_count > 0)
+            console.log(res);
+            for(const item of res.images)
             {
-                this.VenueImages = res.images;
+                const index = this.VenueImages.findIndex(obj => obj.id == item.id);
+                if(index < 0)
+                {
+                    this.VenueImages.push(item);
+                }
             }
         }
         );
@@ -109,12 +114,9 @@ export class VenueMediaComponent extends BaseComponent implements OnInit,OnChang
 
         for(let file of target.files)
         {
-            const image = new Image();
             let reader:FileReader = new FileReader();
             reader.onload = (e) =>{
                 this.ImageToLoad.image_base64 = reader.result;
-                
-                image.src = reader.result;
             }
             reader.readAsDataURL(file);
         }

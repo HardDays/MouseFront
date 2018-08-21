@@ -15,11 +15,12 @@
                 </button>
                 <div class="collapse navbar-collapse my-fixed" id="menu">
                     <div class="flex-menu-items">
-                        <!--
-                        <div class="search-inp">
-                            <input type="text" class="inp-style-1" placeholder="Search">
-                        </div>
-                        -->
+                        
+                        <form class="search-inp" (ngSubmit)="ShowSearchResult()" #SearchForm="ngForm">
+                            <input type="text" class="inp-style-1" placeholder="Search" name="serch-text" [ngModel]="SearchParams" (ngModelChange)="SearchParams = $event">
+                            <button type="submit"></button>
+                        </form>
+                       
                         <ul style="height: 64px;">
                             <ng-container *ngIf="MyAccounts.length>0">
                            
@@ -39,7 +40,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a [routerLink]="['/system','events']" (click)="curNav = 'events'" class="icon-2" [class.active]="curNav=='events'">
+                                <a [routerLink]="['/system','events']" (click)="curNav = 'event'" class="icon-2" [class.active]="curNav=='event'">
                                     <div class="img-menu">
                                         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35;" xml:space="preserve">
                                         
@@ -101,6 +102,13 @@
                                         </a>
                                     </div>
                                 </div>
+                            </li>
+                            <li class="hidden-lg hidden-md hidden-sm visible-xs">
+                                <form class="search-inp" (ngSubmit)="ShowSearchResult()" #SearchForm="ngForm">
+                                    <input type="text" class="inp-style-1" placeholder="Search" name="serch-text" [ngModel]="SearchParams" (ngModelChange)="SearchParams = $event">
+                                    <button type="submit"></button>
+                                </form>
+
                             </li>
                         </ng-container>
                         </ul>

@@ -19,6 +19,8 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
   Error:string = '';
   isFirstOpen:boolean = true;
 
+  isRegister = false;
+
  userForm : FormGroup = new FormGroup({
     "email": new FormControl("", [Validators.required,
       Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[\.][a-zA-Z]{2,3}')]),
@@ -38,79 +40,97 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
   type:string = 'fan';
 
   registerUser(){
-    let isNew = true;
-    if(!this.isFirstOpen){
-      if(this.createUser.email!=this.userForm.value['email'])
-      isNew = false;
+    // console.log(!this.isRegister);
+    if(!this.isRegister){
 
-      // if(!isNew){
-      //   this.backUser.emit(this.type);
-      // }
-    }
+      this.isRegister = true;
+
+      let isNew = true;
+      if(!this.isFirstOpen){
+        if(this.createUser.email!=this.userForm.value['email'])
+        isNew = false;
+
+        // if(!isNew){
+        //   this.backUser.emit(this.type);
+        // }
+      }
 
 
-    if(isNew&&this.userForm.valid){
+      if(isNew&&this.userForm.valid){
 
-      for (let key in this.userForm.value) {
-        if (this.userForm.value.hasOwnProperty(key)) {
-          if(this.userForm.value[key].length>0)
-          this.createUser[key] = this.userForm.value[key];
+        for (let key in this.userForm.value) {
+          if (this.userForm.value.hasOwnProperty(key)) {
+            if(this.userForm.value[key].length>0)
+            this.createUser[key] = this.userForm.value[key];
+          }
+        }
+
+        if(!this.createUser.email||!this.createUser.password)
+          this.errorCmp.OpenWindow('Email and password are required fields!');
+        else if (this.createUser.password.length<6)
+          this.errorCmp.OpenWindow('Password is too short!');
+        else if (this.createUser.password!=this.createUser.password_confirmation)
+          this.errorCmp.OpenWindow('Password does not match the confirm password!');
+        else if (this.createUser.email.search('@')<=0)
+          this.errorCmp.OpenWindow('Uncorrect email!');
+        else {
+
+          this.createUser.email = this.createUser.email.toLowerCase();
+
+          let phoneToSend = this.createUser.register_phone.replace(/ /g,'');
+              phoneToSend = phoneToSend.replace(/\(/g,'');
+              phoneToSend = phoneToSend.replace(/\)/g,'');
+              phoneToSend = phoneToSend.replace(/-/g,'');
+
+          this.createUser.register_phone = phoneToSend;
+            
+        this.WaitBeforeLoading(
+            ()=>this.main.authService.CreateUser(this.createUser),
+            (res:UserGetModel) => {
+                this.isRegister = false;
+                localStorage.setItem('is_register','true');
+                this.main.authService.BaseInitAfterLogin(new TokenModel(res.token));
+                this.userCreated = true;
+                this.main.authService.onAuthChange$.next(true);
+
+                // this.back.emit('info');
+                localStorage.setItem('new_user_'+res.id,this.type);
+              
+
+                if(this.type=='fan')
+                  this.backUser.emit(this.type);
+                else if(this.type=='venue'){
+                  localStorage.removeItem('is_register');
+                  this.router.navigate(['/system','venueCreate','new']);
+                }
+                else if(this.type=='artist'){
+                  localStorage.removeItem('is_register');
+                  this.router.navigate(['/system','artistCreate','new']);
+                }
+
+
+            },
+            (err) => {
+                this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'base'));
+                setTimeout(() => 
+                {
+                  if(this.errorCmp.isShown)
+                    this.errorCmp.CloseWindow();
+                  this.isRegister = false;
+                }, 3500);
+            }
+          );
         }
       }
-
-      if(!this.createUser.email||!this.createUser.password)
-        this.errorCmp.OpenWindow('Email and password are required fields!');
-      else if (this.createUser.password.length<6)
-        this.errorCmp.OpenWindow('Password is too short!');
-      else if (this.createUser.password!=this.createUser.password_confirmation)
-        this.errorCmp.OpenWindow('Password does not match the confirm password!');
-      else if (this.createUser.email.search('@')<=0)
-        this.errorCmp.OpenWindow('Uncorrect email!');
-      else {
-
-        this.createUser.email = this.createUser.email.toLowerCase();
-
-        let phoneToSend = this.createUser.register_phone.replace(/ /g,'');
-            phoneToSend = phoneToSend.replace(/\(/g,'');
-            phoneToSend = phoneToSend.replace(/\)/g,'');
-            phoneToSend = phoneToSend.replace(/-/g,'');
-
-        this.createUser.register_phone = phoneToSend;
-          
-      this.WaitBeforeLoading(
-          ()=>this.main.authService.CreateUser(this.createUser),
-          (res:UserGetModel) => {
-              localStorage.setItem('is_register','true');
-              this.main.authService.BaseInitAfterLogin(new TokenModel(res.token));
-              this.userCreated = true;
-              this.main.authService.onAuthChange$.next(true);
-
-              // this.back.emit('info');
-              localStorage.setItem('new_user_'+res.id,this.type);
-             
-
-              if(this.type=='fan')
-                this.backUser.emit(this.type);
-              else if(this.type=='venue'){
-                localStorage.removeItem('is_register');
-                this.router.navigate(['/system','venueCreate','new']);
-              }
-              else if(this.type=='artist'){
-                localStorage.removeItem('is_register');
-                this.router.navigate(['/system','artistCreate','new']);
-              }
-
-
-          },
-          (err) => {
-              this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'base'));
-          }
-        );
+      else{
+        this.errorCmp.OpenWindow(this.getFormErrorMessage(this.userForm, 'base'));
+         setTimeout(() => {
+            if(this.errorCmp.isShown)
+              this.errorCmp.CloseWindow();
+            this.isRegister = false;
+          }, 3500);
       }
     }
-     else{
-       this.errorCmp.OpenWindow(this.getFormErrorMessage(this.userForm, 'base'));
-     }
   }
 
   ngOnInit() {

@@ -44,8 +44,7 @@ import {MatFormFieldModule} from '@angular/material';
         PrivacyPolicyComponent,
         CustomerSupportComponent,
         HowToCreateEventComponent,
-        SendQuestionComponent,
-        PhonePipe
+        SendQuestionComponent
     ],
     exports: [ SettingsComponent ]
 })

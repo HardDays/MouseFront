@@ -33,6 +33,8 @@ import * as moment from 'moment';
 import { TimeFormat, CurrencyIcons, Currency } from '../../core/models/preferences.model';
 import { TranslateService } from '../../../../node_modules/@ngx-translate/core';
 import { SettingsService } from '../../core/services/settings.service';
+import { PurchaseModel, TicketPurchaseModel } from '../../core/models/purchase.model';
+import { TransactionModel } from '../../core/models/transaction.model';
 
 declare var $:any;
 declare var PhotoSwipeUI_Default:any;
@@ -110,6 +112,11 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
             // console.log("scroll_position",window.scrollY);
             this.GetEventInfo();
         });
+        this.main.CurrentAccountChange.subscribe(
+            (val) => {
+                this.MyAcc = val;
+            }
+        );
     }
 
     ngAfterViewChecked()
@@ -153,8 +160,8 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         if(this.Event.hashtag)
             this.Event.hashtag = this.Event.hashtag.replace("#","");
 
-        console.log(this.Event);
-        this.Currency = CurrencyIcons[this.Event.currency];
+
+        // this.Currency = CurrencyIcons[this.Event.currency];
 
         this.GetGenres();
         this.GetCreatorInfo();
@@ -266,37 +273,28 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
 
     BuyTicket()
     {
-        let items = this.CheckedTickets;
-        // console.log(`checked`,this.CheckedTickets)
-        for(let item of items)
-        {
-            this.WaitBeforeLoading(
-                () => this.main.eventService.BuyTicketPack(item),
-                (res) =>
-                {
-                    let index = this.CheckedTickets.findIndex(obj => obj.ticket_id == item.ticket_id && obj.count == item.count);
-                    this.CheckedTickets.splice(index,1);
-                    this.CalculateCurrentPrice();
-                    if(this.CheckedTickets.length == 0)
-                    {
-                       // console.log("success");
-                        this.OpenErrorWindow(BaseMessages.Success);
-                      //  console.log('show_message');
-                        setTimeout(
-                            () => {
-                                this.errorCmp.CloseWindow();
-                                this.router.navigate(['/system','tickets', this.EventId])
-                            },
-                            2000
-                        );
-                    }
-                },
-                (err) =>
-                {
-                    this.OpenErrorWindow(this.getResponseErrorMessage(err));
-                }
-            );
-        }
+        const purchase = new PurchaseModel();
+        purchase.tickets = TicketPurchaseModel.TicketPurchaseArrayFromObjectArray(this.CheckedTickets);
+
+        purchase.redirect_url = [
+            window.location.origin,
+            'system',
+            'tickets',
+            this.EventId
+        ].join("/");
+
+        purchase.account_id = this.GetCurrentAccId();
+        this.WaitBeforeLoading(
+            () => this.main.eventService.StartPurchaseTickets(purchase),
+            (res:TransactionModel) =>
+            {
+                window.location.href = res.url;
+            },
+            (err) =>
+            {
+                this.OpenErrorWindow(this.getResponseErrorMessage(err));
+            }
+        );
     }
 
     GroupTickets(arr: BuyTicketModel[],accId:number)

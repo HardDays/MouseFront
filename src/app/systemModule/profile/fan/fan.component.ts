@@ -72,7 +72,7 @@ export class FanProfileComponent extends BaseComponent implements OnInit,OnChang
     CountTickets()
     {
         this.TotalTicket = 0;
-        for(let item of this.TicketMass)
+        for(let item of this.ticketsMassChecked)
         {
             this.TotalTicket += item.tickets_count;
         }
@@ -89,6 +89,7 @@ export class FanProfileComponent extends BaseComponent implements OnInit,OnChang
                 {
                     //console.log(res);
                     this.ticketsMassChecked = this.TicketMass = res;
+                    
                     this.CountTickets();
                     this.isPreloadTickets = false;
                 },
@@ -103,9 +104,14 @@ export class FanProfileComponent extends BaseComponent implements OnInit,OnChang
     searchTickets(event)
     {
         let searchParam = event.target.value;
-        if(searchParam)
+        if(searchParam){
             this.ticketsMassChecked = this.TicketMass.filter(obj => obj.name && obj.name.toLowerCase().indexOf(searchParam.toLowerCase())>=0);
-        else this.ticketsMassChecked = this.TicketMass;
+        }
+        else{ 
+            this.ticketsMassChecked = this.TicketMass;
+        }
+
+        this.CountTickets()
     }
 
     GetEvents()

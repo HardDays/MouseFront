@@ -141,19 +141,15 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
     if(this.player&&  this.player.isPlaying())
       this.player.pause();
 
-    // console.log(s);
     this.audioDuration = 0;
     this.audioCurrentTime = 0;
     SC.resolve(s).then((res)=>{
-      // console.log(res);
       if(res.streamable){
         SC.stream('/tracks/'+res.id).then((player)=>{
           this.player = player;
           this.player.play();
-          // console.log(`PLAYING`);
           
           player.on('play-start',()=>{
-            // console.log(`start play`);
             this.audioDuration = this.player.getDuration();
             
             setInterval(()=>{
@@ -161,11 +157,9 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
             },100)
           },(err)=>{
             this.onError.emit(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
-            // console.log(`not start play`);
           })
 
           player.on('no_streams',()=>{
-            // console.log(`audio_error`);
             this.onError.emit(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
             
           })
@@ -179,7 +173,6 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
     
         },(err)=>{
           this.onError.emit(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
-          // console.log(`error streaming`,err)
         });
     }
     else {
@@ -187,7 +180,6 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
     }
     },(err)=>{
       this.onError.emit(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
-      // console.log(`ERROR`)
     })
   }
 
@@ -307,7 +299,6 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
     this.main.imagesService.PostAccountImage(this.ArtistId,{image_base64:this.ImageToLoad,image_description: this.imageInfo})
       .subscribe(
         (res:any)=>{
-          // console.log(`res`,res);
           this.ArtistImages.push({img:this.ImageToLoad, text: this.imageInfo,id:res.image_id});
           this.ImageToLoad = '';
           this.imageInfo = '';
@@ -352,18 +343,18 @@ GetArtistImages()
 
 GetArtistImageById(id,text)
 {
-  this.isImageLoading = true;
-
-
-
-  this.main.imagesService.GetImageById(id)
-    .subscribe(
-      (res:Base64ImageModel) =>{
-        this.ArtistImages.push({img:this.main.imagesService.GetImagePreview(id,{width:420,height:240}),text:text,id:res.id});
-        this.isImageLoading = false;
+  const index = this.ArtistImages.findIndex(obj => obj.id == id);
+  if(index < 0){
+    this.isImageLoading = true;
+    this.ArtistImages.push(
+      {
+        img:this.main.imagesService.GetImagePreview(id,{width:420,height:240}),
+        text:text,
+        id:id
       }
     );
-
+    this.isImageLoading = false;
+  }
 }
 
 SanitizeImage(image: string)

@@ -16,7 +16,7 @@
                           </div>
                           <div class="cover-artist" [ngStyle]="{'background-image': 'url(' + Image + ')'}"></div>
                           <p class="when">{{TicketsByEvent.event.date_from && TicketsByEvent.event.date_to?(TicketsByEvent.event.date_from|date:'fullDate':'shortTime')+" - "+(TicketsByEvent.event.date_to|date:'fullDate':'shortTime'):TicketsByEvent.event.event_season+' '+TicketsByEvent.event.event_year}}</p>
-                          <p class="where">{{TicketsByEvent.event.address}}</p>
+                          <p class="where">{{TicketsByEvent.event.address}}, {{TicketsByEvent.event?.city?TicketsByEvent.event.city:''}}, {{TicketsByEvent.event?.state?TicketsByEvent.event.state:''}}</p>
                       </div>
                       <div class="sides">
                           <div class="head-sides-2">
@@ -77,14 +77,14 @@
             <img src='../../assets/img/print-logo-2.png' class="img-responsive" alt="">
             <span translate>Tickets.E-ticket</span>
         </div>
-        <div class="circle">16+</div>
+        <div class="circle" *ngIf="TicketsByEvent?.tickets[0]?.ticket?.min_age">{{TicketsByEvent.tickets[0].ticket.min_age}}+</div>
     </div>
     <div class="content-print" >
         <p class="f1" translate>Tickets.Concert</p>
         <p class="name-concert">{{TicketsByEvent.event.name}}</p>
         <p class="when">{{TicketsByEvent.event.date_from && TicketsByEvent.event.date_to?(TicketsByEvent.event.date_from|date:'fullDate':'shortTime')+" - "+(TicketsByEvent.event.date_to|date:'fullDate':'shortTime'):TicketsByEvent.event.event_season+' '+TicketsByEvent.event.event_year}}</p>
         <p class="where">
-            {{TicketsByEvent.event.address}}
+            {{TicketsByEvent.event.address}}, {{TicketsByEvent.event?.city?TicketsByEvent.event.city:''}}, {{TicketsByEvent.event?.state?TicketsByEvent.event.state:''}}
         </p>
         <div class="tickets-for-ng" *ngFor="let item of TicketsByEvent.tickets; let i = index">
             <p class="name-ticket" *ngIf="item.ticket.type == 'in_person'">{{i + 1}}. <span translate>Tickets.In person ticket</span> </p>
@@ -110,22 +110,14 @@
                 </div>
 
             </div>
+            <div class="some-info-print">
+                <p class="head-tt">Description</p>
+                <p class="some-text">{{item.ticket.description}}</p>
+                    
+            </div>
         </div>
     </div>
-    <div class="some-info-print">
-        <p class="head-tt" translate>Tickets.use and refund of a ticket</p>
-        <p class="some-text">Lorem ipsum dolor sit amet, consectetur
-             adipisicing elit, sed do eiusmod tempor incididunt ut l
-             abore et dolore magna aliqua. Ut enim ad minim veniam, quis 
-             nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-              commodo consequat. Duis aute irure dolor in reprehenderit
-               in voluptate velit esse cillum dolore eu fugiat nulla pa
-               riatur. Excepteur sint occaecat cupidatat non proident, 
-               sunt in culpa qui officia deserunt mollit anim id est la
-               borum. Sed ut perspiciatis unde omnis iste natus error sit vo
-               luptatem accusantium doloremque lauda</p>
-            
-    </div>
+    
     <div class="foot-print">
         <p class="support" translate>Tickets.If you have any questions, please contact Mouse support  80 29 596 58 47</p>
         <p class="seller" translate>Tickets.seller</p>
