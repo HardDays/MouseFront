@@ -10,6 +10,15 @@ html, body{
     display: none!important;
   }
 }
+
+.shows-main-wrapp.none-bg-map{
+  pointer-events: none;
+}
+
+.shows-main-wrapp.none-bg-map .width-for-map{
+
+  pointer-events: auto;
+}
 .main-router-outlet{
   min-height: 100vh;
   position: relative;
@@ -246,6 +255,20 @@ html, body{
   }
  
 }
+@media (max-width: 1500px) {
+  .none-bg-map .width-for-map .for-flex-all-events .one-event-wr{
+    width: 100%;
+  }
+  .shows-main-wrapp.none-bg-map.events-styles-dif .head-shows{
+    flex-wrap: wrap;
+  }
+  .shows-main-wrapp.none-bg-map.events-styles-dif .head-shows .add-event-butt{
+    margin-left: 0;
+    margin-top: 10px;
+  }
+}
+
+
 @media (max-width: 1500px) {
   .admin_page .admin_content .events_status_wrap .events_status_diagramm.revenue_diagram_wrap{
     display: block;
@@ -809,6 +832,11 @@ html, body{
 }
 }
 @media (max-width: 767px) {
+
+  .shows-main-wrapp.none-bg-map.events-styles-dif .head-shows .add-event-butt{
+    margin-top: 0;
+    margin-left: 55px;
+  }
   .all-info-profile .uniq-padd-2 .flex--info .side.side-calendars-l .head-cont{
     font-size: 27px;
     text-align: center;
@@ -1560,6 +1588,25 @@ html, body{
     display: none;
   }
  
+}
+@media (max-width: 560px){
+  .shows-main-wrapp .head-shows .add-event-butt {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 270px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.shows-main-wrapp.events-styles-dif .head-shows{
+  flex-wrap: wrap;
+}
+.shows-main-wrapp.none-bg-map.events-styles-dif .head-shows .add-event-butt{
+  margin-top: 20px;
+  width: 100%;
+  max-width: 270px;
+  margin-left: auto;
+  margin-right: auto;
+}
 }
 @media (max-width: 479px){
   .create-event-nav-tabs .create-event-header h1{
