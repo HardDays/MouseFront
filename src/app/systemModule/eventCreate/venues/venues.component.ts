@@ -687,4 +687,79 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     }
 
 
+    VenueInvite = {
+      account_id: this.CurrentAccount.id,
+      name:'',
+      email:'',
+      facebook:'',
+      twitter:'',
+      vk:'',
+      youtube:''
+    }
+
+    InviteSocials = {
+      facebook: false,
+      vk: false,
+      twitter: false,
+      youtube: false
+    }
+
+
+    openInvite(){
+       $('#modal-send-unauth').modal('show');
+    }
+
+    inviteVenue(){
+      
+      if(this.VenueInvite.name){
+        for(let i in this.InviteSocials){
+          if(!this.InviteSocials[i]){
+            this.VenueInvite[i] = null
+          }
+          else{
+            if(!this.VenueInvite[i])
+              {
+                this.onError.emit('Please, fill social ('+i+') username!');
+                return;
+              }
+          }
+        }
+
+        console.log(this.VenueInvite, this.InviteSocials);
+        this.main.inviteService.PostInviteVenue(this.VenueInvite)
+          .subscribe(
+            (res)=>{
+              console.log(`ok`);
+              $('#modal-send-unauth').modal('hide');
+               this.VenueInvite = {
+                account_id: this.CurrentAccount.id,
+                name:'',
+                email:'',
+                facebook:'',
+                twitter:'',
+                vk:'',
+                youtube:''
+              }
+              this.InviteSocials = {
+                facebook: false,
+                vk: false,
+                twitter: false,
+                youtube: false
+              }
+            },
+            (err)=>{
+              this.onError.emit(this.getResponseErrorMessage(err, 'event'));
+            }
+          )
+      }
+      else {
+        this.onError.emit('Please, fill name field!');
+      }
+    }
+
+    scrollToAdd(){
+       window.scrollBy(0,-700) 
+    }
+
+
 }

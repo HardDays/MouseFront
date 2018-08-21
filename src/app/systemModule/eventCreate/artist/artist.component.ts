@@ -698,4 +698,74 @@ dragMarker($event)
     }
 
 
+    ArtistInvite = {
+      account_id: this.CurrentAccount.id,
+      name:'',
+      email:'',
+      facebook:'',
+      twitter:'',
+      vk:'',
+      youtube:''
+    }
+
+    InviteSocials = {
+      facebook: false,
+      vk: false,
+      twitter: false,
+      youtube: false
+    }
+
+
+    openInvite(){
+       $('#modal-send-unauth').modal('show');
+    }
+
+    inviteArtist(){
+      
+      if(this.ArtistInvite.name){
+        for(let i in this.InviteSocials){
+          if(!this.InviteSocials[i]){
+            this.ArtistInvite[i] = null
+          }
+          else{
+            if(!this.ArtistInvite[i])
+              {
+                this.onError.emit('Please, fill social ('+i+') username!');
+                return;
+              }
+          }
+        }
+
+        console.log(this.ArtistInvite, this.InviteSocials);
+        this.main.inviteService.PostInviteArtist(this.ArtistInvite)
+          .subscribe(
+            (res)=>{
+              console.log(`ok`);
+              $('#modal-send-unauth').modal('hide');
+               this.ArtistInvite = {
+                account_id: this.CurrentAccount.id,
+                name:'',
+                email:'',
+                facebook:'',
+                twitter:'',
+                vk:'',
+                youtube:''
+              }
+              this.InviteSocials = {
+                facebook: false,
+                vk: false,
+                twitter: false,
+                youtube: false
+              }
+            },
+            (err)=>{
+              this.onError.emit(this.getResponseErrorMessage(err, 'event'));
+            }
+          )
+      }
+      else {
+        this.onError.emit('Please, fill name field!');
+      }
+    }
+
 }

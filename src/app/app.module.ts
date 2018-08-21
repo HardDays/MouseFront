@@ -43,6 +43,7 @@ import { LikesService } from './core/services/likes.service';
 import { RegisterUserInfoComponent } from './access/registration/register-user-info/register-user-info.component';
 import { AdminService } from './core/services/admin.service';
 import { SettingsService } from './core/services/settings.service';
+import { InviteService } from './core/services/invite.service';
 
 
 
@@ -108,7 +109,8 @@ let providers = {
     LikesService,
     MainService,
     AdminService,
-    SettingsService
+    SettingsService,
+    InviteService
   ],
     bootstrap: [AppComponent],
     

@@ -38,4 +38,7 @@
 .new-padd-wrapper-m-w{
     background-color: #fff;
   }
-  
+.username-soc-input{
+    border:0;
+    padding: 2px 5px;
+}

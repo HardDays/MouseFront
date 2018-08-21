@@ -28,6 +28,7 @@ import { UserCreateModel } from "../models/userCreate.model";
 import { UserGetModel } from "../models/userGet.model";
 import { AdminService } from "./admin.service";
 import { SettingsService } from "./settings.service";
+import { InviteService } from "./invite.service";
 
 declare var $:any;
 
@@ -67,7 +68,8 @@ export class MainService{
         public adminService  : AdminService,
         public _auth         : AuthService,
         public activeRouter  : ActivatedRoute,
-        public settings      : SettingsService
+        public settings      : SettingsService,
+        public inviteService : InviteService
     ){
 
         this.UserChange = new Subject();
@@ -308,4 +310,5 @@ export class MainService{
             this.ActiveProcesses.splice(index,1);
         this.ActiveProcessesChanges.next(this.ActiveProcesses);
     }
+
 }

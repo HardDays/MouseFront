@@ -86,17 +86,24 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
         this.GetEvents();
         this.openSearch();
         this.setHeightSearch();
-
-        
-        
+       
+        if(navigator.geolocation){
+            console.log(`navigator.geolocation`);
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.MyCoords.lat = position.coords.latitude, 
+                this.MyCoords.lng = position.coords.longitude - 2
+            });
+        } else {
+            console.log(`api.ipstack`);
+            $.getJSON('http://api.ipstack.com/check?access_key=428075a8fe82f2d6de7696b9bfec35b8', (data)=>{
+                console.log(data);
+                this.MyCoords.lat = data.latitude, 
+                this.MyCoords.lng = data.longitude - 2
+            });
+        }
     } 
 
     openMap(){
-        navigator.geolocation.getCurrentPosition((position) => {
-            this.MyCoords.lat = position.coords.latitude;
-            this.MyCoords.lng = position.coords.longitude - 2;
-        });
-
         this.isShowMap = !this.isShowMap;
         
         if(this.map)
@@ -110,12 +117,6 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
     ngAfterViewChecked()
     {
         this.cdRef.detectChanges();
-        setTimeout(() => {
-            navigator.geolocation.getCurrentPosition((position) => {
-                this.MyCoords.lat = position.coords.latitude;
-                this.MyCoords.lng = position.coords.longitude - 2;
-            });
-        }, 500);
     }
 
     openShow(id:number){
