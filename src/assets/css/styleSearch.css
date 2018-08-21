@@ -425,8 +425,28 @@
       margin-left: auto;
       min-height: 210px;
     }
+    .shows-main-wrapp.none-bg-map{
+      padding: 0;
+      
+    }
+    .shows-main-wrapp .width-for-map{
+      max-width: 100%;
+     
+    }
    
-
-
+    .map-here{
+      position: relative;
+      height: 200px;
+    }
+    .shows-main-wrapp .width-for-map .flex-shows .one-show-wr{
+      width: 50%;
+    }
+    .shows-main-wrapp .flex-shows .one-show-wr .one-show .description {
+        height: 200px;
+    }
+    .shows-main-wrapp .width-for-map .flex-shows .one-show-wr .one-show{
+      height: 200px;
+    }
+    
   }
 /*# sourceMappingURL=styleSearch.css.map */
