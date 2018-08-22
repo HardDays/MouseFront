@@ -465,8 +465,9 @@ export class ArtistComponent extends BaseComponent implements OnInit {
             this.onError.emit("Artist accepted!");
             this.updateEvent();
         },(err)=>{
-          if(err.status === 422)
-            this.onError.emit("Limit of artists was reached!");
+          if(err.status === 422){
+            this.onError.emit(err.json()['errors']?err.json()['errors']:"Limit of artists was reached!");
+            }
           else
             this.onError.emit("Artist NOT accepted!");
         });

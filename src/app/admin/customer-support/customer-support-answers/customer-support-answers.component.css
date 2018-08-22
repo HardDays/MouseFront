@@ -14,3 +14,6 @@
 .answer_button>.butt-style-1[disabled]{
     cursor: not-allowed;
 }
+.answer_button button span{
+    padding: 5px 0!important;
+}
