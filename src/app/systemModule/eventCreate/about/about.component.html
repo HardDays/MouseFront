@@ -165,20 +165,12 @@
                                 <option value="autumn">Autumn</option>
                                 <option value="winter">Winter</option>
                             </select> -->
-                            <mat-form-field *ngIf="isEng">
+                            <mat-form-field>
                                 <mat-select [(ngModel)]="Event.event_season" formControlName="event_season">
                                     <mat-option value="spring">Spring</mat-option>
                                     <mat-option value="summer">Summer</mat-option>
                                     <mat-option value="autumn">Autumn</mat-option>
                                     <mat-option value="winter">Winter</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                            <mat-form-field *ngIf="!isEng">
-                                <mat-select [(ngModel)]="Event.event_season" formControlName="event_season">
-                                    <mat-option value="spring">Весна</mat-option>
-                                    <mat-option value="summer">Лето</mat-option>
-                                    <mat-option value="autumn">Осень</mat-option>
-                                    <mat-option value="winter">Зима</mat-option>
                                 </mat-select>
                             </mat-form-field>
                             <label for="inp-create-5" translate>event.about-fold.Event Date<span>*</span></label>
@@ -208,20 +200,14 @@
                                 <option value="night">Night</option>
                                 
                             </select> -->
-                            <mat-form-field *ngIf="isEng">
+                            <mat-form-field>
                                 <mat-select [(ngModel)]="Event.event_time" formControlName="event_time">
                                     <mat-option value="morning">Morning</mat-option>
                                     <mat-option value="afternoon">Afternoon</mat-option>
                                     <mat-option value="evening">Evening</mat-option>
                                 </mat-select>
                             </mat-form-field>
-                            <mat-form-field *ngIf="!isEng">
-                                <mat-select [(ngModel)]="Event.event_time" formControlName="event_time">
-                                    <mat-option value="morning">Утро</mat-option>
-                                    <mat-option value="afternoon">После полудня</mat-option>
-                                    <mat-option value="evening">Вечер</mat-option>
-                                </mat-select>
-                            </mat-form-field>
+
                             <label for="inp-create-7" translate>event.about-fold.Event Time Range<span>*</span></label>
 
                         </div>
