@@ -95,10 +95,9 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
   }
 
   Init(){
-    if(this.isEng == true)
+    
       this.preferredVenues = this.getVenuesTypes();
-    else
-    this.preferredVenues = this.getRuVenuesTypes();
+    
     for(let v of this.preferredVenues){
       for(let venue of this.Artist.preferred_venues){
         if(v.object.type === venue['type_of_venue'])
@@ -207,50 +206,6 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
         {
           type:'other',
           type_show:'Other'
-        }
-      ]
-    );
-
-  }
-
-  getRuVenuesTypes(){
-    return this.convertArrToCheckModel(
-      [
-        {
-          type:'night_club',
-          type_show:'Ночной клуб'
-        },
-        {
-          type:'bar',
-          type_show:'Бар'
-        },
-        {
-          type:'restaurant',
-          type_show:'Рестаран'
-        },
-        {
-          type:'concert_hall',
-          type_show:'Концертный зал'
-        },
-        {
-          type:'event_space',
-          type_show:'Место мероприятия'
-        },
-        {
-          type:'outdoor_space',
-          type_show:'Наружное место'
-        },
-        {
-          type:'theatre',
-          type_show:'Театр'
-        },
-        {
-          type:'private_residence',
-          type_show:'Частная резиденция'
-        },
-        {
-          type:'other',
-          type_show:'Другое'
         }
       ]
     );

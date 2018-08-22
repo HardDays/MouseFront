@@ -92,7 +92,6 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   venuePreview:number = 0;
 
   createOrEditText = 'Edit';
-  ruCreateOrEdit = 'Изменить';
   isEng:boolean;
   eventStatus = EventStatus;
 
@@ -122,7 +121,6 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       (params) => {
         if(params["id"] == 'new')
         {
-          this.ruCreateOrEdit = 'Создать';
           this.createOrEditText = 'Create';
           this.isNewEvent = true;
           this.DisplayEventParams(null);

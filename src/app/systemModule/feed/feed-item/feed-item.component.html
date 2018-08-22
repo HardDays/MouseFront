@@ -19,7 +19,7 @@
                     
                 </div>
             </div>
-            <p class="when">{{Feed.created_at?calculateTime(Feed.created_at):'A long time'}} ago</p>
+            <p class="when">{{Feed.created_at?calculateTime(Feed.created_at):'A long time'}} <span translate>ago</span></p>
         </div>
 
         <div *ngIf="Feed.type === 'event_update'" class="footer-item">
@@ -89,7 +89,7 @@
 
                     </div>
                     <div *ngIf="Feed.type === 'event_update'" class="desc">
-                        <p>Update Image <a [routerLink]="['/system','shows_detail',Feed.event.id]">#{{Feed.event.name}}</a> Event</p>
+                        <p>Update Image <a [routerLink]="['/system','shows_detail',Feed.event.id]">#{{Feed.event.name}}</a><span> Event</span></p>
                     </div>
                     
                 </div>

@@ -25,7 +25,7 @@
                             <button [disabled]="IsPreview" class="butt-style-1" type="submit">
                                 <span *ngIf="isFolowedAcc">{{ 'Unfollow' | translate }}</span>
                                 <span *ngIf="!isFolowedAcc">{{ 'Follow' | translate }}</span>
-                                <span *ngIf="IsPreview" translate>Follow</span>
+                                <!-- <span *ngIf="IsPreview" translate>Follow</span> -->
                             </button>
                         </form>
                     </ng-container>
@@ -46,7 +46,7 @@
                                     <div class="flex-contact-venue">
                                         <div class="column-cont">
                                             <div class="one-cont">
-                                                <p class="head-cont">PHONE:</p>
+                                                <p class="head-cont" translate>PHONE:</p>
                                                 <span *ngIf="Account.phone">{{Account.phone|phone}}</span>
                                             </div>
                                         </div>

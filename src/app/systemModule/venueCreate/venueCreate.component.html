@@ -4,8 +4,8 @@
         <div class="for-header-shadow">
             <div class="main-mw">
                 <div class="create-event-header">
-                    <h1 *ngIf="isEnglish()">{{isNewVenue?'Create':'Edit'}} <span translate>Venue.Venue</span></h1>
-                    <h1 *ngIf="!isEnglish()">{{isNewVenue?'Создать':'Изменить'}} <span translate>Venue.Venue</span></h1>
+                    <h1>{{isNewVenue?'Create':'Edit' | translate}} <span translate>Venue.Venue</span></h1>
+                    
                     <div class="new-flex-ul-li">
                     <ul>
                         <!--нужным li даем классы active и started."хз нахрена это надо. узнавайте у писателя"-->

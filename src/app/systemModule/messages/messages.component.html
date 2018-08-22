@@ -6,7 +6,7 @@
 
                     <div *ngIf="messages.length<=0" class="empty-info">
                         <img src="./../../../assets/img/smile.svg" class="img-responsive" alt="">
-                        <p>You have no messages yet</p>
+                        <p translate>Messages-fold.You have no messages yet</p>
                     </div>
             
                     <ng-container *ngIf="messages.length>0">
@@ -19,19 +19,19 @@
                                     <div *ngIf="item.message_type == 'request' || item.message_type == 'accept' || item.message_type == 'blank'" [ngClass]="{'active':item.id==idCurMsg}" (click)="changeItem(item,i);" class="one-msg-l-block active">
                                         <div class="name-ava">
                                             <div class="ava" [ngStyle]="{'background-image': item.sender?'url('+item.sender.image_base64+')':''}"></div>
-                                            <p class="n">{{item.sender?.full_name?item.sender.full_name:'No name'}}</p>
-                                            <p class="hash"><span>@</span>{{item.sender?.user_name?item.sender.user_name:'No username'}}</p>
+                                            <p class="n" translate>{{item.sender?.full_name?item.sender.full_name:'No name'}}</p>
+                                            <p class="hash" translate><span>@</span>{{item.sender?.user_name?item.sender.user_name:'No username'}}</p>
                                         </div>
                                         <div  class="descr-side">
                                             <p class="f">
-                                                <span [ngClass]="{'active':!item.is_read}" class="some-t active">{{item.message_type?item.message_type:''}} to Perform</span>
-                                                <span *ngIf="item.created_at" class="when">{{item.created_at| date:'MMM d' }}</span>
+                                                <span [ngClass]="{'active':!item.is_read}" class="some-t active" translate>{{item.message_type?item.message_type:''}} to Perform</span>
+                                                <span *ngIf="item.created_at" class="when" translate>{{item.created_at| date:'MMM' | translate}}{{item.created_at| date:' d' }}</span>
                                             </p>
                                             <p class="name-e">{{item.message_info?.event_info?.name?item.message_info?.event_info.name:''}}</p>
                                             <p  class="where-when">
                                                     {{item.message_info?.event_info?.address?item.message_info?.event_info.address:''}}
                                                 <br>
-                                                {{item.message_info?.event_info?.event_season?item.message_info?.event_info.event_season:'' | titlecase}} {{item.message_info?.event_info?.event_year?item.message_info?.event_info.event_year:''}}
+                                                <span translate>{{item.message_info?.event_info?.event_season?item.message_info?.event_info.event_season:'' | titlecase}}</span> {{item.message_info?.event_info?.event_year?item.message_info?.event_info.event_year:''}}
 
                                             </p>
                                             
@@ -49,7 +49,7 @@
                                     <div *ngIf="item.message_type == 'feedback' || item.message_type == 'support'" [ngClass]="{'active':item.id==idCurMsg}" (click)="changeItem(item,i);" class="one-msg-l-block active">
                                         <div class="name-ava">
                                             <div class="ava" [ngStyle]="{'background-image': 'url(./../../../../assets/img/ping-sun.png)'}"></div>
-                                            <p class="n">Admin</p>
+                                            <p class="n" translate>Admin</p>
                                         </div>
                                         <div  class="descr-side">
                                             <p class="f">
@@ -67,8 +67,8 @@
                         <div  *ngIf="openMessage?.message_type === 'request'" class="right-s">
                             <div *ngIf="openMessage.id&&(openMessage.message_type=='request'&&openMessage.message_info||openMessage.message_type!='request')" class="some-request-text-wrapper">
                                 <div class="block-info f-b">
-                                    <span class="some-t">{{openMessage.message_type?openMessage.message_type:''}} to Perform</span>
-                                    <span class="when">{{openMessage.created_at | date:'MMM d' }}</span>
+                                    <span class="some-t" translate>{{openMessage.message_type?openMessage.message_type:''}} to Perform</span>
+                                    <span class="when" translate>{{openMessage.created_at| date:'MMM' | translate}}{{openMessage.created_at| date:' d' }}</span>
                                 </div>
                                 <div class="block-info s-b">
                                     <div class="ava" [ngStyle]="{'background-image': (openMessage.sender&&openMessage.sender.image_base64)?'url('+openMessage.sender.image_base64+')':''}"></div>
@@ -90,13 +90,13 @@
                                     <p *ngIf="openMessage.message_type == 'accept' &&openMessage.message_info" class="fot-edit">{{openMessage.message_info?.preferred_date_from| date}} - {{openMessage.message_info?.preferred_date_to| date}} </p>
                                     
                                     
-                                    <p *ngIf="openMessage.message_type == 'request'" class="desc-for-edit">(You can pick the dates you are available to perform)</p>
-                                    <p *ngIf="openMessage&&openMessage.message_info&&openMessage.message_info?.event_info&&openMessage.message_info?.event_info.is_crowdfunding_event" class="event-type">Crowdfunded Event</p>
+                                    <p *ngIf="openMessage.message_type == 'request'" class="desc-for-edit" translate>(You can pick the dates you are available to perform)</p>
+                                    <p *ngIf="openMessage&&openMessage.message_info&&openMessage.message_info?.event_info&&openMessage.message_info?.event_info.is_crowdfunding_event" class="event-type" translate>Crowdfunded Event</p>
                                 </div>
                                 <div class="block-info fourth-b">
                                     <p class="fot-edit">
                                             
-                                        Price to Perform <span>
+                                        {{'Price to Perform' | translate}}<span>
                                             {{CurrentCurrency}}
                                             {{(openMessage.message_type&&openMessage.message_info&&openMessage.message_type == 'request')?openMessage.message_info?.price:''}}</span>
                                         <img *ngIf="openMessage.message_type == 'request'&&!openMessage.is_read" src="../../assets/img/edit-img.png" (click)="isEditPrice = true" class="img-responsive for-edit-img" alt="">
@@ -105,7 +105,7 @@
                                     
                                     <!--поялвляется если нажать на картинку "for-edit-img"-->
                                     <div *ngIf="isEditPrice" class="flex-price-change">
-                                        <p class="your-price">Change price</p>
+                                        <p class="your-price" translate>Change price</p>
                                         <div class="rel-dog">
                                             <span>{{CurrentCurrency}}</span>
                                             <input [(ngModel)]="changePrice" class="inp-style-2" type="text">
@@ -114,32 +114,32 @@
                                     <!--/поялвляется если нажать на картинку "for-edit-img"-->
                                     
                                     
-                                    <p *ngIf="openMessage.message_type == 'request'" class="desc-for-edit">You can change the Price to Perform</p>
+                                    <p *ngIf="openMessage.message_type == 'request'" class="desc-for-edit" translate>You can change the Price to Perform</p>
                                 </div>
                                 <div *ngIf="openMessage.message_type == 'request'" class="block-info fifth-b">
-                                    <p *ngIf="openMessage.message_info?.expiration_date" class="will-expire">This request will expire on {{ openMessage.message_info?.expiration_date | date }}</p>
+                                    <p *ngIf="openMessage.message_info?.expiration_date" class="will-expire">{{'This request will expire on' | translate}}{{ openMessage.message_info?.expiration_date | date }}</p>
                                 </div>
                                 <div class="block-info sixth-b">
                                     <div  *ngIf="openMessage.message_type == 'request'" class="input-groupe-1 whithout-label small-textarea max-500">
                                         <textarea disabled [value]="openMessage?.message_info?.message"  id="inp-media-venue-2"></textarea>
-                                        <label for="inp-media-venue-2" class="head-groupe">Personal Message</label>
+                                        <label for="inp-media-venue-2" class="head-groupe" translate>Personal Message</label>
                                     </div>
                                     <div *ngIf="!openMessage.is_read&&openMessage.message_type == 'request'" class="flex-buttons">
                                         <div class="accept-wr">
                                             <button class="butt-style-1" type="submit">
-                                                <span (click)="acceptRequest()">Accept</span>
+                                                <span (click)="acceptRequest()" translate>Accept</span>
                                             </button>
                                         </div>
                                         <div class="decline-wr">
                                             <button (click)="declineRequest()" class="decline">
-                                                <span>Decline</span>
+                                                <span translate>Decline</span>
                                             </button>
                                         </div>
                                     </div>
                                     <div *ngIf="openMessage.message_type == 'accept'" class="flex-buttons">
                                             <div class="accept-wr">
                                                 <button [routerLink]="['/system','eventCreate',openMessage.message_info?.event_info.id]" class="butt-style-1" type="submit">
-                                                    <span>Go to Event</span>
+                                                    <span translate>Go to Event</span>
                                                 </button>
                                             </div>
                                             
@@ -151,8 +151,8 @@
                         <div  *ngIf="openMessage?.message_type === 'accept'" class="right-s">
                                 <div *ngIf="openMessage.id&&(openMessage.message_type=='request'&&openMessage.message_info||openMessage.message_type!='request')" class="some-request-text-wrapper">
                                     <div class="block-info f-b">
-                                        <span class="some-t">{{openMessage.message_type?openMessage.message_type:''}} to Perform</span>
-                                        <span class="when">{{openMessage.created_at | date:'MMM d' }}</span>
+                                        <span class="some-t" translate>{{openMessage.message_type?openMessage.message_type:''}} to Perform</span>
+                                        <span class="when" translate>{{openMessage.created_at| date:'MMM' | translate}}{{openMessage.created_at| date:' d' }}</span>
                                     </div>
                                     <div class="block-info s-b">
                                         <div class="ava" [ngStyle]="{'background-image': (openMessage.sender&&openMessage.sender.image_base64)?'url('+openMessage.sender.image_base64+')':''}"></div>
@@ -165,7 +165,7 @@
                                     <div class="block-info t-b">
                                         <p class="name-event">{{openMessage.message_info?.event_info?openMessage.message_info?.event_info.name:''}}</p>
                                         <p class="descr">{{openMessage.message_info?.event_info?.description?openMessage.message_info?.event_info.description:'' | titlecase}}</p>
-                                        <p *ngIf="openMessage.message_type == 'request'" class="fot-edit">{{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_season:'' | titlecase}} {{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_year:''}}, {{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_time:'' | titlecase}}, {{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_length:''}} Hours
+                                        <p *ngIf="openMessage.message_type == 'request'" class="fot-edit">{{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_season:'' | titlecase}} {{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_year:''}}, {{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_time:'' | titlecase}}, {{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_length:''}} {{'Hours' | translate}}
                                             <img *ngIf="!openMessage.is_read"  src="../../assets/img/edit-img.png"  class="img-responsive for-edit-img" alt="">
                                         </p>
                                         <input *ngIf="openMessage.message_type == 'request'" [disabled]="openMessage.is_read" class="form-control" #drp="bsDaterangepicker" bsDaterangepicker [bsConfig]="bsConfig" 
@@ -222,8 +222,8 @@
                                         
                                         
                                         
-                                        <p *ngIf="openMessage.message_type == 'request'" class="desc-for-edit">(You can pick the dates you are available to perform)</p>
-                                        <p *ngIf="openMessage&&openMessage.message_info&&openMessage.message_info?.event_info&&openMessage.message_info?.event_info.is_crowdfunding_event" class="event-type">Crowdfunded Event</p>
+                                        <p *ngIf="openMessage.message_type == 'request'" class="desc-for-edit" translate>(You can pick the dates you are available to perform)</p>
+                                        <p *ngIf="openMessage&&openMessage.message_info&&openMessage.message_info?.event_info&&openMessage.message_info?.event_info.is_crowdfunding_event" class="event-type" translate>Crowdfunded Event</p>
                                     </div>
                                     <div class="block-info fourth-b">
                                         <p class="fot-edit">
@@ -237,7 +237,7 @@
                                         
                                         <!--поялвляется если нажать на картинку "for-edit-img"-->
                                         <div *ngIf="isEditPrice" class="flex-price-change">
-                                            <p class="your-price">Change price</p>
+                                            <p class="your-price" translate>Change price</p>
                                             <div class="rel-dog">
                                                 <span>{{openMessage.message_info?.currency?(openMessage.message_info?.currency==='USD'?'$':openMessage.message_info?.currency==='RUB'?'₽':openMessage.message_info?.currency==='EUR'?'€':''):''}}</span>
                                                 <input [(ngModel)]="changePrice" class="inp-style-2" type="text">
@@ -246,32 +246,32 @@
                                         <!--/поялвляется если нажать на картинку "for-edit-img"-->
                                         
                                         
-                                        <p *ngIf="openMessage.message_type == 'request'" class="desc-for-edit">You can change the Price to Perform</p>
+                                        <p *ngIf="openMessage.message_type == 'request'" class="desc-for-edit" translate>You can change the Price to Perform</p>
                                     </div>
                                     <div *ngIf="openMessage.message_type == 'request'" class="block-info fifth-b">
-                                        <p *ngIf="openMessage.message_info?.expiration_date" class="will-expire">This request will expire on {{ openMessage.message_info?.expiration_date | date }}</p>
+                                        <p *ngIf="openMessage.message_info?.expiration_date" class="will-expire">{{'This request will expire on' | translate}} {{ openMessage.message_info?.expiration_date | date }}</p>
                                     </div>
                                     <div class="block-info sixth-b">
                                         <div  *ngIf="openMessage.message_type == 'request'" class="input-groupe-1 whithout-label small-textarea max-500">
                                             <textarea disabled [value]="openMessage?.message"  id="inp-media-venue-2"></textarea>
-                                            <label for="inp-media-venue-2" class="head-groupe">Personal Message</label>
+                                            <label for="inp-media-venue-2" class="head-groupe" translate>Personal Message</label>
                                         </div>
                                         <div *ngIf="!openMessage.is_read&&openMessage.message_type == 'request'" class="flex-buttons">
                                             <div class="accept-wr">
                                                 <button class="butt-style-1" type="submit">
-                                                    <span (click)="acceptRequest()">Accept</span>
+                                                    <span (click)="acceptRequest()" translate>Accept</span>
                                                 </button>
                                             </div>
                                             <div class="decline-wr">
                                                 <button (click)="declineRequest()" class="decline">
-                                                    <span>Decline</span>
+                                                    <span translate>Decline</span>
                                                 </button>
                                             </div>
                                         </div>
                                         <div *ngIf="openMessage.message_type == 'accept'" class="flex-buttons">
                                                 <div class="accept-wr">
                                                     <button [routerLink]="['/system','eventCreate',openMessage.message_info?.event_info.id]" class="butt-style-1" type="submit">
-                                                        <span>Go to Event</span>
+                                                        <span translate>Go to Event</span>
                                                     </button>
                                                 </div>
                                                 
@@ -297,7 +297,7 @@
                             <div class="some-request-text-wrapper">
                                 <div class="block-info f-b">
                                     <span class="some-t">{{openMessage.subject}}</span>
-                                    <span class="when">{{openMessage.created_at | date:'MMM d' }}</span>
+                                    <span class="when">{{openMessage.created_at| date:'MMM' | translate}}{{openMessage.created_at| date:' d' }}</span>
                                 </div>
                                 <ng-container *ngFor="let reply of openMessage.reply">
                                     <div *ngIf="reply.sender" class="block-info s-b">

@@ -2,7 +2,7 @@
 
     <div class="block-info f-b">
         <span class="some-t">{{Message.subject}}</span>
-        <span class="when">{{Message.created_at | date:'MMM d' }}</span>
+        <span class="when">{{Message.created_at| date:'MMM' | translate}}{{Message.created_at| date:' d' }}</span>
     </div>
 
     <ng-container *ngFor="let msg of Message.reply">
@@ -23,12 +23,12 @@
     <div class="block-info sixth-b">
         <div  class="input-groupe-1 whithout-label small-textarea max-500">
             <textarea [(ngModel)]="ReplyText" id="inp-media-venue-2"></textarea>
-            <label for="inp-media-venue-2" class="head-groupe">Message</label>
+            <label for="inp-media-venue-2" class="head-groupe" translate>Message</label>
         </div>
         <div class="flex-buttons">
             <div class="accept-wr">
                 <button class="butt-style-1" type="submit">
-                    <span (click)="sendReply()">Send</span>
+                    <span (click)="sendReply()" translate>Send</span>
                 </button>
             </div>
         </div>

@@ -12,6 +12,7 @@ import { PreloaderModule } from '../../shared/preloader/preloader.module';
 import { SearchEventsModule } from '../../shared/search/search.module';
 import { FeedComponent } from './feed.component';
 import { FeedItemComponent } from './feed-item/feed-item.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
     imports: [ 
@@ -25,7 +26,8 @@ import { FeedItemComponent } from './feed-item/feed-item.component';
             language: 'en'
         }),
         PreloaderModule,
-        SearchEventsModule
+        SearchEventsModule,
+        TranslateModule
     ],
     declarations: [ 
         FeedComponent,

@@ -173,7 +173,7 @@
                                 <input [checked]="preferredVenues[i].checked" type="checkbox" (click)="setPreferedVenue(i)" class="checkbox" name="" id="checkbox-{{i}}">
                                 <label for="checkbox-{{i}}"></label>
                             </div>
-                            <p>{{type.object.type_show}}</p>
+                            <p translate>{{type.object.type_show}}</p>
                         </div>
                     </div>
                     <div class="input-groupe-1 whithout-label small-textarea max-500 max-100">  
@@ -268,7 +268,7 @@
                         </div>
                     </div> 
                     <div class="input-groupe-1">
-                        <input [(ngModel)]="Artist.conflict_companies_names" id="if-yes-1" name="" type="text" placeholder="{'Company name' | translate}">
+                        <input [(ngModel)]="Artist.conflict_companies_names" id="if-yes-1" name="" type="text" placeholder="{{'Company name' | translate}}">
                         <label for="if-yes-1" translate>Artist-create.booking-art.If yes, with what companies?</label>
 
                     </div>
@@ -283,7 +283,7 @@
                         <div class="input-groupe-1 from-to-style hours-label-groupe auto-width" style="margin-bottom: 15px;">
                             <input type="text" [(ngModel)]="Artist.min_time_to_book" style="height: 35px;" [textMask]="MaskDays()">                                                       
                         </div>
-                        <div class="input-groupe-1 from-to-style hours-label-groupe auto-width" *ngIf="IsEng">
+                        <div class="input-groupe-1 from-to-style hours-label-groupe auto-width" >
                             <!-- <select [(ngModel)]="type_min_time_to_book">
                                 <option>days</option>
                                 <option>weeks</option>
@@ -291,21 +291,13 @@
                             </select>                                                          -->
                             <mat-form-field >
                                 <mat-select [(ngModel)]="type_min_time_to_book">
-                                    <mat-option value="days">Days</mat-option>
-                                    <mat-option value="weeks">Weeks</mat-option>
-                                    <mat-option value="months">Months</mat-option>
+                                    <mat-option value="days">{{'Days' | translate}}</mat-option>
+                                    <mat-option value="weeks">{{'Weeks' | translate}}</mat-option>
+                                    <mat-option value="months">{{'Months' | translate}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
-                        <div class="input-groupe-1 from-to-style hours-label-groupe auto-width" *ngIf="!IsEng">                                                         
-                            <mat-form-field >
-                                <mat-select [(ngModel)]="type_min_time_to_book">
-                                    <mat-option value="days">Дни</mat-option>
-                                    <mat-option value="weeks">Недели</mat-option>
-                                    <mat-option value="months">Месяцы</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
+
                     </div>
                     <div class="flex-input-groupes full-width">
                         <div class="input-groupe-1 ">
@@ -316,7 +308,7 @@
                             <input type="text" [(ngModel)]="Artist.min_time_to_free_cancel"  style="height: 35px;" [textMask]="MaskDays()">                                                       
                         </div>
 
-                        <div class="input-groupe-1 from-to-style hours-label-groupe auto-width" *ngIf="IsEng">
+                        <div class="input-groupe-1 from-to-style hours-label-groupe auto-width" >
                             
                             <!-- <select [(ngModel)]="type_min_time_to_free_cancel">
                                 <option>days</option>
@@ -325,21 +317,12 @@
                             </select>                                                          -->
                             <mat-form-field >
                                 <mat-select [(ngModel)]="type_min_time_to_free_cancel">
-                                    <mat-option value="days">Days</mat-option>
-                                    <mat-option value="weeks">Weeks</mat-option>
-                                    <mat-option value="months">Months</mat-option>
+                                    <mat-option value="days">{{'Days' | translate}}</mat-option>
+                                    <mat-option value="weeks">{{'Weeks' | translate}}</mat-option>
+                                    <mat-option value="months">{{'Months' | translate}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
-                        </div>
-                        <div class="input-groupe-1 from-to-style hours-label-groupe auto-width" *ngIf="!IsEng">
-                            
-                            <mat-form-field >
-                                <mat-select [(ngModel)]="type_min_time_to_free_cancel">
-                                    <mat-option value="days">Дни</mat-option>
-                                    <mat-option value="weeks">Недели</mat-option>
-                                    <mat-option value="months">Месяцы</mat-option>
-                                </mat-select>
-                            </mat-form-field>
+                        
                         </div>
                     </div>
                     <div class="flex-input-groupes full-width">

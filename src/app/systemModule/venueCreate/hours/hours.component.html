@@ -11,7 +11,7 @@
                     <div class="shadow-days-wr">
                         <div class="checkboxes-days">
                             <div class="days-r" *ngFor="let item of OfficeHours; let i = index">
-                                <span class="price">{{item.short_name}}</span>
+                                <span class="price" translate>{{item.short_name}}</span>
                                 <div class="one-checkbox">
                                     <div class="check-style">
                                         <input type="checkbox" class="checkbox" [ngModel]="item.checked" (ngModelChange)="OfficeHoursCheckChange(i,$event)" name="" id="new-checkbox-day-{{+i+1}}">
@@ -48,7 +48,7 @@
                     <div class="shadow-days-wr">
                         <div class="checkboxes-days">
                             <div class="days-r" *ngFor="let item of OperatingHours; let i = index">
-                                <span class="price">{{item.short_name}}</span>
+                                <span class="price" translate>{{item.short_name}}</span>
                                 <div class="one-checkbox">
                                     <div class="check-style">
                                         <input type="checkbox" class="checkbox" [ngModel]="item.checked" (ngModelChange)="OperatingHoursCheckChange(i,$event)" name="" id="oper-checkbox-day-{{+i+1}}">

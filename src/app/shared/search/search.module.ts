@@ -12,6 +12,7 @@ import { SearchEventsComponent } from './search_window/search.component';
 import { SearchEventsMapComponent } from './map/map.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
     imports: [ 
@@ -27,7 +28,8 @@ import {MatFormFieldModule} from '@angular/material';
             language: 'en'
         }),
         PreloaderModule,
-        InfiniteScrollModule
+        InfiniteScrollModule,
+        TranslateModule
     ],
     declarations: [ 
         SearchEventsComponent, SearchEventsMapComponent

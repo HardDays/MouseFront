@@ -45,8 +45,14 @@ export class VenueHoursComponent extends BaseComponent implements OnInit,OnChang
 
         this.OperatingHours = (this.Venue && this.Venue.operating_hours)?
             this.main.accService.GetFrontWorkingTimeFromTimeModel(this.Venue.operating_hours):this.main.typeService.GetAllDays();
-        
+
+        if(this.isEnglish() != true){
+            this.DayInWeekRuFormat(this.OperatingHours);
+            this.DayInWeekRuFormat(this.OfficeHours);
+            
+        }
         this.IsNeedToShowSelectDayWrapper();
+
     }
 
     IsNeedToShowSelectDayWrapper()
@@ -102,6 +108,11 @@ export class VenueHoursComponent extends BaseComponent implements OnInit,OnChang
 
         this.IsNeedToShowSelectDayWrapper();
         this.OnVenueModelChange();
+    }
+
+    DayInWeekRuFormat(array)
+    {
+        array.push(array.shift())
     }
 
     OfficeHoursBeginChange(index,$event)
