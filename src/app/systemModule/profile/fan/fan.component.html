@@ -10,9 +10,15 @@
                     </div>
                     <div class="side side-2">
                         <h3 class="big-name">
+
                             <span id="lines_view">{{Account.first_name}} {{Account.last_name}}</span>
                             <span></span>
-                            <span id="d_lines_view" class="insta-link-sp margened-xs-auto">@{{Account.user_name}}</span>
+                            <div class="oficial-new-page">
+                                <span id="d_lines_view" class="insta-link-sp margened-xs-auto">@{{Account.user_name}}</span>
+                                <div class="ok-image" *ngIf="Account.status == 'approved'">
+                                    <img class="img-responsive" src="../../assets/img/ok.png" alt="">
+                                </div>
+                            </div>
                         </h3>
                     </div>
                     <div class="side side-3">

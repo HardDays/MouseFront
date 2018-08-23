@@ -85,7 +85,7 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
       () => this.main.genreService.GetAllGenres(),
       (res:string[]) =>
       {
-        this.genres = this.main.genreService.StringArrayToGanreModelArray(res);
+        this.genres = this.main.genreService.StringArrayToGenreModelArray(res);
         this.seeFirstGenres();
       }
     );
@@ -199,7 +199,17 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
         return;
       }
 
-      this.Account.genres = this.main.genreService.GenreModelArrToStringArr(this.genres);
+      //this.Account.genres = this.main.genreService.GenreModelArrToStringArr(this.genres);
+
+      this.Account.genres = [];
+
+      for(let g of this.genres){
+        if(g.checked){
+          this.Account.genres.push(g.genre);
+        }
+      }
+      console.log(this.genres);
+      console.log(this.Account.genres);
       this.Account.account_type = this.typeUser;
       this.Account.user_name = this.accForm.value['user_name'];
       this.Account.display_name = this.accForm.value['first_name']+" "+this.accForm.value['last_name'];

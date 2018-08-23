@@ -139,6 +139,7 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
         
         this.GetUpcomingShows();
         this.GetVenueImages();
+        console.log(this.Account.status);
     }
 
     searchFans(event)
