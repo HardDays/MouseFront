@@ -140,11 +140,8 @@
                            
                         </div>
                         <div class="add-to-active-b">
-                            <button class="butt-style-1" type="submit" *ngIf="isEng">
-                                <span (click)="updateTicket()">{{isCurTicketNew?'add':'update'}}</span>
-                            </button>
-                            <button class="butt-style-1" type="submit" *ngIf="!isEng">
-                                <span (click)="updateTicket()">{{isCurTicketNew?'добавить':'обновить'}}</span>
+                            <button class="butt-style-1" type="submit">
+                                <span (click)="updateTicket()" translate>{{isCurTicketNew?'add':'update'}}</span>
                             </button>
                         </div>
                        

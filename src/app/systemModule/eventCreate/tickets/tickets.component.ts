@@ -114,7 +114,10 @@ addTicket(){
     newTicket.currency = this.Event.currency;
     newTicket.event_id = this.Event.id;
     newTicket.account_id = this.CurrentAccount.id;
-    newTicket.name = 'New Name';
+    if (this.isEng) 
+        newTicket.name = 'New Name';
+    else
+        newTicket.name = 'Новое Название';
     newTicket.type = 'vr';
     newTicket.is_promotional = false;
     newTicket.is_for_personal_use = false; 

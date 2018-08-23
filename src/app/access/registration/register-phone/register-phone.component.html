@@ -5,34 +5,34 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="34" height="29" viewBox="0 0 34 29">
           <path fill="#fff" id="Forma_1_copy_3" data-name="Forma 1 copy 3" class="cls-1" d="M857,946.183H828.082L839.5,934.862,837.62,933,823,947.5,837.62,962l1.877-1.862-11.415-11.322H857v-2.633Z" transform="translate(-823 -933)"/>
         </svg>
-        <span>BAck</span>
+        <span translate>BAck</span>
     </a>
     <app-preloader [white]="true" *ngIf="isLoading"></app-preloader>
     <div [ngStyle]="{'display':isLoading?'none':'block'}" class="m-v-reg">
         <form class="reg-wr">
-            <h3 class="less-margin">ENTER YOUR PHONE NUMBER</h3>
-            <p class="some-small-text-after-head">Enter your number to receive a verification code. Carrier rates may apply.</p>
+            <h3 class="less-margin" translate>ENTER YOUR PHONE NUMBER</h3>
+            <p class="some-small-text-after-head" translate>Enter your number to receive a verification code</p>
             <div class="sigh-up-3-m-w">
                 <select [(ngModel)]="selectCode" (ngModelChange)="phone='';isRequestCodeSend = false" name="country_code" class="inp-style-2">
                     <option *ngFor="let code of codes" [ngValue]="code">{{code.name}} (+{{code.dial_code}})</option>
                 </select>
-                <input name="phone" [(ngModel)]="phone" (ngModelChange)="isRequestCodeSend = false;codeRequest=[]" [textMask]="MaskPhoneByFormat(selectCode)" class="inp-style-2" type="text" placeholder="Tel. Number">
+                <input name="phone" [(ngModel)]="phone" (ngModelChange)="isRequestCodeSend = false;codeRequest=[]" [textMask]="MaskPhoneByFormat(selectCode)" class="inp-style-2" type="text" placeholder="{{'Tel' | translate}}">
             </div>
 
             <div *ngIf="!isRequestCodeSend">
-                <p class="qqq" *ngIf='phoneArr' style="text-align:center; color:#fff">Tel. number is required</p>
+                <p class="qqq" *ngIf='phoneArr' style="text-align:center; color:#fff" translate>Tel number is required</p>
               <div class="continue-wr more-margin">
-                  <button class="butt-style-1" type="submit" (click)="sendCode()"><span>Send Text</span></button>
+                  <button class="butt-style-1" type="submit" (click)="sendCode()"><span translate>Send Text</span></button>
               </div>
               
-              <p class="text-link-to-login">Already have an account?</p>
-              <p class="al-c"><a [routerLink]="['/login']" class="link-link-to-login">Log In</a></p>
+              <p class="text-link-to-login" translate>Already have an account?</p>
+              <p class="al-c"><a [routerLink]="['/login']" class="link-link-to-login" translate>Log In</a></p>
 
               <!-- <p class="al-c"><a (click)="skipPhone()" class="link-link-to-login">SKIP</a></p> -->
             </div>            
 
             <div *ngIf="isRequestCodeSend">
-              <h3 class="more-padd less-margin">ENTER VALIDATION CODE</h3>
+              <h3 class="more-padd less-margin" translate>ENTER VALIDATION CODE</h3>
               <div class="inp-code-wrapp">
                   <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="codeRequest[0]" id="code1" maxlength="1" (input)="inputCode($event,1)" >
                   <input type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="codeRequest[1]" id="code2" maxlength="1" (input)="inputCode($event,2)">
@@ -44,12 +44,12 @@
                       <div class="line"></div>
                   </div>
               </div>
-              <p class="some-small-text-after-head">Please enter the verification code</p>
+              <p class="some-small-text-after-head" translate>Please enter the verification code</p>
               
               <div class="continue-wr more-margin" style="padding-top:0;padding-bottom:30px;">
-                  <button (click)="sendRequest()" class="butt-style-1" type="submit"><span>Continue</span></button>
+                  <button (click)="sendRequest()" class="butt-style-1" type="submit"><span translate>Continue</span></button>
               </div>
-              <span (click)="resendCode()" class="resend-reg">Resend</span>
+              <span (click)="resendCode()" class="resend-reg" translate>Resend</span>
             </div>
 
         </form>

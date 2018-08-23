@@ -7,6 +7,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material';
 import { TextMaskModule } from 'angular2-text-mask';
 import { TimeInput } from './time/time.input';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { TimeInput } from './time/time.input';
         FormsModule,
         MatSelectModule,
         MatFormFieldModule,
-        TextMaskModule
+        TextMaskModule,
+        TranslateModule
     ],
     declarations: [ 
         DateInput,

@@ -5,19 +5,19 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="34" height="29" viewBox="0 0 34 29">
                       <path fill="#fff" id="Forma_1_copy_3" data-name="Forma 1 copy 3" class="cls-1" d="M857,946.183H828.082L839.5,934.862,837.62,933,823,947.5,837.62,962l1.877-1.862-11.415-11.322H857v-2.633Z" transform="translate(-823 -933)"/>
                     </svg>
-                    <span>BAck</span>
+                    <span translate>BAck</span>
                 </a>
                 <app-preloader [white]="true" *ngIf="isLoading"></app-preloader>
                 <div [ngStyle]="{'display':isLoading?'none':'block'}" class="m-v-reg">
                     <form [formGroup]="userForm" class="reg-wr">
-                        <h3>ENTER LOGIN INFORMATION</h3>
+                        <h3 translate>ENTER LOGIN INFORMATION</h3>
                         <div class="sigh-up-3-m-w">
-                            <input class="inp-style-2"  formControlName="email" type="text" placeholder="Email Address (Login)">
+                            <input class="inp-style-2"  formControlName="email" type="text" placeholder="{{'Email Address (Login)' | translate}}">
                             <ng-container *ngIf="isShowPhone">
-                                <input class="inp-style-2" disabled [(ngModel)]="phone" formControlName="register_phone" type="text" placeholder="Tel. Number">
+                                <input class="inp-style-2" disabled [(ngModel)]="phone" formControlName="register_phone" type="text" placeholder="{{'Tel. Number' | translate}}">
                             </ng-container>
-                            <input class="inp-style-2"  formControlName="password" type="password" placeholder="Password">
-                            <input class="inp-style-2"  formControlName="password_confirmation" type="password" placeholder="Verify password">
+                            <input class="inp-style-2"  formControlName="password" type="password" placeholder="{{'setting.Password' | translate}}">
+                            <input class="inp-style-2"  formControlName="password_confirmation" type="password" placeholder="{{'setting.Verify Password' | translate}}">
                             <p style="color:white;">{{Error}}</p>
                             
                             
@@ -26,7 +26,7 @@
                         <form  class="reg-wr">
                     
                             <div class="sigh-up-3-m-w">
-                                <p class="type-head">Type of account</p>
+                                <p class="type-head" translate>Type of account</p>
                        <div class="flex-checkboxes one-line-checkbox">
                         <!--при for обращаем внимания на for у label и id у инпута-->
                             <div class="one-checkbox">
@@ -34,30 +34,30 @@
                                     <input (change)="type='fan'" [checked]="type=='fan'" type="radio" class="checkbox" name="type-acc" id="checkbox-1">
                                     <label for="checkbox-1"></label>
                                 </div>
-                                <p>Fan</p>
+                                <p translate>Fan</p>
                             </div>
                             <div class="one-checkbox">
                                 <div class="check-style">
                                     <input (change)="type='artist'" [checked]="type=='artist'" type="radio" class="checkbox" name="type-acc" id="checkbox-2">
                                     <label for="checkbox-2"></label>
                                 </div>
-                                <p>Artist</p>
+                                <p translate>reg.Artist</p>
                             </div>
                             <div class="one-checkbox">
                                 <div class="check-style">
                                     <input (change)="type='venue'" [checked]="type=='venue'" type="radio" class="checkbox" name="type-acc" id="checkbox-3">
                                     <label for="checkbox-3"></label>
                                 </div>
-                                <p>Venue</p>
+                                <p translate>reg.Venue</p>
                             </div>
                         </div>
                         </div></form>
                         
                         <div class="continue-wr">
-                            <button class="butt-style-1" type="button" (click)="registerUser()"><span>Continue</span></button>
+                            <button class="butt-style-1" type="button" (click)="registerUser()"><span translate>Continue</span></button>
                         </div>
-                        <p class="text-link-to-login">Already have an account?</p>
-                        <p class="al-c"><a [routerLink]="['/login']" class="link-link-to-login">Log In</a></p>
+                        <p class="text-link-to-login" translate>Already have an account?</p>
+                        <p class="al-c"><a [routerLink]="['/login']" class="link-link-to-login" translate>Log In</a></p>
                       
 
                        
