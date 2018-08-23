@@ -156,3 +156,10 @@ p{
     background: #fff;
     min-height: 100vh;
 }
+.venue-week-cal-style .week-day-time-wr.none-margin-padd{
+    margin-bottom: 0;
+    padding: 10px;
+}
+.venue-week-cal-style .week-day-time-wr.none-margin-padd input{
+    padding: 7px 0;
+}
