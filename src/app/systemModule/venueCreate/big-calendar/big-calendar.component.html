@@ -2,19 +2,19 @@
     <div class=top-calendar-nav>
         <div class="arrow arrow-left" (click)="prevMonth()"></div>
         <div class="month">
-            <p (click)="prevMonth()">{{MonthPrev.format('MMM')}} {{ MonthPrev.format('YYYY') }}</p>
+            <p (click)="prevMonth()">{{MonthPrev.format('MMM') | translate}} {{ MonthPrev.format('YYYY') }}</p>
         </div>
         <div class="month">
-            <p class="active">{{ currentDate.format('MMM') }} {{ currentDate.format('YYYY') }}</p>
+            <p class="active">{{ currentDate.format('MMM') | translate}} {{ currentDate.format('YYYY') }}</p>
         </div>
         <div class="month">
-            <p (click)="nextMonth()">{{MonthNext.format('MMM')}} {{ MonthNext.format('YYYY') }}</p>
+            <p (click)="nextMonth()">{{MonthNext.format('MMM') | translate}} {{ MonthNext.format('YYYY') }}</p>
         </div>
         <div class="arrow arrow-right" (click)="nextMonth()"></div>
     </div>
     <div class="body-calendar">
         <div class="weekday-wrapp">
-            <div *ngFor="let name of dayNames" class="one-week-day">
+            <div *ngFor="let name of dayNames" class="one-week-day" translate>
                 {{ name }}
             </div>
         </div>

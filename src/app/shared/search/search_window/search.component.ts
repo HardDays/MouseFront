@@ -1,11 +1,15 @@
 import { Component, Input, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { BsDatepickerConfig, BsDaterangepickerDirective, BsDaterangepickerConfig } from 'ngx-bootstrap';
+import { BsDatepickerConfig, BsDaterangepickerDirective, BsDaterangepickerConfig, BsLocaleService } from 'ngx-bootstrap';
 import { BaseComponent } from '../../../core/base/base.component';
 import { EventSearchParams } from '../../../core/models/eventSearchParams';
 import { GenreModel } from '../../../core/models/genres.model';
 import { CheckModel } from '../../../core/models/check.model';
 import { SelectModel } from '../../../core/models/select.model';
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { ruLocale } from 'ngx-bootstrap/locale';
+defineLocale('ru', ruLocale); 
+
 
 declare var $:any;
 declare var ionRangeSlider:any;
@@ -41,6 +45,7 @@ export class SearchEventsComponent extends BaseComponent implements OnInit {
     SearchDateRange:Date[] = [];
 
     LocationText:string = '';
+    localeService: BsLocaleService;
     bsConfig: Partial<BsDaterangepickerConfig>;
     @ViewChild('SearchForm') form: NgForm;
     @ViewChild('dp') datepicker: BsDaterangepickerDirective;
@@ -125,10 +130,15 @@ export class SearchEventsComponent extends BaseComponent implements OnInit {
         this.bsConfig = Object.assign({}, { 
             containerClass: 'theme-default transformedDatapicker',
             showWeekNumbers:false,
-            rangeInputFormat: this.main.settings.GetDateFormat()
+            rangeInputFormat: this.main.settings.GetDateFormat(),
+            locale: this.settings.GetLang()
+            
+            
         });
         // this.datepicker.bsConfig = this.bsConfig;
         // this.datepicker.setConfig();
+        
+        
     }
 
     

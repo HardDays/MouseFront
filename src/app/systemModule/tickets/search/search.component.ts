@@ -7,6 +7,9 @@ import { GenreModel } from '../../../core/models/genres.model';
 import { CheckModel } from '../../../core/models/check.model';
 import { SelectModel } from '../../../core/models/select.model';
 import { TicketsSearchParams } from '../../../core/models/ticketsSearchParams.model';
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { ruLocale } from 'ngx-bootstrap/locale';
+defineLocale('ru', ruLocale);
 
 declare var $:any;
 declare var ionRangeSlider:any;
@@ -94,7 +97,7 @@ export class SearchTicketsComponent extends BaseComponent implements OnInit {
 
     InitBsConfig()
     {
-        this.bsConfig = Object.assign({}, { containerClass: 'theme-default transformedDatapicker',showWeekNumbers:false });
+        this.bsConfig = Object.assign({}, { containerClass: 'theme-default transformedDatapicker',showWeekNumbers:false, locale: this.settings.GetLang() });
     }
 
     

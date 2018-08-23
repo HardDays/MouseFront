@@ -155,7 +155,7 @@
                                     <div class="desc">
                                         <!-- <a class="name" [routerLink]="['/system/profile',item.object.id]">{{niceView(item.object.display_name)}} {{niceView(item.object.user_name)}}</a> -->
                                         <a class="name" style="cursor: pointer" (click)="closeAddArtist(item.object.id)">{{niceViewName(item.object)}}</a>
-                                        <p class="genres">{{niceViewGenres(item.object.genres)}}</p>
+                                        <p class="genres" translate>{{niceViewGenres(item.object.genres)}}</p>
                                         <p class="where">{{item.object.address}}</p>
                                     </div>
                                 </div>
@@ -204,8 +204,8 @@
                     <p class="e-n">{{Event.name}}</p>
                     <div class="flex-input-groupes">
                         <div class="input-groupe-1 font-size-label">
-                                <div class="rel-wr">
-                                <input disabled [value]="Event.event_season" name="" type="text">
+                            <div class="rel-wr">
+                                <input disabled name="" type="text" value="{{Event.event_season | translate}}">
                             </div>
                             <label for="inp-modal-req-4" translate>event.artist-fold.Date Range</label>
                         </div>
@@ -235,19 +235,11 @@
                             <mat-form-field >
                                 <mat-select formControlName="time_frame_range"  id="inp-modal-req-3">
                                     <mat-option value="hour">{{'event.artist-fold.Hour(s)' |translate}}</mat-option>
-                                    <mat-option value="day">Day(s)</mat-option>
-                                    <mat-option value="week">Week(s)</mat-option>
-                                    <mat-option value="month">Month(s)</mat-option>
+                                    <mat-option value="day">{{'event.artist-fold.Day(s)' |translate}}</mat-option>
+                                    <mat-option value="week">{{'event.artist-fold.Week(s)' |translate}}</mat-option>
+                                    <mat-option value="month">{{'event.artist-fold.Month(s)' |translate}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
-                            <!-- <mat-form-field *ngIf="!isEng">
-                                <mat-select formControlName="time_frame_range"  id="inp-modal-req-3">
-                                    <mat-option value="hour">Час(с)</mat-option>
-                                    <mat-option value="day">День(с)</mat-option>
-                                    <mat-option value="week">Неделя(с)</mat-option>
-                                    <mat-option value="month">Месяц(с)</mat-option>
-                                </mat-select>
-                            </mat-form-field> -->
                             <label for="inp-modal-req-3" translate>event.artist-fold.Time Frame we expect an answer<span>*</span></label>
                         </div>
                         
@@ -273,7 +265,7 @@
                     </div>
                     <div class="location-wr">
                         <div class="mark"></div>
-                        <input type="text" disabled  style="background-color: white" [value]="Event.address" class="location-inp" placeholder="location">
+                        <input type="text" disabled  style="background-color: white" [value]="Event.address" class="location-inp" placeholder="{{'location' | translate}}">
                     </div>
                     <div class="flex-input-groupes">
                         <div class="input-groupe-1 small-textarea whithout-label none-margin-fix">

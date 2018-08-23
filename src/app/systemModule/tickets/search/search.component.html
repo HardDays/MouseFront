@@ -15,7 +15,7 @@
                         <input type="checkbox" class="checkbox" [ngModel]="item.checked" name="genre_{{i+1}}" (ngModelChange)="item.checked = $event" id="checkbox-{{i+1}}">
                         <label for="checkbox-{{i+1}}"></label>
                     </div>
-                    <p>{{item.genre_show}}</p>
+                    <p translate>{{item.genre_show}}</p>
                 </div>
             </ng-container>
         </div>
@@ -30,7 +30,7 @@
                     <input type="checkbox" class="checkbox" name="checkboxy-{{i}}" id="checkbox-type-{{i}}">
                     <label for="checkbox-type-{{i}}"></label>
                 </div>
-                <p>{{item.object.name}}</p>
+                <p translate>{{item.object.name}}</p>
             </div>
             
             

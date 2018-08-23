@@ -3,7 +3,7 @@
         <div class="delete-track" (click)="DeleteImage()"></div>
         <div class="cover-image" [ngStyle]="{'background-image': 'url('+ Base64 +')'}"></div>
         <div class="descr">
-            <h6>{{(Image.type != 'other')?Image.type : Image.type_decs}}</h6>
+            <h6 translate>{{(Image.type != 'other')?Image.type : Image.type_decs}}</h6>
             <p class="name">{{Image.description}}</p>
         </div>
     </div>

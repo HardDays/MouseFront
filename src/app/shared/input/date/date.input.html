@@ -4,7 +4,7 @@
         <mat-form-field >
             <mat-select [(ngModel)]="Month" (ngModelChange)="MonthChanges($event) ">
                 <mat-option *ngFor="let item of MonthArray; let i = index" [value]="i">
-                    {{ item }}
+                    {{ item | translate}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
