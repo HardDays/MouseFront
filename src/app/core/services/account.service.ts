@@ -348,4 +348,10 @@ export class AccountService{
             () => this.http.PostData('/accounts/'+ Id +'/venue_dates/from_array.json', JSON.stringify(params))
         );
     }
+
+    GetLocation(){
+         return this.http.CommonRequest(
+            () => this.http.GetData('/users/ip_location.json', this.typeService.ParamsToUrlSearchParams({}))
+        );
+    }
 }

@@ -40,7 +40,7 @@
                     <p class="t" translate>event.funding-fold.Price (Plus Additional Costs)</p>
                     <p class="exp-price">
                         {{CurrencySymbol}}
-                        {{artistSum}}</p>
+                        {{artistSum| number:'3.1-2'}}</p>
                 </div>
             </div>
             <div class="side">
@@ -72,7 +72,7 @@
                     <p class="t" translate>event.funding-fold.Price (Plus Additional Costs)</p>
                     <p class="exp-price">
                         {{CurrencySymbol}}
-                        {{venueSum}}</p>
+                        {{venueSum| number:'3.1-2'}}</p>
                 </div>
             </div>
             <div class="side">
@@ -85,7 +85,8 @@
                 </div>
                 <div class="bottom-expression">
                     <p class="t total" translate>event.Totals</p>
-                    <p class="exp-price">{{CurrencySymbol}}{{Event.founded}}</p>
+                    <!-- {{Event.founded}} -->
+                    <p class="exp-price">{{CurrencySymbol}}{{venueSum+artistSum | number:'3.1-2'}}</p>
                 </div>
             
             
@@ -149,11 +150,11 @@
                     <h6 class="lower-case-t" translate>event.funding-fold.Min Amount per Ticket</h6>
                     <div class="second-funding-info">
                         <p class="info-text" translate>event.funding-fold.Capacity</p>
-                        <span class="price">{{Event.venue?Event.venue.capacity:'-'}}</span>
+                        <span class="price">{{Event.venue?Event.venue.capacity:0}}</span>
                     </div>
                     <div class="second-funding-info">
                         <p class="info-text" translate>event.funding-fold.Price Per Ticket</p>
-                        <span class="price">{{Event.venue? CurrencySymbol+(0.1*(artistSum+venueSum+Event.additional_cost)+(artistSum+venueSum+Event.additional_cost)) / Event.venue.capacity : '-' | number:'3.1-2'}}</span>
+                        <span class="price">{{CurrencySymbol}}{{Event.venue? (0.1*(artistSum+venueSum+Event.additional_cost)+(artistSum+venueSum+Event.additional_cost)) / Event.venue.capacity : 0 | number:'3.1-2'}}</span>
                     </div>
                 </div>
             </div>

@@ -14,10 +14,16 @@ html, body{
 .shows-main-wrapp.none-bg-map{
   pointer-events: none;
 }
-
+.shows-main-wrapp.none-bg-map{
+  padding-left: 30px;
+}
 .shows-main-wrapp.none-bg-map .width-for-map{
 
   pointer-events: auto;
+}
+.width-for-map{
+  margin: 0;
+  transform: translateX(0);
 }
 .main-router-outlet{
   min-height: 100vh;

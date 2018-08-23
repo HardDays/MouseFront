@@ -1,5 +1,5 @@
 import { Component, OnInit, NgZone, ChangeDetectorRef, ViewChild } from '@angular/core';
-import { extend } from 'webdriver-js-extender';
+// import { extend } from 'webdriver-js-extender';
 import { BaseComponent } from '../../../core/base/base.component';
 import { MainService } from '../../../core/services/main.service';
 import { DomSanitizer } from '@angular/platform-browser';
