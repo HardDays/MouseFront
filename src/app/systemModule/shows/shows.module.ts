@@ -11,6 +11,7 @@ import { ShowsComponent } from './shows.component';
 import { ShowItemComponent } from './show/show.component';
 import { PreloaderModule } from '../../shared/preloader/preloader.module';
 import { SearchEventsModule } from '../../shared/search/search.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
     imports: [ 
@@ -25,7 +26,9 @@ import { SearchEventsModule } from '../../shared/search/search.module';
         }),
         PreloaderModule,
         InfiniteScrollModule,
-        SearchEventsModule
+        SearchEventsModule,
+        TranslateModule
+
     ],
     declarations: [ 
         ShowsComponent,

@@ -4,34 +4,35 @@
         <div class="for-header-shadow">
             <div class="main-mw">
                 <div class="create-event-header">
-                    <h1>{{isNewArtist?'Create':'Edit'}} Artist</h1>
+                    <h1 *ngIf="isEnglish()">{{isNewArtist?'Create':'Edit'}} <span translate>Artist</span></h1>
+                    <h1 *ngIf="!isEnglish()">{{isNewArtist?'Создать':'Изменить'}} <span translate>Artist</span></h1>
                     <div class="new-flex-ul-li">
                     <ul>
 
                         <!-- TEST -->
                         <li [ngClass]="{'active':currentPage == pages.about,'started':currentPage != pages.about }">
-                            <a (click)="ChangeCurrentPart(pages.about)" class="nav-second-outlet">about</a>
+                            <a (click)="ChangeCurrentPart(pages.about)" class="nav-second-outlet" translate>Artist-create.about_min</a>
                         </li>
                         <li [ngClass]="{'active':currentPage == pages.calendar,'started':currentPage != pages.calendar && ArtistId}">
-                            <a (click)="ChangeCurrentPart(pages.calendar)" class="nav-second-outlet">calendar</a>
+                            <a (click)="ChangeCurrentPart(pages.calendar)" class="nav-second-outlet" translate>Artist-create.calendar</a>
                         </li>
                         <li [ngClass]="{'active':currentPage == pages.media,'started':currentPage != pages.media && ArtistId}">
-                            <a (click)="ChangeCurrentPart(pages.media)" class="nav-second-outlet">media</a>
+                            <a (click)="ChangeCurrentPart(pages.media)" class="nav-second-outlet" translate>Artist-create.media</a>
                         </li>
                         <li [ngClass]="{'active':currentPage == pages.booking,'started':currentPage != pages.booking && ArtistId}">
-                            <a (click)="ChangeCurrentPart(pages.booking)" class="nav-second-outlet">booking</a>
+                            <a (click)="ChangeCurrentPart(pages.booking)" class="nav-second-outlet" translate>Artist-create.booking</a>
                         </li>
                         <li [ngClass]="{'active':currentPage == pages.riders,'started':currentPage != pages.riders && ArtistId}">
-                            <a (click)="ChangeCurrentPart(pages.riders)" class="nav-second-outlet">riders</a>
+                            <a (click)="ChangeCurrentPart(pages.riders)" class="nav-second-outlet" translate>Artist-create.riders</a>
                         </li>
 
                         <li [ngClass]="{'active':currentPage == pages.preview,'started':currentPage != pages.preview && ArtistId}">
-                            <a (click)="ChangeCurrentPart(pages.preview)" class="nav-second-outlet">preview</a>
+                            <a (click)="ChangeCurrentPart(pages.preview)" class="nav-second-outlet" translate translate>Artist-create.preview</a>
                         </li>
 
                         <li *ngIf="ArtistId !== 0">
                             <button (click)="clickSaveButton()" class="butt-style-1" style="width: 127px">
-                                <span style="padding: 10px 21px">
+                                <span style="padding: 10px 21px" translate>
                                 SAVE
                                 </span>
                             </button>

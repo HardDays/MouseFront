@@ -12,6 +12,7 @@ import { TicketsComponent } from './tickets.component';
 import { MyTicketComponent } from './my-ticket/my-ticket.component';
 import { SearchTicketsMapComponent } from './map/map.component';
 import { SearchTicketsComponent } from './search/search.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -27,7 +28,8 @@ import { SearchTicketsComponent } from './search/search.component';
             language: 'en'
         }),
         PreloaderModule,
-        InfiniteScrollModule
+        InfiniteScrollModule,
+        TranslateModule
     ],
     declarations: [ 
         TicketsComponent,

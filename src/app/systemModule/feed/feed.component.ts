@@ -42,6 +42,8 @@ import { CheckModel } from '../../core/models/check.model';
 import { EventSearchParams } from '../../core/models/eventSearchParams';
 import { TicketTypeModel } from '../../core/models/ticketType.model';
 import { MainService } from '../../core/services/main.service';
+import { TranslateService } from '../../../../node_modules/@ngx-translate/core';
+import { SettingsService } from '../../core/services/settings.service';
 
 declare var $:any;
 
@@ -62,9 +64,11 @@ export class FeedComponent extends BaseComponent implements OnInit, AfterViewChe
     protected mapsAPILoader  : MapsAPILoader,
     protected ngZone         : NgZone,
     protected activatedRoute : ActivatedRoute,
-    protected cdRef          : ChangeDetectorRef
+    protected cdRef          : ChangeDetectorRef,
+    protected translate      :TranslateService,
+    protected settings       :SettingsService
   ) {
-    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
+    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,settings);
   }
 
   Feed:any[] = [];

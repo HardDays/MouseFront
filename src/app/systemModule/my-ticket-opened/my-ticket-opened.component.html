@@ -20,10 +20,10 @@
                       </div>
                       <div class="sides">
                           <div class="head-sides-2">
-                                <h2>Tickets</h2>
+                                <h2 translate>Tickets.Tickets</h2>
                                 <p>
-                                    <strong>
-                                        Total price: 
+                                    <strong translate>
+                                        show-folder.Total price: 
                                         <span>
                                           {{MyCurrency}} {{TotalAproxPrice}} 
                                           <ng-container *ngIf="OriginalCurrency != MyCurrency">
@@ -38,9 +38,9 @@
                           <div id="scrolled-wrapp" class="scrolled-wrapp">
                               <div class="one-wr-tick" *ngFor="let item of TicketsByEvent.tickets; let i = index">
                                   <div class="one-tick">
-                                      <p class="f" *ngIf="item.ticket.type == 'in_person'">In person ticket</p>
-                                      <p class="f" *ngIf="item.ticket.type == 'vr'">Vr ticket</p>
-                                      <p class="s">(Regular)</p>
+                                      <p class="f" *ngIf="item.ticket.type == 'in_person'" translate>Tickets.In person ticket</p>
+                                      <p class="f" *ngIf="item.ticket.type == 'vr'" translate>Tickets.Vr ticket</p>
+                                      <p class="s" translate>Tickets.(Regular)</p>
                                       <p class="c" [ngClass]="
                                       {
                                           'with-original-price': MyCurrency != OriginalCurrency
@@ -48,7 +48,7 @@
                                       ">{{MyCurrency}}{{item.price}}</p>
                                       <p *ngIf="MyCurrency != OriginalCurrency" class="c c-original">({{OriginalCurrency}} {{item.original_price}})</p>
                                       <p class="t">{{item.ticket.description?item.ticket.description:''}}</p>
-                                      <p class="last" *ngIf="item.tickets_left">({{item.tickets_left}} tickets left)</p>
+                                      <p class="last" *ngIf="item.tickets_left">({{item.tickets_left}} <span translate>Tickets.tickets left</span>)</p>
                                       <p class="last" *ngIf="!item.tickets_left">(Sold out)</p>
                                   </div>
                               </div>
@@ -57,7 +57,7 @@
                           <div *ngIf="!isPrint && TicketsByEvent?.tickets?.length>0" class="butt-wrapp-grad">
                             
                               <span *ngIf="!isPrint" (click)="printTicket()" class="butt-style-1">
-                                  <span>Print tickets</span>
+                                  <span translate>Tickets.Print tickets</span>
                               </span>
                               
                           </div>
@@ -75,36 +75,36 @@
         <div class="left-side">
             <img src="../../assets/img/print-logo.png" class="img-responsive" alt="">
             <img src='../../assets/img/print-logo-2.png' class="img-responsive" alt="">
-            <span>E-ticket</span>
+            <span translate>Tickets.E-ticket</span>
         </div>
         <div class="circle" *ngIf="TicketsByEvent?.tickets[0]?.ticket?.min_age">{{TicketsByEvent.tickets[0].ticket.min_age}}+</div>
     </div>
     <div class="content-print" >
-        <p class="f1">Concert</p>
+        <p class="f1" translate>Tickets.Concert</p>
         <p class="name-concert">{{TicketsByEvent.event.name}}</p>
         <p class="when">{{TicketsByEvent.event.date_from && TicketsByEvent.event.date_to?(TicketsByEvent.event.date_from|date:'fullDate':'shortTime')+" - "+(TicketsByEvent.event.date_to|date:'fullDate':'shortTime'):TicketsByEvent.event.event_season+' '+TicketsByEvent.event.event_year}}</p>
         <p class="where">
             {{TicketsByEvent.event.address}}, {{TicketsByEvent.event?.city?TicketsByEvent.event.city:''}}, {{TicketsByEvent.event?.state?TicketsByEvent.event.state:''}}
         </p>
         <div class="tickets-for-ng" *ngFor="let item of TicketsByEvent.tickets; let i = index">
-            <p class="name-ticket" *ngIf="item.ticket.type == 'in_person'">{{i + 1}}. In person ticket </p>
-            <p class="name-ticket" *ngIf="item.ticket.type == 'vr'">{{i + 1}}. Vr ticket</p>
+            <p class="name-ticket" *ngIf="item.ticket.type == 'in_person'">{{i + 1}}. <span translate>Tickets.In person ticket</span> </p>
+            <p class="name-ticket" *ngIf="item.ticket.type == 'vr'">{{i + 1}}. <span translate>Tickets.Vr ticket</span></p>
             
             <div class="flex-info-ticket">
                 <div class="col-info">
-                    <p class="name-col">Verification code</p>
+                    <p class="name-col" translate>Tickets.Verification code</p>
                     <p class="value">{{item.code}}</p>
                 </div>
                 <div class="col-info">
-                    <p class="name-col">Customer</p>
+                    <p class="name-col" translate>Tickets.Customer</p>
                     <p class="value">{{accountForPrint.first_name}} {{accountForPrint.last_name}}</p>
                 </div>
                 <div class="col-info">
-                    <p class="name-col">order date</p>
+                    <p class="name-col" translate>Tickets.order date</p>
                     <p class="value">{{item.created_at | date:'shortDate'}}</p>
                 </div>
                 <div class="col-info">
-                    <p class="name-col">Price</p>
+                    <p class="name-col" translate>Price</p>
                     <p class="value">{{MyCurrency}}{{item.price}} {{MyCurrency != OriginalCurrency? '('+OriginalCurrency + item.original_price+')':''}}</p>
                     <p *ngIf="MyCurrency != OriginalCurrency" class="c c-original"></p>
                 </div>
@@ -119,8 +119,8 @@
     </div>
     
     <div class="foot-print">
-        <p class="support">If you have any questions, please contact Mouse support  80 29 596 58 47</p>
-        <p class="seller">seller</p>
+        <p class="support" translate>Tickets.If you have any questions, please contact Mouse support  80 29 596 58 47</p>
+        <p class="seller" translate>Tickets.seller</p>
         <div class="flex-logo-foot">
                 <img src="../../assets/img/print-logo.png" class="img-responsive" alt="">
                 <img src='../../assets/img/print-logo-2.png' class="img-responsive" alt="">

@@ -20,6 +20,8 @@ import { BaseImages } from '../../core/base/base.enum';
 import { TicketsByEventModel } from '../../core/models/ticketsByEvent.model';
 import { MainService } from '../../core/services/main.service';
 import { Currency, CurrencyIcons } from '../../core/models/preferences.model';
+import { TranslateService } from '../../../../node_modules/@ngx-translate/core';
+import { SettingsService } from '../../core/services/settings.service';
 
 @Component({
   selector: 'app-my-ticket-opened',
@@ -48,9 +50,11 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit,Aft
     protected mapsAPILoader  : MapsAPILoader,
     protected ngZone         : NgZone,
     protected activatedRoute : ActivatedRoute,
-    protected cdRef          : ChangeDetectorRef
+    protected cdRef          : ChangeDetectorRef,
+    protected translate      :TranslateService,
+    protected settings       :SettingsService
   ) {
-    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
+    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,settings);
 
     this.MyCurrency = CurrencyIcons[this.main.settings.GetCurrency()];
   }

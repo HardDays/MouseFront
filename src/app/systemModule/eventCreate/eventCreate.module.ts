@@ -22,6 +22,7 @@ import {MatFormFieldModule} from '@angular/material';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { TimePipeModule } from '../../core/pipes/time.pipe/time.pipe.module';
 import { VenueCreateModule } from '../venueCreate/venueCreate.module';
+import { TranslateModule } from '@ngx-translate/core';
 @NgModule({
     imports: [ 
         RouterModule,
@@ -40,7 +41,8 @@ import { VenueCreateModule } from '../venueCreate/venueCreate.module';
         PreloaderModule,
         BsDatepickerModule.forRoot(),
         TimePipeModule,
-        VenueCreateModule
+        VenueCreateModule,
+        TranslateModule
     ],
     declarations: [ 
         EventCreateComponent,

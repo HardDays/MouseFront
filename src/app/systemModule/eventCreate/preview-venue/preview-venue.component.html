@@ -6,7 +6,7 @@
                       <div class="side side-info-new-venue-prev side-info side-about">
                           <h1>{{Venue.display_name}}</h1>
                           <p class="hash"><span>@</span>{{Venue.user_name}}</p>
-                          <h6>About</h6>
+                          <h6 translate>Venue.About</h6>
                           <p class="about-text line-height-hig">
                               {{Venue.description}}
                           </p>
@@ -21,27 +21,27 @@
               <div class="main-mw">
                   <div id="listingPage" class="flex--info">
                       <div class="side side-info side-about">
-                          <h6>Listing Details</h6>
+                          <h6 translate>event.venue.Listing Details</h6>
                           <p class="about-text line-height-hig">
                               {{toBeatyType(Venue.type_of_space)}}<br>
-                              <span>{{Venue.capacity}}</span> Person Capacity<br>
-                              <span>{{Venue.num_of_bathrooms}}</span> Bathroom(s)<br>
-                              <span *ngIf="Venue.has_bar">Bar Available<br></span>
-                              Located: <span>{{Venue.located}}</span><br>
-                              Age Policy: <span>{{Venue.min_age}} and Over</span><br>
-                              Dress Code: <span>{{Venue.dress_code}}</span>
+                              <span>{{Venue.capacity}}</span> <span translate>event.venue.Person Capacity</span><br>
+                              <span>{{Venue.num_of_bathrooms}}</span> <span translate>event.venue.Bathroom(s)</span><br>
+                              <span *ngIf="Venue.has_bar" translate>event.venue.Bar Available<br></span>
+                              <span translate>event.venue.Located:</span><span>{{Venue.located}}</span><br>
+                              <span translate>event.venue.Age Policy: </span><span>{{Venue.min_age}} and Over</span><br>
+                              <span translate>event.venue.Dress Code: </span><span>{{Venue.dress_code}}</span>
                           </p>
                       </div>
                       <div class="side side-info side-contact un-padd-on-1560">
-                          <h6>Contact info</h6>
+                          <h6 translate>event.venue.Contact info</h6>
                           <div class="flex-contact-venue">
                               <div class="column-cont">
                                   <div *ngIf="Venue.phone" class="one-cont">
-                                      <p class="head-cont">PHONE:</p>
+                                      <p class="head-cont" translate>event.venue.PHONE:</p>
                                       <span>{{Venue.phone}}</span>
                                   </div>
                                    <div *ngIf="Venue.fax" class="one-cont">
-                                      <p class="head-cont">FAX:</p>
+                                      <p class="head-cont" translate>event.venue.FAX:</p>
                                       <span>{{Venue.fax}}</span>
                                   </div>
                                   
@@ -50,7 +50,7 @@
                                   
                                   <div class="hours-time-wr">
                                       <div class="hours-hover">
-                                          <span class="o-f-h">Office Hours</span>
+                                          <span class="o-f-h" translate>Venue.hours-folder.Office Hours</span>
                                           <ul class="hours-drop-show">
                                               <li *ngFor="let date of OffHours">
                                                   <span class="left">{{date&&date.day?date.day:''}}</span>
@@ -73,7 +73,7 @@
                                   
                                   <div class="hours-time-wr">
                                       <div class="hours-hover">
-                                          <span class="o-f-h">Operating Hours</span>
+                                          <span class="o-f-h" translate>Venue.hours-folder.Operating Hours</span>
                                           <ul class="hours-drop-show">
                                               <li *ngFor="let date of OpHours">
                                                   <span class="left">{{date&&date.day?date.day:''}}</span>
@@ -88,7 +88,7 @@
                           </div>
                       </div>
                       <div class="side side-info side-map">
-                          <h6>Location</h6>
+                          <h6 translate>Location</h6>
                           <p class="about-text">{{Venue.address}}</p>
                           <div class="map" id="map">
                               <agm-map style="height: 100%;" [longitude]="Venue.lng" [latitude]="Venue.lat"> 
@@ -101,7 +101,7 @@
               <div class="main-mw">
                   <div class="flex--info block-1300-display disable-flex-wrapp-on-md">
                       <div class="side side-calendars-l side-info side-about">
-                          <p class="head-cont">Available Dates</p>
+                          <p class="head-cont" translate>event.venue.Available Dates</p>
                       </div>
                       <div class="side side-calendars-m side-info side-about padd-right-1199-pre">
                             <app-big-calendar #calendar 
@@ -124,11 +124,11 @@
               <div class="main-mw">
                   <div id="mediaPage" class="flex--info none-padd-sides-b">
                       <div class="side side-info-new-venue-prev side-info side-about">
-                          <h6>Media</h6>
-                          <p class="vr-availeble">
-                              VR Video Equipment
-                              <span *ngIf="!Venue.has_vr">not</span>
-                              <span>available</span>
+                          <h6 translate>Venue.Media</h6>
+                          <p class="vr-availeble" translate>
+                            Venue.Media-folder.VR Video Equipment
+                              <span *ngIf="!Venue.has_vr" translate>not</span>
+                              <span translate>available</span>
                           </p>
                       </div>
                       <div class="side side-info-new-venue-prev side-info side-about"></div>
@@ -137,20 +137,20 @@
               <div class="main-mw">
                   <div class="flex--info none-padd-sides-t">
                       <div class="side side-info side-about">
-                          <h6>Audio Description</h6>
+                          <h6 translate>Venue.Media-folder.Audio Description</h6>
                           <p class="about-text">
                              {{Venue.audio_description}}
                           </p>
                       </div>
                       <div class="side side-info side-contact">
-                         <h6>Lightning Description</h6>
+                         <h6 translate>event.venue.Lightning Description</h6>
                           <p class="about-text">
                               {{Venue.lighting_description}}
                           </p>
                           
                       </div>
                       <div class="side side-info side-map">
-                          <h6>Stage Description</h6>
+                          <h6 translate>event.venue.Stage Description</h6>
                           <p class="about-text">
                               {{Venue.stage_description}}
                           </p>
@@ -160,7 +160,7 @@
               <div class="main-mw">
                   <div class="flex--info none-padd-sides-t none-padd-sides-b w-100">
                       <div class="side side-info side-about">
-                          <h6 class="for-position-left-js">Recommended Photos</h6>
+                          <h6 class="for-position-left-js" translate>event.venue.Recommended Photos</h6>
                       </div>
                   </div>
               </div>    

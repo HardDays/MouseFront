@@ -9,6 +9,8 @@ import { CheckModel } from '../../../core/models/check.model';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Conditional } from '@angular/compiler';
 import { CurrencyIcons } from '../../../core/models/preferences.model';
+import { TranslateService } from '../../../../../node_modules/@ngx-translate/core';
+import { SettingsService } from '../../../core/services/settings.service';
 
 declare var $:any;
 
@@ -49,6 +51,8 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
   ESCAPE_KEYCODE = 27;
   ENTER_KEYCODE = 13;
 
+  isEng: boolean;
+
   @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
       if(this.isShowMap){
           if (event.keyCode === this.ESCAPE_KEYCODE || event.keyCode === this.ENTER_KEYCODE) {
@@ -65,15 +69,17 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
     protected mapsAPILoader  : MapsAPILoader,
     protected ngZone         : NgZone,
     protected activatedRoute : ActivatedRoute,
-    protected cdRef          : ChangeDetectorRef
+    protected cdRef          : ChangeDetectorRef,
+    protected translate      :TranslateService,
+    protected settings       :SettingsService
   ) {
-    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
+    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,settings);
   }
 
   ngOnInit() {
     this.CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
 
-  
+    this.isEng = this.isEnglish();
     this.CreateAutocomplete();
     // this.initDateMin();
     //this.initDateMin();
@@ -89,7 +95,9 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
   }
 
   Init(){
-    this.preferredVenues = this.getVenuesTypes();
+    
+      this.preferredVenues = this.getVenuesTypes();
+    
     for(let v of this.preferredVenues){
       for(let venue of this.Artist.preferred_venues){
         if(v.object.type === venue['type_of_venue'])

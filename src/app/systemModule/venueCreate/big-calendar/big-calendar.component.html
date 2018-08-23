@@ -106,42 +106,42 @@
             <div class="popup-set-price-wr">
                 <form class="popup-set-price" (ngSubmit)="SaveCheckedDate()" #SaveForm="ngForm">
                     <div class="flex-mac-checkbox">
-                        <p>Availability</p>
+                        <p translate>Venue.Dates-folder.Date Availability</p>
                         <div class="yes-no">
-                            <span>No</span>
+                            <span translate>No</span>
                             <div class="mac-checkbox">
                                 <input class="checkbox" name="form-vals-availability" [ngModel]="FormVals.is_available" (ngModelChange)="FormVals.is_available = $event" checked="" type="checkbox" id="opt-calendar-1">
                                 <label for="opt-calendar-1"></label>
                             </div>
-                            <span>Yes</span>
+                            <span translate>Yes</span>
                         </div>
                     </div>
                     <div class="flex-mac-checkbox">
-                        <p>Date Range</p>
+                        <p translate>Venue.big-calendar-folder.Date Range</p>
                         <div class="yes-no">
-                            <span>No</span>
+                            <span translate>No</span>
                             <div class="mac-checkbox">
                                 <input class="checkbox" name="form-vals-date-range" [ngModel]="FormVals.date_range" (ngModelChange)="FormVals.date_range = $event" checked="" type="checkbox" id="opt-calendar-2">
                                 <label for="opt-calendar-2"></label>
                             </div>
-                            <span>Yes</span>
+                            <span translate>Yes</span>
                         </div>
                     </div>
                     <date-input [Label]="FormVals.date_range?'From':'Date'" [DateInput]="FormVals.from" (OnDateChange)="FormVals.from = $event"></date-input>
                     
                     <date-input *ngIf="FormVals.date_range" [Label]="'To'" [DateInput]="FormVals.to" (OnDateChange)="FormVals.to = $event"></date-input>
                     <div class="flex-price-inp" *ngIf="FormVals.is_available">
-                        <p class="d-inp inp-desc">Day</p>
+                        <p class="d-inp inp-desc" translate>Day</p>
                         <input autocomplete="off" type="text" name="form-vals-day-price" [textMask]="MaskPrice()" [ngModel]="FormVals.price_for_daytime" (ngModelChange)="FormVals.price_for_daytime = $event">
                         <span>{{CurrencyIcon}}/hr</span>
                     </div>
                     <div class="flex-price-inp" *ngIf="FormVals.is_available">
-                        <p class="n-inp inp-desc">Night</p>
+                        <p class="n-inp inp-desc" translate>Night</p>
                         <input autocomplete="off" type="text" name="form-vals-night-price" [textMask]="MaskPrice()" [ngModel]="FormVals.price_for_nighttime" (ngModelChange)="FormVals.price_for_nighttime = $event">
                         <span>{{CurrencyIcon}}/hr</span>
                     </div>
                     <div class="buttons-pop">
-                        <span class="resend-reg" (click)="CloseModalPrice($event)">Cancel</span>
+                        <span class="resend-reg" (click)="CloseModalPrice($event)" translate>Cancel</span>
                         <div class="continue-wr">
                             <button class="butt-style-1" type="submit"><span>OK</span></button>
                         </div>

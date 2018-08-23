@@ -25,7 +25,8 @@
                         <ng-container *ngIf="MyProfileId&&MyProfileId != Account.id && AccStatus != Status.Denied && AccStatus != Status.Inactive">
                             <form class="follow-wr" (ngSubmit)="FollowProfile(!isFolowedAcc)">
                                 <button  class="butt-style-1" type="submit">
-                                    <span>{{isFolowedAcc?'Unfollow':'Follow'}}</span>
+                                    <span *ngIf="isFolowedAcc">{{ 'Unfollow' | translate }}</span>
+                                    <span *ngIf="!isFolowedAcc">{{ 'Follow' | translate }}</span>
                                 </button>
                             </form>
                         </ng-container>
@@ -38,16 +39,16 @@
                         <div class="for-flex-inf">
                             <div class="circle">
                                 <span>{{TotalTicket}}</span>
-                                <p>Tickets</p>
+                                <p translate>show-folder.Tickets</p>
                             </div>
                             <div class="circle">
                                 
                                 <span>{{Fans.length}}</span>
-                                <p>Followers</p>
+                                <p translate>Followers</p>
                             </div>
                             <div class="circle">
                                 <span>{{Account.following_count}}</span>
-                                <p>Following</p>
+                                <p translate>Following</p>
                             </div>
                         </div>
 
@@ -57,7 +58,7 @@
                     <div class="uniq-padd">
                         <div class="main-mw">
                             <div class="genres-info">
-                                <h3>Genres</h3>
+                                <h3 translate>Artist-create.Genres</h3>
                                 <div class="flex-genres">
                                     <ng-container *ngFor="let item of Account.genres;let i = index">
                                         <span class="one-genre">{{item.replace('_'," ")}}</span>
@@ -71,8 +72,8 @@
                             <div class="flex--info">
                                 <div [ngStyle]="{'display':isPreloadEvents?'none':'block'}" class="side scroller">
                                     <div class="for-scroll-padd">
-                                        <h6>Events ({{EventsMassChecked.length}})</h6>
-                                        <input type="text" class="search-profile-inp-style"  placeholder="Search" (input)='searchEvents($event)'>
+                                        <h6>{{'Events' | translate}} ({{EventsMassChecked.length}})</h6>
+                                        <input type="text" class="search-profile-inp-style"  placeholder="{{'Search' | translate}}" (input)='searchEvents($event)'>
                                     </div>
                                     <div class="new-scroll-wr">
                                         <div class="blocks">
@@ -98,8 +99,8 @@
                                 </div>
                                 <div [ngStyle]="{'display':isPreloadTickets?'none':'block'}" class="side scroller">
                                     <div class="for-scroll-padd">
-                                        <h6>Tickets ({{TotalTicket}})</h6>
-                                        <input type="text" class="search-profile-inp-style" placeholder="Search" (input)='searchTickets($event)'>
+                                        <h6><span translate>show-folder.Tickets</span> ({{TotalTicket}})</h6>
+                                        <input type="text" class="search-profile-inp-style" placeholder="{{ 'Search' | translate }}" (input)='searchTickets($event)'>
                                     </div>
                                     <div class="new-scroll-wr">
                                         <div class="blocks">
@@ -125,8 +126,8 @@
                                 </div>
                                 <div [ngStyle]="{'display':isPreloadFans?'none':'block'}"  class="side scroller uniq-padd-style-funs">
                                     <div class="uniq-padd-3">
-                                        <h6>Fans ({{FansChecked.length}})</h6>
-                                        <input type="text" class="search-profile-inp-style" placeholder="Search" (input)='searchFans($event)'>
+                                        <h6>{{'Fans' | translate}} ({{FansChecked.length}})</h6>
+                                        <input type="text" class="search-profile-inp-style" placeholder="{{'Search' | translate}}" (input)='searchFans($event)'>
                                     </div>
                                     <div class="new-scroll-wr">
                                         <div class="blocks-funs">

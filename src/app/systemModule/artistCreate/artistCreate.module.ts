@@ -20,6 +20,7 @@ import { ArtistCalendarComponent } from './artist-calendar/artist-calendar.compo
 import { RiderComponent } from './artist-riders/rider/rider.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material';
+import { TranslateModule } from '../../../../node_modules/@ngx-translate/core';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import {MatFormFieldModule} from '@angular/material';
           }),
         ErrorModule,
         PreloaderModule,
-        ProfileModule    
+        ProfileModule,
+        TranslateModule    
     ],
     declarations: [
         ArtistAboutComponent,

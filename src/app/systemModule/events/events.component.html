@@ -30,14 +30,14 @@
                         </button>
                         <a (click)="isShowMap = !isShowMap" class="ham-ham at-map" [ngClass]="{'deactive':isShowMap}">
                         </a>
-                        <h1>Events</h1>
-                        <span *ngIf="isLoggedIn && Acc.status != Status.Denied && Acc.status != Status.Inactive" (click)="addEvent()" class="add-event-butt"><span>Add Event</span></span>
+                        <h1 translate>Events</h1>
+                        <span *ngIf="isLoggedIn && Acc.status != Status.Denied && Acc.status != Status.Inactive" (click)="addEvent()" class="add-event-butt"><span translate>event.Add Event</span></span>
                     </div>
                 </div>
                 <div class="main-mw-6">
                         <div *ngIf="!Events.length" class="empty-info">
                             <img src="./../../../assets/img/smile.svg" class="img-responsive" alt="">
-                            <p>You have no events yet</p>
+                            <p translate>event.You have no events yet</p>
                             
                         </div>
                     <div class="for-flex-all-events" infinite-scroll [infiniteScrollDistance]="2"

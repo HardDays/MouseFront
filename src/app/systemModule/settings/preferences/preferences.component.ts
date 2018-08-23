@@ -2,6 +2,7 @@ import { Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitte
 import { SettingsService } from '../../../core/services/settings.service';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { PreferencesModel } from '../../../core/models/preferences.model';
+import { TranslateService } from '../../../../../node_modules/@ngx-translate/core';
 
 @Component({
   selector: 'app-preferences',
@@ -24,12 +25,16 @@ export class PreferencesComponent implements OnInit, OnChanges {
 
 
 
-  constructor(protected settings: SettingsService)
+  constructor(
+    protected settings: SettingsService, 
+    protected translate:  TranslateService,
+    )
   {
+    
     settings.SettingsChange.subscribe(
       (Val) => {
         this.GetSettings();
-
+        this.translate.setDefaultLang(this.settings.GetLang());
       }
     );
   }

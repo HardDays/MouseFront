@@ -7,6 +7,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MapsAPILoader } from '@agm/core';
 import * as FileSaver from 'file-saver';
 import { RiderComponent } from './rider/rider.component';
+import { TranslateService } from '../../../../../node_modules/@ngx-translate/core';
+import { SettingsService } from '../../../core/services/settings.service';
 
 @Component({
   selector: 'app-artist-riders',
@@ -33,6 +35,8 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
   backstageRider:Rider= new Rider();
   hospitalityRider:Rider= new Rider();
   technicalRider:Rider= new Rider();
+
+  isEng: boolean;
   
   constructor(
     protected main           : MainService,
@@ -41,13 +45,16 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
     protected mapsAPILoader  : MapsAPILoader,
     protected ngZone         : NgZone,
     protected activatedRoute : ActivatedRoute,
-    protected cdRef          : ChangeDetectorRef
+    protected cdRef          : ChangeDetectorRef,
+    protected translate      :TranslateService,
+    protected settings       :SettingsService
   ) {
-    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
+    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,settings);
   }
 
   ngOnInit() {
     //this.getRiders();
+    this.isEng = this.isEnglish();
   }
   ngAfterViewChecked()
   {
@@ -57,14 +64,15 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges): void {
       if(changes.Artist)
           {
-            this.Artist = changes.Artist.currentValue;
+            this.Artist = changes.Artist.currentValue;    
             this.getRiders();
           }
   }
 
   Init(artist:AccountCreateModel){
     this.Artist = artist;
-    this.getRiders();
+
+      this.getRiders()
   }
 
 

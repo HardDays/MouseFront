@@ -23,10 +23,12 @@ export class RiderComponent extends BaseComponent implements OnInit {
     'Backstage'  : 'Type or Upload your requirements for the Backstage (Dressing Room/Makeup Room/Bathroom)',
     'Hospitality'  : 'Type or Upload your preference for Hospitality (Food and Drinks)',
     'Technical'  : 'Type or Upload your requirements for Musical Instruments and Equipment'
-  }
+  };
+  
+  isEng: boolean;
 
   ngOnInit() {
-  
+    this.isEng = this.isEnglish();
   }
   // ngOnChanges(changes: SimpleChanges): void {
   //   if(changes.Rider){

@@ -3,14 +3,14 @@
       <div class="main-mw main_for_setts">
           <div class="flex-massages-wrapp settings_wrap">
               <div class="left-s settings_left">
-                  <h2 class="zag">Settings</h2>
+                  <h2 class="zag" translate>setting.settings</h2>
                   <ul class="settings_menu">
-                      <li [ngClass]="{'active': CurrentPart==Parts.PersonalInfo}"><a (click)="CurrentPart=Parts.PersonalInfo">Personal info</a></li>
-                      <li [ngClass]="{'active': CurrentPart==Parts.Preferences}"><a (click)="CurrentPart=Parts.Preferences">Preferences</a></li>
+                      <li [ngClass]="{'active': CurrentPart==Parts.PersonalInfo}"><a (click)="CurrentPart=Parts.PersonalInfo" translate>setting.personalinfo</a></li>
+                      <li [ngClass]="{'active': CurrentPart==Parts.Preferences}"><a (click)="CurrentPart=Parts.Preferences" translate>setting.preferences</a></li>
                       <!-- <li [ngClass]="{'active': CurrentPart==Parts.FinancialInfo}"><a (click)="CurrentPart=Parts.FinancialInfo">Financial info</a></li> -->
-                      <li [ngClass]="{'active': CurrentPart==Parts.Feedback}"><a (click)="CurrentPart=Parts.Feedback">Feedback</a></li>
+                      <li [ngClass]="{'active': CurrentPart==Parts.Feedback}"><a (click)="CurrentPart=Parts.Feedback" translate>setting.feedback</a></li>
                       <li [ngClass]="{'active': CurrentPart==Parts.CustomerSupport}">
-                          <span (click)="CustomerSupportClick()" class="opening">Customer support</span>
+                          <span (click)="CustomerSupportClick()" class="opening" translate>setting.сustomerSupport</span>
                           <ul *ngIf="IsShowCustomerSupport&&CurrentPart==Parts.CustomerSupport" class="submenu" style="display:block">
                               <!-- <li><a (click)="customerPage = CustomerParts.sendQuestion">How to Create an Event</a></li>
                               <li><a (click)="customerPage = CustomerParts.sendQuestion">How to Create a Crowdfunding Event</a></li>
@@ -18,11 +18,11 @@
                               <li><a (click)="customerPage = CustomerParts.sendQuestion">How to Upload my Videos (Artist)</a></li>
                               <li><a (click)="customerPage = CustomerParts.sendQuestion">How to Find My Favourite Artist</a></li>
                               <li><a (click)="customerPage = CustomerParts.sendQuestion">More Questions</a></li> -->
-                              <li  [ngClass]="{'active': customerPage==CustomerParts.sendQuestion}"><a (click)="customerPage = CustomerParts.sendQuestion">Send a Question</a></li>
+                              <li  [ngClass]="{'active': customerPage==CustomerParts.sendQuestion}"><a (click)="customerPage = CustomerParts.sendQuestion" translate>setting.SendaQuestion</a></li>
                           </ul>
                       </li>
-                      <li [ngClass]="{'active': CurrentPart==Parts.TermsOfService}"><a (click)="CurrentPart=Parts.TermsOfService">Terms of service</a></li>
-                      <li [ngClass]="{'active': CurrentPart==Parts.PrivacyPolicy}"><a (click)="CurrentPart=Parts.PrivacyPolicy">Privacy policy</a></li>
+                      <li [ngClass]="{'active': CurrentPart==Parts.TermsOfService}"><a (click)="CurrentPart=Parts.TermsOfService" translate>setting.Termsofservice</a></li>
+                      <li [ngClass]="{'active': CurrentPart==Parts.PrivacyPolicy}"><a (click)="CurrentPart=Parts.PrivacyPolicy" translate>setting.PrivacyPolicy</a></li>
                   </ul>
                   <!-- <div class="container">
                     <div class="inner" style="text-align: center;">v.1.1.3</div>

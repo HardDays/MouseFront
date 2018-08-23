@@ -44,6 +44,8 @@ import { BsDatepickerConfig } from 'ngx-bootstrap';
 import { MainService } from '../../core/services/main.service';
 import { SearchEventsComponent } from '../../shared/search/search_window/search.component';
 import { SearchEventsMapComponent } from '../../shared/search/map/map.component';
+import { TranslateService } from '../../../../node_modules/@ngx-translate/core';
+import { SettingsService } from '../../core/services/settings.service';
 
 declare var $:any;
 
@@ -73,9 +75,11 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
         protected mapsAPILoader  : MapsAPILoader,
         protected ngZone         : NgZone,
         protected activatedRoute : ActivatedRoute,
-        protected cdRef          : ChangeDetectorRef
+        protected cdRef          : ChangeDetectorRef,
+        protected translate      :TranslateService,
+        protected settings       :SettingsService
     ) {
-        super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
+        super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,settings);
     }
 
     ngOnInit()

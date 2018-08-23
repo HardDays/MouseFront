@@ -8,6 +8,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MapsAPILoader } from '@agm/core';
 import { AccountType, BaseMessages } from '../../../core/base/base.enum';
+import { TranslateService } from '../../../../../node_modules/@ngx-translate/core';
+import { SettingsService } from '../../../core/services/settings.service';
 
 declare var $:any;
 
@@ -54,9 +56,11 @@ export class ArtistAboutComponent extends BaseComponent implements OnInit {
     protected mapsAPILoader  : MapsAPILoader,
     protected ngZone         : NgZone,
     protected activatedRoute : ActivatedRoute,
-    protected cdRef          : ChangeDetectorRef
+    protected cdRef          : ChangeDetectorRef,
+    protected translate      :TranslateService,
+    protected settings       :SettingsService
   ) {
-    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
+    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,settings);
   }
 
   // ##########################################//

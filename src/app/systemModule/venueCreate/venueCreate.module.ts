@@ -20,6 +20,7 @@ import {MatFormFieldModule} from '@angular/material';
 import { InputModule } from '../../shared/input/input.module';
 import { NoticeInputComponent } from './dates/notice/notice';
 import { BigCalendarComponent } from './big-calendar/big-calendar.component';
+import { TranslateModule } from '../../../../node_modules/@ngx-translate/core';
 
 @NgModule({
     imports: [ 
@@ -33,7 +34,8 @@ import { BigCalendarComponent } from './big-calendar/big-calendar.component';
         ProfileModule,
         MatSelectModule,
         MatFormFieldModule,
-        InputModule
+        InputModule,
+        TranslateModule
     ],
     declarations: [ 
         VenueCreateComponent,

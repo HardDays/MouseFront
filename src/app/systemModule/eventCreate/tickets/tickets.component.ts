@@ -34,6 +34,7 @@ export class AddTicketsComponent extends BaseComponent implements OnInit {
     ticketsNew:TicketModel[] = [];
     currentTicket:TicketModel = new TicketModel();
     isCurTicketNew:boolean = false;
+    isEng: boolean;
 
     analitics:any;
 
@@ -51,7 +52,7 @@ export class AddTicketsComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     // this.CreateAutocompleteArtist();
     this.CurrencySymbol = CurrencyIcons[this.Event.currency];
-
+    this.isEng = this.isEnglish();
     this.getTickets();
     // console.log(`INIT`);
 

@@ -21,15 +21,15 @@
                 </div>
             </div>
             <button type="submit" class="butt-style-2" [disabled]=" !(CurrentAccount && CurrentAccount.account_type == 'fan') || Count == 0" 
-                style="border: none;" [ngClass]="{'cursor-disabled':!(CurrentAccount && CurrentAccount.account_type == 'fan') || Count == 0}">
+                style="border: none;" [ngClass]="{'cursor-disabled':!(CurrentAccount && CurrentAccount.account_type == 'fan') || Count == 0}" translate>
                     ADD
             </button>
         </div>
         <div class="abs-description-ticket-wr">
-            <p class="f">{{Ticket.type == 'in_person'?'In person':'VR'}} ticket</p>
-            <p class="s">({{Ticket.is_promotional?'Promotional':'Regular'}})</p>
+            <p class="f" translate>{{Ticket.type == 'in_person'?'In person':'VR'}} ticket</p>
+            <p class="s" translate>({{Ticket.is_promotional?'Promotional':'Regular'}})</p>
             <p class="t" *ngIf="Ticket.is_promotional && Ticket.promotional_description">{{Ticket.promotional_description}}</p>
-            <p class="last">({{Ticket.count}} tickets left)</p>
+            <p class="last">({{Ticket.count}} <span translate>show-folder.tickets left</span>)</p>
         </div>
     </form>
 </div>

@@ -45,6 +45,14 @@ import { AdminService } from './core/services/admin.service';
 import { SettingsService } from './core/services/settings.service';
 import { InviteService } from './core/services/invite.service';
 
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+
 
 
 
@@ -89,7 +97,15 @@ let providers = {
       language: 'en'
     }),
     PreloaderModule,
-    ErrorModule
+    ErrorModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+      }
+  })
   ],
   providers: [
     AppAccessGuard, 

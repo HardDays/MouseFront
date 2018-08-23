@@ -18,6 +18,8 @@ import { TicketsSearchParams } from '../../core/models/ticketsSearchParams.model
 import { TicketsGetModel } from '../../core/models/ticketsGetModel';
 import { MainService } from '../../core/services/main.service';
 import * as moment from 'moment';
+import { TranslateService } from '../../../../node_modules/@ngx-translate/core';
+import { SettingsService } from '../../core/services/settings.service';
 declare var $:any;
 
 @Component({
@@ -76,9 +78,11 @@ export class TicketsComponent extends BaseComponent implements OnInit,AfterViewC
         protected mapsAPILoader  : MapsAPILoader,
         protected ngZone         : NgZone,
         protected activatedRoute : ActivatedRoute,
-        protected cdRef          : ChangeDetectorRef
+        protected cdRef          : ChangeDetectorRef,
+        protected translate      :TranslateService,
+        protected settings       :SettingsService
     ) {
-    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute);
+    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,settings);
     }
 
     ngOnInit()

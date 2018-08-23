@@ -17,7 +17,7 @@
                     <div class="flex-menu-items">
                         
                         <form class="search-inp" (ngSubmit)="ShowSearchResult()" #SearchForm="ngForm">
-                            <input type="text" class="inp-style-1" placeholder="Search" name="serch-text" [ngModel]="SearchParams" (ngModelChange)="SearchParams = $event">
+                            <input type="text" class="inp-style-1" placeholder="{{'Search' | translate}}" name="serch-text" [ngModel]="SearchParams" (ngModelChange)="SearchParams = $event">
                             <button type="submit"></button>
                         </form>
                        
@@ -30,13 +30,13 @@
                                 <!--сласс active-->
                                 <a [routerLink]="['/system','shows']" class="icon-3" (click)="curNav = 'shows'" [class.active]="curNav=='shows'" class="icon-3">
                                     <div class="img-menu"></div>
-                                    <span>Shows</span>
+                                    <span translate>Shows</span>
                                 </a>
                             </li>
                             <li *ngIf="isLoggedIn">
                                 <a [routerLink]="['/system','tickets']" class="icon-5" (click)="curNav = 'tickets'" [class.active]="curNav=='tickets'" class="icon-5">
                                     <div class="img-menu"></div>
-                                    <span>Tickets</span>
+                                    <span translate>Tickets.Tickets</span>
                                 </a>
                             </li>
                             <li>
@@ -65,13 +65,13 @@
                                         </g>
                                         </svg>
                                     </div>
-                                    <span>Events</span>
+                                    <span translate>fan-create.Events</span>
                                 </a>
                             </li>
                             <li>
                                 <a [routerLink]="['/system','feed']"  (click)="curNav = 'feed'" class="icon-4" [class.active]="curNav=='feed'" class="icon-4">
                                     <div class="img-menu"></div>
-                                    <span>Feed</span>
+                                    <span translate>Feed</span>
                                 </a>
                             </li>
                            
@@ -91,13 +91,13 @@
                                                 </svg>
                                             </ng-container>
                                         </div>
-                                        <span >Profile</span>
+                                        <span translate>Profile</span>
                                     </div>
                                 </a>
                                 <div  class="dropdown-settings-ava">
                                     <div class="dropdown-items-wr">
                                         <a *ngFor="let item of MyAccounts" [class.active]="item.id==CurrentAccount.id" [class.Fan]="item.account_type == 'fan'" [class.Artist]="item.account_type == 'artist'" [class.Venue]="item.account_type == 'venue'" class="account-link" (click)="setProfile(item)">
-                                            <span class="account-type">{{item.account_type}} account</span>
+                                            <span class="account-type" translate>{{item.account_type}} account</span>
                                             <span class="account-name">@{{item.user_name}}</span>
                                         </a>
                                     </div>
@@ -116,8 +116,8 @@
                             <!--не авторизован-->
                              
                             <div *ngIf="!isLoggedIn" class="flex-auth">
-                                <a [routerLink]="['/register']">Sign Up</a>
-                                <a [routerLink]="['/login']">Sign In</a>
+                                <a [routerLink]="['/register']" translate>Sign Up</a>
+                                <a [routerLink]="['/login']" translate>Sign In</a>
                             </div>
                             
                             
@@ -132,10 +132,10 @@
                                 <div *ngIf="MyAccounts.length>0" class="dropdown-items-wr">
                                     <a [routerLink]="['/system/profile',CurrentAccount.id]" (click)="curNav = 'profile'"><span class="dog">@</span>{{CurrentAccount.user_name}}</a>
                                     <!-- <a><span class="dog">@</span>{{MyUser.user_name}}</a> -->
-                                    <a (click)="curNav = 'messages'" [routerLink]="['/system','messages']">Messages</a>
-                                    <span (click)="curNav = 'profile'" [routerLink]="['/system','fanCreate','new']">Create Fan</span>
-                                    <span (click)="curNav = 'profile'" [routerLink]="['/system','artistCreate','new']">Create Artist</span>
-                                    <a (click)="curNav = 'profile'" [routerLink]="['/system','venueCreate','new']">Create Venue</a>
+                                    <a (click)="curNav = 'messages'" [routerLink]="['/system','messages']" translate>Messages</a>
+                                    <span (click)="curNav = 'profile'" [routerLink]="['/system','fanCreate','new']" translate>Create Fan</span>
+                                    <span (click)="curNav = 'profile'" [routerLink]="['/system','artistCreate','new']" translate>Create Artist</span>
+                                    <a (click)="curNav = 'profile'" [routerLink]="['/system','venueCreate','new']" translate>Create Venue</a>
                                 </div>
                                 
                                 <div class="dropdown-items-wr">
@@ -144,9 +144,9 @@
                                         <!-- <a *ngIf="CurrentAccount.account_type == 'venue'" [routerLink]="['/system/venueCreate',CurrentAccount.id]">Settings</a>
                                         <a *ngIf="CurrentAccount.account_type == 'artist'" [routerLink]="['/system/artistCreate',CurrentAccount.id]">Settings</a>
                                         <a *ngIf="CurrentAccount.account_type == 'fan'" [routerLink]="['/system/fanCreate',CurrentAccount.id]">Settings</a> -->
-                                        <a [routerLink]="['/system/settings']">Settings</a>
+                                        <a [routerLink]="['/system/settings']" translate>Settings</a>
                                     </ng-container>
-                                    <span (click)="logout()">Log Out</span>
+                                    <span (click)="logout()" translate>Log Out</span>
                                 </div>
                             </div>
                             <!--выпадашка-->

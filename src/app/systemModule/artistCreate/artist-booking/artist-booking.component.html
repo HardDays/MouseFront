@@ -2,8 +2,8 @@
     <div class="main-mw">
         <div class="create-event-body">
             <div class="head-ev-body">
-                <h2>Booking</h2>
-                <p>Please fill in all required fields<br>to proceed to the Next Step</p>
+                <h2 translate>Artist-create.booking</h2>
+                <p translate>Please fill in all required fields<br translate>to proceed to the Next Step</p>
             </div>
         </div>
         
@@ -11,7 +11,7 @@
     <div class="main-mw-5 unique-padd-mw">
             <div class="flex-funding-columns">
                 <div class="side flex-mac-checkbox-column">
-                    <h6>Performance</h6>
+                    <h6 translate>Artist-create.booking-art.Perfomance</h6>
                     <div class="flex-input-groupes">
                         <div class="input-groupe-1">
                             <!-- <select [(ngModel)]="Artist.performance_min_time" id="inp-perf-req-1">
@@ -24,7 +24,7 @@
                                     <mat-option [value]="2">2</mat-option>
                                 </mat-select>
                             </mat-form-field>
-                            <label for="inp-perf-req-1">Min Time (hr)</label>
+                            <label for="inp-perf-req-1" translate>Artist-create.booking-art.Min Time (hr)</label>
                         </div>
                         <div class="input-groupe-1">
                             <!-- <select [(ngModel)]="Artist.performance_max_time" id="inp-perf-req-2">
@@ -37,135 +37,135 @@
                                     <mat-option [value]="4">4</mat-option>
                                 </mat-select>
                             </mat-form-field>
-                            <label for="inp-perf-req-2">Max Time (hr)</label>
+                            <label for="inp-perf-req-2" translate>Artist-create.booking-art.Max Time (hr)</label>
                         </div>
                     </div>
-                    <p class="price-t-t">Price<span>*</span></p>
+                    <p class="price-t-t" translate>Price<span>*</span></p>
                     <div class="flex-input-groupes">
                         <div class="input-groupe-1 from-to-style">
-                            <span class="f-t">From<span>*</span></span>
+                            <span class="f-t" translate>Venue.hours-folder.From<span>*</span></span>
                             <input maxlength="10" [textMask]="MaskPrice()" placeholder="{{CurrencySymbol}}" [(ngModel)]="Artist.price_from" type="text">
-                            <span class="t-f">/hr</span>
+                            <span class="t-f" translate>Artist-create.booking-art./hr</span>
                         </div>
                         <div class="input-groupe-1 from-to-style">
-                            <span class="f-t">To<span>*</span></span>
+                            <span class="f-t" translate>Venue.hours-folder.To<span>*</span></span>
                             <input maxlength="10" [textMask]="MaskPrice()" placeholder="{{CurrencySymbol}}" [(ngModel)]="Artist.price_to" type="text">
-                            <span class="t-f">/hr</span>                           
+                            <span class="t-f" translate>Artist-create.booking-art./hr</span>                           
                         </div>
                     </div>
                     <div class="flex-input-groupes">
                         <div class="input-groupe-1 from-to-style">
-                        <p class="hours-label">Price for additional Hours:</p>
+                        <p class="hours-label" translate>Artist-create.booking-art.Price for additional Hours:</p>
                         </div>
                         <div class="input-groupe-1 from-to-style hours-label-groupe">
                             <input maxlength="10" [textMask]="MaskPrice()" placeholder="{{CurrencySymbol}}" [(ngModel)]="Artist.additional_hours_price" type="text">
-                            <span class="t-f">/hr</span>                           
+                            <span class="t-f" translate>Artist-create.booking-art./hr</span>                           
                         </div>
                     </div>
                     <div class="flex-mac-checkbox">
-                        <p>Hide Pricing from Profile?</p>
+                        <p translate>Artist-create.booking-art.Hide Pricing from Profile?</p>
                         <div class="yes-no">
-                            <span>No</span>
+                            <span translate>No</span>
                             <div class="mac-checkbox">
                                 <input  [(ngModel)]="Artist.is_hide_pricing_from_profile" class="checkbox" checked="" type="checkbox" id="checkbox-set-option-1">
                                 <label for="checkbox-set-option-1"></label>
                             </div>
-                            <span>Yes</span>
+                            <span translate>Yes</span>
                         </div>
                     </div>
                     <div class="flex-mac-checkbox">
-                        <p>Hide Pricing from Search?</p>
+                        <p translate>Artist-create.booking-art.Hide Pricing from Search?</p>
                         <div class="yes-no">
-                            <span>No</span>
+                            <span translate>No</span>
                             <div class="mac-checkbox">
                                 <input [(ngModel)]="Artist.is_hide_pricing_from_search" class="checkbox" checked="" type="checkbox" id="checkbox-set-option-2">
                                 <label for="checkbox-set-option-2"></label>
                             </div>
-                            <span>Yes</span>
+                            <span translate>Yes</span>
                         </div>
                     </div>
                 </div>
                 <div class="side flex-mac-checkbox-column">
-                    <h6>Band</h6>
+                    <h6 translate>Artist-create.booking-art.Band</h6>
                     <div class="flex-mac-checkbox on-add-artist-page">
-                        <p class="quetion-radio-text">Do you perform with a Band?</p>
+                        <p class="quetion-radio-text" translate>Artist-create.booking-art.Do you perform with a Band?</p>
                         <div class="flex-radio">
                             <div class="one-radio">
                                 <div class="radio-style">
                                     <input [(ngModel)]="Artist.is_perform_with_band" type="radio" class="radio-b" id="radio-1" name="group1" [value]="true" checked="">
                                     <label for="radio-1"></label>
                                 </div>
-                                <p>Yes</p>
+                                <p translate>Yes</p>
                             </div>
                             <div class="one-radio">
                                 <div class="radio-style">
                                     <input [(ngModel)]="Artist.is_perform_with_band" type="radio" class="radio-b" id="radio-2" name="group1" [value]="false">
                                     <label for="radio-2"></label>
                                 </div>
-                                <p>No</p>
+                                <p translate>No</p>
                             </div>
                         </div>
                     </div>
                     <div class="flex-mac-checkbox on-add-artist-page">
-                        <p class="quetion-radio-text">Can you perform without a Band?</p>
+                        <p class="quetion-radio-text" translate>Artist-create.booking-art.Can you perform without a Band?</p>
                         <div class="flex-radio">
                             <div class="one-radio">
                                 <div class="radio-style">
                                     <input [(ngModel)]="Artist.can_perform_without_band" type="radio" class="radio-b" id="radio-3" name="group2" [value]="true" checked="">
                                     <label for="radio-3"></label>
                                 </div>
-                                <p>Yes</p>
+                                <p translate>Yes</p>
                             </div>
                             <div class="one-radio">
                                 <div class="radio-style">
                                     <input [(ngModel)]="Artist.can_perform_without_band" type="radio" class="radio-b" id="radio-4" name="group2" [value]="false">
                                     <label for="radio-4"></label>
                                 </div>
-                                <p>No</p>
+                                <p translate>No</p>
                             </div>
                         </div>
                     </div>
                     <div class="flex-mac-checkbox on-add-artist-page">
-                        <p class="quetion-radio-text">Do you perform with Backing Vocals?</p>
+                        <p class="quetion-radio-text" translate>Artist-create.booking-art.Do you perform with Backing Vocals?</p>
                         <div class="flex-radio">
                             <div class="one-radio">
                                 <div class="radio-style">
                                     <input [(ngModel)]="Artist.is_perform_with_backing_vocals" type="radio" class="radio-b" id="radio-5" name="group3" [value]="true" checked="">
                                     <label for="radio-5"></label>
                                 </div>
-                                <p>Yes</p>
+                                <p translate>Yes</p>
                             </div>
                             <div class="one-radio">
                                 <div class="radio-style">
                                     <input [(ngModel)]="Artist.is_perform_with_backing_vocals" type="radio" class="radio-b" id="radio-6" name="group3" [value]="false">
                                     <label for="radio-6"></label>
                                 </div>
-                                <p>No</p>
+                                <p translate>No</p>
                             </div>
                         </div>
                     </div>
                     <div class="flex-mac-checkbox on-add-artist-page">
-                        <p class="quetion-radio-text">Can you perform without Backing Vocals?</p>
+                        <p class="quetion-radio-text" translate>Artist-create.booking-art.Can you perform without Backing Vocals?</p>
                         <div class="flex-radio">
                             <div class="one-radio">
                                 <div class="radio-style">
                                     <input [(ngModel)]="Artist.can_perform_without_backing_vocals" type="radio" class="radio-b" id="radio-7" name="group4" [value]="true" checked="">
                                     <label for="radio-7"></label>
                                 </div>
-                                <p>Yes</p>
+                                <p translate>Yes</p>
                             </div>
                             <div class="one-radio">
                                 <div class="radio-style">
                                     <input [(ngModel)]="Artist.can_perform_without_backing_vocals" type="radio" class="radio-b" id="radio-8" name="group4" [value]="false">
                                     <label for="radio-8"></label>
                                 </div>
-                                <p>No</p>
+                                <p translate>No</p>
                             </div>
                         </div>
                     </div> 
                 </div>
                 <div class="side">
-                    <h6>Preferred Venue</h6>
+                    <h6 translate>Artist-create.booking-art.Preferred Venue</h6>
                     <div  class="flex-genres style-on-add-artist-g">
                         <!-- <ng-container  > -->
                         <div *ngFor="let type of preferredVenues; let i = index" class="one-checkbox">
@@ -173,25 +173,25 @@
                                 <input [checked]="preferredVenues[i].checked" type="checkbox" (click)="setPreferedVenue(i)" class="checkbox" name="" id="checkbox-{{i}}">
                                 <label for="checkbox-{{i}}"></label>
                             </div>
-                            <p>{{type.object.type_show}}</p>
+                            <p translate>{{type.object.type_show}}</p>
                         </div>
                     </div>
                     <div class="input-groupe-1 whithout-label small-textarea max-500 max-100">  
                         <textarea maxlength="100" (input)="preferredVenueTextInput($event.target.value)" [(ngModel)]="Artist.preferred_venue_text"></textarea>
-                        <span class="max-count">100 max</span>
+                        <span class="max-count" translate>listing.100 max</span>
                     </div>
                 </div>
             </div>
             <div class="flex-funding-columns order-sm">
                 <div class="side">
-                    <h6>Preferred Location</h6>
+                    <h6 translate>Artist-create.booking-art.Preferred Location</h6>
                     <div   class="location-wr">
                         <div class="mark" (click)="openMapModal()"></div>
                         <input [(ngModel)]="Artist.preferred_address" #search type="text" id="address" class="location-inp" placeholder="Enter your location">
                     </div>
                     <div class="flex-input-groupes">
                         <div class="input-groupe-1 p-style-10">
-                        <p class="hours-label">How many days notice do you need to travel?</p>
+                        <p class="hours-label" translate>Artist-create.booking-art.How many days notice do you need to travel?</p>
                         </div>
                         <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
                             <!-- <select [(ngModel)]="Artist.days_to_travel">
@@ -209,80 +209,81 @@
                     
                 </div>
                 <div class="side flex-mac-checkbox-column">
-                    <h6>Video Streaming Preference</h6>
+                    <h6 translate>Artist-create.booking-art.Video Streaming Preference</h6>
                     <div class="flex-mac-checkbox on-add-artist-page">
-                        <p class="quetion-radio-text">Do you give permission to the Venue/Event Organizer to stream your performance? </p>
+                        <p class="quetion-radio-text" translate>Artist-create.booking-art.Do you give permission to the Venue/Event Organizer to stream your performance? </p>
                         <div class="flex-radio">
                             <div class="one-radio">
                                 <div class="radio-style">
                                     <input [(ngModel)]="Artist.is_permitted_to_stream" type="radio" class="radio-b" id="radio-9" name="group5" [value]="true" checked="">
                                     <label for="radio-9"></label>
                                 </div>
-                                <p>Yes</p>
+                                <p translate>Yes</p>
                             </div>
                             <div class="one-radio">
                                 <div class="radio-style">
                                     <input [(ngModel)]="Artist.is_permitted_to_stream" type="radio" class="radio-b" id="radio-10" name="group5" [value]="false">
                                     <label for="radio-10"></label>
                                 </div>
-                                <p>No</p>
+                                <p translate>No</p>
                             </div>
                         </div>
                     </div> 
                     <div class="flex-mac-checkbox on-add-artist-page">
-                        <p class="quetion-radio-text">Do you give permission to the Venue/Event Organizer to have advertisements over your streaming performance?</p>
+                        <p class="quetion-radio-text" translate>Artist-create.booking-art.Do you give permission to the Venue/Event Organizer to have advertisements over your streaming performance?</p>
                         <div class="flex-radio">
                             <div class="one-radio">
                                 <div class="radio-style">
                                     <input [(ngModel)]="Artist.is_permitted_to_advertisement" type="radio" class="radio-b" id="radio-11" name="group6" [value]="true" checked="">
                                     <label for="radio-11"></label>
                                 </div>
-                                <p>Yes</p>
+                                <p translate>Yes</p>
                             </div>
                             <div class="one-radio">
                                 <div class="radio-style">
                                     <input [(ngModel)]="Artist.is_permitted_to_advertisement" type="radio" class="radio-b" id="radio-12" name="group6" [value]="false">
                                     <label for="radio-12"></label>
                                 </div>
-                                <p>No</p>
+                                <p translate>No</p>
                             </div>
                         </div>
                     </div> 
                     <div class="flex-mac-checkbox on-add-artist-page">
-                        <p class="quetion-radio-text">Do you have contracts with any Brands that may conflict with advertisements?</p>
+                        <p class="quetion-radio-text" translate>Artist-create.booking-art.Do you have contracts with any Brands that may conflict with advertisements?</p>
                         <div class="flex-radio">
                             <div class="one-radio">
                                 <div class="radio-style">
                                     <input [(ngModel)]="Artist.has_conflict_contracts" type="radio" class="radio-b" id="radio-13" name="group7" [value]="true" checked="">
                                     <label for="radio-13"></label>
                                 </div>
-                                <p>Yes</p>
+                                <p translate>Yes</p>
                             </div>
                             <div class="one-radio">
                                 <div class="radio-style">
                                     <input [(ngModel)]="Artist.has_conflict_contracts" type="radio" class="radio-b" id="radio-14" name="group7" [value]="false">
                                     <label for="radio-14"></label>
                                 </div>
-                                <p>No</p>
+                                <p translate>No</p>
                             </div>
                         </div>
                     </div> 
                     <div class="input-groupe-1">
-                        <input [(ngModel)]="Artist.conflict_companies_names" id="if-yes-1" name="" type="text" placeholder="Company name">
-                        <label for="if-yes-1">If yes, with what companies?</label>
+                        <input [(ngModel)]="Artist.conflict_companies_names" id="if-yes-1" name="" type="text" placeholder="{{'Company name' | translate}}">
+                        <label for="if-yes-1" translate>Artist-create.booking-art.If yes, with what companies?</label>
 
                     </div>
+
                 </div>
                 <div class="side">
-                    <h6>Other</h6>
+                    <h6 translate>Venue.Media-folder.Other</h6>
                     <div class="flex-input-groupes full-width">
                         <div class="input-groupe-1 full-width">
-                        <p class="hours-label">Minimum Time needed to book before a Concert?</p>
+                        <p class="hours-label" translate>Artist-create.booking-art.Minimum Time needed to book before a Concert?</p>
                         </div>
                         <div class="input-groupe-1 from-to-style hours-label-groupe auto-width" style="margin-bottom: 15px;">
                             <input type="text" [(ngModel)]="Artist.min_time_to_book" style="height: 35px;" [textMask]="MaskDays()">                                                       
                         </div>
-                        <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
+                        <div class="input-groupe-1 from-to-style hours-label-groupe auto-width" >
                             <!-- <select [(ngModel)]="type_min_time_to_book">
                                 <option>days</option>
                                 <option>weeks</option>
@@ -290,23 +291,24 @@
                             </select>                                                          -->
                             <mat-form-field >
                                 <mat-select [(ngModel)]="type_min_time_to_book">
-                                    <mat-option value="days">Days</mat-option>
-                                    <mat-option value="weeks">Weeks</mat-option>
-                                    <mat-option value="months">Months</mat-option>
+                                    <mat-option value="days">{{'Days' | translate}}</mat-option>
+                                    <mat-option value="weeks">{{'Weeks' | translate}}</mat-option>
+                                    <mat-option value="months">{{'Months' | translate}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
+
                     </div>
                     <div class="flex-input-groupes full-width">
                         <div class="input-groupe-1 ">
-                        <p class="hours-label">How much time is needed to cancel before you charge a cancellation fee?</p>
+                        <p class="hours-label" translate>Artist-create.booking-art.How much time is needed to cancel before you charge a cancellation fee?</p>
                         </div>
                         
                         <div class="input-groupe-1 from-to-style hours-label-groupe auto-width" style="margin-bottom: 15px;">
                             <input type="text" [(ngModel)]="Artist.min_time_to_free_cancel"  style="height: 35px;" [textMask]="MaskDays()">                                                       
                         </div>
 
-                        <div class="input-groupe-1 from-to-style hours-label-groupe auto-width">
+                        <div class="input-groupe-1 from-to-style hours-label-groupe auto-width" >
                             
                             <!-- <select [(ngModel)]="type_min_time_to_free_cancel">
                                 <option>days</option>
@@ -315,16 +317,17 @@
                             </select>                                                          -->
                             <mat-form-field >
                                 <mat-select [(ngModel)]="type_min_time_to_free_cancel">
-                                    <mat-option value="days">Days</mat-option>
-                                    <mat-option value="weeks">Weeks</mat-option>
-                                    <mat-option value="months">Months</mat-option>
+                                    <mat-option value="days">{{'Days' | translate}}</mat-option>
+                                    <mat-option value="weeks">{{'Weeks' | translate}}</mat-option>
+                                    <mat-option value="months">{{'Months' | translate}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
+                        
                         </div>
                     </div>
                     <div class="flex-input-groupes full-width">
                         <div class="input-groupe-1 ">
-                        <p class="hours-label">Fee for last minute сancellation</p>
+                        <p class="hours-label" translate>Artist-create.booking-art.Fee for last minute сancellation</p>
                         </div>
                         <div class="input-groupe-1 doll from-to-style hours-label-groupe auto-width">
                             <span class="doll fix-31">{{CurrencySymbol}}</span>          
@@ -333,8 +336,8 @@
                     </div>
                     <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">
                         <textarea maxlength="100" [(ngModel)]="Artist.refund_policy" id="inp-create-9"></textarea>
-                        <label for="inp-create-9" class="head-groupe">Refund Policy</label>
-                        <span class="max-count">100 max</span>
+                        <label for="inp-create-9" class="head-groupe" translate>Artist-create.booking-art.Refund Policy</label>
+                        <span class="max-count" translate>listing.100 max</span>
                     </div>
                 </div>
             </div>
@@ -347,7 +350,7 @@
 <div class="modal fade modal-send-request map-1-modal" id="modal-map">
     <div class="modal-dialog">
         <div class="modal-body">
-            <h6 class="head-m-p-a">Location</h6>
+            <h6 class="head-m-p-a" translate>Location</h6>
             <span class="closee-modal" data-dismiss="modal"></span>
             <div class="for-map-init-modal-1">
                     <agm-map #agmMap style="height:100%" [latitude]="mapCoords.lat" [longitude]="mapCoords.lng">
