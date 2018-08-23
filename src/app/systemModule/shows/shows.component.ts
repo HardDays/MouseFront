@@ -91,24 +91,8 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
         this.openSearch();
         this.setHeightSearch();
        
-        // this.getPosition();
-        if(window.navigator.geolocation && !(window.navigator.geolocation === undefined)){
-            console.log(`window.navigator.geolocation`);
-            window.navigator.geolocation.getCurrentPosition((position) => {
-                this.MyCoords.lat = position.coords.latitude;
-                this.MyCoords.lng = position.coords.longitude - 2;
-
-                console.log(`position.coords`,position.coords,this.MyCoords);
-                if(this.MyCoords.lat === 0 && this.MyCoords.lng === 0)
-                    this.getPosition();
-
-            },(err)=>{
-                console.log(`error`);
-                this.getPosition();
-            },{
-                timeout: 10000
-            });
-        } else if(navigator.geolocation && !(navigator.geolocation === undefined)){
+         //this.getPosition();
+        if(navigator.geolocation && !(navigator.geolocation === undefined)){
             console.log(`navigator.geolocation`);
             navigator.geolocation.getCurrentPosition((position) => {
                 this.MyCoords.lat = position.coords.latitude;
@@ -130,12 +114,20 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
     } 
 
     getPosition(){
-        console.log(`api.ipstack`);
-        $.getJSON('http://api.ipstack.com/check?access_key=428075a8fe82f2d6de7696b9bfec35b8', (data)=>{
-            console.log(data);
-            this.MyCoords.lat = data.latitude;
-            this.MyCoords.lng = data.longitude - 2;
-        });
+        //console.log(`api.ipstack`);
+        // $.getJSON('http://api.ipstack.com/check?access_key=428075a8fe82f2d6de7696b9bfec35b8', (data)=>{
+        //     console.log(data);
+        //     this.MyCoords.lat = data.latitude;
+        //     this.MyCoords.lng = data.longitude - 2;
+        // });
+        console.log(`service`);
+        this.main.accService.GetLocation()
+            .subscribe((data)=>{
+                console.log(`data`,data);
+                this.MyCoords.lat = data.location[0];
+                this.MyCoords.lng = data.location[1] - 2;
+            })
+
     }
 
     openMap(){
