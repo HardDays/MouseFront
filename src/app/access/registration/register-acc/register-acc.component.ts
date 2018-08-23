@@ -208,8 +208,7 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
           this.Account.genres.push(g.genre);
         }
       }
-      console.log(this.genres);
-      console.log(this.Account.genres);
+
       this.Account.account_type = this.typeUser;
       this.Account.user_name = this.accForm.value['user_name'];
       this.Account.display_name = this.accForm.value['first_name']+" "+this.accForm.value['last_name'];
