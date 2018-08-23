@@ -3,7 +3,7 @@
             <div class="create-event-body">
                 <div class="head-ev-body">
                     <h2 translate>event.artist</h2>
-                    <p translate>Please fill in all required fields in the Artist Screen<br translate>to Add a Venue(You can add only <span>{{Event.artists_number}}</span> artists)</p>
+                    <p translate>Please fill in all required fields in the Artist Screen<br translate>to Add a Venue(You can add only <span *ngIf="isEng">{{Event.artists_number}}</span> artists)</p>
                 </div>
                 
             </div>
@@ -53,9 +53,9 @@
                         <div class="one-card">
                             <div class="add-artist-block artist-modal-open">
                                 <div (click)="addNewArtistOpenModal()" class="plus"></div>
-                                <span (click)="addNewArtistOpenModal()" class="add">Add New Artist</span>
-                                <span class="or">or</span>
-                                <span (click)="openInvite()" class="invite">Artist Invite</span>
+                                <span (click)="addNewArtistOpenModal()" class="add" translate>Add New Artist</span>
+                                <span class="or" translate>or</span>
+                                <span (click)="openInvite()" class="invite" translate>Artist Invite</span>
                             </div>
                         </div>
                         
@@ -314,7 +314,7 @@
 <div class="modal fade modal-send-request new-modal-inv" id="modal-send-unauth">
         <div class="modal-dialog">
             <div class="modal-body">
-                <h6 class="head-m-p-a">Invite Artist</h6>
+                <h6 class="head-m-p-a" translate>Invite Artist</h6>
                 <div class="close-modal" data-dismiss="modal"></div>
                 <div class="content-modal">
                     <div class="padd-left-right">

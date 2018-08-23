@@ -12,7 +12,7 @@
         <p *ngIf="status=='time_expired'" class="status" translate>event.one-card.Time expired</p>
         <p *ngIf="status=='owner_declined'" class="status" translate>event.one-card.Declined by Event owner</p>
         <p *ngIf="status=='accepted'" class="status" translate> event.one-card.Accepted by {{card.account_type|titlecase}}</p>
-        <p *ngIf="status=='owner_accepted'" class="status" translate>event.one-card.Accepted by <span>{{card.account_type|titlecase}}</span> and Event owner</p>
+        <p *ngIf="status=='owner_accepted'" class="status" translate>event.one-card.Accepted by <span>{{card.account_type | titlecase | lowercase | translate}}</span> and Event owner</p>
         <p *ngIf="status=='active'" class="status" translate>event.artist-fold.Active</p>
         <p *ngIf="status=='ready'" class="status" translate>event.one-card.Ready</p>
         <p *ngIf="status=='not found artist'" class="status" translate>event.one-card.No status</p>

@@ -2,10 +2,10 @@
       <form class="choose-to-follow">
           <div class="bg-gradient-1"></div>
           <div class="follow-m-w">
-              <h3>Choose whom to follow</h3>
+              <h3 translate>Choose whom to follow</h3>
               <div class="search-wr"> 
                     <!-- (change)="artistSearch($event.target.value)" (keyup)="pressEnter($event)" (input)="textChange($event)" -->
-                  <input type="text" [(ngModel)]="text" (input)="textChange($event)" (keyup)="pressEnter($event)" [ngModelOptions]="{standalone: true}" class="inp-style-1" placeholder="Search">
+                  <input type="text" [(ngModel)]="text" (input)="textChange($event)" (keyup)="pressEnter($event)" [ngModelOptions]="{standalone: true}" class="inp-style-1" placeholder="{{'Search' | translate}}">
               </div>
 
               <app-preloader [white]="true" *ngIf="isLoading"></app-preloader>
@@ -29,6 +29,6 @@
               </div>
           </div>
           <div class="butt-to-continue">
-              <button class="butt-style-1" (click)="followArtists()" type="button"><span>Сomplete</span></button>  
+              <button class="butt-style-1" (click)="followArtists()" type="button"><span translate>Сomplete</span></button>  
           </div>
       </form>
