@@ -14,7 +14,7 @@
                     </div>
                     <div class="oficial-page">
                         <span id="d_lines_view" *ngIf="Account.display_name" class="of-p">@{{Account.user_name}}</span>
-                        <div class="ok-image" *ngIf="Account.is_verified">
+                        <div class="ok-image" *ngIf="Account.status == 'approved'">
                             <img class="img-responsive" src="../../assets/img/ok.png" alt="">
                         </div>
                     </div>

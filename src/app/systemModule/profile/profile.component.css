@@ -2,16 +2,23 @@
     word-wrap: break-word;
     word-break: break-all;
 }
-
+.oficial-new-page{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
 
 
 .venue-main-info .name-venue h2{
     text-align: center;
+
 }
 .main_content .for-flex-height{
     background: #fff;
 }
-
+.ok-image{
+    margin-right: 15px;
+}
 
 button[disabled], html input[disabled]{
     cursor: not-allowed;
@@ -32,3 +39,15 @@ button[disabled], html input[disabled]{
     display: none;
 }
 
+@media (max-width: 767px){
+
+    #d_lines_view.margened-xs-auto {
+        margin:0;
+    }
+    .oficial-new-page{
+        justify-content: center;
+    }
+    .oficial-new-page .ok-image{
+        margin-left: 15px;
+    }
+}

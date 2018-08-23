@@ -2,6 +2,14 @@ html, body{
   min-height: 100vh;
   height: auto;
 }
+.cdk-overlay-container{
+  z-index: 5000;
+}
+.flex-input-groupes .input-groupe-1.more-padd.relative-3{
+  position: relative;
+  top: -3px;
+  padding-top: 37px;
+}
 @media print {
   header{
     display: none!important;
