@@ -90,10 +90,12 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
       }
     );
   }
+
   openMap(){
     $('#modal-map-reg').modal(`show`);
     this.isShowMap = true;
   }
+  
   CreateAutocomplete()
   {
     this.mapsAPILoader.load().then

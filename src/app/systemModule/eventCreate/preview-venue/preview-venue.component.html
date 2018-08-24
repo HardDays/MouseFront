@@ -25,11 +25,11 @@
                           <p class="about-text line-height-hig">
                               {{toBeatyType(Venue.type_of_space) | translate}}<br>
                               <span>{{Venue.capacity}}</span> <span translate>event.venue.Person Capacity</span><br>
-                              <span>{{Venue.num_of_bathrooms}}</span> <span translate>event.venue.Bathroom(s)</span><br>
-                              <span *ngIf="Venue.has_bar" translate>event.venue.Bar Available<br></span>
-                              <span translate>event.venue.Located:</span><span>{{Venue.located | translate}}</span><br>
-                              <span translate>event.venue.Age Policy: </span><span>{{Venue.min_age}} <span translate>and Over</span></span><br>
-                              <span translate>event.venue.Dress Code: </span><span>{{Venue.dress_code}}</span>
+                              <span *ngIf="Venue.venue_type != 'private_residence'">{{Venue.num_of_bathrooms}}</span> <span *ngIf="Venue.venue_type != 'private_residence'" translate>event.venue.Bathroom(s)</span><br>
+                              <span *ngIf="Venue.has_bar && Venue.venue_type != 'private_residence'" translate>event.venue.Bar Available<br></span>
+                              <span *ngIf="Venue.venue_type != 'private_residence'" translate>event.venue.Located:</span><span *ngIf="Venue.venue_type != 'private_residence'">{{Venue.located | translate}}</span><br>
+                              <span *ngIf="Venue.venue_type != 'private_residence'" translate>event.venue.Age Policy: </span><span *ngIf="Venue.venue_type != 'private_residence'">{{Venue.min_age}} <span translate>and Over</span></span><br>
+                              <span *ngIf="Venue.venue_type != 'private_residence'" translate>event.venue.Dress Code: </span><span *ngIf="Venue.venue_type != 'private_residence'">{{Venue.dress_code}}</span>
                           </p>
                       </div>
                       <div class="side side-info side-contact un-padd-on-1560">
@@ -38,7 +38,7 @@
                               <div class="column-cont">
                                   <div *ngIf="Venue.phone" class="one-cont">
                                       <p class="head-cont" translate>event.venue.PHONE:</p>
-                                      <span>{{Venue.phone}}</span>
+                                      <span>{{Venue.phone|phone2}}</span>
                                   </div>
                                    <div *ngIf="Venue.fax" class="one-cont">
                                       <p class="head-cont" translate>event.venue.FAX:</p>
@@ -48,7 +48,7 @@
                                   
                                   <!--ну и другая контактная инфа-->
                                   
-                                  <div class="hours-time-wr">
+                                  <div *ngIf="Venue.venue_type != 'private_residence'" class="hours-time-wr">
                                       <div class="hours-hover">
                                           <span class="o-f-h" translate>Venue.hours-folder.Office Hours</span>
                                           <ul class="hours-drop-show">
@@ -71,7 +71,7 @@
                                   <!--ну и другая контактная инфа-->
                                   
                                   
-                                  <div class="hours-time-wr">
+                                  <div *ngIf="Venue.venue_type != 'private_residence'" class="hours-time-wr">
                                       <div class="hours-hover">
                                           <span class="o-f-h" translate>Venue.hours-folder.Operating Hours</span>
                                           <ul class="hours-drop-show">
@@ -98,7 +98,7 @@
                       </div>
                   </div>
               </div>
-              <div class="main-mw">
+              <div *ngIf="Venue.venue_type != 'private_residence'" class="main-mw">
                   <div class="flex--info block-1300-display disable-flex-wrapp-on-md">
                       <div class="side side-calendars-l side-info side-about">
                           <p class="head-cont" translate>event.venue.Available Dates</p>
@@ -134,7 +134,7 @@
                       <div class="side side-info-new-venue-prev side-info side-about"></div>
                   </div>
               </div>
-              <div class="main-mw">
+              <div *ngIf="Venue.venue_type != 'private_residence'" class="main-mw">
                   <div class="flex--info none-padd-sides-t">
                       <div class="side side-info side-about">
                           <h6 translate>Venue.Media-folder.Audio Description</h6>

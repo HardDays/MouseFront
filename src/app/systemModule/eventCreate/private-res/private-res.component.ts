@@ -109,7 +109,8 @@ export class PrivateResComponent extends BaseComponent implements OnInit {
             this.privateVenueCreate.venue_type = 'private_residence';
 
            
-          
+            if(this.imagesListPrivateRes&&this.imagesListPrivateRes[0])
+                this.privateVenueCreate.image_base64 = this.imagesListPrivateRes[0];
 
             
                 this.main.accService.CreateAccount(this.privateVenueCreate)
@@ -119,6 +120,8 @@ export class PrivateResComponent extends BaseComponent implements OnInit {
             
                             this.addVenue.venue_id = acc.id;
                             this.addVenue.account_id = this.main.CurrentAccount.id;
+                            
+
 
                             this.privateVenueForm.reset();
 
@@ -126,15 +129,17 @@ export class PrivateResComponent extends BaseComponent implements OnInit {
                                 subscribe((res)=>{
                                     // console.log(`create`);
                                     this.OnCreate.emit();
-                                   
-                                });
+
+                            });
 
                             
+                            let listImages = this.imagesListPrivateRes;
+                            this.imagesListPrivateRes = [];
 
-                                for(let img of this.imagesListPrivateRes){
-                                    this.main.accService.PostAccountImages(acc.id,img)
-                                    .subscribe((res)=>{
-                                }); 
+                            for(let img of listImages){
+                                this.main.accService.PostAccountImages(acc.id,img)
+                                .subscribe((res)=>{
+                            }); 
                          }
                
                     },
