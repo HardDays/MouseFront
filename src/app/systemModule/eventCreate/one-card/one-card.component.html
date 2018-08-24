@@ -11,8 +11,8 @@
         <p *ngIf="status=='declined'" class="status" translate>event.one-card.Declined by Artist</p>
         <p *ngIf="status=='time_expired'" class="status" translate>event.one-card.Time expired</p>
         <p *ngIf="status=='owner_declined'" class="status" translate>event.one-card.Declined by Event owner</p>
-        <p *ngIf="status=='accepted'" class="status" translate> event.one-card.Accepted by {{card.account_type|titlecase|lowercase|translate}}</p>
-        <p *ngIf="status=='owner_accepted'" class="status" translate>event.one-card.Accepted by <span>{{card.account_type | titlecase | lowercase | translate}}</span> and Event owner</p>
+        <p *ngIf="status=='accepted'" class="status" translate>event.one-card.Accepted by<span> {{card.account_type|titlecase|lowercase|translate}}</span></p>
+        <p *ngIf="status=='owner_accepted'" class="status" translate>event.one-card.Accepted by<span> {{card.account_type | titlecase | lowercase | translate}}</span> and Event owner</p>
         <p *ngIf="status=='active'" class="status" translate>event.artist-fold.Active</p>
         <p *ngIf="status=='ready'" class="status" translate>event.one-card.Ready</p>
         <p *ngIf="status=='not found artist'" class="status" translate>event.one-card.No status</p>
@@ -22,14 +22,14 @@
         overflow: hidden;
         text-overflow: ellipsis; ">{{card.user_name}}</p>
         <p *ngIf="card.account_type == 'artist'" class="desc-head-info" translate>Genre</p>
-        <p *ngIf="card.account_type == 'artist'" class="info">{{ toBeatyShowsList(card.genres)}}</p>
+        <p *ngIf="card.account_type == 'artist'" class="info">{{ toBeatyShowsList(card.genres) | translate}}</p>
         <p class="desc-head-info" translate>Location</p>
         <p class="info">{{card.address}}</p>
-        <p *ngIf="price" class="info">{{(status!='pending'&&status!='ready')?'Price '+CurrencySymbol+price:''}}</p>
+        <p *ngIf="price" class="info" >{{(status!='pending'&&status!='ready')?' Price '+ CurrencySymbol+price:''}}</p>
         <p  *ngIf="status=='pending'" class="info" translate>event.one-card.Your account is not verified yet</p>
         <div *ngIf="status!='pending'&&status!='declined'&&status!='owner_declined'" class="flex-buttons">
             <!-- <span *ngIf="status!='ready'&&status!='accepted'&&status!='owner_accepted'&&status!='active'&&status!='not found artist'" class="button-card" (click)="Check()" >check</span> -->
-            <span *ngIf="status=='accepted'" class="button-card" (click)="Accept()" translate>event.one-card.Accepted by</span>
+            <span *ngIf="status=='accepted'" class="button-card" (click)="Accept()" translate>event.one-card.Accepted</span>
             <span *ngIf="card.venue_type!='private_residence'&&(status=='ready'||(card.account_type == 'venue' && status=='not found artist'))" class="button-card" (click)="sendRequest()" translate>event.one-card.Send request</span>
             <span *ngIf="card.venue_type=='private_residence'" class="button-card" translate>event.one-card.Verify request</span>
             <span  class="button-card" (click)="Decline()" translate>event.one-card.Decline</span>

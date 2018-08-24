@@ -39,7 +39,7 @@
                             <div class="flex--info">
                                 <div class="side side-info side-about">
                                     <h6 translate>Venue.About</h6>
-                                    <p id="#b_lines_view" class="about-text" *ngIf='Account.description'>{{Account.description}}</p>
+                                    <p id="#b_lines_view" class="about-text" *ngIf='Account.description'>{{Account.description | translate}}</p>
                                 </div>
                                 <div class="side side-info side-contact">
                                     <h6 translate>Contact Info</h6>
@@ -67,7 +67,7 @@
                                             <div class="one-cont" style="min-height:42px" *ngIf="Account.office_hours">
                                                 <p class="head-cont" translate>OFFICE HOURS:</p>
                                                 <ng-container *ngFor="let item of OffHours;let i = index">
-                                                    <span >{{item.begin_time | timepipe}} - {{item.end_time | timepipe}}, {{item.day}}</span>
+                                                    <span>{{item.begin_time | timepipe}} - {{item.end_time | timepipe}}, {{'item.day | translate'}}</span>
                                                 </ng-container>
                                             </div>
                                         </div>
@@ -75,7 +75,7 @@
                                             <div class="one-cont" style="min-height:42px" *ngIf="Account.office_hours">
                                                 <p class="head-cont" translate>OPERATING HOURS:</p>
                                                 <ng-container *ngFor="let item of OpHours;let i = index">
-                                                    <span>{{item.begin_time | timepipe}} - {{item.end_time | timepipe}}, {{item.day}}</span>
+                                                    <span>{{item.begin_time | timepipe}} - {{item.end_time | timepipe}}, {{'item.day | translate'}}</span>
                                                 </ng-container>
                                             </div>
                                         </div>

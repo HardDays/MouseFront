@@ -7,7 +7,9 @@
     align-items: center;
     flex-wrap: wrap;
 }
-
+.butt-style-1 span{
+    padding: 13px 5px;
+}
 
 .venue-main-info .name-venue h2{
     text-align: center;

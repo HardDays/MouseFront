@@ -54,13 +54,15 @@
                               </div>
                               
                           </div>
-                          <div *ngIf="!isPrint && TicketsByEvent?.tickets?.length>0" class="butt-wrapp-grad">
-                            
-                              <span *ngIf="!isPrint" (click)="printTicket()" class="butt-style-1">
-                                  <span translate>Tickets.Print tickets</span>
-                              </span>
-                              
-                          </div>
+                          <div class="new-flex-fix">
+                            <div *ngIf="!isPrint && TicketsByEvent?.tickets?.length>0" class="butt-wrapp-grad">
+                                
+                                <span *ngIf="!isPrint" (click)="printTicket()" class="butt-style-1">
+                                    <span translate>Tickets.Print tickets</span>
+                                </span>
+                                
+                            </div>
+                        </div>
                       </div>
                   </div>
                   
