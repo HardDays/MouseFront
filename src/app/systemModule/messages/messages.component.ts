@@ -134,7 +134,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
             }
           }
         }
-        if(this.messages.length>=0){
+        if(this.messages.length>0){
           // console.log(`1111`);
           // if(this.messages[0].message_type ==='blank'){
             // this.openMessage = null;

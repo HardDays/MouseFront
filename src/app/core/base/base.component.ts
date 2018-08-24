@@ -256,14 +256,17 @@ export class BaseComponent{
                                 this.main.authService.BaseInitAfterLogin(res);
                                 this.main.authService.onAuthChange$.next(true);
 
+
+                                this.isLoading = true;
                                 setTimeout(() => {
+                                    this.isLoading = false;
                                    if(this.main.MyAccounts.length>0){
                                     this.router.navigate(['/system','shows']);
                                    } else {
                                     //    console.log(`create new acc`);
                                        this.router.navigate(['/social']);
                                    }
-                                }, 1000);
+                                }, 3000);
                                 
                                
                             }
