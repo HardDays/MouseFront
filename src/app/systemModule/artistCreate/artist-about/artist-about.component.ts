@@ -131,12 +131,9 @@ HideGenresIfShowed(){
 
   GengeSearch($event:string){
     let search = $event;
-    // let filterPipe = TranslatePipe.prototype.transform(arguments);
-    // fiteredArr = filterPipe.transform(chkArray,txtSearch);
-    if(search.length>0) { //g.genre_show
-      // console.log(this.genres,search)
+    if(search.length>0) { 
       for(let g of this.genres){
-          console.log(this.translate.get(g.genre_show)['value']);
+
           if( this.translate.get(g.genre_show)['value'].toLowerCase().indexOf(search.toLowerCase())>=0)
             g.show = true;
           else
