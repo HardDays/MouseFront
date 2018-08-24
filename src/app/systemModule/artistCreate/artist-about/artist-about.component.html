@@ -56,18 +56,18 @@
                         <span class="head-groupe" translate>Genre</span>
                         <div class="flex-genres">
                             <ng-container *ngFor="let item of genres; let i = index">
-                                <span *ngIf="item.checked"  class="one-genre">{{item.genre_show}}</span>
+                                <span *ngIf="item.checked"  class="one-genre">{{item.genre_show | translate}}</span>
                             </ng-container>
                             <div class="add-to-genres">
                                 
                                 <span class="plus" (click)="ShowHideGenres($event)"></span>
                                 <!--клик на плюсик добавляем absgenres-pick-wr класс showed-->
                                 <div id="pick-up-genre-modal" class="absgenres-pick-wr" [ngClass]="{showed:showMoreGenres}" (click)="$event.stopPropagation()">
-                                    <input class="search" (input)="GengeSearch($event.target.value)" type="text" placeholder="Search">
+                                    <input class="search" (input)="GengeSearch($event.target.value)" type="text" placeholder="{{'Search' | translate}}">
                                     <div class="flex-genres for-pick">
                                         <!--Добавляем класс picked-->
                                         <ng-container *ngFor="let item of genres; let i = index">
-                                            <span *ngIf="item.show" (click)="item.checked = !item.checked" class="one-genre" [ngClass]="{picked:item.checked}">{{item.genre_show}}</span>
+                                            <span *ngIf="item.show" (click)="item.checked = !item.checked" class="one-genre" [ngClass]="{picked:item.checked}">{{item.genre_show | translate}}</span>
                                         </ng-container>
         
                                     </div>

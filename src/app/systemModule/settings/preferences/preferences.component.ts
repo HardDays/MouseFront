@@ -34,7 +34,7 @@ export class PreferencesComponent implements OnInit, OnChanges {
     settings.SettingsChange.subscribe(
       (Val) => {
         this.GetSettings();
-        this.translate.setDefaultLang(this.settings.GetLang());
+        this.translate.use(this.settings.GetLang());
       }
     );
   }

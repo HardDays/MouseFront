@@ -9,6 +9,7 @@ import { BaseComponent } from '../../core/base/base.component';
 
 import { AccountGetModel } from '../../core/models/accountGet.model';
 import { BaseImages } from '../../core/base/base.enum';
+import { TranslateService } from '@ngx-translate/core';
 
 export enum Pages {
   Shows = "shows",
@@ -26,13 +27,19 @@ export enum Pages {
 
 export class NavbarComponent extends BaseComponent implements OnInit
 {
-
+    translate: TranslateService;
+    translang: string;
     curNav:string = 'shows';
     MyLogo:string = '';
     SearchParams:string = '';
+
     @ViewChild('SearchForm') form: NgForm;
     ngOnInit()
     {
+       
+      this.translate.setDefaultLang(this.settings.GetLang());
+      this.translang = "ENG";
+      this.switchlang();
       this.MyLogo = this.main.MyLogo;
       // this.MyLogo = this.main.MyUserLogo;
       this.curNav = this.getThisPage();
@@ -115,6 +122,19 @@ export class NavbarComponent extends BaseComponent implements OnInit
 
       // return page;
     }
+    useLanguage(language: string) {
+      this.translate.use(language);
+      this.switchlang();
+      
+    }
+
+    switchlang(){
+      // console.log(this.settings.GetLang());
+      this.settings.GetLang() == 'en'?this.translang = "ENG":this.translang = "РУС";
+    }
+    
+
+
 
     Navigate(params?:string[])
     {
