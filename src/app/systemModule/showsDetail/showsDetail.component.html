@@ -11,7 +11,7 @@
                         <p class="descr">{{Event.description}}</p>
                         <p class="gg" translate>Genre</p>
                         <div class="flex-genres" *ngIf="Genres.length > 0">
-                            <span class="one-genre" *ngFor="let item of Genres">{{item.genre_show}}</span>
+                            <span class="one-genre" *ngFor="let item of Genres">{{item.genre_show | translate}}</span>
                         </div>
                         <p class="some-tt"><span translate>show-folder.Presented by</span> <a class="creator-name" [routerLink]="['/system/profile',Creator.id]">{{Creator.display_name?Creator.display_name:Creator.last_name&&Creator.first_name?Creator.first_name+' '+Creator.last_name:Creator.user_name}}</a> </p>
                         <p class="some-tt"><span translate>show-folder.Featuring:</span>
