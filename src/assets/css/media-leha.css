@@ -10,6 +10,31 @@ html, body{
   top: -3px;
   padding-top: 37px;
 }
+.flex-tabs-menu-venue .v-tabs-menu li{
+  font-size: 16px;
+}
+.flex-funding-columns .side .top-gum .artists-venue-wrapp .one-block .price-r .price{
+  white-space: nowrap;
+}
+.tickets-flex-body .right-ticket .shadow-wr .ticket-options .add-to-active-b .butt-style-1{
+  max-width: 140px;
+}
+.tickets-flex-body .left-ticket .pick-tickets-wr .add-ticket .butt-style-1 {
+  max-width: 190px;
+}
+.tickets-flex-body .left-ticket .pick-tickets-wr .add-ticket .butt-style-1 span {
+  padding: 13px 10px;
+}
+.main-feed-wrapp .middle-feed .feed-text{
+  font-size: 65px;
+}
+
+.tabs-artist-wrapp .bg-wr-tabs .tab-artist .flex-wrapp-cards .one-card .card .flex-buttons{
+  flex-direction: column;
+}
+.tabs-artist-wrapp .bg-wr-tabs .tab-artist .flex-wrapp-cards .one-card .card .flex-buttons .button-card{
+  margin-bottom: 10px;
+}
 @media print {
   header{
     display: none!important;
@@ -18,7 +43,9 @@ html, body{
     display: none!important;
   }
 }
-
+.flex-mac-checkbox.padd-right-un-q p{
+padding-right: 20px;
+}
 .shows-main-wrapp.none-bg-map{
   pointer-events: none;
 }
@@ -306,6 +333,9 @@ html, body{
 }
 
 @media (max-width: 1460px) {
+  .main-feed-wrapp .middle-feed .feed-text {
+    font-size: 49px;
+}
   .messages-main-wrapp .main-mw {
       min-height: 850px;
       height: auto;
@@ -428,7 +458,9 @@ html, body{
   .all-info-profile .uniq-padd-2 .flex--info .side.side-calendars-m.padd-right-1199-pre{
     padding-right:47.5px;
   }
-  
+  .main-feed-wrapp .middle-feed .feed-text{
+    display: none;
+  }
   .new-flex-ul-li{
     display: block;
   }
@@ -892,7 +924,7 @@ html, body{
   }
   .create-event-nav-tabs .create-event-header .new-flex-ul-li ul li .butt-style-1{
     font-size: 12px;
-    width: 104px!important;
+    width: auto!important;
     border-width: 3px;
   }
   .create-event-nav-tabs .for-header-shadow{
@@ -1517,6 +1549,54 @@ html, body{
   height: 45px;
   margin-right: 7px;
 }
+
+.nav-holder-3 .wrapp-for-filter .groupe-form .flex-genres .one-checkbox{
+  width: 100%;
+}
+.tabs-artist-wrapp .bg-wr-tabs .tab-artist .flex-wrapp-cards .one-card .add-artist-block .add{
+  font-size: 16px;
+}
+.tabs-artist-wrapp .bg-wr-tabs .tab-artist .flex-wrapp-cards .one-card .add-artist-block .invite{
+  font-size: 16px;
+}
+.flex-date-inputs.hide-xs-flex{
+  display: block;
+}
+.flex-date-inputs.hide-xs-flex .one-date-block{
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.create-event-nav-tabs .create-event-header h1{
+  font-size: 30px;
+}
+
+.tabs-artist-wrapp .tabs-menu-active-decline li {
+  padding: 0 15px!important;
+}
+.tabs-artist-wrapp .tabs-menu-active-decline li a, .tabs-artist-wrapp .tabs-menu-active-decline li span {
+  font-size: 16px!important;
+}
+
+.tabs-venue-wrapp .for-padd-cards-art .scroll-cards-art .one-card .l-s .desc{
+  max-width: 150px;
+}
+
+.flex-funding-columns .side .bottom-expression .exp-price{
+  white-space: nowrap;
+}
+
+.register .m-v-reg .reg-wr .flex-checkboxes .one-checkbox{
+  width: 100%;
+}
+
+
+
+
+
+
+
+
 
 }
 
