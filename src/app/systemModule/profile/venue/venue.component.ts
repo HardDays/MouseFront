@@ -139,7 +139,7 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
         
         this.GetUpcomingShows();
         this.GetVenueImages();
-        console.log(this.Account.status);
+        
     }
 
     searchFans(event)
@@ -153,6 +153,7 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
     GetUpcomingShows(){
         this.UpcomingShowsChecked = [];
         this.UpcomingShows = [];
+        
         if(this.VenueId)
         {
             this.main.accService.GetUpcomingShows(this.VenueId).subscribe(

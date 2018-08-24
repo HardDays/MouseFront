@@ -35,6 +35,29 @@ html, body{
 .tabs-artist-wrapp .bg-wr-tabs .tab-artist .flex-wrapp-cards .one-card .card .flex-buttons .button-card{
   margin-bottom: 10px;
 }
+.slider-2-albums .one-slide .wrapp-card .descr .flex-centered-butt{
+  display: flex;
+  justify-content: center;
+
+}
+.slider-2-albums .one-slide .wrapp-card .descr .flex-centered-butt .butt-style-1{
+      max-width: 100%;
+    width: auto;
+
+}
+.riders-flex-wrapp .side .butt-wrapp-grad .butt-style-1 span{
+  padding: 10px 0;
+}
+.slider-2-albums .one-slide .wrapp-card .descr .flex-centered-butt .butt-style-1 span{
+  padding: 7px 10px;
+}
+.media-flex-sides .left-side .head-of-left-side.albums-t-s {
+  font-size: 66px;
+  margin-bottom: -25px;
+}
+.messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_left .zag{
+  font-size: 43px;
+}
 @media print {
   header{
     display: none!important;
@@ -42,6 +65,18 @@ html, body{
   .main_content footer{
     display: none!important;
   }
+}
+.flex-ticket-wrapp .sides .new-flex-fix {
+  display: flex;
+  justify-content: center;
+  
+}
+.flex-ticket-wrapp .sides .new-flex-fix .butt-wrapp-grad .butt-style-1{
+  max-width: 100%;
+  width: auto;
+}
+.flex-ticket-wrapp .sides .new-flex-fix .butt-wrapp-grad .butt-style-1 span{
+
 }
 .flex-mac-checkbox.padd-right-un-q p{
 padding-right: 20px;
@@ -333,6 +368,9 @@ padding-right: 20px;
 }
 
 @media (max-width: 1460px) {
+  .flex-ticket-wrapp .sides .scrolled-wrapp .one-wr-tick .one-tick p.f {
+    font-size: 14px;
+  }
   .main-feed-wrapp .middle-feed .feed-text {
     font-size: 49px;
 }
@@ -653,6 +691,11 @@ padding-right: 20px;
 .create-event-body-1.none-padd-un-q{
   padding: 40px;
 }
+.flex-ticket-wrapp .sides .scrolled-wrapp .one-wr-tick{
+  width: 100%;
+}
+
+
 }
 
 @media (max-width: 1100px) {
@@ -1590,7 +1633,10 @@ padding-right: 20px;
   width: 100%;
 }
 
-
+.media-flex-sides .left-side .head-of-left-side.albums-t-s {
+  font-size: 50px;
+  margin-bottom: -14px;
+}
 
 
 
@@ -1712,5 +1758,8 @@ padding-right: 20px;
   .two-cols{
     width: 100%;
     margin: 0 0 10px 0;
+  }
+  footer .for-flex-footer .side h5{
+    font-size: 13px!important;
   }
 }
