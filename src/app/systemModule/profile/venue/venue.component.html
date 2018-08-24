@@ -67,7 +67,7 @@
                                             <div class="one-cont" style="min-height:42px" *ngIf="Account.office_hours">
                                                 <p class="head-cont" translate>OFFICE HOURS:</p>
                                                 <ng-container *ngFor="let item of OffHours;let i = index">
-                                                    <span>{{item.begin_time | timepipe}} - {{item.end_time | timepipe}}, {{'item.day | translate'}}</span>
+                                                    <span>{{item.begin_time | timepipe}} - {{item.end_time | timepipe}}, {{item.day | translate}}</span>
                                                 </ng-container>
                                             </div>
                                         </div>
@@ -75,7 +75,7 @@
                                             <div class="one-cont" style="min-height:42px" *ngIf="Account.office_hours">
                                                 <p class="head-cont" translate>OPERATING HOURS:</p>
                                                 <ng-container *ngFor="let item of OpHours;let i = index">
-                                                    <span>{{item.begin_time | timepipe}} - {{item.end_time | timepipe}}, {{'item.day | translate'}}</span>
+                                                    <span>{{item.begin_time | timepipe}} - {{item.end_time | timepipe}}, {{item.day | translate}}</span>
                                                 </ng-container>
                                             </div>
                                         </div>

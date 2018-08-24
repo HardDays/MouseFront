@@ -42,7 +42,7 @@
                                             <p *ngIf="item.message_type == 'accept'" class="price">
                                                 {{item.message_info?.currency?(item.message_info?.currency==='USD'?'$':item.message_info?.currency==='RUB'?'₽':item.message_info?.currency==='EUR'?'€':''):''}}
                                                 {{item.message_info?.price?item.message_info?.price:''}}</p>
-                                            <p *ngIf="isExpiresSoonByExpireDate(item.message_info?.expiration_date)=='soon'&&item.message_type == 'request'" class="expires-soon">Expires<br>Soon</p>
+                                            <p *ngIf="isExpiresSoonByExpireDate(item.message_info?.expiration_date)=='soon'&&item.message_type == 'request'" class="expires-soon" translate>Expires<br translate>Soon</p>
                                         </div>
                                     </div>
 
@@ -54,10 +54,10 @@
                                         <div  class="descr-side">
                                             <p class="f">
                                     
-                                                <span [ngClass]="{'active':!item.is_read}" class="some-t active">{{item.message_type?item.message_type:'No subject'}}</span>
-                                                <span *ngIf="item.created_at" class="when">{{item.created_at| date:'MMM d' }}</span>
+                                                <span [ngClass]="{'active':!item.is_read}" class="some-t active" translate>{{item.message_type?item.message_type:'No subject'}}</span>
+                                                <span *ngIf="item.created_at" class="when">{{item.created_at| date:'MMM' | translate }}{{item.created_at| date:' d' }}</span>
                                             </p>
-                                            <p *ngIf="item.subject" class="name-e">{{item.subject}}</p>
+                                            <p *ngIf="item.subject" class="name-e" translate>{{item.subject}}</p>
                                         </div>
                                     </div>
                                 </ng-container>
@@ -171,7 +171,7 @@
                                         <input *ngIf="openMessage.message_type == 'request'" [disabled]="openMessage.is_read" class="form-control" #drp="bsDaterangepicker" bsDaterangepicker [bsConfig]="bsConfig" 
                                         [minDate]="minDate" [maxDate]="maxDate" [(ngModel)]="bsRangeValue">
     
-                                        <p *ngIf="openMessage.message_type == 'accept' &&openMessage.message_info" class="fot-edit">{{openMessage.message_info?.preferred_date_from| date}} - {{openMessage.message_info?.preferred_date_to| date}} </p>
+                                        <p *ngIf="openMessage.message_type == 'accept' &&openMessage.message_info" class="fot-edit">{{openMessage.message_info?.preferred_date_from| date:'MMM' | translate}}, {{openMessage.message_info?.preferred_date_from | date:'dd yyyy'}} - {{openMessage.message_info?.preferred_date_to| date:'MMM' | translate}}, {{openMessage.message_info?.preferred_date_to | date:'dd yyyy'}} </p>
                                         
                                         <!--появлется если нажать на верхнюю картинку for-edit-img-->
                                         <!-- <div *ngIf="isEditShow" class="selects-wrapper">
@@ -228,7 +228,7 @@
                                     <div class="block-info fourth-b">
                                         <p class="fot-edit">
                                                 
-                                            Price to Perform <span>
+                                        <span translate>Price to Perform</span> <span>
                                                 {{openMessage.message_info?.currency?(openMessage.message_info?.currency==='USD'?'$':openMessage.message_info?.currency==='RUB'?'₽':openMessage.message_info?.currency==='EUR'?'€':''):''}}
                                                 {{(openMessage.message_type&&openMessage.message_info&&openMessage.message_type == 'request')?openMessage.message_info?.estimated_price:openMessage.message_info?.price}}</span>
                                             <img *ngIf="openMessage.message_type == 'request'&&!openMessage.is_read" src="../../assets/img/edit-img.png" (click)="isEditPrice = true" class="img-responsive for-edit-img" alt="">
@@ -296,7 +296,7 @@
                          <div *ngIf="openMessage?.message_type === 'blank'" class="right-s">
                             <div class="some-request-text-wrapper">
                                 <div class="block-info f-b">
-                                    <span class="some-t">{{openMessage.subject}}</span>
+                                    <span class="some-t" translate>{{openMessage.subject}}</span>
                                     <span class="when">{{openMessage.created_at| date:'MMM' | translate}}{{openMessage.created_at| date:' d' }}</span>
                                 </div>
                                 <ng-container *ngFor="let reply of openMessage.reply">
