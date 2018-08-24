@@ -93,17 +93,17 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
        
          //this.getPosition();
         if(navigator.geolocation && !(navigator.geolocation === undefined)){
-            console.log(`navigator.geolocation`);
+            // console.log(`navigator.geolocation`);
             navigator.geolocation.getCurrentPosition((position) => {
                 this.MyCoords.lat = position.coords.latitude;
                 this.MyCoords.lng = position.coords.longitude - 2;
 
-                console.log(`position.coords`,position.coords,this.MyCoords);
+                // console.log(`position.coords`,position.coords,this.MyCoords);
                 if(this.MyCoords.lat === 0 && this.MyCoords.lng === 0)
                     this.getPosition();
 
             },(err)=>{
-                console.log(`error`);
+                // console.log(`error`);
                 this.getPosition();
             },{
                 timeout: 10000
@@ -120,10 +120,10 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
         //     this.MyCoords.lat = data.latitude;
         //     this.MyCoords.lng = data.longitude - 2;
         // });
-        console.log(`service`);
+        // console.log(`service`);
         this.main.accService.GetLocation()
             .subscribe((data)=>{
-                console.log(`data`,data);
+                // console.log(`data`,data);
                 this.MyCoords.lat = data.location[0];
                 this.MyCoords.lng = data.location[1] - 2;
             })

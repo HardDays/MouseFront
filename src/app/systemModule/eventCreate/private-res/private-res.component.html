@@ -8,7 +8,7 @@
 
               </div>
               <div class="input-groupe-1">
-                  <input [textMask]="MaskNumbers()" id="inp-private-v-2" name="" type="text" formControlName="phone">
+                  <input [textMask]="MaskPhone(phoneMask)" (input)="phoneMask=''" (blur)="phoneMask=privateVenueCreate.phone" [(ngModel)]="privateVenueCreate.phone" id="inp-private-v-2" name="" type="text" formControlName="phone">
                   <label for="inp-private-v-2" translate>event.private-res.Phone number</label>
 
               </div>
@@ -30,21 +30,22 @@
               </div>
           </div>
           <div class="side">
+              <div class="input-groupe-1">
+                  <input id="inp-private-v-6" [(ngModel)]="privateVenueCreate.address" #search name="address" type="text" formControlName="address">
+                  <label for="inp-private-v-6" translate>Address</label>
+
+              </div>
               <div class="input-groupe-1 lbl-1">
-                  <input id="inp-private-v-4" name="" type="text" formControlName="country">
+                  <input id="inp-private-v-4" [(ngModel)]="privateVenueCreate.country" name="country" type="text" formControlName="country">
                   <label for="inp-private-v-4" translate>Country</label>
 
               </div>
               <div class="input-groupe-1">
-                  <input id="inp-private-v-5" name="" type="text" formControlName="city">
+                  <input id="inp-private-v-5" [(ngModel)]="privateVenueCreate.city" name="city" type="text" formControlName="city">
                   <label for="inp-private-v-5" translate>City</label>
 
               </div>
-              <div class="input-groupe-1">
-                  <input id="inp-private-v-6" name="" type="text" formControlName="address">
-                  <label for="inp-private-v-6" translate>Address</label>
-
-              </div>
+              
               <div class="input-groupe-1 small-textarea whithout-label">
 
                   <textarea id="inp-desc-1" formControlName="description"></textarea>

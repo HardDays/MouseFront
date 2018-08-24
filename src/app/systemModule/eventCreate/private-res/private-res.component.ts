@@ -23,7 +23,15 @@ export class PrivateResComponent extends BaseComponent implements OnInit {
   privateVenue:AccountGetModel = new AccountGetModel();
   imagesListPrivateRes:string[] = [];
 
+  phoneMask:string='';
+
   ngOnInit() {
+
+    this.CreateLocalAutocomplete();
+
+    this.privateVenueCreate.phone = this.main.MyUser.register_phone;
+    this.phoneMask = this.privateVenueCreate.phone;
+
     this.privateVenueForm = new FormGroup({        
             "user_name": new FormControl("", [Validators.required]),
             "phone": new FormControl(""),
@@ -39,6 +47,49 @@ export class PrivateResComponent extends BaseComponent implements OnInit {
             "has_vr": new FormControl("")
         });
   }
+
+    CreateLocalAutocomplete()
+    {
+        this.CreateAutocomplete(
+            (addr,place) => {
+
+                if(place)
+                {
+                    this.privateVenueCreate.address = place.formatted_address;
+                    //this.Venue.lat = place.geometry.location.toJSON().lat;
+                    //this.Venue.lng = place.geometry.location.toJSON().lng;
+                }
+                setTimeout(() => {
+                    
+                
+                for(let a of addr)
+                {
+                    
+                    if(a.search('locality') > 0)
+                    {
+                        this.privateVenueCreate.city = a.slice(a.search('>')+1,a.search('</'));
+                    }
+                    else if(a.search('street-address') > 0)
+                    {
+                        this.privateVenueCreate.address = a.slice(a.search('>')+1,a.search('</'));
+                    }
+                    else if(a.search('region') > 0)
+                    {
+                        this.privateVenueCreate.state = a.slice(a.search('>')+1,a.search('</'));
+                    }
+                    else if(a.search('country-name') > 0)
+                    {
+                        this.privateVenueCreate.country = a.slice(a.search('>')+1,a.search('</'));
+                    }
+                    else if(a.search('postal-code') > 0)
+                    {
+                        this.privateVenueCreate.zipcode = a.slice(a.search('>')+1,a.search('</'));
+                    }
+                }
+                }, 400);
+            }
+        );
+    }
       //
     addPriateVenue(){
         if(!this.privateVenueForm.invalid){
@@ -57,36 +108,40 @@ export class PrivateResComponent extends BaseComponent implements OnInit {
             this.privateVenueCreate.account_type = 'venue';
             this.privateVenueCreate.venue_type = 'private_residence';
 
+           
           
 
-            //this.WaitBeforeLoading(
-              //  ()=> 
-                 this.main.accService.CreateAccount(this.privateVenueCreate)
+            
+                this.main.accService.CreateAccount(this.privateVenueCreate)
                     .subscribe(
-                (acc:AccountGetModel)=>{
-                    this.privateVenue = acc;
-                   
-                    
-                    this.addVenue.venue_id = acc.id;
-                    this.addVenue.account_id = this.main.CurrentAccount.id;
+                        (acc:AccountGetModel)=>{
+                            this.privateVenue = acc;
+            
+                            this.addVenue.venue_id = acc.id;
+                            this.addVenue.account_id = this.main.CurrentAccount.id;
 
-                    this.main.eventService.AddVenue(this.addVenue).
-                        subscribe((res)=>{
-                            // console.log(`create`);
-                            this.OnCreate.emit();
-                        });
+                            this.privateVenueForm.reset();
 
-                        for(let img of this.imagesListPrivateRes){
-                            this.main.accService.PostAccountImages(acc.id,img)
-                             .subscribe((res)=>{
-                         }); 
+                            this.main.eventService.AddVenue(this.addVenue).
+                                subscribe((res)=>{
+                                    // console.log(`create`);
+                                    this.OnCreate.emit();
+                                   
+                                });
+
+                            
+
+                                for(let img of this.imagesListPrivateRes){
+                                    this.main.accService.PostAccountImages(acc.id,img)
+                                    .subscribe((res)=>{
+                                }); 
                          }
                
-                },
-                (err)=>{
-                    // console.log(`err`,err);
-                }
-            );
+                    },
+                    (err)=>{
+                        // console.log(`err`,err);
+                    }
+                );
         }
         else {
             //console.log(`Invalid About Form!`, this.privateVenueForm);
@@ -96,6 +151,7 @@ export class PrivateResComponent extends BaseComponent implements OnInit {
     addPhone(){
         (<FormArray>this.privateVenueForm.controls["venue_video_links"]).push(new FormControl("http://", Validators.required));
     }
+
     loadPhoto($event:any):void{
         this.ReadImages(
             $event.target.files,
@@ -105,5 +161,6 @@ export class PrivateResComponent extends BaseComponent implements OnInit {
             }
         );
     }
+
 
 }
