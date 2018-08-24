@@ -23,12 +23,12 @@
                       <div class="side side-info side-about">
                           <h6 translate>event.venue.Listing Details</h6>
                           <p class="about-text line-height-hig">
-                              {{toBeatyType(Venue.type_of_space)}}<br>
+                              {{toBeatyType(Venue.type_of_space) | translate}}<br>
                               <span>{{Venue.capacity}}</span> <span translate>event.venue.Person Capacity</span><br>
                               <span>{{Venue.num_of_bathrooms}}</span> <span translate>event.venue.Bathroom(s)</span><br>
                               <span *ngIf="Venue.has_bar" translate>event.venue.Bar Available<br></span>
-                              <span translate>event.venue.Located:</span><span>{{Venue.located}}</span><br>
-                              <span translate>event.venue.Age Policy: </span><span>{{Venue.min_age}} and Over</span><br>
+                              <span translate>event.venue.Located:</span><span>{{Venue.located | translate}}</span><br>
+                              <span translate>event.venue.Age Policy: </span><span>{{Venue.min_age}} <span translate>and Over</span></span><br>
                               <span translate>event.venue.Dress Code: </span><span>{{Venue.dress_code}}</span>
                           </p>
                       </div>

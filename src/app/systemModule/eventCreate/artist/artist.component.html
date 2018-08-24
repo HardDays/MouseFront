@@ -118,7 +118,7 @@
                         <div class="flex-genres for-pick">
                                 <!--Добавляем класс picked-->
                             <ng-container *ngFor="let item of genresSearchArtist; let i = index">
-                                <span (click)="item.checked = !item.checked; artistSearch()" class="one-genre" [ngClass]="{picked:item.checked}">{{item.genre_show}}</span>
+                                <span (click)="item.checked = !item.checked; artistSearch()" class="one-genre" [ngClass]="{picked:item.checked}">{{item.genre_show | translate}}</span>
                             </ng-container>
                         </div>
                     </div>
@@ -315,20 +315,20 @@
                                
                                 <input id="inp-modal-inv-1" [(ngModel)]="ArtistInvite.name"  name="" type="text">
                             </div>
-                            <label for="inp-modal-inv-1">Name</label>
+                            <label for="inp-modal-inv-1" translate>event.venue.Name</label>
                         </div>
                         <div class="input-groupe-1 more-padd">
                             <div class="rel-wr">
                                 <input id="inp-modal-inv-2" [(ngModel)]="ArtistInvite.email"  name="" type="text">
                             </div>
-                            <label for="inp-modal-inv-2">Email</label>
+                            <label for="inp-modal-inv-2" >Email</label>
                         </div>
-                        <span class="social-links-head">Social Media Links</span>
+                        <span class="social-links-head" translate>event.venue.Social Media Links</span>
                         <div class="checkboxes-decline-wrapp">
                             <div class="checkbox-decline">
                                 <div>
                                     <p class="desc-decil">Facebook</p>
-                                    <p class="username-soc">Username: <input class="username-soc-input" [(ngModel)]="ArtistInvite.facebook" name="" type="text" placeholder="@username"></p>
+                                    <p class="username-soc" translate>event.venue.Username<input class="username-soc-input" [(ngModel)]="ArtistInvite.facebook" name="" type="text" placeholder="{{'event.venue.@username' | translate}}"></p>
                                 </div>
                                 <div class="one-checkbox">
                                     <div class="check-style">
@@ -341,7 +341,7 @@
                             <div class="checkbox-decline">
                                 <div>
                                     <p class="desc-decil">Twitter</p>
-                                    <p class="username-soc">Username: <input class="username-soc-input" [(ngModel)]="ArtistInvite.twitter" name="" type="text" placeholder="@username"></p>
+                                    <p class="username-soc"translate>event.venue.Username<input class="username-soc-input" [(ngModel)]="ArtistInvite.twitter" name="" type="text" placeholder="{{'event.venue.@username' | translate}}"></p>
                                 </div>
                                 <div class="one-checkbox">
                                     <div class="check-style">
@@ -353,7 +353,7 @@
                             <div class="checkbox-decline">
                                 <div>
                                     <p class="desc-decil">YouTube</p>
-                                    <p class="username-soc">Username: <input class="username-soc-input" [(ngModel)]="ArtistInvite.youtube" name="" type="text" placeholder="@username"></p>
+                                    <p class="username-soc"translate>event.venue.Username<input class="username-soc-input" [(ngModel)]="ArtistInvite.youtube" name="" type="text" placeholder="{{'event.venue.@username' | translate}}"></p>
                                 </div>
                                 <div class="one-checkbox">
                                     <div class="check-style">
@@ -366,7 +366,7 @@
                             <div class="checkbox-decline">
                                 <div>
                                     <p class="desc-decil">VK</p>
-                                    <p class="username-soc">Username: <input class="username-soc-input" [(ngModel)]="ArtistInvite.vk" name="" type="text" placeholder="@username"></p>
+                                    <p class="username-soc"translate>event.venue.Username<input class="username-soc-input" [(ngModel)]="ArtistInvite.vk" name="" type="text" placeholder="{{'event.venue.@username' | translate}}"></p>
                                 </div>
                                 <div class="one-checkbox">
                                     <div class="check-style">
@@ -380,7 +380,7 @@
                     </div>
                     <div class="send-request-b">
                         <button class="butt-style-1" type="submit" (click)="inviteArtist()">
-                            <span>Invite</span>
+                            <span translate>Invite</span>
                         </button>
                     </div>
                 </div>
