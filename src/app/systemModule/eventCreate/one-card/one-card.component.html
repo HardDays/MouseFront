@@ -25,7 +25,7 @@
         <p *ngIf="card.account_type == 'artist'" class="info">{{ toBeatyShowsList(card.genres) | translate}}</p>
         <p class="desc-head-info" translate>Location</p>
         <p class="info">{{card.address}}</p>
-        <p *ngIf="price" class="info">{{(status!='pending'&&status!='ready')?'Price '+CurrencySymbol+price:''}}</p>
+        <p *ngIf="price" class="info" >{{(status!='pending'&&status!='ready')?' Price '+ CurrencySymbol+price:''}}</p>
         <p  *ngIf="status=='pending'" class="info" translate>event.one-card.Your account is not verified yet</p>
         <div *ngIf="status!='pending'&&status!='declined'&&status!='owner_declined'" class="flex-buttons">
             <!-- <span *ngIf="status!='ready'&&status!='accepted'&&status!='owner_accepted'&&status!='active'&&status!='not found artist'" class="button-card" (click)="Check()" >check</span> -->

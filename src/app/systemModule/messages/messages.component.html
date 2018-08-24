@@ -81,7 +81,7 @@
                                 <div class="block-info t-b">
                                     <p class="name-event">{{openMessage.message_info?.event_info?openMessage.message_info?.event_info.name:''}}</p>
                                     <p class="descr">{{openMessage.message_info?.event_info?.description?openMessage.message_info?.event_info.description:'' | titlecase}}</p>
-                                    <p *ngIf="openMessage.message_type == 'request'" class="fot-edit">{{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_season:'' | titlecase}} {{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_year:''}}, {{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_time:'' | titlecase}}, {{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_length:''}} Hours
+                                    <p *ngIf="openMessage.message_type == 'request'" class="fot-edit"><span translate>{{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_season:'' | titlecase}} </span>, {{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_year:''}}, <span translate>{{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_time:''| titlecase}}</span>, {{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_length:''}} <span translate>Hours</span>
                                         <img *ngIf="!openMessage.is_read"  src="../../assets/img/edit-img.png"  class="img-responsive for-edit-img" alt="">
                                     </p>
                                     <input *ngIf="openMessage.message_type == 'request'" [disabled]="openMessage.is_read" class="form-control" #drp="bsDaterangepicker" bsDaterangepicker [bsConfig]="bsConfig" 
@@ -117,7 +117,7 @@
                                     <p *ngIf="openMessage.message_type == 'request'" class="desc-for-edit" translate>You can change the Price to Perform</p>
                                 </div>
                                 <div *ngIf="openMessage.message_type == 'request'" class="block-info fifth-b">
-                                    <p *ngIf="openMessage.message_info?.expiration_date" class="will-expire">{{'This request will expire on' | translate}}{{ openMessage.message_info?.expiration_date | date }}</p>
+                                    <p *ngIf="openMessage.message_info?.expiration_date" class="will-expire">{{'This request will expire on' | translate}}{{ openMessage.message_info?.expiration_date | date:'MMM' | translate}} {{ openMessage.message_info?.expiration_date | date:'dd yyyy' }}</p>
                                 </div>
                                 <div class="block-info sixth-b">
                                     <div  *ngIf="openMessage.message_type == 'request'" class="input-groupe-1 whithout-label small-textarea max-500">
