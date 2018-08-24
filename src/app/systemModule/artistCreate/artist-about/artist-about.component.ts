@@ -8,7 +8,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MapsAPILoader } from '@agm/core';
 import { AccountType, BaseMessages } from '../../../core/base/base.enum';
-import { TranslateService } from '../../../../../node_modules/@ngx-translate/core';
+import { TranslateService, TranslatePipe } from '../../../../../node_modules/@ngx-translate/core';
 import { SettingsService } from '../../../core/services/settings.service';
 
 declare var $:any;
@@ -131,13 +131,17 @@ HideGenresIfShowed(){
 
   GengeSearch($event:string){
     let search = $event;
-    if(search.length>0) {
+    // let filterPipe = TranslatePipe.prototype.transform(arguments);
+    // fiteredArr = filterPipe.transform(chkArray,txtSearch);
+    if(search.length>0) { //g.genre_show
       // console.log(this.genres,search)
-      for(let g of this.genres)
-          if(g.genre_show.indexOf(search.toLowerCase())>=0)
-          g.show = true;
+      for(let g of this.genres){
+          console.log(this.translate.get(g.genre_show)['value']);
+          if( this.translate.get(g.genre_show)['value'].toLowerCase().indexOf(search.toLowerCase())>=0)
+            g.show = true;
           else
-          g.show = false;
+            g.show = false;
+      }
     }
     else {
         for(let i of this.genres) i.show = true;
