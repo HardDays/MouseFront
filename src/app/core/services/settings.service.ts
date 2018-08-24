@@ -55,7 +55,7 @@ export class SettingsService{
         )
         .subscribe(
             (res: PreferencesModel) => {
-                // console.log(res);
+                console.log(res);
                 this.SaveBackSettings(res);
             }
         );
@@ -99,6 +99,12 @@ export class SettingsService{
 
     private SetLocalSettings()
     {
+        const str = JSON.stringify(this.Settings);
+        localStorage.setItem(this.SettingsContainer, str);
+    }
+
+    public SetLocalLang(lang:string){
+        this.Settings.preferred_username = lang;
         const str = JSON.stringify(this.Settings);
         localStorage.setItem(this.SettingsContainer, str);
     }

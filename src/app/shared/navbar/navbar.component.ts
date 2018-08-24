@@ -124,13 +124,15 @@ export class NavbarComponent extends BaseComponent implements OnInit
     }
     useLanguage(language: string) {
       this.translate.use(language);
-      this.switchlang();
-      
+      this.main.settings.SetLocalLang(language);
+      this.switchlang(language);
     }
 
-    switchlang(){
-      // console.log(this.settings.GetLang());
-      this.settings.GetLang() == 'en'?this.translang = "ENG":this.translang = "РУС";
+    switchlang(lang?){
+      if(lang)
+        lang == 'en'?this.translang = "ENG":this.translang = "РУС";
+      else
+        this.settings.GetLang() == 'en'?this.translang = "ENG":this.translang = "РУС";
     }
     
 
