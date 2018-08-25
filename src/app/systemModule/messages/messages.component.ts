@@ -119,6 +119,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
 
     this.messages = [];
 
+    if(this.accountId)
     this.WaitBeforeLoading(
       () => this.main.accService.GetInboxMessages(this.accountId),
       (res:InboxMessageModel[])=>{

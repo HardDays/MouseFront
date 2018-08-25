@@ -42,7 +42,7 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
   addVideoForm: FormGroup = new FormGroup({
     "album_name": new FormControl("", [Validators.required]),
     "name": new FormControl("", [Validators.required]),
-    "link": new FormControl("", [Validators.required, Validators.pattern("https:\/\/youtu.be\/[a-zA-Z0-9-_]+")])
+    "link": new FormControl("", [Validators.required, Validators.pattern(/(https:\/\/youtu.be\/|https:\/\/www.youtube.com\/watch\?v=)[a-zA-Z0-9-_]+/)])
   });
 
   // https://youtu.be/amrSC14xpus
@@ -280,7 +280,8 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
     {
       let reader:FileReader = new FileReader();
       reader.onload = (e) =>{
-          this.ImageToLoad = reader.result;
+
+          this.ImageToLoad = reader.result.toString();
       }
       reader.readAsDataURL(file);
     }

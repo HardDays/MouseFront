@@ -62,6 +62,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
     getMessages(){
         this.messagesList = [];
 
+        if(this.Event.creator_id)
         this.main.accService.GetInboxMessages(this.Event.creator_id).
         subscribe((res)=>{
             if(res.length>0){
