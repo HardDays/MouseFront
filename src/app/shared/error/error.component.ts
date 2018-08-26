@@ -28,6 +28,7 @@ export class ErrorComponent{
     {
         this.Message = message;
         this.isShown = true;
+        console.log(this.Message);
         $('#message-1').modal('show');
 
     }

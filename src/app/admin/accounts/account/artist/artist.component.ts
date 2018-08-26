@@ -19,8 +19,9 @@ declare var SC:any;
 })
 export class ArtistComponent extends BaseComponent implements OnInit {
 
-  @ViewChild('errCmp') errCmp:ErrorComponent;
+  // @ViewChild('errorCmp') errorCmp:ErrorComponent;
   @Input() Account:AccountGetModel;
+  @Output() onError = new EventEmitter<string>();
 
   Genres:string[] = [];
 
@@ -219,13 +220,15 @@ export class ArtistComponent extends BaseComponent implements OnInit {
             this.audioCurrentTime = this.player.currentTime();
           },100)
         },(err)=>{
-          this.errCmp.OpenWindow(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
+          this.onError.emit(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
+          // this.errorCmp.OpenWindow(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
           // console.log(`not start play`);
         })
 
         player.on('no_streams',()=>{
           // console.log(`audio_error`);
-          this.errCmp.OpenWindow(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
+          // this.errorCmp.OpenWindow(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
+          this.onError.emit(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
           
         })
         
@@ -237,12 +240,14 @@ export class ArtistComponent extends BaseComponent implements OnInit {
         // },10000)
   
       },(err)=>{
-        this.errCmp.OpenWindow(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
+        // this.errorCmp.OpenWindow(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
+        this.onError.emit(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
         // console.log(`error streaming`,err)
       });
 
     },(err)=>{
-      this.errCmp.OpenWindow(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
+      // this.errorCmp.OpenWindow(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
+      this.onError.emit(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
       // console.log(`ERROR`)
     })
   }
