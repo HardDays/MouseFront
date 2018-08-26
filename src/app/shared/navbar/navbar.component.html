@@ -140,7 +140,7 @@
                                 <div *ngIf="MyAccounts.length>0" class="dropdown-items-wr">
                                     <a [routerLink]="['/system/profile',CurrentAccount.id]" (click)="curNav = 'profile'"><span class="dog">@</span>{{CurrentAccount.user_name}}</a>
                                     <!-- <a><span class="dog">@</span>{{MyUser.user_name}}</a> -->
-                                    <a (click)="curNav = 'messages'" [routerLink]="['/system','messages']" translate>Messages</a>
+                                    <a (click)="curNav = 'messages'" [routerLink]="['/system','messages']" translate>Messages<span style="display: inline;"> ({{countMessages}})</span></a>
                                     <span (click)="curNav = 'profile'" [routerLink]="['/system','fanCreate','new']" translate>Create Fan</span>
                                     <span (click)="curNav = 'profile'" [routerLink]="['/system','artistCreate','new']" translate>Create Artist</span>
                                     <a (click)="curNav = 'profile'" [routerLink]="['/system','venueCreate','new']" translate>Create Venue</a>

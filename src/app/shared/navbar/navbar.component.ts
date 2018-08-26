@@ -33,6 +33,9 @@ export class NavbarComponent extends BaseComponent implements OnInit
     MyLogo:string = '';
     SearchParams:string = '';
 
+    countMessages = 0;
+
+
     @ViewChild('SearchForm') form: NgForm;
     ngOnInit()
     {
@@ -96,7 +99,25 @@ export class NavbarComponent extends BaseComponent implements OnInit
           }
         }
       )
+
+      this.getMessageCount();
+
+      this.main.accService.onMessagesChange$
+        .subscribe(()=>{
+          this.getMessageCount();
+      });
     }
+
+    getMessageCount(){
+      this.main.accService.GetInboxMessagesUnreadCount(this.CurrentAccount.id)
+        .subscribe(
+          (res)=>{
+            console.log(res);
+            this.countMessages = res.count;
+          }
+        )
+    }
+
     ShowSearchResult(){
       //console.log(this.SearchParams);
     }

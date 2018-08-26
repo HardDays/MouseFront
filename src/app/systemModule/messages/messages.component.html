@@ -24,7 +24,7 @@
                                         </div>
                                         <div  class="descr-side">
                                             <p class="f">
-                                                <span [ngClass]="{'active':!item.is_read}" class="some-t active" translate>{{item.message_type?item.message_type:''}} to Perform</span>
+                                                <span [ngClass]="{'active':!item.is_receiver_read}" class="some-t active" translate>{{item.message_type?item.message_type:''}} to Perform</span>
                                                 <span *ngIf="item.created_at" class="when" translate>{{item.created_at| date:'MMM' | translate}}{{item.created_at| date:' d' }}</span>
                                             </p>
                                             <p class="name-e">{{item.message_info?.event_info?.name?item.message_info?.event_info.name:''}}</p>

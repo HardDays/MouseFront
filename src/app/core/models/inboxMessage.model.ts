@@ -17,9 +17,10 @@ export class InboxMessageModel{
            public message_id?:number,
            public subject?:string,
            public created_at?:string,
+           
         //    public updated_at?:string,
         //    public name?:string,
-         
+          public is_receiver_read?:boolean,
            public is_read?:boolean,
         //    public simple_message?:any,
            public message_info?: MessageInfoModel,
