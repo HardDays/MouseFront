@@ -199,6 +199,8 @@ export class NavbarComponent extends BaseComponent implements OnInit
         this.main.CurrentAccountChange.next(item);
         this.router.navigate(['/system/profile',item.id]);
         this.getMessageCount();
+
+       
         // if (this.router.url === "/system/profile/" + item.id) {
         //   location.reload();
         // }
