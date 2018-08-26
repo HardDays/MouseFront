@@ -62,6 +62,12 @@ export class NavbarComponent extends BaseComponent implements OnInit
           //console.log(Val);
         }
       );
+
+      this.main.MyAccountsChange.subscribe((res)=>{
+        if(res&&this.CurrentAccount.id)
+          this.getMessageCount();
+      })
+
       if(this.isLoggedIn)
         this.main.GetMyAccounts();
      
@@ -99,8 +105,6 @@ export class NavbarComponent extends BaseComponent implements OnInit
           }
         }
       )
-
-      this.getMessageCount();
 
       this.main.accService.onMessagesChange$
         .subscribe(()=>{
@@ -194,6 +198,7 @@ export class NavbarComponent extends BaseComponent implements OnInit
         this.curNav = 'profile';
         this.main.CurrentAccountChange.next(item);
         this.router.navigate(['/system/profile',item.id]);
+        this.getMessageCount();
         // if (this.router.url === "/system/profile/" + item.id) {
         //   location.reload();
         // }
