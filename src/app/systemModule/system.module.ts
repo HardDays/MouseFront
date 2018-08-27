@@ -59,6 +59,7 @@ import { MessageAcceptComponent } from './messages/message-accept/message-accept
 import { MessageFeedbackComponent } from './messages/message-feedback/message-feedback.component';
 import { MessageSupportComponent } from './messages/message-support/message-support.component';
 import { TranslateModule } from '../../../node_modules/@ngx-translate/core';
+import { GlobalSearchModule } from './search/search.module';
 
 
 
@@ -98,6 +99,7 @@ import { TranslateModule } from '../../../node_modules/@ngx-translate/core';
     SearchTicketsModule,
     SettingsModule,
     FeedModule,
+    GlobalSearchModule,
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",
       libraries: ["places"],

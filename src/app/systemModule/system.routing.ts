@@ -19,6 +19,7 @@ import { ShowsDetailComponent } from './showsDetail/showsDetail.component';
 import { MessagesComponent } from './messages/messages.component';
 import { MyTicketOpenedComponent } from './my-ticket-opened/my-ticket-opened.component';
 import { SettingsComponent } from './settings/settings.component';
+import { GlobalSearchComponent } from './search/search.component';
 
 const routes: Routes =
 [
@@ -37,7 +38,8 @@ const routes: Routes =
       { path: 'shows_detail/:id', component: ShowsDetailComponent, canActivate: [SystemAccessGuard] },
       { path: 'tickets/:id', component: MyTicketOpenedComponent, canActivate: [SystemAccessGuard] },
       { path: 'messages', component: MessagesComponent, canActivate: [SystemAccessGuard] },
-      { path: 'settings', component: SettingsComponent, canActivate: [SystemAccessGuard] }
+      { path: 'settings', component: SettingsComponent, canActivate: [SystemAccessGuard] },
+      { path: 'search', component: GlobalSearchComponent }
     ]
   }
 ];
