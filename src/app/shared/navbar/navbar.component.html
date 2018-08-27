@@ -1,4 +1,6 @@
     <header>
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet">
         <div class="main-mw">
             <div class="left-side">
                 <div class="logo-wr">
@@ -118,7 +120,7 @@
                             <div *ngIf="!isLoggedIn" class="flex-auth">
                                 <a [routerLink]="['/register']" translate>Sign Up</a>
                                 <a [routerLink]="['/login']" translate>nav.Sign In</a>
-                                <a mat-button [matMenuTriggerFor]="menu" >{{translang}}</a>
+                                <a mat-button [matMenuTriggerFor]="menu" >{{translang}}<i class="material-icons">arrow_drop_down</i></a>
                                 <mat-menu #menu="matMenu">
                                     <a mat-menu-item (click)="useLanguage('en')">ENG</a>
                                     <a mat-menu-item (click)="useLanguage('ru')">РУС</a>

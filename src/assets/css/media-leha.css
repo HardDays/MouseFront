@@ -47,7 +47,9 @@ html, body{
 }
 .modal_change_phone .modal-dialog .modal-body .phone_form .butt-style-1 span {
   padding: 7px 0;
+  position: relative;
 }
+
 .slider-2-albums .one-slide .wrapp-card .descr .flex-centered-butt .butt-style-1{
       max-width: 100%;
     width: auto;
@@ -391,7 +393,7 @@ padding-right: 20px;
     font-size: 49px;
 }
   .messages-main-wrapp .main-mw {
-      min-height: 850px;
+      min-height: auto;
       height: auto;
   }
   .messages-main-wrapp {
