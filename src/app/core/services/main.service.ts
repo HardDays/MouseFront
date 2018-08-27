@@ -249,7 +249,9 @@ export class MainService{
                         let lastId = +this.GetLastAccId();
                         if(lastId)
                         {
-                            this.CurrentAccount = this.MyAccounts.find((acc) => acc.id === lastId);
+                            let acc = this.MyAccounts.find((acc) => acc.id === lastId);
+                            this.CurrentAccount = acc ? acc: this.MyAccounts[0];
+                            // console.log(`this.CurrentAccount`,this.CurrentAccount)
                         }
                         else
                         {
