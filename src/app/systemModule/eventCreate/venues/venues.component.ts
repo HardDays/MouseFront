@@ -265,6 +265,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     getMessages(id?:number){
         let crId = id?id:this.Event.creator_id;
         this.messagesList = [];
+        if(crId)
         this.main.accService.GetInboxMessages(crId).
         subscribe((res)=>{
             

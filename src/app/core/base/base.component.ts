@@ -249,6 +249,7 @@ export class BaseComponent{
             this.main._auth.login(provider)
                 .subscribe(
                     (data) => {
+                        // console.log(provider, data);
                         let socToken:any = data;
                         this.WaitBeforeLoading(
                             () => provider=="google" ? this.main.authService.UserLoginByGoogle(socToken.token) : this.main.authService.UserLoginByFacebook(socToken.token),

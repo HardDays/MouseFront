@@ -119,6 +119,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
 
     this.messages = [];
 
+    if(this.accountId)
     this.WaitBeforeLoading(
       () => this.main.accService.GetInboxMessages(this.accountId),
       (res:InboxMessageModel[])=>{
@@ -142,6 +143,15 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
               .subscribe((res)=>{
                 // console.log(res);
                 this.openMessage = res;
+
+                 if(!this.openMessage.is_receiver_read){
+                  this.main.accService.ReadMessageById(this.accountId,this.messages[0].id)
+                    .subscribe((res)=>{
+                      this.main.accService.onMessagesChange$.next(true);
+                      this.openMessage.is_receiver_read = true;
+                      this.messages.find(obj=>obj.id === this.openMessage.id).is_receiver_read = true;
+                    })
+                }
 
                 this.openMessage.reply.unshift({
                   created_at: this.openMessage.created_at,
@@ -192,9 +202,22 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
   {
     // if(msg.message_type ==='blank'){
       // this.openMessage = null;
+
+
+      
+
       this.main.accService.GetInboxMessageById(this.accountId,msg.id)
         .subscribe((res)=>{
           this.openMessage = res;
+
+          if(!this.openMessage.is_receiver_read){
+            this.main.accService.ReadMessageById(this.accountId,msg.id)
+              .subscribe((res)=>{
+                this.main.accService.onMessagesChange$.next(true);
+                this.openMessage.is_receiver_read = true;
+                this.messages.find(obj=>obj.id === this.openMessage.id).is_receiver_read = true;
+              })
+          }
           
           this.openMessage.reply.unshift({
             created_at: this.openMessage.created_at,

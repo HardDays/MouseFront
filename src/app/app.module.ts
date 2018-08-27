@@ -63,7 +63,8 @@ let providers = {
     "clientId": "318975976374-kgoi5u5qrao13e6u7o2sjinleh5c86vj.apps.googleusercontent.com"
   },
   "facebook": {
-    "clientId": "187849948634661",
+    // "clientId": "187849948634661",
+    "clientId": "368746123713908",
     "apiVersion": "v2.11" 
   }
 };

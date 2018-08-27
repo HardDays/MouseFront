@@ -25,7 +25,7 @@
     </div>
 </h2>
 
-<app-artist [Account]="Account" *ngIf="accType=='artist'"></app-artist>
+<app-artist [Account]="Account" (onError)="openError($event)" *ngIf="accType=='artist'"></app-artist>
 <app-venue [Account]="Account" *ngIf="accType=='venue'"></app-venue>
 <app-fan [Account]="Account" *ngIf="accType=='fan'"></app-fan>
 <!-- <fan-profile-selector *ngIf="accType=='fan'" [Account]="Account" [IsMyAccount]="false" [isFolowedAcc]="false"></fan-profile-selector> -->

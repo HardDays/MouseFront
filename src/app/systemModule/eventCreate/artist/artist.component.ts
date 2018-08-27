@@ -572,19 +572,21 @@ updateEvent(){
 }
 
 getMessages(){
-  let crId = this.Event.creator_id;
-  this.messagesList = [];
-  this.main.accService.GetInboxMessages(crId).
-    subscribe((res)=>{
-        for(let m of res)
-        this.main.accService.GetInboxMessageById(crId, m.id).
-            subscribe((msg)=>{
-                this.messagesList.push(msg);
-                // console.log(`msg`,this.messagesList);
-        });
-        },(err)=>{
-      //console.log(err)
-    });
+  if(this.Event.creator_id){
+    let crId = this.Event.creator_id;
+    this.messagesList = [];
+    this.main.accService.GetInboxMessages(crId).
+      subscribe((res)=>{
+          for(let m of res)
+          this.main.accService.GetInboxMessageById(crId, m.id).
+              subscribe((msg)=>{
+                  this.messagesList.push(msg);
+                  // console.log(`msg`,this.messagesList);
+          });
+          },(err)=>{
+        //console.log(err)
+      });
+  }
 }
 
 getPriceAtMsg(sender:number){

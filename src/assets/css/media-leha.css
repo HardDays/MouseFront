@@ -7,7 +7,7 @@ html, body{
 }
 .flex-input-groupes .input-groupe-1.more-padd.relative-3{
   position: relative;
-  top: -3px;
+  top: -2px;
   padding-top: 37px;
 }
 .flex-tabs-menu-venue .v-tabs-menu li{
@@ -28,7 +28,12 @@ html, body{
 .main-feed-wrapp .middle-feed .feed-text{
   font-size: 65px;
 }
-
+.head-info-profile-wr.head-info-artist .flex-artist-main-info .side.left-side .follow-wr .butt-style-1 {
+  max-width: 140px;
+}
+.venue-main-info .follow-wr .butt-style-1 {
+  max-width: 140px;
+}
 .tabs-artist-wrapp .bg-wr-tabs .tab-artist .flex-wrapp-cards .one-card .card .flex-buttons{
   flex-direction: column;
 }
@@ -40,10 +45,16 @@ html, body{
   justify-content: center;
 
 }
+.modal_change_phone .modal-dialog .modal-body .phone_form .butt-style-1 span {
+  padding: 7px 0;
+}
 .slider-2-albums .one-slide .wrapp-card .descr .flex-centered-butt .butt-style-1{
       max-width: 100%;
     width: auto;
 
+}
+.mat-form-field-invalid .mat-form-field-ripple{
+  background: transparent;
 }
 .riders-flex-wrapp .side .butt-wrapp-grad .butt-style-1 span{
   padding: 10px 0;
@@ -57,6 +68,9 @@ html, body{
 }
 .messages-main-wrapp .main-mw.main_for_setts .settings_wrap .settings_left .zag{
   font-size: 43px;
+}
+.messages-main-wrapp .main-mw.main_for_setts .settings_wrap {
+  min-height: calc(100vh - 84px);
 }
 @media print {
   header{
@@ -171,7 +185,9 @@ padding-right: 20px;
      position: relative;
      overflow: hidden;
 }
-
+.nav-holder-3 .wrapp-for-filter{
+  padding: 0 30px;
+}
 .version-container{
   width: auto;
   left: 50%;
@@ -382,9 +398,7 @@ padding-right: 20px;
     min-height: 850px;
     height: auto;
   }
-  .messages-main-wrapp .main-mw.main_for_setts .settings_wrap{
-    min-height: 850px;
-  }
+ 
 
   .messages-main-wrapp.fix-min-height .main-mw{
     min-height: auto;
@@ -1638,7 +1652,9 @@ padding-right: 20px;
   margin-bottom: -14px;
 }
 
-
+.nav-holder-3 .wrapp-for-filter {
+  padding: 0 15px;
+}
 
 
 

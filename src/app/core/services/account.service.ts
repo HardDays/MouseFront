@@ -18,12 +18,16 @@ import { Observable } from "rxjs/Observable";
 export class AccountService{
     public onAuthChange$: Subject<boolean>;
     public onLoadingChange$: Subject<boolean>;
+    public onMessagesChange$: Subject<boolean>;
     //public pushNotif:NotificationsComponent = new NotificationsComponent();
     constructor(private http: HttpService, private router: Router, private typeService: TypeService, public sanitizer:DomSanitizer){
         this.onAuthChange$ = new Subject();
         this.onAuthChange$.next(false);
         this.onLoadingChange$ = new Subject();
         this.onLoadingChange$.next(false);
+
+        this.onMessagesChange$ = new Subject();
+        this.onMessagesChange$.next(false);
     }
 
     AccountModelToCreateAccountModel(input:AccountGetModel){
@@ -285,7 +289,11 @@ export class AccountService{
             ()=> this.http.PostData('/accounts/'+acc_id+'/images.json',JSON.stringify(params))
         );
     }
-
+    GetInboxMessagesUnreadCount(acc_id:number){
+        return this.http.CommonRequest(
+            () => this.http.GetData("/accounts/"+acc_id+"/inbox_messages/unread_count.json",this.typeService.ParamsToUrlSearchParams({account_id:acc_id}))
+        );
+    }
     GetInboxMessages(acc_id:number){
         return this.http.CommonRequest(
             () => this.http.GetData("/accounts/"+acc_id+"/inbox_messages.json",this.typeService.ParamsToUrlSearchParams({account_id:acc_id}))
@@ -298,6 +306,15 @@ export class AccountService{
         }
         return this.http.CommonRequest(
             () => this.http.GetData("/accounts/"+acc_id+"/inbox_messages/"+id+".json",this.typeService.ParamsToUrlSearchParams(params))
+        );
+    }
+    ReadMessageById(acc_id:number, id:number){
+        let params = {
+            account_id: acc_id,
+            id: id
+        }
+        return this.http.CommonRequest(
+            () => this.http.PostData("/accounts/"+acc_id+"/inbox_messages/"+id+"/read.json",JSON.stringify(params))
         );
     }
     GetAcauntFolowers(id:number,params?:any){
