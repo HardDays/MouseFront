@@ -131,6 +131,8 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
     }
 
     openMap(){
+        
+
         this.isShowMap = !this.isShowMap;
         
         if(this.map){
@@ -173,10 +175,16 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
         
     }
 
+    onOpenSearch(){
+        if(this.isShowMap)
+            this.isShowMap = false;
+    }
+
 
 
     openSearch()
     {
+        console.log(`openSearch`);
         let _that = this;
         $(".nav-button").on("click", function (e) {
             _that.setHeightSearch();
@@ -184,7 +192,7 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
             $("body").addClass("has-active-menu");
             $(".mainWrapper").addClass("has-push-left");
             $(".nav-holder-3").addClass("is-active");
-            $(".mask-nav-3").addClass("is-active")
+            $(".mask-nav-3").addClass("is-active");
         });
         $(".menu-close, .mask-nav-3").on("click", function (e) {
             e.preventDefault();
@@ -193,6 +201,8 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
             $(".nav-holder-3").removeClass("is-active");
             $(".mask-nav-3").removeClass("is-active")
         });
+
+
     }
 
     OpenMap(params)

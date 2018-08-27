@@ -205,6 +205,11 @@ export class EventsComponent extends BaseComponent implements OnInit,AfterViewCh
         this.mapForm.AboutOpenMapModal(params);
     }
 
+    onOpenSearch(){
+        if(this.isShowMap)
+            this.isShowMap = false;
+    }
+
     TransferMapToSearch(params)
     {
         this.search.GetLocation(params);
