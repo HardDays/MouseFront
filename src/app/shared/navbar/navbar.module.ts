@@ -6,10 +6,11 @@ import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
 import {MatMenuModule} from '@angular/material/menu';
+import { MatIconModule } from '@angular/material';
 
 
 @NgModule({
-    imports: [ RouterModule, CommonModule,FormsModule, TranslateModule, MatMenuModule ],
+    imports: [ RouterModule, CommonModule,FormsModule, TranslateModule, MatMenuModule, MatIconModule ],
     declarations: [ NavbarComponent ],
     exports: [ NavbarComponent ]
 })
