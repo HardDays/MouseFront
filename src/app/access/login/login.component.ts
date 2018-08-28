@@ -157,8 +157,8 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
     
     
-    window.location.replace("https://oauth.vk.com/authorize?client_id=6326995&display=page&redirect_uri=http://localhost:4200/login&scope=friends&response_type=token&v=5.73&scope=offline");
-    //  window.location.replace("https://oauth.vk.com/authorize?client_id=6326995&display=page&redirect_uri=https://mouse-web.herokuapp.com/login&scope=friends&response_type=token&v=5.73&scope=offline");
+    // window.location.replace("https://oauth.vk.com/authorize?client_id=6326995&display=page&redirect_uri=http://localhost:4200/login&scope=friends&response_type=token&v=5.73&scope=offline");
+     window.location.replace("https://oauth.vk.com/authorize?client_id=6326995&display=page&redirect_uri=https://test-mouse-web.herokuapp.com/login&scope=friends&response_type=token&v=5.73&scope=offline");
   }
 
   VkLogout(){
