@@ -48,6 +48,7 @@ import { InviteService } from './core/services/invite.service';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { AdminModule } from './admin/admin.module';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -64,7 +65,6 @@ let providers = {
   },
   "facebook": {
     "clientId": "187849948634661",
-    // "clientId": "368746123713908",
     "apiVersion": "v2.11" 
   }
 };
@@ -106,7 +106,8 @@ let providers = {
           useFactory: HttpLoaderFactory,
           deps: [HttpClient]
       }
-  })
+  }),
+    AdminModule
   ],
   providers: [
     AppAccessGuard, 

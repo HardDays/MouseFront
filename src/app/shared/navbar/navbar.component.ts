@@ -116,7 +116,7 @@ export class NavbarComponent extends BaseComponent implements OnInit
       this.main.accService.GetInboxMessagesUnreadCount(this.CurrentAccount.id)
         .subscribe(
           (res)=>{
-            console.log(res);
+            // console.log(res);
             this.countMessages = res.count;
           }
         )

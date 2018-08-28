@@ -61,18 +61,27 @@ export class LoginComponent extends BaseComponent implements OnInit {
         (
           (res)=>
           {
+            this.main.MyAccountsChange.subscribe(
+              (accs)=>{
+                if(this.main.MyAccounts.length>0){
+                  console.log(`main.MyAccounts.length>0`);
+                  this.router.navigate(['/system','shows']);
+                }
+                else 
+                {
+                  console.log(`create new acc`);
+                  this.router.navigate(['/social']);
+                }
+              }
+            )
             this.main.authService.BaseInitAfterLogin(res);
             this.main.authService.onAuthChange$.next(true);
+            
+           
+            // setTimeout(() => {
+            //   // console.log(this.main.MyAccounts);
 
-            setTimeout(() => {
-              // console.log(this.main.MyAccounts);
-              if(this.main.MyAccounts.length>0)
-                this.router.navigate(['/system','shows']);
-              else {
-                // console.log(`create new acc`);
-                this.router.navigate(['/social']);
-              }
-            }, 1000);
+            // }, 1000);
             
           }
         );
@@ -148,8 +157,8 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
     
     
-    // window.location.replace("https://oauth.vk.com/authorize?client_id=6326995&display=page&redirect_uri=http://localhost:4200/login&scope=friends&response_type=token&v=5.73&scope=offline");
-     window.location.replace("https://oauth.vk.com/authorize?client_id=6326995&display=page&redirect_uri=https://mouse-web.herokuapp.com/login&scope=friends&response_type=token&v=5.73&scope=offline");
+    window.location.replace("https://oauth.vk.com/authorize?client_id=6326995&display=page&redirect_uri=http://localhost:4200/login&scope=friends&response_type=token&v=5.73&scope=offline");
+    //  window.location.replace("https://oauth.vk.com/authorize?client_id=6326995&display=page&redirect_uri=https://mouse-web.herokuapp.com/login&scope=friends&response_type=token&v=5.73&scope=offline");
   }
 
   VkLogout(){
