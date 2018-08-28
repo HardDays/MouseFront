@@ -19,7 +19,7 @@
                 </div>
             </ng-container>
         </div>
-        <p class="more" (click)="ShowMoreGenres = !ShowMoreGenres"><span translate>See more</span></p>
+        <p class="more" [ngClass]="{'rotate180':ShowMoreGenres}" (click)="ShowMoreGenres = !ShowMoreGenres"><span translate>See {{ShowMoreGenres?'less':'more'}}</span></p>
     </div>
 
     <div class="groupe-form">

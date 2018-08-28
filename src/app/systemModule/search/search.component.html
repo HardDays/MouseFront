@@ -45,13 +45,31 @@
                         </div>
 
                     </div>
-                    <div class="groupe-form">
-                        <p class="head-input-groupe">Region</p>
-                        <input type="text" class="inp-style-3" placeholder="Choose a country">
-                    </div>
-                    <div class="groupe-form">
-                        <p class="head-input-groupe">City</p>
-                        <input type="text" class="inp-style-3" placeholder="Choose a city">
+                    <ng-container *ngIf="SearchType != LocalSearchTypes.Shows">
+                        <div class="groupe-form">
+                            <p class="head-input-groupe">Region</p>
+                            <input type="text" class="inp-style-3" placeholder="Choose a country">
+                        </div>
+                        <div class="groupe-form">
+                            <p class="head-input-groupe">City</p>
+                            <input type="text" class="inp-style-3" placeholder="Choose a city">
+                        </div>
+                    </ng-container>
+                    
+                    <div class="groupe-form" *ngIf="SearchType != LocalSearchTypes.Venues && SearchType != LocalSearchTypes.All">
+                        <p class="head-input-groupe" translate>Genre</p>
+                        <div class="flex-genres">
+                            <ng-container  *ngFor="let item of Genres;let i = index">
+                                <div class="one-checkbox" *ngIf="item.show || ShowMoreGenres">
+                                    <div class="check-style">
+                                        <input type="checkbox" class="checkbox" [ngModel]="item.checked" name="genre_{{i+1}}" (ngModelChange)="item.checked = $event" id="checkbox-{{i+1}}">
+                                        <label for="checkbox-{{i+1}}"></label>
+                                    </div>
+                                    <p translate>{{item.genre_show}}</p>
+                                </div>
+                            </ng-container>
+                        </div>
+                        <p class="more" [ngClass]="{'rotate180':ShowMoreGenres}" (click)="ShowMoreGenres = !ShowMoreGenres"><span translate>See {{ShowMoreGenres?'less':'more'}}</span></p>
                     </div>
                     <div class="groupe-form">
                         <button type="submit"  class="butt-style-1"><span translate>Search</span></button>
@@ -72,163 +90,31 @@
                 <h1>Search Results</h1>
             </div>
             <div class="search-results-wrapper all">
-                <ng-container *ngIf="SearchType == LocalSearchTypes.All">
-                    <accounts-search-component [Accounts]="Fans" [AccountType]="'Fans'"></accounts-search-component>
-                    <accounts-search-component [Accounts]="Artists" [AccountType]="'Artists'"></accounts-search-component>
-                    <accounts-search-component [Accounts]="Venues" [AccountType]="'Venues'"></accounts-search-component>
-                    <div class="genre-head">
-                        <p>Shows (55)</p>
-                        <button>SHOW ALL</button>
-                    </div>
-                    <div class="shows-block-search">
-                        <div class="one-show-wrapp">
-                            <a href="#" class="one-show">
-                                <div class="img-show"></div>
-                                <div class="descr">
-                                    <p class="name">marilyn manson</p>
-                                    <p class="when">November 12, 2019</p>
-                                    <p class="when-2">7:00 PM</p>
-                                    <p class="where">Madison Square Garden - NY</p>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="one-show-wrapp">
-                            <a href="#" class="one-show">
-                                <div class="img-show"></div>
-                                <div class="descr">
-                                    <p class="name">marilyn manson</p>
-                                    <p class="when">November 12, 2019</p>
-                                    <p class="when-2">7:00 PM</p>
-                                    <p class="where">Madison Square Garden - NY</p>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="one-show-wrapp">
-                            <a href="#" class="one-show">
-                                <div class="img-show"></div>
-                                <div class="descr">
-                                    <p class="name">marilyn manson</p>
-                                    <p class="when">November 12, 2019</p>
-                                    <p class="when-2">7:00 PM</p>
-                                    <p class="where">Madison Square Garden - NY</p>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="one-show-wrapp">
-                            <a href="#" class="one-show">
-                                <div class="img-show"></div>
-                                <div class="descr">
-                                    <p class="name">marilyn manson</p>
-                                    <p class="when">November 12, 2019</p>
-                                    <p class="when-2">7:00 PM</p>
-                                    <p class="where">Madison Square Garden - NY</p>
-                                </div>
-                            </a>
-                        </div>
-    
-                    </div>
+                <ng-container *ngIf="SelectedContent == LocalSearchTypes.All">
+                    <accounts-search-component (ShowFullAccounts)="ChangeView($event)" [Accounts]="Fans" [AccountType]="'Fans'"></accounts-search-component>
+                    <accounts-search-component (ShowFullAccounts)="ChangeView($event)" [Accounts]="Artists" [AccountType]="'Artists'"></accounts-search-component>
+                    <accounts-search-component (ShowFullAccounts)="ChangeView($event)" [Accounts]="Venues" [AccountType]="'Venues'"></accounts-search-component>
+                    <shows-preview-search-component (ShowFullShows)="ChangeView($event)" [Shows]="Shows"></shows-preview-search-component>
+                </ng-container>
+                <ng-container *ngIf="SelectedContent == LocalSearchTypes.Fans">
+                    <accounts-full-search-component [Accounts]="Fans" [Label]="'Fans'"></accounts-full-search-component>
+                </ng-container>
+                <ng-container *ngIf="SelectedContent == LocalSearchTypes.Artists">
+                    <accounts-full-search-component [Accounts]="Artists" [Label]="'Artists'"></accounts-full-search-component>
+                </ng-container>
+                <ng-container *ngIf="SelectedContent == LocalSearchTypes.Venues">
+                    <accounts-full-search-component [Accounts]="Venues" [Label]="'Venues'"></accounts-full-search-component>
+                </ng-container>
+                <ng-container *ngIf="SelectedContent == LocalSearchTypes.Shows">
+                    <shows-full-search-component [Shows]="Shows"></shows-full-search-component>
                 </ng-container>
                 
-
-                <div class="genre-head">
-                    <p>Fans/Artist/Venue (55)</p>
-                </div>
-                <div class="obj-search-wrapp">
-                    <div class="one-obj-search">
-                        <div class="who-wrapp">
-                            <a href="#" class="ava"></a>
-                            <div class="who-text">
-                                <p class="name">Danielle Green</p>
-                                <p class="mouse-name"><span>@</span>CoolDanielle</p>
-                                <p class="where">New York, USA</p>
-                                <div class="flex-genres-obj">
-                                    <span class="one-genre">HIP HOP</span>
-                                    <span class="one-genre">HIP HOP</span>
-                                    <span class="one-genre">HIP HOP</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="butt">
-                            <button class="butt-style-1"><span>Follow</span></button>
-                        </div>
-                    </div>
-                     <div class="one-obj-search">
-                        <div class="who-wrapp">
-                            <a href="#" class="ava"></a>
-                            <div class="who-text">
-                                <p class="name">Danielle Green</p>
-                                <p class="mouse-name"><span>@</span>CoolDanielle</p>
-                                <p class="where">New York, USA</p>
-                                <div class="flex-genres-obj">
-                                    <span class="one-genre">HIP HOP</span>
-                                    <span class="one-genre">HIP HOP</span>
-                                    <span class="one-genre">HIP HOP</span>
-                                </div>
-                            </div>
-                        </div>
-                         <!--на странице фана убераем .butt-->
-                        <div class="butt">
-
-<!--                 кнопка фоллоу    <button class="butt-style-1"><span>Follow</span></button>-->
-                            <button class="unfolow">unfollow</button>
-                        </div>
-                    </div>
-
-                </div>
-
-                <ng-container *ngIf="SearchType == LocalSearchTypes.Shows">
-                    <div class="genre-head">
-                            <p>Shows (55)</p>
-                        </div>
-                        <div class="shows-block-search all-shows">
-                            <div class="one-show-wrapp">
-                                <a href="#" class="one-show">
-                                    <div class="img-show"></div>
-                                    <div class="descr">
-                                        <p class="name">marilyn manson</p>
-                                        <p class="when">November 12, 2019</p>
-                                        <p class="when-2">7:00 PM</p>
-                                        <p class="where">Madison Square Garden - NY</p>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="one-show-wrapp">
-                                <a href="#" class="one-show">
-                                    <div class="img-show"></div>
-                                    <div class="descr">
-                                        <p class="name">marilyn manson</p>
-                                        <p class="when">November 12, 2019</p>
-                                        <p class="when-2">7:00 PM</p>
-                                        <p class="where">Madison Square Garden - NY</p>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="one-show-wrapp">
-                                <a href="#" class="one-show">
-                                    <div class="img-show"></div>
-                                    <div class="descr">
-                                        <p class="name">marilyn manson</p>
-                                        <p class="when">November 12, 2019</p>
-                                        <p class="when-2">7:00 PM</p>
-                                        <p class="where">Madison Square Garden - NY</p>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="one-show-wrapp">
-                                <a href="#" class="one-show">
-                                    <div class="img-show"></div>
-                                    <div class="descr">
-                                        <p class="name">marilyn manson</p>
-                                        <p class="when">November 12, 2019</p>
-                                        <p class="when-2">7:00 PM</p>
-                                        <p class="where">Madison Square Garden - NY</p>
-                                    </div>
-                                </a>
-                            </div>
-        
-                        </div>
-                </ng-container>
                 
+
+                <!-- <ng-container >
+                    
+                </ng-container>
+                 -->
             </div>
         </div>
     </div>

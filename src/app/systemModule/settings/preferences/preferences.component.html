@@ -5,8 +5,8 @@
             <label for="pref-1" class="grey_label" translate>setting.preference.Interface Language</label>
             <mat-form-field>
                 <mat-select id="pref-1" [(ngModel)]="Settings.preferred_username" formControlName="Lang" name="">
-                    <mat-option value="en">{{ 'setting.preference.English' | translate }}</mat-option>
-                    <mat-option value="ru">{{ 'setting.preference.Russian' | translate }}</mat-option>
+                    <mat-option value="en">{{'English'}}</mat-option>
+                    <mat-option value="ru">{{'Русский'}}</mat-option>
                 </mat-select>
             </mat-form-field>
             <!-- <select id="pref-1" [(ngModel)]="Settings.preferred_username" formControlName="Lang" name="">

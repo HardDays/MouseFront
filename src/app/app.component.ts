@@ -17,10 +17,10 @@ export class AppComponent extends BaseComponent implements OnInit {
   ngOnInit(){
     this.main.authService.onAuthChange$.subscribe(bool => {
       this.isLoggedIn = bool;
-      if(this.isLoggedIn)
-          this.main.authService.GetMe().subscribe(it =>{
-            }
-          );
+      // if(this.isLoggedIn)
+      //     this.main.authService.GetMe().subscribe(it =>{
+      //       }
+      //     );
     });
     this.main.authService.TryToLoginWithToken();
   }

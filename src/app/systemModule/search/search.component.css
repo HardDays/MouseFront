@@ -436,7 +436,7 @@
   
     .shows-main-wrapp .width-for-map .flex-shows .one-show-wr .one-show {
       height: 200px; } }
-    .click-link{
+    .click-link, .one-show, .who-wrapp{
       cursor: pointer;
     }
   

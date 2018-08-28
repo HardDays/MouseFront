@@ -184,7 +184,6 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
 
     openSearch()
     {
-        console.log(`openSearch`);
         let _that = this;
         $(".nav-button").on("click", function (e) {
             _that.setHeightSearch();

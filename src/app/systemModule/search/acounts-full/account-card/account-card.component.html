@@ -1,0 +1,17 @@
+<div class="one-obj-search">
+    <div class="who-wrapp" (click)="Navigate()">
+        <a class="ava" [ngStyle]="{'background-image': 'url('+Image+')'}"></a>
+        <div class="who-text">
+            <p class="name">{{Account.display_name}}</p>
+            <p class="mouse-name"><span>@</span>{{Account.user_name}}</p>
+            <p *ngIf="Account.city && Account.country" class="where">{{Account.city}}, {{Account.country}}</p>
+            <div class="flex-genres-obj" *ngIf="Account.account_type != 'venue'">
+                <span class="one-genre" *ngFor="let item of Genres">{{item.genre_show}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="butt" *ngIf="Account.account_type != 'fan'">
+        <button *ngIf="!IsFollowed" (click)="Follow()" class="butt-style-1"><span>Follow</span></button>
+        <button *ngIf="IsFollowed" (click)="Unfollow()" class="unfolow"><span>Unfollow</span></button>
+    </div>
+</div>

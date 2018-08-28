@@ -8,6 +8,12 @@ import { PreloaderModule } from "../../shared/preloader/preloader.module";
 import { GlobalSearchComponent } from "./search.component";
 import { AccountsSearchComponent } from "./accounts/accounts.component";
 import { OneAccountSearchComponent } from './accounts/one-account/one-account.component';
+import { OneShowSearchComponent } from "./shows/one-show/one-show.component";
+import { ShowsPreviewSearchComponent } from "./shows/shows-preview/shows-preview.component";
+import { TimePipeModule } from "../../core/pipes/time.pipe/time.pipe.module";
+import { AccountsFullSearchComponent } from './acounts-full/accounts-full.component';
+import { AccountCardSearchComponent } from './acounts-full/account-card/account-card.component';
+import { ShowsFullSearchComponent } from "./shows/shows-full/shows-full.component";
 
 @NgModule({
     imports: [ 
@@ -17,12 +23,18 @@ import { OneAccountSearchComponent } from './accounts/one-account/one-account.co
         ReactiveFormsModule,
         TextMaskModule,
         ErrorModule,
-        PreloaderModule
+        PreloaderModule,
+        TimePipeModule
     ],
     declarations: [ 
         GlobalSearchComponent,
         AccountsSearchComponent,
-        OneAccountSearchComponent
+        OneAccountSearchComponent,
+        OneShowSearchComponent,
+        ShowsPreviewSearchComponent,
+        AccountsFullSearchComponent,
+        AccountCardSearchComponent,
+        ShowsFullSearchComponent
     ],
     exports: [ GlobalSearchComponent ]
 })

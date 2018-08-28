@@ -7,6 +7,7 @@ import { StupidAccessComponent } from './stupidAccess/stupidAccess.component';
 import { LoginComponent } from './access/login/login.component';
 import { RegistrationComponent } from './access/registration/registration.component';
 import { SocialNewAccComponent } from './access/login/social-new-acc/social-new-acc.component';
+import { DashboardComponent } from './admin/dashboard/dashboard.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'access', pathMatch:'full'},

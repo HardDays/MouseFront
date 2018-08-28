@@ -42,6 +42,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material';
 import { VenueCreateModule } from '../systemModule/venueCreate/venueCreate.module';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
+import { InvitesComponent } from './accounts/invites/invites.component';
 
 
 
@@ -68,7 +69,6 @@ import { InfiniteScrollModule } from 'angular2-infinite-scroll';
         InfiniteScrollModule
     ],
     declarations: [
-        
         AdminComponent,
         DashboardComponent,
         AccountsComponent,
@@ -94,7 +94,8 @@ import { InfiniteScrollModule } from 'angular2-infinite-scroll';
         TicketComponent,
         OneFollowerComponent,
         FundingComponent,
-        AnalyticCardComponent
+        AnalyticCardComponent,
+        InvitesComponent
         
     ],
     providers: [AdminAccessGuard]

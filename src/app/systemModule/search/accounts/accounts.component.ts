@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { BaseComponent } from "../../../core/base/base.component";
 import { AccountGetModel } from '../../../core/models/accountGet.model';
 
@@ -12,6 +12,7 @@ import { AccountGetModel } from '../../../core/models/accountGet.model';
     
     @Input() Accounts: AccountGetModel[];
     @Input() AccountType: string;
+    @Output() ShowFullAccounts: EventEmitter<string> = new EventEmitter<string>();
     ngOnInit(): void {
         
     }
@@ -19,5 +20,8 @@ import { AccountGetModel } from '../../../core/models/accountGet.model';
     ngOnChanges(changes: SimpleChanges): void {
     }
 
-
+    ShowAll()
+    {
+        this.ShowFullAccounts.emit(this.AccountType);
+    }
   }

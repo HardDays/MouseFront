@@ -182,7 +182,7 @@ export class BaseComponent{
                         // this.main.UserChange.unsubscribe();
                         let admin = this.main.MyUser.is_admin||this.main.MyUser.is_superuser;
 
-                        console.log(`base login`, admin);
+                        // console.log(`base login`, admin);
                         if(!admin)
                         {
                             this.router.navigate(['/system','shows']);
@@ -212,10 +212,12 @@ export class BaseComponent{
 
     public Logout()
     {
+        this.main.authService.Logout();
+         
         VK.init({apiId: 6326995});
 
         VK.Auth.getLoginStatus((status)=>{
-            console.log(status);
+            // console.log(status);
             if(status.session&&status.status!='not_authorized'&&status.status!='unknown'){
                 VK.Auth.login((res)=>{
                 // console.log(res);
@@ -234,7 +236,7 @@ export class BaseComponent{
         })
         
 
-        this.main.authService.Logout();
+       
         this.SocialLogout(`gf`);
         // this.VkLogout();
 
@@ -254,20 +256,42 @@ export class BaseComponent{
                         this.WaitBeforeLoading(
                             () => provider=="google" ? this.main.authService.UserLoginByGoogle(socToken.token) : this.main.authService.UserLoginByFacebook(socToken.token),
                             (res) => {
+
+                            this.isLoading = true;
+
+                           this.main.MyAccountsChange.subscribe(
+                            (accs)=>{
+                                    this.isLoading = false;
+                                    if(this.main.MyAccounts.length>0){
+                                    console.log(`main.MyAccounts.length>0`);
+                                    this.router.navigate(['/system','shows']);
+                                    }
+                                    else 
+                                    {
+                                    console.log(`create new acc`);
+                                    this.router.navigate(['/social']);
+                                    }
+                                }
+                            )
+
                                 this.main.authService.BaseInitAfterLogin(res);
                                 this.main.authService.onAuthChange$.next(true);
 
 
                                 this.isLoading = true;
-                                setTimeout(() => {
-                                    this.isLoading = false;
-                                   if(this.main.MyAccounts.length>0){
-                                    this.router.navigate(['/system','shows']);
-                                   } else {
-                                    //    console.log(`create new acc`);
-                                       this.router.navigate(['/social']);
-                                   }
-                                }, 3000);
+
+
+                                // setTimeout(() => {
+                                //     this.isLoading = false;
+                                //    if(this.main.MyAccounts.length>0){
+                                //     this.router.navigate(['/system','shows']);
+                                //    } else {
+                                //     //    console.log(`create new acc`);
+                                //        this.router.navigate(['/social']);
+                                //    }
+                                // }, 3000);
+
+
                                 
                                
                             }
@@ -699,5 +723,10 @@ export class BaseComponent{
           if(this.settings.GetLang() == 'en')
             return true;
         }
+
+    GetTranslateString(str:string):string
+    {
+        return this.translate.parser.getValue(this.translate.store.translations[this.settings.GetLang()],str);
+    }
 
 }

@@ -1,0 +1,19 @@
+<div class="genre-head">
+    <p>Shows ({{Shows.length}})</p>
+</div>
+<div class="shows-block-search all-shows">
+    <div class="one-show-wrapp" *ngFor="let item of Shows">
+        <one-show-search-component [Show]="item"></one-show-search-component>
+    </div>
+    <div class="one-show-wrapp">
+        <a href="#" class="one-show">
+            <div class="img-show"></div>
+            <div class="descr">
+                <p class="name">marilyn manson</p>
+                <p class="when">November 12, 2019</p>
+                <p class="when-2">7:00 PM</p>
+                <p class="where">Madison Square Garden - NY</p>
+            </div>
+        </a>
+    </div>
+</div>

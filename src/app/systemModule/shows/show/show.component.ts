@@ -53,33 +53,53 @@ export class ShowItemComponent extends BaseComponent implements OnChanges {
         }
     }
 
+
     SetDate()
     {
+        this.isEnglish() != true?moment.locale('ru'):moment.locale('en');
         this.Date = "";
         const timeFormat = this.main.settings.GetTimeFormat() == TimeFormat.CIS ? 'HH:mm' : 'hh:mm A';
-        const dateTimeFromat = "dddd, MMM DD, YYYY " + timeFormat;
+        const dateTimeFromat = "DD, YYYY " + timeFormat;
+        
+        
         if(!this.Show.date_from && !this.Show.date_to)
         {
-            this.Date = this.Show.event_season + ", " + this.Show.event_year;
+            this.Date = this.GetTranslateString(this.Show.event_season) + ' ' + this.Show.event_year;
             if(this.Show.event_time)
             {
-                this.Date = this.Date + " - <span>"+this.Show.event_time+"</span>"
+                this.Date = this.Date + " - <span>"+this.GetTranslateString(this.Show.event_time)+"</span>"
             }
+
+
         }
         else if (this.Show.date_from && this.Show.date_to)
         {
+            const dateFrom = this.ToUppercaseLetter(this.Show.date_from,'dddd')
+                + this.ToUppercaseLetter(this.Show.date_from,'MMM')
+                + moment(this.Show.date_from).format(dateTimeFromat)
+
+            const dateTo = this.ToUppercaseLetter(this.Show.date_to,'dddd')
+                 + this.ToUppercaseLetter(this.Show.date_to,'MMM')
+                 + moment(this.Show.date_to).format(dateTimeFromat)
+
             let from = this.Show.date_from.split("T")[0];            
             let to = this.Show.date_to.split("T")[0];
             if(from === to){
-                let m = moment(this.Show.date_from);
-                this.Date = m.format(dateTimeFromat);
+                // let m = moment(this.Event.date_from);
+                // this.Date = m.format(dateTimeFromat);
+                this.Date = dateFrom;
                 this.Date = this.Date + " - <span>"+ moment(this.Show.date_to).format(timeFormat)+"</span>";
                 //this.Date = date.toLocaleDateString('EEEE, MMM d, yyyy HH:mm');
             }
             else{
-                this.Date = moment(this.Show.date_from).format(dateTimeFromat) + " - " + moment(this.Show.date_to).format(dateTimeFromat);
+                this.Date = dateFrom  + " - " + dateTo;
             }
         }
+        
+    }
+    ToUppercaseLetter(date, format) : string{
+        let formDate = moment(date).format(format);
+        return formDate[0].toUpperCase() + formDate.substr(1) + ' ';
     }
 
     GetImage()

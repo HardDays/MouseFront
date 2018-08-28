@@ -88,10 +88,10 @@ export class MainService{
                     {
                         this.GetMyUser();
                         this.GetMyAccounts();
-                        if(this.MyAccounts.length)
+                        if(this.MyAccounts.length>0)
                             this.settings.GetBackSettings(); 
                         else
-                            this.settings.SaveSettings( this.settings.GetSettings());
+                            this.settings.SaveSettings(this.settings.GetSettings());
                     }
                     else{ 
                         this.UserChange.next(new UserGetModel());
