@@ -6,6 +6,8 @@ import { TextMaskModule } from "../../../../node_modules/angular2-text-mask";
 import { ErrorModule } from "../../shared/error/error.module";
 import { PreloaderModule } from "../../shared/preloader/preloader.module";
 import { GlobalSearchComponent } from "./search.component";
+import { AccountsSearchComponent } from "./accounts/accounts.component";
+import { OneAccountSearchComponent } from './accounts/one-account/one-account.component';
 
 @NgModule({
     imports: [ 
@@ -18,7 +20,9 @@ import { GlobalSearchComponent } from "./search.component";
         PreloaderModule
     ],
     declarations: [ 
-        GlobalSearchComponent
+        GlobalSearchComponent,
+        AccountsSearchComponent,
+        OneAccountSearchComponent
     ],
     exports: [ GlobalSearchComponent ]
 })

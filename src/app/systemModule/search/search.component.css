@@ -436,6 +436,9 @@
   
     .shows-main-wrapp .width-for-map .flex-shows .one-show-wr .one-show {
       height: 200px; } }
+    .click-link{
+      cursor: pointer;
+    }
   
   /*# sourceMappingURL=styleSearch.css.map */
   

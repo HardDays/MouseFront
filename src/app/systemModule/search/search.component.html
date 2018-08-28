@@ -2,45 +2,42 @@
     <div class="main-mw flexed-search">
         <div class="results-left-side">
             <div class="wrapp-for-filter">
-                <form>
-                    <input type="text" class="inp-style-1" placeholder="Search">
-
-
-
+                <form (ngSubmit)="ShowSearchResult()" #SearchForm="ngForm">
+                    <input type="text" name="search-text-input" class="inp-style-1" placeholder="Search" [ngModel]="SearchParams.text" (ngModelChange)="SearchParams.text = $event">
                     <div class="groupe-form">
                         <p class="head-input-groupe">Genre</p>
                         <div class="flex-radio">
                             <div class="one-radio">
                                 <div class="radio-style">
-                                    <input type="radio" class="radio-b" id="radio-1"  name="group1" value="all" checked>
+                                    <input type="radio" [value]="LocalSearchTypes.All" [(ngModel)]="SearchType" class="radio-b" id="radio-1"  name="group1" value="all" checked>
                                     <label for="radio-1"></label>
                                 </div>
                                 <p>All</p>
                             </div>
                             <div class="one-radio">
                                 <div class="radio-style">
-                                    <input type="radio" class="radio-b" id="radio-2" name="group1" value="venues">
+                                    <input type="radio" [value]="LocalSearchTypes.Venues" [(ngModel)]="SearchType" class="radio-b" id="radio-2" name="group1" value="venues">
                                     <label for="radio-2"></label>
                                 </div>
                                 <p>Venues</p>
                             </div>
                             <div class="one-radio">
                                 <div class="radio-style">
-                                    <input type="radio" class="radio-b" id="radio-3" name="group1" value="fans">
+                                    <input type="radio" [value]="LocalSearchTypes.Fans" [(ngModel)]="SearchType" class="radio-b" id="radio-3" name="group1" value="fans">
                                     <label for="radio-3"></label>
                                 </div>
                                 <p>Fans</p>
                             </div>
                             <div class="one-radio">
                                 <div class="radio-style">
-                                    <input type="radio" class="radio-b" id="radio-4" name="group1" value="shows">
+                                    <input type="radio" [value]="LocalSearchTypes.Shows" [(ngModel)]="SearchType" class="radio-b" id="radio-4" name="group1" value="shows">
                                     <label for="radio-4"></label>
                                 </div>
                                 <p>Shows</p>
                             </div>
                             <div class="one-radio">
                                 <div class="radio-style">
-                                    <input type="radio" class="radio-b" id="radio-5" name="group1" value="artists">
+                                    <input type="radio" [value]="LocalSearchTypes.Artists" [(ngModel)]="SearchType" class="radio-b" id="radio-5" name="group1" value="artists">
                                     <label for="radio-5"></label>
                                 </div>
                                 <p>Artists</p>
@@ -55,6 +52,9 @@
                     <div class="groupe-form">
                         <p class="head-input-groupe">City</p>
                         <input type="text" class="inp-style-3" placeholder="Choose a city">
+                    </div>
+                    <div class="groupe-form">
+                        <button type="submit"  class="butt-style-1"><span translate>Search</span></button>
                     </div>
                 </form>
 
@@ -72,264 +72,63 @@
                 <h1>Search Results</h1>
             </div>
             <div class="search-results-wrapper all">
-                <div class="genre-head">
-                    <p>Fans (55)</p>
-                    <button>SHOW ALL</button>
-                </div>
-                <div class="block-of-genre-search">
-                    <div class="one-obj">
-                        <a href="#" class="click-link">
-                            <div class="ava"></div>
-                            <div class="descr">
-                                <p class="name">Danielqwe qwe qwe le Green</p>
-                                <p class="mouse-name"><span>@</span>CoolDanielle</p>
-                            </div>
-                        </a>
+                <ng-container *ngIf="SearchType == LocalSearchTypes.All">
+                    <accounts-search-component [Accounts]="Fans" [AccountType]="'Fans'"></accounts-search-component>
+                    <accounts-search-component [Accounts]="Artists" [AccountType]="'Artists'"></accounts-search-component>
+                    <accounts-search-component [Accounts]="Venues" [AccountType]="'Venues'"></accounts-search-component>
+                    <div class="genre-head">
+                        <p>Shows (55)</p>
+                        <button>SHOW ALL</button>
                     </div>
-                    <div class="one-obj">
-                        <a href="#" class="click-link">
-                            <div class="ava"></div>
-                            <div class="descr">
-                                <p class="name">Danielle Green</p>
-                                <p class="mouse-name"><span>@CoolDanielle</span></p>
-                            </div>
-                        </a>
+                    <div class="shows-block-search">
+                        <div class="one-show-wrapp">
+                            <a href="#" class="one-show">
+                                <div class="img-show"></div>
+                                <div class="descr">
+                                    <p class="name">marilyn manson</p>
+                                    <p class="when">November 12, 2019</p>
+                                    <p class="when-2">7:00 PM</p>
+                                    <p class="where">Madison Square Garden - NY</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="one-show-wrapp">
+                            <a href="#" class="one-show">
+                                <div class="img-show"></div>
+                                <div class="descr">
+                                    <p class="name">marilyn manson</p>
+                                    <p class="when">November 12, 2019</p>
+                                    <p class="when-2">7:00 PM</p>
+                                    <p class="where">Madison Square Garden - NY</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="one-show-wrapp">
+                            <a href="#" class="one-show">
+                                <div class="img-show"></div>
+                                <div class="descr">
+                                    <p class="name">marilyn manson</p>
+                                    <p class="when">November 12, 2019</p>
+                                    <p class="when-2">7:00 PM</p>
+                                    <p class="where">Madison Square Garden - NY</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="one-show-wrapp">
+                            <a href="#" class="one-show">
+                                <div class="img-show"></div>
+                                <div class="descr">
+                                    <p class="name">marilyn manson</p>
+                                    <p class="when">November 12, 2019</p>
+                                    <p class="when-2">7:00 PM</p>
+                                    <p class="where">Madison Square Garden - NY</p>
+                                </div>
+                            </a>
+                        </div>
+    
                     </div>
-                    <div class="one-obj">
-                        <a href="#" class="click-link">
-                            <div class="ava"></div>
-                            <div class="descr">
-                                <p class="name">Danielle Green</p>
-                                <p class="mouse-name"><span>@CoolDanielle</span></p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="one-obj">
-                        <a href="#" class="click-link">
-                            <div class="ava"></div>
-                            <div class="descr">
-                                <p class="name">Danielle Green</p>
-                                <p class="mouse-name"><span>@CoolDanielle</span></p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="one-obj">
-                        <a href="#" class="click-link">
-                            <div class="ava"></div>
-                            <div class="descr">
-                                <p class="name">Danielle Green</p>
-                                <p class="mouse-name"><span>@CoolDanielle</span></p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="one-obj">
-                        <a href="#" class="click-link">
-                            <div class="ava"></div>
-                            <div class="descr">
-                                <p class="name">Danielle Green</p>
-                                <p class="mouse-name"><span>@CoolDanielle</span></p>
-                            </div>
-                        </a>
-                    </div>
-                     <div class="one-obj">
-                        <a href="#" class="click-link">
-                            <div class="ava"></div>
-                            <div class="descr">
-                                <p class="name">Danielle Green</p>
-                                <p class="mouse-name"><span>@</span>CoolDanielle</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="genre-head">
-                    <p>Artists (55)</p>
-                    <button>SHOW ALL</button>
-                </div>
-                <div class="block-of-genre-search">
-                    <div class="one-obj">
-                        <a href="#" class="click-link">
-                            <div class="ava"></div>
-                            <div class="descr">
-                                <p class="name">Danielqwe qwe qwe le Green</p>
-                                <p class="mouse-name"><span>@</span>CoolDanielle</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="one-obj">
-                        <a href="#" class="click-link">
-                            <div class="ava"></div>
-                            <div class="descr">
-                                <p class="name">Danielle Green</p>
-                                <p class="mouse-name"><span>@CoolDanielle</span></p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="one-obj">
-                        <a href="#" class="click-link">
-                            <div class="ava"></div>
-                            <div class="descr">
-                                <p class="name">Danielle Green</p>
-                                <p class="mouse-name"><span>@CoolDanielle</span></p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="one-obj">
-                        <a href="#" class="click-link">
-                            <div class="ava"></div>
-                            <div class="descr">
-                                <p class="name">Danielle Green</p>
-                                <p class="mouse-name"><span>@CoolDanielle</span></p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="one-obj">
-                        <a href="#" class="click-link">
-                            <div class="ava"></div>
-                            <div class="descr">
-                                <p class="name">Danielle Green</p>
-                                <p class="mouse-name"><span>@CoolDanielle</span></p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="one-obj">
-                        <a href="#" class="click-link">
-                            <div class="ava"></div>
-                            <div class="descr">
-                                <p class="name">Danielle Green</p>
-                                <p class="mouse-name"><span>@CoolDanielle</span></p>
-                            </div>
-                        </a>
-                    </div>
-                     <div class="one-obj">
-                        <a href="#" class="click-link">
-                            <div class="ava"></div>
-                            <div class="descr">
-                                <p class="name">Danielle Green</p>
-                                <p class="mouse-name"><span>@</span>CoolDanielle</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="genre-head">
-                    <p>Venues (55)</p>
-                    <button>SHOW ALL</button>
-                </div>
-                <div class="block-of-genre-search">
-                    <div class="one-obj">
-                        <a href="#" class="click-link">
-                            <div class="ava"></div>
-                            <div class="descr">
-                                <p class="name">Danielqwe qwe qwe le Green</p>
-                                <p class="mouse-name"><span>@</span>CoolDanielle</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="one-obj">
-                        <a href="#" class="click-link">
-                            <div class="ava"></div>
-                            <div class="descr">
-                                <p class="name">Danielle Green</p>
-                                <p class="mouse-name"><span>@CoolDanielle</span></p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="one-obj">
-                        <a href="#" class="click-link">
-                            <div class="ava"></div>
-                            <div class="descr">
-                                <p class="name">Danielle Green</p>
-                                <p class="mouse-name"><span>@CoolDanielle</span></p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="one-obj">
-                        <a href="#" class="click-link">
-                            <div class="ava"></div>
-                            <div class="descr">
-                                <p class="name">Danielle Green</p>
-                                <p class="mouse-name"><span>@CoolDanielle</span></p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="one-obj">
-                        <a href="#" class="click-link">
-                            <div class="ava"></div>
-                            <div class="descr">
-                                <p class="name">Danielle Green</p>
-                                <p class="mouse-name"><span>@CoolDanielle</span></p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="one-obj">
-                        <a href="#" class="click-link">
-                            <div class="ava"></div>
-                            <div class="descr">
-                                <p class="name">Danielle Green</p>
-                                <p class="mouse-name"><span>@CoolDanielle</span></p>
-                            </div>
-                        </a>
-                    </div>
-                     <div class="one-obj">
-                        <a href="#" class="click-link">
-                            <div class="ava"></div>
-                            <div class="descr">
-                                <p class="name">Danielle Green</p>
-                                <p class="mouse-name"><span>@</span>CoolDanielle</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="genre-head">
-                    <p>Shows (55)</p>
-                    <button>SHOW ALL</button>
-                </div>
-                <div class="shows-block-search">
-                    <div class="one-show-wrapp">
-                        <a href="#" class="one-show">
-                            <div class="img-show"></div>
-                            <div class="descr">
-                                <p class="name">marilyn manson</p>
-                                <p class="when">November 12, 2019</p>
-                                <p class="when-2">7:00 PM</p>
-                                <p class="where">Madison Square Garden - NY</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="one-show-wrapp">
-                        <a href="#" class="one-show">
-                            <div class="img-show"></div>
-                            <div class="descr">
-                                <p class="name">marilyn manson</p>
-                                <p class="when">November 12, 2019</p>
-                                <p class="when-2">7:00 PM</p>
-                                <p class="where">Madison Square Garden - NY</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="one-show-wrapp">
-                        <a href="#" class="one-show">
-                            <div class="img-show"></div>
-                            <div class="descr">
-                                <p class="name">marilyn manson</p>
-                                <p class="when">November 12, 2019</p>
-                                <p class="when-2">7:00 PM</p>
-                                <p class="where">Madison Square Garden - NY</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="one-show-wrapp">
-                        <a href="#" class="one-show">
-                            <div class="img-show"></div>
-                            <div class="descr">
-                                <p class="name">marilyn manson</p>
-                                <p class="when">November 12, 2019</p>
-                                <p class="when-2">7:00 PM</p>
-                                <p class="where">Madison Square Garden - NY</p>
-                            </div>
-                        </a>
-                    </div>
-
-                </div>
+                </ng-container>
+                
 
                 <div class="genre-head">
                     <p>Fans/Artist/Venue (55)</p>
@@ -377,56 +176,59 @@
 
                 </div>
 
-                <div class="genre-head">
-                    <p>Shows (55)</p>
-                </div>
-                <div class="shows-block-search all-shows">
-                    <div class="one-show-wrapp">
-                        <a href="#" class="one-show">
-                            <div class="img-show"></div>
-                            <div class="descr">
-                                <p class="name">marilyn manson</p>
-                                <p class="when">November 12, 2019</p>
-                                <p class="when-2">7:00 PM</p>
-                                <p class="where">Madison Square Garden - NY</p>
+                <ng-container *ngIf="SearchType == LocalSearchTypes.Shows">
+                    <div class="genre-head">
+                            <p>Shows (55)</p>
+                        </div>
+                        <div class="shows-block-search all-shows">
+                            <div class="one-show-wrapp">
+                                <a href="#" class="one-show">
+                                    <div class="img-show"></div>
+                                    <div class="descr">
+                                        <p class="name">marilyn manson</p>
+                                        <p class="when">November 12, 2019</p>
+                                        <p class="when-2">7:00 PM</p>
+                                        <p class="where">Madison Square Garden - NY</p>
+                                    </div>
+                                </a>
                             </div>
-                        </a>
-                    </div>
-                    <div class="one-show-wrapp">
-                        <a href="#" class="one-show">
-                            <div class="img-show"></div>
-                            <div class="descr">
-                                <p class="name">marilyn manson</p>
-                                <p class="when">November 12, 2019</p>
-                                <p class="when-2">7:00 PM</p>
-                                <p class="where">Madison Square Garden - NY</p>
+                            <div class="one-show-wrapp">
+                                <a href="#" class="one-show">
+                                    <div class="img-show"></div>
+                                    <div class="descr">
+                                        <p class="name">marilyn manson</p>
+                                        <p class="when">November 12, 2019</p>
+                                        <p class="when-2">7:00 PM</p>
+                                        <p class="where">Madison Square Garden - NY</p>
+                                    </div>
+                                </a>
                             </div>
-                        </a>
-                    </div>
-                    <div class="one-show-wrapp">
-                        <a href="#" class="one-show">
-                            <div class="img-show"></div>
-                            <div class="descr">
-                                <p class="name">marilyn manson</p>
-                                <p class="when">November 12, 2019</p>
-                                <p class="when-2">7:00 PM</p>
-                                <p class="where">Madison Square Garden - NY</p>
+                            <div class="one-show-wrapp">
+                                <a href="#" class="one-show">
+                                    <div class="img-show"></div>
+                                    <div class="descr">
+                                        <p class="name">marilyn manson</p>
+                                        <p class="when">November 12, 2019</p>
+                                        <p class="when-2">7:00 PM</p>
+                                        <p class="where">Madison Square Garden - NY</p>
+                                    </div>
+                                </a>
                             </div>
-                        </a>
-                    </div>
-                    <div class="one-show-wrapp">
-                        <a href="#" class="one-show">
-                            <div class="img-show"></div>
-                            <div class="descr">
-                                <p class="name">marilyn manson</p>
-                                <p class="when">November 12, 2019</p>
-                                <p class="when-2">7:00 PM</p>
-                                <p class="where">Madison Square Garden - NY</p>
+                            <div class="one-show-wrapp">
+                                <a href="#" class="one-show">
+                                    <div class="img-show"></div>
+                                    <div class="descr">
+                                        <p class="name">marilyn manson</p>
+                                        <p class="when">November 12, 2019</p>
+                                        <p class="when-2">7:00 PM</p>
+                                        <p class="where">Madison Square Garden - NY</p>
+                                    </div>
+                                </a>
                             </div>
-                        </a>
-                    </div>
-
-                </div>
+        
+                        </div>
+                </ng-container>
+                
             </div>
         </div>
     </div>
