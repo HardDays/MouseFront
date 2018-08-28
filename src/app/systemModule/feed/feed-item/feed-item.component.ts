@@ -162,6 +162,8 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
   }
 
   getValue(){
+    console.log(this.Feed);
+    
     if(this.Feed.type === 'event_update'){
       switch(this.Feed.action){
         case 'update_updates_available':

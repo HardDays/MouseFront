@@ -29,15 +29,15 @@
 
     <div class="where" [innerHTML]="Date"></div>
     <!-- <ng-container *ngIf="Show.date_from && Show.date_to">
-        <div class="where">{{Show.date_from | date:'EEEE, MMM d, yyyy HH:mm'}} - {{Show.date_to | date:'EEEE, MMM d, yyyy HH:mm'}}</div>
+        <div class="where">{{Show.date_from | date:'EEEE' | translate}}, {{Show.date_from | date:'MMM' | translate}} {{Show.date_from | date:'d, yyyy HH:mm'}} - {{Show.date_to | date:'EEEE' | translate}}, {{Show.date_to | date:'MMM' | translate}} {{Show.date_to | date:'d, yyyy HH:mm'}}</div>
     </ng-container>
     <ng-container *ngIf="Show.date_from && !Show.date_to">
-        <div class="where">{{Show.date_from | date:'EEEE, MMM d, yyyy'}} - <span>{{Show.date_from | date:'HH:mm'}}</span></div>
+        <div class="where">{{Show.date_from | date:'EEEE' | translate}}, {{Show.date_from | date:'MMM' | translate}} {{Show.date_from | date:'d, yyyy'}} - <span>{{Show.date_from | date:'HH:mm'}}</span></div>
     </ng-container>
     <ng-container *ngIf="!Show.date_from && Show.date_to">
-        <div class="where">{{Show.date_to | date:'EEEE, MMM d, yyyy'}} - <span>{{Show.date_to | date:'HH:mm'}}</span></div>
+        <div class="where">{{Show.date_to | date:'EEEE' | translate}}, {{Show.date_to | date:'MMM' | translate}} {{Show.date_to | date:'d, yyyy'}} - <span>{{Show.date_to | date:'HH:mm'}}</span></div>
     </ng-container>
-    <div class="where" *ngIf="!Show.date_from && !Show.date_to">{{Show.event_season}}, {{Show.event_year}} - <span>{{Show.event_time}}</span></div> -->
+    <div class="where" *ngIf="!Show.date_from && !Show.date_to"><span>{{Show.event_season | translate}}</span>, {{Show.event_year}} - <span>{{Show.event_time | translate}}</span></div> -->
 
     <div *ngIf="Date && Show.address" class="where">-</div>
     <div class="where">{{Show.address}}, {{Show.venue?.city?Show.venue.city:''}}, {{Show.venue?.state?Show.venue.state:''}}</div> 

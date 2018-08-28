@@ -700,4 +700,9 @@ export class BaseComponent{
             return true;
         }
 
+    GetTranslateString(str:string):string
+    {
+        return this.translate.parser.getValue(this.translate.store.translations[this.settings.GetLang()],str);
+    }
+
 }
