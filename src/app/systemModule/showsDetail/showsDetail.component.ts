@@ -35,6 +35,7 @@ import { TranslateService } from '../../../../node_modules/@ngx-translate/core';
 import { SettingsService } from '../../core/services/settings.service';
 import { PurchaseModel, TicketPurchaseModel } from '../../core/models/purchase.model';
 import { TransactionModel } from '../../core/models/transaction.model';
+import * as translate from '@ngx-translate/core';
 
 declare var $:any;
 declare var PhotoSwipeUI_Default:any;
@@ -385,32 +386,50 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         }
         //если да
     }
+    ToUppercaseLetter(date, format) : string{
+        let formDate = moment(date).format(format);
+        return formDate[0].toUpperCase() + formDate.substr(1) + ' ';
+    }
 
     SetDate()
     {
+        this.isEnglish() != true?moment.locale('ru'):moment.locale('en');
         this.Date = "";
         const timeFormat = this.main.settings.GetTimeFormat() == TimeFormat.CIS ? 'HH:mm' : 'hh:mm A';
-        const dateTimeFromat = "dddd, MMM DD, YYYY " + timeFormat;
+        const dateTimeFromat = "DD, YYYY " + timeFormat;
+        
+        
         if(!this.Event.date_from && !this.Event.date_to)
         {
-            this.Date = this.Event.event_season + ", " + this.Event.event_year;
+            this.Date = this.GetTranslateString(this.Event.event_season) + ' ' + this.Event.event_year;
             if(this.Event.event_time)
             {
-                this.Date = this.Date + " - <span>"+this.Event.event_time+"</span>"
+                this.Date = this.Date + " - <span>"+this.GetTranslateString(this.Event.event_time)+"</span>"
             }
+
+
         }
         else if (this.Event.date_from && this.Event.date_to)
         {
+            const dateFrom = this.ToUppercaseLetter(this.Event.date_from,'dddd')
+                + this.ToUppercaseLetter(this.Event.date_from,'MMM')
+                + moment(this.Event.date_from).format(dateTimeFromat)
+
+            const dateTo = this.ToUppercaseLetter(this.Event.date_to,'dddd')
+                 + this.ToUppercaseLetter(this.Event.date_to,'MMM')
+                 + moment(this.Event.date_to).format(dateTimeFromat)
+
             let from = this.Event.date_from.split("T")[0];            
             let to = this.Event.date_to.split("T")[0];
             if(from === to){
-                let m = moment(this.Event.date_from);
-                this.Date = m.format(dateTimeFromat);
+                // let m = moment(this.Event.date_from);
+                // this.Date = m.format(dateTimeFromat);
+                this.Date = dateFrom;
                 this.Date = this.Date + " - <span>"+ moment(this.Event.date_to).format(timeFormat)+"</span>";
                 //this.Date = date.toLocaleDateString('EEEE, MMM d, yyyy HH:mm');
             }
             else{
-                this.Date = moment(this.Event.date_from).format(dateTimeFromat) + " - " + moment(this.Event.date_to).format(dateTimeFromat);
+                this.Date = dateFrom  + " - " + dateTo;
             }
         }
     }

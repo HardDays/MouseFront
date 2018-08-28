@@ -67,9 +67,12 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
   
   ngOnInit() 
   {
+     
+     
     this.accountId = this.main.CurrentAccount.id;
     this.type = this.main.CurrentAccount.account_type;
     this.GetMessages();
+    
 
     this.main.MyAccountsChange.subscribe(
       (acc)=>{
@@ -143,6 +146,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
               .subscribe((res)=>{
                 // console.log(res);
                 this.openMessage = res;
+                
 
                  if(!this.openMessage.is_receiver_read){
                   this.main.accService.ReadMessageById(this.accountId,this.messages[0].id)
