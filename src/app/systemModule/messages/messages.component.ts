@@ -385,12 +385,26 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
 
     // console.log(this.request);
 
-    this.WaitBeforeLoading(
-      () => this.main.eventService.ArtistDeclineByArtist(this.request),
-      (res)=>{
-        this.GetMessages();
-      }
-    );
+    if(this.type=="artist"){
+      this.WaitBeforeLoading(
+        () => this.main.eventService.ArtistDeclineByArtist(this.request),
+        (res)=>{
+          this.GetMessages();
+        }
+      );
+    }
+    else if(this.type=="venue")
+    {
+     this.WaitBeforeLoading(
+        () => this.main.eventService.VenueDeclineByVenue(this.request),
+        (res)=>{
+          this.GetMessages();
+        }
+      );
+    }
+
+
+
   }
 
 
