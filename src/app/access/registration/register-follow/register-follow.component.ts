@@ -105,4 +105,16 @@ export class RegisterFollowComponent extends BaseComponent implements OnInit {
       this.getArtists();
   }
 
+  niceShowGenre(genres:string[]){
+    let allGenres = '';
+    for(let i in genres){
+      let genre = genres[i].replace('_',' ');
+      if(genre.length>0)
+        genre = genre.charAt(0).toUpperCase() + genre.slice(1);
+      allGenres += genre;
+      if(+i != genres.length-1) allGenres += ', ';
+    }
+    return allGenres;
+  }
+
 }

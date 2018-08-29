@@ -201,6 +201,10 @@ export class LoginComponent extends BaseComponent implements OnInit {
         ()=>
         {
           this.curPage = 3;
+        },
+        (err)=>{
+          console.log(err);
+           this.OpenErrorWindow(this.getResponseErrorMessage(err));
         }
       )
   }
