@@ -6,6 +6,9 @@ import { AccountGetModel } from '../../core/models/accountGet.model';
 import { EventGetModel } from "../../core/models/eventGet.model";
 import { EventSearchParams } from '../../core/models/eventSearchParams';
 import { GenreModel } from "../../core/models/genres.model";
+import { SearchEventsMapComponent } from "../../shared/search/map/map.component";
+import { CheckModel } from "../../core/models/check.model";
+import { SelectModel } from "../../core/models/select.model";
 
 declare var $:any;
 export enum SearchTypes{
@@ -24,15 +27,20 @@ export enum SearchTypes{
 
 export class GlobalSearchComponent extends BaseComponent implements OnInit {
     SearchParams = {
-        text: '',
-        limit: null
+        text: ''
     };
+    Country: string = '';
+    City: string = '';
+    TicketType = '';
+    TypeOfSpace = '';
     LocalSearchTypes = SearchTypes;
     SearchType: string = SearchTypes.All;
     SelectedContent: string = SearchTypes.All;
 
     Genres:GenreModel[] = [];
     ShowMoreGenres:boolean = false;
+    TicketTypes:CheckModel<any>[] = [];
+    TypesOfSpace:SelectModel[] = [];
 
 
     Fans: AccountGetModel[] = [];
@@ -42,6 +50,8 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
 
 
     @ViewChild('SearchForm') form: NgForm;
+    @ViewChild('mapForm') mapForm : SearchEventsMapComponent;
+    
     ngOnInit(): void {
         this.activatedRoute.queryParams.subscribe(
             (params: Params) => {
@@ -50,7 +60,20 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
             }
         );
         this.GetGenres();
+        this.GetAllTypesOfSpace();
+        this.GetTicketTypes();
     }
+
+    GetAllTypesOfSpace()
+    {
+        this.TypesOfSpace = this.main.typeService.GetAllSpaceTypes();
+    }
+
+    GetTicketTypes()
+    {
+        this.TicketTypes = this.main.typeService.GetTicketTypes();
+    }
+
     ShowSearchResult()
     {
         if(this.SearchType == SearchTypes.All || this.SearchType == SearchTypes.Fans)
@@ -78,7 +101,9 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
         this.Fans = [];
         this.main.accService.AccountsSearch(Object.assign(this.SearchParams,{
             type:"fan",
-            genres: this.main.genreService.GenreModelArrToStringArr(this.Genres)
+            genres: this.main.genreService.GenreModelArrToStringArr(this.Genres),
+            city: this.City,
+            country: this.Country
         }))
             .subscribe(
                 (res: AccountGetModel[]) => {
@@ -91,7 +116,9 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
         this.Artists = [];
         this.main.accService.AccountsSearch(Object.assign(this.SearchParams,{
             type:"artist",
-            genres: this.main.genreService.GenreModelArrToStringArr(this.Genres)
+            genres: this.main.genreService.GenreModelArrToStringArr(this.Genres),
+            city: this.City,
+            country: this.Country
         }))
             .subscribe(
                 (res: AccountGetModel[]) => {
@@ -102,7 +129,11 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
     GetVenues()
     {
         this.Venues = [];
-        this.main.accService.AccountsSearch(Object.assign(this.SearchParams,{type:"venue"}))
+        this.main.accService.AccountsSearch(Object.assign(this.SearchParams,{
+            type:"venue",
+            city: this.City,
+            country: this.Country
+        }))
             .subscribe(
                 (res: AccountGetModel[]) => {
                     this.Venues = res;
@@ -115,7 +146,10 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
         let search:EventSearchParams = this.SearchParams;
         search.is_active = true; 
         this.main.eventService.EventsSearch(Object.assign(search,{
-            genres: this.main.genreService.GenreModelArrToStringArr(this.Genres)
+            genres: this.main.genreService.GenreModelArrToStringArr(this.Genres),
+            is_active: true,
+            ticket_types: this.TicketType ? [this.TicketType] : null,
+            size: this.TypeOfSpace
         }))
             .subscribe(
                 (res: EventGetModel[]) => {
@@ -139,6 +173,11 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
     ChangeView(Page:string)
     {
         this.SelectedContent = Page;
+    }
+
+    OpenMap(params)
+    {
+        this.mapForm.AboutOpenMapModal(params);
     }
 
 }

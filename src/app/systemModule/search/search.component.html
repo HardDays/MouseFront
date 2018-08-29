@@ -9,50 +9,81 @@
                         <div class="flex-radio">
                             <div class="one-radio">
                                 <div class="radio-style">
-                                    <input type="radio" [value]="LocalSearchTypes.All" [(ngModel)]="SearchType" class="radio-b" id="radio-1"  name="group1" value="all" checked>
-                                    <label for="radio-1"></label>
+                                    <input type="radio" [value]="LocalSearchTypes.All" [(ngModel)]="SearchType" class="radio-b" id="radio-all"  name="group1" value="all" checked>
+                                    <label for="radio-all"></label>
                                 </div>
                                 <p>All</p>
                             </div>
                             <div class="one-radio">
                                 <div class="radio-style">
-                                    <input type="radio" [value]="LocalSearchTypes.Venues" [(ngModel)]="SearchType" class="radio-b" id="radio-2" name="group1" value="venues">
-                                    <label for="radio-2"></label>
+                                    <input type="radio" [value]="LocalSearchTypes.Venues" [(ngModel)]="SearchType" class="radio-b" id="radio-venues" name="group1" value="venues">
+                                    <label for="radio-venues"></label>
                                 </div>
                                 <p>Venues</p>
                             </div>
                             <div class="one-radio">
                                 <div class="radio-style">
-                                    <input type="radio" [value]="LocalSearchTypes.Fans" [(ngModel)]="SearchType" class="radio-b" id="radio-3" name="group1" value="fans">
-                                    <label for="radio-3"></label>
+                                    <input type="radio" [value]="LocalSearchTypes.Fans" [(ngModel)]="SearchType" class="radio-b" id="radio-fans" name="group1" value="fans">
+                                    <label for="radio-fans"></label>
                                 </div>
                                 <p>Fans</p>
                             </div>
                             <div class="one-radio">
                                 <div class="radio-style">
-                                    <input type="radio" [value]="LocalSearchTypes.Shows" [(ngModel)]="SearchType" class="radio-b" id="radio-4" name="group1" value="shows">
-                                    <label for="radio-4"></label>
+                                    <input type="radio" [value]="LocalSearchTypes.Shows" [(ngModel)]="SearchType" class="radio-b" id="radio-shows" name="group1" value="shows">
+                                    <label for="radio-shows"></label>
                                 </div>
                                 <p>Shows</p>
                             </div>
                             <div class="one-radio">
                                 <div class="radio-style">
-                                    <input type="radio" [value]="LocalSearchTypes.Artists" [(ngModel)]="SearchType" class="radio-b" id="radio-5" name="group1" value="artists">
-                                    <label for="radio-5"></label>
+                                    <input type="radio" [value]="LocalSearchTypes.Artists" [(ngModel)]="SearchType" class="radio-b" id="radio-artist" name="group1" value="artists">
+                                    <label for="radio-artists"></label>
                                 </div>
                                 <p>Artists</p>
                             </div>
                         </div>
 
                     </div>
+                    <ng-container *ngIf="SearchType == LocalSearchTypes.Shows">
+                        <div class="groupe-form">
+                            <p class="head-input-groupe" translate>Tickets.Ticket type</p>
+                            <div class="flex-radio">
+                                <div class="one-radio" *ngFor="let item of TicketTypes; let i = index">
+                                    <div class="radio-style">
+                                        <input type="radio" class="radio-b" id="radio-{{i}}"  name="radio-{{i}}" [(ngModel)]="TicketType" [value]="item.object.value">
+                                        <label for="radio-{{i}}"></label>
+                                    </div>
+                                    <p translate>{{item.object.name}}</p>
+                                </div>
+                            </div>
+                        
+                        </div>
+                        <div class="groupe-form">
+                            <p class="head-input-groupe" translate>Type of space</p>
+                            <!-- <select class="select-type-of-space" name="select_type_of_space" [ngModel]="SearchParams.size" (ngModelChange)="TypeOfSpaceChange($event)">
+                                <option value=""></option>
+                                <option *ngFor="let item of TypesOfSpace" [value]="item.value">{{item.name}}</option>
+                            </select> -->
+                            <mat-form-field >
+                                <mat-select name="select_type_of_space" [(ngModel)]="TypeOfSpace" (ngModelChange)="TypeOfSpace = $event">
+                                    <mat-option [value]=""></mat-option>
+                                    <mat-option *ngFor="let item of TypesOfSpace" [value]="item.value">
+                                        {{ item.name | translate }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </ng-container>
+
                     <ng-container *ngIf="SearchType != LocalSearchTypes.Shows">
                         <div class="groupe-form">
                             <p class="head-input-groupe">Region</p>
-                            <input type="text" class="inp-style-3" placeholder="Choose a country">
+                            <input type="text" name="country-input" [ngModel]="Country" (ngModelChange)="Country = $event" class="inp-style-3" placeholder="Choose a country">
                         </div>
                         <div class="groupe-form">
                             <p class="head-input-groupe">City</p>
-                            <input type="text" class="inp-style-3" placeholder="Choose a city">
+                            <input type="text"  name="city-input" [ngModel]="City" (ngModelChange)="City = $event" class="inp-style-3" placeholder="Choose a city">
                         </div>
                     </ng-container>
                     
@@ -117,5 +148,6 @@
                  -->
             </div>
         </div>
+        <search-events-map-cmp #mapForm (onMapClicked)="TransferMapToSearch($event)"></search-events-map-cmp>
     </div>
 </div>

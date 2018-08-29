@@ -14,6 +14,9 @@ import { TimePipeModule } from "../../core/pipes/time.pipe/time.pipe.module";
 import { AccountsFullSearchComponent } from './acounts-full/accounts-full.component';
 import { AccountCardSearchComponent } from './acounts-full/account-card/account-card.component';
 import { ShowsFullSearchComponent } from "./shows/shows-full/shows-full.component";
+import { SearchEventsModule } from "../../shared/search/search.module";
+import { TranslateModule } from "@ngx-translate/core";
+import { MatSelectModule, MatFormFieldModule } from "@angular/material";
 
 @NgModule({
     imports: [ 
@@ -24,7 +27,11 @@ import { ShowsFullSearchComponent } from "./shows/shows-full/shows-full.componen
         TextMaskModule,
         ErrorModule,
         PreloaderModule,
-        TimePipeModule
+        TimePipeModule,
+        SearchEventsModule,
+        MatSelectModule,
+        MatFormFieldModule,
+        TranslateModule
     ],
     declarations: [ 
         GlobalSearchComponent,
