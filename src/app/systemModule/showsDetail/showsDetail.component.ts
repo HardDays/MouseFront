@@ -244,7 +244,11 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     {
         this.TicketsToBuy.push(object);
         this.CalculateCurrentPrice();
-        this.OpenErrorWindow(object.count + " ticket" + (object.count > 1 ?"s ": " ") + "added to your cart!");
+        this.OpenErrorWindow(object.count + this.GetTranslateString(" ticket") 
+        + (object.count > 1 && object.count <= 4 ?this.GetTranslateString("addRuA"): "") 
+        + (object.count > 4 ?this.GetTranslateString("addRuOv"): " ") 
+        + (object.count > 1 ?this.GetTranslateString("addedRu"): this.GetTranslateString("added")) 
+        + this.GetTranslateString("to your cart!"));
     }
 
     CalculateCurrentPrice()

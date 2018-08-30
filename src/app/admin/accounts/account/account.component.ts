@@ -16,7 +16,7 @@ export class AccountComponent extends BaseComponent implements OnInit {
   accId = 0;
   Account:AccountCreateModel = new AccountCreateModel();
 
-  @ViewChild('errCmp') errCmp: ErrorComponent = new ErrorComponent;
+  @ViewChild('errCmp') errCmp: ErrorComponent = new ErrorComponent(this.translate, this.settings);
 
   ngOnInit() {
     window.scrollTo(0,0);
