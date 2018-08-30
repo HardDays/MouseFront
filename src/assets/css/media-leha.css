@@ -75,7 +75,7 @@ html, body{
   min-height: calc(100vh - 84px);
 }
 .admin_page .admin_content .support_container .support_grey .support_right .right-to-scroll{
-  max-height: calc(100vh - 169px);
+  max-height: calc(100vh - 179px);
   overflow: auto;
   padding-bottom: 30px;
 }

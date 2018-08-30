@@ -3,7 +3,7 @@ import { BaseComponent } from '../../core/base/base.component';
 import { AccountGetModel } from '../../core/models/accountGet.model';
 import { BaseImages } from '../../core/base/base.enum';
 import { Subject, ReplaySubject } from 'rxjs';
-
+declare var $:any;
 
 interface Question {
   id:number,
@@ -139,7 +139,11 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
         //   }
           
         // }
-
+        setTimeout(()=>{
+          $('.right-to-scroll').scrollTop($('.right-to-scroll').prop('scrollHeight'));
+        },50);
+        
+       
       }
     )
   }
