@@ -165,9 +165,14 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
 
   seeMoreGenres()
   {
-    this.seeMore = true;
-    for(let g of this.genres)
-      g.show = true;
+    this.seeMore = !this.seeMore;
+    if(this.seeMore){
+      for(let g of this.genres)
+        g.show = true;
+    }
+    else {
+      this.seeFirstGenres();
+    }
   }
 
 
@@ -179,7 +184,7 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
       this.seeMore = true;
       for(let g of this.genres)
       {
-         if(g.genre_show.indexOf(this.search.toUpperCase())>=0)
+         if(this.translate.get(g.genre_show)['value'].toLowerCase().indexOf(this.search.toLowerCase())>=0)
           g.show = true;
          else
           g.show = false;
@@ -194,6 +199,7 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
   registerAcc()
   {
     if(!this.isCreate){
+
       this.isCreate = true;
       if(this.accForm.invalid)
       {
@@ -216,6 +222,8 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
       this.Account.display_name = this.accForm.value['first_name']+" "+this.accForm.value['last_name'];
       this.Account.first_name = this.accForm.value['first_name'];
       this.Account.last_name = this.accForm.value['last_name'];
+    
+
       this.WaitBeforeLoading(
         ()=>this.main.accService.CreateAccount(this.Account),
         (res)=>{
