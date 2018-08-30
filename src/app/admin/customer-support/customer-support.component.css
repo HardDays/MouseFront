@@ -14,7 +14,7 @@ button[disabled]{
     direction: ltr;
 }
 .support_right{
-    margin-bottom: 30px;
+    
 }
 
 .support_dialogs::-webkit-scrollbar {
@@ -23,6 +23,16 @@ button[disabled]{
 }
 
 .support_dialogs::-webkit-scrollbar-thumb {
+    background: #d9d9d9;
+    border-radius: 2.5px;
+    cursor: pointer;
+}
+.right-to-scroll::-webkit-scrollbar {
+    background: #f1f1f1;
+    width: 5px;
+}
+
+.right-to-scroll::-webkit-scrollbar-thumb {
     background: #d9d9d9;
     border-radius: 2.5px;
     cursor: pointer;

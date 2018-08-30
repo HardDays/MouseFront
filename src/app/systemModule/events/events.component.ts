@@ -191,7 +191,7 @@ export class EventsComponent extends BaseComponent implements OnInit,AfterViewCh
             $(".nav-holder-3").addClass("is-active");
             $(".mask-nav-3").addClass("is-active")
         });
-        $(".menu-close, .mask-nav-3").on("click", function (e) {
+        $(".menu-close, .mask-nav-3,.at-map").on("click", function (e) {
             e.preventDefault();
             $("body").removeClass("has-active-menu");
             $(".mainWrapper").removeClass("has-push-left");
