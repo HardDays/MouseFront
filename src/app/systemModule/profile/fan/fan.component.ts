@@ -123,6 +123,7 @@ export class FanProfileComponent extends BaseComponent implements OnInit,OnChang
             
                 this.main.eventService.GetEvents(this.Account.id).subscribe(
                 (res:EventGetModel[]) => {
+                    console.log(res);
                     this.EventsMassChecked = this.EventsMass = res;
                     this.isPreloadEvents = false;
                 },

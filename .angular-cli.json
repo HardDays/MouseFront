@@ -31,7 +31,9 @@
         "assets/css/default-skin.css",
         "./../node_modules/angular-calendar/css/angular-calendar.css",
         "assets/css/media-leha.css",
+        "assets/css/new-show-datails.css",
         "assets/css/styleSearch.css"
+        
       ],
       "scripts": [
         

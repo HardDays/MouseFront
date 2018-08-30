@@ -643,34 +643,47 @@ export class BaseComponent{
 
     private getFieldError(field: FormControl, key: string, keyDict: any)
     {
+
         // console.log(key, keyDict);
         if (field.errors !== null)
         {
             if (field.errors.hasOwnProperty('required'))
             {
-                return String(BaseMessages.RequiredField).replace('_field', keyDict[key]);
+                let strEr = (BaseMessages.RequiredField).replace('_field', keyDict[key]);
+                strEr = this.GetTranslateString(strEr)?this.GetTranslateString(strEr):strEr;
+                return String(strEr)
             }
             else if (field.errors.hasOwnProperty('email'))
-            {
-                return String(BaseMessages.EmailField).replace('_email', keyDict[key]);
+            {          
+                let strEr = (BaseMessages.EmailField).replace('_email', keyDict[key]);
+                strEr = this.GetTranslateString(strEr)?this.GetTranslateString(strEr):strEr;
+                return String(strEr)      
             }
             else if (field.errors.hasOwnProperty('maxlength'))
             {
-                return String(BaseMessages.MaxLength).replace(
-                  '_field', keyDict[key]
-                ).replace('_length', field.errors['maxlength'].requiredLength);
+                let strEr = (BaseMessages.MaxLength).replace(
+                    '_field', keyDict[key]
+                  ).replace('_length', field.errors['maxlength'].requiredLength);
+                strEr = this.GetTranslateString(strEr)?this.GetTranslateString(strEr):strEr;
+                return String(strEr) 
             }
             else if (field.errors.hasOwnProperty('pattern'))
             {
               if (key === 'email' || key === 'artist_email') {
-                return String(BaseMessages.EmailPattern).replace('_email', keyDict[key]);
+                let strEr = (BaseMessages.EmailPattern).replace('_email', keyDict[key]);
+                strEr = this.GetTranslateString(strEr)?this.GetTranslateString(strEr):strEr;
+                return String(strEr) 
               }
               else if (key === 'link'){
-                return String(BaseMessages.LinkPattern).replace('_link', keyDict[key]);
+                let strEr = (BaseMessages.LinkPattern).replace('_link', keyDict[key]);
+                strEr = this.GetTranslateString(strEr)?this.GetTranslateString(strEr):strEr;
+                return String(strEr) 
               }
               else
               {
-                return String(BaseMessages.NumberPattern).replace('_filed', keyDict[key]);
+                let strEr = (BaseMessages.NumberPattern).replace('_filed', keyDict[key]);
+                strEr = this.GetTranslateString(strEr)?this.GetTranslateString(strEr):strEr;
+                return String(strEr) 
               }
             }
         }
@@ -711,7 +724,8 @@ export class BaseComponent{
       const keyDict = this.getKeysDict(entityType);
       Object.keys(err.json()).forEach((key) => {
           let error = err.json()[key][0];
-          errors.push(keyDict[key] + ' ' + (error?error.replace('_', ' '):'').toLowerCase());
+          
+          errors.push(this.GetTranslateString(keyDict[key]) + ' ' + (error? this.GetTranslateString(error.replace('_', ' ').toLowerCase()):'').toLowerCase());
       });
 
       return errors.join('<br/>');
@@ -725,7 +739,7 @@ export class BaseComponent{
         }
 
     GetTranslateString(str:string):string
-    {
+    {           
         return this.translate.parser.getValue(this.translate.store.translations[this.settings.GetLang()],str);
     }
 

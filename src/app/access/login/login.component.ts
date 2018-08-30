@@ -203,8 +203,8 @@ export class LoginComponent extends BaseComponent implements OnInit {
           this.curPage = 3;
         },
         (err)=>{
-          console.log(err);
-           this.OpenErrorWindow(this.getResponseErrorMessage(err));
+          if(err.json()['error'] === 'LOGIN_DOES_NOT_EXIST')
+            this.OpenErrorWindow('Please, input correct username and e-mail!');
         }
       )
   }

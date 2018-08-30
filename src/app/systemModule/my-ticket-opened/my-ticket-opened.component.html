@@ -15,7 +15,7 @@
 
                           </div>
                           <div class="cover-artist" [ngStyle]="{'background-image': 'url(' + Image + ')'}"></div>
-                          <p class="when">{{TicketsByEvent.event.date_from && TicketsByEvent.event.date_to?(TicketsByEvent.event.date_from|date:'fullDate':'shortTime')+" - "+(TicketsByEvent.event.date_to|date:'fullDate':'shortTime'):TicketsByEvent.event.event_season+' '+TicketsByEvent.event.event_year}}</p>
+                          <p class="when" [innerHTML]="Date"></p>
                           <p class="where">{{TicketsByEvent.event.address}}, {{TicketsByEvent.event?.city?TicketsByEvent.event.city:''}}, {{TicketsByEvent.event?.state?TicketsByEvent.event.state:''}}</p>
                       </div>
                       <div class="sides">
@@ -84,7 +84,10 @@
     <div class="content-print" >
         <p class="f1" translate>Tickets.Concert</p>
         <p class="name-concert">{{TicketsByEvent.event.name}}</p>
-        <p class="when">{{TicketsByEvent.event.date_from && TicketsByEvent.event.date_to?(TicketsByEvent.event.date_from|date:'fullDate':'shortTime')+" - "+(TicketsByEvent.event.date_to|date:'fullDate':'shortTime'):TicketsByEvent.event.event_season+' '+TicketsByEvent.event.event_year}}</p>
+        <p class="when" [innerHTML]="Date">
+            <!-- {{TicketsByEvent.event.date_from && TicketsByEvent.event.date_to?(TicketsByEvent.event.date_from|date:'fullDate':'shortTime')+" - "+(TicketsByEvent.event.date_to|date:'fullDate':'shortTime'):TicketsByEvent.event.event_season+' '+TicketsByEvent.event.event_year}} -->
+
+        </p>
         <p class="where">
             {{TicketsByEvent.event.address}}, {{TicketsByEvent.event?.city?TicketsByEvent.event.city:''}}, {{TicketsByEvent.event?.state?TicketsByEvent.event.state:''}}
         </p>

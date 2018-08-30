@@ -22,6 +22,7 @@ import { MainService } from '../../core/services/main.service';
 import { Currency, CurrencyIcons } from '../../core/models/preferences.model';
 import { TranslateService } from '../../../../node_modules/@ngx-translate/core';
 import { SettingsService } from '../../core/services/settings.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-my-ticket-opened',
@@ -37,7 +38,7 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit,Aft
   Image:string = BaseImages.Drake;
   accountForPrint:AccountGetModel = new AccountGetModel();
   // Currency = CurrencyIcons[this.main.settings.GetCurrency()];
-
+  Date: string = "";
   isPrint = false;
   
   MyCurrency = CurrencyIcons[this.main.settings.GetCurrency()];
@@ -85,6 +86,7 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit,Aft
         }
       }
     );
+    
   }
   ngAfterViewChecked()
   {
@@ -147,6 +149,7 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit,Aft
         // console.log(this.TicketsByEvent);
         this.GetImage();
         this.CountTotalPrice();
+        this.SetDate();
       },
       (err) => {
       //  console.log(err);
@@ -214,4 +217,53 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit,Aft
   getCurrency(currency){
     return CurrencyIcons[currency];
   }
+  ToUppercaseLetter(date, format) : string{
+    let formDate = moment(date).format(format);
+    return formDate[0].toUpperCase() + formDate.substr(1) + ' ';
+    }
+
+    SetDate()
+    {   
+        this.isEnglish() != true?moment.locale('ru'):moment.locale('en');
+        this.Date = "";
+   
+        const dateTimeFromat = "DD, YYYY ";
+      
+        if(!this.TicketsByEvent.event.date_from && !this.TicketsByEvent.event.date_to)
+        {
+            this.Date = this.GetTranslateString(this.TicketsByEvent.event.event_season) + ' ' + this.TicketsByEvent.event.event_year;
+            
+            
+            if(this.TicketsByEvent.event.event_time)
+            {
+            this.Date = this.Date + " - <span>"+this.GetTranslateString(this.TicketsByEvent.event.event_time)+"</span>"
+            }
+
+
+        }
+        else if (this.TicketsByEvent.event.date_from && this.TicketsByEvent.event.date_to)
+        {
+            const dateFrom = this.ToUppercaseLetter(this.TicketsByEvent.event.date_from,'dddd')
+                + this.ToUppercaseLetter(this.TicketsByEvent.event.date_from,'MMM')
+                + moment(this.TicketsByEvent.event.date_from).format(dateTimeFromat)
+
+            const dateTo = this.ToUppercaseLetter(this.TicketsByEvent.event.date_to,'dddd')
+                + this.ToUppercaseLetter(this.TicketsByEvent.event.date_to,'MMM')
+                + moment(this.TicketsByEvent.event.date_to).format(dateTimeFromat)
+
+            let from = this.TicketsByEvent.event.date_from.split("T")[0];            
+            let to = this.TicketsByEvent.event.date_to.split("T")[0];
+            if(from === to){
+                // let m = moment(this.Event.date_from);
+                // this.Date = m.format(dateTimeFromat);
+                this.Date = dateFrom;
+            
+                //this.Date = date.toLocaleDateString('EEEE, MMM d, yyyy HH:mm');
+            }
+            else{
+                this.Date = dateFrom  + " - " + dateTo;
+            }
+        }
+    
+    }
 }
