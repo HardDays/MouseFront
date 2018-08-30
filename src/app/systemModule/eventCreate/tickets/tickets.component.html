@@ -130,7 +130,7 @@
                                     <div class="rr">
                                         <span class="desc-date" translate>event.about-fold.End Date</span>
                                         <!--тут дейт пикер.убрать placeholder-->
-                                        <input #dpTo bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerToModel" class="input-date">
+                                        <input #dpTo="bsDatepicker" bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerToModel" class="input-date">
                                     </div>
                                 </div>
                                 

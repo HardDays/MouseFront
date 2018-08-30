@@ -62,8 +62,9 @@ export class AccountComponent extends BaseComponent implements OnInit {
       .subscribe(
         (res)=>{
           console.log(`res`,res);
-          this.errCmp.OpenWindow(BaseMessages.Success);
-          this.getThisAcc();
+          this.errCmp.OpenWindow('Success');
+          // this.getThisAcc();
+           this.Account.status = 'denied';
         },
         (err)=>{
           console.log(`err`,err)
@@ -77,13 +78,18 @@ export class AccountComponent extends BaseComponent implements OnInit {
       .subscribe(
         (res)=>{
           console.log(`res`,res);
-          this.errCmp.OpenWindow(BaseMessages.Success);
-          this.getThisAcc();
+          this.errCmp.OpenWindow('Success');
+          // this.getThisAcc();
+          this.Account.status = 'approved';
         },
         (err)=>{
           console.log(`err`,err)
         }
       )
+  }
+
+  openError(error:string){
+     this.errCmp.OpenWindow(error);
   }
 
 

@@ -33,6 +33,9 @@ export class NavbarComponent extends BaseComponent implements OnInit
     MyLogo:string = '';
     SearchParams:string = '';
 
+    countMessages = 0;
+
+
     @ViewChild('SearchForm') form: NgForm;
     ngOnInit()
     {
@@ -59,6 +62,12 @@ export class NavbarComponent extends BaseComponent implements OnInit
           //console.log(Val);
         }
       );
+
+      this.main.MyAccountsChange.subscribe((res)=>{
+        if(res&&this.CurrentAccount.id)
+          this.getMessageCount();
+      })
+
       if(this.isLoggedIn)
         this.main.GetMyAccounts();
      
@@ -96,7 +105,23 @@ export class NavbarComponent extends BaseComponent implements OnInit
           }
         }
       )
+
+      this.main.accService.onMessagesChange$
+        .subscribe(()=>{
+          this.getMessageCount();
+      });
     }
+
+    getMessageCount(){
+      this.main.accService.GetInboxMessagesUnreadCount(this.CurrentAccount.id)
+        .subscribe(
+          (res)=>{
+            // console.log(res);
+            this.countMessages = res.count;
+          }
+        )
+    }
+
     ShowSearchResult(){
       //console.log(this.SearchParams);
     }
@@ -173,6 +198,9 @@ export class NavbarComponent extends BaseComponent implements OnInit
         this.curNav = 'profile';
         this.main.CurrentAccountChange.next(item);
         this.router.navigate(['/system/profile',item.id]);
+        this.getMessageCount();
+
+       
         // if (this.router.url === "/system/profile/" + item.id) {
         //   location.reload();
         // }

@@ -20,6 +20,9 @@ header .main-mw .right-side .search-inp button{
   width: 1px; 
   white-space: nowrap; 
 }
+.material-icons{
+  font-size: 15px;
+}
 .dropdown-hover-profiles:hover .dropdown-settings-ava {
     display: block; }
     .dropdown-hover-profiles .dropdown-settings-ava {

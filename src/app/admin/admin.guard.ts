@@ -19,7 +19,6 @@ export class AdminAccessGuard extends BaseComponent implements CanActivate{
 
         let admin = this.main.MyUser.is_admin||this.main.MyUser.is_superuser;
 
-        // console.log(`is admin`,admin);
 
         if(!login||!admin){
             return this.LoginNavigate();
@@ -27,7 +26,7 @@ export class AdminAccessGuard extends BaseComponent implements CanActivate{
         else{
             return true;
         }
-
+        // return true;
             // switch(router.routeConfig.path){
             //     case "profile":{
             //         if(!login){

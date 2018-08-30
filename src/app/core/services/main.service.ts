@@ -88,10 +88,10 @@ export class MainService{
                     {
                         this.GetMyUser();
                         this.GetMyAccounts();
-                        if(this.MyAccounts.length)
+                        if(this.MyAccounts.length>0)
                             this.settings.GetBackSettings(); 
                         else
-                            this.settings.SaveSettings( this.settings.GetSettings());
+                            this.settings.SaveSettings(this.settings.GetSettings());
                     }
                     else{ 
                         this.UserChange.next(new UserGetModel());
@@ -121,10 +121,15 @@ export class MainService{
         this.CurrentAccountChange.subscribe(
             (val:AccountGetModel) => 
             {
+                if(val.id)
+                    localStorage.setItem('lastAccId',val.id+'');
+
                 this.CurrentAccount = val;
                 this.SetCurrentAccId(val.id? val.id : 0);
                 this.GetMyLogo();
                 //this.GetMyUserLogo();
+                
+                
             }
         );
 
@@ -215,6 +220,13 @@ export class MainService{
         return null;
     }
 
+    public GetLastAccId()
+    {
+        if(localStorage.getItem('lastAccId'))
+            return localStorage.getItem('lastAccId');
+        return null;
+    }
+
     public SetCurrentAccId(id:number)
     {
         localStorage.setItem('activeUserId',id.toString());
@@ -234,7 +246,18 @@ export class MainService{
                     }
                     else
                     {
-                        this.CurrentAccount = this.MyAccounts[0];
+                        let lastId = +this.GetLastAccId();
+                        if(lastId)
+                        {
+                            let acc = this.MyAccounts.find((acc) => acc.id === lastId);
+                            this.CurrentAccount = acc ? acc: this.MyAccounts[0];
+                            // console.log(`this.CurrentAccount`,this.CurrentAccount)
+                        }
+                        else
+                        {
+                            this.CurrentAccount = this.MyAccounts[0];
+                        }
+                        
                     }
                 }
                 this.CurrentAccountChange.next(this.CurrentAccount);

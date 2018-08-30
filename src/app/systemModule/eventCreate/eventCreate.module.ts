@@ -23,7 +23,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
 import { TimePipeModule } from '../../core/pipes/time.pipe/time.pipe.module';
 import { VenueCreateModule } from '../venueCreate/venueCreate.module';
 import { TranslateModule } from '@ngx-translate/core';
-import { PhonePipe } from '../../core/pipes/phone.pipe';
+// import { PhonePipe } from '../../core/pipes/phone.pipe';
 import { Phone2Pipe } from '../../core/pipes/phone2.pipe';
 @NgModule({
     imports: [ 

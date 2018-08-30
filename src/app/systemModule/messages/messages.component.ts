@@ -67,9 +67,12 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
   
   ngOnInit() 
   {
+     
+     
     this.accountId = this.main.CurrentAccount.id;
     this.type = this.main.CurrentAccount.account_type;
     this.GetMessages();
+    
 
     this.main.MyAccountsChange.subscribe(
       (acc)=>{
@@ -143,6 +146,16 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
               .subscribe((res)=>{
                 // console.log(res);
                 this.openMessage = res;
+                
+
+                 if(!this.openMessage.is_receiver_read){
+                  this.main.accService.ReadMessageById(this.accountId,this.messages[0].id)
+                    .subscribe((res)=>{
+                      this.main.accService.onMessagesChange$.next(true);
+                      this.openMessage.is_receiver_read = true;
+                      this.messages.find(obj=>obj.id === this.openMessage.id).is_receiver_read = true;
+                    })
+                }
 
                 this.openMessage.reply.unshift({
                   created_at: this.openMessage.created_at,
@@ -193,9 +206,22 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
   {
     // if(msg.message_type ==='blank'){
       // this.openMessage = null;
+
+
+      
+
       this.main.accService.GetInboxMessageById(this.accountId,msg.id)
         .subscribe((res)=>{
           this.openMessage = res;
+
+          if(!this.openMessage.is_receiver_read){
+            this.main.accService.ReadMessageById(this.accountId,msg.id)
+              .subscribe((res)=>{
+                this.main.accService.onMessagesChange$.next(true);
+                this.openMessage.is_receiver_read = true;
+                this.messages.find(obj=>obj.id === this.openMessage.id).is_receiver_read = true;
+              })
+          }
           
           this.openMessage.reply.unshift({
             created_at: this.openMessage.created_at,
@@ -359,12 +385,26 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
 
     // console.log(this.request);
 
-    this.WaitBeforeLoading(
-      () => this.main.eventService.ArtistDeclineByArtist(this.request),
-      (res)=>{
-        this.GetMessages();
-      }
-    );
+    if(this.type=="artist"){
+      this.WaitBeforeLoading(
+        () => this.main.eventService.ArtistDeclineByArtist(this.request),
+        (res)=>{
+          this.GetMessages();
+        }
+      );
+    }
+    else if(this.type=="venue")
+    {
+     this.WaitBeforeLoading(
+        () => this.main.eventService.VenueDeclineByVenue(this.request),
+        (res)=>{
+          this.GetMessages();
+        }
+      );
+    }
+
+
+
   }
 
 

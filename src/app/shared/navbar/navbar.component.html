@@ -1,4 +1,6 @@
     <header>
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet">
         <div class="main-mw">
             <div class="left-side">
                 <div class="logo-wr">
@@ -118,7 +120,7 @@
                             <div *ngIf="!isLoggedIn" class="flex-auth">
                                 <a [routerLink]="['/register']" translate>Sign Up</a>
                                 <a [routerLink]="['/login']" translate>nav.Sign In</a>
-                                <a mat-button [matMenuTriggerFor]="menu" >{{translang}}</a>
+                                <a mat-button [matMenuTriggerFor]="menu" >{{translang}}<i class="material-icons">arrow_drop_down</i></a>
                                 <mat-menu #menu="matMenu">
                                     <a mat-menu-item (click)="useLanguage('en')">ENG</a>
                                     <a mat-menu-item (click)="useLanguage('ru')">РУС</a>
@@ -140,7 +142,7 @@
                                 <div *ngIf="MyAccounts.length>0" class="dropdown-items-wr">
                                     <a [routerLink]="['/system/profile',CurrentAccount.id]" (click)="curNav = 'profile'"><span class="dog">@</span>{{CurrentAccount.user_name}}</a>
                                     <!-- <a><span class="dog">@</span>{{MyUser.user_name}}</a> -->
-                                    <a (click)="curNav = 'messages'" [routerLink]="['/system','messages']" translate>Messages</a>
+                                    <a (click)="curNav = 'messages'" [routerLink]="['/system','messages']" translate>Messages<span style="display: inline;"> ({{countMessages}})</span></a>
                                     <span (click)="curNav = 'profile'" [routerLink]="['/system','fanCreate','new']" translate>Create Fan</span>
                                     <span (click)="curNav = 'profile'" [routerLink]="['/system','artistCreate','new']" translate>Create Artist</span>
                                     <a (click)="curNav = 'profile'" [routerLink]="['/system','venueCreate','new']" translate>Create Venue</a>

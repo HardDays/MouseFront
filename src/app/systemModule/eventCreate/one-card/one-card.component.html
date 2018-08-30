@@ -22,7 +22,7 @@
         overflow: hidden;
         text-overflow: ellipsis; ">{{card.user_name}}</p>
         <p *ngIf="card.account_type == 'artist'" class="desc-head-info" translate>Genre</p>
-        <p *ngIf="card.account_type == 'artist'" class="info">{{ toBeatyShowsList(card.genres) | translate}}</p>
+        <p *ngIf="card.account_type == 'artist'" class="info">{{ toBeatyShowsList(card.genres) | titlecase | translate}}</p>
         <p class="desc-head-info" translate>Location</p>
         <p class="info">{{card.address}}</p>
         <p *ngIf="price" class="info" >{{(status!='pending'&&status!='ready')?' Price '+ CurrencySymbol+price:''}}</p>

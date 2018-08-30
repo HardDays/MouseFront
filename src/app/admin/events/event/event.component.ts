@@ -105,7 +105,7 @@ export class EventComponent extends BaseComponent implements OnInit {
 
   getArtists(){
     // console.log('0')
-    if(this.Event.artist){
+    if(this.Event.artist.length>0){
       this.Artists = [];
       this.Videos = [];
       for(let art of this.Event.artist){
