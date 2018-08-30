@@ -739,9 +739,7 @@ export class BaseComponent{
         }
 
     GetTranslateString(str:string):string
-    {   
-        console.log(str);
-        
+    {           
         return this.translate.parser.getValue(this.translate.store.translations[this.settings.GetLang()],str);
     }
 

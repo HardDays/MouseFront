@@ -74,6 +74,15 @@ html, body{
 .messages-main-wrapp .main-mw.main_for_setts .settings_wrap {
   min-height: calc(100vh - 84px);
 }
+.admin_page .admin_content .support_container .support_grey .support_right .right-to-scroll{
+  max-height: calc(100vh - 169px);
+  overflow: auto;
+  padding-bottom: 30px;
+}
+.shows-main-wrapp .head-shows .ham-ham.at-map{
+  position: relative;
+  z-index: 200;
+}
 @media print {
   header{
     display: none!important;

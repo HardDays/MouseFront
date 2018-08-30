@@ -65,8 +65,8 @@
 	"Artist-create.booking-art.Band": "Группа",
 	"Artist-create.booking-art.Can you perform without Backing Vocals?": "Можете ли вы выступить без бек-вокала?",
 	"Artist-create.booking-art.Can you perform without a Band?": "Можете ли вы выступать без группы?",
-	"Artist-create.booking-art.Do you give permission to the Venue/Event Organizer to have advertisements over your streaming performance?": "Предоставляете ли вы Организатору места / Мероприятию разрешение на рекламу Вашего стрима",
-	"Artist-create.booking-art.Do you give permission to the Venue/Event Organizer to stream your performance?": "Предоставляете ли вы Организатору места / мероприятия возможность потокового воспроизведения?",
+	"Artist-create.booking-art.Do you give permission to the Venue/Event Organizer to have advertisements over your streaming performance?": "Предоставляете ли вы организатору места / мероприятию разрешение на рекламу Вашего стрима?",
+	"Artist-create.booking-art.Do you give permission to the Venue/Event Organizer to stream your performance?": "Предоставляете ли вы организатору места / мероприятия возможность потокового воспроизведения?",
 	"Artist-create.booking-art.Do you have contracts with any Brands that may conflict with advertisements?": "У вас есть контракты с любыми брендами, которые могут конфликтовать с рекламными объявлениями?",
 	"Artist-create.booking-art.Do you perform with Backing Vocals?": "Выступаете ли вы с бек-вокалом?",
 	"Artist-create.booking-art.Do you perform with a Band?": "Вы выступаете с группой?",
@@ -156,7 +156,7 @@
 	"Edit": "Редактировать",
 	"Edit fan": "Редактировать фана",
 	"Email Address": "Email",
-	"Email Address (Login)": "Email (Логин)",
+	"Email Address (Login)": "Электронная почта",
 	"Enter": "Подтвердить",
 	"Enter your number to receive a verification code": "Введите свой номер телефона, чтобы получить код подтверждения. Ваш сотовый оператор может взимать за это плату.",
 	"Evening": "Вечер",
@@ -249,7 +249,7 @@
 	"POP": "поп",
 	"Pending": "Ожидает",
 	"Personal Message": "Личное сообщение",
-	"Please enter the verification code": "Пожалуйста введите код подтверждения",
+	"Please enter the verification code": "Пожалуйста, введите код подтверждения!",
 	"Please fill in all required fields": "Пожалуйста, заполните все обязательные поля",
 	"Please fill in all required fields in": "Заполните все обязательные поля,",
 	"Please fill in all required fields in the Artist Screen": "Заполните все обязательные поля на экране артиста,",
@@ -738,5 +738,6 @@
 	"<b>Capacity</b> needs to be filled": "<b>Вместимость </b> должна быть введена",
 	"<b>Audio description</b> needs to be filled": "<b>Описание аудио</b> должно быть введено",
 	"<b>Lighting description</b> needs to be filled": "<b>Описание освещения</b> должно быть введено",
-	"<b>Stage description</b> needs to be filled": "<b>Описание сцены</b> должно быть введено"
+	"<b>Stage description</b> needs to be filled": "<b>Описание сцены</b> должно быть введено",
+	"Please, input correct username and e-mail!": "Пожалуйста, введите корректные имя пользователя и e-mail!"
 }

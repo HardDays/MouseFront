@@ -90,6 +90,7 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
 
   SaveUser(){
     // console.log(`save user`,this.User);
+    // this.User.register_phone = this.convertPhoneToSend(this.phone);
     this.main.authService.UpdateUser(this.User)
       .subscribe(
           (res)=>{
@@ -116,12 +117,14 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
   inputPhone($event){
     this.phone = $event.target.value;
   }
+
   sendCode(){
     if(this.phone.length>0){
+      this.phone = this.getCurrentNumber(this.phone);
       //this.phoneArr = false;
      // let phone:string = this.phoneCode + this.phone;
       this.WaitBeforeLoading(
-        ()=>this.main.phoneService.SendCodeToPhone(this.phone),
+        ()=>this.main.phoneService.SendCodeToPhone(this.convertPhoneToSend(this.phone)),
           (res)=>{
             //this.isRequestCodeSend = true;
             $('#modal_change_phone').modal('hide');
@@ -129,8 +132,8 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
             // console.log(`sendCode`);
           },
           (err)=>{
-            this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
-            console.log(this.getResponseErrorMessage(err));
+            if(err.json()&&err.json()['phone']&&err.json()['phone']==='ALREADY_USED')
+              this.errorCmp.OpenWindow('Phone is already used!');
             
           }
       );
@@ -166,10 +169,10 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
     if(this.codeRequest.length==4){
       let code = this.codeRequest[0]+this.codeRequest[1]+this.codeRequest[2]+this.codeRequest[3];
       this.WaitBeforeLoading(
-        ()=> this.main.phoneService.SendRequestCode(this.phone,code),
+        ()=> this.main.phoneService.SendRequestCode(this.convertPhoneToSend(this.phone),code),
           (res)=>{
             // console.log(`sendRequest`);
-            this.User.register_phone = this.phone;
+            this.User.register_phone = this.convertPhoneToSend(this.phone);
             this.codeRequest = [];
             $('#modal_change_phone_ver').modal('hide');
             $('#success_change_phone').modal('show');
@@ -192,6 +195,45 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
             // this.isNewImage = true;
         }
     );
+  }
+
+  getCurrentNumber(val){
+    if(!val)
+        return '';
+        
+        let phone = '';
+        // console.log(`val`,val);
+
+        let codes = this.main.phoneService.GetAllPhoneCodesWithFormat();
+
+        let code_arr = codes.filter((c)=>val.indexOf(c.dial_code)>0&&val.indexOf(c.dial_code)<4);
+        let code = code_arr.find((c)=>val[1]===c.dial_code);
+        if(!code)code = code_arr[0];
+        let dial_code = code.dial_code;
+        if(code['format']){
+            // console.log(`format`,code['format']);
+            let index = 0;
+            if(val[index]==='+')index++;
+
+            for(let c of code['format']){
+                if(c==='.')
+                {
+                    phone+=val[index]?val[index]:'';
+                    index++;
+                }
+                else{
+                    phone+=c;
+                }
+            }
+        }
+
+        phone = phone.replace('_','');
+       
+        return phone.length?phone:val;
+  }
+
+  convertPhoneToSend(phone:string){
+    return phone.replace(new RegExp('-', 'g'),'').replace(new RegExp(' ', 'g'),'').replace('(','').replace(')','');
   }
   
 

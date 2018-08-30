@@ -22,6 +22,12 @@ header .main-mw .right-side .search-inp button{
 }
 .material-icons{
   font-size: 15px;
+
+}
+.flexed-lng{
+  display: flex!important;
+  align-items: center;
+
 }
 .dropdown-hover-profiles:hover .dropdown-settings-ava {
     display: block; }

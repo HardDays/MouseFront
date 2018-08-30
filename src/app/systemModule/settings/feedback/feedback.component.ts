@@ -62,7 +62,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
               }, 3000);
               this.Feedback.message = '';
               this.Feedback.feedback_type = '';
-              this.Rating = 3;
+              this.Rating = 0;
             }
           );
       }

@@ -738,5 +738,6 @@
 	"<b>Capacity</b> needs to be filled": "<b>Capacity</b> needs to be filled",
 	"<b>Audio description</b> needs to be filled": "<b>Audio description</b> needs to be filled",
 	"<b>Lighting description</b> needs to be filled": "<b>Lighting description</b> needs to be filled",
-	"<b>Stage description</b> needs to be filled": "<b>Stage description</b> needs to be filled"
+	"<b>Stage description</b> needs to be filled": "<b>Stage description</b> needs to be filled",
+	"Please, input correct username and e-mail!": "Please, input correct username and e-mail!"
 }
