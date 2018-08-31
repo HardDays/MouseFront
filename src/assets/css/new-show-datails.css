@@ -227,12 +227,37 @@
               top: 0;
               left: 0;
               right: 0;
+              width: 100%;
+              height: 100%;
               bottom: 0;
               background: center no-repeat;
               background-size: cover; }
         .new-show-datails-wrapp .flex-new-datails .information-side .top-new-show-datails .main-info-of-event {
           padding-left: 20px;
           width: 50%; }
+          .new-show-datails-wrapp .flex-new-datails .information-side .top-new-show-datails .main-info-of-event .use-style {
+            position: relative;
+            overflow: hidden; }
+            .new-show-datails-wrapp .flex-new-datails .information-side .top-new-show-datails .main-info-of-event .use-style:before {
+              content: '';
+              display: block;
+              padding-top: 155%;
+              position: relative; }
+            .new-show-datails-wrapp .flex-new-datails .information-side .top-new-show-datails .main-info-of-event .use-style .rel-wr-for-before {
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              display: -webkit-box;
+              display: -ms-flexbox;
+              display: flex;
+              -webkit-box-orient: vertical;
+              -webkit-box-direction: normal;
+                  -ms-flex-direction: column;
+                      flex-direction: column;
+              width: 100%;
+              height: 100%; }
           .new-show-datails-wrapp .flex-new-datails .information-side .top-new-show-datails .main-info-of-event h1 {
             text-transform: uppercase;
             font-size: 25px;
@@ -241,10 +266,26 @@
             margin-bottom: 15px; }
           .new-show-datails-wrapp .flex-new-datails .information-side .top-new-show-datails .main-info-of-event .gradient-info {
             position: relative;
-            padding: 20px 30px 67px 30px;
+            padding: 20px 3px 67px 3px;
             background: -webkit-gradient(linear, left bottom, left top, from(rgba(72, 23, 100, 0.9)), to(rgba(131, 34, 128, 0.4)));
             background: linear-gradient(to top, rgba(72, 23, 100, 0.9), rgba(131, 34, 128, 0.4));
-            min-height: 649px; }
+            height: 100%;
+            width: 100%;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex; }
+            .new-show-datails-wrapp .flex-new-datails .information-side .top-new-show-datails .main-info-of-event .gradient-info .overflow-scroll {
+              overflow: auto;
+              height: 100%;
+              padding: 0 27px;
+              width: 100%; }
+              .new-show-datails-wrapp .flex-new-datails .information-side .top-new-show-datails .main-info-of-event .gradient-info .overflow-scroll::-webkit-scrollbar {
+                background: transparent;
+                width: 3px; }
+              .new-show-datails-wrapp .flex-new-datails .information-side .top-new-show-datails .main-info-of-event .gradient-info .overflow-scroll::-webkit-scrollbar-thumb {
+                background: rgba(189, 189, 189, 0.5);
+                border-radius: 2.5px;
+                cursor: pointer; }
             .new-show-datails-wrapp .flex-new-datails .information-side .top-new-show-datails .main-info-of-event .gradient-info .when {
               color: #fff;
               font-size: 14px;
@@ -291,7 +332,8 @@
               color: #fff; }
             .new-show-datails-wrapp .flex-new-datails .information-side .top-new-show-datails .main-info-of-event .gradient-info .icons-new {
               position: absolute;
-              bottom: 23px;
+              bottom: 0;
+              height: 67px;
               left: 0;
               width: 100%;
               padding: 0 30px;
@@ -303,7 +345,8 @@
                       justify-content: space-between;
               -webkit-box-align: center;
                   -ms-flex-align: center;
-                      align-items: center; }
+                      align-items: center;
+              border-top: 1px solid rgba(255, 255, 255, 0.07); }
               .new-show-datails-wrapp .flex-new-datails .information-side .top-new-show-datails .main-info-of-event .gradient-info .icons-new .share {
                 display: block;
                 background: transparent;
@@ -870,11 +913,8 @@
   margin-bottom: 20px; }
 
 @media (max-width: 1300px) {
-  .new-show-datails-wrapp .flex-new-datails .information-side .top-new-show-datails .main-info-of-event .gradient-info {
-    min-height: 460px; }
-
-  .new-show-datails-wrapp .flex-new-datails .information-side .top-new-show-datails .main-info-of-event .gradient-info {
-    padding: 20px 15px 67px 15px; }
+  .new-show-datails-wrapp .flex-new-datails .information-side .top-new-show-datails .main-info-of-event .gradient-info .overflow-scroll {
+    padding: 0 15px; }
 
   .new-show-datails-wrapp .flex-new-datails .information-side .bott-new-show-datails .navigation-of-show-datail .list-nav-show li {
     padding-right: 20px; }
@@ -1079,6 +1119,12 @@
     padding-top: 10px; }
 
   .new-show-datails-wrapp .flex-new-datails .info-payment-left .bg-image {
-    max-width: 500px; } }
+    max-width: 500px; }
+
+  .new-show-datails-wrapp .flex-new-datails .information-side .top-new-show-datails .main-info-of-event .use-style .rel-wr-for-before {
+    position: relative; }
+
+  .new-show-datails-wrapp .flex-new-datails .information-side .top-new-show-datails .main-info-of-event .use-style:before {
+    display: none; } }
 
 /*# sourceMappingURL=new-show-datails.css.map */
