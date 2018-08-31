@@ -17,6 +17,9 @@ import { ShowsFullSearchComponent } from "./shows/shows-full/shows-full.componen
 import { SearchEventsModule } from "../../shared/search/search.module";
 import { TranslateModule } from "@ngx-translate/core";
 import { MatSelectModule, MatFormFieldModule } from "@angular/material";
+import { BsDatepickerModule } from "../../../../node_modules/ngx-bootstrap";
+import { AgmCoreModule } from "../../../../node_modules/@agm/core";
+import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 
 @NgModule({
     imports: [ 
@@ -31,7 +34,14 @@ import { MatSelectModule, MatFormFieldModule } from "@angular/material";
         SearchEventsModule,
         MatSelectModule,
         MatFormFieldModule,
-        TranslateModule
+        TranslateModule,
+        BsDatepickerModule.forRoot(),
+        AgmCoreModule.forRoot({
+            apiKey: "AIzaSyDNxl1cQw-cqFs5sv0vGJYmW_Ew5qWKNCc",
+            libraries: ["places"],
+            language: 'en'
+        }),
+        Ng2AutoCompleteModule
     ],
     declarations: [ 
         GlobalSearchComponent,

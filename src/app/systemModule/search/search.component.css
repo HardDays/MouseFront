@@ -439,6 +439,11 @@
     .click-link, .one-show, .who-wrapp{
       cursor: pointer;
     }
+
+    .triple-line{
+      width: 33% !important;
+    }
+
   
   /*# sourceMappingURL=styleSearch.css.map */
   

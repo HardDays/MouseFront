@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "../../../../node_modules/@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "../../../../node_modules/@angular/core";
 import { BaseComponent } from "../../core/base/base.component";
 import { Params } from "@angular/router";
 import { NgForm } from "@angular/forms";
@@ -9,8 +9,12 @@ import { GenreModel } from "../../core/models/genres.model";
 import { SearchEventsMapComponent } from "../../shared/search/map/map.component";
 import { CheckModel } from "../../core/models/check.model";
 import { SelectModel } from "../../core/models/select.model";
+import { BsDaterangepickerDirective, BsLocaleService, BsDaterangepickerConfig } from "../../../../node_modules/ngx-bootstrap";
+import { Distance } from '../../core/models/preferences.model';
 
 declare var $:any;
+declare var ionRangeSlider:any;
+
 export enum SearchTypes{
     All = 'All',
     Fans = 'Fans',
@@ -29,8 +33,11 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
     SearchParams = {
         text: ''
     };
-    Country: string = '';
+    Country: any = null;
     City: string = '';
+    Lat:number = 0;
+    Lng:number = 0;
+    Distance: number = 0;
     TicketType = '';
     TypeOfSpace = '';
     LocalSearchTypes = SearchTypes;
@@ -41,6 +48,12 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
     ShowMoreGenres:boolean = false;
     TicketTypes:CheckModel<any>[] = [];
     TypesOfSpace:SelectModel[] = [];
+    MIN_DISTANCE:number = 10;
+    MAX_DISTANCE:number = 300;
+    SearchDateRange:Date[] = [];
+    Units:string = Distance.Km;
+
+    Countries: any[] = [];
 
 
     Fans: AccountGetModel[] = [];
@@ -48,9 +61,14 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
     Venues: AccountGetModel[] = [];
     Shows: EventGetModel[] = [];
 
+    LocationText:string = '';
+    localeService: BsLocaleService;
+    bsConfig: Partial<BsDaterangepickerConfig>;
+
 
     @ViewChild('SearchForm') form: NgForm;
     @ViewChild('mapForm') mapForm : SearchEventsMapComponent;
+    @ViewChild('dp') datepicker: BsDaterangepickerDirective;
     
     ngOnInit(): void {
         this.activatedRoute.queryParams.subscribe(
@@ -62,6 +80,72 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
         this.GetGenres();
         this.GetAllTypesOfSpace();
         this.GetTicketTypes();
+        this.CreateLocalAutocomplete();
+        this.InitBsConfig();
+        this.initSlider();
+        this.CreateCityAutocomplete();
+        this.GetCountries();
+    }
+
+    GetCountries()
+    {
+        this.main.phoneService.GetCountryCodes()
+            .subscribe(
+                (res: CountryCodes[]) => {
+                    this.Countries = res;
+                }
+            );
+    }
+
+    initSlider()
+    {
+        let _that = this;
+
+        var distance_slider = $(".distance-slider").ionRangeSlider({
+            type:"single",
+            min: this.MIN_DISTANCE,
+            max: this.MAX_DISTANCE,
+            from: this.MIN_DISTANCE,
+            hide_min_max: false,
+            postfix: " " + this.main.settings.GetDisatance(),
+            grid: false,
+            prettify_enabled: true,
+            prettify_separator: ',',
+            grid_num: 5,
+            onChange: function(data)
+            {
+              _that.DistanceChanged(data);
+            }
+        });
+    }
+
+    DistanceChanged(data:any)
+    {
+        this.Distance = data.from;
+    }
+
+    InitBsConfig()
+    {
+        this.bsConfig = Object.assign({}, { 
+            containerClass: 'theme-default transformedDatapicker',
+            showWeekNumbers:false,
+            rangeInputFormat: this.main.settings.GetDateFormat(),
+            locale: this.settings.GetLang()
+            
+            
+        });
+    }
+
+    CreateLocalAutocomplete()
+    {
+        this.CreateAutocomplete(
+            (addr,place) =>{
+                this.Lat = place.geometry.location.lat();
+                this.Lng = place.geometry.location.lng();
+                if(!this.Distance)
+                    this.Distance = this.MIN_DISTANCE;
+            }
+        );
     }
 
     GetAllTypesOfSpace()
@@ -103,7 +187,7 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
             type:"fan",
             genres: this.main.genreService.GenreModelArrToStringArr(this.Genres),
             city: this.City,
-            country: this.Country
+            country: this.Country && this.Country.name ? this.Country.name : null
         }))
             .subscribe(
                 (res: AccountGetModel[]) => {
@@ -118,7 +202,7 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
             type:"artist",
             genres: this.main.genreService.GenreModelArrToStringArr(this.Genres),
             city: this.City,
-            country: this.Country
+            country: this.Country && this.Country.name ? this.Country.name : null
         }))
             .subscribe(
                 (res: AccountGetModel[]) => {
@@ -132,7 +216,7 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
         this.main.accService.AccountsSearch(Object.assign(this.SearchParams,{
             type:"venue",
             city: this.City,
-            country: this.Country
+            country: this.Country && this.Country.name ? this.Country.name : null
         }))
             .subscribe(
                 (res: AccountGetModel[]) => {
@@ -149,7 +233,13 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
             genres: this.main.genreService.GenreModelArrToStringArr(this.Genres),
             is_active: true,
             ticket_types: this.TicketType ? [this.TicketType] : null,
-            size: this.TypeOfSpace
+            size: this.TypeOfSpace,
+            from_date: this.SearchDateRange && this.SearchDateRange[0] ? this.main.typeService.GetDateStringFormat(this.SearchDateRange[0]) : null,
+            to_date: this.SearchDateRange && this.SearchDateRange[1] ? this.main.typeService.GetDateStringFormat(this.SearchDateRange[1]) : null,
+            lat: this.Lat? this.Lat : null,
+            lng: this.Lng? this.Lng : null,
+            distance: (this.Lat && this.Lng)? this.Distance : null,
+            units: (this.Lat && this.Lng)? this.Units : null,
         }))
             .subscribe(
                 (res: EventGetModel[]) => {
@@ -175,9 +265,109 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
         this.SelectedContent = Page;
     }
 
-    OpenMap(params)
+    OpenMap()
     {
-        this.mapForm.AboutOpenMapModal(params);
+        this.mapForm.AboutOpenMapModal({lat: this.Lat, lng: this.Lng});
     }
 
+    LocationTextChenged($event)
+    {
+        this.LocationText = $event;
+        this.CheckDistance();
+    }
+
+    CheckDistance()
+    {
+        
+        if(!this.LocationText)
+        {
+            this.Lat = null;
+            this.Lng = null;
+        }
+
+        if(!this.Lat && this.Lng)
+            this.Distance = null;
+        else{
+            this.Distance = this.Distance?this.Distance:this.MIN_DISTANCE;
+            this.Units = this.main.settings.GetDisatance();
+        }
+            
+    }
+
+    OnMapClicked($event)
+    {
+        console.log($event);
+    }
+    Autocomplete:google.maps.places.Autocomplete = null;
+    @ViewChild('seaarchCity') public seaarchCity: ElementRef;
+    CreateCityAutocomplete()
+    {
+        if(!this.Autocomplete)
+        {
+            this.mapsAPILoader.load().then(
+                () => {
+                    let options = {
+                        type: '(cities)'
+                    };
+                    this.Autocomplete = new google.maps.places.Autocomplete(this.seaarchCity.nativeElement,options);
+                    
+                    this.Autocomplete.addListener(
+                        "place_changed",
+                        () => {
+                            console.log(`place_changed`);
+                            this.ngZone.run(
+                                () => {
+                                    let place: google.maps.places.PlaceResult = this.Autocomplete.getPlace();
+                                    if(place.name)
+                                    {
+                                        this.City = place.name;
+                                    }
+                                }
+                            );
+                        }
+                    );
+                }
+            );
+        }
+        else{
+            if(this.Country && this.Country.code)
+            {
+                this.Autocomplete.setComponentRestrictions({
+                    country: this.Country.code
+                });
+            }
+            else{
+                this.Autocomplete.setComponentRestrictions(null);
+            }
+        }
+        
+    }
+
+    AutocompleteListFormatter = (data: CountryCodes) => {
+        return data.name;
+    }
+
+    CountryChanged($event)
+    {
+        if($event && $event.name && $event.code)
+        {
+            this.Country = $event;
+        }
+        else{
+            this.Country = null;
+        }
+        
+        this.CreateCityAutocomplete();
+    }
+
+    CustomSelect($event)
+    {
+        console.log("customselect");
+    }
+
+}
+
+export interface CountryCodes{
+    name: string;
+    code: string;
 }

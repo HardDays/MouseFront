@@ -49,6 +49,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AdminModule } from './admin/admin.module';
+import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -98,6 +99,7 @@ let providers = {
       language: 'en'
     }),
     PreloaderModule,
+    Ng2AutoCompleteModule,
     ErrorModule,
     HttpClientModule,
     TranslateModule.forRoot({

@@ -216,10 +216,10 @@ export class TypeService{
                 value:'vr',
                 name:'VR'
             }),
-            new CheckModel({
-                value: '',
-                name: "Both"
-            })
+            // new CheckModel({
+            //     value: '',
+            //     name: "Both"
+            // })
         ];
     }
     GetMyTicketTypes()

@@ -63,6 +63,7 @@ export class SearchEventsMapComponent extends BaseComponent implements OnInit {
 
     MapClick($event)
     {
+        console.log($event);
         this.lat = $event.coords.lat;
         this.lng = $event.coords.lng;
         this.isMarkerVisible = true;
