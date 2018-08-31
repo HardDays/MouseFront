@@ -11,9 +11,9 @@ declare var Buffer: any;
 @Injectable()
 export class HttpService
 {
-    // serverUrl: string = "https://mouse-back.herokuapp.com";
-    serverUrl: string = "https://protected-island-7029.herokuapp.com";
-    
+    serverUrl: string = "https://mouse-back.herokuapp.com";
+    // serverUrl: string = "https://protected-island-7029.herokuapp.com";
+
     public headers:Headers = new Headers([]);
     public token: TokenModel = new TokenModel('');
     constructor(private http: Http){
@@ -35,7 +35,7 @@ export class HttpService
         if(!this.headers.has('Content-Type'))
             this.headers.append('Content-Type','application/json');
     }
-    
+
 
     GetToken():TokenModel{
         return this.token;
@@ -71,7 +71,7 @@ export class HttpService
     {
         return this.http.get(this.serverUrl + method + "?"+ params,{headers:this.headers})
     }
-    
+
     DeleteData(method:string)
     {
         return this.http.delete(this.serverUrl + method,{headers:this.headers})
@@ -114,7 +114,7 @@ export class HttpService
     // var finalheader = 'Basic ' + encheader;
     // //console.log(finalheader);
     // var headers = new Headers();
-    
+
     // headers.append('Content-Type','application/json');
     // // headers.append("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     // // headers.append("Access-Control-Allow-Origin", "*");
@@ -123,7 +123,7 @@ export class HttpService
     // // headers.append('Access-Control-Allow-Origin', 'https://api.twitter.com/oauth2/token');
     // // headers.append('Access-Control-Allow-Credentials', 'true');
     // headers.append('Authorization',finalheader);
-    // return this.http.post('https://api.twitter.com/oauth2/token',{'grant_type': 'client_credentials'},{ 
+    // return this.http.post('https://api.twitter.com/oauth2/token',{'grant_type': 'client_credentials'},{
     //                     headers: headers});
     // }
 }

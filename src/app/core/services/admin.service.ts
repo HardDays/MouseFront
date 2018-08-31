@@ -137,6 +137,13 @@ export class AdminService{
         );
     }
 
+    GetInvites(limit:number,offset:number,invite_type = 'all')
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/admin/invites.json', this.typeService.ParamsToUrlSearchParams({limit,offset,invite_type}))
+        );
+    }
+
 
 
     //////////////////////////////////////

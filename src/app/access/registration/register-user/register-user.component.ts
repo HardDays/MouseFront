@@ -66,14 +66,22 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
           }
         }
 
-        if(!this.createUser.email||!this.createUser.password)
+        if(!this.createUser.email||!this.createUser.password){
           this.errorCmp.OpenWindow('Email and password are required fields!');
-        else if (this.createUser.password.length<6)
+          this.isRegister = false;
+        }
+        else if (this.createUser.password.length<6){
           this.errorCmp.OpenWindow('Password is too short!');
-        else if (this.createUser.password!=this.createUser.password_confirmation)
+          this.isRegister = false;
+        }
+        else if (this.createUser.password!=this.createUser.password_confirmation){
           this.errorCmp.OpenWindow('Password does not match the confirm password!');
-        else if (this.createUser.email.search('@')<=0)
+          this.isRegister = false;
+        }
+        else if (this.createUser.email.search('@')<=0){
           this.errorCmp.OpenWindow('Uncorrect email!');
+          this.isRegister = false;
+        }
         else {
 
           this.createUser.email = this.createUser.email.toLowerCase();
