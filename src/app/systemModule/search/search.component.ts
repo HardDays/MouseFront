@@ -296,7 +296,18 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
 
     OnMapClicked($event)
     {
-        console.log($event);
+        if($event.lat)
+        {
+            this.Lat = $event.lat;
+        }
+        if($event.lng)
+        {
+            this.Lng = $event.lng;
+        }
+        if($event.text)
+        {
+            this.LocationText = $event.text;
+        }
     }
     Autocomplete:google.maps.places.Autocomplete = null;
     @ViewChild('seaarchCity') public seaarchCity: ElementRef;
@@ -359,12 +370,6 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
         
         this.CreateCityAutocomplete();
     }
-
-    CustomSelect($event)
-    {
-        console.log("customselect");
-    }
-
 }
 
 export interface CountryCodes{

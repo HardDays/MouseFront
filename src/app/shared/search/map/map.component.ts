@@ -58,12 +58,12 @@ export class SearchEventsMapComponent extends BaseComponent implements OnInit {
         }
 
         $('#modal-map').modal('show');
+        
         this.isShowMap = true;
     }
 
     MapClick($event)
     {
-        console.log($event);
         this.lat = $event.coords.lat;
         this.lng = $event.coords.lng;
         this.isMarkerVisible = true;
