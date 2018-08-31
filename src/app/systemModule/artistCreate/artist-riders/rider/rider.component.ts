@@ -65,9 +65,11 @@ export class RiderComponent extends BaseComponent implements OnInit {
 
 
   confirmRider(){
-    this.getRiderInfo();
-    this.onConfirm.emit(this.Rider);
-    this.isConfirmRider = true;
+    if(this.Rider.uploaded_file_base64){
+      this.getRiderInfo();
+      this.onConfirm.emit(this.Rider);
+      this.isConfirmRider = true;
+    }
   }
 
   getRiderInfo(){

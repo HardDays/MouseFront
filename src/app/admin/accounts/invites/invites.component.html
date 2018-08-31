@@ -4,29 +4,33 @@
                 <div class="table_filter">
                     <div class="table_search"><input type="text" placeholder="Search"></div>
                     <div class="filter_checkbox">
-                        <input type="checkbox" id="fan_acc">
+                        <input [ngModel]="Type" (ngModelChange)="ChangeType($event)" type="radio" id="fan_acc" value="fan" name="radio">
                         <label for="fan_acc"></label>
                         <span>Fan</span>
                     </div>
                     <div class="filter_checkbox">
-                        <input type="checkbox" id="venue_acc">
+                        <input [ngModel]="Type" (ngModelChange)="ChangeType($event)" type="radio" id="venue_acc" value="venue" name="radio">
                         <label for="venue_acc"></label>
                         <span>Venue</span>
                     </div>
                     <div class="filter_checkbox">
-                        <input type="checkbox" id="artist_acc">
+                        <input [ngModel]="Type" (ngModelChange)="ChangeType($event)" type="radio" id="artist_acc" value="artist" name="radio">
                         <label for="artist_acc"></label>
                         <span>Artist</span>
                     </div>
                     <div class="filter_checkbox">
-                        <input type="checkbox" id="all_acc" checked>
+                        <input [ngModel]="Type" (ngModelChange)="ChangeType($event)" type="radio" id="all_acc" value="all" name="radio">
                         <label for="all_acc"></label>
                         <span>All</span>
                     </div>
                 </div>
             </section>
             <section>
-                <div class="admin_table accounts_table accounts_table_with_contacts">
+                <div class="admin_table accounts_table accounts_table_with_contacts" infinite-scroll 
+                        [infiniteScrollDistance]="2"
+                        [infiniteScrollThrottle]="50"
+                        (scrolled)="getMoreInvites()"
+                        [infiniteScrollDisabled]="ScrollArtistDisabled">
                     <div class="admin_table_thead">
                         <!-- <div class="admin_table_th check_column"><img src="./../../../../assets/img/admin/table_check_th.svg" alt=""></div> -->
                         <div class="admin_table_th">Date received</div>
@@ -36,53 +40,29 @@
                         <div class="admin_table_th">Contact by</div>
                     </div>
                     <div class="admin_table_tbody">
-                        <div class="admin_table_tr">
+                        <!-- checked -->
+                        <div *ngFor="let item of Invites" class="admin_table_tr">
                             <!-- <div class="admin_table_td check_column">
                                 <div class="admin_table_checkbox">
                                     <input type="checkbox" id="new_acc_1">
                                     <label for="new_acc_1"></label>
                                 </div>
                             </div> -->
-                            <div class="admin_table_td"><span>12.10.2018</span></div>
-                            <div class="admin_table_td"><span>Artist</span></div>
+                            <div class="admin_table_td"><span>{{item.created_at|date:'dd.MM.yyyy'}}</span></div>
                             <div class="admin_table_td account">
-                                <span class="acc_ava" style="background-image: url(./../../../../assets/img/admin/example_revenue_event.jpg)"></span>
-                                <span>Mark<br>Smith</span>
+                                <span class="acc_ava" [ngStyle]="{'background-image':item.account?.image_base64_not_given?'url('+item.account.image_base64_not_given+')':''}"></span>
+                                <span>{{item.account?.user_name?item.account.user_name:''}}</span>
                             </div>
-                            <div class="admin_table_td"><span>Fan</span></div>
+                            <div class="admin_table_td"><span>{{item.name}}</span></div>
+                            <div class="admin_table_td"><span>{{item.invited_type|titlecase}}</span></div>
                             <div class="admin_table_td contact_td">
                                 <ul class="soc">
-                                    <li><a href="#"><img src="./../../../../assets/img/admin/contact_vk.svg" alt=""></a></li>
-                                    <li><a href="#"><img src="./../../../../assets/img/admin/contact_fb.svg" alt=""></a></li>
-                                    <li><a href="#"><img src="./../../../../assets/img/admin/contact_insta.svg" alt=""></a></li>
-                                    <li><a href="#"><img src="./../../../../assets/img/admin/contact_yt.svg" alt=""></a></li>
+                                    <li *ngIf="item.vk"><a (click)="openHref(item.vk)"><img src="./../../../../assets/img/admin/contact_vk.svg" alt=""></a></li>
+                                    <li *ngIf="item.facebook"><a (click)="openHref(item.facebook)"><img src="./../../../../assets/img/admin/contact_fb.svg" alt=""></a></li>
+                                    <li *ngIf="item.instagram"><a (click)="openHref(item.instagram)"><img src="./../../../../assets/img/admin/contact_insta.svg" alt=""></a></li>
+                                    <li *ngIf="item.youtube"><a (click)="openHref(item.youtube)"><img src="./../../../../assets/img/admin/contact_yt.svg" alt=""></a></li>
                                 </ul>
-                                <span>CollEmailnananana@gmail.com</span>
-                            </div>
-                        </div>
-                        <!-- При выделении чекбокса добавляется класс CHECKED: -->
-                        <div class="admin_table_tr checked">
-                            <!-- <div class="admin_table_td check_column">
-                                <div class="admin_table_checkbox">
-                                    <input type="checkbox" id="new_acc_2" checked>
-                                    <label for="new_acc_2"></label>
-                                </div>
-                            </div> -->
-                            <div class="admin_table_td"><span>12.10.2018</span></div>
-                            <div class="admin_table_td"><span>Artist</span></div>
-                            <div class="admin_table_td account">
-                                <span class="acc_ava" style="background-image: url(./../../../../assets/img/admin/example_revenue_event.jpg)"></span>
-                                <span>Mark<br>Smith</span>
-                            </div>
-                            <div class="admin_table_td"><span>Fan</span></div>
-                            <div class="admin_table_td contact_td">
-                                <ul class="soc">
-                                    <li><a href="#"><img src="./../../../../assets/img/admin/contact_vk.svg" alt=""></a></li>
-                                    <li><a href="#"><img src="./../../../../assets/img/admin/contact_fb.svg" alt=""></a></li>
-                                    <li><a href="#"><img src="./../../../../assets/img/admin/contact_insta.svg" alt=""></a></li>
-                                    <li><a href="#"><img src="./../../../../assets/img/admin/contact_yt.svg" alt=""></a></li>
-                                </ul>
-                                <span>CollEmailnananana@gmail.com</span>
+                                <span (click)="openMail(item.email)">{{item.email}}</span>
                             </div>
                         </div>
                         
