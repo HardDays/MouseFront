@@ -12,7 +12,7 @@
                           </svg>
                       </div>
                       <ng-container>{{createOrEditText | translate}} </ng-container>
-                      <span translate>event.Event</span> 
+                      <span translate>event.Event</span>
                   </h1>
                   <div class="new-flex-ul-li">
                     <ul>
@@ -60,7 +60,7 @@
                                 </span>
                             </button>
                         </li> -->
-                       
+
                         <li class="inline-butt-nav-create" *ngIf="Event.status===eventStatus.New">
                             <button (click)="verifyButtonClick()" class="butt-style-1" style="width: auto;">
                                 <span style="padding: 10px 10px" translate>
@@ -80,46 +80,46 @@
                 </div>
             </div>
         </div>
-        
+
         <app-about #about *ngIf="!isLoading&&(currentPage==pages.about)"
             [Event]="Event"
             (onSaveEvent)="SaveEventByPages($event)"
             (onError)="OpenErrorWindow($event)"
         ></app-about>
-             
+
          <app-artist #artist *ngIf="!isLoading&&(currentPage==pages.artist)"
             [Event]="Event"
             (onSaveEvent)="SaveEventByPages($event)"
             (onError)="OpenErrorWindow($event)"
             (openPreview)="openPreviewArtist($event)"
         ></app-artist>
-       
+
         <app-venues #venue *ngIf="!isLoading&&(currentPage==pages.venue)"
             [Event]="Event"
             (onSaveEvent)="SaveEventByPages($event)"
             (onSave)="SaveEventByPagesWithoutNextPart($event)"
             (openPreview)="openPreviewVenue($event)"
             (onError)="OpenErrorWindow($event)"
-        ></app-venues> 
-       
+        ></app-venues>
+
 
         <div *ngIf="currentPage==pages.funding||currentPage==pages.tickets" class="create-event-body-1">
 
-            
+
             <app-funding #funding *ngIf="!isLoading&&(currentPage==pages.funding)"
                 [Event]="Event"
                 [isHasVenue]="isHasVenue"
                 (onSaveEvent)="SaveEventByPages($event)"
-                (onSave)="SaveEventByPagesWithoutNextPart($event)"
+                (onSave)="SaveEventByFunding($event)"
                 (onError)="OpenErrorWindow($event)"
             ></app-funding>
-            
+
             <app-add-tickets #tickets *ngIf="!isLoading&&(currentPage==pages.tickets)&&isHasVenue"
                 [Event]="Event"
                 (onSaveEvent)="SaveEventByPages($event)"
                 (onError)="OpenErrorWindow($event)"
-            ></app-add-tickets> 
-           
+            ></app-add-tickets>
+
 
         </div>
 
@@ -137,7 +137,7 @@
 
         </div>
 
-       
+
 
     </div>
 

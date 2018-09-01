@@ -9,7 +9,7 @@
             <div class="groupe-form" class="flex-body-1">
                 <div class="side">
                     <div class="input-groupe-1 lbl-1">
-                        
+
                         <input id="inp-create-1" name="name" type="text" [(ngModel)]="Event.name" formControlName="name"  >
                         <label for="inp-create-1" translate>event.about-fold.Event name<span>*</span></label>
                     </div>
@@ -17,12 +17,12 @@
                         <span class="user-name-dog">#</span>
                         <input id="inp-create-2" formControlName="hashtag" [textMask]="WithoutSpace()" [(ngModel)]="Event.hashtag" name="" type="text" >
                         <label for="inp-create-2" translate>event.about-fold.Hashtag<span>*</span></label>
-                        
+
                     </div>
                     <div class="input-groupe-1">
                         <input id="inp-create-3" name="" type="text" formControlName="tagline" [(ngModel)]="Event.tagline">
                         <label for="inp-create-3" translate>event.about-fold.Tagline<span>*</span></label>
-                       
+
                     </div>
                     <div class="input-groupe-1">
                             <!--тут пока селекты. но если вы найдете норм плагин таких селектов которые можно будет стилизовать и которые работают с ангуларом - буду очень признателен-->
@@ -33,7 +33,7 @@
                                 <option>4</option>
                                 <option>5</option>
                                 <option>6</option>
-                                
+
                             </select> -->
                             <mat-form-field >
                                 <mat-select [disabled]="Event.id" [(ngModel)]="Event.currency" (ngModelChange)="GetCurrentCurrency()" formControlName="currency">
@@ -57,7 +57,7 @@
                             <span translate>Yes</span>
                         </div>
                     </div>
-                    
+
                     <div class="flex-input-groupes">
                         <div class="input-groupe-1">
                             <!--тут пока селекты. но если вы найдете норм плагин таких селектов которые можно будет стилизовать и которые работают с ангуларом - буду очень признателен-->
@@ -68,7 +68,7 @@
                                 <option>4</option>
                                 <option>5</option>
                                 <option>6</option>
-                                
+
                             </select> -->
                             <mat-form-field >
                                 <mat-select [(ngModel)]="Event.artists_number" formControlName="artists_number">
@@ -86,17 +86,17 @@
 
                         </div>
                         <div *ngIf="Event.is_crowdfunding_event" class="input-groupe-1">
-                            
+
                             <div class="rel-wr">
                                 <span class="abs-backs">{{CurrencySymbol}}</span>
 
-                                <input formControlName="funding_goal" [(ngModel)]="Event.funding_goal" [textMask]="MaskNumbers()" id="inp-create-5" class="dollar" name="" type="text">
+                                <input disabled formControlName="funding_goal" [ngModel]="Event.funding_goal" id="inp-create-5" class="dollar" name="" type="text">
                             </div>
                             <label for="inp-create-5" translate>event.about-fold.Funding Goal</label>
-                            
+
                         </div>
 
-                        
+
                     </div>
 
                     <div *ngIf="Event.is_crowdfunding_event" class="flex-date-inputs hide-xs-flex">
@@ -104,7 +104,7 @@
                                     <div (click)="dpFrom.show()" class="date-icon"></div>
                                     <div class="rr">
                                         <span class="desc-date" translate>event.about-fold.Start Date</span>
-                                       
+
                                         <input #dpFrom="bsDatepicker" bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerFromModel" class="input-date">
                                     </div>
                                 </div>
@@ -112,13 +112,13 @@
                                     <div (click)="dpTo.show()" class="date-icon"></div>
                                     <div class="rr">
                                         <span class="desc-date" translate>event.about-fold.End Date</span>
-                                        
+
                                         <input #dpTo="bsDatepicker" bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerToModel" class="input-date">
                                     </div>
                                 </div>
                     </div>
 
-                    <br>                    
+                    <br>
 
                     <div class="flex-mac-checkbox">
                         <p translate>event.about-fold.Comments  Available?</p>
@@ -141,7 +141,7 @@
                                     <span *ngIf="item.checked"  class="one-genre" translate>{{item.genre_show}}</span>
                                 </ng-container>
                             <div class="add-to-genres">
-                                
+
                                 <span class="plus" (click)="ShowHideGenres($event)"></span>
                                 <!--клик на плюсик добавляем absgenres-pick-wr класс showed-->
                                 <div id="pick-up-genre-modal" class="absgenres-pick-wr" [ngClass]="{showed:showMoreGenres}" (click)="$event.stopPropagation()">
@@ -151,7 +151,7 @@
                                         <ng-container *ngFor="let item of genres; let i = index">
                                             <span *ngIf="item.show" (click)="item.checked = !item.checked; GetEventGenres()" class="one-genre" [ngClass]="{picked:item.checked}" translate>{{item.genre_show}}</span>
                                         </ng-container>
-        
+
                                     </div>
                                 </div>
                             </div>
@@ -198,7 +198,7 @@
                                 <option value="afternoon">Afternoon</option>
                                 <option value="evening">Evening</option>
                                 <option value="night">Night</option>
-                                
+
                             </select> -->
                             <mat-form-field>
                                 <mat-select [(ngModel)]="Event.event_time" formControlName="event_time">
@@ -237,7 +237,7 @@
                                 <option>22</option>
                                 <option>23</option>
                                 <option>24</option>
-                                
+
                             </select> -->
                             <mat-form-field >
                                 <mat-select [(ngModel)]="Event.event_length" formControlName="event_length">
@@ -276,27 +276,27 @@
                         <div *ngIf="Event.date_from" class="input-groupe-1">
                             <input disabled id="inp-create-3" name="" type="text" value="{{Event.date_from|date:'MMM' | translate}} {{Event.date_from|date:'d, y'}}">
                             <label for="inp-create-3" translate>event.about-fold.Exact date from</label>
-                           
+
                         </div>
                         <div *ngIf="Event.date_to" class="input-groupe-1">
                             <input disabled id="inp-create-3" name="" type="text" value="{{Event.date_to|date:'MMM' | translate}} {{Event.date_to|date:'d, y'}}">
                             <label for="inp-create-3" translate>event.about-fold.Exact date to</label>
-                           
+
                         </div>
                     </div>
 
                     <div class="location-wr">
                         <div (click)="aboutOpenMapModal()" class="mark"></div>
-                        <input id="aboutAddress" type="text" id="aboutAddress" class="location-inp" [ngModelOptions]="{standalone: true}" [ngModel]="Event.address"  placeholder="" #searchAbout> 
+                        <input id="aboutAddress" type="text" id="aboutAddress" class="location-inp" [ngModelOptions]="{standalone: true}" [ngModel]="Event.address"  placeholder="" #searchAbout>
                     </div>
                 </div>
                 <div class="side">
 
 
                     <div class="input-groupe-1 whithout-label">
-                            
+
                             <div class="photo-wr-1 n-i-s">
-                                
+
                                 <label *ngIf="!Event.image_base64" class="file_upload new-style-img-up">
                                     <div class="bg-image"></div>
 
@@ -311,18 +311,18 @@
                     </div>
 
                         <div class="input-groupe-1 whithout-label">
-                            
+
                             <textarea formControlName="description" [(ngModel)]="Event.description"  id="inp-create-9"></textarea>
                             <label for="inp-create-9" class="head-groupe" translate>Short Description<span>*</span></label>
-                            
+
                         </div>
-                    
+
                 </div>
             </div>
             <div class="scroll-wrapp">
                 <div class="circle-scroll" (click)="SaveEvent()" ></div>
             </div>
-            
+
         </div>
         </form>
     </div>
