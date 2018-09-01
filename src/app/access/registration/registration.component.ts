@@ -60,7 +60,7 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
 
   phone:string;
   isShowPhone:boolean = true;
-    
+
   onSuccesCreateUser(type:string){
     if(type){
       this.currentPage = 'acc';
@@ -69,10 +69,10 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
   }
 
   onSuccesCreateAcc(status:boolean){
-   
+
     if(status){
       this.currentPage = 'follow';
-      
+
     }
   }
 
@@ -89,7 +89,7 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
 
 
   ngOnInit(){
-    
+
   }
 
   showPhone(status:boolean){

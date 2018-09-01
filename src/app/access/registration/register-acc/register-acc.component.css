@@ -11,3 +11,14 @@
     -o-transform: rotate(180deg); /* Для Opera */
     transform: rotate(180deg);
 }
+
+.register .m-v-reg .reg-wr .flex-checkboxes .one-checkbox.check-start{
+    order: 0;
+}
+.register .m-v-reg .reg-wr .flex-checkboxes .one-checkbox{
+    order: 1;
+}
+.one-checkbox p{
+    font-size: 11px;
+    padding-left: 11px;
+}
