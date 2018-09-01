@@ -14,7 +14,7 @@ button[disabled]{
     direction: ltr;
 }
 .support_right{
-    
+
 }
 
 .support_dialogs::-webkit-scrollbar {
@@ -39,4 +39,15 @@ button[disabled]{
 }
 .support_right .support_mes .mes_head{
     margin-bottom: 20px;
+}
+
+.button-solved{
+  width: 74px;
+  font-size: 14px;
+  color: #fff;
+  background: #da4266;
+  border-radius: 15px;
+  border: none;
+  outline: none;
+  padding: 3px 0;
 }

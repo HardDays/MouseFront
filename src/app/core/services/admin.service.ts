@@ -20,7 +20,7 @@ export class AdminService{
         this.NewCountChange.next(true);
     }
 
-   
+
 
     Statuses = {
         "just_added": "new",
@@ -52,7 +52,7 @@ export class AdminService{
 
 
     //////////////////////////////////////
-    //////         ACCOUNTS         //////   
+    //////         ACCOUNTS         //////
     //////////////////////////////////////
 
     GetNewAccountsCount()
@@ -147,7 +147,7 @@ export class AdminService{
 
 
     //////////////////////////////////////
-    //////         EVENTS           //////   
+    //////         EVENTS           //////
     //////////////////////////////////////
 
 
@@ -158,7 +158,7 @@ export class AdminService{
         );
     }
 
-   
+
 
     GetEventsRequests(params?)
     {
@@ -194,8 +194,8 @@ export class AdminService{
             ()=> this.http.DeleteDataWithBody('/admin/events/'+id+'.json', JSON.stringify({id}))
         );
     }
-  
-    
+
+
     GetEventsCounts()
     {
         return this.http.CommonRequest(
@@ -233,7 +233,7 @@ export class AdminService{
 
 
     //////////////////////////////////////
-    //////         FEEDBACK         //////   
+    //////         FEEDBACK         //////
     //////////////////////////////////////
 
 
@@ -280,11 +280,11 @@ export class AdminService{
         );
     }
 
-    
+
     //////////////////////////////////////
-    //////         QUESTIONS        //////   
+    //////         QUESTIONS        //////
     //////////////////////////////////////
-    
+
 
     QuestionReplyById(id:number,subject:string,message:string)
     {
@@ -310,12 +310,18 @@ export class AdminService{
             ()=> this.http.GetData('/admin/questions/'+id+'.json', this.typeService.ParamsToUrlSearchParams({id}))
         );
     }
+    SolveQuestion(id:number,subject:string,message:string)
+    {
+      return this.http.CommonRequest(
+            ()=> this.http.PostData('/admin/questions/'+id+'/close.json', JSON.stringify({id,subject,message}))
+        );
+    }
 
-    
+
     //////////////////////////////////////
-    //////           REPLY          //////   
+    //////           REPLY          //////
     //////////////////////////////////////
-    
+
 
     GetReplyTemplates()
     {
@@ -361,7 +367,7 @@ export class AdminService{
 
 
     //////////////////////////////////////
-    //////         QUESTIONS        //////   
+    //////         QUESTIONS        //////
     //////////////////////////////////////
 
 

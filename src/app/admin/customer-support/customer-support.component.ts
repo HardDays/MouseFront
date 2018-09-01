@@ -9,6 +9,7 @@ interface Question {
   id:number,
   subject: string,
   // account: AccountGetModel,
+  is_closed:boolean,
   date:string,
   message:string,
   sender_id:number,
@@ -102,7 +103,7 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
       .subscribe((res)=>{
         // console.log(res);
         this.openQuestion = res;
-        
+
         // if(this.openQuestion.reply.length === 0){
           this.openQuestion.reply.unshift({
             created_at: this.openQuestion.created_at,
@@ -116,7 +117,7 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
           )
         // }
 
-        
+
 
         for(let reply of this.openQuestion.reply){
           if(reply.sender){
@@ -126,9 +127,9 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
               reply.sender.image_base64 = BaseImages.NoneFolowerImage;
           }
         }
-        
+
         // console.log(`open message`,this.openQuestion)
-        
+
 
         // if(this.openQuestion.reply){
         //   if(this.openQuestion.reply[0].sender){
@@ -137,13 +138,13 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
         //     else
         //       this.openQuestion.reply[0].sender.image_base64 = BaseImages.NoneFolowerImage;
         //   }
-          
+
         // }
         setTimeout(()=>{
           $('.right-to-scroll').scrollTop($('.right-to-scroll').prop('scrollHeight'));
         },50);
-        
-       
+
+
       }
     )
   }
@@ -156,7 +157,7 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
         {
           this.AnswerOptions = res;
           // console.log("answer", this.AnswerOptions);
-          
+
         }
       )
   }
@@ -180,5 +181,16 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
         }
       )
   }
-  
+
+  SolvedAnswer(){
+    this.main.adminService.SolveQuestion(this.openQuestion.id,this.Answer.subject,'Solved!')
+      .subscribe(
+        (res)=>{
+          console.log(`ok`);
+          this.openQuestion.is_closed = true;
+          this.GetQuestions();
+        }
+      )
+  }
+
 }
