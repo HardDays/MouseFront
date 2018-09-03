@@ -56,8 +56,25 @@ export class InvitesComponent extends BaseComponent implements OnInit {
     this.Invites.push(...this.NewInvites);
   }
 
-  openHref(href){
-    window.open(`http://`+href);
+  openHref(type,username){
+    let url = `http://`;
+    switch (type) {
+      case 'vk':
+        url+='vk.com/'
+        break;
+      case 'facebook':
+        url+='facebook.com/'
+        break;
+      case 'youtube':
+        url+='youtube.com/user/'
+        break;
+      case 'twitter':
+        url+='twitter.com/'
+        break;
+      default:
+        break;
+    }
+    window.open(url+username);
   }
   openMail(mail){
     window.location.href = "mailto:"+mail+"?subject=Mouse&body=Welcome!";

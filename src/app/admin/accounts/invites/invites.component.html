@@ -26,7 +26,7 @@
                 </div>
             </section>
             <section>
-                <div class="admin_table accounts_table accounts_table_with_contacts" infinite-scroll 
+                <div class="admin_table accounts_table accounts_table_with_contacts" infinite-scroll
                         [infiniteScrollDistance]="2"
                         [infiniteScrollThrottle]="50"
                         (scrolled)="getMoreInvites()"
@@ -57,15 +57,15 @@
                             <div class="admin_table_td"><span>{{(item.invited_type|titlecase)?(item.invited_type|titlecase) : "-"}}</span></div>
                             <div class="admin_table_td contact_td">
                                 <ul class="soc">
-                                    <li *ngIf="item.vk"><a (click)="openHref(item.vk)"><img src="./../../../../assets/img/admin/contact_vk.svg" alt=""></a></li>
-                                    <li *ngIf="item.facebook"><a (click)="openHref(item.facebook)"><img src="./../../../../assets/img/admin/contact_fb.svg" alt=""></a></li>
-                                    <li *ngIf="item.instagram"><a (click)="openHref(item.instagram)"><img src="./../../../../assets/img/admin/contact_insta.svg" alt=""></a></li>
-                                    <li *ngIf="item.youtube"><a (click)="openHref(item.youtube)"><img src="./../../../../assets/img/admin/contact_yt.svg" alt=""></a></li>
+                                    <li *ngIf="item.vk"><a (click)="openHref('vk',item.vk)"><img src="./../../../../assets/img/admin/contact_vk.svg" alt=""></a></li>
+                                    <li *ngIf="item.facebook"><a (click)="openHref('facebook',item.facebook)"><img src="./../../../../assets/img/admin/contact_fb.svg" alt=""></a></li>
+                                    <li *ngIf="item.instagram"><a (click)="openHref('instagram',item.instagram)"><img src="./../../../../assets/img/admin/contact_insta.svg" alt=""></a></li>
+                                    <li *ngIf="item.youtube"><a (click)="openHref('youtube',item.youtube)"><img src="./../../../../assets/img/admin/contact_yt.svg" alt=""></a></li>
                                 </ul>
                                 <span (click)="openMail(item.email)">{{item.email}}</span>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </section>
