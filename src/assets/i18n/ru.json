@@ -739,5 +739,6 @@
 	"<b>Audio description</b> needs to be filled": "<b>Описание аудио</b> должно быть введено",
 	"<b>Lighting description</b> needs to be filled": "<b>Описание освещения</b> должно быть введено",
 	"<b>Stage description</b> needs to be filled": "<b>Описание сцены</b> должно быть введено",
-	"Please, input correct username and e-mail!": "Пожалуйста, введите корректные имя пользователя и e-mail!"
+	"Please, input correct username and e-mail!": "Пожалуйста, введите корректные имя пользователя и e-mail!",
+	"feedback": "Обратная связь"
 }

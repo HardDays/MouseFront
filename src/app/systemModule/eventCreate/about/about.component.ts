@@ -19,7 +19,10 @@ import { EventCreateModel } from '../../../core/models/eventCreate.model';
 import { EventCreateComponent } from '../eventCreate.component';
 import { ViewEncapsulation } from '@angular/core';
 import { CurrencyIcons } from '../../../core/models/preferences.model';
-import { BsDatepickerConfig } from '../../../../../node_modules/ngx-bootstrap';
+import { BsDatepickerConfig, BsDaterangepickerDirective, BsDaterangepickerConfig, BsLocaleService } from '../../../../../node_modules/ngx-bootstrap';
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { ruLocale } from 'ngx-bootstrap/locale';
+defineLocale('ru', ruLocale); 
 
 
 
@@ -69,6 +72,10 @@ export class AboutComponent extends BaseComponent implements OnInit {
   ESCAPE_KEYCODE = 27;
   ENTER_KEYCODE = 13;
 
+  @ViewChild('dp') datepicker: BsDaterangepickerDirective;
+
+  localeService: BsLocaleService;
+
   @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
       if(this.isShowMap){
           if (event.keyCode === this.ESCAPE_KEYCODE || event.keyCode === this.ENTER_KEYCODE) {
@@ -78,7 +85,11 @@ export class AboutComponent extends BaseComponent implements OnInit {
       }
   }
 
-    bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-default' });
+    bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { 
+        containerClass: 'theme-default',
+        rangeInputFormat: this.main.settings.GetDateFormat(),
+        locale: this.settings.GetLang() 
+    });
 
     datepickerFromModel:Date = new Date();
     datepickerToModel:Date = new Date();

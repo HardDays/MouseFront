@@ -85,6 +85,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
       }
     )
     // this.GetMessages();
+    
   }
 
   ngAfterViewChecked()
@@ -198,7 +199,9 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
         //     }
         //   );
         // }
+
       });
+
           
   }
 

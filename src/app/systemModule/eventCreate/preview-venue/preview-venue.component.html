@@ -53,7 +53,7 @@
                                           <span class="o-f-h" translate>Venue.hours-folder.Office Hours</span>
                                           <ul class="hours-drop-show">
                                               <li *ngFor="let date of OffHours">
-                                                  <span class="left">{{date&&date.day?date.day:''}}</span>
+                                                  <span class="left" translate>{{date&&date.day?date.day:''}}</span>
                                                   <span class="right">
                                                       {{date.begin_time | timepipe}} - {{date.end_time | timepipe}}
                                                   </span>
@@ -76,7 +76,7 @@
                                           <span class="o-f-h" translate>Venue.hours-folder.Operating Hours</span>
                                           <ul class="hours-drop-show">
                                               <li *ngFor="let date of OpHours">
-                                                  <span class="left">{{date&&date.day?date.day:''}}</span>
+                                                  <span class="left" translate>{{date&&date.day?date.day:''}}</span>
                                                   <span class="right">
                                                       {{date.begin_time | timepipe}} - {{date.end_time | timepipe}}
                                                   </span>
