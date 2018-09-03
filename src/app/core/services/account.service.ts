@@ -84,6 +84,7 @@ export class AccountService{
             result.performance_time_from = input.performance_time_from?this.GetTimeFromString(input.performance_time_from):null;
             result.performance_time_to = input.performance_time_to?this.GetTimeFromString(input.performance_time_to):null;
             result.events_dates = input.events_dates;
+            result.status = input.status? input.status : 'pending';
         }
 
         return result;

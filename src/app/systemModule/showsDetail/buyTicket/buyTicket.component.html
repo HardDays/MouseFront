@@ -20,8 +20,8 @@
                     </svg>
                 </div>
             </div>
-            <button type="submit" class="butt-style-2" [disabled]=" !(CurrentAccount && CurrentAccount.account_type == 'fan') || Count == 0" 
-                style="border: none;" [ngClass]="{'cursor-disabled':!(CurrentAccount && CurrentAccount.account_type == 'fan') || Count == 0}" translate>
+            <button type="submit" class="butt-style-2" [disabled]=" !(CurrentAccount && CurrentAccount.account_type == 'fan') || Count == 0 || Count > Ticket.count" 
+                style="border: none;" [ngClass]="{'cursor-disabled':!(CurrentAccount && CurrentAccount.account_type == 'fan') || Count == 0 || Count > Ticket.count}" translate>
                     ADD
             </button>
         </div>

@@ -643,8 +643,6 @@ export class BaseComponent{
 
     private getFieldError(field: FormControl, key: string, keyDict: any)
     {
-
-        // console.log(key, keyDict);
         if (field.errors !== null)
         {
             if (field.errors.hasOwnProperty('required'))
@@ -681,7 +679,7 @@ export class BaseComponent{
               }
               else
               {
-                let strEr = (BaseMessages.NumberPattern).replace('_filed', keyDict[key]);
+                let strEr = (BaseMessages.NumberPattern).replace('_field', keyDict[key]);
                 strEr = this.GetTranslateString(strEr)?this.GetTranslateString(strEr):strEr;
                 return String(strEr) 
               }

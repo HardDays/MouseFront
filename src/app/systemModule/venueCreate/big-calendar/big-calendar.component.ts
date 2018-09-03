@@ -436,6 +436,13 @@ export class BigCalendarComponent implements OnInit, OnChanges {
 
   SaveCheckedDate()
   {
+    // console.log(this.FormVals);
+    if(this.FormVals.from > this.FormVals.to)
+    {
+      const from = new Date(this.FormVals.to);
+      this.FormVals.to = new Date(this.FormVals.from);
+      this.FormVals.from = from;
+    }
     this.onSelectDate.emit(this.FormVals);
     this.CloseModalPrice(null);
   }

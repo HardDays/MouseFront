@@ -127,6 +127,7 @@ export class NavbarComponent extends BaseComponent implements OnInit
     ShowSearchResult()
     {
       this.router.navigate(['/system','search'], {queryParams: this.Search});
+      this.Search.text = '';
     }
     getThisPage():string
     {

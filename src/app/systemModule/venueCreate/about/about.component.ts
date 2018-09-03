@@ -41,7 +41,10 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
         "mouse_name": new FormControl("", [Validators.required]),
         "short_desc": new FormControl("", [Validators.required,
                                         Validators.maxLength(1000)]),
-        "phone": new FormControl("", [Validators.required]),
+        "phone": new FormControl("", [
+            Validators.required,
+            Validators.pattern(/\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/)
+        ]),
         "fax": new FormControl("", []),
         "emails": new FormArray([]),
         "country": new FormControl("", [Validators.required]),
@@ -169,8 +172,8 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
     GetContactFormGroup()
     {
         return new FormGroup({
-            "name_email":new FormControl("",[]),
-            "email":new FormControl("",[Validators.email]),
+            "name_email":new FormControl("",[Validators.required]),
+            "email":new FormControl("",[Validators.email, Validators.required]),
         })
     }
 
@@ -190,7 +193,7 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
     {
         
        
-        
+        console.log(this.Venue);
         this.aboutForm.updateValueAndValidity();
         if(this.aboutForm.invalid)
         {

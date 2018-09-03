@@ -23,6 +23,8 @@ export class ByTicketComponent extends BaseComponent implements OnInit {
     {
         this.Currency = CurrencyIcons[this.main.settings.GetCurrency()];
         this.OriginalCurrency = CurrencyIcons[this.Ticket.currency];
+        // this.Count = 100;
+        // this.Ticket.count = -100;
     }
 
     AddTickets()
