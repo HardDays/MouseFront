@@ -222,7 +222,6 @@ export class FundingComponent extends BaseComponent implements OnInit {
                 if(item.object.is_active){
                     item.checked = true;
                     this.artistSum += this.activeArtist[i].object.approximate_price;
-                    this.getFundingGoal();
                 }
                 i = i + 1;
             }
@@ -250,7 +249,6 @@ export class FundingComponent extends BaseComponent implements OnInit {
                 if(item.object.is_active){
                     item.checked = true;
                     this.venueSum += this.activeVenue[i].object.approximate_price;
-                    this.getFundingGoal();
                 }
                 i = i + 1;
             }
@@ -300,19 +298,15 @@ export class FundingComponent extends BaseComponent implements OnInit {
         this.main.eventService.GetEventById(this.Event.id).
         subscribe((res:EventGetModel)=>{
             this.Event = this.main.eventService.EventModelToCreateEventModel(res);
-            this.getFundingGoal();
-            this.onSave.emit(this.Event);
+            // this.onSave.emit(this.Event);
         })
     }
 
     comleteFunding(){
-      this.getFundingGoal();
       this.onSaveEvent.emit(this.Event);
     }
 
-    updateTotal(){
-      this.onSave.emit(this.Event);
-    }
+
 
     // saveTotal(){
     //   this.getFundingGoal();
@@ -320,9 +314,9 @@ export class FundingComponent extends BaseComponent implements OnInit {
     //   this.onSave.emit(this.Event);
     // }
 
-    getFundingGoal(){
-      this.Event.funding_goal = 0.1*(this.artistSum+this.venueSum+this.Event.additional_cost)+(this.artistSum+this.venueSum+this.Event.additional_cost);
-    }
+    // getFundingGoal(){
+    //   this.Event.funding_goal = 0.1*(this.artistSum+this.venueSum+this.Event.additional_cost)+(this.artistSum+this.venueSum+this.Event.additional_cost);
+    // }
 
 
     // getPriceAtMsg(senderId:number){

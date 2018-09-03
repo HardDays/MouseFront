@@ -90,7 +90,7 @@
                             <div class="rel-wr">
                                 <span class="abs-backs">{{CurrencySymbol}}</span>
 
-                                <input disabled formControlName="funding_goal" [ngModel]="Event.funding_goal" id="inp-create-5" class="dollar" name="" type="text">
+                                <input formControlName="funding_goal" [(ngModel)]="Event.funding_goal" id="inp-create-5" class="dollar" name="" type="text">
                             </div>
                             <label for="inp-create-5" translate>event.about-fold.Funding Goal</label>
 

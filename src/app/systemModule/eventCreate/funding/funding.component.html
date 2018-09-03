@@ -163,7 +163,7 @@
             <div class="side">
                 <div class="bottom-expression">
                     <p class="t total" translate>event.Totals</p>
-                    <p class="exp-price">{{CurrencySymbol}}{{Event.funding_goal | number:'3.1-2'}}</p>
+                    <p class="exp-price">{{CurrencySymbol}}{{0.1*(artistSum+venueSum+Event.additional_cost)+(artistSum+venueSum+Event.additional_cost) | number:'3.1-2'}}</p>
                 </div>
             </div>
         </div>
