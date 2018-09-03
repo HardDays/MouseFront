@@ -13,8 +13,8 @@
           <div class="admin_table_tbody">
               <div *ngFor="let revenue of Revenues" [routerLink]="['/admin','revenue',revenue.id]" class="admin_table_tr">
                   <div class="admin_table_td"><span>{{revenue&&revenue.name?revenue.name:'No info'}}</span></div>
-                  <div class="admin_table_td"><span>{{revenue&&revenue.owner?revenue.owner:'No info'}}</span></div>
-                  <div class="admin_table_td"><span>{{revenue.date_from|date}}</span></div>
+                  <div class="admin_table_td"><span>{{revenue&&revenue.owner&&revenue.owner !=" "?revenue.owner:'-'}}</span></div>
+                  <div class="admin_table_td"><span>{{(revenue.date_from|date)?(revenue.date_from|date):'-'}}</span></div>
                   <div class="admin_table_td"><span>{{revenue&&revenue.is_crowdfunding_event?'Crowdfunding':'Regular'}}</span></div>
                   <div class="admin_table_td"><span class="ellips-text">{{revenue&&revenue.address?revenue.address:'No info'}}</span></div>
                   <div class="admin_table_td rose text_bold"><span>${{revenue&&revenue.revenue?revenue.revenue:' No info'}}</span></div>

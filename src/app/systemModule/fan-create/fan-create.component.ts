@@ -281,30 +281,29 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
     this.Genres[3].show = true;*/
     this.seeMore = false;
   }
-
-
   CategoryChanged($event:string)
   {
     this.search = $event;
     if(this.search.length>0)
     {
+      this.seeMore = true;
       for(let g of this.Genres)
       {
-        if(g.genre_show.indexOf(this.search.toLowerCase())>=0)
-        {
+         if(this.translate.get(g.genre_show)['value'].toLowerCase().indexOf(this.search.toLowerCase())>=0||g.checked)
           g.show = true;
-        }
-        else
-        {
+         else
           g.show = false;
-        }
       }
-     }
-     else
-     {
-       this.seeFirstGenres();
-     }
- }
+    }
+    else
+    {
+      for(let g of this.Genres)
+        g.show = false;
+      this.seeFirstGenres();
+    }
+  }
+
+
 
   seeMoreGenres()
   {

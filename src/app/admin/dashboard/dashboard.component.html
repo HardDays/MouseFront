@@ -45,7 +45,7 @@
                         <div class="admin_table_td"><span>{{acc.object.created_at|date:'MM.dd.yyyy'}}</span></div>
                         <div class="admin_table_td"><span>{{acc.object.full_name}}</span></div>
                         <div class="admin_table_td"><span>{{acc.object.account_type|titlecase}}</span></div>
-                        <div class="admin_table_td little"><span class="ellips-text">{{acc.object.address}}</span></div>
+                        <div class="admin_table_td little"><span class="ellips-text">{{acc.object.address?acc.object.address:"-"}}</span></div>
                     </div>
                 </ng-container>
                 <!-- При выделении чекбокса добавляется класс CHECKED: -->
@@ -80,10 +80,10 @@
                                 <label for="new_ev_{{i}}"></label>
                             </div>
                         </div> -->
-                        <div class="admin_table_td"><span>{{event.object.received_date|date:'MM.dd.yyyy'}}</span></div>
+                        <div class="admin_table_td"><span>{{(event.object.received_date)?(event.object.received_date|date:'MM.dd.yyyy'):'-'}}</span></div>
                         <div class="admin_table_td"><span>{{event.object.name}}</span></div>
-                        <div class="admin_table_td"><span>{{event.object.date_from|date:'MM.dd.yyyy h:mm a'}}</span></div>
-                        <div class="admin_table_td little"><span class="ellips-text">{{event.object.address}}</span></div>
+                        <div class="admin_table_td"><span>{{(event.object.date_from|date:'MM.dd.yyyy h:mm a')?(event.object.date_from|date:'MM.dd.yyyy h:mm a'):'-'}}</span></div>
+                        <div class="admin_table_td little"><span class="ellips-text">{{event.object.address?event.object.address:"-"}}</span></div>
                         <div class="admin_table_td little"><span>{{!event.object.is_crowdfunding_event?'Non ':''}}Crowdfund</span></div>
                     </div>
                 </ng-container>

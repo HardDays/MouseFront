@@ -174,7 +174,7 @@
             <div class="admin_table_tbody_scroll">
                 <div *ngFor="let ind of Individual" class="admin_table_tr">
                     <div class="admin_table_td"><span>{{ind.name}}</span></div>
-                    <div class="admin_table_td"><span>{{ind.date_from|date:"dd.MM.YY hh:mm a"}}</span></div>
+                    <div class="admin_table_td"><span>{{ind.date_from ? (ind.date_from|date:"dd.MM.YY hh:mm a"):'-'}}</span></div>
                     <div class="admin_table_td"><span>{{ind.is_crowdfunding_event?'Crowdfunding':'Regular'}}</span></div>
                     <div class="admin_table_td"><span>{{ind.comments}}</span></div>
                     <div class="admin_table_td"><span>{{ind.likes}}</span></div>
