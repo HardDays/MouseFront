@@ -66,7 +66,7 @@ export enum Currency
 
 export var CurrencyIcons = [
 ];
-CurrencyIcons[Currency.RUB] = "₽";
+CurrencyIcons[Currency.RUB] = "<i class='icon-ruble'></i>";
 CurrencyIcons[Currency.USD] = "$";
 CurrencyIcons[Currency.EUR] = "€";
 

@@ -88,7 +88,7 @@
                         <div *ngIf="Event.is_crowdfunding_event" class="input-groupe-1">
 
                             <div class="rel-wr">
-                                <span class="abs-backs">{{CurrencySymbol}}</span>
+                                <span class="abs-backs"><span [innerHTML]="CurrencySymbol"></span></span>
 
                                 <input formControlName="funding_goal" [(ngModel)]="Event.funding_goal" id="inp-create-5" class="dollar" name="" type="text">
                             </div>

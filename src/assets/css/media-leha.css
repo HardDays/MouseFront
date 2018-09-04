@@ -10,6 +10,22 @@ html, body{
   top: -2px;
   padding-top: 37px;
 }
+.line-only-for-admin-tables{
+  display: block;
+  height: 1px;
+  width: 17px;
+  background: #000;
+}
+
+
+
+
+
+
+
+
+
+
 .flex-tabs-menu-venue .v-tabs-menu li{
   font-size: 16px;
 }

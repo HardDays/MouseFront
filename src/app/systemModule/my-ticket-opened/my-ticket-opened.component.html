@@ -24,11 +24,11 @@
                                 <p>
                                     <strong translate>
                                         show-folder.Total price: 
-                                        <span>
-                                          {{MyCurrency}} {{TotalAproxPrice}} 
+                                        <span>  
+                                        <span [innerHTML]="MyCurrency"></span> {{TotalAproxPrice}} 
                                           <ng-container *ngIf="OriginalCurrency != MyCurrency">
                                                 <br>
-                                                ({{OriginalCurrency}} {{TotalOriginalPrice}})
+                                                (<span [innerHTML]="OriginalCurrency"></span> {{TotalOriginalPrice}})
                                           </ng-container>
                                         </span>
                                     </strong>
@@ -45,8 +45,8 @@
                                       {
                                           'with-original-price': MyCurrency != OriginalCurrency
                                       }
-                                      ">{{MyCurrency}}{{item.price}}</p>
-                                      <p *ngIf="MyCurrency != OriginalCurrency" class="c c-original">({{OriginalCurrency}} {{item.original_price}})</p>
+                                      "><span [innerHTML]="MyCurrency"></span>{{item.price}}</p>
+                                      <p *ngIf="MyCurrency != OriginalCurrency" class="c c-original">(<span [innerHTML]="OriginalCurrency"></span> {{item.original_price}})</p>
                                       <p class="t">{{item.ticket.description?item.ticket.description:''}}</p>
                                       <p class="last" *ngIf="item.tickets_left">({{item.tickets_left}} <span translate>Tickets.tickets left</span>)</p>
                                       <p class="last" *ngIf="!item.tickets_left">(Sold out)</p>

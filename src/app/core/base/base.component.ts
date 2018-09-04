@@ -401,7 +401,14 @@ export class BaseComponent{
     }
     MaskPrice()
     {
-        let CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
+        let CurrencySymbol = "$";
+        if(this.main.settings.GetCurrency() == 'RUB'){
+            CurrencySymbol = '₽';
+          }
+          else{
+            CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
+          }
+        
         return {
             // mask: ['+',/[1-9]/,' (', /[1-9]/, /\d/, /\d/, ') ',/\d/, /\d/, /\d/, '-', /\d/, /\d/,'-', /\d/, /\d/],
             mask: [CurrencySymbol,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/],

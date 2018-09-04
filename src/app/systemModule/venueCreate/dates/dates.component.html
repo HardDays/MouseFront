@@ -53,14 +53,14 @@
                             </div>
                             <div class="input-groupe-1">
                                 <div class="rel-wr">
-                                    <span class="abs-backs black">{{CurIcons[MyCurrency]}}</span>
+                                    <span class="abs-backs black" [innerHTML]="CurIcons[MyCurrency]"></span>
                                     <input id="inp-calendar-1" class="dollar" [textMask]="GetPerfomancePriceMask()" [(ngModel)]="Venue.price_for_daytime" formControlName="price_for_daytime" name="" type="text">
                                 </div>
                                 <label id="inp-calendar-1" translate>Venue.Dates-folder.Price for Daytime (7AM - 7PM)</label>
                             </div>
                             <div class="input-groupe-1">
                                 <div class="rel-wr">
-                                    <span class="abs-backs black">{{CurIcons[MyCurrency]}}</span>
+                                    <span class="abs-backs black" [innerHTML]="CurIcons[MyCurrency]"></span>
                                     <input id="inp-calendar-2" class="dollar" [textMask]="GetPerfomancePriceMask()" [(ngModel)]="Venue.price_for_nighttime" formControlName="price_for_nighttime" name="" type="text">
                                 </div>
                                 <label id="inp-calendar-2" translate>Venue.Dates-folder.Price for Nighttime (7PM - 7AM)</label>

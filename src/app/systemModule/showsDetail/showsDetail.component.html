@@ -122,9 +122,9 @@
                     
                         <p class="total" translate>show-folder.Total price:
                             <span>
-                                {{Currency}}{{TotalPrice}}
+                                <span [innerHTML]="Currency"></span>{{TotalPrice}}
                                 <ng-container *ngIf="Currency != OriginalCurrency">
-                                        ({{OriginalCurrency}}{{TotalOriginalPrice}})
+                                        (<span [innerHTML]="OriginalCurrency"></span>{{TotalOriginalPrice}})
                                 </ng-container>
                             </span>
                         </p>

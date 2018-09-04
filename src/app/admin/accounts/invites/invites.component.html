@@ -53,8 +53,8 @@
                                 <span class="acc_ava" [ngStyle]="{'background-image':item.account?.image_base64_not_given?'url('+item.account.image_base64_not_given+')':''}"></span>
                                 <span>{{item.account?.user_name?item.account.user_name:''}}</span>
                             </div>
-                            <div class="admin_table_td"><span>{{item.name?item.name:'-'}}</span></div>
-                            <div class="admin_table_td"><span>{{(item.invited_type|titlecase)?(item.invited_type|titlecase) : "-"}}</span></div>
+                            <div class="admin_table_td"><span>{{item.name?item.name:''}}</span><span *ngIf="!item.name" class="line-only-for-admin-tables"></span></div>
+                            <div class="admin_table_td"><span>{{(item.invited_type|titlecase)?(item.invited_type|titlecase) : ""}}</span><span *ngIf="!item.invited_type" class="line-only-for-admin-tables"></span></div>
                             <div class="admin_table_td contact_td">
                                 <ul class="soc">
                                     <li *ngIf="item.vk"><a (click)="openHref('vk',item.vk)"><img src="./../../../../assets/img/admin/contact_vk.svg" alt=""></a></li>

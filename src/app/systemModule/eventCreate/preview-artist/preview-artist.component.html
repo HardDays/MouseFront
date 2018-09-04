@@ -200,11 +200,11 @@
                           </p>
                           <p *ngIf="Artist.price_from" class="about-text flexed">
                               <span>Performance Price:</span>
-                              <span>{{CurrencySymbol}}{{Artist.price_from}}/h - {{CurrencySymbol}}{{Artist.price_to}}/h</span>
+                              <span><i [innerHTML]="CurrencySymbol"></i>{{Artist.price_from}}/h - <i [innerHTML]="CurrencySymbol"></i>{{Artist.price_to}}/h</span>
                           </p>
                           <p *ngIf="Artist.additional_hours_price" class="about-text flexed">
                               <span>Performance Price for additional Hours:</span>
-                              <span>{{CurrencySymbol}}{{Artist.additional_hours_price}}/h</span>
+                              <span><i [innerHTML]="CurrencySymbol"></i>{{Artist.additional_hours_price}}/h</span>
                           </p>
                       </div>
                       <div class="side side-info side-contact">
@@ -273,7 +273,7 @@
                             <span>{{Artist.min_time_to_free_cancel}} days</span> to cancel before charged a cancellation fee.
                           </p>
                           <p *ngIf="Artist.late_cancellation_fee" class="about-text margened">
-                            Fee for last minute Cancellation: <span>{{CurrencySymbol}}{{Artist.late_cancellation_fee}}</span>
+                            Fee for last minute Cancellation: <span><i [innerHTML]="CurrencySymbol"></i>{{Artist.late_cancellation_fee}}</span>
                           </p>
                           <p class="about-text margened">
                             <strong> {{Artist&&Artist.refund_policy?Artist.refund_policy:'No Refunds'}}</strong>
