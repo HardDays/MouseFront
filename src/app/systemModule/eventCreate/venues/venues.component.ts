@@ -774,5 +774,9 @@ export class VenuesComponent extends BaseComponent implements OnInit {
        window.scrollBy(0,-700)
     }
 
+    OnError(error){
+      this.onError.emit(error);
+    }
+
 
 }

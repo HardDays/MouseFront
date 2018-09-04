@@ -111,6 +111,7 @@ export class GetVenue{
        public approximate_price?:number,
        public currency?:string,
         public price?:number,
+        public web_cite?:string
     )
     {}
 }
