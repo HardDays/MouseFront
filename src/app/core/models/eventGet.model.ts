@@ -81,7 +81,7 @@ export class GetArtists{
             image_base64?:string
             is_hide_pricing_from_search?:boolean,
             price?:number
-            
+
         },
         public approximate_price?:number,
         public price?:number,
@@ -114,7 +114,8 @@ export class GetVenue{
        },
        public approximate_price?:number,
        public price?:number,
-       public currency?:string
+       public currency?:string,
+      public web_cite?:string
     )
     {}
 }

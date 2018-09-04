@@ -7,10 +7,10 @@ import { GenreModel } from './genres.model';
 import { VenueDatesModel } from './venueDatesModel';
 export class AccountCreateModel{
     constructor(
-            public user_name?: string,	
+            public user_name?: string,
             public display_name?: string,
             public full_name?: string,
-            public phone?: string,	
+            public phone?: string,
             public account_type?: string,
         public bio?: string, // fan
             public genres?: string[],
@@ -37,14 +37,14 @@ export class AccountCreateModel{
             public stage_description?: string,
             public lat?: number,
             public lng?: number,
-            //public dates?: EventDateModel[] | VenueDatesModel[], 
+            //public dates?: EventDateModel[] | VenueDatesModel[],
             public emails?: ContactModel[],
 
             public country?: string,
             public city?:string,
             public state?:string,
             public zipcode?:string,
-    
+
             public minimum_notice?:number,
             public is_flexible?:boolean,
             public price_for_daytime?:number,
@@ -96,6 +96,9 @@ export class AccountCreateModel{
             public events_dates?:any[],
             public available_dates?:any,
             public disable_dates?:any,
+
+            public web_site?:string,
+
 
             public currency?:string,
             public approximate_price?:number,

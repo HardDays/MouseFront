@@ -41,7 +41,7 @@ export class AccountGetModel{
         public stage_description?: string,
         public lat?: number,
         public lng?: number,
-        //public dates?: EventDateModel[] | VenueDatesModel[], 
+        //public dates?: EventDateModel[] | VenueDatesModel[],
         public emails?: ContactModel[],
         public first_name?:string,
         public last_name?:string,
@@ -111,6 +111,8 @@ export class AccountGetModel{
         public approximate_price?:number,
         public price_not_given?:number,
 
+        public web_site?:string,
+
         public agreement?:{
              id?:number,
              price?:number,
@@ -122,7 +124,7 @@ export class AccountGetModel{
              updated_at?:string,
         },
         public message_id?: number
-        
+
 ){}
 }
 
