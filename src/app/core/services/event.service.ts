@@ -57,6 +57,12 @@ export class EventService{
             () => this.http.GetData('/events/search.json',this.typeService.ParamsToUrlSearchParams(params))
         );
     }
+
+    EventsMy(params){
+        return this.http.CommonRequest(
+            () => this.http.GetData('/events/my.json',this.typeService.ParamsToUrlSearchParams(params))
+        );
+    }
     GetEvents(id){
         return this.http.CommonRequest(
             () => this.http.GetData('/accounts/'+id+'/events.json','')

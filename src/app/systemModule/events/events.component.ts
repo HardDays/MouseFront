@@ -85,8 +85,9 @@ export class EventsComponent extends BaseComponent implements OnInit,AfterViewCh
 
     ngOnInit()
     {   
-        this.SearchParams.only_my = true;
+        // this.SearchParams.only_my = true;
         this.SearchParams.account_id = this.GetCurrentAccId();
+        console.log(this.SearchParams);
         
         this.SearchParams.offset = 0;
         this.SearchParams.limit = 8;
@@ -142,7 +143,7 @@ export class EventsComponent extends BaseComponent implements OnInit,AfterViewCh
     {
         this.ScrollDisabled = true;
         this.WaitBeforeLoading(
-            () => this.main.eventService.EventsSearch(this.SearchParams),
+            () => this.main.eventService.EventsMy(this.SearchParams),
             (res:EventGetModel[]) =>
             {
                 this.Events = res;
