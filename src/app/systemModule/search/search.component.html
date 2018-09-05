@@ -5,42 +5,42 @@
                 <form (ngSubmit)="ShowSearchResult()" #SearchForm="ngForm">
                     <input type="text" name="search-text-input" class="inp-style-1" placeholder="Search" [ngModel]="SearchParams.text" (ngModelChange)="SearchParams.text = $event">
                     <div class="groupe-form">
-                        <p class="head-input-groupe">Genre</p>
+                        <p class="head-input-groupe" translate>Genre</p>
                         <div class="flex-radio">
                             <div class="one-radio">
                                 <div class="radio-style">
                                     <input type="radio" [value]="LocalSearchTypes.All" [(ngModel)]="SearchType" class="radio-b" id="radio-all"  name="group1" checked>
                                     <label for="radio-all"></label>
                                 </div>
-                                <p>All</p>
+                                <p translate>All</p>
                             </div>
                             <div class="one-radio">
                                 <div class="radio-style">
                                     <input type="radio" [value]="LocalSearchTypes.Venues" [(ngModel)]="SearchType" class="radio-b" id="radio-venues" name="group1">
                                     <label for="radio-venues"></label>
                                 </div>
-                                <p>Venues</p>
+                                <p translate>Venues</p>
                             </div>
                             <div class="one-radio">
                                 <div class="radio-style">
                                     <input type="radio" [value]="LocalSearchTypes.Fans" [(ngModel)]="SearchType" class="radio-b" id="radio-fans" name="group1">
                                     <label for="radio-fans"></label>
                                 </div>
-                                <p>Fans</p>
+                                <p translate>Fans</p>
                             </div>
                             <div class="one-radio">
                                 <div class="radio-style">
                                     <input type="radio" [value]="LocalSearchTypes.Shows" [(ngModel)]="SearchType" class="radio-b" id="radio-shows" name="group1">
                                     <label for="radio-shows"></label>
                                 </div>
-                                <p>Shows</p>
+                                <p translate>Shows</p>
                             </div>
                             <div class="one-radio">
                                 <div class="radio-style">
                                     <input type="radio" [value]="LocalSearchTypes.Artists" [(ngModel)]="SearchType" class="radio-b" id="radio-artists" name="group1">
                                     <label for="radio-artists"></label>
                                 </div>
-                                <p>Artists</p>
+                                <p translate>Artists</p>
                             </div>
                         </div>
 
@@ -70,9 +70,9 @@
 
                     <ng-container *ngIf="SearchType != LocalSearchTypes.Shows">
                         <div class="groupe-form">
-                            <p class="head-input-groupe">Region</p>
+                            <p class="head-input-groupe" translate>Region</p>
                             <input type="text" name="country-input" autocomplete="off" autocorrect="off" auto-complete autocapitalize="off" 
-                                spellcheck="off" [(ngModel)]="Country" [source]="Countries" class="inp-style-3" placeholder="Choose a country"
+                                spellcheck="off" [(ngModel)]="Country" [source]="Countries" class="inp-style-3" placeholder="{{'Choose a country' | translate}}"
                                 [list-formatter]="AutocompleteListFormatter"
                                 value-property-name="name"
                                 display-property-name="name"
@@ -83,8 +83,8 @@
                                 blank-option-text="">
                         </div>
                         <div class="groupe-form">
-                            <p class="head-input-groupe">City</p>
-                            <input type="text"  name="city-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="off" [ngModel]="City" (ngModelChange)="City = $event" class="inp-style-3" #seaarchCity placeholder="Choose a city">
+                            <p class="head-input-groupe" translate>City</p>
+                            <input type="text"  name="city-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="off" [ngModel]="City" (ngModelChange)="City = $event" class="inp-style-3" #seaarchCity placeholder="{{'Choose a city' | translate}}">
                         </div>
                     </ng-container>
                     
@@ -157,7 +157,7 @@
                     <div class="ham"></div>
                 </button>
 
-                <h1>Search Results</h1>
+                <h1 translate>Search Results</h1>
             </div>
             <div class="search-results-wrapper all">
                 <ng-container *ngIf="SelectedContent == LocalSearchTypes.All">

@@ -2,7 +2,7 @@
     <div class="img-show" [ngStyle]="{'background-image': 'url('+Image+')'}"></div>
     <div class="descr">
         <p class="name">{{Show.name}}</p>
-        <p class="when">{{Show.date_from | date:"MMMM d, yyyy"}}</p>
+        <p class="when">{{Show.date_from | date:"MMMM" | translate}}{{Show.date_from | date:" d, yyyy"}}</p>
         <p class="when-2">{{Time | timepipe}}</p>
         <p class="where">{{DisplayName}} - {{DisplayCity}}</p>
     </div>

@@ -1,6 +1,6 @@
 <div class="genre-head">
-    <p>{{AccountType}} ({{Accounts.length}})</p>
-    <button (click)="ShowAll()">SHOW ALL</button>
+    <p>{{AccountType | translate}} ({{Accounts.length}})</p>
+    <button (click)="ShowAll()" translate>SHOW ALL</button>
 </div>
 <div class="block-of-genre-search">
     <div class="one-obj"  *ngFor="let item of Accounts">
