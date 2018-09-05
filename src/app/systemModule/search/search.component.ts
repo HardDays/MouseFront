@@ -178,6 +178,19 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
         }
         this.SelectedContent = this.SearchType;
         //this.router.navigateByUrl("/system/search", {queryParams: this.SearchParams});
+        
+    }
+    CloseXsSearchWindow(){
+        if($(window).width()<=767){
+            $('.flexed-search').removeClass('hidden-filter');
+            $(window).scrollTop(0);
+        }
+    }
+    OpenXsSearch(){
+        if($(window).width()<=767){
+            $('.flexed-search').addClass('hidden-filter');
+            $(window).scrollTop(0);
+        }
     }
 
     GetFans()

@@ -18,6 +18,8 @@ import { CustomerSupportComponent } from './customer-support/customer-support.co
 import { CustomerSupportAnswersComponent } from './customer-support/customer-support-answers/customer-support-answers.component';
 import { RevenueAnalyticsComponent } from './revenue/revenue-analytics/revenue-analytics.component';
 import { EventComponent } from './events/event/event.component';
+import { MessagesComponent } from './messages/messages.component';
+import { NotificationComponent } from './notification/notification.component';
 
 
 
@@ -39,7 +41,9 @@ const routes: Routes =
       { path: 'customer', component: CustomerSupportComponent, canActivate: [AdminAccessGuard]},
       { path: 'customer/answers', component: CustomerSupportAnswersComponent, canActivate: [AdminAccessGuard]},
       { path: 'settings', component: SettingsComponent, canActivate: [AdminAccessGuard]},
-      { path: 'add-admin', component: AddNewAdminComponent, canActivate: [AdminAccessGuard]}
+      { path: 'add-admin', component: AddNewAdminComponent, canActivate: [AdminAccessGuard]},
+      { path: 'messages', component: MessagesComponent, canActivate: [AdminAccessGuard]},
+      { path: 'notification', component: NotificationComponent, canActivate: [AdminAccessGuard]},
     ]
   }
 ];

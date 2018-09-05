@@ -149,7 +149,11 @@ GetCurrentCurrency(){
     if(!this.Event.currency){
          this.Event.currency = this.main.settings.GetCurrency();
     }
+  
+  
     this.CurrencySymbol = CurrencyIcons[this.Event.currency];
+    
+   
 }
 
   CreateAutocompleteAbout(){
