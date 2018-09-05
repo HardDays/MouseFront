@@ -215,7 +215,7 @@ export class EventsComponent extends BaseComponent implements OnInit,AfterViewCh
 
     HiddenGetEvents()
     {
-        this.main.eventService.EventsSearch(this.SearchParams)
+        this.main.eventService.EventsMy(this.SearchParams)
             .subscribe(
                 (res:EventGetModel[]) =>
                 {
