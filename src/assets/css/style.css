@@ -8146,5 +8146,7 @@ footer {
                     .main-mw-5 .tabs-venue-wrapp .one-tab-flex .side .filter-venue .input-groupe-1 label,.main-mw-5 .tabs-venue-wrapp .one-tab-flex .side .filter-venue .input-groupe-1 .head-groupe{
                       font-size:12px;
                   }
-                  
+                  .nav-holder-3{
+                    transition: transform 0.3s;
+                }
 /*# sourceMappingURL=style.css.map */
