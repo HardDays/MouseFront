@@ -43,7 +43,7 @@
                     <div class="location-wr margened">
                         <div (click)="openMap()" class="mark"></div>
                         <p *ngIf="Event.venue" class="location-inp">
-                          {{Event.venue?.display_name?Event.venue.display_name+' ':''}}
+                          {{Event.venue?.display_name?Event.venue.display_name+'. ':''}}
                           {{Event.venue?.venue_type==='public_venue'&&Event.venue?.address?Event.venue.address:''}}
                           {{Event.venue?.venue_type!=='public_venue'&&Event.venue?.web_site?Event.venue.web_site:''}}
                         </p>
@@ -51,11 +51,11 @@
                             {{Event.address}}
                          </p>
                     </div>
-                    <div class="butts">
+                    <!-- <div class="butts">
                         <span><img src="./../../../../assets/img/admin/event_but_icon1.png" alt=""></span>
                         <span><img src="./../../../../assets/img/admin/event_but_icon2.png" alt=""></span>
                         <span><img src="./../../../../assets/img/admin/event_but_icon3.png" alt=""></span>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

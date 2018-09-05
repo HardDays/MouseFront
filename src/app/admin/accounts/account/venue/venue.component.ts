@@ -18,8 +18,9 @@ export class VenueComponent extends BaseComponent implements OnInit {
   changedPrice: CalendarDate[] = [];
   disabledDays: CalendarDate[] = [];
   eventsDates:CalendarDate[] = [];
-  
+
   @Input() Account:AccountGetModel;
+  @Input() CurrencySymbol:string;
   photos:any = [];
 
   ngOnInit() {
@@ -29,7 +30,7 @@ export class VenueComponent extends BaseComponent implements OnInit {
           (img)=>{
             if(img.base64)
               this.Account.image_base64_not_given = img.base64;
-            else 
+            else
               this.Account.image_base64_not_given = BaseImages.NoneFolowerImage;
           },
           (err)=>{
@@ -51,7 +52,7 @@ export class VenueComponent extends BaseComponent implements OnInit {
             (img)=>{
               if(img.base64)
                 this.Account.image_base64_not_given = img.base64;
-              else 
+              else
                 this.Account.image_base64_not_given = BaseImages.NoneFolowerImage;
             },
             (err)=>{
@@ -96,7 +97,7 @@ export class VenueComponent extends BaseComponent implements OnInit {
 
                   if(res.event_dates)
                   {
-                      
+
                       for(let item of res.event_dates)
                       {
                           this.eventsDates.push({
@@ -116,18 +117,18 @@ export class VenueComponent extends BaseComponent implements OnInit {
       $('.photos-abs-wrapp').css({
         'max-height': $('.rel-wr-photoos').width()+'px'
       });
-     
-  
+
+
     $(window).resize(function(){
         $('.photos-abs-wrapp').css({
             'max-height': $('.rel-wr-photoos').width()+'px'
         });
-        
+
     });
     }, 5000);
-    
 
-  
+
+
   // this.InitMusicPlayer();
   }
 
@@ -156,7 +157,7 @@ export class VenueComponent extends BaseComponent implements OnInit {
               (err) =>{
             });
             this.photos.push(p);
-            // console.log(this.photos); 
+            // console.log(this.photos);
           },
         (err) => {
         }
