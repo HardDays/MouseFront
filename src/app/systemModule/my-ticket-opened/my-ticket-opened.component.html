@@ -110,7 +110,7 @@
                 </div>
                 <div class="col-info">
                     <p class="name-col" translate>Price</p>
-                    <p class="value">{{MyCurrency}}{{item.price}} {{MyCurrency != OriginalCurrency? '('+OriginalCurrency + item.original_price+')':''}}</p>
+                    <p class="value"><i [innerHTML]="MyCurrency"></i>{{item.price}} {{MyCurrency != OriginalCurrency? '('+OriginalCurrency + item.original_price+')':''}}</p>
                     <p *ngIf="MyCurrency != OriginalCurrency" class="c c-original"></p>
                 </div>
 
