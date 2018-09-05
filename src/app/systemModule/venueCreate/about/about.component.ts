@@ -126,11 +126,11 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
                     //this.Venue.lng = place.geometry.location.toJSON().lng;
                 }
                 setTimeout(() => {
-                    
-                
+
+
                 for(let a of addr)
                 {
-                    
+
                     if(a.search('locality') > 0)
                     {
                         this.Venue.city = a.slice(a.search('>')+1,a.search('</'));
@@ -191,26 +191,27 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
 
     SaveVenue()
     {
-        
-       
-        console.log(this.Venue);
+
+
         this.aboutForm.updateValueAndValidity();
         if(this.aboutForm.invalid)
         {
             this.onError.emit(this.getFormErrorMessage(this.aboutForm, 'venue'));
             return;
         }
-        
+
         $('html,body').animate({
             scrollTop: 0
         }, 0);
-        
-        let phoneToSend = this.Venue.phone.replace(/ /g,'');
+
+        let phoneToSend = this.ConvertPhoneToCountry(this.Venue.phone);
+        phoneToSend = phoneToSend.replace(/ /g,'');
         phoneToSend = phoneToSend.replace(/\(/g,'');
         phoneToSend = phoneToSend.replace(/\)/g,'');
         phoneToSend = phoneToSend.replace(/-/g,'');
         this.Venue.phone =  phoneToSend;
-        
+
+        // console.log(this.Venue);
         this.onSaveVenue.emit(this.Venue);
     }
 

@@ -64,9 +64,9 @@ export class BaseComponent{
     )
     {
         this.translate.setDefaultLang(this.settings.GetLang());
-        
+
         this.isLoggedIn = this.main.authService.IsLogedIn();
-        
+
         this.isLoading = this.main.ActiveProcesses.length > 0;
         if(this.isLoggedIn)
         {
@@ -76,7 +76,7 @@ export class BaseComponent{
             this.MyUser = this.main.MyUser;
         }
 
-        
+
         this.main.authService.onAuthChange$
             .subscribe(
                 (res:boolean) => {
@@ -111,7 +111,7 @@ export class BaseComponent{
                     this.accId = this.CurrentAccount.id;
                 }
             );
-            
+
         this.main.UserChange
             .subscribe(
                 (val:UserGetModel) =>
@@ -172,9 +172,9 @@ export class BaseComponent{
         this.WaitBeforeLoading(
             () => this.main.authService.UserLogin(user),
             (res:TokenModel) => {
-                
+
                 this.main.authService.BaseInitAfterLogin(res);
-                
+
                 this.main.authService.onAuthChange$.next(true);
 
                 this.main.UserChange.first().subscribe(
@@ -194,7 +194,7 @@ export class BaseComponent{
                     }
                 )
 
-                
+
 
 
                 if(callbackOk && typeof callbackOk == "function"){
@@ -213,7 +213,7 @@ export class BaseComponent{
     public Logout()
     {
         this.main.authService.Logout();
-         
+
         VK.init({apiId: 6326995});
 
         VK.Auth.getLoginStatus((status)=>{
@@ -234,14 +234,14 @@ export class BaseComponent{
                 })
             }
         })
-        
 
-       
+
+
         this.SocialLogout(`gf`);
         // this.VkLogout();
 
-       
-            
+
+
     }
 
     protected SocialLogin(provider)
@@ -266,7 +266,7 @@ export class BaseComponent{
                                     console.log(`main.MyAccounts.length>0`);
                                     this.router.navigate(['/system','shows']);
                                     }
-                                    else 
+                                    else
                                     {
                                     console.log(`create new acc`);
                                     this.router.navigate(['/social']);
@@ -292,8 +292,8 @@ export class BaseComponent{
                                 // }, 3000);
 
 
-                                
-                               
+
+
                             }
                         );
                     }
@@ -316,7 +316,7 @@ export class BaseComponent{
     }
 
     VkLogout(){
-         
+
         // window.location.replace("https://api.vk.com/method/authorize?client_id=6326995&display=page&redirect_uri=https://mouse-web.herokuapp.com/login&scope=friends&response_type=token&v=5.73&scope=offline");
   }
 
@@ -391,7 +391,7 @@ export class BaseComponent{
             guide:false
         };
     }
-    
+
     MaskDays(){
         return{
             mask: [/[1-9]/,/[0-9]/],
@@ -408,7 +408,7 @@ export class BaseComponent{
           else{
             CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
           }
-        
+
         return {
             // mask: ['+',/[1-9]/,' (', /[1-9]/, /\d/, /\d/, ') ',/\d/, /\d/, /\d/, '-', /\d/, /\d/,'-', /\d/, /\d/],
             mask: [CurrencySymbol,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/],
@@ -430,7 +430,7 @@ export class BaseComponent{
     MaskSoundCloud()
     {
         return {
-            
+
             // mask: ['+',/[1-9]/,' (', /[1-9]/, /\d/, /\d/, ') ',/\d/, /\d/, /\d/, '-', /\d/, /\d/,'-', /\d/, /\d/],
             mask: ['h','t','t','p','s',':','/','/','s','o','u','n','d','c','l','o','u','d','.','c','o','m','/',/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./],
             keepCharPositions: false,
@@ -441,7 +441,7 @@ export class BaseComponent{
     MaskYoutube()
     {
         return {
-            
+
             // mask: ['+',/[1-9]/,' (', /[1-9]/, /\d/, /\d/, ') ',/\d/, /\d/, /\d/, '-', /\d/, /\d/,'-', /\d/, /\d/],
             mask: ['h','t','t','p','s',':','/','/','y','o','u','t','u','.','b','e','/',/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./,/./],
             keepCharPositions: false,
@@ -452,7 +452,7 @@ export class BaseComponent{
     WithoutSpace()
     {
         return {
-            
+
             mask: [/\S/, /\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/,/\S/],
             keepCharPositions: false,
             guide:false
@@ -460,7 +460,7 @@ export class BaseComponent{
     }
 
     MaskPhoneByFormat(code)
-    {   
+    {
         // console.log(code);
         let countryMask:any[]=[];
         let isGuidChar = true;
@@ -470,20 +470,20 @@ export class BaseComponent{
                 if(c==='.')
                 {
                     if(dial_code){
-                        
+
                         let dc = dial_code[0];
                         // console.log(dial_code,dc);
                         dial_code = dial_code.slice(1, dial_code.length);
                         countryMask.push(dc);
                     }
-                    else 
+                    else
                         countryMask.push(/\d/);
                 }
-                else 
-                    countryMask.push(c);    
+                else
+                    countryMask.push(c);
             }
         }
-    
+
         else{
             isGuidChar = false;
             countryMask.push('+');
@@ -499,13 +499,13 @@ export class BaseComponent{
         };
     }
 
-    MaskPhone(phone)
-    {   
-        //console.log(phone)
+    MaskPhone(phone:string)
+    {
+        // console.log(phone)
         let countryMask:any[]=[];
         let isGuidChar = true;
 
-        if(phone){
+        if(phone&&phone.length>0&&phone.replace(new RegExp('_', 'g'),'')!='+'){
             let codes = this.main.phoneService.GetAllPhoneCodesWithFormat();
             //console.log(`codes`,codes);
             let code_arr = codes.filter((c)=>phone.indexOf(c.dial_code)>0&&phone.indexOf(c.dial_code)<4);
@@ -517,20 +517,20 @@ export class BaseComponent{
                     if(c==='.')
                     {
                         if(dial_code){
-                            
+
                             let dc = dial_code[0];
                             // console.log(dial_code,dc);
                             dial_code = dial_code.slice(1, dial_code.length);
                             countryMask.push(dc);
                         }
-                        else 
+                        else
                             countryMask.push(/\d/);
                     }
-                    else 
-                        countryMask.push(c);    
+                    else
+                        countryMask.push(c);
                 }
             }
-        
+
             else {
                 isGuidChar = false;
                 countryMask.push('+');
@@ -546,33 +546,33 @@ export class BaseComponent{
             for(let i=0;i<12;i++)
                 countryMask.push(/\d/);
         }
-       
+
         // let codes = this.main.phoneService.GetAllPhoneCodesWithFormat();
         // console.log(`codes`,codes);
         // let code = codes.find((c)=>phone.indexOf(c.dial_code)>0&&phone.indexOf(c.dial_code)<4);
         // console.log(`code`,code,phone)
         // console.log(code);
-       
+
         // let dial_code = code.dial_code;
         // if(code.format){
         //     for(let c of code.format){
         //         if(c==='.')
         //         {
         //             if(dial_code){
-                        
+
         //                 let dc = dial_code[0];
         //                 // console.log(dial_code,dc);
         //                 dial_code = dial_code.slice(1, dial_code.length);
         //                 countryMask.push(dc);
         //             }
-        //             else 
+        //             else
         //                 countryMask.push(/\d/);
         //         }
-        //         else 
-        //             countryMask.push(c);    
+        //         else
+        //             countryMask.push(c);
         //     }
         // }
-    
+
         // else {
         //     isGuidChar = false;
         //     countryMask.push('+');
@@ -582,18 +582,53 @@ export class BaseComponent{
         //         countryMask.push(/\d/);
         // }
 
-       
-            
-           
-        
+
+
+
+
     //    console.log(countryMask);
-       
+
         return {
           mask: countryMask,
           keepCharPositions: true,
           guide:isGuidChar,
           showMask:true
         };
+    }
+
+    ConvertPhoneToCountry(val){
+      if(!val)
+        return '';
+
+        let phone = '';
+        // console.log(`val`,val);
+
+        let codes = this.main.phoneService.GetAllPhoneCodesWithFormat();
+
+        let code_arr = codes.filter((c)=>val.indexOf(c.dial_code)>0&&val.indexOf(c.dial_code)<4);
+        let code = code_arr.find((c)=>val[1]===c.dial_code);
+        if(!code)code = code_arr[0];
+        let dial_code = code.dial_code;
+        if(code['format']){
+            // console.log(`format`,code['format']);
+            let index = 0;
+            if(val[index]==='+')index++;
+
+            for(let c of code['format']){
+                if(c==='.')
+                {
+                    phone+=val[index]?val[index]:'';
+                    index++;
+                }
+                else{
+                    phone+=c;
+                }
+            }
+        }
+
+        phone = phone.replace('_','');
+
+        return phone.length?phone:val;
     }
 
     /* AUTOCOMPLETE */
@@ -659,10 +694,10 @@ export class BaseComponent{
                 return String(strEr)
             }
             else if (field.errors.hasOwnProperty('email'))
-            {          
+            {
                 let strEr = (BaseMessages.EmailField).replace('_email', keyDict[key]);
                 strEr = this.GetTranslateString(strEr)?this.GetTranslateString(strEr):strEr;
-                return String(strEr)      
+                return String(strEr)
             }
             else if (field.errors.hasOwnProperty('maxlength'))
             {
@@ -670,25 +705,25 @@ export class BaseComponent{
                     '_field', keyDict[key]
                   ).replace('_length', field.errors['maxlength'].requiredLength);
                 strEr = this.GetTranslateString(strEr)?this.GetTranslateString(strEr):strEr;
-                return String(strEr) 
+                return String(strEr)
             }
             else if (field.errors.hasOwnProperty('pattern'))
             {
               if (key === 'email' || key === 'artist_email') {
                 let strEr = (BaseMessages.EmailPattern).replace('_email', keyDict[key]);
                 strEr = this.GetTranslateString(strEr)?this.GetTranslateString(strEr):strEr;
-                return String(strEr) 
+                return String(strEr)
               }
               else if (key === 'link'){
                 let strEr = (BaseMessages.LinkPattern).replace('_link', keyDict[key]);
                 strEr = this.GetTranslateString(strEr)?this.GetTranslateString(strEr):strEr;
-                return String(strEr) 
+                return String(strEr)
               }
               else
               {
                 let strEr = (BaseMessages.NumberPattern).replace('_field', keyDict[key]);
                 strEr = this.GetTranslateString(strEr)?this.GetTranslateString(strEr):strEr;
-                return String(strEr) 
+                return String(strEr)
               }
             }
         }
@@ -699,7 +734,7 @@ export class BaseComponent{
 
         const keyDict = this.getKeysDict(entityType);
 
-        
+
         Object.keys(form.controls).forEach((key) => {
             if (form.controls[key].status === 'INVALID') {
                 const formControl = form.controls[key];
@@ -718,7 +753,7 @@ export class BaseComponent{
                     });
                 }
             }
-            
+
         });
 
         return (errors.length > 3)?BaseMessages.AllFields : errors.join('<br/>');
@@ -729,7 +764,7 @@ export class BaseComponent{
       const keyDict = this.getKeysDict(entityType);
       Object.keys(err.json()).forEach((key) => {
           let error = err.json()[key][0];
-          
+
           errors.push(this.GetTranslateString(keyDict[key]) + ' ' + (error? this.GetTranslateString(error.replace('_', ' ').toLowerCase()):'').toLowerCase());
       });
 
@@ -744,7 +779,7 @@ export class BaseComponent{
         }
 
     GetTranslateString(str:string):string
-    {           
+    {
         return this.translate.parser.getValue(this.translate.store.translations[this.settings.GetLang()],str);
     }
 
