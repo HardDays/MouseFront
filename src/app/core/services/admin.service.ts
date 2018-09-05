@@ -455,4 +455,45 @@ export class AdminService{
     }
 
 
+    //////////////////////////////////////
+    //////         MESSAGES         //////
+    //////////////////////////////////////
+
+    GetMessages()
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/admin/messages.json', '')
+        );
+    }
+    GetMessagesById(id:number)
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/admin/messages/'+id+'/.json',  this.typeService.ParamsToUrlSearchParams({id}))
+        );
+    }
+    SendMessage(topic_id:number,receiver:number,topic:string)
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.PostData('/admin/messages.json', JSON.stringify({topic_id,receiver,topic}))
+        );
+    }
+    ForwardMessage(id:number,receiver_id:number)
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.PostData('/admin/messages/'+id+'/forward.json', JSON.stringify({id,receiver_id}))
+        );
+    }
+    SolveMessage(id:number)
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.PostData('/admin/messages/'+id+'/solve.json', JSON.stringify({id}))
+        );
+    }
+    SendMessages(receivers_ids:number[],message:string,topic:string)
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.PostData('/admin/messages/new.json', JSON.stringify({receivers_ids,message,topic}))
+        );
+    }
+
 }

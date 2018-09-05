@@ -43,6 +43,8 @@ import {MatFormFieldModule} from '@angular/material';
 import { VenueCreateModule } from '../systemModule/venueCreate/venueCreate.module';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 import { InvitesComponent } from './accounts/invites/invites.component';
+import { MessagesComponent } from './messages/messages.component';
+import { NotificationComponent } from './notification/notification.component';
 
 
 
@@ -95,7 +97,9 @@ import { InvitesComponent } from './accounts/invites/invites.component';
         OneFollowerComponent,
         FundingComponent,
         AnalyticCardComponent,
-        InvitesComponent
+        InvitesComponent,
+        MessagesComponent,
+        NotificationComponent
         
     ],
     providers: [AdminAccessGuard]

@@ -10,22 +10,22 @@
       <!-- <div class="search">
           <input type="text">
       </div> -->
-      <!-- <div class="notification_panel">
+      <div class="notification_panel">
           <div class="not_block messages">
-              <img src="./../../../assets/img/admin/message_icon.png" alt="" class="img-responsive">
+              <img [routerLink]="['messages']" src="./../../../assets/img/admin/message_icon.png" alt="" class="img-responsive">
               <span class="count">356</span>
           </div>
           <div class="not_block notifications">
-              <img src="./../../../assets/img/admin/notification_icon.png" alt="" class="img-responsive">
+              <img [routerLink]="['notification']" src="./../../../assets/img/admin/notification_icon.png" alt="" class="img-responsive">
           </div>
-      </div> -->
+      </div>
       <div (mouseenter)="openMenu = true" (mouseleave)="openMenu = false" class="admin_user">
           <div  class="user_info">
               <p class="name">{{User.first_name}} {{User.last_name}}</p>
               <p *ngIf="User.is_superuser" class="who">Superuser</p>
               <p *ngIf="User.is_admin" class="who">Admin</p>
           </div>
-        
+
           <div class="user_ava"  [ngStyle]="{'background-image': User.image_base64?'url('+User.image_base64+')':'url(./../../../assets/img/admin/non-photo.png)'}"></div>
           <div *ngIf="openMenu"  class="dropdown-settings-ava">
                 <div (click)="Logout()" class="dropdown-items-wr">
@@ -160,7 +160,7 @@
       </div>
 
 
- 
+
 </div>
 <footer class="admin_footer">
     <p>Copyright &copy; Mouse. All Rights reserved.</p>

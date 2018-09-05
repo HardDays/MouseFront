@@ -26,6 +26,7 @@
         "assets/css/slick.css",
         "assets/css/style.css",
         "assets/css/style-tatia.css",
+        "assets/css/new-msg.css",
         "assets/css/media.css",
         "assets/css/photoswipe.css",
         "assets/css/default-skin.css",
@@ -33,10 +34,10 @@
         "assets/css/media-leha.css",
         "assets/css/new-show-datails.css",
         "assets/css/styleSearch.css"
-        
+
       ],
       "scripts": [
-        
+
         "assets/js/bootstrap.min.js",
         "assets/js/slick.min.js",
         "assets/js/ion.rangeSlider.min.js",
