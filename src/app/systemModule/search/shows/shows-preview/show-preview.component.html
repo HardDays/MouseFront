@@ -1,6 +1,6 @@
 <div class="genre-head">
-    <p>Shows ({{Shows.length}})</p>
-    <button (click)="ShowAll()">SHOW ALL</button>
+    <p><span translate>Shows</span> ({{Shows.length}})</p>
+    <button (click)="ShowAll()" translate>SHOW ALL</button>
 </div>
 <div class="shows-block-search">
     <div class="one-show-wrapp" *ngFor="let item of Shows">

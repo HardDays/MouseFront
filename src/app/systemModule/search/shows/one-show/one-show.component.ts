@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, NgZone, ChangeDetectorRef } from "@angular/core";
 import { BaseComponent } from "../../../../core/base/base.component";
 import { EventGetModel } from "../../../../core/models/eventGet.model";
 import { BaseImages } from "../../../../core/base/base.enum";
@@ -9,13 +9,16 @@ import { BaseImages } from "../../../../core/base/base.enum";
     styleUrls: ['./../../search.component.css']
   })
   
-  export class OneShowSearchComponent extends BaseComponent implements OnInit {
+  export class OneShowSearchComponent extends BaseComponent implements OnInit {   
+    
     @Input() Show: EventGetModel;
 
     Image:string = BaseImages.Drake;
     Time:string = "00:00";
     DisplayName: string = "";
     DisplayCity: string = "";
+
+    
     ngOnInit(): void {
         this.GetExtendedShowModel();
         this.GetImage();
