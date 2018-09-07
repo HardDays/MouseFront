@@ -43,9 +43,12 @@
                     <div class="location-wr margened">
                         <div (click)="openMap()" class="mark"></div>
                         <p *ngIf="Event.venue" class="location-inp">
-                          {{Event.venue?.display_name?Event.venue.display_name+'. ':''}}
+                          {{Event.venue?.display_name?Event.venue.display_name+'. ':Event.venue?.user_name?Event.venue.user_name+'. ':''}}
                           {{Event.venue?.venue_type==='public_venue'&&Event.venue?.address?Event.venue.address:''}}
-                          {{Event.venue?.venue_type!=='public_venue'&&Event.venue?.web_site?Event.venue.web_site:''}}
+                          <a *ngIf="Event.venue&&Event.venue.venue_type!=='public_venue'"
+                            [href]="'http://'+Event.venue.web_site" type="_blank">
+                            {{Event.venue?.venue_type!=='public_venue'&&Event.venue?.web_site?Event.venue.web_site:''}}
+                          </a>
                         </p>
                          <p *ngIf="!Event.venue" class="location-inp">
                             {{Event.address}}
