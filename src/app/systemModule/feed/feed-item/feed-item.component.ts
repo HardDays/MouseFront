@@ -202,7 +202,8 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
           else
             return 'Yes';
 
-        case 'update_image_base64':
+        case 'launch_event':
+          return '';
 
 
       }
