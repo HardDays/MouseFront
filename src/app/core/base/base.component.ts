@@ -607,6 +607,8 @@ export class BaseComponent{
 
         let code_arr = codes.filter((c)=>val.indexOf(c.dial_code)>0&&val.indexOf(c.dial_code)<4);
         let code = code_arr.find((c)=>val[1]===c.dial_code);
+        console.log(`code`,code);
+
         if(!code)code = code_arr[0];
         let dial_code = code.dial_code;
         if(code['format']){
