@@ -42,8 +42,8 @@ import { BaseImages } from "../../../../core/base/base.enum";
             this.main.eventService.GetEventById(this.Show.id)
                 .subscribe(
                     (res: EventGetModel) => {
-                        this.DisplayName = res.venue.display_name;
-                        this.DisplayCity = res.venue.city;
+                        this.DisplayName = (res.venue)?res.venue.display_name : "";
+                        this.DisplayCity = (res.venue)?res.venue.city : "";
                     }
                 );
         }
