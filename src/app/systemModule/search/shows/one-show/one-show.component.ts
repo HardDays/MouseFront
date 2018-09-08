@@ -37,6 +37,7 @@ import { BaseImages } from "../../../../core/base/base.enum";
 
     GetExtendedShowModel()
     {
+        //test
         if(this.Show.id)
         {
             this.main.eventService.GetEventById(this.Show.id)
