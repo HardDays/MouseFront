@@ -263,7 +263,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
 
     getImagesArtist(list:CheckModel<GetArtists>[]){
         for(let item of list){
-            if(item.object.artist.image_id){
+            if(item.object&&item.object.artist&&item.object.artist.image_id){
                 item.object.artist.image_base64 = this.main.imagesService.GetImagePreview(item.object.artist.image_id,{width:140,height:140});
             }
             else{
@@ -278,7 +278,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
 
     getImagesVenue(list:CheckModel<GetVenue>[]){
         for(let item of list){
-            if(item.object.venue.image_id){
+            if(item.object&&item.object.venue&&item.object.venue.image_id){
                 item.object.venue.image_base64 = this.main.imagesService.GetImagePreview(item.object.venue.image_id,{width:140,height:140});
             }
             else{

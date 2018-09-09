@@ -36,7 +36,7 @@ export class EventService{
             ()=> this.http.GetData('/events/my.json',this.typeService.ParamsToUrlSearchParams({'account_id':id}))
         );
     }
-    
+
     CreateEvent(params:EventCreateModel){
         return this.http.CommonRequest(
             () => this.http.PostData('/events.json',JSON.stringify(params))
@@ -297,6 +297,12 @@ export class EventService{
     {
         return this.http.CommonRequest(
             () => this.http.GetData("/events/" + id + "/analytics.json")
+        );
+    }
+
+    SetEventDateById(id:number, exact_date_from:string, account_id:number){
+      return this.http.CommonRequest(
+            () => this.http.PostData('/events/'+id+'/set_date.json', JSON.stringify({id,exact_date_from,account_id}))
         );
     }
 

@@ -24,6 +24,8 @@ export class EventGetModel{
         public comments_available?: boolean,
         public date_from?: string,
         public date_to?: string,
+        public exact_date_from?: string,
+        public exact_date_to?: string,
         public event_month?: string,
         public event_year?: string,
         public event_length?: string,
