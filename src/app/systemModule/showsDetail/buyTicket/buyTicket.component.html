@@ -6,7 +6,7 @@
                 'count-mylty-value': Currency != OriginalCurrency
             }
             "><span [innerHTML]="Currency"></span>{{Ticket.price}}</p>
-            <p *ngIf="Currency != OriginalCurrency" class="original-price">(<span [innerHTML]="Currency"></span>{{Ticket.original_price}})</p>
+            <p *ngIf="Currency != OriginalCurrency" class="original-price">(<span [innerHTML]="OriginalCurrency"></span>{{Ticket.original_price}})</p>
             <div class="conter-wrapp">
                 <div class="arrow l-a" (click)="ChangeCount(-1)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="15" height="27">
