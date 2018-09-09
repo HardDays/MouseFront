@@ -157,7 +157,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     InitEvent(event:EventGetModel)
     {
         this.Event = event;
-
+        // console.log(this.Event);
         if(this.Event.hashtag)
             this.Event.hashtag = this.Event.hashtag.replace("#","");
 
@@ -244,10 +244,18 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     {
         this.TicketsToBuy.push(object);
         this.CalculateCurrentPrice();
-        this.OpenErrorWindow(object.count + this.GetTranslateString(" ticket") 
-        + (object.count > 1 && object.count <= 4 ?this.GetTranslateString("addRuA"): "") 
-        + (object.count > 4 ?this.GetTranslateString("addRuOv"): " ") 
-        + (object.count > 1 ?this.GetTranslateString("addedRu"): this.GetTranslateString("added")) 
+        this.OpenErrorWindow(object.count + this.GetTranslateString(" ticket")
+        + (object.count > 1  ? 
+            (object.count < 5 ?
+                this.GetTranslateString("addRuA")
+                : (object.count > 4 ?
+                    this.GetTranslateString("addRuOv")
+                    : ""
+                )
+            ) + this.GetTranslateString("addedRu")
+            : " " + this.GetTranslateString("added")
+        )
+        + " "
         + this.GetTranslateString("to your cart!"));
     }
 
