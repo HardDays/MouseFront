@@ -13,7 +13,7 @@ declare var $:any;
 export class FeedbackComponent extends BaseComponent implements OnInit {
 
   @ViewChild('errCmp') errCmp:ErrorComponent;
-  
+
   Types = {
     enchancements: false,
     compliments: false,
@@ -62,11 +62,11 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
       .subscribe(
         (res)=>{
           this.Feedbacks = res;
-        
+
           // console.log(res);
           if(this.Feedbacks&&this.Feedbacks[0]&&this.Feedbacks[0].id)
             this.openNewFeedback(this.Feedbacks[0].id,this.Feedbacks[0]);
-         
+
 
           for(let fb of this.Feedbacks){
             //вот блядь не могу взять от сюда fb.rate_score поэтому буду прогонять другим циклом
@@ -77,13 +77,13 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
                 fb.sender.image_base64 = BaseImages.NoneFolowerImage;
             }
           }
-         
-          
-          
-          
+
+
+
+
           this.FeedbacksChecked = this.Feedbacks;
-        
-      
+
+
         }
       )
 
@@ -94,7 +94,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
 
   //     if(!this.Types.enchancements&&!this.Types.compliments&&!this.Types.bugs)
   //       this.Types.all = true;
-  
+
   //     if(this.Types.all){
   //       this.FeedbacksChecked = this.Feedbacks;
   //     }
@@ -102,21 +102,21 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
   //     {
   //       this.Types.all = false;
   //       this.FeedbacksChecked = this.Feedbacks.filter(
-  //           obj => obj.feedback_type && ( 
+  //           obj => obj.feedback_type && (
   //             this.Types.enchancements && obj.feedback_type === 'enchancement' ||
   //             this.Types.compliments && obj.feedback_type === 'compliment' ||
   //             this.Types.bugs && obj.feedback_type === 'bug'
   //           )
   //       );
   //     }
-    
+
   // }
 
   filterByType(){
 
     if(this.Type === 'all')
       this.FeedbacksChecked = this.Feedbacks;
-    else 
+    else
       this.FeedbacksChecked = this.Feedbacks.filter(obj => obj.message_info.feedback_type && (this.Type === obj.message_info.feedback_type));
   }
 
@@ -153,17 +153,42 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
           else
             this.Answer.image = BaseImages.NoneFolowerImage;
         }
-        else 
+        else
         this.Answer = { user_name:'', image:'', message:''}
-      
-      }              
+
+      }
     )
   }
+
+  // sendAnswer(){
+  //   if(!this.showSuccess){
+  //     if(this.Message)
+  //       this.main.adminService.FeedbackThankYou(this.openFeedback.id,this.Message)
+  //         .subscribe(
+  //           (res)=>{
+  //             this.showSuccess = true;
+  //             this.errCmp.OpenWindow(BaseMessages.Success);
+  //             setTimeout(() => {
+  //               if(this.errCmp.isShown)
+  //                 this.errCmp.CloseWindow();
+  //                 this.showSuccess = false;
+  //             }, 2500);
+  //             this.getFeedbacks();
+  //           },
+  //           (err)=>{
+  //             console.log(`err`,err);
+  //             this.errCmp.OpenWindow(BaseMessages.Fail);
+  //           }
+  //         )
+  //     else
+  //       this.errCmp.OpenWindow(BaseMessages.Fail);
+  //   }
+  // }
 
   sendAnswer(){
     if(!this.showSuccess){
       if(this.Message)
-        this.main.adminService.FeedbackThankYou(this.openFeedback.id,this.Message)
+        this.main.adminService.ForwardMessage(this.openFeedback.id,10)
           .subscribe(
             (res)=>{
               this.showSuccess = true;
@@ -171,7 +196,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
               setTimeout(() => {
                 if(this.errCmp.isShown)
                   this.errCmp.CloseWindow();
-                  this.showSuccess = false; 
+                  this.showSuccess = false;
               }, 2500);
               this.getFeedbacks();
             },
@@ -208,7 +233,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
                 fb.sender.image_base64 = BaseImages.NoneFolowerImage;
             }
           }
-          
+
           this.Feedbacks.push(...res);
 
           setTimeout(() => {

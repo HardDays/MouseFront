@@ -489,11 +489,18 @@ export class AdminService{
             ()=> this.http.PostData('/admin/messages/'+id+'/solve.json', JSON.stringify({id}))
         );
     }
-    SendMessages(receivers_ids:number[],message:string,topic:string)
+    SendMessageToNewDialog(receivers_ids:number[],message:string,topic:string)
     {
         return this.http.CommonRequest(
             ()=> this.http.PostData('/admin/messages/new.json', JSON.stringify({receivers_ids,message,topic}))
         );
     }
+
+    GetAdminsList(){
+      return this.http.CommonRequest(
+            ()=> this.http.GetData('/admin.json', '')
+        );
+    }
+
 
 }

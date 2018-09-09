@@ -7,9 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MessagesComponent implements OnInit {
 
+  IsNewMsgOpen = false;
   constructor() { }
 
   ngOnInit() {
+  }
+
+  openNewMessage(){
+    this.IsNewMsgOpen = !this.IsNewMsgOpen;
+  }
+
+  openMessage(event){
+    console.log(event);
   }
 
 }
