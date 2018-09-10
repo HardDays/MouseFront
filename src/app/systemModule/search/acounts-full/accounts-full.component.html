@@ -1,0 +1,11 @@
+<div class="genre-head">
+    <p>{{Label}} ({{Accounts.length}})</p>
+</div>
+<div class="obj-search-wrapp">
+    <ng-container *ngFor="let item of Accounts">
+        <accounts-card-search-component [Account]="item">
+
+        </accounts-card-search-component>
+    </ng-container>
+
+</div>

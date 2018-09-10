@@ -1,3 +1,9 @@
 select{
     height: auto;
 }
+.font-fix-rub .mat-select{
+    font-family: AvenirLTStdBook, Arial, Helvetica, sans-serif;
+}
+.mat-option-text{
+    font-family: AvenirLTStdBook, Arial, Helvetica, sans-serif;
+}

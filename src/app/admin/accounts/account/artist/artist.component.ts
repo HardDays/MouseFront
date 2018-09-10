@@ -21,6 +21,8 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
   // @ViewChild('errorCmp') errorCmp:ErrorComponent;
   @Input() Account:AccountGetModel;
+  @Input() CurrencySymbol:string;
+
   @Output() onError = new EventEmitter<string>();
 
   Genres:string[] = [];
@@ -52,7 +54,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
   isShowMap = false;
 
-  
+
   ESCAPE_KEYCODE = 27;
   ENTER_KEYCODE = 13;
 
@@ -63,7 +65,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
     else
       this.Account.image_base64_not_given = BaseImages.NoneFolowerImage;
     this.Genres = this.main.genreService.BackGenresToShowGenres(this.Account.genres);
-    
+
     this.GetDates();
     this.GetArtistImages();
     this.updateVideosPreview();
@@ -86,8 +88,8 @@ export class ArtistComponent extends BaseComponent implements OnInit {
           if(date.date)
           this.EventDates.push({
             mDate: moment(date.date.split("T")[0]),
-            eventId: date.event_id 
-            
+            eventId: date.event_id
+
           });
         }
       if(this.Account.disable_dates)
@@ -112,13 +114,13 @@ export class ArtistComponent extends BaseComponent implements OnInit {
       $('.photos-abs-wrapp').css({
         'max-height': $('.rel-wr-photoos').width()+'px'
       });
-     
-  
+
+
     $(window).resize(function(){
         $('.photos-abs-wrapp').css({
             'max-height': $('.rel-wr-photoos').width()+'px'
         });
-       
+
     });
     }, 2000);
   }
@@ -146,7 +148,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
               (err) =>{
             });
             this.photos.push(p);
-            // console.log(`photos2`,this.photos);  
+            // console.log(`photos2`,this.photos);
           },
         (err) => {
         }
@@ -170,7 +172,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
         });
         this.itemsPhotoss = itemsPhoto;
-        this.GalaryInit(index);   
+        this.GalaryInit(index);
   }
 
   GalaryInit(index){
@@ -198,7 +200,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
   }
 
   playAudio(s:string){
-  
+
     if(this.player&&  this.player.isPlaying())
       this.player.pause();
 
@@ -211,11 +213,11 @@ export class ArtistComponent extends BaseComponent implements OnInit {
         this.player = player;
         this.player.play();
         // console.log(`PLAYING`);
-        
+
         player.on('play-start',()=>{
           // console.log(`start play`);
           this.audioDuration = this.player.getDuration();
-          
+
           setInterval(()=>{
             this.audioCurrentTime = this.player.currentTime();
           },100)
@@ -229,16 +231,16 @@ export class ArtistComponent extends BaseComponent implements OnInit {
           // console.log(`audio_error`);
           // this.errorCmp.OpenWindow(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
           this.onError.emit(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
-          
+
         })
-        
-       
-        
+
+
+
         // setTimeout(()=>{
         //   player.pause()
         //   player.seek(0)
         // },10000)
-  
+
       },(err)=>{
         // this.errorCmp.OpenWindow(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
         this.onError.emit(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
@@ -251,7 +253,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
       // console.log(`ERROR`)
     })
   }
-  
+
   stopAudio(){
     if(this.player&&!this.player.isDead())
     this.player.pause();

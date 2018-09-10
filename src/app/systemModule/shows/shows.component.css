@@ -126,6 +126,9 @@ select{
 .shows-main-wrapp.none-bg-map{
     pointer-events: none;
 }
+.nav-holder-3{
+    transition: transform 0.3s;
+}
 .width-for-map .main-mw{
    pointer-events: auto;
 }

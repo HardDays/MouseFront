@@ -29,7 +29,7 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
   isOpenComment:boolean = false;
 
   likes:any[] = [];
-  
+
   constructor(
     protected main           : MainService,
     protected _sanitizer     : DomSanitizer,
@@ -46,7 +46,7 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
 
   ngOnInit(){
       // console.log(`in`,this.Feed);
-    if(this.Feed&&this.Feed.account)
+    if(this.Feed&&this.Feed.account){
 
       if(this.Feed.account.image_id){
         this.Feed.account.img_base64 = this.main.imagesService.GetImagePreview(this.Feed.account.image_id,{width:200,height:200});
@@ -54,6 +54,7 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
       else{
         this.Feed.account.img_base64 = BaseImages.NoneFolowerImage;
       }
+    }
 
     this.myLogo = this.main.MyLogo;
    // this.getLikes();
@@ -68,11 +69,11 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
     });
 
 
-   
+
   }
-  
+
   ngOnChanges() {
-   
+
   }
 
   calculateTime(value: Date){
@@ -93,7 +94,7 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
           result = Math.floor(delta / 3600) + ' Hours';
         } else { // sent more than one day ago
           result = Math.floor(delta / 86400) + ' Day';
-          if(Math.floor(delta / 86400)>1) 
+          if(Math.floor(delta / 86400)>1)
             result+='s';
         }
         return result;
@@ -162,47 +163,48 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
   }
 
   getValue(){
-    console.log(this.Feed);
-    
+    // console.log(this.Feed);
+
     if(this.Feed.type === 'event_update'){
       switch(this.Feed.action){
         case 'update_updates_available':
           if(this.Feed.value === 'f')
             return 'No';
-          else 
+          else
             return 'Yes';
-        
+
         case 'update_genres':{
           if(this.Feed.value&&this.Feed.value.length>0){
             let genresString:string = this.Feed.value.replace(new RegExp('_', 'g'), ' ');
             genresString = genresString.substring(1, genresString.length-1);
             genresString = genresString.replace(new RegExp('"', 'g'), '');
-            
+
             return genresString;
           }
            return 'No Genres';
         }
-         
+
         case 'update_updates_available':
           if(this.Feed.value === 'f')
             return 'No';
-          else 
+          else
             return 'Yes';
-        
+
         case 'update_collaborators':
           if(this.Feed.value&&this.Feed.value.length>0&&this.Feed.value!='[]')
             return this.Feed.value;
-          else 
+          else
             return 'No Collaborators';
-        
+
         case 'update_comments_available':
           if(this.Feed.value === 'f')
             return 'No';
-          else 
+          else
             return 'Yes';
-        
-        case 'update_image_base64':
-          
+
+        case 'launch_event':
+          return '';
+
 
       }
       if(this.Feed.value)
@@ -210,14 +212,14 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
       else
         return 'No info';
     }
-    
+
 
   }
 
   getImage(){
     if(this.Feed.value)
       return this.main.imagesService.GetImagePreview(this.Feed.value, {width:1000, height:1000});
-    else 
+    else
       return BaseImages.NoneFolowerImage;
   }
 

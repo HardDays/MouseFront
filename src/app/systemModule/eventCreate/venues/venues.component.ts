@@ -33,7 +33,7 @@ declare var ionRangeSlider:any;
 })
 export class VenuesComponent extends BaseComponent implements OnInit {
 
-   
+
     @Input() Event:EventCreateModel;
     @Output() onSaveEvent:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
     @Output() onSave:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
@@ -42,7 +42,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
 
     @ViewChild('searchVenue') public searchElementVenue: ElementRef;
     @ViewChild('agmMap') agmMap : AgmMap;
-    
+
     venuesList: GetVenue[] = [];
     isAcceptedVenueShow:boolean = true;
     isPrivateVenue:boolean = false;
@@ -57,13 +57,13 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     maxValue = 100000;
     postfix = '';
     prefix = '';
-   
+
     venueSearchParams:AccountSearchModel = new AccountSearchModel();
     typesSpace:CheckModel<SelectModel>[] = [];
 
     //venueShowsList:AccountGetModel[] = [];
     requestVenues:AccountGetModel[] = []; // список тех, кому отправлен запрос, брать из Event
-    requestVenueForm : FormGroup = new FormGroup({        
+    requestVenueForm : FormGroup = new FormGroup({
         "time_frame_range": new FormControl("",[Validators.required]),
         "time_frame_number": new FormControl("",[Validators.required]),
         "is_personal": new FormControl(""),
@@ -73,7 +73,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     addVenue:AccountAddToEventModel = new AccountAddToEventModel();
     eventForRequest:AccountGetModel = new AccountGetModel();
     messagesList:InboxMessageModel[] = [];
-    
+
     ownerAcceptDecline = {
         event_id:0,
         id:0,
@@ -87,7 +87,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
 
     ESCAPE_KEYCODE = 27;
     ENTER_KEYCODE = 13;
-  
+
     @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
         if(this.isShowMap){
             if (event.keyCode === this.ESCAPE_KEYCODE || event.keyCode === this.ENTER_KEYCODE) {
@@ -98,7 +98,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit() {
-        
+
         this.CurrencySymbol = CurrencyIcons[this.Event.currency];
 
         // console.log(`0`,this.Event);
@@ -106,7 +106,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         this.getSliderParametres();
         this.initSlider()
         this.getAllSpaceTypes();
-        
+
         this.venuesList = this.Event.venues;
         // this.updateEvent();
         // this.GetVenueFromList();
@@ -121,7 +121,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                 // this.onSave.emit(this.Event);
                 this.GetVenueFromList();
                 this.venueSearch();
-           }, 300); 
+           }, 300);
         })
     }
 
@@ -135,14 +135,14 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     //     // }
     // }
 
-    
+
     initSlider(){
-        
+
         this.venueSearchParams.capacity_to = 100000;
         this.venueSearchParams.price_to = 100000;
         let _the = this;
 
-    
+
         var hu_3 = $(".current-slider-price-venue").ionRangeSlider({
             min: 1,
             max: this.maxValue,
@@ -159,7 +159,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                 _the.VenuePriceChanged(data);
             }
         });
-    
+
         var hu_4 = $(".current-slider-capacity-venue").ionRangeSlider({
             min: 1,
             max: 100000,
@@ -167,7 +167,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
             step: 10,
             type: "single",
             hide_min_max: false,
-    
+
             grid: false,
             prettify_enabled: true,
             prettify_separator: ',',
@@ -184,21 +184,21 @@ export class VenuesComponent extends BaseComponent implements OnInit {
           this.maxValue = 100000;
           this.postfix = "";
           this.prefix = "$ ";
-          
+
         }
         else if(this.CurrencySymbol == "₽"){
           this.maxValue = 1000000;
           this.postfix = " ₽";
           this.prefix = "";
-          
+
         }
         else {
           this.maxValue = 100000;
           this.postfix = " €";
           this.prefix = "";
-          
+
         }
-        
+
       }
 
     GetVenueFromList(){
@@ -210,7 +210,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
             .subscribe((acc:AccountGetModel)=>{
             this.getMessages();
             acc.status_not_given = i.status;
-            
+
 
         if(i.agreement&&i.agreement.price)
             acc.price_not_given = i.agreement.price;
@@ -268,20 +268,20 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         if(crId)
         this.main.accService.GetInboxMessages(crId).
         subscribe((res)=>{
-            
+
             for(let m of res)
             this.main.accService.GetInboxMessageById(crId, m.id).
                 subscribe((msg)=>{
                     this.messagesList.push(msg);
-            }); 
+            });
         },
         (err)=>{
         });
     }
-    
+
     getPriceAtMsg(sender:number){
         for(let m of this.messagesList){
-            if( m.sender_id == sender && 
+            if( m.sender_id == sender &&
                 m.receiver_id == this.Event.creator_id &&
                 m.message_info&& m.message_info.event_info&&
                 m.message_info.event_info.id == this.Event.id){
@@ -292,7 +292,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     }
     getCurrencyAtMsg(sender:number){
         for(let m of this.messagesList){
-            if( m.sender_id == sender && 
+            if( m.sender_id == sender &&
                 m.receiver_id == this.Event.creator_id &&
                 m.message_info&& m.message_info.event_info&&
                 m.message_info.event_info.id == this.Event.id){
@@ -304,7 +304,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
 
     getIdAtMsg(sender:number){
         for(let m of this.messagesList){
-            if( m.sender_id == sender && 
+            if( m.sender_id == sender &&
                 m.receiver_id == this.Event.creator_id &&
                 m.message_info &&  m.message_info.event_info &&
                 m.message_info.event_info.id == this.Event.id){
@@ -319,7 +319,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         this.venueSearch();
     }
 
-    VenueCapacityChanged(data){    
+    VenueCapacityChanged(data){
         setTimeout(() => {
             this.venueSearchParams.capacity_to = data.from;
             this.venueSearch();
@@ -333,16 +333,16 @@ export class VenuesComponent extends BaseComponent implements OnInit {
 
     CreateAutocompleteVenue() {
         this.mapsAPILoader.load().then(
-            () => {      
-            let autocomplete = new google.maps.places.Autocomplete(this.searchElementVenue.nativeElement, {types:[`(cities)`]});           
+            () => {
+            let autocomplete = new google.maps.places.Autocomplete(this.searchElementVenue.nativeElement, {types:[`(cities)`]});
                 autocomplete.addListener("place_changed", () => {
                     this.ngZone.run(() => {
-                        let place: google.maps.places.PlaceResult = autocomplete.getPlace();  
+                        let place: google.maps.places.PlaceResult = autocomplete.getPlace();
                         if(place.geometry === undefined || place.geometry === null )
-                        {             
+                        {
                             return;
                         }
-                        else 
+                        else
                         {
                             this.venueSearchParams.address = autocomplete.getPlace().formatted_address;
                              this.venueSearch();
@@ -361,9 +361,9 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         this.venueSearchParams.type = 'venue';
         if($event) this.venueSearchParams.text = $event;
         this.venueSearchParams.types_of_space = [];
-        
+
         for(let space of this.typesSpace)
-            if(space.checked) this.venueSearchParams.types_of_space.push(space.object.value)       
+            if(space.checked) this.venueSearchParams.types_of_space.push(space.object.value)
 
         this.venueSearchParams.exclude_event_id = this.Event.id;
 
@@ -372,11 +372,11 @@ export class VenuesComponent extends BaseComponent implements OnInit {
              subscribe((res)=>{
                 // console.log(this.venueSearchParams,`res`,res);
                     let temp = this.convertArrToCheckModel<AccountGetModel>(res);
-                    
+
                     for(let art of this.venueList){
                       if(art.checked){
                         let isFind = false;
-                        
+
                         for(let t of temp)
                           if(t.object.id==art.object.id){
                             t.checked = art.checked;
@@ -390,10 +390,10 @@ export class VenuesComponent extends BaseComponent implements OnInit {
 
                     this.venueList = [];
                     this.venueList = temp;
-                    
+
                     this.isLoadingVenue = false;
                     this.GetVenuesImages();
-                
+
          });
     }
 
@@ -448,19 +448,19 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         this.addVenue.event_id = this.Event.id;
         this.addVenue.venue_id = venue.object.id;
         this.addVenue.account_id = this.Event.creator_id;
-        
+
         this.main.eventService.AddVenue(this.addVenue).
                 subscribe((res)=>{
                     this.updateEvent();
-                   
+
                     // this.submitVenue();
-                    
+
             },(err)=>{
-                this.onError.emit("Request wasn't sent!")     
+                this.onError.emit("Request wasn't sent!")
             });
     }
 
-  
+
     pressEnter(event){
         if(event.key=="Enter")
             this.venueSearch();
@@ -485,7 +485,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
             this.addVenue.account_id = this.Event.creator_id;
             this.addVenue.is_personal = true;
             this.addVenue.currency = this.Event.currency;
-            
+
                   //  console.log(`ok add`);
                     $('#modal-send-request-venue').modal('toggle');
                     this.main.eventService.VenueSendRequest(this.addVenue)
@@ -520,7 +520,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
 
         for(let m of this.messagesList)
             if(m.id == msgId) msg = m;
-        
+
         this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from;
         this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to;
 
@@ -547,11 +547,11 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         let msg = this.messagesList[0];
         for(let m of this.messagesList)
             if(m.id == msgId) msg = m;
-        
+
         this.ownerAcceptDecline.datetime_from = msg&&msg.message_info&&msg.message_info.preferred_date_from?msg.message_info.preferred_date_from: new Date().toString();
         this.ownerAcceptDecline.datetime_to =  msg&&msg.message_info&&msg.message_info.preferred_date_to? msg.message_info.preferred_date_to : new Date().toString();
 
-    
+
         this.main.eventService.VenueDeclineOwner(this.ownerAcceptDecline).
             subscribe((res)=>{
                 this.onError.emit("Venue was declined!");
@@ -584,7 +584,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                 this.onSave.emit(this.Event);
                 this.GetVenueFromList();
                 this.venueSearch();
-           }, 300); 
+           }, 300);
         })
     }
 
@@ -624,19 +624,19 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         let geocoder = new google.maps.Geocoder();
         let latlng = new google.maps.LatLng(lat, lng);
         geocoder.geocode(
-            {'location': latlng }, 
+            {'location': latlng },
             (results, status) => {
                 if (status === google.maps.GeocoderStatus.OK) {
                     if (results[1]) {
-                      
+
                         $("#venueAddress").val(results[1].formatted_address);
                         this.venueSearchParams.address = results[1].formatted_address;
                         this.venueSearch();
-                    } 
+                    }
                     else {
                     // alert('No results found');
                     }
-                } 
+                }
                 else {
                     // alert('Geocoder failed due to: ' + status);
                 }
@@ -651,7 +651,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
             if(g[0]) gnr+=g[0].replace('_',' ');
             if(g[1]) gnr+=', '+g[1].replace('_',' ');
         }
-  
+
        return gnr;
     }
 
@@ -718,7 +718,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     }
 
     inviteVenue(){
-      
+
       if(this.VenueInvite.name){
         for(let i in this.InviteSocials){
           if(!this.InviteSocials[i]){
@@ -734,31 +734,36 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         }
 
         console.log(this.VenueInvite, this.InviteSocials);
-        this.main.inviteService.PostInviteVenue(this.VenueInvite)
-          .subscribe(
-            (res)=>{
-              console.log(`ok`);
-              $('#modal-send-unauth').modal('hide');
-               this.VenueInvite = {
-                account_id: this.CurrentAccount.id,
-                name:'',
-                email:'',
-                facebook:'',
-                twitter:'',
-                vk:'',
-                youtube:''
+        if(this.VenueInvite.email||this.VenueInvite.facebook||this.VenueInvite.vk||this.VenueInvite.twitter||this.VenueInvite.email){
+          this.main.inviteService.PostInviteVenue(this.VenueInvite)
+            .subscribe(
+              (res)=>{
+                console.log(`ok`);
+                $('#modal-send-unauth').modal('hide');
+                this.VenueInvite = {
+                  account_id: this.CurrentAccount.id,
+                  name:'',
+                  email:'',
+                  facebook:'',
+                  twitter:'',
+                  vk:'',
+                  youtube:''
+                }
+                this.InviteSocials = {
+                  facebook: false,
+                  vk: false,
+                  twitter: false,
+                  youtube: false
+                }
+              },
+              (err)=>{
+                this.onError.emit(this.getResponseErrorMessage(err, 'event'));
               }
-              this.InviteSocials = {
-                facebook: false,
-                vk: false,
-                twitter: false,
-                youtube: false
-              }
-            },
-            (err)=>{
-              this.onError.emit(this.getResponseErrorMessage(err, 'event'));
-            }
-          )
+            )
+        }
+        else {
+           this.onError.emit('Please, fill any link field!');
+        }
       }
       else {
         this.onError.emit('Please, fill name field!');
@@ -766,7 +771,11 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     }
 
     scrollToAdd(){
-       window.scrollBy(0,-700) 
+       window.scrollBy(0,-700)
+    }
+
+    OnError(error){
+      this.onError.emit(error);
     }
 
 

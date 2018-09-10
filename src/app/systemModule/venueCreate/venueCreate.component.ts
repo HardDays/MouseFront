@@ -82,6 +82,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
   Venue:AccountCreateModel = new AccountCreateModel();
   VenueId:number = 0;
   VenueImageId:number = 0;
+  
 
   isNewVenue = false;
 
@@ -300,6 +301,13 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
         }
       }
       case this.Parts.Hours:{
+        if(this.hours)
+        {
+          if(!this.hours.Validate())
+          {
+            return;
+          }
+        }
       }
     }
     this.SaveVenue();

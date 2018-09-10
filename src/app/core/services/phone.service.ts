@@ -1911,6 +1911,13 @@ export class PhoneService{
             }];
     }
 
+    GetCountryCodes()
+    {
+        return this.http.CommonRequest(
+            () => this.http.GetData('/phone_validations/new_codes.json',"")
+        );
+    }
+
 
 
 }

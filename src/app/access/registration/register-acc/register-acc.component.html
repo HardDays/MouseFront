@@ -15,15 +15,15 @@
                         <label  *ngIf="!Account.image_base64" class="file_upload">
                             <div class="bg-image"></div>
                             <p translate>Add photo</p>
-                            <input name="photo" accept=".jpg, .jpeg, .png" type="file" (change)="loadLogo($event)"> 
+                            <input name="photo" accept=".jpg, .jpeg, .png" type="file" (change)="loadLogo($event)">
                         </label>
-                       
+
                         <div (click)="Account.image_base64=''" *ngIf="Account.image_base64" class="bg-image uploaded" [ngStyle]="{'background-image': 'url('+Account.image_base64+')'}"></div>
-                       
+
                     </div>
                       <div class="side left-side">
-                          
-                        
+
+
                       </div>
                       <div class="side right-side">
                           <div class="rel-dog">
@@ -42,22 +42,22 @@
                   <p style="color:white">{{Error}}</p>
                   <h3 class="marg30" translate>select your genres</h3>
                   <div class="search-wr">
-                     
+
                     <input type="text" class="inp-style-1" (input)="CategoryChanged($event.target.value)"  placeholder="{{'Search' | translate}}">
                   </div>
                   <div class="flex-checkboxes">
                       <!--при for обращаем внимания на for у label и id у инпута-->
                       <ng-container *ngFor="let item of genres; let i = index">
-                        <div *ngIf="item.show" class="one-checkbox" >
+                        <div *ngIf="item.show" class="one-checkbox" [ngClass]="{'check-start': item.checked}" >
                                 <div class="check-style">
                                     <input type="checkbox" [ngModelOptions]="{standalone: true}" [ngModel]="item.checked" (ngModelChange)="item.checked = $event" class="checkbox" name="genre-{{i}}" id='genre-{{i}}'>
                                     <label for='genre-{{i}}'></label>
                                 </div>
                                 <p translate>{{item.genre_show}}</p>
-                        </div> 
+                        </div>
                    </ng-container>
                   </div>
-                  <p class="more" *ngIf="!seeMore" (click)="seeMoreGenres()"><span translate>See more</span></p>
+                  <p class="more" [ngClass]="{'rotate180':seeMore}" (click)="seeMoreGenres()"><span translate>{{!seeMore?'See more':'See less'}}</span></p>
                   <div class="continue-wr">
                       <button class="butt-style-1" (click)="registerAcc()" type="button"><span translate>Continue</span></button>
                   </div>
@@ -80,3 +80,4 @@
     </div>
 
     <error-cmp #errorCmp></error-cmp>
+

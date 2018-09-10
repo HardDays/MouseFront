@@ -83,6 +83,7 @@ export enum VenueFields {
   venue_name = 'Venue name',
   mouse_name = 'Mouse username',
   short_desc = 'Short Description',
+  name_email = 'Email name',
   phone = 'Phone',
   emails = 'Emails',
   country = 'Country',

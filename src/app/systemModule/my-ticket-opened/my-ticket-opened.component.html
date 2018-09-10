@@ -15,7 +15,7 @@
 
                           </div>
                           <div class="cover-artist" [ngStyle]="{'background-image': 'url(' + Image + ')'}"></div>
-                          <p class="when">{{TicketsByEvent.event.date_from && TicketsByEvent.event.date_to?(TicketsByEvent.event.date_from|date:'fullDate':'shortTime')+" - "+(TicketsByEvent.event.date_to|date:'fullDate':'shortTime'):TicketsByEvent.event.event_season+' '+TicketsByEvent.event.event_year}}</p>
+                          <p class="when" [innerHTML]="Date"></p>
                           <p class="where">{{TicketsByEvent.event.address}}, {{TicketsByEvent.event?.city?TicketsByEvent.event.city:''}}, {{TicketsByEvent.event?.state?TicketsByEvent.event.state:''}}</p>
                       </div>
                       <div class="sides">
@@ -24,11 +24,11 @@
                                 <p>
                                     <strong translate>
                                         show-folder.Total price: 
-                                        <span>
-                                          {{MyCurrency}} {{TotalAproxPrice}} 
+                                        <span>  
+                                        <span [innerHTML]="MyCurrency"></span> {{TotalAproxPrice}} 
                                           <ng-container *ngIf="OriginalCurrency != MyCurrency">
                                                 <br>
-                                                ({{OriginalCurrency}} {{TotalOriginalPrice}})
+                                                (<span [innerHTML]="OriginalCurrency"></span> {{TotalOriginalPrice}})
                                           </ng-container>
                                         </span>
                                     </strong>
@@ -45,8 +45,8 @@
                                       {
                                           'with-original-price': MyCurrency != OriginalCurrency
                                       }
-                                      ">{{MyCurrency}}{{item.price}}</p>
-                                      <p *ngIf="MyCurrency != OriginalCurrency" class="c c-original">({{OriginalCurrency}} {{item.original_price}})</p>
+                                      "><span [innerHTML]="MyCurrency"></span>{{item.price}}</p>
+                                      <p *ngIf="MyCurrency != OriginalCurrency" class="c c-original">(<span [innerHTML]="OriginalCurrency"></span> {{item.original_price}})</p>
                                       <p class="t">{{item.ticket.description?item.ticket.description:''}}</p>
                                       <p class="last" *ngIf="item.tickets_left">({{item.tickets_left}} <span translate>Tickets.tickets left</span>)</p>
                                       <p class="last" *ngIf="!item.tickets_left">(Sold out)</p>
@@ -84,7 +84,10 @@
     <div class="content-print" >
         <p class="f1" translate>Tickets.Concert</p>
         <p class="name-concert">{{TicketsByEvent.event.name}}</p>
-        <p class="when">{{TicketsByEvent.event.date_from && TicketsByEvent.event.date_to?(TicketsByEvent.event.date_from|date:'fullDate':'shortTime')+" - "+(TicketsByEvent.event.date_to|date:'fullDate':'shortTime'):TicketsByEvent.event.event_season+' '+TicketsByEvent.event.event_year}}</p>
+        <p class="when" [innerHTML]="Date">
+            <!-- {{TicketsByEvent.event.date_from && TicketsByEvent.event.date_to?(TicketsByEvent.event.date_from|date:'fullDate':'shortTime')+" - "+(TicketsByEvent.event.date_to|date:'fullDate':'shortTime'):TicketsByEvent.event.event_season+' '+TicketsByEvent.event.event_year}} -->
+
+        </p>
         <p class="where">
             {{TicketsByEvent.event.address}}, {{TicketsByEvent.event?.city?TicketsByEvent.event.city:''}}, {{TicketsByEvent.event?.state?TicketsByEvent.event.state:''}}
         </p>
@@ -107,7 +110,7 @@
                 </div>
                 <div class="col-info">
                     <p class="name-col" translate>Price</p>
-                    <p class="value">{{MyCurrency}}{{item.price}} {{MyCurrency != OriginalCurrency? '('+OriginalCurrency + item.original_price+')':''}}</p>
+                    <p class="value"><i [innerHTML]="MyCurrency"></i>{{item.price}} {{MyCurrency != OriginalCurrency? '('+OriginalCurrency + item.original_price+')':''}}</p>
                     <p *ngIf="MyCurrency != OriginalCurrency" class="c c-original"></p>
                 </div>
 

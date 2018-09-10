@@ -12,12 +12,13 @@ import { AccountAddToEventModel } from '../../../core/models/artistAddToEvent.mo
   styleUrls: ['./private-res.component.css']
 })
 export class PrivateResComponent extends BaseComponent implements OnInit {
-  
+
   @Input() EventId:number;
   @Output() OnCreate = new EventEmitter();
+  @Output() OnError = new EventEmitter<string>();
 
   addVenue:AccountAddToEventModel = new AccountAddToEventModel();
-  
+
   privateVenueForm : FormGroup ;
   privateVenueCreate:AccountCreateModel = new AccountCreateModel();
   privateVenue:AccountGetModel = new AccountGetModel();
@@ -32,19 +33,20 @@ export class PrivateResComponent extends BaseComponent implements OnInit {
     this.privateVenueCreate.phone = this.main.MyUser.register_phone;
     this.phoneMask = this.privateVenueCreate.phone;
 
-    this.privateVenueForm = new FormGroup({        
+    this.privateVenueForm = new FormGroup({
             "user_name": new FormControl("", [Validators.required]),
             "phone": new FormControl(""),
-            "capacity": new FormControl(),
+            "capacity": new FormControl("", [Validators.required]),
             "country": new FormControl(""),
             "city": new FormControl(""),
-            "address":new FormControl(),
+            "address":new FormControl("",[Validators.required]),
             "description": new FormControl(""),
             "venue_video_links": new FormArray([
                 new FormControl("http://")
             ]),
             "link_two": new FormControl(""),
-            "has_vr": new FormControl("")
+            "has_vr": new FormControl(""),
+            "web_site": new FormControl("")
         });
   }
 
@@ -60,11 +62,11 @@ export class PrivateResComponent extends BaseComponent implements OnInit {
                     //this.Venue.lng = place.geometry.location.toJSON().lng;
                 }
                 setTimeout(() => {
-                    
-                
+
+
                 for(let a of addr)
                 {
-                    
+
                     if(a.search('locality') > 0)
                     {
                         this.privateVenueCreate.city = a.slice(a.search('>')+1,a.search('</'));
@@ -95,7 +97,7 @@ export class PrivateResComponent extends BaseComponent implements OnInit {
         if(!this.privateVenueForm.invalid){
 
             this.addVenue.event_id = this.EventId;
-            
+
             for (let key in this.privateVenueForm.value) {
                 if (this.privateVenueForm.value.hasOwnProperty(key)) {
                         this.privateVenueCreate[key] = this.privateVenueForm.value[key];
@@ -108,19 +110,19 @@ export class PrivateResComponent extends BaseComponent implements OnInit {
             this.privateVenueCreate.account_type = 'venue';
             this.privateVenueCreate.venue_type = 'private_residence';
 
-           
+
             if(this.imagesListPrivateRes&&this.imagesListPrivateRes[0])
                 this.privateVenueCreate.image_base64 = this.imagesListPrivateRes[0];
 
-            
+
                 this.main.accService.CreateAccount(this.privateVenueCreate)
                     .subscribe(
                         (acc:AccountGetModel)=>{
                             this.privateVenue = acc;
-            
+
                             this.addVenue.venue_id = acc.id;
                             this.addVenue.account_id = this.main.CurrentAccount.id;
-                            
+
 
 
                             this.privateVenueForm.reset();
@@ -132,16 +134,16 @@ export class PrivateResComponent extends BaseComponent implements OnInit {
 
                             });
 
-                            
+
                             let listImages = this.imagesListPrivateRes;
                             this.imagesListPrivateRes = [];
 
                             for(let img of listImages){
                                 this.main.accService.PostAccountImages(acc.id,img)
                                 .subscribe((res)=>{
-                            }); 
+                            });
                          }
-               
+
                     },
                     (err)=>{
                         // console.log(`err`,err);
@@ -149,6 +151,7 @@ export class PrivateResComponent extends BaseComponent implements OnInit {
                 );
         }
         else {
+          this.OnError.emit(this.getFormErrorMessage(this.privateVenueForm,'venue'));
             //console.log(`Invalid About Form!`, this.privateVenueForm);
         }
     }
@@ -162,7 +165,7 @@ export class PrivateResComponent extends BaseComponent implements OnInit {
             $event.target.files,
             (res:string)=>{
                 this.imagesListPrivateRes.push(res);
-                
+
             }
         );
     }

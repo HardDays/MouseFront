@@ -57,10 +57,10 @@
             <div *ngFor="let item of Account.audio_links| slice:0:countAudio; let i = index" class="audio-wrapper">
                 <!-- <div class="one-audio">
                     <span class="name-track">{{audio.song_name}}</span>
-                    <audio [src]="audio.audio_link" preload="auto"></audio> 
+                    <audio [src]="audio.audio_link" preload="auto"></audio>
                 </div> -->
                 <div  class="one-audio">
-      
+
                   <div class="delete-track"></div>
                   <span class="name-track">{{item.song_name}}</span>
                   <div class="audiojs">
@@ -78,9 +78,9 @@
                           <em class="played">00:00</em>
                           <!-- <strong class="duration">{{audioId == i+1 && audioDuration>0 ?audioDuration/100:''}}</strong> -->
                       </div>
-                  </div> 
+                  </div>
               </div>
-                 
+
             </div>
 
               <button *ngIf="countAudio<Account.audio_links.length" (click)="countAudio=Account.audio_links.length" class="see-all">SEE ALL</button>
@@ -115,7 +115,7 @@
             <div class="photos-abs-wrapp video-abs-wrapp">
                 <div *ngFor="let item of Account.videos; let i = index" class="one-slide">
                     <div class="wrapp-card">
-                        
+
                         <div (click)="openVideo(item)" class="cover-image" [ngStyle]="{'background-image': 'url('+item.preview+')'}">
                             <div class="butt-play-video">
                                 <div class="pl"></div>
@@ -144,11 +144,11 @@
                       </p>
                       <p *ngIf="Account.price_from" class="about-text flexed">
                           <span>Performance Price:</span>
-                          <span>${{Account.price_from}}/h - ${{Account.price_to}}/h</span>
+                          <span><span [innerHTML]="CurrencySymbol"></span>{{Account.price_from}}/h - <span [innerHTML]="CurrencySymbol"></span>{{Account.price_to}}/h</span>
                       </p>
                       <p *ngIf="Account.additional_hours_price" class="about-text flexed">
                           <span>Performance Price for additional Hours:</span>
-                          <span>${{Account.additional_hours_price}}/h</span>
+                          <span><span [innerHTML]="CurrencySymbol"></span>{{Account.additional_hours_price}}/h</span>
                       </p>
                   </div>
                   <div class="side side-info side-contact">
@@ -175,9 +175,9 @@
                         <span *ngFor="let ven of Account.preferred_venues; let last = last">
                             {{
                                 ven.type_of_venue?(ven.type_of_venue === 'other'?
-                                    Account.preferred_venue_text : 
+                                    Account.preferred_venue_text :
                                     ven.type_of_venue.replace('_',' ')):''
-                                | titlecase 
+                                | titlecase
                             }}
                             {{ven.type_of_venue&&!last?',':''}}
                         </span>
@@ -219,7 +219,7 @@
                           <span>{{Account.min_time_to_free_cancel}} days</span> to cancel before charged a cancellation fee.
                       </p>
                       <p *ngIf="Account.late_cancellation_fee" class="about-text margened">
-                          Fee for last minute Cancellation: <span>${{Account.late_cancellation_fee}}</span>
+                          Fee for last minute Cancellation: <span><span [innerHTML]="CurrencySymbol"></span>{{Account.late_cancellation_fee}}</span>
                       </p>
                       <p class="about-text margened">
                           <strong>{{Account&&Account.refund_policy?Account.refund_policy:'No Refunds'}}</strong>
@@ -264,7 +264,7 @@
             </div>
         </div>
     </div>
-</div> 
+</div>
 
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="pswp__bg"></div>
@@ -289,7 +289,7 @@
                 </div>
             </div>
             <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                <div class="pswp__share-tooltip"></div> 
+                <div class="pswp__share-tooltip"></div>
             </div>
             <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
             </button>

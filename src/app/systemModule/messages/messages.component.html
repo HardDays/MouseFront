@@ -97,8 +97,8 @@
                                     <p class="fot-edit">
                                             
                                         {{'Price to Perform' | translate}}<span>
-                                            {{CurrentCurrency}}
-                                            {{(openMessage.message_type&&openMessage.message_info&&openMessage.message_type == 'request')?openMessage.message_info?.price:''}}</span>
+                                            <i [innerHTML]="CurrentCurrency"></i>
+                                            {{(openMessage.message_type&&openMessage.message_info&&openMessage.message_type == 'request')?openMessage.message_info?.estimated_price:''}}</span>
                                         <img *ngIf="openMessage.message_type == 'request'&&!openMessage.is_read" src="../../assets/img/edit-img.png" (click)="isEditPrice = true" class="img-responsive for-edit-img" alt="">
                                     </p>
                                     
@@ -107,7 +107,7 @@
                                     <div *ngIf="isEditPrice" class="flex-price-change">
                                         <p class="your-price" translate>Change price</p>
                                         <div class="rel-dog">
-                                            <span>{{CurrentCurrency}}</span>
+                                            <span> <i [innerHTML]="CurrentCurrency"></i></span>
                                             <input [(ngModel)]="changePrice" class="inp-style-2" type="text">
                                         </div>
                                     </div>
@@ -239,7 +239,7 @@
                                         <div *ngIf="isEditPrice" class="flex-price-change">
                                             <p class="your-price" translate>Change price</p>
                                             <div class="rel-dog">
-                                                <span>{{openMessage.message_info?.currency?(openMessage.message_info?.currency==='USD'?'$':openMessage.message_info?.currency==='RUB'?'₽':openMessage.message_info?.currency==='EUR'?'€':''):''}}</span>
+                                                <span> <i [innerHTML]="CurrentCurrency"></i></span>
                                                 <input [(ngModel)]="changePrice" class="inp-style-2" type="text">
                                             </div>
                                         </div>

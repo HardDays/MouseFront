@@ -41,7 +41,10 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
         "mouse_name": new FormControl("", [Validators.required]),
         "short_desc": new FormControl("", [Validators.required,
                                         Validators.maxLength(1000)]),
-        "phone": new FormControl("", [Validators.required]),
+        "phone": new FormControl("", [
+            Validators.required,
+            Validators.pattern(/\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/)
+        ]),
         "fax": new FormControl("", []),
         "emails": new FormArray([]),
         "country": new FormControl("", [Validators.required]),
@@ -123,11 +126,11 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
                     //this.Venue.lng = place.geometry.location.toJSON().lng;
                 }
                 setTimeout(() => {
-                    
-                
+
+
                 for(let a of addr)
                 {
-                    
+
                     if(a.search('locality') > 0)
                     {
                         this.Venue.city = a.slice(a.search('>')+1,a.search('</'));
@@ -169,8 +172,8 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
     GetContactFormGroup()
     {
         return new FormGroup({
-            "name_email":new FormControl("",[]),
-            "email":new FormControl("",[Validators.email]),
+            "name_email":new FormControl("",[Validators.required]),
+            "email":new FormControl("",[Validators.email, Validators.required]),
         })
     }
 
@@ -188,27 +191,28 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
 
     SaveVenue()
     {
-        
-       
-        
+
+
         this.aboutForm.updateValueAndValidity();
         if(this.aboutForm.invalid)
         {
             this.onError.emit(this.getFormErrorMessage(this.aboutForm, 'venue'));
             return;
         }
-        
+
         $('html,body').animate({
             scrollTop: 0
         }, 0);
-        
-        let phoneToSend = this.Venue.phone.replace(/ /g,'');
+
+        let phoneToSend = this.ConvertPhoneToCountry(this.Venue.phone);
+        phoneToSend = phoneToSend.replace(/ /g,'');
         phoneToSend = phoneToSend.replace(/\(/g,'');
         phoneToSend = phoneToSend.replace(/\)/g,'');
         phoneToSend = phoneToSend.replace(/-/g,'');
         this.Venue.phone =  phoneToSend;
-        
-        this.onSaveVenue.emit(this.Venue);
+
+        console.log(this.Venue);
+        // this.onSaveVenue.emit(this.Venue);
     }
 
     uploadImage($event){

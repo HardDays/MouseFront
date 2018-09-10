@@ -4,6 +4,7 @@ import { Params } from '@angular/router';
 import { AccountCreateModel } from '../../../core/models/accountCreate.model';
 import { ErrorComponent } from '../../../shared/error/error.component';
 import { BaseMessages } from '../../../core/base/base.enum';
+import { CurrencyIcons } from '../../../core/models/preferences.model';
 
 @Component({
   selector: 'app-account',
@@ -16,7 +17,10 @@ export class AccountComponent extends BaseComponent implements OnInit {
   accId = 0;
   Account:AccountCreateModel = new AccountCreateModel();
 
-  @ViewChild('errCmp') errCmp: ErrorComponent = new ErrorComponent;
+
+  CurrencySymbol = '$';
+
+  @ViewChild('errCmp') errCmp: ErrorComponent = new ErrorComponent(this.translate, this.settings);
 
   ngOnInit() {
     window.scrollTo(0,0);
@@ -34,6 +38,7 @@ export class AccountComponent extends BaseComponent implements OnInit {
       (res)=>{
         this.Account = res;
         this.accType = this.Account.account_type;
+         this.CurrencySymbol = CurrencyIcons[this.Account.currency];
         // console.log(`Acc`,this.Account);
       },
       (err)=>{

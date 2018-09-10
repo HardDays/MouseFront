@@ -10,6 +10,22 @@ html, body{
   top: -2px;
   padding-top: 37px;
 }
+.line-only-for-admin-tables{
+  display: block;
+  height: 1px;
+  width: 17px;
+  background: #000;
+}
+
+
+
+
+
+
+
+
+
+
 .flex-tabs-menu-venue .v-tabs-menu li{
   font-size: 16px;
 }
@@ -73,6 +89,15 @@ html, body{
 }
 .messages-main-wrapp .main-mw.main_for_setts .settings_wrap {
   min-height: calc(100vh - 84px);
+}
+.admin_page .admin_content .support_container .support_grey .support_right .right-to-scroll{
+  max-height: calc(100vh - 179px);
+  overflow: auto;
+  padding-bottom: 30px;
+}
+.shows-main-wrapp .head-shows .ham-ham.at-map{
+  position: relative;
+  z-index: 200;
 }
 @media print {
   header{

@@ -2,7 +2,7 @@
     <h1 class="support_zag">Customer support</h1>
     <div *ngIf="Questions.length>0" class="support_grey">
         <div class="support_dialogs">
-                           
+
             <div  *ngFor="let item of Questions" (click)="openNewQuestion(item.id)"  class="support_dialogs_item" [ngClass]="{'active': openQuestion&&openQuestion.id === item.id}">
                 <div class="ava" [ngStyle]="{'background-image': item.sender?'url('+item.sender.image_base64+')':'url('+nonImage+')'}"></div>
                 <div class="info">
@@ -14,75 +14,82 @@
                     <p class="username"><span>@</span>{{item.sender&&item.sender.user_name?item.sender.user_name:''}}</p>
                     <!-- <p class="address">{{item.sender?.address?item.sender.address:''}}</p> -->
                 </div>
-            </div>      
+            </div>
         </div>
 
 
         <div class="support_right">
-            <div class="support_head">
-                <p>{{openQuestion&&openQuestion.subject}}</p>
-                <span (click)="DeleteItem()" class="but_icon"><img src="./../../../assets/img/admin/support_delete.png" alt=""></span>
-            </div>
-            <ng-container *ngIf="openQuestion?.reply">
-                <div *ngFor="let reply of openQuestion.reply" class="support_mes">
+            <div class="right-to-scroll">
+                <div class="support_head">
+                    <p>{{openQuestion&&openQuestion.subject}}</p>
+                    <button *ngIf="!openQuestion.is_closed" class="button-solved" (click)="SolvedAnswer()">SOLVE</button>
+                    <button disabled *ngIf="openQuestion.is_closed" class="button-solved">SOLVED!</button>
+                    <span (click)="DeleteItem()" class="but_icon"><img src="./../../../assets/img/admin/support_delete.png" alt=""></span>
+                </div>
+                <ng-container *ngIf="openQuestion?.reply">
+                    <div *ngFor="let reply of openQuestion.reply" class="support_mes">
+                        <div class="mes_head">
+                            <div class="ava" [ngStyle]="{'background-image': reply&&reply.sender?'url('+reply.sender.image_base64+')':'url('+nonImage+')'}"></div>
+                            <div class="info">
+                                <p class="name">{{reply?.sender?.full_name?reply.sender.full_name:''}}</p>
+                                <p class="username"><span>@</span>{{reply?.sender?reply.sender.user_name:''}}</p>
+                                <!-- <p class="address">{{openQuestion?.sender?openQuestion.sender.address:''}}</p> -->
+                            </div>
+                        </div>
+                        <div class="mes_text">
+                                {{reply?.message?reply.message:''}}
+                        </div>
+                    </div>
+                </ng-container>
+                <!-- <div *ngIf="openQuestion&&openQuestion.reply" class="support_mes">
                     <div class="mes_head">
-                        <div class="ava" [ngStyle]="{'background-image': reply&&reply.sender?'url('+reply.sender.image_base64+')':'url('+nonImage+')'}"></div>
+                        <div class="ava" [ngStyle]="{'background-image':openQuestion&&openQuestion.reply&&openQuestion.reply.sender?.image_id?'url('+openQuestion.reply.sender.image_base64+')':'url('+nonImage+')'}"></div>
                         <div class="info">
-                            <p class="name">{{reply?.sender?.full_name?reply.sender.full_name:''}}</p>
-                            <p class="username"><span>@</span>{{reply?.sender?reply.sender.user_name:''}}</p>
-                            <!-- <p class="address">{{openQuestion?.sender?openQuestion.sender.address:''}}</p> -->
+                            <p class="username"><span>@</span>{{openQuestion&&openQuestion.reply[0]?.sender?openQuestion.reply[0].sender.user_name:'Admin'}}</p>
                         </div>
                     </div>
                     <div class="mes_text">
-                            {{reply?.message?reply.message:''}}
+                        {{openQuestion&&openQuestion.reply?openQuestion.reply[0].message:''}}
                     </div>
-                </div>
-            </ng-container>
-            <!-- <div *ngIf="openQuestion&&openQuestion.reply" class="support_mes">
-                <div class="mes_head">
-                    <div class="ava" [ngStyle]="{'background-image':openQuestion&&openQuestion.reply&&openQuestion.reply.sender?.image_id?'url('+openQuestion.reply.sender.image_base64+')':'url('+nonImage+')'}"></div>
-                    <div class="info">
-                        <p class="username"><span>@</span>{{openQuestion&&openQuestion.reply[0]?.sender?openQuestion.reply[0].sender.user_name:'Admin'}}</p>
+                </div> -->
+                <div class="mes_form">
+                    <div class="mes_input" style="margin-bottom:20px">
+                            <ng-container>
+                                    <label>Pre-written Responses</label>
+                                    <!-- <select [ngModel]="Answer" (ngModelChange)="Answer = $event">
+                                        <option value="DefaultAnswer"></option>
+                                        <ng-container *ngFor="let item of AnswerOptions">
+                                            <option [value]="item">{{item.subject}}</option>
+                                        </ng-container>
+                                    </select> -->
+                                    <mat-form-field>
+                                        <mat-select [ngModel]="Answer" (ngModelChange)="Answer = $event">
+                                            <mat-option [value]="DefaultAnswer">Default Answer</mat-option>
+                                            <mat-option *ngFor="let item of AnswerOptions" [value]="item">
+                                                {{item.subject}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </ng-container>
                     </div>
-                </div>
-                <div class="mes_text">
-                    {{openQuestion&&openQuestion.reply?openQuestion.reply[0].message:''}}
-                </div>
-            </div> -->
-            <div class="mes_form">
-                <div class="mes_input" style="margin-bottom:20px">
-                        <ng-container>
-                                <label>Pre-written Responses</label>
-                                <!-- <select [ngModel]="Answer" (ngModelChange)="Answer = $event">
-                                    <option value="DefaultAnswer"></option>
-                                    <ng-container *ngFor="let item of AnswerOptions">
-                                        <option [value]="item">{{item.subject}}</option>
-                                    </ng-container>
-                                </select> -->
-                                <mat-form-field>
-                                    <mat-select [ngModel]="Answer" (ngModelChange)="Answer = $event">
-                                        <mat-option [value]="DefaultAnswer">Default Answer</mat-option>
-                                        <mat-option *ngFor="let item of AnswerOptions" [value]="item">
-                                            {{item.subject}}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </ng-container>
-                </div>
-                <div class="mes_input">
-                    
-                    
-                    <label *ngIf="!Answer.subject">Message</label>
-                    <div class="mes_text_block">
-                        <div *ngIf="!Answer.subject" class="mes_text_wrap">
-                            <textarea [(ngModel)]="Answer.message"></textarea>
-                            <!-- <span><img src="./../../../assets/img/admin/answer_attach_file.png"></span>
-                            <input type="file" id="mes_attach_file" class="hidden"> -->
+                    <div class="mes_input">
+
+
+                        <label *ngIf="!Answer.subject">Message</label>
+                        <div class="mes_text_block">
+                            <div *ngIf="!Answer.subject" class="mes_text_wrap">
+                                <textarea [(ngModel)]="Answer.message"></textarea>
+                                <!-- <span><img src="./../../../assets/img/admin/answer_attach_file.png"></span>
+                                <input type="file" id="mes_attach_file" class="hidden"> -->
+                            </div>
+                            <button [disabled]="!Answer.subject && !Answer.message" (click)="SendAnswer()">SEND</button>
                         </div>
-                        <button [disabled]="!Answer.subject && !Answer.message" (click)="SendAnswer()">SEND</button>
                     </div>
                 </div>
             </div>
+
         </div>
+
+
     </div>
 </div>

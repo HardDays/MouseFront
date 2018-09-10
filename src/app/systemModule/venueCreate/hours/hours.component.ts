@@ -81,11 +81,14 @@ export class VenueHoursComponent extends BaseComponent implements OnInit,OnChang
 
     SaveVenue()
     {
-        this.GetHoursToVenueModel();
-        $('html,body').animate({
-            scrollTop: 0
-        }, 0);
-        this.onSaveVenue.emit(this.Venue);
+        if(this.Validate())
+        {
+            this.GetHoursToVenueModel();
+            $('html,body').animate({
+                scrollTop: 0
+            }, 0);
+            this.onSaveVenue.emit(this.Venue);
+        }
     }
 
     GetHoursToVenueModel()
@@ -144,5 +147,36 @@ export class VenueHoursComponent extends BaseComponent implements OnInit,OnChang
         this.GetHoursToVenueModel();
         this.onVenueChanged.emit(this.Venue);
     }
+
+    Validate()
+    {
+        if(!this.ValidateHours(this.OfficeHours))
+        {
+            this.onError.emit("Office hours time should be filled");
+            return false;   
+        }
+
+        if(!this.ValidateHours(this.OperatingHours))
+        {
+            this.onError.emit("Operating hours time should be filled");
+            return false;    
+        }
+
+        return true;
+    }
+
+    ValidateHours(hours: FrontWorkingTimeModel[])
+    {
+        for(const item of hours)
+        {
+            if(item.checked && (!item.finish_work || !item.start_work))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 
 }

@@ -219,7 +219,16 @@ export class TicketsComponent extends BaseComponent implements OnInit,AfterViewC
             $("body").addClass("has-active-menu");
             $(".mainWrapper").addClass("has-push-left");
             $(".nav-holder-3").addClass("is-active");
-            $(".mask-nav-3").addClass("is-active")
+            $(".mask-nav-3").addClass("is-active");
+            if($(window).scrollTop()>0 && $(window).scrollTop()<125){
+                $(".nav-holder-3").css({'padding-top':(125-$(window).scrollTop())+'px'});
+            }
+            else if($(window).scrollTop()>0 && $(window).scrollTop()>=125){
+                $(".nav-holder-3").css({'padding-top':'15px'});
+            }
+            else{
+                $(".nav-holder-3").css({'padding-top':'125px'});
+            }
         });
         $(".menu-close, .mask-nav-3").on("click", function (e) {
             e.preventDefault();

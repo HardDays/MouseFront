@@ -95,7 +95,7 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
     $('#modal-map-reg').modal(`show`);
     this.isShowMap = true;
   }
-  
+
   CreateAutocomplete()
   {
     this.mapsAPILoader.load().then
@@ -153,22 +153,53 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
 
   seeFirstGenres()
   {
-    for(let g of this.genres) g.show = false;
 
-    this.genres[0].show = true;
-    this.genres[1].show = true;
-    this.genres[2].show = true;
-    this.genres[3].show = true;
+    let count = 0;
 
+    for(let g of this.genres){
+      if(g.checked){
+        count++;
+        g.show = true;
+      }
+    }
+
+    for(let g of this.genres){
+      if(count < 4){
+        if(!g.checked){
+          count++;
+          g.show = true;
+        }
+      }
+      else{
+        break;
+      }
+    }
+
+    // for(let i in this.Genres){
+    //   this.Genres[i].show = +i < 4;
+    // }
+    /*this.Genres[0].show = true;
+    this.Genres[1].show = true;
+    this.Genres[2].show = true;
+    this.Genres[3].show = true;*/
     this.seeMore = false;
   }
 
   seeMoreGenres()
   {
-    this.seeMore = true;
-    for(let g of this.genres)
-      g.show = true;
+    this.seeMore = !this.seeMore;
+    if(this.seeMore){
+      for(let g of this.genres)
+        g.show = true;
+    }
+    else {
+      for(let g of this.genres)
+        g.show = false;
+      this.seeFirstGenres();
+    }
   }
+
+
 
 
   CategoryChanged($event:string)
@@ -179,7 +210,7 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
       this.seeMore = true;
       for(let g of this.genres)
       {
-         if(g.genre_show.indexOf(this.search.toUpperCase())>=0)
+         if(this.translate.get(g.genre_show)['value'].toLowerCase().indexOf(this.search.toLowerCase())>=0||g.checked)
           g.show = true;
          else
           g.show = false;
@@ -187,6 +218,8 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
     }
     else
     {
+      for(let g of this.genres)
+        g.show = false;
       this.seeFirstGenres();
     }
   }
@@ -194,6 +227,7 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
   registerAcc()
   {
     if(!this.isCreate){
+
       this.isCreate = true;
       if(this.accForm.invalid)
       {
@@ -216,6 +250,8 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
       this.Account.display_name = this.accForm.value['first_name']+" "+this.accForm.value['last_name'];
       this.Account.first_name = this.accForm.value['first_name'];
       this.Account.last_name = this.accForm.value['last_name'];
+
+
       this.WaitBeforeLoading(
         ()=>this.main.accService.CreateAccount(this.Account),
         (res)=>{
@@ -233,7 +269,7 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
         }
       )
   }
-  
+
   }
 
 

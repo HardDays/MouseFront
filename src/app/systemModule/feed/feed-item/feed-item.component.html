@@ -14,9 +14,10 @@
 
                     </div>
                     <div *ngIf="Feed.type === 'event_update'" class="desc">
-                        <p>{{replaceAll(Feed.action)|titlecase|translate}} <a [routerLink]="['/system','shows_detail',Feed.event.id]">#{{Feed.event.name}}</a> Event to "{{getValue()}}" </p>
+                        <p *ngIf="Feed.action != 'launch_event'">{{replaceAll(Feed.action)|titlecase|translate}} <a [routerLink]="['/system','shows_detail',Feed.event.id]">#{{Feed.event.name}}</a> Event to "{{getValue()}}" </p>
+                         <p *ngIf="Feed.action === 'launch_event'">{{replaceAll(Feed.action)|titlecase|translate}} <a [routerLink]="['/system','shows_detail',Feed.event.id]">#{{Feed.event.name}}</a></p>
                     </div>
-                    
+
                 </div>
             </div>
             <p class="when">{{Feed.created_at?calculateTime(Feed.created_at):'A long time'}} <span translate>ago</span></p>
@@ -34,7 +35,7 @@
             </div>
             <div class="right-side">
 
-                    
+
                 <!-- <div class="dots">
                     <div class="dot"></div>
                     <div class="dot"></div>
@@ -91,7 +92,7 @@
                     <div *ngIf="Feed.type === 'event_update'" class="desc">
                         <p>Update Image <a [routerLink]="['/system','shows_detail',Feed.event.id]">#{{Feed.event.name}}</a><span> Event</span></p>
                     </div>
-                    
+
                 </div>
             </div>
             <p class="when">{{Feed.created_at?calculateTime(Feed.created_at):'A long time'}} ago</p>
@@ -112,7 +113,7 @@
             </div>
             <div class="right-side">
 
-                    
+
                 <!-- <div class="dots">
                     <div class="dot"></div>
                     <div class="dot"></div>
@@ -213,7 +214,7 @@
                 <p class="when">1 day ago</p>
             </div>
         </div>
-        
+
         <!--оставить комент-->
         <form class="leave-coment-wrapp">
             <div class="left-side">
@@ -299,7 +300,7 @@
                 <p class="when">1 day ago</p>
             </div>
         </div>
-        
+
         <!--оставить комент-->
         <form class="leave-coment-wrapp">
             <div class="left-side">
@@ -343,7 +344,7 @@
         <p class="when">2 mins ago</p>
     </div>
     <div class="body-feed-item">
-    
+
     </div>
     <div class="footer-item">
         <div class="left-side">
@@ -374,7 +375,7 @@
                 <p class="when">1 day ago</p>
             </div>
         </div>
-        
+
         <!--оставить комент-->
         <form class="leave-coment-wrapp">
             <div class="left-side">

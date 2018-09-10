@@ -122,6 +122,9 @@
     color: rgba(0, 0, 0, 0.5);
     margin-bottom: 5px;
 }
+.tickets-for-ng .col-info .value i{
+    transform: translateY(-6px);
+}
 .some-info-print{
     margin-bottom: 50px;
 }

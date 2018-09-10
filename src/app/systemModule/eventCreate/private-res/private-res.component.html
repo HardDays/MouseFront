@@ -4,7 +4,7 @@
           <div class="side">
               <div class="input-groupe-1 lbl-1">
                   <input id="inp-private-v-1" name="" type="text" formControlName="user_name">
-                  <label for="inp-private-v-1" translate>event.private-res.Venue Name</label>
+                  <label for="inp-private-v-1" translate>event.private-res.Venue Name<span>*</span></label>
 
               </div>
               <div class="input-groupe-1">
@@ -14,7 +14,7 @@
               </div>
               <div class="input-groupe-1">
                   <input [textMask]="MaskNumbers()" id="inp-private-v-3" name="" type="text" formControlName="capacity">
-                  <label for="inp-private-v-3" translate>event.private-res.Capacity</label>
+                  <label for="inp-private-v-3" translate>event.private-res.Capacity<span>*</span></label>
 
               </div>
               <div class="flex-mac-checkbox">
@@ -32,7 +32,7 @@
           <div class="side">
               <div class="input-groupe-1">
                   <input id="inp-private-v-6" [(ngModel)]="privateVenueCreate.address" #search name="address" type="text" formControlName="address">
-                  <label for="inp-private-v-6" translate>Address</label>
+                  <label for="inp-private-v-6" translate>Address<span>*</span></label>
 
               </div>
               <div class="input-groupe-1 lbl-1">
@@ -45,7 +45,11 @@
                   <label for="inp-private-v-5" translate>City</label>
 
               </div>
-              
+              <div class="input-groupe-1">
+                  <input id="inp-private-v-71" [(ngModel)]="privateVenueCreate.web_site" name="web_site" type="text" formControlName="web_site">
+                  <label for="inp-private-v-71" translate>Website</label>
+
+              </div>
               <div class="input-groupe-1 small-textarea whithout-label">
 
                   <textarea id="inp-desc-1" formControlName="description"></textarea>
@@ -61,14 +65,14 @@
 
 
                   <div *ngFor=" let img of imagesListPrivateRes; let i = index" class="photo" [ngStyle]="{'background-image': 'url('+img+')'}"></div>
-                  
+
                   <div class="photo-wr-1">
                       <label class="file_upload">
                           <div class="bg-image"></div>
                           <input accept=".jpg, .jpeg, .png" type="file" (change)="loadPhoto($event)">
                       </label>
                   </div>
-                
+
               </div>
               <span class="head-black" translate>Artist-create.Videos</span>
               <ng-container formArrayName="venue_video_links">
@@ -79,9 +83,9 @@
           </ng-container>
               <span class="add-to-active-b" style="cursor: pointer;" (click)="addPhone()" translate>event.private-res.ADD LINK</span>
           </div>
-          
+
       </div>
-      
+
       <div class="add-to-active-b">
           <button (click)="addPriateVenue()" class="butt-style-1" type="button">
               <span translate>event.private-res.Add to Active</span>

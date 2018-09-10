@@ -13,7 +13,7 @@ declare var $:any;
 export class FeedbackComponent extends BaseComponent implements OnInit {
 
   @ViewChild('errCmp') errCmp:ErrorComponent;
-  
+
   Types = {
     enchancements: false,
     compliments: false,
@@ -32,6 +32,13 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
   fbTransformed:any;
   midScore:number;
   // Subject: string = '';
+
+  isForward = false;
+  AdminsList:{id:number,user_name:string}[] = [];
+  AdminsListOpened:{id:number,user_name:string}[] = [];
+  // AdminsListAdded:{id:number,user_name:string}[] = [];
+  AdminAdded = {id:0,user_name:''};
+  isAdminListOpen = false;
 
   Answer = {
     user_name:'',
@@ -57,16 +64,17 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
     )
   }
 
+
   getFeedbacks(){
     this.main.adminService.GetFeedbacks({limit:8,offset:0})
       .subscribe(
         (res)=>{
           this.Feedbacks = res;
-        
+
           // console.log(res);
           if(this.Feedbacks&&this.Feedbacks[0]&&this.Feedbacks[0].id)
             this.openNewFeedback(this.Feedbacks[0].id,this.Feedbacks[0]);
-         
+
 
           for(let fb of this.Feedbacks){
             //вот блядь не могу взять от сюда fb.rate_score поэтому буду прогонять другим циклом
@@ -77,13 +85,13 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
                 fb.sender.image_base64 = BaseImages.NoneFolowerImage;
             }
           }
-         
-          
-          
-          
+
+
+
+
           this.FeedbacksChecked = this.Feedbacks;
-        
-      
+
+
         }
       )
 
@@ -94,7 +102,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
 
   //     if(!this.Types.enchancements&&!this.Types.compliments&&!this.Types.bugs)
   //       this.Types.all = true;
-  
+
   //     if(this.Types.all){
   //       this.FeedbacksChecked = this.Feedbacks;
   //     }
@@ -102,21 +110,21 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
   //     {
   //       this.Types.all = false;
   //       this.FeedbacksChecked = this.Feedbacks.filter(
-  //           obj => obj.feedback_type && ( 
+  //           obj => obj.feedback_type && (
   //             this.Types.enchancements && obj.feedback_type === 'enchancement' ||
   //             this.Types.compliments && obj.feedback_type === 'compliment' ||
   //             this.Types.bugs && obj.feedback_type === 'bug'
   //           )
   //       );
   //     }
-    
+
   // }
 
   filterByType(){
 
     if(this.Type === 'all')
       this.FeedbacksChecked = this.Feedbacks;
-    else 
+    else
       this.FeedbacksChecked = this.Feedbacks.filter(obj => obj.message_info.feedback_type && (this.Type === obj.message_info.feedback_type));
   }
 
@@ -138,6 +146,8 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
   openNewFeedback(id:number,fb:any){
     this.Message = '';
     this.fbTransformed = fb;
+    this.isForward = false;
+    this.AdminAdded = {id:0,user_name:''};
     this.main.adminService.GetFeedbackById(id)
     .subscribe(
       (fb)=>{
@@ -153,17 +163,16 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
           else
             this.Answer.image = BaseImages.NoneFolowerImage;
         }
-        else 
+        else
         this.Answer = { user_name:'', image:'', message:''}
-      
-      }              
+
+      }
     )
   }
 
-  sendAnswer(){
+  sendThankYou(){
     if(!this.showSuccess){
-      if(this.Message)
-        this.main.adminService.FeedbackThankYou(this.openFeedback.id,this.Message)
+        this.main.adminService.FeedbackThankYou(this.openFeedback.id,'Thank You!')
           .subscribe(
             (res)=>{
               this.showSuccess = true;
@@ -171,7 +180,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
               setTimeout(() => {
                 if(this.errCmp.isShown)
                   this.errCmp.CloseWindow();
-                  this.showSuccess = false; 
+                  this.showSuccess = false;
               }, 2500);
               this.getFeedbacks();
             },
@@ -180,6 +189,30 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
               this.errCmp.OpenWindow(BaseMessages.Fail);
             }
           )
+    }
+  }
+
+  sendForward(){
+    if(!this.showSuccess){
+      if(this.Message){
+        this.main.adminService.FeedbackForward(this.openFeedback.id,this.AdminAdded.id,this.Message)
+          .subscribe(
+            (res)=>{
+              this.showSuccess = true;
+              this.errCmp.OpenWindow(BaseMessages.Success);
+              setTimeout(() => {
+                if(this.errCmp.isShown)
+                  this.errCmp.CloseWindow();
+                  this.showSuccess = false;
+              }, 2500);
+              this.getFeedbacks();
+            },
+            (err)=>{
+              console.log(`err`,err);
+              this.errCmp.OpenWindow(BaseMessages.Fail);
+            }
+          )
+      }
       else
         this.errCmp.OpenWindow(BaseMessages.Fail);
     }
@@ -208,7 +241,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
                 fb.sender.image_base64 = BaseImages.NoneFolowerImage;
             }
           }
-          
+
           this.Feedbacks.push(...res);
 
           setTimeout(() => {
@@ -216,6 +249,49 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
           }, 200);
         }
       )
+  }
+
+  forwardMessage(){
+    this.isForward = true;
+    this.getAdminsList();
+  }
+
+  getAdminsList(){
+    this.main.adminService.GetAdminsList()
+          .subscribe(
+            (res)=>{
+              this.AdminsList = res;
+              this.AdminsListOpened = this.AdminsList;
+            }
+          )
+  }
+
+  openAdminsList(){
+    this.isAdminListOpen = !this.isAdminListOpen;
+    this.AdminsListOpened = this.AdminsList;
+  }
+
+  searchAdmin(admin?){
+    this.AdminsListOpened = this.AdminsList.filter(
+      obj => obj.user_name.toLowerCase().indexOf(admin.target.value.toLowerCase())>=0
+    );
+  }
+
+  hideList(){
+    setTimeout(() => {
+      this.openAdminsList();
+    }, 250);
+  }
+
+  addAdmin(admin){
+    console.log(`add`);
+    this.AdminAdded = admin;
+    // console.log(this.AdminsListAdded);
+    // this.openAdminsList();
+  }
+
+  deleteAdded(){
+    this.AdminAdded = {id:0,user_name:''};
   }
 
 

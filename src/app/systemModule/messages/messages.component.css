@@ -17,3 +17,11 @@
 .messages-main-wrapp .flex-massages-wrapp{
     min-height: calc(100vh - 84px);
 }
+.messages-main-wrapp .flex-massages-wrapp .left-s .one-msg-l-block .descr-side .price{
+    font-family: AvenirLTStdBlack, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+.messages-main-wrapp .flex-massages-wrapp .right-s .some-request-text-wrapper .block-info .fot-edit span{
+    font-family: AvenirLTStdBlack, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}

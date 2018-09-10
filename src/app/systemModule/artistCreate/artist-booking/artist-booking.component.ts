@@ -77,8 +77,14 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
+    if(this.main.settings.GetCurrency() == 'RUB'){
+      this.CurrencySymbol = '\u20BD';
+    }
+    else{
+      this.CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
+    }
 
+    
     this.isEng = this.isEnglish();
     this.CreateAutocomplete();
     // this.initDateMin();

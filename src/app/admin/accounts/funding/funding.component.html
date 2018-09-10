@@ -45,12 +45,12 @@
                             <label for="new_acc_{{i}}"></label>
                         </div>
                     </div> -->
-                    <div  style=" width:15%;" class="admin_table_td">{{acc.full_name}}</div>
+                    <div  style=" width:15%;" class="admin_table_td">{{acc.full_name}} <span *ngIf="!acc.full_name" class="line-only-for-admin-tables"></span></div>
                     <div class="admin_table_td account" style="cursor: pointer;">
                         <span>@{{acc.user_name}}</span>
                     </div>
                     <div class="admin_table_td"><span>{{acc.account_type|titlecase}}</span></div>
-                    <div class="admin_table_td"><span class="ellips-text">{{acc.address}}</span></div>
+                    <div class="admin_table_td"><span class="ellips-text">{{acc.address?acc.address:''}}</span><span *ngIf="!acc.address" class="line-only-for-admin-tables"></span></div>
                     <div class="admin_table_td"><span>{{acc.banking}}</span></div>
                     <div class="admin_table_td text-uppercase"><span [ngClass]="{'status_pending':acc.status=='pending','status_approved':acc.status=='approved','status_new':acc.status=='new','status_denied':acc.status=='denied','status_inactive':acc.status=='inactive'}">{{acc.status.replace('_',' ')|titlecase}}</span></div>
                 </div>

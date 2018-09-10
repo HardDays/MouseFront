@@ -42,15 +42,23 @@
                     <p class="ev_label">Location</p>
                     <div class="location-wr margened">
                         <div (click)="openMap()" class="mark"></div>
-                        <p class="location-inp ">
-                            {{Event.address}}
+                        <p *ngIf="Event.venue" class="location-inp">
+                          {{Event.venue?.display_name?Event.venue.display_name+'. ':Event.venue?.user_name?Event.venue.user_name+'. ':''}}
+                          {{Event.venue?.venue_type==='public_venue'&&Event.venue?.address?Event.venue.address:''}}
+                          <a *ngIf="Event.venue&&Event.venue.venue_type!=='public_venue'"
+                            [href]="'http://'+Event.venue.web_site" type="_blank">
+                            {{Event.venue?.venue_type!=='public_venue'&&Event.venue?.web_site?Event.venue.web_site:''}}
+                          </a>
                         </p>
+                         <p *ngIf="!Event.venue" class="location-inp">
+                            {{Event.address}}
+                         </p>
                     </div>
-                    <div class="butts">
+                    <!-- <div class="butts">
                         <span><img src="./../../../../assets/img/admin/event_but_icon1.png" alt=""></span>
                         <span><img src="./../../../../assets/img/admin/event_but_icon2.png" alt=""></span>
                         <span><img src="./../../../../assets/img/admin/event_but_icon3.png" alt=""></span>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -73,7 +81,7 @@
         <div class="event_text">
             <h3 class="zag">{{Event.tagline}}</h3>
             <div class="columns_text">
-                <p>{{Event.description}}</p>   
+                <p>{{Event.description}}</p>
             </div>
         </div>
     </section>

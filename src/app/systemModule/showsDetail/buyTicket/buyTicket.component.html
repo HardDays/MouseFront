@@ -5,8 +5,8 @@
             {
                 'count-mylty-value': Currency != OriginalCurrency
             }
-            ">{{Currency}}{{Ticket.price}}</p>
-            <p *ngIf="Currency != OriginalCurrency" class="original-price">({{OriginalCurrency}}{{Ticket.original_price}})</p>
+            "><span [innerHTML]="Currency"></span>{{Ticket.price}}</p>
+            <p *ngIf="Currency != OriginalCurrency" class="original-price">(<span [innerHTML]="OriginalCurrency"></span>{{Ticket.original_price}})</p>
             <div class="conter-wrapp">
                 <div class="arrow l-a" (click)="ChangeCount(-1)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="15" height="27">
@@ -20,8 +20,8 @@
                     </svg>
                 </div>
             </div>
-            <button type="submit" class="butt-style-2" [disabled]=" !(CurrentAccount && CurrentAccount.account_type == 'fan') || Count == 0" 
-                style="border: none;" [ngClass]="{'cursor-disabled':!(CurrentAccount && CurrentAccount.account_type == 'fan') || Count == 0}" translate>
+            <button type="submit" class="butt-style-2" [disabled]=" !(CurrentAccount && CurrentAccount.account_type == 'fan') || Count == 0 || Count > Ticket.count" 
+                style="border: none;" [ngClass]="{'cursor-disabled':!(CurrentAccount && CurrentAccount.account_type == 'fan') || Count == 0 || Count > Ticket.count}" translate>
                     ADD
             </button>
         </div>

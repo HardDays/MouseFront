@@ -63,7 +63,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
   isEng: boolean;
   isAcceptedArtistShow:boolean = true;
   // showModalRequest:boolean = false;
-  
+
   requestArtistForm : FormGroup = new FormGroup({
     "time_frame_range": new FormControl("",[Validators.required]),
     "time_frame_number": new FormControl("",[Validators.required]),
@@ -87,7 +87,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
     ESCAPE_KEYCODE = 27;
     ENTER_KEYCODE = 13;
-  
+
     @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
         if(this.isShowMap){
             if (event.keyCode === this.ESCAPE_KEYCODE || event.keyCode === this.ENTER_KEYCODE) {
@@ -99,9 +99,9 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
 
     ngOnInit() {
-      
+
     this.CurrencySymbol = CurrencyIcons[this.Event.currency];
-      
+
       this.isEng = this.isEnglish();
       this.CreateAutocompleteArtist();
       this.artistSearchParams.price_to = 100000;
@@ -124,14 +124,14 @@ export class ArtistComponent extends BaseComponent implements OnInit {
       });
 
       this.getGenres();
-      
+
       // this.artistsList = this.Event.artist;
       // //console.log(this.artistsList);
       // this.GetArtistsFromList();
     }
 
     ngOnChanges(){
-      
+
 
       // this.artistsList = this.Event.artist;
       // //console.log(this.artistsList);
@@ -144,21 +144,21 @@ export class ArtistComponent extends BaseComponent implements OnInit {
         this.maxValue = 100000;
         this.postfix = "";
         this.prefix = "$ ";
-        
+
       }
       else if(this.CurrencySymbol == "₽"){
         this.maxValue = 1000000;
         this.postfix = " ₽";
         this.prefix = "";
-        
+
       }
       else {
         this.maxValue = 100000;
         this.postfix = " €";
         this.prefix = "";
-        
+
       }
-      
+
     }
 
     getGenres(){
@@ -181,7 +181,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
     Init(event?:EventCreateModel)
     {
-     
+
     }
 
 
@@ -223,7 +223,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
         .subscribe((acc:AccountGetModel)=>{
           this.getMessages();
           acc.status_not_given = i.status;
-        
+
           if(i.agreement&&i.agreement.price)
             acc.price_not_given = i.agreement.price;
           else if(i.price){
@@ -240,7 +240,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
           if(acc.image_id){
             acc.image_base64_not_given = this.main.imagesService.GetImagePreview(acc.image_id,{width:240,height:240});
-            
+
             //console.log(acc.image_base64_not_given);
             // this.main.imagesService.GetImageById(acc.image_id).
             //   subscribe((img)=>{
@@ -264,8 +264,8 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
     let copy = this.artistsSearch;
     this.artistsSearch = [];
-    
-    if($event||$event==='') 
+
+    if($event||$event==='')
       this.artistSearchParams.text = $event;
 
     this.isLoadingArtist = true;
@@ -344,7 +344,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
   artistOpenMapModal(){
     $('#modal-map-2').modal('show');
     this.isShowMap = true;
-    
+
       $('#modal-pick-artist').modal('hide');
     $('#modal-map-2').on("hidden.bs.modal", function () {
       $('#modal-pick-artist').modal('show');
@@ -432,7 +432,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
         }
 
       }
-     
+
 
 
   }
@@ -444,17 +444,17 @@ export class ArtistComponent extends BaseComponent implements OnInit {
     this.ownerAcceptDecline.account_id = this.main.CurrentAccount.id;
     this.ownerAcceptDecline.id = card.id;
     this.ownerAcceptDecline.event_id = this.Event.id;
-    
+
     let msgId = this.getIdAtMsg(card.id);
 
-    
+
     this.ownerAcceptDecline.message_id = msgId;
      let msg = this.messagesList[0];
 
     for(let m of this.messagesList)
         if(m.id == msgId) msg = m;
-    
-    // console.log(msg,this.messagesList,msgId);    
+
+    // console.log(msg,this.messagesList,msgId);
     this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from?msg.message_info.preferred_date_from:new Date().toString();
     this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to?msg.message_info.preferred_date_to:new Date('+3').toString();
 
@@ -539,11 +539,11 @@ artistSendRequest(id:number){
       setTimeout(() => {
         this.onError.emit("Request was sent!");
       }, 400);
-        
+
       setTimeout(() => {
         this.updateEvent();
       }, 200);
-        
+
     })
   }
   else{
@@ -561,11 +561,11 @@ updateEvent(){
                 this.Event = this.main.eventService.EventModelToCreateEventModel(res);
                   this.artistsList = this.Event.artist;
                 setTimeout(() => {
-                
+
                   console.log(`---`,this.Event,this.artistsList)
                   this.GetArtistsFromList();
                 }, 500);
-               
+
 
   })
 
@@ -724,7 +724,7 @@ dragMarker($event)
     }
 
     inviteArtist(){
-      
+
       if(this.ArtistInvite.name){
         for(let i in this.InviteSocials){
           if(!this.InviteSocials[i]){
@@ -740,31 +740,36 @@ dragMarker($event)
         }
 
         console.log(this.ArtistInvite, this.InviteSocials);
-        this.main.inviteService.PostInviteArtist(this.ArtistInvite)
-          .subscribe(
-            (res)=>{
-              console.log(`ok`);
-              $('#modal-send-unauth').modal('hide');
-               this.ArtistInvite = {
-                account_id: this.CurrentAccount.id,
-                name:'',
-                email:'',
-                facebook:'',
-                twitter:'',
-                vk:'',
-                youtube:''
+        if(this.ArtistInvite.email||this.ArtistInvite.facebook||this.ArtistInvite.vk||this.ArtistInvite.twitter||this.ArtistInvite.email){
+          this.main.inviteService.PostInviteArtist(this.ArtistInvite)
+            .subscribe(
+              (res)=>{
+                console.log(`ok`);
+                $('#modal-send-unauth').modal('hide');
+                this.ArtistInvite = {
+                  account_id: this.CurrentAccount.id,
+                  name:'',
+                  email:'',
+                  facebook:'',
+                  twitter:'',
+                  vk:'',
+                  youtube:''
+                }
+                this.InviteSocials = {
+                  facebook: false,
+                  vk: false,
+                  twitter: false,
+                  youtube: false
+                }
+              },
+              (err)=>{
+                this.onError.emit(this.getResponseErrorMessage(err, 'event'));
               }
-              this.InviteSocials = {
-                facebook: false,
-                vk: false,
-                twitter: false,
-                youtube: false
-              }
-            },
-            (err)=>{
-              this.onError.emit(this.getResponseErrorMessage(err, 'event'));
-            }
-          )
+            )
+        }
+        else {
+          this.onError.emit('Please, fill any link field!');
+        }
       }
       else {
         this.onError.emit('Please, fill name field!');

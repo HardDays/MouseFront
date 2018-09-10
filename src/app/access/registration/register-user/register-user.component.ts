@@ -15,7 +15,7 @@ import { TokenModel } from '../../../core/models/token.model';
 export class RegisterUserComponent extends BaseComponent implements OnInit {
 
   createUser:UserCreateModel = new UserCreateModel();
- 
+
   Error:string = '';
   isFirstOpen:boolean = true;
 
@@ -56,6 +56,7 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
       }
 
 
+
       if(isNew&&this.userForm.valid){
 
         for (let key in this.userForm.value) {
@@ -65,14 +66,22 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
           }
         }
 
-        if(!this.createUser.email||!this.createUser.password)
+        if(!this.createUser.email||!this.createUser.password){
           this.errorCmp.OpenWindow('Email and password are required fields!');
-        else if (this.createUser.password.length<6)
+          this.closeWindowAndRegFalse();
+        }
+        else if (this.createUser.password.length<6){
           this.errorCmp.OpenWindow('Password is too short!');
-        else if (this.createUser.password!=this.createUser.password_confirmation)
+          this.closeWindowAndRegFalse();
+        }
+        else if (this.createUser.password!=this.createUser.password_confirmation){
           this.errorCmp.OpenWindow('Password does not match the confirm password!');
-        else if (this.createUser.email.search('@')<=0)
+           this.closeWindowAndRegFalse();
+        }
+        else if (this.createUser.email.search('@')<=0){
           this.errorCmp.OpenWindow('Uncorrect email!');
+           this.closeWindowAndRegFalse();
+        }
         else {
 
           this.createUser.email = this.createUser.email.toLowerCase();
@@ -83,7 +92,7 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
               phoneToSend = phoneToSend.replace(/-/g,'');
 
           this.createUser.register_phone = phoneToSend;
-            
+
         this.WaitBeforeLoading(
             ()=>this.main.authService.CreateUser(this.createUser),
             (res:UserGetModel) => {
@@ -95,7 +104,7 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
 
                 // this.back.emit('info');
                 localStorage.setItem('new_user_'+res.id,this.type);
-              
+
 
                 if(this.type=='fan')
                   this.backUser.emit(this.type);
@@ -112,25 +121,24 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
             },
             (err) => {
                 this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'base'));
-                setTimeout(() => 
-                {
-                  if(this.errorCmp.isShown)
-                    this.errorCmp.CloseWindow();
-                  this.isRegister = false;
-                }, 3500);
+                this.closeWindowAndRegFalse();
             }
           );
         }
       }
       else{
         this.errorCmp.OpenWindow(this.getFormErrorMessage(this.userForm, 'base'));
-         setTimeout(() => {
-            if(this.errorCmp.isShown)
-              this.errorCmp.CloseWindow();
-            this.isRegister = false;
-          }, 3500);
+        this.closeWindowAndRegFalse();
       }
     }
+  }
+
+  closeWindowAndRegFalse(){
+    setTimeout(() => {
+      if(this.errorCmp.isShown)
+        this.errorCmp.CloseWindow();
+      this.isRegister = false;
+    }, 3500);
   }
 
   ngOnInit() {

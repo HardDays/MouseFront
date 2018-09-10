@@ -58,6 +58,7 @@ export class SearchEventsMapComponent extends BaseComponent implements OnInit {
         }
 
         $('#modal-map').modal('show');
+        
         this.isShowMap = true;
     }
 

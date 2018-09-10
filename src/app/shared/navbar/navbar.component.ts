@@ -31,7 +31,9 @@ export class NavbarComponent extends BaseComponent implements OnInit
     translang: string;
     curNav:string = 'shows';
     MyLogo:string = '';
-    SearchParams:string = '';
+    Search = {
+      text:''
+    };
 
     countMessages = 0;
 
@@ -122,8 +124,10 @@ export class NavbarComponent extends BaseComponent implements OnInit
         )
     }
 
-    ShowSearchResult(){
-      //console.log(this.SearchParams);
+    ShowSearchResult()
+    {
+      this.router.navigate(['/system','search'], {queryParams: this.Search});
+      this.Search.text = '';
     }
     getThisPage():string
     {

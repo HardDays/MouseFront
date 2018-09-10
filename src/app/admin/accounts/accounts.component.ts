@@ -3,6 +3,7 @@ import { BaseComponent } from '../../core/base/base.component';
 import { Params, NavigationEnd } from '@angular/router';
 import { AccountGetModel } from '../../core/models/accountGet.model';
 import { TableComponent } from './table/table.component';
+import { CurrencyIcons } from '../../core/models/preferences.model';
 
 @Component({
   selector: 'app-accounts',
@@ -17,7 +18,6 @@ export class AccountsComponent extends BaseComponent implements OnInit {
 
   Accounts: AccountGetModel[] = [];
 
-  
   ngOnInit() {
     this.activatedRoute.params.subscribe(
       (params:Params) => {
@@ -37,7 +37,7 @@ export class AccountsComponent extends BaseComponent implements OnInit {
 
     this.getAccounts();
 
-    
+
   }
 
   getAccounts(){

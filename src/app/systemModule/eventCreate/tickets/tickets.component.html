@@ -58,7 +58,7 @@
                                 <div class="yes-no">
                                     <span translate>event.tickets.In person</span>
                                     <div class="mac-checkbox">
-                                        <input class="checkbox" [checked]="currentTicket.type=='vr'" (change)="currentTicket.type=='in_person'?currentTicket.type='vr':currentTicket.type='in_person'" type="checkbox" id="checkbox-set-tick-1" >
+                                        <input class="checkbox only-main-color" [checked]="currentTicket.type=='vr'" (change)="currentTicket.type=='in_person'?currentTicket.type='vr':currentTicket.type='in_person'" type="checkbox" id="checkbox-set-tick-1" >
                                         <label for="checkbox-set-tick-1"></label>
                                     </div>
                                     <span>VR</span>
@@ -103,7 +103,7 @@
                             <div class="flex-input-groupes">
                                 <div class="input-groupe-1">
                                     <div class="rel-wr">
-                                        <span class="abs-backs">{{getCurrencyPrice(currentTicket.currency)}}</span>
+                                        <span class="abs-backs" [innerHTML]="getCurrencyPrice(currentTicket.currency)"></span>
                                         <input id="inp-price-id-1" class="dollar" name="" type="text" [(ngModel)]="currentTicket.price">
                                     </div>
                                     <label for="inp-price-id-1" translate>Price</label>

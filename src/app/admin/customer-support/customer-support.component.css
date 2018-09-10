@@ -14,7 +14,7 @@ button[disabled]{
     direction: ltr;
 }
 .support_right{
-    margin-bottom: 30px;
+
 }
 
 .support_dialogs::-webkit-scrollbar {
@@ -27,6 +27,27 @@ button[disabled]{
     border-radius: 2.5px;
     cursor: pointer;
 }
+.right-to-scroll::-webkit-scrollbar {
+    background: #f1f1f1;
+    width: 5px;
+}
+
+.right-to-scroll::-webkit-scrollbar-thumb {
+    background: #d9d9d9;
+    border-radius: 2.5px;
+    cursor: pointer;
+}
 .support_right .support_mes .mes_head{
     margin-bottom: 20px;
+}
+
+.button-solved{
+  width: 74px;
+  font-size: 14px;
+  color: #fff;
+  background: #da4266;
+  border-radius: 15px;
+  border: none;
+  outline: none;
+  padding: 3px 0;
 }

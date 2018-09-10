@@ -8,7 +8,7 @@
 
 
     <section class="second-router-outlet">
-        <div class="mask-nav-3"></div>
+        
 
         <div *ngIf="isShowMap" class="map-here" >
                     <agm-map #map [latitude]="MyCoords.lat" [zoom]="7" [longitude]="MyCoords.lng" #map style="height: 1200px">
@@ -23,6 +23,7 @@
             <div [ngClass]="{'width-for-map':isShowMap}">
                 <div class="main-mw">
                     <div class="head-shows">
+                        <div class="mask-nav-3"></div>
                         <button (click)="onOpenSearch()" class="ham-ham nav-button">
                             <div class="ham"></div>
                             <div class="ham"></div>

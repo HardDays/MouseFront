@@ -46,5 +46,6 @@ span.doll.fix-31{
     top: 10px;
     display: block;
     position: absolute;
-left: 0;
+    left: 0;
+    font-family: AvenirLTStdBook,'PT Sans', Arial, Helvetica, sans-serif;
 }

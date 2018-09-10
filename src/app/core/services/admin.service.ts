@@ -20,7 +20,7 @@ export class AdminService{
         this.NewCountChange.next(true);
     }
 
-   
+
 
     Statuses = {
         "just_added": "new",
@@ -52,7 +52,7 @@ export class AdminService{
 
 
     //////////////////////////////////////
-    //////         ACCOUNTS         //////   
+    //////         ACCOUNTS         //////
     //////////////////////////////////////
 
     GetNewAccountsCount()
@@ -137,10 +137,17 @@ export class AdminService{
         );
     }
 
+    GetInvites(limit:number,offset:number,invite_type = 'all')
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/admin/invites.json', this.typeService.ParamsToUrlSearchParams({limit,offset,invite_type}))
+        );
+    }
+
 
 
     //////////////////////////////////////
-    //////         EVENTS           //////   
+    //////         EVENTS           //////
     //////////////////////////////////////
 
 
@@ -151,7 +158,7 @@ export class AdminService{
         );
     }
 
-   
+
 
     GetEventsRequests(params?)
     {
@@ -187,8 +194,8 @@ export class AdminService{
             ()=> this.http.DeleteDataWithBody('/admin/events/'+id+'.json', JSON.stringify({id}))
         );
     }
-  
-    
+
+
     GetEventsCounts()
     {
         return this.http.CommonRequest(
@@ -226,7 +233,7 @@ export class AdminService{
 
 
     //////////////////////////////////////
-    //////         FEEDBACK         //////   
+    //////         FEEDBACK         //////
     //////////////////////////////////////
 
 
@@ -234,6 +241,12 @@ export class AdminService{
     {
         return this.http.CommonRequest(
             ()=> this.http.PostData('/admin/feedbacks/'+id+'/thank_you.json', JSON.stringify({id, message}))
+        );
+    }
+    FeedbackForward(id:number,receiver:number,message:string)
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.PostData('/admin/feedbacks/'+id+'/forward.json', JSON.stringify({id,receiver, message}))
         );
     }
     FeedbackDelete(id:number)
@@ -273,11 +286,11 @@ export class AdminService{
         );
     }
 
-    
+
     //////////////////////////////////////
-    //////         QUESTIONS        //////   
+    //////         QUESTIONS        //////
     //////////////////////////////////////
-    
+
 
     QuestionReplyById(id:number,subject:string,message:string)
     {
@@ -303,12 +316,18 @@ export class AdminService{
             ()=> this.http.GetData('/admin/questions/'+id+'.json', this.typeService.ParamsToUrlSearchParams({id}))
         );
     }
+    SolveQuestion(id:number,subject:string,message:string)
+    {
+      return this.http.CommonRequest(
+            ()=> this.http.PostData('/admin/questions/'+id+'/close.json', JSON.stringify({id,subject,message}))
+        );
+    }
 
-    
+
     //////////////////////////////////////
-    //////           REPLY          //////   
+    //////           REPLY          //////
     //////////////////////////////////////
-    
+
 
     GetReplyTemplates()
     {
@@ -354,7 +373,7 @@ export class AdminService{
 
 
     //////////////////////////////////////
-    //////         QUESTIONS        //////   
+    //////         QUESTIONS        //////
     //////////////////////////////////////
 
 
@@ -438,6 +457,54 @@ export class AdminService{
     {
         return this.http.CommonRequest(
             ()=> this.http.GetData('/admin/reply_templates/to_answer.json', '')
+        );
+    }
+
+
+    //////////////////////////////////////
+    //////         MESSAGES         //////
+    //////////////////////////////////////
+
+    GetMessages()
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/admin/messages.json', '')
+        );
+    }
+    GetMessagesById(id:number)
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/admin/messages/'+id+'/.json',  this.typeService.ParamsToUrlSearchParams({id}))
+        );
+    }
+    SendMessage(topic_id:number,receiver:number,topic:string)
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.PostData('/admin/messages.json', JSON.stringify({topic_id,receiver,topic}))
+        );
+    }
+    ForwardMessage(id:number,receiver_id:number)
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.PostData('/admin/messages/'+id+'/forward.json', JSON.stringify({id,receiver_id}))
+        );
+    }
+    SolveMessage(id:number)
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.PostData('/admin/messages/'+id+'/solve.json', JSON.stringify({id}))
+        );
+    }
+    SendMessageToNewDialog(receivers_ids:number[],message:string,topic:string)
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.PostData('/admin/messages/new.json', JSON.stringify({receivers_ids,message,topic}))
+        );
+    }
+
+    GetAdminsList(){
+      return this.http.CommonRequest(
+            ()=> this.http.GetData('/admin.json', '')
         );
     }
 

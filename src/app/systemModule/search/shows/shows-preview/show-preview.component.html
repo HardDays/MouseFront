@@ -1,0 +1,10 @@
+<div class="genre-head">
+    <p><span translate>Shows</span> ({{Shows.length}})</p>
+    <button (click)="ShowAll()" translate>SHOW ALL</button>
+</div>
+<div class="shows-block-search">
+    <div class="one-show-wrapp" *ngFor="let item of Shows">
+        <one-show-search-component [Show]="item"></one-show-search-component>
+    </div>
+
+</div>

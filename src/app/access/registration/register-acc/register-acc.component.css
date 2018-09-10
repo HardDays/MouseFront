@@ -1,0 +1,24 @@
+.one-checkbox p{
+    padding-left: 11px;
+    font-size: 11px;
+}
+
+.more.rotate180 span:after
+ {
+    -moz-transform: rotate(180deg); /* Для Firefox */
+    -ms-transform: rotate(180deg); /* Для IE */
+    -webkit-transform: rotate(180deg); /* Для Safari, Chrome, iOS */
+    -o-transform: rotate(180deg); /* Для Opera */
+    transform: rotate(180deg);
+}
+
+.register .m-v-reg .reg-wr .flex-checkboxes .one-checkbox.check-start{
+    order: 0;
+}
+.register .m-v-reg .reg-wr .flex-checkboxes .one-checkbox{
+    order: 1;
+}
+.one-checkbox p{
+    font-size: 11px;
+    padding-left: 11px;
+}

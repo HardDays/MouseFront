@@ -5,7 +5,7 @@
                     <h2 translate>Venue.Venue</h2>
                     <p translate>Please fill in all required fields in<br translate>the Venue Screen to Add a Funding</p>
                 </div>
-            
+
                 <div class="flex-tabs-menu-venue">
                     <p class="some-text" translate>At first choose residence :)</p>
                     <ul class="v-tabs-menu">
@@ -15,13 +15,13 @@
                     </ul>
                 </div>
             </div>
-            
+
         </div>
         <div class="main-mw-5">
             <div class="tabs-venue-wrapp">
                 <!--теже табы для ngif-->
                 <!--Public Venue-->
-                
+
                 <div  [ngStyle]="{'display': !isPrivateVenue?'block':'none'}" class="one-tab">
 
                     <div class="one-tab-flex no-wrapp-991 alighn-items">
@@ -34,7 +34,7 @@
                                     <span class="head-type-inp" translate>event.venue.Type of place</span>
                                     <div class="flex-genres for-pick">
                                             <span *ngFor="let space of typesSpace" (click)="space.checked=!space.checked; venueSearch()" [ngClass]="{picked:space.checked}" class="one-genre" translate>{{space.object.name}}</span>
-                                       
+
                                     </div>
                                     <span class="head-type-inp" translate>Price</span>
                                     <div class="for-range-slider">
@@ -77,23 +77,23 @@
                                             </div>
                                         </ng-container>
                                     </ng-container>
-                                    
-                                    
+
+
                                 </div>
                             </div>
 
                         </div>
                     </div>
                 </div>
-               
-                
+
+
                 <!--Private Residence-->
-                    <app-private-res [ngStyle]="{'display': isPrivateVenue?'block':'none'}" (OnCreate)="createPrivateRes()" [EventId]="Event.id"></app-private-res>
+                    <app-private-res [ngStyle]="{'display': isPrivateVenue?'block':'none'}" (OnCreate)="createPrivateRes()" (OnError)="OnError($event)" [EventId]="Event.id"></app-private-res>
                 <!--//Private Residence-->
             </div>
         </div>
     </div>
-    
+
     <div    class="tabs-artist-wrapp">
         <div class="new-padd-wrapper-m-w">
             <div class="main-mw">
@@ -110,16 +110,16 @@
         </div>
         <div class="bg-wr-tabs">
             <div class="main-mw">
-                
+
                 <div *ngIf="isAcceptedVenueShow"  class="tab-artist">
                     <div class="flex-wrapp-cards">
 
                         <ng-container *ngFor="let shows of requestVenues">
                             <div *ngIf="shows.status_not_given!='owner_declined'&&shows.status_not_given!='declined'" class="one-card">
-                                
-                                <app-one-card 
-                                    [card] = "shows" 
-                                    [status] = "shows.status_not_given" 
+
+                                <app-one-card
+                                    [card] = "shows"
+                                    [status] = "shows.status_not_given"
                                     [price] = "shows.price_not_given"
                                     [currency] = "Event.currency"
                                     (accepted) = "acceptVenue($event)"
@@ -144,30 +144,30 @@
 
                         <!-- <ng-container *ngFor="let shows of venueShowsList" >
                             <div *ngIf="shows.status_not_given!='owner_declined'&&shows.status_not_given!='declined'" class="one-card">
-                                <app-one-card 
-                                    [card] = "shows" 
-                                    [status] = "shows.status_not_given" 
-                                    [price] = "100" 
+                                <app-one-card
+                                    [card] = "shows"
+                                    [status] = "shows.status_not_given"
+                                    [price] = "100"
                                     (accepted) = "acceptVenue($event)"
                                     (requested) = "sendVenueRequestOpenModal($event)"
                                     (declined) = "declineVenue($event)"
                                     (checked) = "updateEvent()"
                                 ></app-one-card>
-                               
+
                             </div>
                         </ng-container> -->
-                        
-                        
+
+
                     </div>
                 </div>
-              
+
                  <div *ngIf="!isAcceptedVenueShow" class="tab-artist">
                     <div class="flex-wrapp-cards">
                         <ng-container *ngFor="let shows of requestVenues">
                             <div *ngIf="shows.status_not_given=='owner_declined'||shows.status_not_given=='declined'" class="one-card">
-                                <app-one-card 
-                                    [card] = "shows" 
-                                    [status] = "shows.status_not_given" 
+                                <app-one-card
+                                    [card] = "shows"
+                                    [status] = "shows.status_not_given"
                                     [price] = "shows.price_not_given"
                                     [currency] = "Event.currency"
                                     (accepted) = "acceptVenue($event)"
@@ -176,7 +176,7 @@
                                     (checked) = "updateEvent()"
                                     (open)="openVenue($event)"
                                 ></app-one-card>
-                                
+
                             </div>
                         </ng-container>
 
@@ -185,7 +185,7 @@
                                 <div class="card">
                                     <div class="delete-card"></div>
                                     <div class="left-side">
-                                   
+
                                         <div [routerLink]="['/system','profile',shows.id]" class="ava checked" [ngStyle]="{'background-image': shows.image_base64_not_given?'url('+shows.image_base64_not_given+')':''}"></div>
                                         <p class="desc-head-info">{{getStatusVenueEventById(shows.id)}}</p>
                                         <p class="status">Accepted by Artist and Event owner</p>
@@ -198,22 +198,22 @@
                                         <p class="info">{{shows.address}}</p>
                                     </div>
                                 </div>
-                               
+
                             </div>
                         </ng-container> -->
 
                         <div *ngIf="isEmptyDeclinedArtists()" class="empty-info">
                             <img src="./../../../assets/img/smile-white.svg" class="img-responsive" alt="">
                             <p translate>event.venue.No venues yet</p>
-                            
+
                         </div>
 
                     </div>
-                </div> 
+                </div>
 
             </div>
         </div>
-        
+
     </div>
 
 
@@ -227,9 +227,9 @@
     <div class="modal-dialog">
             <form [formGroup]="requestVenueForm">
         <div class="modal-body">
-            
+
             <h6 class="head-m-p-a" translate>event.artist-fold.Event Request</h6>
-            
+
             <div class="name-and-ava">
                 <div class="ava" [ngStyle]="{'background-image': eventForRequest.image_base64_not_given?'url('+eventForRequest.image_base64_not_given+')':''}"></div>
                 <div class="n-h">
@@ -250,17 +250,17 @@
                                 <div class="rel-wr">
                                 <input disabled [value]="Event.event_length" name="" type="text">
                             </div>
-                            <label for="inp-modal-req-4" translate>event.artist-fold.Performance Time</label> 
+                            <label for="inp-modal-req-4" translate>event.artist-fold.Performance Time</label>
                         </div>
                 </div>
                 <div class="flex-input-groupes">
                      <div class="input-groupe-1 more-padd">
                             <div class="rel-wr">
-                                
+
                                 <input [textMask]="MaskNumbers()" formControlName="time_frame_number" id="inp-modal-req-42"  name="" type="text">
                             </div>
                             <label for="inp-modal-req-4" translate>event.artist-fold.Time Frame<br translate>Number<span>*</span></label>
-                           
+
                     </div>
                     <div class="input-groupe-1 more-padd relative-3">
                         <mat-form-field >
@@ -273,14 +273,14 @@
                         </mat-form-field>
                         <label for="inp-modal-req-3" translate>event.artist-fold.Time Frame we expect an answer<span>*</span></label>
                     </div>
-                   
+
                     <div class="input-groupe-1 more-padd">
                         <div class="rel-wr">
-                            <span class="abs-backs">{{CurrencySymbol}}</span>
+                            <span class="abs-backs"><span [innerHTML]="CurrencySymbol"></span></span>
                             <input [textMask]="MaskNumbers()" formControlName="estimated_price" id="inp-modal-req-4" class="dollar" name="" type="text">
                         </div>
                         <label for="inp-modal-req-4"translate>event.artist-fold.Estimated Price to<br translate> event.artist-fold.Perform<span>*</span></label>
-                       
+
                     </div>
                 </div>
                 <div class="flex-mac-checkbox">
@@ -340,7 +340,7 @@
                     <div class="padd-left-right">
                         <div class="input-groupe-1 more-padd">
                             <div class="rel-wr">
-                               
+
                                 <input id="inp-modal-inv-1" [(ngModel)]="VenueInvite.name"  name="" type="text">
                             </div>
                             <label for="inp-modal-inv-1" translate>event.venue.Name</label>
@@ -364,7 +364,7 @@
                                         <label for="inv-check-1-1"></label>
                                     </div>
                                 </div>
-                                
+
                             </div>
                             <div class="checkbox-decline">
                                 <div>
@@ -389,7 +389,7 @@
                                         <label for="inv-check-1-3"></label>
                                     </div>
                                 </div>
-                                
+
                             </div>
                             <div class="checkbox-decline">
                                 <div>
@@ -402,7 +402,7 @@
                                         <label for="inv-check-1-4"></label>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>

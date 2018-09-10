@@ -16,7 +16,7 @@ declare var $:any;
 })
 export class EventComponent extends BaseComponent implements OnInit {
 
-  @ViewChild('errCmp') errCmp: ErrorComponent = new ErrorComponent;
+  @ViewChild('errCmp') errCmp: ErrorComponent = new ErrorComponent(this.translate, this.settings);
 
   @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
     if(this.isShowMap){

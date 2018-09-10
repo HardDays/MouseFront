@@ -69,7 +69,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
   Event:EventCreateModel = new EventCreateModel()
   EventId:number = 0;
-  
+
 
   @ViewChild('about') about:AboutComponent;
   @ViewChild('artist') artist:ArtistComponent;
@@ -136,7 +136,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
             }
           );
         }
-        
+
       }
     );
   }
@@ -156,6 +156,10 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       // this.Event.currency = this.main.settings.GetCurrency();
   }
 
+  SaveEventByFunding(event:EventCreateModel){
+    this.Event = event;
+  }
+
   SaveEventByPages(event:EventCreateModel)
   {
 
@@ -170,9 +174,9 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       delete this.Event['date_from'];
       delete this.Event['date_to'];
     }
-  
-    // console.log(`TEST`,this.Event);  
-    
+
+    // console.log(`TEST`,this.Event);
+
     this.Event.account_id = this.CurrentAccount.id;
     this.WaitBeforeLoading
     (
@@ -187,7 +191,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
           () => this.NextPart(),
           100
         );
-        
+
         this.isShowLaunch = this.isShowLaunchBtn();
         this.isHasVenue = this.Event.venue?true:false;
 
@@ -220,7 +224,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
           // console.log(`SAVE SUCCESS`);
           // this.errorCmp.OpenWindow(BaseMessages.Success);
 
-          
+
           this.isShowLaunch = this.isShowLaunchBtn();
           this.isHasVenue = this.Event.venue?true:false;
 
@@ -239,12 +243,12 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         res => {
             success(res);
         },
-        error => {                    
+        error => {
             if(err && typeof err === "function"){
-                err(error); 
+                err(error);
             }
         }
-        
+
     );
   }
 
@@ -259,7 +263,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       }
     else{
       this.Event.account_id = this.CurrentAccount.id;
-      
+
       if(this.about)
         this.about.GetEventGenres();
 
@@ -280,7 +284,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         (res) => {
 
           this.errorCmp.OpenWindow(BaseMessages.Success);
-          
+
           setTimeout(
             () => {
               this.errorCmp.CloseWindow();
@@ -308,7 +312,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     , 1000);
   }
 
-    
+
 
   ChangeCurrentPart(newPart)
   {
@@ -321,7 +325,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     this.currentPage = newPart;
   }
 
-  
+
   isShowLaunchBtn(){
     let countA = 0, countV = 0;
 
@@ -354,11 +358,11 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         // console.log(`err`,err);
         this.OpenErrorWindow(BaseMessages.Fail);
       }
-    ) 
+    )
   }
 
   verifyButtonClick(){
-    
+
     this.main.eventService.SetVerify(this.EventId,this.main.CurrentAccount.id).
       subscribe((res)=>{
         // this.Event.is_active = true;
@@ -372,7 +376,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         // console.log(`err`,err);
         this.OpenErrorWindow(BaseMessages.Fail);
       }
-    )  
+    )
   }
 
   unActiveButtonClick(){
@@ -389,10 +393,10 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         // console.log(`err`,err);
         this.OpenErrorWindow(BaseMessages.Fail);
       }
-    )  
+    )
   }
 
-  
+
   EventChanged($event)
   {
     for(let key of $event)
