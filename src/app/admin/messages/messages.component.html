@@ -18,11 +18,11 @@
 
                 <div class="support_grey">
                     <div class="support_dialogs">
-                        <app-list-message (onClickMessage)="openMessage($event)"></app-list-message>
+                        <app-list-message [isNewMessageOpened]="IsNewMsgOpen" (onClickMessage)="openMessage($event)"></app-list-message>
                     </div>
 
                     <div class="support_right">
-                      <app-open-message *ngIf="!IsNewMsgOpen"></app-open-message>
+                      <app-open-message *ngIf="!IsNewMsgOpen" [MessageId]="MessageId"></app-open-message>
                       <app-new-message *ngIf="IsNewMsgOpen"></app-new-message>
                     </div>
 
