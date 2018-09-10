@@ -243,6 +243,12 @@ export class AdminService{
             ()=> this.http.PostData('/admin/feedbacks/'+id+'/thank_you.json', JSON.stringify({id, message}))
         );
     }
+    FeedbackForward(id:number,receiver:number,message:string)
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.PostData('/admin/feedbacks/'+id+'/forward.json', JSON.stringify({id,receiver, message}))
+        );
+    }
     FeedbackDelete(id:number)
     {
         return this.http.CommonRequest(
