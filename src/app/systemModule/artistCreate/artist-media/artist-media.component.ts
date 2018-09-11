@@ -137,7 +137,7 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
   }
 
   playAudio(s:string){
-  
+
     if(this.player&&  this.player.isPlaying())
       this.player.pause();
 
@@ -148,10 +148,10 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
         SC.stream('/tracks/'+res.id).then((player)=>{
           this.player = player;
           this.player.play();
-          
+
           player.on('play-start',()=>{
             this.audioDuration = this.player.getDuration();
-            
+
             setInterval(()=>{
               this.audioCurrentTime = this.player.currentTime();
             },100)
@@ -161,16 +161,16 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
 
           player.on('no_streams',()=>{
             this.onError.emit(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
-            
+
           })
-          
-        
-          
+
+
+
           // setTimeout(()=>{
           //   player.pause()
           //   player.seek(0)
           // },10000)
-    
+
         },(err)=>{
           this.onError.emit(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
         });
@@ -296,7 +296,7 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
 
   this.isImageLoading = true;
  // this.WaitBeforeLoading(
-    // ()=> 
+    // ()=>
     this.main.imagesService.PostAccountImage(this.ArtistId,{image_base64:this.ImageToLoad,image_description: this.imageInfo})
       .subscribe(
         (res:any)=>{
@@ -312,7 +312,7 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
     );
   }
 
- 
+
 
 GetArtistImages()
 {
@@ -329,10 +329,10 @@ GetArtistImages()
             let txt = img.description?img.description:'';
             this.GetArtistImageById(img.id,txt);
           }
-          // this.isImageLoading = false;  
+          // this.isImageLoading = false;
         }
         else {
-          this.isImageLoading = false;     
+          this.isImageLoading = false;
         }
       }
     ,(err)=>{
@@ -366,7 +366,7 @@ SanitizeImage(image: string)
 
 deleteImage(id:number){
   // this.WaitBeforeLoading(
-    // ()=> 
+    // ()=>
     this.isImageLoading = true;
     this.main.imagesService.DeleteImageById(id,this.ArtistId)
       .subscribe(
@@ -394,7 +394,7 @@ deleteImage(id:number){
     setTimeout(() => {
       window.scrollTo(0,scrollHeight);
     }, 1100);
-    
+
   }
 
   showError(str:string){

@@ -44,6 +44,7 @@ import { RegisterUserInfoComponent } from './access/registration/register-user-i
 import { AdminService } from './core/services/admin.service';
 import { SettingsService } from './core/services/settings.service';
 import { InviteService } from './core/services/invite.service';
+import { MediaService } from './core/services/media.service';
 
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -132,7 +133,8 @@ let providers = {
     MainService,
     AdminService,
     SettingsService,
-    InviteService
+    InviteService,
+    MediaService
   ],
     bootstrap: [AppComponent],
 
