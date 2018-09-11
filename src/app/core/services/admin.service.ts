@@ -243,10 +243,10 @@ export class AdminService{
             ()=> this.http.PostData('/admin/feedbacks/'+id+'/thank_you.json', JSON.stringify({id, message}))
         );
     }
-    FeedbackForward(id:number,receiver:number,message:string)
+    FeedbackForward(id:number,receiver_id:number,message:string)
     {
         return this.http.CommonRequest(
-            ()=> this.http.PostData('/admin/feedbacks/'+id+'/forward.json', JSON.stringify({id,receiver, message}))
+            ()=> this.http.PostData('/admin/feedbacks/'+id+'/forward.json', JSON.stringify({id,receiver_id,message}))
         );
     }
     FeedbackDelete(id:number)
@@ -474,7 +474,7 @@ export class AdminService{
     GetMessagesById(id:number)
     {
         return this.http.CommonRequest(
-            ()=> this.http.GetData('/admin/messages/'+id+'/.json',  this.typeService.ParamsToUrlSearchParams({id}))
+            ()=> this.http.GetData('/admin/messages/'+id+'.json',  this.typeService.ParamsToUrlSearchParams({id}))
         );
     }
     SendMessage(topic_id:number,receiver:number,topic:string)
@@ -505,6 +505,12 @@ export class AdminService{
     GetAdminsList(){
       return this.http.CommonRequest(
             ()=> this.http.GetData('/admin.json', '')
+        );
+    }
+    ReadMessage(id:number)
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.PostData('/admin/messages/'+id+'/read.json', JSON.stringify({id}))
         );
     }
 

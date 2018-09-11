@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class MessagesComponent implements OnInit {
 
   IsNewMsgOpen = false;
+  MessageId:number = 0;
   constructor() { }
 
   ngOnInit() {
@@ -18,7 +19,7 @@ export class MessagesComponent implements OnInit {
   }
 
   openMessage(event){
-    console.log(event);
+    this.MessageId = event;
   }
 
 }
