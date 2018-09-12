@@ -3,7 +3,7 @@
       <a (click)="Navigate()" class="ava" [ngStyle]="{'background-image': 'url('+Image+')'}"></a>
   </div>
   <div class="right-side">
-      <p class="name">{{Artist.stage_name?Artist.stage_name:artist.display_name}}</p>
+      <p class="name">{{Artist.stage_name?Artist.stage_name:Artist.display_name}}</p>
       <p class="mose-name"><span>@</span>{{Artist.user_name}}</p>
       <p class="bio">{{Artist.about}}</p>
       <div class="follow-unfollow" *ngIf="startShowButt">
