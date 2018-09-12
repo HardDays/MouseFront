@@ -22,7 +22,7 @@ import { CurrencyIcons } from '../../../core/models/preferences.model';
 import { BsDatepickerConfig, BsDaterangepickerDirective, BsDaterangepickerConfig, BsLocaleService } from '../../../../../node_modules/ngx-bootstrap';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { ruLocale } from 'ngx-bootstrap/locale';
-defineLocale('ru', ruLocale); 
+defineLocale('ru', ruLocale);
 
 
 
@@ -50,6 +50,8 @@ export class AboutComponent extends BaseComponent implements OnInit {
   image:string;
 
   CurrencySymbol = '$';
+
+  // ExactDate = new Date();
 
   aboutForm : FormGroup = new FormGroup({
     "name": new FormControl("", [Validators.required]),
@@ -85,14 +87,15 @@ export class AboutComponent extends BaseComponent implements OnInit {
       }
   }
 
-    bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { 
+    bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, {
         containerClass: 'theme-default',
         rangeInputFormat: this.main.settings.GetDateFormat(),
-        locale: this.settings.GetLang() 
+        locale: this.settings.GetLang()
     });
 
     datepickerFromModel:Date = new Date();
     datepickerToModel:Date = new Date();
+    datepickerExactModel:Date = new Date();
 
   ngOnInit() {
 
@@ -113,6 +116,16 @@ export class AboutComponent extends BaseComponent implements OnInit {
         this.setDate();
     }
 
+    if(this.Event){
+      if(this.Event.exact_date_from){
+        this.datepickerExactModel = new Date(this.Event.exact_date_from);
+      }
+      else if(this.Event.date_from){
+        this.datepickerExactModel = new Date(this.Event.date_from);
+      }
+    }
+    // this.Event&&this.Event.date_from?this.datepickerExactModel = new Date(this.Event.date_from):null;
+
     // console.log(this.Event);
     if(this.Event.image_id)
     {
@@ -123,7 +136,7 @@ export class AboutComponent extends BaseComponent implements OnInit {
                 // console.log(`succes`);
                 this.Event.image_base64 = img.base64;
             },(err)=>{
-                // console.log(`err`,err) 
+                // console.log(`err`,err)
             }
         )
     }
@@ -133,6 +146,10 @@ export class AboutComponent extends BaseComponent implements OnInit {
 
     this.mapCoords.lat = (this.Event && this.Event.city_lat)?this.Event.city_lat:55.755826;
     this.mapCoords.lng = (this.Event && this.Event.city_lng)?this.Event.city_lng:37.6172999;
+
+
+
+    console.log(this.Event);
 
   }
 ShowHideGenres(event){
@@ -149,11 +166,11 @@ GetCurrentCurrency(){
     if(!this.Event.currency){
          this.Event.currency = this.main.settings.GetCurrency();
     }
-  
-  
+
+
     this.CurrencySymbol = CurrencyIcons[this.Event.currency];
-    
-   
+
+
 }
 
   CreateAutocompleteAbout(){
@@ -274,18 +291,18 @@ GetCurrentCurrency(){
         {
             this.onError.emit(this.getFormErrorMessage(this.aboutForm, 'event'));
             return;
-        }    
+        }
 
         this.GetEventGenres();
-        
+
         if(!this.Event.is_crowdfunding_event)
             this.Event.is_crowdfunding_event = false;
         else{
             this.Event.funding_from = this.datepickerFromModel.toString();
             this.Event.funding_to = this.datepickerToModel.toString();
         }
-        
-    
+
+
         // console.log(`thisForm`,this.Event);
         this.onSaveEvent.emit(this.Event);
     }
@@ -303,6 +320,21 @@ GetCurrentCurrency(){
     setDate(){
         this.datepickerToModel = new Date(this.Event.funding_to);
         this.datepickerFromModel = new Date(this.Event.funding_from);
+    }
+
+    SetExactDate(){
+      this.main.eventService.SetEventDateById(this.Event.id, this.datepickerExactModel.toString(), this.CurrentAccount.id)
+        .subscribe(
+          (res)=>
+          {
+            this.Event.exact_date_from = this.datepickerExactModel.toString();
+            console.log(res);
+          },
+          (err)=>{
+            console.log(err);
+            // this.onError.emit(this.getResponseErrorMessage(err))
+          }
+        )
     }
 
 }

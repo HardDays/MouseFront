@@ -46,6 +46,10 @@ export class EventCreateModel{
         public date_from?: string,
         public date_to?: string,
 
+        public exact_date_from?: string,
+        public exact_date_to?: string,
+
+
         public backers?: number,
         public founded?: number,
         public collaborators?: string[],

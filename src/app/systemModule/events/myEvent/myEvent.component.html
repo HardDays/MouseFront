@@ -24,6 +24,6 @@
             <p class="style-text-2" translate><span>{{Event.backers}}</span> Backers</p>
             <p class="not-active" translate>Not Active</p>
         </div>
-        <div class="abs-analytics" *ngIf="Event.is_active" (click)="AnaliticsClick($event)" translate>Analytics</div>
+        <div class="abs-analytics" *ngIf="Event.is_crowdfunding_event" (click)="AnaliticsClick($event)" translate>Analytics</div>
     </div>
 </div>

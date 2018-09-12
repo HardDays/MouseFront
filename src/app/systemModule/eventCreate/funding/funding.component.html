@@ -57,7 +57,7 @@
                                 <span class="price"><span [innerHTML]="CurrencySymbol"></span>{{venue['object']['approximate_price']?venue['object']['approximate_price']:0|number:'3.1-2'}}</span>
                                 <div class="one-checkbox">
                                     <div class="check-style">
-                                        <input [checked]="activeVenue[i].checked" (click)="setActiveVenue(i)" type="checkbox" class="checkbox" name="" id="new-checkbox-venue-{{i}}">
+                                        <input [checked]="activeVenue[i].checked" (click)="setActiveVenueRadio(venue)" type="radio" class="checkbox" name="venue-set" id="new-checkbox-venue-{{i}}">
                                         <label for="new-checkbox-venue-{{i}}"></label>
                                     </div>
                                 </div>

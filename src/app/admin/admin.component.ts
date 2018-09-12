@@ -1,7 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { BaseComponent } from '../core/base/base.component';
-import { Event, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
+import { Event, NavigationStart, NavigationEnd, NavigationError, Router, ActivatedRoute } from '@angular/router';
 import { UserGetModel } from '../core/models/userGet.model';
+import { Ng2Cable, Broadcaster } from 'ng2-cable';
+import { MainService } from '../core/services/main.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { MapsAPILoader } from '@agm/core';
+import { TranslateService } from '@ngx-translate/core';
+import { SettingsService } from '../core/services/settings.service';
 
 declare var $:any;
 
@@ -32,11 +38,37 @@ export class AdminComponent extends BaseComponent implements OnInit {
 
   currentPosition = 200;
 
+  CountMessages = 0;
+
+  constructor(
+          protected main           : MainService,
+          protected _sanitizer     : DomSanitizer,
+          protected router         : Router,
+          protected mapsAPILoader  : MapsAPILoader,
+          protected ngZone         : NgZone,
+          protected activatedRoute : ActivatedRoute,
+          protected translate      : TranslateService,
+          protected settings       : SettingsService,
+          protected ng2cable       : Ng2Cable,
+          protected broadcaster    : Broadcaster
+      ){
+      super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,settings);
+      this.ng2cable.subscribe('ws://mouse-back.herokuapp.com/cable', 'AdminMessagesChannel', { Authorization: this.main.authService.GetToken() });
+      //By default event name is 'channel name'. But you can pass from backend field { action: 'MyEventName'}
+
+      this.broadcaster.on<string>('AdminMessagesChannel').subscribe(
+        message => {
+          console.log(message);
+          this.CountMessages = message['count'];
+        }
+      );
+  }
+
   ngOnInit() {
     this.initJs();
     this.GetCurrentRoute();
     this.router.events.subscribe( (event: Event) => {
-     
+
       if (event instanceof NavigationEnd) {
           this.GetCurrentRoute();
           window.scroll(0,this.currentPosition);
@@ -56,7 +88,7 @@ export class AdminComponent extends BaseComponent implements OnInit {
             .subscribe(
               (res)=>{
                 this.User = res;
-                
+
                 if(this.User.image_id)
                   this.User.image_base64 = this.main.imagesService.GetImagePreview(this.User.image_id,{width:100,height:100});
 
@@ -75,10 +107,10 @@ export class AdminComponent extends BaseComponent implements OnInit {
             .subscribe(
               (res)=>{
                 this.User = res;
-                
+
                 if(this.User.image_id)
                   this.User.image_base64 = this.main.imagesService.GetImagePreview(this.User.image_id,{width:100,height:100});
-                  
+
                 this.User.is_admin = this.main.MyUser.is_admin;
                 this.User.is_superuser = this.main.MyUser.is_superuser;
 
@@ -125,7 +157,7 @@ export class AdminComponent extends BaseComponent implements OnInit {
           }
         )
     }
-    
+
   }
 
   GetCurrentRoute(){
@@ -153,9 +185,9 @@ export class AdminComponent extends BaseComponent implements OnInit {
       switch(url[2]){
         case 'accounts':
           switch(url[3]){
-            case 'all': this.currentPage = Parts.accounts_all; 
+            case 'all': this.currentPage = Parts.accounts_all;
               break;
-            case 'new': this.currentPage = Parts.accounts_new; 
+            case 'new': this.currentPage = Parts.accounts_new;
               break;
             case 'pending': this.currentPage = Parts.accounts_pending;
               break;
@@ -177,9 +209,9 @@ export class AdminComponent extends BaseComponent implements OnInit {
 
         case 'events':
           switch(url[3]){
-            case 'all': this.currentPage = Parts.events_all; 
+            case 'all': this.currentPage = Parts.events_all;
               break;
-            case 'new': this.currentPage = Parts.events_new; 
+            case 'new': this.currentPage = Parts.events_new;
               break;
             case 'pending': this.currentPage = Parts.events_pending;
               break;
@@ -236,12 +268,12 @@ export class AdminComponent extends BaseComponent implements OnInit {
               this.openSubmenu.settings = true;
             }
           break;
-          
+
       }
     }
 
-    
-    
+
+
   }
 
 
@@ -250,7 +282,7 @@ export class AdminComponent extends BaseComponent implements OnInit {
   //     $('.photos-abs-wrapp').css({
   //         //'max-height': $('.rel-wr-photoos').width()+'px'
   //     });
-  
+
   //     $(window).resize(function(){
   //         $('.photos-abs-wrapp').css({
   //             //'max-height': $('.rel-wr-photoos').width()+'px'

@@ -13,7 +13,7 @@
       <div class="notification_panel">
           <div class="not_block messages">
               <img [routerLink]="['messages']" src="./../../../assets/img/admin/message_icon.png" alt="" class="img-responsive">
-              <span class="count">356</span>
+              <span *ngIf="CountMessages" class="count">{{CountMessages}}</span>
           </div>
           <div class="not_block notifications">
               <img [routerLink]="['notification']" src="./../../../assets/img/admin/notification_icon.png" alt="" class="img-responsive">

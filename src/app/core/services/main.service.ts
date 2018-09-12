@@ -1,3 +1,4 @@
+import { MediaService } from './media.service';
 import { Injectable } from "@angular/core";
 import { HttpService } from "./http.service";
 import { Router, NavigationStart, NavigationEnd, NavigationError, ActivatedRoute } from '@angular/router';
@@ -69,7 +70,8 @@ export class MainService{
         public _auth         : AuthService,
         public activeRouter  : ActivatedRoute,
         public settings      : SettingsService,
-        public inviteService : InviteService
+        public inviteService : InviteService,
+        public MediaService  : MediaService
     ){
 
         this.UserChange = new Subject();
@@ -89,11 +91,11 @@ export class MainService{
                         this.GetMyUser();
                         this.GetMyAccounts();
                         if(this.MyAccounts.length>0)
-                            this.settings.GetBackSettings(); 
+                            this.settings.GetBackSettings();
                         else
                             this.settings.SaveSettings(this.settings.GetSettings());
                     }
-                    else{ 
+                    else{
                         this.UserChange.next(new UserGetModel());
                         this.CurrentAccountChange.next(new AccountGetModel());
                         this.MyAccountsChange.next([]);
@@ -109,7 +111,7 @@ export class MainService{
         // );
 
         this.UserChange.subscribe(
-            (val:UserGetModel) => 
+            (val:UserGetModel) =>
             {
                 this.MyUser = val;
                 // this.SetCurrentAccId(val.id? val.id : 0);
@@ -117,9 +119,9 @@ export class MainService{
                 this.GetMyUserLogo();
             }
         );
-        
+
         this.CurrentAccountChange.subscribe(
-            (val:AccountGetModel) => 
+            (val:AccountGetModel) =>
             {
                 if(val.id)
                     localStorage.setItem('lastAccId',val.id+'');
@@ -128,13 +130,13 @@ export class MainService{
                 this.SetCurrentAccId(val.id? val.id : 0);
                 this.GetMyLogo();
                 //this.GetMyUserLogo();
-                
-                
+
+
             }
         );
 
         this.MyAccountsChange.subscribe(
-            (val:AccountGetModel[]) => 
+            (val:AccountGetModel[]) =>
             {
                 this.MyAccounts = val;
             }
@@ -185,7 +187,7 @@ export class MainService{
         if(this.CurrentAccount && this.CurrentAccount.image_id)
         {
             this.MyLogoChange.next(this.imagesService.GetImagePreview(this.CurrentAccount.image_id,{width:40, height:40}));
-            
+
         }
         else{
             this.MyLogoChange.next(BaseImages.NoneUserImage);
@@ -195,8 +197,8 @@ export class MainService{
     GetMyUserLogo()
     {
         if(this.MyUser && this.MyUser.image_id)
-        {      
-            this.MyUserLogoChange.next(this.imagesService.GetImagePreview(this.MyUser.image_id,{width:40, height:40}));  
+        {
+            this.MyUserLogoChange.next(this.imagesService.GetImagePreview(this.MyUser.image_id,{width:40, height:40}));
 
             //    this.imagesService.GetImageById(this.MyUser.image_id).subscribe(
             //     (res:Base64ImageModel) => {
@@ -206,7 +208,7 @@ export class MainService{
             //         this.MyUserLogoChange.next(BaseImages.NoneUserImage);
             //     }
             // );
-           
+
         }
         else{
             this.MyUserLogoChange.next(BaseImages.NoneUserImage);
@@ -257,7 +259,7 @@ export class MainService{
                         {
                             this.CurrentAccount = this.MyAccounts[0];
                         }
-                        
+
                     }
                 }
                 this.CurrentAccountChange.next(this.CurrentAccount);
@@ -270,7 +272,7 @@ export class MainService{
             (err) => {
             }
         );
-       
+
     }
 
     public GetMyUser(){
@@ -278,7 +280,7 @@ export class MainService{
             ()=> this.authService.GetMe(),
             (res) => {
                 this.MyUser = res;
-            
+
                 this.GetMyUserLogo();
                 // if(this.MyUser.image_id){
                 //     this.imagesService.GetImageById(this.MyUser.image_id)
@@ -288,11 +290,11 @@ export class MainService{
                 //             this.MyUserLogoChange.next(this.MyUser.image_base64);
                 //         })
                 // }
-                
+
                 // if(this.MyUser)
                 // {
                 //         this.CurrentAccount = this.MyAccounts.find((acc) => acc.id === accId);
-                    
+
                 // }
                 this.UserChange.next(this.MyUser);
                 // this.UserChange.next(this.MyAccounts);
@@ -311,11 +313,11 @@ export class MainService{
                     success(res);
                     this.DeleteProcess(process);
                 },
-                error => {                    
-                    
+                error => {
+
                     this.DeleteProcess(process);
                     if(err && typeof err === "function"){
-                        err(error); 
+                        err(error);
                     }
                 }
             );

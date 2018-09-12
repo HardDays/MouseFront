@@ -196,12 +196,14 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
     GetFans()
     {
         this.Fans = [];
-        this.main.accService.AccountsSearch(Object.assign(this.SearchParams,{
+        let search = this.SearchParams;
+        search = Object.assign(search,{
             type:"fan",
             genres: this.main.genreService.GenreModelArrToStringArr(this.Genres),
             city: this.City,
             country: this.Country && this.Country.name ? this.Country.name : null
-        }))
+        });
+        this.main.accService.AccountsSearch(search)
             .subscribe(
                 (res: AccountGetModel[]) => {
                     this.Fans = res;
@@ -211,12 +213,14 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
     GetArtists()
     {
         this.Artists = [];
-        this.main.accService.AccountsSearch(Object.assign(this.SearchParams,{
+        let search = this.SearchParams;
+        search = Object.assign(search,{
             type:"artist",
             genres: this.main.genreService.GenreModelArrToStringArr(this.Genres),
             city: this.City,
             country: this.Country && this.Country.name ? this.Country.name : null
-        }))
+        });
+        this.main.accService.AccountsSearch(search)
             .subscribe(
                 (res: AccountGetModel[]) => {
                     this.Artists = res;
@@ -226,11 +230,13 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
     GetVenues()
     {
         this.Venues = [];
-        this.main.accService.AccountsSearch(Object.assign(this.SearchParams,{
+        let search = this.SearchParams;
+        search = Object.assign(search,{
             type:"venue",
             city: this.City,
             country: this.Country && this.Country.name ? this.Country.name : null
-        }))
+        });
+        this.main.accService.AccountsSearch(search)
             .subscribe(
                 (res: AccountGetModel[]) => {
                     this.Venues = res;
@@ -241,8 +247,7 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
     {
         this.Shows = [];
         let search:EventSearchParams = this.SearchParams;
-        search.is_active = true; 
-        this.main.eventService.EventsSearch(Object.assign(search,{
+        search = Object.assign(search,{
             genres: this.main.genreService.GenreModelArrToStringArr(this.Genres),
             is_active: true,
             ticket_types: this.TicketType ? [this.TicketType] : null,
@@ -253,7 +258,10 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
             lng: this.Lng? this.Lng : null,
             distance: (this.Lat && this.Lng)? this.Distance : null,
             units: (this.Lat && this.Lng)? this.Units : null,
-        }))
+        });
+        search.is_active = true; 
+        // console.log(search);
+        this.main.eventService.EventsSearch(search)
             .subscribe(
                 (res: EventGetModel[]) => {
                     this.Shows = res;

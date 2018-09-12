@@ -35,15 +35,15 @@
                 <p class="rate">{{Rate}} / 5.0</p>
             </div>
         </div>
-        <div *ngIf="FeedbacksChecked.length>0" class="support_grey" infinite-scroll 
+        <div *ngIf="FeedbacksChecked.length > 0" class="support_grey" infinite-scroll
                 [infiniteScrollDistance]="1"
-                [scrollWindow]="true" 
+                [scrollWindow]="true"
                 [infiniteScrollThrottle]="5"
                 (scrolled)="onScroll()"
                 [infiniteScrollDisabled]="ScrollDisabled">
             <div class="support_dialogs" >
                 <ng-container *ngFor="let fb of FeedbacksChecked">
-                    <div (click)="openNewFeedback(fb.id ,fb)" class="support_dialogs_item" [ngClass]="{'active':fb.id===openFeedback.id}">
+                    <div (click)="openNewFeedback(fb.id ,fb)" class="support_dialogs_item" [ngClass]="{'active':fb.id === openFeedback.id}">
                         <div class="ava" [ngStyle]="{'background-image':fb.sender?'url('+fb.sender.image_base64+')':'url('+nonImage+')'}" ></div>
                         <div class="info">
                             <p class="question">
@@ -52,7 +52,7 @@
                             </p>
                             <p class="name">{{fb.sender?fb.sender.full_name:'No name'}}</p>
                             <p class="username"><span>@</span>{{fb.sender?fb.sender.user_name:'No username'}}</p>
-                            <p class="address">{{fb.sender?fb.sender.address:'No address'}}</p>
+                            <p class="address">{{fb.sender?fb.sender['address']:'No address'}}</p>
                         </div>
                         <div class="stars">
                             <span class="star" [ngClass]="{'full':fb.rate_score>=0.5}"></span>
@@ -67,9 +67,10 @@
             <div class="support_right">
                 <div class="support_head">
                     <p>{{openFeedback?.message_info?.feedback_type}}</p>
+                     <div class="sent">has been sent to <span>@</span>MouseWeb</div>
                     <span (click)="DeleteItem()" class="but_icon"><img src="./../../../assets/img/admin/support_delete.png" alt=""></span>
                 </div>
-          
+
                 <div class="support_mes">
                     <div *ngIf="fbTransformed"  class="mes_head feedback_head">
                         <div class="ava" [ngStyle]="{'background-image':fbTransformed.sender ? 'url('+fbTransformed.sender.image_base64+')':'url('+nonImage+')'}"></div>
@@ -94,27 +95,22 @@
                         {{openFeedback.message}}
                     </div>
                 </div>
-                <div class="forward_form">
-                    <div *ngIf="false" class="hard_addresses">
+                <div *ngIf="isForward" class="forward_form">
+                    <div class="hard_addresses">
                         <label>Addressee</label>
                         <div  class="addresses">
                             <!-- Если надо инпут, то вот он, уберите hidden: -->
-                            <input type="text" class="addr_inp hidden">
-
-                            <div class="addr_labels">
-                                <div class="addr"><span class="un">@</span>MouseWeb<span class="del"></span></div>
-                                <div class="add_addr">Add<span class="add"></span></div>
+                            <input type="text" (focus)="openAdminsList()" (blur)="hideList()" (input)="searchAdmin($event)" placeholder="Entry admin name" class="addr_inp" [ngClass]="{'hidden':AdminAdded.id}">
+                            <div *ngIf="AdminAdded.id" class="addr_labels">
+                                <div class="addr"><span class="un">@</span>{{AdminAdded.user_name}}<span class="del" (click)="deleteAdded()"></span></div>
                             </div>
+                            <!-- <div *ngIf="false" class="addr_labels">
+                                <div *ngFor="let item of AdminsListAdded" class="addr"><span class="un">@</span>{{item.user_name}}<span class="del" (click)="deleteAdded(item)"></span></div>
+                                <div (click)="openAdminsList()" class="add_addr" [ngClass]="{'hidden':isAdminListOpen}">Add<span class="add"></span></div>
+                            </div> -->
                             <!-- Выпадающий автокомплит, по ходу: -->
-                            <div class="addresses_list">
-                                <div class="adr"><span>@</span>MouseDev</div>
-                                <div class="adr"><span>@</span>MouseOps</div>
-                                <div class="adr"><span>@</span>MouseWeb</div>
-                                <div class="adr"><span>@</span>MouseMobile</div>
-                                <div class="adr"><span>@</span>MouseDev</div>
-                                <div class="adr"><span>@</span>MouseOps</div>
-                                <div class="adr"><span>@</span>MouseWeb</div>
-                                <div class="adr"><span>@</span>MouseMobile</div>
+                            <div *ngIf="isAdminListOpen" class="addresses_list">
+                                <div *ngFor="let item of AdminsListOpened" (click)="addAdmin(item)" class="adr"><span>@</span>{{item.user_name}}</div>
                             </div>
                         </div>
                     </div>
@@ -135,8 +131,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="feedback_buts">
-                    <button *ngIf="openFeedback?.reply?.length===0" (click)="sendAnswer()">Send</button>
+                <div *ngIf="openFeedback?.reply?.length===0" class="feedback_buts">
+                    <button *ngIf="!isForward" (click)="sendThankYou()">Thank you</button>
+                    <button *ngIf="!isForward" (click)="forwardMessage()">Forward</button>
+                    <button *ngIf="isForward" (click)="sendForward()">Send</button>
                 </div>
             </div>
         </div>

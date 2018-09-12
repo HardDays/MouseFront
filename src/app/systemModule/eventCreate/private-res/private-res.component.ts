@@ -36,7 +36,7 @@ export class PrivateResComponent extends BaseComponent implements OnInit {
     this.privateVenueForm = new FormGroup({
             "user_name": new FormControl("", [Validators.required]),
             "phone": new FormControl(""),
-            "capacity": new FormControl(),
+            "capacity": new FormControl("", [Validators.required]),
             "country": new FormControl(""),
             "city": new FormControl(""),
             "address":new FormControl("",[Validators.required]),
