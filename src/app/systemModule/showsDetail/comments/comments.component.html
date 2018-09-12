@@ -1,0 +1,23 @@
+<div class="comments-route">
+  <h6>Add comment</h6>
+  <form>
+      <div class="my-comment">
+          <div class="left-side">
+              <div class="ava" [ngStyle]="{'background-image': 'url('+Image+')'}"></div>
+          </div>
+
+          <div class="right-side">
+              <textarea name="text_comment" id="textareamsg" [(ngModel)]="comment"></textarea>
+              <div class="send-coment-wrapp">
+                  <button (click)="postComment()" class="butt-style-1">
+                      <span>Send</span>
+                  </button>
+              </div>
+          </div>
+      </div>
+  </form>
+  <div class="other-comments">
+      <app-one-comment *ngFor="let comment of AllCommentsEvent" [comment]="comment"></app-one-comment>
+      
+  </div>
+</div>

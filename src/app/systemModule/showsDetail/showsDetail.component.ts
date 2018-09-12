@@ -5,17 +5,17 @@ import { AccountService } from '../../core/services/account.service';
 import { ImagesService } from '../../core/services/images.service';
 import { TypeService } from '../../core/services/type.service';
 import { GenresService } from '../../core/services/genres.service';
-import { Router, Params, ActivatedRoute } from '@angular/router';
+import { Router, Params, ActivatedRoute, NavigationEnd, NavigationStart } from '@angular/router';
 import { AuthService } from "angular2-social-login";
 
 import { BaseComponent } from '../../core/base/base.component';
-
+import { Meta } from '@angular/platform-browser';
 import { AccountCreateModel } from '../../core/models/accountCreate.model';
 import { UserCreateModel } from '../../core/models/userCreate.model';
 import { GenreModel } from '../../core/models/genres.model';
 import { AccountGetModel } from '../../core/models/accountGet.model';
 import { SafeHtml, DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { AccountType, BaseMessages, EventStatus, AccountStatus } from '../../core/base/base.enum';
+import { AccountType, BaseMessages, EventStatus, AccountStatus, BaseImages, tabsShowDetails } from '../../core/base/base.enum';
 import { Base64ImageModel } from '../../core/models/base64image.model';
 import { MapsAPILoader } from '@agm/core';
 import { AccountSearchParams } from '../../core/models/accountSearchParams.model';
@@ -36,10 +36,14 @@ import { SettingsService } from '../../core/services/settings.service';
 import { PurchaseModel, TicketPurchaseModel } from '../../core/models/purchase.model';
 import { TransactionModel } from '../../core/models/transaction.model';
 import * as translate from '@ngx-translate/core';
-
+import { CommentEventModel } from '../../core/models/commentEvent.model';
+import {Location} from '@angular/common';
+import { EventUpdatesModel } from '../../core/models/eventUpdates.model';
+import { EventBackersModel } from '../../core/models/eventBackers.model';
 declare var $:any;
 declare var PhotoSwipeUI_Default:any;
 declare var PhotoSwipe:any;
+
 
 
 @Component({
@@ -54,11 +58,11 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     Artists:AccountGetModel[] = [];
     Tickets:TicketModel [] = [];
     Venue:AccountGetModel = new AccountGetModel();
-    
+    FoundedPercent:number = 0;
     Date:string = "";
-
+    Image:string = BaseImages.Drake;
     CheckedTickets:any[] = [];
-
+    
     TicketsToBuy:BuyTicketModel[] = [];
     TotalPrice:number = 0;
     TotalOriginalPrice: number = 0;
@@ -68,7 +72,9 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     Featuring:{name:string,id:number}[] = [];
 
     Statuses = EventStatus;
-
+   
+    FullUrl:string;
+    activeTab:string = tabsShowDetails.information;
     isShowMap = false;
 
     ESCAPE_KEYCODE = 27;
@@ -78,9 +84,11 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
 
     Currency = CurrencyIcons[this.main.settings.GetCurrency()];
     OriginalCurrency = CurrencyIcons[Currency.USD];
-
+    AllCommentsEvent:CommentEventModel[] = [];
     MyAcc = this.main.CurrentAccount;
-  
+    UpdatesEvent:EventUpdatesModel[] = [];
+    TextSearchGoing:string;
+    Allbackers:EventBackersModel[] = [];
     @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
         if(this.isShowMap){
             if (event.keyCode === this.ESCAPE_KEYCODE || event.keyCode === this.ENTER_KEYCODE) {
@@ -99,7 +107,9 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         protected activatedRoute : ActivatedRoute,
         protected cdRef          : ChangeDetectorRef,
         protected translate      :TranslateService,
-        protected settings       :SettingsService
+        protected settings       :SettingsService,
+        private location: Location,
+        private meta: Meta
     ) {
     super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,settings);
     }
@@ -108,16 +118,28 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
 
     ngOnInit(): void
     {
+        this.FullUrl = this.router.routerState.snapshot.url;
         this.activatedRoute.params.forEach((params)=>{
             this.EventId = params["id"];
             // console.log("scroll_position",window.scrollY);
             this.GetEventInfo();
+            this.GetComments();
         });
+     
         this.main.CurrentAccountChange.subscribe(
             (val) => {
                 this.MyAcc = val;
             }
         );
+
+        $('.flex-people').scroll(()=>{
+            if(($('.flex-people').scrollTop()+$('.flex-people').height()) >= document.getElementById("heightCalc").scrollHeight){
+                this.onScroll();
+            }
+        });
+    }
+    ngOnDestroy(){
+        this.DestroyMetaTags()
     }
 
     ngAfterViewChecked()
@@ -125,8 +147,53 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         this.cdRef.detectChanges();
     }
 
+    SetMetaTags(){
+        this.meta.addTags([
+            {name: 'og:title', content: this.Event.name},
+            {name: 'og:image', content: this.Image}
+          
+        ]);
+    }
+    DestroyMetaTags(){
+        this.meta.removeTag('name="og:title"');
+        this.meta.removeTag('name="og:image"'); 
+    }
 
 
+    GetComments(){
+        this.main.commentService.GetCommentsEvent(this.EventId)
+          .subscribe((res:any)=>{
+            this.AllCommentsEvent = res;
+          })
+    }
+    onChangeInpSearch(event){
+        this.TextSearchGoing = event.target.value;
+        this.getGoingHuman(this.Event.id,20,0,this.TextSearchGoing);
+        
+    }
+    goBack() {
+        this.location.back();
+    }
+    onScroll(){
+        this.getGoingHuman(this.Event.id,20,this.Allbackers.length,this.TextSearchGoing);
+    }
+    OpenModalGoing(){
+        $('#modal-who-going').modal('show');
+        this.getGoingHuman(this.Event.id,20,0,this.TextSearchGoing);
+
+    }
+    OpenModalShare(){
+        $('#modal-share').modal('show');
+        console.log(this.router.routerState.snapshot.url);
+    }
+    getGoingHuman(id:number,limit:number,offset:number,text?:string){
+        this.main.eventService.EventGoingAcc(id,limit,offset,text).subscribe((res:any)=>{
+            this.Allbackers = res;
+            console.log(this.Allbackers);
+        })
+    }
+
+    
     GetEventInfo()
     {
         this.WaitBeforeLoading
@@ -140,7 +207,13 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
             }
         );
     }
-
+    GetEventUpdates(){
+        this.main.eventService.EventsUpdates(this.EventId).subscribe((res:any)=>{
+            this.UpdatesEvent = res;
+            
+        }) 
+    }
+    
     GetVenueInfo()
     {
         if(this.Event.venue){
@@ -153,17 +226,33 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
             );
         }
     }
-
+    GetImage()
+    {
+        if(this.Event && this.Event.image_id)
+        {
+            this.main.imagesService.GetImageById(this.Event.image_id)
+                .subscribe(
+                    (res:Base64ImageModel) => {
+                        this.Image = (res && res.base64) ? res.base64 : BaseImages.Drake;
+                    }
+                );
+        }
+    }
+    
     InitEvent(event:EventGetModel)
     {
         this.Event = event;
 
+        
+        console.log(this.Event);
+        this.GetImage();
+        this.FoundedPercent = 100*this.Event.founded / this.Event.funding_goal;
         if(this.Event.hashtag)
             this.Event.hashtag = this.Event.hashtag.replace("#","");
 
 
         // this.Currency = CurrencyIcons[this.Event.currency];
-
+        this.GetEventUpdates();
         this.GetGenres();
         this.GetCreatorInfo();
         this.GetFeaturing();
@@ -171,7 +260,15 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         this.GetTickets();
         this.SetDate();
     }
-
+    ToInfo(){
+        this.activeTab = tabsShowDetails.information;
+    }
+    ToComments(){
+        this.activeTab = tabsShowDetails.comments;
+    }
+    ToUpdates(){
+        this.activeTab = tabsShowDetails.updates;
+    }
     GetFeaturing()
     {
         this.Featuring = [];
@@ -186,7 +283,6 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
                 () => this.main.accService.GetAccountById(arr[i].artist_id),
                 (res:AccountGetModel) => {
                     this.Artists.push(res);
-
                     // if( +i < (arr.length -1 ) )
                     let name = res.display_name;
                     let id = res.id;

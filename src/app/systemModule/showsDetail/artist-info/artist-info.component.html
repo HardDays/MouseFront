@@ -1,0 +1,21 @@
+<div class="info-artist">
+  <div class="left-side">
+      <a (click)="Navigate()" class="ava" [ngStyle]="{'background-image': 'url('+Image+')'}"></a>
+  </div>
+  <div class="right-side">
+      <p class="name">{{Artist.stage_name?Artist.stage_name:artist.display_name}}</p>
+      <p class="mose-name"><span>@</span>{{Artist.user_name}}</p>
+      <p class="bio">{{Artist.about}}</p>
+      <div class="follow-unfollow" *ngIf="startShowButt">
+          <button *ngIf="!IsFollowed" (click)="Follow()" class="butt-style-1">
+              <span>FOLLOW</span>
+          </button>
+          <button *ngIf="IsFollowed" (click)="Unfollow()" class="butt-style-1">
+            <span>UNFOLLOW</span>
+        </button>
+      </div>
+  </div>
+</div>
+<div class="movies-artist">
+сюда слайдер с видосами
+</div>

@@ -25,3 +25,6 @@
 /* .slideshow-container{
     overflow: inherit !important
 } */
+.new-show-datails-wrapp .flex-new-datails .back-page{
+    cursor: pointer;
+}

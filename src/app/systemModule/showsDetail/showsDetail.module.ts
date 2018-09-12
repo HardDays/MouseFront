@@ -13,6 +13,14 @@ import { BiographyComponent } from './biography/biography.component';
 import { ErrorModule } from '../../shared/error/error.module';
 import {SlideshowModule} from 'ng-simple-slideshow';
 import { TranslateModule } from '@ngx-translate/core';
+import { InformationComponent } from './information/information.component';
+import { ShowDetailRoutingModule } from './showDetail.routing';
+import { CommentsComponent } from './comments/comments.component';
+import { UpdatesComponent } from './updates/updates.component';
+import { ArtistInfoComponent } from './artist-info/artist-info.component';
+import { OneCommentComponent } from './one-comment/one-comment.component';
+import { OneAvaWhoGoingComponent } from './one-ava-who-going/one-ava-who-going.component';
+import { OneHumanGoingModalComponent } from './one-human-going-modal/one-human-going-modal.component';
 
 
 @NgModule({
@@ -20,6 +28,7 @@ import { TranslateModule } from '@ngx-translate/core';
         RouterModule,
         CommonModule,
         FormsModule,
+        ShowDetailRoutingModule,
         ReactiveFormsModule,
         TextMaskModule,
         PreloaderModule,
@@ -36,7 +45,14 @@ import { TranslateModule } from '@ngx-translate/core';
         ShowDetailVideoComponent,
         ShowDetailGalleryComponent,
         ByTicketComponent,
-        BiographyComponent
+        BiographyComponent,
+        InformationComponent,
+        CommentsComponent,
+        UpdatesComponent,
+        ArtistInfoComponent,
+        OneCommentComponent,
+        OneAvaWhoGoingComponent,
+        OneHumanGoingModalComponent
     ],
     exports: [ ShowsDetailComponent,ShowDetailGalleryComponent ]
 })

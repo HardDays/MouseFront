@@ -48,12 +48,18 @@ export class EventGetModel{
         public additional_cost?:number,
         public family_and_friends_amount?:number,
         public status?:string,
-
+        public top_backers?:TopBackers[],
         public currency?:string
     )
     {}
 }
-
+export class TopBackers{
+    constructor(
+        public id?: number,
+        public image_id?: number,
+    )
+    {}
+}
 export class GetArtists{
     constructor(
         public artist_id?: number,

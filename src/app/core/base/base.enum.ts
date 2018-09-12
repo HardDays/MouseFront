@@ -21,6 +21,7 @@ export enum VenueType{
     Private = "private_residence"
 }
 
+
 export enum EventStatus{
     New = "just_added",
     Pending = "pending",
@@ -57,7 +58,11 @@ export enum BaseImages{
     NoneUserImage = "../../assets/img/non-photo.svg",
     NoneFolowerImage = "../../assets/img/non-photo-2.svg"
 }
-
+export enum tabsShowDetails{
+    information = "information",
+    comments = "comments",
+    updates = "updates"
+}
 export enum BaseErrors{
     
 
