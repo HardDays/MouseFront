@@ -149,14 +149,21 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
 
     SetMetaTags(){
         this.meta.addTags([
-            {name: 'og:title', content: this.Event.name},
-            {name: 'og:image', content: this.Image}
+            {name: 'og:title', content: this.Event.name}
           
         ]);
     }
+    SetMetaTagsImage(){
+        this.meta.addTags([
+            {name: 'og:image', content: this.Image}
+        ]);
+       
+    }
     DestroyMetaTags(){
-        this.meta.removeTag('name="og:title"');
-        this.meta.removeTag('name="og:image"'); 
+        const tag1 = this.meta.getTag('name=og:title');
+        this.meta.removeTagElement(tag1); 
+        const tag2 = this.meta.getTag('name=og:image');
+        this.meta.removeTagElement(tag2); 
     }
 
 
@@ -234,6 +241,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
                 .subscribe(
                     (res:Base64ImageModel) => {
                         this.Image = (res && res.base64) ? res.base64 : BaseImages.Drake;
+                        this.SetMetaTagsImage();
                     }
                 );
         }
@@ -242,7 +250,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     InitEvent(event:EventGetModel)
     {
         this.Event = event;
-        console.log(this.Event);
+        this.SetMetaTags();
         this.GetImage();
         this.FoundedPercent = 100*this.Event.founded / this.Event.funding_goal;
 
