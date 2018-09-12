@@ -149,21 +149,28 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
 
     SetMetaTags(){
         this.meta.addTags([
-            {name: 'og:title', content: this.Event.name}
-          
+            {name: 'og:title', content: this.Event.name},
+            {name: 'twitter:title', content: this.Event.name},
+            {itemprop: 'name', content: this.Event.name}
         ]);
     }
     SetMetaTagsImage(){
         this.meta.addTags([
-            {name: 'og:image', content: this.Image}
+            {name: 'og:image', content: this.Image},
+            {name: 'twitter:image', content: this.Image},
+            {itemprop: 'image', content: this.Image}
         ]);
        
     }
     DestroyMetaTags(){
-        const tag1 = this.meta.getTag('name=og:title');
-        this.meta.removeTagElement(tag1); 
-        const tag2 = this.meta.getTag('name=og:image');
-        this.meta.removeTagElement(tag2); 
+      
+        this.meta.removeTagElement(this.meta.getTag('name="og:title"'));
+        this.meta.removeTagElement(this.meta.getTag('name="twitter:title"'));
+        this.meta.removeTagElement(this.meta.getTag('itemprop="name"'));
+        this.meta.removeTagElement(this.meta.getTag('name="og:image"'));
+        this.meta.removeTagElement(this.meta.getTag('name="twitter:image"'));
+        this.meta.removeTagElement(this.meta.getTag('itemprop="image"')); 
+
     }
 
 
@@ -237,13 +244,20 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     {
         if(this.Event && this.Event.image_id)
         {
-            this.main.imagesService.GetImageById(this.Event.image_id)
-                .subscribe(
-                    (res:Base64ImageModel) => {
-                        this.Image = (res && res.base64) ? res.base64 : BaseImages.Drake;
-                        this.SetMetaTagsImage();
-                    }
-                );
+            
+            this.Image = this.main.imagesService.GetImagePreview(this.Event.image_id, {width:700, height:950});
+            setTimeout(()=>{
+                this.SetMetaTagsImage();
+            },1000);
+            
+            // this.main.imagesService.GetImageById(this.Event.image_id)
+            //     .subscribe(
+            //         (res:Base64ImageModel) => {
+                        
+            //             this.Image = (res && res.base64) ? res.base64 : BaseImages.Drake;
+            //             this.SetMetaTagsImage();
+            //         }
+            //     );
         }
     }
     
