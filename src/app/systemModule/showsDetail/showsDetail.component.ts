@@ -198,7 +198,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     }
     OpenModalShare(){
         $('#modal-share').modal('show');
-        console.log(this.router.routerState.snapshot.url);
+
     }
     getGoingHuman(id:number,limit:number,offset:number,text?:string){
         this.main.eventService.EventGoingAcc(id,limit,offset,text).subscribe((res:any)=>{
