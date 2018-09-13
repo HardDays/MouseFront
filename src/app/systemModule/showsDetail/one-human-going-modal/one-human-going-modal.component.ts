@@ -51,5 +51,9 @@ super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,setti
         this.Image = this.main.imagesService.GetImagePreview(this.someBacker.image_id, {width:150, height:150});
     }
   }
+  Navigate(){
+    this.router.navigate(['/system','profile', this.someBacker.id]);
+}
+
 
 }

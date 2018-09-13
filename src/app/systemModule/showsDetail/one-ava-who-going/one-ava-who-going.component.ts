@@ -35,7 +35,6 @@ super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,setti
 
   ngOnInit() {
     this.GetImage();
-    console.log(this.human);
   }
   
 

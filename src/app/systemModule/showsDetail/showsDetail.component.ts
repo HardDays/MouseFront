@@ -129,6 +129,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         this.main.CurrentAccountChange.subscribe(
             (val) => {
                 this.MyAcc = val;
+                console.log(this.MyAcc);
             }
         );
 
@@ -139,7 +140,8 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         });
     }
     ngOnDestroy(){
-        this.DestroyMetaTags()
+        this.DestroyMetaTags();
+        $('#modal-who-going').modal('hide');
     }
 
     ngAfterViewChecked()
@@ -182,30 +184,37 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     }
     onChangeInpSearch(event){
         this.TextSearchGoing = event.target.value;
-        this.getGoingHuman(this.Event.id,20,0,this.TextSearchGoing);
+        this.main.eventService.EventGoingAcc(this.Event.id,20,0,this.TextSearchGoing).subscribe((res:any)=>{
+            this.Allbackers = res;
+        })
         
     }
     goBack() {
         this.location.back();
     }
     onScroll(){
-        this.getGoingHuman(this.Event.id,20,this.Allbackers.length,this.TextSearchGoing);
+       
+        this.main.eventService.EventGoingAcc(this.Event.id,20,this.Allbackers.length,this.TextSearchGoing).subscribe((res:any)=>{
+            this.Allbackers.push(...res);
+        })
     }
     OpenModalGoing(){
         $('#modal-who-going').modal('show');
-        this.getGoingHuman(this.Event.id,20,0,this.TextSearchGoing);
+        this.main.eventService.EventGoingAcc(this.Event.id,20,0,this.TextSearchGoing).subscribe((res:any)=>{
+            this.Allbackers = res;
+        })
 
     }
     OpenModalShare(){
         $('#modal-share').modal('show');
 
     }
-    getGoingHuman(id:number,limit:number,offset:number,text?:string){
-        this.main.eventService.EventGoingAcc(id,limit,offset,text).subscribe((res:any)=>{
-            this.Allbackers = res;
-            console.log(this.Allbackers);
-        })
-    }
+    // getGoingHuman(id:number,limit:number,offset:number,text?:string){
+    //     this.main.eventService.EventGoingAcc(id,limit,offset,text).subscribe((res:any)=>{
+    //         this.Allbackers = res;
+    //         console.log(this.Allbackers);
+    //     })
+    // }
 
     
     GetEventInfo()
@@ -224,7 +233,6 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     GetEventUpdates(){
         this.main.eventService.EventsUpdates(this.EventId).subscribe((res:any)=>{
             this.UpdatesEvent = res;
-            
         }) 
     }
     

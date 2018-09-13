@@ -8,3 +8,45 @@
     height: 430px;
     border: none;
 }
+.slider-video{
+    position:relative;
+}
+.movies-artist{
+    position: relative;
+}
+.some-arrow{
+    position: absolute;
+    border: none;
+    background-color: transparent;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 14px;
+    height: 24px;
+    font-size: 0;
+    outline: none;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.some-arrow.left-arr{
+    background-image: url(../../../../assets/img/arrow-left.svg);
+    left: -33px;
+}
+.some-arrow.right-arr{
+    background-image: url(../../../../assets/img/arrow-right.svg);
+    right: -33px;
+}
+@media (max-width: 767px) {
+    .movies-artist{
+        padding: 0 20px;
+    }
+    .slider-video iframe{
+        height: 200px;
+    }
+    .some-arrow.right-arr{
+        right: -23px;
+    }
+    .some-arrow.left-arr{
+        left: -23px;
+    }
+}

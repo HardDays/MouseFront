@@ -1,86 +1,82 @@
-import { Component, OnInit, Input} from '@angular/core';
-import { AccountGetModel } from '../../../core/models/accountGet.model';
+import { Component, OnInit, Input, NgZone, ChangeDetectorRef} from '@angular/core';
 import { BaseImages } from '../../../core/base/base.enum';
 import { BaseComponent } from '../../../core/base/base.component';
+import { MainService } from '../../../core/services/main.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Router, ActivatedRoute } from '@angular/router';
+import { MapsAPILoader } from '@agm/core';
+import { TranslateService } from '@ngx-translate/core';
+import { SettingsService } from '../../../core/services/settings.service';
+import { EventBackersModel } from '../../../core/models/eventBackers.model';
+import { AccountGetModel, Video } from '../../../core/models/accountGet.model';
 declare var $:any;
 @Component({
   selector: 'app-artist-info',
   templateUrl: './artist-info.component.html',
   styleUrls: ['./artist-info.component.css']
 })
-export class ArtistInfoComponent extends BaseComponent implements OnInit {
+export class ArtistInfoComponent extends BaseComponent implements OnInit{
 
 
   @Input() Artist: AccountGetModel;
   Image:string = BaseImages.NoneFolowerImage;
   IsFollowed:boolean;
   startShowButt:boolean = false;
-    hardCode:any = [{
-            link:"https://youtu.be/UOUBW8bkjQ4"
-        },
-        {
-            link:"https://youtu.be/UOUBW8bkjQ4"
-        },
-        {
-            link:"https://youtu.be/UOUBW8bkjQ4"
-        },
-        {
-            link:"https://youtu.be/UOUBW8bkjQ4"
-        },
-        {
-            link:"https://youtu.be/UOUBW8bkjQ4"
-        },
-        {
-            link:"https://youtu.be/UOUBW8bkjQ4"
-        },
-        {
-            link:"https://youtu.be/UOUBW8bkjQ4"
-        },
-        {
-            link:"https://youtu.be/UOUBW8bkjQ4"
-        },
-        {
-            link:"https://youtu.be/UOUBW8bkjQ4"
-        },
-        {
-            link:"https://youtu.be/UOUBW8bkjQ4"
-        }
+  Videos: Video[] = [];
+  activeSlide:number = 0;
+  activeSlideVideo:any;
+  
 
-    ]
-
-
+    constructor(
+        protected main           : MainService,
+        protected _sanitizer     : DomSanitizer,
+        protected router         : Router,
+        protected mapsAPILoader  : MapsAPILoader,
+        protected ngZone         : NgZone,
+        protected activatedRoute : ActivatedRoute,
+        protected cdRef          : ChangeDetectorRef,
+        protected translate      :TranslateService,
+        protected settings       :SettingsService
+    ) {
+    super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,settings);
+    }
 
     ngOnInit(): void {
         this.GetImage();
         this.CheckFollowStatus();
-        console.log(this.Artist);
+       
+        if(this.Artist.videos.length != 0){
+            this.main.MediaService.GevideosById(this.Artist.id).subscribe((res:any)=>{
+            this.Videos = res;
+                this.GetVideo();
+            });
 
-        
+            
+            
+        }
     }
-
-
-    initSlider(){
-        console.log('ok');
-        $('.slider-video').slick({
-            dots: false,
-            arrows:true,
-            infinite: false,
-            speed: 300,
-            slidesToShow: 1
-        });
+    SlideRight(){
+        this.activeSlide+=1;
+        this.GetVideo();
     }
+    Slideleft(){
+        this.activeSlide-=1;
+        this.GetVideo();
+    }
+    
 
-    GetVideo(video)
+    GetVideo()
     {
      
         if(this.Artist.videos && this.Artist.videos.length > 0)
         {
-            let link = video.link;
+        
+            let link = this.Videos[this.activeSlide].link;
             let id = this.GetVideoId(link);
             let path = id? ("https://www.youtube.com/embed/" + id) : "";
             if(path)
             {
-                return this.SanitizePath(path);
+                this.activeSlideVideo = this.SanitizePath(path);
             }
         }
     }
@@ -121,6 +117,7 @@ export class ArtistInfoComponent extends BaseComponent implements OnInit {
     }
     CheckFollowStatus()
     {
+        if(this.GetCurrentAccId()){
         this.main.accService.IsAccFolowed(this.GetCurrentAccId(), this.Artist.id)
             .subscribe(
                 (res)=>{
@@ -129,6 +126,7 @@ export class ArtistInfoComponent extends BaseComponent implements OnInit {
                     this.startShowButt = true;
                 }
             )
+        }
     }
     Follow()
     {

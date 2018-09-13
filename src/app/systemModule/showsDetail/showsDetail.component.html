@@ -233,10 +233,10 @@
                                 <li>
                                     <span class="link-to-tab" [ngClass]="{'active': activeTab == 'information'}" (click)="ToInfo()">INFORMATION</span>
                                 </li>
-                                <li>
-                                    <span class="link-to-tab" *ngIf="Event.comments_available" [ngClass]="{'active': activeTab == 'comments'}" (click)="ToComments()">Comments <span>({{AllCommentsEvent.length}})</span></span>
+                                <li *ngIf="Tickets && Tickets.length &&MyAcc.status && MyAcc.status != Status.Denied && MyAcc.status != Status.Inactive">
+                                    <span class="link-to-tab" *ngIf="Event.comments_available " [ngClass]="{'active': activeTab == 'comments'}" (click)="ToComments()">Comments <span>({{AllCommentsEvent.length}})</span></span>
                                 </li>
-                                <li>
+                                <li *ngIf="Tickets && Tickets.length &&MyAcc.status && MyAcc.status != Status.Denied && MyAcc.status != Status.Inactive">
                                     <span class="link-to-tab" [ngClass]="{'active': activeTab == 'updates'}" (click)="ToUpdates()">Updates <span>({{UpdatesEvent.length}})</span></span>
                                 </li>
                             </ul>
@@ -250,8 +250,12 @@
                         </div>
                         <div class="for-change-contant">
                             <app-information [Event]="Event" [Artists]="Artists" *ngIf="activeTab == 'information'"></app-information>
-                            <app-comments [MyAcc]="MyAcc" (onComment)="GetComments()" [AllComments]="AllCommentsEvent" *ngIf="activeTab  == 'comments' && Event.comments_available"></app-comments>
-                            <app-updates [UpdatesEvent]="UpdatesEvent" *ngIf="activeTab == 'updates'"></app-updates>
+                            <ng-container *ngIf="Tickets && Tickets.length &&MyAcc.status && MyAcc.status != Status.Denied && MyAcc.status != Status.Inactive">
+                                <app-comments [MyAcc]="MyAcc" (onComment)="GetComments()" [AllComments]="AllCommentsEvent" *ngIf="activeTab  == 'comments' && Event.comments_available"></app-comments>
+                            </ng-container>
+                            <ng-container *ngIf="Tickets && Tickets.length &&MyAcc.status && MyAcc.status != Status.Denied && MyAcc.status != Status.Inactive">
+                                 <app-updates [UpdatesEvent]="UpdatesEvent" *ngIf="activeTab == 'updates'"></app-updates>
+                            </ng-container>
                         </div>
                     </div>
                 </div>
