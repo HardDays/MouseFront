@@ -23,10 +23,12 @@ export class OpenMessageComponent extends BaseComponent implements OnInit {
   }
 
   openMessage(){
-    this.main.adminService.GetMessagesById(this.MessageId)
-      .subscribe((res)=>{
-        console.log(`message`,res);
-      })
+    if(this.MessageId){
+      this.main.adminService.GetMessagesById(this.MessageId)
+        .subscribe((res)=>{
+          console.log(`message`,res);
+        })
+    }
   }
 
 }
