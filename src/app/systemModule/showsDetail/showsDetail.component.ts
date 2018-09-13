@@ -422,6 +422,8 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
             },
             (err) =>
             {
+                console.log(err);
+                
                 this.OpenErrorWindow(this.getResponseErrorMessage(err));
             }
         );
