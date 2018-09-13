@@ -1,17 +1,17 @@
 <ng-container *ngFor="let item of Messages; let i = index">
   <div (click)="clickMessage(item)" class="support_dialogs_item " [ngClass]="{'active':item.id===openMessage.id && !isNewMessageOpened}">
-    <div class="ava" style="background-image: url(./../../../../assets/img/drake.jpg)"></div>
+    <div class="ava" [ngStyle]="{'background-image':'url('+item.with.image+')'}"></div>
     <div class="info">
         <p class="question">
-            <span class="title">Vladislava Makhankova</span>
+            <span class="title">{{item.with.first_name}} {{item.with.last_name}}</span>
 
             <span class="date" [ngClass]="{'shared':item.topic_type!=='message'}">{{item.created_at|date:'MMM dd'}}</span>
         </p>
         <!--новый класс shared-->
-        <p class="username" [ngClass]="{'shared':item.topic_type!=='message'}"><span>@</span>Aveen</p>
+        <p class="username" [ngClass]="{'shared':item.is_forwarded}"><span>@</span>{{item.with.user_name}}</p>
 
         <!--новый класс  done-->
-        <p class="address" [ngClass]="{'done':item.is_solved}">Title: <span>FAQ</span></p>
+        <p class="address" [ngClass]="{'done':item.is_solved}">Title: <span>{{item.topic|uppercase}}</span></p>
     </div>
   </div>
 </ng-container>

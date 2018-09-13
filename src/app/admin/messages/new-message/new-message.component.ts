@@ -51,7 +51,7 @@ export class NewMessageComponent extends BaseComponent implements OnInit {
   hideList(){
     setTimeout(() => {
       this.openAdminsList();
-    }, 500);
+    }, 200);
   }
 
   sendNewMessage(){
@@ -70,11 +70,13 @@ export class NewMessageComponent extends BaseComponent implements OnInit {
     console.log(`add`);
     this.AdminsListAdded.push(admin);
     console.log(this.AdminsListAdded);
+    this.hideList();
     // this.openAdminsList();
   }
 
   deleteAdded(admin){
     this.AdminsListAdded = this.AdminsListAdded.filter(obj=>obj.user_name!=admin.user_name);
+    this.hideList();
   }
 
 }

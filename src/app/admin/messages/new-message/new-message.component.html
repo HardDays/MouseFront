@@ -15,7 +15,7 @@
                                                 <button class="open-autocomplete"></button>
                                             </div>
 
-                                            <div *ngIf="isAdminListOpen" class="addresses_list">
+                                            <div *ngIf="isAdminListOpen" class="addresses_list" >
                                                 <div *ngFor="let item of AdminsListOpened" (click)="addAdmin(item)" class="adr">
                                                   <span>@</span>
                                                   {{item.user_name}}

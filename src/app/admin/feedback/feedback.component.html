@@ -67,7 +67,7 @@
             <div class="support_right">
                 <div class="support_head">
                     <p>{{openFeedback?.message_info?.feedback_type}}</p>
-                     <div class="sent">has been sent to <span>@</span>MouseWeb</div>
+                     <div *ngIf="false" class="sent">has been sent to <span>@</span>MouseWeb</div>
                     <span (click)="DeleteItem()" class="but_icon"><img src="./../../../assets/img/admin/support_delete.png" alt=""></span>
                 </div>
 
@@ -133,7 +133,7 @@
                 </div>
                 <div *ngIf="openFeedback?.reply?.length===0" class="feedback_buts">
                     <button *ngIf="!isForward" (click)="sendThankYou()">Thank you</button>
-                    <button *ngIf="!isForward" (click)="forwardMessage()">Forward</button>
+                    <button *ngIf="!isForward&&!openFeedback?.message_info?.is_forwarded" (click)="forwardMessage()">Forward</button>
                     <button *ngIf="isForward" (click)="sendForward()">Send</button>
                 </div>
             </div>

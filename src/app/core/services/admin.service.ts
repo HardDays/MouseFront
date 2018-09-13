@@ -477,10 +477,10 @@ export class AdminService{
             ()=> this.http.GetData('/admin/messages/'+id+'.json',  this.typeService.ParamsToUrlSearchParams({id}))
         );
     }
-    SendMessage(topic_id:number,receiver:number,topic:string)
+    SendMessage(topic_id:number,receiver_id:number,message:string)
     {
         return this.http.CommonRequest(
-            ()=> this.http.PostData('/admin/messages.json', JSON.stringify({topic_id,receiver,topic}))
+            ()=> this.http.PostData('/admin/messages.json', JSON.stringify({topic_id,receiver_id,message}))
         );
     }
     ForwardMessage(id:number,receiver_id:number)
@@ -511,6 +511,12 @@ export class AdminService{
     {
         return this.http.CommonRequest(
             ()=> this.http.PostData('/admin/messages/'+id+'/read.json', JSON.stringify({id}))
+        );
+    }
+    GetFeed()
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/admin/feed.json', '')
         );
     }
 

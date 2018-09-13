@@ -165,7 +165,6 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
         }
         else
         this.Answer = { user_name:'', image:'', message:''}
-
       }
     )
   }
