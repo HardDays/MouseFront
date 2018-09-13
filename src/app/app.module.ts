@@ -44,12 +44,14 @@ import { RegisterUserInfoComponent } from './access/registration/register-user-i
 import { AdminService } from './core/services/admin.service';
 import { SettingsService } from './core/services/settings.service';
 import { InviteService } from './core/services/invite.service';
+import { MediaService } from './core/services/media.service';
 
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AdminModule } from './admin/admin.module';
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
+import { Ng2CableModule } from 'ng2-cable';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -66,7 +68,7 @@ let providers = {
   },
   "facebook": {
     "clientId": "187849948634661",
-    "apiVersion": "v2.11" 
+    "apiVersion": "v2.11"
   }
 };
 
@@ -109,12 +111,13 @@ let providers = {
           deps: [HttpClient]
       }
   }),
-    AdminModule
+    AdminModule,
+    Ng2CableModule
   ],
   providers: [
-    AppAccessGuard, 
+    AppAccessGuard,
     AuthMainService,
-    TypeService, 
+    TypeService,
     ImagesService,
     AccountService,
     GenresService,
@@ -130,10 +133,11 @@ let providers = {
     MainService,
     AdminService,
     SettingsService,
-    InviteService
+    InviteService,
+    MediaService
   ],
     bootstrap: [AppComponent],
-    
+
 })
 export class AppModule { }
 

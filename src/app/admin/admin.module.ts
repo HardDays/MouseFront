@@ -45,11 +45,14 @@ import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 import { InvitesComponent } from './accounts/invites/invites.component';
 import { MessagesComponent } from './messages/messages.component';
 import { NotificationComponent } from './notification/notification.component';
+import { NewMessageComponent } from './messages/new-message/new-message.component';
+import { OpenMessageComponent } from './messages/open-message/open-message.component';
+import { ListMessageComponent } from './messages/list-message/list-message.component';
 
 
 
 @NgModule({
-    imports: [ 
+    imports: [
         RouterModule,
         CommonModule,
         FormsModule,
@@ -99,12 +102,14 @@ import { NotificationComponent } from './notification/notification.component';
         AnalyticCardComponent,
         InvitesComponent,
         MessagesComponent,
-        NotificationComponent
-        
+        NotificationComponent,
+        NewMessageComponent,
+        OpenMessageComponent,
+        ListMessageComponent
+
     ],
     providers: [AdminAccessGuard]
 })
 export class AdminModule {}
 
 
-  

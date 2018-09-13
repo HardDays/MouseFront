@@ -1,0 +1,57 @@
+                        <div class="all-main-msg-wrapp">
+                            <div class="min-height-new-msg">
+                                <div class="border-line">
+                                    <div class="hard_addresses">
+                                        <label>Addressee</label>
+                                        <div class="addresses">
+
+                                            <div class="addr_labels">
+                                                <div *ngFor="let item of AdminsListAdded" class="addr"><span class="un">@</span>{{item.user_name}}<span class="del" (click)="deleteAdded(item)"></span></div>
+                                                <div class="for-input-new-getter">
+                                                    <!--что-то одно открываем hidden-->
+                                                    <div (click)="openAdminsList()" class="add_addr" [ngClass]="{'hidden':isAdminListOpen}">Add<span class="add"></span></div>
+                                                    <input (blur)="hideList()" (input)="searchAdmin($event)"  type="text" class="abs-input-add" [ngClass]="{'hidden':!isAdminListOpen}" placeholder="Entry admin name">
+                                                </div>
+                                                <button class="open-autocomplete"></button>
+                                            </div>
+
+                                            <div *ngIf="isAdminListOpen" class="addresses_list">
+                                                <div *ngFor="let item of AdminsListOpened" (click)="addAdmin(item)" class="adr">
+                                                  <span>@</span>
+                                                  {{item.user_name}}
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div *ngIf="!isAdminListOpen" class="hard_addresses">
+                                        <label>Topic</label>
+                                        <div class="addresses">
+                                            <div class="addr_labels">
+                                                <input [(ngModel)]="TextTopic" name="TextTopic" type="text" class="topic-autocomlete">
+                                                <button class="open-autocomplete"></button>
+                                            </div>
+        <!--
+                                            <div class="addresses_list">
+                                                <div class="adr"><span>@</span>MouseDev</div>
+                                                <div class="adr"><span>@</span>MouseOps</div>
+                                                <div class="adr"><span>@</span>MouseWeb</div>
+                                                <div class="adr"><span>@</span>MouseMobile</div>
+                                                <div class="adr"><span>@</span>MouseDev</div>
+                                                <div class="adr"><span>@</span>MouseOps</div>
+                                                <div class="adr"><span>@</span>MouseWeb</div>
+                                                <div class="adr"><span>@</span>MouseMobile</div>
+                                            </div>
+        -->
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <form class="msg-send-form">
+                                <input [(ngModel)]="TextMessage" type="text" name="TextMessage" class="msg-input" placeholder="Write a message...">
+                                <div class="feedback_buts">
+                                    <button (click)="sendNewMessage()" type="button">Send</button>
+                                </div>
+                            </form>
+                        </div>

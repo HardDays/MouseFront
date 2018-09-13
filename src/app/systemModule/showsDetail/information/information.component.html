@@ -1,0 +1,17 @@
+<div class="information-route">
+  <h2>ARTISTS</h2>
+  <ul class="artists-list-who-going">
+      <li *ngFor="let artist of Artists;let i = index">
+          <span (click)="ActiveTabIndex(i)" [ngClass]="{'active': ActiveTabIndexVal == i}" >{{artist.stage_name?artist.stage_name:artist.display_name}}</span>
+      </li>
+  </ul>
+  <div class="artists-info-route">
+      <div *ngFor="let artist of Artists;let i = index" class="one-artist">
+          <app-artist-info *ngIf="ActiveTabIndexVal == i" [Artist]="artist"></app-artist-info>
+      </div>
+  </div>
+  <div class="about-show">
+      <h4>About show</h4>
+      <p>{{EventData.description}}</p>
+  </div>
+</div>

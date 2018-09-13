@@ -172,6 +172,40 @@ export class FundingComponent extends BaseComponent implements OnInit {
 
     }
 
+    setActiveVenueRadio(venue:CheckModel<GetVenue>){
+
+      let Checked = this.activeVenue.filter(obj=>obj.checked);
+      for(let item of Checked){
+        this.main.eventService.VenueRemoveActive({
+                id:item.object.venue_id,
+                event_id:this.Event.id,
+                account_id:this.Event.creator_id
+            }).
+                subscribe((res)=>{
+                    //console.log(`active remove ok`,res);
+                    // this.updateEvent();
+                    this.activeVenue.find(obj=>obj.object.venue_id===item.object.venue_id).checked = false;
+                    this.venueSum -= this.activeVenue.find(obj=>obj.object.venue_id===item.object.venue_id).object.approximate_price;
+                    this.updateEvent();
+                });
+      }
+      if(!venue.checked){
+        this.main.eventService.VenueSetActive({
+                id:venue.object.venue_id,
+                event_id:this.Event.id,
+                account_id:this.Event.creator_id
+            }).
+                subscribe((res)=>{
+                    //console.log(`active set ok`,res);
+
+                    this.activeVenue.find(obj=>obj.object.venue_id===venue.object.venue_id).checked = true;
+                    this.venueSum += this.activeVenue.find(obj=>obj.object.venue_id===venue.object.venue_id).object.approximate_price;
+                    this.updateEvent();
+                    // this.getFundingGoal();
+                });
+      }
+    }
+
     getNumInArtistOrVenueById(id:number,list:any[]){
         if(id){
             for(let i=0; i<list.length; i++){
@@ -190,13 +224,13 @@ export class FundingComponent extends BaseComponent implements OnInit {
         let artists = [], venues = [];
 
         for(let art of this.Event.artist){
-            if(art.status!=this.Statuses.Declined&&art.status!=this.Statuses.OwnerDeclined){
+            if(art.status!=this.Statuses.Declined&&art.status!=this.Statuses.OwnerDeclined&&art.status!=this.Statuses.TimeExpired){
                 artists.push(art);
             }
         }
 
         for(let venue of this.Event.venues){
-            if(venue.status!=this.Statuses.Declined&&venue.status!=this.Statuses.OwnerDeclined){
+            if(venue.status!=this.Statuses.Declined&&venue.status!=this.Statuses.OwnerDeclined&&venue.status!=this.Statuses.TimeExpired){
                 venues.push(venue);
             }
         }

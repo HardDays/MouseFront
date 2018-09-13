@@ -1,0 +1,12 @@
+<div class="comment-wrapper">
+  <div class="left-side">
+      <div class="ava" [ngStyle]="{'background-image': 'url('+Image+')'}"></div>
+  </div>
+
+  <div class="right-side">
+      <p class="when">{{someComment.created_at?calculateTime(someComment.created_at):'A long time'}} ago</p>
+      <p class="name">{{someComment.account.full_name}}</p>
+      <p class="hash"><span>@</span>{{someComment.account.user_name}}</p>
+      <p class="com">{{someComment.text}}</p>
+  </div>
+</div>

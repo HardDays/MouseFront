@@ -1,3 +1,4 @@
+import { MediaService } from './../../../core/services/media.service';
 import { Component, OnInit, Input, NgZone, ChangeDetectorRef, OnChanges } from '@angular/core';
 import { BaseComponent } from '../../../core/base/base.component';
 import { MainService } from '../../../core/services/main.service';
@@ -29,6 +30,9 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
   isOpenComment:boolean = false;
 
   likes:any[] = [];
+
+  videoUrl:any;
+  Album:any;
 
   constructor(
     protected main           : MainService,
@@ -68,7 +72,9 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
       });
     });
 
-
+    if(this.Feed&&this.Feed.action==='update_video'){
+      this.getVideo();
+    }
 
   }
 
@@ -221,6 +227,42 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
       return this.main.imagesService.GetImagePreview(this.Feed.value, {width:1000, height:1000});
     else
       return BaseImages.NoneFolowerImage;
+  }
+
+  getVideo(){
+    if(this.Feed.value){
+      this.main.MediaService.GeVideoById(this.Feed.account_id, +this.Feed.value)
+        .subscribe(
+          (res)=>{
+            let id = '0';
+            if(res.link.indexOf('youtube')>=0){
+              id = res.link.split('watch?v=')[1];
+            }
+            else{
+              id = res.link.split('youtu.be/')[1];
+            }
+            this.videoUrl = this._sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+id+'?rel=0');
+          },
+          (err)=>{
+            this.videoUrl = null;
+          }
+        )
+    }
+  }
+
+  getAlbum(){
+    if(this.Feed.value){
+      this.main.MediaService.GeAlbumById(this.Feed.account_id, +this.Feed.value)
+        .subscribe(
+          (res)=>{
+            this.Album = res;
+            console.log(res);
+          },
+          (err)=>{
+            this.Album = null;
+          }
+        )
+    }
   }
 
   // getLikes(){

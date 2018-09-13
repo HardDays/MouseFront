@@ -1,0 +1,30 @@
+<ng-container *ngFor="let item of Messages; let i = index">
+  <div (click)="clickMessage(item)" class="support_dialogs_item " [ngClass]="{'active':item.id===openMessage.id && !isNewMessageOpened}">
+    <div class="ava" style="background-image: url(./../../../../assets/img/drake.jpg)"></div>
+    <div class="info">
+        <p class="question">
+            <span class="title">Vladislava Makhankova</span>
+
+            <span class="date" [ngClass]="{'shared':item.topic_type!=='message'}">{{item.created_at|date:'MMM dd'}}</span>
+        </p>
+        <!--новый класс shared-->
+        <p class="username" [ngClass]="{'shared':item.topic_type!=='message'}"><span>@</span>Aveen</p>
+
+        <!--новый класс  done-->
+        <p class="address" [ngClass]="{'done':item.is_solved}">Title: <span>FAQ</span></p>
+    </div>
+  </div>
+</ng-container>
+
+
+<!-- <div class="support_dialogs_item">
+    <div class="ava" style="background-image: url(./../../../../assets/img/drake.jpg)"></div>
+    <div class="info">
+        <p class="question">
+            <span class="title">Vladislava Makhankova</span>
+            <span class="date">Feb 15</span>
+        </p>
+        <p class="username"><span>@</span>Aveen</p>
+        <p class="address">Title: <span>FAQ</span></p>
+    </div>
+</div> -->
