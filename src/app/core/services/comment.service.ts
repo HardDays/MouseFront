@@ -42,4 +42,23 @@ export class CommentService{
         );
     }
 
+    GetCommentsEvent(event_id:number)
+    {
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/events/'+event_id+'/comments.json')
+        );
+    }
+    PostCommentsEvent(account_id:number,event_id:number,text:string)
+    {
+        const params = {
+            
+            account_id:account_id,
+            text:text
+        }
+
+        return this.http.CommonRequest(
+            ()=> this.http.PostData('/events/'+event_id+'/comments.json',JSON.stringify(params))
+        );
+    }
+
 }

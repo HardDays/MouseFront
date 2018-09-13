@@ -31,6 +31,11 @@ export class MediaService{
         );
     }
 
+    GevideosById(account_id:number){
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/accounts/'+account_id+'/artist_videos.json','')
+        );
+    }
     // CreateAdmin(user:UserCreateModel){
     //     return this.http.CommonRequest(
     //         ()=> this.http.PostData('/admin.json',JSON.stringify(user))

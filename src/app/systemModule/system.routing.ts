@@ -35,13 +35,16 @@ const routes: Routes =
       { path: 'venueCreate/:id', component: VenueCreateComponent, canActivate: [SystemAccessGuard] },
       { path: 'feed', component: FeedComponent, canActivate: [SystemAccessGuard] },
       { path: 'tickets', component: TicketsComponent, canActivate: [SystemAccessGuard] },
-      { path: 'shows_detail/:id', component: ShowsDetailComponent, canActivate: [SystemAccessGuard] },
+      // { path: 'shows_detail/:id', component: ShowsDetailComponent, canActivate: [SystemAccessGuard] },
+      { path: 'shows_detail/:id', loadChildren: './showsDetail/showsDetail.module#ShowsDetailModule', canActivate: [SystemAccessGuard] },
+     
       { path: 'tickets/:id', component: MyTicketOpenedComponent, canActivate: [SystemAccessGuard] },
       { path: 'messages', component: MessagesComponent, canActivate: [SystemAccessGuard] },
       { path: 'settings', component: SettingsComponent, canActivate: [SystemAccessGuard] },
       { path: 'search', component: GlobalSearchComponent }
     ]
   }
+  
 ];
 
 @NgModule({
