@@ -17,5 +17,17 @@
   </div>
 </div>
 <div class="movies-artist">
-сюда слайдер с видосами
+    <div class="slider-video" *ngIf="Videos.length != 0">
+        <ng-container *ngFor="let onevideo of Videos; let i = index">
+            <div class="slide" *ngIf="i == activeSlide">
+                <div class="iframe-wr">
+                    <iframe  [src]="activeSlideVideo"  scrolling="no" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+
+        </ng-container>
+        <button class="some-arrow left-arr" *ngIf="Videos.length > 1 && activeSlide != 0" (click)="Slideleft()"></button>
+        <button class="some-arrow right-arr" *ngIf="Videos.length > 1 && activeSlide != (Videos.length - 1)" (click)="SlideRight()"></button>
+       
+    </div>
 </div>
