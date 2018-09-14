@@ -1,4 +1,4 @@
-import { EventEmitter } from '@angular/core';
+import { EventEmitter, ViewChild } from '@angular/core';
 import { BaseImages } from './../../../core/base/base.enum';
 import { BaseComponent } from './../../../core/base/base.component';
 import { Component, OnInit, Input, SimpleChanges, Output } from '@angular/core';
@@ -31,10 +31,12 @@ export class OpenMessageComponent extends BaseComponent implements OnInit {
   DialogId = 0;
   Messages:{messages:Message[], date:string}[] = [];
   Answer = '';
+
+  idOpenMenu = 0;
   // constructor() { }
 
   @Output() onSolved = new EventEmitter<boolean>();
-
+  @Output() onDelete = new EventEmitter<boolean>();
 
   //   created_at: "2018-09-13T14:46:46.364Z"
   // forwarded_from: {user_name: "rediska"}
@@ -72,6 +74,7 @@ export class OpenMessageComponent extends BaseComponent implements OnInit {
 
   openMessage(){
     if(this.DialogId){
+      this.idOpenMenu = 0;
       this.main.adminService.GetMessagesById(this.DialogId)
         .subscribe((res)=>{
           this.GroupMessagesByDate(res);
@@ -116,6 +119,33 @@ export class OpenMessageComponent extends BaseComponent implements OnInit {
           this.onSolved.emit(true);
         }
       )
+  }
+
+  forwardMessage(){
+    console.log(`forward`);
+    this.main.adminService.ForwardMessage(this.idOpenMenu,this.Dialog.receiver_id)
+      .subscribe((res)=>{
+        console.log(`message forward`);
+        this.openMessage();
+      })
+  }
+
+  deleteMessage(){
+    console.log(`delete`);
+    this.main.adminService.DeleteMessage(this.idOpenMenu)
+      .subscribe((res)=>{
+        console.log(`message delete`);
+        this.openMessage();
+      })
+  }
+
+  deleteDialog(){
+    this.main.adminService.DeleteDialog(this.Dialog.id)
+      .subscribe((res)=>{
+        console.log(`dialog delete`);4
+        this.onDelete.emit(true);
+
+      })
   }
 
 }

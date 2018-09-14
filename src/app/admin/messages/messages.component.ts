@@ -11,9 +11,16 @@ export class MessagesComponent implements OnInit {
   @ViewChild('ListMessage') ListMessage:ListMessageComponent;
   IsNewMsgOpen = false;
   Message:any;
+  Search = '';
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  getSearch(event){
+    console.log(event);
+    this.Search = event;
   }
 
   openNewMessage(){
@@ -27,6 +34,9 @@ export class MessagesComponent implements OnInit {
   setSolved(){
     this.Message.is_solved = true;
     this.ListMessage.setSolved(this.Message.id);
+  }
+  onDeleteOpen(){
+    this.ListMessage.getMessages();
   }
 
 }

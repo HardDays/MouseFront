@@ -1,4 +1,4 @@
-<ng-container *ngFor="let item of Messages; let i = index">
+<ng-container *ngFor="let item of showMessages; let i = index">
   <div (click)="clickMessage(item)" class="support_dialogs_item " [ngClass]="{'active':item.id===openMessage.id && !isNewMessageOpened}">
     <div class="ava" [ngStyle]="{'background-image':'url('+item.with.image+')'}"></div>
     <div class="info">

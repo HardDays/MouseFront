@@ -4,78 +4,57 @@
                 <div class="middle-feed f-m-h">
                     <p class="feed-text">Notifications</p>
                     <div class="feed-items">
-                        <!--нотификация нового админа-->
+                        <ng-container  *ngFor="let item of Feed">
                         <div class="feed-item">
-                            <div class="wrapp-admin-item-notif">
-                                <span class="when">1 min ago</span>
-                                <p class="name-notif">Mouse team has a new Admin!</p>
-                                <div class="who">
-                                    <div class="ava" style="background-image: url(./../../../../assets/img/drake.jpg)"></div>
-                                    <div class="right-who">
-                                        <p class="name">Christian Aveen</p>
-                                        <p class="mouse-name"><span>@</span>Admin3</p>
-                                    </div>
-                                </div>
-
-                                <div class="button-option-notif">
-                                    <p class="new-msg-text">Send Message</p>
-                                    <button>
-                                        <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M8.90839 5.62762L7.06782 7.47088C6.38972 8.14998 5.70774 8.82907 5.03351 9.51593C4.87464 9.67891 4.75452 9.89622 4.70802 10.1097C4.4639 11.2311 4.22753 12.3526 3.99117 13.4741L3.85942 14.095C3.79742 14.3977 3.87879 14.7003 4.08416 14.906C4.24303 15.0651 4.4639 15.1544 4.69639 15.1544C4.76227 15.1544 4.82814 15.1466 4.89401 15.135L5.57599 14.9914C6.66096 14.7624 7.7498 14.5296 8.83477 14.3045C9.08663 14.2502 9.29975 14.1377 9.48187 13.9553C12.5275 10.9013 15.5732 7.85117 18.6188 4.80494C18.8436 4.57987 18.9676 4.31211 18.9986 3.98226C19.0025 3.92794 18.9986 3.87361 18.987 3.82316C18.9676 3.74555 18.9521 3.66406 18.9327 3.58645C18.8901 3.38854 18.8436 3.16347 18.7506 2.94616C18.181 1.64229 17.2355 0.71096 15.9413 0.187085C15.6817 0.0823104 15.4066 0.0473854 15.1663 0.016341L15.1005 0.00857992C14.7517 -0.0341061 14.434 0.0823104 14.1589 0.36171C12.4152 2.11572 10.6598 3.87361 8.90839 5.62762ZM14.9726 0.943793C14.9803 0.943793 14.9842 0.943793 14.992 0.943793L15.0578 0.951554C15.2593 0.974837 15.4453 0.998121 15.5926 1.06021C16.6465 1.48707 17.4215 2.24766 17.8904 3.31869C17.9446 3.44287 17.9795 3.60197 18.0144 3.76883C18.026 3.83092 18.0415 3.89301 18.0531 3.9551C18.0376 4.02495 18.0105 4.07152 17.9562 4.12196C14.9067 7.1682 11.8611 10.2222 8.81539 13.2723C8.76502 13.3228 8.71852 13.346 8.64877 13.3616C7.55993 13.5905 6.47496 13.8195 5.38612 14.0484L4.81264 14.1687L4.92114 13.6604C5.1575 12.5428 5.39387 11.4213 5.63411 10.3037C5.64186 10.2688 5.67286 10.2144 5.70774 10.1756C6.38197 9.49265 7.0562 8.81355 7.7343 8.13834L9.57487 6.29507C11.3302 4.53718 13.0855 2.77929 14.837 1.01752C14.9106 0.955435 14.9455 0.943793 14.9726 0.943793Z" fill="white"></path>
-                                            <path d="M1.50733 4.23062H8.27287C8.53636 4.23062 8.74948 4.01719 8.74948 3.75331C8.74948 3.48943 8.53636 3.276 8.27287 3.276H1.50733C0.67423 3.276 0 3.9551 0 4.78554V17.4905C0 18.3248 0.678104 19 1.50733 19H14.1898C15.0229 19 15.6971 18.3209 15.6971 17.4905V10.9905C15.6971 10.7267 15.484 10.5132 15.2205 10.5132C14.957 10.5132 14.7439 10.7267 14.7439 10.9905V17.4905C14.7439 17.797 14.4921 18.0493 14.1859 18.0493H1.50733C1.20121 18.0493 0.949346 17.797 0.949346 17.4905V4.78942C0.949346 4.48285 1.20121 4.23062 1.50733 4.23062Z" fill="white"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-
-
-                            </div>
+                          <!-- *ngIf="item.action === 'new_admin'" -->
+                          <app-new-admin *ngIf="item.action === 'new_admin'"></app-new-admin>
+                          <app-new-bug [Bug]="item" *ngIf="item.action === 'new_bug'" (onOpenForward)="openForward($event)"></app-new-bug>
+                          <app-new-users *ngIf="item.action === 'new_users'"></app-new-users>
                         </div>
-                        <!--нотификация бага-->
-                        <div class="feed-item">
-                            <div class="wrapp-admin-item-notif">
-                                <span class="when">1 min ago</span>
-                                <p class="name-notif">Liza Smith found a new <span>bug</span></p>
-                                <div class="who">
-                                    <div class="ava" style="background-image: url(./../../../../assets/img/drake.jpg)"></div>
-                                    <div class="right-who">
-                                        <p class="name">Liza Smith</p>
-                                        <p class="mouse-name"><span>@</span>Admin3</p>
-                                        <p class="forwarded-msg">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,</p>
-                                    </div>
-                                </div>
-                                <!--для кнопки форварда-->
-                                <div class="button-option-notif forvard-notif">
-
-                                    <p class="new-msg-text">Forward Message</p>
-                                    <button>
-                                        <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M8.30591 12.5853C8.46302 12.6588 8.64935 12.6368 8.78088 12.5266L15.8398 6.64916C15.9421 6.56467 16.0005 6.4361 16.0005 6.30386C16.0005 6.16794 15.9421 6.04305 15.8361 5.95856L8.78088 0.103187C8.6457 -0.00701478 8.46302 -0.0327285 8.30591 0.0444126C8.1488 0.11788 8.05015 0.275836 8.05015 0.452158V3.52678C-0.0427374 3.82065 -0.00985477 9.99193 0.00475992 12.9821V13.3384C0.00475992 13.5441 0.139946 13.7204 0.337244 13.7718C0.373781 13.7829 0.413971 13.7865 0.450508 13.7865C0.607616 13.7865 0.757417 13.7021 0.841451 13.5588C3.23095 9.32705 5.19663 9.12134 8.05015 9.11032V12.1776C8.05015 12.3502 8.14884 12.5082 8.30591 12.5853ZM0.907254 11.7515C0.947444 10.4474 1.11917 8.89359 1.82798 7.57852C2.95331 5.48469 5.13455 4.4488 8.49959 4.41574C8.74438 4.41207 8.94168 4.2137 8.94168 3.96759V1.40356L14.8497 6.30386L8.94534 11.2188V8.6585C8.94534 8.54095 8.89784 8.4234 8.8138 8.33891C8.72977 8.25443 8.61651 8.20667 8.49593 8.20667C5.36474 8.21034 3.20541 8.39769 0.907254 11.7515Z" fill="white"/>
-                                            <path d="M15.9117 17.552V9.25017C15.9117 9.00038 15.7108 8.79834 15.4623 8.79834C15.2139 8.79834 15.0129 9.00038 15.0129 9.25017V17.1002H0.898804V15.5721C0.898804 15.3223 0.697852 15.1202 0.449402 15.1202C0.200952 15.1202 0 15.3223 0 15.5721V17.5483C0 17.7981 0.200952 18.0002 0.449402 18.0002H15.4623C15.7108 18.0002 15.9117 17.7981 15.9117 17.552Z" fill="white"/>
-                                        </svg>
-
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <!--нотификация поздравления-->
-                        <div class="feed-item">
-                            <div class="wrapp-admin-item-notif">
-                                <span class="when">1 day ago</span>
-
-                                <div class="flex-congr">
-                                    <img src="./../../../../assets/img/congr.svg" class="img-responsive" alt="">
-                                    <div class="right-congr">
-                                        <p class="f">Congratulations!</p>
-                                        <p class="s">
-                                            <span class="mouse-t">MOUSE</span> already has <span class="count">1000</span> users.
-                                        </p>
-                                    </div>
-                                </div>
-
-
-                            </div>
-                        </div>
+                        </ng-container>
                     </div>
                 </div>
             </div>
         </div>
+
+<div class="modal fade modal-send-request new-modal-inv who-going-modal for-forward-admin" id="forward">
+        <div class="modal-dialog">
+            <div class="modal-body">
+                <h6 class="head-m-p-a">Forward</h6>
+                <div class="close-modal" data-dismiss="modal"></div>
+                <div class="content-modal">
+                    <div class="padd-left-right">
+
+                         <div class="hard_addresses">
+                            <label>Topic</label>
+                             <!--has-arror если не заполнено поле в topic-autocomlete-->
+                            <div class="addresses">
+                                <div class="addr_labels">
+                                    <input [(ngModel)]="ForwardMessage.topic" type="text" class="topic-autocomlete">
+                                    <button class="open-autocomplete"></button>
+                                </div>
+<!--
+                                <div class="addresses_list">
+                                    <div class="adr">BUG</div>
+                                    <div class="adr">some topic</div>
+
+                                </div>
+-->
+
+                            </div>
+                        </div>
+                        <div class="flex-people">
+                            <div *ngFor="let admin of AdminsList" (click)="sendForward(admin.id)" class="one-p">
+                                <div class="ava" style="background-image: url(./../../../../assets/img/drake.jpg)"></div>
+                                <p class="name">{{admin.user_name}}</p>
+                                <!-- <p class="surname">Bulok</p> -->
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>

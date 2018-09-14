@@ -513,6 +513,16 @@ export class AdminService{
             ()=> this.http.PostData('/admin/messages/'+id+'/read.json', JSON.stringify({id}))
         );
     }
+    DeleteDialog(id:number){
+      return this.http.CommonRequest(
+            ()=> this.http.DeleteDataWithBody('/admin/messages/'+id+'/delete.json', JSON.stringify({id}))
+        );
+    }
+    DeleteMessage(id:number){
+      return this.http.CommonRequest(
+            ()=> this.http.DeleteDataWithBody('/admin/messages/'+id+'/delete_message.json', JSON.stringify({id}))
+        );
+    }
     GetFeed()
     {
         return this.http.CommonRequest(

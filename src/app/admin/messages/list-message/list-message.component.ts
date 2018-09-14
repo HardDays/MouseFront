@@ -32,14 +32,26 @@ interface Message {
 export class ListMessageComponent extends BaseComponent implements OnInit {
 
   Messages:Message[] = [];
+  showMessages:Message[] = [];
   openMessage:Message;
 
   @Input() isNewMessageOpened = false;
+  @Input() Search = '';
   @Output() onClickMessage = new EventEmitter<Message>();
 
   ngOnInit() {
     this.getMessages();
   }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if(changes.Search){
+      console.log(changes.Search.currentValue);
+
+      this.Search = changes.Search.currentValue;
+      this.getFilterMessages();
+    }
+  }
+
 
   // ngOnChanges(changes: SimpleChanges) {
   //   if(changes.isNewMessageOpened){
@@ -56,9 +68,21 @@ export class ListMessageComponent extends BaseComponent implements OnInit {
             this.openMessage = this.Messages[0];
             this.onClickMessage.emit(this.openMessage);
             this.getImages();
+            this.getFilterMessages();
           }
           console.log(this.Messages);
         })
+  }
+
+  getFilterMessages(){
+    if(this.Search.length)
+    {
+      this.showMessages = this.Messages.filter(obj=>obj.topic.toLowerCase().indexOf(this.Search.toLowerCase())>=0||obj.with.user_name.toLowerCase().indexOf(this.Search.toLowerCase())>=0);
+    }
+    else
+    {
+      this.showMessages = this.Messages;
+    }
   }
 
   setSolved(idMessage:number){
@@ -81,12 +105,12 @@ export class ListMessageComponent extends BaseComponent implements OnInit {
   }
 
   readMessage(){
-    if(!this.openMessage.is_read)
       this.main.adminService.ReadMessage(this.openMessage.id)
         .subscribe(
           (res)=>{
-            console.log(`ok`);
+            console.log(`read ok`);
             this.openMessage.is_read = true;
+            this.main.adminService.NewCountChange.next(true);
           }
         )
   }

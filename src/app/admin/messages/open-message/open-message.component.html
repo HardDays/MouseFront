@@ -4,17 +4,17 @@
                             <div class="head-of-msg">
                                 <p class="name">{{Dialog.with.first_name}} {{Dialog.with.last_name}}</p>
                                 <p class="topic">Topic: <span>{{Dialog.topic|uppercase}}</span></p>
-                                <button class="close-msg">
+                                <button (click)="deleteDialog()" class="close-msg">
                                     <img src="./../../../../assets/img/admin/support_delete.png" alt="">
                                 </button>
                                 <!--если нажали Select message-->
-<!--
-                                <div class="opt-of-sel-msg">
-                                    <button class="duplicate-options">Forward</button>
-                                    <button class="duplicate-options">Delete</button>
 
+                                <div *ngIf="idOpenMenu" class="opt-of-sel-msg">
+                                    <button (click)="forwardMessage()" class="duplicate-options">Forward</button>
+                                    <button (click)="deleteMessage()" class="duplicate-options">Delete</button>
+                                    <button (click)="idOpenMenu = 0" class="duplicate-options">Cancel</button>
                                 </div>
--->
+
                             </div>
 
 
@@ -27,21 +27,21 @@
                                           <p class="head-day">{{item.date|date:'dd MMM yyyy'}}</p>
                                           <!--не мои сообщения-->
                                           <ng-container *ngFor="let message of item.messages">
-                                            <div *ngIf="message.sender_id !== User.id" class="not-my-msg">
+                                            <div *ngIf="message && message.sender_id !== User.id" class="not-my-msg">
                                                 <div class="ava-wr">
                                                     <div class="ava" [ngStyle]="{'background-image': 'url('+Dialog.with.image+')'}"></div>
                                                 </div>
                                                 <div class="text-msg-wrapp">
                                                     <!--если выбран добавляем класс selected-msg -->
-                                                    <div  class="one-msg">{{message.message}}
+                                                    <div (click)="idOpenMenu = message.id" class="one-msg">{{message.message}}
                                                         <!--
-                                                        появляется при клике на сообщение
-                                                        <div class="abs-settings-msg">
-                                                            <button>Forward message</button>
-                                                            <button>Delete message</button>
-                                                            <button>Select message</button>
+                                                        появляется при клике на сообщение    -->
+                                                        <div *ngIf="idOpenMenu === message.id" class="abs-settings-msg">
+                                                            <button (click)="forwardMessage()">Forward message</button>
+                                                            <button (click)="deleteMessage()">Delete message</button>
+                                                            <!-- <button (click)="isOpenMenu = 0">Cancel</button> -->
                                                         </div>
-    -->
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -181,7 +181,7 @@
                                             </div>
 
                                           <div class="bug-style-msg">
-                                              <div *ngIf="message.sender_id !== User.id" class="info-user">
+                                              <div *ngIf="message && message.sender_id !== User.id" class="info-user">
                                                   <div class="ava" [ngStyle]="{'background-image': 'url('+Dialog.with.image+')'}"></div>
                                                   <div class="r-s">
                                                       <p class="name">{{Dialog.with.first_name}} {{Dialog.with.last_name}}</p>
