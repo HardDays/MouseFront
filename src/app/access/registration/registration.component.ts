@@ -56,7 +56,7 @@ export class RegistrationComponent extends BaseComponent implements OnInit {
 
   typeUser:string;
 
-  currentPage:string = 'acc';
+  currentPage:string = 'phone';
 
   phone:string;
   isShowPhone:boolean = true;
