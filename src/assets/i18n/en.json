@@ -764,5 +764,7 @@
 	"Choose a country": "Choose a country",
 	"Region": "Region",
 	"Choose a city": "Choose a city",
-	"Request wasn't sent!": "Request wasn't sent!"
+	"Request wasn't sent!": "Request wasn't sent!",
+	"already taken":"already taken",
+	"Mouse username": "Mouse username"
 }

@@ -764,5 +764,7 @@
 	"Choose a country": "Выберите страну",
 	"Region": "Регион",
 	"Choose a city": "Выберите город",
-	"Request wasn't sent!": "Запрос не был отправлен!"
+	"Request wasn't sent!": "Запрос не был отправлен!",
+	"already taken":"занято",
+	"Mouse username": "Имя пользователя Mouse"
 }

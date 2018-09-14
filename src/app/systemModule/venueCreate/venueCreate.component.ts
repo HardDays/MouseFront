@@ -195,6 +195,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
         );
       },
       (err) => {
+        // console.log(err);
         this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'venue'));
       }
     )
@@ -224,6 +225,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
         );
       },
       (err) => {
+        console.log(err);
         this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'venue'));
       }
     )

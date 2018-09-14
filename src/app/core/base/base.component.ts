@@ -106,7 +106,6 @@ export class BaseComponent{
             .subscribe(
                 (val:AccountGetModel) =>
                 {
-                    //console.log("acc_change",val);
                     this.CurrentAccount = val;
                     this.accId = this.CurrentAccount.id;
                 }
@@ -263,12 +262,12 @@ export class BaseComponent{
                             (accs)=>{
                                     this.isLoading = false;
                                     if(this.main.MyAccounts.length>0){
-                                    console.log(`main.MyAccounts.length>0`);
+                                    // console.log(`main.MyAccounts.length>0`);
                                     this.router.navigate(['/system','shows']);
                                     }
                                     else
                                     {
-                                    console.log(`create new acc`);
+                                    // console.log(`create new acc`);
                                     this.router.navigate(['/social']);
                                     }
                                 }
@@ -642,7 +641,7 @@ export class BaseComponent{
                 autocomplete.addListener(
                     "place_changed",
                     () => {
-                        console.log(`place_changed`);
+                        // console.log(`place_changed`);
                         this.ngZone.run(
                             () => {
                                 let place: google.maps.places.PlaceResult = autocomplete.getPlace();
@@ -768,7 +767,7 @@ export class BaseComponent{
 
           errors.push(this.GetTranslateString(keyDict[key]) + ' ' + (error? this.GetTranslateString(error.replace('_', ' ').toLowerCase()):'').toLowerCase());
       });
-
+    //   console.log(errors);
       return errors.join('<br/>');
     }
 
