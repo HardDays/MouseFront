@@ -763,5 +763,6 @@
 	"All": "Все",
 	"Choose a country": "Выберите страну",
 	"Region": "Регион",
-	"Choose a city": "Выберите город"
+	"Choose a city": "Выберите город",
+	"Request wasn't sent!": "Запрос не был отправлен!"
 }
