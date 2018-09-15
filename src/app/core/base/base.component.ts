@@ -763,9 +763,10 @@ export class BaseComponent{
       const errors = [];
       const keyDict = this.getKeysDict(entityType);
       Object.keys(err.json()).forEach((key) => {
-          let error = err.json()[key][0];
+            let error = err.json()[key][0];
+            // const str = error? this.GetTranslateString(error.replace('_', ' ')):null;
 
-          errors.push(this.GetTranslateString(keyDict[key]) + ' ' + (error? this.GetTranslateString(error.replace('_', ' ').toLowerCase()):'').toLowerCase());
+            errors.push(this.GetTranslateString(keyDict[key]) + ' ' + (error? this.GetTranslateString(error.replace('_', ' ').toLowerCase()):'').toLowerCase());
       });
     //   console.log(errors);
       return errors.join('<br/>');
