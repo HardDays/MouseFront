@@ -252,7 +252,11 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
           return;
       }
       else{
-        this.SaveCurrentPageAndNavigate(this.Artist);
+        this.RidersPage.getRiders();
+        setTimeout(() => {
+           this.SaveCurrentPageAndNavigate(this.Artist);
+        }, 500);
+
       }
 
     }

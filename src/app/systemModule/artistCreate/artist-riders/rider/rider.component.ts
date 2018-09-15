@@ -114,23 +114,25 @@ export class RiderComponent extends BaseComponent implements OnInit {
   }
 
   downloadFile(data: Response){
-    this.main.accService.GetRiderById(this.Rider.id)
-    .subscribe((res)=>{
+    if(this.Rider.id){
+      this.main.accService.GetRiderById(this.Rider.id)
+      .subscribe((res)=>{
 
-      let type = res.uploaded_file_base64.split(';base64,')[0].split('/')[1];
-      console.log(res.uploaded_file_base64.split(';base64,')[0]);
-      let file = res.uploaded_file_base64.split(';base64,')[1];
+        let type = res.uploaded_file_base64.split(';base64,')[0].split('/')[1];
+        console.log(res.uploaded_file_base64.split(';base64,')[0]);
+        let file = res.uploaded_file_base64.split(';base64,')[1];
 
-      var decoded = new Buffer(file, 'base64');
-      var blob = new Blob([decoded], { type: type });
-      if(type==='plain')type='txt';
-      else if(type==='vnd.openxmlformats-officedocument.wordprocessingml.document')type='docx';
+        var decoded = new Buffer(file, 'base64');
+        var blob = new Blob([decoded], { type: type });
+        if(type==='plain')type='txt';
+        else if(type==='vnd.openxmlformats-officedocument.wordprocessingml.document')type='docx';
 
-      saveAs(blob,'Rider.'+type);
+        saveAs(blob,'Rider.'+type);
 
-    }, (err)=>{
-      // console.log(err);
-    })
+      }, (err)=>{
+        // console.log(err);
+      })
+    }
   }
 
 
