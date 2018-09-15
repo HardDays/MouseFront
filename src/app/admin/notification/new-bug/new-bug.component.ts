@@ -15,6 +15,10 @@ interface Bug{
     }
     sender_id: number,
     subject: string,
+    message_info:{
+      is_forwarded:boolean
+    }
+
   }
   updated_at:string,
   value: number

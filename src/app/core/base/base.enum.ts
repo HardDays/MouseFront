@@ -64,7 +64,7 @@ export enum tabsShowDetails{
     updates = "updates"
 }
 export enum BaseErrors{
-    
+
 
 }
 

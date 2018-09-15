@@ -82,7 +82,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
   Venue:AccountCreateModel = new AccountCreateModel();
   VenueId:number = 0;
   VenueImageId:number = 0;
-  
+
 
   isNewVenue = false;
 
@@ -131,7 +131,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
         }
       }
     );
-    
+
   }
 
   ngAfterViewChecked()
@@ -189,7 +189,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
         );
         this.main.GetMyAccounts(
           () => {
-            
+
             this.main.CurrentAccountChange.next(res);
           }
         );
@@ -232,7 +232,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
   }
 
   isEnglish(){
-    if (this.settings.GetLang() == 'en') 
+    if (this.settings.GetLang() == 'en')
       return true;
   }
 
@@ -314,6 +314,15 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
     }
     this.SaveVenue();
 
+  }
+
+  clickVerifyButton(){
+    this.main.accService.VerifyAccount(this.VenueId)
+      .subscribe(
+        (res)=>{
+          this.Venue.status = 'unchecked';
+        }
+      )
   }
 
   DeleteImage($event)

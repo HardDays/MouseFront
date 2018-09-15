@@ -47,7 +47,7 @@
                                             </div>
                                             <!--мои сообщения-->
                                             <div *ngIf="message.sender_id === User.id" class="my-msg">
-                                                <p class="one-msg">{{message.message}}</p>
+                                                <p (click)="idOpenMenu = message.id" class="one-msg">{{message.message}}</p>
                                             </div>
                                           </ng-container>
                                       </div>
