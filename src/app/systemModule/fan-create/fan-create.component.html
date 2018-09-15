@@ -58,7 +58,7 @@
                             </div>
                         </ng-container>
                     </div>
-                    <p class="more" *ngIf="!seeMore" (click)="seeMoreGenres()"><span translate>See more</span></p>
+                    <p class="more" [ngClass]="{'rotate180':seeMore}" (click)="seeMoreGenres()"><span translate>See {{seeMore?'less':'more'}}</span></p>
                     <div class="continue-wr">
                         <button class="butt-style-1" type="submit"><span *ngIf="flagForText" translate>Add Fan</span><span *ngIf="!flagForText" translate>Save</span></button>
                     </div>
