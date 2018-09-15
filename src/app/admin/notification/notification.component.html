@@ -45,7 +45,7 @@
                         </div>
                         <div class="flex-people">
                             <div *ngFor="let admin of AdminsList" (click)="sendForward(admin.id)" class="one-p">
-                                <div class="ava" style="background-image: url(./../../../../assets/img/drake.jpg)"></div>
+                                <div class="ava" [ngStyle]="{'background-image': 'url('+admin.image+')'}"></div>
                                 <p class="name">{{admin.user_name}}</p>
                                 <!-- <p class="surname">Bulok</p> -->
                             </div>
