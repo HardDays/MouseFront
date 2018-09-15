@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { BaseComponent } from '../../../../core/base/base.component';
 import { AccountCreateModel, Rider } from '../../../../core/models/accountCreate.model';
-import * as FileSaver from 'file-saver';
-
+import { saveAs} from 'file-saver';
+declare const Buffer;
 @Component({
   selector: 'app-rider',
   templateUrl: './rider.component.html',
@@ -24,7 +24,7 @@ export class RiderComponent extends BaseComponent implements OnInit {
     'Hospitality'  : 'Type or Upload your preference for Hospitality (Food and Drinks)',
     'Technical'  : 'Type or Upload your requirements for Musical Instruments and Equipment'
   };
-  
+
   isEng: boolean;
 
   ngOnInit() {
@@ -36,24 +36,37 @@ export class RiderComponent extends BaseComponent implements OnInit {
   //     if(this.Rider.id) this.isConfirmRider = true;
   //       else  this.isConfirmRider = false;
   //   }
-       
+
 
   // }
 
   loadRiderFile($event:any){
     let target = $event.target;
     let file:File = target.files[0];
-  
-    for(let file of target.files)
-    {
-        let reader:FileReader = new FileReader();
-        reader.onload = (e) =>{
-        this.Rider.uploaded_file_base64 = reader.result;
-        this.isConfirmRider = false;
-      }
-      reader.readAsDataURL(file);
-    }
+    this.getBase64(file);
+    // for(let file of target.files)
+    // {
+    //     let reader:FileReader = new FileReader();
+    //     reader.onload = (e) =>{
+    //     this.Rider.uploaded_file_base64 = reader.result;
+    //     this.isConfirmRider = false;
+    //   }
+    //   reader.readAsDataURL(file);
+    // }
   }
+
+ getBase64(file) {
+   var reader = new FileReader();
+   reader.readAsDataURL(file);
+   reader.onload = (e)=>{
+    //  console.log(reader.result);
+     this.Rider.uploaded_file_base64 = reader.result+'';
+    //     this.isConfirmRider = false;
+   };
+   reader.onerror = function (error) {
+     console.log('Error: ', error);
+   };
+}
 
 
   deleteRider(){
@@ -77,7 +90,7 @@ export class RiderComponent extends BaseComponent implements OnInit {
 
     if(!this.Rider.is_flexible)
       this.Rider.is_flexible = false;
-    else 
+    else
       this.Rider.is_flexible = true;
     // this.Artist.artist_riders.push(this.Rider);
   }
@@ -97,23 +110,30 @@ export class RiderComponent extends BaseComponent implements OnInit {
       type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-16le"
       });
 
-      FileSaver.saveAs(file, "template.xls"); 
+      saveAs(file, "template.xls");
   }
 
   downloadFile(data: Response){
     this.main.accService.GetRiderById(this.Rider.id)
     .subscribe((res)=>{
-      let type = res.uploaded_file_base64.split(';base64,')[0];
+
+      let type = res.uploaded_file_base64.split(';base64,')[0].split('/')[1];
+      console.log(res.uploaded_file_base64.split(';base64,')[0]);
       let file = res.uploaded_file_base64.split(';base64,')[1];
-      var blob = new Blob([file], { type: type });
-      var url = window.URL.createObjectURL(blob);
-      window.open(url);
+
+      var decoded = new Buffer(file, 'base64');
+      var blob = new Blob([decoded], { type: type });
+      if(type==='plain')type='txt';
+      else if(type==='vnd.openxmlformats-officedocument.wordprocessingml.document')type='docx';
+
+      saveAs(blob,'Rider.'+type);
+
     }, (err)=>{
       // console.log(err);
     })
   }
 
-  
+
 }
 
 
