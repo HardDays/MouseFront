@@ -5,7 +5,7 @@ import { AccountService } from '../../core/services/account.service';
 import { ImagesService } from '../../core/services/images.service';
 import { TypeService } from '../../core/services/type.service';
 import { GenresService } from '../../core/services/genres.service';
-import { Router, Params, ActivatedRoute, NavigationEnd, NavigationStart } from '@angular/router';
+import { Router, Params, ActivatedRoute, NavigationEnd, NavigationStart} from '@angular/router';
 import { AuthService } from "angular2-social-login";
 
 import { BaseComponent } from '../../core/base/base.component';
@@ -40,6 +40,7 @@ import { CommentEventModel } from '../../core/models/commentEvent.model';
 import {Location} from '@angular/common';
 import { EventUpdatesModel } from '../../core/models/eventUpdates.model';
 import { EventBackersModel } from '../../core/models/eventBackers.model';
+import { Data } from './showDetail.data';
 declare var $:any;
 declare var PhotoSwipeUI_Default:any;
 declare var PhotoSwipe:any;
@@ -66,6 +67,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     TicketsToBuy:BuyTicketModel[] = [];
     TotalPrice:number = 0;
     TotalOriginalPrice: number = 0;
+    TicketsCount: number = 0;
 
     Genres:GenreModel[] = [];
 
@@ -109,7 +111,8 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         protected translate      :TranslateService,
         protected settings       :SettingsService,
         private location: Location,
-        private meta: Meta
+        private meta: Meta,
+        private data : Data
     ) {
     super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,settings);
     }
@@ -367,29 +370,39 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
 
     AddTicketsToPrice(object:BuyTicketModel)
     {
-        this.TicketsToBuy.push(object);
+        const index = this.TicketsToBuy.findIndex(obj => obj.ticket.id == object.ticket.id);
+        if(index < 0)
+        {
+            this.TicketsToBuy.push(object);
+        }
+        else{
+            this.TicketsToBuy[index].count = object.count;
+        }
+        // this.TicketsToBuy.push(object);
         this.CalculateCurrentPrice();
-        this.OpenErrorWindow(object.count + this.GetTranslateString(" ticket")
-        + (object.count > 1  ? 
-            (object.count < 5 ?
-                this.GetTranslateString("addRuA")
-                : (object.count > 4 ?
-                    this.GetTranslateString("addRuOv")
-                    : ""
-                )
-            ) + this.GetTranslateString("addedRu")
-            : " " + this.GetTranslateString("added")
-        )
-        + " "
-        + this.GetTranslateString("to your cart!"));
+        // this.OpenErrorWindow(object.count + this.GetTranslateString(" ticket")
+        // + (object.count > 1  ? 
+        //     (object.count < 5 ?
+        //         this.GetTranslateString("addRuA")
+        //         : (object.count > 4 ?
+        //             this.GetTranslateString("addRuOv")
+        //             : ""
+        //         )
+        //     ) + this.GetTranslateString("addedRu")
+        //     : " " + this.GetTranslateString("added")
+        // )
+        // + " "
+        // + this.GetTranslateString("to your cart!"));
     }
 
     CalculateCurrentPrice()
     {
         this.TotalPrice = 0;
         this.TotalOriginalPrice = 0;
+        this.TicketsCount = 0;
         for(let item of this.TicketsToBuy)
         {
+            this.TicketsCount += item.count;
             this.TotalPrice += item.count * item.ticket.price;
             this.TotalOriginalPrice += item.count * item.ticket.original_price;
         }
@@ -402,8 +415,14 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         let myAcc = this.GetCurrentAccId();
         if(myAcc)
         {
-            this.CheckedTickets = this.GroupTickets(this.TicketsToBuy,myAcc);
-            this.BuyTicket();
+            this.data.storage = {
+                EventId: this.EventId,
+                Tickets: this.TicketsToBuy
+            };
+            this.router.navigate(['start_purchase'], {relativeTo: this.activatedRoute});
+            // console.log(this.TicketsToBuy);
+            // this.CheckedTickets = this.GroupTickets(this.TicketsToBuy,myAcc);
+            // this.BuyTicket();
         }
     }
 
