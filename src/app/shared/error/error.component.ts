@@ -38,13 +38,11 @@ export class ErrorComponent{
         let mes: string;
         this.Message = message;
         this.isShown = true;      
-        console.log(this.Message);
         
         mes = this.translate.parser.getValue(this.translate.store.translations[this.settings.GetLang()],this.Message);
         if (mes)
             this.Message = mes;
         
-        console.log(mes);
         $('#message-1').modal('show');
 
     }
