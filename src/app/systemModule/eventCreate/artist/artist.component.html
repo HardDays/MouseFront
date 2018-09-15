@@ -155,7 +155,7 @@
                                     <div class="desc">
                                         <!-- <a class="name" [routerLink]="['/system/profile',item.object.id]">{{niceView(item.object.display_name)}} {{niceView(item.object.user_name)}}</a> -->
                                         <a class="name" style="cursor: pointer" (click)="closeAddArtist(item.object.id)">{{niceViewName(item.object)}}</a>
-                                        <p class="genres" translate>{{niceViewGenres(item.object.genres)|titlecase}}</p>
+                                        <p class="genres">{{niceViewGenres(item.object.genres)|titlecase}}</p>
                                         <p class="where">{{item.object.address}}</p>
                                     </div>
                                 </div>
