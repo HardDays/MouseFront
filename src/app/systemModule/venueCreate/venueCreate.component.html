@@ -5,7 +5,7 @@
             <div class="main-mw">
                 <div class="create-event-header">
                     <h1>{{isNewVenue?'Create':'Edit' | translate}} <span translate>Venue.Venue</span></h1>
-                    
+
                     <div class="new-flex-ul-li">
                     <ul>
                         <!--нужным li даем классы active и started."хз нахрена это надо. узнавайте у писателя"-->
@@ -27,7 +27,7 @@
                         <li [ngClass]="{'active':CurrentPart == Parts.Preview,'started':(VenueId != 0 && CurrentPart != Parts.Preview)}">
                             <a (click)="ChangeCurrentPart(Parts.Preview)" class="nav-second-outlet" translate>Venue.Preview</a>
                         </li>
-                      
+
                         <li>
                             <button class="butt-style-1" style="width: auto; min-width: 130px;" (click)="SuperPuperImportantSaveButton()">
                                 <span style="padding: 10px 10px" translate>
@@ -35,12 +35,23 @@
                                 </span>
                             </button>
                         </li>
+
+                        <li *ngIf="VenueId !== 0 && (Venue.status==='just_added'||Venue.status==='dened')">
+                            <button class="butt-style-1" style="width: auto; min-width: 130px;" (click)="clickVerifyButton()">
+                                <span style="padding: 10px 10px" translate>
+                                    Verify
+                                </span>
+                            </button>
+                        </li>
+
+
+
                     </ul>
                 </div>
                 </div>
             </div>
         </div>
-        <venue-about-selector #about *ngIf="CurrentPart == Parts.About" (onError)="OpenErrorWindow($event)" (onSaveVenue)="SaveVenueByPages($event)" 
+        <venue-about-selector #about *ngIf="CurrentPart == Parts.About" (onError)="OpenErrorWindow($event)" (onSaveVenue)="SaveVenueByPages($event)"
             [Venue]="Venue" [VenueImageId]="VenueImageId" [VenueId]="VenueId" (onImageDeleted)="DeleteImage($event)" (onVenueChanged)="VenueChanged($event)" >
         </venue-about-selector>
 
@@ -56,7 +67,7 @@
             [Venue]="Venue" [VenueId]="VenueId" (onVenueChanged)="VenueChanged($event)">
         </venue-media-selector>
 
-        <venue-dates-selector #dates *ngIf="CurrentPart == Parts.Dates" (onError)="OpenErrorWindow($event)" (onSaveVenue)="SaveVenueByPages($event)" 
+        <venue-dates-selector #dates *ngIf="CurrentPart == Parts.Dates" (onError)="OpenErrorWindow($event)" (onSaveVenue)="SaveVenueByPages($event)"
             [Venue]="Venue" (onVenueChanged)="VenueChanged($event)" [VenueId]="VenueId">
         </venue-dates-selector>
 

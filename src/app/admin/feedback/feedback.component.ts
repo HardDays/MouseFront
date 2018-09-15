@@ -121,11 +121,12 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
   // }
 
   filterByType(){
-
-    if(this.Type === 'all')
-      this.FeedbacksChecked = this.Feedbacks;
-    else
-      this.FeedbacksChecked = this.Feedbacks.filter(obj => obj.message_info.feedback_type && (this.Type === obj.message_info.feedback_type));
+    this.Feedbacks = [];
+    this.onScroll();
+    // if(this.Type === 'all')
+    //   this.FeedbacksChecked = this.Feedbacks;
+    // else
+    //   this.FeedbacksChecked = this.Feedbacks.filter(obj => obj.message_info.feedback_type && (this.Type === obj.message_info.feedback_type));
   }
 
   InitJs(){
@@ -228,7 +229,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
 
   onScroll(){
     this.ScrollDisabled = true;
-    this.main.adminService.GetFeedbacks({limit:8,offset:this.Feedbacks.length})
+    this.main.adminService.GetFeedbacks({limit:8,offset:this.Feedbacks.length,feedback_type:this.Type})
       .subscribe(
         (res)=>{
           for(let fb of res){

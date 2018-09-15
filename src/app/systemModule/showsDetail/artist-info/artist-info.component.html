@@ -8,10 +8,10 @@
       <p class="bio">{{Artist.about}}</p>
       <div class="follow-unfollow" *ngIf="startShowButt">
           <button *ngIf="!IsFollowed" (click)="Follow()" class="butt-style-1">
-              <span>FOLLOW</span>
+              <span translate>FOLLOW</span>
           </button>
           <button *ngIf="IsFollowed" (click)="Unfollow()" class="butt-style-1">
-            <span>UNFOLLOW</span>
+            <span translate>UNFOLLOW</span>
         </button>
       </div>
   </div>

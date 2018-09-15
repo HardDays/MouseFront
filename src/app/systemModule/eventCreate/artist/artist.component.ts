@@ -282,7 +282,6 @@ export class ArtistComponent extends BaseComponent implements OnInit {
     (res)=>{
        //console.log(this.artistSearchParams,` from back `, res);
       let temp = this.convertArrToCheckModel<AccountGetModel>(res);
-
       for(let art of copy){
         if(art.checked){
           let isFind = false;
@@ -684,12 +683,15 @@ dragMarker($event)
 
     niceViewGenres(g:string[]){
       let gnr = '';
+      
+      
       if(g){
           if(g[0]) gnr+=g[0].replace('_',' ');
           if(g[1]) gnr+=', '+g[1].replace('_',' ');
       }
-
-     return gnr;
+      const gnrtr = gnr.split(', ').map(name => this.GetTranslateString(name)).join(', ');
+      
+      return gnrtr;
     }
 
 

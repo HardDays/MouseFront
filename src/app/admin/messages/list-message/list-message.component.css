@@ -1,0 +1,4 @@
+.support_dialogs_item .info .address.done:after {
+   content: url(./../../../../assets/img/ok-msg.svg);
+   padding-left: 7px;
+}
