@@ -106,7 +106,7 @@
 	"back": "назад",
 	"BLUES": "блюз",
 	"BRAZILIAN": "бразильская",
-	"Backers": "Инвесторов",
+	"Backers": "Пожертвований",
 	"Backstage Rider": "Райдер бэкстейджа",
 	"Bar": "Бар",
 	"Bio": "Биография",
@@ -831,7 +831,17 @@
 	"Added Image": "Добавлено Изображение",
 	"10 min": "10 минут",
 	"Updated Artist Bio": "Обновлена Био артиста",
-	"Added Ticket": "Добавлен Билет"
+	"Added Ticket": "Добавлен Билет",
+	"Exact date": "Точная дата",
+	"Please fill OTHER preferred venue field!": "Пожалуйста, заполните Другое поле предпочтительного места!",
+	"Update Video": "Видео обновлено",
+	"Update Album": "Альбом обновлен",
+	"Update Audio": "Песня обновлена",
+	"Update Image": "Изображение обновлено",
+	"Update About": "Обновление биографии Артиста",
+	"Update Stage Name": "Обновлено название площадки",
+	"to": "на",
+	"Event to": "Ивент на"
 
 
 }

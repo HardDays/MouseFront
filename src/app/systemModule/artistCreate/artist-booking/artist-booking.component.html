@@ -170,7 +170,7 @@
                         <!-- <ng-container  > -->
                         <div *ngFor="let type of preferredVenues; let i = index" class="one-checkbox">
                             <div class="check-style">
-                                <input [checked]="preferredVenues[i].checked" [disabled]="type.object.type==='other'" type="checkbox" (click)="setPreferedVenue(i)" class="checkbox" name="" id="checkbox-{{i}}">
+                                <input [checked]="preferredVenues[i].checked" [disabled]="type.object.type==='other'&&Artist?.preferred_venue_text.length>0" type="checkbox" (click)="setPreferedVenue(i)" class="checkbox" name="" id="checkbox-{{i}}">
                                 <label for="checkbox-{{i}}"></label>
                             </div>
                             <p translate>{{type.object.type_show}}</p>

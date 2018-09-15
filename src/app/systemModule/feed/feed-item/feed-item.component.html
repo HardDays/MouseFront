@@ -15,7 +15,7 @@
                             <ng-container
                               *ngIf="Feed.action !== 'update_image' && Feed.action !== 'update_gallery_image' && Feed.action !=='update_video' && Feed.action !=='update_album' && Feed.action !=='update_audio' "
                             >
-                            to "{{Feed.value}}"
+                            <span translate>to</span> "{{Feed.value}}"
                             </ng-container>
                         </p>
                     </div>
@@ -26,7 +26,7 @@
                              <ng-container
                               *ngIf="Feed.action !== 'update_image' && Feed.action !== 'update_gallery_image' && Feed.action !=='update_video' && Feed.action !=='update_album' && Feed.action !=='update_audio'"
                              >
-                             Event to "{{getValue()}}"
+                             <span translate>Event to</span> "{{getValue()}}"
                              </ng-container>
                           </p>
                         </ng-container>
