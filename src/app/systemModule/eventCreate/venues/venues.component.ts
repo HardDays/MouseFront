@@ -449,15 +449,17 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         this.addVenue.venue_id = venue.object.id;
         this.addVenue.account_id = this.Event.creator_id;
 
-        this.main.eventService.AddVenue(this.addVenue).
-                subscribe((res)=>{
-                    this.updateEvent();
+        if(venue.object.capacity&&venue.object.capacity>0){
+          this.main.eventService.AddVenue(this.addVenue).
+                  subscribe((res)=>{
+                      this.updateEvent();
 
-                    // this.submitVenue();
+                      // this.submitVenue();
 
-            },(err)=>{
-                this.onError.emit("Request wasn't sent!")
-            });
+              },(err)=>{
+                  this.onError.emit("Request wasn't sent!")
+              });
+        }
     }
 
 
