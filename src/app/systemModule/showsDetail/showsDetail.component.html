@@ -155,7 +155,7 @@
                     <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M33 14.4378H7.83721L19.3872 2.88779L16.5 0L0 16.5L16.5 33L19.3872 30.1122L7.83721 18.5622H33V14.4378Z" fill="black"/>
                     </svg>
-                    <span>back</span>
+                    <span translate>back</span>
                 </span>
                 <div class="information-side">
                     <div class="top-new-show-datails">
@@ -198,7 +198,7 @@
                                                     <div class="done" [ngStyle]="{'width':+FoundedPercent +'%'}"></div>
                                                 </div>
                                                 <p class="price-done">{{Event.founded}}</p>
-                                                <p class="descr-crowd">pledged of {{Event.funding_goal}} goal</p>
+                                                <p class="descr-crowd" translate>pledged of<span>{{Event.funding_goal}}</span>goal</p>
                                                 <div class="flex-crowd-info">
                                                     <div class="one-side">
                                                         <p class="biggy">{{Event.backers}}</p>
@@ -231,21 +231,21 @@
                         <div class="navigation-of-show-datail">
                             <ul class="list-nav-show">
                                 <li>
-                                    <span class="link-to-tab" [ngClass]="{'active': activeTab == 'information'}" (click)="ToInfo()">INFORMATION</span>
+                                    <span class="link-to-tab" [ngClass]="{'active': activeTab == 'information'}" (click)="ToInfo()" translate>INFORMATION</span>
                                 </li>
                                 <li *ngIf="Tickets && Tickets.length &&MyAcc.status && MyAcc.status != Status.Denied && MyAcc.status != Status.Inactive">
-                                    <span class="link-to-tab" *ngIf="Event.comments_available " [ngClass]="{'active': activeTab == 'comments'}" (click)="ToComments()">Comments <span>({{AllCommentsEvent.length}})</span></span>
+                                    <span class="link-to-tab" *ngIf="Event.comments_available " [ngClass]="{'active': activeTab == 'comments'}" (click)="ToComments()" translate>Comments<span>({{AllCommentsEvent.length}})</span></span>
                                 </li>
                                 <li *ngIf="Tickets && Tickets.length &&MyAcc.status && MyAcc.status != Status.Denied && MyAcc.status != Status.Inactive">
-                                    <span class="link-to-tab" [ngClass]="{'active': activeTab == 'updates'}" (click)="ToUpdates()">Updates <span>({{UpdatesEvent.length}})</span></span>
+                                    <span class="link-to-tab" [ngClass]="{'active': activeTab == 'updates'}" (click)="ToUpdates()" translate>Updates<span>({{UpdatesEvent.length}})</span></span>
                                 </li>
                             </ul>
                             <div class="going-wrapp" *ngIf="Event.backers != 0">
                                 <div class="going-ava">
                                     <app-one-ava-who-going *ngFor="let topBackers of Event.top_backers" [human]="topBackers"></app-one-ava-who-going>
                                 </div>
-                                <p class="how-mutch" *ngIf="Event.backers > 5">And <span (click)="OpenModalGoing()">{{Event.backers - 5}}</span> more going</p>
-                                <p class="how-mutch" *ngIf="Event.backers <= 5">Are going</p>
+                                <p class="how-mutch" *ngIf="Event.backers > 5" translate>And<span (click)="OpenModalGoing()">{{Event.backers - 5}}</span>more going</p>
+                                <p class="how-mutch" *ngIf="Event.backers <= 5" translate>Are going</p>
                             </div>
                         </div>
                         <div class="for-change-contant">
@@ -260,21 +260,21 @@
                     </div>
                 </div>
                 <div class="tickets-side">
-                    <h3>Tickets</h3>
-                    <p class="you-have">You have <span>5</span> tickets.</p>
+                    <h3 translate>Tickets.Tickets</h3>
+                    <p class="you-have" translate>You have<span>5</span>tickets</p>
                     <div class="tickets-new-wr">
                         <div class="price-and-buy">
-                            <p class="total">Total price: <span>$219.00</span></p>
+                            <p class="total" translate>Total price:<span>$219.00</span></p>
                             <div class="butt-buy">
                                 <button class="butt-style-1">
-                                    <span>Buy</span>
+                                    <span translate>Buy</span>
                                 </button>
                             </div>
                         </div>
                         <div class="all-tickets-new-wrapp">
                             <div class="one-tick">
-                                <p class="f">In person ticket</p>
-                                <p class="s">(Regular)</p>
+                                <p class="f" translate>In person ticket</p>
+                                <p class="s" translate>Tickets.(Regular)</p>
                                 <p class="c with-original-price">$102</p>
                                 <p class="c c-original">$102</p>
                                 <div class="conter-wrapp">
@@ -292,12 +292,12 @@
                                     </button>
 
                                 </div>
-                                <p class="t"><span>Buy one, get one free</span>Vip section, meet &amp; greet</p>
-                                <p class="last">(20 tickets left)</p>
+                                <p class="t" translate><span translate>Buy one, get one free</span>Vip section, meet & greet</p>
+                                <p class="last" translate>(20 tickets left)</p>
                             </div>
                             <div class="one-tick">
-                                <p class="f">In person ticket</p>
-                                <p class="s">(Regular)</p>
+                                <p class="f"translate>In person ticket</p>
+                                <p class="s"translate>Tickets.(Regular)</p>
                                 <p class="c with-original-price">$102</p>
                                 <p class="c c-original">$102</p>
                                 <div class="conter-wrapp">
@@ -315,15 +315,15 @@
                                     </button>
 
                                 </div>
-                                <p class="t"><span>Buy one, get one free</span>Vip section, meet &amp; greet</p>
-                                <p class="last">(20 tickets left)</p>
+                                <p class="t"><span translate>Buy one, get one free</span>Vip section, meet & greet</p>
+                                <p class="last" translate>(20 tickets left)</p>
                             </div>
                         </div>
                         <div class="price-and-buy">
-                            <p class="total">Total price: <span>$219.00</span></p>
+                            <p class="total" translate>Total price:<span>$219.00</span></p>
                             <div class="butt-buy">
                                 <button class="butt-style-1">
-                                    <span>Buy</span>
+                                    <span translate>Buy</span>
                                 </button>
                             </div>
                         </div>
@@ -355,13 +355,13 @@
 <div class="modal fade modal-send-request new-modal-inv who-going-modal" id="modal-who-going">
     <div class="modal-dialog">
         <div class="modal-body">
-            <h6 class="head-m-p-a">Who’s GOing ({{Event.backers}})</h6>
+            <h6 class="head-m-p-a" translate>Who’s GOing<span>({{Event.backers}})</span></h6>
             <div class="close-modal" data-dismiss="modal"></div>
             <div class="content-modal">
                 <div class="padd-left-right">
                     <div class="input-groupe-1 less-padd">
                         <div class="rel-wr">
-                            <input id="inp-modal-inv-1"  name="searchgoing" (input)='onChangeInpSearch($event)' type="text" placeholder="Search">
+                            <input id="inp-modal-inv-1"  name="searchgoing" (input)='onChangeInpSearch($event)' type="text" placeholder="{{Search | translate}}">
                         </div>
                     </div>
                     <div class="flex-people" id="heightCalc">
@@ -377,7 +377,7 @@
 <div class="modal fade modal-send-request new-modal-inv modal-share" id="modal-share">
     <div class="modal-dialog">
         <div class="modal-body">
-            <h6 class="head-m-p-a">Share Show</h6>
+            <h6 class="head-m-p-a" translate>Share Show</h6>
             <div class="close-modal" data-dismiss="modal"></div>
             <div class="content-modal">
                 <div class="padd-left-right">
@@ -392,11 +392,11 @@
                         <div class="rel-wr">
                             <input id="share-inp"  name="" type="text" >
                         </div>
-                         <label for="share-inp">Message</label>
+                         <label for="share-inp" translate>setting.Message</label>
                     </div>
                     <div class="copy-link">
                         <p class="link">www.mouselive.com/shows/Drake_show</p>
-                        <button class="copy">Copy link</button>
+                        <button class="copy" translate>Copy link</button>
                     </div>   
                 </div>
             </div>

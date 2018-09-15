@@ -103,6 +103,7 @@
 	"Aug": "Авг",
 	"Autumn": "Осень",
 	"BAck": "Назад",
+	"back": "назад",
 	"BLUES": "блюз",
 	"BRAZILIAN": "бразильская",
 	"Backers": "Инвесторов",
@@ -799,10 +800,38 @@
 	"Stage description": "Опишите сцену",
 	"Minimum notice days": "Минимальные дни на уведомление",
 	"Price for daytime": "Цена за дневное время",
-	"Price for nighttime": "Цена за ночное время"
-
-
-
+	"Price for nighttime": "Цена за ночное время",
+	"INFORMATION": "ИНФОРМАЦИЯ",
+	"Comments": "Комментарии ",
+	"Updates": "Обновления ",
+	"And": "И ",
+	"more going": " еще идут",
+	"Are going": " Идут",
+	"pledged of": "Необходимо собрать ",
+	"goal": " для достижения цели",
+	"You have": "У вас есть ",
+	"tickets": " билетов.",
+	"Total price:": "Всего: ",
+	"Buy": "Купить",
+	"(20 tickets left)": "(20 билетов осталось)",
+	"Who’s GOing": "Кто идет ",
+	"Share Show": "Расшарить Шоу",
+	"Copy link": "Копировать ссылку",
+	"About show": "О шоу",
+	"ARTISTS": "АРТИСТЫ",
+	"FOLLOW": "ПОДПИСАТЬСЯ",
+	"UNFOLLOW": "ОТПИСАТЬСЯ",
+	"Add comment": "Добавить комментарий",
+	"just": "сейчас",
+	"Seconds": " Секунд",
+	"Minutes": " Минут",
+	" Hours": " Часов",
+	"Dayd": " Дней",
+	"s": "",
+	"Added Image": "Добавлено Изображение",
+	"10 min": "10 минут",
+	"Updated Artist Bio": "Обновлена Био артиста",
+	"Added Ticket": "Добавлен Билет"
 
 
 }
