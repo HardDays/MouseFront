@@ -48,6 +48,9 @@ import { NotificationComponent } from './notification/notification.component';
 import { NewMessageComponent } from './messages/new-message/new-message.component';
 import { OpenMessageComponent } from './messages/open-message/open-message.component';
 import { ListMessageComponent } from './messages/list-message/list-message.component';
+import { NewBugComponent } from './notification/new-bug/new-bug.component';
+import { NewAdminComponent } from './notification/new-admin/new-admin.component';
+import { NewUsersComponent } from './notification/new-users/new-users.component';
 
 
 
@@ -105,7 +108,10 @@ import { ListMessageComponent } from './messages/list-message/list-message.compo
         NotificationComponent,
         NewMessageComponent,
         OpenMessageComponent,
-        ListMessageComponent
+        ListMessageComponent,
+        NewBugComponent,
+        NewAdminComponent,
+        NewUsersComponent
 
     ],
     providers: [AdminAccessGuard]

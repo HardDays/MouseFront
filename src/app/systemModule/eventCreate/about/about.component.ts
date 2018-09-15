@@ -97,6 +97,9 @@ export class AboutComponent extends BaseComponent implements OnInit {
     datepickerToModel:Date = new Date();
     datepickerExactModel:Date = new Date();
 
+    minDate = new Date();
+    maxDate = new Date();
+
   ngOnInit() {
 
     this.CreateAutocompleteAbout();
@@ -122,6 +125,10 @@ export class AboutComponent extends BaseComponent implements OnInit {
       }
       else if(this.Event.date_from){
         this.datepickerExactModel = new Date(this.Event.date_from);
+      }
+      if(this.Event.date_from&&this.Event.date_to){
+        this.minDate = new Date(this.Event.date_from);
+        this.maxDate = new Date(this.Event.date_to);
       }
     }
     // this.Event&&this.Event.date_from?this.datepickerExactModel = new Date(this.Event.date_from):null;

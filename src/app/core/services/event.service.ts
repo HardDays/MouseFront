@@ -42,6 +42,7 @@ export class EventService{
             () => this.http.PostData('/events.json',JSON.stringify(params))
         );
     }
+
     UpdateEvent(id:number,params:EventCreateModel){
         return this.http.CommonRequest(
             () => this.http.PatchData('/events/'+id+'.json',params)
@@ -57,7 +58,16 @@ export class EventService{
             () => this.http.GetData('/events/search.json',this.typeService.ParamsToUrlSearchParams(params))
         );
     }
-
+    EventsUpdates(id:number){
+        return this.http.CommonRequest(
+            () => this.http.GetData('/events/'+id+'/updates.json')
+        );
+    }
+    EventGoingAcc(eventId:number,limit:number,offset:number,text?:string){
+        return this.http.CommonRequest(
+            () => this.http.GetData('/events/'+eventId+'/backers.json',this.typeService.ParamsToUrlSearchParams({limit,offset,text}))
+        );
+    }
     EventsMy(params){
         return this.http.CommonRequest(
             () => this.http.GetData('/events/my.json',this.typeService.ParamsToUrlSearchParams(params))
@@ -193,7 +203,7 @@ export class EventService{
             () => this.http.PostData('/events/'+id+'/verify.json',JSON.stringify(params))
         );
     }
-
+    
     SetDeActive(id:number,account_id:number){
 
         let params = {

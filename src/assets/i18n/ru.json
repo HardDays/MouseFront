@@ -105,7 +105,7 @@
 	"BAck": "Назад",
 	"BLUES": "блюз",
 	"BRAZILIAN": "бразильская",
-	"Backers": "Инвесторы",
+	"Backers": "Инвесторов",
 	"Backstage Rider": "Райдер бэкстейджа",
 	"Bar": "Бар",
 	"Bio": "Биография",
@@ -114,6 +114,7 @@
 	"CHILDREN MUSIC": "детская музыка",
 	"CHRISTIAN / GOSPEL": "Современная христианская музыка",
 	"christian gospel": "Современная христианская музыка",
+	"CHRISTIAN GOSPEL": "Современная христианская музыка",
 	"CLASSICAL": "классика",
 	"CONTACTS:": "КОНТАКТЫ:",
 	"COUNTRY": "кантри",
@@ -133,7 +134,7 @@
 	"Create Fan": "Создать фана",
 	"Create Venue": "Создать площадку",
 	"Create account": "Создать аккаунт",
-	"Crowdfunded Event": "Событие Crowdfunded",
+	"Crowdfunded Event": "Краудфандинговое Событие",
 	"christian/gospel": "Современная христианская музыка",
 	"Admin's reply to your feedback": "Ответ админа на Ваш отзыв",
 	"DANCE": "танцевальная",
@@ -762,5 +763,8 @@
 	"All": "Все",
 	"Choose a country": "Выберите страну",
 	"Region": "Регион",
-	"Choose a city": "Выберите город"
+	"Choose a city": "Выберите город",
+	"Request wasn't sent!": "Запрос не был отправлен!",
+	"already taken":"занято",
+	"Mouse username": "Имя пользователя Mouse"
 }

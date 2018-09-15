@@ -211,8 +211,8 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
         phoneToSend = phoneToSend.replace(/-/g,'');
         this.Venue.phone =  phoneToSend;
 
-        console.log(this.Venue);
-        // this.onSaveVenue.emit(this.Venue);
+        // console.log(this.Venue);
+        this.onSaveVenue.emit(this.Venue);
     }
 
     uploadImage($event){

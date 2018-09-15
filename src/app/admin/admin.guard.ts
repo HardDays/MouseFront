@@ -13,7 +13,7 @@ export class AdminAccessGuard extends BaseComponent implements CanActivate{
     canActivate(router:ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>|boolean{
 
         //потом просто удалить
-        if(localStorage.getItem('access')!='true') this.router.navigate(['/access']);
+        // if(localStorage.getItem('access')!='true') this.router.navigate(['/access']);
         
         let login = this.main.authService.IsLogedIn();
 

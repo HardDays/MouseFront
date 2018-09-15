@@ -1,0 +1,33 @@
+<div class="info-artist">
+  <div class="left-side">
+      <a (click)="Navigate()" class="ava" [ngStyle]="{'background-image': 'url('+Image+')'}"></a>
+  </div>
+  <div class="right-side">
+      <p class="name">{{Artist.stage_name?Artist.stage_name:Artist.display_name}}</p>
+      <p class="mose-name"><span>@</span>{{Artist.user_name}}</p>
+      <p class="bio">{{Artist.about}}</p>
+      <div class="follow-unfollow" *ngIf="startShowButt">
+          <button *ngIf="!IsFollowed" (click)="Follow()" class="butt-style-1">
+              <span>FOLLOW</span>
+          </button>
+          <button *ngIf="IsFollowed" (click)="Unfollow()" class="butt-style-1">
+            <span>UNFOLLOW</span>
+        </button>
+      </div>
+  </div>
+</div>
+<div class="movies-artist">
+    <div class="slider-video" *ngIf="Videos.length != 0">
+        <ng-container *ngFor="let onevideo of Videos; let i = index">
+            <div class="slide" *ngIf="i == activeSlide">
+                <div class="iframe-wr">
+                    <iframe  [src]="activeSlideVideo"  scrolling="no" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+
+        </ng-container>
+        <button class="some-arrow left-arr" *ngIf="Videos.length > 1 && activeSlide != 0" (click)="Slideleft()"></button>
+        <button class="some-arrow right-arr" *ngIf="Videos.length > 1 && activeSlide != (Videos.length - 1)" (click)="SlideRight()"></button>
+       
+    </div>
+</div>

@@ -11,7 +11,8 @@ interface Sender {
 
 interface MessageInfo {
     rate_score?:number,
-    feedback_type?:string
+    feedback_type?:string,
+    is_forwarded?:boolean
 }
 
 export class FeedbackAdminModel{
