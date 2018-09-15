@@ -783,5 +783,21 @@
 	"Time frame range": "Time frame range",
 	"Time frame number": "Time frame number",
 	"Time frame": "Time frame",
-	"Type": "Type"
+	"Type": "Type",
+	"already taken":"already taken",
+	"Mouse username": "Mouse username",
+	"Venue Name": "Venue Name",
+	"Email Name": "Email Name",
+	"Phone": "Phone",
+	"Emails": "Emails",
+	"Preffered venue type": "Preffered venue type",
+	"Capacity": "Capacity",
+	"Number of bathrooms": "Number of bathrooms",
+	"Minimum Age": "Minimum Age",
+	"Audio description": "Audio description",
+	"Lighting description": "Lighting description",
+	"Stage description": "Stage description",
+	"Minimum notice days": "Minimum notice days",
+	"Price for daytime": "Price for daytime",
+	"Price for nighttime": "Price for nighttime"
 }

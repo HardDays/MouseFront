@@ -783,5 +783,26 @@
 	"Time frame range": "Диапазон временных рамок",
 	"Time frame number": "Номер кадра",
 	"Time frame": "Период времени",
-	"Type": "Тип"
+	"Type": "Тип",
+	"already taken":"занято",
+	"Mouse username": "Имя пользователя Mouse",
+	"Venue Name": "Название площадки",
+	"Email Name": "Email Имя",
+	"Phone": "Телефон",
+	"Emails": "Emails",
+	"Preffered venue type": "Предпочтительный тип места",
+	"Capacity": "Вместимость",
+	"Number of bathrooms": "Количество ванных комнат",
+	"Minimum Age": "Минимальный возраст",
+	"Audio description": "Опишите аудио",
+	"Lighting description": "Опишите освещение",
+	"Stage description": "Опишите сцену",
+	"Minimum notice days": "Минимальные дни на уведомление",
+	"Price for daytime": "Цена за дневное время",
+	"Price for nighttime": "Цена за ночное время"
+
+
+
+
+
 }
