@@ -21,7 +21,6 @@ export class UpdatesComponent implements OnInit {
   }
   initUpdate(){
     this.Updates = this.UpdatesEvent;
-    
   }
 
   calculateTime(value: Date){
@@ -46,6 +45,22 @@ export class UpdatesComponent implements OnInit {
         result+='s';
     }
     return result;
+  }
+
+
+  getValue(oneUpdate){
+    if(oneUpdate.action == "update"){
+      return "Updated "+ oneUpdate.field
+    }
+    else if (oneUpdate.action == "add_ticket"){
+      return "Added ticket"
+    }
+    else if (oneUpdate.action == "add_genre"){
+      return "Added Genre"
+    }
+    else{
+      return "event has been launched"
+    }
   }
 
 

@@ -118,7 +118,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
 
     ngOnInit(): void
     {
-        this.FullUrl = this.router.routerState.snapshot.url;
+        this.FullUrl = window.location.href;
         this.activatedRoute.params.forEach((params)=>{
             this.EventId = params["id"];
             // console.log("scroll_position",window.scrollY);
@@ -207,7 +207,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     }
     OpenModalShare(){
         $('#modal-share').modal('show');
-
+        console.log(window.location.href);
     }
     // getGoingHuman(id:number,limit:number,offset:number,text?:string){
     //     this.main.eventService.EventGoingAcc(id,limit,offset,text).subscribe((res:any)=>{
