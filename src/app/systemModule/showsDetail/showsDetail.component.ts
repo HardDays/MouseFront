@@ -61,6 +61,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     FoundedPercent:number = 0;
     Date:string = "";
     Image:string = BaseImages.Drake;
+    ImageTw:string = BaseImages.Drake;
     CheckedTickets:any[] = [];
     
     TicketsToBuy:BuyTicketModel[] = [];
@@ -158,9 +159,9 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     }
     SetMetaTagsImage(){
         this.meta.addTags([
-            {name: 'og:image', content: this.Image},
-            {name: 'twitter:image', content: this.Image},
-            {itemprop: 'image', content: this.Image}
+            {name: 'og:image', content: this.ImageTw},
+            {name: 'twitter:image', content: this.ImageTw},
+            {itemprop: 'image', content: this.ImageTw}
         ]);
        
     }
@@ -254,9 +255,10 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         {
             
             this.Image = this.main.imagesService.GetImagePreview(this.Event.image_id, {width:700, height:950});
+            this.ImageTw = this.main.imagesService.GetImagePreview(this.Event.image_id, {width:510, height:228});
             setTimeout(()=>{
                 this.SetMetaTagsImage();
-            },1000);
+            },200);
             
             // this.main.imagesService.GetImageById(this.Event.image_id)
             //     .subscribe(
