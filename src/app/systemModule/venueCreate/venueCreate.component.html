@@ -36,8 +36,7 @@
                             </button>
                         </li>
 
-                        <li *ngIf="VenueId !== 0 && (Venue.status==='just_added'||Venue.status==='dened') &&
-                            Venue.capacity && Venue.audio_description && Venue.lighting_description && Venue.stage_description"
+                        <li *ngIf="VenueId !== 0 && isCanVerify"
                         >
                             <button class="butt-style-1" style="width: auto; min-width: 130px;" (click)="clickVerifyButton()">
                                 <span style="padding: 10px 10px" translate>
