@@ -73,7 +73,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     Featuring:{name:string,id:number}[] = [];
 
     Statuses = EventStatus;
-   
+    
     FullUrl:string;
     activeTab:string = tabsShowDetails.information;
     isShowMap = false;
@@ -90,6 +90,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     UpdatesEvent:EventUpdatesModel[] = [];
     TextSearchGoing:string;
     Allbackers:EventBackersModel[] = [];
+    ShareTitle:string = "";
     @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
         if(this.isShowMap){
             if (event.keyCode === this.ESCAPE_KEYCODE || event.keyCode === this.ENTER_KEYCODE) {
@@ -189,6 +190,9 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
             this.Allbackers = res;
         })
         
+    }
+    onChangeInptitle(event){
+        this.ShareTitle = event.target.value;
     }
     goBack() {
         this.location.back();

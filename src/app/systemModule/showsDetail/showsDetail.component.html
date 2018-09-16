@@ -382,15 +382,15 @@
             <div class="content-modal">
                 <div class="padd-left-right">
                     <div class="flex-icons-share">
-                        <a href="#" class="soc-link f" target="_blank"></a>
+                        <a href="http://www.facebook.com/sharer.php?u={{FullUrl}}&title={{ShareTitle == ''?Event.name:ShareTitle}}&picture={{ImageTw}}" class="soc-link f" target="_blank"></a>
                         <a href="#" class="soc-link g" target="_blank"></a>
                         <a href="#" class="soc-link t" target="_blank"></a>
-                        <a href="https://vk.com/share.php?url={{FullUrl}}&title={{Event.name}}&image={{ImageTw}}&noparse=true" class="soc-link v"  target="_blank"></a>
+                        <a href="https://vk.com/share.php?url={{FullUrl}}&title={{ShareTitle == ''?Event.name:ShareTitle}}&image={{ImageTw}}" class="soc-link v"  target="_blank"></a>
                         <a href="#" class="soc-link m"></a>
                     </div>
                     <div class="input-groupe-1 less-padd">
                         <div class="rel-wr">
-                            <input id="share-inp"  name="" type="text" >
+                            <input id="share-inp"  name="shareinp" (input)='onChangeInptitle($event)' type="text" >
                         </div>
                          <label for="share-inp" translate>setting.Message</label>
                     </div>
