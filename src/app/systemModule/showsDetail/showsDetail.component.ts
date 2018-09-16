@@ -194,6 +194,14 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     onChangeInptitle(event){
         this.ShareTitle = event.target.value;
     }
+    copylink(element){
+       
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val($(element).text()).select();
+        document.execCommand("copy");
+        $temp.remove();
+    };
     goBack() {
         this.location.back();
     }
