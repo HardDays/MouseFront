@@ -17,7 +17,6 @@ export class AccountComponent extends BaseComponent implements OnInit {
   accId = 0;
   Account:AccountCreateModel = new AccountCreateModel();
 
-
   CurrencySymbol = '$';
 
   @ViewChild('errCmp') errCmp: ErrorComponent = new ErrorComponent(this.translate, this.settings);
@@ -95,6 +94,16 @@ export class AccountComponent extends BaseComponent implements OnInit {
 
   openError(error:string){
      this.errCmp.OpenWindow(error);
+  }
+
+  checkAcc(){
+     this.main.adminService.AccountView(this.accId)
+      .subscribe(res => {
+        setTimeout(() => {
+          this.main.adminService.NewCountChange.next(true);
+        }, 300);
+        this.Account.status = 'pending';
+      });
   }
 
 
