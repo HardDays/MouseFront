@@ -6,6 +6,9 @@
                 <form class="reg-wr"  (ngSubmit)="CreateFun()" #submitFormFun="ngForm">
                     <h3 *ngIf="flagForText" translate>Add Fan</h3>
                     <h3 *ngIf="!flagForText" translate>Edit fan</h3>
+                    <div style="margin-bottom: 30px; margin-top:-20px" class="continue-wr">
+                      <button *ngIf="FunId !== 0 && (Fun.status==='just_added'||Fun.status==='dened')" class="butt-style-1" (click)="clickVerifyButton()" type="button"><span>Verify</span></button>
+                    </div>
                     <div class="for-flex-add-fan">
                         <div class="side left-side">
                             <div class="photo-wr-1">
@@ -55,14 +58,10 @@
                             </div>
                         </ng-container>
                     </div>
-                    <p class="more" *ngIf="!seeMore" (click)="seeMoreGenres()"><span translate>See more</span></p>
+                    <p class="more" [ngClass]="{'rotate180':seeMore}" (click)="seeMoreGenres()"><span translate>See {{seeMore?'less':'more'}}</span></p>
                     <div class="continue-wr">
                         <button class="butt-style-1" type="submit"><span *ngIf="flagForText" translate>Add Fan</span><span *ngIf="!flagForText" translate>Save</span></button>
                     </div>
-                    <div *ngIf="FunId !== 0 && (Fun.status==='just_added'||Fun.status==='dened')" class="continue-wr">
-                        <button class="butt-style-1" (click)="clickVerifyButton()" type="button"><span>Verify</span></button>
-                    </div>
-
                 </form>
             </div>
         </div>

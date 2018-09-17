@@ -47,7 +47,7 @@
               <div class="bg-doted-cal"></div>
           </div>
           <div id="mediaPage" class="uniq-padd-2">
-              <div *ngIf="Artist.audio_links.length>0"  class="main-mw">
+              <div *ngIf="Artist.audio_links?.length>0"  class="main-mw">
                   <div class="flex--info none-padd-sides-b none-padd-sides-t-without-h">
                       <div class="side side-info side-about ">
                           <h6>SONGS</h6>
@@ -61,10 +61,10 @@
                       <div *ngFor="let item of Artist.audio_links| slice:0:countAudio; let i = index" class="audio-wrapper">
                           <!-- <div class="one-audio">
                               <span class="name-track">{{audio.song_name}}</span>
-                              <audio [src]="audio.audio_link" preload="auto"></audio> 
+                              <audio [src]="audio.audio_link" preload="auto"></audio>
                           </div> -->
                           <div  class="one-audio">
-                
+
                             <div class="delete-track"></div>
                             <span class="name-track">{{item.song_name}}</span>
                             <div class="audiojs">
@@ -82,15 +82,15 @@
                                     <em class="played">00:00</em>
                                     <!-- <strong class="duration">{{audioId == i+1 && audioDuration>0 ?audioDuration/100:''}}</strong> -->
                                 </div>
-                            </div> 
+                            </div>
                         </div>
-                           
-                      </div>      
-                      <button *ngIf="countAudio<Artist.audio_links.length" class="see-all" (click)="countAudio = Artist.audio_links.length">SEE ALL</button>
+
+                      </div>
+                      <button *ngIf="countAudio<Artist.audio_links?.length" class="see-all" (click)="countAudio = Artist.audio_links.length">SEE ALL</button>
                   </div>
-                 
+
               </div>
-              <div *ngIf="photos.length>0" class="main-mw">
+              <div *ngIf="photos?.length>0" class="main-mw">
                   <div class="flex--info none-padd-sides-b">
                       <div class="side side-info side-about ">
                           <h6 class="for-position-left-js">Images ({{photos?photos.length:'-'}})</h6>
@@ -100,9 +100,9 @@
                   </div>
               </div>
           </div>
-          
-          <div *ngIf="photos.length>0" class="new-photos-wr-scroll-preview"
-          
+
+          <div *ngIf="photos?.length>0" class="new-photos-wr-scroll-preview"
+
             >
               <div class="rel-wr-photoos">
                   <div class="photos-abs-wrapp">
@@ -119,7 +119,7 @@
               </div>
 
           </div>
-          <div *ngIf="Artist.artist_albums.length>0" class="uniq-padd-2">
+          <div *ngIf="Artist.artist_albums?.length>0" class="uniq-padd-2">
               <div class="main-mw">
                   <div class="flex--info none-padd-sides-b none-padd-sides-t-without-h">
                       <div class="side side-info side-about ">
@@ -129,8 +129,8 @@
                       <div class="side side-info side-map"></div>
                   </div>
               </div>
-           </div> 
-           <div *ngIf="Artist.artist_albums.length>0" class="new-photos-wr-scroll-preview ">
+           </div>
+           <div *ngIf="Artist.artist_albums?.length>0" class="new-photos-wr-scroll-preview ">
               <div class="rel-wr-photoos alboms-play">
                   <div class="photos-abs-wrapp">
 
@@ -142,15 +142,15 @@
                                   <!-- <p class="date">2015</p> -->
                                   <span class="butt-style-1">
                                       <a target="_blank" style="color:white" href="{{item.album_link}}"><span>play</span></a>
-                                  </span>   
+                                  </span>
                               </div>
                           </div>
                       </div>
-                     
+
                   </div>
               </div>
           </div>
-          <div *ngIf="Artist.videos.length>0" class="uniq-padd-2">
+          <div *ngIf="Artist.videos?.length>0" class="uniq-padd-2">
                 <div class="main-mw">
                     <div class="flex--info none-padd-sides-b none-padd-sides-t-without-h">
                         <div class="side side-info side-about ">
@@ -160,13 +160,13 @@
                         <div class="side side-info side-map"></div>
                     </div>
                 </div>
-             </div> 
-             <div *ngIf="Artist.videos.length>0" class="new-photos-wr-scroll-preview ">
+             </div>
+             <div *ngIf="Artist.videos?.length>0" class="new-photos-wr-scroll-preview ">
                 <div class="rel-wr-photoos alboms-play min-h-fix-videos">
                     <div class="photos-abs-wrapp video-abs-wrapp">
                         <div *ngFor="let item of Artist.videos; let i = index" class="one-slide">
                             <div class="wrapp-card">
-                                
+
                                 <div (click)="openVideo(item)" class="cover-image" [ngStyle]="{'background-image': 'url('+item.preview+')'}">
                                     <div class="butt-play-video">
                                         <div class="pl"></div>
@@ -221,17 +221,18 @@
                           <p class="about-text margened">
                             Can{{Artist.can_perform_without_backing_vocals?'':'not'}} perform without Backing Vocals
                           </p>
-                          
+
                       </div>
                       <div class="side side-info side-map">
                           <h6>Preferred Venues</h6>
                           <p *ngIf="Artist&&Artist.preferred_venues" class="about-text margened">
                             <span *ngFor="let ven of Artist.preferred_venues; let last = last">
                                 {{
+                                    ven.type_of_venue?
                                     ven.type_of_venue === 'other'?
-                                        Artist.preferred_venue_text : 
-                                        ven.type_of_venue.replace('_',' ')
-                                    | titlecase 
+                                        Artist.preferred_venue_text :
+                                        ven.type_of_venue.replace('_',' '):''
+                                    | titlecase
                                 }}
                                 {{last?'':','}}
                             </span>
@@ -254,7 +255,7 @@
                       <div class="side side-info side-contact">
                          <h6>Video Streaming Preference</h6>
                           <p *ngIf="Artist&&Artist.is_permitted_to_stream" class="about-text margened">
-                            Gives permission to the Venue/Event Organizer to stream performance. 
+                            Gives permission to the Venue/Event Organizer to stream performance.
                           </p>
                           <p *ngIf="Artist&&Artist.is_permitted_to_advertisement" class="about-text margened">
                             Gives permission to the Venue/Event Organizer to have advertisements over streaming performance.
@@ -262,7 +263,7 @@
                           <p *ngIf="Artist&&!Artist.has_conflict_contracts" class="about-text margened">
                             Does not have contracts with any Brands that may conflict with advertisements.
                           </p>
-                          
+
                       </div>
                       <div class="side side-info side-map">
                           <h6>Other</h6>
@@ -281,82 +282,102 @@
                       </div>
                   </div>
               </div>
-              <!-- <div class="main-mw">
-                  <div class="flex--info none-padd-sides-b">
-                      <div class="side side-info-new-venue-prev side-info side-about">
-                          <h6>Riders</h6>
-                      </div>
-                      <div class="side side-info-new-venue-prev side-info side-about"></div>
-                  </div>
-              </div> -->
-               
-               <!-- <div class="main-mw-7">
-                  <div class="riders-flex-wrapp preview-page">
-                      <div class="side">
-                          <p class="head-side-riders">Stage Rider</p>
-                          <div class="download-upload">
-                              <div class="side-dwn">
-                                  <a class="dd-ff"  >
-                                      <img src="./../../../../assets/img/download.png" class="img-responsive" alt="">
-                                  </a>
-                                  <p class="desc-side-dwn">название123123123wafgsfdgbslfgblsbdflgbslfgbaslfgblsdbglsbdflgbsldbfglsdфайла</p>
-                              </div>
-                          </div> -->
-                          <!--видимый рейден-->
-                          <!-- <p class="desc-rider">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse </p>
-                          <p class="desc-rider">
-                              <strong>flexible preferences</strong>
-                          </p>
-                      </div> -->
-                      <!--не видимый рейден - добавляем класс "invisible-rider-wrapp"-->
-                      <!-- <div class="side invisible-rider-wrapp">
-                          <p class="head-side-riders">Backstage Rider</p>
-                          <div class="download-upload">
-                              <div class="side-dwn">
-                                  <a class="dd-ff">
-                                      <img src="./../../../../assets/img/download.png" class="img-responsive" alt="">
-                                  </a>
-                                  <p class="desc-side-dwn">название файла</p>
-                              </div>
-                          </div> -->
-                          <!--не видимый рейден-->
-                          <!-- <div class="unvisible-rider">
-                              <img src="./../../../../assets/img/eye.jpg" class="img-responsive" alt="">
-                              <p class="unvisible-rider-text">It’s not visible until the artist<br> approves</p>
-                          </div>
-                      </div>
-                      <div class="side">
-                          <p class="head-side-riders">Hospitality Rider</p>
-                          <div class="download-upload"> -->
-                              <!--до загрузки файла-->
-                              <!-- <div class="side-dwn">
-                                  <a class="dd-ff"  >
-                                      <img src="./../../../../assets/img/download.png" class="img-responsive" alt="">
-                                  </a>
-                                  <p class="desc-side-dwn">название файла</p>
-                              </div>
-                          </div>
-                          <p class="desc-rider">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse </p>
-                          <p class="desc-rider">
-                              <strong>flexible preferences</strong>
-                          </p>
-                      </div> -->
-                      <!--не видимый рейден - добавляем класс "invisible-rider-wrapp"-->
-                      <!-- <div class="side invisible-rider-wrapp">
-                          <p class="head-side-riders">Technical Rider</p>
-                          <div class="download-upload">
-                              <div class="side-dwn">
-                                  <a class="dd-ff"  >
-                                      <img src="./../../../../assets/img/download.png" class="img-responsive" alt="">
-                                  </a>
-                                  <p class="desc-side-dwn">название файла</p>
-                              </div>
-                          </div>
-                          <div class="unvisible-rider">
-                              <img src="./../../../../assets/img/eye.jpg" class="img-responsive" alt="">
-                              <p class="unvisible-rider-text">It’s not visible until the artist<br> approves</p>
-                          </div>
-                      </div> -->
+
+               <div class="main-mw">
+                    <div class="flex--info none-padd-sides-b">
+                        <div class="side side-info-new-venue-prev side-info side-about">
+                            <h6>Riders</h6>
+                        </div>
+                        <div class="side side-info-new-venue-prev side-info side-about"></div>
+                    </div>
+                </div>
+
+                          <div class="main-mw-7">
+                            <div class="riders-flex-wrapp preview-page">
+
+                                <div class="side" [ngClass]="{'invisible-rider-wrapp':!stageRider.id}" >
+                                    <p class="head-side-riders">Stage Rider</p>
+                                    <div *ngIf="stageRider.id" class="download-upload">
+                                        <div class="side-dwn">
+                                            <a class="dd-ff">
+                                                <img src="./../../../../assets/img/download.png" (click)="downloadFile(stageRider.id)" class="img-responsive" alt="">
+                                            </a>
+                                            <p class="desc-side-dwn">Download File</p>
+                                        </div>
+                                    </div>
+                                    <!--видимый рейден-->
+                                    <p *ngIf="stageRider.id" class="desc-rider">{{stageRider.description}}</p>
+                                    <p *ngIf="stageRider.id&&stageRider.is_flexible" class="desc-rider">
+                                        <strong>flexible preferences</strong>
+                                    </p>
+                                    <div *ngIf="!stageRider.id" class="unvisible-rider">
+                                        <img src="./../../../../assets/img/eye.jpg" class="img-responsive" alt="">
+                                        <p class="unvisible-rider-text">It’s not visible until the artist<br> approves</p>
+                                    </div>
+                                </div>
+
+                                <!--не видимый рейден - добавляем класс "invisible-rider-wrapp"-->
+                                <div class="side" [ngClass]="{'invisible-rider-wrapp':!backstageRider.id}">
+                                    <p class="head-side-riders">Backstage Rider</p>
+                                    <div *ngIf="backstageRider.id" class="download-upload">
+                                        <div class="side-dwn">
+                                            <a class="dd-ff" >
+                                                <img src="./../../../../assets/img/download.png" (click)="downloadFile(backstageRider.id)" class="img-responsive" alt="">
+                                            </a>
+                                            <p class="desc-side-dwn">Download File</p>
+                                        </div>
+                                    </div>
+                                    <!--видимый рейден-->
+                                    <p *ngIf="backstageRider.id" class="desc-rider">{{backstageRider.description}}</p>
+                                    <p *ngIf="backstageRider.id&&backstageRider.is_flexible" class="desc-rider">
+                                        <strong>flexible preferences</strong>
+                                    </p>
+                                    <div *ngIf="!backstageRider.id" class="unvisible-rider">
+                                        <img src="./../../../../assets/img/eye.jpg" class="img-responsive" alt="">
+                                        <p class="unvisible-rider-text">It’s not visible until the artist<br> approves</p>
+                                    </div>
+                                </div>
+                                <div class="side" [ngClass]="{'invisible-rider-wrapp':!hospitalityRider.id}">
+                                    <p class="head-side-riders">Hospitality Rider</p>
+                                    <div *ngIf="hospitalityRider.id" class="download-upload">
+                                        <div class="side-dwn">
+                                            <a class="dd-ff">
+                                                <img src="./../../../../assets/img/download.png" (click)="downloadFile(hospitalityRider.id)" class="img-responsive" alt="">
+                                            </a>
+                                            <p class="desc-side-dwn">Download File</p>
+                                        </div>
+                                    </div>
+                                    <!--видимый рейден-->
+                                    <p *ngIf="hospitalityRider.id" class="desc-rider">{{hospitalityRider.description}}</p>
+                                    <p *ngIf="hospitalityRider.id&&hospitalityRider.is_flexible" class="desc-rider">
+                                        <strong>flexible preferences</strong>
+                                    </p>
+                                    <div *ngIf="!hospitalityRider.id" class="unvisible-rider">
+                                        <img src="./../../../../assets/img/eye.jpg" class="img-responsive" alt="">
+                                        <p class="unvisible-rider-text">It’s not visible until the artist<br> approves</p>
+                                    </div>
+                                </div>
+                                <!--не видимый рейден - добавляем класс "invisible-rider-wrapp"-->
+                                <div class="side" [ngClass]="{'invisible-rider-wrapp':!technicalRider.id}">
+                                    <p class="head-side-riders">Technical Rider</p>
+                                    <div *ngIf="technicalRider.id" class="download-upload">
+                                        <div class="side-dwn">
+                                            <a class="dd-ff">
+                                                <img src="./../../../../assets/img/download.png" (click)="downloadFile(technicalRider.id)" class="img-responsive" alt="">
+                                            </a>
+                                            <p class="desc-side-dwn">Download File</p>
+                                        </div>
+                                    </div>
+                                    <!--видимый рейден-->
+                                    <p *ngIf="technicalRider.id" class="desc-rider">{{hospitalityRider.description}}</p>
+                                    <p *ngIf="technicalRider.id&&technicalRider.is_flexible" class="desc-rider">
+                                        <strong>flexible preferences</strong>
+                                    </p>
+                                    <div *ngIf="!technicalRider.id" class="unvisible-rider">
+                                        <img src="./../../../../assets/img/eye.jpg" class="img-responsive" alt="">
+                                        <p class="unvisible-rider-text">It’s not visible until the artist<br> approves</p>
+                                    </div>
+                                </div>
 
 
 
@@ -365,31 +386,9 @@
 
 
 
-                <!-- 
-                  </div>
-              </div>  -->
-               
-               
-               
-               
-               
-               
-               
-               
-               
-               
-               
-               
-               
-               
-               
-               
-               
-               
-               
-               
-              </div>
-          </div>
+
+                            </div>
+                        </div>
 
 
 
@@ -402,7 +401,7 @@
                 </div>
             </div>
         </div>
-    </div>   
+    </div>
 
 
                 <!--photo-galary-->
@@ -429,7 +428,7 @@
                                 </div>
                             </div>
                             <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                                <div class="pswp__share-tooltip"></div> 
+                                <div class="pswp__share-tooltip"></div>
                             </div>
                             <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
                             </button>
@@ -441,5 +440,5 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!--/photo-galary-->

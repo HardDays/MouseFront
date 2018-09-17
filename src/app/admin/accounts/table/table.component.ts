@@ -37,7 +37,7 @@ export class TableComponent extends BaseComponent implements OnInit {
       if(changes.status.currentValue === 'all')
         this.status = '';
       else if(changes.status.currentValue === 'new')
-        this.status = 'just_added';
+        this.status = 'unchecked';
       else
         this.status = changes.status.currentValue;
       // this.status =
@@ -52,7 +52,6 @@ export class TableComponent extends BaseComponent implements OnInit {
   }
 
   onScrollArtist(){
-    console.log(`123`)
     this.ScrollArtistDisabled = true;
     let params = {status: this.status,text:this.SearchName,account_type: this.TypeAcc,limit:20,offset:this.Accounts&&this.Accounts.length?this.Accounts.length:0};
     // if(this.status === '') delete params['status'];
@@ -83,9 +82,9 @@ export class TableComponent extends BaseComponent implements OnInit {
           setTimeout(() => {
             this.ScrollArtistDisabled = false;
             // this.filterAccs();
-            
+
           }, 300);
-         
+
         })
   }
 
@@ -95,14 +94,14 @@ export class TableComponent extends BaseComponent implements OnInit {
   }
 
   openAccount(id:number){
-    this.main.adminService.AccountView(id)
-      .subscribe(res => {
-        this.main.adminService.NewCountChange.next(true);
-        setTimeout(() => {
-          this.router.navigate(["/admin",'account',id])
-        }, 100);
-      });
-    
+    // this.main.adminService.AccountView(id)
+    //   .subscribe(res => {
+    //     this.main.adminService.NewCountChange.next(true);
+    //     setTimeout(() => {
+    //       this.router.navigate(["/admin",'account',id])
+    //     }, 100);
+    //   });
+    this.router.navigate(["/admin",'account',id]);
   }
 
   openEvent(id:number){
@@ -113,7 +112,7 @@ export class TableComponent extends BaseComponent implements OnInit {
           this.router.navigate(["/admin",'event',id])
         }, 100);
       });
-   
+
   }
 
   checkIdToOpen(id:number){
@@ -122,7 +121,7 @@ export class TableComponent extends BaseComponent implements OnInit {
       this.openIds.push(id);
     else
       this.openIds.splice(index,1);
-    
+
       // console.log(this.openIds);
 
   }
@@ -165,16 +164,16 @@ export class TableComponent extends BaseComponent implements OnInit {
             }
           )
       }
-        
+
     }
   }
 
   getImage(id:number){
     let img = '';
     if(id){
-      
+
       img = this.main.imagesService.GetImagePreview(id,{width:50,height:50})
-          
+
     }
     else
       img = BaseImages.NoneFolowerImage;
@@ -204,15 +203,15 @@ export class TableComponent extends BaseComponent implements OnInit {
   //         if(this.Events){
   //           this.EventsChecked = this.Events;
   //         }
-  //       }      
+  //       }
   // }
 
   // filterByType(){
   //   if(this.Accounts){
-      
+
   //     if(!this.TypesArtist.artist&&!this.TypesArtist.fan&&!this.TypesArtist.venue)
   //       this.TypesArtist.all = true;
-  
+
   //     if(this.TypesArtist.all){
   //       this.AccountsChecked = this.Accounts;
   //     }
@@ -220,7 +219,7 @@ export class TableComponent extends BaseComponent implements OnInit {
   //     {
   //       this.TypesArtist.all = false;
   //       this.AccountsChecked = this.Accounts.filter(
-  //           obj => obj.account_type && ( 
+  //           obj => obj.account_type && (
   //             this.TypesArtist.fan && obj.account_type === 'fan' ||
   //             this.TypesArtist.venue && obj.account_type === 'venue' ||
   //             this.TypesArtist.artist && obj.account_type === 'artist'
@@ -239,13 +238,13 @@ export class TableComponent extends BaseComponent implements OnInit {
   //     {
   //       this.TypesEvent.all = false;
   //       this.EventsChecked = this.Events.filter(
-  //           obj => 
+  //           obj =>
   //             this.TypesEvent.crowdfund && obj.is_crowdfunding_event ||
   //             this.TypesEvent.regular && !obj.is_crowdfunding_event
   //       );
   //     }
   //   }
-    
+
   // }
 
 
@@ -260,18 +259,18 @@ export class TableComponent extends BaseComponent implements OnInit {
     // if(this.SearchName){
     //   this.SearchName = this.SearchName.toLowerCase();
     //   if(this.TypeAcc==='all'){
-    //     this.AccountsChecked = this.Accounts.filter(obj => 
-    //       obj.display_name && obj.display_name.toLowerCase().indexOf(this.SearchName)>=0 || 
-    //       obj.user_name && obj.user_name.toLowerCase().indexOf(this.SearchName)>=0 || 
-    //       obj.last_name && obj.last_name.toLowerCase().indexOf(this.SearchName)>=0 || 
+    //     this.AccountsChecked = this.Accounts.filter(obj =>
+    //       obj.display_name && obj.display_name.toLowerCase().indexOf(this.SearchName)>=0 ||
+    //       obj.user_name && obj.user_name.toLowerCase().indexOf(this.SearchName)>=0 ||
+    //       obj.last_name && obj.last_name.toLowerCase().indexOf(this.SearchName)>=0 ||
     //       obj.first_name && obj.first_name.toLowerCase().indexOf(this.SearchName)>=0
     //     );
-    //   }  
+    //   }
     //   else{
-    //     this.AccountsChecked = this.Accounts.filter(obj => 
-    //       obj.display_name && obj.display_name.toLowerCase().indexOf(this.SearchName)>=0 && obj.account_type===this.TypeAcc || 
-    //       obj.user_name && obj.user_name.toLowerCase().indexOf(this.SearchName)>=0 && obj.account_type===this.TypeAcc || 
-    //       obj.last_name && obj.last_name.toLowerCase().indexOf(this.SearchName)>=0 && obj.account_type===this.TypeAcc || 
+    //     this.AccountsChecked = this.Accounts.filter(obj =>
+    //       obj.display_name && obj.display_name.toLowerCase().indexOf(this.SearchName)>=0 && obj.account_type===this.TypeAcc ||
+    //       obj.user_name && obj.user_name.toLowerCase().indexOf(this.SearchName)>=0 && obj.account_type===this.TypeAcc ||
+    //       obj.last_name && obj.last_name.toLowerCase().indexOf(this.SearchName)>=0 && obj.account_type===this.TypeAcc ||
     //       obj.first_name && obj.first_name.toLowerCase().indexOf(this.SearchName)>=0 && obj.account_type===this.TypeAcc
     //     );
     //   }
@@ -286,7 +285,7 @@ export class TableComponent extends BaseComponent implements OnInit {
     // }
     // if(this.AccountsChecked.length===0){
     //   this.onScrollArtist();
-     
+
     // }
   }
 
@@ -297,12 +296,12 @@ export class TableComponent extends BaseComponent implements OnInit {
     if(this.SearchName){
       this.SearchName = this.SearchName.toLowerCase();
       if(this.TypeEvent==='all'){
-        this.EventsChecked = this.Events.filter(obj => 
+        this.EventsChecked = this.Events.filter(obj =>
           obj.name && obj.name.toLowerCase().indexOf(this.SearchName)>=0
         );
-      }  
+      }
       else{
-        this.EventsChecked = this.Events.filter(obj => 
+        this.EventsChecked = this.Events.filter(obj =>
           obj.name && obj.name.toLowerCase().indexOf(this.SearchName)>=0 && obj.is_crowdfunding_event===(this.TypeEvent==='crowdfunding')
         );
       }

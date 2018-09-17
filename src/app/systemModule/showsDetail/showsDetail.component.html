@@ -380,21 +380,21 @@
             <div class="content-modal">
                 <div class="padd-left-right">
                     <div class="flex-icons-share">
-                        <a href="#" class="soc-link f" target="_blank"></a>
-                        <a href="#" class="soc-link g" target="_blank"></a>
-                        <a href="#" class="soc-link t" target="_blank"></a>
-                        <a href="https://vk.com/share.php?url=http://test-mouse-web.herokuapp.com{{FullUrl}}" class="soc-link v"  target="_blank"></a>
-                        <a href="#" class="soc-link m"></a>
+                        <a href="http://www.facebook.com/sharer.php?u={{FullUrl}}&p[title]={{ShareTitle == ''?Event.name:ShareTitle}}&picture={{ImageTw}}" class="soc-link f" target="_blank"></a>
+                        <a href="https://plus.google.com/share?url={{FullUrl}}&title={{ShareTitle == ''?Event.name:ShareTitle}}&image={{ImageTw}}" class="soc-link g" target="_blank"></a>
+                        <a href="http://www.twitter.com/share?url={{FullUrl}}&text={{ShareTitle == ''?Event.name:ShareTitle}}" class="soc-link t" target="_blank"></a>
+                        <a href="https://vk.com/share.php?url={{FullUrl}}&title={{ShareTitle == ''?Event.name:ShareTitle}}&image={{ImageTw}}" class="soc-link v"  target="_blank"></a>
+                        <a href="mailto:?Body={{ShareTitle == ''?Event.name:ShareTitle}}.{{FullUrl}}" target="_blank" class="soc-link m"></a>
                     </div>
                     <div class="input-groupe-1 less-padd">
                         <div class="rel-wr">
-                            <input id="share-inp"  name="" type="text" >
+                            <input id="share-inp"  name="shareinp" (input)='onChangeInptitle($event)' type="text" >
                         </div>
                          <label for="share-inp" translate>setting.Message</label>
                     </div>
                     <div class="copy-link">
-                        <p class="link">www.mouselive.com/shows/Drake_show</p>
-                        <button class="copy" translate>Copy link</button>
+                        <p class="link" id="link-for-copy">{{FullUrl}}</p>
+                        <button class="copy" id="butt-for-link" (click)="copylink('#link-for-copy')" translate>Copy link</button>
                     </div>   
                 </div>
             </div>

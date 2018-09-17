@@ -6,17 +6,23 @@
     </div>
     <span>{{accType}} profile view</span>
     <div class="buttons">
-        <div class="butt remove">
-            <button (click)="removeAcc()"><img src="./../../../../assets/img/admin/delete.svg" alt="" class="img-responsive"></button>
-            <span>Remove</span>
-        </div>
-        <div *ngIf="Account.status != 'denied'&&Account.status != 'inactive'" class="butt deny">
-            <button (click)="denyAcc()"><img src="./../../../../assets/img/admin/deny.svg" alt="" class="img-responsive"></button>
-            <span>Deny</span>
-        </div>
-        <div *ngIf="Account.status === 'pending'||Account.status === 'just_added'" class="butt approve">
-            <button (click)="approveAcc()"><img src="./../../../../assets/img/admin/approve.svg" alt="" class="img-responsive"></button>
-            <span>Approve</span>
+        <ng-container *ngIf="Account.status !== 'unchecked'">
+          <div class="butt remove">
+              <button (click)="removeAcc()"><img src="./../../../../assets/img/admin/delete.svg" alt="" class="img-responsive"></button>
+              <span>Remove</span>
+          </div>
+          <div *ngIf="Account.status != 'denied'&&Account.status != 'inactive'" class="butt deny">
+              <button (click)="denyAcc()"><img src="./../../../../assets/img/admin/deny.svg" alt="" class="img-responsive"></button>
+              <span>Deny</span>
+          </div>
+          <div *ngIf="Account.status === 'pending'||Account.status === 'just_added'" class="butt approve">
+              <button (click)="approveAcc()"><img src="./../../../../assets/img/admin/approve.svg" alt="" class="img-responsive"></button>
+              <span>Approve</span>
+          </div>
+        </ng-container>
+        <div *ngIf="Account.status === 'unchecked'" class="butt approve">
+          <button (click)="checkAcc()"><img src="./../../../../assets/img/admin/approve.svg" alt="" class="img-responsive"></button>
+          <span>Check</span>
         </div>
     </div>
     <div class="contacts">

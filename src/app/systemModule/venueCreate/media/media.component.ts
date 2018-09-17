@@ -59,7 +59,7 @@ export class VenueMediaComponent extends BaseComponent implements OnInit,OnChang
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        this.Init(changes.Venue.currentValue,changes.VenueId.currentValue);
+        this.Init(changes.Venue?changes.Venue.currentValue:this.Venue,changes.VenueId?changes.VenueId.currentValue:this.VenueId);
     }
 
     Init(venue?:AccountCreateModel,id?:number)

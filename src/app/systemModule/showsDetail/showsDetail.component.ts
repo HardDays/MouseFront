@@ -62,6 +62,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     FoundedPercent:number = 0;
     Date:string = "";
     Image:string = BaseImages.Drake;
+    ImageTw:string = BaseImages.Drake;
     CheckedTickets:any[] = [];
     
     TicketsToBuy:BuyTicketModel[] = [];
@@ -74,7 +75,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     Featuring:{name:string,id:number}[] = [];
 
     Statuses = EventStatus;
-   
+    
     FullUrl:string;
     activeTab:string = tabsShowDetails.information;
     isShowMap = false;
@@ -91,6 +92,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     UpdatesEvent:EventUpdatesModel[] = [];
     TextSearchGoing:string;
     Allbackers:EventBackersModel[] = [];
+    ShareTitle:string = "";
     @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
         if(this.isShowMap){
             if (event.keyCode === this.ESCAPE_KEYCODE || event.keyCode === this.ENTER_KEYCODE) {
@@ -121,7 +123,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
 
     ngOnInit(): void
     {
-        this.FullUrl = this.router.routerState.snapshot.url;
+        this.FullUrl = window.location.href;
         this.activatedRoute.params.forEach((params)=>{
             this.EventId = params["id"];
             // console.log("scroll_position",window.scrollY);
@@ -161,9 +163,9 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     }
     SetMetaTagsImage(){
         this.meta.addTags([
-            {name: 'og:image', content: this.Image},
-            {name: 'twitter:image', content: this.Image},
-            {itemprop: 'image', content: this.Image}
+            {name: 'og:image', content: this.ImageTw},
+            {name: 'twitter:image', content: this.ImageTw},
+            {itemprop: 'image', content: this.ImageTw}
         ]);
        
     }
@@ -192,6 +194,17 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         })
         
     }
+    onChangeInptitle(event){
+        this.ShareTitle = event.target.value;
+    }
+    copylink(element){
+       
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val($(element).text()).select();
+        document.execCommand("copy");
+        $temp.remove();
+    };
     goBack() {
         this.location.back();
     }
@@ -210,7 +223,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     }
     OpenModalShare(){
         $('#modal-share').modal('show');
-
+        console.log(window.location.href);
     }
     // getGoingHuman(id:number,limit:number,offset:number,text?:string){
     //     this.main.eventService.EventGoingAcc(id,limit,offset,text).subscribe((res:any)=>{
@@ -257,9 +270,10 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         {
             
             this.Image = this.main.imagesService.GetImagePreview(this.Event.image_id, {width:700, height:950});
+            this.ImageTw = this.main.imagesService.GetImagePreview(this.Event.image_id, {width:510, height:228});
             setTimeout(()=>{
                 this.SetMetaTagsImage();
-            },1000);
+            },200);
             
             // this.main.imagesService.GetImageById(this.Event.image_id)
             //     .subscribe(

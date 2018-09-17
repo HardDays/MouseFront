@@ -21,7 +21,7 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
 
   @Output() OnSave = new EventEmitter<AccountCreateModel>();
   @Output() OnSaveButton = new EventEmitter<AccountCreateModel>();
-  
+
   @Output() OnError = new EventEmitter<string>();
   @Output() openNextPage = new EventEmitter();
 
@@ -37,7 +37,7 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
   technicalRider:Rider= new Rider();
 
   isEng: boolean;
-  
+
   constructor(
     protected main           : MainService,
     protected _sanitizer     : DomSanitizer,
@@ -64,7 +64,7 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges): void {
       if(changes.Artist)
           {
-            this.Artist = changes.Artist.currentValue;    
+            this.Artist = changes.Artist.currentValue;
             this.getRiders();
           }
   }
@@ -93,6 +93,26 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
     }
   }
 
+  // getRiders(){
+  //   if(this.Artist&&this.Artist.artist_riders){
+  //     this.riders = [];
+  //     for(let r of this.Artist.artist_riders){
+  //       this.main.accService.GetRiderById(r.id)
+  //         .subscribe(res=>{
+  //           this.riders.push(res);
+  //           if(r.rider_type=='stage')
+  //             this.stageRider = res;
+  //           else if(r.rider_type=='backstage')
+  //             this.backstageRider = res;
+  //           else if(r.rider_type=='hospitality')
+  //             this.hospitalityRider = res;
+  //           else if(r.rider_type=='technical')
+  //             this.technicalRider = res;
+  //       })
+  //     }
+  //   }
+  // }
+
   DeleteRiderById(id:number){
     let index = this.riders.indexOf(this.riders.find(r=>r.id===id));
     if(index>=0){
@@ -112,7 +132,7 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
     }
     this.riders.push(rider);
     this.Artist.artist_riders = this.riders;
-    this.saveArtist(); 
+    this.saveArtist();
   }
 
   saveArtist(){
@@ -133,8 +153,12 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
 
 
   nextPage(){
-    this.saveArtist();
-    this.openNextPage.emit();
+    this.getRiders();
+    setTimeout(() => {
+      this.saveArtist();
+      this.openNextPage.emit();
+    }, 500);
+
   }
 
 

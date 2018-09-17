@@ -289,7 +289,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
       this.seeMore = true;
       for(let g of this.Genres)
       {
-         if(this.translate.get(g.genre_show)['value'].toLowerCase().indexOf(this.search.toLowerCase())>=0||g.checked)
+         if(this.translate.get(g.genre_show)['value'].toLowerCase().indexOf(this.search.toLowerCase())>=0)
           g.show = true;
          else
           g.show = false;
@@ -307,10 +307,18 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
 
   seeMoreGenres()
   {
-    this.seeMore = true;
+    this.seeMore = !this.seeMore;
     // let checked = this.genres;
     // this.genres = this.genreService.GetAll(checked);
-    for(let g of this.Genres) g.show = true;
+    if(this.seeMore)
+      for(let g of this.Genres) g.show = true;
+    else
+    {
+      for(let g of this.Genres)
+        g.show = false;
+      this.seeFirstGenres();
+    }
+
   }
 
   CreateFun(){

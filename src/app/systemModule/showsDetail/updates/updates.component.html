@@ -1,21 +1,10 @@
 <div class="updates-route">
   <ul *ngFor="let update of Updates" class="updates-list">
       <li>
-          <p translate>Added Image</p>
-          <p translate>10 min</p>
+          <p>{{getValue(update)}}</p>
+          <p>{{calculateTime(update.created_at)}} ago</p>
       </li>
-      <li>
-          <p translate>Updated Artist Bio</p>
-          <p translate>10 min</p>
-      </li>
-      <li>
-          <p translate>Added Ticket</p>
-          <p translate>10 min</p>
-      </li>
-      <li>
-          <p>и т.д.</p>
-          <p translate>10 min</p>
-      </li>
+      
   </ul>
 
 </div>
