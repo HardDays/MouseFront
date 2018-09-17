@@ -57,7 +57,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     Event:EventGetModel = new EventGetModel();
     Creator:AccountGetModel = new AccountGetModel();
     Artists:AccountGetModel[] = [];
-    Tickets:TicketModel [] = [];
+    Tickets:BuyTicketModel [] = [];
     Venue:AccountGetModel = new AccountGetModel();
     FoundedPercent:number = 0;
     Date:string = "";
@@ -65,7 +65,6 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     ImageTw:string = BaseImages.Drake;
     CheckedTickets:any[] = [];
     
-    TicketsToBuy:BuyTicketModel[] = [];
     TotalPrice:number = 0;
     TotalOriginalPrice: number = 0;
     TicketsCount: number = 0;
@@ -126,15 +125,14 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         this.FullUrl = window.location.href;
         this.activatedRoute.params.forEach((params)=>{
             this.EventId = params["id"];
-            // console.log("scroll_position",window.scrollY);
             this.GetEventInfo();
             this.GetComments();
         });
+
      
         this.main.CurrentAccountChange.subscribe(
             (val) => {
                 this.MyAcc = val;
-                console.log(this.MyAcc);
             }
         );
 
@@ -223,7 +221,6 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     }
     OpenModalShare(){
         $('#modal-share').modal('show');
-        console.log(window.location.href);
     }
     // getGoingHuman(id:number,limit:number,offset:number,text?:string){
     //     this.main.eventService.EventGoingAcc(id,limit,offset,text).subscribe((res:any)=>{
@@ -374,39 +371,45 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
 
     GetTickets()
     {
-        this.Tickets = this.Event.tickets;
+        if(this.Event.tickets && this.Event.tickets.length > 0){
+            for(const item of this.Event.tickets)
+            {
+                this.Tickets.push(new BuyTicketModel(0,item));
+            }
+        }
+        if(this.data.storage && this.data.storage.EventId == this.EventId)
+        {
+            for(const item of this.data.storage.Tickets)
+            {
+                const index = this.Tickets.findIndex(obj => obj.ticket.id == item.ticket.id);
+                if(index > -1)
+                {
+                    this.Tickets[index].count = item.count;
+                }
+            }
+        }
+        // this.Tickets = this.Event.tickets;
         if(this.Event.tickets.length>0)
             this.OriginalCurrency = CurrencyIcons[this.Event.tickets[0].currency];
         else this.OriginalCurrency = CurrencyIcons[this.main.settings.GetCurrency()];
         // console.log(this.Tickets);
         // this.Currency = CurrencyIcons[this.Event.tickets[0].currency];
+        this.CalculateCurrentPrice();
     }
 
     AddTicketsToPrice(object:BuyTicketModel)
     {
-        const index = this.TicketsToBuy.findIndex(obj => obj.ticket.id == object.ticket.id);
-        if(index < 0)
-        {
-            this.TicketsToBuy.push(object);
-        }
-        else{
-            this.TicketsToBuy[index].count = object.count;
-        }
-        // this.TicketsToBuy.push(object);
+        // console.log(this.Tickets);
+        // const index = this.TicketsToBuy.findIndex(obj => obj.ticket.id == object.ticket.id);
+        // if(index < 0)
+        // {
+        //     this.TicketsToBuy.push(object);
+        // }
+        // else{
+        //     this.TicketsToBuy[index].count = object.count;
+        // }
+        // // this.TicketsToBuy.push(object);
         this.CalculateCurrentPrice();
-        // this.OpenErrorWindow(object.count + this.GetTranslateString(" ticket")
-        // + (object.count > 1  ? 
-        //     (object.count < 5 ?
-        //         this.GetTranslateString("addRuA")
-        //         : (object.count > 4 ?
-        //             this.GetTranslateString("addRuOv")
-        //             : ""
-        //         )
-        //     ) + this.GetTranslateString("addedRu")
-        //     : " " + this.GetTranslateString("added")
-        // )
-        // + " "
-        // + this.GetTranslateString("to your cart!"));
     }
 
     CalculateCurrentPrice()
@@ -414,7 +417,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         this.TotalPrice = 0;
         this.TotalOriginalPrice = 0;
         this.TicketsCount = 0;
-        for(let item of this.TicketsToBuy)
+        for(let item of this.Tickets)
         {
             this.TicketsCount += item.count;
             this.TotalPrice += item.count * item.ticket.price;
@@ -431,12 +434,10 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         {
             this.data.storage = {
                 EventId: this.EventId,
-                Tickets: this.TicketsToBuy
+                Tickets: this.Tickets.filter(obj => obj.count > 0)
             };
+            this.data.SaveStorage();
             this.router.navigate(['start_purchase'], {relativeTo: this.activatedRoute});
-            // console.log(this.TicketsToBuy);
-            // this.CheckedTickets = this.GroupTickets(this.TicketsToBuy,myAcc);
-            // this.BuyTicket();
         }
     }
 
@@ -463,7 +464,6 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
             },
             (err) =>
             {
-                console.log(err);
                 
                 this.OpenErrorWindow(this.getResponseErrorMessage(err));
             }

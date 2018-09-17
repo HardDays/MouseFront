@@ -3,37 +3,44 @@
     <section class="new-show-datails-wrapp">
         <div class="main-mw">
             <div class="flex-new-datails flex-new-datails-payment">
-                <a href="#" class="back-page">
+                <a (click)="goBack()" class="back-page">
                     <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M33 14.4378H7.83721L19.3872 2.88779L16.5 0L0 16.5L16.5 33L19.3872 30.1122L7.83721 18.5622H33V14.4378Z" fill="black"/>
                     </svg>
                     <span>back</span>
                 </a>
                 <div class="info-payment-left">
-                    <h1>Open mic night</h1>
+                    <h1>{{Event.name}}</h1>
                     <div class="bg-image">
                         <div class="image-before">
-                            <div class="image" style="background-image: url(img/some-event.png)"></div>
+                            <div class="image" [ngStyle]="{'background-image': 'url(' + Image + ')'}"></div>
                         </div>
                     </div>
                     <p class="small-descr">
-                        <span>November 30, 2019 @ 7:00PM</span>
-                        Madison Square Garden
-                        4 Pennsylvania Plaza
-                        New York, NY 10001
+                        <span *ngIf="Event.exact_date_from">{{Event.exact_date_from | date : 'MMMM d, y'}} @ {{Time}}</span>
+                        <ng-container *ngIf="Event.venue">
+                            {{Event.venue.display_name}}, {{Event.venue.address}} {{Event.venue.zipcode}}
+                        </ng-container>
                     </p>
                 </div>
                 <div class="info-payment-right">
                     <!--страница выбора метода-->
 
 
-                    <div class="method-route">
+                    <div class="method-route" *ngIf="!PaymentSuccess && !PaymentFail">
                         <h2>Payment Method</h2>
                         <div class="info-payment">
-                            <p>VR Ticket: 1 @ <span>$15.00</span> each</p>
-                            <p>VIP Section - Meet and Greet (Special): 2 @ <span>$102.00</span> each</p>
-                            <p>VIP Section - Meet and Greet (Special): 2 @ <span>$2.00</span> each</p>
-                            <p class="total">TOTAL: <span>$219.00</span></p>
+                            <ng-container *ngFor="let item of Tickets"> 
+                                <p translate>
+                                    {{item.ticket.type == 'in_person'?'In person':'VR'}} 
+                                        <span translate>
+                                            ({{item.ticket.is_promotional?'Promotional':'Regular'}}) 
+                                        </span>
+                                     Ticket: {{item.count}} @ <span><span [innerHTML]="Currency"></span>{{item.ticket.price}}</span> 
+                                     each
+                                </p>
+                            </ng-container>
+                            <p class="total">TOTAL: <span><span [innerHTML]="Currency"></span>{{Total}}</span></p>
                         </div>
                         <div class="for-flex-payment-blocks">
                             <div class="one-collapsed-block">
@@ -46,7 +53,7 @@
                                 <form class="cart-info collapse" id="cart-4">
 
                                     <div class="flexed-buy">
-                                        <button class="butt-style-1">
+                                        <button class="butt-style-1" (click)="BuyTicket()">
                                             <span>Buy</span>
                                         </button>
                                     </div>
@@ -59,44 +66,58 @@
 
                     <!--роут статуса оплаты ок-->
 
-        <!--
-                    <div class="complete-route">
+        
+                    <div class="complete-route"  *ngIf="PaymentSuccess && !PaymentFail">
                         <p class="c-1">Your payment is <span>Complete</span></p>  
-                        <p class="c-2">TOTAL: <span>$219.00</span></p>
+                        <p class="c-2">TOTAL: <span><span [innerHTML]="Currency"></span>{{Total}}</span></p>
                         <div class="c-3-wrapp">
-                            <p class="c-3">VR Ticket: 1 @ <span>$15.00</span> each</p>
-                            <p class="c-3">VIP Section - Meet and Greet (Special): 2 @ <span>$102.00</span> each</p>
-                            <p class="c-3">VIP Section - Meet and Greet (Special): 2 @ <span>$0.00</span> each</p>
+                            <ng-container *ngFor="let item of Tickets"> 
+                                <p class="c-3" translate>
+                                    {{item.ticket.type == 'in_person'?'In person':'VR'}} 
+                                    <span translate>
+                                        ({{item.ticket.is_promotional?'Promotional':'Regular'}}) 
+                                    </span>
+                                    Ticket: {{item.count}} @ <span><span [innerHTML]="Currency"></span>{{item.ticket.price}}</span> 
+                                    each
+                                </p>
+                            </ng-container>
                         </div>
                         <p class="code">
-                            <span>Verification code:</span>Lj920ljGl8293jYAd808GKRQJK
+                            <span>Verification code:</span>{{Verification}}
                         </p>
                         <div class="flexed-print">
-                            <button class="butt-style-1">
+                            <button class="butt-style-1" *ngIf="!isPrint" (click)="printTicket()" >
                                 <span>Print ticket</span>
                             </button>
                         </div>
                     </div>
-        -->
+       
 
 
                     <!--роут статуса оплаты error-->
-        <!--
-                    <div class="complete-route">
+        
+                    <div class="complete-route"  *ngIf="!PaymentSuccess && PaymentFail">
                         <p class="c-1">failure</p>  
-                        <img src="img/smile.svg" class="img-responsive middle-image" alt="">
+                        <img src="assets/img/smile.svg" class="img-responsive middle-image" alt="">
                         <div class="c-3-wrapp">
-                            <p class="c-3">VR Ticket: 1 @ <span>$15.00</span> each</p>
-                            <p class="c-3">VIP Section - Meet and Greet (Special): 2 @ <span>$102.00</span> each</p>
-                            <p class="c-3">VIP Section - Meet and Greet (Special): 2 @ <span>$0.00</span> each</p>
+                            <ng-container *ngFor="let item of Tickets"> 
+                                <p class="c-3" translate>
+                                    {{item.ticket.type == 'in_person'?'In person':'VR'}} 
+                                    <span translate>
+                                        ({{item.ticket.is_promotional?'Promotional':'Regular'}}) 
+                                    </span>
+                                    Ticket: {{item.count}} @ <span><span [innerHTML]="Currency"></span>{{item.ticket.price}}</span> 
+                                    each
+                                </p>
+                            </ng-container>
                         </div>
                             <div class="flexed-print">
-                            <button class="butt-style-1">
+                            <button class="butt-style-1" (click)="BuyTicket()">
                                 <span>Try again</span>
                             </button>
                         </div>
                     </div>
-        -->
+       
 
                 </div>
             </div>

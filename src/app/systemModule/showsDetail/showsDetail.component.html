@@ -260,7 +260,7 @@
                     </div>
                 </div>
                 <div class="tickets-side">
-                    <h3> translate>Tickets.Tickets</h3>
+                    <h3 translate>Tickets.Tickets</h3>
                     <p class="you-have" translate>You have <span>{{TicketsCount}}</span> tickets.</p>
                     <div class="tickets-new-wr">
                         <div class="price-and-buy">
@@ -271,7 +271,7 @@
                                 </ng-container> -->
                             <div class="butt-buy">
                                 <button class="butt-style-1" 
-                                [disabled]="TicketsCount == 0 || !(Event.status===Statuses.Active) || !CurrentAccount || CurrentAccount.account_type != 'fan' || !Event.tickets || !Event.tickets.length || !TicketsToBuy.length"
+                                [disabled]="TicketsCount == 0 || !(Event.status===Statuses.Active) || !CurrentAccount || CurrentAccount.account_type != 'fan' || !Event.tickets || !Event.tickets.length || !Tickets.length"
                                 (click)="BuyTickets()">
                                     <span translate>Buy</span>
                                 </button>
@@ -319,7 +319,7 @@
                                     </ng-container> -->
                                 <div class="butt-buy">
                                     <button class="butt-style-1" 
-                                    [disabled]="TicketsCount == 0 || !(Event.status===Statuses.Active) || !CurrentAccount || CurrentAccount.account_type != 'fan' || !Event.tickets || !Event.tickets.length || !TicketsToBuy.length"
+                                    [disabled]="TicketsCount == 0 || !(Event.status===Statuses.Active) || !CurrentAccount || CurrentAccount.account_type != 'fan' || !Event.tickets || !Event.tickets.length"
                                     (click)="BuyTickets()">
                                         <span translate>Buy</span>
                                     </button>
