@@ -46,7 +46,10 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
             Validators.required,
             Validators.pattern(/\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/)
         ]),
-        "fax": new FormControl("", []),
+        "fax": new FormControl("", [
+            Validators.required,
+            Validators.pattern(/\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/)
+        ]),
         "emails": new FormArray([]),
         "country": new FormControl("", [Validators.required]),
         "address": new FormControl("", [Validators.required]),
@@ -194,12 +197,16 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
 
     SaveVenue()
     {
-
-
         this.aboutForm.updateValueAndValidity();
+
         if(this.aboutForm.invalid)
         {
             this.onError.emit(this.getFormErrorMessage(this.aboutForm, 'venue'));
+            return;
+        }
+        if(this.Venue.fax.indexOf('_')>=0)
+        {
+            this.onError.emit('<b>Fax</b> needs to be a valid number');
             return;
         }
 
@@ -212,7 +219,16 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
         phoneToSend = phoneToSend.replace(/\(/g,'');
         phoneToSend = phoneToSend.replace(/\)/g,'');
         phoneToSend = phoneToSend.replace(/-/g,'');
+
+        let faxToSend = this.ConvertPhoneToCountry(this.Venue.fax);
+        faxToSend = faxToSend.replace(/ /g,'');
+        faxToSend = faxToSend.replace(/\(/g,'');
+        faxToSend = faxToSend.replace(/\)/g,'');
+        faxToSend = faxToSend.replace(/-/g,'');
+
+
         this.Venue.phone =  phoneToSend;
+        this.Venue.fax =  faxToSend;
 
         // console.log(this.Venue);
         this.onSaveVenue.emit(this.Venue);

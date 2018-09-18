@@ -132,7 +132,6 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
         }
       }
     );
-
   }
 
   ngAfterViewChecked()
@@ -277,8 +276,14 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
           this.about.aboutForm.updateValueAndValidity();
           if(this.about.aboutForm.invalid)
           {
+            // console.log(`!!!`);
             this.OpenErrorWindow(this.getFormErrorMessage(this.about.aboutForm, 'venue'));
             return;
+          }
+          if(this.Venue.fax.indexOf('_')>=0)
+          {
+              this.OpenErrorWindow('<b>Fax</b> needs to be a valid number');
+              return;
           }
         }
       }

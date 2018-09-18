@@ -549,7 +549,7 @@ artistSendRequest(id:number){
         $('#modal-send-request-artist').modal('hide');
       // console.log(`send`);
       setTimeout(() => {
-        this.onError.emit("Request was sent!");
+        this.onError.emit("Request was send!");
       }, 400);
 
       setTimeout(() => {
