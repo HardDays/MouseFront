@@ -106,6 +106,7 @@ export enum VenueFields {
   minimum_notice = 'Minimum notice days',
   price_for_daytime = 'Price for daytime',
   price_for_nighttime = 'Price for nighttime',
+  fax = 'Fax'
 }
 
 

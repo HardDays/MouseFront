@@ -87,11 +87,11 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
       ()=>this.main.accService.GetAccountById(this.ArtistId),
       (res:AccountGetModel)=>{
         this.Artist = res;
-        this.CurrencySymbol = CurrencyIcons[this.Artist.currency];
+        // this.CurrencySymbol = CurrencyIcons[this.Artist.currency];
         if(this.Artist.genres)
           this.Artist.genres = this.main.genreService.BackGenresToShowGenres(this.Artist.genres);
         // console.log(`artist`,res);
-        this.CurrencySymbol = CurrencyIcons[this.Artist.currency];
+        this.CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
         this.GetDates();
         this.GetArtistImages();
         this.updateVideosPreview();

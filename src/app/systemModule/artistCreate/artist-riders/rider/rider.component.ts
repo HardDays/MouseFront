@@ -12,6 +12,7 @@ export class RiderComponent extends BaseComponent implements OnInit {
   @Input('Type') Type: string;
   @Input('Rider') Rider: Rider;
   @Input('Artist') Artist: AccountCreateModel;
+  @Input('ArtistId') ArtistId: number;
 
   @Output() onDelete = new EventEmitter<number>();
   @Output() onConfirm = new EventEmitter<Rider>();
@@ -80,8 +81,12 @@ export class RiderComponent extends BaseComponent implements OnInit {
   confirmRider(){
     if(this.Rider.uploaded_file_base64){
       this.getRiderInfo();
-      this.onConfirm.emit(this.Rider);
-      this.isConfirmRider = true;
+      this.main.accService.SaveArtistRider(this.ArtistId,this.Rider)
+        .subscribe((res)=>{
+          this.isConfirmRider = true;
+        })
+      // this.onConfirm.emit(this.Rider);
+
     }
   }
 

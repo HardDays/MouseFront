@@ -1,4 +1,4 @@
-import { Album } from './../models/accountGet.model';
+import { Album, Rider } from './../models/accountGet.model';
 import { Injectable } from "@angular/core";
 import { HttpService } from "./http.service";
 import { Router } from "@angular/router";
@@ -391,4 +391,26 @@ export class AccountService{
             () => this.http.DeleteData('/accounts/'+ account_id +'/artist_albums/'+id+'.json')
         );
     }
+
+    GetArtistRiders(account_id:number){
+       return this.http.CommonRequest(
+            () => this.http.GetData('/accounts/'+ account_id + '/artist_riders.json', this.typeService.ParamsToUrlSearchParams({account_id}))
+        );
+    }
+    SaveArtistRider(account_id: number, params:Rider)
+    {
+        return this.http.CommonRequest(
+            () => this.http.PostData('/accounts/'+ account_id +'/artist_riders.json', JSON.stringify(params))
+        );
+    }
+    DeleteArtistRider(account_id: number, id: number)
+    {
+        return this.http.CommonRequest(
+            () => this.http.DeleteData('/accounts/'+ account_id +'/artist_riders/'+id+'.json')
+        );
+    }
+
+
+
+
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Output } from '@angular/core';
 import { BaseComponent } from '../../../core/base/base.component';
 
 @Component({
@@ -15,6 +16,8 @@ export class NewMessageComponent extends BaseComponent implements OnInit {
 
   TextTopic = '';
   TextMessage = '';
+
+  @Output() onCreate = new EventEmitter<boolean>();
 
   // @ViewChild('searchAdmin') searchAdmin: ElementRef;
 
@@ -62,6 +65,7 @@ export class NewMessageComponent extends BaseComponent implements OnInit {
       .subscribe(
         (res)=>{
           console.log(`send ok`);
+          this.onCreate.emit(true);
         }
       )
   }

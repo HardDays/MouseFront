@@ -18,6 +18,7 @@ import { SettingsService } from '../../../core/services/settings.service';
 export class ArtistRidersComponent extends BaseComponent implements OnInit {
 
   @Input() Artist:AccountCreateModel;
+  @Input() ArtistId:number;
 
   @Output() OnSave = new EventEmitter<AccountCreateModel>();
   @Output() OnSaveButton = new EventEmitter<AccountCreateModel>();
@@ -62,9 +63,9 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-      if(changes.Artist)
+      if(changes.ArtistId)
           {
-            this.Artist = changes.Artist.currentValue;
+            this.ArtistId = changes.ArtistId.currentValue;
             this.getRiders();
           }
   }
@@ -77,19 +78,23 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
 
 
   getRiders(){
-    if(this.Artist&&this.Artist.artist_riders){
+    if(this.Artist){
       this.riders = [];
-      for(let r of this.Artist.artist_riders){
-        this.riders.push(r);
-        if(r.rider_type=='stage')
-          this.stageRider = r;
-        else if(r.rider_type=='backstage')
-          this.backstageRider = r;
-        else if(r.rider_type=='hospitality')
-          this.hospitalityRider = r;
-        else if(r.rider_type=='technical')
-          this.technicalRider = r;
-      }
+      this.main.accService.GetArtistRiders(this.ArtistId)
+        .subscribe((res)=>{
+          for(let r of res){
+            this.riders.push(r);
+            if(r.rider_type=='stage')
+              this.stageRider = r;
+            else if(r.rider_type=='backstage')
+              this.backstageRider = r;
+            else if(r.rider_type=='hospitality')
+              this.hospitalityRider = r;
+            else if(r.rider_type=='technical')
+              this.technicalRider = r;
+          }
+        })
+
     }
   }
 

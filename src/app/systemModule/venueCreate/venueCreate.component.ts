@@ -280,7 +280,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
             this.OpenErrorWindow(this.getFormErrorMessage(this.about.aboutForm, 'venue'));
             return;
           }
-          if(this.Venue.fax.indexOf('_')>=0)
+          if(this.Venue.fax&&this.Venue.fax.indexOf('_')>=0)
           {
               this.OpenErrorWindow('<b>Fax</b> needs to be a valid number');
               return;
@@ -334,6 +334,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
       .subscribe(
         (res)=>{
           this.Venue.status = 'unchecked';
+          this.isCanVerify = false;
         }
       )
   }

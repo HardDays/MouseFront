@@ -18,6 +18,11 @@ export class MessagesComponent implements OnInit {
   ngOnInit() {
   }
 
+  onCreateNewMessage(){
+     this.ListMessage.getMessages();
+     this.IsNewMsgOpen = false;
+  }
+
   getSearch(event){
     console.log(event);
     this.Search = event;

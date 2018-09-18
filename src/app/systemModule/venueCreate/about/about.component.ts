@@ -47,7 +47,6 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
             Validators.pattern(/\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/)
         ]),
         "fax": new FormControl("", [
-            Validators.required,
             Validators.pattern(/\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/)
         ]),
         "emails": new FormArray([]),
@@ -204,7 +203,7 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
             this.onError.emit(this.getFormErrorMessage(this.aboutForm, 'venue'));
             return;
         }
-        if(this.Venue.fax.indexOf('_')>=0)
+        if(this.Venue.fax&&this.Venue.fax.indexOf('_')>=0)
         {
             this.onError.emit('<b>Fax</b> needs to be a valid number');
             return;
