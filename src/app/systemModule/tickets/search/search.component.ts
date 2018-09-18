@@ -23,7 +23,7 @@ export class SearchTicketsComponent extends BaseComponent implements OnInit {
     @Input() SearchParams: TicketsSearchParams;
     @Output() onSearch:EventEmitter<TicketsSearchParams> = new EventEmitter<TicketsSearchParams>();
     @Output() mapClicked:EventEmitter<any> = new EventEmitter<any>();
-    
+
     mapLng: any;
     mapLat: any;
     mapCoords = {lat:0, lng:0};
@@ -46,24 +46,24 @@ export class SearchTicketsComponent extends BaseComponent implements OnInit {
 
     bsConfig: Partial<BsDatepickerConfig>;
     @ViewChild('SearchForm') form: NgForm;
-    
-    ngOnInit(): void 
+
+    ngOnInit(): void
     {
         //this.SearchParams.limit = 15;
-        
+
         // this.SearchParams.only_my = true;
         // this.SearchParams.account_id = this.GetCurrentAccId();
-        
+
         this.GetGenres();
         this.GetTicketTypes();
         this.GetAllTypesOfSpace();
-        
+
         this.CreateLocalAutocomplete();
         this.InitBsConfig();
-      
+
     }
 
-   
+
     CloseSearchWindow()
     {
         $("body").removeClass("has-active-menu");
@@ -93,18 +93,18 @@ export class SearchTicketsComponent extends BaseComponent implements OnInit {
         );
     }
 
-    
+
 
     InitBsConfig()
     {
         this.bsConfig = Object.assign({}, { containerClass: 'theme-default transformedDatapicker',showWeekNumbers:false, locale: this.settings.GetLang() });
     }
 
-    
+
 
     PriceChanged(data)
     {}
-    
+
 
     ConvertTicketTypes()
     {
@@ -182,5 +182,5 @@ export class SearchTicketsComponent extends BaseComponent implements OnInit {
             this.mapCoords.lng = null;
         }
     }
-    
+
 }

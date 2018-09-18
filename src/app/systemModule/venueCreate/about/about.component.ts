@@ -30,6 +30,7 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
     @Output() onVenueChanged:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
 
     phoneMask:string='';
+    faxMask:string='';
 
     EmailFormGroup : FormGroup = new FormGroup({
         "name_email":new FormControl("",[]),
@@ -60,6 +61,7 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
             (value:any) => {
                 this.onVenueChanged.emit(this.Venue);
                 this.phoneMask = this.Venue.phone;
+                this.faxMask = this.Venue.fax;
             });
         this.aboutForm.controls["emails"].valueChanges.forEach(
             (value:any) => {
@@ -98,6 +100,7 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
         this.GetVenueImage();
 
         this.phoneMask = this.Venue.phone;
+        this.faxMask = this.Venue.fax;
     }
 
     GetVenueImage()

@@ -457,7 +457,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                       // this.submitVenue();
 
               },(err)=>{
-                  this.onError.emit("Request wasn't sent!")
+                  this.onError.emit("Request wasn't send!")
               });
         }
     }
@@ -493,11 +493,11 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                     this.main.eventService.VenueSendRequest(this.addVenue)
                      .subscribe((send)=>{
                       //  console.log(`ok send`);
-                        this.onError.emit("Request was sent!");
+                        this.onError.emit("Request was send!");
                          this.updateEvent();
                         //this.submitVenue();
                 }, (err)=>{
-                  this.onError.emit("Request wasn't sent!")
+                  this.onError.emit("Request wasn't send!")
                 })
         }
         else {

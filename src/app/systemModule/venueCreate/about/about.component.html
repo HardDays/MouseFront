@@ -8,7 +8,7 @@
                 </div>
                 <div class="flex-body-1 hidden-md hidden-sm hidden-xs">
                     <div class="side">
-                        
+
                     </div>
                     <div class="side">
                         <h6 class="head-col-add-venue" translate>Contact Info</h6>
@@ -19,8 +19,8 @@
                 </div>
                 <div class="flex-body-1 xs-verticall">
                     <div class="side">
-                        
-                        
+
+
                         <div class="input-groupe-1 lbl-1">
                             <input id="inp-create-1" autocomplete="off" [(ngModel)]="Venue.display_name" formControlName="venue_name" name="" type="text">
                             <label for="inp-create-1" translate>Venue.About-folder.Venue Name<span>*</span></label>
@@ -29,12 +29,12 @@
                             <span class="user-name-dog">@</span>
                             <input id="inp-create-2" autocomplete="off" [textMask]="WithoutSpace()" [(ngModel)]="Venue.user_name" formControlName="mouse_name" name="" type="text">
                             <label for="inp-create-2" translate>Venue.About-folder.Mouse Username<span>*</span></label>
-                            
+
                         </div>
                         <div class="input-groupe-1 whithout-label">
                             <h6 class="head-col-add-venu hidden-lg visible-md" translate>Contact Info</h6>
                             <div class="photo-wr-1 n-i-s">
-                                
+
                                 <label *ngIf="!Venue.image_base64" class="file_upload new-style-img-up">
                                     <div class="bg-image"></div>
 
@@ -58,16 +58,16 @@
                         </div>
                     </div>
                     <div class="side">
-                        
+
                         <div class="input-groupe-1">
                             <input id="inp-create-venue-tel-1" autocomplete="off" [textMask]="MaskPhone(phoneMask)" (input)="phoneMask=''" (blur)="phoneMask=Venue.phone" [(ngModel)]="Venue.phone" formControlName="phone" name="" type="text">
                             <label for="inp-create-venue-tel-1" translate>Venue.About-folder.Phone<span>*</span></label>
                         </div>
                         <div class="input-groupe-1">
-                            <input id="inp-create-venue-tel-2" autocomplete="off" [(ngModel)]="Venue.fax" formControlName="fax" name="" type="text">
+                            <input id="inp-create-venue-tel-2" autocomplete="off" [textMask]="MaskPhone(faxMask)" (input)="faxMask=''" (blur)="faxMask=Venue.fax" [(ngModel)]="Venue.fax" formControlName="fax" name="" type="text">
                             <label for="inp-create-venue-tel-2" translate>Venue.About-folder.Fax</label>
                         </div>
-                    
+
                         <h6 class="head-col-add-venue">EMAILS<span>*</span></h6>
                         <div class="padd-emeils-generate" formArrayName="emails">
                             <div class="one-email" *ngFor="let item of aboutForm.controls['emails']['controls']; let i = index">
@@ -93,7 +93,7 @@
                     </div>
                     <div class="side class-uniq-xs">
                         <h6 class="head-col-add-venue hidden-lg visible-md" translate>Address</h6>
-                        
+
                         <div class="input-groupe-1 md-w-100">
                             <input id="inp-create-venue-adr-2" #search placeholder="" autocomplete="off" [(ngModel)]="Venue.address" formControlName="address" name="addr" type="text">
                             <label for="inp-create-venue-adr-2" translate>Address<span>*</span></label>
@@ -114,7 +114,7 @@
                             <input id="inp-create-venue-adr-5" autocomplete="off" [(ngModel)]="Venue.zipcode" formControlName="zipcode" name="" type="text">
                             <label for="inp-create-venue-adr-5" translate>Zipcode</label>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
