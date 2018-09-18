@@ -5,11 +5,11 @@
                     <h2 translate>event.artist</h2>
                     <p translate>Please fill in all required fields in the Artist Screen<br translate>to Add a Venue(You can add only <span *ngIf="isEng">{{Event.artists_number}}</span> artists)</p>
                 </div>
-                
+
             </div>
-        
+
         </div>
-        
+
     </div>
     <div  class="tabs-artist-wrapp">
         <div class="new-padd-wrapper-m-w">
@@ -34,14 +34,14 @@
                         <ng-container *ngIf="Artists&&Artists.length>0">
                             <ng-container *ngFor="let item of Artists; let i = index">
                                 <div *ngIf="item.status_not_given!='owner_declined'&&item.status_not_given!='declined'" class="one-card">
-                                        <app-one-card 
-                                            [card] = "item" 
-                                            [status] = "item.status_not_given" 
+                                        <app-one-card
+                                            [card] = "item"
+                                            [status] = "item.status_not_given"
                                             [price] = "item.price_not_given"
                                             [currency] = "Event.currency"
                                             (accepted) = "acceptArtistCard($event)"
                                             (requested) = "sendArtistRequestOpenModal($event)"
-                                            (declined) = "declineArtist($event)"
+                                            (declined) = "openDeclineModal($event)"
                                             (checked) = "updateEvent()"
                                             (open) = "openPreviewArtist($event)"
                                         ></app-one-card>
@@ -58,8 +58,8 @@
                                 <span (click)="openInvite()" class="invite" translate>Artist Invite</span>
                             </div>
                         </div>
-                        
-                        
+
+
                     </div>
                 </div>
                 <!-- "p.s. наш любимый *ngIf"-->
@@ -68,38 +68,39 @@
                         <!--сюда копипастим "one-card" c "tab-artist" который выше-->
                         <ng-container *ngFor="let item of Artists; let i = index">
                             <div *ngIf="item.status_not_given=='owner_declined'||item.status_not_given=='declined'" class="one-card">
-                                
-                                    <app-one-card 
-                                        [card] = "item" 
-                                        [status] = "item.status_not_given" 
+
+                                    <app-one-card
+                                        [card] = "item"
+                                        [status] = "item.status_not_given"
                                         [price] = " "
+                                        [reason] = "item.reason"
+                                        [reasonText] = "item.reason_text"
                                         [currency] = "Event.currency"
                                         (accepted) = "acceptArtistCard($event)"
                                         (requested) = "sendArtistRequestOpenModal($event)"
-                                        (declined) = "declineArtist($event)"
+                                        (declined) = "openDeclineModal($event)"
                                         (checked) = "updateEvent()"
                                         (open) = "openPreviewArtist($event)"
                                     ></app-one-card>
-                            
+
                             </div>
                         </ng-container>
 
                         <div *ngIf="isEmptyDeclinedArtists()" class="empty-info">
                             <img src="./../../../assets/img/smile-white.svg" class="img-responsive" alt="">
                             <p translate>event.artist-fold.No artists yet</p>
-                            
+
                         </div>
 
                     </div>
                 </div>
             </div>
         </div>
-        
+
     </div>
     <div class="scroll-wrapp">
         <div class="circle-scroll" (click)="artistComplete()"></div>
     </div>
-
 
 
 
@@ -136,7 +137,7 @@
                                 <input type="text" [(ngModel)]="artistSearchParams.address" (input)="addressChange($event.target.value)" class="location-inp" placeholder="{{ 'Location' | translate}}" #searchArtist id="artistAddress">
                             </div>
                         </div>
-                    </div>  
+                    </div>
                 </div>
                 <div class="more-padd">
                     <div class="for-hide-filter">
@@ -147,7 +148,7 @@
                 <div class="for-padd-cards-art">
                         <app-preloader *ngIf="isLoadingArtist"></app-preloader>
                     <div class="scroll-cards-art">
-                             
+
                             <ng-container *ngIf="!isLoadingArtist">
                             <div *ngFor="let item of artistsSearch; let i = index" class="one-card">
                                 <div (click)="closeAddArtist(item.object.id)"  class="l-s">
@@ -168,7 +169,7 @@
                             </div>
                             </ng-container>
 
-                       
+
 
                     </div>
                 </div>
@@ -190,9 +191,9 @@
          <div class="modal-dialog">
                <form [formGroup]="requestArtistForm">
             <div class="modal-body">
-                
+
                 <h6 class="head-m-p-a" translate>event.artist-fold.Event Request</h6>
-                
+
                 <div class="name-and-ava">
                     <div class="ava" [ngStyle]="{'background-image': artistForRequest.image_base64_not_given?'url('+artistForRequest.image_base64_not_given+')':''}"></div>
                     <div class="n-h">
@@ -213,7 +214,7 @@
                                 <div class="rel-wr">
                                 <input disabled [value]="Event.event_length" name="" type="text">
                             </div>
-                            <label for="inp-modal-req-4" translate>event.artist-fold.Performance Time</label> 
+                            <label for="inp-modal-req-4" translate>event.artist-fold.Performance Time</label>
                         </div>
                     </div>
                     <div class="flex-input-groupes">
@@ -223,7 +224,7 @@
                                     <input [textMask]="MaskNumbers()" formControlName="time_frame_number" id="inp-modal-req-412" name="" type="text">
                                 </div>
                                 <label for="inp-modal-req-4" translate>event.artist-fold.Time Frame<br translate> event.artist-fold.Number<span>*</span></label>
-                                
+
                         </div>
                         <div class="input-groupe-1 font-size-label more-padd relative-3">
                             <!-- <select formControlName="time_frame_range"  id="inp-modal-req-3">
@@ -242,14 +243,14 @@
                             </mat-form-field>
                             <label for="inp-modal-req-3" translate>event.artist-fold.Time Frame we expect an answer<span>*</span></label>
                         </div>
-                        
+
                         <div class="input-groupe-1 font-size-label more-padd">
                             <div class="rel-wr">
                                 <span class="abs-backs"><span [innerHTML]="CurrencySymbol"></span></span>
                                 <input [textMask]="MaskNumbers()" formControlName="estimated_price" id="inp-modal-req-4" class="dollar" name="" type="text">
                             </div>
                             <label for="inp-modal-req-4" translate>event.artist-fold.Estimated Price to<br translate> event.artist-fold.Perform<span>*</span></label>
-                            
+
                         </div>
                     </div>
                     <div class="flex-mac-checkbox">
@@ -286,7 +287,7 @@
         </div>
     </div>
     <!-- //конец модалки для кликов на send request-->
-        
+
         <div class="modal fade modal-send-request map-1-modal" id="modal-map-2">
             <div class="modal-dialog">
                 <div class="modal-body">
@@ -299,7 +300,7 @@
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
         <!--//новая вторая модалка с картой -->
 
 
@@ -312,7 +313,7 @@
                     <div class="padd-left-right">
                         <div class="input-groupe-1 more-padd">
                             <div class="rel-wr">
-                               
+
                                 <input id="inp-modal-inv-1" [(ngModel)]="ArtistInvite.name"  name="" type="text">
                             </div>
                             <label for="inp-modal-inv-1" translate>event.venue.Name</label>
@@ -336,7 +337,7 @@
                                         <label for="inv-check-1-1"></label>
                                     </div>
                                 </div>
-                                
+
                             </div>
                             <div class="checkbox-decline">
                                 <div>
@@ -361,7 +362,7 @@
                                         <label for="inv-check-1-3"></label>
                                     </div>
                                 </div>
-                                
+
                             </div>
                             <div class="checkbox-decline">
                                 <div>
@@ -374,7 +375,7 @@
                                         <label for="inv-check-1-4"></label>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -387,3 +388,63 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade modal-send-request" id="modal-decline">
+                        <div class="modal-dialog">
+                            <div class="modal-body">
+                                <h6 class="head-m-p-a">Decline Request</h6>
+
+                                <div class="content-modal">
+                                    <div class="padd-left-right">
+                                        <p class="gray-some-t-13">You declined the offer because of...</p>
+                                        <div class="checkboxes-decline-wrapp">
+                                            <div class="checkbox-decline">
+                                                <div class="one-checkbox">
+                                                    <div class="check-style">
+                                                        <input type="radio" [(ngModel)]="ownerAcceptDecline.reason" value="price" class="checkbox" name="checkbox-decline" id="checkbox-decline-1">
+                                                        <label for="checkbox-decline-1"></label>
+                                                    </div>
+                                                </div>
+                                                <p class="desc-decil">Price</p>
+                                            </div>
+                                            <div class="checkbox-decline">
+                                                <div class="one-checkbox">
+                                                    <div class="check-style">
+                                                        <input type="radio" [(ngModel)]="ownerAcceptDecline.reason" value="location" class="checkbox" name="checkbox-decline" id="checkbox-decline-2">
+                                                        <label for="checkbox-decline-2"></label>
+                                                    </div>
+                                                </div>
+                                                <p class="desc-decil">Location</p>
+                                            </div>
+                                            <div class="checkbox-decline">
+                                                <div class="one-checkbox">
+                                                    <div class="check-style">
+                                                        <input type="radio" [(ngModel)]="ownerAcceptDecline.reason" value="time" class="checkbox" name="checkbox-decline" id="checkbox-decline-3">
+                                                        <label for="checkbox-decline-3"></label>
+                                                    </div>
+                                                </div>
+                                                <p class="desc-decil">Time</p>
+                                            </div>
+                                            <div class="checkbox-decline">
+                                                <div class="one-checkbox">
+                                                    <div class="check-style">
+                                                        <input type="radio" [(ngModel)]="ownerAcceptDecline.reason" value="other" class="checkbox" name="checkbox-decline" id="checkbox-decline-4">
+                                                        <label for="checkbox-decline-4"></label>
+                                                    </div>
+                                                </div>
+                                                <p class="desc-decil">Other</p>
+                                            </div>
+                                        </div>
+                                        <div class="input-groupe-1 small-textarea whithout-label">
+                                            <textarea [(ngModel)]="ownerAcceptDecline.additional_text" id="inp-desc-1-modal"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="send-request-b">
+                                        <button (click)="declineArtist()" class="butt-style-1" type="submit">
+                                            <span>Decline</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>

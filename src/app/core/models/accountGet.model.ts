@@ -113,6 +113,9 @@ export class AccountGetModel{
 
         public web_site?:string,
 
+        public reason?:string,
+        public reason_text?:string,
+
         public agreement?:{
              id?:number,
              price?:number,
