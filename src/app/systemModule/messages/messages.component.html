@@ -8,7 +8,7 @@
                         <img src="./../../../assets/img/smile.svg" class="img-responsive" alt="">
                         <p translate>Messages-fold.You have no messages yet</p>
                     </div>
-            
+
                     <ng-container *ngIf="messages.length>0">
 
                         <div  class="left-s">
@@ -34,10 +34,10 @@
                                                 <span translate>{{item.message_info?.event_info?.event_season?item.message_info?.event_info.event_season:'' | titlecase}}</span> {{item.message_info?.event_info?.event_year?item.message_info?.event_info.event_year:''}}
 
                                             </p>
-                                            
+
                                             <p *ngIf="item.message_type == 'request'" class="price">
                                                 {{item.message_info?.currency?(item.message_info?.currency==='USD'?'$':item.message_info?.currency==='RUB'?'Руб.':item.message_info?.currency==='EUR'?'€':''):''}}
-                                                {{item.message_info?.estimated_price?item.message_info?.estimated_price:''}}
+                                                {{item.message_info?.price?item.message_info?.price:''}}
                                             </p>
                                             <p *ngIf="item.message_type == 'accept'" class="price">
                                                 {{item.message_info?.currency?(item.message_info?.currency==='USD'?'$':item.message_info?.currency==='RUB'?'Руб.':item.message_info?.currency==='EUR'?'€':''):''}}
@@ -53,7 +53,7 @@
                                         </div>
                                         <div  class="descr-side">
                                             <p class="f">
-                                    
+
                                                 <span [ngClass]="{'active':!item.is_read}" class="some-t active" translate>{{item.message_type?item.message_type:'No subject'}}</span>
                                                 <span *ngIf="item.created_at" class="when">{{item.created_at| date:'MMM' | translate }}{{item.created_at| date:' d' }}</span>
                                             </p>
@@ -76,7 +76,7 @@
                                         <p class="n">{{openMessage.sender?.full_name?openMessage.sender.full_name:''}}</p>
                                         <p class="hash"><span>@</span>{{openMessage.sender?.user_name?openMessage.sender.user_name:''}}</p>
                                     </div>
-                                    
+
                                 </div>
                                 <div class="block-info t-b">
                                     <p class="name-event">{{openMessage.message_info?.event_info?openMessage.message_info?.event_info.name:''}}</p>
@@ -84,25 +84,25 @@
                                     <p *ngIf="openMessage.message_type == 'request'" class="fot-edit"><span translate>{{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_season:'' | titlecase}} </span>, {{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_year:''}}, <span translate>{{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_time:''| titlecase}}</span>, {{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_length:''}} <span translate>Hours</span>
                                         <img *ngIf="!openMessage.is_read"  src="../../assets/img/edit-img.png"  class="img-responsive for-edit-img" alt="">
                                     </p>
-                                    <input *ngIf="openMessage.message_type == 'request'" [disabled]="openMessage.is_read" class="form-control" #drp="bsDaterangepicker" bsDaterangepicker [bsConfig]="bsConfig" 
+                                    <input *ngIf="openMessage.message_type == 'request'" [disabled]="openMessage.is_read" class="form-control" #drp="bsDaterangepicker" bsDaterangepicker [bsConfig]="bsConfig"
                                     [minDate]="minDate" [maxDate]="maxDate" [(ngModel)]="bsRangeValue">
 
                                     <p *ngIf="openMessage.message_type == 'accept' &&openMessage.message_info" class="fot-edit">{{openMessage.message_info?.preferred_date_from| date}} - {{openMessage.message_info?.preferred_date_to| date}} </p>
-                                    
-                                    
+
+
                                     <p *ngIf="openMessage.message_type == 'request'" class="desc-for-edit" translate>(You can pick the dates you are available to perform)</p>
                                     <p *ngIf="openMessage&&openMessage.message_info&&openMessage.message_info?.event_info&&openMessage.message_info?.event_info.is_crowdfunding_event" class="event-type" translate>Crowdfunded Event</p>
                                 </div>
                                 <div class="block-info fourth-b">
                                     <p class="fot-edit">
-                                            
+
                                         {{'Price to Perform' | translate}}<span>
                                             <i [innerHTML]="CurrentCurrency"></i>
-                                            {{(openMessage.message_type&&openMessage.message_info&&openMessage.message_type == 'request')?openMessage.message_info?.estimated_price:''}}</span>
+                                            {{(openMessage.message_type&&openMessage.message_info&&openMessage.message_type == 'request')?openMessage.message_info?.price:''}}</span>
                                         <img *ngIf="openMessage.message_type == 'request'&&!openMessage.is_read" src="../../assets/img/edit-img.png" (click)="isEditPrice = true" class="img-responsive for-edit-img" alt="">
                                     </p>
-                                    
-                                    
+
+
                                     <!--поялвляется если нажать на картинку "for-edit-img"-->
                                     <div *ngIf="isEditPrice" class="flex-price-change">
                                         <p class="your-price" translate>Change price</p>
@@ -112,8 +112,8 @@
                                         </div>
                                     </div>
                                     <!--/поялвляется если нажать на картинку "for-edit-img"-->
-                                    
-                                    
+
+
                                     <p *ngIf="openMessage.message_type == 'request'" class="desc-for-edit" translate>You can change the Price to Perform</p>
                                 </div>
                                 <div *ngIf="openMessage.message_type == 'request'" class="block-info fifth-b">
@@ -142,7 +142,7 @@
                                                     <span translate>Go to Event</span>
                                                 </button>
                                             </div>
-                                            
+
                                     </div>
                                 </div>
                             </div>
@@ -160,7 +160,7 @@
                                             <p class="n">{{openMessage.sender?.full_name?openMessage.sender.full_name:''}}</p>
                                             <p class="hash"><span>@</span>{{openMessage.sender?.user_name?openMessage.sender.user_name:''}}</p>
                                         </div>
-                                        
+
                                     </div>
                                     <div class="block-info t-b">
                                         <p class="name-event">{{openMessage.message_info?.event_info?openMessage.message_info?.event_info.name:''}}</p>
@@ -168,11 +168,11 @@
                                         <p *ngIf="openMessage.message_type == 'request'" class="fot-edit">{{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_season:'' | titlecase}} {{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_year:''}}, {{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_time:'' | titlecase}}, {{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_length:''}} {{'Hours' | translate}}
                                             <img *ngIf="!openMessage.is_read"  src="../../assets/img/edit-img.png"  class="img-responsive for-edit-img" alt="">
                                         </p>
-                                        <input *ngIf="openMessage.message_type == 'request'" [disabled]="openMessage.is_read" class="form-control" #drp="bsDaterangepicker" bsDaterangepicker [bsConfig]="bsConfig" 
+                                        <input *ngIf="openMessage.message_type == 'request'" [disabled]="openMessage.is_read" class="form-control" #drp="bsDaterangepicker" bsDaterangepicker [bsConfig]="bsConfig"
                                         [minDate]="minDate" [maxDate]="maxDate" [(ngModel)]="bsRangeValue">
-    
+
                                         <p *ngIf="openMessage.message_type == 'accept' &&openMessage.message_info" class="fot-edit">{{openMessage.message_info?.preferred_date_from| date:'MMM' | translate}}, {{openMessage.message_info?.preferred_date_from | date:'dd yyyy'}} - {{openMessage.message_info?.preferred_date_to| date:'MMM' | translate}}, {{openMessage.message_info?.preferred_date_to | date:'dd yyyy'}} </p>
-                                        
+
                                         <!--появлется если нажать на верхнюю картинку for-edit-img-->
                                         <!-- <div *ngIf="isEditShow" class="selects-wrapper">
                                             <div class="flex-input-groupes">
@@ -182,7 +182,7 @@
                                                         <option>summer</option>
                                                         <option>autumn</option>
                                                         <option>winter</option>
-                                                
+
                                                     </select>
                                                     <label for="inp-create-5">Event Date</label>
                                                 </div>
@@ -212,29 +212,29 @@
                                                         <option>3</option>
                                                         <option>4</option>
                                                         <option>5</option>
-    
+
                                                     </select>
                                                     <label for="inp-create-8">Event Length</label>
                                                 </div>
                                             </div>
                                         </div> -->
                                         <!--/появлется если нажать на верхнюю картинку for-edit-img-->
-                                        
-                                        
-                                        
+
+
+
                                         <p *ngIf="openMessage.message_type == 'request'" class="desc-for-edit" translate>(You can pick the dates you are available to perform)</p>
                                         <p *ngIf="openMessage&&openMessage.message_info&&openMessage.message_info?.event_info&&openMessage.message_info?.event_info.is_crowdfunding_event" class="event-type" translate>Crowdfunded Event</p>
                                     </div>
                                     <div class="block-info fourth-b">
                                         <p class="fot-edit">
-                                                
+
                                         <span translate>Price to Perform</span> <span>
                                                 {{openMessage.message_info?.currency?(openMessage.message_info?.currency==='USD'?'$':openMessage.message_info?.currency==='RUB'?'Руб.':openMessage.message_info?.currency==='EUR'?'€':''):''}}
-                                                {{(openMessage.message_type&&openMessage.message_info&&openMessage.message_type == 'request')?openMessage.message_info?.estimated_price:openMessage.message_info?.price}}</span>
+                                                {{(openMessage.message_type&&openMessage.message_info&&openMessage.message_type == 'request')?openMessage.message_info?.price:openMessage.message_info?.price}}</span>
                                             <img *ngIf="openMessage.message_type == 'request'&&!openMessage.is_read" src="../../assets/img/edit-img.png" (click)="isEditPrice = true" class="img-responsive for-edit-img" alt="">
                                         </p>
-                                        
-                                        
+
+
                                         <!--поялвляется если нажать на картинку "for-edit-img"-->
                                         <div *ngIf="isEditPrice" class="flex-price-change">
                                             <p class="your-price" translate>Change price</p>
@@ -244,8 +244,8 @@
                                             </div>
                                         </div>
                                         <!--/поялвляется если нажать на картинку "for-edit-img"-->
-                                        
-                                        
+
+
                                         <p *ngIf="openMessage.message_type == 'request'" class="desc-for-edit" translate>You can change the Price to Perform</p>
                                     </div>
                                     <div *ngIf="openMessage.message_type == 'request'" class="block-info fifth-b">
@@ -274,7 +274,7 @@
                                                         <span translate>Go to Event</span>
                                                     </button>
                                                 </div>
-                                                
+
                                         </div>
                                     </div>
                                 </div>
@@ -288,7 +288,7 @@
                         </div>
 
                         <div *ngIf="openMessage?.message_type === 'feedback'" class="right-s">
-                            <app-message-feedback 
+                            <app-message-feedback
                                 [Message]="openMessage"
                             ></app-message-feedback>
                         </div>
@@ -306,7 +306,7 @@
                                             <p class="n">{{reply.sender?.full_name?reply.sender.full_name:''}}</p>
                                             <p class="hash"><span>@</span>{{reply.sender?.user_name?reply.sender.user_name:''}}</p>
                                         </div>
-                                        
+
                                     </div>
                                     <div class="block-info t-b">
                                         <p class="descr">{{reply.message | titlecase}}</p>
@@ -320,7 +320,7 @@
 
 
                     </ng-container>
-               
+
             </div>
         </div>
     </div>

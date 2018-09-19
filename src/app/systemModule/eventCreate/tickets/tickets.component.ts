@@ -7,7 +7,7 @@ import { TypeService } from '../../../core/services/type.service';
 import { GenresService } from '../../../core/services/genres.service';
 import { EventService } from '../../../core/services/event.service';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Event } from '@angular/router';
 import { AuthService } from 'angular2-social-login';
 import { MapsAPILoader } from '@agm/core';
 import { Http } from '@angular/http';
@@ -28,6 +28,7 @@ export class AddTicketsComponent extends BaseComponent implements OnInit {
 
     @Input() Event:EventCreateModel;
     @Output() onSaveEvent:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
+    @Output() onSave:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
     @Output() onError:EventEmitter<string> = new EventEmitter<string>();
 
     tickets:TicketModel[] = [];
@@ -53,12 +54,22 @@ export class AddTicketsComponent extends BaseComponent implements OnInit {
     // this.CreateAutocompleteArtist();
     this.CurrencySymbol = CurrencyIcons[this.Event.currency];
     this.isEng = this.isEnglish();
+
     this.getTickets();
+
     // console.log(`INIT`);
 
 
 
   }
+
+  // ngOnChanges(changes: SimpleChanges) {
+  //   if(changes.Event){
+  //     this.Event = changes.Event.currentValue;
+  //     this.getTickets();
+  //   }
+  // }
+
   Init(event:EventCreateModel){
 
   }
@@ -199,6 +210,7 @@ updateEventTickets(){
     subscribe((res:EventGetModel)=>{
         //console.log(`updateEventThis`);
         this.Event = this.main.eventService.EventModelToCreateEventModel(res);
+        this.onSave.emit(this.Event);
         this.getTickets();
     })
 }
