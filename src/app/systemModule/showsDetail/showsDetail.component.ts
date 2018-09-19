@@ -41,10 +41,11 @@ import {Location} from '@angular/common';
 import { EventUpdatesModel } from '../../core/models/eventUpdates.model';
 import { EventBackersModel } from '../../core/models/eventBackers.model';
 import { Data } from './showDetail.data';
+import { saveAs} from 'file-saver';
 declare var $:any;
 declare var PhotoSwipeUI_Default:any;
 declare var PhotoSwipe:any;
-
+declare const Buffer;
 
 
 @Component({
@@ -92,6 +93,8 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     TextSearchGoing:string;
     Allbackers:EventBackersModel[] = [];
     ShareTitle:string = "";
+    baseFile:string = "";
+
     @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
         if(this.isShowMap){
             if (event.keyCode === this.ESCAPE_KEYCODE || event.keyCode === this.ENTER_KEYCODE) {
@@ -282,12 +285,35 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
             //     );
         }
     }
+    GetCaledarFile(){
+        this.main.eventService.GetCalendarEventFile(this.EventId).subscribe((res:any)=>{
+            this.baseFile = res.file;
+            console.log(this.baseFile);
+        }) 
+    }
+    downloadFile(){
+        
+         
+        let type = 'ics';
+        
+        let file = this.baseFile;
+
+        var decoded = new Buffer(file, 'base64');
+        var blob = new Blob([decoded], { type: type });
+        
+
+        saveAs(blob,'calendar.'+type);
     
+         
+        
+      }
+
     InitEvent(event:EventGetModel)
     {
         this.Event = event;
         this.SetMetaTags();
         this.GetImage();
+        this.GetCaledarFile();
         this.FoundedPercent = 100*this.Event.founded / this.Event.funding_goal;
 
         if(this.Event.hashtag)
@@ -498,6 +524,9 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         );
         return result;
     }
+
+
+
 
     GroupBy(list,keyGetter)
     {

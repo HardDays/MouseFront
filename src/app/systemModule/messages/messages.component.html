@@ -36,11 +36,11 @@
                                             </p>
                                             
                                             <p *ngIf="item.message_type == 'request'" class="price">
-                                                {{item.message_info?.currency?(item.message_info?.currency==='USD'?'$':item.message_info?.currency==='RUB'?'₽':item.message_info?.currency==='EUR'?'€':''):''}}
+                                                {{item.message_info?.currency?(item.message_info?.currency==='USD'?'$':item.message_info?.currency==='RUB'?'Руб.':item.message_info?.currency==='EUR'?'€':''):''}}
                                                 {{item.message_info?.estimated_price?item.message_info?.estimated_price:''}}
                                             </p>
                                             <p *ngIf="item.message_type == 'accept'" class="price">
-                                                {{item.message_info?.currency?(item.message_info?.currency==='USD'?'$':item.message_info?.currency==='RUB'?'₽':item.message_info?.currency==='EUR'?'€':''):''}}
+                                                {{item.message_info?.currency?(item.message_info?.currency==='USD'?'$':item.message_info?.currency==='RUB'?'Руб.':item.message_info?.currency==='EUR'?'€':''):''}}
                                                 {{item.message_info?.price?item.message_info?.price:''}}</p>
                                             <p *ngIf="isExpiresSoonByExpireDate(item.message_info?.expiration_date)=='soon'&&item.message_type == 'request'" class="expires-soon" translate>Expires<br translate>Soon</p>
                                         </div>
@@ -229,7 +229,7 @@
                                         <p class="fot-edit">
                                                 
                                         <span translate>Price to Perform</span> <span>
-                                                {{openMessage.message_info?.currency?(openMessage.message_info?.currency==='USD'?'$':openMessage.message_info?.currency==='RUB'?'₽':openMessage.message_info?.currency==='EUR'?'€':''):''}}
+                                                {{openMessage.message_info?.currency?(openMessage.message_info?.currency==='USD'?'$':openMessage.message_info?.currency==='RUB'?'Руб.':openMessage.message_info?.currency==='EUR'?'€':''):''}}
                                                 {{(openMessage.message_type&&openMessage.message_info&&openMessage.message_type == 'request')?openMessage.message_info?.estimated_price:openMessage.message_info?.price}}</span>
                                             <img *ngIf="openMessage.message_type == 'request'&&!openMessage.is_read" src="../../assets/img/edit-img.png" (click)="isEditPrice = true" class="img-responsive for-edit-img" alt="">
                                         </p>

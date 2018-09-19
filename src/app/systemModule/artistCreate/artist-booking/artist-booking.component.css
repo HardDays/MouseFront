@@ -49,3 +49,20 @@ span.doll.fix-31{
     left: 0;
     font-family: AvenirLTStdBook,'PT Sans', Arial, Helvetica, sans-serif;
 }
+.width100{
+    width: 100%;
+}
+.more-margin-bottom{
+    margin-bottom: 30px;
+}
+@media (max-width: 767px){
+    .more-margin-bottom{
+        margin-bottom: 28px!important;
+    }
+    .auto-widthxs{
+        width: 100%!important;
+    }
+    .auto-widthxs.from-to-style.hours-label-groupe input{
+        text-align: left!important;
+    }
+}

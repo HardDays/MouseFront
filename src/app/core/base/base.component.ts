@@ -402,7 +402,7 @@ export class BaseComponent{
     {
         let CurrencySymbol = "$";
         if(this.main.settings.GetCurrency() == 'RUB'){
-            CurrencySymbol = '₽';
+            CurrencySymbol = 'Р.';
           }
           else{
             CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
