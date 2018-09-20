@@ -29,6 +29,8 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
   @Input() Artist:AccountCreateModel;
   @Input() ArtistId:number;
 
+  Albums:Album[] = [];
+
   addSongForm: FormGroup = new FormGroup({
     "song_name": new FormControl("", [Validators.required]),
     "album_name": new FormControl("", [Validators.required]),
@@ -96,6 +98,18 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
     this.InitMusicPlayer();
     this.updateVideosPreview();
     this.GetArtistImages();
+
+    this.GetAlbums();
+
+  }
+
+  GetAlbums(){
+    this.main.accService.GetArtistAlbums(this.ArtistId)
+      .subscribe(
+        (res)=>{
+          this.Albums = res;
+        }
+      )
   }
 
   Init(artist:AccountCreateModel,id:number){
@@ -196,9 +210,16 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
             params[key] = this.addAlbumForm.value[key];
         }
       }
-      this.Artist.artist_albums.push(params);
-      this.saveArtist();
-      this.addAlbumForm.reset();
+      // this.Artist.artist_albums.push(params);
+      // this.saveArtist();
+      this.main.accService.SaveArtistAlbum(this.ArtistId,params)
+        .subscribe(
+          (res)=>{
+            this.GetAlbums();
+            this.addAlbumForm.reset();
+          }
+        )
+
     }
     else {
       this.showError(this.getFormErrorMessage(this.addAlbumForm, 'artist'));

@@ -2,12 +2,12 @@
     <!-- <div class="delete-card" *ngIf="status!='owner_accepted'&&status!='not found artist'" (click)="Decline()"></div> -->
 
     <div class="left-side">
-      
+
         <div (click)="openArtist()" class="ava" [ngClass]="{'checked':status=='owner_accepted'||status=='active'}" [ngStyle]="{'background-image': card.image_base64_not_given?'url('+card.image_base64_not_given+')':emptyImage}"></div>
         <p class="desc-head-info" translate>event.one-card.Status</p>
         <!-- <p class="status"> {{status}}Accepted by {{card.account_type|titlecase}} and Event owner</p> -->
         <p *ngIf="status=='pending'" class="status" translate>Pending</p>
-        <p *ngIf="status=='request_send'" class="status" translate>event.one-card.Request has been send</p>        
+        <p *ngIf="status=='request_send'" class="status" translate>event.one-card.Request has been send</p>
         <p *ngIf="status=='declined'" class="status" translate>event.one-card.Declined by Artist</p>
         <p *ngIf="status=='time_expired'" class="status" translate>event.one-card.Time expired</p>
         <p *ngIf="status=='owner_declined'" class="status" translate>event.one-card.Declined by Event owner</p>
@@ -21,6 +21,8 @@
         <p (click)="openArtist()" class="name" style=" white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis; ">{{card.user_name}}</p>
+        <p *ngIf="status==='owner_declined'" class="info">Reason: {{card.reason|titlecase}}</p>
+        <p *ngIf="status==='owner_declined'" class="info">Message: {{card.reason_text}}</p>
         <p *ngIf="card.account_type == 'artist'" class="desc-head-info" translate>Genre</p>
         <p *ngIf="card.account_type == 'artist'" class="info">{{ toBeatyShowsList(card.genres) | titlecase | translate}}</p>
         <p class="desc-head-info" translate>Location</p>

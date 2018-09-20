@@ -18,7 +18,7 @@
                                 <option>1</option>
                                 <option>2</option>
                             </select> -->
-                            <mat-form-field >
+                            <mat-form-field class="width100">
                                 <mat-select [(ngModel)]="Artist.performance_min_time">
                                     <mat-option [value]="1">1</mat-option>
                                     <mat-option [value]="2">2</mat-option>
@@ -31,7 +31,7 @@
                                 <option>3</option>
                                 <option>4</option>
                             </select> -->
-                            <mat-form-field >
+                            <mat-form-field class="width100">
                                 <mat-select [(ngModel)]="Artist.performance_max_time">
                                     <mat-option [value]="3">3</mat-option>
                                     <mat-option [value]="4">4</mat-option>
@@ -170,7 +170,7 @@
                         <!-- <ng-container  > -->
                         <div *ngFor="let type of preferredVenues; let i = index" class="one-checkbox">
                             <div class="check-style">
-                                <input [checked]="preferredVenues[i].checked" [disabled]="type.object.type==='other'&&Artist.preferred_venue_text.length>0" type="checkbox" (click)="setPreferedVenue(i)" class="checkbox" name="" id="checkbox-{{i}}">
+                                <input [checked]="preferredVenues[i].checked" [disabled]="type.object.type==='other'&&Artist.preferred_venue_text?.length>0" type="checkbox" (click)="setPreferedVenue(i)" class="checkbox" name="" id="checkbox-{{i}}">
                                 <label for="checkbox-{{i}}"></label>
                             </div>
                             <p translate>{{type.object.type_show}}</p>
@@ -198,7 +198,7 @@
                                 <option>30</option>
                                 <option>40</option>
                             </select>                                                          -->
-                            <mat-form-field >
+                            <mat-form-field class="width100">
                                 <mat-select [(ngModel)]="Artist.days_to_travel">
                                     <mat-option [value]="30">30</mat-option>
                                     <mat-option [value]="40">40</mat-option>
@@ -283,13 +283,13 @@
                         <div class="input-groupe-1 from-to-style hours-label-groupe auto-width" style="margin-bottom: 15px;">
                             <input type="text" [(ngModel)]="Artist.min_time_to_book" style="height: 35px;" [textMask]="MaskDays()">
                         </div>
-                        <div class="input-groupe-1 from-to-style hours-label-groupe auto-width" >
+                        <div class="input-groupe-1 from-to-style more-margin-bottom hours-label-groupe auto-width" >
                             <!-- <select [(ngModel)]="type_min_time_to_book">
                                 <option>days</option>
                                 <option>weeks</option>
                                 <option>months</option>
                             </select>                                                          -->
-                            <mat-form-field >
+                            <mat-form-field class="width100">
                                 <mat-select [(ngModel)]="type_min_time_to_book">
                                     <mat-option value="days">{{'Days' | translate}}</mat-option>
                                     <mat-option value="weeks">{{'Weeks' | translate}}</mat-option>
@@ -308,14 +308,14 @@
                             <input type="text" [(ngModel)]="Artist.min_time_to_free_cancel"  style="height: 35px;" [textMask]="MaskDays()">
                         </div>
 
-                        <div class="input-groupe-1 from-to-style hours-label-groupe auto-width" >
+                        <div class="input-groupe-1 from-to-style hours-label-groupe more-margin-bottom auto-width" >
 
                             <!-- <select [(ngModel)]="type_min_time_to_free_cancel">
                                 <option>days</option>
                                 <option>weeks</option>
                                 <option>months</option>
                             </select>                                                          -->
-                            <mat-form-field >
+                            <mat-form-field class="width100">
                                 <mat-select [(ngModel)]="type_min_time_to_free_cancel">
                                     <mat-option value="days">{{'Days' | translate}}</mat-option>
                                     <mat-option value="weeks">{{'Weeks' | translate}}</mat-option>
@@ -329,7 +329,7 @@
                         <div class="input-groupe-1 ">
                         <p class="hours-label" translate>Artist-create.booking-art.Fee for last minute сancellation</p>
                         </div>
-                        <div class="input-groupe-1 doll from-to-style hours-label-groupe auto-width">
+                        <div class="input-groupe-1 doll from-to-style hours-label-groupe auto-width auto-widthxs">
                             <span class="doll fix-31">{{CurrencySymbol }}</span>
                             <input [(ngModel)]="Artist.late_cancellation_fee" type="text" class="whithout-padd">
                         </div>

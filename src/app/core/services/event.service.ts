@@ -181,7 +181,11 @@ export class EventService{
             () => this.http.PostData('/events/'+event.event_id+'/venue/'+event.id+'/send_request.json',JSON.stringify(event))
         );
     }
-
+    GetCalendarEventFile(id){
+        return this.http.CommonRequest(
+            () => this.http.GetData('/events/'+id+'/save_to_calendar.json','')
+        );
+    }
     SetLaunch(id:number,account_id:number){
 
         let params = {

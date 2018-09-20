@@ -1,3 +1,4 @@
+import { Album, Rider } from './../models/accountGet.model';
 import { Injectable } from "@angular/core";
 import { HttpService } from "./http.service";
 import { Router } from "@angular/router";
@@ -32,7 +33,7 @@ export class AccountService{
 
     AccountModelToCreateAccountModel(input:AccountGetModel){
         let result = new AccountCreateModel();
-       
+
         if(input){
             result.first_name = input.first_name?input.first_name:null;
             result.last_name = input.last_name?input.last_name:null;
@@ -71,6 +72,7 @@ export class AccountService{
             result.lat = input.lat?input.lat:null;
             result.lng = input.lng?input.lng:null;
             result.about = input.about?input.about:null;
+            result.street = input.street?input.street:null;
 
             result.country = input.country?input.country:null;
             result.city = input.city?input.city:null;
@@ -118,17 +120,17 @@ export class AccountService{
                             options += '"' + key + '"' + ':' + '"' + JSON.stringify(prop[i]) + '"' + ',';
                         }
                     }
-                    
+
                 }
                 else{
-                    options += '"' + key + '":' + '"' + params[key] + '"' + ','; 
+                    options += '"' + key + '":' + '"' + params[key] + '"' + ',';
                 }
             }
         }
         options = options.slice(0, options.length - 1 );
         options += "}";
         return options;
-    
+
     }
 
     GetMyAccount(params?:any){
@@ -137,7 +139,7 @@ export class AccountService{
         );
         //return this.http.GetData('/accounts/my.json', this.typeService.ParamsToUrlSearchParams(params));
     }
-    
+
 
     SanitizeUrl(url)
     {
@@ -168,8 +170,8 @@ export class AccountService{
             ()=> this.http.PostData("/accounts.json", data)
         );
     }
-    
-    
+
+
     FollowAccountById(me:number,target:number)
     {
         return this.http.CommonRequest(
@@ -262,7 +264,7 @@ export class AccountService{
         return split && split[1]?split[1].substring(0,5):null;
     }
     IsAccFolowed(id:number, follower_id:number){
-       
+
         return this.http.CommonRequest(
             ()=> this.http.GetData('/accounts/' + id + "/is_followed.json",'follower_id='+follower_id)
         );
@@ -372,4 +374,44 @@ export class AccountService{
             () => this.http.GetData('/users/ip_location.json', this.typeService.ParamsToUrlSearchParams({}))
         );
     }
+
+    GetArtistAlbums(account_id:number){
+       return this.http.CommonRequest(
+            () => this.http.GetData('/accounts/'+ account_id + '/artist_albums.json', this.typeService.ParamsToUrlSearchParams({account_id}))
+        );
+    }
+    SaveArtistAlbum(account_id: number, params:Album)
+    {
+        return this.http.CommonRequest(
+            () => this.http.PostData('/accounts/'+ account_id +'/artist_albums.json', JSON.stringify(params))
+        );
+    }
+    DeleteArtistAlbum(account_id: number, id: number)
+    {
+        return this.http.CommonRequest(
+            () => this.http.DeleteData('/accounts/'+ account_id +'/artist_albums/'+id+'.json')
+        );
+    }
+
+    GetArtistRiders(account_id:number){
+       return this.http.CommonRequest(
+            () => this.http.GetData('/accounts/'+ account_id + '/artist_riders.json', this.typeService.ParamsToUrlSearchParams({account_id}))
+        );
+    }
+    SaveArtistRider(account_id: number, params:Rider)
+    {
+        return this.http.CommonRequest(
+            () => this.http.PostData('/accounts/'+ account_id +'/artist_riders.json', JSON.stringify(params))
+        );
+    }
+    DeleteArtistRider(account_id: number, id: number)
+    {
+        return this.http.CommonRequest(
+            () => this.http.DeleteData('/accounts/'+ account_id +'/artist_riders/'+id+'.json')
+        );
+    }
+
+
+
+
 }

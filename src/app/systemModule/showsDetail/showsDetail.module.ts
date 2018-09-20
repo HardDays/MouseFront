@@ -21,6 +21,8 @@ import { ArtistInfoComponent } from './artist-info/artist-info.component';
 import { OneCommentComponent } from './one-comment/one-comment.component';
 import { OneAvaWhoGoingComponent } from './one-ava-who-going/one-ava-who-going.component';
 import { OneHumanGoingModalComponent } from './one-human-going-modal/one-human-going-modal.component';
+import { PaymentShowDetailComponent } from './payment/payment.component';
+import { Data } from './showDetail.data';
 
 
 @NgModule({
@@ -52,8 +54,10 @@ import { OneHumanGoingModalComponent } from './one-human-going-modal/one-human-g
         ArtistInfoComponent,
         OneCommentComponent,
         OneAvaWhoGoingComponent,
-        OneHumanGoingModalComponent
+        OneHumanGoingModalComponent,
+        PaymentShowDetailComponent
     ],
-    exports: [ ShowsDetailComponent,ShowDetailGalleryComponent ]
+    exports: [ ShowsDetailComponent,ShowDetailGalleryComponent ],
+    providers:[Data]
 })
 export class ShowsDetailModule {}

@@ -11,8 +11,9 @@
 <div class="main-mw-7">
     <div class="riders-flex-wrapp">
         <div class="side">
-            <app-rider #STAGE 
+            <app-rider #STAGE
                 [Artist]="Artist"
+                [ArtistId]="ArtistId"
                 [Type]="'Stage'"
                 [Rider]="stageRider"
                 (onDelete)="DeleteRiderById($event)"
@@ -23,6 +24,7 @@
         <div class="side">
             <app-rider #BACKSTAGE
                 [Artist]="Artist"
+                [ArtistId]="ArtistId"
                 [Type]="'Backstage'"
                 [Rider]="backstageRider"
                 (onDelete)="DeleteRiderById($event)"
@@ -31,8 +33,9 @@
             </app-rider>
         </div>
         <div class="side">
-            <app-rider #HOSPITALITY 
+            <app-rider #HOSPITALITY
                 [Artist]="Artist"
+                [ArtistId]="ArtistId"
                 [Type]="'Hospitality'"
                 [Rider]="hospitalityRider"
                 (onDelete)="DeleteRiderById($event)"
@@ -41,8 +44,9 @@
             </app-rider>
         </div>
         <div class="side">
-            <app-rider #TECHNICAL 
+            <app-rider #TECHNICAL
                 [Artist]="Artist"
+                [ArtistId]="ArtistId"
                 [Type]="'Technical'"
                 [Rider]="technicalRider"
                 (onDelete)="DeleteRiderById($event)"
@@ -50,7 +54,7 @@
             >
             </app-rider>
         </div>
-        
+
     </div>
 </div>
 

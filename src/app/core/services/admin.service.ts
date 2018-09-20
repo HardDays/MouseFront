@@ -518,9 +518,9 @@ export class AdminService{
             ()=> this.http.DeleteDataWithBody('/admin/messages/'+id+'/delete.json', JSON.stringify({id}))
         );
     }
-    DeleteMessage(id:number){
+    DeleteMessage(id:number, message_id:number){
       return this.http.CommonRequest(
-            ()=> this.http.DeleteDataWithBody('/admin/messages/'+id+'/delete_message.json', JSON.stringify({id}))
+            ()=> this.http.DeleteDataWithBody('/admin/messages/'+id+'/delete_message.json', JSON.stringify({id,message_id}))
         );
     }
     GetFeed()

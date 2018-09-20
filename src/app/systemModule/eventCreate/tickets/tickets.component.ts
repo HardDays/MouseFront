@@ -7,7 +7,7 @@ import { TypeService } from '../../../core/services/type.service';
 import { GenresService } from '../../../core/services/genres.service';
 import { EventService } from '../../../core/services/event.service';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Event } from '@angular/router';
 import { AuthService } from 'angular2-social-login';
 import { MapsAPILoader } from '@agm/core';
 import { Http } from '@angular/http';
@@ -28,8 +28,9 @@ export class AddTicketsComponent extends BaseComponent implements OnInit {
 
     @Input() Event:EventCreateModel;
     @Output() onSaveEvent:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
+    @Output() onSave:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
     @Output() onError:EventEmitter<string> = new EventEmitter<string>();
-    
+
     tickets:TicketModel[] = [];
     ticketsNew:TicketModel[] = [];
     currentTicket:TicketModel = new TicketModel();
@@ -41,10 +42,10 @@ export class AddTicketsComponent extends BaseComponent implements OnInit {
     maxCountInPerson = 0;
     maxCountVr = 0;
 
- 
+
     CurrencySymbol = '$';
 
-    bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-default' });
+    bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-default', showWeekNumbers:false });
 
      datepickerFromModel:Date;
      datepickerToModel:Date;
@@ -53,14 +54,24 @@ export class AddTicketsComponent extends BaseComponent implements OnInit {
     // this.CreateAutocompleteArtist();
     this.CurrencySymbol = CurrencyIcons[this.Event.currency];
     this.isEng = this.isEnglish();
+
     this.getTickets();
+
     // console.log(`INIT`);
 
 
-    
+
   }
+
+  // ngOnChanges(changes: SimpleChanges) {
+  //   if(changes.Event){
+  //     this.Event = changes.Event.currentValue;
+  //     this.getTickets();
+  //   }
+  // }
+
   Init(event:EventCreateModel){
-    
+
   }
 
   deleteDuplicateTickets(t:TicketModel[]){
@@ -81,7 +92,7 @@ export class AddTicketsComponent extends BaseComponent implements OnInit {
     let params:TicketGetParamsModel = new TicketGetParamsModel();
     params.account_id = this.CurrentAccount.id;
     params.event_id = this.Event.id;
-  
+
     if(this.Event&&this.Event.tickets){
 
         // this.main.eventService.GetAnalytics(this.Event.id)
@@ -92,7 +103,7 @@ export class AddTicketsComponent extends BaseComponent implements OnInit {
         //         // console.log(`err`,err);
         //     }
         // )
-        
+
         for(let t of this.Event.tickets){
             params.id = t.id;
             this.main.eventService.GetTickets(params).
@@ -105,7 +116,7 @@ export class AddTicketsComponent extends BaseComponent implements OnInit {
         this.maxCountInPerson = this.Event.venue.capacity - this.Event.in_person_tickets;
         this.maxCountVr = this.Event.venue.vr_capacity - this.Event.vr_tickets;
     }
-    
+
 }
 
 addTicket(){
@@ -114,13 +125,13 @@ addTicket(){
     newTicket.currency = this.Event.currency;
     newTicket.event_id = this.Event.id;
     newTicket.account_id = this.CurrentAccount.id;
-    if (this.isEng) 
+    if (this.isEng)
         newTicket.name = 'New Name';
     else
         newTicket.name = 'Новое Название';
     newTicket.type = 'vr';
     newTicket.is_promotional = false;
-    newTicket.is_for_personal_use = false; 
+    newTicket.is_for_personal_use = false;
     this.ticketsNew.push(newTicket);
     this.currentTicket = this.ticketsNew[this.ticketsNew.length-1];
     this.isCurTicketNew = true;
@@ -163,7 +174,7 @@ updateTicket(){
 
         let index:number = -1;
         for(let i in this.ticketsNew)
-            if(this.ticketsNew[i].id == this.currentTicket.id) 
+            if(this.ticketsNew[i].id == this.currentTicket.id)
                 index = +i;
         //console.log(`index`,index);
 
@@ -194,13 +205,14 @@ updateTicket(){
     }
 }
 
-updateEventTickets(){ 
+updateEventTickets(){
     this.main.eventService.GetEventById(this.Event.id).
     subscribe((res:EventGetModel)=>{
         //console.log(`updateEventThis`);
         this.Event = this.main.eventService.EventModelToCreateEventModel(res);
+        this.onSave.emit(this.Event);
         this.getTickets();
-    })  
+    })
 }
 updateEvent(){
     this.onSaveEvent.emit(this.Event);
@@ -211,5 +223,5 @@ setDate(){
     this.datepickerFromModel = new Date(this.currentTicket.promotional_date_from);
 }
 
-  
+
 }

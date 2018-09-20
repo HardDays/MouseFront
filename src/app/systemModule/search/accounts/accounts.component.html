@@ -6,4 +6,10 @@
     <div class="one-obj"  *ngFor="let item of Accounts">
         <one-account-search-component [Account]="item"></one-account-search-component>
     </div>
+    
+
+    <div class="empty-info  empty-info-no-padding" *ngIf="!Accounts.length">
+        <img src="../../assets/img/smile.svg" class="img-responsive" alt="">
+        <p translate>No search results found</p>
+    </div>
 </div>

@@ -5,7 +5,7 @@ import { AccountService } from '../../core/services/account.service';
 import { ImagesService } from '../../core/services/images.service';
 import { TypeService } from '../../core/services/type.service';
 import { GenresService } from '../../core/services/genres.service';
-import { Router, Params, ActivatedRoute, NavigationEnd, NavigationStart } from '@angular/router';
+import { Router, Params, ActivatedRoute, NavigationEnd, NavigationStart} from '@angular/router';
 import { AuthService } from "angular2-social-login";
 
 import { BaseComponent } from '../../core/base/base.component';
@@ -40,10 +40,12 @@ import { CommentEventModel } from '../../core/models/commentEvent.model';
 import {Location} from '@angular/common';
 import { EventUpdatesModel } from '../../core/models/eventUpdates.model';
 import { EventBackersModel } from '../../core/models/eventBackers.model';
+import { Data } from './showDetail.data';
+import { saveAs} from 'file-saver';
 declare var $:any;
 declare var PhotoSwipeUI_Default:any;
 declare var PhotoSwipe:any;
-
+declare const Buffer;
 
 
 @Component({
@@ -56,23 +58,24 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     Event:EventGetModel = new EventGetModel();
     Creator:AccountGetModel = new AccountGetModel();
     Artists:AccountGetModel[] = [];
-    Tickets:TicketModel [] = [];
+    Tickets:BuyTicketModel [] = [];
     Venue:AccountGetModel = new AccountGetModel();
     FoundedPercent:number = 0;
     Date:string = "";
     Image:string = BaseImages.Drake;
+    ImageTw:string = BaseImages.Drake;
     CheckedTickets:any[] = [];
     
-    TicketsToBuy:BuyTicketModel[] = [];
     TotalPrice:number = 0;
     TotalOriginalPrice: number = 0;
+    TicketsCount: number = 0;
 
     Genres:GenreModel[] = [];
 
     Featuring:{name:string,id:number}[] = [];
 
     Statuses = EventStatus;
-   
+    
     FullUrl:string;
     activeTab:string = tabsShowDetails.information;
     isShowMap = false;
@@ -89,6 +92,9 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     UpdatesEvent:EventUpdatesModel[] = [];
     TextSearchGoing:string;
     Allbackers:EventBackersModel[] = [];
+    ShareTitle:string = "";
+    baseFile:string = "";
+
     @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
         if(this.isShowMap){
             if (event.keyCode === this.ESCAPE_KEYCODE || event.keyCode === this.ENTER_KEYCODE) {
@@ -109,7 +115,8 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         protected translate      :TranslateService,
         protected settings       :SettingsService,
         private location: Location,
-        private meta: Meta
+        private meta: Meta,
+        private data : Data
     ) {
     super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,settings);
     }
@@ -118,18 +125,17 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
 
     ngOnInit(): void
     {
-        this.FullUrl = this.router.routerState.snapshot.url;
+        this.FullUrl = window.location.href;
         this.activatedRoute.params.forEach((params)=>{
             this.EventId = params["id"];
-            // console.log("scroll_position",window.scrollY);
             this.GetEventInfo();
             this.GetComments();
         });
+
      
         this.main.CurrentAccountChange.subscribe(
             (val) => {
                 this.MyAcc = val;
-                console.log(this.MyAcc);
             }
         );
 
@@ -158,9 +164,9 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     }
     SetMetaTagsImage(){
         this.meta.addTags([
-            {name: 'og:image', content: this.Image},
-            {name: 'twitter:image', content: this.Image},
-            {itemprop: 'image', content: this.Image}
+            {name: 'og:image', content: this.ImageTw},
+            {name: 'twitter:image', content: this.ImageTw},
+            {itemprop: 'image', content: this.ImageTw}
         ]);
        
     }
@@ -189,6 +195,17 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         })
         
     }
+    onChangeInptitle(event){
+        this.ShareTitle = event.target.value;
+    }
+    copylink(element){
+       
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val($(element).text()).select();
+        document.execCommand("copy");
+        $temp.remove();
+    };
     goBack() {
         this.location.back();
     }
@@ -207,7 +224,6 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     }
     OpenModalShare(){
         $('#modal-share').modal('show');
-
     }
     // getGoingHuman(id:number,limit:number,offset:number,text?:string){
     //     this.main.eventService.EventGoingAcc(id,limit,offset,text).subscribe((res:any)=>{
@@ -254,9 +270,10 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         {
             
             this.Image = this.main.imagesService.GetImagePreview(this.Event.image_id, {width:700, height:950});
+            this.ImageTw = this.main.imagesService.GetImagePreview(this.Event.image_id, {width:510, height:228});
             setTimeout(()=>{
                 this.SetMetaTagsImage();
-            },1000);
+            },200);
             
             // this.main.imagesService.GetImageById(this.Event.image_id)
             //     .subscribe(
@@ -268,12 +285,35 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
             //     );
         }
     }
+    GetCaledarFile(){
+        this.main.eventService.GetCalendarEventFile(this.EventId).subscribe((res:any)=>{
+            this.baseFile = res.file;
+        }) 
+    }
+    downloadFile(){
+        
+         
+        let type = 'ics';
+        
+        let file = this.baseFile;
+
+        var decoded = new Buffer(file, 'base64');
+        var blob = new Blob([decoded], { type: type });
+        
+
+        saveAs(blob,'calendar.'+type);
     
+         
+        
+      }
+
     InitEvent(event:EventGetModel)
     {
         this.Event = event;
+        console.log(this.Event);
         this.SetMetaTags();
         this.GetImage();
+        this.GetCaledarFile();
         this.FoundedPercent = 100*this.Event.founded / this.Event.funding_goal;
 
         if(this.Event.hashtag)
@@ -357,39 +397,55 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
 
     GetTickets()
     {
-        this.Tickets = this.Event.tickets;
+        if(this.Event.tickets && this.Event.tickets.length > 0){
+            for(const item of this.Event.tickets)
+            {
+                this.Tickets.push(new BuyTicketModel(0,item));
+            }
+        }
+        if(this.data.storage && this.data.storage.EventId == this.EventId)
+        {
+            for(const item of this.data.storage.Tickets)
+            {
+                const index = this.Tickets.findIndex(obj => obj.ticket.id == item.ticket.id);
+                if(index > -1)
+                {
+                    this.Tickets[index].count = item.count;
+                }
+            }
+        }
+        // this.Tickets = this.Event.tickets;
         if(this.Event.tickets.length>0)
             this.OriginalCurrency = CurrencyIcons[this.Event.tickets[0].currency];
         else this.OriginalCurrency = CurrencyIcons[this.main.settings.GetCurrency()];
         // console.log(this.Tickets);
         // this.Currency = CurrencyIcons[this.Event.tickets[0].currency];
+        this.CalculateCurrentPrice();
     }
 
     AddTicketsToPrice(object:BuyTicketModel)
     {
-        this.TicketsToBuy.push(object);
+        // console.log(this.Tickets);
+        // const index = this.TicketsToBuy.findIndex(obj => obj.ticket.id == object.ticket.id);
+        // if(index < 0)
+        // {
+        //     this.TicketsToBuy.push(object);
+        // }
+        // else{
+        //     this.TicketsToBuy[index].count = object.count;
+        // }
+        // // this.TicketsToBuy.push(object);
         this.CalculateCurrentPrice();
-        this.OpenErrorWindow(object.count + this.GetTranslateString(" ticket")
-        + (object.count > 1  ? 
-            (object.count < 5 ?
-                this.GetTranslateString("addRuA")
-                : (object.count > 4 ?
-                    this.GetTranslateString("addRuOv")
-                    : ""
-                )
-            ) + this.GetTranslateString("addedRu")
-            : " " + this.GetTranslateString("added")
-        )
-        + " "
-        + this.GetTranslateString("to your cart!"));
     }
 
     CalculateCurrentPrice()
     {
         this.TotalPrice = 0;
         this.TotalOriginalPrice = 0;
-        for(let item of this.TicketsToBuy)
+        this.TicketsCount = 0;
+        for(let item of this.Tickets)
         {
+            this.TicketsCount += item.count;
             this.TotalPrice += item.count * item.ticket.price;
             this.TotalOriginalPrice += item.count * item.ticket.original_price;
         }
@@ -402,8 +458,12 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         let myAcc = this.GetCurrentAccId();
         if(myAcc)
         {
-            this.CheckedTickets = this.GroupTickets(this.TicketsToBuy,myAcc);
-            this.BuyTicket();
+            this.data.storage = {
+                EventId: this.EventId,
+                Tickets: this.Tickets.filter(obj => obj.count > 0)
+            };
+            this.data.SaveStorage();
+            this.router.navigate(['start_purchase'], {relativeTo: this.activatedRoute});
         }
     }
 
@@ -430,7 +490,6 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
             },
             (err) =>
             {
-                console.log(err);
                 
                 this.OpenErrorWindow(this.getResponseErrorMessage(err));
             }
@@ -465,6 +524,9 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         );
         return result;
     }
+
+
+
 
     GroupBy(list,keyGetter)
     {
@@ -537,8 +599,13 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         const timeFormat = this.main.settings.GetTimeFormat() == TimeFormat.CIS ? 'HH:mm' : 'hh:mm A';
         const dateTimeFromat = "DD, YYYY " + timeFormat;
         
-        
-        if(!this.Event.date_from && !this.Event.date_to)
+        if(this.Event.exact_date_from)
+        {
+            this.Date = this.ToUppercaseLetter(this.Event.exact_date_from, "MMM") 
+                + moment(this.Event.exact_date_from).format(" DD, YYYY ")
+                + "<span>" + moment(this.Event.exact_date_from).format(timeFormat) + "</span>";
+        }
+        else if(!this.Event.date_from && !this.Event.date_to)
         {
             this.Date = this.GetTranslateString(this.Event.event_season) + ' ' + this.Event.event_year;
             if(this.Event.event_time)

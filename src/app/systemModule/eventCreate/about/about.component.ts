@@ -90,7 +90,8 @@ export class AboutComponent extends BaseComponent implements OnInit {
     bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, {
         containerClass: 'theme-default',
         rangeInputFormat: this.main.settings.GetDateFormat(),
-        locale: this.settings.GetLang()
+        locale: this.settings.GetLang(),
+        showWeekNumbers:false
     });
 
     datepickerFromModel:Date = new Date();

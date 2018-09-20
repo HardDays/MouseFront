@@ -22,8 +22,8 @@
                     </div>
 
                     <div class="support_right">
-                      <app-open-message *ngIf="!IsNewMsgOpen" [Dialog]="Message" (onSolved)="setSolved()" (onDelete)="onDeleteOpen()"></app-open-message>
-                      <app-new-message *ngIf="IsNewMsgOpen"></app-new-message>
+                      <app-open-message *ngIf="!IsNewMsgOpen" [Dialog]="Message" (onSolved)="setSolved()" (onForward)="onForwardOpen()" (onDelete)="onDeleteOpen()"></app-open-message>
+                      <app-new-message *ngIf="IsNewMsgOpen" (onCreate)="onCreateNewMessage()"></app-new-message>
                     </div>
 
                 </div>

@@ -1,12 +1,43 @@
-<div class="one-ticket">
+<div class="one-tick">
+        <p class="f" translate>{{Ticket.ticket.type == 'in_person'?'In person':'VR'}} ticket</p>
+        <p class="s" translate>({{Ticket.ticket.is_promotional?'Promotional':'Regular'}})</p>
+        <p class="c" [ngClass]="{'with-original-price': Currency != OriginalCurrency}">
+            <span [innerHTML]="Currency"></span>{{Ticket.ticket.price}}
+        </p>
+        <p class="c c-original" *ngIf="Currency != OriginalCurrency">
+            <span [innerHTML]="OriginalCurrency"></span>{{Ticket.ticket.original_price}}
+        </p>
+        <div class="conter-wrapp">
+            <button class="arrow r-a" (click)="ChangeCount(-1)">
+                <svg width="8" height="15" viewBox="0 0 8 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path opacity="0.5" fill-rule="evenodd" clip-rule="evenodd" d="M1.03669 7.49933L7.88036 0.724995C7.95759 0.641877 7.99987 0.535393 7.99987 0.42513C7.99987 0.314868 7.95759 0.208326 7.88036 0.125209C7.84153 0.0857363 7.79426 0.0541992 7.74182 0.0326529C7.68937 0.0111065 7.63272 -1.04904e-05 7.57547 -1.04904e-05C7.51822 -1.04904e-05 7.46156 0.0111065 7.40912 0.0326529C7.35668 0.0541992 7.3094 0.0857363 7.27058 0.125209L0.127383 7.2013C0.0455179 7.28227 6.19888e-05 7.38962 6.19888e-05 7.50122C6.19888e-05 7.61282 0.0455179 7.72017 0.127383 7.80114L7.27058 14.8744C7.30861 14.9136 7.3551 14.945 7.40668 14.9666C7.45826 14.9882 7.5141 14.9996 7.57059 15C7.62718 15.0002 7.68332 14.989 7.73499 14.9674C7.78666 14.9457 7.83248 14.9141 7.87011 14.8744C7.95182 14.7932 7.99744 14.6857 7.99744 14.574C7.99744 14.4624 7.95182 14.3549 7.87011 14.2737L1.03669 7.49933Z" fill="black"/>
+                </svg>
+            </button>
+            <span>{{Ticket.count}}</span>
+            <button class="arrow l-a" (click)="ChangeCount(1)">
+                <svg width="8" height="15" viewBox="0 0 8 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path opacity="0.5" fill-rule="evenodd" clip-rule="evenodd" d="M6.96331 7.50067L0.119642 14.275C0.0424109 14.3581 0.000125282 14.4646 0.000125282 14.5749C0.000125282 14.6851 0.0424109 14.7917 0.119642 14.8748C0.158467 14.9143 0.20574 14.9458 0.258184 14.9673C0.310627 14.9889 0.367279 15 0.424532 15C0.481784 15 0.538436 14.9889 0.590879 14.9673C0.643323 14.9458 0.690596 14.9143 0.729421 14.8748L7.87262 7.7987C7.95448 7.71773 7.99994 7.61038 7.99994 7.49878C7.99994 7.38718 7.95448 7.27983 7.87262 7.19886L0.729421 0.125574C0.691395 0.086383 0.644898 0.0550308 0.593318 0.0334177C0.541739 0.0118047 0.485899 0.000424317 0.42941 1.05578e-05C0.372821 -0.000156784 0.316682 0.0109663 0.265013 0.0326169C0.213344 0.0542675 0.167518 0.0859257 0.129886 0.125574C0.0481789 0.206806 0.0025644 0.314265 0.0025644 0.425952C0.0025644 0.53764 0.0481789 0.645098 0.129886 0.726331L6.96331 7.50067Z" fill="black"/>
+                </svg>
+
+            </button>
+
+        </div>
+        <p class="t" *ngIf="Ticket.ticket.is_promotional && Ticket.ticket.promotional_description">{{Ticket.ticket.promotional_description}}</p>
+        <p class="last">({{TotalCount}} <span translate>show-folder.tickets left</span>)</p>
+</div>
+
+<!-- <div class="one-ticket">
     <form (ngSubmit)="AddTickets()">
         <div class="one-tick-counter">
             <p class="count" [ngClass]="
             {
                 'count-mylty-value': Currency != OriginalCurrency
             }
-            "><span [innerHTML]="Currency"></span>{{Ticket.price}}</p>
-            <p *ngIf="Currency != OriginalCurrency" class="original-price">(<span [innerHTML]="OriginalCurrency"></span>{{Ticket.original_price}})</p>
+            ">
+            <span [innerHTML]="Currency"></span>{{Ticket.price}}</p>
+            <p *ngIf="Currency != OriginalCurrency" class="original-price">(
+                <span [innerHTML]="OriginalCurrency"></span>{{Ticket.original_price}})
+            </p>
             <div class="conter-wrapp">
                 <div class="arrow l-a" (click)="ChangeCount(-1)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="15" height="27">
@@ -20,8 +51,10 @@
                     </svg>
                 </div>
             </div>
-            <button type="submit" class="butt-style-2" [disabled]=" !(CurrentAccount && CurrentAccount.account_type == 'fan') || Count == 0 || Count > Ticket.count" 
-                style="border: none;" [ngClass]="{'cursor-disabled':!(CurrentAccount && CurrentAccount.account_type == 'fan') || Count == 0 || Count > Ticket.count}" translate>
+            <button type="submit" class="butt-style-2" 
+                [disabled]=" !(CurrentAccount && CurrentAccount.account_type == 'fan') || Count == 0 || Count > Ticket.count" 
+                style="border: none;" 
+                [ngClass]="{'cursor-disabled':!(CurrentAccount && CurrentAccount.account_type == 'fan') || Count == 0 || Count > Ticket.count}" translate>
                     ADD
             </button>
         </div>
@@ -32,4 +65,4 @@
             <p class="last">({{Ticket.count}} <span translate>show-folder.tickets left</span>)</p>
         </div>
     </form>
-</div>
+</div> -->

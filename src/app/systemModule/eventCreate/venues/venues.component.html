@@ -124,7 +124,7 @@
                                     [currency] = "Event.currency"
                                     (accepted) = "acceptVenue($event)"
                                     (requested) = "sendVenueRequestOpenModal($event)"
-                                    (declined) = "declineVenue($event)"
+                                    (declined) = "openDeclineModal($event)"
                                     (checked) = "updateEvent()"
                                     (open)="openVenue($event)"
                                 ></app-one-card>
@@ -172,7 +172,7 @@
                                     [currency] = "Event.currency"
                                     (accepted) = "acceptVenue($event)"
                                     (requested) = "sendVenueRequestOpenModal($event)"
-                                    (declined) = "declineVenue($event)"
+                                    (declined) = "openDeclineModal($event)"
                                     (checked) = "updateEvent()"
                                     (open)="openVenue($event)"
                                 ></app-one-card>
@@ -254,7 +254,7 @@
                         </div>
                 </div>
                 <div class="flex-input-groupes">
-                     <div class="input-groupe-1 more-padd">
+                     <div class="input-groupe-1 font-size-label more-padd">
                             <div class="rel-wr">
 
                                 <input [textMask]="MaskNumbers()" formControlName="time_frame_number" id="inp-modal-req-42"  name="" type="text">
@@ -262,7 +262,7 @@
                             <label for="inp-modal-req-4" translate>event.artist-fold.Time Frame<br translate>Number<span>*</span></label>
 
                     </div>
-                    <div class="input-groupe-1 more-padd relative-3">
+                    <div class="input-groupe-1 font-size-label more-padd relative-3">
                         <mat-form-field >
                             <mat-select formControlName="time_frame_range"  id="inp-modal-req-3">
                                 <mat-option value="hour">{{'event.artist-fold.Hour(s)' |translate}}</mat-option>
@@ -274,7 +274,7 @@
                         <label for="inp-modal-req-3" translate>event.artist-fold.Time Frame we expect an answer<span>*</span></label>
                     </div>
 
-                    <div class="input-groupe-1 more-padd">
+                    <div class="input-groupe-1 font-size-label more-padd">
                         <div class="rel-wr">
                             <span class="abs-backs"><span [innerHTML]="CurrencySymbol"></span></span>
                             <input [textMask]="MaskNumbers()" formControlName="estimated_price" id="inp-modal-req-4" class="dollar" name="" type="text">
@@ -415,3 +415,63 @@
             </div>
         </div>
     </div>
+
+        <div class="modal fade modal-send-request" id="modal-decline">
+                        <div class="modal-dialog">
+                            <div class="modal-body">
+                                <h6 class="head-m-p-a">Decline Request</h6>
+
+                                <div class="content-modal">
+                                    <div class="padd-left-right">
+                                        <p class="gray-some-t-13">You declined the offer because of...</p>
+                                        <div class="checkboxes-decline-wrapp">
+                                            <div class="checkbox-decline">
+                                                <div class="one-checkbox">
+                                                    <div class="check-style">
+                                                        <input type="radio" [(ngModel)]="ownerAcceptDecline.reason" value="price" class="checkbox" name="checkbox-decline" id="checkbox-decline-1">
+                                                        <label for="checkbox-decline-1"></label>
+                                                    </div>
+                                                </div>
+                                                <p class="desc-decil">Price</p>
+                                            </div>
+                                            <div class="checkbox-decline">
+                                                <div class="one-checkbox">
+                                                    <div class="check-style">
+                                                        <input type="radio" [(ngModel)]="ownerAcceptDecline.reason" value="location" class="checkbox" name="checkbox-decline" id="checkbox-decline-2">
+                                                        <label for="checkbox-decline-2"></label>
+                                                    </div>
+                                                </div>
+                                                <p class="desc-decil">Location</p>
+                                            </div>
+                                            <div class="checkbox-decline">
+                                                <div class="one-checkbox">
+                                                    <div class="check-style">
+                                                        <input type="radio" [(ngModel)]="ownerAcceptDecline.reason" value="time" class="checkbox" name="checkbox-decline" id="checkbox-decline-3">
+                                                        <label for="checkbox-decline-3"></label>
+                                                    </div>
+                                                </div>
+                                                <p class="desc-decil">Time</p>
+                                            </div>
+                                            <div class="checkbox-decline">
+                                                <div class="one-checkbox">
+                                                    <div class="check-style">
+                                                        <input type="radio" [(ngModel)]="ownerAcceptDecline.reason" value="other" class="checkbox" name="checkbox-decline" id="checkbox-decline-4">
+                                                        <label for="checkbox-decline-4"></label>
+                                                    </div>
+                                                </div>
+                                                <p class="desc-decil">Other</p>
+                                            </div>
+                                        </div>
+                                        <div class="input-groupe-1 small-textarea whithout-label">
+                                            <textarea [(ngModel)]="ownerAcceptDecline.additional_text" id="inp-desc-1-modal"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="send-request-b">
+                                        <button (click)="declineVenue()" class="butt-style-1" type="submit">
+                                            <span>Decline</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>

@@ -10,7 +10,7 @@
         </div>
     </div>
     <!--для кнопки форварда-->
-    <div class="button-option-notif forvard-notif">
+    <div *ngIf="!Bug.message.message_info.is_forwarded" class="button-option-notif forvard-notif">
 
         <p class="new-msg-text">Forward Message</p>
         <button (click)="openForward()">

@@ -76,7 +76,7 @@
                                     }
                                     "
                                 >
-                                    <span>{{ day.dayPrice != null? day.dayPrice : (allDaysPriceDay?allDaysPriceDay:0)}}<i [innerHTML]="day.currency"></i></span>
+                                    <span><i [innerHTML]="day.currency"></i>{{ day.dayPrice != null? day.dayPrice : (allDaysPriceDay?allDaysPriceDay:0)}}</span>
                                 
                                 </p>
                                 <!--"changed-price-night" добавляем класс блоку "night" если была изменина цена ночи-->
@@ -87,7 +87,7 @@
                                     }
                                     "
                                 >
-                                    <span>{{ day.nightPrice != null? day.nightPrice : (allDaysPriceNight?allDaysPriceNight:0)}}<i [innerHTML]="day.currency"></i></span>
+                                    <span><i [innerHTML]="day.currency"></i>{{ day.nightPrice != null? day.nightPrice : (allDaysPriceNight?allDaysPriceNight:0)}}</span>
                                 </p>
                             </div>
                         </ng-container>
@@ -132,13 +132,15 @@
                     <date-input *ngIf="FormVals.date_range" [Label]="'To'" [DateInput]="FormVals.to" (OnDateChange)="FormVals.to = $event"></date-input>
                     <div class="flex-price-inp" *ngIf="FormVals.is_available">
                         <p class="d-inp inp-desc" translate>Day</p>
+                        <i [innerHTML]="CurrencyIcon"></i>
                         <input autocomplete="off" type="text" name="form-vals-day-price" [textMask]="MaskPrice()" [ngModel]="FormVals.price_for_daytime" (ngModelChange)="FormVals.price_for_daytime = $event">
-                        <span><i [innerHTML]="CurrencyIcon"></i>/hr</span>
+                        <span>/hr</span>
                     </div>
                     <div class="flex-price-inp" *ngIf="FormVals.is_available">
                         <p class="n-inp inp-desc" translate>Night</p>
+                        <i [innerHTML]="CurrencyIcon"></i>
                         <input autocomplete="off" type="text" name="form-vals-night-price" [textMask]="MaskPrice()" [ngModel]="FormVals.price_for_nighttime" (ngModelChange)="FormVals.price_for_nighttime = $event">
-                        <span><i [innerHTML]="CurrencyIcon"></i>/hr</span>
+                        <span>/hr</span>
                     </div>
                     <div class="buttons-pop">
                         <span class="resend-reg" (click)="CloseModalPrice($event)" translate>Cancel</span>

@@ -80,7 +80,9 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         message_id:0,
         account_id:0,
         datetime_from:'',
-        datetime_to:''
+        datetime_to:'',
+        additional_text:'',
+        reason:'other'
     }
 
     isShowMap = false;
@@ -449,15 +451,17 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         this.addVenue.venue_id = venue.object.id;
         this.addVenue.account_id = this.Event.creator_id;
 
-        this.main.eventService.AddVenue(this.addVenue).
-                subscribe((res)=>{
-                    this.updateEvent();
+        if(venue.object.capacity&&venue.object.capacity>0){
+          this.main.eventService.AddVenue(this.addVenue).
+                  subscribe((res)=>{
+                      this.updateEvent();
 
-                    // this.submitVenue();
+                      // this.submitVenue();
 
-            },(err)=>{
-                this.onError.emit("Request wasn't sent!")
-            });
+              },(err)=>{
+                  this.onError.emit("Request wasn't send!")
+              });
+        }
     }
 
 
@@ -491,11 +495,11 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                     this.main.eventService.VenueSendRequest(this.addVenue)
                      .subscribe((send)=>{
                       //  console.log(`ok send`);
-                        this.onError.emit("Request was sent!");
+                        this.onError.emit("Request was send!");
                          this.updateEvent();
                         //this.submitVenue();
                 }, (err)=>{
-                  this.onError.emit("Request wasn't sent!")
+                  this.onError.emit("Request wasn't send!")
                 })
         }
         else {
@@ -537,9 +541,8 @@ export class VenuesComponent extends BaseComponent implements OnInit {
             });
     }
 
-    declineVenue(card:AccountGetModel){
-
-        this.ownerAcceptDecline.account_id = this.Event.creator_id;
+  openDeclineModal(card:AccountGetModel){
+    this.ownerAcceptDecline.account_id = this.Event.creator_id;
         this.ownerAcceptDecline.id = card.id;
         this.ownerAcceptDecline.event_id = this.Event.id;
         let msgId = this.getIdAtMsg(card.id);
@@ -548,12 +551,19 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         for(let m of this.messagesList)
             if(m.id == msgId) msg = m;
 
-        this.ownerAcceptDecline.datetime_from = msg&&msg.message_info&&msg.message_info.preferred_date_from?msg.message_info.preferred_date_from: new Date().toString();
-        this.ownerAcceptDecline.datetime_to =  msg&&msg.message_info&&msg.message_info.preferred_date_to? msg.message_info.preferred_date_to : new Date().toString();
+        // this.ownerAcceptDecline.datetime_from = msg&&msg.message_info&&msg.message_info.preferred_date_from?msg.message_info.preferred_date_from: new Date().toString();
+        // this.ownerAcceptDecline.datetime_to =  msg&&msg.message_info&&msg.message_info.preferred_date_to? msg.message_info.preferred_date_to : new Date().toString();
 
+
+      $('#modal-decline').modal('show');
+
+  }
+
+    declineVenue(){
 
         this.main.eventService.VenueDeclineOwner(this.ownerAcceptDecline).
             subscribe((res)=>{
+                $('#modal-decline').modal('hide');
                 this.onError.emit("Venue was declined!");
                 this.updateEvent();
             },(err)=>{

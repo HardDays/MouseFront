@@ -78,7 +78,7 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     if(this.main.settings.GetCurrency() == 'RUB'){
-      this.CurrencySymbol = '\u20BD';
+      this.CurrencySymbol = 'Р.';
     }
     else{
       this.CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
