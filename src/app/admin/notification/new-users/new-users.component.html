@@ -1,12 +1,12 @@
 <div class="wrapp-admin-item-notif">
-    <span class="when">1 day ago</span>
+    <span class="when">{{Users.created_at|date:'dd MMM hh:mm'}}</span>
 
     <div class="flex-congr">
         <img src="./../../../../assets/img/congr.svg" class="img-responsive" alt="">
         <div class="right-congr">
             <p class="f">Congratulations!</p>
             <p class="s">
-                <span class="mouse-t">MOUSE</span> already has <span class="count">1000</span> users.
+                <span class="mouse-t">MOUSE</span> already has <span class="count">{{Users.value}}</span> users.
             </p>
         </div>
     </div>
