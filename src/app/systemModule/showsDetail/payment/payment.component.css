@@ -1,0 +1,167 @@
+@media print {
+    .second-router-outlet{
+        display: none!important;
+    }
+    .for-print{
+        clip: auto!important;
+        clip-path: inherit!important;
+        height: auto!important; 
+        margin: 0!important; 
+        overflow: inherit!important; 
+        padding: 0; 
+        position: inherit!important; 
+        width: auto!important; 
+        white-space:inherit!important; 
+    }
+ }
+.for-print{
+    border: 0; 
+    clip: rect(0 0 0 0); 
+    clip-path: incet(50%); 
+    height: 1px; 
+    margin: -1px; 
+    overflow: hidden; 
+    padding: 0; 
+    position: absolute; 
+    width: 1px; 
+    white-space: nowrap; 
+}
+.for-print.blockImportant{
+    display: block;
+    visibility: hidden;
+}
+.c-original{
+    font-size:25px !important;
+    line-height: 30px !important;
+}
+.with-original-price{
+    margin-bottom: 0px !important;
+}
+.flex-header{
+    display: flex;
+    align-items: center;
+    padding: 20px 0;
+    position: relative;
+    justify-content: space-between;
+    border-bottom: 3px solid #000;
+}
+.flex-header .left-side img:first-child{
+    margin-right: 20px;
+    width: 70px;
+}
+.flex-header .left-side {
+    display: flex;
+    align-items: center;
+}
+.flex-header .left-side img:nth-child(2){
+    margin-right: 20px;
+    width: 200px;
+}
+.flex-header .left-side span{
+    display: block;
+    position: relative;
+    font-family: AvenirLTStdMedium;
+    font-size: 20px;
+    top: 10px;
+}
+.flex-header .circle{
+    display: block;
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 3px solid #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 26px;
+    font-family: AvenirLTStdMedium;
+}
+.content-print{
+    padding: 20px 0;
+    font-family: AvenirLTStdMedium;
+}
+.content-print .f1{
+    color: rgba(0, 0, 0, 0.5);
+    text-transform: uppercase;
+
+}
+
+
+.content-print .name-concert{
+    color: rgba(0, 0, 0, 0.98);
+    font-size: 35px;
+    font-family: AvenirLTStdBlack;
+    text-transform: uppercase;
+}
+
+
+
+.content-print .when span{
+    padding-left: 20px;
+}
+.content-print .where{
+    color: rgba(0,0,0,0.5);
+
+}
+.content-print .where span{
+    font-size: 24px;
+    color: #000;
+    text-transform: uppercase;
+    display: block;
+}
+.tickets-for-ng{
+    margin-bottom: 30px;
+}
+.tickets-for-ng .name-ticket{
+    font-size: 24px;
+    color: #000;
+    text-transform: uppercase;
+    display: block;
+}
+.tickets-for-ng .flex-info-ticket{
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;   
+}
+.tickets-for-ng .col-info{
+    width: 25%;
+}
+.tickets-for-ng .col-info .name-col{
+    color: rgba(0, 0, 0, 0.5);
+    margin-bottom: 5px;
+    word-wrap: break-word;
+}
+.tickets-for-ng .col-info .value{
+    word-wrap: break-word;
+    padding-right: 10px;
+}
+.tickets-for-ng .col-info .value i{
+    transform: translateY(-6px);
+}
+.some-info-print{
+    margin-bottom: 50px;
+}
+.some-info-print .head-tt{
+    text-transform: uppercase;
+}
+.foot-print .support{
+    margin-bottom: 30px;
+}
+.foot-print .seller{
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+.foot-print .flex-logo-foot {
+    display: flex;
+    align-items: center;
+}
+
+.foot-print .flex-logo-foot img:first-child{
+    margin-right: 20px;
+    width: 30px;
+}
+.foot-print .flex-logo-foot img:nth-child(2){
+    margin-right: 20px;
+    width: 100px;
+}

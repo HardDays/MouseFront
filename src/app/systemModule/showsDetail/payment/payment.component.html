@@ -88,7 +88,7 @@
                             <span>Verification code:</span>{{Verification}}
                         </p>
                         <div class="flexed-print">
-                            <button class="butt-style-1" *ngIf="!isPrint" (click)="printTicket()" >
+                            <button class="butt-style-1" (click)="printTicket()" >
                                 <span>Print ticket</span>
                             </button>
                         </div>
@@ -125,4 +125,73 @@
             </div>
         </div>
     </section>
+    
 </section>
+
+<section id="print" *ngIf="PaymentSuccess" class="for-print">
+        <div class="flex-header">
+            <div class="left-side">
+                <img src="../../assets/img/print-logo.png" class="img-responsive" alt="">
+                <img src='../../assets/img/print-logo-2.png' class="img-responsive" alt="">
+                <span translate>Tickets.E-ticket</span>
+            </div>
+            <div class="circle" *ngIf="Tickets[0]?.ticket?.min_age">{{Tickets[0].ticket.min_age}}+</div>
+        </div>
+        <div class="content-print" >
+            <p class="f1" translate>Tickets.Concert</p>
+            <p class="name-concert">{{Event.name}}</p>
+            <p class="when" [innerHTML]="Date">
+                
+            </p>
+            <p class="where">
+                {{Event.address}}, {{Event?.city?Event.city:''}}, {{Event?.state?Event.state:''}}
+            </p>
+            <div class="tickets-for-ng" *ngFor="let item of Tickets; let i = index">
+                <ng-container *ngFor="let itemCount of createRange(item.count); let currentElementIndex = index">
+
+                    <p class="name-ticket" *ngIf="item.ticket.type == 'in_person'">{{currentElementIndex + 1}}. <span translate>Tickets.In person ticket</span> </p>
+                    <p class="name-ticket" *ngIf="item.ticket.type == 'vr'">{{currentElementIndex + 1}}. <span translate>Tickets.Vr ticket</span></p>
+                    
+                    <div class="flex-info-ticket">
+                         <div class="col-info">
+                            <p class="name-col" translate>Tickets.Verification code</p>
+                            <p class="value">{{Verification}}</p>
+                        </div> 
+                        <div class="col-info">
+                            <p class="name-col" translate>Tickets.Customer</p>
+                            <p class="value">{{accountForPrint.first_name}} {{accountForPrint.last_name}}</p>
+                        </div>
+
+                        <div class="col-info">
+                            <p class="name-col" translate>Tickets.order date</p>
+                            <p class="value">{{dateOfpay | date : 'MMMM d, y'}}</p>
+                        </div>
+                        <div class="col-info">
+                            <p class="name-col" translate>Price</p>
+                            <p class="value"><i [innerHTML]="Currency"></i>{{item.ticket.price}}</p>
+                         <p *ngIf="MyCurrency != OriginalCurrency" class="c c-original"></p>
+                        </div>
+        
+                    </div>
+                    <div class="some-info-print">
+                        <p class="head-tt" translate>Description</p>
+                        <p class="some-text">{{item.ticket.description}}</p>
+                            
+                    </div>
+
+                </ng-container>
+            </div>
+        </div>
+        <div class="foot-print">
+            <p class="support" translate>Tickets.If you have any questions, please contact Mouse support  80 29 596 58 47</p>
+            <p class="seller" translate>Tickets.seller</p>
+            <div class="flex-logo-foot">
+                <img src="../../assets/img/print-logo.png" class="img-responsive" alt="">
+                <img src='../../assets/img/print-logo-2.png' class="img-responsive" alt="">
+            </div>
+        </div>
+    </section>
+
+
+
+
