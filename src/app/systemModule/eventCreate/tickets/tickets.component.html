@@ -122,7 +122,7 @@
                                     <div class="rr">
                                         <span class="desc-date" translate>event.about-fold.Start Date</span>
                                         <!--тут дейт пикер.убрать placeholder-->
-                                        <input #dpFrom="bsDatepicker" bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerFromModel" class="input-date">
+                                        <input #dpFrom="bsDatepicker" (onShown)="onShowPicker($event)" bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerFromModel" class="input-date">
                                     </div>
                                 </div>
                                 <div class="one-date-block">
@@ -130,7 +130,7 @@
                                     <div class="rr">
                                         <span class="desc-date" translate>event.about-fold.End Date</span>
                                         <!--тут дейт пикер.убрать placeholder-->
-                                        <input #dpTo="bsDatepicker" bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerToModel" class="input-date">
+                                        <input #dpTo="bsDatepicker" (onShown)="onShowPicker($event)" bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerToModel" class="input-date">
                                     </div>
                                 </div>
                                 

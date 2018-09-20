@@ -21,6 +21,7 @@ export class UpdatesComponent implements OnInit {
   }
   initUpdate(){
     this.Updates = this.UpdatesEvent;
+    console.log(this.Updates);
   }
 
   calculateTime(value: Date){
@@ -57,6 +58,9 @@ export class UpdatesComponent implements OnInit {
     }
     else if (oneUpdate.action == "add_genre"){
       return "Added Genre"
+    }
+    else if (oneUpdate.action == "add_artist"){
+      return "New artist added"
     }
     else{
       return "event has been launched"
