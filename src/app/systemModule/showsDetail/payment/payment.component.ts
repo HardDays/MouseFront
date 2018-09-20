@@ -15,11 +15,12 @@ import { CurrencyIcons, TimeFormat } from "../../../core/models/preferences.mode
 import * as moment from 'moment';
 import { PurchaseModel, TicketPurchaseModel } from "../../../core/models/purchase.model";
 import { TransactionModel } from '../../../core/models/transaction.model';
-
+import { AccountGetModel } from "../../../core/models/accountGet.model";
+declare var $:any;
 @Component({
     selector: 'payment-show-detail',
     templateUrl: './payment.component.html',
-    styleUrls: ['./../showsDetail.component.css']
+    styleUrls: ['./payment.component.css']
 })
 export class PaymentShowDetailComponent extends BaseComponent implements OnInit {
     EventId: number = 0;
@@ -30,11 +31,12 @@ export class PaymentShowDetailComponent extends BaseComponent implements OnInit 
     Time: string = "";
     Total: number = 0;
     isPrint = false;
-
+    TicketsPrint: BuyTicketModel[] = [];
     Verification:string = "";
-
+    dateOfpay:Date;
     PaymentSuccess = false;
     PaymentFail = false;
+    accountForPrint:AccountGetModel = new AccountGetModel();
     constructor(
         protected main           : MainService,
         protected _sanitizer     : DomSanitizer,
@@ -78,7 +80,20 @@ export class PaymentShowDetailComponent extends BaseComponent implements OnInit 
                     this.main.eventService.FinishPayPal({paymentId: this.Verification})
                         .subscribe(
                             res => {
+                                let id = this.GetCurrentAccId();
                                 this.PaymentSuccess = true;
+                                this.dateOfpay = res[0].created_at;
+                                this.main.accService.GetMyAccount({extended:true}).subscribe((res)=>{
+                                    for(let u of res)
+                                    {
+                                      if(u.id == id)
+                                      {
+                                        this.accountForPrint = u;
+                                      }
+                                    }
+                                });
+                               
+                                
                                 this.data.storage = {
                                     EventId: null,
                                     Tickets:[]
@@ -94,7 +109,17 @@ export class PaymentShowDetailComponent extends BaseComponent implements OnInit 
             }
           );
     }
+    
 
+
+
+    createRange(number){
+        var items: number[] = [];
+        for(var i = 1; i <= number; i++){
+           items.push(i);
+        }
+        return items;
+      }
     GetEventInfo()
     {
         this.WaitBeforeLoading
@@ -202,12 +227,16 @@ export class PaymentShowDetailComponent extends BaseComponent implements OnInit 
             }
         );
     }
+    // blockNone(){
+    //     $('#print').addClass('blockImportant');
+    //     $('#print').removeClass('blockImportant');
+    // }
 
     printTicket(){
 
         // var originalContents = document.body.innerHTML;
         this.isPrint = true;
-       
+        
         setTimeout(() => {
          var css = '@page { size: portrait; }',
         head = document.head || document.getElementsByTagName('head')[0],
@@ -238,7 +267,7 @@ export class PaymentShowDetailComponent extends BaseComponent implements OnInit 
          
     
         //  document.body.innerHTML = originalContents;
-        }, 100);
+        }, 200);
         
     
       }
