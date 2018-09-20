@@ -7,9 +7,9 @@
                         <ng-container  *ngFor="let item of Feed">
                         <div class="feed-item">
                           <!-- *ngIf="item.action === 'new_admin'" -->
-                          <app-new-admin *ngIf="item.action === 'new_admin'"></app-new-admin>
+                          <app-new-admin [NewAdmin]="item" *ngIf="item.action === 'new_admin'"></app-new-admin>
                           <app-new-bug [Bug]="item" *ngIf="item.action === 'new_bug'" (onOpenForward)="openForward($event)"></app-new-bug>
-                          <app-new-users *ngIf="item.action === 'new_users'"></app-new-users>
+                          <app-new-users [Users]="item" *ngIf="item.action === 'new_users'"></app-new-users>
                         </div>
                         </ng-container>
                     </div>

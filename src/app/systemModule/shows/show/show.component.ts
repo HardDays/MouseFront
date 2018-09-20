@@ -61,16 +61,19 @@ export class ShowItemComponent extends BaseComponent implements OnChanges {
         const timeFormat = this.main.settings.GetTimeFormat() == TimeFormat.CIS ? 'HH:mm' : 'hh:mm A';
         const dateTimeFromat = "DD, YYYY " + timeFormat;
         
-        
-        if(!this.Show.date_from && !this.Show.date_to)
+        if(this.Show.exact_date_from)
+        {
+            this.Date = this.ToUppercaseLetter(this.Show.exact_date_from, "MMM") 
+                + moment(this.Show.exact_date_from).format(" DD, YYYY ")
+                + "<span>" + moment(this.Show.exact_date_from).format(timeFormat) + "</span>";
+        }
+        else if(!this.Show.date_from && !this.Show.date_to)
         {
             this.Date = this.GetTranslateString(this.Show.event_season) + ' ' + this.Show.event_year;
             if(this.Show.event_time)
             {
                 this.Date = this.Date + " - <span>"+this.GetTranslateString(this.Show.event_time)+"</span>"
             }
-
-
         }
         else if (this.Show.date_from && this.Show.date_to)
         {

@@ -310,6 +310,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     InitEvent(event:EventGetModel)
     {
         this.Event = event;
+        console.log(this.Event);
         this.SetMetaTags();
         this.GetImage();
         this.GetCaledarFile();
@@ -598,8 +599,13 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         const timeFormat = this.main.settings.GetTimeFormat() == TimeFormat.CIS ? 'HH:mm' : 'hh:mm A';
         const dateTimeFromat = "DD, YYYY " + timeFormat;
         
-        
-        if(!this.Event.date_from && !this.Event.date_to)
+        if(this.Event.exact_date_from)
+        {
+            this.Date = this.ToUppercaseLetter(this.Event.exact_date_from, "MMM") 
+                + moment(this.Event.exact_date_from).format(" DD, YYYY ")
+                + "<span>" + moment(this.Event.exact_date_from).format(timeFormat) + "</span>";
+        }
+        else if(!this.Event.date_from && !this.Event.date_to)
         {
             this.Date = this.GetTranslateString(this.Event.event_season) + ' ' + this.Event.event_year;
             if(this.Event.event_time)

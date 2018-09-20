@@ -98,6 +98,7 @@ export class AccountGetModel{
         public refund_policy?:string,
         public artist_email?:string,
         public artist_riders?:Rider[],
+        public street?: string,
 
         public followers_count?: number,
         public following_count?: number,
