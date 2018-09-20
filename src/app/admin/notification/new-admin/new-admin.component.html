@@ -1,15 +1,15 @@
 <div class="wrapp-admin-item-notif">
-  <span class="when">1 min ago</span>
+  <span class="when">{{NewAdmin.created_at|date:'dd MMM hh:mm'}}</span>
   <p class="name-notif">Mouse team has a new Admin!</p>
   <div class="who">
-      <div class="ava" style="background-image: url(./../../../../assets/img/drake.jpg)"></div>
+      <div class="ava" [ngStyle]="{'background-image': 'url('+NewAdmin.admin.image+')'}"></div>
       <div class="right-who">
-          <p class="name">Christian Aveen</p>
-          <p class="mouse-name"><span>@</span>Admin3</p>
+          <p class="name">{{NewAdmin.admin.first_name}} {{NewAdmin.admin.last_name}}</p>
+          <p class="mouse-name"><span>@</span>{{NewAdmin.admin.user_name}}</p>
       </div>
   </div>
 
-  <div class="button-option-notif">
+  <!-- <div class="button-option-notif">
       <p class="new-msg-text">Send Message</p>
       <button>
           <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -17,7 +17,7 @@
               <path d="M1.50733 4.23062H8.27287C8.53636 4.23062 8.74948 4.01719 8.74948 3.75331C8.74948 3.48943 8.53636 3.276 8.27287 3.276H1.50733C0.67423 3.276 0 3.9551 0 4.78554V17.4905C0 18.3248 0.678104 19 1.50733 19H14.1898C15.0229 19 15.6971 18.3209 15.6971 17.4905V10.9905C15.6971 10.7267 15.484 10.5132 15.2205 10.5132C14.957 10.5132 14.7439 10.7267 14.7439 10.9905V17.4905C14.7439 17.797 14.4921 18.0493 14.1859 18.0493H1.50733C1.20121 18.0493 0.949346 17.797 0.949346 17.4905V4.78942C0.949346 4.48285 1.20121 4.23062 1.50733 4.23062Z" fill="white"></path>
           </svg>
       </button>
-  </div>
+  </div> -->
 
 
 </div>

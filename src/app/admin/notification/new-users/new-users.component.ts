@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-new-users',
@@ -7,9 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewUsersComponent implements OnInit {
 
+  @Input() Users:{created_at:string, value:number};
   constructor() { }
 
   ngOnInit() {
+
   }
 
 }
