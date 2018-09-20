@@ -288,7 +288,6 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     GetCaledarFile(){
         this.main.eventService.GetCalendarEventFile(this.EventId).subscribe((res:any)=>{
             this.baseFile = res.file;
-            console.log(this.baseFile);
         }) 
     }
     downloadFile(){
