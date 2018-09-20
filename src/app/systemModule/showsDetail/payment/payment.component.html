@@ -19,7 +19,9 @@
                     <p class="small-descr">
                         <span *ngIf="Event.exact_date_from">{{Event.exact_date_from | date : 'MMMM d, y'}} @ {{Time}}</span>
                         <ng-container *ngIf="Event.venue">
-                            {{Event.venue.display_name}}, {{Event.venue.address}} {{Event.venue.zipcode}}
+                            <span>{{Event.venue.display_name}}, {{Event.venue.address}}</span>
+                            {{Event.venue.city}}, {{Event.venue.state}} {{Event.venue.zipcode}}
+                            {{Event.venue.country}}
                         </ng-container>
                     </p>
                 </div>

@@ -72,6 +72,7 @@ export class AccountService{
             result.lat = input.lat?input.lat:null;
             result.lng = input.lng?input.lng:null;
             result.about = input.about?input.about:null;
+            result.street = input.street?input.street:null;
 
             result.country = input.country?input.country:null;
             result.city = input.city?input.city:null;

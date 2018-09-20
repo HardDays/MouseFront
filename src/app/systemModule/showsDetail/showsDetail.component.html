@@ -188,7 +188,12 @@
                                             <p class="head-of-blocks" translate>Location</p>
                                             <div class="location-wr">
                                                 <div class="mark" *ngIf="(Venue.lat && Venue.lng) || ( Event.city_lat && Event.city_lng)" (click)="aboutOpenMapModal()"></div>
-                                                <p class="where" *ngIf="Venue"><span>{{Venue.display_name}}</span>,{{Venue.address}}</p>
+                                                <p class="where" *ngIf="Venue">
+                                                    <span>{{Venue.display_name}}</span><br>
+                                                    {{Venue.address}}<br>
+                                                    {{Venue.city}}, {{Venue.state}} {{Venue.zipcode}}<br>
+                                                    {{Venue.country}}
+                                                </p>
                                                 <p class="where" *ngIf="!Venue">{{Event.address}}</p>
                                             </div>
 

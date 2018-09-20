@@ -142,7 +142,7 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
                     }
                     else if(a.search('street-address') > 0)
                     {
-                        this.Venue.address = a.slice(a.search('>')+1,a.search('</'));
+                        this.Venue.street = a.slice(a.search('>')+1,a.search('</'));
                     }
                     else if(a.search('region') > 0)
                     {

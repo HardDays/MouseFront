@@ -44,6 +44,7 @@ export class AccountCreateModel{
             public city?:string,
             public state?:string,
             public zipcode?:string,
+            public street?: string,
 
             public minimum_notice?:number,
             public is_flexible?:boolean,

@@ -83,7 +83,10 @@
                                 </div>
                                 <div class="side side-info side-map">
                                     <h6 translate>Location</h6>
-                                    <p class="about-text" *ngIf="Account.address">{{Account.address}}</p>
+                                    <p class="about-text" *ngIf="Account.address">
+                                        {{Account.street}}<br>
+                                        {{Account.city}}, {{Account.state}} {{Account.zipcode}}<br>
+                                        {{Account.country}}</p>
                                     <ng-container *ngIf="Account" >
                                         <div class="map" [ngStyle]="{'display':(Account.lat && Account.lng)?'block':'none'}">
                                             <agm-map #agmMap style="height:100%" [latitude]="Account.lat" [longitude]="Account.lng">

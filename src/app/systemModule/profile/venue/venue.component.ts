@@ -83,6 +83,7 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
     ngOnChanges(changes: SimpleChanges): void {
         if(changes.Account)
         {
+            
             if(this.agmMap)
                 this.agmMap.triggerResize();
         }
@@ -100,6 +101,7 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
     }
 
     ngOnInit(): void {
+        console.log(this.Account);
     }
     Init(venue?:AccountCreateModel,id?:number)
     {
@@ -107,7 +109,6 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
             this.Venue = venue;
         if(id)
             this.VenueId = id;
-
         //this.GetVenueImages();
     }
 
@@ -136,6 +137,8 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
 
         if(!this.VenueId && this.Account.id)
             this.VenueId = this.Account.id;
+        
+
         
         this.GetUpcomingShows();
         this.GetVenueImages();
