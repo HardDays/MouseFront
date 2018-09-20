@@ -43,5 +43,8 @@ export class MessagesComponent implements OnInit {
   onDeleteOpen(){
     this.ListMessage.getMessages();
   }
+  onForwardOpen(){
+    this.ListMessage.getMessages();
+  }
 
 }

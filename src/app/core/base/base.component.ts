@@ -509,9 +509,9 @@ export class BaseComponent{
             //console.log(`codes`,codes);
             let code_arr = codes.filter((c)=>phone.indexOf(c.dial_code)>0&&phone.indexOf(c.dial_code)<4);
             let code = code_arr.find((c)=>phone[1]===c.dial_code);
-            if(!code)code = code_arr[0];
-            let dial_code = code.dial_code;
-            if(code['format']){
+            if(!code && code_arr&& code_arr[0])code = code_arr[0];
+            let dial_code = code&&code['dial_code']?code['dial_code']:'';
+            if(code&&code['format']){
                 for(let c of code['format']){
                     if(c==='.')
                     {
@@ -533,8 +533,13 @@ export class BaseComponent{
             else {
                 isGuidChar = false;
                 countryMask.push('+');
-                for(let c of code.dial_code)
+                if(code&&code.dial_code)
+                  for(let c of code.dial_code)
                     countryMask.push(c);
+                else
+                  for(let i=0;i<2;i++)
+                    countryMask.push(/\d/);
+
                 for(let i=0;i<10;i++)
                     countryMask.push(/\d/);
             }

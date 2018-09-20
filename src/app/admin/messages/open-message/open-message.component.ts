@@ -37,6 +37,7 @@ export class OpenMessageComponent extends BaseComponent implements OnInit {
 
   @Output() onSolved = new EventEmitter<boolean>();
   @Output() onDelete = new EventEmitter<boolean>();
+  @Output() onForward = new EventEmitter<boolean>();
 
   //   created_at: "2018-09-13T14:46:46.364Z"
   // forwarded_from: {user_name: "rediska"}
@@ -126,13 +127,14 @@ export class OpenMessageComponent extends BaseComponent implements OnInit {
     this.main.adminService.ForwardMessage(this.idOpenMenu,this.Dialog.receiver_id)
       .subscribe((res)=>{
         console.log(`message forward`);
-        this.openMessage();
+        // this.openMessage();
+        this.onForward.emit(true);
       })
   }
 
   deleteMessage(){
     console.log(`delete`);
-    this.main.adminService.DeleteMessage(this.idOpenMenu)
+    this.main.adminService.DeleteMessage(this.DialogId,this.idOpenMenu)
       .subscribe((res)=>{
         console.log(`message delete`);
         this.openMessage();

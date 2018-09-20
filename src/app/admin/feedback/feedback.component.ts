@@ -24,7 +24,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
   Type = 'all';
 
   Feedbacks:FeedbackAdminModel[] = [];
-  FeedbacksChecked:FeedbackAdminModel[] = [];
+  // FeedbacksChecked:FeedbackAdminModel[] = [];
   openFeedback:FeedbackAdminModel = new FeedbackAdminModel();
   transformedFb:any;
   Message: string = '';
@@ -89,7 +89,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
 
 
 
-          this.FeedbacksChecked = this.Feedbacks;
+          // this.FeedbacksChecked = this.Feedbacks;
 
 
         }
@@ -121,8 +121,14 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
   // }
 
   filterByType(){
+    console.log(`filter`,this.Type);
+
     this.Feedbacks = [];
-    this.onScroll();
+    // this.FeedbacksChecked = [];
+    setTimeout(() => {
+       this.onScroll();
+    }, 100);
+
     // if(this.Type === 'all')
     //   this.FeedbacksChecked = this.Feedbacks;
     // else
