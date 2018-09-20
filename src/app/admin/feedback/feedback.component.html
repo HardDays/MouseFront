@@ -35,14 +35,14 @@
                 <p class="rate">{{Rate}} / 5.0</p>
             </div>
         </div>
-        <div *ngIf="FeedbacksChecked.length > 0" class="support_grey" infinite-scroll
+        <div *ngIf="Feedbacks.length > 0" class="support_grey" infinite-scroll
                 [infiniteScrollDistance]="1"
                 [scrollWindow]="true"
                 [infiniteScrollThrottle]="5"
                 (scrolled)="onScroll()"
                 [infiniteScrollDisabled]="ScrollDisabled">
             <div class="support_dialogs" >
-                <ng-container *ngFor="let fb of FeedbacksChecked">
+                <ng-container *ngFor="let fb of Feedbacks">
                     <div (click)="openNewFeedback(fb.id ,fb)" class="support_dialogs_item" [ngClass]="{'active':fb.id === openFeedback.id}">
                         <div class="ava" [ngStyle]="{'background-image':fb.sender?'url('+fb.sender.image_base64+')':'url('+nonImage+')'}" ></div>
                         <div class="info">
