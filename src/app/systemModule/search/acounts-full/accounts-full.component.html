@@ -8,4 +8,9 @@
         </accounts-card-search-component>
     </ng-container>
 
+    <div class="empty-info" *ngIf="!Accounts.length">
+        <img src="../../assets/img/smile.svg" class="img-responsive" alt="">
+        <p translate>No search results found</p>
+    </div>
+
 </div>
