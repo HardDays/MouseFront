@@ -125,6 +125,7 @@ export class Audio{
     public song_name?:string,
     public album_name?:string,
     public audio_link?:string,
+    public id?:number
 ){}
 }
 
@@ -133,6 +134,7 @@ export class Album{
     public album_artwork?:string,
     public album_name?:string,
     public album_link?:string,
+    public id?:number
 ){}
 }
 
@@ -141,7 +143,8 @@ export class Video{
     public album_name?:string,
     public name?:string,
     public link?:string,
-    public preview?:string
+    public preview?:string,
+    public id?:number
 ){}
 }
 
