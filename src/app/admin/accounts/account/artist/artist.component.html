@@ -229,11 +229,16 @@
           </div>
       </div>
       <br>
-      <!-- <div *ngIf="Account.artist_riders.length>0" class="uniq-padd-2">
+
+
+
+
+      <div class="uniq-padd-2">
           <div class="genres-info">
               <h3>Riders</h3>
           </div>
-          <div class="riders-flex-wrapp preview-page">
+
+          <!-- <div class="riders-flex-wrapp preview-page">
             <div *ngFor="let rider of Account.artist_riders" class="side">
                 <p class="head-side-riders">{{rider.rider_type|titlecase}} Rider</p>
                 <div class="download-upload">
@@ -249,8 +254,97 @@
                     <strong>flexible preferences</strong>
                 </p>
             </div>
-          </div>
-      </div> -->
+          </div> -->
+          <div class="riders-flex-wrapp preview-page">
+
+                                <div class="side" [ngClass]="{'invisible-rider-wrapp':!stageRider.id}" >
+                                    <p class="head-side-riders">Stage Rider</p>
+                                    <div *ngIf="stageRider.id" class="download-upload">
+                                        <div class="side-dwn">
+                                            <a class="dd-ff">
+                                                <img src="./../../../assets/img/download.png" (click)="downloadFile(stageRider.uploaded_file_base64)" class="img-responsive" alt="">
+                                            </a>
+                                            <p class="desc-side-dwn">Download File</p>
+                                        </div>
+                                    </div>
+                                    <!--видимый рейден-->
+                                    <p *ngIf="stageRider.id" class="desc-rider">{{stageRider.description}}</p>
+                                    <p *ngIf="stageRider.id&&stageRider.is_flexible" class="desc-rider">
+                                        <strong>flexible preferences</strong>
+                                    </p>
+                                    <div *ngIf="!stageRider.id" class="unvisible-rider">
+                                        <img src="./../../../assets/img/eye.jpg" class="img-responsive" alt="">
+                                        <p class="unvisible-rider-text">It’s not visible until the artist<br> approves</p>
+                                    </div>
+                                </div>
+
+                                <!--не видимый рейден - добавляем класс "invisible-rider-wrapp"-->
+                                <div class="side" [ngClass]="{'invisible-rider-wrapp':!backstageRider.id}">
+                                    <p class="head-side-riders">Backstage Rider</p>
+                                    <div *ngIf="backstageRider.id" class="download-upload">
+                                        <div class="side-dwn">
+                                            <a class="dd-ff" >
+                                                <img src="./../../../assets/img/download.png" (click)="downloadFile(backstageRider.uploaded_file_base64)" class="img-responsive" alt="">
+                                            </a>
+                                            <p class="desc-side-dwn">Download File</p>
+                                        </div>
+                                    </div>
+                                    <!--видимый рейден-->
+                                    <p *ngIf="backstageRider.id" class="desc-rider">{{backstageRider.description}}</p>
+                                    <p *ngIf="backstageRider.id&&backstageRider.is_flexible" class="desc-rider">
+                                        <strong>flexible preferences</strong>
+                                    </p>
+                                    <div *ngIf="!backstageRider.id" class="unvisible-rider">
+                                        <img src="./../../../assets/img/eye.jpg" class="img-responsive" alt="">
+                                        <p class="unvisible-rider-text">It’s not visible until the artist<br> approves</p>
+                                    </div>
+                                </div>
+                                <div class="side" [ngClass]="{'invisible-rider-wrapp':!hospitalityRider.id}">
+                                    <p class="head-side-riders">Hospitality Rider</p>
+                                    <div *ngIf="hospitalityRider.id" class="download-upload">
+                                        <div class="side-dwn">
+                                            <a class="dd-ff">
+                                                <img src="./../../../assets/img/download.png" (click)="downloadFile(hospitalityRider.uploaded_file_base64)" class="img-responsive" alt="">
+                                            </a>
+                                            <p class="desc-side-dwn">Download File</p>
+                                        </div>
+                                    </div>
+                                    <!--видимый рейден-->
+                                    <p *ngIf="hospitalityRider.id" class="desc-rider">{{hospitalityRider.description}}</p>
+                                    <p *ngIf="hospitalityRider.id&&hospitalityRider.is_flexible" class="desc-rider">
+                                        <strong>flexible preferences</strong>
+                                    </p>
+                                    <div *ngIf="!hospitalityRider.id" class="unvisible-rider">
+                                        <img src="./../../../assets/img/eye.jpg" class="img-responsive" alt="">
+                                        <p class="unvisible-rider-text">It’s not visible until the artist<br> approves</p>
+                                    </div>
+                                </div>
+                                <!--не видимый рейден - добавляем класс "invisible-rider-wrapp"-->
+                                <div class="side" [ngClass]="{'invisible-rider-wrapp':!technicalRider.id}">
+                                    <p class="head-side-riders">Technical Rider</p>
+                                    <div *ngIf="technicalRider.id" class="download-upload">
+                                        <div class="side-dwn">
+                                            <a class="dd-ff">
+                                                <img src="./../../../assets/img/download.png" (click)="downloadFile(technicalRider.uploaded_file_base64)" class="img-responsive" alt="">
+                                            </a>
+                                            <p class="desc-side-dwn">Download File</p>
+                                        </div>
+                                    </div>
+                                    <!--видимый рейден-->
+                                    <p *ngIf="technicalRider.id" class="desc-rider">{{hospitalityRider.description}}</p>
+                                    <p *ngIf="technicalRider.id&&technicalRider.is_flexible" class="desc-rider">
+                                        <strong>flexible preferences</strong>
+                                    </p>
+                                    <div *ngIf="!technicalRider.id" class="unvisible-rider">
+                                        <img src="./../../../assets/img/eye.jpg" class="img-responsive" alt="">
+                                        <p class="unvisible-rider-text">It’s not visible until the artist<br> approves</p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+      </div>
   </div>
 </section>
 
