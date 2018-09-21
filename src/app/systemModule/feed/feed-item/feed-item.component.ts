@@ -12,6 +12,7 @@ import { TranslateService } from '../../../../../node_modules/@ngx-translate/cor
 import { SettingsService } from '../../../core/services/settings.service';
 
 declare var $:any;
+declare var SC:any;
 
 @Component({
   selector: 'app-feed-item',
@@ -33,6 +34,12 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
 
   videoUrl:any;
   Album:any;
+
+  Audio:any;
+  player:any;
+  IsPlaying = false;
+  audioDuration:number = 0;
+  audioCurrentTime:number = 0;
 
   constructor(
     protected main           : MainService,
@@ -74,6 +81,15 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
 
     if(this.Feed&&this.Feed.action==='update_video'){
       this.getVideo();
+    }
+    else if(this.Feed&&this.Feed.action==='update_audio'){
+      SC.initialize({
+            client_id: "b8f06bbb8e4e9e201f9e6e46001c3acb",
+        });
+      this.getAudio();
+    }
+    else if(this.Feed&&this.Feed.action==='update_album'){
+      this.getAlbum();
     }
 
   }
@@ -249,6 +265,68 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
         )
     }
   }
+
+  getAudio(){
+    if(this.Feed.value){
+      this.main.MediaService.GeAudioById(this.Feed.account_id, +this.Feed.value)
+        .subscribe(
+          (res)=>{
+            this.Audio = res;
+          },
+          (err)=>{
+            this.Audio = null;
+          }
+        )
+    }
+  }
+      playAudio(s:string){
+
+      if(this.player&&  this.player.isPlaying()){
+          this.player.pause();
+           this.IsPlaying = false;
+      }
+
+        this.audioDuration = 0;
+        this.audioCurrentTime = 0;
+        SC.resolve(s).then((res)=>{
+          SC.stream('/tracks/'+res.id).then((player)=>{
+            this.player = player;
+            this.player.play();
+            this.IsPlaying = true;
+
+            player.on('play-start',()=>{
+              this.audioDuration = this.player.getDuration();
+            })
+
+            setInterval(()=>{
+               this.audioCurrentTime = this.player.currentTime();
+            },100)
+
+            player.on('no_streams',()=>{
+               this.IsPlaying = false;
+                // this.errorCmp.OpenWindow(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
+
+            })
+
+            // setTimeout(()=>{
+            //   player.pause()
+            //   player.seek(0)
+            // },10000)
+
+          });
+
+        },(err)=>{
+          this.IsPlaying = false;
+            // this.errorCmp.OpenWindow(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
+        })
+      }
+
+      stopAudio(){
+        if(this.player&&!this.player.isDead()){
+            this.player.pause();
+            this.IsPlaying = false;
+          }
+      }
 
   getAlbum(){
     if(this.Feed.value){

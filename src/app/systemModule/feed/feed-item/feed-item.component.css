@@ -6,5 +6,11 @@
 .feed-item .body-feed-item .one-photo {
             height: 600px;
             background-size: cover;
-            background-position: center; 
+            background-position: center;
+}
+.styles-audio-list{
+      margin-bottom: 0px;
+}
+.styles-audio-list .audio-wrapper .one-audio .name-track{
+      top:5px;
 }
