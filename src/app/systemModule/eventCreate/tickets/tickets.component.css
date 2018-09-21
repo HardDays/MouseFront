@@ -8,7 +8,9 @@ p{
 }
 
 .pac-container { z-index: 100000; }
-
+.input-date{
+    caret-color: transparent;
+}
 .nameTicket{
     width: 100%;
     font-size: 25px;

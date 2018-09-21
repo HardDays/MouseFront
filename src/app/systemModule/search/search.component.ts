@@ -11,6 +11,7 @@ import { CheckModel } from "../../core/models/check.model";
 import { SelectModel } from "../../core/models/select.model";
 import { BsDaterangepickerDirective, BsLocaleService, BsDaterangepickerConfig } from "../../../../node_modules/ngx-bootstrap";
 import { Distance } from '../../core/models/preferences.model';
+import { BsDatepickerDirective } from "ngx-bootstrap/datepicker";
 
 declare var $:any;
 declare var ionRangeSlider:any;
@@ -60,7 +61,7 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
     Artists: AccountGetModel[] = [];
     Venues: AccountGetModel[] = [];
     Shows: EventGetModel[] = [];
-
+    private _picker: BsDatepickerDirective;
     LocationText:string = '';
     localeService: BsLocaleService;
     bsConfig: Partial<BsDaterangepickerConfig>;
@@ -135,7 +136,23 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
             
         });
     }
-
+    onShowPicker(event) {
+        const dayHoverHandler = event.dayHoverHandler;
+        const hoverWrapper = (hoverEvent) => {
+            const { cell, isHovered } = hoverEvent;
+    
+            if ((isHovered &&
+              !!navigator.platform &&
+              /iPad|iPhone|iPod/.test(navigator.platform)) &&
+              'ontouchstart' in window
+            ) {
+                (this._picker as any)._datepickerRef.instance.daySelectHandler(cell);
+            }
+    
+            return dayHoverHandler(hoverEvent);
+        };
+        event.dayHoverHandler = hoverWrapper;
+    }
     CreateLocalAutocomplete()
     {
         this.CreateAutocomplete(

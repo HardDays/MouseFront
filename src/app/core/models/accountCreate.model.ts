@@ -93,7 +93,7 @@ export class AccountCreateModel{
             public stage_name?:string,
             public manager_name?:string,
 
-            public artist_riders?:Rider[],
+            // public artist_riders?:Rider[],
             public events_dates?:any[],
             public available_dates?:any,
             public disable_dates?:any,

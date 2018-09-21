@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { BsDatepickerConfig } from 'ngx-bootstrap';
+import { BsDatepickerConfig, BsDatepickerDirective } from 'ngx-bootstrap';
 import { BaseComponent } from '../../../core/base/base.component';
 import { EventSearchParams } from '../../../core/models/eventSearchParams';
 import { GenreModel } from '../../../core/models/genres.model';
@@ -23,7 +23,7 @@ export class SearchTicketsComponent extends BaseComponent implements OnInit {
     @Input() SearchParams: TicketsSearchParams;
     @Output() onSearch:EventEmitter<TicketsSearchParams> = new EventEmitter<TicketsSearchParams>();
     @Output() mapClicked:EventEmitter<any> = new EventEmitter<any>();
-
+    private _picker: BsDatepickerDirective;
     mapLng: any;
     mapLat: any;
     mapCoords = {lat:0, lng:0};
@@ -61,6 +61,23 @@ export class SearchTicketsComponent extends BaseComponent implements OnInit {
         this.CreateLocalAutocomplete();
         this.InitBsConfig();
 
+    }
+    onShowPicker(event) {
+        const dayHoverHandler = event.dayHoverHandler;
+        const hoverWrapper = (hoverEvent) => {
+            const { cell, isHovered } = hoverEvent;
+    
+            if ((isHovered &&
+              !!navigator.platform &&
+              /iPad|iPhone|iPod/.test(navigator.platform)) &&
+              'ontouchstart' in window
+            ) {
+                (this._picker as any)._datepickerRef.instance.daySelectHandler(cell);
+            }
+    
+            return dayHoverHandler(hoverEvent);
+        };
+        event.dayHoverHandler = hoverWrapper;
     }
 
 

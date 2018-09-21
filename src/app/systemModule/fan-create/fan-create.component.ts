@@ -341,6 +341,8 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
         ()=> this.FunId == 0 ? this.main.accService.CreateAccount(this.Fun) : this.main.accService.UpdateMyAccount(this.FunId,this.Fun),
         (res:any)=>{
           // this.DisplayFunParams(res);
+
+          window.scrollTo(0, 0);
           if(this.Fun.lat&&this.Fun.lng)
             {
               this.cordsMap.lat = this.Fun.lat;

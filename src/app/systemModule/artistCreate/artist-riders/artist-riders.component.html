@@ -11,13 +11,14 @@
 <div class="main-mw-7">
     <div class="riders-flex-wrapp">
         <div class="side">
+           <!-- (onConfirm)="ConfirmRider($event)" -->
             <app-rider #STAGE
                 [Artist]="Artist"
                 [ArtistId]="ArtistId"
                 [Type]="'Stage'"
                 [Rider]="stageRider"
                 (onDelete)="DeleteRiderById($event)"
-                (onConfirm)="ConfirmRider($event)"
+
             >
             </app-rider>
         </div>
@@ -28,7 +29,6 @@
                 [Type]="'Backstage'"
                 [Rider]="backstageRider"
                 (onDelete)="DeleteRiderById($event)"
-                (onConfirm)="ConfirmRider($event)"
             >
             </app-rider>
         </div>
@@ -39,7 +39,6 @@
                 [Type]="'Hospitality'"
                 [Rider]="hospitalityRider"
                 (onDelete)="DeleteRiderById($event)"
-                (onConfirm)="ConfirmRider($event)"
             >
             </app-rider>
         </div>
@@ -50,7 +49,6 @@
                 [Type]="'Technical'"
                 [Rider]="technicalRider"
                 (onDelete)="DeleteRiderById($event)"
-                (onConfirm)="ConfirmRider($event)"
             >
             </app-rider>
         </div>

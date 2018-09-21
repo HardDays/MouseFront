@@ -6,7 +6,8 @@ import { CalendarDate } from '../../../../systemModule/artistCreate/tiny-calenda
 import * as moment from 'moment';
 import { BaseImages } from '../../../../core/base/base.enum';
 import { ErrorComponent } from '../../../../shared/error/error.component';
-
+import { saveAs} from 'file-saver';
+declare const Buffer;
 declare var $:any;
 declare var PhotoSwipeUI_Default:any;
 declare var PhotoSwipe:any;
@@ -43,6 +44,11 @@ export class ArtistComponent extends BaseComponent implements OnInit {
   openVideoLink:any;
   isVideoOpen:boolean = false;
 
+  stageRider:Rider= new Rider();
+  backstageRider:Rider= new Rider();
+  hospitalityRider:Rider= new Rider();
+  technicalRider:Rider= new Rider();
+
   @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
     if(this.isShowMap){
         if (event.keyCode === this.ESCAPE_KEYCODE || event.keyCode === this.ENTER_KEYCODE) {
@@ -70,6 +76,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
     this.GetArtistImages();
     this.updateVideosPreview();
     this.InitMusicPlayer();
+    this.GetRiders();
   }
 
   ngOnChanges(change: SimpleChanges){
@@ -78,6 +85,24 @@ export class ArtistComponent extends BaseComponent implements OnInit {
         this.Account.image_base64_not_given = this.main.imagesService.GetImagePreview(this.Account.image_id,{width:900,height:500});
       else
         this.Account.image_base64_not_given = BaseImages.NoneFolowerImage;
+    }
+  }
+
+  GetRiders(){
+    if(this.Account.id){
+      this.main.accService.GetArtistRiders(this.Account.id)
+        .subscribe((res)=>{
+          for(let r of res){
+            if(r.rider_type=='stage')
+              this.stageRider = r;
+            else if(r.rider_type=='backstage')
+              this.backstageRider = r;
+            else if(r.rider_type=='hospitality')
+              this.hospitalityRider = r;
+            else if(r.rider_type=='technical')
+              this.technicalRider = r;
+          }
+        })
     }
   }
 
@@ -319,6 +344,29 @@ export class ArtistComponent extends BaseComponent implements OnInit {
   openMap(){
     $('#modal-map-1').modal('show');
     this.isShowMap = true;
+  }
+
+  downloadFile(fileBase64: string){
+    console.log(`download`,fileBase64);
+    if(fileBase64){
+      // this.main.accService.GetRiderById(id)
+      // .subscribe((res)=>{
+
+        let type = fileBase64.split(';base64,')[0].split('/')[1];
+        console.log(fileBase64.split(';base64,')[0]);
+        let file = fileBase64.split(';base64,')[1];
+
+        var decoded = new Buffer(file, 'base64');
+        var blob = new Blob([decoded], { type: type });
+        if(type==='plain')type='txt';
+        else if(type==='vnd.openxmlformats-officedocument.wordprocessingml.document')type='docx';
+
+        saveAs(blob,'Rider.'+type);
+
+      // }, (err)=>{
+      //   // console.log(err);
+      // })
+    }
   }
 
 

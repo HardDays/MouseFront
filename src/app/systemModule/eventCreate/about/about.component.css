@@ -20,7 +20,12 @@
     background-color: #adadad;
     height: 70px;
 }
-
+.input-date{
+    caret-color: transparent;
+}
+#inp-create-4{
+    caret-color: transparent;
+}
 .photo-wr-1.n-i-s .bg-image{
     width: 200px;
     height: 150px;

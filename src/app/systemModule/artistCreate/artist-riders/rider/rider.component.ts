@@ -71,9 +71,20 @@ export class RiderComponent extends BaseComponent implements OnInit {
 
 
   deleteRider(){
-    this.onDelete.emit(this.Rider.id);
-    this.Rider = new Rider();
-    this.isConfirmRider = true;
+    if(this.Rider.id){
+      this.main.accService.DeleteArtistRider(this.ArtistId,this.Rider.id)
+        .subscribe( (res)=>{
+          this.Rider = new Rider();
+          this.isConfirmRider = true;
+          this.onDelete.emit(this.Rider.id);
+        }
+      )
+    }
+    else {
+      this.Rider = new Rider();
+      this.isConfirmRider = true;
+    }
+
   }
 
 
@@ -119,13 +130,13 @@ export class RiderComponent extends BaseComponent implements OnInit {
   }
 
   downloadFile(data: Response){
-    if(this.Rider.id){
-      this.main.accService.GetRiderById(this.Rider.id)
-      .subscribe((res)=>{
-
-        let type = res.uploaded_file_base64.split(';base64,')[0].split('/')[1];
-        console.log(res.uploaded_file_base64.split(';base64,')[0]);
-        let file = res.uploaded_file_base64.split(';base64,')[1];
+    // if(this.Rider.id){
+    //   this.main.accService.GetRiderById(this.Rider.id)
+    //   .subscribe((res)=>{
+    if(this.Rider.uploaded_file_base64){
+        let type = this.Rider.uploaded_file_base64.split(';base64,')[0].split('/')[1];
+        console.log(this.Rider.uploaded_file_base64.split(';base64,')[0]);
+        let file = this.Rider.uploaded_file_base64.split(';base64,')[1];
 
         var decoded = new Buffer(file, 'base64');
         var blob = new Blob([decoded], { type: type });
@@ -134,9 +145,9 @@ export class RiderComponent extends BaseComponent implements OnInit {
 
         saveAs(blob,'Rider.'+type);
 
-      }, (err)=>{
-        // console.log(err);
-      })
+      // }, (err)=>{
+      //   // console.log(err);
+      // })
     }
   }
 

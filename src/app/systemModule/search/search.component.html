@@ -50,7 +50,7 @@
                         <div class="groupe-form">
                             <p class="head-input-groupe" translate>Date</p>
                             <div class="wrapp-for-triangle">
-                                <input type="text" name="date-picker-inp" class="date-picker-inp" containerClass="transformed" #dp="bsDaterangepicker" bsDaterangepicker ngModel [bsConfig]="bsConfig" [(ngModel)]="SearchDateRange">
+                                <input type="text" (onShown)="onShowPicker($event)" name="date-picker-inp" class="date-picker-inp" containerClass="transformed" #dp="bsDaterangepicker" bsDaterangepicker ngModel [bsConfig]="bsConfig" [(ngModel)]="SearchDateRange">
                             </div>
                         </div>
                         <div class="groupe-form">
