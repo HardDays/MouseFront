@@ -155,7 +155,7 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
 
   }
 
-  DeleteRiderById(){
+  DeleteRiderById(id){
     this.getRiders();
   }
 
