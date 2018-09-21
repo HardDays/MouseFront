@@ -308,9 +308,15 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
         if(''+this.Artist.price_from[0]===this.CurrencySymbol)this.Artist.price_from = +(''+this.Artist.price_from).slice(1);
         if(''+this.Artist.price_to[0]===this.CurrencySymbol)this.Artist.price_to = +(''+this.Artist.price_to).slice(1);
 
-        if(this.Artist.additional_hours_price)
+        if(''+this.Artist.price_from[0]==='Р')this.Artist.price_from = +(''+this.Artist.price_from).slice(2);
+        if(''+this.Artist.price_to[0]==='Р')this.Artist.price_to = +(''+this.Artist.price_to).slice(2);
+
+        if(this.Artist.additional_hours_price){
           if(''+this.Artist.additional_hours_price[0]===this.CurrencySymbol)
             this.Artist.additional_hours_price = +(''+this.Artist.additional_hours_price).slice(1);
+          if(''+this.Artist.additional_hours_price[0]==='Р')
+            this.Artist.additional_hours_price = +(''+this.Artist.additional_hours_price).slice(2);
+        }
 
         this.Artist.preferred_venues = [];
 
@@ -375,9 +381,16 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
         if(''+this.Artist.price_from[0]===this.CurrencySymbol)this.Artist.price_from = +(''+this.Artist.price_from).slice(1);
         if(''+this.Artist.price_to[0]===this.CurrencySymbol)this.Artist.price_to = +(''+this.Artist.price_to).slice(1);
 
-        if(this.Artist.additional_hours_price)
+        if(''+this.Artist.price_from[0]==='Р')this.Artist.price_from = +(''+this.Artist.price_from).slice(2);
+        if(''+this.Artist.price_to[0]==='Р')this.Artist.price_to = +(''+this.Artist.price_to).slice(2);
+
+        if(this.Artist.additional_hours_price){
           if(''+this.Artist.additional_hours_price[0]===this.CurrencySymbol)
             this.Artist.additional_hours_price = +(''+this.Artist.additional_hours_price).slice(1);
+          if(''+this.Artist.additional_hours_price[0]==='Р')
+            this.Artist.additional_hours_price = +(''+this.Artist.additional_hours_price).slice(2);
+
+        }
 
         this.Artist.preferred_venues = [];
 

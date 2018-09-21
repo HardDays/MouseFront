@@ -188,18 +188,36 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
     }
   }
 
+  // GetRiders(){
+  //   if(this.Artist&&this.Artist.artist_riders){
+  //     for(let r of this.Artist.artist_riders){
+  //       if(r.rider_type=='stage')
+  //         this.stageRider = r;
+  //       else if(r.rider_type=='backstage')
+  //         this.backstageRider = r;
+  //       else if(r.rider_type=='hospitality')
+  //         this.hospitalityRider = r;
+  //       else if(r.rider_type=='technical')
+  //         this.technicalRider = r;
+  //     }
+  //   }
+  // }
+
   GetRiders(){
-    if(this.Artist&&this.Artist.artist_riders){
-      for(let r of this.Artist.artist_riders){
-        if(r.rider_type=='stage')
-          this.stageRider = r;
-        else if(r.rider_type=='backstage')
-          this.backstageRider = r;
-        else if(r.rider_type=='hospitality')
-          this.hospitalityRider = r;
-        else if(r.rider_type=='technical')
-          this.technicalRider = r;
-      }
+    if(this.Artist){
+      this.main.accService.GetArtistRiders(this.ArtistId)
+        .subscribe((res)=>{
+          for(let r of res){
+            if(r.rider_type=='stage')
+              this.stageRider = r;
+            else if(r.rider_type=='backstage')
+              this.backstageRider = r;
+            else if(r.rider_type=='hospitality')
+              this.hospitalityRider = r;
+            else if(r.rider_type=='technical')
+              this.technicalRider = r;
+          }
+        })
     }
   }
 
@@ -354,14 +372,15 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
       }
     }
 
-  downloadFile(id: number){
-    if(id){
-      this.main.accService.GetRiderById(id)
-      .subscribe((res)=>{
+  downloadFile(fileBase64: string){
+    console.log(`download`,fileBase64);
+    if(fileBase64){
+      // this.main.accService.GetRiderById(id)
+      // .subscribe((res)=>{
 
-        let type = res.uploaded_file_base64.split(';base64,')[0].split('/')[1];
-        console.log(res.uploaded_file_base64.split(';base64,')[0]);
-        let file = res.uploaded_file_base64.split(';base64,')[1];
+        let type = fileBase64.split(';base64,')[0].split('/')[1];
+        console.log(fileBase64.split(';base64,')[0]);
+        let file = fileBase64.split(';base64,')[1];
 
         var decoded = new Buffer(file, 'base64');
         var blob = new Blob([decoded], { type: type });
@@ -370,9 +389,9 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
 
         saveAs(blob,'Rider.'+type);
 
-      }, (err)=>{
-        // console.log(err);
-      })
+      // }, (err)=>{
+      //   // console.log(err);
+      // })
     }
   }
 

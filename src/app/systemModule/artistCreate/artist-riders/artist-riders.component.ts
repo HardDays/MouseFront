@@ -118,27 +118,27 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
   //   }
   // }
 
-  DeleteRiderById(id:number){
-    let index = this.riders.indexOf(this.riders.find(r=>r.id===id));
-    if(index>=0){
-      this.riders.splice(index,1);
-      this.Artist.artist_riders = this.riders;
-      this.saveArtist();
-    }
-  }
+  // DeleteRiderById(id:number){
+  //   let index = this.riders.indexOf(this.riders.find(r=>r.id===id));
+  //   if(index>=0){
+  //     this.riders.splice(index,1);
+  //     // this.Artist.artist_riders = this.riders;
+  //     this.saveArtist();
+  //   }
+  // }
 
-  ConfirmRider(rider:Rider){
-    // console.log(rider,this.riders);
-    if(rider.id){
-      let index = this.riders.indexOf(this.riders.find(r=>r.id===rider.id));
-      if(index>=0){
-        this.riders.splice(index,1);
-      }
-    }
-    this.riders.push(rider);
-    this.Artist.artist_riders = this.riders;
-    this.saveArtist();
-  }
+  // ConfirmRider(rider:Rider){
+  //   // console.log(rider,this.riders);
+  //   if(rider.id){
+  //     let index = this.riders.indexOf(this.riders.find(r=>r.id===rider.id));
+  //     if(index>=0){
+  //       this.riders.splice(index,1);
+  //     }
+  //   }
+  //   this.riders.push(rider);
+  //   this.Artist.artist_riders = this.riders;
+  //   this.saveArtist();
+  // }
 
   saveArtist(){
     // console.log(`to save`, this.Artist);
@@ -153,6 +153,10 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
     this.TECHNICAL.isConfirmRider;
     // this.saveArtist();
 
+  }
+
+  DeleteRiderById(){
+    this.getRiders();
   }
 
 
