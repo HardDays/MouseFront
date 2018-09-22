@@ -99,7 +99,7 @@ export class AccountService{
                 result[key] = input[key];
             }
         }
-        result.artist_videos = input.videos;
+        // result.artist_videos = input.videos;
         return result;
     }
 

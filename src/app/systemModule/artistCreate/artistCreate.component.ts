@@ -237,6 +237,11 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
 
   clickSaveButton(){
     this.Artist.currency = this.main.settings.GetCurrency();
+
+    delete this.Artist['audio_links'];
+    delete this.Artist['artist_albums'];
+    delete this.Artist['artist_videos'];
+
     if(this.BookingPage){
       if(!this.BookingPage.Artist.price_from||!this.BookingPage.Artist.price_to){
         this.errorCmp.OpenWindow('Please fill in all required fields!');
