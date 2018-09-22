@@ -106,7 +106,7 @@
                 [Artist]="Artist"
                 [ArtistId]="ArtistId"
                 (OnSave)="SaveCurrentPage($event)"
-
+                (OnError)="OpenErrorWindow($event)"
                 (openNextPage)="NextPart()"
                 (OnSaveButton)="SaveArtist($event)"
             >

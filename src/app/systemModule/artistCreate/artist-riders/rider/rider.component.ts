@@ -16,6 +16,8 @@ export class RiderComponent extends BaseComponent implements OnInit {
 
   @Output() onDelete = new EventEmitter<number>();
   @Output() onConfirm = new EventEmitter<Rider>();
+  @Output() onError = new EventEmitter<string>();
+
 
   isConfirmRider:boolean = true;
 
@@ -30,6 +32,10 @@ export class RiderComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     this.isEng = this.isEnglish();
+    if(this.Rider){
+      if(!this.Rider.is_flexible)
+        this.Rider.is_flexible = false;
+    }
   }
   // ngOnChanges(changes: SimpleChanges): void {
   //   if(changes.Rider){
@@ -44,7 +50,11 @@ export class RiderComponent extends BaseComponent implements OnInit {
   loadRiderFile($event:any){
     let target = $event.target;
     let file:File = target.files[0];
-    this.getBase64(file);
+
+    if(file.size<=2e7)
+      this.getBase64(file);
+    else
+      this.onError.emit(`Very big file size!`);
     // for(let file of target.files)
     // {
     //     let reader:FileReader = new FileReader();

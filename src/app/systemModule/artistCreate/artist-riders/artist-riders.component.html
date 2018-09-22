@@ -18,6 +18,7 @@
                 [Type]="'Stage'"
                 [Rider]="stageRider"
                 (onDelete)="DeleteRiderById($event)"
+                (onError)="onErrorOpen($event)"
 
             >
             </app-rider>
@@ -29,6 +30,7 @@
                 [Type]="'Backstage'"
                 [Rider]="backstageRider"
                 (onDelete)="DeleteRiderById($event)"
+                (onError)="onErrorOpen($event)"
             >
             </app-rider>
         </div>
@@ -39,6 +41,7 @@
                 [Type]="'Hospitality'"
                 [Rider]="hospitalityRider"
                 (onDelete)="DeleteRiderById($event)"
+                (onError)="onErrorOpen($event)"
             >
             </app-rider>
         </div>
@@ -49,6 +52,7 @@
                 [Type]="'Technical'"
                 [Rider]="technicalRider"
                 (onDelete)="DeleteRiderById($event)"
+                (onError)="onErrorOpen($event)"
             >
             </app-rider>
         </div>

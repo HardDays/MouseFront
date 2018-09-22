@@ -170,6 +170,10 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
 
   }
 
+  onErrorOpen(s:string){
+    this.OnError.emit(s);
+  }
+
 
 
 
