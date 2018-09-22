@@ -1,4 +1,4 @@
-<div class="one-tick">
+
         <p class="f" translate>{{Ticket.ticket.type == 'in_person'?'In person':'VR'}} ticket</p>
         <p class="s" translate>({{Ticket.ticket.is_promotional?'Promotional':'Regular'}})</p>
         <p class="c" [ngClass]="{'with-original-price': Currency != OriginalCurrency}">
@@ -24,7 +24,7 @@
         </div>
         <p class="t" *ngIf="Ticket.ticket.is_promotional && Ticket.ticket.promotional_description">{{Ticket.ticket.promotional_description}}</p>
         <p class="last">({{TotalCount}} <span translate>show-folder.tickets left</span>)</p>
-</div>
+
 
 <!-- <div class="one-ticket">
     <form (ngSubmit)="AddTickets()">

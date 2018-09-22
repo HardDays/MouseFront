@@ -274,8 +274,8 @@
                                 <ng-container *ngIf="Currency != OriginalCurrency">
                                         (<span [innerHTML]="OriginalCurrency"></span>{{TotalOriginalPrice}})
                                 </ng-container> -->
-                            <div class="butt-buy">
-                                <button class="butt-style-1" 
+                            <div class="butt-buy" *ngIf="Tickets && Tickets.length &&MyAcc.status && MyAcc.status != Status.Denied && MyAcc.status != Status.Inactive">
+                                <button  class="butt-style-1" 
                                 [disabled]="TicketsCount == 0 || !(Event.status===Statuses.Active) || !CurrentAccount || CurrentAccount.account_type != 'fan' || !Event.tickets || !Event.tickets.length || !Tickets.length"
                                 (click)="BuyTickets()">
                                     <span translate>Buy</span>
@@ -284,12 +284,12 @@
                         </div>
                         <div class="all-tickets-new-wrapp">
                             <ng-container *ngIf="Event.status===Statuses.Active">
-                                    <ng-container *ngFor="let item of Tickets">
+                                    <div class="one-tick" *ngFor="let item of Tickets">
                                         <buy-ticket-selector 
                                             (OnCountTicketChanges)="AddTicketsToPrice($event)" 
                                             [Ticket]="item">
                                         </buy-ticket-selector>
-                                    </ng-container>
+                                    </div>
                             </ng-container>
                             <!-- <div class="one-tick">
                                 <p class="f">In person ticket</p>
@@ -322,8 +322,8 @@
                                     <ng-container *ngIf="Currency != OriginalCurrency">
                                             (<span [innerHTML]="OriginalCurrency"></span>{{TotalOriginalPrice}})
                                     </ng-container> -->
-                                <div class="butt-buy">
-                                    <button class="butt-style-1" 
+                                <div class="butt-buy" *ngIf="Tickets && Tickets.length &&MyAcc.status && MyAcc.status != Status.Denied && MyAcc.status != Status.Inactive">
+                                    <button  class="butt-style-1" 
                                     [disabled]="TicketsCount == 0 || !(Event.status===Statuses.Active) || !CurrentAccount || CurrentAccount.account_type != 'fan' || !Event.tickets || !Event.tickets.length"
                                     (click)="BuyTickets()">
                                         <span translate>Buy</span>

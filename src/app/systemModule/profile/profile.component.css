@@ -17,6 +17,14 @@
     text-align: center;
 
 }
+.follow-wr{
+    display: flex;
+    
+}
+.follow-wr .butt-style-1{
+    width: auto;
+    max-width: inherit!important;
+}
 .main_content .for-flex-height{
     background: #fff;
 }
