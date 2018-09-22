@@ -3,7 +3,14 @@
         <div class="results-left-side">
             <div class="wrapp-for-filter">
                 <form (ngSubmit)="ShowSearchResult()" #SearchForm="ngForm">
-                    <input type="text" name="search-text-input" class="inp-style-1" placeholder="Search" [ngModel]="SearchParams.text" (ngModelChange)="SearchParams.text = $event">
+                    <input type="text" 
+                        name="search-text-input" 
+                        class="inp-style-1" 
+                        placeholder="Search" 
+                        [ngModel]="SearchParams.text" 
+                        (ngModelChange)="SearchParams.text = $event"
+                        autocomplete="off"    
+                    >
                     <div class="groupe-form">
                         <p class="head-input-groupe" translate>Genre</p>
                         <div class="flex-radio">

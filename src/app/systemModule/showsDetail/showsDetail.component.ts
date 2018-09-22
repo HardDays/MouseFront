@@ -239,6 +239,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         (
             () => this.main.eventService.GetEventById(this.EventId),
             (res: any) => {
+                // console.log(res);
                 this.InitEvent(res);
             },
             (err:any) => {
@@ -310,7 +311,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     InitEvent(event:EventGetModel)
     {
         this.Event = event;
-        console.log(this.Event);
+        // console.log(this.Event);
         this.SetMetaTags();
         this.GetImage();
         this.GetCaledarFile();

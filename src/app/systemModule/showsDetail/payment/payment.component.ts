@@ -80,8 +80,10 @@ export class PaymentShowDetailComponent extends BaseComponent implements OnInit 
                     this.main.eventService.FinishPayPal({paymentId: this.Verification})
                         .subscribe(
                             res => {
+                                // console.log(res);
                                 let id = this.GetCurrentAccId();
                                 this.PaymentSuccess = true;
+                                this.Verification = res[0].code;
                                 this.dateOfpay = res[0].created_at;
                                 this.main.accService.GetMyAccount({extended:true}).subscribe((res)=>{
                                     for(let u of res)
@@ -214,9 +216,9 @@ export class PaymentShowDetailComponent extends BaseComponent implements OnInit 
         console.log(purchase);
         this.WaitBeforeLoading(
             () => this.main.eventService.StartPurchaseTickets(purchase),
-            (res:TransactionModel) =>
+            (res:any) =>
             {
-                // console.log(res);
+                console.log(res);
                 window.location.href = res.url;
             },
             (err) =>

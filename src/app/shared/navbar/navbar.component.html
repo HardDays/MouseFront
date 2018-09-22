@@ -19,7 +19,14 @@
                     <div class="flex-menu-items">
                         
                         <form class="search-inp" (ngSubmit)="ShowSearchResult()" #SearchForm="ngForm">
-                            <input type="text" class="inp-style-1" placeholder="{{'Search' | translate}}" name="serch-text"  [ngModel]="Search.text" (ngModelChange)="Search.text=$event">
+                            <input type="text" 
+                                class="inp-style-1" 
+                                placeholder="{{'Search' | translate}}" 
+                                name="serch-text"  
+                                [ngModel]="Search.text" 
+                                (ngModelChange)="Search.text=$event"
+                                autocomplete="off"
+                            >
                             <!-- <button type="submit"></button> -->
                         </form>
                        
