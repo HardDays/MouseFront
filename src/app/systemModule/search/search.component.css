@@ -11,3 +11,6 @@
 .obj-search-wrapp{
     min-height: 400px;
 }
+.date-picker-inp{
+    caret-color: transparent;
+}

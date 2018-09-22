@@ -25,7 +25,7 @@ export class ArtistInfoComponent extends BaseComponent implements OnInit{
   Videos: Video[] = [];
   activeSlide:number = 0;
   activeSlideVideo:any;
-  
+
 
     constructor(
         protected main           : MainService,
@@ -44,15 +44,15 @@ export class ArtistInfoComponent extends BaseComponent implements OnInit{
     ngOnInit(): void {
         this.GetImage();
         this.CheckFollowStatus();
-       
+
         if(this.Artist.videos.length != 0){
-            this.main.MediaService.GevideosById(this.Artist.id).subscribe((res:any)=>{
+            this.main.MediaService.GetVideosById(this.Artist.id).subscribe((res:any)=>{
             this.Videos = res;
                 this.GetVideo();
             });
 
-            
-            
+
+
         }
     }
     SlideRight(){
@@ -63,14 +63,14 @@ export class ArtistInfoComponent extends BaseComponent implements OnInit{
         this.activeSlide-=1;
         this.GetVideo();
     }
-    
+
 
     GetVideo()
     {
-     
+
         if(this.Artist.videos && this.Artist.videos.length > 0)
         {
-        
+
             let link = this.Videos[this.activeSlide].link;
             let id = this.GetVideoId(link);
             let path = id? ("https://www.youtube.com/embed/" + id) : "";
@@ -80,7 +80,7 @@ export class ArtistInfoComponent extends BaseComponent implements OnInit{
             }
         }
     }
-    
+
 
     GetVideoId(url:string)
     {
@@ -132,7 +132,7 @@ export class ArtistInfoComponent extends BaseComponent implements OnInit{
     {
         this.main.accService.FollowAccountById(this.GetCurrentAccId(), this.Artist.id)
             .subscribe(
-                (res) => 
+                (res) =>
                 {
                     this.IsFollowed = !this.IsFollowed;
                 }

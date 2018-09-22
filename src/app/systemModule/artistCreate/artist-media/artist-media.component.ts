@@ -1,3 +1,4 @@
+import { MediaService } from './../../../core/services/media.service';
 import { Component, OnInit, NgZone, ChangeDetectorRef, Input, EventEmitter, Output, SimpleChanges } from '@angular/core';
 import { MainService } from '../../../core/services/main.service';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -30,6 +31,8 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
   @Input() ArtistId:number;
 
   Albums:Album[] = [];
+  Audios:Audio[] = [];
+  Videos:Video[] = [];
 
   addSongForm: FormGroup = new FormGroup({
     "song_name": new FormControl("", [Validators.required]),
@@ -95,21 +98,10 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
   }
 
   getAllMedia(){
-    this.InitMusicPlayer();
-    this.updateVideosPreview();
-    this.GetArtistImages();
-
+    this.GetAudios();
     this.GetAlbums();
-
-  }
-
-  GetAlbums(){
-    this.main.accService.GetArtistAlbums(this.ArtistId)
-      .subscribe(
-        (res)=>{
-          this.Albums = res;
-        }
-      )
+    this.GetImages();
+    this.GetVideos();
   }
 
   Init(artist:AccountCreateModel,id:number){
@@ -117,10 +109,13 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
     this.ArtistId = id;
   }
 
-  InitMusicPlayer(){
-    setTimeout(() => {
-      // let as = audiojs.createAll();
-     }, 100);
+  GetAudios(){
+    this.main.MediaService.GetAudiosById(this.ArtistId)
+      .subscribe(
+        (res)=>{
+          this.Audios = res;
+        }
+      )
   }
 
   addAudio(){
@@ -133,10 +128,18 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
         }
       }
 
-      this.Artist.audio_links.push(params);
-      this.saveArtist();
-      this.addSongForm.reset();
-      this.InitMusicPlayer();
+      // this.Artist.audio_links.push(params);
+      // this.saveArtist();
+
+      this.main.MediaService.AddAudio(this.ArtistId,params)
+        .subscribe(
+          (res)=>{
+            this.addSongForm.reset();
+            this.GetAudios();
+          }
+        )
+
+
       // 'http://d.zaix.ru/6yut.mp3'
 
     }
@@ -144,10 +147,13 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
       this.showError(this.getFormErrorMessage(this.addSongForm, 'artist'));
     }
   }
-
-  deleteAudio(index:number){
-    this.Artist.audio_links.splice(index,1);
-    this.saveArtist();
+  deleteAudio(id:number){
+    this.main.MediaService.DeleteAudio(this.ArtistId,id)
+        .subscribe(
+          (res)=>{
+            this.GetAudios();
+          }
+    )
   }
 
   playAudio(s:string){
@@ -202,6 +208,17 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
       this.player.pause();
   }
 
+
+
+
+  GetAlbums(){
+    this.main.accService.GetArtistAlbums(this.ArtistId)
+      .subscribe(
+        (res)=>{
+          this.Albums = res;
+        }
+      )
+  }
   addAlbum(){
     if(!this.addAlbumForm.invalid){
       let params:Album = new Album();
@@ -212,7 +229,7 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
       }
       // this.Artist.artist_albums.push(params);
       // this.saveArtist();
-      this.main.accService.SaveArtistAlbum(this.ArtistId,params)
+      this.main.MediaService.AddAlbum(this.ArtistId,params)
         .subscribe(
           (res)=>{
             this.GetAlbums();
@@ -226,9 +243,24 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
     }
   }
 
-  deleteAlbum(index:number){
-    this.Artist.artist_albums.splice(index,1);
-    this.saveArtist();
+  deleteAlbum(id:number){
+    this.main.MediaService.DeleteAlbum(this.ArtistId,id)
+        .subscribe(
+          (res)=>{
+            this.GetAlbums();
+          }
+    )
+  }
+
+  GetVideos(){
+    this.main.MediaService.GetVideosById(this.ArtistId)
+      .subscribe(
+        (res)=>{
+          this.Videos = res;
+           this.updateVideosPreview();
+        }
+      )
+
   }
 
   addVideo(){
@@ -240,23 +272,31 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
 
         }
       }
-      this.Artist.artist_videos.push(params);
-      this.saveArtist();
-      this.addVideoForm.reset();
+      this.main.MediaService.AddVideo(this.ArtistId,params)
+        .subscribe(
+          (res)=>{
+            this.GetVideos();
+            this.addVideoForm.reset();
+          }
+        )
     }
     else {
       this.showError(this.getFormErrorMessage(this.addVideoForm, 'artist'));
     }
   }
 
-  deleteVideo(index:number){
-    this.Artist.artist_videos.splice(index,1);
-    this.saveArtist();
+  deleteVideo(id:number){
+    this.main.MediaService.DeleteVideo(this.ArtistId,id)
+        .subscribe(
+          (res)=>{
+            this.GetVideos();
+          }
+    )
   }
 
   updateVideosPreview(){
 
-    for(let video of this.Artist.artist_videos){
+    for(let video of this.Videos){
       let video_id ='';
 
       if(video.link.indexOf('youtube')!== -1)
@@ -325,7 +365,7 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
           this.ImageToLoad = '';
           this.imageInfo = '';
           this.isImageLoading = false;
-          this.GetArtistImages();
+          this.GetImages();
         },
         (err)=>{
           this.isImageLoading = false;
@@ -335,7 +375,7 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
 
 
 
-GetArtistImages()
+GetImages()
 {
   // this.ArtistImages = [];
   this.isImageLoading = true;
@@ -393,7 +433,7 @@ deleteImage(id:number){
       .subscribe(
         (res)=>{
           this.ArtistImages = [];
-          this.GetArtistImages();
+          this.GetImages();
         },(err)=>{
           this.showError(this.getResponseErrorMessage(err, 'artist'));
           this.isImageLoading = false;

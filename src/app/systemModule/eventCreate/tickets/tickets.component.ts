@@ -15,7 +15,7 @@ import { TicketModel } from '../../../core/models/ticket.model';
 import { TicketGetParamsModel } from '../../../core/models/ticketGetParams.model';
 import { EventGetModel } from '../../../core/models/eventGet.model';
 import { EventCreateModel } from '../../../core/models/eventCreate.model';
-import { BsDatepickerConfig } from 'ngx-bootstrap';
+import { BsDatepickerConfig, BsDatepickerDirective } from 'ngx-bootstrap';
 import { CurrencyIcons } from '../../../core/models/preferences.model';
 
 @Component({
@@ -30,7 +30,7 @@ export class AddTicketsComponent extends BaseComponent implements OnInit {
     @Output() onSaveEvent:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
     @Output() onSave:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
     @Output() onError:EventEmitter<string> = new EventEmitter<string>();
-
+    private _picker: BsDatepickerDirective;
     tickets:TicketModel[] = [];
     ticketsNew:TicketModel[] = [];
     currentTicket:TicketModel = new TicketModel();
@@ -84,7 +84,23 @@ export class AddTicketsComponent extends BaseComponent implements OnInit {
       return t;
 }
 
+onShowPicker(event) {
+    const dayHoverHandler = event.dayHoverHandler;
+    const hoverWrapper = (hoverEvent) => {
+        const { cell, isHovered } = hoverEvent;
 
+        if ((isHovered &&
+          !!navigator.platform &&
+          /iPad|iPhone|iPod/.test(navigator.platform)) &&
+          'ontouchstart' in window
+        ) {
+            (this._picker as any)._datepickerRef.instance.daySelectHandler(cell);
+        }
+
+        return dayHoverHandler(hoverEvent);
+    };
+    event.dayHoverHandler = hoverWrapper;
+}
 
   getTickets(){
     //console.log(`getTickets`);

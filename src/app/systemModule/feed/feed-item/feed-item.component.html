@@ -42,6 +42,57 @@
             <div class="one-photo" [ngStyle]="{'background-image': 'url('+getImage()+')'}"></div>
         </div>
 
+        <div *ngIf="Feed.action === 'update_audio'" class="body-feed-item">
+          <div class="main-mw">
+              <div class="styles-audio-list">
+                      <div class="audio-wrapper">
+                          <div  class="one-audio">
+                              <span class="name-track">{{Audio?.song_name?Audio.song_name:''}}</span>
+                              <div class="audiojs">
+                                  <div class="play-pause">
+                                      <p *ngIf="!IsPlaying" (click)="playAudio(Audio.audio_link)" id="track-{{Audio?.id?Audio.id:0}}" class="play"></p>
+                                      <p *ngIf="IsPlaying" (click)="stopAudio()" class="pause"></p>
+
+                                  </div>
+                                  <div class="scrubber" >
+                                      <div class="progress"></div>
+                                      <div class="loaded"></div>
+                                  </div>
+                                  <div class="time">
+                                      <em class="played">00:00</em>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+              </div>
+          </div>
+        </div>
+
+        <div *ngIf="Feed.action === 'update_album'" class="body-feed-item">
+          <div class="main-mw">
+              <div class="slider-2-albums slider-2-init" >
+
+                    <!-- ngxSlickItem -->
+                        <div  class="one-slide">
+                            <div class="wrapp-card">
+                                <div class="cover-image" [ngStyle]="{'background-image': Album?.album_artwork?'url('+Album.album_artwork+')':''}"></div>
+                                <div class="descr playing">
+                                    <p class="name">{{Album?.album_name?Album.album_name:''}}</p>
+                                    <!-- <p class="date">2015</p> -->
+                                    <div class="flex-centered-butt">
+                                        <span class="butt-style-1">
+                                            <a target="_blank" style="color:white" href="{{Album?.album_link?Album.album_link:''}}"><span translate>Artist-create.play</span></a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+            </div>
+          </div>
+        </div>
+
+
         <div *ngIf="Feed.action === 'update_video' && videoUrl" class="body-feed-item">
           <div class="iframe-wrapp">
               <iframe [src]="videoUrl" width="560" height="315" frameborder="0" allow="autoplay; encrypted-media"></iframe>

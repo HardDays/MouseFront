@@ -213,6 +213,11 @@ export class VenuesComponent extends BaseComponent implements OnInit {
             this.getMessages();
             acc.status_not_given = i.status;
 
+          if(i.status==='owner_declined'){
+                      acc.reason = i.reason;
+                      acc.reason_text = i.reason_text;
+                    }
+
 
         if(i.agreement&&i.agreement.price)
             acc.price_not_given = i.agreement.price;
