@@ -131,7 +131,7 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="openFeedback?.reply?.length===0" class="feedback_buts">
+                <div *ngIf="openFeedback?.reply?.length===0 && !isSendThankYou" class="feedback_buts">
                     <button *ngIf="!isForward" (click)="sendThankYou()">Thank you</button>
                     <button *ngIf="!isForward&&!openFeedback?.message_info?.is_forwarded" (click)="forwardMessage()">Forward</button>
                     <button *ngIf="isForward" (click)="sendForward()">Send</button>

@@ -374,6 +374,10 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
   }
 
   clickVerifyButton(){
+    if(!this.Fun.user_name){
+      this.errorCmp.OpenWindow(`Please fill in Username first!`);
+      return;
+    }
     this.main.accService.VerifyAccount(this.FunId)
       .subscribe(
         (res)=>{

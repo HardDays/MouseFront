@@ -39,6 +39,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
   // AdminsListAdded:{id:number,user_name:string}[] = [];
   AdminAdded = {id:0,user_name:''};
   isAdminListOpen = false;
+  isSendThankYou = false;
 
   Answer = {
     user_name:'',
@@ -152,6 +153,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
 
   openNewFeedback(id:number,fb:any){
     this.Message = '';
+    this.isSendThankYou = false;
     this.fbTransformed = fb;
     this.isForward = false;
     this.AdminAdded = {id:0,user_name:''};
@@ -188,7 +190,8 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
                   this.errCmp.CloseWindow();
                   this.showSuccess = false;
               }, 2500);
-              this.getFeedbacks();
+              // this.getFeedbacks();
+              this.isSendThankYou = true;
             },
             (err)=>{
               console.log(`err`,err);

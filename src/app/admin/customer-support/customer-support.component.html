@@ -22,8 +22,8 @@
             <div class="right-to-scroll">
                 <div class="support_head">
                     <p>{{openQuestion&&openQuestion.subject}}</p>
-                    <button *ngIf="!openQuestion.is_closed" class="button-solved" (click)="SolvedAnswer()">SOLVE</button>
-                    <button disabled *ngIf="openQuestion.is_closed" class="button-solved">SOLVED!</button>
+                    <button *ngIf="openQuestion&&!openQuestion.is_closed" class="button-solved" (click)="SolvedAnswer()">SOLVE</button>
+                    <button disabled *ngIf="openQuestion&&openQuestion.is_closed" class="button-solved">SOLVED!</button>
                     <span (click)="DeleteItem()" class="but_icon"><img src="./../../../assets/img/admin/support_delete.png" alt=""></span>
                 </div>
                 <ng-container *ngIf="openQuestion?.reply">
