@@ -36,11 +36,11 @@
                                             </p>
 
                                             <p *ngIf="item.message_type == 'request'" class="price">
-                                                {{item.message_info?.currency?(item.message_info?.currency==='USD'?'$':item.message_info?.currency==='RUB'?'Руб.':item.message_info?.currency==='EUR'?'€':''):''}}
+                                                <i [innerHTML]="CurrentCurrency"></i>
                                                 {{item.message_info?.price?item.message_info?.price:''}}
                                             </p>
                                             <p *ngIf="item.message_type == 'accept'" class="price">
-                                                {{item.message_info?.currency?(item.message_info?.currency==='USD'?'$':item.message_info?.currency==='RUB'?'Руб.':item.message_info?.currency==='EUR'?'€':''):''}}
+                                                <i [innerHTML]="CurrentCurrency"></i>
                                                 {{item.message_info?.price?item.message_info?.price:''}}</p>
                                             <p *ngIf="isExpiresSoonByExpireDate(item.message_info?.expiration_date)=='soon'&&item.message_type == 'request'" class="expires-soon" translate>Expires<br translate>Soon</p>
                                         </div>

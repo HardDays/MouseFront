@@ -2,11 +2,11 @@
 <div class="modal fade modal-send-request analytics" id="modal-analytics">
     <div class="modal-dialog">
         <div class="modal-body">
-        
+
             <h6 class="head-m-p-a"><span>{{Event.name}}</span></h6>
-            
+
             <span class="closee-modal" data-dismiss="modal"></span>
-            
+
             <div class="bg-analytics-cover" [ngStyle]="{'background-image': 'url(' + Image + ')'}"></div>
             <div class="all-info-by-event">
                 <div class="top-side">
@@ -18,7 +18,7 @@
                             <div class="funded" [ngStyle]="{'width':+FoundedPercent +'%'}"></div>
                         </div>
                         <div class="funded-desc">
-                            <p class="count">${{Event.founded}} ({{FoundedPercent ? (FoundedPercent | number:'2.1-2') : 0}}%)</p>
+                            <p class="count">${{Event.founded}} ({{FoundedPercent ? (FoundedPercent | number:'2.0-2') : 0}}%)</p>
                             <div class="marg">
                                 <!-- <p class="style-text-2"><span>12</span><br>Days to go</p> -->
                                 <p class="style-text-2" translate><span>{{Event.backers}}</span><br>Backers</p>

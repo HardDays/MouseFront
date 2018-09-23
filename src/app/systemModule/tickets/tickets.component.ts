@@ -35,7 +35,7 @@ export class TicketsComponent extends BaseComponent implements OnInit,AfterViewC
   Tickets:TicketsGetModel[] = [];
   PastTickets:TicketsGetModel[] = [];
   ticketsTypesDates = ['current','past'];
-  
+
 
 
 //   DisabledDates: CalendarDate[] = [
@@ -64,13 +64,13 @@ export class TicketsComponent extends BaseComponent implements OnInit,AfterViewC
 
   @ViewChild('search') search: SearchTicketsComponent;
 //   @ViewChild('calendar') calendar:TinyCalendarComponent;
-    
+
   @ViewChild('mapForm') mapForm : SearchTicketsMapComponent;
-  
+
 
 
     LocationText:string = '';
-   
+
     constructor(
         protected main           : MainService,
         protected _sanitizer     : DomSanitizer,
@@ -92,13 +92,13 @@ export class TicketsComponent extends BaseComponent implements OnInit,AfterViewC
         this.openSearch();
     }
 
-  
+
     ngAfterViewChecked()
     {
         this.cdRef.detectChanges();
     }
     // DisableDate(event){
-    //    if(!event.event){ 
+    //    if(!event.event){
     //         if(!event.selected){
     //             this.DisabledDates.push({
     //                 mDate: event.mDate
@@ -143,7 +143,7 @@ export class TicketsComponent extends BaseComponent implements OnInit,AfterViewC
         }
     }
 
-   
+
     ShowSearchResults(params:any)
     {
         this.GetTicketsSearch();
@@ -156,7 +156,7 @@ export class TicketsComponent extends BaseComponent implements OnInit,AfterViewC
             () => this.main.eventService.GetAllTicketsCurrent(this.SearchParams.account_id,'current'),
             (res:TicketsGetModel[]) => {
                 this.Tickets = res;
-                
+
             },
             (err) => {
               //  console.log(err);
@@ -177,7 +177,7 @@ export class TicketsComponent extends BaseComponent implements OnInit,AfterViewC
                     }
                     if(i == 'past'){
                         this.PastTickets = res;
-                      
+
                     }
                     this.CloseSearchWindow();
                 },
@@ -187,7 +187,7 @@ export class TicketsComponent extends BaseComponent implements OnInit,AfterViewC
             );
         }
     }
-    
+
 
     GetTicketsPast()
     {
@@ -239,11 +239,11 @@ export class TicketsComponent extends BaseComponent implements OnInit,AfterViewC
         });
     }
 
-    
-   
+
+
     setHeightSearch()
     {
-       
+
         if($('.main-router-outlet .main-router-outlet').height() < $(window).height())
         {
             $('.wrapp-for-filter').css(
@@ -259,7 +259,7 @@ export class TicketsComponent extends BaseComponent implements OnInit,AfterViewC
                 {
                     "height": '100%'
                 }
-            ); 
+            );
             //console.log(`two`);
         }
     }
@@ -292,4 +292,4 @@ export class TicketsComponent extends BaseComponent implements OnInit,AfterViewC
 
 
 
-  
+

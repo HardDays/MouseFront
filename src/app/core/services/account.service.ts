@@ -195,6 +195,13 @@ export class AccountService{
         //return this.http.DeleteData('/accounts/' + id);
     }
 
+    GetAccountPreviewById(event_id:number, account_id:number, id:number){
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/events/' + event_id + "/account_preview/" + id + ".json", this.typeService.ParamsToUrlSearchParams({account_id}))
+        );
+        //return this.http.DeleteData('/accounts/' + id);
+    }
+
     DeleteMe(id:number){
         return this.http.CommonRequest(
             ()=> this.http.DeleteData('/accounts/' + id)

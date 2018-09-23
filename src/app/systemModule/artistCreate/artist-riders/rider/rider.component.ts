@@ -34,7 +34,7 @@ export class RiderComponent extends BaseComponent implements OnInit {
     this.isEng = this.isEnglish();
     if(this.Rider){
       if(!this.Rider.is_flexible)
-        this.Rider.is_flexible = false;
+        this.Rider.is_flexible = true;
     }
   }
   // ngOnChanges(changes: SimpleChanges): void {
@@ -54,7 +54,7 @@ export class RiderComponent extends BaseComponent implements OnInit {
     if(file.size<=2e7)
       this.getBase64(file);
     else
-      this.onError.emit(`Very big file size!`);
+      this.onError.emit(`Sorry, this file is too big!`);
     // for(let file of target.files)
     // {
     //     let reader:FileReader = new FileReader();

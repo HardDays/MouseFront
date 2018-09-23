@@ -176,14 +176,14 @@ updateTicket(){
         if(this.currentTicket.type==='vr'){
             if(this.currentTicket.count>this.maxCountVr){
                 this.onError.emit('<b>Failed!</b> VR Tickets limit expired');
-                // console.log(`error`);
+                console.log(`front error`);
                 return;
             }
         }
         else{
             if(this.currentTicket.count>this.maxCountInPerson){
                 this.onError.emit('<b>Failed!</b> Tickets limit expired');
-                // console.log(`error`);
+                console.log(`front error`);
                 return;
             }
         }
@@ -205,6 +205,7 @@ updateTicket(){
 
                 this.updateEventTickets();
             },(err)=>{
+                console.log(`back error`);
                 this.onError.emit(this.getResponseErrorMessage(err));
             });
     }

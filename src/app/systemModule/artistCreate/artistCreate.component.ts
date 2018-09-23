@@ -241,6 +241,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
     delete this.Artist['audio_links'];
     delete this.Artist['artist_albums'];
     delete this.Artist['artist_videos'];
+    delete this.Artist['artist_riders'];
 
     if(this.BookingPage){
       if(!this.BookingPage.Artist.price_from||!this.BookingPage.Artist.price_to){

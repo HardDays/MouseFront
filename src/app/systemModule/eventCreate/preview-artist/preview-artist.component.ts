@@ -30,6 +30,8 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
 
 
   @Input() ArtistId:number;
+  @Input() CreatorId:number;
+  @Input() EventId:number;
   @Output() OnReturn = new EventEmitter();
 
   VenueImages:any;
@@ -84,7 +86,7 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
     this.InitMusicPlayer();
 
     this.WaitBeforeLoading(
-      ()=>this.main.accService.GetAccountById(this.ArtistId),
+      ()=>this.main.accService.GetAccountPreviewById(this.EventId,this.CreatorId,this.ArtistId),
       (res:AccountGetModel)=>{
         this.Artist = res;
         // this.CurrencySymbol = CurrencyIcons[this.Artist.currency];
