@@ -129,7 +129,6 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         this.main.CurrentAccountChange.subscribe(
             (val) => {
                 this.MyAcc = val;
-                console.log(this.MyAcc);
             }
         );
 
@@ -233,6 +232,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     GetEventUpdates(){
         this.main.eventService.EventsUpdates(this.EventId).subscribe((res:any)=>{
             this.UpdatesEvent = res;
+            console.log(this.UpdatesEvent);
         }) 
     }
     
