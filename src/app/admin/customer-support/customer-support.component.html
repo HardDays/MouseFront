@@ -7,7 +7,7 @@
                 <div class="ava" [ngStyle]="{'background-image': item.sender?'url('+item.sender.image_base64+')':'url('+nonImage+')'}"></div>
                 <div class="info">
                     <p class="question">
-                        <span class="title">{{item.subject?item.subject:''}}</span>
+                        <span class="title" [ngClass]="{'done':item.is_closed}">{{item.subject?item.subject:''}}</span>
                         <span class="date">{{item.date?item.date:''}}</span>
                     </p>
                     <p class="name">{{item.sender?.full_name?item.sender.full_name:''}}</p>
