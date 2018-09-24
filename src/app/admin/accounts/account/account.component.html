@@ -6,7 +6,7 @@
     </div>
     <span>{{accType}} profile view</span>
     <div class="buttons">
-        <ng-container *ngIf="Account.status !== 'unchecked'">
+        <ng-container *ngIf="Account.status !== 'unchecked' && Account.status !== 'inactive'">
           <div class="butt remove">
               <button (click)="removeAcc()"><img src="./../../../../assets/img/admin/delete.svg" alt="" class="img-responsive"></button>
               <span>Remove</span>

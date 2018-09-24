@@ -1,3 +1,4 @@
+import { BaseMessages } from './../../../../core/base/base.enum';
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { BaseComponent } from '../../../../core/base/base.component';
 import { AccountCreateModel, Rider } from '../../../../core/models/accountCreate.model';
@@ -85,6 +86,7 @@ export class RiderComponent extends BaseComponent implements OnInit {
       this.main.accService.DeleteArtistRider(this.ArtistId,this.Rider.id)
         .subscribe( (res)=>{
           this.Rider = new Rider();
+          this.Rider.is_flexible = true;
           this.isConfirmRider = true;
           this.onDelete.emit(this.Rider.id);
         }
@@ -92,6 +94,7 @@ export class RiderComponent extends BaseComponent implements OnInit {
     }
     else {
       this.Rider = new Rider();
+      this.Rider.is_flexible = true;
       this.isConfirmRider = true;
     }
 
@@ -104,6 +107,7 @@ export class RiderComponent extends BaseComponent implements OnInit {
       this.getRiderInfo();
       this.main.accService.SaveArtistRider(this.ArtistId,this.Rider)
         .subscribe((res)=>{
+          this.onError.emit(BaseMessages.Success);
           this.isConfirmRider = true;
         })
       // this.onConfirm.emit(this.Rider);

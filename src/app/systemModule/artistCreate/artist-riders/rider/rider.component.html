@@ -25,7 +25,7 @@
       </ng-container>
       <!--после загрузки файла-->
       <div  *ngIf="Rider.id||Rider.uploaded_file_base64" class="side-dwn">
-          <div (click)="downloadFile()" class="file-uploaded">
+          <div class="file-uploaded">
               <div class="delete-file" (click)="deleteRider()"></div>
           </div>
           <p class="desc-side-dwn" translate>Artist-create.rider.File uploded</p>
