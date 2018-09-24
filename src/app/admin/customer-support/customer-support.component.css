@@ -52,7 +52,7 @@ button[disabled]{
   padding: 3px 0;
   margin-right: 10px;
 }
-question .title.done:after {
+.question .title.done:after {
     content: url(./../../../assets/img/ok-msg.svg);
     padding-left: 7px;
  }
