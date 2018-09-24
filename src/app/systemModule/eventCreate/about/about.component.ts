@@ -22,6 +22,7 @@ import { CurrencyIcons } from '../../../core/models/preferences.model';
 import { BsDatepickerConfig, BsDaterangepickerDirective, BsDaterangepickerConfig, BsLocaleService } from '../../../../../node_modules/ngx-bootstrap';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { ruLocale } from 'ngx-bootstrap/locale';
+import { BsDatepickerDirective } from 'ngx-bootstrap/datepicker';
 defineLocale('ru', ruLocale);
 
 
@@ -48,7 +49,7 @@ export class AboutComponent extends BaseComponent implements OnInit {
   genres:GenreModel[] = [];
   showMoreGenres:boolean = false;
   image:string;
-
+  private _picker: BsDatepickerDirective;
   CurrencySymbol = '$';
 
   // ExactDate = new Date();
@@ -90,12 +91,16 @@ export class AboutComponent extends BaseComponent implements OnInit {
     bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, {
         containerClass: 'theme-default',
         rangeInputFormat: this.main.settings.GetDateFormat(),
-        locale: this.settings.GetLang()
+        locale: this.settings.GetLang(),
+        showWeekNumbers:false
     });
 
     datepickerFromModel:Date = new Date();
     datepickerToModel:Date = new Date();
     datepickerExactModel:Date = new Date();
+
+    minDate = new Date();
+    maxDate = new Date();
 
   ngOnInit() {
 
@@ -122,6 +127,10 @@ export class AboutComponent extends BaseComponent implements OnInit {
       }
       else if(this.Event.date_from){
         this.datepickerExactModel = new Date(this.Event.date_from);
+      }
+      if(this.Event.date_from&&this.Event.date_to){
+        this.minDate = new Date(this.Event.date_from);
+        this.maxDate = new Date(this.Event.date_to);
       }
     }
     // this.Event&&this.Event.date_from?this.datepickerExactModel = new Date(this.Event.date_from):null;
@@ -161,7 +170,23 @@ HideGenresIfShowed(){
         this.showMoreGenres = false;
     }
 }
+onShowPicker(event) {
+    const dayHoverHandler = event.dayHoverHandler;
+    const hoverWrapper = (hoverEvent) => {
+        const { cell, isHovered } = hoverEvent;
 
+        if ((isHovered &&
+          !!navigator.platform &&
+          /iPad|iPhone|iPod/.test(navigator.platform)) &&
+          'ontouchstart' in window
+        ) {
+            (this._picker as any)._datepickerRef.instance.daySelectHandler(cell);
+        }
+
+        return dayHoverHandler(hoverEvent);
+    };
+    event.dayHoverHandler = hoverWrapper;
+}
 GetCurrentCurrency(){
     if(!this.Event.currency){
          this.Event.currency = this.main.settings.GetCurrency();

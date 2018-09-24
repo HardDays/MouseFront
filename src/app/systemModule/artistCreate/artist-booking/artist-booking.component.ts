@@ -78,13 +78,13 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     if(this.main.settings.GetCurrency() == 'RUB'){
-      this.CurrencySymbol = '\u20BD';
+      this.CurrencySymbol = 'Р.';
     }
     else{
       this.CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
     }
 
-    
+
     this.isEng = this.isEnglish();
     this.CreateAutocomplete();
     // this.initDateMin();
@@ -101,9 +101,9 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
   }
 
   Init(){
-    
+
       this.preferredVenues = this.getVenuesTypes();
-    
+
     for(let v of this.preferredVenues){
       for(let venue of this.Artist.preferred_venues){
         if(v.object.type === venue['type_of_venue'])
@@ -280,7 +280,7 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
     setTimeout(() => {
       this.agmMap.triggerResize();
     }, 200);
-    
+
   }
 
 
@@ -300,37 +300,51 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
 
   saveArtist(){
 
+    let isHasOtherVenue = this.preferredVenues.find(obj=>obj.checked&&obj.object.type==='other')?true:false;
+
     if(this.Artist.price_from&&this.Artist.price_to){
 
-      if(''+this.Artist.price_from[0]===this.CurrencySymbol)this.Artist.price_from = +(''+this.Artist.price_from).slice(1);
-      if(''+this.Artist.price_to[0]===this.CurrencySymbol)this.Artist.price_to = +(''+this.Artist.price_to).slice(1);
+      if(!isHasOtherVenue||isHasOtherVenue&&this.Artist.preferred_venue_text.length>0){
+        if(''+this.Artist.price_from[0]===this.CurrencySymbol)this.Artist.price_from = +(''+this.Artist.price_from).slice(1);
+        if(''+this.Artist.price_to[0]===this.CurrencySymbol)this.Artist.price_to = +(''+this.Artist.price_to).slice(1);
 
-      if(this.Artist.additional_hours_price)
-        if(''+this.Artist.additional_hours_price[0]===this.CurrencySymbol) 
-          this.Artist.additional_hours_price = +(''+this.Artist.additional_hours_price).slice(1);
+        if(''+this.Artist.price_from[0]==='Р')this.Artist.price_from = +(''+this.Artist.price_from).slice(2);
+        if(''+this.Artist.price_to[0]==='Р')this.Artist.price_to = +(''+this.Artist.price_to).slice(2);
 
-      this.Artist.preferred_venues = [];
+        if(this.Artist.additional_hours_price){
+          if(''+this.Artist.additional_hours_price[0]===this.CurrencySymbol)
+            this.Artist.additional_hours_price = +(''+this.Artist.additional_hours_price).slice(1);
+          if(''+this.Artist.additional_hours_price[0]==='Р')
+            this.Artist.additional_hours_price = +(''+this.Artist.additional_hours_price).slice(2);
+        }
 
-      for(let v of this.preferredVenues){
-        if(v.checked)
-          this.Artist.preferred_venues.push(v.object.type);
-      }
+        this.Artist.preferred_venues = [];
 
-      //this.Artist.image_base64 = null;
+        for(let v of this.preferredVenues){
+          if(v.checked)
+            this.Artist.preferred_venues.push(v.object.type);
+        }
 
-      if(this.type_min_time_to_book=='weeks')
-        this.Artist.min_time_to_book = this.Artist.min_time_to_book*7;
-      else if(this.type_min_time_to_book=='months')
-        this.Artist.min_time_to_book = this.Artist.min_time_to_book*30;
+        //this.Artist.image_base64 = null;
 
-      if(this.type_min_time_to_free_cancel=='weeks')
-        this.Artist.min_time_to_free_cancel = this.Artist.min_time_to_free_cancel*7;
-      else if(this.type_min_time_to_free_cancel=='months')
-        this.Artist.min_time_to_free_cancel = this.Artist.min_time_to_free_cancel*30;
+        if(this.type_min_time_to_book=='weeks')
+          this.Artist.min_time_to_book = this.Artist.min_time_to_book*7;
+        else if(this.type_min_time_to_book=='months')
+          this.Artist.min_time_to_book = this.Artist.min_time_to_book*30;
 
-      // console.log(`to Save`,this.Artist);
-      this.onSave.emit(this.Artist);
+        if(this.type_min_time_to_free_cancel=='weeks')
+          this.Artist.min_time_to_free_cancel = this.Artist.min_time_to_free_cancel*7;
+        else if(this.type_min_time_to_free_cancel=='months')
+          this.Artist.min_time_to_free_cancel = this.Artist.min_time_to_free_cancel*30;
+
+        // console.log(`to Save`,this.Artist);
+        this.onSave.emit(this.Artist);
+
       // console.log(`ok ok okd`);
+      }
+      else {
+        this.onError.emit('Please fill OTHER preferred venue field!');
+      }
     }
     else
       this.onError.emit('Please fill in all required fields!');
@@ -358,37 +372,51 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
   }
 
   protected SaveArtist(){
+     let isHasOtherVenue = this.preferredVenues.find(obj=>obj.checked&&obj.object.type==='other')?true:false;
+
     if(this.Artist.price_from&&this.Artist.price_to){
 
-      if(''+this.Artist.price_from[0]===this.CurrencySymbol)this.Artist.price_from = +(''+this.Artist.price_from).slice(1);
-      if(''+this.Artist.price_to[0]===this.CurrencySymbol)this.Artist.price_to = +(''+this.Artist.price_to).slice(1);
+      if(!isHasOtherVenue||isHasOtherVenue&&this.Artist.preferred_venue_text.length>0){
 
-      if(this.Artist.additional_hours_price)
-        if(''+this.Artist.additional_hours_price[0]===this.CurrencySymbol) 
-          this.Artist.additional_hours_price = +(''+this.Artist.additional_hours_price).slice(1);
+        if(''+this.Artist.price_from[0]===this.CurrencySymbol)this.Artist.price_from = +(''+this.Artist.price_from).slice(1);
+        if(''+this.Artist.price_to[0]===this.CurrencySymbol)this.Artist.price_to = +(''+this.Artist.price_to).slice(1);
 
-      this.Artist.preferred_venues = [];
+        if(''+this.Artist.price_from[0]==='Р')this.Artist.price_from = +(''+this.Artist.price_from).slice(2);
+        if(''+this.Artist.price_to[0]==='Р')this.Artist.price_to = +(''+this.Artist.price_to).slice(2);
 
-      for(let v of this.preferredVenues){
-        if(v.checked)
-          this.Artist.preferred_venues.push(v.object.type);
-      }
+        if(this.Artist.additional_hours_price){
+          if(''+this.Artist.additional_hours_price[0]===this.CurrencySymbol)
+            this.Artist.additional_hours_price = +(''+this.Artist.additional_hours_price).slice(1);
+          if(''+this.Artist.additional_hours_price[0]==='Р')
+            this.Artist.additional_hours_price = +(''+this.Artist.additional_hours_price).slice(2);
 
-      //this.Artist.image_base64 = null;
+        }
 
-      if(this.type_min_time_to_book=='weeks')
-        this.Artist.min_time_to_book = this.Artist.min_time_to_book*7;
-      else if(this.type_min_time_to_book=='months')
-        this.Artist.min_time_to_book = this.Artist.min_time_to_book*30;
+        this.Artist.preferred_venues = [];
 
-      if(this.type_min_time_to_free_cancel=='weeks')
-        this.Artist.min_time_to_free_cancel = this.Artist.min_time_to_free_cancel*7;
-      else if(this.type_min_time_to_free_cancel=='months')
-        this.Artist.min_time_to_free_cancel = this.Artist.min_time_to_free_cancel*30;
+        for(let v of this.preferredVenues){
+          if(v.checked)
+            this.Artist.preferred_venues.push(v.object.type);
+        }
 
-      // console.log(`to Save`,this.Artist);
-      return true;
+        //this.Artist.image_base64 = null;
+
+        if(this.type_min_time_to_book=='weeks')
+          this.Artist.min_time_to_book = this.Artist.min_time_to_book*7;
+        else if(this.type_min_time_to_book=='months')
+          this.Artist.min_time_to_book = this.Artist.min_time_to_book*30;
+
+        if(this.type_min_time_to_free_cancel=='weeks')
+          this.Artist.min_time_to_free_cancel = this.Artist.min_time_to_free_cancel*7;
+        else if(this.type_min_time_to_free_cancel=='months')
+          this.Artist.min_time_to_free_cancel = this.Artist.min_time_to_free_cancel*30;
+
+        // console.log(`to Save`,this.Artist);
+        return true;
       // this.onSave.emit(this.Artist);
+      } else {
+        this.onError.emit('Please fill OTHER preferred venue field!');
+      }
     } else{
       this.onError.emit('Please fill in all required fields!');
     }

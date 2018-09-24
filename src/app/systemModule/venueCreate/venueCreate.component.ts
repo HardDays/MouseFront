@@ -82,10 +82,11 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
   Venue:AccountCreateModel = new AccountCreateModel();
   VenueId:number = 0;
   VenueImageId:number = 0;
-  
+
 
   isNewVenue = false;
 
+  isCanVerify = false;
 
   @ViewChild('about') about:VenueAboutComponent;
   @ViewChild('hours') hours:VenueHoursComponent;
@@ -131,7 +132,6 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
         }
       }
     );
-    
   }
 
   ngAfterViewChecked()
@@ -171,6 +171,13 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
     }
 
     this.VenueImageId = ($venue && $venue.image_id) ? $venue.image_id : 0;
+
+
+    this.isCanVerify = this.VenueId&&this.Venue&&(this.Venue.status==='just_added'||this.Venue.status==='dened') &&
+                        this.Venue.capacity>0 &&
+                        this.Venue.audio_description && this.Venue.audio_description.length>0 &&
+                        this.Venue.lighting_description && this.Venue.lighting_description.length>0 &&
+                        this.Venue.stage_description && this.Venue.stage_description.length>0 ? true:false;
   }
 
   SaveVenueByPages(venue:AccountCreateModel)
@@ -189,12 +196,13 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
         );
         this.main.GetMyAccounts(
           () => {
-            
+
             this.main.CurrentAccountChange.next(res);
           }
         );
       },
       (err) => {
+        // console.log(err);
         this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'venue'));
       }
     )
@@ -224,13 +232,14 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
         );
       },
       (err) => {
+        console.log(err);
         this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'venue'));
       }
     )
   }
 
   isEnglish(){
-    if (this.settings.GetLang() == 'en') 
+    if (this.settings.GetLang() == 'en')
       return true;
   }
 
@@ -267,8 +276,14 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
           this.about.aboutForm.updateValueAndValidity();
           if(this.about.aboutForm.invalid)
           {
+            // console.log(`!!!`);
             this.OpenErrorWindow(this.getFormErrorMessage(this.about.aboutForm, 'venue'));
             return;
+          }
+          if(this.Venue.fax&&this.Venue.fax.indexOf('_')>=0)
+          {
+              this.OpenErrorWindow('<b>Fax</b> needs to be a valid number');
+              return;
           }
         }
       }
@@ -312,6 +327,16 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
     }
     this.SaveVenue();
 
+  }
+
+  clickVerifyButton(){
+    this.main.accService.VerifyAccount(this.VenueId)
+      .subscribe(
+        (res)=>{
+          this.Venue.status = 'unchecked';
+          this.isCanVerify = false;
+        }
+      )
   }
 
   DeleteImage($event)

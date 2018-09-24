@@ -37,17 +37,27 @@
                                 </span>
                             </button>
                         </li>
+
+                        <li *ngIf="ArtistId !== 0 && (Artist.status==='just_added'||Artist.status==='dened')">
+                            <button (click)="clickVerifyButton()" class="butt-style-1" style="width: auto; min-width: 130px;">
+                                <span style="padding: 10px 10px" translate>
+                                Verify
+                                </span>
+                            </button>
+                        </li>
+
+
                     </ul>
                 </div>
                 </div>
             </div>
         </div>
 
-       
-        
-        <app-artist-about #AboutPage *ngIf="currentPage == pages.about" 
+
+
+        <app-artist-about #AboutPage *ngIf="currentPage == pages.about"
             [(Artist)]="Artist"
-            [ArtistImageId]="ArtistImageId" 
+            [ArtistImageId]="ArtistImageId"
             [ArtistId]="ArtistId"
             (onError)="OpenErrorWindow($event)"
 
@@ -58,23 +68,23 @@
         >
         </app-artist-about>
 
-        
-        
+
+
         <app-artist-calendar *ngIf="currentPage==pages.calendar"
             [Artist]="Artist"
-            (openNextPage)="NextPart()" 
+            (openNextPage)="NextPart()"
             (onSave)="SaveArtistByPages($event, false)"
-            [ArtistId]="ArtistId" 
+            [ArtistId]="ArtistId"
         >
         </app-artist-calendar>
 
         <div class="create-event-body-1"  [ngStyle]="{'padding': currentPage==pages.preview ? '0':''}">
 
-            <app-artist-media #MediaPage  *ngIf="currentPage == pages.media" 
-                [Artist]="Artist" 
-                [ArtistId]="ArtistId" 
-                (openNextPage)="NextPart()" 
-                (onSave)="SaveArtistByPages($event, false)" 
+            <app-artist-media #MediaPage  *ngIf="currentPage == pages.media"
+                [Artist]="Artist"
+                [ArtistId]="ArtistId"
+                (openNextPage)="NextPart()"
+                (onSave)="SaveArtistByPages($event, false)"
                 (onError)="OpenErrorWindow($event)"
             >
             </app-artist-media>
@@ -82,8 +92,8 @@
 
             <app-artist-booking #BookingPage *ngIf="currentPage == pages.booking"
                 [Artist]="Artist"
-                [ArtistId]="ArtistId"  
-                (onSave)="SaveArtistByPages($event)" 
+                [ArtistId]="ArtistId"
+                (onSave)="SaveArtistByPages($event)"
                 (onError)="OpenErrorWindow($event)"
 
                 (onSaveArtistByCircle)="SaveCurrentPageAndChangePage($event)"
@@ -93,9 +103,10 @@
             </app-artist-booking>
 
             <app-artist-riders #RidersPage *ngIf="currentPage == pages.riders"
-                [Artist]="Artist" 
+                [Artist]="Artist"
+                [ArtistId]="ArtistId"
                 (OnSave)="SaveCurrentPage($event)"
-
+                (OnError)="OpenErrorWindow($event)"
                 (openNextPage)="NextPart()"
                 (OnSaveButton)="SaveArtist($event)"
             >
@@ -103,9 +114,9 @@
 
         </div>
 
-        <artist-profile-selector #PreviewPage *ngIf="currentPage==pages.preview" 
-            [Account]="Artist" 
-            [Fans]="[]" 
+        <artist-profile-selector #PreviewPage *ngIf="currentPage==pages.preview"
+            [Account]="Artist"
+            [Fans]="[]"
             [IsPreview]="true"
         >
         </artist-profile-selector>
@@ -114,7 +125,7 @@
 
 
 </section>
-           
+
 
 
 <error-cmp #errorCmp></error-cmp>

@@ -30,6 +30,7 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
     @Output() onVenueChanged:EventEmitter<AccountCreateModel> = new EventEmitter<AccountCreateModel>();
 
     phoneMask:string='';
+    faxMask:string='';
 
     EmailFormGroup : FormGroup = new FormGroup({
         "name_email":new FormControl("",[]),
@@ -45,7 +46,9 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
             Validators.required,
             Validators.pattern(/\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/)
         ]),
-        "fax": new FormControl("", []),
+        "fax": new FormControl("", [
+            Validators.pattern(/\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/)
+        ]),
         "emails": new FormArray([]),
         "country": new FormControl("", [Validators.required]),
         "address": new FormControl("", [Validators.required]),
@@ -60,6 +63,7 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
             (value:any) => {
                 this.onVenueChanged.emit(this.Venue);
                 this.phoneMask = this.Venue.phone;
+                this.faxMask = this.Venue.fax;
             });
         this.aboutForm.controls["emails"].valueChanges.forEach(
             (value:any) => {
@@ -98,6 +102,7 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
         this.GetVenueImage();
 
         this.phoneMask = this.Venue.phone;
+        this.faxMask = this.Venue.fax;
     }
 
     GetVenueImage()
@@ -137,7 +142,7 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
                     }
                     else if(a.search('street-address') > 0)
                     {
-                        this.Venue.address = a.slice(a.search('>')+1,a.search('</'));
+                        this.Venue.street = a.slice(a.search('>')+1,a.search('</'));
                     }
                     else if(a.search('region') > 0)
                     {
@@ -191,12 +196,16 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
 
     SaveVenue()
     {
-
-
         this.aboutForm.updateValueAndValidity();
+
         if(this.aboutForm.invalid)
         {
             this.onError.emit(this.getFormErrorMessage(this.aboutForm, 'venue'));
+            return;
+        }
+        if(this.Venue.fax&&this.Venue.fax.indexOf('_')>=0)
+        {
+            this.onError.emit('<b>Fax</b> needs to be a valid number');
             return;
         }
 
@@ -209,10 +218,19 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
         phoneToSend = phoneToSend.replace(/\(/g,'');
         phoneToSend = phoneToSend.replace(/\)/g,'');
         phoneToSend = phoneToSend.replace(/-/g,'');
-        this.Venue.phone =  phoneToSend;
 
-        console.log(this.Venue);
-        // this.onSaveVenue.emit(this.Venue);
+        let faxToSend = this.ConvertPhoneToCountry(this.Venue.fax);
+        faxToSend = faxToSend.replace(/ /g,'');
+        faxToSend = faxToSend.replace(/\(/g,'');
+        faxToSend = faxToSend.replace(/\)/g,'');
+        faxToSend = faxToSend.replace(/-/g,'');
+
+
+        this.Venue.phone =  phoneToSend;
+        this.Venue.fax =  faxToSend;
+
+        // console.log(this.Venue);
+        this.onSaveVenue.emit(this.Venue);
     }
 
     uploadImage($event){

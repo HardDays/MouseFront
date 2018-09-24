@@ -2,26 +2,26 @@
 <div class="modal fade modal-send-request analytics" id="modal-analytics">
     <div class="modal-dialog">
         <div class="modal-body">
-        
+
             <h6 class="head-m-p-a"><span>{{Event.name}}</span></h6>
-            
+
             <span class="closee-modal" data-dismiss="modal"></span>
-            
+
             <div class="bg-analytics-cover" [ngStyle]="{'background-image': 'url(' + Image + ')'}"></div>
             <div class="all-info-by-event">
                 <div class="top-side">
                     <p class="f-t-i" translate>event.Event Details</p>
-                    <p *ngIf="(Event.event_month || Event.event_season)&& Event.event_year"  class="when">{{Event.event_month?Event.event_month:Event.event_season}}, {{Event.event_year}}</p>
+                    <p *ngIf="(Event.event_month || Event.event_season)&& Event.event_year"  class="when">{{Event.event_month?Event.event_month:Event.event_season | translate}}, {{Event.event_year}}</p>
                     <p class="where">{{Event.address}}</p>
                     <ng-container *ngIf="Event.is_crowdfunding_event">
                         <div class="funded-bar" style="overflow: hidden">
                             <div class="funded" [ngStyle]="{'width':+FoundedPercent +'%'}"></div>
                         </div>
                         <div class="funded-desc">
-                            <p class="count">${{Event.founded}} ({{FoundedPercent?FoundedPercent:0 | number}}%)</p>
+                            <p class="count">${{Event.founded}} ({{FoundedPercent ? (FoundedPercent | number:'2.0-2') : 0}}%)</p>
                             <div class="marg">
                                 <!-- <p class="style-text-2"><span>12</span><br>Days to go</p> -->
-                                <p class="style-text-2"><span>{{Event.backers}}</span><br>Backers</p>
+                                <p class="style-text-2" translate><span>{{Event.backers}}</span><br>Backers</p>
                             </div>
                         </div>
                         <p class="goal" translate>event.Goal: <span>${{Event.funding_goal}}</span></p>

@@ -24,7 +24,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
   Type = 'all';
 
   Feedbacks:FeedbackAdminModel[] = [];
-  FeedbacksChecked:FeedbackAdminModel[] = [];
+  // FeedbacksChecked:FeedbackAdminModel[] = [];
   openFeedback:FeedbackAdminModel = new FeedbackAdminModel();
   transformedFb:any;
   Message: string = '';
@@ -39,6 +39,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
   // AdminsListAdded:{id:number,user_name:string}[] = [];
   AdminAdded = {id:0,user_name:''};
   isAdminListOpen = false;
+  isSendThankYou = false;
 
   Answer = {
     user_name:'',
@@ -89,7 +90,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
 
 
 
-          this.FeedbacksChecked = this.Feedbacks;
+          // this.FeedbacksChecked = this.Feedbacks;
 
 
         }
@@ -121,11 +122,18 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
   // }
 
   filterByType(){
+    console.log(`filter`,this.Type);
 
-    if(this.Type === 'all')
-      this.FeedbacksChecked = this.Feedbacks;
-    else
-      this.FeedbacksChecked = this.Feedbacks.filter(obj => obj.message_info.feedback_type && (this.Type === obj.message_info.feedback_type));
+    this.Feedbacks = [];
+    // this.FeedbacksChecked = [];
+    setTimeout(() => {
+       this.onScroll();
+    }, 100);
+
+    // if(this.Type === 'all')
+    //   this.FeedbacksChecked = this.Feedbacks;
+    // else
+    //   this.FeedbacksChecked = this.Feedbacks.filter(obj => obj.message_info.feedback_type && (this.Type === obj.message_info.feedback_type));
   }
 
   InitJs(){
@@ -145,6 +153,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
 
   openNewFeedback(id:number,fb:any){
     this.Message = '';
+    this.isSendThankYou = false;
     this.fbTransformed = fb;
     this.isForward = false;
     this.AdminAdded = {id:0,user_name:''};
@@ -165,7 +174,6 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
         }
         else
         this.Answer = { user_name:'', image:'', message:''}
-
       }
     )
   }
@@ -182,7 +190,8 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
                   this.errCmp.CloseWindow();
                   this.showSuccess = false;
               }, 2500);
-              this.getFeedbacks();
+              // this.getFeedbacks();
+              this.isSendThankYou = true;
             },
             (err)=>{
               console.log(`err`,err);
@@ -229,7 +238,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
 
   onScroll(){
     this.ScrollDisabled = true;
-    this.main.adminService.GetFeedbacks({limit:8,offset:this.Feedbacks.length})
+    this.main.adminService.GetFeedbacks({limit:8,offset:this.Feedbacks.length,feedback_type:this.Type})
       .subscribe(
         (res)=>{
           for(let fb of res){

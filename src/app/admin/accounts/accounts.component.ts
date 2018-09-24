@@ -14,7 +14,7 @@ export class AccountsComponent extends BaseComponent implements OnInit {
 
   isApprovedBy:boolean = false;
   isShowTable:boolean = true;
-  status:string = 'new';
+  status:string = 'unchecked';
 
   Accounts: AccountGetModel[] = [];
 
@@ -44,7 +44,10 @@ export class AccountsComponent extends BaseComponent implements OnInit {
     this.main.adminService.GetAccountsRequests({account_type: 'all',limit:20,offset:0})
       .subscribe((res)=>{
         this.Accounts = res;
-      })
+      });
+    setTimeout(() => {
+        this.main.adminService.NewCountChange.next(true);
+      }, 300);
   }
 
 

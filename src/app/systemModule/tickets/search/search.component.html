@@ -3,7 +3,7 @@
     <div class="groupe-form">
         <p class="head-input-groupe" translate>Tickets.Data</p>
         <div class="wrapp-for-triangle">
-            <input type="text" name="date-picker-inp" class="date-picker-inp" bsDaterangepicker ngModel [bsConfig]="bsConfig" [(ngModel)]="SearchDateRange">
+            <input type="text" name="date-picker-inp" class="date-picker-inp" (onShown)="onShowPicker($event)" bsDaterangepicker ngModel [bsConfig]="bsConfig" [(ngModel)]="SearchDateRange">
         </div>
     </div>
     <div class="groupe-form">

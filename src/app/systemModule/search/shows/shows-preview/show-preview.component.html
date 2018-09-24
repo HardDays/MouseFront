@@ -6,5 +6,8 @@
     <div class="one-show-wrapp" *ngFor="let item of Shows">
         <one-show-search-component [Show]="item"></one-show-search-component>
     </div>
-
+    <div class="empty-info empty-info-no-padding" *ngIf="!Shows.length">
+        <img src="../../assets/img/smile.svg" class="img-responsive" alt="">
+        <p translate>No search results found</p>
+    </div>
 </div>

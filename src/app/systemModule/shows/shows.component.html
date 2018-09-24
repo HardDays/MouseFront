@@ -11,7 +11,7 @@
                 
                 
                 <div *ngIf="isShowMap" class="map-here" >
-                    <agm-map [latitude]="MyCoords.lat" [zoom]="7" [longitude]="MyCoords.lng" #map style="height: 1200px">
+                    <agm-map [latitude]="MyCoords.lat" [zoom]="7" [longitude]="MyCoords.lng" #map class="map-height-style">
                         <agm-marker *ngFor="let item of Events" (markerClick)="openShow(item.id)" [latitude]="item.city_lat" [longitude]="item.city_lng">
 
                         </agm-marker>

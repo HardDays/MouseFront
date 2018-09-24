@@ -17,9 +17,9 @@
                             </div>
                         </div>
                         <div class="admin_table_td"><span>{{city.price}}</span></div>
-                        <div class="admin_table_td"><span>{{city.price/citiesTotal.total*100|number: '1.1-1'}}%</span></div>
+                        <div class="admin_table_td"><span>{{city.price/citiesTotal.total*100|number: '1.0-2'}}%</span></div>
                     </div>
- 
+
                 </div>
             </div>
             <div class="events_status_diagramm revenue_diagram_wrap">
@@ -44,7 +44,7 @@
         </div>
         <div class="admin_cards font25">
             <div class="card_with_tabs">
-                <app-analytic-card 
+                <app-analytic-card
                     [Total]="countsDateTotal"
                     [By]="'Date'"
                     [ColorClass]="'violet'"
@@ -53,19 +53,19 @@
                 ></app-analytic-card>
             </div>
             <div class="card_with_tabs">
-                <app-analytic-card 
-                    [Total]="countsArtistTotal" 
-                    [By]="'Artist'" 
-                    [ColorClass]="'blue'" 
+                <app-analytic-card
+                    [Total]="countsArtistTotal"
+                    [By]="'Artist'"
+                    [ColorClass]="'blue'"
                     [TypeClass]="'mic'"
                     (onChangePeriod)="GetRevenueCountsArtistTotal($event)"
                 ></app-analytic-card>
             </div>
             <div class="card_with_tabs">
-                <app-analytic-card 
-                    [Total]="countsVenueTotal" 
-                    [By]="'Venue'" 
-                    [ColorClass]="'siren'" 
+                <app-analytic-card
+                    [Total]="countsVenueTotal"
+                    [By]="'Venue'"
+                    [ColorClass]="'siren'"
                     [TypeClass]="'kolonka'"
                     (onChangePeriod)="GetRevenueCountsVenueTotal($event)"
                 ></app-analytic-card>
@@ -73,28 +73,28 @@
         </div>
         <div class="admin_cards font25">
             <div class="card_with_tabs">
-                <app-analytic-card 
-                    [Total]="countsVrTotal" 
-                    [By]="'VR Tickets'"  
-                    [ColorClass]="'violet'" 
+                <app-analytic-card
+                    [Total]="countsVrTotal"
+                    [By]="'VR Tickets'"
+                    [ColorClass]="'violet'"
                     [TypeClass]="'vr'"
                     (onChangePeriod)="GetRevenueCountsVrTotal($event)"
                 ></app-analytic-card>
             </div>
             <div class="card_with_tabs">
-                <app-analytic-card 
-                    [Total]="countsTicketsTotal" 
-                    [By]="'Ticket Sales'" 
-                    [ColorClass]="'blue'" 
+                <app-analytic-card
+                    [Total]="countsTicketsTotal"
+                    [By]="'Ticket Sales'"
+                    [ColorClass]="'blue'"
                     [TypeClass]="'ticket'"
                     (onChangePeriod)="GetRevenueCountsTicketsTotal($event)"
                 ></app-analytic-card>
             </div>
             <div class="card_with_tabs">
-                <app-analytic-card 
-                    [Total]="countsAdvertisingTotal" 
-                    [By]="'Advertising'" 
-                    [ColorClass]="'siren'" 
+                <app-analytic-card
+                    [Total]="countsAdvertisingTotal"
+                    [By]="'Advertising'"
+                    [ColorClass]="'siren'"
                     [TypeClass]="'repost'"
                     (onChangePeriod)="GetRevenueCountsAdvertisingTotal($event)"
                 ></app-analytic-card>
@@ -146,7 +146,7 @@
                                 </div>
                             </div>
                             <div class="admin_table_td"><span>{{city.price}}</span></div>
-                            <div class="admin_table_td"><span>{{city.price/citiesSales.total*100|number: '1.1-1'}}%</span></div>
+                            <div class="admin_table_td"><span>{{city.price/citiesSales.total*100|number: '1.0-2'}}%</span></div>
                         </div>
                 </div>
             </div>
@@ -172,7 +172,7 @@
         </div>
         <div class="admin_cards font25">
                 <div class="card_with_tabs">
-                    <app-analytic-card 
+                    <app-analytic-card
                         [Total]="countsDateSales"
                         [By]="'Date'"
                         [ColorClass]="'violet'"
@@ -181,19 +181,19 @@
                     ></app-analytic-card>
                 </div>
                 <div class="card_with_tabs">
-                    <app-analytic-card 
-                        [Total]="countsArtistSales" 
-                        [By]="'Artist'" 
-                        [ColorClass]="'blue'" 
+                    <app-analytic-card
+                        [Total]="countsArtistSales"
+                        [By]="'Artist'"
+                        [ColorClass]="'blue'"
                         [TypeClass]="'mic'"
                         (onChangePeriod)="GetRevenueCountsArtistSales($event)"
                     ></app-analytic-card>
                 </div>
                 <div class="card_with_tabs">
-                    <app-analytic-card 
-                        [Total]="countsVenueSales" 
-                        [By]="'Venue'" 
-                        [ColorClass]="'siren'" 
+                    <app-analytic-card
+                        [Total]="countsVenueSales"
+                        [By]="'Venue'"
+                        [ColorClass]="'siren'"
                         [TypeClass]="'kolonka'"
                         (onChangePeriod)="GetRevenueCountsVenueSales($event)"
                     ></app-analytic-card>
@@ -201,28 +201,28 @@
             </div>
             <div class="admin_cards font25">
                 <div class="card_with_tabs">
-                    <app-analytic-card 
-                        [Total]="countsVrSales" 
-                        [By]="'VR Tickets'"  
-                        [ColorClass]="'violet'" 
+                    <app-analytic-card
+                        [Total]="countsVrSales"
+                        [By]="'VR Tickets'"
+                        [ColorClass]="'violet'"
                         [TypeClass]="'vr'"
                         (onChangePeriod)="GetRevenueCountsVrSales($event)"
                     ></app-analytic-card>
                 </div>
                 <div class="card_with_tabs">
-                    <app-analytic-card 
-                        [Total]="countsTicketsSales" 
-                        [By]="'Ticket Sales'" 
-                        [ColorClass]="'blue'" 
+                    <app-analytic-card
+                        [Total]="countsTicketsSales"
+                        [By]="'Ticket Sales'"
+                        [ColorClass]="'blue'"
                         [TypeClass]="'ticket'"
                         (onChangePeriod)="GetRevenueCountsTicketsSales($event)"
                     ></app-analytic-card>
                 </div>
                 <div class="card_with_tabs">
-                    <app-analytic-card 
-                        [Total]="countsAdvertisingSales" 
-                        [By]="'Advertising'" 
-                        [ColorClass]="'siren'" 
+                    <app-analytic-card
+                        [Total]="countsAdvertisingSales"
+                        [By]="'Advertising'"
+                        [ColorClass]="'siren'"
                         [TypeClass]="'repost'"
                         (onChangePeriod)="GetRevenueCountsAdvertisingSales($event)"
                     ></app-analytic-card>

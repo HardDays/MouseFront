@@ -78,7 +78,9 @@ export class ArtistComponent extends BaseComponent implements OnInit {
       message_id:0,
       account_id:0,
       datetime_from:'',
-      datetime_to:''
+      datetime_to:'',
+      additional_text:'',
+      reason:'other'
     }
 
     messagesList:InboxMessageModel[] = [];
@@ -224,6 +226,11 @@ export class ArtistComponent extends BaseComponent implements OnInit {
           this.getMessages();
           acc.status_not_given = i.status;
 
+          if(i.status==='owner_declined'){
+            acc.reason = i.reason;
+            acc.reason_text = i.reason_text;
+          }
+
           if(i.agreement&&i.agreement.price)
             acc.price_not_given = i.agreement.price;
           else if(i.price){
@@ -282,7 +289,6 @@ export class ArtistComponent extends BaseComponent implements OnInit {
     (res)=>{
        //console.log(this.artistSearchParams,` from back `, res);
       let temp = this.convertArrToCheckModel<AccountGetModel>(res);
-
       for(let art of copy){
         if(art.checked){
           let isFind = false;
@@ -474,9 +480,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
 }
 
-
-declineArtist(card:AccountGetModel){
-
+openDeclineModal(card:AccountGetModel){
   this.ownerAcceptDecline.account_id = this.main.CurrentAccount.id;
   this.ownerAcceptDecline.id = card.id;
   this.ownerAcceptDecline.event_id = this.Event.id;
@@ -485,15 +489,23 @@ declineArtist(card:AccountGetModel){
   this.ownerAcceptDecline.message_id = msgId;
 
    let msg = this.messagesList[0];
-  for(let m of this.messagesList)
+   for(let m of this.messagesList)
       if(m.id == msgId) msg = m;
 
-      this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from?msg.message_info.preferred_date_from:new Date().toString();
-      this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to?msg.message_info.preferred_date_to:new Date('+3').toString();
+    // this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from?msg.message_info.preferred_date_from:new Date().toString();
+    // this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to?msg.message_info.preferred_date_to:new Date('+3').toString();
+
+    $('#modal-decline').modal('show');
+
+}
+
+declineArtist(){
+
 
   //console.log(`dicline`,this.ownerAcceptDecline);
   this.main.eventService.ArtistDeclineOwner(this.ownerAcceptDecline).
       subscribe((res)=>{
+          $('#modal-decline').modal('hide');
          // console.log(`ok decline artist`,res);
           this.onError.emit("Artist declined!");
           this.updateEvent();
@@ -537,7 +549,7 @@ artistSendRequest(id:number){
         $('#modal-send-request-artist').modal('hide');
       // console.log(`send`);
       setTimeout(() => {
-        this.onError.emit("Request was sent!");
+        this.onError.emit("Request was send!");
       }, 400);
 
       setTimeout(() => {
@@ -684,12 +696,15 @@ dragMarker($event)
 
     niceViewGenres(g:string[]){
       let gnr = '';
+
+
       if(g){
           if(g[0]) gnr+=g[0].replace('_',' ');
           if(g[1]) gnr+=', '+g[1].replace('_',' ');
       }
+      const gnrtr = gnr.split(', ').map(name => this.GetTranslateString(name)).join(', ');
 
-     return gnr;
+      return gnrtr;
     }
 
 

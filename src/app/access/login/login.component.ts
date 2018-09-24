@@ -45,17 +45,17 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
     var params: string[] = location.href.slice(location.href.indexOf('#')+1,location.href.length).split('&');
 
-    for(let p of params) 
+    for(let p of params)
     {
       if(p.split('=')[0] == 'access_token')
       {
         this.accessVkToken = p.split('=')[1];
       }
     }
-      
+
     if(this.accessVkToken.length>0)
     {
-      
+
       this.main.authService.UserLoginByVk(this.accessVkToken)
         .subscribe
         (
@@ -67,7 +67,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
                   console.log(`main.MyAccounts.length>0`);
                   this.router.navigate(['/system','shows']);
                 }
-                else 
+                else
                 {
                   console.log(`create new acc`);
                   this.router.navigate(['/social']);
@@ -76,13 +76,13 @@ export class LoginComponent extends BaseComponent implements OnInit {
             )
             this.main.authService.BaseInitAfterLogin(res);
             this.main.authService.onAuthChange$.next(true);
-            
-           
+
+
             // setTimeout(() => {
             //   // console.log(this.main.MyAccounts);
 
             // }, 1000);
-            
+
           }
         );
     }
@@ -144,7 +144,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
     //                 this.router.navigate(['/social']);
     //               }
     //             }, 1000);
-                
+
     //           }
     //         );
     //     }
@@ -155,10 +155,10 @@ export class LoginComponent extends BaseComponent implements OnInit {
     //   console.log(`subscribe`,res);
     // })
 
-    
-    
+
+
     // window.location.replace("https://oauth.vk.com/authorize?client_id=6326995&display=page&redirect_uri=http://localhost:4200/login&scope=friends&response_type=token&v=5.73&scope=offline");
-     window.location.replace("https://oauth.vk.com/authorize?client_id=6326995&display=page&redirect_uri=https://test-mouse-web.herokuapp.com/login&scope=friends&response_type=token&v=5.73&scope=offline");
+     window.location.replace("https://oauth.vk.com/authorize?client_id=6326995&display=page&redirect_uri=https://mouse-web.herokuapp.com/login&scope=friends&response_type=token&v=5.73&scope=offline");
   }
 
   VkLogout(){
@@ -181,7 +181,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
   //     // console.log(`twitter`,res)
   //   },(err)=>{//console.log(`tw err`,err)
   // });
-    
+
   // }
   logoutGoFb()
   {
@@ -194,7 +194,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
   }
 
   sendCode(){
-   
+
      this.main.authService.ForgotPassword(this.forgotUsername,this.forgotEmail)
       .subscribe
       (
@@ -235,5 +235,5 @@ export class LoginComponent extends BaseComponent implements OnInit {
      }
     );
   }
-  
+
 }

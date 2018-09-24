@@ -168,7 +168,8 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
         (res)=>{
           this.Answer.message = '';
           console.log(res);
-          this.GetQuestions();
+          // this.GetQuestions();
+          this.openNewQuestion(this.openQuestion.id);
         }
       )
   }

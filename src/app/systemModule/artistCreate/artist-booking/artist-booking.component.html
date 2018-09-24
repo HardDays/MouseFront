@@ -6,7 +6,7 @@
                 <p translate>Please fill in all required fields<br translate>to proceed to the Next Step</p>
             </div>
         </div>
-        
+
     </div>
     <div class="main-mw-5 unique-padd-mw">
             <div class="flex-funding-columns">
@@ -18,7 +18,7 @@
                                 <option>1</option>
                                 <option>2</option>
                             </select> -->
-                            <mat-form-field >
+                            <mat-form-field class="width100">
                                 <mat-select [(ngModel)]="Artist.performance_min_time">
                                     <mat-option [value]="1">1</mat-option>
                                     <mat-option [value]="2">2</mat-option>
@@ -31,7 +31,7 @@
                                 <option>3</option>
                                 <option>4</option>
                             </select> -->
-                            <mat-form-field >
+                            <mat-form-field class="width100">
                                 <mat-select [(ngModel)]="Artist.performance_max_time">
                                     <mat-option [value]="3">3</mat-option>
                                     <mat-option [value]="4">4</mat-option>
@@ -50,7 +50,7 @@
                         <div class="input-groupe-1 from-to-style">
                             <span class="f-t" translate>Venue.hours-folder.To<span>*</span></span>
                             <input maxlength="10" [textMask]="MaskPrice()" placeholder="{{CurrencySymbol}}" [(ngModel)]="Artist.price_to" type="text">
-                            <span class="t-f" translate>Artist-create.booking-art./hr</span>                           
+                            <span class="t-f" translate>Artist-create.booking-art./hr</span>
                         </div>
                     </div>
                     <div class="flex-input-groupes">
@@ -59,7 +59,7 @@
                         </div>
                         <div class="input-groupe-1 from-to-style hours-label-groupe">
                             <input maxlength="10" [textMask]="MaskPrice()" placeholder="{{CurrencySymbol}}" [(ngModel)]="Artist.additional_hours_price" type="text">
-                            <span class="t-f" translate>Artist-create.booking-art./hr</span>                           
+                            <span class="t-f" translate>Artist-create.booking-art./hr</span>
                         </div>
                     </div>
                     <div class="flex-mac-checkbox">
@@ -162,7 +162,7 @@
                                 <p translate>No</p>
                             </div>
                         </div>
-                    </div> 
+                    </div>
                 </div>
                 <div class="side">
                     <h6 translate>Artist-create.booking-art.Preferred Venue</h6>
@@ -170,13 +170,13 @@
                         <!-- <ng-container  > -->
                         <div *ngFor="let type of preferredVenues; let i = index" class="one-checkbox">
                             <div class="check-style">
-                                <input [checked]="preferredVenues[i].checked" [disabled]="type.object.type==='other'" type="checkbox" (click)="setPreferedVenue(i)" class="checkbox" name="" id="checkbox-{{i}}">
+                                <input [checked]="preferredVenues[i].checked" [disabled]="type.object.type==='other'&&Artist.preferred_venue_text?.length>0" type="checkbox" (click)="setPreferedVenue(i)" class="checkbox" name="" id="checkbox-{{i}}">
                                 <label for="checkbox-{{i}}"></label>
                             </div>
                             <p translate>{{type.object.type_show}}</p>
                         </div>
                     </div>
-                    <div class="input-groupe-1 whithout-label small-textarea max-500 max-100">  
+                    <div class="input-groupe-1 whithout-label small-textarea max-500 max-100">
                         <textarea maxlength="100" (input)="preferredVenueTextInput($event.target.value)" [(ngModel)]="Artist.preferred_venue_text"></textarea>
                         <span class="max-count" translate>listing.100 max</span>
                     </div>
@@ -198,7 +198,7 @@
                                 <option>30</option>
                                 <option>40</option>
                             </select>                                                          -->
-                            <mat-form-field >
+                            <mat-form-field class="width100">
                                 <mat-select [(ngModel)]="Artist.days_to_travel">
                                     <mat-option [value]="30">30</mat-option>
                                     <mat-option [value]="40">40</mat-option>
@@ -206,7 +206,7 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="side flex-mac-checkbox-column">
                     <h6 translate>Artist-create.booking-art.Video Streaming Preference</h6>
@@ -228,7 +228,7 @@
                                 <p translate>No</p>
                             </div>
                         </div>
-                    </div> 
+                    </div>
                     <div class="flex-mac-checkbox on-add-artist-page">
                         <p class="quetion-radio-text" translate>Artist-create.booking-art.Do you give permission to the Venue/Event Organizer to have advertisements over your streaming performance?</p>
                         <div class="flex-radio">
@@ -247,7 +247,7 @@
                                 <p translate>No</p>
                             </div>
                         </div>
-                    </div> 
+                    </div>
                     <div class="flex-mac-checkbox on-add-artist-page">
                         <p class="quetion-radio-text" translate>Artist-create.booking-art.Do you have contracts with any Brands that may conflict with advertisements?</p>
                         <div class="flex-radio">
@@ -266,7 +266,7 @@
                                 <p translate>No</p>
                             </div>
                         </div>
-                    </div> 
+                    </div>
                     <div class="input-groupe-1">
                         <input [(ngModel)]="Artist.conflict_companies_names" id="if-yes-1" name="" type="text" placeholder="{{'Company name' | translate}}">
                         <label for="if-yes-1" translate>Artist-create.booking-art.If yes, with what companies?</label>
@@ -281,15 +281,15 @@
                         <p class="hours-label" translate>Artist-create.booking-art.Minimum Time needed to book before a Concert?</p>
                         </div>
                         <div class="input-groupe-1 from-to-style hours-label-groupe auto-width" style="margin-bottom: 15px;">
-                            <input type="text" [(ngModel)]="Artist.min_time_to_book" style="height: 35px;" [textMask]="MaskDays()">                                                       
+                            <input type="text" [(ngModel)]="Artist.min_time_to_book" style="height: 35px;" [textMask]="MaskDays()">
                         </div>
-                        <div class="input-groupe-1 from-to-style hours-label-groupe auto-width" >
+                        <div class="input-groupe-1 from-to-style more-margin-bottom hours-label-groupe auto-width" >
                             <!-- <select [(ngModel)]="type_min_time_to_book">
                                 <option>days</option>
                                 <option>weeks</option>
                                 <option>months</option>
                             </select>                                                          -->
-                            <mat-form-field >
+                            <mat-form-field class="width100">
                                 <mat-select [(ngModel)]="type_min_time_to_book">
                                     <mat-option value="days">{{'Days' | translate}}</mat-option>
                                     <mat-option value="weeks">{{'Weeks' | translate}}</mat-option>
@@ -303,35 +303,35 @@
                         <div class="input-groupe-1 ">
                         <p class="hours-label" translate>Artist-create.booking-art.How much time is needed to cancel before you charge a cancellation fee?</p>
                         </div>
-                        
+
                         <div class="input-groupe-1 from-to-style hours-label-groupe auto-width" style="margin-bottom: 15px;">
-                            <input type="text" [(ngModel)]="Artist.min_time_to_free_cancel"  style="height: 35px;" [textMask]="MaskDays()">                                                       
+                            <input type="text" [(ngModel)]="Artist.min_time_to_free_cancel"  style="height: 35px;" [textMask]="MaskDays()">
                         </div>
 
-                        <div class="input-groupe-1 from-to-style hours-label-groupe auto-width" >
-                            
+                        <div class="input-groupe-1 from-to-style hours-label-groupe more-margin-bottom auto-width" >
+
                             <!-- <select [(ngModel)]="type_min_time_to_free_cancel">
                                 <option>days</option>
                                 <option>weeks</option>
                                 <option>months</option>
                             </select>                                                          -->
-                            <mat-form-field >
+                            <mat-form-field class="width100">
                                 <mat-select [(ngModel)]="type_min_time_to_free_cancel">
                                     <mat-option value="days">{{'Days' | translate}}</mat-option>
                                     <mat-option value="weeks">{{'Weeks' | translate}}</mat-option>
                                     <mat-option value="months">{{'Months' | translate}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
-                        
+
                         </div>
                     </div>
                     <div class="flex-input-groupes full-width">
                         <div class="input-groupe-1 ">
                         <p class="hours-label" translate>Artist-create.booking-art.Fee for last minute сancellation</p>
                         </div>
-                        <div class="input-groupe-1 doll from-to-style hours-label-groupe auto-width">
-                            <span class="doll fix-31">{{CurrencySymbol }}</span>          
-                            <input [(ngModel)]="Artist.late_cancellation_fee" type="text" class="whithout-padd">                                    
+                        <div class="input-groupe-1 doll from-to-style hours-label-groupe auto-width auto-widthxs">
+                            <span class="doll fix-31">{{CurrencySymbol }}</span>
+                            <input [(ngModel)]="Artist.late_cancellation_fee" type="text" class="whithout-padd">
                         </div>
                     </div>
                     <div class="input-groupe-1 whithout-label small-textarea max-500 max-h-100">

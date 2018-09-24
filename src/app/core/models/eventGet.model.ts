@@ -101,6 +101,7 @@ export class GetVenue{
     constructor(
         public venue_id?: number,
         public reason?: string,
+        public reason_text?:string,
         public status?: string,
         public is_active?:boolean,
         public agreement?:{
@@ -123,7 +124,7 @@ export class GetVenue{
        public approximate_price?:number,
        public price?:number,
        public currency?:string,
-      public web_cite?:string
+       public web_cite?:string
     )
     {}
 }

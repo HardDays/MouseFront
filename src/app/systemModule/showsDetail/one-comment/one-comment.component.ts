@@ -53,6 +53,7 @@ super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,setti
     }
   }
   calculateTime(value: Date){
+    
       let result: string ='';
       // current time
       let now = new Date().getTime();
@@ -61,17 +62,17 @@ super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,setti
       let delta = (now - old) / 1000;
       // format string
       if (delta < 10) {
-        result = 'just';
+        result = this.GetTranslateString('just');
       } else if (delta < 60) { // sent in last minute
-        result = Math.floor(delta) + ' Seconds';
+        result = Math.floor(delta) + this.GetTranslateString('Seconds');
       } else if (delta < 3600) { // sent in last hour
-        result =Math.floor(delta / 60) + ' Minutes';
+        result =Math.floor(delta / 60) + this.GetTranslateString('Minutes');
       } else if (delta < 86400) { // sent on last day
-        result = Math.floor(delta / 3600) + ' Hours';
+        result = Math.floor(delta / 3600) + this.GetTranslateString(' Hours');
       } else { // sent more than one day ago
-        result = Math.floor(delta / 86400) + ' Day';
+        result = Math.floor(delta / 86400) + this.GetTranslateString('Dayd');
         if(Math.floor(delta / 86400)>1)
-          result+='s';
+          result+=this.GetTranslateString('s');
       }
       return result;
   }

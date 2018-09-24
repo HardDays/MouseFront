@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, AfterViewInit, SimpleChanges, Output, EventEmitter, NgZone, ChangeDetectorRef } from '@angular/core';
-import { AccountGetModel, Video } from '../../../core/models/accountGet.model';
+import { AccountGetModel, Video, Rider } from '../../../core/models/accountGet.model';
 import { BaseComponent } from '../../../core/base/base.component';
 import { MainService } from '../../../core/services/main.service';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -12,8 +12,9 @@ import { TinyCalendarComponent, CalendarDate } from './tiny-calendar/tiny-calend
 import { CurrencyIcons, Currency } from '../../../core/models/preferences.model';
 import { TranslateService } from '../../../../../node_modules/@ngx-translate/core';
 import { SettingsService } from '../../../core/services/settings.service';
+import { saveAs} from 'file-saver';
 
-
+declare const Buffer;
 declare var audiojs:any;
 declare var $:any;
 declare var PhotoSwipeUI_Default:any;
@@ -27,8 +28,10 @@ declare var SC:any;
 })
 export class PreviewArtistComponent extends BaseComponent implements OnInit {
 
- 
+
   @Input() ArtistId:number;
+  @Input() CreatorId:number;
+  @Input() EventId:number;
   @Output() OnReturn = new EventEmitter();
 
   VenueImages:any;
@@ -56,7 +59,13 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
 
   onHover:boolean[] = [true,false,false,false];
 
-    constructor(
+
+  stageRider:Rider= new Rider();
+  backstageRider:Rider= new Rider();
+  hospitalityRider:Rider= new Rider();
+  technicalRider:Rider= new Rider();
+
+  constructor(
       protected main           : MainService,
       protected _sanitizer     : DomSanitizer,
       protected router         : Router,
@@ -77,18 +86,19 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
     this.InitMusicPlayer();
 
     this.WaitBeforeLoading(
-      ()=>this.main.accService.GetAccountById(this.ArtistId),
+      ()=>this.main.accService.GetAccountPreviewById(this.EventId,this.CreatorId,this.ArtistId),
       (res:AccountGetModel)=>{
         this.Artist = res;
-        this.CurrencySymbol = CurrencyIcons[this.Artist.currency];
+        // this.CurrencySymbol = CurrencyIcons[this.Artist.currency];
         if(this.Artist.genres)
           this.Artist.genres = this.main.genreService.BackGenresToShowGenres(this.Artist.genres);
         // console.log(`artist`,res);
-        this.CurrencySymbol = CurrencyIcons[this.Artist.currency];
+        this.CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
         this.GetDates();
         this.GetArtistImages();
         this.updateVideosPreview();
-        
+        this.GetRiders();
+
        // if(changes['ArtistId'].isFirstChange()) this.InitMusicPlayer();
         if(res.image_id){
          this.main.imagesService.GetImageById(res.image_id)
@@ -104,16 +114,11 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
 
   ngAfterViewInit(){
     this.positionScroller();
-        
-    
-    
-      
-  
   // this.InitMusicPlayer();
   }
 
   positionScroller(){
-    
+
     setTimeout(() => {
       if($(window).width() >= 768){
         $('.photos-abs-wrapp').css({
@@ -122,7 +127,7 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
         $('.new-photos-wr-scroll-preview').css({
           'padding-left': $('.for-position-left-js').offset()?$('.for-position-left-js').offset().left:0
         });
-    
+
       $(window).resize(function(){
           $('.photos-abs-wrapp').css({
               'max-height': $('.rel-wr-photoos').width()+'px'
@@ -139,8 +144,8 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
       $('.photos-abs-wrapp').css({
         'max-height': ($('.rel-wr-photoos').width()) +'px'
       });
-     
-  
+
+
       $(window).resize(function(){
         $('.new-photos-wr-scroll-preview').css({
             'padding-left': '15px'
@@ -148,7 +153,7 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
           $('.photos-abs-wrapp').css({
               'max-height': ($('.rel-wr-photoos').width())+'px'
           });
-          
+
       });
     }
   }, 2500);
@@ -171,8 +176,8 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
           if(date.date)
           this.EventDates.push({
             mDate: moment(date.date.split("T")[0]),
-            eventId: date.event_id 
-            
+            eventId: date.event_id
+
           });
         }
       if(this.Artist.disable_dates)
@@ -185,7 +190,38 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
     }
   }
 
+  // GetRiders(){
+  //   if(this.Artist&&this.Artist.artist_riders){
+  //     for(let r of this.Artist.artist_riders){
+  //       if(r.rider_type=='stage')
+  //         this.stageRider = r;
+  //       else if(r.rider_type=='backstage')
+  //         this.backstageRider = r;
+  //       else if(r.rider_type=='hospitality')
+  //         this.hospitalityRider = r;
+  //       else if(r.rider_type=='technical')
+  //         this.technicalRider = r;
+  //     }
+  //   }
+  // }
 
+  GetRiders(){
+    if(this.Artist){
+      this.main.accService.GetArtistRiders(this.ArtistId)
+        .subscribe((res)=>{
+          for(let r of res){
+            if(r.rider_type=='stage')
+              this.stageRider = r;
+            else if(r.rider_type=='backstage')
+              this.backstageRider = r;
+            else if(r.rider_type=='hospitality')
+              this.hospitalityRider = r;
+            else if(r.rider_type=='technical')
+              this.technicalRider = r;
+          }
+        })
+    }
+  }
 
   backPage(){
     this.OnReturn.emit();
@@ -213,7 +249,7 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
             });
             this.photos.push(p);
             this.positionScroller();
-            // console.log(`photos2`,this.photos);  
+            // console.log(`photos2`,this.photos);
           },
         (err) => {
         }
@@ -222,7 +258,7 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
   }
 
 
-  Gallery(index) 
+  Gallery(index)
     {
         let itemsPhoto = [];
         $('.for-gallery-item').each(function (e) {
@@ -239,7 +275,7 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
 
         });
         this.itemsPhotoss = itemsPhoto;
-        this.GalaryInit(index);   
+        this.GalaryInit(index);
     }
 
     GalaryInit(index)
@@ -260,14 +296,14 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
       $('html, body').animate({
         scrollTop: $(page).offset().top
       }, 1000);
-      
+
     }
 
     playAudio(s:string){
-  
+
       if(this.player&&  this.player.isPlaying())
         this.player.pause();
-  
+
       // console.log(s);
       this.audioDuration = 0;
       this.audioCurrentTime = 0;
@@ -276,27 +312,27 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
         SC.stream('/tracks/'+res.id).then((player)=>{
           this.player = player;
           this.player.play();
-    
+
           player.on('play-start',()=>{
             this.audioDuration = this.player.getDuration();
           })
-          
+
           setInterval(()=>{
              this.audioCurrentTime = this.player.currentTime();
           },100)
-          
+
           // setTimeout(()=>{
           //   player.pause()
           //   player.seek(0)
           // },10000)
-    
+
         });
-  
+
       },(err)=>{
         // console.log(`ERROR`)
       })
     }
-  
+
     stopAudio(){
       this.player.pause();
     }
@@ -306,16 +342,16 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
       let video_id ='';
       if(video.link.indexOf('youtube') !== -1){
         video_id = video.link.split('v=')[1];
-  
+
       }
       if(video.link.indexOf('youtu.be') !== -1){
         video_id = video.link.split('.be/')[1];
       }
-  
-  
+
+
       this.openVideoLink = this._sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+video_id+'?rel=0');
       this.isVideoOpen = true;
-  
+
       setTimeout(()=>{
         $('#modal-movie').modal('show');
         $('#modal-movie').on('hidden.bs.modal', () => {
@@ -328,15 +364,38 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
 
       for(let video of this.Artist.videos){
         let video_id ='';
-  
+
         if(video.link.indexOf('youtube')!== -1)
           video_id = video.link.split('v=')[1];
         if(video.link.indexOf('youtu.be')!== -1)
           video_id = video.link.split('be/')[1];
-  
+
         video.preview = 'https://img.youtube.com/vi/'+video_id+'/0.jpg';
       }
     }
+
+  downloadFile(fileBase64: string){
+    console.log(`download`,fileBase64);
+    if(fileBase64){
+      // this.main.accService.GetRiderById(id)
+      // .subscribe((res)=>{
+
+        let type = fileBase64.split(';base64,')[0].split('/')[1];
+        console.log(fileBase64.split(';base64,')[0]);
+        let file = fileBase64.split(';base64,')[1];
+
+        var decoded = new Buffer(file, 'base64');
+        var blob = new Blob([decoded], { type: type });
+        if(type==='plain')type='txt';
+        else if(type==='vnd.openxmlformats-officedocument.wordprocessingml.document')type='docx';
+
+        saveAs(blob,'Rider.'+type);
+
+      // }, (err)=>{
+      //   // console.log(err);
+      // })
+    }
+  }
 
 
 

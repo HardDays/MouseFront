@@ -1,0 +1,197 @@
+<app-preloader *ngIf="isLoading"></app-preloader>
+<section [ngStyle]="{'display': isLoading?'none':'block'}" class="second-router-outlet">
+    <section class="new-show-datails-wrapp">
+        <div class="main-mw">
+            <div class="flex-new-datails flex-new-datails-payment">
+                <a (click)="goBack()" class="back-page">
+                    <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M33 14.4378H7.83721L19.3872 2.88779L16.5 0L0 16.5L16.5 33L19.3872 30.1122L7.83721 18.5622H33V14.4378Z" fill="black"/>
+                    </svg>
+                    <span>back</span>
+                </a>
+                <div class="info-payment-left">
+                    <h1>{{Event.name}}</h1>
+                    <div class="bg-image">
+                        <div class="image-before">
+                            <div class="image" [ngStyle]="{'background-image': 'url(' + Image + ')'}"></div>
+                        </div>
+                    </div>
+                    <p class="small-descr">
+                        <span *ngIf="Event.exact_date_from">{{Event.exact_date_from | date : 'MMMM d, y'}} @ {{Time}}</span>
+                        <ng-container *ngIf="Event.venue">
+                            <span>{{Event.venue.display_name}}, {{Event.venue.address}}</span>
+                            {{Event.venue.city}}, {{Event.venue.state}} {{Event.venue.zipcode}}
+                            {{Event.venue.country}}
+                        </ng-container>
+                    </p>
+                </div>
+                <div class="info-payment-right">
+                    <!--страница выбора метода-->
+
+
+                    <div class="method-route" *ngIf="!PaymentSuccess && !PaymentFail">
+                        <h2>Payment Method</h2>
+                        <div class="info-payment">
+                            <ng-container *ngFor="let item of Tickets"> 
+                                <p translate>
+                                    {{item.ticket.type == 'in_person'?'In person':'VR'}} 
+                                        <span translate>
+                                            ({{item.ticket.is_promotional?'Promotional':'Regular'}}) 
+                                        </span>
+                                     Ticket: {{item.count}} @ <span><span [innerHTML]="Currency"></span>{{item.ticket.price}}</span> 
+                                     each
+                                </p>
+                            </ng-container>
+                            <p class="total">TOTAL: <span><span [innerHTML]="Currency"></span>{{Total}}</span></p>
+                        </div>
+                        <div class="for-flex-payment-blocks">
+                            <div class="one-collapsed-block">
+                                <!-- <p class="head-collapsed-block">APPLE PAY</p> -->
+                                <div class="flex-top-cart" data-toggle="collapse" data-target="#cart-4">
+                                    <img src="assets/img/pay-pal.png" class="img-responsive" alt="">
+                                    <div class="triangle"></div>
+                                </div>
+
+                                <form class="cart-info collapse" id="cart-4">
+
+                                    <div class="flexed-buy">
+                                        <button class="butt-style-1" (click)="BuyTicket()">
+                                            <span>Buy</span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <!--роут статуса оплаты ок-->
+
+        
+                    <div class="complete-route"  *ngIf="PaymentSuccess && !PaymentFail">
+                        <p class="c-1">Your payment is <span>Complete</span></p>  
+                        <p class="c-2">TOTAL: <span><span [innerHTML]="Currency"></span>{{Total}}</span></p>
+                        <div class="c-3-wrapp">
+                            <ng-container *ngFor="let item of Tickets"> 
+                                <p class="c-3" translate>
+                                    {{item.ticket.type == 'in_person'?'In person':'VR'}} 
+                                    <span translate>
+                                        ({{item.ticket.is_promotional?'Promotional':'Regular'}}) 
+                                    </span>
+                                    Ticket: {{item.count}} @ <span><span [innerHTML]="Currency"></span>{{item.ticket.price}}</span> 
+                                    each
+                                </p>
+                            </ng-container>
+                        </div>
+                        <p class="code">
+                            <span>Verification code:</span>{{Verification}}
+                        </p>
+                        <div class="flexed-print">
+                            <button class="butt-style-1" (click)="printTicket()" >
+                                <span>Print ticket</span>
+                            </button>
+                        </div>
+                    </div>
+       
+
+
+                    <!--роут статуса оплаты error-->
+        
+                    <div class="complete-route"  *ngIf="!PaymentSuccess && PaymentFail">
+                        <p class="c-1">failure</p>  
+                        <img src="assets/img/smile.svg" class="img-responsive middle-image" alt="">
+                        <div class="c-3-wrapp">
+                            <ng-container *ngFor="let item of Tickets"> 
+                                <p class="c-3" translate>
+                                    {{item.ticket.type == 'in_person'?'In person':'VR'}} 
+                                    <span translate>
+                                        ({{item.ticket.is_promotional?'Promotional':'Regular'}}) 
+                                    </span>
+                                    Ticket: {{item.count}} @ <span><span [innerHTML]="Currency"></span>{{item.ticket.price}}</span> 
+                                    each
+                                </p>
+                            </ng-container>
+                        </div>
+                            <div class="flexed-print">
+                            <button class="butt-style-1" (click)="BuyTicket()">
+                                <span>Try again</span>
+                            </button>
+                        </div>
+                    </div>
+       
+
+                </div>
+            </div>
+        </div>
+    </section>
+    
+</section>
+
+<section id="print" *ngIf="PaymentSuccess" class="for-print">
+        <div class="flex-header">
+            <div class="left-side">
+                <img src="../../assets/img/print-logo.png" class="img-responsive" alt="">
+                <img src='../../assets/img/print-logo-2.png' class="img-responsive" alt="">
+                <span translate>Tickets.E-ticket</span>
+            </div>
+            <div class="circle" *ngIf="Tickets[0]?.ticket?.min_age">{{Tickets[0].ticket.min_age}}+</div>
+        </div>
+        <div class="content-print" >
+            <p class="f1" translate>Tickets.Concert</p>
+            <p class="name-concert">{{Event.name}}</p>
+            <p class="when" [innerHTML]="Date">
+                
+            </p>
+            <p class="where">
+                {{Event.address}}, {{Event?.city?Event.city:''}}, {{Event?.state?Event.state:''}}
+            </p>
+            <div class="tickets-for-ng" *ngFor="let item of Tickets; let i = index">
+                <ng-container *ngFor="let itemCount of createRange(item.count); let currentElementIndex = index">
+
+                    <p class="name-ticket" *ngIf="item.ticket.type == 'in_person'">{{currentElementIndex + 1}}. <span translate>Tickets.In person ticket</span> </p>
+                    <p class="name-ticket" *ngIf="item.ticket.type == 'vr'">{{currentElementIndex + 1}}. <span translate>Tickets.Vr ticket</span></p>
+                    
+                    <div class="flex-info-ticket">
+                         <div class="col-info">
+                            <p class="name-col" translate>Tickets.Verification code</p>
+                            <p class="value">{{Verification}}</p>
+                        </div> 
+                        <div class="col-info">
+                            <p class="name-col" translate>Tickets.Customer</p>
+                            <p class="value">{{accountForPrint.first_name}} {{accountForPrint.last_name}}</p>
+                        </div>
+
+                        <div class="col-info">
+                            <p class="name-col" translate>Tickets.order date</p>
+                            <p class="value">{{dateOfpay | date : 'MMMM d, y'}}</p>
+                        </div>
+                        <div class="col-info">
+                            <p class="name-col" translate>Price</p>
+                            <p class="value"><i [innerHTML]="Currency"></i>{{item.ticket.price}}</p>
+                         <p *ngIf="MyCurrency != OriginalCurrency" class="c c-original"></p>
+                        </div>
+        
+                    </div>
+                    <div class="some-info-print">
+                        <p class="head-tt" translate>Description</p>
+                        <p class="some-text">{{item.ticket.description}}</p>
+                            
+                    </div>
+
+                </ng-container>
+            </div>
+        </div>
+        <div class="foot-print">
+            <p class="support" translate>Tickets.If you have any questions, please contact Mouse support  80 29 596 58 47</p>
+            <p class="seller" translate>Tickets.seller</p>
+            <div class="flex-logo-foot">
+                <img src="../../assets/img/print-logo.png" class="img-responsive" alt="">
+                <img src='../../assets/img/print-logo-2.png' class="img-responsive" alt="">
+            </div>
+        </div>
+    </section>
+
+
+
+

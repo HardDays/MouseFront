@@ -71,7 +71,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
 
   pages = Pages;
   currentPage = Pages.about;
-  
+
   // showAllPages:boolean = false;
 
 
@@ -131,14 +131,14 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
           );
         }
       }
-    );  
+    );
   }
 
   ngAfterViewChecked()
   {
       this.cdRef.detectChanges();
   }
-  
+
 
   DisplayArtistParams($artist?:AccountGetModel)
   {
@@ -163,14 +163,14 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
             this.Artist.artist_email = res.email.toString();
         }
       );
-      
+
     }
 
     this.ArtistImageId = ($artist && $artist.image_id) ? $artist.image_id : 0;
 
   }
 
- 
+
   //////////////////////////////////////////////
   SaveArtistByPages(artist:AccountCreateModel, goToNextPage:boolean = true)
   {
@@ -183,8 +183,8 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
       (res) => {
         this.DisplayArtistParams(res);
         this.main.GetMyAccounts(
-          () => 
-          { 
+          () =>
+          {
             this.main.CurrentAccountChange.next(res);
           }
         );
@@ -196,7 +196,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
             2000
           );
         }
-        
+
       },
       (err) => {
         this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'artist'));
@@ -214,8 +214,8 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
         this.errorCmp.OpenWindow(BaseMessages.Success);
         //this.main.SetCurrentAccId(this.ArtistId);
         this.main.GetMyAccounts(
-          () => 
-          { 
+          () =>
+          {
             this.main.CurrentAccountChange.next(res);
           }
         );
@@ -237,6 +237,12 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
 
   clickSaveButton(){
     this.Artist.currency = this.main.settings.GetCurrency();
+
+    delete this.Artist['audio_links'];
+    delete this.Artist['artist_albums'];
+    delete this.Artist['artist_videos'];
+    delete this.Artist['artist_riders'];
+
     if(this.BookingPage){
       if(!this.BookingPage.Artist.price_from||!this.BookingPage.Artist.price_to){
         this.errorCmp.OpenWindow('Please fill in all required fields!');
@@ -252,17 +258,21 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
           return;
       }
       else{
-        this.SaveCurrentPageAndNavigate(this.Artist);
+        this.RidersPage.getRiders();
+        setTimeout(() => {
+           this.SaveCurrentPageAndNavigate(this.Artist);
+        }, 500);
+
       }
-        
+
     }
-    
+
     else if(this.AboutPage){
       if(this.AboutPage.aboutForm.invalid){
         this.errorCmp.OpenWindow(this.getFormErrorMessage(this.AboutPage.aboutForm, 'artist'));
         return;
       }
-      else 
+      else
         this.AboutPage.clickSaveButton();
     }
     else if(this.PreviewPage){
@@ -272,6 +282,27 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
       this.SaveCurrentPageAndNavigate(this.Artist);
     }
 
+  }
+
+  clickVerifyButton(){
+    if(!this.Artist.price_from){
+      this.errorCmp.OpenWindow(`Please fill in Price From first!`);
+      return;
+    }
+    if(!this.Artist.price_to){
+      this.errorCmp.OpenWindow(`Please fill in Price From first!`);
+      return;
+    }
+
+    this.main.accService.VerifyAccount(this.ArtistId)
+      .subscribe(
+        (res)=>{
+          this.Artist.status = 'unchecked';
+        },
+        (err)=>{
+          console.log(`err`,err);
+        }
+      )
   }
 
 
@@ -296,8 +327,8 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
         this.DisplayArtistParams(res);
         // this.main.CurrentAccountChange.next(res);
         this.main.GetMyAccounts(
-          () => 
-          { 
+          () =>
+          {
             this.main.CurrentAccountChange.next(res);
           }
         );
@@ -317,7 +348,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
           // console.log(`NAVIGATE`);
           this.router.navigate(["/system","profile",this.ArtistId]);
         }
-        
+
       },
       (err) => {
         this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'artist'));
@@ -367,12 +398,12 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
     //         return;
     //       }
     //     }
-    //   } 
+    //   }
     // }
 
     this.SaveArtistNav();
   }
-  
+
   SaveArtistNav(){
     //this.main.GetMyAccounts();
     //this.main.SetCurrentAccId(this.ArtistId);
@@ -414,7 +445,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
     if(this.errorCmp&&this.errorCmp.isShown)
       this.errorCmp.CloseWindow();
     scrollTo(0,0);
-    
+
     this.currentPage = this.currentPage + 1;
   }
 

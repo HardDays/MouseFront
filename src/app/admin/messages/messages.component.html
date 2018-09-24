@@ -3,7 +3,7 @@
                 <div class="msg-new-head">
                     <div class="l-s">
                         <h1>Messages</h1>
-                        <input type="text" class="inp-style-1" placeholder="Search">
+                        <input type="text" [(ngModel)]="Search" (input)="getSearch($event.target.value)" class="inp-style-1" placeholder="Search">
                     </div>
                     <div class="r-s" [ngClass]="{'new-msg-style':IsNewMsgOpen}">
                         <p class="new-msg-text">New Message</p>
@@ -18,12 +18,12 @@
 
                 <div class="support_grey">
                     <div class="support_dialogs">
-                        <app-list-message [isNewMessageOpened]="IsNewMsgOpen" (onClickMessage)="openMessage($event)"></app-list-message>
+                        <app-list-message #ListMessage [Search]="Search" [isNewMessageOpened]="IsNewMsgOpen" (onClickMessage)="openMessage($event)"></app-list-message>
                     </div>
 
                     <div class="support_right">
-                      <app-open-message *ngIf="!IsNewMsgOpen" [MessageId]="MessageId"></app-open-message>
-                      <app-new-message *ngIf="IsNewMsgOpen"></app-new-message>
+                      <app-open-message *ngIf="!IsNewMsgOpen" [Dialog]="Message" (onSolved)="setSolved()" (onForward)="onForwardOpen()" (onDelete)="onDeleteOpen()"></app-open-message>
+                      <app-new-message *ngIf="IsNewMsgOpen" (onCreate)="onCreateNewMessage()"></app-new-message>
                     </div>
 
                 </div>

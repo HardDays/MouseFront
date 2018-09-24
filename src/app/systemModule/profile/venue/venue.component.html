@@ -83,7 +83,10 @@
                                 </div>
                                 <div class="side side-info side-map">
                                     <h6 translate>Location</h6>
-                                    <p class="about-text" *ngIf="Account.address">{{Account.address}}</p>
+                                    <p class="about-text" *ngIf="Account.address">
+                                        {{Account.street}}<br>
+                                        {{Account.city}}, {{Account.state}} {{Account.zipcode}}<br>
+                                        {{Account.country}}</p>
                                     <ng-container *ngIf="Account" >
                                         <div class="map" [ngStyle]="{'display':(Account.lat && Account.lng)?'block':'none'}">
                                             <agm-map #agmMap style="height:100%" [latitude]="Account.lat" [longitude]="Account.lng">
@@ -100,7 +103,7 @@
                             <div class="flex--info">
                                 <div [ngStyle]="{'display':isLoadingGallery?'none':'block'}" class="side scroller flex-header">
                                     <div class="for-scroll-padd">
-                                        <h6><span translate>Gallery</span> ({{VenueImagesChecked?VenueImagesChecked.length:'0'}})</h6>
+                                        <h6>{{'Gallery' | translate}} ({{VenueImagesChecked?VenueImagesChecked.length:'0'}})</h6>
                                         <input type="text" class="search-profile-inp-style"  placeholder="{{ 'Search' | translate }}" (input)='searchImagesVenue($event)'>
                                     </div>
                                     <div class="new-scroll-wr">
@@ -151,7 +154,7 @@
                                     </div>
                                 <div class="side scroller flex-header uniq-padd-style-funs">
                                     <div class="uniq-padd-3">
-                                        <h6><span translate>Fans</span> ({{Fans.length}})</h6>
+                                        <h6>{{'Fans' | translate}} ({{Fans.length}})</h6>
                                         <input type="text" class="search-profile-inp-style" placeholder="{{ 'Search' | translate }}" (input)='searchFans($event)'>
                                     </div>
                                     <div class="new-scroll-wr">

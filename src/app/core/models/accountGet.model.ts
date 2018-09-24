@@ -97,7 +97,8 @@ export class AccountGetModel{
         public late_cancellation_fee?:number,
         public refund_policy?:string,
         public artist_email?:string,
-        public artist_riders?:Rider[],
+        // public artist_riders?:Rider[],
+        public street?: string,
 
         public followers_count?: number,
         public following_count?: number,
@@ -112,6 +113,9 @@ export class AccountGetModel{
         public price_not_given?:number,
 
         public web_site?:string,
+
+        public reason?:string,
+        public reason_text?:string,
 
         public agreement?:{
              id?:number,

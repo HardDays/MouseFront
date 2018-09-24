@@ -27,23 +27,23 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
   bsRangeValue: Date[];
   maxDate = new Date();
   minDate = new Date();
-  bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-default' });;
+  bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, { containerClass: 'theme-default', showWeekNumbers:false });;
 
   accountId:number;
   type:string;
- 
+
   openMessage:InboxMessageModel = new InboxMessageModel();
   idCurMsg:number = 0;
-  
+
 
   isEditShow:boolean = false;
   isEditPrice:boolean = false;
 
   changePrice:number = 0;
   request:AccountSendRequestModel = new AccountSendRequestModel();
-  
+
   messages:InboxMessageModel[] = [];
-  
+
   accs:AccountGetModel[] = [];
   accOpen:AccountGetModel = new AccountGetModel();
 
@@ -64,15 +64,15 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
   ) {
     super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,settings);
   }
-  
-  ngOnInit() 
+
+  ngOnInit()
   {
-     
-     
+
+
     this.accountId = this.main.CurrentAccount.id;
     this.type = this.main.CurrentAccount.account_type;
     this.GetMessages();
-    
+
 
     this.main.MyAccountsChange.subscribe(
       (acc)=>{
@@ -85,7 +85,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
       }
     )
     // this.GetMessages();
-    
+
   }
 
   ngAfterViewChecked()
@@ -128,7 +128,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
       () => this.main.accService.GetInboxMessages(this.accountId),
       (res:InboxMessageModel[])=>{
         this.messages = res;
-        // console.log(res);
+        console.log(res);
         for(let m of this.messages){
           if(m.sender){
             if(m.sender.image_id){
@@ -147,7 +147,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
               .subscribe((res)=>{
                 // console.log(res);
                 this.openMessage = res;
-                
+
 
                  if(!this.openMessage.is_receiver_read){
                   this.main.accService.ReadMessageById(this.accountId,this.messages[0].id)
@@ -202,7 +202,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
 
       });
 
-          
+
   }
 
   changeItem(msg:InboxMessageModel,i:number)
@@ -211,7 +211,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
       // this.openMessage = null;
 
 
-      
+
 
       this.main.accService.GetInboxMessageById(this.accountId,msg.id)
         .subscribe((res)=>{
@@ -225,7 +225,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
                 this.messages.find(obj=>obj.id === this.openMessage.id).is_receiver_read = true;
               })
           }
-          
+
           this.openMessage.reply.unshift({
             created_at: this.openMessage.created_at,
             id:this.openMessage.id,
@@ -258,7 +258,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
     //   this.accOpen =  this.accs[i];
     //   this.setDateRange();
     // }
-  
+
 
   // openFullMessage(){
   //   this.main.accService.GetInboxMessageById(this.main.CurrentAccount.id,this.openMessage.id)
@@ -273,17 +273,17 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
   {
     let date = new Date(d),
         timeFrame = frame;
-   
+
     let endDate = new Date(date);
-    
+
     if(timeFrame == 'one_week')
     {
       endDate.setDate(endDate.getDate()+7);
-    }    
+    }
     else if(timeFrame == 'one_hour')
     {
       endDate.setHours(endDate.getHours()+1)
-    }   
+    }
     else if(timeFrame == 'one_day')
     {
       endDate.setDate(endDate.getDate()+1);
@@ -292,7 +292,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
     {
       endDate.setDate(endDate.getDate()+31);
     }
-     
+
     return endDate;
 
   }
@@ -381,7 +381,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
   }
 
   declineRequest(){
-    
+
     this.request.event_id = this.openMessage.message_info.event_info.id;
     this.request.id = this.accountId;
     this.request.message_id = this.openMessage.id;

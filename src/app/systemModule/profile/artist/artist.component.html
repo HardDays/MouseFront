@@ -116,17 +116,17 @@
                             <div class="flex--info">
                                 <div class="side flex-header scroller">
                                     <div class="for-scroll-padd">
-                                        <h6><span translate>Artist-create.Albums</span> ({{AlbumsChecked.length}})</h6>
+                                        <h6>{{'Artist-create.Albums' | translate}} ({{AlbumsChecked.length}})</h6>
                                         <input type="text" class="search-profile-inp-style"  placeholder="{{ 'Search' | translate }}" (input)='searchAlbums($event)'>
                                     </div>
                                     <div class="new-scroll-wr">
                                         <div class="blocks">
                                             <ng-container *ngFor="let item of AlbumsChecked">
-                                                    <a [href]="item.album_link" target="_blank" class="one-block new-link-to-sound" [ngStyle]="{'background-image': item.album_artwork?'url('+item.album_artwork+')':'url(../../assets/img/drake.jpg)'}">
-                                                        <div class="desc">
-                                                            <p class="name">{{item.album_name}}</p>
-                                                        </div>
-                                                    </a>
+                                                <a [href]="item.album_link" target="_blank" class="one-block new-link-to-sound" [ngStyle]="{'background-image': item.album_artwork?'url('+item.album_artwork+')':'url(../../assets/img/drake.jpg)'}">
+                                                    <div class="desc">
+                                                        <p class="name">{{item.album_name}}</p>
+                                                    </div>
+                                                </a>
                                             </ng-container>
                                             
                                         </div>
@@ -163,7 +163,7 @@
                                 </div>
                                 <div class="side flex-header scroller uniq-padd-style-funs">
                                     <div class="uniq-padd-3">
-                                        <h6><span translate>Fans</span> ({{FansChecked.length}})</h6>
+                                        <h6>{{'Fans' | translate }} ({{FansChecked.length}})</h6>
                                         <input type="text" class="search-profile-inp-style" placeholder="{{ 'Search' | translate }}" (input)='searchFans($event)'>
                                         
                                     </div>

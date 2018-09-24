@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ListMessageComponent } from './list-message/list-message.component';
 
 @Component({
   selector: 'app-messages',
@@ -7,11 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MessagesComponent implements OnInit {
 
+  @ViewChild('ListMessage') ListMessage:ListMessageComponent;
   IsNewMsgOpen = false;
-  MessageId:number = 0;
+  Message:any;
+  Search = '';
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onCreateNewMessage(){
+     this.ListMessage.getMessages();
+     this.IsNewMsgOpen = false;
+  }
+
+  getSearch(event){
+    console.log(event);
+    this.Search = event;
   }
 
   openNewMessage(){
@@ -19,7 +33,18 @@ export class MessagesComponent implements OnInit {
   }
 
   openMessage(event){
-    this.MessageId = event;
+    this.Message = event;
+  }
+
+  setSolved(){
+    this.Message.is_solved = true;
+    this.ListMessage.setSolved(this.Message.id);
+  }
+  onDeleteOpen(){
+    this.ListMessage.getMessages();
+  }
+  onForwardOpen(){
+    this.ListMessage.getMessages();
   }
 
 }

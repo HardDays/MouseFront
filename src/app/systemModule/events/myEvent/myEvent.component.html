@@ -7,7 +7,7 @@
     </div>
     <div class="white-desc-event" >
         <a [routerLink]="['/system','eventCreate',Event.id]" class="name-artist">{{Event.name}}</a>
-        <p *ngIf="(Event.event_month || Event.event_season)&& Event.event_year"  class="when">{{Event.event_month?Event.event_month:Event.event_season}}, {{Event.event_year}}</p>
+        <p *ngIf="(Event.event_month || Event.event_season)&& Event.event_year"  class="when">{{Event.event_month?Event.event_month:Event.event_season | translate}}, {{Event.event_year}}</p>
         <p class="where">{{Event.address}}</p>
         <p class="types" *ngIf="!Event.is_crowdfunding_event"><span translate>event.Number of ticket types:</span> {{Event.tickets?Event.tickets.length :'0'}}</p>
         <ng-container *ngIf="Event.is_crowdfunding_event">
@@ -16,7 +16,7 @@
             </div>
             <div class="funded-desc">
                 <p class="finded-proc" translate><span>{{Event.founded}}</span> show-folder.funded</p>
-                <p class="comlete-t">{{FoundedPercent?FoundedPercent:0 | number}}% <span translate>Complete</span></p>
+                <p class="comlete-t">{{FoundedPercent ? (FoundedPercent | number: '2.0-2') : (0 | number)}}% <span translate>Complete</span></p>
             </div>
         </ng-container>
         <!-- <p class="style-text-2"><span>60</span> Days to go</p> -->

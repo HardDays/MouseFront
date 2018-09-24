@@ -210,7 +210,8 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
       this.seeMore = true;
       for(let g of this.genres)
       {
-         if(this.translate.get(g.genre_show)['value'].toLowerCase().indexOf(this.search.toLowerCase())>=0||g.checked)
+          // ||g.checked
+         if(this.translate.get(g.genre_show)['value'].toLowerCase().indexOf(this.search.toLowerCase())>=0)
           g.show = true;
          else
           g.show = false;

@@ -65,7 +65,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
           }
       }
   }
-  
+
   constructor(
     protected main           : MainService,
     protected _sanitizer     : DomSanitizer,
@@ -259,7 +259,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
         g.show = true;
       }
     }
-    
+
     for(let g of this.Genres){
       if(count < 4){
         if(!g.checked){
@@ -289,7 +289,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
       this.seeMore = true;
       for(let g of this.Genres)
       {
-         if(this.translate.get(g.genre_show)['value'].toLowerCase().indexOf(this.search.toLowerCase())>=0||g.checked)
+         if(this.translate.get(g.genre_show)['value'].toLowerCase().indexOf(this.search.toLowerCase())>=0)
           g.show = true;
          else
           g.show = false;
@@ -307,10 +307,18 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
 
   seeMoreGenres()
   {
-    this.seeMore = true;
+    this.seeMore = !this.seeMore;
     // let checked = this.genres;
     // this.genres = this.genreService.GetAll(checked);
-    for(let g of this.Genres) g.show = true;
+    if(this.seeMore)
+      for(let g of this.Genres) g.show = true;
+    else
+    {
+      for(let g of this.Genres)
+        g.show = false;
+      this.seeFirstGenres();
+    }
+
   }
 
   CreateFun(){
@@ -328,11 +336,13 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
         }
       }
 
-     
+
       this.WaitBeforeLoading(
         ()=> this.FunId == 0 ? this.main.accService.CreateAccount(this.Fun) : this.main.accService.UpdateMyAccount(this.FunId,this.Fun),
         (res:any)=>{
           // this.DisplayFunParams(res);
+
+          window.scrollTo(0, 0);
           if(this.Fun.lat&&this.Fun.lng)
             {
               this.cordsMap.lat = this.Fun.lat;
@@ -340,14 +350,14 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
             }
           this.main.GetMyAccounts(
             () => {
-              this.main.CurrentAccountChange.next(res);       
+              this.main.CurrentAccountChange.next(res);
               this.router.navigate(['/system','profile',res.id]);
             }
           );
-          
+
         },
         (err:any)=>{
-      
+
           this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'fan'));
         }
       );
@@ -361,6 +371,19 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
   {
     $('#modal-map-2').modal('show');
     this.isShowMap = true;
+  }
+
+  clickVerifyButton(){
+    if(!this.Fun.user_name){
+      this.errorCmp.OpenWindow(`Please fill in Username first!`);
+      return;
+    }
+    this.main.accService.VerifyAccount(this.FunId)
+      .subscribe(
+        (res)=>{
+          this.Fun.status = 'unchecked';
+        }
+      )
   }
 
 

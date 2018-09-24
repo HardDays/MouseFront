@@ -39,7 +39,7 @@
                                 <mat-select [disabled]="Event.id" [(ngModel)]="Event.currency" (ngModelChange)="GetCurrentCurrency()" formControlName="currency">
                                     <mat-option [value]="'USD'">USD ($)</mat-option>
                                     <mat-option [value]="'EUR'">EUR (€)</mat-option>
-                                    <mat-option [value]="'RUB'">RUB (&#8381;)</mat-option>
+                                    <mat-option [value]="'RUB'">RUB (Р)</mat-option>
                                 </mat-select>
                             </mat-form-field>
 
@@ -105,7 +105,7 @@
                                     <div class="rr">
                                         <span class="desc-date" translate>event.about-fold.Start Date</span>
 
-                                        <input #dpFrom="bsDatepicker" bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerFromModel" class="input-date">
+                                        <input (onShown)="onShowPicker($event)" #dpFrom="bsDatepicker" bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerFromModel" class="input-date">
                                     </div>
                                 </div>
                                 <div class="one-date-block">
@@ -113,7 +113,7 @@
                                     <div class="rr">
                                         <span class="desc-date" translate>event.about-fold.End Date</span>
 
-                                        <input #dpTo="bsDatepicker" bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerToModel" class="input-date">
+                                        <input (onShown)="onShowPicker($event)" #dpTo="bsDatepicker" bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerToModel" class="input-date">
                                     </div>
                                 </div>
                     </div>
@@ -272,9 +272,8 @@
                         </div>
                     </div>
 
-                    <div class="flex-input-groupes">
+                    <!-- <div class="flex-input-groupes">
                         <div *ngIf="Event.date_from" class="input-groupe-1">
-                          <!-- {{Event.date_from|date:'MMM' | translate}} {{Event.date_from|date:'d, y'}} -->
                             <input disabled id="inp-create-3" name="date_from" type="text" value="{{Event.date_from|date:'MM/dd/y' | translate}}">
                             <label for="inp-create-3" translate>event.about-fold.Exact date from</label>
 
@@ -284,18 +283,18 @@
                             <label for="inp-create-3" translate>event.about-fold.Exact date to</label>
 
                         </div>
-                    </div>
+                    </div> -->
                     <div *ngIf="Event.date_from" class="flex-input-groupes">
                         <div class="input-groupe-1">
                           <!-- #dpFrom="bsDatepicker" bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerFromModel" -->
                           <!-- [ngModel]="Event.exact_date_from|date:'MMM d, y'"  (ngModelChange)="Event.exact_date_from=$event" -->
-                            <input #dpExact="bsDatepicker" [disabled]="Event.status != 'denied' && Event.status!= 'just_added' && Event.status!= 'pending' && Event.status!= 'approved'" bsDatepicker [bsConfig]="bsConfig" [(bsValue)]="datepickerExactModel"  [ngModelOptions]="{standalone: true}" id="inp-create-4" name="exact_date_from" type="text">
+                            <input #dpExact="bsDatepicker" (onShown)="onShowPicker($event)"  [minDate]="minDate" [maxDate]="maxDate" [disabled]="Event.status != 'denied' && Event.status!= 'just_added' && Event.status!= 'pending' && Event.status!= 'approved'" bsDatepicker [bsConfig]="bsConfig" [(bsValue)]="datepickerExactModel"  [ngModelOptions]="{standalone: true}" id="inp-create-4" name="exact_date_from" type="text">
                             <label for="inp-create-4" translate>Exact date</label>
                         </div>
                          <!-- [disabled]="!Event.exact_date_from" -->
                         <button style="width: 125px; border: 3px solid rgba(235, 45, 100, 0.5); border-radius: 50px;"
                           *ngIf="Event.status === 'denied' || Event.status === 'just_added' || Event.status === 'pending' || Event.status === 'approved'"
-                         
+
                           (click)="SetExactDate()"
                           class="butt-style-1"
                         >

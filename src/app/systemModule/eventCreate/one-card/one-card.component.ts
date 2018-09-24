@@ -18,6 +18,8 @@ export class OneCardComponent extends BaseComponent implements OnInit {
   @Input('status') status: string;
   @Input('price') price: number;
   @Input('currency') currency: string;
+  @Input('reason') reason: string;
+  @Input('reasonText') reasonText: string;
   // @Input('messageId') messageId: number;
 
   @Output('accepted') accept = new EventEmitter<AccountGetModel>();
@@ -34,7 +36,7 @@ export class OneCardComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
 
-    
+
     // console.log(this.currency);
     this.CurrencySymbol = CurrencyIcons[this.currency];
     // this.getPrice();
@@ -49,7 +51,7 @@ export class OneCardComponent extends BaseComponent implements OnInit {
     if(change.price){
       this.price = change.price.currentValue;
     }
-    
+
   }
 
 
@@ -95,6 +97,6 @@ export class OneCardComponent extends BaseComponent implements OnInit {
     this.open.emit(this.card.id);
   }
 
-  
+
 
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Output } from '@angular/core';
 import { BaseComponent } from '../../../core/base/base.component';
 
 @Component({
@@ -15,6 +16,8 @@ export class NewMessageComponent extends BaseComponent implements OnInit {
 
   TextTopic = '';
   TextMessage = '';
+
+  @Output() onCreate = new EventEmitter<boolean>();
 
   // @ViewChild('searchAdmin') searchAdmin: ElementRef;
 
@@ -51,7 +54,7 @@ export class NewMessageComponent extends BaseComponent implements OnInit {
   hideList(){
     setTimeout(() => {
       this.openAdminsList();
-    }, 500);
+    }, 200);
   }
 
   sendNewMessage(){
@@ -62,6 +65,7 @@ export class NewMessageComponent extends BaseComponent implements OnInit {
       .subscribe(
         (res)=>{
           console.log(`send ok`);
+          this.onCreate.emit(true);
         }
       )
   }
@@ -70,11 +74,13 @@ export class NewMessageComponent extends BaseComponent implements OnInit {
     console.log(`add`);
     this.AdminsListAdded.push(admin);
     console.log(this.AdminsListAdded);
+    this.hideList();
     // this.openAdminsList();
   }
 
   deleteAdded(admin){
     this.AdminsListAdded = this.AdminsListAdded.filter(obj=>obj.user_name!=admin.user_name);
+    this.hideList();
   }
 
 }

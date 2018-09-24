@@ -70,20 +70,20 @@
             <div class="admin_table_th">Status</div>
             <div *ngIf='isApprovedBy' class="admin_table_th">{{status}} by</div>
         </div>
-      <div *ngIf="Accounts" class="admin_table_tbody" infinite-scroll 
+      <div *ngIf="Accounts" class="admin_table_tbody" infinite-scroll
             [infiniteScrollDistance]="2"
             [infiniteScrollThrottle]="50"
             (scrolled)="onScrollArtist()"
             [infiniteScrollDisabled]="ScrollArtistDisabled">
           <ng-container *ngFor="let acc of Accounts; let i = index">
-            <div *ngIf="acc.status === status || (acc.status==='just_added' && status == 'new') || status == 'all' || !status" [ngClass]="{'checked':acc.status==='just_added'}"  class="admin_table_tr">
+            <div *ngIf="acc.status === status || (acc.status==='just_added' && status == 'new') || status == 'all' || !status" [ngClass]="{'checked':acc.status==='unchecked'}"  class="admin_table_tr">
                 <!-- <div class="admin_table_td check_column">
                     <div class="admin_table_checkbox">
                         <input (change)="checkIdToOpen(acc.id)" type="checkbox" id="new_acc_{{i}}">
                         <label for="new_acc_{{i}}"></label>
                     </div>
                 </div> -->
-                <div class="admin_table_td"><span>{{(acc.created_at|date:'dd.MM.yyyy')?(acc.created_at|date:'dd.MM.yyyy'):''}}</span><span *ngIf="!acc.created_at" class="line-only-for-admin-tables"></span></div>
+                <div class="admin_table_td"><span>{{(acc.created_at|date:'MM.dd.yyyy')?(acc.created_at|date:'MM.dd.yyyy'):''}}</span><span *ngIf="!acc.created_at" class="line-only-for-admin-tables"></span></div>
                 <div (click)="openAccount(acc.id)" class="admin_table_td account"  style="cursor: pointer;">
                         <!-- style="background-image: url(./../../../assets/img/admin/example_revenue_event.jpg); min-width: 37px;" -->
                     <span class="acc_ava" style="min-width: 37px;" [ngStyle]="getImage(acc.image_id)"></span>
@@ -96,7 +96,7 @@
             </div>
           </ng-container>
           <!-- При выделении чекбокса добавляется класс CHECKED: -->
-          
+
       </div>
 
       <div *ngIf="Events" class="admin_table_tbody">
@@ -108,12 +108,12 @@
                           <label for="new_acc_{{i}}"></label>
                       </div>
                   </div> -->
-                  <div class="admin_table_td"><span>{{(event.received_date|date:'dd.MM.yyyy')?(event.received_date|date:'dd.MM.yyyy'):""}}</span><span *ngIf="!event.received_date" class="line-only-for-admin-tables"></span></div>
+                  <div class="admin_table_td"><span>{{(event.received_date|date:'MM.dd.yyyy')?(event.received_date|date:'MM.dd.yyyy'):""}}</span><span *ngIf="!event.received_date" class="line-only-for-admin-tables"></span></div>
                   <div (click)="openEvent(event.id)" class="admin_table_td account" style="cursor: pointer;">
                       <!-- <span class="acc_ava" style="background-image: url(./../../../assets/img/admin/example_revenue_event.jpg)"></span> -->
                       <span>{{event.name}}</span>
                   </div>
-                  <div class="admin_table_td"><span>{{(event.date_from|date:'dd.MM.yyyy')?(event.date_from|date:'dd.MM.yyyy'):''}}</span><span *ngIf="!event.date_from" class="line-only-for-admin-tables"></span></div>
+                  <div class="admin_table_td"><span>{{(event.date_from|date:'MM.dd.yyyy')?(event.date_from|date:'MM.dd.yyyy'):''}}</span><span *ngIf="!event.date_from" class="line-only-for-admin-tables"></span></div>
                   <div class="admin_table_td"><span class="ellips-text">{{event.address?event.address:""}}</span><span *ngIf="!event.address" class="line-only-for-admin-tables"></span></div>
                   <div class="admin_table_td"><span>{{event.is_crowdfunding_event?'Crowdfund':'Regular'}}</span></div>
                   <div class="admin_table_td text-uppercase"><span [ngClass]="{'status_pending':event.status=='pending','status_approved':event.status=='approved','status_new':event.status=='new','status_denied':event.status=='denied','status_inactive':event.status=='inactive'}">{{event.status.replace('_',' ')}}</span></div>
