@@ -57,7 +57,7 @@ export class AdminComponent extends BaseComponent implements OnInit {
       // console.log(`AdminComponent`,this.main.authService.GetToken());
 
 
-      // this.ng2cable.subscribe('ws://mouse-back.herokuapp.com/cable', 'AdminMessagesChannel', { Authorization: this.main.authService.GetToken() });
+      // this.ng2cable.subscribe('wss://mouse-back.herokuapp.com/cable', 'AdminMessagesChannel', { Authorization: this.main.authService.GetToken() });
       // //By default event name is 'channel name'. But you can pass from backend field { action: 'MyEventName'}
 
       // this.broadcaster.on<any>('AdminMessagesChannel').subscribe(
