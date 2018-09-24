@@ -50,4 +50,9 @@ button[disabled]{
   border: none;
   outline: none;
   padding: 3px 0;
+  margin-right: 10px;
 }
+question .title.done:after {
+    content: url(./../../../assets/img/ok-msg.svg);
+    padding-left: 7px;
+ }
