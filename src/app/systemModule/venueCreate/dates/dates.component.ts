@@ -137,13 +137,16 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
         if($event.date_range){
             curr_date.date(curr_date.date() +1);
             while(curr_date <= end_date){
+                
                 arr.push(this.CalendarFormToVenueDate(curr_date.toDate(),$event));
                 curr_date.date(curr_date.date() +1);
             }
         }
+        console.log("dates", arr);
         this.main.accService.SaveVenueDatesAsArray(this.VenueId, {dates: arr})
             .subscribe(
                 (res: any) => {
+                    console.log("res", res);
                     this.ChangeDates();
                 }
             );
@@ -156,8 +159,11 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
         model.is_available = data.is_available;
         if(model.is_available)
         {
-            model.price_for_daytime = parseFloat(data.price_for_daytime);
-            model.price_for_nighttime = parseFloat(data.price_for_nighttime);
+            if(data.price_for_daytime !== null)
+                model.price_for_daytime = parseFloat(data.price_for_daytime);
+            if(data.price_for_nighttime !== null)
+                model.price_for_nighttime = parseFloat(data.price_for_nighttime);
+            
             model.currency = this.MyCurrency;
         }
         return model;

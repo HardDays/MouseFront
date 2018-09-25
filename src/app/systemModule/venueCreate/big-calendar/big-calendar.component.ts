@@ -106,6 +106,7 @@ export class BigCalendarComponent implements OnInit, OnChanges {
           this.sortedDates = _.sortBy(changes.selectedDates.currentValue, (m: CalendarDate) => m.mDate.valueOf());
     }
     this.generateCalendar();
+    console.log(this.changedPrice);
   }
   GetEventsInfo(){
     this.Images = [];
@@ -291,9 +292,24 @@ export class BigCalendarComponent implements OnInit, OnChanges {
 
 
   isChangedPrice(date: moment.Moment): boolean {
-    return _.findIndex(this.changedPrice, (changed) => {
-      return moment(date).isSame(changed.mDate, 'day');
-    }) > -1;
+    // const index = this.changedPrice.findIndex(changed => date.toDate().toDateString() == changed.mDate.toDate().toDateString());
+    for(let changed of this.changedPrice)
+    {
+      if(moment(date).isSame(changed.mDate, 'day') && (changed.nightPrice || changed.dayPrice))
+      {
+        return true;
+      }
+    }
+    // console.log(
+    // {
+    //   "date":date.toISOString(),
+    //   "index":index
+    // }
+    // );
+    return false;
+    // return _.findIndex(this.changedPrice, (changed) => date.format("MM-DD-YYYY") == changed.mDate.format("MM-DD-YYYY")) != -1;
+    //return date.isSame(changed.mDate,'day');
+      // return moment(date).isSame(changed.mDate, 'day');
   }
 
   isCurrency(date: moment.Moment): string{

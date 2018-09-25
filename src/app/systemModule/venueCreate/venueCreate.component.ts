@@ -202,7 +202,6 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
         );
       },
       (err) => {
-        // console.log(err);
         this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'venue'));
       }
     )
@@ -232,7 +231,6 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
         );
       },
       (err) => {
-        console.log(err);
         this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'venue'));
       }
     )
@@ -276,7 +274,6 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
           this.about.aboutForm.updateValueAndValidity();
           if(this.about.aboutForm.invalid)
           {
-            // console.log(`!!!`);
             this.OpenErrorWindow(this.getFormErrorMessage(this.about.aboutForm, 'venue'));
             return;
           }
