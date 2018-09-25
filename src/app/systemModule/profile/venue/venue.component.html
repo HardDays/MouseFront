@@ -45,9 +45,14 @@
                                     <h6 translate>Contact Info</h6>
                                     <div class="flex-contact-venue">
                                         <div class="column-cont">
-                                            <div class="one-cont">
+                                            <div class="one-cont" *ngIf="Account.phone">
                                                 <p class="head-cont" translate>PHONE:</p>
-                                                <span *ngIf="Account.phone">{{Account.phone|phone}}</span>
+                                                <span>{{Account.phone|phone}}</span>
+                                            </div>
+
+                                            <div class="one-cont" *ngIf="Account.fax">
+                                                <p class="head-cont" translate>FAX:</p>
+                                                <span>{{Account.fax|phone}}</span>
                                             </div>
                                         </div>
                                         <div class="column-cont">

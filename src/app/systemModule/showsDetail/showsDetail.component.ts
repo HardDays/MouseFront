@@ -399,6 +399,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
 
     GetTickets()
     {
+        // console.log("tickets", this.Event.tickets);
         if(this.Event.tickets && this.Event.tickets.length > 0){
             for(const item of this.Event.tickets)
             {
