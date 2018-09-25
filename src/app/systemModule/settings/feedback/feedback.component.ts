@@ -20,7 +20,7 @@ import { SettingsService } from '../../../core/services/settings.service';
 export class FeedbackComponent extends BaseComponent implements OnInit {
 
   @ViewChild('errorCmp') errorCmp: ErrorComponent;
-  
+
   Feedback:FeedbackModel = new FeedbackModel();
   FormFeedback : FormGroup = new FormGroup({
     "feedback_topic":new FormControl("",[Validators.required]),
@@ -63,15 +63,21 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
               this.Feedback.message = '';
               this.Feedback.feedback_type = '';
               this.Rating = 0;
+            },
+            (err)=>{
+              if(err.json()['rate_score'][0] === "is not included in the list")
+                this.errorCmp.OpenWindow('Please rate how we are doing first!');
+              else
+                this.errorCmp.OpenWindow(BaseMessages.Fail);
             }
           );
       }
       else {
-          this.errorCmp.OpenWindow(BaseMessages.Fail);  
+          this.errorCmp.OpenWindow(BaseMessages.Fail);
       }
     }
-   
-    
+
+
   }
 
 }

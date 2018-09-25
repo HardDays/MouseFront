@@ -207,14 +207,14 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   {
     this.Event.account_id = this.CurrentAccount.id;
     // this.Event.currency = this.main.settings.GetCurrency();
-    //if(this.Event.venue){
+    if(this.Event.venue){
       delete this.Event['address'];
       delete this.Event['city_lat'];
       delete this.Event['city_lng'];
 
       delete this.Event['date_from'];
       delete this.Event['date_to'];
-    //}
+    }
 
     if(!this.isNewEvent)
       this.FunService(

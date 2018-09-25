@@ -326,7 +326,25 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
 
   }
 
+
   clickVerifyButton(){
+    if(!this.Venue.capacity){
+      this.OpenErrorWindow('Please full in capacity first');
+      return;
+    }
+    if(!this.Venue.audio_description){
+      this.OpenErrorWindow('Please full in audio description first');
+      return;
+    }
+    if(!this.Venue.lighting_description){
+      this.OpenErrorWindow('Please full in lighting description first');
+      return;
+    }
+    if(!this.Venue.stage_description){
+      this.OpenErrorWindow('Please full in stage description first');
+      return;
+    }
+
     this.main.accService.VerifyAccount(this.VenueId)
       .subscribe(
         (res)=>{

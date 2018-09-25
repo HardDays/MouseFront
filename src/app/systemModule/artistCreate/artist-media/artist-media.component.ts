@@ -37,12 +37,12 @@ export class ArtistMediaComponent extends BaseComponent implements OnInit {
   addSongForm: FormGroup = new FormGroup({
     "song_name": new FormControl("", [Validators.required]),
     "album_name": new FormControl("", [Validators.required]),
-    "audio_link": new FormControl("", [Validators.required])
+    "audio_link": new FormControl("", [Validators.required, Validators.pattern(/(https:\/\/|http:\/\/)[a-zA-Z0-9-_]+/)])
   });
   addAlbumForm: FormGroup = new FormGroup({
-    "album_artwork": new FormControl("", [Validators.required]),
+    "album_artwork": new FormControl("", [Validators.required, Validators.pattern(/(https:\/\/|http:\/\/)[a-zA-Z0-9-_]+/)]),
     "album_name": new FormControl("", [Validators.required]),
-    "album_link": new FormControl("", [Validators.required])
+    "album_link": new FormControl("", [Validators.required, Validators.pattern(/(https:\/\/|http:\/\/)[a-zA-Z0-9-_]+/)])
   });
   addVideoForm: FormGroup = new FormGroup({
     "album_name": new FormControl("", [Validators.required]),

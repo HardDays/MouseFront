@@ -30,6 +30,7 @@ declare var $:any;
   styleUrls: ['./fan-create.component.css']
 })
 export class FanCreateComponent extends BaseComponent implements OnInit,AfterViewChecked {
+
   Fun:AccountCreateModel = new AccountCreateModel();
   FunId:number = 0;
   search:string = '';
@@ -41,6 +42,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
   avatar:string = '';
   ImageId:number = 0;
   isEng:boolean;
+
   @ViewChild('errorCmp') errorCmp: ErrorComponent;
   @ViewChild('submitFormFun') form: FormGroup;
   @ViewChild('search') public searchElement: ElementRef;
@@ -226,6 +228,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
     this.Fun = $Fun ? this.main.accService.AccountModelToCreateAccountModel($Fun) : new AccountCreateModel();
     // this.Venue.account_type = AccountType.Venue;
     // this.Venue.venue_type = VenueType.Public;
+
 
     this.WaitBeforeLoading(
       () => this.main.genreService.GetAllGenres(),
