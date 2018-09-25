@@ -33,7 +33,7 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
   @Output() OnSave = new EventEmitter<UserCreateModel>();
 
   @ViewChild('errorCmp') errorCmp: ErrorComponent;
-  
+
   constructor(
     protected main           : MainService,
     protected _sanitizer     : DomSanitizer,
@@ -47,13 +47,13 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
   ) {
     super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,settings);
   }
-  
-  
+
+
   ngOnInit() {
     // console.log(`init!`);
 
     this.InitModals();
-   
+
 
   }
   ngOnChanges(){
@@ -91,27 +91,32 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
   SaveUser(){
     // console.log(`save user`,this.User);
     // this.User.register_phone = this.convertPhoneToSend(this.phone);
-    this.main.authService.UpdateUser(this.User)
-      .subscribe(
-          (res)=>{
-              this.User = res;
-              // if(this.User.image_id){
-              //   this.main.imagesService.GetImageById(this.User.image_id)
-              //     .subscribe((res)=>{
-              //       console.log(`res img`, res);
-              //       this.User.image_base64 = res.base64;
-              //     })
-              // }
-              this.errorCmp.OpenWindow(BaseMessages.Success);
-              // console.log(`res`,this.User);
-              this.main.GetMyUser();
-              
-          },
-          (err)=>{
-              // console.log(`err`,err);
-              this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
-          }
-      );
+    if(!this.User.password||(this.User&&this.User.password.length>=6)){
+      this.main.authService.UpdateUser(this.User)
+        .subscribe(
+            (res)=>{
+                this.User = res;
+                // if(this.User.image_id){
+                //   this.main.imagesService.GetImageById(this.User.image_id)
+                //     .subscribe((res)=>{
+                //       console.log(`res img`, res);
+                //       this.User.image_base64 = res.base64;
+                //     })
+                // }
+                this.errorCmp.OpenWindow(BaseMessages.Success);
+                // console.log(`res`,this.User);
+                this.main.GetMyUser();
+
+            },
+            (err)=>{
+                console.log(`err`,err);
+                this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
+            }
+        );
+    }
+    else {
+      this.errorCmp.OpenWindow(`This password is too short!`);
+    }
   }
 
   inputPhone($event){
@@ -134,7 +139,7 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
           (err)=>{
             if(err.json()&&err.json()['phone']&&err.json()['phone']==='ALREADY_USED')
               this.errorCmp.OpenWindow('Phone is already used!');
-            
+
           }
       );
     }
@@ -142,7 +147,7 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
       this.phoneArr = true;
     }
   }
-  
+
   inputCode($event,num:number){
     if($event.target.value&&$event.target.value.length==1){
       if(num==1){
@@ -181,7 +186,7 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
           },
           (err)=>{
             this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
-            
+
           }
       );
     }
@@ -200,7 +205,7 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
   getCurrentNumber(val){
     if(!val)
         return '';
-        
+
         let phone = '';
         // console.log(`val`,val);
 
@@ -228,13 +233,13 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
         }
 
         phone = phone.replace('_','');
-       
+
         return phone.length?phone:val;
   }
 
   convertPhoneToSend(phone:string){
     return phone.replace(new RegExp('-', 'g'),'').replace(new RegExp(' ', 'g'),'').replace('(','').replace(')','');
   }
-  
+
 
 }

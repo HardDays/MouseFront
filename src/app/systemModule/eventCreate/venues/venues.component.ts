@@ -540,7 +540,10 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                 //this.submitVenue();
 
             },(err)=>{
-                this.onError.emit("Venue NOT accepted! "+this.getResponseErrorMessage(err));
+                if(err.json()['errors']==='Invalid date')
+                  this.onError.emit("Venue NOT accepted! Invalid date");
+                else
+                  this.onError.emit("Venue NOT accepted! "+this.getResponseErrorMessage(err));
                 // console.log(`err`,err);
             });
     }

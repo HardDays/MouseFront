@@ -719,7 +719,7 @@ export class BaseComponent{
                 strEr = this.GetTranslateString(strEr)?this.GetTranslateString(strEr):strEr;
                 return String(strEr)
               }
-              else if (key === 'link'){
+              else if (key === 'link' || key === 'album_link' || key === 'album_artwork'){
                 let strEr = (BaseMessages.LinkPattern).replace('_link', keyDict[key]);
                 strEr = this.GetTranslateString(strEr)?this.GetTranslateString(strEr):strEr;
                 return String(strEr)
@@ -771,7 +771,7 @@ export class BaseComponent{
             let error = err.json()[key][0];
             // const str = error? this.GetTranslateString(error.replace('_', ' ')):null;
 
-            errors.push(this.GetTranslateString(keyDict[key]) + ' ' + (error? this.GetTranslateString(error.replace('_', ' ').toLowerCase()):'').toLowerCase());
+            errors.push(this.GetTranslateString(keyDict[key]) + ' ' + (error? this.GetTranslateString(error.replace('_', ' ').toLowerCase()):''));
       });
     //   console.log(errors);
       return errors.join('<br/>');
