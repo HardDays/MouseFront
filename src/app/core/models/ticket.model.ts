@@ -15,7 +15,8 @@ export class TicketModel{
         public promotional_date_from?: string,
         public promotional_date_to?: string,
         public currency?:string,
-        public original_price?: number
+        public original_price?: number,
+        public tickets_left?: number
         
 ){}
 }

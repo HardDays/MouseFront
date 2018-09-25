@@ -26,7 +26,7 @@ export class ByTicketComponent extends BaseComponent implements OnInit {
     {
         this.Currency = CurrencyIcons[this.main.settings.GetCurrency()];
         this.OriginalCurrency = CurrencyIcons[this.Ticket.ticket.currency];
-        this.TotalCount = this.Ticket.ticket.count;
+        this.TotalCount = this.Ticket.ticket.tickets_left;
         this.Count = 0;
         // this.Count = 100;
         // this.Ticket.count = -100;
@@ -45,8 +45,8 @@ export class ByTicketComponent extends BaseComponent implements OnInit {
 
     ChangeCount(int:number)
     {
-        this.Ticket.count += (this.Ticket.count+ int >= 0 ) && (this.Ticket.count + int <= this.Ticket.ticket.count)?int:0;
-        this.TotalCount = this.Ticket.ticket.count - this.Ticket.count;
+        this.Ticket.count += (this.Ticket.count+ int >= 0 ) && (this.Ticket.count + int <= this.Ticket.ticket.tickets_left)?int:0;
+        this.TotalCount = this.Ticket.ticket.tickets_left - this.Ticket.count;
         this.OnCountTicketChanges.emit(this.Ticket);
     }
 }
