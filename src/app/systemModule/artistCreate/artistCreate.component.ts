@@ -286,11 +286,11 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
 
   clickVerifyButton(){
     if(!this.Artist.price_from){
-      this.errorCmp.OpenWindow(`Please fill in Price From first!`);
+      this.errorCmp.OpenWindow(`Please fill in Price first!`);
       return;
     }
     if(!this.Artist.price_to){
-      this.errorCmp.OpenWindow(`Please fill in Price From first!`);
+      this.errorCmp.OpenWindow(`Please fill in Price first!`);
       return;
     }
 

@@ -400,8 +400,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
 
                     this.isLoadingVenue = false;
                     this.GetVenuesImages();
-
-         });
+        });
     }
 
     textChange(str:string){
@@ -565,7 +564,6 @@ export class VenuesComponent extends BaseComponent implements OnInit {
   }
 
     declineVenue(){
-
         this.main.eventService.VenueDeclineOwner(this.ownerAcceptDecline).
             subscribe((res)=>{
                 $('#modal-decline').modal('hide');

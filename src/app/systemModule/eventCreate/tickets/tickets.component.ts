@@ -217,7 +217,13 @@ updateTicket(){
                 //console.log(`update`,res);
                 this.updateEventTickets();
             },(err)=>{
-                this.onError.emit('<b>Failed!</b> Tickets limit expired');
+              console.log(err);
+
+                if(err.json()['tickets']==='ALREADY_BOUGHT'){
+                  this.onError.emit('<b>Failed!</b> Tickets already bought!');
+                }
+                else
+                  this.onError.emit('<b>Failed!</b> Tickets limit expired');
             });
     }
 }
