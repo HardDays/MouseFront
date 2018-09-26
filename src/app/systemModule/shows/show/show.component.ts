@@ -109,6 +109,7 @@ export class ShowItemComponent extends BaseComponent implements OnChanges {
     {
         if(this.Show && this.Show.image_id)
         {
+            console.log(this.Show);
             this.Image = this.main.imagesService.GetImagePreview(this.Show.image_id,{width:500,height:500});
         }
     }

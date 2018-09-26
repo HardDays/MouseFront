@@ -1,0 +1,17 @@
+.support_dialogs{
+    max-height: calc(100vh - 156px);
+    overflow: auto;
+    direction: rtl;
+    position: relative;
+    padding-left: 10px;
+    left: -5px;
+}
+.support_dialogs::-webkit-scrollbar {
+    background: #f1f1f1;
+    width: 5px;
+}
+.support_dialogs::-webkit-scrollbar-thumb{
+    background: #d9d9d9;
+    border-radius: 2.5px;
+    cursor: pointer;
+}

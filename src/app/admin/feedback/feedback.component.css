@@ -27,3 +27,9 @@
 .support_right .support_mes .mes_head{
     margin-bottom: 20px;
 }
+
+.support_dialogs_item .info .username.shared:after {
+
+    content: url(./../../../assets/img/shared.svg);
+     padding-left: 7px;
+ }
