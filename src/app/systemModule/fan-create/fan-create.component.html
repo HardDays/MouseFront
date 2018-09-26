@@ -12,15 +12,15 @@
                     <div class="for-flex-add-fan">
                         <div class="side left-side">
                             <div class="photo-wr-1">
-                                    <label *ngIf="!avatar" class="file_upload">
-                                        <div class="bg-image"></div>
-                                        <p translate>Add photo</p>
-                                        <input accept=".jpg, .jpeg, .png" type="file"  (change)="loadLogo($event)">
-                                    </label>
+                                <label *ngIf="!avatar" class="file_upload">
+                                    <div class="bg-image"></div>
+                                    <p translate>Add photo</p>
+                                    <input accept=".jpg, .jpeg, .png" type="file"  (change)="loadLogo($event)">
+                                </label>
 
-                                    <div class="bg-image uploaded" (click)="DeleteAva()" *ngIf="avatar" class="bg-image uploaded" [ngStyle]="{'background-image': 'url('+avatar+')'}"></div>
+                                <div class="bg-image uploaded" (click)="DeleteAva()" *ngIf="avatar" class="bg-image uploaded" [ngStyle]="{'background-image': 'url('+avatar+')'}"></div>
 
-                                </div>
+                            </div>
 
                             <div class="rel-dog">
                                 <span>@</span>

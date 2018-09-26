@@ -111,6 +111,12 @@
     transform: translateX(calc(50vw - 675px));
     -webkit-transform:translateX(calc(50vw - 675px)) 
   }
+  .head-info-profile-wr.head-info-artist .flex-artist-main-info .side.right-side .bg-slider .slick-arrow.slick-next{
+    right: 9px;
+  }
+  .head-info-profile-wr.head-info-artist .flex-artist-main-info .side.right-side .bg-slider .slick-arrow.slick-prev{
+    left: 9px;
+  }
 }
 @media (max-width: 1350px) {
   .media-flex-sides .right-side .slider-audio-wrapp .one-audio {
@@ -592,6 +598,9 @@
   }
   .riders-flex-wrapp .side .desc-riders {
     font-size: 14px;
+  }
+  .head-info-profile-wr.head-info-artist .flex-artist-main-info .side.right-side .bg-slider .slick-arrow{
+    display: none;
   }
 }
 @media (max-width: 767px) {
