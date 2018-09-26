@@ -105,8 +105,7 @@ export class ShowDetailGalleryComponent extends BaseComponent implements OnChang
             });
 
         }
-       
-        //если да
+
     }
 
 }

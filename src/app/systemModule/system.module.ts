@@ -60,7 +60,7 @@ import { MessageFeedbackComponent } from './messages/message-feedback/message-fe
 import { MessageSupportComponent } from './messages/message-support/message-support.component';
 import { TranslateModule } from '../../../node_modules/@ngx-translate/core';
 import { GlobalSearchModule } from './search/search.module';
-
+import {SlideshowModule} from 'ng-simple-slideshow';
 
 
 @NgModule({
@@ -81,6 +81,7 @@ import { GlobalSearchModule } from './search/search.module';
     TextMaskModule,
     VenueCreateModule,
     ProfileModule,
+    SlideshowModule,
     EventCreateModule,
     EventsModule,
     ShowsModule,
