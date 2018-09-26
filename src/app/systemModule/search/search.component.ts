@@ -217,8 +217,10 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
         search = Object.assign(search,{
             type:"fan",
             genres: this.main.genreService.GenreModelArrToStringArr(this.Genres),
-            city: this.City,
-            country: this.Country && this.Country.name ? this.Country.name : null
+            lat: this.Lat? this.Lat : null,
+            lng: this.Lng? this.Lng : null,
+            distance: (this.Lat && this.Lng)? this.Distance : null,
+            units: (this.Lat && this.Lng)? this.Units : null
         });
         this.main.accService.AccountsSearch(search)
             .subscribe(
@@ -234,8 +236,10 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
         search = Object.assign(search,{
             type:"artist",
             genres: this.main.genreService.GenreModelArrToStringArr(this.Genres),
-            city: this.City,
-            country: this.Country && this.Country.name ? this.Country.name : null
+            lat: this.Lat? this.Lat : null,
+            lng: this.Lng? this.Lng : null,
+            distance: (this.Lat && this.Lng)? this.Distance : null,
+            units: (this.Lat && this.Lng)? this.Units : null
         });
         this.main.accService.AccountsSearch(search)
             .subscribe(
@@ -250,8 +254,10 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
         let search = this.SearchParams;
         search = Object.assign(search,{
             type:"venue",
-            city: this.City,
-            country: this.Country && this.Country.name ? this.Country.name : null
+            lat: this.Lat? this.Lat : null,
+            lng: this.Lng? this.Lng : null,
+            distance: (this.Lat && this.Lng)? this.Distance : null,
+            units: (this.Lat && this.Lng)? this.Units : null
         });
         this.main.accService.AccountsSearch(search)
             .subscribe(
