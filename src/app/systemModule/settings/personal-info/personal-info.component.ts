@@ -91,6 +91,16 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
   SaveUser(){
     // console.log(`save user`,this.User);
     // this.User.register_phone = this.convertPhoneToSend(this.phone);
+
+    if(this.User.password&&this.User.password.length<6){
+      this.errorCmp.OpenWindow(`This password is too short!`);
+      return;
+    }
+    if(this.User.password&&this.User.password.length>=100){
+      this.errorCmp.OpenWindow(`This password is too long!`);
+      return;
+    }
+
     if(!this.User.password||(this.User&&this.User.password.length>=6)){
       this.main.authService.UpdateUser(this.User)
         .subscribe(

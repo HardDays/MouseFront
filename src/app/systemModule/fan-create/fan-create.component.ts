@@ -250,6 +250,13 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
       this.cordsMap.lat = this.Fun.lat;
       this.cordsMap.lng = this.Fun.lng;
     }
+    else{
+      this.main.accService.GetLocation()
+        .subscribe((data)=>{
+            this.cordsMap.lat = data.location[0];
+            this.cordsMap.lng = data.location[1];
+        })
+    }
   }
 
   seeFirstGenres()

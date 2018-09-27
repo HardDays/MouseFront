@@ -269,7 +269,7 @@
                     <p class="you-have" translate>You have <span>{{TicketsCount}}</span> tickets.</p>
                     <div class="tickets-new-wr">
                         <div class="price-and-buy">
-                            <p class="total" translate>Total price: <span><span [innerHTML]="Currency"></span>{{TotalPrice}}</span></p>
+                            <p class="total" translate>Total price: <span><span [innerHTML]="Currency"></span>{{TotalPrice|number:'1.2-2'}}</span></p>
                             <!-- <span [innerHTML]="Currency"></span>{{TotalPrice}}
                                 <ng-container *ngIf="Currency != OriginalCurrency">
                                         (<span [innerHTML]="OriginalCurrency"></span>{{TotalOriginalPrice}})

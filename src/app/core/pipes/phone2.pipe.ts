@@ -9,7 +9,7 @@ export class Phone2Pipe extends BaseComponent{
     transform(val, args) {
         if(!val)
             return 'No phone';
-        
+
         let phone = '';
         // console.log(`val`,val);
 
@@ -18,8 +18,8 @@ export class Phone2Pipe extends BaseComponent{
         let code_arr = codes.filter((c)=>val.indexOf(c.dial_code)>0&&val.indexOf(c.dial_code)<4);
         let code = code_arr.find((c)=>val[1]===c.dial_code);
         if(!code)code = code_arr[0];
-        let dial_code = code.dial_code;
-        if(code['format']){
+
+        if(code&&code['format']){
             // console.log(`format`,code['format']);
             let index = 0;
             if(val[index]==='+')index++;
@@ -37,7 +37,7 @@ export class Phone2Pipe extends BaseComponent{
         }
 
         phone = phone.replace('_','');
-       
+
         return phone.length?phone:val;
     }
 }

@@ -185,6 +185,12 @@ export class AdminComponent extends BaseComponent implements OnInit {
         case 'revenues':
           this.currentPage = Parts.revenue;
         break;
+        case 'messages':
+          this.currentPage = Parts.messages;
+        break;
+        case 'notification':
+          this.currentPage = Parts.notifications;
+        break;
       }
     }
     else if(url.length === 4){
@@ -331,5 +337,7 @@ export enum Parts {
   settings = 27,
   add_new_admin = 28,
   customer_support = 29,
-  customer_answers = 30
+  customer_answers = 30,
+  messages = 31,
+  notifications = 32
 }

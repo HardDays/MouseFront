@@ -102,7 +102,7 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
 
   Init(){
 
-      this.preferredVenues = this.getVenuesTypes();
+    this.preferredVenues = this.getVenuesTypes();
 
     for(let v of this.preferredVenues){
       for(let venue of this.Artist.preferred_venues){
@@ -110,6 +110,14 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
           v.checked = true;
       }
     }
+
+    if(!this.Artist.preferred_address)
+      this.main.accService.GetLocation()
+          .subscribe((data)=>{
+              this.mapCoords.lat = data.location[0];
+              this.mapCoords.lng = data.location[1];
+              this.codeLatLng(this.mapCoords.lat,this.mapCoords.lng);
+          })
 
     // this.initDateMin();
 
