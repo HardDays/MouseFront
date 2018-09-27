@@ -16,7 +16,7 @@ export class PhonePipe extends BaseComponent{
         let codes = this.main.phoneService.GetAllPhoneCodesWithFormat();
 
         let code_arr = codes.filter((c)=>val.indexOf(c.dial_code)>0&&val.indexOf(c.dial_code)<4);
-        let code = code_arr.find((c)=>val[1]===c.dial_code);
+        let code = code_arr.find((c)=>val.startsWith(c.dial_code,1));
         if(!code)code = code_arr[0];
 
         if(code&&code['format']){
