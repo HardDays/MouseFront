@@ -32,15 +32,15 @@ export class TableComponent extends BaseComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges): void {
     if(changes.Accounts){
        this.Accounts = changes.Accounts.currentValue;
-       if(changes.status.currentValue === 'all')
+       if(changes.status&&changes.status.currentValue === 'all')
         this.status = '';
-      else if(changes.status.currentValue === 'new')
+      else if(changes.status&&changes.status.currentValue === 'new')
         this.status = 'unchecked';
     }
     if(changes.status&&this.Accounts.length){
-      if(changes.status.currentValue === 'all')
+      if(changes.status&&changes.status.currentValue === 'all')
         this.status = '';
-      else if(changes.status.currentValue === 'new')
+      else if(changes.status&&changes.status.currentValue === 'new')
         this.status = 'unchecked';
       else
         this.status = changes.status.currentValue;

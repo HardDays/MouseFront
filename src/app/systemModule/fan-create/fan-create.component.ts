@@ -346,6 +346,11 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
         }
       }
 
+      if(!this.Fun.address){
+        this.Fun.lat = null;
+        this.Fun.lng = null;
+      }
+
 
       this.WaitBeforeLoading(
         ()=> this.FunId == 0 ? this.main.accService.CreateAccount(this.Fun) : this.main.accService.UpdateMyAccount(this.FunId,this.Fun),
