@@ -6,38 +6,39 @@ import { BaseComponent } from '../base/base.component';
 })
 
 export class PhonePipe extends BaseComponent{
-    transform(val, args) {
-        if(!val)
-            return 'No phone';
+    transform(val:string, args) {
+      if(!val){
+          return 'No phone';
+      }
+      if(val[0]==='+'){
+        val = val.substr(1);
+      }
 
-        let phone = '';
-        // console.log(`val`,val);
+      let phone = '';
+      let codes = this.main.phoneService.GetAllPhoneCodesWithFormat();
 
-        let codes = this.main.phoneService.GetAllPhoneCodesWithFormat();
+      let code_arr = codes.filter((c)=>val.startsWith(c.dial_code));
+      let code = code_arr.find((c)=>val.startsWith(c.dial_code,1));
 
-        let code_arr = codes.filter((c)=>val.indexOf(c.dial_code)>0&&val.indexOf(c.dial_code)<4);
-        let code = code_arr.find((c)=>val.startsWith(c.dial_code,1));
-        if(!code)code = code_arr[0];
+      if(!code)
+        code = code_arr[0];
 
-        if(code&&code['format']){
-            // console.log(`format`,code['format']);
-            let index = 0;
-            if(val[index]==='+')index++;
+      if(code&&code['format']){
+          // console.log(`format`,code['format']);
+          let index = 0;
+          if(val[index]==='+')index++;
 
-            for(let c of code['format']){
-                if(c==='.')
-                {
-                    phone+=val[index]?val[index]:'';
-                    index++;
-                }
-                else{
-                    phone+=c;
-                }
-            }
-        }
-
-        phone = phone.replace('_','');
-
-        return phone.length?phone:val;
+          for(let c of code['format']){
+              if(c==='.')
+              {
+                  phone+=val[index]?val[index]:'';
+                  index++;
+              }
+              else{
+                  phone+=c;
+              }
+          }
+      }
+      return '+'+phone.length?phone:val;
     }
 }
