@@ -128,7 +128,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
       () => this.main.accService.GetInboxMessages(this.accountId),
       (res:InboxMessageModel[])=>{
         this.messages = res;
-        console.log(res);
+        // console.log(res);
         for(let m of this.messages){
           if(m.sender){
             if(m.sender.image_id){

@@ -32,7 +32,11 @@ export enum SearchTypes{
 
 export class GlobalSearchComponent extends BaseComponent implements OnInit {
     SearchParams = {
-        text: ''
+        text: '',
+        lat: null,
+        lng: null,
+        distance: null,
+        units: null
     };
     Country: any = null;
     City: string = '';
@@ -84,18 +88,6 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
         this.CreateLocalAutocomplete();
         this.InitBsConfig();
         this.initSlider();
-        this.CreateCityAutocomplete();
-        this.GetCountries();
-    }
-
-    GetCountries()
-    {
-        this.main.phoneService.GetCountryCodes()
-            .subscribe(
-                (res: CountryCodes[]) => {
-                    this.Countries = res;
-                }
-            );
     }
 
     initSlider()
@@ -122,7 +114,7 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
 
     DistanceChanged(data:any)
     {
-        this.Distance = data.from;
+        this.SearchParams.distance = data.from;
     }
 
     InitBsConfig()
@@ -157,8 +149,8 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
     {
         this.CreateAutocomplete(
             (addr,place) =>{
-                this.Lat = place.geometry.location.lat();
-                this.Lng = place.geometry.location.lng();
+                this.SearchParams.lat = place.geometry.location.lat();
+                this.SearchParams.lng = place.geometry.location.lng();
                 if(!this.Distance)
                     this.Distance = this.MIN_DISTANCE;
             }
@@ -194,7 +186,6 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
             this.GetShows();
         }
         this.SelectedContent = this.SearchType;
-        //this.router.navigateByUrl("/system/search", {queryParams: this.SearchParams});
         
     }
     CloseXsSearchWindow(){
@@ -213,15 +204,17 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
     GetFans()
     {
         this.Fans = [];
-        let search = this.SearchParams;
+        let search = Object.assign({},this.SearchParams);
         search = Object.assign(search,{
-            type:"fan",
-            genres: this.main.genreService.GenreModelArrToStringArr(this.Genres),
-            lat: this.Lat? this.Lat : null,
-            lng: this.Lng? this.Lng : null,
-            distance: (this.Lat && this.Lng)? this.Distance : null,
-            units: (this.Lat && this.Lng)? this.Units : null
+            type:"fan"
         });
+        if(this.SearchType == SearchTypes.Fans)
+        {
+            search = Object.assign(search,{
+                genres: this.main.genreService.GenreModelArrToStringArr(this.Genres)
+            });
+        }
+        // console.log("fan",search);
         this.main.accService.AccountsSearch(search)
             .subscribe(
                 (res: AccountGetModel[]) => {
@@ -232,15 +225,17 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
     GetArtists()
     {
         this.Artists = [];
-        let search = this.SearchParams;
+        let search = Object.assign({},this.SearchParams);
         search = Object.assign(search,{
-            type:"artist",
-            genres: this.main.genreService.GenreModelArrToStringArr(this.Genres),
-            lat: this.Lat? this.Lat : null,
-            lng: this.Lng? this.Lng : null,
-            distance: (this.Lat && this.Lng)? this.Distance : null,
-            units: (this.Lat && this.Lng)? this.Units : null
+            type:"artist"
         });
+        if(this.SearchType == SearchTypes.Artists)
+        {
+            search = Object.assign(search,{
+                genres: this.main.genreService.GenreModelArrToStringArr(this.Genres)
+            });
+        }
+        // console.log("artist",search);
         this.main.accService.AccountsSearch(search)
             .subscribe(
                 (res: AccountGetModel[]) => {
@@ -251,14 +246,11 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
     GetVenues()
     {
         this.Venues = [];
-        let search = this.SearchParams;
+        let search =  Object.assign({},this.SearchParams);
         search = Object.assign(search,{
-            type:"venue",
-            lat: this.Lat? this.Lat : null,
-            lng: this.Lng? this.Lng : null,
-            distance: (this.Lat && this.Lng)? this.Distance : null,
-            units: (this.Lat && this.Lng)? this.Units : null
+            type:"venue"
         });
+        // console.log("venue",search);
         this.main.accService.AccountsSearch(search)
             .subscribe(
                 (res: AccountGetModel[]) => {
@@ -269,21 +261,22 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
     GetShows()
     {
         this.Shows = [];
-        let search:EventSearchParams = this.SearchParams;
-        search = Object.assign(search,{
-            genres: this.main.genreService.GenreModelArrToStringArr(this.Genres),
-            is_active: true,
-            ticket_types: this.TicketType ? [this.TicketType] : null,
-            size: this.TypeOfSpace,
-            from_date: this.SearchDateRange && this.SearchDateRange[0] ? this.main.typeService.GetDateStringFormat(this.SearchDateRange[0]) : null,
-            to_date: this.SearchDateRange && this.SearchDateRange[1] ? this.main.typeService.GetDateStringFormat(this.SearchDateRange[1]) : null,
-            lat: this.Lat? this.Lat : null,
-            lng: this.Lng? this.Lng : null,
-            distance: (this.Lat && this.Lng)? this.Distance : null,
-            units: (this.Lat && this.Lng)? this.Units : null,
+        let search:EventSearchParams = Object.assign({},this.SearchParams);
+        search = Object.assign(search,{    
+            is_active: true
         });
-        search.is_active = true; 
-        // console.log(search);
+
+        if(this.SearchType == SearchTypes.Shows)
+        {
+            search = Object.assign(search,{
+                genres: this.main.genreService.GenreModelArrToStringArr(this.Genres),
+                ticket_types: this.TicketType ? [this.TicketType] : null,
+                size: this.TypeOfSpace,
+                from_date: this.SearchDateRange && this.SearchDateRange[0] ? this.main.typeService.GetDateStringFormat(this.SearchDateRange[0]) : null,
+                to_date: this.SearchDateRange && this.SearchDateRange[1] ? this.main.typeService.GetDateStringFormat(this.SearchDateRange[1]) : null
+            });
+        }
+        // console.log("shows",search);
         this.main.eventService.EventsSearch(search)
             .subscribe(
                 (res: EventGetModel[]) => {
@@ -311,7 +304,7 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
 
     OpenMap()
     {
-        this.mapForm.AboutOpenMapModal({lat: this.Lat, lng: this.Lng});
+        this.mapForm.AboutOpenMapModal(this.SearchParams);
     }
 
     LocationTextChenged($event)
@@ -325,15 +318,15 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
         
         if(!this.LocationText)
         {
-            this.Lat = null;
-            this.Lng = null;
+            this.SearchParams.lat = null;
+            this.SearchParams.lng = null;
         }
 
-        if(!this.Lat && this.Lng)
-            this.Distance = null;
+        if(!this.SearchParams.lat && this.SearchParams.lng)
+            this.SearchParams.distance = null;
         else{
-            this.Distance = this.Distance?this.Distance:this.MIN_DISTANCE;
-            this.Units = this.main.settings.GetDisatance();
+            this.SearchParams.distance = this.SearchParams.distance?this.SearchParams.distance:this.MIN_DISTANCE;
+            this.SearchParams.units = this.main.settings.GetDisatance();
         }
             
     }
@@ -342,78 +335,18 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
     {
         if($event.lat)
         {
-            this.Lat = $event.lat;
+            this.SearchParams.lat = $event.lat;
         }
         if($event.lng)
         {
-            this.Lng = $event.lng;
+            this.SearchParams.lng = $event.lng;
         }
         if($event.text)
         {
             this.LocationText = $event.text;
         }
     }
-    Autocomplete:google.maps.places.Autocomplete = null;
-    @ViewChild('seaarchCity') public seaarchCity: ElementRef;
-    CreateCityAutocomplete()
-    {
-        if(!this.Autocomplete)
-        {
-            this.mapsAPILoader.load().then(
-                () => {
-                    let options = {
-                        type: '(cities)'
-                    };
-                    this.Autocomplete = new google.maps.places.Autocomplete(this.seaarchCity.nativeElement,options);
-                    
-                    this.Autocomplete.addListener(
-                        "place_changed",
-                        () => {
-                            console.log(`place_changed`);
-                            this.ngZone.run(
-                                () => {
-                                    let place: google.maps.places.PlaceResult = this.Autocomplete.getPlace();
-                                    if(place.name)
-                                    {
-                                        this.City = place.name;
-                                    }
-                                }
-                            );
-                        }
-                    );
-                }
-            );
-        }
-        else{
-            if(this.Country && this.Country.code)
-            {
-                this.Autocomplete.setComponentRestrictions({
-                    country: this.Country.code
-                });
-            }
-            else{
-                this.Autocomplete.setComponentRestrictions(null);
-            }
-        }
-        
-    }
 
-    AutocompleteListFormatter = (data: CountryCodes) => {
-        return data.name;
-    }
-
-    CountryChanged($event)
-    {
-        if($event && $event.name && $event.code)
-        {
-            this.Country = $event;
-        }
-        else{
-            this.Country = null;
-        }
-        
-        this.CreateCityAutocomplete();
-    }
 }
 
 export interface CountryCodes{

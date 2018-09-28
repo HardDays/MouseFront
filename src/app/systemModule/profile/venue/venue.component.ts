@@ -101,7 +101,7 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
     }
 
     ngOnInit(): void {
-        console.log(this.Account);
+        // console.log(this.Account);
     }
     Init(venue?:AccountCreateModel,id?:number)
     {

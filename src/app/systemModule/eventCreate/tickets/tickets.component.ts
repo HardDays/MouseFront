@@ -176,14 +176,14 @@ updateTicket(){
         if(this.currentTicket.type==='vr'){
             if(this.currentTicket.count>this.maxCountVr){
                 this.onError.emit('<b>Failed!</b> VR Tickets limit expired');
-                console.log(`front error`);
+                // console.log(`front error`);
                 return;
             }
         }
         else{
             if(this.currentTicket.count>this.maxCountInPerson){
                 this.onError.emit('<b>Failed!</b> Tickets limit expired');
-                console.log(`front error`);
+                // console.log(`front error`);
                 return;
             }
         }
@@ -195,7 +195,7 @@ updateTicket(){
         //console.log(`index`,index);
 
         this.currentTicket.id = null;
-        console.log(`new create`,this.currentTicket);
+        // console.log(`new create`,this.currentTicket);
         this.main.eventService.AddTicket(this.currentTicket)
             .subscribe((res)=>{
                 //console.log(`create`,res);
@@ -205,7 +205,7 @@ updateTicket(){
 
                 this.updateEventTickets();
             },(err)=>{
-                console.log(`back error`);
+                // console.log(`back error`);
                 this.onError.emit(this.getResponseErrorMessage(err));
             });
     }
@@ -217,7 +217,7 @@ updateTicket(){
                 //console.log(`update`,res);
                 this.updateEventTickets();
             },(err)=>{
-              console.log(err);
+            //   console.log(err);
 
                 if(err.json()['tickets']==='ALREADY_BOUGHT'){
                   this.onError.emit('<b>Failed!</b> Tickets already bought!');

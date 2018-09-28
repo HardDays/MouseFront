@@ -300,7 +300,7 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
           this.Artist.status = 'unchecked';
         },
         (err)=>{
-          console.log(`err`,err);
+          // console.log(`err`,err);
         }
       )
   }

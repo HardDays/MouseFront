@@ -167,7 +167,7 @@ export class AboutComponent extends BaseComponent implements OnInit {
 
 
 
-    console.log(this.Event);
+    // console.log(this.Event);
 
   }
 ShowHideGenres(event){
@@ -362,10 +362,10 @@ GetCurrentCurrency(){
           (res)=>
           {
             this.Event.exact_date_from = this.datepickerExactModel.toString();
-            console.log(res);
+            // console.log(res);
           },
           (err)=>{
-            console.log(err);
+            // console.log(err);
             // this.onError.emit(this.getResponseErrorMessage(err))
           }
         )

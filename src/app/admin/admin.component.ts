@@ -62,7 +62,7 @@ export class AdminComponent extends BaseComponent implements OnInit {
 
       this.broadcaster.on<any>('AdminMessagesChannel').subscribe(
         message => {
-          console.log(message);
+          // console.log(message);
           this.CountMessages = message['count'];
         }
       );
@@ -137,7 +137,7 @@ export class AdminComponent extends BaseComponent implements OnInit {
     // this.getNewCounts();
     this.main.adminService.NewCountChange.subscribe(
       ()=>{
-        console.log(`get new count`);
+        // console.log(`get new count`);
 
         this.getNewCounts();
         // this.newAccCount =  this.newAccCount - 1;

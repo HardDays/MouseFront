@@ -41,7 +41,7 @@ export class AccountComponent extends BaseComponent implements OnInit {
         // console.log(`Acc`,this.Account);
       },
       (err)=>{
-        console.log(`err`,err)
+        // console.log(`err`,err)
       }
     )
   }
@@ -55,7 +55,7 @@ export class AccountComponent extends BaseComponent implements OnInit {
           this.router.navigate(['/admin','accounts','all'])
         },
         (err)=>{
-          console.log(`err`,err)
+          // console.log(`err`,err)
         }
       )
   }
@@ -65,13 +65,13 @@ export class AccountComponent extends BaseComponent implements OnInit {
     this.main.adminService.AccountDeny(this.accId)
       .subscribe(
         (res)=>{
-          console.log(`res`,res);
+          // console.log(`res`,res);
           this.errCmp.OpenWindow('Success');
           // this.getThisAcc();
            this.Account.status = 'denied';
         },
         (err)=>{
-          console.log(`err`,err)
+          // console.log(`err`,err)
         }
       )
   }
@@ -81,13 +81,13 @@ export class AccountComponent extends BaseComponent implements OnInit {
     this.main.adminService.AccountApprove(this.accId)
       .subscribe(
         (res)=>{
-          console.log(`res`,res);
+          // console.log(`res`,res);
           this.errCmp.OpenWindow('Success');
           // this.getThisAcc();
           this.Account.status = 'approved';
         },
         (err)=>{
-          console.log(`err`,err)
+          // console.log(`err`,err)
         }
       )
   }

@@ -46,7 +46,7 @@ export class ShowItemComponent extends BaseComponent implements OnChanges {
                         this.GetImage();
                     },
                     (err) => {
-                        console.log(`err`,err)
+                        // console.log(`err`,err)
                     }
                 )
         }
@@ -62,6 +62,7 @@ export class ShowItemComponent extends BaseComponent implements OnChanges {
         
         if(this.Show.exact_date_from)
         {
+            this.Show.exact_date_from = this.main.typeService.DateToUTCDateISOString(this.Show.exact_date_from);
             this.Date = this.ToUppercaseLetter(this.Show.exact_date_from, "MMM") 
                 + moment(this.Show.exact_date_from).format(" DD, YYYY ")
                 + "<span>" + moment(this.Show.exact_date_from).format(timeFormat) + "</span>";

@@ -78,7 +78,7 @@ export class VenueMediaComponent extends BaseComponent implements OnInit,OnChang
         this.WaitBeforeLoading(
         () => this.main.imagesService.GetAccountImages(this.VenueId),
         (res:ImageAccModelAnswer) => {
-            console.log(res);
+            // console.log(res);
             for(const item of res.images)
             {
                 const index = this.VenueImages.findIndex(obj => obj.id == item.id);

@@ -250,7 +250,6 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     GetEventUpdates(){
         this.main.eventService.EventsUpdates(this.EventId).subscribe((res:any)=>{
             this.UpdatesEvent = res;
-            console.log(this.UpdatesEvent);
         }) 
     }
     
@@ -604,6 +603,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         
         if(this.Event.exact_date_from)
         {
+            this.Event.exact_date_from = this.main.typeService.DateToUTCDateISOString(this.Event.exact_date_from);
             this.Date = this.ToUppercaseLetter(this.Event.exact_date_from, "MMM") 
                 + moment(this.Event.exact_date_from).format(" DD, YYYY ")
                 + "<span>" + moment(this.Event.exact_date_from).format(timeFormat) + "</span>";

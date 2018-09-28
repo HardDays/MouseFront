@@ -37,7 +37,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
       .subscribe(
         (res)=>{
           this.graphInfo = res;
-          console.log(this.graphInfo);
+          // console.log(this.graphInfo);
 
           this.lineChartLabels.length = 0;
           this.lineChartLabels.push(...this.graphInfo.axis);
@@ -168,7 +168,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
               this.Accounts.splice(this.Accounts.indexOf(acc),1)
             },
             (err)=>{
-              console.log(`err`,err)
+              // console.log(`err`,err)
             }
           )
       }
@@ -185,7 +185,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
               this.Events.splice(this.Events.indexOf(events),1)
             },
             (err)=>{
-              console.log(`err`,err)
+              // console.log(`err`,err)
             }
           )
       }
