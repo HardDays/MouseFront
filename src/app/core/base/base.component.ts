@@ -510,7 +510,7 @@ export class BaseComponent{
             //console.log(`codes`,codes);
             let code_arr = codes.filter((c)=>phone.indexOf(c.dial_code)>0&&phone.indexOf(c.dial_code)<4);
             let code = code_arr.find((c)=>phone.startsWith(c.dial_code,1));
-            console.log(`phone[1], c.dial_code`, phone[1],code_arr,code);
+            // console.log(`phone[1], c.dial_code`, phone[1],code_arr,code);
             if(!code && code_arr&& code_arr[0])code = code_arr[0];
             let dial_code = code&&code['dial_code']?code['dial_code']:'';
             if(code&&code['format']){

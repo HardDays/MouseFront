@@ -149,7 +149,7 @@ export class RiderComponent extends BaseComponent implements OnInit {
     //   .subscribe((res)=>{
     if(this.Rider.uploaded_file_base64){
         let type = this.Rider.uploaded_file_base64.split(';base64,')[0].split('/')[1];
-        console.log(this.Rider.uploaded_file_base64.split(';base64,')[0]);
+        // console.log(this.Rider.uploaded_file_base64.split(';base64,')[0]);
         let file = this.Rider.uploaded_file_base64.split(';base64,')[1];
 
         var decoded = new Buffer(file, 'base64');

@@ -34,13 +34,13 @@ export class MessageSupportComponent extends BaseComponent implements OnInit {
       this.main.questService.ReplyQuestion(this.Message.reply[this.Message.reply.length-1].id,this.Message.subject,this.ReplyText,this.AccId)
         .subscribe(
           (res)=>{
-            console.log(`ok`);
+            // console.log(`ok`);
             this.ReplyText = '';
           }
         )
     }
     else {
-      console.log(`Error`);
+      // console.log(`Error`);
     }
   }
 

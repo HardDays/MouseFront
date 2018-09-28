@@ -334,10 +334,10 @@ export class ArtistComponent extends BaseComponent implements OnInit {
         window.open(url);
       }
       else {
-        console.log(`No file`);
+        // console.log(`No file`);
       }
     }, (err)=>{
-      console.log(err);
+      // console.log(err);
     })
   }
 
@@ -347,13 +347,13 @@ export class ArtistComponent extends BaseComponent implements OnInit {
   }
 
   downloadFile(fileBase64: string){
-    console.log(`download`,fileBase64);
+    // console.log(`download`,fileBase64);
     if(fileBase64){
       // this.main.accService.GetRiderById(id)
       // .subscribe((res)=>{
 
         let type = fileBase64.split(';base64,')[0].split('/')[1];
-        console.log(fileBase64.split(';base64,')[0]);
+        // console.log(fileBase64.split(';base64,')[0]);
         let file = fileBase64.split(';base64,')[1];
 
         var decoded = new Buffer(file, 'base64');

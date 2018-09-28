@@ -55,7 +55,7 @@ export class SettingsService{
         )
         .subscribe(
             (res: PreferencesModel) => {
-                console.log(res);
+                // console.log(res);
                 this.SaveBackSettings(res);
             }
         );

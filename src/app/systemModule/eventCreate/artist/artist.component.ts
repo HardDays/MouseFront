@@ -409,10 +409,10 @@ export class ArtistComponent extends BaseComponent implements OnInit {
               subscribe((res)=>{
                 //  console.log(`add `,this.addArtist.artist_id);
                 itemCount++;
-                console.log(itemCount,this.artistsSearch.length)
+                // console.log(itemCount,this.artistsSearch.length)
                 if(itemCount===this.artistsSearch.length){
                 setTimeout(() => {
-                          console.log(`update`);
+                          // console.log(`update`);
                           this.updateEvent();
                         }, 500);
                 }
@@ -432,7 +432,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
         }
         if(itemCount===this.artistsSearch.length){
             setTimeout(() => {
-                    console.log(`update`);
+                    // console.log(`update`);
                     this.updateEvent();
                   }, 500);
         }
@@ -577,7 +577,7 @@ updateEvent(){
                   this.artistsList = this.Event.artist;
                 setTimeout(() => {
 
-                  console.log(`---`,this.Event,this.artistsList)
+                  // console.log(`---`,this.Event,this.artistsList)
                   this.GetArtistsFromList();
                 }, 500);
 
@@ -757,12 +757,12 @@ dragMarker($event)
           }
         }
 
-        console.log(this.ArtistInvite, this.InviteSocials);
+        // console.log(this.ArtistInvite, this.InviteSocials);
         if(this.ArtistInvite.email||this.ArtistInvite.facebook||this.ArtistInvite.vk||this.ArtistInvite.twitter||this.ArtistInvite.email){
           this.main.inviteService.PostInviteArtist(this.ArtistInvite)
             .subscribe(
               (res)=>{
-                console.log(`ok`);
+                // console.log(`ok`);
                 $('#modal-send-unauth').modal('hide');
                 this.ArtistInvite = {
                   account_id: this.CurrentAccount.id,

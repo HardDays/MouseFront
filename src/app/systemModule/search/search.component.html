@@ -68,7 +68,7 @@
                                 <input type="text" class="location-inp" name="search-params-address" autocorrect="off" autocapitalize="off" spellcheck="off" #searchLocal placeholder="" [ngModel]="LocationText" (ngModelChange)="LocationTextChenged($event)"  #search id="searchAddress">
                             </div>
                         </div>
-                        <div class="groupe-form" [ngStyle]="{'display':(Lat && Lng)? 'block':'none'}">
+                        <div class="groupe-form" [ngStyle]="{'display':(SearchParams.lat && SearchParams.lng)? 'block':'none'}">
                             <p class="head-input-groupe" translate>Distance</p>
                             <div class="for-range-slider">
                                 <input type="text" name="distance-range-slider" class="current-slider distance-slider">

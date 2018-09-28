@@ -24,7 +24,7 @@ export class MessagesComponent implements OnInit {
   }
 
   getSearch(event){
-    console.log(event);
+    // console.log(event);
     this.Search = event;
   }
 

@@ -122,7 +122,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
   // }
 
   filterByType(){
-    console.log(`filter`,this.Type);
+    // console.log(`filter`,this.Type);
 
     this.Feedbacks = [];
     // this.FeedbacksChecked = [];
@@ -194,7 +194,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
               this.isSendThankYou = true;
             },
             (err)=>{
-              console.log(`err`,err);
+              // console.log(`err`,err);
               this.errCmp.OpenWindow(BaseMessages.Fail);
             }
           )
@@ -217,7 +217,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
               this.getFeedbacks();
             },
             (err)=>{
-              console.log(`err`,err);
+              // console.log(`err`,err);
               this.errCmp.OpenWindow(BaseMessages.Fail);
             }
           )
@@ -293,7 +293,7 @@ export class FeedbackComponent extends BaseComponent implements OnInit {
   }
 
   addAdmin(admin){
-    console.log(`add`);
+    // console.log(`add`);
     this.AdminAdded = admin;
     // console.log(this.AdminsListAdded);
     // this.openAdminsList();
