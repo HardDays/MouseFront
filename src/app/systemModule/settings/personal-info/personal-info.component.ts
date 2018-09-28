@@ -101,6 +101,8 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
       return;
     }
 
+    delete this.User['register_phone'];
+
     if(!this.User.password||(this.User&&this.User.password.length>=6)){
       this.main.authService.UpdateUser(this.User)
         .subscribe(
@@ -135,11 +137,11 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
 
   sendCode(){
     if(this.phone.length>0){
-      this.phone = this.getCurrentNumber(this.phone);
+      // this.phone = this.getCurrentNumber(this.phone);
       //this.phoneArr = false;
      // let phone:string = this.phoneCode + this.phone;
       this.WaitBeforeLoading(
-        ()=>this.main.phoneService.SendCodeToPhone(this.convertPhoneToSend(this.phone)),
+        ()=>this.main.phoneService.SendCodeToPhone(this.phone),
           (res)=>{
             //this.isRequestCodeSend = true;
             $('#modal_change_phone').modal('hide');
@@ -186,11 +188,21 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
       this.WaitBeforeLoading(
         ()=> this.main.phoneService.SendRequestCode(this.convertPhoneToSend(this.phone),code),
           (res)=>{
-            // console.log(`sendRequest`);
-            this.User.register_phone = this.convertPhoneToSend(this.phone);
+
+            // this.User.register_phone = this.convertPhoneToSend(this.phone);
             this.codeRequest = [];
             $('#modal_change_phone_ver').modal('hide');
-            $('#success_change_phone').modal('show');
+             this.main.authService.UpdateUserPhone(this.phone)
+              .subscribe(
+                (res)=>{
+                  this.User.register_phone = this.phone;
+                  $('#success_change_phone').modal('show');
+                },
+                (err)=>{
+                  this.errorCmp.OpenWindow(BaseMessages.Fail);
+                }
+              )
+
             //this.isShowPhone.emit(true);
            // this.phoneStatus.emit({status:true,phone:phone});
           },

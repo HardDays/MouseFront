@@ -23,10 +23,11 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
 import { TimePipeModule } from '../../core/pipes/time.pipe/time.pipe.module';
 import { VenueCreateModule } from '../venueCreate/venueCreate.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { PhonePipeModule } from '../../core/pipes/phone.pipe/phone.pipe.module';
 // import { PhonePipe } from '../../core/pipes/phone.pipe';
-import { Phone2Pipe } from '../../core/pipes/phone2.pipe';
+// import { Phone2Pipe } from '../../core/pipes/phone2.pipe';
 @NgModule({
-    imports: [ 
+    imports: [
         RouterModule,
         CommonModule,
         FormsModule,
@@ -44,9 +45,10 @@ import { Phone2Pipe } from '../../core/pipes/phone2.pipe';
         BsDatepickerModule.forRoot(),
         TimePipeModule,
         VenueCreateModule,
-        TranslateModule
+        TranslateModule,
+        PhonePipeModule
     ],
-    declarations: [ 
+    declarations: [
         EventCreateComponent,
         AboutComponent,
         ArtistComponent,
@@ -58,8 +60,8 @@ import { Phone2Pipe } from '../../core/pipes/phone2.pipe';
         PreviewArtistComponent,
         PreviewVenueComponent,
         TinyCalendarComponent,
-        Phone2Pipe
-        
+        // Phone2Pipe
+
     ],
     exports: [ EventCreateComponent ],
     schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
@@ -67,4 +69,3 @@ import { Phone2Pipe } from '../../core/pipes/phone2.pipe';
 export class EventCreateModule {}
 
 
-  

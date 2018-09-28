@@ -1,3 +1,4 @@
+import { PhonePipeModule } from './../../core/pipes/phone.pipe/phone.pipe.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -16,13 +17,13 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { CustomerSupportComponent } from './customer-support/customer-support.component';
 import { HowToCreateEventComponent } from './customer-support/how-to-create-event/how-to-create-event.component';
 import { SendQuestionComponent } from './customer-support/send-question/send-question.component';
-import { PhonePipe } from '../../core/pipes/phone.pipe';
+// import { PhonePipe } from '../../core/pipes/phone.pipe';
 import { TranslateModule } from '@ngx-translate/core';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material';
 
 @NgModule({
-    imports: [ 
+    imports: [
         RouterModule,
         CommonModule,
         FormsModule,
@@ -33,8 +34,9 @@ import {MatFormFieldModule} from '@angular/material';
         TranslateModule,
         MatSelectModule,
         MatFormFieldModule,
+        PhonePipeModule
     ],
-    declarations: [ 
+    declarations: [
         SettingsComponent,
         PersonalInfoComponent,
         PreferencesComponent,
@@ -51,4 +53,3 @@ import {MatFormFieldModule} from '@angular/material';
 export class SettingsModule {}
 
 
-  

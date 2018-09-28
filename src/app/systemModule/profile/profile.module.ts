@@ -17,11 +17,12 @@ import { ShowsDetailModule } from '../showsDetail/showsDetail.module';
 import { ErrorModule } from '../../shared/error/error.module';
 import { TimePipeModule } from '../../core/pipes/time.pipe/time.pipe.module';
 import { TranslateModule } from '../../../../node_modules/@ngx-translate/core';
-import { PhonePipe } from '../../core/pipes/phone.pipe';
+import { PhonePipeModule } from '../../core/pipes/phone.pipe/phone.pipe.module';
+// import { PhonePipe } from '../../core/pipes/phone.pipe';
 
 
 @NgModule({
-    imports: [ 
+    imports: [
         RouterModule,
         CommonModule,
         FormsModule,
@@ -35,7 +36,8 @@ import { PhonePipe } from '../../core/pipes/phone.pipe';
         ShowsDetailModule,
         ErrorModule,
         TimePipeModule,
-        TranslateModule
+        TranslateModule,
+        PhonePipeModule
     ],
     declarations: [
         // компоненты
@@ -46,7 +48,7 @@ import { PhonePipe } from '../../core/pipes/phone.pipe';
         FanProfileComponent,
         VenueProfileComponent,
         ArtistProfileComponent,
-        PhonePipe
+        // PhonePipe
     ],
     exports: [ ProfileComponent, VenueProfileComponent, ArtistProfileComponent ]
 })

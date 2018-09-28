@@ -26,7 +26,7 @@ export class AuthMainService{
     public me: AccountCreateModel;
     public onLoadingChange$: Subject<boolean>;
     public stupidAccessShow:boolean = true;
-  
+
     constructor(private http: HttpService, private router: Router, private typeService:TypeService){
         this.onAuthChange$ = new Subject();
         this.onAuthChange$.next(false);
@@ -62,7 +62,7 @@ export class AuthMainService{
         };
 
         let params;
-        if(user.user.search('@')>0) 
+        if(user.user.search('@')>0)
             params = paramsEmail;
         else params = paramsUserName;
 
@@ -154,10 +154,10 @@ export class AuthMainService{
             ()=> this.http.PostData("/auth/logout.json","{}")
         ).subscribe(()=>{
             this.ClearSession();
-        });          
+        });
     }
 
-    
+
     GetMe(){
         return this.http.CommonRequest(
             ()=> this.http.GetData('/users/me.json',"")
@@ -195,6 +195,12 @@ export class AuthMainService{
         // console.log(params);
         return this.http.CommonRequest(
             ()=> this.http.PatchData('/users/me.json',params)
+        );
+    }
+    UpdateUserPhone(register_phone:string){
+        // console.log(user);
+        return this.http.CommonRequest(
+            ()=> this.http.PatchData('/users/me.json',{register_phone})
         );
     }
 

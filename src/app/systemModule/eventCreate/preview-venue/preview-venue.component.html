@@ -38,16 +38,16 @@
                               <div class="column-cont">
                                   <div *ngIf="Venue.phone" class="one-cont">
                                       <p class="head-cont" translate>event.venue.PHONE:</p>
-                                      <span>{{Venue.phone|phone2}}</span>
+                                      <span>{{Venue.phone|phone}}</span>
                                   </div>
                                    <div *ngIf="Venue.fax" class="one-cont">
                                       <p class="head-cont" translate>event.venue.FAX:</p>
                                       <span>{{Venue.fax}}</span>
                                   </div>
-                                  
-                                  
+
+
                                   <!--ну и другая контактная инфа-->
-                                  
+
                                   <div *ngIf="Venue.venue_type != 'private_residence'" class="hours-time-wr">
                                       <div class="hours-hover">
                                           <span class="o-f-h" translate>Venue.hours-folder.Office Hours</span>
@@ -67,10 +67,10 @@
                                       <p class="head-cont">{{email.name}}:</p>
                                       <span>{{email.email}}</span>
                                   </div>
-                                  
+
                                   <!--ну и другая контактная инфа-->
-                                  
-                                  
+
+
                                   <div *ngIf="Venue.venue_type != 'private_residence'" class="hours-time-wr">
                                       <div class="hours-hover">
                                           <span class="o-f-h" translate>Venue.hours-folder.Operating Hours</span>
@@ -91,7 +91,7 @@
                           <h6 translate>Location</h6>
                           <p class="about-text">{{Venue.address}}</p>
                           <div class="map" id="map">
-                              <agm-map style="height: 100%;" [longitude]="Venue.lng" [latitude]="Venue.lat"> 
+                              <agm-map style="height: 100%;" [longitude]="Venue.lng" [latitude]="Venue.lat">
                                 <agm-marker [longitude]="Venue.lng" [latitude]="Venue.lat"></agm-marker>
                               </agm-map>
                           </div>
@@ -104,18 +104,18 @@
                           <p class="head-cont" translate>event.venue.Available Dates</p>
                       </div>
                       <div class="side side-calendars-m side-info side-about padd-right-1199-pre">
-                            <app-big-calendar #calendar 
-                                [allDaysPriceDay]='Venue.price_for_daytime' 
-                                [allDaysPriceNight]='Venue.price_for_nighttime' 
-                                [selectedDates]="disabledDays" 
-                                [eventDates]="eventsDates" 
-                                [isPreview]="true" 
+                            <app-big-calendar #calendar
+                                [allDaysPriceDay]='Venue.price_for_daytime'
+                                [allDaysPriceNight]='Venue.price_for_nighttime'
+                                [selectedDates]="disabledDays"
+                                [eventDates]="eventsDates"
+                                [isPreview]="true"
                                 [changedPrice]="changedPrice"></app-big-calendar>
-                            <!-- <cmp-big-calendar #calendar 
-                                [allDaysPriceDay]='Venue.price_for_daytime' 
-                                [allDaysPriceNight]='Venue.price_for_nighttime' 
-                                [selectedDates]="disabledDays" 
-                                [eventDates]="eventsDates"  
+                            <!-- <cmp-big-calendar #calendar
+                                [allDaysPriceDay]='Venue.price_for_daytime'
+                                [allDaysPriceNight]='Venue.price_for_nighttime'
+                                [selectedDates]="disabledDays"
+                                [eventDates]="eventsDates"
                                 [changedPrice]="changedPrice"></cmp-big-calendar> -->
                       </div>
                       <div class="side side-calendars-l side-info side-about none-1300"></div>
@@ -147,7 +147,7 @@
                           <p class="about-text">
                               {{Venue.lighting_description}}
                           </p>
-                          
+
                       </div>
                       <div class="side side-info side-map">
                           <h6 translate>event.venue.Stage Description</h6>
@@ -163,13 +163,13 @@
                           <h6 class="for-position-left-js" translate>event.venue.Recommended Photos</h6>
                       </div>
                   </div>
-              </div>    
+              </div>
           </div>
-          
+
           <div class="new-photos-wr-scroll-preview">
               <div class="rel-wr-photoos">
                   <div class="photos-abs-wrapp">
-                    
+
                       <div *ngFor="let item of photos; let in = index" class="one-slide">
                           <div   class="wrapp-card for-gallery-item">
                           <div class="cover-image" [ngStyle]="{'background-image': 'url(' + item.base64 + ')'}"></div>
@@ -184,6 +184,6 @@
               </div>
 
           </div>
-                  
-          
+
+
       </div>

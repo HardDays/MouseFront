@@ -213,13 +213,13 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
             scrollTop: 0
         }, 0);
 
-        let phoneToSend = this.ConvertPhoneToCountry(this.Venue.phone);
+        let phoneToSend = this.ConvertPhoneToCountryFormat(this.Venue.phone);
         phoneToSend = phoneToSend.replace(/ /g,'');
         phoneToSend = phoneToSend.replace(/\(/g,'');
         phoneToSend = phoneToSend.replace(/\)/g,'');
         phoneToSend = phoneToSend.replace(/-/g,'');
 
-        let faxToSend = this.ConvertPhoneToCountry(this.Venue.fax);
+        let faxToSend = this.ConvertPhoneToCountryFormat(this.Venue.fax);
         faxToSend = faxToSend.replace(/ /g,'');
         faxToSend = faxToSend.replace(/\(/g,'');
         faxToSend = faxToSend.replace(/\)/g,'');
