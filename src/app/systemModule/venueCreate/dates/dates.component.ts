@@ -220,7 +220,7 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
                         for(let item of res.event_dates)
                         {
                             this.eventsDates.push({
-                                mDate: moment(item.date_from),
+                                mDate: moment(this.main.typeService.DateToUTCDateISOString(item.date_from)),
                                 event: true,
                                 eventId: item.id
                             });
