@@ -32,7 +32,6 @@ export class ShowItemComponent extends BaseComponent implements OnChanges {
                 .subscribe(
                     (res:any) =>{
                         this.Show = res;
-                        // console.log(this.Show);
                         if(this.Show.is_crowdfunding_event)
                         {
                             this.FoundedPercent = +(100*(this.Show.founded?this.Show.founded:0) / (this.Show.funding_goal?this.Show.funding_goal:0.01)).toFixed(1);
