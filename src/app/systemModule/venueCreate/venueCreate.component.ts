@@ -86,7 +86,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
 
   isNewVenue = false;
 
-  isCanVerify = false;
+  // isCanVerify = false;
 
   @ViewChild('about') about:VenueAboutComponent;
   @ViewChild('hours') hours:VenueHoursComponent;
@@ -173,11 +173,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
     this.VenueImageId = ($venue && $venue.image_id) ? $venue.image_id : 0;
 
 
-    this.isCanVerify = this.VenueId&&this.Venue&&(this.Venue.status==='just_added'||this.Venue.status==='dened') &&
-                        this.Venue.capacity>0 &&
-                        this.Venue.audio_description && this.Venue.audio_description.length>0 &&
-                        this.Venue.lighting_description && this.Venue.lighting_description.length>0 &&
-                        this.Venue.stage_description && this.Venue.stage_description.length>0 ? true:false;
+
   }
 
   SaveVenueByPages(venue:AccountCreateModel)
@@ -344,14 +340,34 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
       this.OpenErrorWindow('Please full in stage description first');
       return;
     }
+    this.SaveVenueAndVerify();
 
-    this.main.accService.VerifyAccount(this.VenueId)
-      .subscribe(
-        (res)=>{
-          this.Venue.status = 'unchecked';
-          this.isCanVerify = false;
-        }
-      )
+  }
+
+  SaveVenueAndVerify()
+  {
+    if(this.VenueId !== 0){
+      this.WaitBeforeLoading
+          (
+            () => this.main.accService.UpdateMyAccount(this.VenueId,this.Venue),
+            (res) => {
+              this.DisplayVenueParams(res);
+
+              this.main.accService.VerifyAccount(this.VenueId)
+                .subscribe(
+                  (res)=>{
+                    this.Venue.status = 'unchecked';
+                    this.errorCmp.OpenWindow(BaseMessages.Success);
+                    // this.isCanVerify = false;
+                  }
+                )
+            },
+            (err) => {
+              this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'venue'));
+            }
+          )
+    }
+
   }
 
   DeleteImage($event)

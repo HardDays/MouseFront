@@ -503,12 +503,14 @@ export class BaseComponent{
         // console.log(phone)
         let countryMask:any[]=[];
         let isGuidChar = true;
+        let isShowMask = true;
 
         if(phone&&phone.length>0&&phone.replace(new RegExp('_', 'g'),'')!='+'){
             let codes = this.main.phoneService.GetAllPhoneCodesWithFormat();
             //console.log(`codes`,codes);
             let code_arr = codes.filter((c)=>phone.indexOf(c.dial_code)>0&&phone.indexOf(c.dial_code)<4);
-            let code = code_arr.find((c)=>phone[1]===c.dial_code);
+            let code = code_arr.find((c)=>phone.startsWith(c.dial_code,1));
+            // console.log(`phone[1], c.dial_code`, phone[1],code_arr,code);
             if(!code && code_arr&& code_arr[0])code = code_arr[0];
             let dial_code = code&&code['dial_code']?code['dial_code']:'';
             if(code&&code['format']){
@@ -546,6 +548,7 @@ export class BaseComponent{
         }
         else{
             let isGuidChar = false;
+            isShowMask = false;
             countryMask.push('+');
             for(let i=0;i<12;i++)
                 countryMask.push(/\d/);
@@ -596,7 +599,7 @@ export class BaseComponent{
           mask: countryMask,
           keepCharPositions: true,
           guide:isGuidChar,
-          showMask:true
+          showMask:isShowMask
         };
     }
 
@@ -610,11 +613,11 @@ export class BaseComponent{
         let codes = this.main.phoneService.GetAllPhoneCodesWithFormat();
 
         let code_arr = codes.filter((c)=>val.indexOf(c.dial_code)>0&&val.indexOf(c.dial_code)<4);
-        let code = code_arr.find((c)=>val[1]===c.dial_code);
+        let code = code_arr.find((c)=>val.startsWith(c.dial_code,1));
 
         if(!code)code = code_arr[0];
 
-        if(code['format']){
+        if(code&&code['format']){
             // console.log(`format`,code['format']);
             let index = 0;
             if(val[index]==='+')index++;

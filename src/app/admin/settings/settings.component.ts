@@ -86,7 +86,7 @@ export class SettingsComponent extends BaseComponent implements OnInit {
                     //  console.log(`pass update`);
                 },
                 (err)=>{
-                     console.log(`err`,err);
+                    //  console.log(`err`,err);
                     
                 }
             )

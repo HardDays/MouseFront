@@ -158,7 +158,7 @@ graphInfo = {
     {
         this.paramsIndividual.event_type.push(this.paramsIndividual.event_type_[t]);
     }
-    console.log("PARAMIND", this.paramsIndividual);
+    // console.log("PARAMIND", this.paramsIndividual);
     this.main.adminService.GetEventsIndividual(this.paramsIndividual)
     .subscribe(
       (res)=>{

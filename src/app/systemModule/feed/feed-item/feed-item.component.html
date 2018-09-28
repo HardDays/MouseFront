@@ -138,7 +138,7 @@
                 <div class="right-side">
                     <p class="name">{{item.account?.user_name?item.account.user_name:''}}</p>
                     <p class="description">{{item.text}}</p>
-                    <p class="when">{{item.created_at?calculateTime(item.created_at):'A long time'}} ago</p>
+                    <p class="when">{{item.created_at?calculateTime(item.created_at):'A long time'}} {{'ago'|translate}}</p>
                 </div>
             </div>
 
@@ -152,7 +152,7 @@
                 </div>
                 <div class="right-side">
                     <button (click)="postComment()" class="butt-style-1" type="button">
-                        <span>post</span>
+                        <span translate>post</span>
                     </button>
                 </div>
             </form>

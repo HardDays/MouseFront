@@ -62,7 +62,7 @@ export class AdminComponent extends BaseComponent implements OnInit {
 
       this.broadcaster.on<any>('AdminMessagesChannel').subscribe(
         message => {
-          console.log(message);
+          // console.log(message);
           this.CountMessages = message['count'];
         }
       );
@@ -137,7 +137,7 @@ export class AdminComponent extends BaseComponent implements OnInit {
     // this.getNewCounts();
     this.main.adminService.NewCountChange.subscribe(
       ()=>{
-        console.log(`get new count`);
+        // console.log(`get new count`);
 
         this.getNewCounts();
         // this.newAccCount =  this.newAccCount - 1;
@@ -184,6 +184,12 @@ export class AdminComponent extends BaseComponent implements OnInit {
         break;
         case 'revenues':
           this.currentPage = Parts.revenue;
+        break;
+        case 'messages':
+          this.currentPage = Parts.messages;
+        break;
+        case 'notification':
+          this.currentPage = Parts.notifications;
         break;
       }
     }
@@ -331,5 +337,7 @@ export enum Parts {
   settings = 27,
   add_new_admin = 28,
   customer_support = 29,
-  customer_answers = 30
+  customer_answers = 30,
+  messages = 31,
+  notifications = 32
 }

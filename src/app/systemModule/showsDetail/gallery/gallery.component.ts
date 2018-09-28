@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges, EventEmitter, Output, ViewChild } from '@angular/core';
 import { BaseComponent } from "../../../core/base/base.component";
 import { AccountGetModel } from '../../../core/models/accountGet.model';
 import { SafeResourceUrl } from '@angular/platform-browser';
@@ -9,7 +9,7 @@ declare var $:any;
 @Component({
   selector: 'show-gallery-cmp',
   templateUrl: './gallery.component.html',
-  styleUrls: ['./../showsDetail.component.css']
+  styleUrls: ['./gallery.component.css']
 })
 export class ShowDetailGalleryComponent extends BaseComponent implements OnChanges{
     
@@ -17,7 +17,7 @@ export class ShowDetailGalleryComponent extends BaseComponent implements OnChang
     @Input() Artists: AccountGetModel[];
     Images:string[] = [];
     isShow = false;
-
+    @ViewChild('slideshow') slideshow: any;
 
     ngOnChanges(changes: SimpleChanges): void {
         if(changes.Venue)
@@ -51,6 +51,11 @@ export class ShowDetailGalleryComponent extends BaseComponent implements OnChang
             }
         }
     }
+
+    changeSlide(int){
+        this.slideshow.onSlide(int);
+    }
+   
 
     GetImageByAccount(accId)
     {

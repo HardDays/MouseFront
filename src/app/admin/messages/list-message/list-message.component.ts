@@ -45,7 +45,7 @@ export class ListMessageComponent extends BaseComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     if(changes.Search){
-      console.log(changes.Search.currentValue);
+      // console.log(changes.Search.currentValue);
 
       this.Search = changes.Search.currentValue;
       this.getFilterMessages();
@@ -70,7 +70,7 @@ export class ListMessageComponent extends BaseComponent implements OnInit {
             this.getImages();
             this.getFilterMessages();
           }
-          console.log(this.Messages);
+          // console.log(this.Messages);
         })
   }
 
@@ -108,7 +108,7 @@ export class ListMessageComponent extends BaseComponent implements OnInit {
       this.main.adminService.ReadMessage(this.openMessage.id)
         .subscribe(
           (res)=>{
-            console.log(`read ok`);
+            // console.log(`read ok`);
             this.openMessage.is_read = true;
             this.main.adminService.NewCountChange.next(true);
           }

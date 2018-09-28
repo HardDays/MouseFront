@@ -64,12 +64,12 @@ export class LoginComponent extends BaseComponent implements OnInit {
             this.main.MyAccountsChange.subscribe(
               (accs)=>{
                 if(this.main.MyAccounts.length>0){
-                  console.log(`main.MyAccounts.length>0`);
+                  // console.log(`main.MyAccounts.length>0`);
                   this.router.navigate(['/system','shows']);
                 }
                 else
                 {
-                  console.log(`create new acc`);
+                  // console.log(`create new acc`);
                   this.router.navigate(['/social']);
                 }
               }
@@ -165,11 +165,11 @@ export class LoginComponent extends BaseComponent implements OnInit {
      VK.init({apiId: 6326995});
     setTimeout(() => {
       VK.Auth.logout((res)=>{
-        console.log(res);
+        // console.log(res);
       });
     }, 500);
     VK.Observer.subscribe('auth.logout',(res)=>{
-      console.log(`subscribe`,res);
+      // console.log(`subscribe`,res);
     })
   }
 

@@ -142,11 +142,9 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
                 curr_date.date(curr_date.date() +1);
             }
         }
-        console.log("dates", arr);
         this.main.accService.SaveVenueDatesAsArray(this.VenueId, {dates: arr})
             .subscribe(
                 (res: any) => {
-                    console.log("res", res);
                     this.ChangeDates();
                 }
             );
@@ -161,8 +159,23 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
         {
             if(data.price_for_daytime !== null)
                 model.price_for_daytime = parseFloat(data.price_for_daytime);
+
             if(data.price_for_nighttime !== null)
                 model.price_for_nighttime = parseFloat(data.price_for_nighttime);
+
+            
+            if(Number.isNaN(model.price_for_daytime) || Number.isNaN(model.price_for_nighttime))
+            {
+                const index = this.changedPrice.findIndex((val)=> date.toDateString() == val.mDate.toDate().toDateString());
+                if(index != -1)
+                {
+                    if(Number.isNaN(model.price_for_daytime) && !Number.isNaN(this.changedPrice[index].dayPrice))
+                        model.price_for_daytime = this.changedPrice[index].dayPrice;
+
+                    if(Number.isNaN(model.price_for_nighttime) && !Number.isNaN(this.changedPrice[index].nightPrice))
+                        model.price_for_nighttime = this.changedPrice[index].nightPrice;
+                }
+            }
             
             model.currency = this.MyCurrency;
         }

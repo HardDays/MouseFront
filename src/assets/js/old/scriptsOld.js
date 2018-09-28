@@ -112,7 +112,7 @@ $(document).ready(function () {
             }
             
             
-            console.log(options);
+            // console.log(options);
             var lightBox = new PhotoSwipe(pswp, PhotoSwipeUI_Default, items, options);
             lightBox.init();
         });

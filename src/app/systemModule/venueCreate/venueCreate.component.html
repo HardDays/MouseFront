@@ -29,15 +29,14 @@
                         </li>
 
                         <li>
-                            <button class="butt-style-1" style="width: auto; min-width: 130px;" (click)="SuperPuperImportantSaveButton()">
+                            <button *ngIf="VenueId !== 0" class="butt-style-1" style="width: auto; min-width: 130px;" (click)="SuperPuperImportantSaveButton()">
                                 <span style="padding: 10px 10px" translate>
                                     Venue.SAVE
                                 </span>
                             </button>
                         </li>
 
-                        <li *ngIf="VenueId !== 0 && isCanVerify"
-                        >
+                        <li *ngIf="VenueId !== 0 && (this.Venue.status==='just_added'||this.Venue.status==='dened')">
                             <button class="butt-style-1" style="width: auto; min-width: 130px;" (click)="clickVerifyButton()">
                                 <span style="padding: 10px 10px" translate>
                                     Verify

@@ -332,6 +332,12 @@ export class TypeService{
     GetConvertedStylePhone(){
         
     }
+
+    DateToUTCDateISOString(input)
+    {
+        const date = new Date(input);
+        return new Date(date.getTime() + date.getTimezoneOffset()*60*1000).toISOString();
+    }
 }
 
 

@@ -106,6 +106,8 @@ export class AboutComponent extends BaseComponent implements OnInit {
 
     this.CreateAutocompleteAbout();
 
+
+
     var _the = this;
     // $(document).mouseup(function (e) {
     //     var container = $("#pick-up-genre-modal");
@@ -156,9 +158,16 @@ export class AboutComponent extends BaseComponent implements OnInit {
     this.mapCoords.lat = (this.Event && this.Event.city_lat)?this.Event.city_lat:55.755826;
     this.mapCoords.lng = (this.Event && this.Event.city_lng)?this.Event.city_lng:37.6172999;
 
+    if(!this.Event.city_lat&&!this.Event.city_lng)
+      this.main.accService.GetLocation()
+        .subscribe((data)=>{
+            this.mapCoords.lat = data.location[0];
+            this.mapCoords.lng = data.location[1];
+        })
 
 
-    console.log(this.Event);
+
+    // console.log(this.Event);
 
   }
 ShowHideGenres(event){
@@ -353,10 +362,10 @@ GetCurrentCurrency(){
           (res)=>
           {
             this.Event.exact_date_from = this.datepickerExactModel.toString();
-            console.log(res);
+            // console.log(res);
           },
           (err)=>{
-            console.log(err);
+            // console.log(err);
             // this.onError.emit(this.getResponseErrorMessage(err))
           }
         )

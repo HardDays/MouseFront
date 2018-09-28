@@ -2,6 +2,6 @@
   <div class="desc">
       <p class="name">{{Ticket.name}}</p>
       <p class="when" *ngIf="Ticket.date_from">{{Ticket.date_from|date:'shortDate'}}</p>
-      <p class="when" *ngIf="Ticket.tickets_count">TICKETS COUNT: {{Ticket.tickets_count}} </p>
+      <p class="when" *ngIf="Ticket.tickets_count">{{"TICKETS COUNT"|translate}}: {{Ticket.tickets_count}} </p>
   </div>
 </div>

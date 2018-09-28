@@ -250,6 +250,13 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
       this.cordsMap.lat = this.Fun.lat;
       this.cordsMap.lng = this.Fun.lng;
     }
+    else{
+      this.main.accService.GetLocation()
+        .subscribe((data)=>{
+            this.cordsMap.lat = data.location[0];
+            this.cordsMap.lng = data.location[1];
+        })
+    }
   }
 
   seeFirstGenres()
@@ -339,6 +346,11 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
         }
       }
 
+      if(!this.Fun.address){
+        this.Fun.lat = null;
+        this.Fun.lng = null;
+      }
+
 
       this.WaitBeforeLoading(
         ()=> this.FunId == 0 ? this.main.accService.CreateAccount(this.Fun) : this.main.accService.UpdateMyAccount(this.FunId,this.Fun),
@@ -390,13 +402,61 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
       return;
     }
 
+    this.UpdateAndVerifyFan();
 
-    this.main.accService.VerifyAccount(this.FunId)
-      .subscribe(
-        (res)=>{
-          this.Fun.status = 'unchecked';
+  }
+
+  UpdateAndVerifyFan(){
+    if(this.form.valid)
+        {
+          this.Fun.account_type = AccountType.Fan;
+          this.Fun.genres = [];
+
+        // this.Fun.genres = this.main.genreService.GenreModelArrToStringArr(this.Genres);
+          this.Fun.genres = [];
+
+          for(let g of this.Genres){
+            if(g.checked){
+              this.Fun.genres.push(g.genre);
+            }
+          }
+
+          if(!this.Fun.address){
+            this.Fun.lat = null;
+            this.Fun.lng = null;
+          }
+
+
+          this.WaitBeforeLoading(
+            ()=>this.main.accService.UpdateMyAccount(this.FunId,this.Fun),
+            (res:any)=>{
+              // this.DisplayFunParams(res);
+
+              if(this.Fun.lat&&this.Fun.lng)
+                {
+                  this.cordsMap.lat = this.Fun.lat;
+                  this.cordsMap.lng = this.Fun.lng;
+                }
+
+              this.main.accService.VerifyAccount(this.FunId)
+                .subscribe(
+                  (res)=>{
+                    this.Fun.status = 'unchecked';
+                    this.errorCmp.OpenWindow(BaseMessages.Success);
+                  }
+                )
+
+
+            },
+            (err:any)=>{
+
+              this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'fan'));
+            }
+          );
         }
-      )
+        else {
+          this.errorCmp.OpenWindow(this.getFormErrorMessage(this.form, 'fan'));
+        }
   }
 
 

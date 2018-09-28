@@ -106,7 +106,6 @@ export class BigCalendarComponent implements OnInit, OnChanges {
           this.sortedDates = _.sortBy(changes.selectedDates.currentValue, (m: CalendarDate) => m.mDate.valueOf());
     }
     this.generateCalendar();
-    console.log(this.changedPrice);
   }
   GetEventsInfo(){
     this.Images = [];
@@ -300,12 +299,6 @@ export class BigCalendarComponent implements OnInit, OnChanges {
         return true;
       }
     }
-    // console.log(
-    // {
-    //   "date":date.toISOString(),
-    //   "index":index
-    // }
-    // );
     return false;
     // return _.findIndex(this.changedPrice, (changed) => date.format("MM-DD-YYYY") == changed.mDate.format("MM-DD-YYYY")) != -1;
     //return date.isSame(changed.mDate,'day');
@@ -452,7 +445,6 @@ export class BigCalendarComponent implements OnInit, OnChanges {
 
   SaveCheckedDate()
   {
-    // console.log(this.FormVals);
     if(this.FormVals.from > this.FormVals.to)
     {
       const from = new Date(this.FormVals.to);

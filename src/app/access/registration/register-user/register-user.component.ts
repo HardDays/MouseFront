@@ -74,6 +74,10 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
           this.errorCmp.OpenWindow('Password is too short!');
           this.closeWindowAndRegFalse();
         }
+        else if (this.createUser.password.length>=100){
+          this.errorCmp.OpenWindow('Password is too long!');
+          this.closeWindowAndRegFalse();
+        }
         else if (this.createUser.password!=this.createUser.password_confirmation){
           this.errorCmp.OpenWindow('Password does not match the confirm password!');
            this.closeWindowAndRegFalse();

@@ -213,12 +213,12 @@ export class PaymentShowDetailComponent extends BaseComponent implements OnInit 
         purchase.redirect_url = window.location.href.split('?')[0];
 
         purchase.account_id = this.GetCurrentAccId();
-        console.log(purchase);
+        // console.log(purchase);
         this.WaitBeforeLoading(
             () => this.main.eventService.StartPurchaseTickets(purchase),
             (res:any) =>
             {
-                console.log(res);
+                // console.log(res);
                 window.location.href = res.url;
             },
             (err) =>

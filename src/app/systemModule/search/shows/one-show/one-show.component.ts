@@ -15,6 +15,7 @@ import { BaseImages } from "../../../../core/base/base.enum";
 
     Image:string = BaseImages.Drake;
     Time:string = "00:00";
+    Date:string = null;
     DisplayName: string = "";
     DisplayCity: string = "";
 
@@ -24,7 +25,17 @@ import { BaseImages } from "../../../../core/base/base.enum";
         this.GetImage();
         if(this.Show.date_from)
         {
-            this.Time = this.main.accService.GetTimeFromString(this.Show.date_from);
+            if(this.Show.exact_date_from)
+            {
+                this.Date = this.main.typeService.DateToUTCDateISOString(this.Show.exact_date_from);
+                this.Time = this.main.accService.GetTimeFromString(this.Show.exact_date_from);
+            }
+            else if(this.Show.date_from)
+            {
+                this.Date = this.main.typeService.DateToUTCDateISOString(this.Show.date_from);
+                this.Time = this.main.accService.GetTimeFromString(this.Show.date_from);
+            }
+            
         }
     }
 

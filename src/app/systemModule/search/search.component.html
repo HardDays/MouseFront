@@ -53,13 +53,14 @@
 
                     </div>
                     
-                    <div [ngStyle]="{'display':SearchType == LocalSearchTypes.Shows? 'block':'none'}">
-                        <div class="groupe-form">
+                    <div >
+                        <div class="groupe-form" [ngStyle]="{'display':SearchType == LocalSearchTypes.Shows? 'block':'none'}">
                             <p class="head-input-groupe" translate>Date</p>
                             <div class="wrapp-for-triangle">
                                 <input type="text" (onShown)="onShowPicker($event)" name="date-picker-inp" class="date-picker-inp" containerClass="transformed" #dp="bsDaterangepicker" bsDaterangepicker ngModel [bsConfig]="bsConfig" [(ngModel)]="SearchDateRange">
                             </div>
                         </div>
+                        
                         <div class="groupe-form">
                             <p class="head-input-groupe" translate>Location</p>
                             <div class="location-wr">
@@ -67,33 +68,13 @@
                                 <input type="text" class="location-inp" name="search-params-address" autocorrect="off" autocapitalize="off" spellcheck="off" #searchLocal placeholder="" [ngModel]="LocationText" (ngModelChange)="LocationTextChenged($event)"  #search id="searchAddress">
                             </div>
                         </div>
-                        <div class="groupe-form" [ngStyle]="{'display':(Lat && Lng)? 'block':'none'}">
+                        <div class="groupe-form" [ngStyle]="{'display':(SearchParams.lat && SearchParams.lng)? 'block':'none'}">
                             <p class="head-input-groupe" translate>Distance</p>
                             <div class="for-range-slider">
                                 <input type="text" name="distance-range-slider" class="current-slider distance-slider">
                             </div>
                         </div>
                     </div>
-
-                    <ng-container *ngIf="SearchType != LocalSearchTypes.Shows">
-                        <div class="groupe-form">
-                            <p class="head-input-groupe" translate>Region</p>
-                            <input type="text" name="country-input" autocomplete="off" autocorrect="off" auto-complete autocapitalize="off" 
-                                spellcheck="off" [(ngModel)]="Country" [source]="Countries" class="inp-style-3" placeholder="{{'Choose a country' | translate}}"
-                                [list-formatter]="AutocompleteListFormatter"
-                                value-property-name="name"
-                                display-property-name="name"
-                                min-chars="1"
-                                max-num-list="6"
-                                (ngModelChange)="CountryChanged($event)"
-                                (customSelected)="CustomSelect($event)"
-                                blank-option-text="">
-                        </div>
-                        <div class="groupe-form">
-                            <p class="head-input-groupe" translate>City</p>
-                            <input type="text"  name="city-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="off" [ngModel]="City" (ngModelChange)="City = $event" class="inp-style-3" #seaarchCity placeholder="{{'Choose a city' | translate}}">
-                        </div>
-                    </ng-container>
                     
                     <div class="groupe-form" *ngIf="SearchType != LocalSearchTypes.Venues && SearchType != LocalSearchTypes.All">
                         <p class="head-input-groupe" translate>Genre</p>

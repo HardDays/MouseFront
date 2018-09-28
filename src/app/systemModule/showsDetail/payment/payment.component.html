@@ -7,7 +7,7 @@
                     <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M33 14.4378H7.83721L19.3872 2.88779L16.5 0L0 16.5L16.5 33L19.3872 30.1122L7.83721 18.5622H33V14.4378Z" fill="black"/>
                     </svg>
-                    <span>back</span>
+                    <span translate>back</span>
                 </a>
                 <div class="info-payment-left">
                     <h1>{{Event.name}}</h1>
@@ -30,7 +30,7 @@
 
 
                     <div class="method-route" *ngIf="!PaymentSuccess && !PaymentFail">
-                        <h2>Payment Method</h2>
+                        <h2 translate>Payment Method</h2>
                         <div class="info-payment">
                             <ng-container *ngFor="let item of Tickets"> 
                                 <p translate>
@@ -38,11 +38,11 @@
                                         <span translate>
                                             ({{item.ticket.is_promotional?'Promotional':'Regular'}}) 
                                         </span>
-                                     Ticket: {{item.count}} @ <span><span [innerHTML]="Currency"></span>{{item.ticket.price}}</span> 
-                                     each
+                                     {{'Ticket'|translate}}: {{item.count}} @ <span><span [innerHTML]="Currency"></span>{{item.ticket.price}}</span> 
+                                     {{'each'|translate}}
                                 </p>
                             </ng-container>
-                            <p class="total">TOTAL: <span><span [innerHTML]="Currency"></span>{{Total}}</span></p>
+                            <p class="total">{{'TOTAL'|translate}}: <span><span [innerHTML]="Currency"></span>{{Total}}</span></p>
                         </div>
                         <div class="for-flex-payment-blocks">
                             <div class="one-collapsed-block">
@@ -56,7 +56,7 @@
 
                                     <div class="flexed-buy">
                                         <button class="butt-style-1" (click)="BuyTicket()">
-                                            <span>Buy</span>
+                                            <span translate>Buy</span>
                                         </button>
                                     </div>
                                 </form>
@@ -70,8 +70,8 @@
 
         
                     <div class="complete-route"  *ngIf="PaymentSuccess && !PaymentFail">
-                        <p class="c-1">Your payment is <span>Complete</span></p>  
-                        <p class="c-2">TOTAL: <span><span [innerHTML]="Currency"></span>{{Total}}</span></p>
+                        <p class="c-1">{{'Your payment is'|translate}} <span translate>PaymentComplete</span></p>  
+                        <p class="c-2">{{'TOTAL'|translate}}: <span><span [innerHTML]="Currency"></span>{{Total}}</span></p>
                         <div class="c-3-wrapp">
                             <ng-container *ngFor="let item of Tickets"> 
                                 <p class="c-3" translate>
@@ -79,17 +79,17 @@
                                     <span translate>
                                         ({{item.ticket.is_promotional?'Promotional':'Regular'}}) 
                                     </span>
-                                    Ticket: {{item.count}} @ <span><span [innerHTML]="Currency"></span>{{item.ticket.price}}</span> 
-                                    each
+                                    {{'Ticket'|translate}}: {{item.count}} @ <span><span [innerHTML]="Currency"></span>{{item.ticket.price}}</span> 
+                                    {{'each'|translate}}
                                 </p>
                             </ng-container>
                         </div>
                         <p class="code">
-                            <span>Verification code:</span>{{Verification}}
+                            <span>{{'Verification code'|translate}}:</span>{{Verification}}
                         </p>
                         <div class="flexed-print">
                             <button class="butt-style-1" (click)="printTicket()" >
-                                <span>Print ticket</span>
+                                <span translate>Print ticket</span>
                             </button>
                         </div>
                     </div>
@@ -99,7 +99,7 @@
                     <!--роут статуса оплаты error-->
         
                     <div class="complete-route"  *ngIf="!PaymentSuccess && PaymentFail">
-                        <p class="c-1">failure</p>  
+                        <p class="c-1" translate>failure</p>  
                         <img src="assets/img/smile.svg" class="img-responsive middle-image" alt="">
                         <div class="c-3-wrapp">
                             <ng-container *ngFor="let item of Tickets"> 
@@ -108,14 +108,14 @@
                                     <span translate>
                                         ({{item.ticket.is_promotional?'Promotional':'Regular'}}) 
                                     </span>
-                                    Ticket: {{item.count}} @ <span><span [innerHTML]="Currency"></span>{{item.ticket.price}}</span> 
-                                    each
+                                    {{'Ticket'|translate}}: {{item.count}} @ <span><span [innerHTML]="Currency"></span>{{item.ticket.price}}</span> 
+                                    {{'each'|translate}}
                                 </p>
                             </ng-container>
                         </div>
                             <div class="flexed-print">
                             <button class="butt-style-1" (click)="BuyTicket()">
-                                <span>Try again</span>
+                                <span translate>Try again</span>
                             </button>
                         </div>
                     </div>
@@ -140,8 +140,8 @@
         <div class="content-print" >
             <p class="f1" translate>Tickets.Concert</p>
             <p class="name-concert">{{Event.name}}</p>
-            <p class="when" [innerHTML]="Date">
-                
+            <p class="when">
+                {{Event.exact_date_from | date : 'MMMM d, y'}} @ {{Time}}
             </p>
             <p class="where">
                 {{Event.address}}, {{Event?.city?Event.city:''}}, {{Event?.state?Event.state:''}}
@@ -169,7 +169,7 @@
                         <div class="col-info">
                             <p class="name-col" translate>Price</p>
                             <p class="value"><i [innerHTML]="Currency"></i>{{item.ticket.price}}</p>
-                         <p *ngIf="MyCurrency != OriginalCurrency" class="c c-original"></p>
+                         <!-- <p *ngIf="MyCurrency != OriginalCurrency" class="c c-original"></p> -->
                         </div>
         
                     </div>

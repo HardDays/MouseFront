@@ -33,6 +33,8 @@ export class EventGetModel{
         public is_crowdfunding_event?: boolean,
         public city_lat?: string,
         public city_lng?: string,
+        public city?:string,
+        public state?:string,
         public artists_number?: number,
         public address?: string,
         public image_id?: number,
