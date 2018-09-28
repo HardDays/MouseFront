@@ -392,7 +392,7 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
 
     if(this.Artist.price_from&&this.Artist.price_to){
 
-      if(!isHasOtherVenue||isHasOtherVenue&&this.Artist.preferred_venue_text.length>0){
+      if(!isHasOtherVenue||isHasOtherVenue&&this.Artist.preferred_venue_text&&this.Artist.preferred_venue_text.length>0){
 
         if(''+this.Artist.price_from[0]===this.CurrencySymbol)this.Artist.price_from = +(''+this.Artist.price_from).slice(1);
         if(''+this.Artist.price_to[0]===this.CurrencySymbol)this.Artist.price_to = +(''+this.Artist.price_to).slice(1);

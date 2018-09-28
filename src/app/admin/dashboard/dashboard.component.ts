@@ -98,7 +98,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
           }
         )
 
-      this.main.adminService.GetEventsRequests({status: 'pending',limit:20,offset:0})
+      this.main.adminService.GetEventsRequests({status: 'just_added',limit:20,offset:0})
         .subscribe(
           (res)=>{
             this.Events = this.convertArrToCheckModel<any>(res);
@@ -126,7 +126,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
 
   onScrollEvent(){
     this.ScrollEventsDisabled = true;
-    this.main.adminService.GetEventsRequests({status: 'pending',imit:20,offset:this.Events.length})
+    this.main.adminService.GetEventsRequests({status: 'just_added',imit:20,offset:this.Events.length})
       .subscribe(
         (res)=>{
           this.Events.push(...this.convertArrToCheckModel<any>(res));

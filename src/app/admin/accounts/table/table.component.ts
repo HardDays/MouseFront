@@ -37,7 +37,7 @@ export class TableComponent extends BaseComponent implements OnInit {
       else if(changes.status&&changes.status.currentValue === 'new')
         this.status = 'unchecked';
     }
-    if(changes.status&&this.Accounts.length){
+    if(changes.status&&this.Accounts&&this.Accounts.length){
       if(changes.status&&changes.status.currentValue === 'all')
         this.status = '';
       else if(changes.status&&changes.status.currentValue === 'new')
