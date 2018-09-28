@@ -25,9 +25,11 @@ export class CustomerSupportAnswersComponent extends BaseComponent implements On
 
   ngOnInit() {
     this.isSuperUser = this.MyUser.is_superuser?true:false;
+    console.log(`isSuperUser`,this.isSuperUser);
+
     // console.log(this.isSuperUser);
-    
-    
+
+
     this.GetTemplates();
   }
 
@@ -71,8 +73,8 @@ export class CustomerSupportAnswersComponent extends BaseComponent implements On
     setTimeout(() => {
       this.initJs();
     }, 500);
-      
-        
+
+
   }
 
   OpenTemplate(temp){
@@ -105,7 +107,7 @@ export class CustomerSupportAnswersComponent extends BaseComponent implements On
         (res)=>{
          this.clearTemplate();
           this.GetTemplates();
-         
+
         }
       )
   }
