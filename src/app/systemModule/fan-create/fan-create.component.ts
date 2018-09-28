@@ -200,6 +200,9 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
         if (status === google.maps.GeocoderStatus.OK) {
           if (results[1]) {
             this.Fun.address = results[1].formatted_address;
+            this.Fun.lat = results[1].geometry.location.toJSON().lat;
+            this.Fun.lng = results[1].geometry.location.toJSON().lng;
+            // $("#aboutAddress").val(results[1].formatted_address);
           }
         }
       }
