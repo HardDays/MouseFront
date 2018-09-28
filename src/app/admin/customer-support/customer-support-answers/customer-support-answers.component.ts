@@ -89,6 +89,8 @@ export class CustomerSupportAnswersComponent extends BaseComponent implements On
       (res)=>{
         this.GetTemplates();
         this.clearTemplate();
+        this.openTemplate.id = res['id'];
+        this.approveTemplate();
         // console.log(`ok`)
         // this.Templates.push(this.openTemplate);111
 
