@@ -23,12 +23,14 @@ export class AccountComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     window.scrollTo(0,0);
+
     this.activatedRoute.params.subscribe(
       (params:Params) => {
         this.accId = params['id']; // console.log(params["id"]);
         this.getThisAcc();
       }
     );
+
   }
 
   getThisAcc(){
@@ -46,18 +48,30 @@ export class AccountComponent extends BaseComponent implements OnInit {
     )
   }
 
+  isOnDelete = false;
   removeAcc(){
     // console.log(`removeAcc`);
-    this.main.adminService.AccountDelete(this.accId)
-      .subscribe(
-        (res)=>{
-          // console.log(`res`,res);
-          this.router.navigate(['/admin','accounts','all'])
-        },
-        (err)=>{
-          // console.log(`err`,err)
-        }
-      )
+    if(!this.isOnDelete){
+      this.isOnDelete = true;
+      this.main.adminService.AccountDelete(this.accId)
+        .subscribe(
+          (res)=>{
+            this.isOnDelete = false;
+            // console.log(`res`,res);
+            this.router.navigate(['/admin','accounts','all'])
+          },
+          (err)=>{
+            if(err.json()['errors']&&err.json()['errors']==='ACCOUNT_IN_EVENT')
+              this.errCmp.OpenWindow('<b>Fail!</b> Account in Event');
+            setTimeout(() => {
+              if(this.errCmp.isShown)
+                this.errCmp.CloseWindow();
+              this.isOnDelete = false;
+            }, 3000);
+            // console.log(`err`,err)
+          }
+        )
+    }
   }
 
   denyAcc(){
