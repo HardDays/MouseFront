@@ -143,7 +143,7 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
     }
 
     mapClick(){
-        // console.log(`click`);
+        console.log(`click`);
     }
 
     ngAfterViewChecked()

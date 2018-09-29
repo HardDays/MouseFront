@@ -35,8 +35,15 @@ export class CustomerSupportAnswersComponent extends BaseComponent implements On
 
   initJs(){
     $('.support_answers .answer_head').click(function() {
+      
+      if($(this).parent().hasClass('opened')){
+        $(this).parent().removeClass('opened');
+      }
+      else{
+        $(this).parent().addClass('opened')
+      }
       $(this).next().slideToggle();
-      $(this).parent().toggleClass('opened');
+     // $(this).parent().toggleClass('opened');
     });
 
     $('.answer_file span').click(function() {
@@ -49,14 +56,15 @@ export class CustomerSupportAnswersComponent extends BaseComponent implements On
   }
 
   GetTemplates(){
-    setTimeout(() => {
-      this.initJs();
-    }, 1500);
+    
     this.main.adminService.GetReplyTemplates()
     .subscribe(
       (res)=>{
         this.Templates = res;
         this.checkedTemplates = this.Templates;
+        setTimeout(() => {
+          this.initJs();
+        }, 200);
       }
     )
   }
