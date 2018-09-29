@@ -64,7 +64,7 @@ export class AccountGetModel{
         public email?: string,
         public manager_name?: string,
         public video_links?: string[],
-        public artist_albums?: Album[],
+        // public artist_albums?: Album[],
         public videos?: Video[],
         public artist_videos?: Video[],
         public image_base64_not_given?: string,

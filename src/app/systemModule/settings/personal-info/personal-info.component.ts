@@ -28,6 +28,7 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
   codeRequest:string[]=[];
 
   phoneMask:string='';
+  isSendRequest = false;
 
   @Input() User: UserCreateModel;
   @Output() OnSave = new EventEmitter<UserCreateModel>();
@@ -151,6 +152,10 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
           (err)=>{
             if(err.json()&&err.json()['phone']&&err.json()['phone']==='ALREADY_USED')
               this.errorCmp.OpenWindow('Phone is already used!');
+            if(err.json()&&err.json()['phone']&&err.json()['phone']==='ALREADY_VALIDATED'){
+               $('#modal_change_phone').modal('hide');
+               $('#modal_change_phone_ver').modal('show');
+            }
 
           }
       );
@@ -183,34 +188,48 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
   }
 
   sendRequest(){
-    if(this.codeRequest.length==4){
-      let code = this.codeRequest[0]+this.codeRequest[1]+this.codeRequest[2]+this.codeRequest[3];
-      this.WaitBeforeLoading(
-        ()=> this.main.phoneService.SendRequestCode(this.convertPhoneToSend(this.phone),code),
-          (res)=>{
+    if(!this.isSendRequest){
+      if(this.codeRequest.length==4){
+        let code = this.codeRequest[0]+this.codeRequest[1]+this.codeRequest[2]+this.codeRequest[3];
+        this.WaitBeforeLoading(
+          ()=> this.main.phoneService.SendRequestCode(this.convertPhoneToSend(this.phone),code),
+            (res)=>{
+              this.isSendRequest = true;
+              // this.User.register_phone = this.convertPhoneToSend(this.phone);
+              this.codeRequest = [];
+              $('#modal_change_phone_ver').modal('hide');
+              this.main.authService.UpdateUserPhone(this.phone)
+                .subscribe(
+                  (res)=>{
+                    this.User.register_phone = this.phone;
+                    this.isSendRequest = false;
+                    $('#success_change_phone').modal('show');
+                  },
+                  (err)=>{
+                    this.errorCmp.OpenWindow(BaseMessages.Fail);
+                    this.isSendRequest = false;
+                  }
+                )
 
-            // this.User.register_phone = this.convertPhoneToSend(this.phone);
-            this.codeRequest = [];
-            $('#modal_change_phone_ver').modal('hide');
-             this.main.authService.UpdateUserPhone(this.phone)
-              .subscribe(
-                (res)=>{
-                  this.User.register_phone = this.phone;
-                  $('#success_change_phone').modal('show');
-                },
-                (err)=>{
-                  this.errorCmp.OpenWindow(BaseMessages.Fail);
+              //this.isShowPhone.emit(true);
+            // this.phoneStatus.emit({status:true,phone:phone});
+            },
+            (err)=>{
+              this.isSendRequest = true;
+              if(err.json()['code']&&err.json()['code'][0]==='INVALID'){
+                  this.errorCmp.OpenWindow('Sorry, this code is invalid!');
                 }
-              )
-
-            //this.isShowPhone.emit(true);
-           // this.phoneStatus.emit({status:true,phone:phone});
-          },
-          (err)=>{
-            this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
-
-          }
-      );
+              else{
+                this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
+                }
+                setTimeout(() => {
+                    if(this.errorCmp.isShown)
+                      this.errorCmp.CloseWindow();
+                      this.isSendRequest = false;
+                  }, 3000);
+            }
+        );
+      }
     }
   }
 

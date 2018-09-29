@@ -8,6 +8,7 @@ import { BaseImages, AccountStatus } from "../../../core/base/base.enum";
 import { CheckModel } from "../../../core/models/check.model";
 import { SafeResourceUrl } from "@angular/platform-browser";
 import { ErrorComponent } from "../../../shared/error/error.component";
+import { Audio } from "../../../core/models/accountCreate.model";
 
 declare var $:any;
 declare var PhotoSwipeUI_Default:any;
@@ -24,7 +25,7 @@ declare var SC:any;
 
 
 export class ArtistProfileComponent extends BaseComponent implements OnInit,OnChanges {
-    
+
     @Input() Account: AccountGetModel;
     @Input() Image:string;
     @Input() Fans:AccountGetModel[];
@@ -47,6 +48,7 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
     AlbumsChecked:Album[] = [];
     VideoPath:SafeResourceUrl[] = [];
 
+    Audios:Audio[] = [];
     audioId:number = 0;
     audioDuration:number = 0;
     audioCurrentTime:number = 0;
@@ -84,7 +86,7 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
         SC.initialize({
             client_id: "b8f06bbb8e4e9e201f9e6e46001c3acb",
         });
-       
+
     }
 
     InitByUser()
@@ -94,12 +96,24 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
         // this.Account.operating_hours = (this.Account && this.Account.operating_hours)?
         //     this.main.accService.ParseWorkingTimeModelArr(this.Account.operating_hours):[];
 
-        
-        this.AlbumsChecked = this.Albums = this.Account.artist_albums;
-    
+        this.main.accService.GetArtistAlbums(this.Account.id)
+        .subscribe(
+          (res)=>{
+            this.AlbumsChecked = this.Albums = res;
+          }
+        )
+
+      this.main.MediaService.GetAudiosById(this.Account.id)
+      .subscribe(
+        (res)=>{
+          this.Audios = res;
+        }
+      )
+
+
         // this.GetVideo();
         this.GetUpcomingShows();
-        
+
     }
 
     GetGenres(){
@@ -122,7 +136,7 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
     //     this.VideoPath = [];
     //     if(this.Account.videos && this.Account.videos.length > 0)
     //     {
-        
+
     //         for(let i in this.Account.videos){
     //             let link = this.Account.videos[i].link;
     //             let id = this.GetVideoId(link);
@@ -134,14 +148,14 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
     //         }
     //         if(!$('.iframe-slider-wrapp').not('.slick-initialized').length){
     //             $('.iframe-slider-wrapp').slick('unslick');
-    
+
     //         }
     //         setTimeout(()=>{
     //             this.InitSliderWrapp();
     //         },1000);
     //     }
     // }
-    
+
     SanitizePath(path:string)
     {
         return this._sanitizer.bypassSecurityTrustResourceUrl(path);
@@ -167,9 +181,9 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
         else this.AlbumsChecked = this.Albums;
     }
 
-    // InitSliderWrapp() 
+    // InitSliderWrapp()
     // {
-        
+
     //     if($('.iframe-slider-wrapp').not('.slick-initialized').length){
     //         $('.iframe-slider-wrapp').slick({
     //             dots: false,
@@ -196,11 +210,11 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
         {
             this.main.accService.GetUpcomingShows(this.Account.id).subscribe(
                 (res:any) =>
-                { 
+                {
                     this.UpcomingShowsChecked = this.UpcomingShows = res;
                 },
                 (err) => {
-                
+
                 }
             );
         }
@@ -223,42 +237,42 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
     }
 
     playAudio(s:string){
-  
+
         if(this.player&&  this.player.isPlaying())
           this.player.pause();
-    
+
         this.audioDuration = 0;
         this.audioCurrentTime = 0;
         SC.resolve(s).then((res)=>{
           SC.stream('/tracks/'+res.id).then((player)=>{
             this.player = player;
             this.player.play();
-      
+
             player.on('play-start',()=>{
               this.audioDuration = this.player.getDuration();
             })
-            
+
             setInterval(()=>{
                this.audioCurrentTime = this.player.currentTime();
             },100)
 
             player.on('no_streams',()=>{
                 this.errorCmp.OpenWindow(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
-                
+
             })
-            
+
             // setTimeout(()=>{
             //   player.pause()
             //   player.seek(0)
             // },10000)
-      
+
           });
-    
+
         },(err)=>{
             this.errorCmp.OpenWindow(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
         })
       }
-    
+
       stopAudio(){
         if(this.player&&!this.player.isDead())
             this.player.pause();

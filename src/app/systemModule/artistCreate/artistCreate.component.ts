@@ -175,6 +175,12 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
   SaveArtistByPages(artist:AccountCreateModel, goToNextPage:boolean = true)
   {
     this.Artist.currency = this.main.settings.GetCurrency();
+
+    delete this.Artist['audio_links'];
+    delete this.Artist['artist_albums'];
+    delete this.Artist['artist_videos'];
+    delete this.Artist['artist_riders'];
+
     // this.Artist = artist;
     // console.log(this.ArtistId,this.Artist);
     this.WaitBeforeLoading
@@ -207,6 +213,12 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
   SaveArtist()
   {
     this.Artist.currency = this.main.settings.GetCurrency();
+
+    delete this.Artist['audio_links'];
+    delete this.Artist['artist_albums'];
+    delete this.Artist['artist_videos'];
+    delete this.Artist['artist_riders'];
+
     this.WaitBeforeLoading
     (
       () => this.ArtistId == 0 ? this.main.accService.CreateAccount(this.Artist) : this.main.accService.UpdateMyAccount(this.ArtistId,this.Artist),
@@ -320,6 +332,11 @@ export class ArtistCreateComponent extends BaseComponent implements OnInit,After
     this.Artist.currency = this.main.settings.GetCurrency();
     this.convertPreferedVenues();
     // console.log(`ARTIST`,artist);
+    delete this.Artist['audio_links'];
+    delete this.Artist['artist_albums'];
+    delete this.Artist['artist_videos'];
+    delete this.Artist['artist_riders'];
+
     this.WaitBeforeLoading
     (
       () => this.ArtistId == 0 ? this.main.accService.CreateAccount(artist) : this.main.accService.UpdateMyAccount(this.ArtistId,artist),
