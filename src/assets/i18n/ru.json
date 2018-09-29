@@ -853,6 +853,9 @@
 	"Your payment is": "Ваш платеж",
 	"Try again":"Повторить попытку",
 	"failure":"Ошибка",
-	"TICKETS COUNT":"КОЛ-ВО БИЛЕТОВ"
+	"TICKETS COUNT":"КОЛ-ВО БИЛЕТОВ",
+	"Add Artist": "Добавлен артист", 
+	"Launch Event" :"Запущен Ивент" ,
+	"Add Ticket" :"Добавлен билет"
 
 }

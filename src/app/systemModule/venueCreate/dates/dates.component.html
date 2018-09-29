@@ -94,7 +94,8 @@
                             [eventDates]="eventsDates"  
                             [changedPrice]="changedPrice" 
                             (onSelectDate)="SaveDates($event)"
-                            [CurrencyIcon]="CurIcons[MyCurrency]"></app-big-calendar> 
+                            [CurrencyIcon]="CurIcons[MyCurrency]"
+                            (ChangeMonth)="ChangeDates($event)"></app-big-calendar> 
                     </div>
                 </div>
             </div>
