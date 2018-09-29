@@ -70,7 +70,8 @@ export class BigCalendarComponent implements OnInit, OnChanges {
   @Input() changedPrice: any[] = [];
   @Output() onSelectDate = new EventEmitter<any>();
   @Input() CurrencyIcon:string;
-  @Input() isPreview:boolean
+  @Input() isPreview:boolean;
+  @Output() ChangeMonth: any = new EventEmitter<any>();
 
   @ViewChild('SaveForm') form: NgForm;
 
@@ -349,14 +350,16 @@ export class BigCalendarComponent implements OnInit, OnChanges {
 
   prevMonth(): void {
     this.currentDate = moment(this.currentDate).subtract(1, 'months');
+    this.ChangeMonth.emit(this.currentDate.toDate());
     this.generateCalendar();
-    this.GetEventsInfo();
+    // this.GetEventsInfo();
   }
 
   nextMonth(): void {
     this.currentDate = moment(this.currentDate).add(1, 'months');
+    this.ChangeMonth.emit(this.currentDate.toDate());
     this.generateCalendar();
-    this.GetEventsInfo();
+    // this.GetEventsInfo();
   }
 
   firstMonth(): void {
@@ -451,7 +454,7 @@ export class BigCalendarComponent implements OnInit, OnChanges {
       this.FormVals.to = new Date(this.FormVals.from);
       this.FormVals.from = from;
     }
-    this.onSelectDate.emit(this.FormVals);
+    this.onSelectDate.emit({form:this.FormVals, date: this.currentDate.toDate()});
     this.CloseModalPrice(null);
   }
 

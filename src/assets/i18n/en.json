@@ -853,5 +853,8 @@
 	"Your payment is": "Your payment is",
 	"Try again":"Try again",
 	"failure":"failure",
-	"TICKETS COUNT":"TICKETS COUNT"
+	"TICKETS COUNT":"TICKETS COUNT",
+	"Add Artist": "Add Artist", 
+	"Launch Event" :"Launch Event",
+	"Add Ticket" :"Add Ticket"
 }

@@ -97,7 +97,7 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
             navigator.geolocation.getCurrentPosition((position) => {
                 this.MyCoords.lat = position.coords.latitude;
                 this.MyCoords.lng = position.coords.longitude - 2;
-
+                
                 // console.log(`position.coords`,position.coords,this.MyCoords);
                 if(this.MyCoords.lat === 0 && this.MyCoords.lng === 0)
                     this.getPosition();
@@ -124,6 +124,7 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
         this.main.accService.GetLocation()
             .subscribe((data)=>{
                 // console.log(`data`,data);
+                
                 this.MyCoords.lat = data.location[0];
                 this.MyCoords.lng = data.location[1] - 2;
             })
@@ -143,7 +144,7 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
     }
 
     mapClick(){
-        console.log(`click`);
+        // console.log(`click`);
     }
 
     ngAfterViewChecked()

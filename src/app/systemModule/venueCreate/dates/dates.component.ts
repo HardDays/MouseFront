@@ -131,21 +131,22 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
     SaveDates($event)
     {
         let arr:VenueDatesModel[] = [];
-        let curr_date = moment($event.from);
-        let end_date = moment($event.to);
-        arr.push(this.CalendarFormToVenueDate(curr_date.toDate(),$event));
-        if($event.date_range){
+        const form = $event.form;
+        let curr_date = moment(form.from);
+        let end_date = moment(form.to);
+        arr.push(this.CalendarFormToVenueDate(curr_date.toDate(),form));
+        if(form.date_range){
             curr_date.date(curr_date.date() +1);
             while(curr_date <= end_date){
                 
-                arr.push(this.CalendarFormToVenueDate(curr_date.toDate(),$event));
+                arr.push(this.CalendarFormToVenueDate(curr_date.toDate(),form));
                 curr_date.date(curr_date.date() +1);
             }
         }
         this.main.accService.SaveVenueDatesAsArray(this.VenueId, {dates: arr})
             .subscribe(
                 (res: any) => {
-                    this.ChangeDates();
+                    this.ChangeDates($event.date);
                 }
             );
     }
@@ -153,7 +154,7 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
     CalendarFormToVenueDate(date:Date, data:any)
     {
         let model = new VenueDatesModel();
-        model.date = date;
+        model.date = this.main.typeService.GetDateStringFormat(date);
         model.is_available = data.is_available;
         if(model.is_available)
         {
@@ -183,56 +184,73 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
     }
     ChangeDates(NewDate?:Date)
     {
-        let params = null;
-        if(NewDate){
-            params = {
-                current_date: NewDate
-            };
-        }
+        let params = {
+            current_date:null
+        };
+
+        let date = moment(NewDate);
+        date=date.date(1);
 
         this.changedPrice = [];
         this.disabledDays = [];
         this.eventsDates = [];
+
         if(this.VenueId){
-            this.main.accService.GetVenueDates(this.VenueId,params)
-            .subscribe(
-                (res:any) => {
-                    let arr = [];
-                    for(let i in res.dates)
-                    {
-                        let item:VenueDatesModel = res.dates[i];
-                        let date = {
-                            mDate: moment(item.date),
-                            selected: !item.is_available,
-                            dayPrice: item.price_for_daytime,
-                            nightPrice: item.price_for_nighttime,
-                            changed:true,
-                            currency: item.currency? item.currency : this.MyCurrency
-                        };
-                        arr.push(date);
-                    }
-                    this.changedPrice = arr.filter(obj => !obj.selected);
-                    this.disabledDays = arr.filter(obj => obj.selected);
+            let date_iter = moment(date.toISOString()).month(date.month() - 1);
+            date = date.month(date.month() + 1);
+            let index = 1;
+            while(date_iter.toDate().getTime() <= date.toDate().getTime())
+            {
+                params.current_date = date_iter.toISOString();
 
-                    if(res.event_dates)
-                    {
-                        
-                        for(let item of res.event_dates)
-                        {
-                            this.eventsDates.push({
-                                mDate: moment(this.main.typeService.DateToUTCDateISOString(item.date_from)),
-                                event: true,
-                                eventId: item.id
-                            });
+                this.main.accService.GetVenueDates(this.VenueId, params)
+                    .subscribe(
+                        (res) => {
+                            this.SetChangedPrice(res.dates);
+                            this.SetEventsDates(res.event_dates);
                         }
-                    }
-                }
-            );
-        }
-        
-        
+                    );
 
-        
-        
+                date_iter = date_iter.month(date_iter.month()+1);
+            }
+        }
+    }
+
+    SetChangedPrice(input:any[])
+    {
+        let arr = [];
+        for(const i in input)
+        {
+            const item:VenueDatesModel = input[i];
+            const date = {
+                // mDate: moment(this.main.typeService.GetDateStringFormat(new Date(item.date))),
+                mDate: moment(this.main.typeService.DateToUTCDateISOString(item.date)),
+                selected: !item.is_available,
+                dayPrice: item.price_for_daytime,
+                nightPrice: item.price_for_nighttime,
+                changed:true,
+                currency: item.currency? item.currency : this.MyCurrency
+            };
+            arr.push(date);
+        }
+        this.changedPrice = this.changedPrice.concat(arr.filter(obj => !obj.selected));
+        this.disabledDays = this.disabledDays.concat(arr.filter(obj => obj.selected));
+    }
+
+    SetEventsDates(input:any[])
+    {
+        let arr = [];
+        for(const i in input)
+        {
+            if(input[i].id && input[i].exact_date_from)
+            {
+                arr.push({
+                    mDate: moment(this.main.typeService.DateToUTCDateISOString(input[i].exact_date_from)),
+                    event: true,
+                    eventId: input[i].id
+                });
+            }
+        }
+        this.eventsDates = this.eventsDates.concat(arr);
     }
 }
