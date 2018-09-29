@@ -1,4 +1,4 @@
-import { BaseMessages } from './../../../core/base/base.enum';
+import { BaseMessages, EventStatus } from './../../../core/base/base.enum';
 import { Component, OnInit, NgZone, ViewChild, ElementRef, Input, Output, EventEmitter, SimpleChanges, HostListener } from '@angular/core';
 import { GenreModel } from '../../../core/models/genres.model';
 import { BaseComponent } from '../../../core/base/base.component';
@@ -52,11 +52,13 @@ export class AboutComponent extends BaseComponent implements OnInit {
   image:string;
   private _picker: BsDatepickerDirective;
   CurrencySymbol = '$';
+  eventStatus = EventStatus;
+  IsApprovedEvent = false;
 
   // ExactDate = new Date();
 
   aboutForm : FormGroup = new FormGroup({
-    "name": new FormControl("", [Validators.required]),
+    "name": new FormControl({value: "", disabled: this.IsApprovedEvent}, [Validators.required]),
     "tagline": new FormControl("", [Validators.required]),
     "hashtag": new FormControl("", [Validators.required]),
     "is_crowdfunding_event": new FormControl(),
@@ -166,9 +168,26 @@ export class AboutComponent extends BaseComponent implements OnInit {
             this.mapCoords.lng = data.location[1];
         })
 
+    this.IsApprovedEvent = this.Event.status===this.eventStatus.Approved||this.Event.status===this.eventStatus.Active?true:false;
+    // this.aboutForm.updateValueAndValidity();
+    if(this.IsApprovedEvent){
+      this.aboutForm.controls['name'].disable();
+      this.aboutForm.controls['tagline'].disable();
+      this.aboutForm.controls['hashtag'].disable();
+      this.aboutForm.controls['is_crowdfunding_event'].disable();
+      this.aboutForm.controls['comments_available'].disable();
+      this.aboutForm.controls['event_time'].disable();
+      this.aboutForm.controls['event_length'].disable();
+      this.aboutForm.controls['event_year'].disable();
+      this.aboutForm.controls['event_season'].disable();
+      this.aboutForm.controls['artists_number'].disable();
+      this.aboutForm.controls['funding_goal'].disable();
+      this.aboutForm.controls['currency'].disable();
+      this.aboutForm.controls['name'].disable();
+      this.aboutForm.controls['name'].disable();
+    }
 
-
-    // console.log(this.Event);
+    // cnsole.log(this.Event);
 
   }
 ShowHideGenres(event){

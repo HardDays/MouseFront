@@ -306,7 +306,7 @@
 
                     <div class="location-wr">
                         <div (click)="aboutOpenMapModal()" class="mark"></div>
-                        <input id="aboutAddress" type="text" id="aboutAddress" class="location-inp" [ngModelOptions]="{standalone: true}" [ngModel]="Event.address"  placeholder="" #searchAbout>
+                        <input id="aboutAddress" [disabled]="IsApprovedEvent" style="background-color: white;" type="text" id="aboutAddress" class="location-inp" [ngModelOptions]="{standalone: true}" [ngModel]="Event.address"  placeholder="" #searchAbout>
                     </div>
                 </div>
                 <div class="side">
