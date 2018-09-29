@@ -1,3 +1,4 @@
+import { Album } from './../../../core/models/accountCreate.model';
 import { Component, OnInit, Input, AfterViewInit, SimpleChanges, Output, EventEmitter, NgZone, ChangeDetectorRef } from '@angular/core';
 import { AccountGetModel, Video, Rider } from '../../../core/models/accountGet.model';
 import { BaseComponent } from '../../../core/base/base.component';
@@ -39,6 +40,8 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
   itemsPhotoss:any = [];
 
   photos:any = [];
+
+  Albums:Album[] = [];
 
   audioId:number = 0;
   audioDuration:number = 0;
@@ -98,6 +101,7 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
         this.GetArtistImages();
         this.updateVideosPreview();
         this.GetRiders();
+        this.GetAlbums();
 
        // if(changes['ArtistId'].isFirstChange()) this.InitMusicPlayer();
         if(res.image_id){
@@ -221,6 +225,15 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
           }
         })
     }
+  }
+
+  GetAlbums(){
+    this.main.accService.GetArtistAlbums(this.ArtistId)
+      .subscribe(
+        (res)=>{
+          this.Albums = res;
+        }
+      )
   }
 
   backPage(){
