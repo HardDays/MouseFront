@@ -351,7 +351,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
   acceptRequest()
   {
     if(!this.changePrice)
-      this.changePrice = this.openMessage.message_info.estimated_price;
+      this.changePrice = this.openMessage.message_info.price;
 
     this.request.event_id = this.openMessage.message_info.event_info.id;
     this.request.id = this.accountId;

@@ -138,12 +138,14 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
 
   sendCode(){
     if(this.phone.length>0){
+      this.codeRequest = [];
       // this.phone = this.getCurrentNumber(this.phone);
       //this.phoneArr = false;
      // let phone:string = this.phoneCode + this.phone;
       this.WaitBeforeLoading(
         ()=>this.main.phoneService.SendCodeToPhone(this.phone),
           (res)=>{
+
             //this.isRequestCodeSend = true;
             $('#modal_change_phone').modal('hide');
             $('#modal_change_phone_ver').modal('show');

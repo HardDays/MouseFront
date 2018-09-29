@@ -229,7 +229,7 @@
                                         <p class="fot-edit">
 
                                         <span translate>Price to Perform</span> <span>
-                                                {{openMessage.message_info?.currency?(openMessage.message_info?.currency==='USD'?'$':openMessage.message_info?.currency==='RUB'?'Руб.':openMessage.message_info?.currency==='EUR'?'€':''):''}}
+                                                <span> <i [innerHTML]="CurrentCurrency"></i></span>
                                                 {{(openMessage.message_type&&openMessage.message_info&&openMessage.message_type == 'request')?openMessage.message_info?.price:openMessage.message_info?.price}}</span>
                                             <img *ngIf="openMessage.message_type == 'request'&&!openMessage.is_read" src="../../assets/img/edit-img.png" (click)="isEditPrice = true" class="img-responsive for-edit-img" alt="">
                                         </p>
