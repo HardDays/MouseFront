@@ -37,7 +37,7 @@ export class TableComponent extends BaseComponent implements OnInit {
       else if(changes.status&&changes.status.currentValue === 'new')
         this.status = 'unchecked';
     }
-    if(changes.status&&this.Accounts&&this.Accounts.length){
+    if(changes.status&&this.Accounts){
       if(changes.status&&changes.status.currentValue === 'all')
         this.status = '';
       else if(changes.status&&changes.status.currentValue === 'new')
@@ -52,10 +52,12 @@ export class TableComponent extends BaseComponent implements OnInit {
     if(changes.Events){
       this.EventsChecked = this.Events = changes.Events.currentValue;
     }
+    // console.log(`ngOnChanges`,this.Accounts.length);
 
   }
 
   onScrollArtist(){
+    // console.log(`scroll`);
     this.ScrollArtistDisabled = true;
     let params = {status: this.status,text:this.SearchName,account_type: this.TypeAcc,limit:20,offset:this.Accounts&&this.Accounts.length?this.Accounts.length:0};
     // if(this.status === '') delete params['status'];
@@ -63,7 +65,7 @@ export class TableComponent extends BaseComponent implements OnInit {
         .subscribe((res)=>{
           // this.Accounts = [];
          if(res.length>0){
-          this.Accounts.push(...res);
+          //this.Accounts.push(...res);
           this.Accounts = this.Accounts.filter(obj=>this.SearchName?obj.full_name === this.SearchName:true);
            //((x, y) => x.includes(y) ? x : [...x, y], []);
 
@@ -94,7 +96,7 @@ export class TableComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     // console.log(this.Accounts)
-    if(this.Accounts)this.onScrollArtist();
+    // if(this.Accounts)this.onScrollArtist();
   }
 
   openAccount(id:number){

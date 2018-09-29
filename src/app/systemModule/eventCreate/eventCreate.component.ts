@@ -170,10 +170,9 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       delete this.Event['address'];
       delete this.Event['city_lat'];
       delete this.Event['city_lng'];
-
-      delete this.Event['date_from'];
-      delete this.Event['date_to'];
     }
+    delete this.Event['date_from'];
+    delete this.Event['date_to'];
 
     // console.log(`TEST`,this.Event);
 
@@ -211,10 +210,9 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       delete this.Event['address'];
       delete this.Event['city_lat'];
       delete this.Event['city_lng'];
-
-      delete this.Event['date_from'];
-      delete this.Event['date_to'];
     }
+    delete this.Event['date_from'];
+    delete this.Event['date_to'];
 
     if(!this.isNewEvent)
       this.FunService(
@@ -271,10 +269,9 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         delete this.Event['address'];
         delete this.Event['city_lat'];
         delete this.Event['city_lng'];
-
-        delete this.Event['date_from'];
-        delete this.Event['date_to'];
       }
+      delete this.Event['date_from'];
+      delete this.Event['date_to'];
       // this.Event.currency = this.main.settings.GetCurrency();
 
       // if(!this.isNewEvent)
