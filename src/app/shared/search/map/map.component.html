@@ -4,8 +4,8 @@
             <h6 class="head-m-p-a" translate>Location</h6>
             <span class="closee-modal" data-dismiss="modal"></span>
             <div class="for-map-init-modal-1">
-                <agm-map style="height:100%" [latitude]="lat" [longitude]="lng" (mapClick)="MapClick($event)" >
-                     <agm-marker [latitude]="lat" [longitude]="lng" [visible]="isMarkerVisible"></agm-marker>
+                <agm-map style="height:100%" [latitude]="lat" [longitude]="lng" >
+                     <agm-marker [latitude]="lat" [longitude]="lng" [visible]="true" [markerDraggable]="true" (dragEnd)="MapDrag($event)"></agm-marker>
                 </agm-map>
             </div>
         </div>

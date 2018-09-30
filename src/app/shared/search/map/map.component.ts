@@ -17,7 +17,7 @@ declare var ionRangeSlider:any;
     styleUrls: ['./../search.component.css']
 })
 export class SearchEventsMapComponent extends BaseComponent implements OnInit {
-    
+
     lat:number;
     lng:number;
     @Output() onMapClicked:EventEmitter<any> = new EventEmitter<any>();
@@ -28,7 +28,7 @@ export class SearchEventsMapComponent extends BaseComponent implements OnInit {
 
     ESCAPE_KEYCODE = 27;
     ENTER_KEYCODE = 13;
-  
+
     @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
         if(this.isShowMap){
             if (event.keyCode === this.ESCAPE_KEYCODE || event.keyCode === this.ENTER_KEYCODE) {
@@ -37,11 +37,18 @@ export class SearchEventsMapComponent extends BaseComponent implements OnInit {
             }
         }
     }
-    
-    ngOnInit(): void 
+
+    ngOnInit(): void
     {
         this.lat = 55.755826;
         this.lng = 37.6172999;
+
+        this.main.accService.GetLocation()
+        .subscribe((data)=>{
+            this.lat = data.location[0];
+            this.lng = data.location[1];
+            this.CodeLatLng(this.lat, this.lng);
+        })
     }
 
     AboutOpenMapModal(searchParams:EventSearchParams)
@@ -55,6 +62,15 @@ export class SearchEventsMapComponent extends BaseComponent implements OnInit {
             this.lng = searchParams.lng;
             this.isMarkerVisible = true;
         }
+        else
+        {
+          this.main.accService.GetLocation()
+            .subscribe((data)=>{
+                this.lat = data.location[0];
+                this.lng = data.location[1];
+                this.CodeLatLng(this.lat, this.lng);
+            })
+        }
 
         $('#modal-map').modal('show');
         this.isShowMap = true;
@@ -67,16 +83,22 @@ export class SearchEventsMapComponent extends BaseComponent implements OnInit {
         this.isMarkerVisible = true;
         this.CodeLatLng(this.lat,this.lng);
     }
+    MapDrag($event){
+      this.lat = $event.coords.lat;
+      this.lng = $event.coords.lng;
+      this.isMarkerVisible = true;
+      this.CodeLatLng(this.lat,this.lng);
+    }
 
-    CodeLatLng(lat, lng) 
+    CodeLatLng(lat, lng)
     {
         let geocoder = new google.maps.Geocoder();
         let latlng = new google.maps.LatLng(lat, lng);
         geocoder.geocode(
-            {'location': latlng }, 
+            {'location': latlng },
             (results, status) => {
                 if (status === google.maps.GeocoderStatus.OK) {
-                    if (results[1]) 
+                    if (results[1])
                     {
                         this.onMapClicked.emit(
                             {
@@ -86,7 +108,7 @@ export class SearchEventsMapComponent extends BaseComponent implements OnInit {
                             }
                         );
                     }
-                } 
+                }
                 else {
                     alert('Geocoder failed due to: ' + status);
                 }

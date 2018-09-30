@@ -74,7 +74,7 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
     @ViewChild('SearchForm') form: NgForm;
     @ViewChild('mapForm') mapForm : SearchEventsMapComponent;
     @ViewChild('dp') datepicker: BsDaterangepickerDirective;
-    
+
     ngOnInit(): void {
         this.activatedRoute.queryParams.subscribe(
             (params: Params) => {
@@ -82,6 +82,7 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
                 this.ShowSearchResult();
             }
         );
+        this.GetLocation();
         this.GetGenres();
         this.GetAllTypesOfSpace();
         this.GetTicketTypes();
@@ -89,6 +90,15 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
         this.InitBsConfig();
         this.initSlider();
     }
+
+    GetLocation(){
+        this.main.accService.GetLocation()
+        .subscribe((data)=>{
+            this.Lat = data.location[0];
+            this.Lng = data.location[1];
+        })
+    }
+
 
     initSlider()
     {
@@ -119,20 +129,20 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
 
     InitBsConfig()
     {
-        this.bsConfig = Object.assign({}, { 
+        this.bsConfig = Object.assign({}, {
             containerClass: 'theme-default transformedDatapicker',
             showWeekNumbers:false,
             rangeInputFormat: this.main.settings.GetDateFormat(),
             locale: this.settings.GetLang()
-            
-            
+
+
         });
     }
     onShowPicker(event) {
         const dayHoverHandler = event.dayHoverHandler;
         const hoverWrapper = (hoverEvent) => {
             const { cell, isHovered } = hoverEvent;
-    
+
             if ((isHovered &&
               !!navigator.platform &&
               /iPad|iPhone|iPod/.test(navigator.platform)) &&
@@ -140,7 +150,7 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
             ) {
                 (this._picker as any)._datepickerRef.instance.daySelectHandler(cell);
             }
-    
+
             return dayHoverHandler(hoverEvent);
         };
         event.dayHoverHandler = hoverWrapper;
@@ -186,7 +196,7 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
             this.GetShows();
         }
         this.SelectedContent = this.SearchType;
-        
+
     }
     CloseXsSearchWindow(){
         if($(window).width()<=767){
@@ -262,7 +272,7 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
     {
         this.Shows = [];
         let search:EventSearchParams = Object.assign({},this.SearchParams);
-        search = Object.assign(search,{    
+        search = Object.assign(search,{
             is_active: true
         });
 
@@ -290,7 +300,7 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
     {
         this.WaitBeforeLoading(
             () => this.main.genreService.GetAllGenres(),
-            (res:string[]) => 
+            (res:string[]) =>
             {
                 this.Genres = this.main.genreService.SetHiddenGenres(this.main.genreService.StringArrayToGanreModelArray(res));
             }
@@ -315,7 +325,7 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
 
     CheckDistance()
     {
-        
+
         if(!this.LocationText)
         {
             this.SearchParams.lat = null;
@@ -328,7 +338,7 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
             this.SearchParams.distance = this.SearchParams.distance?this.SearchParams.distance:this.MIN_DISTANCE;
             this.SearchParams.units = this.main.settings.GetDisatance();
         }
-            
+
     }
 
     OnMapClicked($event)
