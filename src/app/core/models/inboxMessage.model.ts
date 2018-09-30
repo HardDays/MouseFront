@@ -53,6 +53,6 @@ export class MessageInfoModel{
         public expiration_date?:string,
         public status?:string,
         public currency?:string,
-        public info_send?:{preferred_date_from:string,preferred_date_to:string}
+        public info_send?:[{preferred_date_from:string,preferred_date_to:string,price:number}]
     ){}
 }
