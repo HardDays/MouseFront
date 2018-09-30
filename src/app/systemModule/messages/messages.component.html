@@ -16,7 +16,7 @@
 
                                 <ng-container *ngFor="let item of messages; let i = index">
 
-                                    <div *ngIf="item.message_type == 'request' || item.message_type == 'accept' || item.message_type == 'blank'" [ngClass]="{'active':item.id==idCurMsg}" (click)="changeItem(item,i);" class="one-msg-l-block active">
+                                    <div *ngIf="item.message_type == 'request' || item.message_type == 'accept' || item.message_type == 'blank' || item.message_type == 'decline'" [ngClass]="{'active':item.id==idCurMsg}" (click)="changeItem(item,i);" class="one-msg-l-block active">
                                         <div class="name-ava">
                                             <div class="ava" [ngStyle]="{'background-image': item.sender?'url('+item.sender.image_base64+')':''}"></div>
                                             <p class="n" translate>{{item.sender?.full_name?item.sender.full_name:'No name'}}</p>
@@ -54,7 +54,7 @@
                                         <div  class="descr-side">
                                             <p class="f">
 
-                                                <span [ngClass]="{'active':!item.is_read}" class="some-t active" translate>{{item.message_type?item.message_type:'No subject'}}</span>
+                                                <span [ngClass]="{'active':!item.is_receiver_read}" class="some-t active" translate>{{item.message_type?item.message_type:'No subject'}}</span>
                                                 <span *ngIf="item.created_at" class="when">{{item.created_at| date:'MMM' | translate }}{{item.created_at| date:' d' }}</span>
                                             </p>
                                             <p *ngIf="item.subject" class="name-e" translate>{{item.subject}}</p>
@@ -82,9 +82,9 @@
                                     <p class="name-event">{{openMessage.message_info?.event_info?openMessage.message_info?.event_info.name:''}}</p>
                                     <p class="descr">{{openMessage.message_info?.event_info?.description?openMessage.message_info?.event_info.description:'' | titlecase}}</p>
                                     <p *ngIf="openMessage.message_type == 'request'" class="fot-edit"><span translate>{{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_season:'' | titlecase}} </span>, {{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_year:''}}, <span translate>{{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_time:''| titlecase}}</span>, {{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_length:''}} <span translate>Hours</span>
-                                        <img *ngIf="!openMessage.is_read"  src="../../assets/img/edit-img.png"  class="img-responsive for-edit-img" alt="">
+                                        <img *ngIf="!openMessage.is_receiver_read"  src="../../assets/img/edit-img.png"  class="img-responsive for-edit-img" alt="">
                                     </p>
-                                    <input *ngIf="openMessage.message_type == 'request'" [disabled]="openMessage.is_read" class="form-control" #drp="bsDaterangepicker" bsDaterangepicker [bsConfig]="bsConfig"
+                                    <input *ngIf="openMessage.message_type == 'request'" [disabled]="openMessage.is_receiver_read" class="form-control" #drp="bsDaterangepicker" bsDaterangepicker [bsConfig]="bsConfig"
                                     [minDate]="minDate" [maxDate]="maxDate" [(ngModel)]="bsRangeValue">
 
                                     <p *ngIf="openMessage.message_type == 'accept' &&openMessage.message_info" class="fot-edit">{{openMessage.message_info?.preferred_date_from| date}} - {{openMessage.message_info?.preferred_date_to| date}} </p>
@@ -99,7 +99,7 @@
                                         {{'Price to Perform' | translate}}<span>
                                             <i [innerHTML]="CurrentCurrency"></i>
                                             {{(openMessage.message_type&&openMessage.message_info&&openMessage.message_type == 'request')?openMessage.message_info?.price:''}}</span>
-                                        <img *ngIf="openMessage.message_type == 'request'&&!openMessage.is_read" src="../../assets/img/edit-img.png" (click)="isEditPrice = true" class="img-responsive for-edit-img" alt="">
+                                        <img *ngIf="openMessage.message_type == 'request'&&!openMessage.is_receiver_read" src="../../assets/img/edit-img.png" (click)="isEditPrice = true" class="img-responsive for-edit-img" alt="">
                                     </p>
 
 
@@ -124,7 +124,7 @@
                                         <textarea disabled [value]="openMessage?.message_info?.message"  id="inp-media-venue-2"></textarea>
                                         <label for="inp-media-venue-2" class="head-groupe" translate>Personal Message</label>
                                     </div>
-                                    <div *ngIf="!openMessage.is_read&&openMessage.message_type == 'request'" class="flex-buttons">
+                                    <div *ngIf="!openMessage.is_receiver_read&&openMessage.message_type == 'request'" class="flex-buttons">
                                         <div class="accept-wr">
                                             <button class="butt-style-1" type="submit">
                                                 <span (click)="acceptRequest()" translate>Accept</span>
@@ -166,9 +166,9 @@
                                         <p class="name-event">{{openMessage.message_info?.event_info?openMessage.message_info?.event_info.name:''}}</p>
                                         <p class="descr">{{openMessage.message_info?.event_info?.description?openMessage.message_info?.event_info.description:'' | titlecase}}</p>
                                         <p *ngIf="openMessage.message_type == 'request'" class="fot-edit">{{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_season:'' | titlecase}} {{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_year:''}}, {{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_time:'' | titlecase}}, {{openMessage.message_info?.event_info?openMessage.message_info?.event_info.event_length:''}} {{'Hours' | translate}}
-                                            <img *ngIf="!openMessage.is_read"  src="../../assets/img/edit-img.png"  class="img-responsive for-edit-img" alt="">
+                                            <img *ngIf="!openMessage.is_receiver_read"  src="../../assets/img/edit-img.png"  class="img-responsive for-edit-img" alt="">
                                         </p>
-                                        <input *ngIf="openMessage.message_type == 'request'" [disabled]="openMessage.is_read" class="form-control" #drp="bsDaterangepicker" bsDaterangepicker [bsConfig]="bsConfig"
+                                        <input *ngIf="openMessage.message_type == 'request'" [disabled]="openMessage.is_receiver_read" class="form-control" #drp="bsDaterangepicker" bsDaterangepicker [bsConfig]="bsConfig"
                                         [minDate]="minDate" [maxDate]="maxDate" [(ngModel)]="bsRangeValue">
 
                                         <p *ngIf="openMessage.message_type == 'accept' &&openMessage.message_info" class="fot-edit">{{openMessage.message_info?.preferred_date_from| date:'MMM' | translate}}, {{openMessage.message_info?.preferred_date_from | date:'dd yyyy'}} - {{openMessage.message_info?.preferred_date_to| date:'MMM' | translate}}, {{openMessage.message_info?.preferred_date_to | date:'dd yyyy'}} </p>
@@ -231,7 +231,7 @@
                                         <span translate>Price to Perform</span> <span>
                                                 <span> <i [innerHTML]="CurrentCurrency"></i></span>
                                                 {{(openMessage.message_type&&openMessage.message_info&&openMessage.message_type == 'request')?openMessage.message_info?.price:openMessage.message_info?.price}}</span>
-                                            <img *ngIf="openMessage.message_type == 'request'&&!openMessage.is_read" src="../../assets/img/edit-img.png" (click)="isEditPrice = true" class="img-responsive for-edit-img" alt="">
+                                            <img *ngIf="openMessage.message_type == 'request'&&!openMessage.is_receiver_read" src="../../assets/img/edit-img.png" (click)="isEditPrice = true" class="img-responsive for-edit-img" alt="">
                                         </p>
 
 
@@ -256,7 +256,7 @@
                                             <textarea disabled [value]="openMessage?.message"  id="inp-media-venue-2"></textarea>
                                             <label for="inp-media-venue-2" class="head-groupe" translate>Personal Message</label>
                                         </div>
-                                        <div *ngIf="!openMessage.is_read&&openMessage.message_type == 'request'" class="flex-buttons">
+                                        <div *ngIf="!openMessage.is_receiver_read&&openMessage.message_type == 'request'" class="flex-buttons">
                                             <div class="accept-wr">
                                                 <button class="butt-style-1" type="submit">
                                                     <span (click)="acceptRequest()" translate>Accept</span>
@@ -310,6 +310,29 @@
                                     </div>
                                     <div class="block-info t-b">
                                         <p class="descr">{{reply.message | titlecase}}</p>
+                                    </div>
+                                </ng-container>
+
+                            </div>
+                        </div>
+
+                        <div *ngIf="openMessage?.message_type === 'decline'" class="right-s">
+                            <div class="some-request-text-wrapper">
+                                <div class="block-info f-b">
+                                    <span class="some-t" translate>{{openMessage.subject}}</span>
+                                    <span class="when">{{openMessage.created_at| date:'MMM' | translate}}{{openMessage.created_at| date:' d' }}</span>
+                                </div>
+                                <ng-container *ngFor="let reply of openMessage.reply">
+                                    <div *ngIf="reply.sender" class="block-info s-b">
+                                        <div class="ava" [ngStyle]="{'background-image': (reply.sender&&reply.sender.image_base64)?'url('+reply.sender.image_base64+')':''}"></div>
+                                        <div class="name-hash">
+                                            <p class="n">{{reply.sender?.full_name?reply.sender.full_name:''}}</p>
+                                            <p class="hash"><span>@</span>{{reply.sender?.user_name?reply.sender.user_name:''}}</p>
+                                        </div>
+
+                                    </div>
+                                    <div class="block-info t-b">
+                                        <p class="descr">{{openMessage?.message_info?.event_info?.name?openMessage.message_info.event_info.name+' Owner ':''}}Declined Your Conteroffer!</p>
                                     </div>
                                 </ng-container>
 

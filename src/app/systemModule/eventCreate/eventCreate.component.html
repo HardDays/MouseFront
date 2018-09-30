@@ -110,6 +110,7 @@
                 [Event]="Event"
                 [isHasVenue]="isHasVenue"
                 (onSaveEvent)="SaveEventByPages($event)"
+                (onSaveEventBySave)="SaveEventByPagesBySave($event)"
                 (onSave)="SaveEventByFunding($event)"
                 (onError)="OpenErrorWindow($event)"
             ></app-funding>
