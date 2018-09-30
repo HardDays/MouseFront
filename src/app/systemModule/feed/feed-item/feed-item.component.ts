@@ -65,7 +65,7 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
       else{
         this.Feed.account.img_base64 = BaseImages.NoneFolowerImage;
       }
-      console.log(this.replaceAll(this.Feed.action));
+      // console.log(this.replaceAll(this.Feed.action));
     }
 
     this.myLogo = this.main.MyLogo;

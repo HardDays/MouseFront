@@ -25,7 +25,7 @@ export class CustomerSupportAnswersComponent extends BaseComponent implements On
 
   ngOnInit() {
     this.isSuperUser = this.MyUser.is_superuser?true:false;
-    console.log(`isSuperUser`,this.isSuperUser);
+    // console.log(`isSuperUser`,this.isSuperUser);
 
     // console.log(this.isSuperUser);
 

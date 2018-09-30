@@ -46,10 +46,10 @@
                                 <div class="hours-hover">
                                     <span class="o-f-h">Office Hours</span>
                                     <ul class="hours-drop-show">
-                                        <li *ngFor="let date of Account.office_hours">
-                                            <span class="left">{{date&&date.day?date.day.slice(0,3):''}}</span>
+                                        <li *ngFor="let item of OffHours">
+                                            <span class="left">{{item&&item.day?item.day.slice(0,3):''}}</span>
                                             <span class="right">
-                                                {{date.begin_time|date:'shortTime'}} - {{date.end_time|date:'shortTime'}}
+                                                {{item.begin_time | timepipe}} - {{item.end_time | timepipe}}
                                             </span>
                                         </li>
                                     </ul>
@@ -69,10 +69,10 @@
                                 <div class="hours-hover">
                                     <span class="o-f-h">Operating Hours</span>
                                     <ul class="hours-drop-show">
-                                        <li *ngFor="let date of Account.operating_hours">
-                                            <span class="left">{{date&&date.day?date.day.slice(0,3):''}}</span>
+                                        <li *ngFor="let item of OpHours">
+                                            <span class="left">{{item&&item.day?item.day.slice(0,3):''}}</span>
                                             <span class="right">
-                                                {{date.begin_time|date:'shortTime'}} - {{date.end_time|date:'shortTime'}}
+                                                {{item.begin_time | timepipe}} - {{item.end_time | timepipe}}
                                             </span>
                                         </li>
                                     </ul>

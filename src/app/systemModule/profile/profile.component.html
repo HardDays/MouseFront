@@ -3,19 +3,19 @@
 <!-- <section class="main-router-outlet" *ngIf="!isLoading"> -->
     <ng-container *ngIf="isAccReadyToShow">
         <ng-container *ngIf="AccType == Roles.Venue" >
-            <venue-profile-selector [MyProfileId]="MyAccountId" [AccStatus]="Account.status" [Account]="VenueAcc" [Image]="baseImageMy"
-                [Fans]="Fans" [IsMyAccount]="isMyAccount" [VenueId]="Account.id" [isFolowedAcc]="isFolowedAcc" (onFollow)="FollowOrUnfollowProfile($event)">
+            <venue-profile-selector [MyProfileId]="MyAccountId" [AccStatus]="VenueAcc.status" [Account]="VenueAcc" [Image]="baseImageMy"
+                [Fans]="Fans" [IsMyAccount]="isMyAccount" [VenueId]="VenueAcc.id" [isFolowedAcc]="isFolowedAcc" (onFollow)="FollowOrUnfollowProfile($event)">
             </venue-profile-selector>
         </ng-container>
         
         <ng-container *ngIf="AccType == Roles.Fan" >
-            <fan-profile-selector [MyProfileId]="MyAccountId" [AccStatus]="Account.status" [Account]="FanAcc" [Image]="baseImageMy"
+            <fan-profile-selector [MyProfileId]="MyAccountId" [AccStatus]="FanAcc.status" [Account]="FanAcc" [Image]="baseImageMy"
                 [Fans]="Fans" [IsMyAccount]="isMyAccount" [isFolowedAcc]="isFolowedAcc" (onFollow)="FollowOrUnfollowProfile($event)">
             </fan-profile-selector>
         </ng-container>
 
         <ng-container *ngIf="AccType == Roles.Artist" >
-            <artist-profile-selector [MyProfileId]="MyAccountId" [AccStatus]="Account.status" [Account]="ArtistAcc" [Image]="baseImageMy"
+            <artist-profile-selector [MyProfileId]="MyAccountId" [AccStatus]="ArtistAcc.status" [Account]="ArtistAcc" [Image]="baseImageMy"
                 [Fans]="Fans" [IsMyAccount]="isMyAccount" [isFolowedAcc]="isFolowedAcc" (onFollow)="FollowOrUnfollowProfile($event)">
             </artist-profile-selector> 
         </ng-container>
