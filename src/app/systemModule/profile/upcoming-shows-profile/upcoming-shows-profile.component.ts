@@ -14,11 +14,20 @@ export class UpcomingShowsProfileComponent extends BaseComponent implements OnIn
   @Input() Upshows: any;
   FoundedPercent:number = 0;
   Image:string = BaseImages.Drake;
+  Date:string = '';
  
 
   ngOnInit(): void 
   {
     this.GetImage();
+    if(this.Upshows.exact_date_from)
+    {
+      this.Date = this.main.typeService.DateToUTCDateISOString(this.Upshows.exact_date_from);
+    }
+    else if (this.Upshows.date_from)
+    {
+      this.Date = this.main.typeService.DateToUTCDateISOString(this.Upshows.date_from);
+    }
   }
 
   GetImage()

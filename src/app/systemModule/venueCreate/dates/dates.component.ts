@@ -206,6 +206,7 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
                 this.main.accService.GetVenueDates(this.VenueId, params)
                     .subscribe(
                         (res) => {
+                            
                             this.SetChangedPrice(res.dates);
                             this.SetEventsDates(res.event_dates);
                         }
@@ -239,6 +240,7 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
 
     SetEventsDates(input:any[])
     {
+        // console.log(input);
         let arr = [];
         for(const i in input)
         {

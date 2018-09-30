@@ -29,8 +29,9 @@
 
     <div class="where" >
         <span [innerHTML]="Date"></span>
-        <span *ngIf="Date && Show.address">-</span>
-        {{Show.address}}, {{Show.venue?.city?Show.venue.city:''}}, {{Show.venue?.state?Show.venue.state:''}}
+        <span *ngIf="Date && Show.venue && Show.venue.address">-</span>
+        <ng-container *ngIf="Date && Show.venue && Show.venue.address">{{Show.venue.address}}</ng-container>
+        <!-- , {{Show.venue?.city?Show.venue.city:''}}, {{Show.venue?.state?Show.venue.state:''}} -->
     </div>
     <!-- <div *ngIf="Date && Show.address" class="where">-</div>
     <div class="where"></div>  -->

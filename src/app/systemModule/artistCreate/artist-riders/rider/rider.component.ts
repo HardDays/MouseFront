@@ -76,7 +76,7 @@ export class RiderComponent extends BaseComponent implements OnInit {
     //     this.isConfirmRider = false;
    };
    reader.onerror = function (error) {
-     console.log('Error: ', error);
+    //  console.log('Error: ', error);
    };
 }
 
