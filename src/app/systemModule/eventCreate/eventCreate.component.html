@@ -110,6 +110,7 @@
                 [Event]="Event"
                 [isHasVenue]="isHasVenue"
                 (onSaveEvent)="SaveEventByPages($event)"
+                (onSaveEventBySave)="SaveEventByPagesBySave($event)"
                 (onSave)="SaveEventByFunding($event)"
                 (onError)="OpenErrorWindow($event)"
             ></app-funding>
@@ -127,12 +128,16 @@
         <div  class="for-white-bg">
 
             <app-preview-artist  *ngIf="currentPage==pages.previewArtist"
-                    [ArtistId]="artistPreview"
-                    (OnReturn)="currentPage=pages.artist"
+                  [ArtistId]="artistPreview"
+                  [CreatorId]="Event.creator_id"
+                  [EventId]="EventId"
+                  (OnReturn)="currentPage=pages.artist"
             ></app-preview-artist>
 
             <app-preview-venue *ngIf="currentPage==pages.previewVenue"
                 [VenueId]="venuePreview"
+                [CreatorId]="Event.creator_id"
+                [EventId]="EventId"
                 (OnReturn)="currentPage=pages.venue"
             ></app-preview-venue>
 

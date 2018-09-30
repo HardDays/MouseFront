@@ -3,16 +3,16 @@
       <form class="setts_padding send_quest_form user_info_form">
         <br>
         <!-- <div class="user_photo" [ngStyle]="{'background-image': User.image_base64?'url('+User.image_base64+')':'url(./../../../../assets/img/non-photo-2.svg)'}" ></div>
-        
 
-        <div class="photo-wr-1 n-i-s">                    
+
+        <div class="photo-wr-1 n-i-s">
             <label class="file_upload">
                 <p class="black-text"><span class="user_photo_change">Change Photo</span></p>
                 <input accept=".jpg, .jpeg, .png" (change)="uploadImage($event)" type="file">
             </label>
         </div>
         <br> -->
-        
+
 
           <!-- <div class="input-groupe-1 username_input">
               <input id="inp-info-1" [(ngModel)]="User.user_name" [textMask]="WithoutSpace()" name="user_name" value="cooljardson" type="text">
@@ -51,7 +51,7 @@
             <br>
             <!-- <p style="text-align: center">v.1.1.3</p> -->
         </form>
-        
+
 </div>
 <error-cmp #errorCmp></error-cmp>
 
@@ -75,7 +75,7 @@
             <div class="modal-body">
                 <div class="head" translate>setting.Update phone number</div>
                 <div class="number">
-                    <p translate >setting.Code has been sent to <span>{{phone}}</span> </p>
+                    <p translate >setting.Code has been sent to <span>{{phone|phone}}</span> </p>
                     <span id="wrong_number" translate>setting.Wrong number?</span>
                 </div>
                 <p class="code_label" translate>setting.Enter Verification Code</p>
@@ -91,7 +91,7 @@
                     </div>
                 </div>
                 <p class="note" translate>setting.If you didn't get the code, press <span (click)="sendCode()"class="resend_personal_phone_verification_code" translate>Resend</span></p>
-                <button (click)="sendRequest()" class="butt-style-1" id="validate_personal_phone_code"><span translate>Enter</span></button>
+                <button (click)="sendRequest()" type="button" class="butt-style-1" id="validate_personal_phone_code"><span translate>Enter</span></button>
             </div>
         </div>
     </div>

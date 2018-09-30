@@ -841,7 +841,21 @@
 	"Update About": "Обновление биографии Артиста",
 	"Update Stage Name": "Обновлено название площадки",
 	"to": "на",
-	"Event to": "Ивент на"
-
+	"Event to": "Ивент на",
+	"FAX:": "ФАКС:",
+	"Payment Method":"Метод Оплаты",
+	"Ticket":"Билет",
+	"each":"каждый",
+	"TOTAL":"ВСЕГО",
+	"Verification code":"Код подтверждения",
+	"Print ticket":"Распечатать билет",
+	"PaymentComplete":"Завершен",
+	"Your payment is": "Ваш платеж",
+	"Try again":"Повторить попытку",
+	"failure":"Ошибка",
+	"TICKETS COUNT":"КОЛ-ВО БИЛЕТОВ",
+	"Add Artist": "Добавлен артист", 
+	"Launch Event" :"Запущен Ивент" ,
+	"Add Ticket" :"Добавлен билет"
 
 }

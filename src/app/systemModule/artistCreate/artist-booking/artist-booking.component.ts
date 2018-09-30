@@ -102,13 +102,25 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
 
   Init(){
 
-      this.preferredVenues = this.getVenuesTypes();
+    this.preferredVenues = this.getVenuesTypes();
 
     for(let v of this.preferredVenues){
       for(let venue of this.Artist.preferred_venues){
         if(v.object.type === venue['type_of_venue'])
           v.checked = true;
       }
+    }
+
+    if(!this.Artist.lat&&!this.Artist.lng)
+      this.main.accService.GetLocation()
+          .subscribe((data)=>{
+              this.mapCoords.lat = data.location[0];
+              this.mapCoords.lng = data.location[1];
+              this.codeLatLng(this.mapCoords.lat,this.mapCoords.lng);
+          })
+    else{
+      this.mapCoords.lat = this.Artist.lat;
+      this.mapCoords.lng = this.Artist.lng;
     }
 
     // this.initDateMin();
@@ -235,6 +247,8 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
                     else
                     {
                         this.Artist.preferred_address = autocomplete.getPlace().formatted_address;
+                        this.Artist.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
+                        this.Artist.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
                         this.mapCoords.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
                         this.mapCoords.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
                     }
@@ -248,6 +262,8 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
   dragMarker($event){
     this.mapCoords.lat = $event.coords.lat;
     this.mapCoords.lng = $event.coords.lng;
+    this.Artist.lat = $event.coords.lat;
+    this.Artist.lng = $event.coords.lng;
     this.codeLatLng( this.mapCoords.lat, this.mapCoords.lng);
   }
 
@@ -376,7 +392,7 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
 
     if(this.Artist.price_from&&this.Artist.price_to){
 
-      if(!isHasOtherVenue||isHasOtherVenue&&this.Artist.preferred_venue_text.length>0){
+      if(!isHasOtherVenue||isHasOtherVenue&&this.Artist.preferred_venue_text&&this.Artist.preferred_venue_text.length>0){
 
         if(''+this.Artist.price_from[0]===this.CurrencySymbol)this.Artist.price_from = +(''+this.Artist.price_from).slice(1);
         if(''+this.Artist.price_to[0]===this.CurrencySymbol)this.Artist.price_to = +(''+this.Artist.price_to).slice(1);

@@ -51,6 +51,8 @@ import { ListMessageComponent } from './messages/list-message/list-message.compo
 import { NewBugComponent } from './notification/new-bug/new-bug.component';
 import { NewAdminComponent } from './notification/new-admin/new-admin.component';
 import { NewUsersComponent } from './notification/new-users/new-users.component';
+import { TimePipeModule } from '../core/pipes/time.pipe/time.pipe.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -74,7 +76,9 @@ import { NewUsersComponent } from './notification/new-users/new-users.component'
         MatSelectModule,
         MatFormFieldModule,
         VenueCreateModule,
-        InfiniteScrollModule
+        InfiniteScrollModule,
+        TimePipeModule,
+        TranslateModule
     ],
     declarations: [
         AdminComponent,

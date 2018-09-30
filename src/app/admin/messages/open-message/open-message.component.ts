@@ -65,7 +65,7 @@ export class OpenMessageComponent extends BaseComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if(changes.Dialog){
       this.Dialog = changes.Dialog.currentValue;
-      console.log(`dialog`,this.Dialog);
+      // console.log(`dialog`,this.Dialog);
       if(this.Dialog&&this.Dialog.id){
         this.DialogId = this.Dialog.id;
         this.openMessage();
@@ -96,7 +96,7 @@ export class OpenMessageComponent extends BaseComponent implements OnInit {
         this.Messages.push({date,messages:msgs});
       }
     }
-    console.log(this.Messages);
+    // console.log(this.Messages);
   }
 
   sendMessage(){
@@ -105,7 +105,7 @@ export class OpenMessageComponent extends BaseComponent implements OnInit {
         .subscribe(
           (res)=>{
             this.Answer = '';
-            console.log(`res ok`,res);
+            // console.log(`res ok`,res);
             this.openMessage();
           }
       )
@@ -116,27 +116,27 @@ export class OpenMessageComponent extends BaseComponent implements OnInit {
     this.main.adminService.SolveMessage(this.Dialog.id)
       .subscribe(
         (res)=>{
-          console.log(`solved ok!`);
+          // console.log(`solved ok!`);
           this.onSolved.emit(true);
         }
       )
   }
 
   forwardMessage(){
-    console.log(`forward`);
+    // console.log(`forward`);
     this.main.adminService.ForwardMessage(this.idOpenMenu,this.Dialog.receiver_id)
       .subscribe((res)=>{
-        console.log(`message forward`);
+        // console.log(`message forward`);
         // this.openMessage();
         this.onForward.emit(true);
       })
   }
 
   deleteMessage(){
-    console.log(`delete`);
+    // console.log(`delete`);
     this.main.adminService.DeleteMessage(this.DialogId,this.idOpenMenu)
       .subscribe((res)=>{
-        console.log(`message delete`);
+        // console.log(`message delete`);
         this.openMessage();
       })
   }
@@ -144,7 +144,7 @@ export class OpenMessageComponent extends BaseComponent implements OnInit {
   deleteDialog(){
     this.main.adminService.DeleteDialog(this.Dialog.id)
       .subscribe((res)=>{
-        console.log(`dialog delete`);4
+        // console.log(`dialog delete`);4
         this.onDelete.emit(true);
 
       })

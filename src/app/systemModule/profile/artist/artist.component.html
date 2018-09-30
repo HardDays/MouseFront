@@ -1,13 +1,13 @@
 <section class="main_content">
     <div class="for-flex-height">
-            
+
         <section class="second-router-outlet">
             <div class="head-info-profile-wr head-info-artist">
                 <div class="main-mw">
                     <div class="flex-artist-main-info">
                         <div class="side left-side">
                             <h6 id="lines_view" class="name" style="width:100%;">{{Account.display_name}}</h6>
-                            
+
                             <div class="oficial-page">
                                 <span id="d_lines_view" class="page">@{{Account.user_name}}</span>
                                 <div class="ok-image" *ngIf="Account.status == 'approved'">
@@ -22,7 +22,7 @@
                             <p id="b_lines_view" class="desc">
                                 {{Account.about}}
                             </p>
-                            
+
                             <ng-container *ngIf="MyProfileId&&MyProfileId != Account.id&& AccStatus != Status.Denied && AccStatus != Status.Inactive">
                                 <form class="follow-wr" (ngSubmit)="FollowProfile(!isFolowedAcc)">
                                     <button [disabled]="IsPreview"  class="butt-style-1" type="submit">
@@ -35,7 +35,7 @@
                         </div>
                         <div class="side right-side">
                             <div class="bg-slider">
-                                    
+
                                 <show-gallery-cmp [Artists]="[Account]"></show-gallery-cmp>
                                 <!-- <div class="iframe-slider-wrapp" *ngIf="Account.videos.length > 0"> -->
                                     <!-- надо подключить youtube api и тем самым вставлять видео вместо iframe ибо у iframe нет норм функций для остановки видео, либо я хреново покопался.-->
@@ -51,7 +51,7 @@
                             </div>
                         </div>
                     </div>
-                </div>  
+                </div>
             </div>
             <div class="for-white-bg">
                 <div class="all-info-profile">
@@ -80,9 +80,9 @@
                         <div class="main-mw">
                             <div class="styles-audio-list">
                                 <ng-container *ngIf="Account && Account.audio_links && Account.audio_links.length">
-                                    <div *ngFor="let item of Account.audio_links | slice:0:countAudio; let i = index" class="audio-wrapper">
+                                    <div *ngFor="let item of Audios | slice:0:countAudio; let i = index" class="audio-wrapper">
                                         <div  class="one-audio">
-                    
+
                                             <!-- <div class="delete-track" (click)="deleteAudio(i)"></div> -->
                                             <span class="name-track">{{item.song_name}}</span>
                                             <div class="audiojs">
@@ -100,15 +100,15 @@
                                                     <em class="played">00:00</em>
                                                     <!-- <strong class="duration">{{audioId == i+1 && audioDuration>0 ?audioDuration/100:''}}</strong> -->
                                                 </div>
-                                            </div> 
+                                            </div>
                                         </div>
                                     </div>
-                                
-                                    
+
+
                                     <button *ngIf="countAudio<Account.audio_links.length" class="see-all" (click)="countAudio = Account.audio_links.length" translate>Artist-create.SEE ALL</button>
                                 </ng-container>
                             </div>
-                           
+
                         </div>
                     </div>
                     <div class="uniq-padd-2">
@@ -128,7 +128,7 @@
                                                     </div>
                                                 </a>
                                             </ng-container>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -139,25 +139,25 @@
                                     </div>
                                     <div class="new-scroll-wr">
                                         <div class="blocks">
-                                            
-                                            
+
+
                                             <!--/календарь вегда есть(не итерируем)-->
                                             <!--<ng-container *ngIf="isMyAccount">
-                                                    
+
                                             <ng-container *ngIf="item.checked">
                                             -->
-                                            
+
                                             <ng-container *ngFor="let item of UpcomingShowsChecked">
-                                                
-                                                <ng-container class="one-block">   
+
+                                                <ng-container class="one-block">
                                                     <a [routerLink]="['/system','shows_detail',item.id]" style="display:block">
                                                         <app-upcoming-shows-profile [Upshows]="item"></app-upcoming-shows-profile>
                                                     </a>
                                                 </ng-container>
-                                                
+
                                             </ng-container>
-                                            
-                                        
+
+
                                         </div>
                                     </div>
                                 </div>
@@ -165,7 +165,7 @@
                                     <div class="uniq-padd-3">
                                         <h6>{{'Fans' | translate }} ({{FansChecked.length}})</h6>
                                         <input type="text" class="search-profile-inp-style" placeholder="{{ 'Search' | translate }}" (input)='searchFans($event)'>
-                                        
+
                                     </div>
                                     <div class="new-scroll-wr">
                                         <div class="blocks-funs">

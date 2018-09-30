@@ -235,8 +235,8 @@
             <div class="name-and-ava">
                 <div class="ava" [ngStyle]="{'background-image': eventForRequest.image_base64_not_given?'url('+eventForRequest.image_base64_not_given+')':''}"></div>
                 <div class="n-h">
-                    <p class="name">{{eventForRequest.user_name}}</p>
-                    <p class="hash"><span>@</span>pixope</p>
+                    <p class="name">{{eventForRequest.display_name}}</p>
+                    <p class="hash"><span>@</span>{{eventForRequest.user_name}}</p>
                 </div>
             </div>
             <div class="content-modal">

@@ -25,16 +25,25 @@ export class CustomerSupportAnswersComponent extends BaseComponent implements On
 
   ngOnInit() {
     this.isSuperUser = this.MyUser.is_superuser?true:false;
+    // console.log(`isSuperUser`,this.isSuperUser);
+
     // console.log(this.isSuperUser);
-    
-    
+
+
     this.GetTemplates();
   }
 
   initJs(){
     $('.support_answers .answer_head').click(function() {
+      
+      if($(this).parent().hasClass('opened')){
+        $(this).parent().removeClass('opened');
+      }
+      else{
+        $(this).parent().addClass('opened')
+      }
       $(this).next().slideToggle();
-      $(this).parent().toggleClass('opened');
+     // $(this).parent().toggleClass('opened');
     });
 
     $('.answer_file span').click(function() {
@@ -47,14 +56,15 @@ export class CustomerSupportAnswersComponent extends BaseComponent implements On
   }
 
   GetTemplates(){
-    setTimeout(() => {
-      this.initJs();
-    }, 1500);
+    
     this.main.adminService.GetReplyTemplates()
     .subscribe(
       (res)=>{
         this.Templates = res;
         this.checkedTemplates = this.Templates;
+        setTimeout(() => {
+          this.initJs();
+        }, 200);
       }
     )
   }
@@ -71,8 +81,8 @@ export class CustomerSupportAnswersComponent extends BaseComponent implements On
     setTimeout(() => {
       this.initJs();
     }, 500);
-      
-        
+
+
   }
 
   OpenTemplate(temp){
@@ -87,6 +97,8 @@ export class CustomerSupportAnswersComponent extends BaseComponent implements On
       (res)=>{
         this.GetTemplates();
         this.clearTemplate();
+        this.openTemplate.id = res['id'];
+        this.approveTemplate();
         // console.log(`ok`)
         // this.Templates.push(this.openTemplate);111
 
@@ -105,7 +117,7 @@ export class CustomerSupportAnswersComponent extends BaseComponent implements On
         (res)=>{
          this.clearTemplate();
           this.GetTemplates();
-         
+
         }
       )
   }

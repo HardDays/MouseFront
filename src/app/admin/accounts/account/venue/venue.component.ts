@@ -19,11 +19,27 @@ export class VenueComponent extends BaseComponent implements OnInit {
   disabledDays: CalendarDate[] = [];
   eventsDates:CalendarDate[] = [];
 
+  OffHours: any[] = [];
+  OpHours: any[] = [];
+
   @Input() Account:AccountGetModel;
   @Input() CurrencySymbol:string;
   photos:any = [];
 
   ngOnInit() {
+    this.Init();
+    this.getVenueImages();
+    this.ChangeDates();
+  }
+
+  ngOnChanges(change: SimpleChanges){
+    if(change.Account){
+      this.Init();
+    }
+  }
+
+  Init()
+  {
     if(this.Account.image_id){
       this.main.imagesService.GetImageById(this.Account.image_id)
         .subscribe(
@@ -34,33 +50,17 @@ export class VenueComponent extends BaseComponent implements OnInit {
               this.Account.image_base64_not_given = BaseImages.NoneFolowerImage;
           },
           (err)=>{
-            // console.log(err);
             this.Account.image_base64_not_given = BaseImages.NoneFolowerImage;
           });
       }
-    else this.Account.image_base64_not_given = BaseImages.NoneFolowerImage;
+      else this.Account.image_base64_not_given = BaseImages.NoneFolowerImage;
 
-    this.getVenueImages();
-    this.ChangeDates();
-  }
 
-  ngOnChanges(change: SimpleChanges){
-    if(change.Account){
-      if(this.Account.image_id){
-        this.main.imagesService.GetImageById(this.Account.image_id)
-          .subscribe(
-            (img)=>{
-              if(img.base64)
-                this.Account.image_base64_not_given = img.base64;
-              else
-                this.Account.image_base64_not_given = BaseImages.NoneFolowerImage;
-            },
-            (err)=>{
-              // console.log(err);
-              this.Account.image_base64_not_given = BaseImages.NoneFolowerImage;
-            });
-        }
-    }
+      if(this.Account.office_hours)
+          this.OffHours = this.main.accService.ParseWorkingTimeModelArr(this.Account.office_hours);
+      
+      if(this.Account.operating_hours)
+          this.OpHours = this.main.accService.ParseWorkingTimeModelArr(this.Account.operating_hours);
   }
 
   ChangeDates(NewDate?:Date)

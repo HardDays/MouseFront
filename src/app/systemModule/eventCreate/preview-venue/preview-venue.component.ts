@@ -23,8 +23,10 @@ export class PreviewVenueComponent extends BaseComponent implements OnInit {
   changedPrice: CalendarDate[] = [];
   disabledDays: CalendarDate[] = [];
   eventsDates:CalendarDate[] = [];
- 
+
   @Input() VenueId:number;
+  @Input() CreatorId:number;
+  @Input() EventId:number;
   @Output() OnReturn = new EventEmitter();
 
   photos:any = [];
@@ -53,7 +55,7 @@ export class PreviewVenueComponent extends BaseComponent implements OnInit {
     scrollTo(0,0);
     this.MyCurrency = this.main.settings.GetCurrency();
     this.WaitBeforeLoading(
-      ()=>this.main.accService.GetAccountById(this.VenueId),
+      ()=>this.main.accService.GetAccountPreviewById(this.EventId,this.CreatorId,this.VenueId),
       (res:AccountGetModel)=>{
         this.Venue = res;
         this.GetVenueHours();
@@ -78,7 +80,7 @@ export class PreviewVenueComponent extends BaseComponent implements OnInit {
         this.OffHours = [];
         if(this.Venue.office_hours)
             this.OffHours = this.main.accService.ParseWorkingTimeModelArr(this.Venue.office_hours);
-        
+
         if(this.Venue.operating_hours)
             this.OpHours = this.main.accService.ParseWorkingTimeModelArr(this.Venue.operating_hours);
     }
@@ -100,15 +102,15 @@ export class PreviewVenueComponent extends BaseComponent implements OnInit {
   //     });
   // });
 
-  
+
   // // this.InitMusicPlayer();
   // }
 
   ngAfterViewInit(){
     this.scrollerPhotos();
-    
 
-  
+
+
   // this.InitMusicPlayer();
   }
 
@@ -120,7 +122,7 @@ export class PreviewVenueComponent extends BaseComponent implements OnInit {
       $('.new-photos-wr-scroll-preview').css({
         'padding-left': $('.for-position-left-js').offset()?$('.for-position-left-js').offset().left:0
       });
-  
+
     $(window).resize(function(){
         $('.photos-abs-wrapp').css({
             'max-height': $('.rel-wr-photoos').width()+'px'
@@ -157,7 +159,7 @@ export class PreviewVenueComponent extends BaseComponent implements OnInit {
                 (err) =>{
               });
               this.photos.push(p);
-              // console.log(this.photos); 
+              // console.log(this.photos);
             },
           (err) => {
           }
@@ -181,7 +183,7 @@ export class PreviewVenueComponent extends BaseComponent implements OnInit {
     $('html, body').animate({
       scrollTop: $(page).offset().top
     }, 1000);
-    
+
   }
 
   ChangeDates(NewDate?:Date)
@@ -219,7 +221,7 @@ export class PreviewVenueComponent extends BaseComponent implements OnInit {
 
                   if(res.event_dates)
                   {
-                      
+
                       for(let item of res.event_dates)
                       {
                           this.eventsDates.push({
@@ -232,11 +234,11 @@ export class PreviewVenueComponent extends BaseComponent implements OnInit {
               }
           );
       }
-      
-      
 
-      
-      
+
+
+
+
   }
 
 

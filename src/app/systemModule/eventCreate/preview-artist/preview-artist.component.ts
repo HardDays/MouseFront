@@ -1,3 +1,4 @@
+import { Album } from './../../../core/models/accountCreate.model';
 import { Component, OnInit, Input, AfterViewInit, SimpleChanges, Output, EventEmitter, NgZone, ChangeDetectorRef } from '@angular/core';
 import { AccountGetModel, Video, Rider } from '../../../core/models/accountGet.model';
 import { BaseComponent } from '../../../core/base/base.component';
@@ -30,6 +31,8 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
 
 
   @Input() ArtistId:number;
+  @Input() CreatorId:number;
+  @Input() EventId:number;
   @Output() OnReturn = new EventEmitter();
 
   VenueImages:any;
@@ -37,6 +40,8 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
   itemsPhotoss:any = [];
 
   photos:any = [];
+
+  Albums:Album[] = [];
 
   audioId:number = 0;
   audioDuration:number = 0;
@@ -84,7 +89,7 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
     this.InitMusicPlayer();
 
     this.WaitBeforeLoading(
-      ()=>this.main.accService.GetAccountById(this.ArtistId),
+      ()=>this.main.accService.GetAccountPreviewById(this.EventId,this.CreatorId,this.ArtistId),
       (res:AccountGetModel)=>{
         this.Artist = res;
         // this.CurrencySymbol = CurrencyIcons[this.Artist.currency];
@@ -96,6 +101,7 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
         this.GetArtistImages();
         this.updateVideosPreview();
         this.GetRiders();
+        this.GetAlbums();
 
        // if(changes['ArtistId'].isFirstChange()) this.InitMusicPlayer();
         if(res.image_id){
@@ -219,6 +225,15 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
           }
         })
     }
+  }
+
+  GetAlbums(){
+    this.main.accService.GetArtistAlbums(this.ArtistId)
+      .subscribe(
+        (res)=>{
+          this.Albums = res;
+        }
+      )
   }
 
   backPage(){
@@ -373,13 +388,13 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
     }
 
   downloadFile(fileBase64: string){
-    console.log(`download`,fileBase64);
+    // console.log(`download`,fileBase64);
     if(fileBase64){
       // this.main.accService.GetRiderById(id)
       // .subscribe((res)=>{
 
         let type = fileBase64.split(';base64,')[0].split('/')[1];
-        console.log(fileBase64.split(';base64,')[0]);
+        // console.log(fileBase64.split(';base64,')[0]);
         let file = fileBase64.split(';base64,')[1];
 
         var decoded = new Buffer(file, 'base64');

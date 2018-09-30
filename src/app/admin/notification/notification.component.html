@@ -1,21 +1,19 @@
-<div class="admin_content whole_white">
-            <div class="main-feed-wrapp">
+<div class="main-feed-wrapp">
 
-                <div class="middle-feed f-m-h">
-                    <p class="feed-text">Notifications</p>
-                    <div class="feed-items">
-                        <ng-container  *ngFor="let item of Feed">
-                        <div class="feed-item">
-                          <!-- *ngIf="item.action === 'new_admin'" -->
-                          <app-new-admin [NewAdmin]="item" *ngIf="item.action === 'new_admin'"></app-new-admin>
-                          <app-new-bug [Bug]="item" *ngIf="item.action === 'new_bug'" (onOpenForward)="openForward($event)"></app-new-bug>
-                          <app-new-users [Users]="item" *ngIf="item.action === 'new_users'"></app-new-users>
-                        </div>
-                        </ng-container>
-                    </div>
-                </div>
+    <div class="middle-feed f-m-h">
+        <p class="feed-text">Notifications</p>
+        <div class="feed-items">
+            <ng-container  *ngFor="let item of Feed">
+            <div class="feed-item">
+              <!-- *ngIf="item.action === 'new_admin'" -->
+              <app-new-admin [NewAdmin]="item" *ngIf="item.action === 'new_admin'"></app-new-admin>
+              <app-new-bug [Bug]="item" *ngIf="item.action === 'new_bug'" (onOpenForward)="openForward($event)"></app-new-bug>
+              <app-new-users [Users]="item" *ngIf="item.action === 'new_users'"></app-new-users>
             </div>
+            </ng-container>
         </div>
+    </div>
+</div>
 
 <div class="modal fade modal-send-request new-modal-inv who-going-modal for-forward-admin" id="forward">
         <div class="modal-dialog">

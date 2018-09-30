@@ -119,22 +119,22 @@
               </div>
 
           </div>
-          <div *ngIf="Artist.artist_albums?.length>0" class="uniq-padd-2">
+          <div *ngIf="Albums?.length>0" class="uniq-padd-2">
               <div class="main-mw">
                   <div class="flex--info none-padd-sides-b none-padd-sides-t-without-h">
                       <div class="side side-info side-about ">
-                          <h6 class="for-position-left-js">Albums ({{Artist.artist_albums?Artist.artist_albums.length:'-'}})</h6>
+                          <h6 class="for-position-left-js">Albums ({{Albums?Albums.length:'-'}})</h6>
                       </div>
                       <div class="side side-info side-contact un-padd-on-1560"></div>
                       <div class="side side-info side-map"></div>
                   </div>
               </div>
            </div>
-           <div *ngIf="Artist.artist_albums?.length>0" class="new-photos-wr-scroll-preview ">
+           <div *ngIf="Albums?.length>0" class="new-photos-wr-scroll-preview ">
               <div class="rel-wr-photoos alboms-play">
                   <div class="photos-abs-wrapp">
 
-                      <div *ngFor="let item of Artist.artist_albums" class="one-slide">
+                      <div *ngFor="let item of Albums" class="one-slide">
                           <div  class="wrapp-card">
                               <div class="cover-image" [ngStyle]="{'background-image': 'url('+item.album_artwork+')'}"></div>
                               <div class="descr">

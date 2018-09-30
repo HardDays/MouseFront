@@ -7,7 +7,7 @@
                 <div class="ava" [ngStyle]="{'background-image': item.sender?'url('+item.sender.image_base64+')':'url('+nonImage+')'}"></div>
                 <div class="info">
                     <p class="question">
-                        <span class="title">{{item.subject?item.subject:''}}</span>
+                        <span class="title" [ngClass]="{'done':item.is_closed}">{{item.subject?item.subject:''}}</span>
                         <span class="date">{{item.date?item.date:''}}</span>
                     </p>
                     <p class="name">{{item.sender?.full_name?item.sender.full_name:''}}</p>
@@ -22,9 +22,11 @@
             <div class="right-to-scroll">
                 <div class="support_head">
                     <p>{{openQuestion&&openQuestion.subject}}</p>
-                    <button *ngIf="!openQuestion.is_closed" class="button-solved" (click)="SolvedAnswer()">SOLVE</button>
-                    <button disabled *ngIf="openQuestion.is_closed" class="button-solved">SOLVED!</button>
-                    <span (click)="DeleteItem()" class="but_icon"><img src="./../../../assets/img/admin/support_delete.png" alt=""></span>
+                    <div>
+                        <button *ngIf="openQuestion&&!openQuestion.is_closed" class="button-solved" (click)="SolvedAnswer()">SOLVE</button>
+                        <button disabled *ngIf="openQuestion&&openQuestion.is_closed" class="button-solved">SOLVED!</button>
+                        <span (click)="DeleteItem()" class="but_icon"><img src="./../../../assets/img/admin/support_delete.png" alt=""></span>
+                    </div>
                 </div>
                 <ng-container *ngIf="openQuestion?.reply">
                     <div *ngFor="let reply of openQuestion.reply" class="support_mes">

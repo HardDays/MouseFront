@@ -65,6 +65,7 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
       else{
         this.Feed.account.img_base64 = BaseImages.NoneFolowerImage;
       }
+      // console.log(this.replaceAll(this.Feed.action));
     }
 
     this.myLogo = this.main.MyLogo;
@@ -167,7 +168,7 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
           this.Feed.likes++;
           // console.log(res);
         },(err)=>{
-          console.log(`err`,err)
+          // console.log(`err`,err)
         })
     } else {
       this.main.likesService.DeleteLike(this.accId,this.Feed.id)
@@ -175,7 +176,7 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
           this.Feed.is_liked = false;
           this.Feed.likes--;
       },(err)=>{
-        console.log(`err`,err)
+        // console.log(`err`,err)
       })
     }
   }
@@ -334,7 +335,7 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
         .subscribe(
           (res)=>{
             this.Album = res;
-            console.log(res);
+            // console.log(res);
           },
           (err)=>{
             this.Album = null;

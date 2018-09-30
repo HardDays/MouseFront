@@ -51,7 +51,7 @@
                                 <span class="date">{{fb.created_at|date}}</span>
                             </p>
                             <p class="name">{{fb.sender?fb.sender.full_name:'No name'}}</p>
-                            <p class="username"><span>@</span>{{fb.sender?fb.sender.user_name:'No username'}}</p>
+                            <p class="username" [ngClass]="{'shared':fb.message_info.is_forwarded}"><span>@</span>{{fb.sender?fb.sender.user_name:'No username'}}</p>
                             <p class="address">{{fb.sender?fb.sender['address']:'No address'}}</p>
                         </div>
                         <div class="stars">
@@ -131,7 +131,7 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="openFeedback?.reply?.length===0" class="feedback_buts">
+                <div *ngIf="openFeedback?.reply?.length===0 && !isSendThankYou" class="feedback_buts">
                     <button *ngIf="!isForward" (click)="sendThankYou()">Thank you</button>
                     <button *ngIf="!isForward&&!openFeedback?.message_info?.is_forwarded" (click)="forwardMessage()">Forward</button>
                     <button *ngIf="isForward" (click)="sendForward()">Send</button>

@@ -170,10 +170,9 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       delete this.Event['address'];
       delete this.Event['city_lat'];
       delete this.Event['city_lng'];
-
-      delete this.Event['date_from'];
-      delete this.Event['date_to'];
     }
+    delete this.Event['date_from'];
+    delete this.Event['date_to'];
 
     // console.log(`TEST`,this.Event);
 
@@ -207,14 +206,13 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   {
     this.Event.account_id = this.CurrentAccount.id;
     // this.Event.currency = this.main.settings.GetCurrency();
-    //if(this.Event.venue){
+    if(this.Event.venue){
       delete this.Event['address'];
       delete this.Event['city_lat'];
       delete this.Event['city_lng'];
-
-      delete this.Event['date_from'];
-      delete this.Event['date_to'];
-    //}
+    }
+    delete this.Event['date_from'];
+    delete this.Event['date_to'];
 
     if(!this.isNewEvent)
       this.FunService(
@@ -252,6 +250,43 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     );
   }
 
+  SaveEventByPagesBySave(event:EventCreateModel)
+  {
+
+    this.Event = event;
+    // this.Event.currency = this.main.settings.GetCurrency();
+
+    if(this.Event.venue){
+      delete this.Event['address'];
+      delete this.Event['city_lat'];
+      delete this.Event['city_lng'];
+    }
+    delete this.Event['date_from'];
+    delete this.Event['date_to'];
+
+    // console.log(`TEST`,this.Event);
+
+    this.Event.account_id = this.CurrentAccount.id;
+    this.WaitBeforeLoading
+    (
+      () => this.EventId == 0 ? this.main.eventService.CreateEvent(this.Event) : this.main.eventService.UpdateEvent(this.EventId,this.Event),
+      (res) => {
+        // console.log(`WHAT FROM BACK`, res);
+        this.DisplayEventParams(res);
+
+        setTimeout(
+          () => this.router.navigate(["/system","events"]),
+          100
+        );
+
+      },
+      (err) => {
+        // console.log(`err`,err);
+        this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'event'));
+      }
+    )
+  }
+
 
 
   SaveEvent()
@@ -260,6 +295,9 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       {
         this.errorCmp.OpenWindow(this.getFormErrorMessage(this.about.aboutForm,'event'));
         return;
+      }
+      else if(this.funding){
+        this.funding.saveFunding();
       }
     else{
       this.Event.account_id = this.CurrentAccount.id;
@@ -271,10 +309,9 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         delete this.Event['address'];
         delete this.Event['city_lat'];
         delete this.Event['city_lng'];
-
-        delete this.Event['date_from'];
-        delete this.Event['date_to'];
       }
+      delete this.Event['date_from'];
+      delete this.Event['date_to'];
       // this.Event.currency = this.main.settings.GetCurrency();
 
       // if(!this.isNewEvent)
@@ -345,6 +382,11 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   }
 
   launchButtonClick(){
+    if(!this.Event.tickets.length){
+      this.OpenErrorWindow('You need tickets to launch an event!');
+      return;
+    }
+
     this.main.eventService.SetLaunch(this.EventId,this.main.CurrentAccount.id).
       subscribe((res)=>{
         // this.Event.is_active = true;

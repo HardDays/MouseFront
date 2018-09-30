@@ -400,8 +400,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
 
                     this.isLoadingVenue = false;
                     this.GetVenuesImages();
-
-         });
+        });
     }
 
     textChange(str:string){
@@ -541,7 +540,10 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                 //this.submitVenue();
 
             },(err)=>{
-                this.onError.emit("Venue NOT accepted! "+this.getResponseErrorMessage(err));
+                if(err.json()['errors']==='Invalid date')
+                  this.onError.emit("Venue NOT accepted! Invalid date");
+                else
+                  this.onError.emit("Venue NOT accepted! "+this.getResponseErrorMessage(err));
                 // console.log(`err`,err);
             });
     }
@@ -565,7 +567,6 @@ export class VenuesComponent extends BaseComponent implements OnInit {
   }
 
     declineVenue(){
-
         this.main.eventService.VenueDeclineOwner(this.ownerAcceptDecline).
             subscribe((res)=>{
                 $('#modal-decline').modal('hide');
@@ -748,12 +749,12 @@ export class VenuesComponent extends BaseComponent implements OnInit {
           }
         }
 
-        console.log(this.VenueInvite, this.InviteSocials);
+        // console.log(this.VenueInvite, this.InviteSocials);
         if(this.VenueInvite.email||this.VenueInvite.facebook||this.VenueInvite.vk||this.VenueInvite.twitter||this.VenueInvite.email){
           this.main.inviteService.PostInviteVenue(this.VenueInvite)
             .subscribe(
               (res)=>{
-                console.log(`ok`);
+                // console.log(`ok`);
                 $('#modal-send-unauth').modal('hide');
                 this.VenueInvite = {
                   account_id: this.CurrentAccount.id,

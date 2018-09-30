@@ -23,7 +23,7 @@
                                 <a [routerLink]="['/system/profile',artist.object.artist_id]" class="name">{{artist['object']['artist']['user_name']}}</a>
                             </div>
                             <div class="price-r">
-                                <span class="price"><span [innerHTML]="CurrencySymbol"></span>{{artist['object']['approximate_price']?artist['object']['approximate_price']:0|number:'3.1-2'}}</span>
+                                <span class="price"><span [innerHTML]="CurrencySymbol"></span>{{ artist['object']['approximate_price'] | number:'1.2-2'}}</span>
                                 <div class="one-checkbox">
                                     <div class="check-style">
                                         <input [checked]="activeArtist[i].checked" (click)="setActiveArtist(i)" type="checkbox" class="checkbox" name="" id="new-checkbox-artist-{{i}}">
@@ -38,7 +38,7 @@
                 </div>
                 <div *ngIf="!isLoadingArtist" class="bottom-expression">
                     <p class="t" translate>event.funding-fold.Price (Plus Additional Costs)</p>
-                    <p class="exp-price"><span [innerHTML]="CurrencySymbol"></span>{{artistSum| number:'3.1-2'}}</p>
+                    <p class="exp-price"><span [innerHTML]="CurrencySymbol"></span>{{artistSum| number:'1.2-2'}}</p>
                 </div>
             </div>
             <div class="side">
@@ -54,7 +54,7 @@
                                 <a [routerLink]="['/system/profile',venue.object.venue_id]" class="name">{{venue['object']['venue']['user_name']}}</a>
                             </div>
                             <div class="price-r">
-                                <span class="price"><span [innerHTML]="CurrencySymbol"></span>{{venue['object']['approximate_price']?venue['object']['approximate_price']:0|number:'3.1-2'}}</span>
+                                <span class="price"><span [innerHTML]="CurrencySymbol"></span>{{venue['object']['approximate_price']|number:'1.2-2'}}</span>
                                 <div class="one-checkbox">
                                     <div class="check-style">
                                         <input [checked]="activeVenue[i].checked" (click)="setActiveVenueRadio(venue)" type="radio" class="checkbox" name="venue-set" id="new-checkbox-venue-{{i}}">
@@ -68,7 +68,7 @@
                 </div>
                 <div *ngIf="!isLoadingVenue" class="bottom-expression">
                     <p class="t" translate>event.funding-fold.Price (Plus Additional Costs)</p>
-                    <p class="exp-price"><span [innerHTML]="CurrencySymbol"></span>{{venueSum| number:'3.1-2'}}</p>
+                    <p class="exp-price"><span [innerHTML]="CurrencySymbol"></span>{{venueSum| number:'1.2-2'}}</p>
                 </div>
             </div>
             <div class="side">
@@ -82,10 +82,8 @@
                 <div class="bottom-expression">
                     <p class="t total" translate>event.Totals</p>
                     <!-- {{Event.founded}} -->
-                    <p class="exp-price"><span [innerHTML]="CurrencySymbol"></span>{{venueSum+artistSum | number:'3.1-2'}}</p>
+                    <p class="exp-price"><span [innerHTML]="CurrencySymbol"></span>{{venueSum+artistSum | number:'1.2-2'}}</p>
                 </div>
-
-
             </div>
         </div>
 
@@ -96,12 +94,12 @@
                     <h6 class="lower-case-t" translate>event.funding-fold.Breakeven Amount</h6>
                     <div class="second-funding-info">
                         <p class="info-text" translate>event.funding-fold.Artists Price</p>
-                        <span *ngIf="artistSum>0" class="price"><span [innerHTML]="CurrencySymbol"></span>{{artistSum  | number:'3.1-2'}}</span>
+                        <span *ngIf="artistSum>0" class="price"><span [innerHTML]="CurrencySymbol"></span>{{artistSum  | number:'1.2-2'}}</span>
                         <span *ngIf="!artistSum||artistSum==0" class="price"><span [innerHTML]="CurrencySymbol"></span>0</span>
                     </div>
                     <div class="second-funding-info">
                         <p class="info-text" translate>event.funding-fold.Venue Price</p>
-                        <span *ngIf="venueSum>0" class="price"><span [innerHTML]="CurrencySymbol"></span>{{venueSum  | number:'3.1-2'}}</span>
+                        <span *ngIf="venueSum>0" class="price"><span [innerHTML]="CurrencySymbol"></span>{{venueSum  | number:'1.2-2'}}</span>
                         <span *ngIf="!venueSum||venueSum==0" class="price"><span [innerHTML]="CurrencySymbol"></span>0</span>
                     </div>
                     <div class="additional-costs">
@@ -112,7 +110,7 @@
 
                     <div class="second-funding-info">
                         <p class="info-text" translate>event.funding-fold.Amount to Mouse (10%)</p>
-                        <span class="price"><span [innerHTML]="CurrencySymbol"></span>{{0.1*(artistSum+venueSum+Event.additional_cost) | number:'3.1-2'}}</span>
+                        <span class="price"><span [innerHTML]="CurrencySymbol"></span>{{0.1*(artistSum+venueSum+Event.additional_cost) | number:'1.2-2'}}</span>
                     </div>
                 </div>
 
@@ -137,7 +135,7 @@
                     </div>
                     <div class="second-funding-info">
                         <p class="info-text" translate>event.funding-fold.Amount</p>
-                        <span class="price"><span [innerHTML]="CurrencySymbol"></span>{{getFamilyAndFriendAmount()  | number:'3.1-2'}}</span>
+                        <span class="price"><span [innerHTML]="CurrencySymbol"></span>{{getFamilyAndFriendAmount() | number:'1.2-2'}}</span>
                     </div>
                 </div>
             </div>
@@ -148,9 +146,9 @@
                         <p class="info-text" translate>event.funding-fold.Capacity</p>
                         <span class="price">{{Event.venue?Event.venue.capacity:0}}</span>
                     </div>
-                    <div class="second-funding-info">
+                    <div *ngIf="Event.venue" class="second-funding-info">
                         <p class="info-text" translate>event.funding-fold.Price Per Ticket</p>
-                        <span class="price"><span [innerHTML]="CurrencySymbol"></span>{{Event.venue? (0.1*(artistSum+venueSum+Event.additional_cost)+(artistSum+venueSum+Event.additional_cost)) / Event.venue.capacity : 0 | number:'3.1-2'}}</span>
+                        <span class="price"><span [innerHTML]="CurrencySymbol"></span>{{(0.1*(artistSum+venueSum+Event.additional_cost)+(artistSum+venueSum+Event.additional_cost)) / Event.venue.capacity | number:'1.2-2'}}</span>
                     </div>
                 </div>
             </div>
@@ -159,7 +157,7 @@
             <div class="side">
                 <div class="bottom-expression">
                     <p class="t total" translate>event.Totals</p>
-                    <p class="exp-price"><span [innerHTML]="CurrencySymbol"></span>{{0.1*(artistSum+venueSum+Event.additional_cost)+(artistSum+venueSum+Event.additional_cost) | number:'3.1-2'}}</p>
+                    <p class="exp-price"><span [innerHTML]="CurrencySymbol"></span>{{0.1*(artistSum+venueSum+Event.additional_cost)+(artistSum+venueSum+Event.additional_cost) | number:'1.2-2'}}</p>
                 </div>
             </div>
         </div>

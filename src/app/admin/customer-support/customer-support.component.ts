@@ -167,8 +167,9 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
       .subscribe(
         (res)=>{
           this.Answer.message = '';
-          console.log(res);
-          this.GetQuestions();
+          // console.log(res);
+          // this.GetQuestions();
+          this.openNewQuestion(this.openQuestion.id);
         }
       )
   }
@@ -186,7 +187,7 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
     this.main.adminService.SolveQuestion(this.openQuestion.id,this.Answer.subject,'Solved!')
       .subscribe(
         (res)=>{
-          console.log(`ok`);
+          // console.log(`ok`);
           this.openQuestion.is_closed = true;
           this.GetQuestions();
         }

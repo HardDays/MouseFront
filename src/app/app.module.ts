@@ -1,3 +1,4 @@
+
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, ApplicationRef  } from '@angular/core';
@@ -52,6 +53,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AdminModule } from './admin/admin.module';
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 import { Ng2CableModule } from 'ng2-cable';
+
+import { PhonePipeModule } from './core/pipes/phone.pipe/phone.pipe.module';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -112,7 +115,8 @@ let providers = {
       }
   }),
     AdminModule,
-    Ng2CableModule
+    Ng2CableModule,
+    PhonePipeModule.forRoot()
   ],
   providers: [
     AppAccessGuard,

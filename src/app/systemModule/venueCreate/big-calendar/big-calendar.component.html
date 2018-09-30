@@ -32,7 +32,9 @@
                                 'un-active': day.selected,
                                 'has-popup' :day.event ,
                                 'not-active-month': !isSelectedMonth(day.mDate),
-                                'changed-price': day.changed
+                                'changed-price': day.changed,
+                                'changed-wr-day' : day.dayPrice,
+                                'changed-wr-night' : day.nightPrice
                             }
                         "
                         
@@ -72,7 +74,7 @@
                                 <p class="morning"
                                     [ngClass]="
                                     {
-                                        'changed-price-morning': day.dayPrice != null
+                                        'changed-price-morning': day.dayPrice
                                     }
                                     "
                                 >
@@ -83,7 +85,7 @@
                                 <p class="night"
                                     [ngClass]="
                                     {
-                                        'changed-price-night': day.nightPrice != null
+                                        'changed-price-night': day.nightPrice
                                     }
                                     "
                                 >

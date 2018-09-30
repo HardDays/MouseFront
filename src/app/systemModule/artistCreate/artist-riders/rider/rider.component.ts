@@ -1,3 +1,4 @@
+import { BaseMessages } from './../../../../core/base/base.enum';
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { BaseComponent } from '../../../../core/base/base.component';
 import { AccountCreateModel, Rider } from '../../../../core/models/accountCreate.model';
@@ -16,6 +17,8 @@ export class RiderComponent extends BaseComponent implements OnInit {
 
   @Output() onDelete = new EventEmitter<number>();
   @Output() onConfirm = new EventEmitter<Rider>();
+  @Output() onError = new EventEmitter<string>();
+
 
   isConfirmRider:boolean = true;
 
@@ -30,6 +33,10 @@ export class RiderComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     this.isEng = this.isEnglish();
+    if(this.Rider){
+      if(!this.Rider.is_flexible)
+        this.Rider.is_flexible = true;
+    }
   }
   // ngOnChanges(changes: SimpleChanges): void {
   //   if(changes.Rider){
@@ -44,7 +51,11 @@ export class RiderComponent extends BaseComponent implements OnInit {
   loadRiderFile($event:any){
     let target = $event.target;
     let file:File = target.files[0];
-    this.getBase64(file);
+
+    if(file.size<=2e7)
+      this.getBase64(file);
+    else
+      this.onError.emit(`Sorry, this file is too big!`);
     // for(let file of target.files)
     // {
     //     let reader:FileReader = new FileReader();
@@ -65,7 +76,7 @@ export class RiderComponent extends BaseComponent implements OnInit {
     //     this.isConfirmRider = false;
    };
    reader.onerror = function (error) {
-     console.log('Error: ', error);
+    //  console.log('Error: ', error);
    };
 }
 
@@ -75,6 +86,7 @@ export class RiderComponent extends BaseComponent implements OnInit {
       this.main.accService.DeleteArtistRider(this.ArtistId,this.Rider.id)
         .subscribe( (res)=>{
           this.Rider = new Rider();
+          this.Rider.is_flexible = true;
           this.isConfirmRider = true;
           this.onDelete.emit(this.Rider.id);
         }
@@ -82,6 +94,7 @@ export class RiderComponent extends BaseComponent implements OnInit {
     }
     else {
       this.Rider = new Rider();
+      this.Rider.is_flexible = true;
       this.isConfirmRider = true;
     }
 
@@ -94,6 +107,7 @@ export class RiderComponent extends BaseComponent implements OnInit {
       this.getRiderInfo();
       this.main.accService.SaveArtistRider(this.ArtistId,this.Rider)
         .subscribe((res)=>{
+          this.onError.emit(BaseMessages.Success);
           this.isConfirmRider = true;
         })
       // this.onConfirm.emit(this.Rider);
@@ -135,7 +149,7 @@ export class RiderComponent extends BaseComponent implements OnInit {
     //   .subscribe((res)=>{
     if(this.Rider.uploaded_file_base64){
         let type = this.Rider.uploaded_file_base64.split(';base64,')[0].split('/')[1];
-        console.log(this.Rider.uploaded_file_base64.split(';base64,')[0]);
+        // console.log(this.Rider.uploaded_file_base64.split(';base64,')[0]);
         let file = this.Rider.uploaded_file_base64.split(';base64,')[1];
 
         var decoded = new Buffer(file, 'base64');

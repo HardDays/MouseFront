@@ -10,5 +10,7 @@
     <!-- </ng-container> -->
 <!-- </div> -->
 <ng-container *ngIf="Images && Images.length > 0">
-    <slideshow [showArrows]="Images.length>1" [minHeight]="'525px'" [imageUrls]="Images"></slideshow>
+    <button type="button" (click)="changeSlide(-1)" class="slick-prev prev-b slick-arrow"></button>
+    <slideshow #slideshow [showArrows]="false" [minHeight]="'525px'" [imageUrls]="Images"></slideshow>
+    <button type="button" (click)="changeSlide(1)" class="slick-next next-b slick-arrow"></button>
 </ng-container>

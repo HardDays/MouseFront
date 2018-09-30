@@ -25,7 +25,7 @@
       </ng-container>
       <!--после загрузки файла-->
       <div  *ngIf="Rider.id||Rider.uploaded_file_base64" class="side-dwn">
-          <div (click)="downloadFile()" class="file-uploaded">
+          <div class="file-uploaded">
               <div class="delete-file" (click)="deleteRider()"></div>
           </div>
           <p class="desc-side-dwn" translate>Artist-create.rider.File uploded</p>
@@ -43,7 +43,7 @@
       <div  class="flex-radio">
           <div class="one-radio">
               <div class="radio-style">
-                  <input [(ngModel)]="Rider.is_flexible" type="radio" class="radio-b" [value]="true" id="radio-{{Type}}" name="grope-rider-{{Type}}" checked="">
+                  <input [(ngModel)]="Rider.is_flexible" type="radio" class="radio-b" [value]="true" id="radio-{{Type}}" name="grope-rider-{{Type}}">
                   <label for="radio-{{Type}}"></label>
               </div>
               <p translate>Artist-create.rider.Flexible</p>

@@ -29,12 +29,12 @@
                                     <ng-container *ngIf="item.checked">
                                         <div class="from-to">
                                             <span class="xs-dif-width" translate>Venue.hours-folder.From</span>
-                                            <time-input [Time]="item.start_work" (onTimeChange)="item.start_work = $event"></time-input>
+                                            <time-input [Time]="item.start_work" (onTimeChange)="OfficeHoursBeginChange(i,$event)"></time-input>
                                             <!-- <input class="inp-style-3 time-mask" [textMask]="GetFromTimeMask(item)"  autocomplete="off" type="text" [name]="'from-time-'+i" [ngModel]="item.start_work" (ngModelChange)="OfficeHoursBeginChange(i,$event)"> -->
                                         </div>
                                         <div class="from-to">
                                             <span class="xs-dif-width" translate>Venue.hours-folder.To</span>
-                                            <time-input [Time]="item.finish_work" (onTimeChange)="item.finish_work = $event"></time-input>
+                                            <time-input [Time]="item.finish_work" (onTimeChange)="OfficeHoursEndChange(i,$event)"></time-input>
                                             <!-- <input class="inp-style-3 time-mask" [textMask]="GetToTimeMask(item)"  autocomplete="off" type="text" [name]="'to-time-'+i" [ngModel]="item.finish_work" (ngModelChange)="OfficeHoursEndChange(i,$event)"> -->
                                         </div>
                                     </ng-container>
@@ -66,12 +66,12 @@
                                     <ng-container *ngIf="item.checked">
                                         <div class="from-to">
                                             <span class="xs-dif-width" translate>Venue.hours-folder.From</span>
-                                            <time-input [Time]="item.start_work" (onTimeChange)="item.start_work = $event"></time-input>
+                                            <time-input [Time]="item.start_work" (onTimeChange)="OperHoursBeginChange(i,$event)"></time-input>
                                             <!-- <input class="inp-style-3 time-mask" [textMask]="GetFromTimeMask(item)"  autocomplete="off" type="text" [name]="'from-time-'+i" [ngModel]="item.start_work" (ngModelChange)="OperHoursBeginChange(i,$event)"> -->
                                         </div>
                                         <div class="from-to">
                                             <span class="xs-dif-width" translate>Venue.hours-folder.To</span>
-                                            <time-input [Time]="item.finish_work" (onTimeChange)="item.finish_work = $event"></time-input>
+                                            <time-input [Time]="item.finish_work" (onTimeChange)="OperHoursEndChange(i,$event)"></time-input>
                                             <!-- <input class="inp-style-3 time-mask" [textMask]="GetToTimeMask(item)"  autocomplete="off" type="text" [name]="'to-time-'+i" [ngModel]="item.finish_work" (ngModelChange)="OperHoursEndChange(i,$event)"> -->
                                         </div>
                                     </ng-container>

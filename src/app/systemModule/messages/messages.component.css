@@ -25,3 +25,6 @@
     font-family: AvenirLTStdBlack, Arial, Helvetica, sans-serif;
     font-weight: bold;
 }
+.messages-main-wrapp .flex-massages-wrapp .left-s .one-msg-l-block .name-ava .hash{
+    word-wrap:break-word;
+}

@@ -841,5 +841,20 @@
 	"Update About": "Update About",
 	"Update Stage Name": "Update Stage Name",
 	"to": "to",
-	"Event to": "Event to"
+	"Event to": "Event to",
+	"FAX:": "FAX:",
+	"Payment Method":"Payment Method",
+	"Ticket":"Ticket",
+	"each":"each",
+	"TOTAL":"TOTAL",
+	"Verification code":"Verification code",
+	"Print ticket":"Print ticket",
+	"PaymentComplete":"Complete",
+	"Your payment is": "Your payment is",
+	"Try again":"Try again",
+	"failure":"failure",
+	"TICKETS COUNT":"TICKETS COUNT",
+	"Add Artist": "Add Artist", 
+	"Launch Event" :"Launch Event",
+	"Add Ticket" :"Add Ticket"
 }

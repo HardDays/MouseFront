@@ -24,7 +24,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
     fan:[],
     artist:[],
     venue:[]
-  } 
+  }
 
   ngOnInit() {
     this.GetInfo();
@@ -37,11 +37,11 @@ export class DashboardComponent extends BaseComponent implements OnInit {
       .subscribe(
         (res)=>{
           this.graphInfo = res;
-          console.log(this.graphInfo);
-         
+          // console.log(this.graphInfo);
+
           this.lineChartLabels.length = 0;
           this.lineChartLabels.push(...this.graphInfo.axis);
-    
+
           let tmpDataFans = [];
           let tmpDataVenues = [];
           let tmpDataArtists = [];
@@ -62,7 +62,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
             // tmpDataEnhancement = [{x:10,y:10},{x:20,y:20},{x:40,y:50}];
           }
 
-      
+
           this.lineChartData.length = 0;
 
           this.lineChartData = [
@@ -75,7 +75,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
         }
       )
 
-    
+
     //this._chart.ngOnChanges();
   }
 
@@ -88,7 +88,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
           }
         )
 
-      this.main.adminService.GetAccountsRequests({account_type: 'all',limit:20,offset:0})
+      this.main.adminService.GetAccountsRequests({account_type: 'all',status:'unchecked',limit:20,offset:0})
         .subscribe(
           (res)=>{
             this.Accounts = this.convertArrToCheckModel<any>(res);
@@ -98,7 +98,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
           }
         )
 
-      this.main.adminService.GetEventsRequests({limit:20,offset:0})
+      this.main.adminService.GetEventsRequests({status: 'just_added',limit:20,offset:0})
         .subscribe(
           (res)=>{
             this.Events = this.convertArrToCheckModel<any>(res);
@@ -113,7 +113,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
 
   onScrollArtist(){
     this.ScrollArtistDisabled = true;
-    this.main.adminService.GetAccountsRequests({account_type: 'all',limit:20,offset:this.Accounts.length})
+    this.main.adminService.GetAccountsRequests({account_type: 'all',status:'unchecked',limit:20,offset:this.Accounts.length})
       .subscribe(
         (res)=>{
           this.Accounts.push(...this.convertArrToCheckModel<any>(res));
@@ -126,7 +126,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
 
   onScrollEvent(){
     this.ScrollEventsDisabled = true;
-    this.main.adminService.GetEventsRequests({limit:20,offset:this.Events.length})
+    this.main.adminService.GetEventsRequests({status: 'just_added',imit:20,offset:this.Events.length})
       .subscribe(
         (res)=>{
           this.Events.push(...this.convertArrToCheckModel<any>(res));
@@ -168,7 +168,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
               this.Accounts.splice(this.Accounts.indexOf(acc),1)
             },
             (err)=>{
-              console.log(`err`,err)
+              // console.log(`err`,err)
             }
           )
       }
@@ -185,7 +185,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
               this.Events.splice(this.Events.indexOf(events),1)
             },
             (err)=>{
-              console.log(`err`,err)
+              // console.log(`err`,err)
             }
           )
       }
@@ -201,7 +201,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
     {data: [{x:1,y:2},{x:2,y:3},{x:3,y:5},{x:4,y:0}], label: 'ARTISTS'}
   ];
   public lineChartLabels:Array<any> = [1,2,3,4,5];
-  
+
   public lineChartOptions:any = {
     responsive: true,
     legend: {
@@ -249,7 +249,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
       //   }
       // ]
     }
-    
+
   };
 
   public lineChartColors:Array<any> = [

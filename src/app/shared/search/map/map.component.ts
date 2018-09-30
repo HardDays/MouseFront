@@ -46,7 +46,6 @@ export class SearchEventsMapComponent extends BaseComponent implements OnInit {
 
     AboutOpenMapModal(searchParams:EventSearchParams)
     {
-       // console.log(searchParams);
         this.lat = 55.755826;
         this.lng = 37.6172999;
         this.isMarkerVisible = false;
@@ -58,7 +57,6 @@ export class SearchEventsMapComponent extends BaseComponent implements OnInit {
         }
 
         $('#modal-map').modal('show');
-        
         this.isShowMap = true;
     }
 

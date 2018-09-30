@@ -409,10 +409,10 @@ export class ArtistComponent extends BaseComponent implements OnInit {
               subscribe((res)=>{
                 //  console.log(`add `,this.addArtist.artist_id);
                 itemCount++;
-                console.log(itemCount,this.artistsSearch.length)
+                // console.log(itemCount,this.artistsSearch.length)
                 if(itemCount===this.artistsSearch.length){
                 setTimeout(() => {
-                          console.log(`update`);
+                          // console.log(`update`);
                           this.updateEvent();
                         }, 500);
                 }
@@ -432,7 +432,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
         }
         if(itemCount===this.artistsSearch.length){
             setTimeout(() => {
-                    console.log(`update`);
+                    // console.log(`update`);
                     this.updateEvent();
                   }, 500);
         }
@@ -472,8 +472,11 @@ export class ArtistComponent extends BaseComponent implements OnInit {
             this.updateEvent();
         },(err)=>{
           if(err.status === 422){
-            this.onError.emit(err.json()['errors']?err.json()['errors']:"Limit of artists was reached!");
-            }
+            if(err.json()['errors']==='Invalid date')
+                  this.onError.emit("Venue NOT accepted! Invalid date");
+            else
+              this.onError.emit(err.json()['errors']?err.json()['errors']:"Limit of artists was reached!");
+          }
           else
             this.onError.emit("Artist NOT accepted!");
         });
@@ -574,7 +577,7 @@ updateEvent(){
                   this.artistsList = this.Event.artist;
                 setTimeout(() => {
 
-                  console.log(`---`,this.Event,this.artistsList)
+                  // console.log(`---`,this.Event,this.artistsList)
                   this.GetArtistsFromList();
                 }, 500);
 
@@ -754,12 +757,12 @@ dragMarker($event)
           }
         }
 
-        console.log(this.ArtistInvite, this.InviteSocials);
+        // console.log(this.ArtistInvite, this.InviteSocials);
         if(this.ArtistInvite.email||this.ArtistInvite.facebook||this.ArtistInvite.vk||this.ArtistInvite.twitter||this.ArtistInvite.email){
           this.main.inviteService.PostInviteArtist(this.ArtistInvite)
             .subscribe(
               (res)=>{
-                console.log(`ok`);
+                // console.log(`ok`);
                 $('#modal-send-unauth').modal('hide');
                 this.ArtistInvite = {
                   account_id: this.CurrentAccount.id,

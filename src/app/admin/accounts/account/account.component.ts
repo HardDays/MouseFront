@@ -23,12 +23,14 @@ export class AccountComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     window.scrollTo(0,0);
+
     this.activatedRoute.params.subscribe(
       (params:Params) => {
         this.accId = params['id']; // console.log(params["id"]);
         this.getThisAcc();
       }
     );
+
   }
 
   getThisAcc(){
@@ -41,23 +43,35 @@ export class AccountComponent extends BaseComponent implements OnInit {
         // console.log(`Acc`,this.Account);
       },
       (err)=>{
-        console.log(`err`,err)
+        // console.log(`err`,err)
       }
     )
   }
 
+  isOnDelete = false;
   removeAcc(){
     // console.log(`removeAcc`);
-    this.main.adminService.AccountDelete(this.accId)
-      .subscribe(
-        (res)=>{
-          // console.log(`res`,res);
-          this.router.navigate(['/admin','accounts','all'])
-        },
-        (err)=>{
-          console.log(`err`,err)
-        }
-      )
+    if(!this.isOnDelete){
+      this.isOnDelete = true;
+      this.main.adminService.AccountDelete(this.accId)
+        .subscribe(
+          (res)=>{
+            this.isOnDelete = false;
+            // console.log(`res`,res);
+            this.router.navigate(['/admin','accounts','all'])
+          },
+          (err)=>{
+            if(err.json()['errors']&&err.json()['errors']==='ACCOUNT_IN_EVENT')
+              this.errCmp.OpenWindow('<b>Fail!</b> Account in Event');
+            setTimeout(() => {
+              if(this.errCmp.isShown)
+                this.errCmp.CloseWindow();
+              this.isOnDelete = false;
+            }, 3000);
+            // console.log(`err`,err)
+          }
+        )
+    }
   }
 
   denyAcc(){
@@ -65,13 +79,13 @@ export class AccountComponent extends BaseComponent implements OnInit {
     this.main.adminService.AccountDeny(this.accId)
       .subscribe(
         (res)=>{
-          console.log(`res`,res);
+          // console.log(`res`,res);
           this.errCmp.OpenWindow('Success');
           // this.getThisAcc();
            this.Account.status = 'denied';
         },
         (err)=>{
-          console.log(`err`,err)
+          // console.log(`err`,err)
         }
       )
   }
@@ -81,13 +95,13 @@ export class AccountComponent extends BaseComponent implements OnInit {
     this.main.adminService.AccountApprove(this.accId)
       .subscribe(
         (res)=>{
-          console.log(`res`,res);
+          // console.log(`res`,res);
           this.errCmp.OpenWindow('Success');
           // this.getThisAcc();
           this.Account.status = 'approved';
         },
         (err)=>{
-          console.log(`err`,err)
+          // console.log(`err`,err)
         }
       )
   }

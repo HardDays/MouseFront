@@ -1,11 +1,11 @@
-<div class="one-tick">
+
         <p class="f" translate>{{Ticket.ticket.type == 'in_person'?'In person':'VR'}} ticket</p>
         <p class="s" translate>({{Ticket.ticket.is_promotional?'Promotional':'Regular'}})</p>
         <p class="c" [ngClass]="{'with-original-price': Currency != OriginalCurrency}">
-            <span [innerHTML]="Currency"></span>{{Ticket.ticket.price}}
+            <span [innerHTML]="Currency"></span>{{Ticket.ticket.price|number:'1.2-2'}}
         </p>
         <p class="c c-original" *ngIf="Currency != OriginalCurrency">
-            <span [innerHTML]="OriginalCurrency"></span>{{Ticket.ticket.original_price}}
+            <span [innerHTML]="OriginalCurrency"></span>{{Ticket.ticket.original_price|number:'1.2-2'}}
         </p>
         <div class="conter-wrapp">
             <button class="arrow r-a" (click)="ChangeCount(-1)">
@@ -24,7 +24,7 @@
         </div>
         <p class="t" *ngIf="Ticket.ticket.is_promotional && Ticket.ticket.promotional_description">{{Ticket.ticket.promotional_description}}</p>
         <p class="last">({{TotalCount}} <span translate>show-folder.tickets left</span>)</p>
-</div>
+
 
 <!-- <div class="one-ticket">
     <form (ngSubmit)="AddTickets()">
@@ -51,9 +51,9 @@
                     </svg>
                 </div>
             </div>
-            <button type="submit" class="butt-style-2" 
-                [disabled]=" !(CurrentAccount && CurrentAccount.account_type == 'fan') || Count == 0 || Count > Ticket.count" 
-                style="border: none;" 
+            <button type="submit" class="butt-style-2"
+                [disabled]=" !(CurrentAccount && CurrentAccount.account_type == 'fan') || Count == 0 || Count > Ticket.count"
+                style="border: none;"
                 [ngClass]="{'cursor-disabled':!(CurrentAccount && CurrentAccount.account_type == 'fan') || Count == 0 || Count > Ticket.count}" translate>
                     ADD
             </button>

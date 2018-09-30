@@ -306,7 +306,7 @@
 
                     <div class="location-wr">
                         <div (click)="aboutOpenMapModal()" class="mark"></div>
-                        <input id="aboutAddress" type="text" id="aboutAddress" class="location-inp" [ngModelOptions]="{standalone: true}" [ngModel]="Event.address"  placeholder="" #searchAbout>
+                        <input id="aboutAddress" [disabled]="IsApprovedEvent" style="background-color: white;" type="text" id="aboutAddress" class="location-inp" [ngModelOptions]="{standalone: true}" [ngModel]="Event.address"  placeholder="" #searchAbout>
                     </div>
                 </div>
                 <div class="side">
@@ -331,7 +331,7 @@
 
                         <div class="input-groupe-1 whithout-label">
 
-                            <textarea formControlName="description" [(ngModel)]="Event.description"  id="inp-create-9"></textarea>
+                            <textarea formControlName="description" maxlength="500" [(ngModel)]="Event.description"  id="inp-create-9"></textarea>
                             <label for="inp-create-9" class="head-groupe" translate>Short Description<span>*</span></label>
 
                         </div>

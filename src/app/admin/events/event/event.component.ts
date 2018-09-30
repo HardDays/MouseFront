@@ -89,16 +89,16 @@ export class EventComponent extends BaseComponent implements OnInit {
   }
 
   getCreator(){
-    console.log(this.Event);
+    // console.log(this.Event);
     if(this.Event.creator_id){
       this.main.accService.GetAccountById(this.Event.creator_id)
         .subscribe((acc)=>{
 
           this.Owner = acc;
-          console.log(this.Owner);
+          // console.log(this.Owner);
         },(err)=>
         {
-          console.log(`err`,err);
+          // console.log(`err`,err);
         })
     }
   }

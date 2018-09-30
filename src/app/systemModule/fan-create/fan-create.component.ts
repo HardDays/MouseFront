@@ -30,6 +30,7 @@ declare var $:any;
   styleUrls: ['./fan-create.component.css']
 })
 export class FanCreateComponent extends BaseComponent implements OnInit,AfterViewChecked {
+
   Fun:AccountCreateModel = new AccountCreateModel();
   FunId:number = 0;
   search:string = '';
@@ -41,6 +42,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
   avatar:string = '';
   ImageId:number = 0;
   isEng:boolean;
+
   @ViewChild('errorCmp') errorCmp: ErrorComponent;
   @ViewChild('submitFormFun') form: FormGroup;
   @ViewChild('search') public searchElement: ElementRef;
@@ -198,6 +200,9 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
         if (status === google.maps.GeocoderStatus.OK) {
           if (results[1]) {
             this.Fun.address = results[1].formatted_address;
+            this.Fun.lat = results[1].geometry.location.toJSON().lat;
+            this.Fun.lng = results[1].geometry.location.toJSON().lng;
+            // $("#aboutAddress").val(results[1].formatted_address);
           }
         }
       }
@@ -227,6 +232,7 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
     // this.Venue.account_type = AccountType.Venue;
     // this.Venue.venue_type = VenueType.Public;
 
+
     this.WaitBeforeLoading(
       () => this.main.genreService.GetAllGenres(),
       (genres:string[])=> {
@@ -246,6 +252,13 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
     {
       this.cordsMap.lat = this.Fun.lat;
       this.cordsMap.lng = this.Fun.lng;
+    }
+    else{
+      this.main.accService.GetLocation()
+        .subscribe((data)=>{
+            this.cordsMap.lat = data.location[0];
+            this.cordsMap.lng = data.location[1];
+        })
     }
   }
 
@@ -336,6 +349,11 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
         }
       }
 
+      if(!this.Fun.address){
+        this.Fun.lat = null;
+        this.Fun.lng = null;
+      }
+
 
       this.WaitBeforeLoading(
         ()=> this.FunId == 0 ? this.main.accService.CreateAccount(this.Fun) : this.main.accService.UpdateMyAccount(this.FunId,this.Fun),
@@ -374,12 +392,74 @@ export class FanCreateComponent extends BaseComponent implements OnInit,AfterVie
   }
 
   clickVerifyButton(){
-    this.main.accService.VerifyAccount(this.FunId)
-      .subscribe(
-        (res)=>{
-          this.Fun.status = 'unchecked';
+    if(!this.Fun.user_name){
+      this.errorCmp.OpenWindow(`Please fill in Username first!`);
+      return;
+    }
+    if(!this.Fun.first_name){
+      this.errorCmp.OpenWindow(`Please fill in First name first!`);
+      return;
+    }
+    if(!this.Fun.last_name){
+      this.errorCmp.OpenWindow(`Please fill in Last name first!`);
+      return;
+    }
+
+    this.UpdateAndVerifyFan();
+
+  }
+
+  UpdateAndVerifyFan(){
+    if(this.form.valid)
+        {
+          this.Fun.account_type = AccountType.Fan;
+          this.Fun.genres = [];
+
+        // this.Fun.genres = this.main.genreService.GenreModelArrToStringArr(this.Genres);
+          this.Fun.genres = [];
+
+          for(let g of this.Genres){
+            if(g.checked){
+              this.Fun.genres.push(g.genre);
+            }
+          }
+
+          if(!this.Fun.address){
+            this.Fun.lat = null;
+            this.Fun.lng = null;
+          }
+
+
+          this.WaitBeforeLoading(
+            ()=>this.main.accService.UpdateMyAccount(this.FunId,this.Fun),
+            (res:any)=>{
+              // this.DisplayFunParams(res);
+
+              if(this.Fun.lat&&this.Fun.lng)
+                {
+                  this.cordsMap.lat = this.Fun.lat;
+                  this.cordsMap.lng = this.Fun.lng;
+                }
+
+              this.main.accService.VerifyAccount(this.FunId)
+                .subscribe(
+                  (res)=>{
+                    this.Fun.status = 'unchecked';
+                    this.errorCmp.OpenWindow(BaseMessages.Success);
+                  }
+                )
+
+
+            },
+            (err:any)=>{
+
+              this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'fan'));
+            }
+          );
         }
-      )
+        else {
+          this.errorCmp.OpenWindow(this.getFormErrorMessage(this.form, 'fan'));
+        }
   }
 
 

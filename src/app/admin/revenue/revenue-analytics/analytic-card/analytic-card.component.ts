@@ -23,5 +23,5 @@ export class AnalyticCardComponent implements OnInit {
     this.onChangePeriod.emit(this.Period);
   }
 
-  
+
 }

@@ -460,7 +460,6 @@ export class BaseComponent{
 
     MaskPhoneByFormat(code)
     {
-        // console.log(code);
         let countryMask:any[]=[];
         let isGuidChar = true;
         let dial_code = code.dial_code;
@@ -469,9 +468,7 @@ export class BaseComponent{
                 if(c==='.')
                 {
                     if(dial_code){
-
                         let dc = dial_code[0];
-                        // console.log(dial_code,dc);
                         dial_code = dial_code.slice(1, dial_code.length);
                         countryMask.push(dc);
                     }
@@ -500,140 +497,158 @@ export class BaseComponent{
 
     MaskPhone(phone:string)
     {
-        // console.log(phone)
+        let isGuidChar = false;
+        let isShowMask = false;
         let countryMask:any[]=[];
-        let isGuidChar = true;
 
-        if(phone&&phone.length>0&&phone.replace(new RegExp('_', 'g'),'')!='+'){
-            let codes = this.main.phoneService.GetAllPhoneCodesWithFormat();
-            //console.log(`codes`,codes);
-            let code_arr = codes.filter((c)=>phone.indexOf(c.dial_code)>0&&phone.indexOf(c.dial_code)<4);
-            let code = code_arr.find((c)=>phone[1]===c.dial_code);
-            if(!code && code_arr&& code_arr[0])code = code_arr[0];
+        if(phone&&phone.length>0){
+          if(phone[0]==='+')
+            phone = phone.substring(1);
+
+          let codes = this.main.phoneService.GetAllPhoneCodesWithFormat();
+          let code_arr = codes.filter((c)=>phone.startsWith(c.dial_code)&&this.getPointCount(c['format'])===phone.length);
+
+          if(code_arr.length>0){
+            let code = code_arr[0];
             let dial_code = code&&code['dial_code']?code['dial_code']:'';
             if(code&&code['format']){
-                for(let c of code['format']){
+              for(let c of code['format']){
                     if(c==='.')
                     {
                         if(dial_code){
-
                             let dc = dial_code[0];
-                            // console.log(dial_code,dc);
                             dial_code = dial_code.slice(1, dial_code.length);
                             countryMask.push(dc);
                         }
                         else
-                            countryMask.push(/\d/);
+                          countryMask.push(/\d/);
                     }
                     else
-                        countryMask.push(c);
+                      countryMask.push(c);
                 }
             }
-
-            else {
-                isGuidChar = false;
-                countryMask.push('+');
-                if(code&&code.dial_code)
-                  for(let c of code.dial_code)
-                    countryMask.push(c);
-                else
-                  for(let i=0;i<2;i++)
-                    countryMask.push(/\d/);
-
-                for(let i=0;i<10;i++)
-                    countryMask.push(/\d/);
+            else{
+              countryMask.push('+');
+              for(let i=0; i<15; i++)
+                countryMask.push(/\d/);
             }
+          }
+          else{
+            countryMask.push('+');
+            for(let i=0; i<15; i++)
+              countryMask.push(/\d/);
+          }
         }
         else{
-            let isGuidChar = false;
-            countryMask.push('+');
-            for(let i=0;i<12;i++)
-                countryMask.push(/\d/);
+          countryMask.push('+');
+          for(let i=0; i<15; i++)
+            countryMask.push(/\d/);
         }
+        // phone.replace(new RegExp('_', 'g'),'')!='+'
 
-        // let codes = this.main.phoneService.GetAllPhoneCodesWithFormat();
-        // console.log(`codes`,codes);
-        // let code = codes.find((c)=>phone.indexOf(c.dial_code)>0&&phone.indexOf(c.dial_code)<4);
-        // console.log(`code`,code,phone)
-        // console.log(code);
+        // console.log(phone)
+        // let countryMask:any[]=[];
 
-        // let dial_code = code.dial_code;
-        // if(code.format){
-        //     for(let c of code.format){
-        //         if(c==='.')
-        //         {
-        //             if(dial_code){
 
-        //                 let dc = dial_code[0];
-        //                 // console.log(dial_code,dc);
-        //                 dial_code = dial_code.slice(1, dial_code.length);
-        //                 countryMask.push(dc);
+        // if(phone&&phone.length>0&&phone.replace(new RegExp('_', 'g'),'')!='+'){
+        //     let codes = this.main.phoneService.GetAllPhoneCodesWithFormat();
+        //     //console.log(`codes`,codes);
+        //     let code_arr = codes.filter((c)=>phone.indexOf(c.dial_code)>0&&phone.indexOf(c.dial_code)<4);
+        //     let code = code_arr.find((c)=>phone.startsWith(c.dial_code,1));
+        //     // console.log(`phone[1], c.dial_code`, phone[1],code_arr,code);
+        //     if(!code && code_arr&& code_arr[0])code = code_arr[0];
+        //     let dial_code = code&&code['dial_code']?code['dial_code']:'';
+        //     if(code&&code['format']){
+        //         for(let c of code['format']){
+        //             if(c==='.')
+        //             {
+        //                 if(dial_code){
+
+        //                     let dc = dial_code[0];
+        //                     // console.log(dial_code,dc);
+        //                     dial_code = dial_code.slice(1, dial_code.length);
+        //                     countryMask.push(dc);
+        //                 }
+        //                 else
+        //                     countryMask.push(/\d/);
         //             }
         //             else
-        //                 countryMask.push(/\d/);
+        //                 countryMask.push(c);
         //         }
-        //         else
+        //     }
+
+        //     else {
+        //         isGuidChar = false;
+        //         countryMask.push('+');
+        //         if(code&&code.dial_code)
+        //           for(let c of code.dial_code)
         //             countryMask.push(c);
+        //         else
+        //           for(let i=0;i<2;i++)
+        //             countryMask.push(/\d/);
+
+        //         for(let i=0;i<10;i++)
+        //             countryMask.push(/\d/);
         //     }
         // }
-
-        // else {
-        //     isGuidChar = false;
+        // else{
+        //     let isGuidChar = false;
+        //     isShowMask = false;
         //     countryMask.push('+');
-        //     for(let c of code.dial_code)
-        //         countryMask.push(c);
-        //     for(let i=0;i<10;i++)
+        //     for(let i=0;i<12;i++)
         //         countryMask.push(/\d/);
         // }
-
-
-
-
-
-    //    console.log(countryMask);
 
         return {
           mask: countryMask,
           keepCharPositions: true,
           guide:isGuidChar,
-          showMask:true
+          showMask:isShowMask
         };
     }
 
-    ConvertPhoneToCountry(val){
+    ConvertPhoneToCountryFormat(val:string){
       if(!val)
-        return '';
+        return 'No phone';
+      if(val[0]==='+')
+        val = val.substring(1);
 
         let phone = '';
         // console.log(`val`,val);
 
         let codes = this.main.phoneService.GetAllPhoneCodesWithFormat();
 
-        let code_arr = codes.filter((c)=>val.indexOf(c.dial_code)>0&&val.indexOf(c.dial_code)<4);
-        let code = code_arr.find((c)=>val[1]===c.dial_code);
+        let code_arr = codes.filter((c)=>val.startsWith(c.dial_code)&&this.getPointCount(c['format'])===val.length);
 
-        if(!code)code = code_arr[0];
+        if(code_arr.length>0){
+          let code = code_arr[0];
 
-        if(code['format']){
-            // console.log(`format`,code['format']);
-            let index = 0;
-            if(val[index]==='+')index++;
+          if(code&&code['format']){
+              // console.log(`format`,code['format']);
+              let index = 0;
+              if(val[index]==='+')index++;
 
-            for(let c of code['format']){
-                if(c==='.')
-                {
-                    phone+=val[index]?val[index]:'';
-                    index++;
-                }
-                else{
-                    phone+=c;
-                }
-            }
+              for(let c of code['format']){
+                  if(c==='.')
+                  {
+                      phone+=val[index]?val[index]:'';
+                      index++;
+                  }
+                  else{
+                      phone+=c;
+                  }
+              }
+          }
         }
 
-        phone = phone.replace('_','');
-
         return phone.length?phone:val;
+    }
+    getPointCount(format:string){
+      let count = 0;
+      for(let i=0;i<format.length;i++)
+        if(format[i]==='.')
+          count++;
+      return count;
     }
 
     /* AUTOCOMPLETE */
@@ -719,7 +734,7 @@ export class BaseComponent{
                 strEr = this.GetTranslateString(strEr)?this.GetTranslateString(strEr):strEr;
                 return String(strEr)
               }
-              else if (key === 'link'){
+              else if (key === 'link' || key === 'album_link' || key === 'album_artwork'){
                 let strEr = (BaseMessages.LinkPattern).replace('_link', keyDict[key]);
                 strEr = this.GetTranslateString(strEr)?this.GetTranslateString(strEr):strEr;
                 return String(strEr)
@@ -771,7 +786,7 @@ export class BaseComponent{
             let error = err.json()[key][0];
             // const str = error? this.GetTranslateString(error.replace('_', ' ')):null;
 
-            errors.push(this.GetTranslateString(keyDict[key]) + ' ' + (error? this.GetTranslateString(error.replace('_', ' ').toLowerCase()):'').toLowerCase());
+            errors.push(this.GetTranslateString(keyDict[key]) + ' ' + (error? this.GetTranslateString(error.replace('_', ' ').toLowerCase()):''));
       });
     //   console.log(errors);
       return errors.join('<br/>');

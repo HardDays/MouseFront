@@ -1,4 +1,17 @@
-.support_dialogs_item .info .address.done:after {
-   content: url(./../../../../assets/img/ok-msg.svg);
-   padding-left: 7px;
-}
+
+
+upport_dialogs_item .info .address.done:after {
+    content: url(./../../../../assets/img/ok-msg.svg);
+    padding-left: 7px;
+ }
+ /* .support_dialogs{
+     max-height: calc(100vh - 156px);
+     overflow: auto;
+     direction: rtl;
+     position: relative;
+     padding-left: 10px;
+     left: -10px;
+ } */
+ .support_dialogs_item{
+     direction: ltr;
+ }

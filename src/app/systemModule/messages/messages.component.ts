@@ -128,7 +128,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
       () => this.main.accService.GetInboxMessages(this.accountId),
       (res:InboxMessageModel[])=>{
         this.messages = res;
-        console.log(res);
+        // console.log(res);
         for(let m of this.messages){
           if(m.sender){
             if(m.sender.image_id){
@@ -216,6 +216,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
       this.main.accService.GetInboxMessageById(this.accountId,msg.id)
         .subscribe((res)=>{
           this.openMessage = res;
+
 
           if(!this.openMessage.is_receiver_read){
             this.main.accService.ReadMessageById(this.accountId,msg.id)
@@ -318,7 +319,11 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
 
   setDateRange()
   {
-    if(this.openMessage&&this.openMessage.message_info&&this.openMessage.message_info.event_info&&this.openMessage.message_info.event_info.event_season){
+    console.log(this.openMessage.message_info.info_send.preferred_date_from)
+    if(this.openMessage&&this.openMessage.message_info&&this.openMessage.message_info.info_send&&this.openMessage.message_info.info_send[0]&&this.openMessage.message_info.info_send[0].preferred_date_from){
+      this.bsRangeValue = [new Date(this.openMessage.message_info.info_send[0].preferred_date_from.split('T')[0]), new Date(this.openMessage.message_info.info_send[0].preferred_date_to.split('T')[0])];
+    }
+    else if(this.openMessage&&this.openMessage.message_info&&this.openMessage.message_info.event_info&&this.openMessage.message_info.event_info.event_season){
       if(this.openMessage.message_info.event_info.event_season=='spring')
       {
         this.minDate = new Date(+this.openMessage.message_info.event_info.event_year,2,1);
@@ -346,12 +351,13 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
       }
       this.bsRangeValue = [this.minDate, this.maxDate];
     }
+
   }
 
   acceptRequest()
   {
     if(!this.changePrice)
-      this.changePrice = this.openMessage.message_info.estimated_price;
+      this.changePrice = this.openMessage.message_info.price;
 
     this.request.event_id = this.openMessage.message_info.event_info.id;
     this.request.id = this.accountId;

@@ -17,7 +17,7 @@ export class InboxMessageModel{
            public message_id?:number,
            public subject?:string,
            public created_at?:string,
-           
+
         //    public updated_at?:string,
         //    public name?:string,
           public is_receiver_read?:boolean,
@@ -52,6 +52,7 @@ export class MessageInfoModel{
         public message?: string,
         public expiration_date?:string,
         public status?:string,
-        public currency?:string
+        public currency?:string,
+        public info_send?:{preferred_date_from:string,preferred_date_to:string}
     ){}
 }

@@ -101,10 +101,10 @@ export class FeedComponent extends BaseComponent implements OnInit, AfterViewChe
   }
 
    ngOnDestroy(){
-     console.log(`ng on destroy`);
+    //  console.log(`ng on destroy`);
      this.EnableScroll = false;
      window.removeEventListener('scroll',()=>{
-       console.log(`scroll remove`)
+      //  console.log(`scroll remove`)
      });
     }
 

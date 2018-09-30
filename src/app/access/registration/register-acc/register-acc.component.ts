@@ -119,6 +119,8 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
                   else
                   {
                     this.Account.address = autocomplete.getPlace().formatted_address;
+                    this.Account.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
+                    this.Account.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
                     // this.Params.public_lat=autocomplete.getPlace().geometry.location.toJSON().lat;
                     // this.Params.public_lng=autocomplete.getPlace().geometry.location.toJSON().lng;
                     this.mapCoords.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
@@ -303,6 +305,8 @@ export class RegisterAccComponent extends BaseComponent implements OnInit {
 
                       $("#address").val(results[1].formatted_address);
                       this.Account.address = results[1].formatted_address;
+                      this.Account.lat = lat;
+                      this.Account.lng = lng;
                   }
                   else {
                   // alert('No results found');

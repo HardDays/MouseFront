@@ -99,7 +99,7 @@ export class AccountService{
                 result[key] = input[key];
             }
         }
-        result.artist_videos = input.videos;
+        // result.artist_videos = input.videos;
         return result;
     }
 
@@ -191,6 +191,13 @@ export class AccountService{
     GetAccountById(id:number, params?:any){
         return this.http.CommonRequest(
             ()=> this.http.GetData('/accounts/' + id + ".json", this.typeService.ParamsToUrlSearchParams(params))
+        );
+        //return this.http.DeleteData('/accounts/' + id);
+    }
+
+    GetAccountPreviewById(event_id:number, account_id:number, id:number){
+        return this.http.CommonRequest(
+            ()=> this.http.GetData('/events/' + event_id + "/account_preview/" + id + ".json", this.typeService.ParamsToUrlSearchParams({account_id}))
         );
         //return this.http.DeleteData('/accounts/' + id);
     }

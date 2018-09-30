@@ -36,6 +36,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
     @Input() Event:EventCreateModel;
     @Input() isHasVenue:boolean;
     @Output() onSaveEvent:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
+    @Output() onSaveEventBySave:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
     @Output() onSave:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
     @Output() onError:EventEmitter<string> = new EventEmitter<string>();
 
@@ -338,6 +339,10 @@ export class FundingComponent extends BaseComponent implements OnInit {
 
     comleteFunding(){
       this.onSaveEvent.emit(this.Event);
+    }
+
+    saveFunding(){
+      this.onSaveEventBySave.emit(this.Event);
     }
 
 
