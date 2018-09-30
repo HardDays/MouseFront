@@ -216,6 +216,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
       this.main.accService.GetInboxMessageById(this.accountId,msg.id)
         .subscribe((res)=>{
           this.openMessage = res;
+          this.isEditPrice = false;
 
 
           if(!this.openMessage.is_receiver_read){
@@ -224,8 +225,23 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
                 this.main.accService.onMessagesChange$.next(true);
                 this.openMessage.is_receiver_read = true;
                 this.messages.find(obj=>obj.id === this.openMessage.id).is_receiver_read = true;
+
               })
           }
+
+          if(this.openMessage.reply.length>0){
+            for(let item of this.openMessage.reply){
+              if(item.receiver_id===this.accountId){
+                this.main.accService.ReadMessageById(this.accountId,item.id)
+                  .subscribe((res)=>{
+                    this.main.accService.onMessagesChange$.next(true);
+                    item.is_receiver_read = true;
+                  })
+              }
+            }
+          }
+
+
 
           this.openMessage.reply.unshift({
             created_at: this.openMessage.created_at,
@@ -319,9 +335,9 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
 
   setDateRange()
   {
-    console.log(this.openMessage.message_info.info_send.preferred_date_from)
     if(this.openMessage&&this.openMessage.message_info&&this.openMessage.message_info.info_send&&this.openMessage.message_info.info_send[0]&&this.openMessage.message_info.info_send[0].preferred_date_from){
       this.bsRangeValue = [new Date(this.openMessage.message_info.info_send[0].preferred_date_from.split('T')[0]), new Date(this.openMessage.message_info.info_send[0].preferred_date_to.split('T')[0])];
+      this.openMessage.message_info.price = this.openMessage.message_info.info_send[0].price;
     }
     else if(this.openMessage&&this.openMessage.message_info&&this.openMessage.message_info.event_info&&this.openMessage.message_info.event_info.event_season){
       if(this.openMessage.message_info.event_info.event_season=='spring')

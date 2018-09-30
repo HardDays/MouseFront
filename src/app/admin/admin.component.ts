@@ -57,15 +57,15 @@ export class AdminComponent extends BaseComponent implements OnInit {
       // console.log(`AdminComponent`,this.main.authService.GetToken());
 
 
-      // this.ng2cable.subscribe('wss://mouse-back.herokuapp.com/cable', 'AdminMessagesChannel', { Authorization: this.main.authService.GetToken() });
-      // //By default event name is 'channel name'. But you can pass from backend field { action: 'MyEventName'}
+      this.ng2cable.subscribe('wss://mouse-back.herokuapp.com/cable', 'AdminMessagesChannel', { Authorization: this.main.authService.GetToken() });
+      //By default event name is 'channel name'. But you can pass from backend field { action: 'MyEventName'}
 
-      // this.broadcaster.on<any>('AdminMessagesChannel').subscribe(
-      //   message => {
-      //     console.log(message);
-      //     this.CountMessages = message['count'];
-      //   }
-      // );
+      this.broadcaster.on<any>('AdminMessagesChannel').subscribe(
+        message => {
+          // console.log(message);
+          this.CountMessages = message['count'];
+        }
+      );
   }
 
   ngOnInit() {
@@ -137,7 +137,7 @@ export class AdminComponent extends BaseComponent implements OnInit {
     // this.getNewCounts();
     this.main.adminService.NewCountChange.subscribe(
       ()=>{
-        console.log(`get new count`);
+        // console.log(`get new count`);
 
         this.getNewCounts();
         // this.newAccCount =  this.newAccCount - 1;
@@ -184,6 +184,12 @@ export class AdminComponent extends BaseComponent implements OnInit {
         break;
         case 'revenues':
           this.currentPage = Parts.revenue;
+        break;
+        case 'messages':
+          this.currentPage = Parts.messages;
+        break;
+        case 'notification':
+          this.currentPage = Parts.notifications;
         break;
       }
     }
@@ -331,5 +337,7 @@ export enum Parts {
   settings = 27,
   add_new_admin = 28,
   customer_support = 29,
-  customer_answers = 30
+  customer_answers = 30,
+  messages = 31,
+  notifications = 32
 }
