@@ -377,7 +377,7 @@ GetCurrentCurrency(){
     }
 
     SetExactDate(){
-      this.main.eventService.SetEventDateById(this.Event.id, this.datepickerExactModel.toString(), this.CurrentAccount.id)
+      this.main.eventService.SetEventDateById(this.Event.id, this.main.typeService.GetDateStringFormat(new Date(this.datepickerExactModel.getTime() - this.datepickerExactModel.getTimezoneOffset() * 60000)), this.CurrentAccount.id)
         .subscribe(
           (res)=>
           {
