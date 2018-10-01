@@ -9,30 +9,12 @@
                         <p>{{Feed.account?.display_name?Feed.account.display_name:Feed.account.user_name}}</p>
                         <a [routerLink]="['/system','profile',Feed.account.id]" class="hash"><span>@</span>{{Feed.account.user_name}}</a>
                     </div>
-                    <div *ngIf="Feed.type === 'account_update'" class="desc">
-                        <p>{{replaceAll(Feed.action)|titlecase|translate}}
-                          <a [routerLink]="['/system','profile',Feed.account.id]">{{Feed.account.display_name}}</a>
-                            <ng-container
-                              *ngIf="Feed.action !== 'update_image' && Feed.action !== 'update_gallery_image' && Feed.action !=='update_video' && Feed.action !=='update_album' && Feed.action !=='update_audio' "
-                            >
-                            <span translate>to</span> "{{Feed.value}}"
-                            </ng-container>
+                    <div class="desc">
+                        <p>{{getFeedAction(Feed.action)|translate}}
+                          <a *ngIf="Feed.type === 'event_update'" [routerLink]="['/system','shows_detail',Feed.event.id]">#{{Feed.event.name}} <span translate>Event</span></a>
                         </p>
+                        <p *ngIf="(Feed.type === 'account_update') || (Feed.type === 'event_update' && Feed.field === 'description')" translate>{{getFeedValue()}}</p>
                     </div>
-                    <div *ngIf="Feed.type === 'event_update'" class="desc">
-                        <ng-container>
-                          <p *ngIf="Feed.action != 'launch_event'">{{replaceAll(Feed.action)|titlecase|translate}}
-                             <a [routerLink]="['/system','shows_detail',Feed.event.id]">#{{Feed.event.name}}</a>
-                             <ng-container
-                              *ngIf="Feed.action !== 'update_image' && Feed.action !== 'update_gallery_image' && Feed.action !=='update_video' && Feed.action !=='update_album' && Feed.action !=='update_audio'"
-                             >
-                             <span translate>Event to</span> "{{getValue()}}"
-                             </ng-container>
-                          </p>
-                        </ng-container>
-                        <p *ngIf="Feed.action === 'launch_event'">{{replaceAll(Feed.action)|titlecase|translate}} <a [routerLink]="['/system','shows_detail',Feed.event.id]">#{{Feed.event.name}}</a></p>
-                    </div>
-
                 </div>
             </div>
             <p class="when">{{Feed?.created_at?calculateTime(Feed.created_at):'A long time'}} <span translate>ago</span></p>
@@ -92,22 +74,11 @@
           </div>
         </div>
 
-
         <div *ngIf="Feed.action === 'update_video' && videoUrl" class="body-feed-item">
           <div class="iframe-wrapp">
               <iframe [src]="videoUrl" width="560" height="315" frameborder="0" allow="autoplay; encrypted-media"></iframe>
           </div>
         </div>
-
-        <!-- <div *ngIf="Feed.action === 'update_album'" class="body-feed-item">
-            <div class="one-photo">
-              <p>
-                {{getAlbum()}}
-              </p>
-            </div>
-        </div> -->
-
-
 
         <div  class="footer-item">
             <div class="left-side">
@@ -148,7 +119,7 @@
                     <div class="ava" [ngStyle]="{'background-image':myLogo?'url('+myLogo+')':''}"></div>
                 </div>
                 <div class="input-wrapp">
-                    <input type="text"  name="text_comment" [(ngModel)]="comment.text" placeholder="Leave a comment...">
+                    <input type="text" translate name="text_comment" [(ngModel)]="comment.text" [placeholder]="'Leave a comment...'|translate">
                 </div>
                 <div class="right-side">
                     <button (click)="postComment()" class="butt-style-1" type="button">
@@ -160,244 +131,4 @@
         <!--/по нажатию на кементы-->
     </div>
 
-
 </ng-container>
-
-
-
-
-
-
-
-
-
-
-<!-- VIDEO -->
-<div *ngIf="Feed.action==='video'" class="feed-item">
-    <div class="head-feed-item">
-        <div class="flex-ava-n">
-            <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
-            <div class="name-desc">
-                <div class="name">
-                    <p>Danielle Green</p>
-                    <a href="#" class="hash"><span>@</span>centimia</a>
-                </div>
-                <div class="desc">
-                    <p>Created <a href="#">#NewHippies</a> Event.</p>
-                </div>
-            </div>
-        </div>
-        <p class="when">2 mins ago</p>
-    </div>
-    <div class="body-feed-item">
-        <div class="iframe-wrapp">
-            <iframe src="https://www.youtube.com/embed/PzqcBkA6hzg"></iframe>
-        </div>
-    </div>
-    <div class="footer-item">
-        <div class="left-side">
-            <span class="coments counter-icon">
-                20
-            </span>
-            <!--добавляем liked если лайнули-->
-            <span class="likes counter-icon">
-                20
-            </span>
-        </div>
-        <div class="right-side">
-            <div class="dots">
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-            </div>
-        </div>
-    </div>
-    <div class="coments-item">
-        <div class="one-coment">
-            <div class="left-side">
-                <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
-            </div>
-            <div class="right-side">
-                <p class="name">Danielle Green</p>
-                <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in </p>
-                <p class="when">1 day ago</p>
-            </div>
-        </div>
-
-        <!--оставить комент-->
-        <form class="leave-coment-wrapp">
-            <div class="left-side">
-                <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
-            </div>
-            <div class="input-wrapp">
-                <input type="text" placeholder="Leave a comment...">
-            </div>
-            <div class="right-side">
-                <button class="butt-style-1" type="submit">
-                    <span>post</span>
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!-- PHOTOS -->
-<div *ngIf="Feed.action==='photo'" class="feed-item">
-    <div class="head-feed-item">
-        <div class="flex-ava-n">
-            <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
-            <div class="name-desc">
-                <div class="name">
-                    <p>Danielle Green</p>
-                    <a href="#" class="hash"><span>@</span>centimia</a>
-                </div>
-                <div class="desc">
-                    <p>Created <a href="#">#NewHippies</a> Event.</p>
-                </div>
-            </div>
-        </div>
-        <p class="when">2 mins ago</p>
-    </div>
-    <div class="body-feed-item">
-        <div class="for-min-height-photos">
-            <div class="photos-wrapp">
-                <div class="one-photo-wr">
-                    <div class="one-photo" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                </div>
-                <div class="one-photo-wr">
-                    <div class="one-photo" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                </div>
-                <div class="one-photo-wr">
-                    <div class="one-photo" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                </div>
-                <div class="one-photo-wr">
-                    <div class="one-photo" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                </div>
-                <div class="one-photo-wr">
-                    <div class="one-photo" style="background-image: url(../../assets/img/drake.jpg)"></div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-    <div class="footer-item">
-        <div class="left-side">
-            <span class="coments counter-icon">
-                20
-            </span>
-            <!--добавляем liked если лайнули-->
-            <span class="likes counter-icon">
-                20
-            </span>
-        </div>
-        <div class="right-side">
-            <div class="dots">
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-            </div>
-        </div>
-    </div>
-    <div class="coments-item">
-        <div class="one-coment">
-            <div class="left-side">
-                <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
-            </div>
-            <div class="right-side">
-                <p class="name">Danielle Green</p>
-                <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in </p>
-                <p class="when">1 day ago</p>
-            </div>
-        </div>
-
-        <!--оставить комент-->
-        <form class="leave-coment-wrapp">
-            <div class="left-side">
-                <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
-            </div>
-            <div class="input-wrapp">
-                <input type="text" placeholder="Leave a comment...">
-            </div>
-            <div class="right-side">
-                <button class="butt-style-1" type="submit">
-                    <span>post</span>
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!-- COMMENTED ON YOUR EVENT -->
-<div *ngIf="Feed.action==='commented'" class="feed-item">
-    <div class="head-feed-item">
-        <div class="flex-ava-n">
-            <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
-            <div class="name-desc">
-                <div class="name">
-                    <p>Danielle Green</p>
-                    <a href="#" class="hash"><span>@</span>centimia</a>
-                </div>
-                <div class="desc">
-                    <p>And 6 others commented on your <a href="#">#CelebrateNY</a> Event</p>
-                </div>
-                <div class="avas-flex">
-                    <a href="#" class="one-human" style="background-image: url(../../assets/img/drake.jpg)"></a>
-                    <a href="#" class="one-human" style="background-image: url(../../assets/img/drake.jpg)"></a>
-                    <a href="#" class="one-human" style="background-image: url(../../assets/img/drake.jpg)"></a>
-                    <a href="#" class="one-human" style="background-image: url(../../assets/img/drake.jpg)"></a>
-                    <a href="#" class="one-human" style="background-image: url(../../assets/img/drake.jpg)"></a>
-                    <a href="#" class="one-human" style="background-image: url(../../assets/img/drake.jpg)"></a>
-                </div>
-            </div>
-        </div>
-        <p class="when">2 mins ago</p>
-    </div>
-    <div class="body-feed-item">
-
-    </div>
-    <div class="footer-item">
-        <div class="left-side">
-            <span class="coments counter-icon">
-                20
-            </span>
-            <!--добавляем liked если лайнули-->
-            <span class="likes counter-icon">
-                20
-            </span>
-        </div>
-        <div class="right-side">
-            <div class="dots">
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-            </div>
-        </div>
-    </div>
-    <div class="coments-item">
-        <div class="one-coment">
-            <div class="left-side">
-                <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
-            </div>
-            <div class="right-side">
-                <p class="name">Danielle Green</p>
-                <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in </p>
-                <p class="when">1 day ago</p>
-            </div>
-        </div>
-
-        <!--оставить комент-->
-        <form class="leave-coment-wrapp">
-            <div class="left-side">
-                <div class="ava" style="background-image: url(../../assets/img/drake.jpg)"></div>
-            </div>
-            <div class="input-wrapp">
-                <input type="text" placeholder="Leave a comment...">
-            </div>
-            <div class="right-side">
-                <button class="butt-style-1" type="submit">
-                    <span>post</span>
-                </button>
-            </div>
-        </form>
-    </div>
-</div>

@@ -22,6 +22,7 @@ import { InboxMessageModel } from '../../../core/models/inboxMessage.model';
 import { EventCreateModel } from '../../../core/models/eventCreate.model';
 import { BaseImages, BaseErrors, BaseMessages } from '../../../core/base/base.enum';
 import { CurrencyIcons } from '../../../core/models/preferences.model';
+import { } from 'googlemaps';
 
 declare var $:any;
 declare var ionRangeSlider:any;

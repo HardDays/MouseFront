@@ -41,6 +41,8 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
   audioDuration:number = 0;
   audioCurrentTime:number = 0;
 
+  curLang = 'en';
+
   constructor(
     protected main           : MainService,
     protected _sanitizer     : DomSanitizer,
@@ -56,6 +58,7 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
   }
 
   ngOnInit(){
+    this.curLang = this.translate.store.currentLang?this.translate.store.currentLang:this.translate.store.defaultLang;
       // console.log(`in`,this.Feed);
     if(this.Feed&&this.Feed.account){
 
@@ -185,7 +188,34 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
     return s.replace(new RegExp('_', 'g'), ' ');
   }
 
-  getValue(){
+  getFeedAction(s:string){
+    let field = s.split('_')[1].replace(new RegExp('_', 'g'), ' ');
+    // console.log(this.translate,this.translate.currentLang);
+    if(this.curLang==='en'){
+      let an = this.isAEOI(field[0])?'an':'a';
+      if(this.Feed.type === 'event_update')
+        return 'Added'+' '+an+' '+field+' to';
+      else if(this.Feed.type === 'account_update')
+        return 'Updated'+' '+an+' '+field;
+      return '';
+    }
+    else if(this.curLang==='ru'){
+      if(this.Feed.type === 'event_update')
+        return 'Добавлено'+' '+this.translate.get(field)['value']+' в';
+      else if(this.Feed.type === 'account_update')
+        return 'Обновлено'+' '+this.translate.get(field)['value'];
+      return '';
+    }
+    return '';
+  }
+
+  isAEOI(c:string){
+    if(c&&c==='a'||c==='e'||c==='o'||c==='i')
+      return true;
+    return false;
+  }
+
+  getFeedValue(){
     // console.log(this.Feed);
 
     if(this.Feed.type === 'event_update'){

@@ -854,7 +854,15 @@
 	"Try again":"Try again",
 	"failure":"failure",
 	"TICKETS COUNT":"TICKETS COUNT",
-	"Add Artist": "Add Artist", 
+	"Add Artist": "Add Artist",
 	"Launch Event" :"Launch Event",
-	"Add Ticket" :"Add Ticket"
+	"Add Ticket" :"Add Ticket",
+  "description" : "description",
+  "image" : "image",
+  "audio" : "audio",
+  "album" : "album",
+  "ticket" : "ticket",
+  "event" : "event",
+  "Leave a comment..." : "Leave a comment...",
+  "post" : "post"
 }
