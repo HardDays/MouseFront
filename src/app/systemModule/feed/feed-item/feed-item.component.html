@@ -1,5 +1,5 @@
 <!-- CREATED -->
-<ng-container *ngIf="Feed.action != 'update_phone' && Feed.value != '' && Feed.value != '[]'">
+<ng-container *ngIf="!Feed.deleted&&Feed.action != 'update_phone' && Feed.value != '' && Feed.value != '[]'">
     <div class="feed-item">
         <div class="head-feed-item">
             <div class="flex-ava-n">
