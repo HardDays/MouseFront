@@ -110,7 +110,7 @@
 	"Backstage Rider": "Райдер бэкстейджа",
 	"Bar": "Бар",
 	"Bio": "Биография",
-	"Both": "и то, и то",
+	"Both": "И то, и то",
 	"both": "и то, и то",
 	"CHILDREN MUSIC": "детская музыка",
 	"CHRISTIAN / GOSPEL": "Современная христианская музыка",
@@ -315,7 +315,7 @@
 	"Tickets.E-ticket": "Электронный билет",
 	"Tickets.If you have any questions, please contact Mouse support  80 29 596 58 47": "Если у вас есть какие-либо вопросы, обратитесь в службу поддержки Mouse 80 29 596 58 47",
 	"Tickets.In person ticket": "Персональный билет",
-	"Tickets.No Tickets Yet": "Нет билетов",
+	"Tickets.No Tickets Yet": "У Вас еще нет билетов",
 	"Tickets.Past": "Прошлые",
 	"Tickets.Print tickets": "Распечатать билеты",
 	"Tickets.Ticket type": "Тип билета",
@@ -864,6 +864,7 @@
   "ticket" : "билет",
   "event" : "мероприятие",
   "Leave a comment..." : "Оставьте комментарий...",
-  "post" : "отправить"
+  "post" : "отправить",
+  "No search results found":"Ничего не найдено"
 
 }

@@ -864,5 +864,6 @@
   "ticket" : "ticket",
   "event" : "event",
   "Leave a comment..." : "Leave a comment...",
-  "post" : "post"
+  "post" : "post",
+  "No search results found":"No search results found"
 }
