@@ -304,7 +304,6 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       if(this.about)
         this.about.GetEventGenres();
 
-
         delete this.Event['address'];
         delete this.Event['city_lat'];
         delete this.Event['city_lng'];

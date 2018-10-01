@@ -42,7 +42,8 @@
                                             <p *ngIf="item.message_type == 'accept'" class="price">
                                                 <i [innerHTML]="CurrentCurrency"></i>
                                                 {{item.message_info?.price?item.message_info?.price:''}}</p>
-                                            <p *ngIf="isExpiresSoonByExpireDate(item.message_info?.expiration_date)=='soon'&&item.message_type == 'request'" class="expires-soon" translate>Expires<br translate>Soon</p>
+                                                <!-- isExpiresSoonByExpireDate(item.message_info?.expiration_date)=='soon'&&item.message_type == 'request' -->
+                                            <p *ngIf="item.message_info?.status==='expires_soon'" class="expires-soon" translate>Expires<br translate>Soon</p>
                                         </div>
                                     </div>
 

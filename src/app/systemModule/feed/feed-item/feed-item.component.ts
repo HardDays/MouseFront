@@ -190,18 +190,33 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
 
   getFeedAction(s:string){
     let field = s.split('_')[1].replace(new RegExp('_', 'g'), ' ');
+    if(field==='update_event'){
+      if(this.curLang==='en')
+        return 'Updated';
+      if(this.curLang==='ru')
+        return 'Обновлено';
+      return '';
+    }
     // console.log(this.translate,this.translate.currentLang);
     if(this.curLang==='en'){
       let an = this.isAEOI(field[0])?'an':'a';
-      if(this.Feed.type === 'event_update')
-        return 'Added'+' '+an+' '+field+' to';
+      if(this.Feed.type === 'event_update'){
+        if(this.Feed.action==='launch_event')
+          return 'Launch';
+        else
+          return 'Added'+' '+an+' '+field+' to';
+      }
       else if(this.Feed.type === 'account_update')
         return 'Updated'+' '+an+' '+field;
       return '';
     }
     else if(this.curLang==='ru'){
-      if(this.Feed.type === 'event_update')
-        return 'Добавлено'+' '+this.translate.get(field)['value']+' в';
+      if(this.Feed.type === 'event_update'){
+        if(this.Feed.action==='launch_event')
+          return 'Запущено';
+        else
+          return 'Добавлено'+' '+this.translate.get(field)['value']+' в';
+      }
       else if(this.Feed.type === 'account_update')
         return 'Обновлено'+' '+this.translate.get(field)['value'];
       return '';

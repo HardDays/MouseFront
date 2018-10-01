@@ -167,9 +167,10 @@ export class ArtistComponent extends BaseComponent implements OnInit {
       this.genresSearchArtist = [];
       this.main.genreService.GetAllGenres()
       .subscribe((res:string[])=>{
-        this.genresSearchArtist = this.main.genreService.StringArrayToGanreModelArray(res);
+        this.genresSearchArtist = this.main.genreService.StringArrayToGenreModelArray(res);
           for(let i of this.genresSearchArtist) {
-            i.show = true;}
+            i.show = true;
+          }
       });
     }
 
