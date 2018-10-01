@@ -602,6 +602,8 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                 this.GetVenueFromList();
                 this.venueSearch();
            }, 300);
+        },(err)=>{
+          this.onError.emit(this.getResponseErrorMessage(err,'venue'));
         })
     }
 

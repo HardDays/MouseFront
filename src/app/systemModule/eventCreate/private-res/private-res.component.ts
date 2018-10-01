@@ -132,6 +132,18 @@ export class PrivateResComponent extends BaseComponent implements OnInit {
                                     // console.log(`create`);
                                     this.OnCreate.emit();
 
+                            },
+                            (err)=>{
+                              console.log(`err main.eventService.AddVenue`);
+                              if(err.json()['errors']==='HAS_ACCEPTED_VENUE'){
+                                let curLang = this.translate.store.currentLang?this.translate.store.currentLang:this.translate.store.defaultLang;
+                                if(curLang==='en')
+                                  this.OnError.emit('Fail! Event has accepted venue!');
+                                else if(curLang==='ru')
+                                  this.OnError.emit('Ошибка! У мероприятия уже есть площадка!');
+                                else
+                                  this.OnError.emit('Fail!');
+                              }
                             });
 
 
@@ -146,6 +158,7 @@ export class PrivateResComponent extends BaseComponent implements OnInit {
 
                     },
                     (err)=>{
+                      this.OnError.emit(this.getResponseErrorMessage(err,'venue'));
                         // console.log(`err`,err);
                     }
                 );
