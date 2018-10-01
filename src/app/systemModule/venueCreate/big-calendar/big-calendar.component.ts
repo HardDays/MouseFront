@@ -13,6 +13,7 @@ import { BaseImages } from '../../../core/base/base.enum';
 import { NgForm } from '@angular/forms';
 import { CurrencyIcons, Currency } from '../../../core/models/preferences.model';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
+import { EventGetModel } from '../../../core/models/eventGet.model';
 
 
 interface EventMouseInfo {
@@ -56,7 +57,7 @@ export class BigCalendarComponent implements OnInit, OnChanges {
   dayNames = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
   weeks: CalendarDate[][] = [];
   sortedDates: CalendarDate[] = [];
-  eventsThisMonth :AccountGetModel[] = [];
+  eventsThisMonth :EventGetModel[] = [];
   Images:Base64ImageModel[] = [];
   FlagForRangePick = false;
   FromElement:EventMouseInfo = {};
@@ -107,6 +108,7 @@ export class BigCalendarComponent implements OnInit, OnChanges {
           this.sortedDates = _.sortBy(changes.selectedDates.currentValue, (m: CalendarDate) => m.mDate.valueOf());
     }
     this.generateCalendar();
+    this.GetEventsInfo();
   }
   GetEventsInfo(){
     this.Images = [];
@@ -376,10 +378,15 @@ export class BigCalendarComponent implements OnInit, OnChanges {
   GetEventInfo(id:number)
     {
         this.main.eventService.GetEventById(id).subscribe(
-          (res:any) =>{
+          (res:EventGetModel) =>{
             //this.InitEvent(res);
-            this.eventsThisMonth.push(res);
-            this.GetImage(res.image_id);
+            const index = this.eventsThisMonth.findIndex(obj => obj.id == res.id);
+            if(index === -1)
+            {
+              this.eventsThisMonth.push(res);
+              this.GetImage(res.image_id);
+            }
+            
           },
           (err)=>{
           }
