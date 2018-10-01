@@ -206,11 +206,10 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   {
     this.Event.account_id = this.CurrentAccount.id;
     // this.Event.currency = this.main.settings.GetCurrency();
-    if(this.Event.venue){
-      delete this.Event['address'];
-      delete this.Event['city_lat'];
-      delete this.Event['city_lng'];
-    }
+    delete this.Event['address'];
+    delete this.Event['city_lat'];
+    delete this.Event['city_lng'];
+
     delete this.Event['date_from'];
     delete this.Event['date_to'];
 
@@ -256,11 +255,11 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     this.Event = event;
     // this.Event.currency = this.main.settings.GetCurrency();
 
-    if(this.Event.venue){
+
       delete this.Event['address'];
       delete this.Event['city_lat'];
       delete this.Event['city_lng'];
-    }
+
     delete this.Event['date_from'];
     delete this.Event['date_to'];
 
@@ -305,11 +304,11 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       if(this.about)
         this.about.GetEventGenres();
 
-      if(this.Event.venue){
+
         delete this.Event['address'];
         delete this.Event['city_lat'];
         delete this.Event['city_lng'];
-      }
+
       delete this.Event['date_from'];
       delete this.Event['date_to'];
       // this.Event.currency = this.main.settings.GetCurrency();
