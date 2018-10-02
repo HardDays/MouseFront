@@ -202,7 +202,7 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
       let an = this.isAEOI(field[0])?'an':'a';
       if(this.Feed.type === 'event_update'){
         if(this.Feed.action==='launch_event')
-          return 'Launch';
+          return 'Launched';
         else
           return 'Added'+' '+an+' '+field+' to';
       }

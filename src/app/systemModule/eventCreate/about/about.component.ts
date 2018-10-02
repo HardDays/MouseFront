@@ -54,6 +54,7 @@ export class AboutComponent extends BaseComponent implements OnInit {
   CurrencySymbol = '$';
   eventStatus = EventStatus;
   IsApprovedEvent = false;
+  Time = '00:00';
 
   // ExactDate = new Date();
 
@@ -129,6 +130,7 @@ export class AboutComponent extends BaseComponent implements OnInit {
     if(this.Event){
       if(this.Event.exact_date_from){
         this.datepickerExactModel = new Date(this.Event.exact_date_from);
+        this.Time = this.Event.exact_date_from.split('T')[1];
       }
       else if(this.Event.date_from){
         this.datepickerExactModel = new Date(this.Event.date_from);
@@ -375,9 +377,18 @@ GetCurrentCurrency(){
         this.datepickerToModel = new Date(this.Event.funding_to);
         this.datepickerFromModel = new Date(this.Event.funding_from);
     }
+    TimeChange($event){
+      this.Time = $event;
+      console.log(this.Time)
+    }
 
     SetExactDate(){
-      this.main.eventService.SetEventDateById(this.Event.id, this.main.typeService.GetDateStringFormat(new Date(this.datepickerExactModel.getTime() - this.datepickerExactModel.getTimezoneOffset() * 60000)), this.CurrentAccount.id)
+      let date = this.main.typeService.GetDateStringFormat(new Date(this.datepickerExactModel.getTime() - this.datepickerExactModel.getTimezoneOffset() * 60000));
+      console.log(date, this.Time);
+      // let exactDate = new Date(date+this.Time);
+      // console.log(exactDate.toString());
+
+      this.main.eventService.SetEventDateById(this.Event.id, date+" "+this.Time, this.CurrentAccount.id)
         .subscribe(
           (res)=>
           {

@@ -110,6 +110,8 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         this.initSlider()
         this.getAllSpaceTypes();
 
+        this.GetLocation();
+
         this.venuesList = this.Event.venues;
         // this.updateEvent();
         // this.GetVenueFromList();
@@ -125,6 +127,14 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                 this.GetVenueFromList();
                 this.venueSearch();
            }, 300);
+        })
+    }
+
+    GetLocation(){
+      this.main.accService.GetLocation()
+        .subscribe((data)=>{
+            this.mapCoords.lat = data.location[0];
+            this.mapCoords.lng = data.location[1];
         })
     }
 
@@ -145,7 +155,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         this.venueSearchParams.price_to = 100000;
         let _the = this;
 
-
+        let _max = this.Event.currency==='RUB'?this.maxValue=650000:null;
         var hu_3 = $(".current-slider-price-venue").ionRangeSlider({
             min: 1,
             max: this.maxValue,
