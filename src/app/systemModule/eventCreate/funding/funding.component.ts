@@ -33,6 +33,8 @@ export class FundingComponent extends BaseComponent implements OnInit {
 
     CurrencySymbol = '$';
 
+    FundingCapacity = 0;
+
     @Input() Event:EventCreateModel;
     @Input() isHasVenue:boolean;
     @Output() onSaveEvent:EventEmitter<EventCreateModel> = new EventEmitter<EventCreateModel>();
@@ -150,6 +152,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
 
                     this.activeVenue[index].checked = true;
                     this.venueSum += this.activeVenue[index].object.approximate_price;
+                    this.FundingCapacity += 1;
                     this.updateEvent();
                     // this.getFundingGoal();
                 });
@@ -166,6 +169,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
                     // this.updateEvent();
                     this.activeVenue[index].checked = false;
                     this.venueSum -= this.activeVenue[index].object.approximate_price;
+                    this.FundingCapacity -= 1;
                     this.updateEvent();
                 });
         }
@@ -187,6 +191,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
                     // this.updateEvent();
                     this.activeVenue.find(obj=>obj.object.venue_id===item.object.venue_id).checked = false;
                     this.venueSum -= this.activeVenue.find(obj=>obj.object.venue_id===item.object.venue_id).object.approximate_price;
+                    this.FundingCapacity -= 1;
                     this.updateEvent();
                 });
       }
@@ -201,6 +206,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
 
                     this.activeVenue.find(obj=>obj.object.venue_id===venue.object.venue_id).checked = true;
                     this.venueSum += this.activeVenue.find(obj=>obj.object.venue_id===venue.object.venue_id).object.approximate_price;
+                    this.FundingCapacity += 1;
                     this.updateEvent();
                     // this.getFundingGoal();
                 });
@@ -283,6 +289,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
                 }
                 if(item.object.is_active){
                     item.checked = true;
+                    this.FundingCapacity += 1;
                     this.venueSum += this.activeVenue[i].object.approximate_price;
                 }
                 i = i + 1;

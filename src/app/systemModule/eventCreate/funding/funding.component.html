@@ -144,7 +144,7 @@
                     <h6 class="lower-case-t" translate>event.funding-fold.Min Amount per Ticket</h6>
                     <div class="second-funding-info">
                         <p class="info-text" translate>event.funding-fold.Capacity</p>
-                        <span class="price">{{Event.venue?Event.venue.capacity:0}}</span>
+                        <span class="price">{{FundingCapacity}}</span>
                     </div>
                     <div *ngIf="Event.venue" class="second-funding-info">
                         <p class="info-text" translate>event.funding-fold.Price Per Ticket</p>

@@ -197,17 +197,30 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
         return 'Обновлено';
       return '';
     }
+    if(field==='user'){
+      if(this.curLang==='en')
+        field = 'username';
+      if(this.curLang==='ru')
+        field = 'имя пользователя';
+    }
+    if(field==='about'){
+      if(this.curLang==='en')
+        field = 'description';
+      if(this.curLang==='ru')
+        field = 'описание';
+    }
     // console.log(this.translate,this.translate.currentLang);
     if(this.curLang==='en'){
-      let an = this.isAEOI(field[0])?'an':'a';
+      let an = this.isAEOIU(field[0])?'an':'a';
       if(this.Feed.type === 'event_update'){
         if(this.Feed.action==='launch_event')
           return 'Launched';
         else
           return 'Added'+' '+an+' '+field+' to';
       }
-      else if(this.Feed.type === 'account_update')
+      else if(this.Feed.type === 'account_update'){
         return 'Updated'+' '+an+' '+field;
+      }
       return '';
     }
     else if(this.curLang==='ru'){
@@ -224,8 +237,8 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
     return '';
   }
 
-  isAEOI(c:string){
-    if(c&&c==='a'||c==='e'||c==='o'||c==='i')
+  isAEOIU(c:string){
+    if(c&&c==='a'||c==='e'||c==='o'||c==='i'||c==='u')
       return true;
     return false;
   }

@@ -44,6 +44,8 @@
                                                 {{item.message_info?.price?item.message_info?.price:''}}</p>
                                                 <!-- isExpiresSoonByExpireDate(item.message_info?.expiration_date)=='soon'&&item.message_type == 'request' -->
                                             <p *ngIf="item.message_info?.status==='expires_soon'" class="expires-soon" translate>Expires<br translate>Soon</p>
+                                            <p *ngIf="item.message_info?.status==='time_expired'" class="expires-soon" translate>Expired</p>
+
                                         </div>
                                     </div>
 

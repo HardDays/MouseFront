@@ -138,7 +138,7 @@ export class PrivateResComponent extends BaseComponent implements OnInit {
                               if(err.json()['errors']==='HAS_ACCEPTED_VENUE'){
                                 let curLang = this.translate.store.currentLang?this.translate.store.currentLang:this.translate.store.defaultLang;
                                 if(curLang==='en')
-                                  this.OnError.emit('Fail! Event has accepted venue!');
+                                  this.OnError.emit('Failed! This event has already confirmed a venue!');
                                 else if(curLang==='ru')
                                   this.OnError.emit('Ошибка! У мероприятия уже есть площадка!');
                                 else
@@ -181,6 +181,25 @@ export class PrivateResComponent extends BaseComponent implements OnInit {
 
             }
         );
+    }
+
+    GetCapacityMask(int:number)
+    {
+        let str = int?int.toString():"";
+
+        let mask = [/[1-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/,/[0-9]/];
+
+        if( str && str.length > 4)
+        {
+        if(+str.substr(0,5) > 19999)
+            mask.splice(5,1);
+        }
+
+        return {
+        mask: mask,
+        keepCharPositions: true,
+        guide:false
+        };
     }
 
 
