@@ -95,7 +95,7 @@ export enum VenueFields {
   address = 'Address',
   city = 'City',
   state = 'State',
-  user_name = 'Mouse username',
+  user_name = 'Venue name',
   venue_type = 'Preffered venue type',
   capacity = 'Capacity',
   bathrooms = 'Number of bathrooms',
