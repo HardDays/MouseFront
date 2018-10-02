@@ -34,6 +34,25 @@
     border-radius: 0;
     
 }
+.flex-input-groupes .input-groupe-1.important-margin:first-child{
+    margin-right: 0!important;
+}
+.new-time-input{
+    position: relative;
+    padding-right: 10px;
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    margin-bottom: 25px;
+}
+.butt-style-1.relative__top{
+    position: relative;
+    top: 2px;
+}
+.new-time-input__time-input{
+    position: relative;
+    left: -10px;
+}
 .photo-wr-1.n-i-s .bg-image:before{
     background-color: #adadad;
     width: 70px;

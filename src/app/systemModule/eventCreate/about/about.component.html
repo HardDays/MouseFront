@@ -285,25 +285,32 @@
                         </div>
                     </div> -->
                     <div *ngIf="Event.date_from" class="flex-input-groupes">
-                        <div class="input-groupe-1">
+                        <div class="input-groupe-1 important-margin">
                           <!-- #dpFrom="bsDatepicker" bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerFromModel" -->
                           <!-- [ngModel]="Event.exact_date_from|date:'MMM d, y'"  (ngModelChange)="Event.exact_date_from=$event" -->
                             <input #dpExact="bsDatepicker" (onShown)="onShowPicker($event)"  [minDate]="minDate" [maxDate]="maxDate" [disabled]="Event.status != 'denied' && Event.status!= 'just_added' && Event.status!= 'pending' && Event.status!= 'approved'" bsDatepicker [bsConfig]="bsConfig" [(bsValue)]="datepickerExactModel"  [ngModelOptions]="{standalone: true}" id="inp-create-4" name="exact_date_from" type="text">
                             <label for="inp-create-4" translate>Exact date</label>
                         </div>
                          <!-- [disabled]="!Event.exact_date_from" -->
+                        
+                        
+                    </div>
+                    <div class="new-time-input">
+                        <div class="new-time-input__time-input">
+                            <time-input [Time]="'08:00'"></time-input>
+                        </div>
                         <button style="width: 125px; border: 3px solid rgba(235, 45, 100, 0.5); border-radius: 50px;"
                           *ngIf="Event.status === 'denied' || Event.status === 'just_added' || Event.status === 'pending' || Event.status === 'approved'"
 
                           (click)="SetExactDate()"
-                          class="butt-style-1"
+                          class="butt-style-1 relative__top"
                         >
+                        
                           <span style="padding: 0px 0" translate>
                               Save
                           </span>
                         </button>
                     </div>
-
                     <div class="location-wr">
                         <div (click)="aboutOpenMapModal()" class="mark"></div>
                         <input id="aboutAddress" [disabled]="IsApprovedEvent" style="background-color: white;" type="text" id="aboutAddress" class="location-inp" [ngModelOptions]="{standalone: true}" [ngModel]="Event.address"  placeholder="" #searchAbout>
