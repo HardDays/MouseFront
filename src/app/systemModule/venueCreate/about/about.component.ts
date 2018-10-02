@@ -221,15 +221,19 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
         phoneToSend = phoneToSend.replace(/\)/g,'');
         phoneToSend = phoneToSend.replace(/-/g,'');
 
-        let faxToSend = this.ConvertPhoneToCountryFormat(this.Venue.fax);
-        faxToSend = faxToSend.replace(/ /g,'');
-        faxToSend = faxToSend.replace(/\(/g,'');
-        faxToSend = faxToSend.replace(/\)/g,'');
-        faxToSend = faxToSend.replace(/-/g,'');
-
-
-        this.Venue.phone =  phoneToSend;
-        this.Venue.fax =  faxToSend;
+        if(this.Venue.fax)
+        {
+            let faxToSend = this.ConvertPhoneToCountryFormat(this.Venue.fax);
+            faxToSend = faxToSend.replace(/ /g,'');
+            faxToSend = faxToSend.replace(/\(/g,'');
+            faxToSend = faxToSend.replace(/\)/g,'');
+            faxToSend = faxToSend.replace(/-/g,'');
+    
+    
+            this.Venue.phone =  phoneToSend;
+            this.Venue.fax =  faxToSend;
+        }
+        
 
         // console.log(this.Venue);
         this.onSaveVenue.emit(this.Venue);
