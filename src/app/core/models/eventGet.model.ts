@@ -121,7 +121,8 @@ export class GetVenue{
             user_name?:string,
             image_id?:number,
             image_base64?:string
-            price?:number
+            price?:number,
+            capacity?:number
        },
        public approximate_price?:number,
        public price?:number,
