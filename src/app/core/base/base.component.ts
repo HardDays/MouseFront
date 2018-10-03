@@ -181,7 +181,6 @@ export class BaseComponent{
                         // this.main.UserChange.unsubscribe();
                         let admin = this.main.MyUser.is_admin||this.main.MyUser.is_superuser;
 
-                        // console.log(`base login`, admin);
                         if(!admin)
                         {
                             this.router.navigate(['/system','shows']);
@@ -201,9 +200,7 @@ export class BaseComponent{
                 }
             },
             (err) => {
-                // console.log(err);
                 callback(err);
-                // console.log('asdfasdf');
                 //this.main.authService.onAuthChange$.next(false);
             }
         );
@@ -216,20 +213,16 @@ export class BaseComponent{
         VK.init({apiId: 6326995});
 
         VK.Auth.getLoginStatus((status)=>{
-            // console.log(status);
             if(status.session&&status.status!='not_authorized'&&status.status!='unknown'){
                 VK.Auth.login((res)=>{
-                // console.log(res);
                 });
 
                 setTimeout(() => {
                     VK.Auth.logout((res)=>{
-                        // console.log(res);
                     });
                 }, 1000);
 
                 VK.Observer.subscribe('auth.logout',(res)=>{
-                    // console.log(`subscribe`,res);
                 })
             }
         })
@@ -250,7 +243,6 @@ export class BaseComponent{
             this.main._auth.login(provider)
                 .subscribe(
                     (data) => {
-                        // console.log(provider, data);
                         let socToken:any = data;
                         this.WaitBeforeLoading(
                             () => provider=="google" ? this.main.authService.UserLoginByGoogle(socToken.token) : this.main.authService.UserLoginByFacebook(socToken.token),
@@ -262,13 +254,11 @@ export class BaseComponent{
                             (accs)=>{
                                     this.isLoading = false;
                                     if(this.main.MyAccounts.length>0){
-                                    // console.log(`main.MyAccounts.length>0`);
-                                    this.router.navigate(['/system','shows']);
+                                        this.router.navigate(['/system','shows']);
                                     }
                                     else
                                     {
-                                    // console.log(`create new acc`);
-                                    this.router.navigate(['/social']);
+                                        this.router.navigate(['/social']);
                                     }
                                 }
                             )
@@ -285,7 +275,6 @@ export class BaseComponent{
                                 //    if(this.main.MyAccounts.length>0){
                                 //     this.router.navigate(['/system','shows']);
                                 //    } else {
-                                //     //    console.log(`create new acc`);
                                 //        this.router.navigate(['/social']);
                                 //    }
                                 // }, 3000);
@@ -546,16 +535,13 @@ export class BaseComponent{
         }
         // phone.replace(new RegExp('_', 'g'),'')!='+'
 
-        // console.log(phone)
         // let countryMask:any[]=[];
 
 
         // if(phone&&phone.length>0&&phone.replace(new RegExp('_', 'g'),'')!='+'){
         //     let codes = this.main.phoneService.GetAllPhoneCodesWithFormat();
-        //     //console.log(`codes`,codes);
         //     let code_arr = codes.filter((c)=>phone.indexOf(c.dial_code)>0&&phone.indexOf(c.dial_code)<4);
         //     let code = code_arr.find((c)=>phone.startsWith(c.dial_code,1));
-        //     // console.log(`phone[1], c.dial_code`, phone[1],code_arr,code);
         //     if(!code && code_arr&& code_arr[0])code = code_arr[0];
         //     let dial_code = code&&code['dial_code']?code['dial_code']:'';
         //     if(code&&code['format']){
@@ -565,7 +551,6 @@ export class BaseComponent{
         //                 if(dial_code){
 
         //                     let dc = dial_code[0];
-        //                     // console.log(dial_code,dc);
         //                     dial_code = dial_code.slice(1, dial_code.length);
         //                     countryMask.push(dc);
         //                 }
@@ -614,7 +599,6 @@ export class BaseComponent{
         val = val.substring(1);
 
         let phone = '';
-        // console.log(`val`,val);
 
         let codes = this.main.phoneService.GetAllPhoneCodesWithFormat();
 
@@ -624,7 +608,6 @@ export class BaseComponent{
           let code = code_arr[0];
 
           if(code&&code['format']){
-              // console.log(`format`,code['format']);
               let index = 0;
               if(val[index]==='+')index++;
 
@@ -661,7 +644,6 @@ export class BaseComponent{
                 autocomplete.addListener(
                     "place_changed",
                     () => {
-                        // console.log(`place_changed`);
                         this.ngZone.run(
                             () => {
                                 let place: google.maps.places.PlaceResult = autocomplete.getPlace();
@@ -707,6 +689,7 @@ export class BaseComponent{
     {
         if (field.errors !== null)
         {
+            
             if (field.errors.hasOwnProperty('required'))
             {
                 let strEr = (BaseMessages.RequiredField).replace('_field', keyDict[key]);
@@ -758,7 +741,6 @@ export class BaseComponent{
         Object.keys(form.controls).forEach((key) => {
             if (form.controls[key].status === 'INVALID') {
                 const formControl = form.controls[key];
-                // console.log(`---`,formControl,key);
                 if (formControl instanceof FormControl) {
                     errors.push(this.getFieldError(formControl, key, keyDict));
                 }
@@ -782,13 +764,13 @@ export class BaseComponent{
     protected getResponseErrorMessage(err: Response, entityType='base') {
       const errors = [];
       const keyDict = this.getKeysDict(entityType);
+      
       Object.keys(err.json()).forEach((key) => {
             let error = err.json()[key][0];
             // const str = error? this.GetTranslateString(error.replace('_', ' ')):null;
 
             errors.push(this.GetTranslateString(keyDict[key]) + ' ' + (error? this.GetTranslateString(error.replace('_', ' ').toLowerCase()):''));
       });
-    //   console.log(errors);
       return errors.join('<br/>');
     }
 

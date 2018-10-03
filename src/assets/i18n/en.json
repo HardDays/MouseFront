@@ -866,5 +866,7 @@
   "event" : "event",
   "Leave a comment..." : "Leave a comment...",
   "post" : "post",
-  "No search results found":"No search results found"
+  "No search results found":"No search results found",
+  "Venue name": "Venue user name",
+  "Verify":"Verify"
 }
