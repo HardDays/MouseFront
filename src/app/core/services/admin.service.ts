@@ -390,10 +390,10 @@ export class AdminService{
         );
     }
 
-    GetRevenueCities(type:string)
+    GetRevenueCities(type:string,by:string)
     {
         return this.http.CommonRequest(
-            ()=> this.http.GetData('/admin/revenue/cities.json', this.typeService.ParamsToUrlSearchParams({type}))
+            ()=> this.http.GetData('/admin/revenue/cities.json', this.typeService.ParamsToUrlSearchParams({type,by}))
         );
     }
 

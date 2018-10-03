@@ -882,5 +882,8 @@
   "Email name": "Email имя",
   "Estimated price": "Примерная цена",
   "Failed! This event has already confirmed a venue!": "Ошибка! Этот ивент уже подтвердил площадку!",
-  "Request wasn't send!": "Запрос не был отправлен!"
+  "Request wasn't send!": "Запрос не был отправлен!",
+  "You need tickets to launch an event!": "Вам нужны билеты, чтобы запустить ивент!",
+  "Fail! Password confirmation is not matched!": "Ошибка! Пароли не совпадают!",
+  "Fail! Password is too short!": "Ошибка! Пароль слишком короткий!"
 }

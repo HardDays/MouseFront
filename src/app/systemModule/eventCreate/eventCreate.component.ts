@@ -381,7 +381,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
   launchButtonClick(){
     if(!this.Event.tickets.length){
-      this.OpenErrorWindow('You need tickets to launch an event!');
+      this.OpenErrorWindow(this.GetTranslateString('You need tickets to launch an event!'));
       return;
     }
 
