@@ -289,12 +289,12 @@
                           <div class="input-groupe-1 ">
                             <!-- #dpFrom="bsDatepicker" bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerFromModel" -->
                             <!-- [ngModel]="Event.exact_date_from|date:'MMM d, y'"  (ngModelChange)="Event.exact_date_from=$event" -->
-                              <input #dpExact="bsDatepicker" (onShown)="onShowPicker($event)"  [minDate]="minDate" [maxDate]="maxDate" [disabled]="Event.status != 'denied' && Event.status!= 'just_added' && Event.status!= 'pending' && Event.status!= 'approved' || IsApprovedEvent" bsDatepicker [bsConfig]="bsConfig" [(bsValue)]="datepickerExactModel"  [ngModelOptions]="{standalone: true}" id="inp-create-4" name="exact_date_from" type="text">
+                              <input #dpExact="bsDatepicker" (onShown)="onShowPicker($event)"  [minDate]="minDate" [maxDate]="maxDate" [disabled]="Event.status === 'active'" bsDatepicker [bsConfig]="bsConfig" [(bsValue)]="datepickerExactModel"  [ngModelOptions]="{standalone: true}" id="inp-create-4" name="exact_date_from" type="text">
                               <label for="inp-create-4" translate>Exact date</label>
                           </div>
                           <!-- [disabled]="!Event.exact_date_from" -->
                           <div class="new-time-input__time-input">
-                            <time-input [Time]="Time" [disabled]="IsApprovedEvent" (onTimeChange)="TimeChange($event)"></time-input>
+                            <time-input [Time]="Time" [disabled]="Event.status==='active'" (onTimeChange)="TimeChange($event)"></time-input>
                             </div>
 
                       </div>

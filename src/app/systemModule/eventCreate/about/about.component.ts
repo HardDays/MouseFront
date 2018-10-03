@@ -186,7 +186,6 @@ export class AboutComponent extends BaseComponent implements OnInit {
       this.aboutForm.controls['funding_goal'].disable();
       this.aboutForm.controls['currency'].disable();
       this.aboutForm.controls['name'].disable();
-      this.aboutForm.controls['name'].disable();
     }
 
     // cnsole.log(this.Event);
@@ -398,7 +397,7 @@ GetCurrentCurrency(){
           },
           (err)=>{
             // console.log(err);
-            // this.onError.emit(this.getResponseErrorMessage(err))
+            this.onError.emit(BaseMessages.Fail)
           }
         )
     }

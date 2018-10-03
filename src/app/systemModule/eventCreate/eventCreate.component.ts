@@ -396,7 +396,10 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       },
       (err)=>{
         // console.log(`err`,err);
-        this.OpenErrorWindow(BaseMessages.Fail);
+        if(err.json().errors === 'NO_EXACT_DATE')
+           this.OpenErrorWindow('Fail! No exact date!');
+        else
+          this.OpenErrorWindow(BaseMessages.Fail);
       }
     )
   }
