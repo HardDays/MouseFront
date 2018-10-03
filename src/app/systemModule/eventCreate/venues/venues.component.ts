@@ -363,6 +363,8 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                         else
                         {
                             this.venueSearchParams.address = autocomplete.getPlace().formatted_address;
+                            this.venueSearchParams.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
+                            this.venueSearchParams.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
                              this.venueSearch();
                             this.mapCoords.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
                             this.mapCoords.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
