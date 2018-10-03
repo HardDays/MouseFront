@@ -11,13 +11,13 @@ import { TypeService } from "./type.service";
 export class GenresService{
 
     genres:GenreModel[] = [];
-    
+
     constructor(private http: HttpService, private router: Router, private types:TypeService){
         // this.genres = this.GetAll();
     }
 
     GetArtists(genres:GenreModel[]){
-        
+
         let params = {
             genres:this.GenreModelArrToStringArr(genres)
         };
@@ -67,7 +67,7 @@ export class GenresService{
         });
        return this.genres;
     }
-    
+
     GetMin(){
         return [
             {
@@ -92,7 +92,7 @@ export class GenresService{
             }
         ];
     }
-    
+
     public GetGendreModelFromString(newGenres:string[], allGenres:GenreModel[]):GenreModel[]{
         let result:GenreModel[] = allGenres;
         if(newGenres) {
@@ -120,10 +120,10 @@ export class GenresService{
     convertToShow(genre:string):string{
         let genre_show = '';
         genre_show = genre.replace('_',' ').toUpperCase();
-        
-        if ( genre_show.indexOf('/') > -1 ) 
+
+        if ( genre_show.indexOf('/') > -1 )
         {
-            genre_show = genre_show.replace("/", " / ");          
+            genre_show = genre_show.replace("/", " / ");
         }
         return genre_show;
     }
@@ -169,7 +169,7 @@ export class GenresService{
             german_folk: "german folk"
         }
 
-        
+
         let result = [];
         for(let i of genres)
         {
@@ -179,9 +179,9 @@ export class GenresService{
                         result.push(genre);
                     }
                 }
-        
+
             }
-                
+
         }
 
         return result;
@@ -228,7 +228,7 @@ export class GenresService{
             german_folk: "german folk"
         }
 
-       
+
         for(let i in newGenres){
             for(let gnr of genres){
                 if(i==gnr){
@@ -237,7 +237,7 @@ export class GenresService{
             }
         }
         return show;
-        
+
     }
 
 

@@ -41,6 +41,8 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
   audioDuration:number = 0;
   audioCurrentTime:number = 0;
 
+  curLang = 'en';
+
   constructor(
     protected main           : MainService,
     protected _sanitizer     : DomSanitizer,
@@ -56,6 +58,7 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
   }
 
   ngOnInit(){
+    this.curLang = this.translate.store.currentLang?this.translate.store.currentLang:this.translate.store.defaultLang;
       // console.log(`in`,this.Feed);
     if(this.Feed&&this.Feed.account){
 
@@ -185,7 +188,62 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
     return s.replace(new RegExp('_', 'g'), ' ');
   }
 
-  getValue(){
+  getFeedAction(s:string){
+    let field = s.split('_')[1].replace(new RegExp('_', 'g'), ' ');
+    if(field==='update_event'){
+      if(this.curLang==='en')
+        return 'Updated';
+      if(this.curLang==='ru')
+        return 'Обновлено';
+      return '';
+    }
+    if(field==='user'){
+      if(this.curLang==='en')
+        field = 'username';
+      if(this.curLang==='ru')
+        field = 'имя пользователя';
+    }
+    if(field==='about'){
+      if(this.curLang==='en')
+        field = 'description';
+      if(this.curLang==='ru')
+        field = 'описание';
+    }
+    // console.log(this.translate,this.translate.currentLang);
+    if(this.curLang==='en'){
+      let an = this.isAEOIU(field[0])?'an':'a';
+      if(this.Feed.type === 'event_update'){
+        if(this.Feed.action==='launch_event')
+          return 'Launched';
+        else
+          return 'Added'+' '+an+' '+field+' to';
+      }
+      else if(this.Feed.type === 'account_update'){
+        return 'Updated'+' '+an+' '+field;
+      }
+      return '';
+    }
+    else if(this.curLang==='ru'){
+      if(this.Feed.type === 'event_update'){
+        if(this.Feed.action==='launch_event')
+          return 'Запущено';
+        else
+          return 'Добавлено'+' '+this.translate.get(field)['value']+' в';
+      }
+      else if(this.Feed.type === 'account_update')
+        return 'Обновлено'+' '+this.translate.get(field)['value'];
+      return '';
+    }
+    return '';
+  }
+
+  isAEOIU(c:string){
+    if(c&&c==='a'||c==='e'||c==='o'||c==='i'||c==='u')
+      return true;
+    return false;
+  }
+
+  getFeedValue(){
     // console.log(this.Feed);
 
     if(this.Feed.type === 'event_update'){

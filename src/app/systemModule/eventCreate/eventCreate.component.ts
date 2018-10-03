@@ -206,11 +206,10 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
   {
     this.Event.account_id = this.CurrentAccount.id;
     // this.Event.currency = this.main.settings.GetCurrency();
-    if(this.Event.venue){
-      delete this.Event['address'];
-      delete this.Event['city_lat'];
-      delete this.Event['city_lng'];
-    }
+    delete this.Event['address'];
+    delete this.Event['city_lat'];
+    delete this.Event['city_lng'];
+
     delete this.Event['date_from'];
     delete this.Event['date_to'];
 
@@ -256,11 +255,11 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     this.Event = event;
     // this.Event.currency = this.main.settings.GetCurrency();
 
-    if(this.Event.venue){
+
       delete this.Event['address'];
       delete this.Event['city_lat'];
       delete this.Event['city_lng'];
-    }
+
     delete this.Event['date_from'];
     delete this.Event['date_to'];
 
@@ -305,11 +304,10 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       if(this.about)
         this.about.GetEventGenres();
 
-      if(this.Event.venue){
         delete this.Event['address'];
         delete this.Event['city_lat'];
         delete this.Event['city_lng'];
-      }
+
       delete this.Event['date_from'];
       delete this.Event['date_to'];
       // this.Event.currency = this.main.settings.GetCurrency();
@@ -383,7 +381,7 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
   launchButtonClick(){
     if(!this.Event.tickets.length){
-      this.OpenErrorWindow('You need tickets to launch an event!');
+      this.OpenErrorWindow(this.GetTranslateString('You need tickets to launch an event!'));
       return;
     }
 
@@ -398,7 +396,10 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
       },
       (err)=>{
         // console.log(`err`,err);
-        this.OpenErrorWindow(BaseMessages.Fail);
+        if(err.json().errors === 'NO_EXACT_DATE')
+           this.OpenErrorWindow('Fail! No exact date!');
+        else
+          this.OpenErrorWindow(BaseMessages.Fail);
       }
     )
   }

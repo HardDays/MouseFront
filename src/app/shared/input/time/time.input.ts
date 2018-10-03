@@ -14,8 +14,9 @@ declare var ionRangeSlider:any;
     styleUrls: ['./../input.module.css']
 })
 export class TimeInput implements OnChanges{
-    
+
     @Input() Time: String;
+    @Input() disabled:boolean = false;
     @Output() onTimeChange: EventEmitter<String> = new EventEmitter();
 
     Format: string = TimeFormat.EURO;
@@ -52,7 +53,7 @@ export class TimeInput implements OnChanges{
             if(this.Format != TimeFormat.CIS)
             {
                 let parts = time.split(':');
-    
+
                 let hours = +parts[0];
                 this.CurVar = hours < 12 ? 'AM' : 'PM';
                 let hoursStr:string = (hours % 12).toString();
@@ -60,21 +61,21 @@ export class TimeInput implements OnChanges{
                 {
                     hoursStr = '0' + hoursStr;
                 }
-    
+
                 let minutes = parts[1];
                 if(minutes.length < 2)
                 {
                     minutes = '0' + minutes;
                 }
-    
+
                 this.CurTime = hoursStr + ":" + minutes;
             }
             else{
                 this.CurTime = time;
             }
-            
+
         }
-        
+
 
     }
 
@@ -101,9 +102,9 @@ export class TimeInput implements OnChanges{
             if(parts && parts.length == 2){
                 let result = '';
                 result += this.CurVar == "PM" ? (+parts[0] + 12): parts[0];
-    
+
                 result += ':' + parts[1];
-    
+
                 if(result.length == 5){
                     this.onTimeChange.emit(result);
                 }
@@ -113,12 +114,12 @@ export class TimeInput implements OnChanges{
         {
             this.onTimeChange.emit(this.CurTime);
         }
-        
-        
+
+
     }
 
     MaskTime(str: string)
-    {    
+    {
         let mask = [];
         if(this.Format != TimeFormat.CIS)
         {

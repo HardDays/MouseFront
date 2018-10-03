@@ -24,6 +24,7 @@ import { TimePipeModule } from '../../core/pipes/time.pipe/time.pipe.module';
 import { VenueCreateModule } from '../venueCreate/venueCreate.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { PhonePipeModule } from '../../core/pipes/phone.pipe/phone.pipe.module';
+import { InputModule } from '../../shared/input/input.module';
 // import { PhonePipe } from '../../core/pipes/phone.pipe';
 // import { Phone2Pipe } from '../../core/pipes/phone2.pipe';
 @NgModule({
@@ -46,7 +47,8 @@ import { PhonePipeModule } from '../../core/pipes/phone.pipe/phone.pipe.module';
         TimePipeModule,
         VenueCreateModule,
         TranslateModule,
-        PhonePipeModule
+        PhonePipeModule,
+        InputModule
     ],
     declarations: [
         EventCreateComponent,

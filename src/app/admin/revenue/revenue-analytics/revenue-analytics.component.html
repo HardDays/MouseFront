@@ -8,7 +8,7 @@
                     <div class="admin_table_th">Amount ($)</div>
                     <div class="admin_table_th">Percent</div>
                 </div>
-                <div class="admin_table_tbody">
+                <div *ngIf="citiesTotal.cities&&citiesTotal.cities.length>0" class="admin_table_tbody">
                     <div *ngFor="let city of citiesTotal.cities" class="admin_table_tr">
                         <div class="admin_table_td">
                             <div class="city_name">
@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="events_status_diagramm revenue_diagram_wrap">
-                <div class="diagramm">
+                <div *ngIf="pieChartDataTotal&&pieChartDataTotal.length>0" class="diagramm">
                     <canvas baseChart
                             [data]="pieChartDataTotal"
                             [labels]="pieChartLabelsTotal"
@@ -34,11 +34,11 @@
                     ></canvas>
                 </div>
                 <div class="diagramm_tabs">
-                    <span class="zag_tab" (click)="totalCitiesGraphBy='day';GetRevenueCountsCitiesSales()" [ngClass]="{'active':totalCitiesGraphBy==='day'}">Day</span>
-                    <span class="zag_tab" (click)="totalCitiesGraphBy='week';GetRevenueCountsCitiesSales()" [ngClass]="{'active':totalCitiesGraphBy==='week'}">Week</span>
-                    <span class="zag_tab" (click)="totalCitiesGraphBy='month';GetRevenueCountsCitiesSales()" [ngClass]="{'active':totalCitiesGraphBy==='month'}">Month</span>
-                    <span class="zag_tab" (click)="totalCitiesGraphBy='year';GetRevenueCountsCitiesSales()" [ngClass]="{'active':totalCitiesGraphBy==='year'}">Year</span>
-                    <span class="zag_tab" (click)="totalCitiesGraphBy='all';GetRevenueCountsCitiesSales()" [ngClass]="{'active':totalCitiesGraphBy==='all'}">All time</span>
+                    <span class="zag_tab" (click)="totalCitiesGraphBy='day';GetRevenueCountsCitiesSales('day')" [ngClass]="{'active':totalCitiesGraphBy==='day'}">Day</span>
+                    <span class="zag_tab" (click)="totalCitiesGraphBy='week';GetRevenueCountsCitiesSales('week')" [ngClass]="{'active':totalCitiesGraphBy==='week'}">Week</span>
+                    <span class="zag_tab" (click)="totalCitiesGraphBy='month';GetRevenueCountsCitiesSales('month')" [ngClass]="{'active':totalCitiesGraphBy==='month'}">Month</span>
+                    <span class="zag_tab" (click)="totalCitiesGraphBy='year';GetRevenueCountsCitiesSales('year')" [ngClass]="{'active':totalCitiesGraphBy==='year'}">Year</span>
+                    <span class="zag_tab" (click)="totalCitiesGraphBy='all';GetRevenueCountsCitiesSales('all')" [ngClass]="{'active':totalCitiesGraphBy==='all'}">All time</span>
                 </div>
             </div>
         </div>
@@ -137,7 +137,7 @@
                     <div class="admin_table_th">Amount ($)</div>
                     <div class="admin_table_th">Percent</div>
                 </div>
-                <div class="admin_table_tbody">
+                <div *ngIf="citiesSales.cities&&citiesSales.cities.length>0" class="admin_table_tbody">
                     <div *ngFor="let city of citiesSales.cities" class="admin_table_tr">
                             <div class="admin_table_td">
                                 <div class="city_name">
@@ -151,7 +151,7 @@
                 </div>
             </div>
             <div class="events_status_diagramm revenue_diagram_wrap">
-                <div class="diagramm">
+                <div *ngIf="pieChartDataSales&&pieChartDataSales.length>0" class="diagramm">
                     <canvas baseChart
                             [data]="pieChartDataSales"
                             [labels]="pieChartLabelsSales"
@@ -162,11 +162,11 @@
                     ></canvas>
                 </div>
                 <div class="diagramm_tabs">
-                        <span class="zag_tab" (click)="salesCitiesGraphBy='day';GetRevenueCountsCitiesSales()" [ngClass]="{'active':salesCitiesGraphBy==='day'}">Day</span>
-                        <span class="zag_tab" (click)="salesCitiesGraphBy='week';GetRevenueCountsCitiesSales()" [ngClass]="{'active':salesCitiesGraphBy==='week'}">Week</span>
-                        <span class="zag_tab" (click)="salesCitiesGraphBy='month';GetRevenueCountsCitiesSales()" [ngClass]="{'active':salesCitiesGraphBy==='month'}">Month</span>
-                        <span class="zag_tab" (click)="salesCitiesGraphBy='year';GetRevenueCountsCitiesSales()" [ngClass]="{'active':salesCitiesGraphBy==='year'}">Year</span>
-                        <span class="zag_tab" (click)="salesCitiesGraphBy='all';GetRevenueCountsCitiesSales()" [ngClass]="{'active':salesCitiesGraphBy==='all'}">All time</span>
+                        <span class="zag_tab" (click)="salesCitiesGraphBy='day';GetRevenueCountsCitiesSales('day')" [ngClass]="{'active':salesCitiesGraphBy==='day'}">Day</span>
+                        <span class="zag_tab" (click)="salesCitiesGraphBy='week';GetRevenueCountsCitiesSales('week')" [ngClass]="{'active':salesCitiesGraphBy==='week'}">Week</span>
+                        <span class="zag_tab" (click)="salesCitiesGraphBy='month';GetRevenueCountsCitiesSales('month')" [ngClass]="{'active':salesCitiesGraphBy==='month'}">Month</span>
+                        <span class="zag_tab" (click)="salesCitiesGraphBy='year';GetRevenueCountsCitiesSales('year')" [ngClass]="{'active':salesCitiesGraphBy==='year'}">Year</span>
+                        <span class="zag_tab" (click)="salesCitiesGraphBy='all';GetRevenueCountsCitiesSales('all')" [ngClass]="{'active':salesCitiesGraphBy==='all'}">All time</span>
                 </div>
             </div>
         </div>

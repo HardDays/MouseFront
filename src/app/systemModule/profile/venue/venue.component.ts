@@ -27,7 +27,7 @@ declare var PhotoSwipe:any;
 
 
 export class VenueProfileComponent extends BaseComponent implements OnInit,OnChanges{
-    
+
     @Input() Account: AccountGetModel;
     @Input() Image:string;
     @Input() Fans:AccountGetModel[];
@@ -42,7 +42,7 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
 
 
     @ViewChild('agmMap') agmMap : AgmMap;
-    
+
     UpcomingShows:any [] = [];
     UpcomingShowsChecked:any [] = [];
 
@@ -83,7 +83,7 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
     ngOnChanges(changes: SimpleChanges): void {
         if(changes.Account)
         {
-            
+
             if(this.agmMap)
                 this.agmMap.triggerResize();
         }
@@ -120,14 +120,14 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
         {
             if(this.Account.office_hours)
                 this.OffHours = this.main.accService.ParseWorkingTimeModelArr(this.Account.office_hours);
-            
+
             if(this.Account.operating_hours)
                 this.OpHours = this.main.accService.ParseWorkingTimeModelArr(this.Account.operating_hours);
         }
         else{
             if(this.Account.office_hours)
                 this.OffHours = this.main.accService.ParseWorkingTimeModelArr(this.Account.office_hours);
-        
+
             if(this.Account.operating_hours)
                 this.OpHours = this.main.accService.ParseWorkingTimeModelArr(this.Account.operating_hours);
         }
@@ -137,12 +137,12 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
 
         if(!this.VenueId && this.Account.id)
             this.VenueId = this.Account.id;
-        
 
-        
+
+
         this.GetUpcomingShows();
         this.GetVenueImages();
-        
+
     }
 
     searchFans(event)
@@ -156,12 +156,12 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
     GetUpcomingShows(){
         this.UpcomingShowsChecked = [];
         this.UpcomingShows = [];
-        
+
         if(this.VenueId)
         {
             this.main.accService.GetUpcomingShows(this.VenueId).subscribe(
                 (res:any) =>
-                { 
+                {
                     this.UpcomingShowsChecked = this.UpcomingShows = res;
                     this.isLoadingUpcoming = false;
                 },
@@ -188,7 +188,7 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
         this.onFollow.emit(event);
     }
 
-    Gallery(event) 
+    Gallery(event)
     {
         let itemsPhoto = [];
         $('.for-gallery-item').each(function (e) {
@@ -205,7 +205,7 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
 
         });
         this.itemsPhotoss = itemsPhoto;
-        this.GalaryInit(event);   
+        this.GalaryInit(event);
     }
     GalaryInit(event)
     {
@@ -247,13 +247,13 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
                         this.ImageMassVenue[i] = res;
                         this.VenueImagesChecked = this.ImageMassVenue;
                         this.GetImageSize(+i);
-                        
+
                     }
                 );
             }
         }
         this.isLoadingGallery = false;
-        
+
     }
     GetImageSize(i:number)
     {
@@ -276,7 +276,7 @@ export class VenueProfileComponent extends BaseComponent implements OnInit,OnCha
                 }
             );
         }
-        
+
     }
     searchImagesVenue(event){
         let searchParam = event.target.value;

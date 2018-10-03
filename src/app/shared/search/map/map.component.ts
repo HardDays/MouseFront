@@ -47,7 +47,7 @@ export class SearchEventsMapComponent extends BaseComponent implements OnInit {
         .subscribe((data)=>{
             this.lat = data.location[0];
             this.lng = data.location[1];
-            this.CodeLatLng(this.lat, this.lng);
+            //this.CodeLatLng(this.lat, this.lng);
         })
     }
 
@@ -68,7 +68,7 @@ export class SearchEventsMapComponent extends BaseComponent implements OnInit {
             .subscribe((data)=>{
                 this.lat = data.location[0];
                 this.lng = data.location[1];
-                this.CodeLatLng(this.lat, this.lng);
+                // this.CodeLatLng(this.lat, this.lng);
             })
         }
 

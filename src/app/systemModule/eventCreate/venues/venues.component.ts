@@ -22,6 +22,7 @@ import { InboxMessageModel } from '../../../core/models/inboxMessage.model';
 import { EventCreateModel } from '../../../core/models/eventCreate.model';
 import { BaseImages, BaseErrors, BaseMessages } from '../../../core/base/base.enum';
 import { CurrencyIcons } from '../../../core/models/preferences.model';
+import { } from 'googlemaps';
 
 declare var $:any;
 declare var ionRangeSlider:any;
@@ -109,6 +110,8 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         this.initSlider()
         this.getAllSpaceTypes();
 
+        this.GetLocation();
+
         this.venuesList = this.Event.venues;
         // this.updateEvent();
         // this.GetVenueFromList();
@@ -124,6 +127,14 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                 this.GetVenueFromList();
                 this.venueSearch();
            }, 300);
+        })
+    }
+
+    GetLocation(){
+      this.main.accService.GetLocation()
+        .subscribe((data)=>{
+            this.mapCoords.lat = data.location[0];
+            this.mapCoords.lng = data.location[1];
         })
     }
 
@@ -144,7 +155,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         this.venueSearchParams.price_to = 100000;
         let _the = this;
 
-
+        let _max = this.Event.currency==='RUB'?this.maxValue=650000:null;
         var hu_3 = $(".current-slider-price-venue").ionRangeSlider({
             min: 1,
             max: this.maxValue,
@@ -352,6 +363,8 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                         else
                         {
                             this.venueSearchParams.address = autocomplete.getPlace().formatted_address;
+                            this.venueSearchParams.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
+                            this.venueSearchParams.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
                              this.venueSearch();
                             this.mapCoords.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
                             this.mapCoords.lng = autocomplete.getPlace().geometry.location.toJSON().lng;
@@ -463,7 +476,11 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                       // this.submitVenue();
 
               },(err)=>{
-                  this.onError.emit("Request wasn't send!")
+                  venue.checked = false;
+                  if(err.json()['errors']==='HAS_ACCEPTED_VENUE')
+                    this.onError.emit(this.GetTranslateString("Failed! This event has already confirmed a venue!"));
+                  else
+                    this.onError.emit(this.GetTranslateString("Request wasn't send!"))
               });
         }
     }
@@ -542,6 +559,8 @@ export class VenuesComponent extends BaseComponent implements OnInit {
             },(err)=>{
                 if(err.json()['errors']==='Invalid date')
                   this.onError.emit("Venue NOT accepted! Invalid date");
+                else if(err.json()['errors']==='ALREADY_HAS_VENUE')
+                  this.onError.emit(this.GetTranslateString("Failed! This event has already confirmed a venue!"));
                 else
                   this.onError.emit("Venue NOT accepted! "+this.getResponseErrorMessage(err));
                 // console.log(`err`,err);
@@ -601,6 +620,8 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                 this.GetVenueFromList();
                 this.venueSearch();
            }, 300);
+        },(err)=>{
+          this.onError.emit(this.getResponseErrorMessage(err,'venue'));
         })
     }
 

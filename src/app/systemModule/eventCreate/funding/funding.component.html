@@ -23,7 +23,14 @@
                                 <a [routerLink]="['/system/profile',artist.object.artist_id]" class="name">{{artist['object']['artist']['user_name']}}</a>
                             </div>
                             <div class="price-r">
-                                <span class="price"><span [innerHTML]="CurrencySymbol"></span>{{ artist['object']['approximate_price'] | number:'1.2-2'}}</span>
+                                <span class="price">
+                                  <ng-container *ngIf="artist['object']['approximate_price']">
+                                    <span [innerHTML]="CurrencySymbol"></span>{{ artist['object']['approximate_price'] | number:'1.2-2'}}
+                                  </ng-container>
+                                  <ng-container *ngIf="!(artist['object']['approximate_price'])">
+                                    {{'event.tickets.No info'|translate}}
+                                  </ng-container>
+                                </span>
                                 <div class="one-checkbox">
                                     <div class="check-style">
                                         <input [checked]="activeArtist[i].checked" (click)="setActiveArtist(i)" type="checkbox" class="checkbox" name="" id="new-checkbox-artist-{{i}}">
@@ -54,7 +61,15 @@
                                 <a [routerLink]="['/system/profile',venue.object.venue_id]" class="name">{{venue['object']['venue']['user_name']}}</a>
                             </div>
                             <div class="price-r">
-                                <span class="price"><span [innerHTML]="CurrencySymbol"></span>{{venue['object']['approximate_price']|number:'1.2-2'}}</span>
+                                <span class="price">
+                                <ng-container *ngIf="venue['object']['approximate_price']">
+                                    <span [innerHTML]="CurrencySymbol"></span>{{ venue['object']['approximate_price'] | number:'1.2-2'}}
+                                  </ng-container>
+                                  <ng-container *ngIf="!(venue['object']['approximate_price'])">
+                                    {{'event.tickets.No info'|translate}}
+                                  </ng-container>
+                                </span>
+
                                 <div class="one-checkbox">
                                     <div class="check-style">
                                         <input [checked]="activeVenue[i].checked" (click)="setActiveVenueRadio(venue)" type="radio" class="checkbox" name="venue-set" id="new-checkbox-venue-{{i}}">
@@ -144,7 +159,7 @@
                     <h6 class="lower-case-t" translate>event.funding-fold.Min Amount per Ticket</h6>
                     <div class="second-funding-info">
                         <p class="info-text" translate>event.funding-fold.Capacity</p>
-                        <span class="price">{{Event.venue?Event.venue.capacity:0}}</span>
+                        <span class="price">{{FundingCapacity}}</span>
                     </div>
                     <div *ngIf="Event.venue" class="second-funding-info">
                         <p class="info-text" translate>event.funding-fold.Price Per Ticket</p>

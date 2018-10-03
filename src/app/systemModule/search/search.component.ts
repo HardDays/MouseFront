@@ -179,6 +179,7 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
 
     ShowSearchResult()
     {
+        this.CheckDistance();
         if(this.SearchType == SearchTypes.All || this.SearchType == SearchTypes.Fans)
         {
             this.GetFans();
@@ -224,7 +225,6 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
                 genres: this.main.genreService.GenreModelArrToStringArr(this.Genres)
             });
         }
-        // console.log("fan",search);
         this.main.accService.AccountsSearch(search)
             .subscribe(
                 (res: AccountGetModel[]) => {
@@ -245,7 +245,6 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
                 genres: this.main.genreService.GenreModelArrToStringArr(this.Genres)
             });
         }
-        // console.log("artist",search);
         this.main.accService.AccountsSearch(search)
             .subscribe(
                 (res: AccountGetModel[]) => {
@@ -260,7 +259,6 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
         search = Object.assign(search,{
             type:"venue"
         });
-        // console.log("venue",search);
         this.main.accService.AccountsSearch(search)
             .subscribe(
                 (res: AccountGetModel[]) => {
@@ -286,7 +284,6 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
                 to_date: this.SearchDateRange && this.SearchDateRange[1] ? this.main.typeService.GetDateStringFormat(this.SearchDateRange[1]) : null
             });
         }
-        // console.log("shows",search);
         this.main.eventService.EventsSearch(search)
             .subscribe(
                 (res: EventGetModel[]) => {
@@ -343,18 +340,25 @@ export class GlobalSearchComponent extends BaseComponent implements OnInit {
 
     OnMapClicked($event)
     {
-        if($event.lat)
+        if($event.lat || $event.lng)
         {
-            this.SearchParams.lat = $event.lat;
+            if($event.lat)
+                this.SearchParams.lat = $event.lat;
+
+            if($event.lng)
+                this.SearchParams.lng = $event.lng;
+
+            if(!this.SearchParams.distance)
+                this.SearchParams.distance = this.MIN_DISTANCE;
+
         }
-        if($event.lng)
-        {
-            this.SearchParams.lng = $event.lng;
-        }
+    
         if($event.text)
         {
             this.LocationText = $event.text;
         }
+
+
     }
 
 }

@@ -27,7 +27,15 @@
 .tiny-calendar-wrapper .days.set-date-popup .popup-set-price-wr .flex-select-range p{
     width: 45px;
 }
-
+.tiny-calendar-wrapper .body-calendar .days .one-day-wr .one-day .popup-inform-tiny-calendar .shadow-wr .bott-descr-day .where-2:before{
+  display: none;
+}
+.tiny-calendar-wrapper .body-calendar .days .one-day-wr .one-day .popup-inform-tiny-calendar .shadow-wr .bott-descr-day .s:before{
+  display: none;
+}
+.tiny-calendar-wrapper .body-calendar .days .one-day-wr .one-day .popup-inform-tiny-calendar .shadow-wr .bott-descr-day .f:before{
+  display: none;
+}
 .tiny-calendar-wrapper .body-calendar .days .one-day-wr.today .one-day p {
   color: #fff !important;
 }

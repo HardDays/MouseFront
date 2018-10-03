@@ -379,8 +379,8 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
     this.request.id = this.accountId;
     this.request.message_id = this.openMessage.id;
     this.request.price = +this.changePrice;
-    this.request.preferred_date_from = this.bsRangeValue[0];
-    this.request.preferred_date_to = this.bsRangeValue[1];
+    this.request.preferred_date_from = this.main.typeService.GetDateStringFormat(new Date(this.bsRangeValue[0].getTime() - this.bsRangeValue[0].getTimezoneOffset() * 60000));
+    this.request.preferred_date_to = this.main.typeService.GetDateStringFormat(new Date(this.bsRangeValue[1].getTime() - this.bsRangeValue[1].getTimezoneOffset() * 60000));
     this.request.currency = this.main.settings.GetCurrency();
 
     if(this.type=="artist"){

@@ -47,12 +47,12 @@ export class RevenueAnalyticsComponent extends BaseComponent implements OnInit {
   pieChartDataSales:number[] = [];
   pieChartType:string = 'pie';
   pieChartColorsTotal:Array<any> = [
-    { 
+    {
       backgroundColor: ['rgba(153,31,114,0.8)','rgba(210,54,93)','rgba(81,87,184)','rgba(242,173,15)','#942541','#079391']
     }
   ];
   pieChartColorsSales:Array<any> = [
-    { 
+    {
       backgroundColor: ['rgba(153,31,114,0.8)','rgba(210,54,93)','rgba(81,87,184)','rgba(242,173,15)','#942541','#079391']
     }
   ];
@@ -81,19 +81,19 @@ export class RevenueAnalyticsComponent extends BaseComponent implements OnInit {
           arc: {
               borderWidth: 8
           }
-        } 
+        }
     }
   ];
- 
+
 
 
   ngOnInit() {
 
-  
 
-    this.GetRevenueCountsCitiesTotal();
-    this.GetRevenueCountsCitiesSales();
-    
+
+    this.GetRevenueCountsCitiesTotal('all');
+    this.GetRevenueCountsCitiesSales('all');
+
     this.GetRevenueCountsAdvertisingTotal('all');
     this.GetRevenueCountsAdvertisingSales('all');
 
@@ -102,7 +102,7 @@ export class RevenueAnalyticsComponent extends BaseComponent implements OnInit {
 
     this.GetRevenueCountsDateTotal('all');
     this.GetRevenueCountsDateSales('all');
-    
+
     this.GetRevenueCountsTicketsTotal('all');
     this.GetRevenueCountsTicketsSales('all');
 
@@ -118,8 +118,8 @@ export class RevenueAnalyticsComponent extends BaseComponent implements OnInit {
 
   }
 
-  GetRevenueCountsCitiesTotal(){
-    this.main.adminService.GetRevenueCities('total')
+  GetRevenueCountsCitiesTotal(period:string){
+    this.main.adminService.GetRevenueCities('total',period)
       .subscribe(
         (res)=>{
           this.citiesTotal = res;
@@ -129,8 +129,8 @@ export class RevenueAnalyticsComponent extends BaseComponent implements OnInit {
       )
   }
 
-  GetRevenueCountsCitiesSales(){
-    this.main.adminService.GetRevenueCities('sales')
+  GetRevenueCountsCitiesSales(period:string){
+    this.main.adminService.GetRevenueCities('sales',period)
       .subscribe(
         (res)=>{
           this.citiesSales = res;
@@ -164,7 +164,7 @@ export class RevenueAnalyticsComponent extends BaseComponent implements OnInit {
       },
       (err)=>{
         // console.log("No Advertising content" ,err);
-        
+
       }
 
     )
@@ -260,8 +260,8 @@ export class RevenueAnalyticsComponent extends BaseComponent implements OnInit {
       )
   }
 
-  
-  
+
+
   setCitiesColors(type:string){
     let index = 0;
     let colors = ['rgba(153,31,114,0.8)','rgba(210,54,93)','rgba(81,87,184)','rgba( 242,173,15)','#942541','#079391'];
@@ -306,19 +306,19 @@ export class RevenueAnalyticsComponent extends BaseComponent implements OnInit {
   GetPercentTotal(data:number){
     // console.log("DATA", data);
     // console.log("city", this.citiesTotal.total);
-    
+
     data = data/this.citiesTotal.total*100;
     return parseFloat(data.toFixed(1));
-    
+
   }
 
   GetPercentSales(data:number){
     // console.log("DATA", data);
     // console.log("city", this.citiesSales.total);
-    
+
     data = data/this.citiesSales.total*100;
     return parseFloat(data.toFixed(1));
-    
+
   }
 
 

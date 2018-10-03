@@ -240,7 +240,6 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
 
     SetEventsDates(input:any[])
     {
-        // console.log(input);
         let arr = [];
         for(const i in input)
         {

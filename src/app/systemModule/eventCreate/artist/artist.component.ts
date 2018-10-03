@@ -167,9 +167,10 @@ export class ArtistComponent extends BaseComponent implements OnInit {
       this.genresSearchArtist = [];
       this.main.genreService.GetAllGenres()
       .subscribe((res:string[])=>{
-        this.genresSearchArtist = this.main.genreService.StringArrayToGanreModelArray(res);
+        this.genresSearchArtist = this.main.genreService.StringArrayToGenreModelArray(res);
           for(let i of this.genresSearchArtist) {
-            i.show = true;}
+            i.show = true;
+          }
       });
     }
 
@@ -205,6 +206,9 @@ export class ArtistComponent extends BaseComponent implements OnInit {
                     else
                     {
                          this.artistSearchParams.address = autocomplete.getPlace().formatted_address;
+                         this.artistSearchParams.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
+                         this.artistSearchParams.lng = autocomplete.getPlace().geometry.location.toJSON().lat;
+
 
                          this.mapCoords.lat = autocomplete.getPlace().geometry.location.toJSON().lat;
                          this.mapCoords.lng = autocomplete.getPlace().geometry.location.toJSON().lng;

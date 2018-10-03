@@ -1,6 +1,6 @@
 <div class="dashed-bottom-border">
-    <input class="inp-style-3 time-mask" [ngClass]="{morepaddinput: Format == '12'}" [textMask]="MaskTime(CurTime)"  autocomplete="off" type="text" [(ngModel)]="CurTime" (ngModelChange)="OnTimeChange($event)">
-                                        
+    <input [disabled]="disabled" class="inp-style-3 time-mask" [ngClass]="{morepaddinput: Format == '12'}" [textMask]="MaskTime(CurTime)"  autocomplete="off" type="text" [(ngModel)]="CurTime" (ngModelChange)="OnTimeChange($event)">
+
     <!-- <select class="time-select" [ngModel]="CurHour" (ngModelChange)="OnHoursChange($event)">
         <option *ngFor="let item of Hours" [value]="item">
             {{ item }}
@@ -21,7 +21,7 @@
         </option>
     </select> -->
     <mat-form-field *ngIf="Format == '12'">
-        <mat-select [ngModel]="CurVar" (ngModelChange)="OnVarsChange($event)">
+        <mat-select [disabled]="disabled" [ngModel]="CurVar" (ngModelChange)="OnVarsChange($event)">
             <mat-option *ngFor="let item of Vars" [value]="item">
                 {{ item }}
             </mat-option>
