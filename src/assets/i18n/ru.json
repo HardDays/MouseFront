@@ -866,6 +866,8 @@
   "event" : "мероприятие",
   "Leave a comment..." : "Оставьте комментарий...",
   "post" : "отправить",
-  "No search results found":"Ничего не найдено"
+  "No search results found":"Ничего не найдено",
+  "Venue name": "Имя пользователя Mouse",
+  "Verify":"Верифицировать"
 
 }

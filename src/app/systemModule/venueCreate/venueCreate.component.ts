@@ -178,7 +178,6 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
 
   SaveVenueByPages(venue:AccountCreateModel)
   {
-    // console.log(this.Venue);
     delete this.Venue["dates"];
     delete this.Venue["events_dates"];
 
@@ -209,7 +208,6 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
 
   SaveVenue()
   {
-    // console.log(this.Venue);
     delete this.Venue["dates"];
     delete this.Venue["events_dates"];
     
@@ -221,6 +219,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
         this.errorCmp.OpenWindow(BaseMessages.Success);
         this.main.GetMyAccounts(
           () => {
+            
             this.main.CurrentAccountChange.next(res);
           }
         );
