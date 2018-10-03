@@ -782,8 +782,8 @@
 	"comments": "комментарии",
 	"updates": "обновления",
 	"Failed": "Не вышло",
-	"Time frame range": "Диапазон временных рамок",
-	"Time frame number": "Номер кадра",
+	"Time frame range": "Ожидание время ответа",
+	"Time frame number": "Время ответа Число",
 	"Time frame": "Период времени",
 	"Type": "Тип",
 	"already taken":"занято",
@@ -868,6 +868,19 @@
   "post" : "отправить",
   "No search results found":"Ничего не найдено",
   "Venue name": "Имя пользователя Mouse",
-  "Verify":"Верифицировать"
-
+  "Verify":"Верифицировать",
+  "<b>_link</b> needs to be a valid link":"<b>_link</b> должно быть корректной ссылкой",
+  "Album artwork": "Обложка альбома",
+  "Song name":"Название песни",
+  "Album name":"Название альбома",
+  "Link":"Ссылка",
+  "<b>_field</b> needs to be filled": "<b>_field</b> должно быть заполнено",
+  "Please fill in Price first!": "Пожалуйста, сначала заполните Цену!",
+  "Please fill in all required fields!": "Пожалуйста, заполните все поля!",
+  "Enter your location": "Укажите своё местоположение",
+  "Email": "Email",
+  "Email name": "Email имя",
+  "Estimated price": "Примерная цена",
+  "Failed! This event has already confirmed a venue!": "Ошибка! Этот ивент уже подтвердил площадку!",
+  "Request wasn't send!": "Запрос не был отправлен!"
 }

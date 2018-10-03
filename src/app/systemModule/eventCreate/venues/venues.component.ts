@@ -476,7 +476,11 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                       // this.submitVenue();
 
               },(err)=>{
-                  this.onError.emit("Request wasn't send!")
+                  venue.checked = false;
+                  if(err.json()['errors']==='HAS_ACCEPTED_VENUE')
+                    this.onError.emit(this.GetTranslateString("Failed! This event has already confirmed a venue!"));
+                  else
+                    this.onError.emit(this.GetTranslateString("Request wasn't send!"))
               });
         }
     }

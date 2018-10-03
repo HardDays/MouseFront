@@ -868,5 +868,19 @@
   "post" : "post",
   "No search results found":"No search results found",
   "Venue name": "Venue user name",
-  "Verify":"Verify"
+  "Verify":"Verify",
+  "<b>_link</b> needs to be a valid link":"<b>_link</b> needs to be a valid link",
+  "Album artwork": "Album artwork",
+  "Song name":"Song name",
+  "Album name":"Album name",
+  "Link":"Link",
+  "<b>_field</b> needs to be filled": "<b>_field</b> needs to be filled",
+  "Please fill in Price first!": "Please fill in Price first!",
+  "Please fill in all required fields!": "Please fill in all required fields!",
+  "Enter your location": "Enter your location",
+  "Email": "Email",
+  "Email name": "Email name",
+  "Estimated price": "Estimated price",
+  "Failed! This event has already confirmed a venue!": "Failed! This event has already confirmed a venue!",
+  "Request wasn't send!": "Request wasn't send!"
 }

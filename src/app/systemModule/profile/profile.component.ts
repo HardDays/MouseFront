@@ -115,7 +115,7 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
                 //     this.MyAccountId = this.GetCurrentAccId();
                 //     this.isFolowed();
                 //     console.log(`acc acc acc acc acc`,acc)
-                    
+
                 // }
                 // else{
                 //      console.log(` no acc no acc no acc no acc no acc`)
@@ -127,7 +127,7 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
             })
 
         //this.Videos = this.accService.GetVideo();
-    
+
     }
 
     ngAfterViewChecked()
@@ -150,9 +150,14 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
                         this.isFolowed();
                         this.isAccReadyToShow = true;
                     })
+            },
+            (err)=>{
+              if(err.json()['status']===404){
+                this.router.navigate(['/system','shows']);
+              }
             })
     }
-    
+
     GetFolowersAcc()
     {
         this.Fans = [];
@@ -160,20 +165,20 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
             (res:any) =>
             {
                 this.Fans = res.followers;
-            
+
             },
             (err) => {
-            
+
             }
         );
     }
-    
+
     StopThisShit(index:number)
     {
         //let player = window.document.getElementById('#video-iframe-'+index);
         //let player = window.document.getElementById('video-iframe-0');
         let player = $('#video-iframe-0');
-        
+
         //$('#video-iframe-'+index).pauseVideo();
     }
 
@@ -195,7 +200,7 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
             // console.log(`INIT`,usr);
             this.ArtistAcc = usr;
         }
-        
+
         this.GetFolowersAcc();
 
         if(usr.image_id)
@@ -206,7 +211,7 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
             this.baseImageMy = '';
         }
         this.isAccReadyToShow = true;
-    
+
     }
 
     initUser(){
@@ -226,7 +231,7 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
         (val?this.main.accService.FollowAccountById(this.MyAccountId, this.UserId) : this.main.accService.UnFollowAccountById(this.MyAccountId, this.UserId))
             .subscribe(
                 (res:any) =>
-                { 
+                {
                     this.isFolowedAcc = val;
                     this.GetFolowersAcc();
                 },
@@ -234,19 +239,19 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
                 }
             );
     }
-  
+
     isFolowed() {
             this.main.accService.IsAccFolowed(this.MyAccountId, this.UserId).subscribe(
             (res:any) =>
-            { 
+            {
                 this.isFolowedAcc = res.status;
-                
+
             },
             (err) => {
-            
+
             }
         );
-    
+
     }
 
 }

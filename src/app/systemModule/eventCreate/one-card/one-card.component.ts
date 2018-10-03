@@ -55,15 +55,12 @@ export class OneCardComponent extends BaseComponent implements OnInit {
   }
 
 
-  toBeatyShowsList( mas:any[]){
-    let list: string = '';
-    for(let item of mas)
-        list+= item.toUpperCase()+", ";
-    let answer = '';
-    for(let i=0;i<list.length-2;i++)
-        if(list[i]!="_") answer += list[i];
-        else answer += " ";
-    return answer.replace('_',' ');
+  toBeatyShowsList( mas:string[]){
+    let result = [];
+    for(let item of mas){
+      result.push(this.GetTranslateString(item.toUpperCase().replace('_',' ')))
+    }
+    return result.join(', ');
   }
 
   Accept(index:number){

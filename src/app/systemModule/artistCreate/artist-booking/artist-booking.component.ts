@@ -363,7 +363,7 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
       }
     }
     else
-      this.onError.emit('Please fill in all required fields!');
+      this.onError.emit(this.GetTranslateString('Please fill in all required fields!'));
     return;
   }
 
@@ -431,10 +431,10 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
         return true;
       // this.onSave.emit(this.Artist);
       } else {
-        this.onError.emit('Please fill OTHER preferred venue field!');
+        this.onError.emit(this.GetTranslateString('Please fill OTHER preferred venue field!'));
       }
     } else{
-      this.onError.emit('Please fill in all required fields!');
+      this.onError.emit(this.GetTranslateString('Please fill in all required fields!'));
     }
     return false;
   }

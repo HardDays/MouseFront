@@ -689,11 +689,14 @@ export class BaseComponent{
     {
         if (field.errors !== null)
         {
-            
+
             if (field.errors.hasOwnProperty('required'))
             {
-                let strEr = (BaseMessages.RequiredField).replace('_field', keyDict[key]);
-                strEr = this.GetTranslateString(strEr)?this.GetTranslateString(strEr):strEr;
+                let strEr = this.GetTranslateString(BaseMessages.RequiredField)?this.GetTranslateString(BaseMessages.RequiredField):BaseMessages.RequiredField;
+                strEr = (strEr).replace('_field', this.GetTranslateString(keyDict[key])?this.GetTranslateString(keyDict[key]):keyDict[key]);
+
+                // let strEr = (BaseMessages.RequiredField).replace('_field', keyDict[key]);
+                // strEr = this.GetTranslateString(strEr)?this.GetTranslateString(strEr):strEr;
                 return String(strEr)
             }
             else if (field.errors.hasOwnProperty('email'))
@@ -718,8 +721,8 @@ export class BaseComponent{
                 return String(strEr)
               }
               else if (key === 'link' || key === 'album_link' || key === 'album_artwork'){
-                let strEr = (BaseMessages.LinkPattern).replace('_link', keyDict[key]);
-                strEr = this.GetTranslateString(strEr)?this.GetTranslateString(strEr):strEr;
+                let strEr = this.GetTranslateString(BaseMessages.LinkPattern)?this.GetTranslateString(BaseMessages.LinkPattern):BaseMessages.LinkPattern;
+                strEr = (strEr).replace('_link', this.GetTranslateString(keyDict[key])?this.GetTranslateString(keyDict[key]):keyDict[key]);
                 return String(strEr)
               }
               else
@@ -764,7 +767,7 @@ export class BaseComponent{
     protected getResponseErrorMessage(err: Response, entityType='base') {
       const errors = [];
       const keyDict = this.getKeysDict(entityType);
-      
+
       Object.keys(err.json()).forEach((key) => {
             let error = err.json()[key][0];
             // const str = error? this.GetTranslateString(error.replace('_', ' ')):null;
