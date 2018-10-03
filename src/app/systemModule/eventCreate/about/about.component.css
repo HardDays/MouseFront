@@ -41,7 +41,7 @@
     position: relative;
     padding-right: 10px;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     display: flex;
     margin-bottom: 25px;
 }
@@ -51,7 +51,7 @@
 }
 .new-time-input__time-input{
     position: relative;
-    left: -10px;
+    top: -3px;
 }
 .photo-wr-1.n-i-s .bg-image:before{
     background-color: #adadad;
@@ -96,4 +96,20 @@
 }
 .input-groupe-1.dog input{
     padding-left: 13px;
+}
+@media(max-width: 1199px){
+    .new-time-input__time-input{
+        top: -2px;
+    }
+}
+@media(max-width: 767px){
+    /* .flex-input-groupes.xs-none-wrapp{
+        flex-wrap: nowrap;
+    } */
+    .new-time-input__time-input{
+        top: 0;
+        left: -10px;
+        margin-bottom: 15px;
+    }
+    
 }
