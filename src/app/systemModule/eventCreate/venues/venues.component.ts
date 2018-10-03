@@ -559,6 +559,8 @@ export class VenuesComponent extends BaseComponent implements OnInit {
             },(err)=>{
                 if(err.json()['errors']==='Invalid date')
                   this.onError.emit("Venue NOT accepted! Invalid date");
+                else if(err.json()['errors']==='ALREADY_HAS_VENUE')
+                  this.onError.emit(this.GetTranslateString("Failed! This event has already confirmed a venue!"));
                 else
                   this.onError.emit("Venue NOT accepted! "+this.getResponseErrorMessage(err));
                 // console.log(`err`,err);
