@@ -13,7 +13,7 @@
   },
   "private": true,
   "dependencies": {
-    "@agm/core": "^1.0.0-beta.3",
+    "@agm/core": "1.0.0-beta.3",
     "@angular/animations": "^5.2.4",
     "@angular/cdk": "^5.2.4",
     "@angular/common": "^5.2.11",
