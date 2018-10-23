@@ -247,7 +247,7 @@
                         <div class="input-groupe-1 font-size-label more-padd">
                             <div class="rel-wr">
                                 <span class="abs-backs"><span [innerHTML]="CurrencySymbol"></span></span>
-                                <input [textMask]="MaskNumbers()" formControlName="estimated_price" id="inp-modal-req-4" class="dollar" name="" type="text">
+                                <input [textMask]="MaskNumbers()" formControlName="estimated_price" [ngModel]="artistForRequest.price_not_given" id="inp-modal-req-4" class="dollar" name="" type="text">
                             </div>
                             <label for="inp-modal-req-4" translate>event.artist-fold.Estimated Price to<br translate> event.artist-fold.Perform<span>*</span></label>
 

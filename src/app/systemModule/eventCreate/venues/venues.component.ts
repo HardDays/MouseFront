@@ -480,7 +480,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                   if(err.json()['errors']==='HAS_ACCEPTED_VENUE')
                     this.onError.emit(this.GetTranslateString("Failed! This event has already confirmed a venue!"));
                   else
-                    this.onError.emit(this.GetTranslateString("Request wasn't send!"))
+                    this.onError.emit(this.GetTranslateString("Request wasn't sent"))
               });
         }
     }
@@ -516,11 +516,11 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                     this.main.eventService.VenueSendRequest(this.addVenue)
                      .subscribe((send)=>{
                       //  console.log(`ok send`);
-                        this.onError.emit("Request was send!");
+                        this.onError.emit("Request was sent");
                          this.updateEvent();
                         //this.submitVenue();
                 }, (err)=>{
-                  this.onError.emit("Request wasn't send!")
+                  this.onError.emit("Request wasn't sent")
                 })
         }
         else {

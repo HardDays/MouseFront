@@ -38,7 +38,13 @@
                         <span *ngFor="let g of Genres">{{g}}</span>
                     </div>
                     <p class="char">Presented by <strong>{{Owner.display_name}}</strong></p>
-                    <p class="char">Featuring: <strong *ngFor="let art of Artists; let last = last">{{art.display_name}} {{last?'':', '}}</strong></p>
+                    <p class="char">Featuring:
+                      <strong *ngFor="let art of Artists; let last = last">
+                        <span *ngIf="art.status === 'owner_accepted'">
+                          {{art.display_name}} {{last?'':', '}}
+                        </span>
+                      </strong>
+                    </p>
                     <p class="ev_label">Location</p>
                     <div class="location-wr margened">
                         <div (click)="openMap()" class="mark"></div>
