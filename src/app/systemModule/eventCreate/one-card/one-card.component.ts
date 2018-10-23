@@ -34,6 +34,8 @@ export class OneCardComponent extends BaseComponent implements OnInit {
 
   emptyImage = BaseImages.NoneUserImage;
 
+  Address = '';
+
   ngOnInit() {
 
 
@@ -41,7 +43,18 @@ export class OneCardComponent extends BaseComponent implements OnInit {
     this.CurrencySymbol = CurrencyIcons[this.currency];
     // this.getPrice();
 
-    // console.log(`card`,this.card, this.status);
+    let addrArray = [];
+
+    if(this.card.street) addrArray.push(this.card.street);
+    if(this.card.city) addrArray.push(this.card.city);
+    if(this.card.state) addrArray.push(this.card.state);
+    if(this.card.country) addrArray.push(this.card.country);
+
+    this.Address = addrArray.join(', ');
+
+    if(!this.Address){
+      this.Address = this.card.address?this.card.address:this.card.preferred_address?this.card.preferred_address:'';
+    }
   }
   ngOnChanges(change:SimpleChanges){
     if(change.currency){
