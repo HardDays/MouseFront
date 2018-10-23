@@ -719,7 +719,7 @@
 	"addRuOv": " ",
 	"added": "added ",
 	"addedRu": "added ",
-	"Request was send!": "Request was send!",
+	"Request was sent": "Request was sent",
 	"Artist declined!": "Artist declined!",
 	"Venue was declined!": "Venue was declined!",
 	"Error": "Error",
@@ -882,7 +882,7 @@
   "Email name": "Email name",
   "Estimated price": "Estimated price",
   "Failed! This event has already confirmed a venue!": "Failed! This event has already confirmed a venue!",
-  "Request wasn't send!": "Request wasn't send!",
+  "Request wasn't sent": "Request wasn't sent",
   "You need tickets to launch an event!": "You need tickets to launch an event!",
   "Fail! Password confirmation is not matched!": "Fail! Password confirmation is not matched!",
   "Fail! Password is too short!": "Fail! Password is too short!"
