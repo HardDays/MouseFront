@@ -33,18 +33,22 @@
   background-color: #ffffff;
 }
 
-.places-list .item-list img {
+.places-list .item-list .img {
   width: 275px;
   height: 172px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
 }
 
 .places-list .item-list .info {
-  padding-top: 12px;
+  padding-top: 192px;
   text-align: center;
 }
 .places-list .item-list .info .name {
   text-transform: uppercase;
   font-weight: bold;
+  cursor: pointer;
 }
 .main-mw-5 .tabs-venue-wrapp .one-tab-flex .side .filter-venue{
   background-color: #ffffff;

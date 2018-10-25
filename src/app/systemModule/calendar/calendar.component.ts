@@ -1,5 +1,5 @@
 import { BaseComponent } from './../../core/base/base.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { CalendarDate } from './tiny-calendar/tiny-calendar.component';
 import * as moment from 'moment';
 import { AccountGetModel } from '../../core/models/accountGet.model';
@@ -8,6 +8,7 @@ import { VenueDatesModel } from '../../core/models/venueDatesModel';
 
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import { AccountCreateModel } from '../../core/models/accountCreate.model';
+import { BaseImages } from '../../core/base/base.enum';
 
 interface Events {
   id: number;
@@ -15,6 +16,7 @@ interface Events {
   date: string;
   image: string;
   image_id: number;
+  exact_date_from: string;
 }
 
 @Component({
@@ -38,6 +40,14 @@ export class CalendarComponent extends BaseComponent implements OnInit {
     Events: Events[] = [];
 
     ngOnInit() {
+      this.Init();
+      this.main.CurrentAccountChange.
+        subscribe((res)=>{
+          this.Init();
+        })
+    }
+
+    Init(){
       console.log(this.CurrentAccount);
       if(this.CurrentAccount.account_type === 'artist'){
         console.log(`Artist`);;
@@ -75,8 +85,15 @@ export class CalendarComponent extends BaseComponent implements OnInit {
             this.Events.push(date);
           }
        }
+       for(let item of this.Events){
+         if(item.image_id){
+          item.image = this.main.imagesService.GetImagePreview(item.image_id, {width: 275, height: 172})
+         }
+         else {
+           item.image = BaseImages.NoneFolowerImage;
+         }
+       }
        console.log(`Events`,this.Events);
-
     }
 
     GetArtistCalendar(acc:AccountGetModel){

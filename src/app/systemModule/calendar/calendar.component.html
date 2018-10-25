@@ -124,10 +124,11 @@
 
 <div *ngIf="Events.length" class="places-list">
   <div *ngFor="let item of Events" class="item-list">
-    <img src="./../../../assets/img/show.png">
+    <!-- src="./../../../assets/img/show.png" -->
+    <div class="img" [ngStyle]="{'background-image': 'url('+item.image+')'}">
     <div class="info">
-      <p class="name">NAME</p>
-      <p>December 12, 2018</p>
+      <p [routerLink]="['/system','shows_detail',item.id]" class="name">NAME</p>
+      <p *ngIf="item.exact_date_from">{{item.exact_date_from | date: 'MMMM dd, yyy'}}</p>
     </div>
   </div>
 </div>
