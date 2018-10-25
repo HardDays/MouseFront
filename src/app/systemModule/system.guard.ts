@@ -14,12 +14,12 @@ export class SystemAccessGuard extends BaseComponent implements CanActivate{
     canActivate(router:ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>|boolean{
 
         // console.log(router.routeConfig.path, this.main.MyUser.id, localStorage.getItem('new_user_'+this.main.MyUser.id));
-        
+
         //потом просто удалить
         // if(localStorage.getItem('access')!='true') this.router.navigate(['/access']);
         let login = this.main.authService.IsLogedIn();
         this.admin = this.main.MyUser.is_admin||this.main.MyUser.is_superuser;
-      
+
         // if(login&&this.admin){
         //     this.router.navigate(['/admin']);
         // }
@@ -33,7 +33,7 @@ export class SystemAccessGuard extends BaseComponent implements CanActivate{
                 }
             }
         )
-      
+
         if(login&&this.admin){
             this.router.navigate(['/admin']);
         }
@@ -111,10 +111,18 @@ export class SystemAccessGuard extends BaseComponent implements CanActivate{
                 }
                 return true;
             }
-            
+            case "calendar":{
+                if(!login||login&&this.CurrentAccount.account_type==='fan'){
+                    return this.LoginNavigate();
+                }
+                else{
+                    return true;
+                }
+            }
+
         }
     }
-    
+
     LoginNavigate(){
 
         if(this.admin)

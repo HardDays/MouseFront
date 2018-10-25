@@ -24,7 +24,7 @@ import { TranslateModule } from '../../../../node_modules/@ngx-translate/core';
 
 
 @NgModule({
-    imports: [ 
+    imports: [
         RouterModule,
         CommonModule,
         FormsModule,
@@ -40,7 +40,7 @@ import { TranslateModule } from '../../../../node_modules/@ngx-translate/core';
         ErrorModule,
         PreloaderModule,
         ProfileModule,
-        TranslateModule    
+        TranslateModule
     ],
     declarations: [
         ArtistAboutComponent,
@@ -52,11 +52,10 @@ import { TranslateModule } from '../../../../node_modules/@ngx-translate/core';
         AudioComponent,
         ArtistCalendarComponent,
         RiderComponent
-        
+
     ],
     exports: [ ArtistCreateComponent ]
 })
 export class ArtistCreateModule {}
 
 
-  

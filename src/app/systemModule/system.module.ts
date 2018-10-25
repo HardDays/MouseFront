@@ -61,6 +61,8 @@ import { MessageSupportComponent } from './messages/message-support/message-supp
 import { TranslateModule } from '../../../node_modules/@ngx-translate/core';
 import { GlobalSearchModule } from './search/search.module';
 import {SlideshowModule} from 'ng-simple-slideshow';
+import { CalendarComponent } from './calendar/calendar.component';
+import { CalendarModule } from './calendar/calendar.module';
 
 
 @NgModule({
@@ -108,7 +110,8 @@ import {SlideshowModule} from 'ng-simple-slideshow';
     }),
       CommonModule,
       FormsModule,
-      TranslateModule
+      TranslateModule,
+      CalendarModule
   ],
   providers: [ SystemAccessGuard]
 })

@@ -17,24 +17,24 @@
                 </button>
                 <div class="collapse navbar-collapse my-fixed" id="menu">
                     <div class="flex-menu-items">
-                        
+
                         <form class="search-inp" (ngSubmit)="ShowSearchResult()" #SearchForm="ngForm">
-                            <input type="text" 
-                                class="inp-style-1" 
-                                placeholder="{{'Search' | translate}}" 
-                                name="serch-text"  
-                                [ngModel]="Search.text" 
+                            <input type="text"
+                                class="inp-style-1"
+                                placeholder="{{'Search' | translate}}"
+                                name="serch-text"
+                                [ngModel]="Search.text"
                                 (ngModelChange)="Search.text=$event"
                                 autocomplete="off"
                             >
                             <!-- <button type="submit"></button> -->
                         </form>
-                       
+
                         <ul style="height: 64px;">
                             <ng-container *ngIf="MyAccounts.length>0">
-                           
-                                       
-                            
+
+
+
                             <li>
                                 <!--сласс active-->
                                 <a [routerLink]="['/system','shows']" class="icon-3" (click)="curNav = 'shows'" [class.active]="curNav=='shows'" class="icon-3">
@@ -52,7 +52,7 @@
                                 <a [routerLink]="['/system','events']" (click)="curNav = 'event'" class="icon-2" [class.active]="curNav=='event'">
                                     <div class="img-menu">
                                         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35;" xml:space="preserve">
-                                        
+
                                         <g id="Layer_1_1_">
                                             <g>
                                                 <path class="st0" d="M32.3,18.9V8c0-2.7-2.1-4.9-4.9-4.9H5.1C2.3,3.2,0.2,5.3,0.2,8v15.5c0,2.7,2.1,4.9,4.9,4.9h17.5
@@ -83,7 +83,7 @@
                                     <span translate>Feed</span>
                                 </a>
                             </li>
-                           
+
                             <li *ngIf="isLoggedIn" class="dropdown-hover-profiles">
                                 <a class="icon-1" [class.active]="curNav=='profile'" >
                                     <div class="">
@@ -121,9 +121,15 @@
                             </li>
                         </ng-container>
                         </ul>
+                        <div class="vertical-line"></div>
+
+                        <div *ngIf="isLoggedIn&&CurrentAccount.account_type!='fan'" (click)="openCalendar()" class="calendar-wr">
+                          <i class="fa fa-calendar-check-o"></i>
+                        </div>
+
                         <div class="name-and-ava-wr">
                             <!--не авторизован-->
-                             
+
                             <div *ngIf="!isLoggedIn" class="flex-auth">
                                 <a [routerLink]="['/register']" translate>Sign Up</a>
                                 <a [routerLink]="['/login']" translate>nav.Sign In</a>
@@ -133,17 +139,17 @@
                                     <a mat-menu-item (click)="useLanguage('ru')">РУС</a>
                                 </mat-menu>
 
-                                    
+
 
                             </div>
-                            
-                            
+
+
                             <!--авторизован-->
-                            
-                            <div *ngIf="isLoggedIn" class="name-and-ava">                       
-                                <div class="ava" [ngStyle]="{'background-image': 'url('+MyLogo+')'}"></div>                    
+
+                            <div *ngIf="isLoggedIn" class="name-and-ava">
+                                <div class="ava" [ngStyle]="{'background-image': 'url('+MyLogo+')'}"></div>
                             </div>
-                            
+
                             <!--выпадашка если авторизован-->
                             <div *ngIf="isLoggedIn" class="dropdown-settings-ava">
                                 <div *ngIf="MyAccounts.length>0" class="dropdown-items-wr">
@@ -154,7 +160,7 @@
                                     <span (click)="curNav = 'profile'" [routerLink]="['/system','artistCreate','new']" translate>Create Artist</span>
                                     <a (click)="curNav = 'profile'" [routerLink]="['/system','venueCreate','new']" translate>Create Venue</a>
                                 </div>
-                                
+
                                 <div class="dropdown-items-wr">
                                     <!-- <ng-container *ngIf="CurrentAccount && CurrentAccount.account_type"> -->
                                     <ng-container *ngIf="MyAccounts.length>0">
@@ -168,7 +174,7 @@
                             </div>
                             <!--выпадашка-->
 
-                            
+
                         </div>
                     </div>
                 </div>

@@ -2,7 +2,7 @@ import { Component, OnInit, Input, SimpleChanges, EventEmitter, ViewChild, Outpu
 import { BaseComponent } from '../../../../core/base/base.component';
 import { AccountGetModel, Video, Rider } from '../../../../core/models/accountGet.model';
 import { GenreModel } from '../../../../core/models/genres.model';
-import { CalendarDate } from '../../../../systemModule/artistCreate/tiny-calendar/tiny-calendar.component';
+import { CalendarDate } from '../../../../systemModule/calendar/tiny-calendar/tiny-calendar.component';
 import * as moment from 'moment';
 import { BaseImages } from '../../../../core/base/base.enum';
 import { ErrorComponent } from '../../../../shared/error/error.component';

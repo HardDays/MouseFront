@@ -51,7 +51,7 @@ constructor(
 
   ngOnInit() {
 
-    
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -62,8 +62,8 @@ constructor(
           if(date.date)
                 this.EventDates.push({
                 mDate: moment(date.date.split("T")[0]),
-                eventId: date.event_id 
-                
+                eventId: date.event_id
+
                 });
       }
       for(let date of this.artist.disable_dates){
@@ -73,7 +73,7 @@ constructor(
                 });
       }
     }
-    
+
   }
 
 
@@ -87,7 +87,7 @@ constructor(
     }
 
 
-    
+
     // this.onSave.emit(this.artist);
     this.main.accService.UpdateMyAccount(this.artistId,this.artist).subscribe(
         (res)=>{
@@ -105,12 +105,12 @@ constructor(
 
 
   DisableDate(event){
-      if(!event.event){ 
+      if(!event.event){
           if(!event.selected){
               this.DisabledDates.push({
                   mDate: event.mDate
               });
-              
+
           }
           else{
               let BreakException = {};

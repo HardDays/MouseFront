@@ -20,6 +20,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { MyTicketOpenedComponent } from './my-ticket-opened/my-ticket-opened.component';
 import { SettingsComponent } from './settings/settings.component';
 import { GlobalSearchComponent } from './search/search.component';
+import { CalendarComponent } from './calendar/calendar.component';
 
 const routes: Routes =
 [
@@ -37,14 +38,15 @@ const routes: Routes =
       { path: 'tickets', component: TicketsComponent, canActivate: [SystemAccessGuard] },
       // { path: 'shows_detail/:id', component: ShowsDetailComponent, canActivate: [SystemAccessGuard] },
       { path: 'shows_detail/:id', loadChildren: './showsDetail/showsDetail.module#ShowsDetailModule', canActivate: [SystemAccessGuard] },
-     
+
       { path: 'tickets/:id', component: MyTicketOpenedComponent, canActivate: [SystemAccessGuard] },
       { path: 'messages', component: MessagesComponent, canActivate: [SystemAccessGuard] },
       { path: 'settings', component: SettingsComponent, canActivate: [SystemAccessGuard] },
-      { path: 'search', component: GlobalSearchComponent }
+      { path: 'search', component: GlobalSearchComponent },
+      { path: 'calendar', component:CalendarComponent, canActivate: [SystemAccessGuard] }
     ]
   }
-  
+
 ];
 
 @NgModule({

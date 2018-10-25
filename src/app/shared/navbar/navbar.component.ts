@@ -41,7 +41,7 @@ export class NavbarComponent extends BaseComponent implements OnInit
     @ViewChild('SearchForm') form: NgForm;
     ngOnInit()
     {
-       
+
       this.translate.setDefaultLang(this.settings.GetLang());
       this.translang = "ENG";
       this.switchlang();
@@ -59,7 +59,7 @@ export class NavbarComponent extends BaseComponent implements OnInit
           if(Val instanceof NavigationEnd)
           {
             this.curNav = this.getThisPage();
-            
+
           }
           //console.log(Val);
         }
@@ -72,10 +72,10 @@ export class NavbarComponent extends BaseComponent implements OnInit
 
       if(this.isLoggedIn)
         this.main.GetMyAccounts();
-     
 
 
-      
+
+
       // localStorage.setItem('new_user_134','artist');
 
       this.main.MyAccountsChange.subscribe(
@@ -85,7 +85,7 @@ export class NavbarComponent extends BaseComponent implements OnInit
             if(this.MyAccounts.length===0){
               // console.log('get user_'+this.MyUser.id)
               if(!localStorage.getItem('is_register')){
-                
+
                 let type = localStorage.getItem('new_user_'+this.MyUser.id);
                 // localStorage.removeItem('new_user_'+this.MyUser.id);
                 localStorage.setItem('new_user','true');
@@ -163,13 +163,13 @@ export class NavbarComponent extends BaseComponent implements OnInit
       else
         this.settings.GetLang() == 'en'?this.translang = "ENG":this.translang = "РУС";
     }
-    
+
 
 
 
     Navigate(params?:string[])
     {
-      
+
       if(params && params.length)
         this.router.navigate(params);
     }
@@ -179,19 +179,19 @@ export class NavbarComponent extends BaseComponent implements OnInit
         localStorage.removeItem('access');
         this.router.navigate(['/access']);
     }
-      
+
       login()
       {
         this.router.navigate(['/login']);
       }
-    
+
       logout()
       {
         this.Logout();
         // this.initUser();
         this.curNav = 'shows';
       }
-    
+
       edit()
       {
         this.router.navigate(['/system','edit']);
@@ -204,7 +204,7 @@ export class NavbarComponent extends BaseComponent implements OnInit
         this.router.navigate(['/system/profile',item.id]);
         this.getMessageCount();
 
-       
+
         // if (this.router.url === "/system/profile/" + item.id) {
         //   location.reload();
         // }
@@ -217,6 +217,11 @@ export class NavbarComponent extends BaseComponent implements OnInit
       {
         // console.log("new_page",page);
         // console.log("current_page",this.getThisPage());
+      }
+
+      openCalendar()
+      {
+        this.Navigate(['/system','calendar']);
       }
 
 }

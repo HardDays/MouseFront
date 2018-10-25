@@ -1,3 +1,25 @@
+.vertical-line {
+  width: 1px;
+  height: 50px;
+  opacity: 0.1;
+  border-radius: 0.5px;
+  background-color: #ffffff;
+}
+
+.calendar-wr {
+  width: 39px;
+  height: 39px;
+  object-fit: contain;
+  border-radius: 50%;
+  background-color: #d2355d;
+  text-align: center;
+  padding-top: 8px;
+  cursor: pointer;
+}
+.calendar-wr .fa {
+  color: white;
+  font-size: 19px;
+}
 .dropbtn {
     cursor: pointer;
 }
@@ -9,16 +31,16 @@ header .main-mw .right-side{
     padding-bottom: 4px;
 }
 header .main-mw .right-side .search-inp button{
-  border: 0; 
-  clip: rect(0 0 0 0); 
-  clip-path: incet(50%); 
-  height: 1px; 
-  margin: -1px; 
-  overflow: hidden; 
-  padding: 0; 
-  position: absolute; 
-  width: 1px; 
-  white-space: nowrap; 
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: incet(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
 }
 .material-icons{
   font-size: 15px;
@@ -103,19 +125,19 @@ header .main-mw .right-side .search-inp button{
       .dropdown-hover-profiles .dropdown-settings-ava .account-link.active .account-type{
           color: #eb2d64;
       }
-      
+
     .dropdown-hover-profiles .dropdown-settings-ava .account-link .account-name{
         font-size: 14px;
         color: #eb2d64;
         display: block;
         text-align: left;
         text-transform: inherit;
-        white-space: nowrap; 
+        white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
       }
 
-    
+
 
       .dropdown-hover-profiles .dropdown-items-wr{
         position: relative;
@@ -126,7 +148,7 @@ header .main-mw .right-side .search-inp button{
         background: #fff;
         width: 5px;
     }
-    
+
     .dropdown-hover-profiles .dropdown-items-wr::-webkit-scrollbar-thumb {
         background: rgba(0, 0, 0, 0.1);
         border-radius: 2.5px;
@@ -135,7 +157,7 @@ header .main-mw .right-side .search-inp button{
 
     header .main-mw .right-side .flex-menu-items .name-and-ava-wr .dropdown-settings-ava .dropdown-items-wr span.dog{
         display: inline;
-        
+
     color: #eb2d64;
     font-size: 14px;
     }
