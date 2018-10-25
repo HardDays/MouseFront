@@ -8,6 +8,7 @@ import { Component, OnChanges, SimpleChanges, Input, Output, EventEmitter } from
 export class NoticeInputComponentPreview implements OnChanges {
 
     @Input() Days: number;
+    @Input() readonly:boolean = false;
     @Output() OnDaysChange: EventEmitter<number> = new EventEmitter();
 
     Num: number = 0;

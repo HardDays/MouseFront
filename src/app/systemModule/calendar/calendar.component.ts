@@ -53,6 +53,7 @@ export class CalendarComponent extends BaseComponent implements OnInit {
       this.WaitBeforeLoading(
             () => this.main.accService.GetAccountById(id),
             (res:AccountGetModel) => {
+              console.log(`res =`, res);
               if(this.CurrentAccount.account_type === 'artist')
                 this.GetArtistCalendar(res);
               else if(this.CurrentAccount.account_type === 'venue') {
@@ -60,14 +61,25 @@ export class CalendarComponent extends BaseComponent implements OnInit {
                 this.ChangeDates(res.id);
                 this.MyCurrency = this.main.settings.GetCurrency();
               }
+              this.GetEvents(res);
             }, (err)=>{
               console.log(`err`,err);
             }
           );
     }
 
+    GetEvents(acc){
+      this.Events = [];
+       for(let date of acc.events_dates){
+        if(date['id']){
+            this.Events.push(date);
+          }
+       }
+       console.log(`Events`,this.Events);
+
+    }
+
     GetArtistCalendar(acc:AccountGetModel){
-      console.log(`acc`,acc);
       this.EventDates = [];
       this.DisabledDates = [];
       for(let date of acc.events_dates){
@@ -83,7 +95,6 @@ export class CalendarComponent extends BaseComponent implements OnInit {
                 mDate: moment(date.date.split("T")[0])
                 });
       }
-      this.GetEvents();
     }
 
     ChangeDates(id:number, NewDate?:Date)
@@ -110,9 +121,8 @@ export class CalendarComponent extends BaseComponent implements OnInit {
                 this.main.accService.GetVenueDates(id, params)
                     .subscribe(
                         (res) => {
-
                             this.SetChangedPrice(res.dates);
-                            this.SetEventsDates(res.event_dates);
+                            this.SetEventsDates(res.events_dates);
                         }
                     );
 
@@ -147,6 +157,7 @@ export class CalendarComponent extends BaseComponent implements OnInit {
         let arr = [];
         for(const i in input)
         {
+
             if(input[i].id && input[i].exact_date_from)
             {
                 arr.push({
@@ -155,13 +166,10 @@ export class CalendarComponent extends BaseComponent implements OnInit {
                     eventId: input[i].id
                 });
             }
-        }
-        this.eventsDates = this.eventsDates.concat(arr);
-        this.GetEvents();
-    }
 
-    GetEvents(){
-      console.log(`GetEvents`);
+        }
+
+        this.eventsDates = this.eventsDates.concat(arr);
     }
 
     GetPerformanceFromTimeMask(venue:AccountCreateModel)
