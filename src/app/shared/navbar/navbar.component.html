@@ -121,10 +121,11 @@
                             </li>
                         </ng-container>
                         </ul>
-                        <div class="vertical-line"></div>
+                        <div class="logined-wr" >
+                        <div class="vertical-line" *ngIf="isLoggedIn&&CurrentAccount.account_type!='fan'"></div>
 
                         <div *ngIf="isLoggedIn&&CurrentAccount.account_type!='fan'" (click)="openCalendar()" class="calendar-wr">
-                          <i class="fa fa-calendar"></i>
+                          <img src="../../assets/img/small-calendar.png">
                         </div>
 
                         <div class="name-and-ava-wr">
@@ -175,6 +176,7 @@
                             <!--выпадашка-->
 
 
+                        </div>
                         </div>
                     </div>
                 </div>

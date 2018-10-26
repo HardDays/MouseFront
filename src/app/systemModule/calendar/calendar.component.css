@@ -1,54 +1,66 @@
 .title {
-  width: 341px;
-  height: 25px;
-  font-family: AvenirLTStdBook;
+
+  font-family: AvenirLTStdBlack;
   font-size: 35px;
   font-weight: 900;
   font-style: normal;
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
-  text-align: left;
+  text-align: center;
   color: #000000;
   text-transform: uppercase;
-  padding-top: 25px;
-
+  padding-top: 64px;
 }
 
 .places-list{
   width: 100%;
-  margin-bottom: 64px;
-  padding-right: 77px;
-  padding-left: 77px;
-  justify-content: center;
+  margin: 0 auto 64px auto;
+  justify-content: flex-start;
   display: flex;
   flex-wrap:wrap;
+  max-width: 1366px;
+  padding: 0 18px;
 }
 .places-list .item-list{
-  margin-right: 37px;
-  margin-bottom: 37px;
-  width: 275px;
-  height: 315px;
+  padding: 0 18px 37px 18px;
+  width: 25%;
+  
+ 
+}
+
+.tabs-venue-wrapp{
+  max-width: 1366px;
+  margin: 0 auto;
+}
+.box-in-box{
   box-shadow: 0px 2px 18px 0 rgba(0, 0, 0, 0.08);
   background-color: #ffffff;
 }
-
 .places-list .item-list .img {
-  width: 275px;
+  
   height: 172px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50% 50%;
+  z-index: 10;
+  position: relative;
 }
-
+.fffcolor{
+  background: #fff;
+  padding: 20px 15px;
+  min-height: 150px;
+}
 .places-list .item-list .info {
-  padding-top: 192px;
+
   text-align: center;
+  
 }
 .places-list .item-list .info .name {
   text-transform: uppercase;
   font-weight: bold;
   cursor: pointer;
+  font-family: AvenirLTStdBlack;
 }
 
 .places-list .item-list .info .address {
@@ -57,4 +69,59 @@
 }
 .main-mw-5 .tabs-venue-wrapp .one-tab-flex .side .filter-venue{
   background-color: #ffffff;
+}
+@media (max-width: 1250px) {
+  .tabs-venue-wrapp{
+    padding: 0 25px 0 0;
+  }
+}
+
+
+@media (max-width: 1199px) {
+  .places-list .item-list{
+    width: 33.33%;
+  }
+  .tabs-venue-wrapp{
+    padding: 0 25px;
+  }
+}
+@media (max-width: 991px) {
+.one-tab-flex .side{
+  padding-right: 0;
+  margin: 0 auto 25px auto;
+}
+.one-tab-flex .side.width-66{
+  width: 100%;
+}
+}
+@media (max-width: 767px) {
+  .places-list .item-list{
+    width: 50%;
+    padding: 0 15px 30px 15px;
+  }
+  .places-list{
+    padding: 0;
+  }
+  .one-tab-flex .side{
+    padding: 0;
+  }
+  .tabs-venue-wrapp{
+    padding: 0 15px;
+  }
+  .one-tab-flex .side.width-66{
+    padding: 0;
+  }
+  
+}
+@media (max-width: 560px) {
+  .places-list .item-list{
+    width: 100%;
+   
+  }   
+  .places-list .item-list .img{
+    height: 245px;
+  }
+  .fffcolor{
+    min-height: auto;
+  }
 }

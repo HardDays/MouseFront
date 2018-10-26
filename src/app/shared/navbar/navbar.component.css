@@ -5,7 +5,11 @@
   border-radius: 0.5px;
   background-color: #ffffff;
 }
-
+.logined-wr{
+  display: flex;
+  min-width: 150px;
+  justify-content: flex-end;
+}
 .calendar-wr {
   width: 39px;
   height: 39px;
@@ -13,8 +17,11 @@
   border-radius: 50%;
   background-color: #d2355d;
   text-align: center;
-  padding-top: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
+  margin: 0 auto;
 }
 .calendar-wr .fa {
   color: white;
@@ -168,7 +175,36 @@ header .main-mw .right-side .search-inp button{
       }
     }
 
+    @media (max-width: 900px) {
+      .logined-wr{
+        min-width: 125px;
+      }
+      .vertical-line{
+        display: none;
+      }
+    }
+    @media (max-width: 815px) {
+      .logined-wr{
+        min-width: 115px;
+      }
+      header .main-mw .left-side .logo-one{
+        margin-right: 10px;
+      }
+      .calendar-wr{
+        flex-shrink: 0;
+      }
+      header .main-mw .left-side .logo-wr {
+        width: 63px;
+     }
+    }
+
 @media (max-width: 767px) {
+  .calendar-wr{
+    position: absolute;
+    right: 123px;
+    top: 15px;
+  }
+
   header .main-mw .right-side {
     width: auto;
   }
