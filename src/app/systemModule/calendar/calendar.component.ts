@@ -17,6 +17,7 @@ interface Events {
   image: string;
   image_id: number;
   exact_date_from: string;
+  address: string;
 }
 
 @Component({

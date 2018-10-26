@@ -127,8 +127,9 @@
     <!-- src="./../../../assets/img/show.png" -->
     <div class="img" [ngStyle]="{'background-image': 'url('+item.image+')'}">
     <div class="info">
-      <p [routerLink]="['/system','shows_detail',item.id]" class="name">NAME</p>
-      <p *ngIf="item.exact_date_from">{{item.exact_date_from | date: 'MMMM dd, yyy'}}</p>
+      <p [routerLink]="['/system','shows_detail',item.id]" class="name">{{item.name}}</p>
+      <p *ngIf="item.exact_date_from" class="date">{{item.exact_date_from | date: 'MMMM dd, yyy'}}</p>
+      <p class="address">{{item.address}}</p>
     </div>
   </div>
 </div>

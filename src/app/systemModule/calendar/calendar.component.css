@@ -50,6 +50,11 @@
   font-weight: bold;
   cursor: pointer;
 }
+
+.places-list .item-list .info .address {
+  font-size: 13px;
+  font-weight: 100;
+}
 .main-mw-5 .tabs-venue-wrapp .one-tab-flex .side .filter-venue{
   background-color: #ffffff;
 }
