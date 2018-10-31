@@ -115,7 +115,7 @@
                     <div class="flex-wrapp-cards">
 
                         <ng-container *ngFor="let shows of requestVenues">
-                            <div *ngIf="shows.status_not_given!='owner_declined'&&shows.status_not_given!='declined'" class="one-card">
+                            <div *ngIf="shows.status_not_given!='owner_declined'&&shows.status_not_given!='declined'&&shows.status_not_given!='time_expired'" class="one-card">
 
                                 <app-one-card
                                     [card] = "shows"
@@ -164,7 +164,7 @@
                  <div *ngIf="!isAcceptedVenueShow" class="tab-artist">
                     <div class="flex-wrapp-cards">
                         <ng-container *ngFor="let shows of requestVenues">
-                            <div *ngIf="shows.status_not_given=='owner_declined'||shows.status_not_given=='declined'" class="one-card">
+                            <div *ngIf="shows.status_not_given=='owner_declined'||shows.status_not_given=='declined'||shows.status_not_given=='time_expired'" class="one-card">
                                 <app-one-card
                                     [card] = "shows"
                                     [status] = "shows.status_not_given"

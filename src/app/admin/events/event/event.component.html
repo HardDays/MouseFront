@@ -40,9 +40,11 @@
                     <p class="char">Presented by <strong>{{Owner.display_name}}</strong></p>
                     <p class="char">Featuring:
                       <strong *ngFor="let art of Artists; let last = last">
-                        <span *ngIf="art.status === 'owner_accepted'">
-                          {{art.display_name}} {{last?'':', '}}
-                        </span>
+                        <!-- <span *ngIf="art.status === 'owner_accepted'"> -->
+                          <span [routerLink]="['/admin','account',art.id]">
+                            {{art.stage_name?art.stage_name:art.display_name}} {{last?'':', '}}
+                          </span>
+                        <!-- </span> -->
                       </strong>
                     </p>
                     <p class="ev_label">Location</p>
@@ -50,7 +52,9 @@
                         <div (click)="openMap()" class="mark"></div>
                         <p *ngIf="Event.venue" class="location-inp">
                           {{Event.venue?.display_name?Event.venue.display_name+'. ':Event.venue?.user_name?Event.venue.user_name+'. ':''}}
-                          {{Event.venue?.venue_type==='public_venue'&&Event.venue?.address?Event.venue.address:''}}
+                          {{Event.venue?.venue_type==='public_venue'&&Event.venue?.address?
+                              Event.venue.city?
+                              Event.venue.city+", "+Event.venue.state+", "+Event.venue.zipcode+", "+Event.venue.country:Event.venue.address:''}}
                           <a *ngIf="Event.venue&&Event.venue.venue_type!=='public_venue'"
                             [href]="'http://'+Event.venue.web_site" type="_blank">
                             {{Event.venue?.venue_type!=='public_venue'&&Event.venue?.web_site?Event.venue.web_site:''}}

@@ -63,6 +63,7 @@ import { GlobalSearchModule } from './search/search.module';
 import {SlideshowModule} from 'ng-simple-slideshow';
 import { CalendarComponent } from './calendar/calendar.component';
 import { CalendarModule } from './calendar/calendar.module';
+import { MessageListComponent } from './messages/message-list/message-list.component';
 
 
 @NgModule({
@@ -74,7 +75,8 @@ import { CalendarModule } from './calendar/calendar.module';
     MessageRequestComponent,
     MessageAcceptComponent,
     MessageFeedbackComponent,
-    MessageSupportComponent
+    MessageSupportComponent,
+    MessageListComponent
   ],
   imports: [
     CommonModule,

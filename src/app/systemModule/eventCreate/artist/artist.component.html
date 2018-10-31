@@ -33,7 +33,7 @@
 
                         <ng-container *ngIf="Artists&&Artists.length>0">
                             <ng-container *ngFor="let item of Artists; let i = index">
-                                <div *ngIf="item.status_not_given!='owner_declined'&&item.status_not_given!='declined'" class="one-card">
+                                <div *ngIf="item.status_not_given!='owner_declined'&&item.status_not_given!='declined'&&item.status_not_given!='time_expired'" class="one-card">
                                         <app-one-card
                                             [card] = "item"
                                             [status] = "item.status_not_given"
@@ -67,7 +67,7 @@
                     <div class="flex-wrapp-cards">
                         <!--сюда копипастим "one-card" c "tab-artist" который выше-->
                         <ng-container *ngFor="let item of Artists; let i = index">
-                            <div *ngIf="item.status_not_given=='owner_declined'||item.status_not_given=='declined'" class="one-card">
+                            <div *ngIf="item.status_not_given=='owner_declined'||item.status_not_given=='declined'||item.status_not_given=='time_expired'" class="one-card">
 
                                     <app-one-card
                                         [card] = "item"

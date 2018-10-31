@@ -1,4 +1,5 @@
-import { Component, OnInit, NgZone, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
+import { MessageListComponent } from './message-list/message-list.component';
+import { Component, OnInit, NgZone, ChangeDetectorRef, AfterViewChecked, ViewChild } from '@angular/core';
 import { BaseComponent } from '../../core/base/base.component';
 import { InboxMessageModel } from '../../core/models/inboxMessage.model';
 import { AccountAddToEventModel } from '../../core/models/artistAddToEvent.model';
@@ -51,6 +52,11 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
 
   CurrentCurrency = '$';
 
+  messagesCount = 1;
+  selectedItem = {id: 0, message_type: ''};
+
+  @ViewChild('List') List: MessageListComponent;
+
   constructor(
     protected main           : MainService,
     protected _sanitizer     : DomSanitizer,
@@ -67,12 +73,8 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
 
   ngOnInit()
   {
-
-
     this.accountId = this.main.CurrentAccount.id;
     this.type = this.main.CurrentAccount.account_type;
-    this.GetMessages();
-
 
     this.main.MyAccountsChange.subscribe(
       (acc)=>{
@@ -80,12 +82,9 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
         if(acc){
           this.accountId = this.main.CurrentAccount.id;
           this.type = this.main.CurrentAccount.account_type;
-          this.GetMessages();
         }
       }
     )
-    // this.GetMessages();
-
   }
 
   ngAfterViewChecked()
@@ -207,11 +206,6 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
 
   changeItem(msg:InboxMessageModel,i:number)
   {
-    // if(msg.message_type ==='blank'){
-      // this.openMessage = null;
-
-
-
 
       this.main.accService.GetInboxMessageById(this.accountId,msg.id)
         .subscribe((res)=>{
@@ -387,7 +381,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
       this.WaitBeforeLoading(
         () => this.main.eventService.ArtistAcceptedByArtist(this.request),
         (res)=>{
-          this.GetMessages();
+          this.List.GetMessages();
         }
       );
     }
@@ -396,7 +390,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
       this.WaitBeforeLoading(
         () => this.main.eventService.VenueAcceptedByVenue(this.request),
         (res)=>{
-          this.GetMessages();
+          this.List.GetMessages();
         }
       );
     }
@@ -414,7 +408,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
       this.WaitBeforeLoading(
         () => this.main.eventService.ArtistDeclineByArtist(this.request),
         (res)=>{
-          this.GetMessages();
+          this.List.GetMessages();
         }
       );
     }
@@ -423,13 +417,72 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
      this.WaitBeforeLoading(
         () => this.main.eventService.VenueDeclineByVenue(this.request),
         (res)=>{
-          this.GetMessages();
+          this.List.GetMessages();
         }
       );
     }
 
 
 
+  }
+
+  changeMessage(message: {id: number, message_type: string}){
+    this.selectedItem = message;
+    this.openMessage
+          this.main.accService.GetInboxMessageById(this.accountId,message.id)
+        .subscribe((res)=>{
+          this.openMessage = res;
+          // console.log(`open msg = `,this.openMessage);
+
+          this.isEditPrice = false;
+
+
+          if(!this.openMessage.is_receiver_read){
+            this.main.accService.ReadMessageById(this.accountId,message.id)
+              .subscribe((res)=>{
+                this.main.accService.onMessagesChange$.next(true);
+                this.openMessage.is_receiver_read = true;
+                this.messages.find(obj=>obj.id === this.openMessage.id).is_receiver_read = true;
+
+              })
+          }
+
+          if(this.openMessage.reply.length>0){
+            for(let item of this.openMessage.reply){
+              if(item.receiver_id===this.accountId){
+                this.main.accService.ReadMessageById(this.accountId,item.id)
+                  .subscribe((res)=>{
+                    this.main.accService.onMessagesChange$.next(true);
+                    item.is_receiver_read = true;
+                  })
+              }
+            }
+          }
+
+          this.openMessage.reply.unshift({
+            created_at: this.openMessage.created_at,
+            id:this.openMessage.id,
+            message:this.openMessage.message,
+            message_type:'Support',
+            sender: this.openMessage.sender,
+            sender_id:this.openMessage.sender_id,
+            subject:this.openMessage.subject
+            }
+          )
+
+          for(let m of this.openMessage.reply){
+            if(m.sender){
+              if(m.sender.image_id)
+                m.sender.image_base64 = this.main.imagesService.GetImagePreview(m.sender.image_id,{width:140,height:140});
+              else
+                m.sender.image_base64 = BaseImages.NoneFolowerImage;
+            }
+          }
+          // this.idCurMsg = res.id;
+          // this.accOpen =  this.accs[i];
+
+           this.setDateRange();
+        })
   }
 
 

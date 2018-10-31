@@ -29,7 +29,7 @@ export class EventComponent extends BaseComponent implements OnInit {
 
   isShowMap = false;
 
-  
+
   ESCAPE_KEYCODE = 27;
   ENTER_KEYCODE = 13;
 
@@ -45,7 +45,7 @@ export class EventComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     this.InitJs();
 
-    
+
     this.activatedRoute.params.subscribe(
       (params:Params) => {
         this.eventId = params['id'];
@@ -109,22 +109,22 @@ export class EventComponent extends BaseComponent implements OnInit {
       this.Artists = [];
       this.Videos = [];
       for(let art of this.Event.artist){
-        this.main.accService.GetAccountById(art.artist_id)
-          .subscribe(
-            (res)=>{
-              this.Artists.push(res);
-              // console.log(this.Artists);
-              // console.log('1')
-              if(res.videos.length>0){
-                for(let v of res.videos){
-                  this.Videos.push(this.getLink(v.link));
-                  //  console.log(this.Videos)
+        if(art.status==='owner_accepted'){
+          this.main.accService.GetAccountById(art.artist_id)
+            .subscribe(
+              (res)=>{
+                this.Artists.push(res);
+                // console.log('1')
+                if(res.videos.length>0){
+                  for(let v of res.videos){
+                    this.Videos.push(this.getLink(v.link));
+                    //  console.log(this.Videos)
+                  }
+                  // console.log('2')
                 }
-                // console.log('2')
               }
-            }
-
-          )
+            )
+        }
       }
     }
   }
@@ -137,19 +137,19 @@ export class EventComponent extends BaseComponent implements OnInit {
       // $('.photos-abs-wrapp').css({
       //   'max-height': $('.rel-wr-photoos').width()+'px'
       // });
-  
+
       // $(window).resize(function(){
       //     $('.photos-abs-wrapp').css({
       //         'max-height': $('.rel-wr-photoos').width()+'px'
       //     });
       // });
-  
+
       if(this.Videos.length>0){
         $('.event_videos_slider').slick({
             dots: false,
             arrows: true,
             speed: 200
-    
+
         });
       }
     }, 2500);
@@ -214,8 +214,8 @@ export class EventComponent extends BaseComponent implements OnInit {
     this.isShowMap = true;
   }
 
-    
-  
-  
+
+
+
 
 }
