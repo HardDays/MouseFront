@@ -286,7 +286,7 @@
                     </div> -->
                     <ng-container *ngIf="Event.date_from">
                       <div class="flex-input-groupes xs-none-wrapp">
-                          <div class="input-groupe-1 ">
+                          <div class="input-groupe-1 flex-shrink">
                             <!-- #dpFrom="bsDatepicker" bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerFromModel" -->
                             <!-- [ngModel]="Event.exact_date_from|date:'MMM d, y'"  (ngModelChange)="Event.exact_date_from=$event" -->
                               <input #dpExact="bsDatepicker" (onShown)="onShowPicker($event)"  [minDate]="minDate" [maxDate]="maxDate" [disabled]="Event.status === 'active'" bsDatepicker [bsConfig]="bsConfig" [(bsValue)]="datepickerExactModel"  [ngModelOptions]="{standalone: true}" id="inp-create-4" name="exact_date_from" type="text">

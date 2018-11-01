@@ -12,6 +12,10 @@
     width: 200px;
     height: 150px;
 }
+.flex-shrink{
+    flex-shrink: 0;
+    width: 50%!important;
+}
 .photo-wr-1 .new-style-img-up .bg-image:before{
     background-color: #adadad;
     width: 70px;
@@ -110,6 +114,9 @@
         top: 0;
         left: -10px;
         margin-bottom: 15px;
+    }
+    .flex-shrink{
+        width: 100%!important;
     }
     
 }
