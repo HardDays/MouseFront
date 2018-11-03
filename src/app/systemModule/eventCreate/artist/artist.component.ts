@@ -513,6 +513,8 @@ declineArtist(){
   this.main.eventService.ArtistDeclineOwner(this.ownerAcceptDecline).
       subscribe((res)=>{
           $('#modal-decline').modal('hide');
+
+          this.main.accService.onMessagesChange$.next();
          // console.log(`ok decline artist`,res);
           this.onError.emit("Artist declined!");
           this.updateEvent();
@@ -558,6 +560,8 @@ artistSendRequest(id:number){
       setTimeout(() => {
         this.onError.emit("Request was sent");
       }, 400);
+
+      this.main.accService.onMessagesChange$.next();
 
       setTimeout(() => {
         this.updateEvent();

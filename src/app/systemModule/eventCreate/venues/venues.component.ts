@@ -516,6 +516,8 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                     this.main.eventService.VenueSendRequest(this.addVenue)
                      .subscribe((send)=>{
                       //  console.log(`ok send`);
+                      this.main.accService.onMessagesChange$.next();
+
                         this.onError.emit("Request was sent");
                          this.updateEvent();
                         //this.submitVenue();
