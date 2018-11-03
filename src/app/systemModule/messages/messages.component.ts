@@ -116,93 +116,93 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
   }
 
 
-  GetMessages(){
+  // GetMessages(){
 
-    this.CurrentCurrency = CurrencyIcons[this.main.settings.GetCurrency()];
+  //   this.CurrentCurrency = CurrencyIcons[this.main.settings.GetCurrency()];
 
-    this.messages = [];
+  //   this.messages = [];
 
-    if(this.accountId)
-    this.WaitBeforeLoading(
-      () => this.main.accService.GetInboxMessages(this.accountId),
-      (res:InboxMessageModel[])=>{
-        this.messages = res;
-        // console.log(res);
-        for(let m of this.messages){
-          if(m.sender){
-            if(m.sender.image_id){
-              m.sender.image_base64 = this.main.imagesService.GetImagePreview(m.sender.image_id,{width:140,height:140});
-            }
-            else{
-              m.sender.image_base64 = './../'+BaseImages.NoneFolowerImage;
-            }
-          }
-        }
-        if(this.messages.length>0){
-          // console.log(`1111`);
-          // if(this.messages[0].message_type ==='blank'){
-            // this.openMessage = null;
-            this.main.accService.GetInboxMessageById(this.accountId,this.messages[0].id)
-              .subscribe((res)=>{
-                // console.log(res);
-                this.openMessage = res;
-
-
-                 if(!this.openMessage.is_receiver_read){
-                  this.main.accService.ReadMessageById(this.accountId,this.messages[0].id)
-                    .subscribe((res)=>{
-                      this.main.accService.onMessagesChange$.next(true);
-                      this.openMessage.is_receiver_read = true;
-                      this.messages.find(obj=>obj.id === this.openMessage.id).is_receiver_read = true;
-                    })
-                }
-
-                this.openMessage.reply.unshift({
-                  created_at: this.openMessage.created_at,
-                  id:this.openMessage.id,
-                  message:this.openMessage.message,
-                  message_type:this.openMessage.message_type,
-                  sender: this.openMessage.sender,
-                  sender_id:this.openMessage.sender_id,
-                  subject:this.openMessage.subject
-                  }
-                )
+  //   if(this.accountId)
+  //   this.WaitBeforeLoading(
+  //     () => this.main.accService.GetInboxMessages(this.accountId),
+  //     (res:InboxMessageModel[])=>{
+  //       this.messages = res;
+  //       // console.log(res);
+  //       for(let m of this.messages){
+  //         if(m.sender){
+  //           if(m.sender.image_id){
+  //             m.sender.image_base64 = this.main.imagesService.GetImagePreview(m.sender.image_id,{width:140,height:140});
+  //           }
+  //           else{
+  //             m.sender.image_base64 = './../'+BaseImages.NoneFolowerImage;
+  //           }
+  //         }
+  //       }
+  //       if(this.messages.length>0){
+  //         // console.log(`1111`);
+  //         // if(this.messages[0].message_type ==='blank'){
+  //           // this.openMessage = null;
+  //           this.main.accService.GetInboxMessageById(this.accountId,this.messages[0].id)
+  //             .subscribe((res)=>{
+  //               // console.log(res);
+  //               this.openMessage = res;
 
 
-                for(let m of this.openMessage.reply){
-                  if(m.sender&&m.sender.image_id)
-                    m.sender.image_base64 = this.main.imagesService.GetImagePreview(m.sender.image_id,{width:140,height:140});
-                  else
-                    m.sender.image_base64 = BaseImages.NoneFolowerImage;
-                }
-                this.idCurMsg = res.id;
-                this.setDateRange();
-              })
-          // }
-          // else{
-          //   this.openMessage = this.messages[0];
-          //   this.idCurMsg = this.messages[0].id;
-          //   //this.openFullMessage();
-          //   this.setDateRange();
-          // }
-        }
-        // let index = 0;
-        // for(let m of res)
-        // {
-        //   this.WaitBeforeLoading(
-        //     () => this.main.accService.GetInboxMessageById(this.accountId,m.id),
-        //     (info:InboxMessageModel)=>{
-        //       this.messages.push(info);
-        //       //this.getUser(info.sender_id,index);
-        //       index = index + 1;
-        //     }
-        //   );
-        // }
+  //                if(!this.openMessage.is_receiver_read){
+  //                 this.main.accService.ReadMessageById(this.accountId,this.messages[0].id)
+  //                   .subscribe((res)=>{
+  //                     this.main.accService.onMessagesChange$.next(true);
+  //                     this.openMessage.is_receiver_read = true;
+  //                     this.messages.find(obj=>obj.id === this.openMessage.id).is_receiver_read = true;
+  //                   })
+  //               }
 
-      });
+  //               this.openMessage.reply.unshift({
+  //                 created_at: this.openMessage.created_at,
+  //                 id:this.openMessage.id,
+  //                 message:this.openMessage.message,
+  //                 message_type:this.openMessage.message_type,
+  //                 sender: this.openMessage.sender,
+  //                 sender_id:this.openMessage.sender_id,
+  //                 subject:this.openMessage.subject
+  //                 }
+  //               )
 
 
-  }
+  //               for(let m of this.openMessage.reply){
+  //                 if(m.sender&&m.sender.image_id)
+  //                   m.sender.image_base64 = this.main.imagesService.GetImagePreview(m.sender.image_id,{width:140,height:140});
+  //                 else
+  //                   m.sender.image_base64 = BaseImages.NoneFolowerImage;
+  //               }
+  //               this.idCurMsg = res.id;
+  //               this.setDateRange();
+  //             })
+  //         // }
+  //         // else{
+  //         //   this.openMessage = this.messages[0];
+  //         //   this.idCurMsg = this.messages[0].id;
+  //         //   //this.openFullMessage();
+  //         //   this.setDateRange();
+  //         // }
+  //       }
+  //       // let index = 0;
+  //       // for(let m of res)
+  //       // {
+  //       //   this.WaitBeforeLoading(
+  //       //     () => this.main.accService.GetInboxMessageById(this.accountId,m.id),
+  //       //     (info:InboxMessageModel)=>{
+  //       //       this.messages.push(info);
+  //       //       //this.getUser(info.sender_id,index);
+  //       //       index = index + 1;
+  //       //     }
+  //       //   );
+  //       // }
+
+  //     });
+
+
+  // }
 
   changeItem(msg:InboxMessageModel,i:number)
   {
@@ -382,6 +382,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
         () => this.main.eventService.ArtistAcceptedByArtist(this.request),
         (res)=>{
           this.List.GetMessages();
+          this.changeMessage(this.selectedItem);
         }
       );
     }
@@ -391,6 +392,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
         () => this.main.eventService.VenueAcceptedByVenue(this.request),
         (res)=>{
           this.List.GetMessages();
+           this.changeMessage(this.selectedItem);
         }
       );
     }
@@ -409,6 +411,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
         () => this.main.eventService.ArtistDeclineByArtist(this.request),
         (res)=>{
           this.List.GetMessages();
+           this.changeMessage(this.selectedItem);
         }
       );
     }
@@ -418,6 +421,7 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
         () => this.main.eventService.VenueDeclineByVenue(this.request),
         (res)=>{
           this.List.GetMessages();
+           this.changeMessage(this.selectedItem);
         }
       );
     }
@@ -441,9 +445,12 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
             this.main.accService.ReadMessageById(this.accountId,message.id)
               .subscribe((res)=>{
                 this.main.accService.onMessagesChange$.next(true);
-                this.openMessage.is_receiver_read = true;
-                this.messages.find(obj=>obj.id === this.openMessage.id).is_receiver_read = true;
-
+                try{
+                  this.openMessage.is_receiver_read = true;
+                  this.messages.find(obj=>obj.id === this.openMessage.id).is_receiver_read = true;
+                }
+                catch{
+                }
               })
           }
 
