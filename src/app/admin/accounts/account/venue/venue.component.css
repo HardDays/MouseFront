@@ -1,3 +1,18 @@
 .hours-time-wr .hours-hover .hours-drop-show{
     padding: 15px;
 }
+.hours-time-wr .hours-hover .hours-drop-show{
+    left: 50%;
+    top: calc(100% + 15px);
+    transform: translateY(0) translateX(-50%);
+}
+.hours-time-wr .hours-hover .hours-drop-show{
+    width: 220px;
+}
+.hours-time-wr .hours-hover .hours-drop-show:before{
+    border-width: 0 7px 7px 7px;
+    border-color: transparent transparent #fff transparent;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100%);
+}
