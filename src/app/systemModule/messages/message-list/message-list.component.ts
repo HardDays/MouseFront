@@ -128,10 +128,13 @@ export class MessageListComponent extends BaseComponent implements OnInit {
 
   changeItem(message:InboxMessageModel)
   {
-    this.onChangeSelectMessage.emit({
-      id: message.id,
-      message_type: message.message_type
-    });
+    let isExpired = message.message_info&&message.message_info.status&&message.message_info.status === 'time_expired'? true : false;
+    if(!isExpired){
+      this.onChangeSelectMessage.emit({
+        id: message.id,
+        message_type: message.message_type
+      });
+    }
   }
 
 }
