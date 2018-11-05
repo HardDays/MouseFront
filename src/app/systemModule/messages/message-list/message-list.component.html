@@ -2,7 +2,7 @@
 
   <ng-container *ngFor="let item of messages; let i = index">
 
-      <div *ngIf="item.message_type == 'request' || item.message_type == 'accept' || item.message_type == 'blank' || item.message_type == 'decline'" [ngClass]="{'active':item.id==selectedId}" (click)="changeItem(item);" class="one-msg-l-block active">
+      <div *ngIf="item.message_type == 'request' || item.message_type == 'accept' || item.message_type == 'blank' || item.message_type == 'decline'" [ngClass]="{'active':item.id==selectedId && item.message_info?.status != 'time_expired', 'expired':item.message_info?.status === 'time_expired'}" (click)="changeItem(item);" class="one-msg-l-block">
           <div class="name-ava">
               <div class="ava" [ngStyle]="{'background-image': item.sender?'url('+item.sender.image_base64+')':''}"></div>
               <p class="n" translate>{{item.sender?.full_name?item.sender.full_name:'No name'}}</p>
