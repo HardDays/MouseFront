@@ -67,7 +67,7 @@ super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,setti
         changes.selectedDates.currentValue &&
         changes.selectedDates.currentValue.length  > 1) {
           this.sortedDates = _.sortBy(changes.selectedDates.currentValue, (m: CalendarDate) => m.mDate.valueOf());
-          //this.generateCalendar();
+          this.generateCalendar();
         }
   }
   GetEventsInfo(){

@@ -11,7 +11,7 @@
 
   <div class="calendar-add-artist">
       <div class="one-calendar-block">
-        <app-tiny-calendar-preview #calendar [selectedDates]='DisabledDates' [eventDates]="EventDates" ></app-tiny-calendar-preview>
+        <app-tiny-calendar-preview #calendar [selectedDates]='DisabledDates' [eventDates]="EventDates" (onSelectDate)="DisableDateArtist($event)" ></app-tiny-calendar-preview>
       </div>
       <div class="bg-doted-cal"></div>
 

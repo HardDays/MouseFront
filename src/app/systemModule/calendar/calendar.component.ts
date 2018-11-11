@@ -31,6 +31,7 @@ export class CalendarComponent extends BaseComponent implements OnInit {
     EventDates: CalendarDate[] = [];
 
     Venue;
+    Artist;
     changedPrice: CalendarDate[] = [];
     disabledDays: CalendarDate[] = [];
     eventsDates:CalendarDate[] = [];
@@ -65,8 +66,10 @@ export class CalendarComponent extends BaseComponent implements OnInit {
             () => this.main.accService.GetAccountById(id),
             (res:AccountGetModel) => {
               console.log(`res =`, res);
-              if(this.CurrentAccount.account_type === 'artist')
-                this.GetArtistCalendar(res);
+              if(this.CurrentAccount.account_type === 'artist'){
+                this.Artist = res;
+                this.GetArtistCalendar(this.Artist);
+              }
               else if(this.CurrentAccount.account_type === 'venue') {
                 this.Venue = res;
                 this.ChangeDates(res.id);
@@ -98,6 +101,7 @@ export class CalendarComponent extends BaseComponent implements OnInit {
     }
 
     GetArtistCalendar(acc:AccountGetModel){
+
       this.EventDates = [];
       this.DisabledDates = [];
       for(let date of acc.events_dates){
@@ -112,6 +116,55 @@ export class CalendarComponent extends BaseComponent implements OnInit {
                 this.DisabledDates.push({
                 mDate: moment(date.date.split("T")[0])
                 });
+      }
+      console.log(`DisDate = `, this.DisabledDates);
+
+    }
+
+  SendDisableDates(){
+    //this.DisabledDates[0].mDate.format("YYYY-MM-DD");
+    this.Artist.disable_dates = [];
+    for(let date of this.DisabledDates){
+        this.Artist.disable_dates.push({
+            date: date.mDate.format("YYYY-MM-DD")
+        });
+    }
+
+    // this.onSave.emit(this.artist);
+    this.main.accService.UpdateMyAccount(this.Artist.id,this.Artist).subscribe(
+        (res)=>{
+            // console.log(res);
+        }
+        ,(err)=>{
+            // console.log(err);
+        }
+    )
+
+  }
+
+    DisableDateArtist(event){
+      if(!event.event){
+          if(!event.selected){
+              this.DisabledDates.push({
+                  mDate: event.mDate
+              });
+
+          }
+          else{
+              let BreakException = {};
+              try {
+                  this.DisabledDates.forEach(function(e,index,arr){
+                      if(e.mDate.date() == event.mDate.date()){
+                          arr.splice(index,1);
+                          throw BreakException;
+                      }
+                  });
+              } catch (e) {
+                  if (e !== BreakException) throw e;
+              }
+          }
+          this.SendDisableDates();
+
       }
     }
 
