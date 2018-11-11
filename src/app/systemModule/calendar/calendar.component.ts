@@ -9,6 +9,7 @@ import { VenueDatesModel } from '../../core/models/venueDatesModel';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import { AccountCreateModel } from '../../core/models/accountCreate.model';
 import { BaseImages } from '../../core/base/base.enum';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 interface Events {
   id: number;
@@ -30,7 +31,7 @@ export class CalendarComponent extends BaseComponent implements OnInit {
     DisabledDates: CalendarDate[] = [];
     EventDates: CalendarDate[] = [];
 
-    Venue;
+    Venue: AccountGetModel = new AccountGetModel();
     Artist;
     changedPrice: CalendarDate[] = [];
     disabledDays: CalendarDate[] = [];
@@ -40,6 +41,19 @@ export class CalendarComponent extends BaseComponent implements OnInit {
     CurIcons = CurrencyIcons;
 
     Events: Events[] = [];
+
+    dateForm : FormGroup = new FormGroup({
+        "minimum_notice": new FormControl("",[Validators.pattern("[0-9]+"),
+                                Validators.min(0),Validators.max(999)]),
+        "is_flexible": new FormControl("",[]),
+        "price_for_daytime": new FormControl("",[Validators.required,
+                                Validators.min(0),Validators.max(1000000)]),
+        "price_for_nighttime": new FormControl("",[Validators.required,,
+                                Validators.min(0),Validators.max(1000000)]),
+        "performance_time_from": new FormControl("",[]),
+        "performance_time_to": new FormControl("",[]),
+        "minimum_notice_text": new FormControl("",[])
+    });
 
     ngOnInit() {
       this.Init();
@@ -168,6 +182,62 @@ export class CalendarComponent extends BaseComponent implements OnInit {
       }
     }
 
+
+    SaveDates($event)
+    {
+        let arr:VenueDatesModel[] = [];
+        const form = $event.form;
+        let curr_date = moment(form.from);
+        let end_date = moment(form.to);
+        arr.push(this.CalendarFormToVenueDate(curr_date.toDate(),form));
+        if(form.date_range){
+            curr_date.date(curr_date.date() +1);
+            while(curr_date <= end_date){
+
+                arr.push(this.CalendarFormToVenueDate(curr_date.toDate(),form));
+                curr_date.date(curr_date.date() +1);
+            }
+        }
+        this.main.accService.SaveVenueDatesAsArray(this.Venue.id, {dates: arr})
+            .subscribe(
+                (res: any) => {
+                    this.ChangeDates($event.date);
+                }
+            );
+    }
+
+    CalendarFormToVenueDate(date:Date, data:any)
+    {
+        let model = new VenueDatesModel();
+        model.date = this.main.typeService.GetDateStringFormat(date);
+        model.is_available = data.is_available;
+        if(model.is_available)
+        {
+            if(data.price_for_daytime !== null)
+                model.price_for_daytime = parseFloat(data.price_for_daytime);
+
+            if(data.price_for_nighttime !== null)
+                model.price_for_nighttime = parseFloat(data.price_for_nighttime);
+
+
+            if(Number.isNaN(model.price_for_daytime) || Number.isNaN(model.price_for_nighttime))
+            {
+                const index = this.changedPrice.findIndex((val)=> date.toDateString() == val.mDate.toDate().toDateString());
+                if(index != -1)
+                {
+                    if(Number.isNaN(model.price_for_daytime) && !Number.isNaN(this.changedPrice[index].dayPrice))
+                        model.price_for_daytime = this.changedPrice[index].dayPrice;
+
+                    if(Number.isNaN(model.price_for_nighttime) && !Number.isNaN(this.changedPrice[index].nightPrice))
+                        model.price_for_nighttime = this.changedPrice[index].nightPrice;
+                }
+            }
+
+            model.currency = this.MyCurrency;
+        }
+        return model;
+    }
+
     ChangeDates(id:number, NewDate?:Date)
     {
         let params = {
@@ -189,7 +259,7 @@ export class CalendarComponent extends BaseComponent implements OnInit {
             {
                 params.current_date = date_iter.toISOString();
 
-                this.main.accService.GetVenueDates(id, params)
+                this.main.accService.GetVenueDates(this.Venue.id, params)
                     .subscribe(
                         (res) => {
                             this.SetChangedPrice(res.dates);
@@ -281,6 +351,37 @@ export class CalendarComponent extends BaseComponent implements OnInit {
         keepCharPositions: true,
         guide:false
         };
+    }
+
+    SaveEventLeftData() {
+      delete this.Venue["dates"];
+      delete this.Venue["events_dates"];
+
+      this.main.accService.UpdateMyAccount(this.Venue.id,this.Venue).
+      subscribe(
+      (res) => {
+        // this.DisplayVenueParams(res);
+        // this.errorCmp.OpenWindow(BaseMessages.Success);
+        // this.main.GetMyAccounts(
+        //   () => {
+
+        //     this.main.CurrentAccountChange.next(res);
+        //   }
+        // );
+        // setTimeout(
+        //   () => {
+        //     //this.main.CurrentAccountChange.next(res);
+        //     this.errorCmp.CloseWindow();
+        //     this.router.navigate(["/system","profile",this.VenueId]);
+        //     scrollTo(0,0);
+        //   },
+        //   2000
+        // );
+      },
+      (err) => {
+        // this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'venue'));
+      }
+    )
     }
 
 }

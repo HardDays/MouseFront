@@ -210,7 +210,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
   {
     delete this.Venue["dates"];
     delete this.Venue["events_dates"];
-    
+
     this.WaitBeforeLoading
     (
       () => this.VenueId == 0 ? this.main.accService.CreateAccount(this.Venue) : this.main.accService.UpdateMyAccount(this.VenueId,this.Venue),
@@ -219,7 +219,7 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
         this.errorCmp.OpenWindow(BaseMessages.Success);
         this.main.GetMyAccounts(
           () => {
-            
+
             this.main.CurrentAccountChange.next(res);
           }
         );

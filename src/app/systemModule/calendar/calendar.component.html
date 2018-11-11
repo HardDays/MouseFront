@@ -40,7 +40,7 @@
                                 <span class="head-type-inp" translate translate>Venue.Dates-folder.Advance Notice</span>
                                 <span class="head-type-inp grey" translate>Venue.Dates-folder.Minimum advance notice you prefer before booking an event date?</span>
                                 <!-- <div class="flex-day-weeks-month"> -->
-                                    <notice-input-preview *ngIf="Venue.minimum_notice" [readonly]="true" [Days]="Venue.minimum_notice"></notice-input-preview>
+                                    <notice-input-preview *ngIf="Venue.minimum_notice" [Days]="Venue.minimum_notice" (OnDaysChange)="Venue.minimum_notice = $event"></notice-input-preview>
                                     <!-- <input id="venue-dateform-1" [textMask]="GetMinimumNoticeMask()" [(ngModel)]="Venue.minimum_notice" formControlName="minimum_notice" name="" type="text"> -->
                                     <!-- <span class="days-span-label">Days</span> -->
                                     <!-- <div class="mat-w">
@@ -60,7 +60,7 @@
                                     <div class="yes-no">
                                         <span translate>No</span>
                                         <div class="mac-checkbox">
-                                            <input disabled class="checkbox" [(ngModel)]="Venue.is_flexible" checked="" type="checkbox" id="checkbox-set-flexible">
+                                            <input  class="checkbox" [(ngModel)]="Venue.is_flexible" checked="" type="checkbox" id="checkbox-set-flexible">
                                             <label for="checkbox-set-flexible"></label>
                                         </div>
                                         <span translate>Yes</span>
@@ -75,37 +75,42 @@
                             <div class="input-groupe-1">
                                 <div class="rel-wr">
                                     <span class="abs-backs black" [innerHTML]="CurIcons[MyCurrency]"></span>
-                                    <input readonly id="inp-calendar-1" class="dollar" [textMask]="GetPerfomancePriceMask()" [(ngModel)]="Venue.price_for_daytime" name="" type="text">
+                                    <input id="inp-calendar-1" class="dollar" [textMask]="GetPerfomancePriceMask()" [(ngModel)]="Venue.price_for_daytime" name="" type="text">
                                 </div>
                                 <label id="inp-calendar-1" translate>Venue.Dates-folder.Price for Daytime (7AM - 7PM)</label>
                             </div>
                             <div class="input-groupe-1">
                                 <div class="rel-wr">
                                     <span class="abs-backs black" [innerHTML]="CurIcons[MyCurrency]"></span>
-                                    <input readonly id="inp-calendar-2" class="dollar" [textMask]="GetPerfomancePriceMask()" [(ngModel)]="Venue.price_for_nighttime" name="" type="text">
+                                    <input  id="inp-calendar-2" class="dollar" [textMask]="GetPerfomancePriceMask()" [(ngModel)]="Venue.price_for_nighttime" name="" type="text">
                                 </div>
                                 <label id="inp-calendar-2" translate>Venue.Dates-folder.Price for Nighttime (7PM - 7AM)</label>
                             </div>
-                            <div class="input-groupe-1 venue-week-cal-style">
+                            <div *ngIf="Venue.id" class="input-groupe-1 venue-week-cal-style">
                                 <div class="week-day-time-wr none-margin-padd">
 
                                     <div class="from-to">
                                         <span class="from-to-width-1560" translate>Venue.hours-folder.From</span>
                                         <div class="fix-mat-width-uniq">
-                                            <time-input [Time]="Venue.performance_time_from" [disabled]="true" (onTimeChange)="Venue.performance_time_from = $event"></time-input>
+                                            <time-input [Time]="Venue.performance_time_from.split('T')[1]"  (onTimeChange)="Venue.performance_time_from = $event"></time-input>
                                         </div>
                                         <!-- <input class="inp-style-3 time-mask" [textMask]="GetPerformanceFromTimeMask(Venue)"  autocomplete="off" type="text" [(ngModel)]="Venue.performance_time_from" formControlName="performance_time_from"> -->
                                     </div>
                                     <div class="from-to">
                                         <span class="from-to-width-1560" translate>Venue.hours-folder.To</span>
                                         <div class="fix-mat-width-uniq">
-                                            <time-input [Time]="Venue.performance_time_to" [disabled]="true" (onTimeChange)="Venue.performance_time_to = $event"></time-input>
+                                            <time-input [Time]="Venue.performance_time_to.split('T')[1]"  (onTimeChange)="Venue.performance_time_to = $event"></time-input>
                                         </div>
                                         <!-- <input class="inp-style-3 time-mask" [textMask]="GetPerformanceToTimeMask(Venue)"   autocomplete="off" type="text" [(ngModel)]="Venue.performance_time_to" formControlName="performance_time_to"> -->
                                     </div>
                                 </div>
                                 <label translate>Venue.Dates-folder.Performance time</label>
                             </div>
+                            <button class="butt-style-1" (click)="SaveEventLeftData()" style="width: auto; min-width: 130px; margin:0 auto;" >
+                                <span style="padding: 10px 10px" translate>
+                                    Venue.SAVE
+                                </span>
+                            </button>
                         </div>
                     </div>
                    <div class="side width-66">
@@ -114,7 +119,10 @@
                             [selectedDates]="disabledDays"
                             [eventDates]="eventsDates"
                             [changedPrice]="changedPrice"
-                            [CurrencyIcon]="CurIcons[MyCurrency]"></app-big-calendar-preview>
+                            [CurrencyIcon]="CurIcons[MyCurrency]"
+                            (onSelectDate)="SaveDates($event)"
+                            (ChangeMonth)="ChangeDates($event)"
+                        ></app-big-calendar-preview>
                     </div>
                 </div>
             </div>

@@ -20,6 +20,11 @@ export interface CalendarDate {
   today?: boolean;
   event?:boolean;
   eventId?:any;
+
+  changed?:boolean;
+  dayPrice?:number;
+  nightPrice?:number;
+  currency?: string
 }
 
 @Component({
