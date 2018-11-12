@@ -458,7 +458,8 @@ export class BigCalendarComponentPreview implements OnInit, OnChanges {
 
   SaveCheckedDate()
   {
-    if(this.FormVals.from > this.FormVals.to)
+
+    if(this.FormVals.date_range && this.FormVals.from > this.FormVals.to)
     {
       const from = new Date(this.FormVals.to);
       this.FormVals.to = new Date(this.FormVals.from);

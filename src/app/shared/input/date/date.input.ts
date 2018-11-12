@@ -15,7 +15,7 @@ export class DateInput implements OnChanges {
     @Input() DateInput: Date;
     @Output() OnDateChange: EventEmitter<Date> = new EventEmitter<Date>();
     @Output() DayNumbers:number[];
-    
+
     MonthArray:string[] = [];
     YearArray: number[] = [];
     DaysInMonth: number = 0;
@@ -26,12 +26,12 @@ export class DateInput implements OnChanges {
     Month:number = 0;
     Year:number = 0;
 
-    ngOnChanges(changes: SimpleChanges): void 
+    ngOnChanges(changes: SimpleChanges): void
     {
         if(this.DateInput)
         {
             this.CurrentMoment = moment(this.DateInput);
-            
+
         this.CheckMoments();
         }
     }
@@ -44,7 +44,7 @@ export class DateInput implements OnChanges {
         this.GetDaysOfCurrentMonth();
         this.GetMonthArray();
         this.GetYearArray();
-        
+
     }
 
     GetDaysOfCurrentMonth()
@@ -104,8 +104,8 @@ export class DateInput implements OnChanges {
     }
 
     MaskDays(str: string)
-    {    
-        
+    {
+
         let maskArray:any[] = [/[1-9]/];
         let decDays = Math.floor(this.DaysInMonth / 10);
         let singleDays = this.DaysInMonth % 10;

@@ -185,6 +185,8 @@ export class CalendarComponent extends BaseComponent implements OnInit {
 
     SaveDates($event)
     {
+        console.log(`event=`, $event);
+
         let arr:VenueDatesModel[] = [];
         const form = $event.form;
         let curr_date = moment(form.from);
@@ -198,6 +200,8 @@ export class CalendarComponent extends BaseComponent implements OnInit {
                 curr_date.date(curr_date.date() +1);
             }
         }
+        console.log(`dates`, arr);
+
         this.main.accService.SaveVenueDatesAsArray(this.Venue.id, {dates: arr})
             .subscribe(
                 (res: any) => {
