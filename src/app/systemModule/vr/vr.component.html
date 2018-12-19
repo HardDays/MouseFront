@@ -1,4 +1,4 @@
-<div class="video-container">
+<div *ngIf="VRVideoLink" class="video-container">
   <iframe [id]="'ado-'+ContentId"
           [src]="VRVideoLink"
           frameborder="0" width="1280" height="720"
