@@ -1,3 +1,4 @@
+import { VrComponent } from './vr/vr.component';
 import { NgModule } from '@angular/core';
 import { CommonModule, } from '@angular/common';
 import { BrowserModule  } from '@angular/platform-browser';
@@ -43,7 +44,8 @@ const routes: Routes =
       { path: 'messages', component: MessagesComponent, canActivate: [SystemAccessGuard] },
       { path: 'settings', component: SettingsComponent, canActivate: [SystemAccessGuard] },
       { path: 'search', component: GlobalSearchComponent },
-      { path: 'calendar', component:CalendarComponent, canActivate: [SystemAccessGuard] }
+      { path: 'calendar', component:CalendarComponent, canActivate: [SystemAccessGuard] },
+      { path: 'vr', component:VrComponent }
     ]
   }
 
