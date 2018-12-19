@@ -19,7 +19,7 @@ export class VrComponent implements OnInit {
 
   ngOnInit() {
     this.VRVideoLink = this._sanitizer.bypassSecurityTrustResourceUrl(
-      'http://www.vroptimal-3dx-assets.com/content/' + this.ContentId + '?player=true&autoplay=true&referer=' + encodeURIComponent(window.location.href));
+      'https://www.vroptimal-3dx-assets.com/content/' + this.ContentId + '?player=true&autoplay=true&referer=' + encodeURIComponent(window.location.href));
   }
 
   ngAfterViewInit() {
