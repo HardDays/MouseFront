@@ -13,11 +13,18 @@ import { SelectModel } from '../models/select.model';
 import { FrontWorkingTimeModel } from '../models/frontWorkingTime.model';
 import { TicketTypeModel } from '../models/ticketType.model';
 import { CheckModel } from '../models/check.model';
+import { EventGetModel } from '../models/eventGet.model';
+import * as moment from 'moment';
+import { SettingsService } from "./settings.service";
+import { TimeFormat } from "../models/preferences.model";
+import { TranslateService } from "@ngx-translate/core";
 
 @Injectable()
 export class TypeService{
 
-    constructor(private http: HttpService, private router: Router)
+    constructor(private http: HttpService, private router: Router,
+        protected settings       :SettingsService,
+        protected translate      :TranslateService)
     { 
     }
 
@@ -337,6 +344,70 @@ export class TypeService{
     {
         const date = new Date(input);
         return new Date(date.getTime() + date.getTimezoneOffset()*60*1000).toISOString();
+    }
+
+    GetEventDateString(event: EventGetModel)
+    {
+        this.isEnglish() != true?moment.locale('ru'):moment.locale('en');
+        let date = "";
+        const timeFormat = this.settings.GetTimeFormat() == TimeFormat.CIS ? 'HH:mm' : 'hh:mm A';
+        const dateTimeFromat = "DD, YYYY " + timeFormat;
+        
+        if(event.exact_date_from)
+        {
+            let eventDate = this.DateToUTCDateISOString(event.exact_date_from);
+            date = this.DateToUppercaseLetter(eventDate, "MMM") 
+                + moment(eventDate).format(" DD, YYYY ")
+                + "<span>" + moment(eventDate).format(timeFormat) + "</span>";
+        }
+        else if(!event.date_from && !event.date_to)
+        {
+            date = this.GetTranslateString(event.event_season) + ' ' + event.event_year;
+            if(event.event_time)
+            {
+                date = date + " - <span>"+this.GetTranslateString(event.event_time)+"</span>"
+            }
+        }
+        else if (event.date_from && event.date_to)
+        {
+            const dateFrom = this.DateToUppercaseLetter(event.date_from,'dddd')
+                + this.DateToUppercaseLetter(event.date_from,'MMM')
+                + moment(event.date_from).format(dateTimeFromat)
+
+            const dateTo = this.DateToUppercaseLetter(event.date_to,'dddd')
+                 + this.DateToUppercaseLetter(event.date_to,'MMM')
+                 + moment(event.date_to).format(dateTimeFromat)
+
+            let from = event.date_from.split("T")[0];            
+            let to = event.date_to.split("T")[0];
+            if(from === to){
+                // let m = moment(this.Event.date_from);
+                // this.Date = m.format(dateTimeFromat);
+                date = dateFrom;
+                date = date + " - <span>"+ moment(event.date_to).format(timeFormat)+"</span>";
+                //this.Date = date.toLocaleDateString('EEEE, MMM d, yyyy HH:mm');
+            }
+            else{
+                date = dateFrom  + " - " + dateTo;
+            }
+        }
+
+        return date;
+    }
+
+    DateToUppercaseLetter(date, format) : string{
+        let formDate = moment(date).format(format);
+        return formDate[0].toUpperCase() + formDate.substr(1) + ' ';
+    }
+
+    isEnglish(){
+        if(this.settings.GetLang() == 'en')
+            return true;
+    }
+
+    GetTranslateString(str:string):string
+    {
+        return this.translate.parser.getValue(this.translate.store.translations[this.settings.GetLang()],str);
     }
 }
 

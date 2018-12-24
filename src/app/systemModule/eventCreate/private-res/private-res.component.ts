@@ -134,7 +134,7 @@ export class PrivateResComponent extends BaseComponent implements OnInit {
 
                             },
                             (err)=>{
-                              console.log(`err main.eventService.AddVenue`);
+                            //   console.log(`err main.eventService.AddVenue`);
                               if(err.json()['errors']==='HAS_ACCEPTED_VENUE'){
                                 let curLang = this.translate.store.currentLang?this.translate.store.currentLang:this.translate.store.defaultLang;
                                 if(curLang==='en')

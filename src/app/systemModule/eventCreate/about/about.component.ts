@@ -378,12 +378,12 @@ GetCurrentCurrency(){
     }
     TimeChange($event){
       this.Time = $event;
-      console.log(this.Time)
+    //   console.log(this.Time)
     }
 
     SetExactDate(){
       let date = this.main.typeService.GetDateStringFormat(new Date(this.datepickerExactModel.getTime() - this.datepickerExactModel.getTimezoneOffset() * 60000));
-      console.log(date, this.Time);
+    //   console.log(date, this.Time);
       // let exactDate = new Date(date+this.Time);
       // console.log(exactDate.toString());
 

@@ -64,13 +64,13 @@ export class CalendarComponent extends BaseComponent implements OnInit {
     }
 
     Init(){
-      console.log(this.CurrentAccount);
+    //   console.log(this.CurrentAccount);
       if(this.CurrentAccount.account_type === 'artist'){
-        console.log(`Artist`);;
+        // console.log(`Artist`);;
         this.GetAccount(this.CurrentAccount.id);
       }
       else if(this.CurrentAccount.account_type === 'venue'){
-        console.log(`Venue`);
+        // console.log(`Venue`);
         this.GetAccount(this.CurrentAccount.id);
       }
     }
@@ -79,7 +79,7 @@ export class CalendarComponent extends BaseComponent implements OnInit {
       this.WaitBeforeLoading(
             () => this.main.accService.GetAccountById(id),
             (res:AccountGetModel) => {
-              console.log(`res =`, res);
+            //   console.log(`res =`, res);
               if(this.CurrentAccount.account_type === 'artist'){
                 this.Artist = res;
                 this.GetArtistCalendar(this.Artist);
@@ -91,7 +91,7 @@ export class CalendarComponent extends BaseComponent implements OnInit {
               }
               this.GetEvents(res);
             }, (err)=>{
-              console.log(`err`,err);
+            //   console.log(`err`,err);
             }
           );
     }
@@ -111,7 +111,7 @@ export class CalendarComponent extends BaseComponent implements OnInit {
            item.image = BaseImages.NoneFolowerImage;
          }
        }
-       console.log(`Events`,this.Events);
+    //    console.log(`Events`,this.Events);
     }
 
     GetArtistCalendar(acc:AccountGetModel){
@@ -131,7 +131,7 @@ export class CalendarComponent extends BaseComponent implements OnInit {
                 mDate: moment(date.date.split("T")[0])
                 });
       }
-      console.log(`DisDate = `, this.DisabledDates);
+    //   console.log(`DisDate = `, this.DisabledDates);
 
     }
 
@@ -185,7 +185,7 @@ export class CalendarComponent extends BaseComponent implements OnInit {
 
     SaveDates($event)
     {
-        console.log(`event=`, $event);
+        // console.log(`event=`, $event);
 
         let arr:VenueDatesModel[] = [];
         const form = $event.form;
@@ -200,7 +200,7 @@ export class CalendarComponent extends BaseComponent implements OnInit {
                 curr_date.date(curr_date.date() +1);
             }
         }
-        console.log(`dates`, arr);
+        // console.log(`dates`, arr);
 
         this.main.accService.SaveVenueDatesAsArray(this.Venue.id, {dates: arr})
             .subscribe(

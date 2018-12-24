@@ -56,6 +56,25 @@ export class EventGetModel{
         public currency?:string
     )
     {}
+
+    public static GetEventLocation(event: EventGetModel)
+    {
+        if(!event.venue)
+            return event.address;
+        
+        let arr = [];
+
+        if(event.venue.city)
+            arr.push(event.venue.city);
+
+        if(event.venue.state)
+            arr.push(event.venue.state);
+
+        if(event.venue.country)
+            arr.push(event.venue.country);
+
+        return arr.length > 0 ? arr.join(', ') : '';
+    }
 }
 export class TopBackers{
     constructor(

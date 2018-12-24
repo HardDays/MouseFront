@@ -3,6 +3,7 @@ import { BaseComponent } from '../../../core/base/base.component';
 import { EventGetModel } from '../../../core/models/eventGet.model';
 import { BaseImages } from '../../../core/base/base.enum';
 import { Base64ImageModel } from '../../../core/models/base64image.model';
+import { CurrencyIcons, Currency } from '../../../core/models/preferences.model';
 
 declare var $:any;
 @Component({
@@ -16,11 +17,17 @@ export class AnalyticsEventComponent extends BaseComponent {
     Image:string = BaseImages.Drake;
     DaysToGo:number = 0;
     Analyt:any = {};
-
+    EventCurrency = CurrencyIcons[Currency.USD];
+    Date = "";
+    EventLocation = "";
+    
     ShowWindow(event:EventGetModel)
     {
         this.Event = event;
         this.FoundedPercent = 100*this.Event.founded / this.Event.funding_goal;
+        this.EventCurrency = CurrencyIcons[this.Event.currency];
+        this.Date = this.main.typeService.GetEventDateString(this.Event);
+        this.EventLocation = EventGetModel.GetEventLocation(this.Event);
         this.GetData();
     }
 

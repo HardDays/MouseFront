@@ -126,7 +126,7 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
 
                 if(place)
                 {
-                    console.log(place);
+                    // console.log(place);
                     this.Venue.address = place.formatted_address;
 
                     this.Venue.lat = place.geometry.location.toJSON().lat;

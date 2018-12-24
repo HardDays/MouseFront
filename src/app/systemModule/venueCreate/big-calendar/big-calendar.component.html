@@ -78,7 +78,7 @@
                                     }
                                     "
                                 >
-                                    <span><i [innerHTML]="day.currency"></i>{{ day.dayPrice != null? day.dayPrice : (allDaysPriceDay?allDaysPriceDay:0)}}</span>
+                                    <span innerHTML="{{day.currency}}{{ day.dayPrice != null? day.dayPrice : (allDaysPriceDay?allDaysPriceDay:0)}} "></span>
                                 
                                 </p>
                                 <!--"changed-price-night" добавляем класс блоку "night" если была изменина цена ночи-->
@@ -89,7 +89,8 @@
                                     }
                                     "
                                 >
-                                    <span><i [innerHTML]="day.currency"></i>{{ day.nightPrice != null? day.nightPrice : (allDaysPriceNight?allDaysPriceNight:0)}}</span>
+                                    <span innerHTML="{{day.currency}}{{ day.nightPrice != null? day.nightPrice : (allDaysPriceNight?allDaysPriceNight:0)}} "></span>
+                                    <!-- <span><i [innerHTML]="day.currency"></i>{{ day.nightPrice != null? day.nightPrice : (allDaysPriceNight?allDaysPriceNight:0)}}</span> -->
                                 </p>
                             </div>
                         </ng-container>

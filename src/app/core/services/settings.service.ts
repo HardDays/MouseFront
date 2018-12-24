@@ -11,7 +11,7 @@ export class SettingsService{
     public SettingsChange = new Subject<boolean>();
 
     private Settings = new PreferencesModel();
-    constructor(private http: HttpService, private typeService: TypeService)
+    constructor(private http: HttpService)
     {
         this.Settings = this.GetLocalSettings();
         this.SettingsChange.next(true);

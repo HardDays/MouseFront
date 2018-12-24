@@ -59,10 +59,10 @@ export class SettingsComponent extends BaseComponent implements OnInit {
                     this.User.image_base64 = res.base64;
                   })
               }
-                console.log(currentUser);
+                // console.log(currentUser);
 
                   if(currentUser.password){
-                    console.log(`- User.password`);
+                    // console.log(`- User.password`);
                     // delete this.User['id']; // = this.main.MyUser.id
                     let user: UserCreateModel = new UserCreateModel();
                     user.password_confirmation = currentUser.password_confirmation;
@@ -95,7 +95,7 @@ export class SettingsComponent extends BaseComponent implements OnInit {
                 }
                 else
                 {
-                  console.log(`! User.password`);
+                  // console.log(`! User.password`);
                   this.errCmp.OpenWindow(BaseMessages.Success);
             //   this.errorCmp.OpenWindow(BaseMessages.Success);
             //   console.log(`res`,this.User);
