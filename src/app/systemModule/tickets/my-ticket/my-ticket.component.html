@@ -4,7 +4,7 @@
                 <div class="icons-vr-t">
                     <span class="icon-icon">
                         <img *ngIf="Ticket.has_in_person" src="../../assets/img/live-icon.png" class="img-responsive" alt="">
-                        <img *ngIf="Ticket.has_vr" src="../../assets/img/live-video-icon.svg" class="img-responsive" alt="">
+                        <img *ngIf="!Ticket.has_in_person && Ticket.has_vr" src="../../assets/img/live-video-icon.svg" class="img-responsive" alt="">
                     </span>
                 </div>
             </div>

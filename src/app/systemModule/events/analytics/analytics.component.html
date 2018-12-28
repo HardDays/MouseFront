@@ -74,8 +74,8 @@
                         </p>
                         <p class="count redd">{{Analyt.likes}}</p>
                     </div>
-                    <div class="print-wr">
-                        <button disabled="disabled" class="butt-style-1 cursor-disabled">
+                    <div class="print-wr" *ngIf="!isPrint">
+                        <button (click)="printAnalytics()" class="butt-style-1">
                             <span translate>event.Print</span>
                         </button>
                     </div>

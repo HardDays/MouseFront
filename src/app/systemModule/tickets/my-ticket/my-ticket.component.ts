@@ -25,6 +25,7 @@ export class MyTicketComponent extends BaseComponent implements OnInit {
         this.GetImage();
         this.Date = this.main.typeService.GetEventDateString(this.Ticket);
         this.TicketLocation = TicketsGetModel.GetTicketLocation(this.Ticket);
+        // console.log(this.Ticket);
     }
 
 

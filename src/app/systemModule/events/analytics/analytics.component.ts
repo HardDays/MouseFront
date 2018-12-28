@@ -20,6 +20,9 @@ export class AnalyticsEventComponent extends BaseComponent {
     EventCurrency = CurrencyIcons[Currency.USD];
     Date = "";
     EventLocation = "";
+
+    
+    isPrint = false;
     
     ShowWindow(event:EventGetModel)
     {
@@ -68,4 +71,46 @@ export class AnalyticsEventComponent extends BaseComponent {
     {
         $('#modal-analytics').modal('show');
     }
+
+    printAnalytics(){
+
+        // var originalContents = document.body.innerHTML;
+        this.isPrint = true;
+        setTimeout(() => {
+            let printContent = document.getElementById('modal-analytics').innerHTML;
+            let popupWin = window.open('','_blank', 'top=0,left=0,height=100%,width=auto');
+
+            var css = '@page { size: portrait; }';
+            var style = document.createElement('style');
+
+            style.type = 'text/css';
+            style.media = 'print';
+
+            if (style['styleSheet']){
+            style['styleSheet'].cssText = css;
+            } else {
+            style.appendChild(document.createTextNode(css));
+            }
+
+            popupWin.document.write(`
+            <html>
+                <head>
+                <title>Print tab</title>
+                <style>
+                ${style}
+                </style>
+                </head>
+            <body onload="window.print();window.close()">${printContent}</body>
+            </html>`
+            );
+            popupWin.document.close();
+         
+         setTimeout(() => {
+            this.isPrint = false;
+          }, 100);
+        //  document.body.innerHTML = originalContents;
+        }, 100);
+        
+    
+      }
 }
