@@ -94,6 +94,8 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     Allbackers:EventBackersModel[] = [];
     ShareTitle:string = "";
     baseFile:string = "";
+    
+    DaysToGo = 0;
 
     @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
         if(this.isShowMap){
@@ -320,15 +322,19 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         if(this.Event.hashtag)
             this.Event.hashtag = this.Event.hashtag.replace("#","");
 
+        if(this.Event.is_crowdfunding_event)
+        {
+            this.DaysToGo = EventGetModel.GetDaysToGo(this.Event);
+        }
 
-        // this.Currency = CurrencyIcons[this.Event.currency];
+        this.Date = this.main.typeService.GetEventDateString(this.Event);
+        this.Currency = CurrencyIcons[this.Event.currency];
         this.GetEventUpdates();
         this.GetGenres();
         this.GetCreatorInfo();
         this.GetFeaturing();
         this.GetVenueInfo();
         this.GetTickets();
-        this.SetDate();
     }
     ToInfo(){
         this.activeTab = tabsShowDetails.information;
@@ -588,58 +594,5 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
 
         }
         //если да
-    }
-    ToUppercaseLetter(date, format) : string{
-        let formDate = moment(date).format(format);
-        return formDate[0].toUpperCase() + formDate.substr(1) + ' ';
-    }
-
-    SetDate()
-    {
-        this.isEnglish() != true?moment.locale('ru'):moment.locale('en');
-        this.Date = "";
-        const timeFormat = this.main.settings.GetTimeFormat() == TimeFormat.CIS ? 'HH:mm' : 'hh:mm A';
-        const dateTimeFromat = "DD, YYYY " + timeFormat;
-        
-        if(this.Event.exact_date_from)
-        {
-            this.Event.exact_date_from = this.main.typeService.DateToUTCDateISOString(this.Event.exact_date_from);
-            this.Date = this.ToUppercaseLetter(this.Event.exact_date_from, "MMM") 
-                + moment(this.Event.exact_date_from).format(" DD, YYYY ")
-                + "<span>" + moment(this.Event.exact_date_from).format(timeFormat) + "</span>";
-        }
-        else if(!this.Event.date_from && !this.Event.date_to)
-        {
-            this.Date = this.GetTranslateString(this.Event.event_season) + ' ' + this.Event.event_year;
-            if(this.Event.event_time)
-            {
-                this.Date = this.Date + " - <span>"+this.GetTranslateString(this.Event.event_time)+"</span>"
-            }
-
-
-        }
-        else if (this.Event.date_from && this.Event.date_to)
-        {
-            const dateFrom = this.ToUppercaseLetter(this.Event.date_from,'dddd')
-                + this.ToUppercaseLetter(this.Event.date_from,'MMM')
-                + moment(this.Event.date_from).format(dateTimeFromat)
-
-            const dateTo = this.ToUppercaseLetter(this.Event.date_to,'dddd')
-                 + this.ToUppercaseLetter(this.Event.date_to,'MMM')
-                 + moment(this.Event.date_to).format(dateTimeFromat)
-
-            let from = this.Event.date_from.split("T")[0];            
-            let to = this.Event.date_to.split("T")[0];
-            if(from === to){
-                // let m = moment(this.Event.date_from);
-                // this.Date = m.format(dateTimeFromat);
-                this.Date = dateFrom;
-                this.Date = this.Date + " - <span>"+ moment(this.Event.date_to).format(timeFormat)+"</span>";
-                //this.Date = date.toLocaleDateString('EEEE, MMM d, yyyy HH:mm');
-            }
-            else{
-                this.Date = dateFrom  + " - " + dateTo;
-            }
-        }
     }
 }

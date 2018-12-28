@@ -1,3 +1,4 @@
+import { AccountGetModel } from "./accountGet.model";
 
 
 export class TicketsGetModel{
@@ -37,10 +38,43 @@ export class TicketsGetModel{
         public tickets_count?:number,
         public currency?:string,
         public city?:string,
-        public state?:string
+        public state?:string,
+        public venue?: AccountGetModel,
+        public country?: string
         
     )
     {}
+
+    public static GetTicketLocation(ticket: TicketsGetModel)
+    {
+        if(!ticket.venue)
+            return ticket.address;
+        
+        let arr = [];
+
+        if(ticket.venue.city)
+            arr.push(ticket.venue.city);
+
+        if(ticket.venue.state)
+            arr.push(ticket.venue.state);
+
+        if(ticket.venue.country)
+            arr.push(ticket.venue.country);
+
+        if(arr.length > 0)
+            return arr.join(', ');
+
+        if(ticket.city)
+            arr.push(ticket.city);
+
+        if(ticket.state)
+            arr.push(ticket.state);
+        
+        if(ticket.country)
+            arr.push(ticket.country);
+
+        return arr.length > 0 ? arr.join(', ') : '';
+    }
 }
 
 /*export class GetArtists{

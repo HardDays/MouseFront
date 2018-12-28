@@ -202,17 +202,24 @@
                                                 <div class="range" style="overflow: hidden">
                                                     <div class="done" [ngStyle]="{'width':+FoundedPercent +'%'}"></div>
                                                 </div>
-                                                <p class="price-done">{{Event.founded}}</p>
-                                                <p class="descr-crowd" translate>pledged of<span>{{Event.funding_goal}}</span>goal</p>
+                                                <p class="price-done" innerHTML="{{Currency}}{{Event.founded}}"></p>
+                                                <p class="descr-crowd" translate>pledged of<span innerHTML="{{Currency}}{{Event.funding_goal}}"></span>goal</p>
                                                 <div class="flex-crowd-info">
                                                     <div class="one-side">
                                                         <p class="biggy">{{Event.backers}}</p>
                                                         <p class="descr-side" translate>Backers</p>
                                                     </div>
-                                                    <!-- <div class="one-side">
-                                                        <p class="biggy">12</p>
-                                                        <p class="descr-side">Days to go</p>
-                                                    </div> -->
+                                                    <div class="one-side">
+                                                        <ng-container *ngIf="DaysToGo > 0">
+                                                            <p class="biggy">{{DaysToGo}}</p>
+                                                            <p class="descr-side" translate>Days to go</p>
+                                                        </ng-container>
+                                                        <ng-container *ngIf="DaysToGo <= 0">
+                                                            <p class="descr-side" translate>Founding finished</p>
+                                                        </ng-container>    
+
+                                                       
+                                                    </div>
                                                 </div>
                                             </div>
                                             <!--/если краудфандинг ивент-->

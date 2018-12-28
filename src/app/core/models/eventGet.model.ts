@@ -57,7 +57,7 @@ export class EventGetModel{
     )
     {}
 
-    public static GetEventLocation(event: EventGetModel)
+    public static GetEventLocation(event: any)
     {
         if(!event.venue)
             return event.address;
@@ -81,7 +81,7 @@ export class EventGetModel{
         if(!event.is_crowdfunding_event)
             return 0;
         
-        let result = parseInt((((new Date(event.funding_to)).getTime() - (new Date()).getTime())/1000/60/60/24).toFixed(0));
+        let result = parseInt((((new Date(event.funding_to?event.funding_to : event.exact_date_from)).getTime() - (new Date()).getTime())/1000/60/60/24).toFixed(0));
 
         return result;
     }

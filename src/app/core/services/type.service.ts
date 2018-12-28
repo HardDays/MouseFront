@@ -346,7 +346,7 @@ export class TypeService{
         return new Date(date.getTime() + date.getTimezoneOffset()*60*1000).toISOString();
     }
 
-    GetEventDateString(event: EventGetModel)
+    GetEventDateString(event: any)
     {
         this.isEnglish() != true?moment.locale('ru'):moment.locale('en');
         let date = "";

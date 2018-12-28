@@ -16,7 +16,7 @@
                           </div>
                           <div class="cover-artist" [ngStyle]="{'background-image': 'url(' + Image + ')'}"></div>
                           <p class="when" [innerHTML]="Date"></p>
-                          <p class="where">{{TicketsByEvent.event.address}}, {{TicketsByEvent.event?.city?TicketsByEvent.event.city:''}}, {{TicketsByEvent.event?.state?TicketsByEvent.event.state:''}}</p>
+                          <p class="where">{{EventLocation}}</p>
                       </div>
                       <div class="sides">
                           <div class="head-sides-2">
