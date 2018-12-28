@@ -143,6 +143,7 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
                 curr_date.date(curr_date.date() +1);
             }
         }
+        console.log(arr);
         this.main.accService.SaveVenueDatesAsArray(this.VenueId, {dates: arr})
             .subscribe(
                 (res: any) => {
@@ -154,7 +155,7 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
     CalendarFormToVenueDate(date:Date, data:any)
     {
         let model = new VenueDatesModel();
-        model.date = this.main.typeService.GetDateStringFormat(date);
+        model.date = this.main.typeService.GetDateStringFormat(new Date(this.main.typeService.DateToUTCDateISOString(date)));
         model.is_available = data.is_available;
         if(model.is_available)
         {
