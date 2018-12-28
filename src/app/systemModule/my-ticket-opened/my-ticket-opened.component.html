@@ -89,7 +89,7 @@
 
         </p>
         <p class="where">
-            {{TicketsByEvent.event.address}}, {{TicketsByEvent.event?.city?TicketsByEvent.event.city:''}}, {{TicketsByEvent.event?.state?TicketsByEvent.event.state:''}}
+                {{EventLocation}}
         </p>
         <div class="tickets-for-ng" *ngFor="let item of TicketsByEvent.tickets; let i = index">
             <p class="name-ticket" *ngIf="item.ticket.type == 'in_person'">{{i + 1}}. <span translate>Tickets.In person ticket</span> </p>
@@ -110,7 +110,7 @@
                 </div>
                 <div class="col-info">
                     <p class="name-col" translate>Price</p>
-                    <p class="value"><i [innerHTML]="MyCurrency"></i>{{item.price}} {{MyCurrency != OriginalCurrency? '('+OriginalCurrency + item.original_price+')':''}}</p>
+                    <p class="value" innerHTML="{{MyCurrency}}{{item.price}} {{MyCurrency != OriginalCurrency? '('+OriginalCurrency + item.original_price+')':''}}"></p>
                     <p *ngIf="MyCurrency != OriginalCurrency" class="c c-original"></p>
                 </div>
 

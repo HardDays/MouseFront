@@ -270,6 +270,46 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
 
   SuperPuperImportantSaveButton()
   {
+    this.about.aboutForm.updateValueAndValidity();
+    if(this.about.aboutForm.invalid)
+    {
+      this.OpenErrorWindow(this.getFormErrorMessage(this.about.aboutForm, 'venue'));
+      return;
+    }
+    if(this.Venue.fax&&this.Venue.fax.indexOf('_')>=0)
+    {
+        this.OpenErrorWindow('<b>Fax</b> needs to be a valid number');
+        return;
+    }
+    if(this.dates){
+      if(this.dates.dateForm.invalid)
+      {
+        this.OpenErrorWindow(this.getFormErrorMessage(this.dates.dateForm, 'venue'));
+        return;
+      }
+    }
+    if(this.listing){
+      if(this.listing.detailsForm.invalid)
+      {
+        this.OpenErrorWindow(this.getFormErrorMessage(this.listing.detailsForm, 'venue'));
+        return;
+      }
+    }
+    if(this.media)
+    {
+      if(this.media.mediaForm.invalid)
+      {
+        this.OpenErrorWindow(this.getFormErrorMessage(this.media.mediaForm, 'venue'));
+        return;
+      }
+    }
+    if(this.hours)
+    {
+      if(!this.hours.Validate())
+      {
+        return;
+      }
+    }
     switch(this.CurrentPart){
       case this.Parts.About:{
         if(this.about)

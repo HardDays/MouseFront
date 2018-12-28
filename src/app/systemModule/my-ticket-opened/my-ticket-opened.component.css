@@ -104,6 +104,9 @@
 }
 .tickets-for-ng{
     margin-bottom: 30px;
+    
+    page-break-after: auto;
+
 }
 .tickets-for-ng .name-ticket{
     font-size: 24px;

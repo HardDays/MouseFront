@@ -51,27 +51,27 @@
                 </div>
             </div>
         </div>
-        <venue-about-selector #about *ngIf="CurrentPart == Parts.About" (onError)="OpenErrorWindow($event)" (onSaveVenue)="SaveVenueByPages($event)"
+        <venue-about-selector #about [ngStyle]="{'display': CurrentPart != Parts.About?'none':'block'}" (onError)="OpenErrorWindow($event)" (onSaveVenue)="SaveVenueByPages($event)"
             [Venue]="Venue" [VenueImageId]="VenueImageId" [VenueId]="VenueId" (onImageDeleted)="DeleteImage($event)" (onVenueChanged)="VenueChanged($event)" >
         </venue-about-selector>
 
-        <venue-hours-selector #hours *ngIf="CurrentPart == Parts.Hours" (onError)="OpenErrorWindow($event)" (onSaveVenue)="SaveVenueByPages($event)"
+        <venue-hours-selector #hours [ngStyle]="{'display': CurrentPart != Parts.Hours?'none':'block'}" (onError)="OpenErrorWindow($event)" (onSaveVenue)="SaveVenueByPages($event)"
             [Venue]="Venue" (onVenueChanged)="VenueChanged($event)">
         </venue-hours-selector>
 
-        <venue-listing-selector #listing *ngIf="CurrentPart == Parts.Listing" (onError)="OpenErrorWindow($event)" (onSaveVenue)="SaveVenueByPages($event)"
+        <venue-listing-selector #listing [ngStyle]="{'display': CurrentPart != Parts.Listing?'none':'block'}" (onError)="OpenErrorWindow($event)" (onSaveVenue)="SaveVenueByPages($event)"
             [Venue]="Venue" (onVenueChanged)="VenueChanged($event)">
         </venue-listing-selector>
 
-        <venue-media-selector #media *ngIf="CurrentPart == Parts.Media" (onError)="OpenErrorWindow($event)" (onSaveVenue)="SaveVenueByPages($event)"
+        <venue-media-selector #media [ngStyle]="{'display': CurrentPart != Parts.Media?'none':'block'}" (onError)="OpenErrorWindow($event)" (onSaveVenue)="SaveVenueByPages($event)"
             [Venue]="Venue" [VenueId]="VenueId" (onVenueChanged)="VenueChanged($event)">
         </venue-media-selector>
 
-        <venue-dates-selector #dates *ngIf="CurrentPart == Parts.Dates" (onError)="OpenErrorWindow($event)" (onSaveVenue)="SaveVenueByPages($event)"
+        <venue-dates-selector #dates [ngStyle]="{'display': CurrentPart != Parts.Dates?'none':'block'}" (onError)="OpenErrorWindow($event)" (onSaveVenue)="SaveVenueByPages($event)"
             [Venue]="Venue" (onVenueChanged)="VenueChanged($event)" [VenueId]="VenueId">
         </venue-dates-selector>
 
-        <venue-profile-selector [Venue]="Venue" [VenueId]="VenueId" *ngIf="CurrentPart == Parts.Preview" [Account]="Venue" [Fans]="[]" [IsPreview]="true">
+        <venue-profile-selector [ngStyle]="{'display': CurrentPart != Parts.Preview?'none':'block'}" [Venue]="Venue" [VenueId]="VenueId" [Account]="Venue" [Fans]="[]" [IsPreview]="true">
         </venue-profile-selector>
     </div>
 </section>
