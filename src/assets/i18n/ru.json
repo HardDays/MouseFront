@@ -885,5 +885,7 @@
   "Request wasn't sent": "Запрос не был отправлен!",
   "You need tickets to launch an event!": "Вам нужны билеты, чтобы запустить ивент!",
   "Fail! Password confirmation is not matched!": "Ошибка! Пароли не совпадают!",
-  "Fail! Password is too short!": "Ошибка! Пароль слишком короткий!"
+  "Fail! Password is too short!": "Ошибка! Пароль слишком короткий!",
+  "Founding finished": "Сборы завершены",
+  "Days to go": "Дней осталось"
 }

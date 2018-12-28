@@ -20,7 +20,14 @@
                         <div class="funded-desc">
                             <p class="count" innerHTML="{{EventCurrency}}{{Event.founded}} ({{FoundedPercent ? (FoundedPercent | number:'2.0-2') : 0}}%)"></p>
                             <div class="marg">
-                                <!-- <p class="style-text-2"><span>12</span><br>Days to go</p> -->
+                                <p class="style-text-2" *ngIf="Event.is_crowdfunding_event">
+                                    <ng-container *ngIf="DaysToGo > 0">
+                                            <span>{{DaysToGo}}</span> {{'Days to go' | translate}}
+                                    </ng-container>
+                                    <ng-container *ngIf="DaysToGo <= 0">
+                                        {{'Founding finished' | translate}}
+                                    </ng-container>    
+                                </p>
                                 <p class="style-text-2" translate><span>{{Event.backers}}</span><br>Backers</p>
                             </div>
                         </div>

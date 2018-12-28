@@ -28,6 +28,10 @@ export class AnalyticsEventComponent extends BaseComponent {
         this.EventCurrency = CurrencyIcons[this.Event.currency];
         this.Date = this.main.typeService.GetEventDateString(this.Event);
         this.EventLocation = EventGetModel.GetEventLocation(this.Event);
+        if(this.Event.is_crowdfunding_event)
+        {
+            this.DaysToGo = EventGetModel.GetDaysToGo(this.Event);
+        }
         this.GetData();
     }
 
@@ -51,12 +55,12 @@ export class AnalyticsEventComponent extends BaseComponent {
     {
         if(this.Event && this.Event.image_id)
         {
-            this.WaitBeforeLoading(
-                () => this.main.imagesService.GetImageById(this.Event.image_id),
-                (res:Base64ImageModel) => {
-                    this.Image = (res && res.base64) ? res.base64 : BaseImages.Drake;
-                }
-            );
+            this.main.imagesService.GetImageById(this.Event.image_id)
+                .subscribe(
+                    (res:Base64ImageModel) => {
+                        this.Image = (res && res.base64) ? res.base64 : BaseImages.Drake;
+                    }
+                );
         }
     }
 

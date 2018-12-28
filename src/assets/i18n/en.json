@@ -885,5 +885,7 @@
   "Request wasn't sent": "Request wasn't sent",
   "You need tickets to launch an event!": "You need tickets to launch an event!",
   "Fail! Password confirmation is not matched!": "Fail! Password confirmation is not matched!",
-  "Fail! Password is too short!": "Fail! Password is too short!"
+  "Fail! Password is too short!": "Fail! Password is too short!",
+  "Founding finished": "Founding finished",
+  "Days to go": "Days to go"
 }

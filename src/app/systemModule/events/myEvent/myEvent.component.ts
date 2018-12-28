@@ -5,6 +5,7 @@ import { BaseImages } from '../../../core/base/base.enum';
 import { Base64ImageModel } from '../../../core/models/base64image.model';
 import { CurrencyIcons, Currency, TimeFormat } from '../../../core/models/preferences.model';
 import * as moment from 'moment';
+import { getLocaleDateTimeFormat } from '@angular/common';
 
 @Component({
     selector: 'my-event-selector',
@@ -20,6 +21,7 @@ export class MyEventComponent extends BaseComponent implements OnChanges {
     Date:string = "";
     EventCurrency = CurrencyIcons[Currency.USD];
     EventLocation = "";
+    DaysToGo = 0;
 
     ngOnChanges(changes: SimpleChanges): void 
     {
@@ -40,6 +42,10 @@ export class MyEventComponent extends BaseComponent implements OnChanges {
                     this.GetImage();
                     this.Date = this.main.typeService.GetEventDateString(this.Event);
                     this.EventLocation = EventGetModel.GetEventLocation(this.Event);
+                    if(this.Event.is_crowdfunding_event)
+                    {
+                        this.DaysToGo = EventGetModel.GetDaysToGo(this.Event);
+                    }
                 },
                 (err) => {
                     // console.log(err);

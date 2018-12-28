@@ -19,7 +19,14 @@
                 <p class="comlete-t">{{FoundedPercent ? (FoundedPercent | number: '2.0-2') : (0 | number)}}% <span translate>Complete</span></p>
             </div>
         </ng-container>
-        <!-- <p class="style-text-2"><span>60</span> Days to go</p> -->
+        <p class="style-text-2" *ngIf="Event.is_crowdfunding_event">
+            <ng-container *ngIf="DaysToGo > 0">
+                    <span>{{DaysToGo}}</span> {{'Days to go' | translate}}
+            </ng-container>
+            <ng-container *ngIf="DaysToGo <= 0">
+                {{'Founding finished' | translate}}
+            </ng-container>    
+        </p>
         <div class="last-flex-info" *ngIf="!Event.is_active">
             <p class="style-text-2" translate><span>{{Event.backers}}</span> Backers</p>
             <p class="not-active" translate>Not Active</p>

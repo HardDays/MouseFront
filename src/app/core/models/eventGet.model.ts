@@ -75,6 +75,16 @@ export class EventGetModel{
 
         return arr.length > 0 ? arr.join(', ') : '';
     }
+
+    public static GetDaysToGo(event: EventGetModel)
+    {
+        if(!event.is_crowdfunding_event)
+            return 0;
+        
+        let result = parseInt((((new Date(event.funding_to)).getTime() - (new Date()).getTime())/1000/60/60/24).toFixed(0));
+
+        return result;
+    }
 }
 export class TopBackers{
     constructor(
