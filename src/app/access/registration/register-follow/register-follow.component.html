@@ -3,13 +3,13 @@
           <div class="bg-gradient-1"></div>
           <div class="follow-m-w">
               <h3 translate>Choose whom to follow</h3>
-              <div class="search-wr"> 
+              <div class="search-wr">
                     <!-- (change)="artistSearch($event.target.value)" (keyup)="pressEnter($event)" (input)="textChange($event)" -->
                   <input type="text" [(ngModel)]="text" (input)="textChange($event)" (keyup)="pressEnter($event)" [ngModelOptions]="{standalone: true}" class="inp-style-1" placeholder="{{'Search' | translate}}">
               </div>
 
               <app-preloader [white]="true" *ngIf="isLoading"></app-preloader>
-              
+
               <div [ngStyle]="{'display':isLoading?'none':'flex'}" class="flex-bands">
 
                 <div *ngFor="let item of artists; let i = index"  class="one-band">
@@ -19,7 +19,7 @@
                             <div class="photo-band" [ngStyle]="{'background-image': 'url('+item.image_base64_not_given+')'}"></div>
                         </div>
                         <div class="descr">
-                            <p class="name">{{item.display_name?item.display_name:"No name"}}</p>
+                            <p class="name">{{item.stage_name?item.stage_name:"No name"}}</p>
                             <p class="genre" translate>{{niceShowGenre(item.genres)}}</p>
                             <div class="checkbox-style-2"></div>
                         </div>
@@ -29,6 +29,6 @@
               </div>
           </div>
           <div class="butt-to-continue">
-              <button class="butt-style-1" (click)="followArtists()" type="button"><span translate>Сomplete</span></button>  
+              <button class="butt-style-1" (click)="followArtists()" type="button"><span translate>Сomplete</span></button>
           </div>
       </form>

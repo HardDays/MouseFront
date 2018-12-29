@@ -5,7 +5,7 @@
               <div class="main-mw">
                   <div class="flex--info">
                       <div class="side side-info-new-venue-prev side-info side-about">
-                          <h1>{{Artist.display_name}}</h1>
+                          <h1>{{Artist.stage_name}}</h1>
                           <p class="hash"><span>@</span>{{Artist.user_name}}</p>
                           <p *ngIf="Artist.manager_name" class="manager">
                               Manager:
@@ -200,11 +200,11 @@
                           </p>
                           <p *ngIf="Artist.price_from" class="about-text flexed">
                               <span>Performance Price:</span>
-                              <span><i [innerHTML]="CurrencySymbol"></i>{{Artist.price_from}}/h - <i [innerHTML]="CurrencySymbol"></i>{{Artist.price_to}}/h</span>
+                              <span><i class="normalFontStyle" [innerHTML]="CurrencySymbol"></i>{{Artist.price_from}}/h - <i class="normalFontStyle" [innerHTML]="CurrencySymbol"></i>{{Artist.price_to}}/h</span>
                           </p>
                           <p *ngIf="Artist.additional_hours_price" class="about-text flexed">
                               <span>Performance Price for additional Hours:</span>
-                              <span><i [innerHTML]="CurrencySymbol"></i>{{Artist.additional_hours_price}}/h</span>
+                              <span><i class="normalFontStyle" [innerHTML]="CurrencySymbol"></i>{{Artist.additional_hours_price}}/h</span>
                           </p>
                       </div>
                       <div class="side side-info side-contact">
@@ -274,7 +274,7 @@
                             <span>{{Artist.min_time_to_free_cancel}} days</span> to cancel before charged a cancellation fee.
                           </p>
                           <p *ngIf="Artist.late_cancellation_fee" class="about-text margened">
-                            Fee for last minute Cancellation: <span><i [innerHTML]="CurrencySymbol"></i>{{Artist.late_cancellation_fee}}</span>
+                            Fee for last minute Cancellation: <span><i class="normalFontStyle" [innerHTML]="CurrencySymbol"></i>{{Artist.late_cancellation_fee}}</span>
                           </p>
                           <p class="about-text margened">
                             <strong> {{Artist&&Artist.refund_policy?Artist.refund_policy:'No Refunds'}}</strong>

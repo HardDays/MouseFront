@@ -23,7 +23,7 @@
                         <div *ngIf="selectedItem?.message_type === 'request'" class="right-s">
                             <div *ngIf="openMessage.id&&(openMessage.message_type=='request'&&openMessage.message_info||openMessage.message_type!='request')" class="some-request-text-wrapper">
                                 <div class="block-info f-b">
-                                    <span class="some-t" translate>{{openMessage.message_type?openMessage.message_type:''}} to Perform</span>
+                                    <span class="some-t" translate>{{openMessage.message_type?openMessage.message_type:''}} to host</span>
                                     <span class="when" translate>{{openMessage.created_at| date:'MMM' | translate}}{{openMessage.created_at| date:' d' }}</span>
                                 </div>
                                 <div class="block-info s-b">
@@ -46,14 +46,14 @@
                                     <p *ngIf="openMessage.message_type == 'accept' &&openMessage.message_info" class="fot-edit">{{openMessage.message_info?.preferred_date_from| date}} - {{openMessage.message_info?.preferred_date_to| date}} </p>
 
 
-                                    <p *ngIf="openMessage.message_type == 'request'" class="desc-for-edit" translate>(You can pick the dates you are available to perform)</p>
+                                    <p *ngIf="openMessage.message_type == 'request'" class="desc-for-edit" translate>(You can pick the dates you are available to host)</p>
                                     <p *ngIf="openMessage&&openMessage.message_info&&openMessage.message_info?.event_info&&openMessage.message_info?.event_info.is_crowdfunding_event" class="event-type" translate>Crowdfunded Event</p>
                                 </div>
                                 <div *ngIf="openMessage.message_info?.estimated_price" class="block-info fourth-b">
                                     <p class="fot-edit">
 
-                                        {{'Price to Perform' | translate}}<span>
-                                            <i [innerHTML]="CurrentCurrency"></i>
+                                        {{'Price to host' | translate}}<span>
+                                            <i class="normalFontStyle" [innerHTML]="CurrentCurrency"></i>
                                             {{(openMessage.message_type&&openMessage.message_info&&openMessage.message_type == 'request')?openMessage.message_info?.estimated_price:''}}</span>
                                         <img *ngIf="openMessage.message_type == 'request'&&openMessage?.message_info?.info_send.length===0&&openMessage.message_info.status!='time_expired'" src="../../assets/img/edit-img.png" (click)="isEditPrice = true" class="img-responsive for-edit-img" alt="">
                                     </p>
@@ -63,14 +63,14 @@
                                     <div *ngIf="isEditPrice" class="flex-price-change">
                                         <p class="your-price" translate>Change price</p>
                                         <div class="rel-dog">
-                                            <span> <i [innerHTML]="CurrentCurrency"></i></span>
+                                            <span> <i class="normalFontStyle" [innerHTML]="CurrentCurrency"></i></span>
                                             <input [(ngModel)]="changePrice" class="inp-style-2" type="text">
                                         </div>
                                     </div>
                                     <!--/поялвляется если нажать на картинку "for-edit-img"-->
 
 
-                                    <p *ngIf="openMessage.message_type == 'request'" class="desc-for-edit" translate>You can change the Price to Perform</p>
+                                    <p *ngIf="openMessage.message_type == 'request'" class="desc-for-edit" translate>You can change the Price to host</p>
                                 </div>
                                 <div *ngIf="openMessage.message_type == 'request'" class="block-info fifth-b">
                                     <p *ngIf="openMessage.message_info?.expiration_date" class="will-expire">{{'This request will expire on' | translate}}{{ openMessage.message_info?.expiration_date | date:'MMM' | translate}} {{ openMessage.message_info?.expiration_date | date:'dd yyyy' }}</p>
@@ -107,7 +107,7 @@
                         <div  *ngIf="selectedItem?.message_type === 'accept'" class="right-s">
                                 <div *ngIf="openMessage.id&&(openMessage.message_type=='request'&&openMessage.message_info||openMessage.message_type!='request')" class="some-request-text-wrapper">
                                     <div class="block-info f-b">
-                                        <span class="some-t" translate>{{openMessage.message_type?openMessage.message_type:''}} to Perform</span>
+                                        <span class="some-t" translate>{{openMessage.message_type?openMessage.message_type:''}} to host</span>
                                         <span class="when" translate>{{openMessage.created_at| date:'MMM' | translate}}{{openMessage.created_at| date:' d' }}</span>
                                     </div>
                                     <div class="block-info s-b">
@@ -178,14 +178,14 @@
 
 
 
-                                        <p *ngIf="openMessage.message_type == 'request'" class="desc-for-edit" translate>(You can pick the dates you are available to perform)</p>
+                                        <p *ngIf="openMessage.message_type == 'request'" class="desc-for-edit" translate>(You can pick the dates you are available to host)</p>
                                         <p *ngIf="openMessage&&openMessage.message_info&&openMessage.message_info?.event_info&&openMessage.message_info?.event_info.is_crowdfunding_event" class="event-type" translate>Crowdfunded Event</p>
                                     </div>
                                     <div *ngIf="openMessage.message_info?.estimated_price" class="block-info fourth-b">
                                         <p class="fot-edit">
 
-                                        <span translate>Price to Perform</span> <span>
-                                                <span> <i [innerHTML]="CurrentCurrency"></i></span>
+                                        <span translate>Price to host</span> <span>
+                                                <span> <i class="normalFontStyle" [innerHTML]="CurrentCurrency"></i></span>
                                                 {{(openMessage.message_type&&openMessage.message_info&&openMessage.message_type == 'request')?openMessage.message_info?.estimated_price:openMessage.message_info?.price}}</span>
                                             <img *ngIf="openMessage.message_type == 'request'&&openMessage?.message_info?.info_send.length===0" src="../../assets/img/edit-img.png" (click)="isEditPrice = true" class="img-responsive for-edit-img" alt="">
                                         </p>
@@ -195,14 +195,14 @@
                                         <div *ngIf="isEditPrice" class="flex-price-change">
                                             <p class="your-price" translate>Change price</p>
                                             <div class="rel-dog">
-                                                <span> <i [innerHTML]="CurrentCurrency"></i></span>
+                                                <span> <i class="normalFontStyle" [innerHTML]="CurrentCurrency"></i></span>
                                                 <input [(ngModel)]="changePrice" class="inp-style-2" type="text">
                                             </div>
                                         </div>
                                         <!--/поялвляется если нажать на картинку "for-edit-img"-->
 
 
-                                        <p *ngIf="openMessage.message_type == 'request'" class="desc-for-edit" translate>You can change the Price to Perform</p>
+                                        <p *ngIf="openMessage.message_type == 'request'" class="desc-for-edit" translate>You can change the Price to host</p>
                                     </div>
                                     <div *ngIf="openMessage.message_type == 'request'" class="block-info fifth-b">
                                         <p *ngIf="openMessage.message_info?.expiration_date" class="will-expire">{{'This request will expire on' | translate}} {{ openMessage.message_info?.expiration_date | date }}</p>

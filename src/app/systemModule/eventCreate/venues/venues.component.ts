@@ -83,7 +83,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         datetime_from:'',
         datetime_to:'',
         additional_text:'',
-        reason:'other'
+        reason:''
     }
 
     isShowMap = false;
@@ -588,6 +588,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
   }
 
     declineVenue(){
+      if(this.ownerAcceptDecline.reason){
         this.main.eventService.VenueDeclineOwner(this.ownerAcceptDecline).
             subscribe((res)=>{
                 $('#modal-decline').modal('hide');
@@ -596,6 +597,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
             },(err)=>{
                 this.onError.emit("Venue was't declined!");
             });
+      }
     }
 
     sendVenueRequestOpenModal(venue:AccountGetModel){

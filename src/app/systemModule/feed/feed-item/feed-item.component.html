@@ -3,10 +3,11 @@
     <div class="feed-item">
         <div class="head-feed-item">
             <div class="flex-ava-n">
-                <div class="ava" [ngStyle]="{'background-image':Feed.account.img_base64?'url('+Feed.account.img_base64+')':''}"></div>
+                <div class="ava" style="cursor: pointer;" [routerLink]="['/system','profile',Feed.account.id]" [ngStyle]="{'background-image':Feed.account.img_base64?'url('+Feed.account.img_base64+')':''}"></div>
                 <div class="name-desc">
                     <div class="name">
-                        <p>{{Feed.account?.display_name?Feed.account.display_name:Feed.account.user_name}}</p>
+                        <p style="cursor: pointer;" [routerLink]="['/system','profile',Feed.account.id]">{{Feed.account?.stage_name ? Feed.account.stage_name :  Feed.account?.display_name ? Feed.account.display_name : Feed.account.user_name}}</p>
+
                         <a [routerLink]="['/system','profile',Feed.account.id]" class="hash"><span>@</span>{{Feed.account.user_name}}</a>
                     </div>
                     <div class="desc">

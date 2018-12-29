@@ -80,7 +80,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
       datetime_from:'',
       datetime_to:'',
       additional_text:'',
-      reason:'other'
+      reason:''
     }
 
     messagesList:InboxMessageModel[] = [];
@@ -507,22 +507,20 @@ openDeclineModal(card:AccountGetModel){
 }
 
 declineArtist(){
+  if(this.ownerAcceptDecline.reason){
+    this.main.eventService.ArtistDeclineOwner(this.ownerAcceptDecline).
+        subscribe((res)=>{
+            $('#modal-decline').modal('hide');
 
-
-  //console.log(`dicline`,this.ownerAcceptDecline);
-  this.main.eventService.ArtistDeclineOwner(this.ownerAcceptDecline).
-      subscribe((res)=>{
-          $('#modal-decline').modal('hide');
-
-          this.main.accService.onMessagesChange$.next();
-         // console.log(`ok decline artist`,res);
-          this.onError.emit("Artist declined!");
-          this.updateEvent();
-          this.isEmptyDeclinedArtists();
-      },(err)=>{
-        this.onError.emit("Artist NOT declined!");
-      });
-
+            this.main.accService.onMessagesChange$.next();
+           // console.log(`ok decline artist`,res);
+            this.onError.emit("Artist declined!");
+            this.updateEvent();
+            this.isEmptyDeclinedArtists();
+        },(err)=>{
+          this.onError.emit("Artist NOT declined!");
+        });
+  }
 }
 
 
