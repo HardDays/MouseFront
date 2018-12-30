@@ -122,11 +122,17 @@
                                     <div class="new-scroll-wr">
                                         <div class="blocks">
                                             <ng-container *ngFor="let item of AlbumsChecked">
-                                                <a [href]="item.album_link" target="_blank" class="one-block new-link-to-sound" [ngStyle]="{'background-image': item.album_artwork?'url('+item.album_artwork+')':'url(../../assets/img/drake.jpg)'}">
+
+                                                <a *ngIf="!IsPreview" [href]="item.album_link" target="_blank" class="one-block new-link-to-sound" [ngStyle]="{'background-image': item.album_artwork?'url('+item.album_artwork+')':'url(../../assets/img/drake.jpg)'}">
                                                     <div class="desc">
                                                         <p class="name">{{item.album_name}}</p>
                                                     </div>
                                                 </a>
+                                                <div *ngIf="IsPreview" class="one-block new-link-to-sound" [ngStyle]="{'background-image': item.album_artwork?'url('+item.album_artwork+')':'url(../../assets/img/drake.jpg)'}">
+                                                    <div class="desc">
+                                                        <p class="name">{{item.album_name}}</p>
+                                                    </div>
+                                                </div>
                                             </ng-container>
 
                                         </div>
@@ -150,9 +156,12 @@
                                             <ng-container *ngFor="let item of UpcomingShowsChecked">
 
                                                 <ng-container class="one-block">
-                                                    <a [routerLink]="['/system','shows_detail',item.id]" style="display:block">
+                                                    <a *ngIf="!IsPreview" [routerLink]="['/system','shows_detail',item.id]" style="display:block">
                                                         <app-upcoming-shows-profile [Upshows]="item"></app-upcoming-shows-profile>
                                                     </a>
+                                                    <div *ngIf="IsPreview" style="display:block">
+                                                        <app-upcoming-shows-profile [Upshows]="item"></app-upcoming-shows-profile>
+                                                    </div>
                                                 </ng-container>
 
                                             </ng-container>
@@ -171,7 +180,7 @@
                                         <div class="blocks-funs">
                                             <ng-container *ngFor="let item of FansChecked">
                                                 <div class="one-block">
-                                                    <app-one-folower-for-profile [Folower]="item"></app-one-folower-for-profile>
+                                                    <app-one-folower-for-profile [IsPreview]="IsPreview" [Folower]="item"></app-one-folower-for-profile>
                                                 </div>
                                             </ng-container>
                                         </div>

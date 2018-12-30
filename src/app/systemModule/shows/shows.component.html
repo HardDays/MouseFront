@@ -8,8 +8,8 @@
     <section class="main_content">
         <div class="for-flex-height">
             <section class="second-router-outlet">
-                
-                
+
+
                 <div *ngIf="isShowMap" class="map-here" >
                     <agm-map [latitude]="MyCoords.lat" [zoom]="7" [longitude]="MyCoords.lng" #map class="map-height-style">
                         <agm-marker *ngFor="let item of Events" (markerClick)="openShow(item.id)" [latitude]="item.city_lat" [longitude]="item.city_lng">
@@ -30,7 +30,7 @@
                                     <div class="ham"></div>
                                 </button>
                                 <a (click)="openMap()" class="ham-ham at-map" [ngClass]="{'deactive':isShowMap}">
-                                    
+
                                 </a>
                                 <h1 translate>Shows</h1>
                             </div>
@@ -40,7 +40,7 @@
                                 [infiniteScrollDisabled]="ScrollDisabled">
                                 <ng-container *ngFor="let item of Events">
                                     <a *ngIf="item.creator_id" style="display:block" class="one-show-wr" [routerLink]="['/system','shows_detail',item.id]">
-                                        
+
                                         <shows-item-selector  [Show]="item"></shows-item-selector>
 
                                     </a>
@@ -54,10 +54,43 @@
         </div>
     </section>
 </section>
-        
+
+
+<div class="modal fade modal-slider" id="modal-slider">
+    <div class="modal-dialog">
+        <div class="modal-body">
+            <div class="rel-modal">
+                <div class="close-modal" data-dismiss="modal"></div>
+                <div class="slider-padd">
+                    <div class="slider-modal-wr">
+                        <div class="one-slide">
+                            <h4><span>Share</span> shows you like <span>with friends</span></h4>
+                        </div>
+                        <div class="one-slide">
+                            <h4>Watch shows in <span>360°</span> virtual reality devices</h4>
+                        </div>
+                        <div class="one-slide">
+                            <h4>Crowdfund <span>shows</span> of your favorite artists <span>in your hometown</span></h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-buttons-modal">
+                    <div class="one-butt-wr">
+                        <div class="style-b-op">
+                            <span data-dismiss="modal">Sign up later</span>
+                        </div>
+                    </div>
+                    <div class="one-butt-wr">
+                        <div class="style-b-op">
+                            <a (click)="signUpNavigation()">Sign up</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
 
-
-        

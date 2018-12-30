@@ -90,14 +90,14 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
         this.GetEvents();
         this.openSearch();
         this.setHeightSearch();
-       
+
          //this.getPosition();
         if(navigator.geolocation && !(navigator.geolocation === undefined)){
             // console.log(`navigator.geolocation`);
             navigator.geolocation.getCurrentPosition((position) => {
                 this.MyCoords.lat = position.coords.latitude;
                 this.MyCoords.lng = position.coords.longitude - 2;
-                
+
                 // console.log(`position.coords`,position.coords,this.MyCoords);
                 if(this.MyCoords.lat === 0 && this.MyCoords.lng === 0)
                     this.getPosition();
@@ -111,7 +111,25 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
         } else {
            this.getPosition()
         }
-    } 
+
+        if(!this.MyUser.id)
+          this.showFirstMouseOpeningModal();
+    }
+
+    showFirstMouseOpeningModal(){
+      $('.slider-modal-wr').slick({
+            dots: false,
+            arrows: true,
+              infinite: true,
+              slidesToShow: 1
+
+        });
+      $('#modal-slider').modal('show');
+    }
+    signUpNavigation(){
+      $('#modal-slider').modal('toggle');
+      this.router.navigate(['/register']);
+    }
 
     getPosition(){
         //console.log(`api.ipstack`);
@@ -124,7 +142,7 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
         this.main.accService.GetLocation()
             .subscribe((data)=>{
                 // console.log(`data`,data);
-                
+
                 this.MyCoords.lat = data.location[0];
                 this.MyCoords.lng = data.location[1] - 2;
             })
@@ -132,15 +150,15 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
     }
 
     openMap(){
-        
+
 
         this.isShowMap = !this.isShowMap;
-        
+
         if(this.map){
-            this.map.triggerResize(); 
+            this.map.triggerResize();
         }
-      
-       
+
+
     }
 
     mapClick(){
@@ -157,7 +175,7 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
     }
 
     @ViewChild('search') search: SearchEventsComponent;
-        
+
     @ViewChild('mapForm') mapForm : SearchEventsMapComponent;
 
     setHeightSearch(){
@@ -169,11 +187,11 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
         else{
         $('.wrapp-for-filter').css({
             "height": '100%'
-            }); 
+            });
         }
 
 
-        
+
     }
 
     onOpenSearch(){
@@ -211,7 +229,7 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
             $(".nav-holder-3").removeClass("is-active");
             $(".mask-nav-3").removeClass("is-active")
         });
-       
+
 
 
     }
@@ -228,7 +246,7 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
 
     GetEvents(params?:EventSearchParams)
     {
-        
+
         this.ScrollDisabled = true;
         this.WaitBeforeLoading(
             () => this.main.eventService.EventsSearch(this.SearchParams),
@@ -263,10 +281,10 @@ export class ShowsComponent extends BaseComponent implements OnInit,AfterViewChe
             );
     }
 
-    onScroll () 
+    onScroll ()
     {
         this.SearchParams.offset = this.Events.length;
         this.HiddenGetEvents();
 	}
 }
-  
+

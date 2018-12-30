@@ -10,8 +10,9 @@ import { TicketsGetModel } from '../../../core/models/ticketsGetModel';
   styleUrls: ['./one-folower-for-profile.component.css']
 })
 export class OneFolowerForProfileComponent extends BaseComponent implements OnInit,OnDestroy {
-   
+
   @Input() Folower: any;
+  @Input() IsPreview = false;
   Image:string = BaseImages.Drake;
 
 
@@ -30,12 +31,12 @@ export class OneFolowerForProfileComponent extends BaseComponent implements OnIn
           // this.main.imagesService.GetImageById(this.Folower.image_id)
           //   .subscribe(
           //       (res:Base64ImageModel) => {
-                
+
           //           this.Image = (res && res.base64) ? res.base64 : BaseImages.NoneFolowerImage;
           //       }
           //   );
       }
-      else 
+      else
       {
         this.Image = BaseImages.NoneFolowerImage;
       }
