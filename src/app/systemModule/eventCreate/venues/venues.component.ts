@@ -223,7 +223,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
             .subscribe((acc:AccountGetModel)=>{
             this.getMessages();
             acc.status_not_given = i.status;
-
+            acc.date_not_given = i.created_at;
           if(i.status==='owner_declined'){
                       acc.reason = i.reason;
                       acc.reason_text = i.reason_text;
@@ -565,6 +565,45 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                   this.onError.emit(this.GetTranslateString("Failed! This event has already confirmed a venue!"));
                 else
                   this.onError.emit("Venue NOT accepted! "+this.getResponseErrorMessage(err));
+                // console.log(`err`,err);
+            });
+    }
+
+    deleteVenue(card:AccountGetModel){
+        this.ownerAcceptDecline.account_id = this.Event.creator_id;
+        this.ownerAcceptDecline.id = card.id;
+        this.ownerAcceptDecline.event_id = this.Event.id;
+        let msgId = this.getIdAtMsg(card.id);
+        this.ownerAcceptDecline.message_id = msgId;
+        let msg = this.messagesList[0];
+
+        for(let m of this.messagesList)
+            if(m.id == msgId) msg = m;
+
+        this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from;
+        this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to;
+
+        // console.log(`INFO ABOUT ACCEPTED`,this.ownerAcceptDecline);
+        this.main.eventService.VenueDeleteOwner
+        (
+          {
+            account_id: this.Event.creator_id,
+            id: card.id,
+            event_id: this.Event.id
+          }
+        ).
+            subscribe((res)=>{
+                this.onError.emit("Venue deleted!");
+                 this.updateEvent();
+                //this.submitVenue();
+
+            },(err)=>{
+                if(err.json()['errors']==='Invalid date')
+                  this.onError.emit("Venue NOT deleted! Invalid date");
+                else if(err.json()['errors']==='ALREADY_HAS_VENUE')
+                  this.onError.emit(this.GetTranslateString("Failed! This event has already confirmed a venue!"));
+                else
+                  this.onError.emit("Venue NOT deleted! "+this.getResponseErrorMessage(err));
                 // console.log(`err`,err);
             });
     }

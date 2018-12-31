@@ -69,6 +69,8 @@ export class AccountGetModel{
         public artist_videos?: Video[],
         public image_base64_not_given?: string,
         public status_not_given?: string,
+        public date_not_given?: string,
+
         public status?: string,
 
 

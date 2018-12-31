@@ -61,7 +61,7 @@ export class EventGetModel{
     {
         if(!event.venue)
             return event.address;
-        
+
         let arr = [];
 
         if(event.venue.city)
@@ -80,7 +80,7 @@ export class EventGetModel{
     {
         if(!event.is_crowdfunding_event)
             return 0;
-        
+
         let result = parseInt((((new Date(event.funding_to?event.funding_to : event.exact_date_from)).getTime() - (new Date()).getTime())/1000/60/60/24).toFixed(0));
 
         return result;
@@ -100,6 +100,7 @@ export class GetArtists{
         public reason_text?: string,
         public status?: string,
         public image_base64?: string,
+        public created_at?: string,
         public is_active?:boolean,
         public message_id?:number,
         public agreement?:{
@@ -133,6 +134,7 @@ export class GetVenue{
         public venue_id?: number,
         public reason?: string,
         public reason_text?:string,
+        public created_at?:string,
         public status?: string,
         public is_active?:boolean,
         public agreement?:{

@@ -1,5 +1,6 @@
 <div  class="card">
-    <!-- <div class="delete-card" *ngIf="status!='owner_accepted'&&status!='not found artist'" (click)="Decline()"></div> -->
+    <!-- status!='owner_accepted'&& -->
+    <div class="delete-card" *ngIf="status!='not found artist'" (click)="Delete()"></div>
 
     <div class="left-side">
 
@@ -25,8 +26,21 @@
         <p *ngIf="status==='owner_declined'" class="info">Message: {{card.reason_text}}</p>
         <p *ngIf="card.account_type == 'artist'" class="desc-head-info" translate>Genre</p>
         <p *ngIf="card.account_type == 'artist'" class="info">{{ toBeatyShowsList(card.genres) | titlecase | translate}}</p>
+        <p *ngIf="card.account_type == 'venue' && card.type_of_space"  class="desc-head-info" translate>Type of Space</p>
+        <p  *ngIf="card.account_type == 'venue' && card.type_of_space" class="info">{{card.type_of_space.replace('_', ' ') | titlecase | translate}}</p>
         <p class="desc-head-info" translate>Location</p>
         <p class="info">{{Address}}</p>
+
+        <!-- Date Request was sent, Date Added, Date accepted -->
+        <p *ngIf="status=='accepted'||status=='owner_accepted'" class="desc-head-info" translate>Date accepted</p>
+        <p *ngIf="status=='accepted'||status=='owner_accepted'" class="info">{{card.date_not_given| date: 'dd.MM.yyyy'}}</p>
+
+        <p *ngIf="status=='request_send'" class="desc-head-info" translate>Date Request was sent</p>
+        <p *ngIf="status=='request_send'" class="info">{{card.date_not_given| date: 'dd.MM.yyyy'}}</p>
+
+        <p *ngIf="status=='ready'||status=='pending'" class="desc-head-info" translate>Date Added</p>
+        <p *ngIf="status=='ready'||status=='pending'" class="info">{{card.date_not_given| date: 'dd.MM.yyyy'}}</p>
+
         <ng-container *ngIf="price">
             <p class="info" *ngIf="status!='pending'&&status!='ready'">Price <span [innerHTML]="CurrencySymbol"></span>{{price}}</p>
             <p class="info" *ngIf="status=='pending'&&status =='ready'"> </p>

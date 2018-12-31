@@ -25,6 +25,7 @@ export class OneCardComponent extends BaseComponent implements OnInit {
   @Output('accepted') accept = new EventEmitter<AccountGetModel>();
   @Output('requested') requested = new EventEmitter<AccountGetModel>();
   @Output('declined') declined = new EventEmitter<AccountGetModel>();
+  @Output('delete') delete = new EventEmitter<AccountGetModel>();
   @Output('checked') checked = new EventEmitter();
   @Output('open') open = new EventEmitter<number>();
 
@@ -84,6 +85,9 @@ export class OneCardComponent extends BaseComponent implements OnInit {
   }
   Decline(index:number){
     this.declined.emit(this.card);
+  }
+  Delete(index:number){
+    this.delete.emit(this.card);
   }
   Check(){
     this.checked.emit();

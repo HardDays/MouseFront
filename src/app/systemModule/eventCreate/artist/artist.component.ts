@@ -229,7 +229,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
         .subscribe((acc:AccountGetModel)=>{
           this.getMessages();
           acc.status_not_given = i.status;
-
+          acc.date_not_given = i.created_at;
           if(i.status==='owner_declined'){
             acc.reason = i.reason;
             acc.reason_text = i.reason_text;
@@ -483,6 +483,51 @@ export class ArtistComponent extends BaseComponent implements OnInit {
           }
           else
             this.onError.emit("Artist NOT accepted!");
+        });
+
+}
+
+  deleteArtistCard(card:AccountGetModel){
+
+    this.ownerAcceptDecline.account_id = this.main.CurrentAccount.id;
+    this.ownerAcceptDecline.id = card.id;
+    this.ownerAcceptDecline.event_id = this.Event.id;
+
+    let msgId = this.getIdAtMsg(card.id);
+
+
+    this.ownerAcceptDecline.message_id = msgId;
+     let msg = this.messagesList[0];
+
+    for(let m of this.messagesList)
+        if(m.id == msgId) msg = m;
+
+    // console.log(msg,this.messagesList,msgId);
+    this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from?msg.message_info.preferred_date_from:new Date().toString();
+    this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to?msg.message_info.preferred_date_to:new Date('+3').toString();
+
+    //  console.log(this.ownerAcceptDecline);
+    this.main.eventService.ArtistDeleteOwner
+      (
+        {
+          account_id: this.main.CurrentAccount.id,
+          id: card.id,
+          event_id: this.Event.id
+        }
+      ).
+        subscribe((res)=>{
+           // console.log(`ok accept artist`,res);
+            this.onError.emit("Artist deleted!");
+            this.updateEvent();
+        },(err)=>{
+          if(err.status === 422){
+            if(err.json()['errors']==='Invalid date')
+                  this.onError.emit("Artist NOT deleted! Invalid date");
+            else
+              this.onError.emit(err.json()['errors']?err.json()['errors']:"Limit of artists was reached!");
+          }
+          else
+            this.onError.emit("Artist NOT deleted!");
         });
 
 }

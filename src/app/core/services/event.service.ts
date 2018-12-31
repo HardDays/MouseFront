@@ -88,6 +88,11 @@ export class EventService{
             () => this.http.PostData('/events/'+params.event_id+'/artists/'+params.id+'/owner_accept.json',JSON.stringify(params))
         );
     }
+    ArtistDeleteOwner(params){
+        return this.http.CommonRequest(
+            () => this.http.DeleteDataWithBody('/events/'+params.event_id+'/artists/'+params.id+'.json',JSON.stringify(params))
+        );
+    }
     ArtistDeclineOwner(params){
         return this.http.CommonRequest(
             () =>this.http.PostData('/events/'+params.event_id+'/artists/'+params.id+'/owner_decline.json',JSON.stringify(params))
@@ -102,6 +107,11 @@ export class EventService{
     VenueAcceptOwner(params){
         return this.http.CommonRequest(
             () => this.http.PostData('/events/'+params.event_id+'/venue/'+params.id+'/owner_accept.json',JSON.stringify(params))
+        );
+    }
+    VenueDeleteOwner(params){
+        return this.http.CommonRequest(
+            () => this.http.DeleteDataWithBody('/events/'+params.event_id+'/venue/'+params.id+'.json',JSON.stringify(params))
         );
     }
     VenueDeclineOwner(params){
@@ -207,7 +217,7 @@ export class EventService{
             () => this.http.PostData('/events/'+id+'/verify.json',JSON.stringify(params))
         );
     }
-    
+
     SetDeActive(id:number,account_id:number){
 
         let params = {
