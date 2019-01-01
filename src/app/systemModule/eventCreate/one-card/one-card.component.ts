@@ -56,6 +56,8 @@ export class OneCardComponent extends BaseComponent implements OnInit {
     if(!this.Address){
       this.Address = this.card.address?this.card.address:this.card.preferred_address?this.card.preferred_address:'';
     }
+
+    console.log(`card`, this.card);
   }
   ngOnChanges(change:SimpleChanges){
     if(change.currency){

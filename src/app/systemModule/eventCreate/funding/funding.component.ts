@@ -22,7 +22,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
     artistSum:number = 0;
     venueSum:number = 0;
     additionalCosts:number = 0;
-    familyAndFriendAmount:string = '0%';
+    familyAndFriendAmount:number = 0;
 
     isLoadingArtist = true;
     isLoadingVenue = true;
@@ -97,6 +97,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
 
 
     getFamilyAndFriendAmount(){
+        this.Event.family_and_friends_amount = this.familyAndFriendAmount;
         let sum =  this.Event.family_and_friends_amount/100;
         return sum*(0.1*(this.artistSum+this.venueSum+this.Event.additional_cost)+(this.artistSum+this.venueSum+this.Event.additional_cost));
     }
@@ -300,6 +301,8 @@ export class FundingComponent extends BaseComponent implements OnInit {
         else{
             this.isLoadingVenue = false;
         }
+
+        this.getFamilyAndFriendAmount();
 
     }
 
