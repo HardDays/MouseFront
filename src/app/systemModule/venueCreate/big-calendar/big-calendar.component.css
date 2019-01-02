@@ -46,6 +46,15 @@
   top: 8px;
   color: #918f90;
 }
+
+.currency-icon-big-calendar-form
+{
+  display: block;
+    position: absolute;
+    left: 72px;
+    top: 8px;
+    color: #918f90;
+}
 @media (max-width: 767px) {
   .tiny-calendar-wrapper.big-calendar-wrapper .body-calendar .days .one-day-wr.changed-price.changed-wr-day + .changed-price.changed-wr-day .prices p.morning.changed-price-morning:before{
     display: none!important;

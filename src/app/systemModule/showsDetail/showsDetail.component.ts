@@ -94,6 +94,8 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     Allbackers:EventBackersModel[] = [];
     ShareTitle:string = "";
     baseFile:string = "";
+
+    EventLocation = "";
     
     DaysToGo = 0;
 
@@ -313,7 +315,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     InitEvent(event:EventGetModel)
     {
         this.Event = event;
-        // console.log(this.Event);
+        console.log('event', this.Event);
         this.SetMetaTags();
         this.GetImage();
         this.GetCaledarFile();
@@ -334,6 +336,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         this.GetCreatorInfo();
         this.GetFeaturing();
         this.GetVenueInfo();
+        this.GetEventLocation();
         this.GetTickets();
     }
     ToInfo(){
@@ -594,5 +597,35 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
 
         }
         //если да
+    }
+
+    GetEventLocation()
+    {
+        this.EventLocation = "";
+
+        if(this.Event.venue)
+        {
+            this.EventLocation += "<span>"+this.Event.venue.display_name+"</span><br>";
+            if(this.Event.venue.address)
+                this.EventLocation += this.Event.venue.address+"<br>";
+            
+            if(this.Event.venue.city)
+                this.EventLocation += this.Event.venue.city+", ";
+            
+            if(this.Event.venue.state)
+                this.EventLocation += this.Event.venue.state+" ";
+
+            if(this.Event.venue.zipcode)
+                this.EventLocation += this.Event.venue.zipcode;
+
+            this.EventLocation += "<br>";
+            
+            if(this.Event.venue.country)
+                this.EventLocation += this.Event.venue.country;
+            
+        }
+        else{
+            this.EventLocation = EventGetModel.GetEventLocation(this.Event);
+        }
     }
 }
