@@ -106,6 +106,9 @@ export class AboutComponent extends BaseComponent implements OnInit {
     minDate = new Date();
     maxDate = new Date();
 
+    minDateFrom = new Date();
+    minDateTo = this.minDateFrom;
+
   ngOnInit() {
 
     this.CreateAutocompleteAbout();

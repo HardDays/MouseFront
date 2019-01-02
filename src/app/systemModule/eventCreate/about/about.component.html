@@ -105,7 +105,7 @@
                                     <div class="rr">
                                         <span class="desc-date" translate>event.about-fold.Start Date</span>
 
-                                        <input (onShown)="onShowPicker($event)" #dpFrom="bsDatepicker" bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerFromModel" class="input-date">
+                                        <input (onShown)="onShowPicker($event)" #dpFrom="bsDatepicker" [minDate]="minDateFrom"  bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerFromModel" (change)="minDateTo = datepickerFromModel" class="input-date">
                                     </div>
                                 </div>
                                 <div class="one-date-block">
@@ -113,7 +113,7 @@
                                     <div class="rr">
                                         <span class="desc-date" translate>event.about-fold.End Date</span>
 
-                                        <input (onShown)="onShowPicker($event)" #dpTo="bsDatepicker" bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerToModel" class="input-date">
+                                        <input (onShown)="onShowPicker($event)" #dpTo="bsDatepicker" [minDate]="minDateTo" bsDatepicker type="text" [bsConfig]="bsConfig" [(bsValue)]="datepickerToModel" class="input-date">
                                     </div>
                                 </div>
                     </div>
