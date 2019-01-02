@@ -129,11 +129,14 @@ export class AboutComponent extends BaseComponent implements OnInit {
 
     if(this.Event){
       if(this.Event.exact_date_from){
-        this.datepickerExactModel = new Date(this.Event.exact_date_from);
+
+        // this.datepickerExactModel = new Date(this.Event.exact_date_from);
+        this.datepickerExactModel = new Date( this.main.typeService.DateToUTCDateISOString(this.Event.exact_date_from));
         this.Time = this.Event.exact_date_from.split('T')[1];
       }
       else if(this.Event.date_from){
-        this.datepickerExactModel = new Date(this.Event.date_from);
+        this.datepickerExactModel = new Date( this.main.typeService.DateToUTCDateISOString(this.Event.exact_date_from));
+        // this.datepickerExactModel = new Date(this.Event.date_from);
       }
       if(this.Event.date_from&&this.Event.date_to){
         this.minDate = new Date(this.Event.date_from);
@@ -382,7 +385,7 @@ GetCurrentCurrency(){
     }
 
     SetExactDate(){
-      let date = this.main.typeService.GetDateStringFormat(new Date(this.datepickerExactModel.getTime() - this.datepickerExactModel.getTimezoneOffset() * 60000));
+      let date = this.main.typeService.DateToUTCDateISOString(new Date(this.datepickerExactModel.getTime() - this.datepickerExactModel.getTimezoneOffset() * 60000));
     //   console.log(date, this.Time);
       // let exactDate = new Date(date+this.Time);
       // console.log(exactDate.toString());
@@ -391,7 +394,7 @@ GetCurrentCurrency(){
         .subscribe(
           (res)=>
           {
-            this.Event.exact_date_from = this.datepickerExactModel.toString();
+            this.Event.exact_date_from = this.main.typeService.DateToUTCDateISOString(this.datepickerExactModel);
             this.onError.emit(BaseMessages.Success);
             // console.log(res);
           },
