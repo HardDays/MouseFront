@@ -61,7 +61,7 @@ export class EventGetModel{
     {
         if(!event.venue)
             return event.address;
-
+        
         let arr = [];
 
         if(event.venue.city)
@@ -73,7 +73,19 @@ export class EventGetModel{
         if(event.venue.country)
             arr.push(event.venue.country);
 
-        return arr.length > 0 ? arr.join(', ') : '';
+        if(arr.length > 0)
+            return arr.join(', ');
+
+        if(event.city)
+            arr.push(event.city);
+
+        if(event.state)
+            arr.push(event.state);
+        
+        if(event.country)
+            arr.push(event.country);
+
+        return arr.length > 0 ? arr.join(', ') : event.address;
     }
 
     public static GetDaysToGo(event: EventGetModel)

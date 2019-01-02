@@ -764,6 +764,36 @@ export class BaseComponent{
         return (errors.length > 3)?BaseMessages.AllFields : errors.join('<br/>');
     }
 
+    protected GetOnlyFromErrorMessages(form: FormGroup, entityType: string)
+    {
+        const errors = [];
+
+        const keyDict = this.getKeysDict(entityType);
+
+
+        Object.keys(form.controls).forEach((key) => {
+            if (form.controls[key].status === 'INVALID') {
+                const formControl = form.controls[key];
+                if (formControl instanceof FormControl) {
+                    errors.push(this.getFieldError(formControl, key, keyDict));
+                }
+                else if (formControl instanceof FormArray) {
+                    // y formArray свой controls, который массив из FormControls и у каждого свои controls
+                    formControl.controls.forEach((arrElem: FormGroup) => {
+                        Object.keys(arrElem.controls).forEach((i) => {
+                          if (arrElem.controls[i].status === 'INVALID') {
+                            errors.push(this.getFieldError(<FormControl>arrElem.controls[i], i, keyDict));
+                          }
+                        });
+                    });
+                }
+            }
+
+        });
+
+        return errors;
+    }
+
     protected getResponseErrorMessage(err: Response, entityType='base') {
       const errors = [];
       const keyDict = this.getKeysDict(entityType);

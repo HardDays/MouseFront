@@ -270,100 +270,60 @@ export class VenueCreateComponent extends BaseComponent implements OnInit,AfterV
 
   SuperPuperImportantSaveButton()
   {
+    let errors = [];
     this.about.aboutForm.updateValueAndValidity();
     if(this.about.aboutForm.invalid)
     {
-      this.OpenErrorWindow(this.getFormErrorMessage(this.about.aboutForm, 'venue'));
-      return;
+      let arr = this.GetOnlyFromErrorMessages(this.about.aboutForm, 'venue');
+      for(let i of arr)
+      {
+          errors.push(i);
+      }
     }
     if(this.Venue.fax&&this.Venue.fax.indexOf('_')>=0)
     {
-        this.OpenErrorWindow('<b>Fax</b> needs to be a valid number');
-        return;
+      errors.push('<b>Fax</b> needs to be a valid number')
     }
     if(this.dates){
+      this.dates.dateForm.updateValueAndValidity();
       if(this.dates.dateForm.invalid)
       {
-        this.OpenErrorWindow(this.getFormErrorMessage(this.dates.dateForm, 'venue'));
-        return;
+        let arr = this.GetOnlyFromErrorMessages(this.dates.dateForm, 'venue');
+        for(let i of arr)
+        {
+          errors.push(i);
+        }
       }
     }
     if(this.listing){
+      this.listing.detailsForm.updateValueAndValidity();
       if(this.listing.detailsForm.invalid)
       {
-        this.OpenErrorWindow(this.getFormErrorMessage(this.listing.detailsForm, 'venue'));
-        return;
+        let arr = this.GetOnlyFromErrorMessages(this.listing.detailsForm, 'venue');
+        for(let i of arr)
+        {
+          errors.push(i);
+        }
+      
       }
     }
     if(this.media)
     {
+      this.media.mediaForm.updateValueAndValidity();
       if(this.media.mediaForm.invalid)
       {
-        this.OpenErrorWindow(this.getFormErrorMessage(this.media.mediaForm, 'venue'));
-        return;
+        let arr = this.GetOnlyFromErrorMessages(this.media.mediaForm, 'venue');
+        for(let i of arr)
+        {
+          errors.push(i);
+        }
       }
     }
-    if(this.hours)
+
+    if(errors.length > 0)
     {
-      if(!this.hours.Validate())
-      {
-        return;
-      }
-    }
-    switch(this.CurrentPart){
-      case this.Parts.About:{
-        if(this.about)
-        {
-          this.about.aboutForm.updateValueAndValidity();
-          if(this.about.aboutForm.invalid)
-          {
-            this.OpenErrorWindow(this.getFormErrorMessage(this.about.aboutForm, 'venue'));
-            return;
-          }
-          if(this.Venue.fax&&this.Venue.fax.indexOf('_')>=0)
-          {
-              this.OpenErrorWindow('<b>Fax</b> needs to be a valid number');
-              return;
-          }
-        }
-      }
-      case this.Parts.Dates:{
-        if(this.dates){
-          if(this.dates.dateForm.invalid)
-          {
-            this.OpenErrorWindow(this.getFormErrorMessage(this.dates.dateForm, 'venue'));
-            return;
-          }
-        }
-      }
-      case this.Parts.Listing:{
-        if(this.listing){
-          if(this.listing.detailsForm.invalid)
-          {
-            this.OpenErrorWindow(this.getFormErrorMessage(this.listing.detailsForm, 'venue'));
-            return;
-          }
-        }
-      }
-      case this.Parts.Media:{
-        if(this.media)
-        {
-          if(this.media.mediaForm.invalid)
-          {
-            this.OpenErrorWindow(this.getFormErrorMessage(this.media.mediaForm, 'venue'));
-            return;
-          }
-        }
-      }
-      case this.Parts.Hours:{
-        if(this.hours)
-        {
-          if(!this.hours.Validate())
-          {
-            return;
-          }
-        }
-      }
+      this.OpenErrorWindow(errors.length > 3? BaseMessages.AllFields : errors.join('<br/>'));
+      return;
     }
     this.SaveVenue();
 

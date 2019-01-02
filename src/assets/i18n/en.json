@@ -887,5 +887,6 @@
   "Fail! Password confirmation is not matched!": "Fail! Password confirmation is not matched!",
   "Fail! Password is too short!": "Fail! Password is too short!",
   "Founding finished": "Founding finished",
-  "Days to go": "Days to go"
+  "Days to go": "Days to go",
+  "/hr": "/hr"
 }
