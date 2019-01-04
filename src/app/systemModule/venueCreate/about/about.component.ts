@@ -39,7 +39,7 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
 
     aboutForm : FormGroup = new FormGroup({
         "venue_name": new FormControl("", [Validators.required]),
-        "mouse_name": new FormControl("", [Validators.required]),
+        "mouse_name": new FormControl("", [Validators.required, Validators.pattern(/^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$/)]),
         "short_desc": new FormControl("", [Validators.required,
                                         Validators.maxLength(1000)]),
         "phone": new FormControl("", [
@@ -126,7 +126,6 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
 
                 if(place)
                 {
-                    // console.log(place);
                     this.Venue.address = place.formatted_address;
 
                     this.Venue.lat = place.geometry.location.toJSON().lat;
@@ -234,8 +233,6 @@ export class VenueAboutComponent extends BaseComponent implements OnInit,OnChang
             this.Venue.fax =  faxToSend;
         }
         
-
-        // console.log(this.Venue);
         this.onSaveVenue.emit(this.Venue);
     }
 
