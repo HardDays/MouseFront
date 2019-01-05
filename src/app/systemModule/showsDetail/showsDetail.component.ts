@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone, ChangeDetectorRef, AfterViewChecked, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone, ChangeDetectorRef, AfterViewChecked, HostListener, Input } from '@angular/core';
 import { NgForm} from '@angular/forms';
 import { AuthMainService } from '../../core/services/auth.service';
 import { AccountService } from '../../core/services/account.service';
@@ -50,11 +50,12 @@ declare const Buffer;
 
 @Component({
     selector: 'shows-detail-main',
-    templateUrl: './showsDetail.component.html', 
+    templateUrl: './showsDetail.component.html',
     styleUrls: ['./showsDetail.component.css'],
 })
 export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterViewChecked {
-    EventId:number = 0;
+    @Input() EventId:number = 0;
+    @Input() isPreview = false;
     Event:EventGetModel = new EventGetModel();
     Creator:AccountGetModel = new AccountGetModel();
     Artists:AccountGetModel[] = [];
@@ -65,7 +66,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     Image:string = BaseImages.Drake;
     ImageTw:string = BaseImages.Drake;
     CheckedTickets:any[] = [];
-    
+
     TotalPrice:number = 0;
     TotalOriginalPrice: number = 0;
     TicketsCount: number = 0;
@@ -75,7 +76,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     Featuring:{name:string,id:number}[] = [];
 
     Statuses = EventStatus;
-    
+
     FullUrl:string;
     activeTab:string = tabsShowDetails.information;
     isShowMap = false;
@@ -96,7 +97,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     baseFile:string = "";
 
     EventLocation = "";
-    
+
     DaysToGo = 0;
 
     @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
@@ -107,7 +108,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
             }
         }
     }
-    
+
     constructor(
         protected main           : MainService,
         protected _sanitizer     : DomSanitizer,
@@ -131,12 +132,13 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     {
         this.FullUrl = window.location.href;
         this.activatedRoute.params.forEach((params)=>{
-            this.EventId = params["id"];
+            if(params["id"])
+              this.EventId = params["id"];
             this.GetEventInfo();
             this.GetComments();
         });
 
-     
+
         this.main.CurrentAccountChange.subscribe(
             (val) => {
                 this.MyAcc = val;
@@ -172,16 +174,16 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
             {name: 'twitter:image', content: this.ImageTw},
             {itemprop: 'image', content: this.ImageTw}
         ]);
-       
+
     }
     DestroyMetaTags(){
-      
+
         this.meta.removeTagElement(this.meta.getTag('name="og:title"'));
         this.meta.removeTagElement(this.meta.getTag('name="twitter:title"'));
         this.meta.removeTagElement(this.meta.getTag('itemprop="name"'));
         this.meta.removeTagElement(this.meta.getTag('name="og:image"'));
         this.meta.removeTagElement(this.meta.getTag('name="twitter:image"'));
-        this.meta.removeTagElement(this.meta.getTag('itemprop="image"')); 
+        this.meta.removeTagElement(this.meta.getTag('itemprop="image"'));
 
     }
 
@@ -197,13 +199,13 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         this.main.eventService.EventGoingAcc(this.Event.id,20,0,this.TextSearchGoing).subscribe((res:any)=>{
             this.Allbackers = res;
         })
-        
+
     }
     onChangeInptitle(event){
         this.ShareTitle = event.target.value;
     }
     copylink(element){
-       
+
         var $temp = $("<input>");
         $("body").append($temp);
         $temp.val($(element).text()).select();
@@ -214,7 +216,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         this.location.back();
     }
     onScroll(){
-       
+
         this.main.eventService.EventGoingAcc(this.Event.id,20,this.Allbackers.length,this.TextSearchGoing).subscribe((res:any)=>{
             this.Allbackers.push(...res);
         })
@@ -236,7 +238,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     //     })
     // }
 
-    
+
     GetEventInfo()
     {
         this.WaitBeforeLoading
@@ -254,9 +256,9 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     GetEventUpdates(){
         this.main.eventService.EventsUpdates(this.EventId).subscribe((res:any)=>{
             this.UpdatesEvent = res;
-        }) 
+        })
     }
-    
+
     GetVenueInfo()
     {
         if(this.Event.venue){
@@ -273,17 +275,17 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     {
         if(this.Event && this.Event.image_id)
         {
-            
+
             this.Image = this.main.imagesService.GetImagePreview(this.Event.image_id, {width:700, height:950});
             this.ImageTw = this.main.imagesService.GetImagePreview(this.Event.image_id, {width:510, height:228});
             setTimeout(()=>{
                 this.SetMetaTagsImage();
             },200);
-            
+
             // this.main.imagesService.GetImageById(this.Event.image_id)
             //     .subscribe(
             //         (res:Base64ImageModel) => {
-                        
+
             //             this.Image = (res && res.base64) ? res.base64 : BaseImages.Drake;
             //             this.SetMetaTagsImage();
             //         }
@@ -293,23 +295,23 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     GetCaledarFile(){
         this.main.eventService.GetCalendarEventFile(this.EventId).subscribe((res:any)=>{
             this.baseFile = res.file;
-        }) 
+        })
     }
     downloadFile(){
-        
-         
+
+
         let type = 'ics';
-        
+
         let file = this.baseFile;
 
         var decoded = new Buffer(file, 'base64');
         var blob = new Blob([decoded], { type: type });
-        
+
 
         saveAs(blob,'calendar.'+type);
-    
-         
-        
+
+
+
       }
 
     InitEvent(event:EventGetModel)
@@ -501,7 +503,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
             },
             (err) =>
             {
-                
+
                 this.OpenErrorWindow(this.getResponseErrorMessage(err));
             }
         );
@@ -525,7 +527,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
                 for(let item of element)
                 {
                     object.count += item.count;
-                    
+
                     // добавить цену за один билет \\
                     object.price = item.ticket.price;
                 }
@@ -585,7 +587,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         },1000);
     }
 
-    InitSliderWrapp() 
+    InitSliderWrapp()
     {
         if($('.iframe-slider-wrapp').not('.slick-initialized').length){
             $('.iframe-slider-wrapp').slick({
@@ -608,10 +610,10 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
             this.EventLocation += "<span>"+this.Event.venue.display_name+"</span><br>";
             if(this.Event.venue.address)
                 this.EventLocation += this.Event.venue.address+"<br>";
-            
+
             if(this.Event.venue.city)
                 this.EventLocation += this.Event.venue.city+", ";
-            
+
             if(this.Event.venue.state)
                 this.EventLocation += this.Event.venue.state+" ";
 
@@ -619,10 +621,10 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
                 this.EventLocation += this.Event.venue.zipcode;
 
             this.EventLocation += "<br>";
-            
+
             if(this.Event.venue.country)
                 this.EventLocation += this.Event.venue.country;
-            
+
         }
         else{
             this.EventLocation = EventGetModel.GetEventLocation(this.Event);

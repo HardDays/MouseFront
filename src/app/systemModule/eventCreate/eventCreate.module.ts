@@ -1,3 +1,4 @@
+import { ShowsDetailModule } from './../showsDetail/showsDetail.module';
 import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -48,7 +49,8 @@ import { InputModule } from '../../shared/input/input.module';
         VenueCreateModule,
         TranslateModule,
         PhonePipeModule,
-        InputModule
+        InputModule,
+        ShowsDetailModule
     ],
     declarations: [
         EventCreateComponent,

@@ -482,5 +482,6 @@ export enum Pages {
     funding = 3,
     tickets = 4,
     previewArtist = 5,
-    previewVenue = 6
+    previewVenue = 6,
+    preview = 7
 }

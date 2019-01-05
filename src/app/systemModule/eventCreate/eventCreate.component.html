@@ -33,9 +33,9 @@
                         <li [ngClass]="{'active':currentPage == pages.tickets,'started':currentPage != pages.tickets && isHasVenue }">
                             <a (click)="isHasVenue?ChangeCurrentPart(pages.tickets):''" class="nav-second-outlet" translate>Tickets.Tickets</a>
                         </li>
-                        <!-- <li [ngClass]="{'active':currentPage == pages.previewArtist,'started':currentPage != pages.preview}">
-                            <a (click)="ChangeCurrentPart(pages.preview)" class="nav-second-outlet">preview</a>
-                        </li> -->
+                        <li [ngClass]="{'active':currentPage == pages.preview,'started':currentPage != pages.preview && isHasVenue}">
+                            <a (click)="isHasVenue?ChangeCurrentPart(pages.preview):''" class="nav-second-outlet">preview</a>
+                        </li>
                     </ul>
                     <ul class="xs-padd-less">
                         <li class="inline-butt-nav-create" *ngIf="EventId !== 0">
@@ -103,7 +103,7 @@
         ></app-venues>
 
 
-        <div *ngIf="currentPage==pages.funding||currentPage==pages.tickets" class="create-event-body-1">
+        <div *ngIf="currentPage==pages.funding||currentPage==pages.tickets||currentPage==pages.preview" class="create-event-body-1">
 
 
             <app-funding #funding *ngIf="!isLoading&&(currentPage==pages.funding)"
@@ -121,6 +121,11 @@
                 (onSave)="SaveEventByFunding($event)"
                 (onError)="OpenErrorWindow($event)"
             ></app-add-tickets>
+
+            <shows-detail-main #showsDetail *ngIf="(currentPage==pages.preview)"
+              [EventId] = "Event.id"
+              [isPreview] = "true"
+            ></shows-detail-main>
 
 
         </div>
