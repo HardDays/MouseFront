@@ -88,7 +88,7 @@
                             </div>
                         </ng-container>
 
-                        <div *ngIf="isEmptyDeclinedArtists()" class="empty-info">
+                        <div *ngIf="isEmptyDeclinedArtists()&&!isHaveDeclined" class="empty-info">
                             <img src="./../../../assets/img/smile-white.svg" class="img-responsive" alt="">
                             <p translate>event.artist-fold.No artists yet</p>
 

@@ -72,6 +72,8 @@ export class ArtistComponent extends BaseComponent implements OnInit {
     "message": new FormControl("")
 });
 
+isHaveDeclined = false;
+
     ownerAcceptDecline = {
       event_id:0,
       id:0,
@@ -267,6 +269,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
             // this.Artists.push(acc);
           }
           this.Artists.push(acc);
+          this.isEmptyDeclinedArtists();
         })
     }
   }
@@ -763,9 +766,12 @@ dragMarker($event)
 
 
     isEmptyDeclinedArtists(){
+      this.isHaveDeclined = false;
       for(let a of this.Artists)
-        if(a.status_not_given=='owner_declined'||a.status_not_given=='declined')
+        if(a.status_not_given=='owner_declined'||a.status_not_given=='declined'){
+          this.isHaveDeclined = true;
           return false;
+        }
       return true;
     }
 

@@ -62,6 +62,8 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     venueSearchParams:AccountSearchModel = new AccountSearchModel();
     typesSpace:CheckModel<SelectModel>[] = [];
 
+    isHaveDeclined = false;
+
     //venueShowsList:AccountGetModel[] = [];
     requestVenues:AccountGetModel[] = []; // список тех, кому отправлен запрос, брать из Event
     requestVenueForm : FormGroup = new FormGroup({
@@ -258,6 +260,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                     else
                         acc.image_base64_not_given = '../../../../assets/img/show.png';
                     this.requestVenues.push(acc);
+                    this.isEmptyDeclinedArtists();
                 },(err)=>{
                     acc.image_base64_not_given = '../../../../assets/img/show.png';
                 })
@@ -275,6 +278,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
             else {
                 acc.image_base64_not_given = '../../../../assets/img/show.png';
                 this.requestVenues.push(acc);
+                this.isEmptyDeclinedArtists();
                 }
             });
         }
@@ -747,10 +751,12 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     }
 
     isEmptyDeclinedArtists(){
-
+        this.isHaveDeclined = false;
         for(let a of this.requestVenues)
-            if(a.status_not_given=='owner_declined'||a.status_not_given=='declined')
+            if(a.status_not_given=='owner_declined'||a.status_not_given=='declined'){
+                this.isHaveDeclined = true;
                 return false;
+            }
 
         // for(let a of this.venueShowsList)
         //     if(a.status_not_given=='owner_declined'||a.status_not_given=='declined')
