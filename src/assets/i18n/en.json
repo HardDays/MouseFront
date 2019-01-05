@@ -888,5 +888,11 @@
   "Fail! Password is too short!": "Fail! Password is too short!",
   "Founding finished": "Founding finished",
   "Days to go": "Days to go",
-  "/hr": "/hr"
+  "/hr": "/hr",
+  "too long" : "too long",
+  "<b>_name</b> cannot contain special characters" : "<b>_name</b> cannot contain special characters",
+  "Fax": "Fax",
+  "<b>_field</b> max length is _length": "<b>_field</b> max length is _length",
+  "<b>_field</b> needs to be a valid number" : "<b>_field</b> needs to be a valid number",
+  "<b>_email</b> needs to be a valid email" : "<b>_email</b> needs to be a valid email"
 }

@@ -25,7 +25,7 @@ import { EventService } from '../services/event.service';
 import { Http, Headers } from '@angular/http';
 import { CheckModel } from '../models/check.model';
 import { MainService } from '../services/main.service';
-import {ArtistFields, BaseImages, BaseMessages, EventFields, FanFields, VenueFields, BaseFields, RequestFields} from './base.enum';
+import { ArtistFields, BaseImages, BaseMessages, EventFields, FanFields, VenueFields, BaseFields, RequestFields } from './base.enum';
 import { MapsAPILoader } from '@agm/core';
 import {FormArray, FormControl, FormGroup} from '@angular/forms';
 import { CodegenComponentFactoryResolver } from '@angular/core/src/linker/component_factory_resolver';
@@ -716,20 +716,62 @@ export class BaseComponent{
             else if (field.errors.hasOwnProperty('pattern'))
             {
               if (key === 'email' || key === 'artist_email') {
-                let strEr = (BaseMessages.EmailPattern).replace('_email', keyDict[key]);
-                strEr = this.GetTranslateString(strEr)?this.GetTranslateString(strEr):strEr;
-                return String(strEr)
+                let strEr = this.GetTranslateString(BaseMessages.EmailPattern);
+                if(!strEr)
+                {
+                    strEr = BaseMessages.EmailPattern;
+                }
+
+                strEr = strEr.replace('_email', this.GetTranslateString(keyDict[key]));
+
+                return String(strEr);
+
+                // let strEr = (BaseMessages.EmailPattern).replace('_email', keyDict[key]);
+                // strEr = this.GetTranslateString(strEr)?this.GetTranslateString(strEr):strEr;
+                // return String(strEr)
               }
               else if (key === 'link' || key === 'album_link' || key === 'album_artwork'){
-                let strEr = this.GetTranslateString(BaseMessages.LinkPattern)?this.GetTranslateString(BaseMessages.LinkPattern):BaseMessages.LinkPattern;
-                strEr = (strEr).replace('_link', this.GetTranslateString(keyDict[key])?this.GetTranslateString(keyDict[key]):keyDict[key]);
-                return String(strEr)
+                let strEr = this.GetTranslateString(BaseMessages.LinkPattern);
+                if(!strEr)
+                {
+                    strEr = BaseMessages.LinkPattern;
+                }
+
+                strEr = strEr.replace('_link', this.GetTranslateString(keyDict[key]));
+
+                return String(strEr);
+
+
+                // let strEr = this.GetTranslateString(BaseMessages.LinkPattern)?this.GetTranslateString(BaseMessages.LinkPattern):BaseMessages.LinkPattern;
+                // strEr = (strEr).replace('_link', this.GetTranslateString(keyDict[key])?this.GetTranslateString(keyDict[key]):keyDict[key]);
+                // return String(strEr)
+              }
+              else if (key == 'mouse_name' || key == 'username')
+              {
+                  let strEr = this.GetTranslateString(BaseMessages.UsernamePattern);
+                  if(!strEr)
+                  {
+                      strEr = BaseMessages.UsernamePattern;
+                  }
+
+                  strEr = strEr.replace('_name', this.GetTranslateString(keyDict[key]));
+
+                  return String(strEr);
               }
               else
               {
-                let strEr = (BaseMessages.NumberPattern).replace('_field', keyDict[key]);
-                strEr = this.GetTranslateString(strEr)?this.GetTranslateString(strEr):strEr;
-                return String(strEr)
+                let strEr = this.GetTranslateString(BaseMessages.NumberPattern);
+                  if(!strEr)
+                  {
+                      strEr = BaseMessages.NumberPattern;
+                  }
+
+                  strEr = strEr.replace('_field', this.GetTranslateString(keyDict[key]));
+
+                  return String(strEr);
+                // let strEr = (BaseMessages.NumberPattern).replace('_field', keyDict[key]);
+                // strEr = this.GetTranslateString(strEr)?this.GetTranslateString(strEr):strEr;
+                // return String(strEr)
               }
             }
         }
@@ -739,7 +781,6 @@ export class BaseComponent{
         const errors = [];
 
         const keyDict = this.getKeysDict(entityType);
-
 
         Object.keys(form.controls).forEach((key) => {
             if (form.controls[key].status === 'INVALID') {

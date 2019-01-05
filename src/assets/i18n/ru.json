@@ -888,5 +888,11 @@
   "Fail! Password is too short!": "Ошибка! Пароль слишком короткий!",
   "Founding finished": "Сборы завершены",
   "Days to go": "Дней осталось",
-  "/hr": "/ч"
+  "/hr": "/ч",
+  "too long" : "слишком длинное",
+  "<b>_name</b> cannot contain special characters" : "<b>_name</b> не может содержать специальных символов",
+  "Fax": "Факс",
+  "<b>_field</b> max length is _length": "<b>_field</b> максимальная длина _length",
+  "<b>_field</b> needs to be a valid number" : "<b>_field</b> должен быть действительным номером",
+  "<b>_email</b> needs to be a valid email" : "<b>_email</b> должен быть корректным адресом"
 }
