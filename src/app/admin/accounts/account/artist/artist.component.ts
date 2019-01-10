@@ -113,7 +113,7 @@ export class ArtistComponent extends BaseComponent implements OnInit {
           if(date.date)
           this.EventDates.push({
             mDate: moment(date.date.split("T")[0]),
-            eventId: date.event_id
+            eventId: date.id
 
           });
         }

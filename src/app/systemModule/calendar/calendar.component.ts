@@ -119,11 +119,12 @@ export class CalendarComponent extends BaseComponent implements OnInit {
       this.EventDates = [];
       this.DisabledDates = [];
       for(let date of acc.events_dates){
-          if(date.date)
+          if(date.date){
                 this.EventDates.push({
                 mDate: moment(date.date.split("T")[0]),
-                eventId: date.event_id
+                eventId: date.id
                 });
+            }
       }
       for(let date of acc.disable_dates){
           if(date.date)
