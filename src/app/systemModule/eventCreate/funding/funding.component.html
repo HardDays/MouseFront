@@ -119,7 +119,7 @@
                     </div>
                     <div class="additional-costs">
                         <p class="addit-t" translate>event.funding-fold.Additional Costs</p>
-                        <p class="price"><span [innerHTML]="CurrencySymbol"></span> <input class="additionalCosts" style="background-color: white" [disabled]="Event.status==='active'" name="additional_cost" type="number" [(ngModel)]="Event.additional_cost"></p>
+                        <p class="price"><span [innerHTML]="CurrencySymbol"></span> <input class="additionalCosts" style="background-color: white" [disabled]="Event.status=='active'||Event.status=='approved'||Event.status=='inactive'" name="additional_cost" type="number" [(ngModel)]="Event.additional_cost"></p>
                     </div>
 
 
@@ -140,7 +140,7 @@
                             <option [value]="10">10%</option>
                         </select> -->
                         <mat-form-field >
-                            <mat-select [disabled]="Event.status=='active'" [(ngModel)]="familyAndFriendAmount">
+                            <mat-select [disabled]="Event.status=='active'||Event.status=='approved'||Event.status=='inactive'" [(ngModel)]="familyAndFriendAmount">
                                 <mat-option [value]="0">0%</mat-option>
                                 <mat-option [value]="5">5%</mat-option>
                                 <mat-option [value]="10">10%</mat-option>

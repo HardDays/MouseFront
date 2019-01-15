@@ -50,7 +50,7 @@ export class FundingComponent extends BaseComponent implements OnInit {
         this.activeVenue = [];
 
         this.CurrencySymbol = CurrencyIcons[this.Event.currency];
-
+        this.familyAndFriendAmount = this.Event.family_and_friends_amount;
 
         this.main.eventService.GetEventById(this.Event.id).
             subscribe(
@@ -58,6 +58,8 @@ export class FundingComponent extends BaseComponent implements OnInit {
                     this.Event = this.main.eventService.EventModelToCreateEventModel(res);
                     // this.getMessages();
                       this.getActiveArtVen();
+
+                      this.familyAndFriendAmount = this.Event.family_and_friends_amount;
                 }
             )
     }
@@ -97,7 +99,8 @@ export class FundingComponent extends BaseComponent implements OnInit {
 
 
     getFamilyAndFriendAmount(){
-        this.Event.family_and_friends_amount = this.familyAndFriendAmount;
+        if(this.familyAndFriendAmount)
+          this.Event.family_and_friends_amount = this.familyAndFriendAmount;
         let sum =  this.Event.family_and_friends_amount/100;
         return sum*(0.1*(this.artistSum+this.venueSum+this.Event.additional_cost)+(this.artistSum+this.venueSum+this.Event.additional_cost));
     }
