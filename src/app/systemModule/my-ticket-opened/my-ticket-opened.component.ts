@@ -146,8 +146,9 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit,Aft
       () => this.main.eventService.GetTicketsByEvent(this.accountId,this.event_id),
       (res:TicketsByEventModel) =>
       {
+        
         this.TicketsByEvent = res;
-        // console.log(this.TicketsByEvent);
+        console.log(this.TicketsByEvent);
         this.GetImage();
         this.CountTotalPrice();
         this.Date = this.main.typeService.GetEventDateString(this.TicketsByEvent.event);
