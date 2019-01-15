@@ -65,6 +65,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { CalendarModule } from './calendar/calendar.module';
 import { MessageListComponent } from './messages/message-list/message-list.component';
 import { VrComponent } from './vr/vr.component';
+import { QRCodeModule } from 'angular2-qrcode'
 
 
 @NgModule({
@@ -115,7 +116,8 @@ import { VrComponent } from './vr/vr.component';
       CommonModule,
       FormsModule,
       TranslateModule,
-      CalendarModule
+      CalendarModule,
+      QRCodeModule
   ],
   providers: [ SystemAccessGuard]
 })
