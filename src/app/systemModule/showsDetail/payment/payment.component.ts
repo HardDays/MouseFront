@@ -265,8 +265,9 @@ export class PaymentShowDetailComponent extends BaseComponent implements OnInit 
             (res:any) =>
             {
                 // console.log(res);
-                // window.open(res.url,'_blank');
-                this.addYandexPaymentId(res.transaction_id);
+                if(purchase.platform === Platforms.Yandex){
+                  this.addYandexPaymentId(res.transaction_id);
+                }
                 window.location.href = res.url;
             },
             (err) =>
