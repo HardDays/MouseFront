@@ -1,3 +1,4 @@
+import { Platforms } from './../../../core/models/purchase.model';
 import { Component, OnInit, Input, NgZone, ChangeDetectorRef } from "@angular/core";
 import { BaseComponent } from '../../../core/base/base.component';
 import { EventGetModel } from "../../../core/models/eventGet.model";
@@ -37,6 +38,8 @@ export class PaymentShowDetailComponent extends BaseComponent implements OnInit 
     PaymentSuccess = false;
     PaymentFail = false;
     accountForPrint:AccountGetModel = new AccountGetModel();
+    CurrentPlatform = Platforms.PayPal;
+    AllPlatforms = Platforms;
     constructor(
         protected main           : MainService,
         protected _sanitizer     : DomSanitizer,
@@ -94,8 +97,8 @@ export class PaymentShowDetailComponent extends BaseComponent implements OnInit 
                                       }
                                     }
                                 });
-                               
-                                
+
+
                                 this.data.storage = {
                                     EventId: null,
                                     Tickets:[]
@@ -110,10 +113,48 @@ export class PaymentShowDetailComponent extends BaseComponent implements OnInit 
               }
             }
           );
+
+        const YandexPaymentIds = localStorage.getItem('yandexPaymentIds');
+        if(YandexPaymentIds && YandexPaymentIds.length > 0) {
+          let YandexIds: string[] = JSON.parse(YandexPaymentIds);
+
+          this.Verification = YandexIds[0];
+                  this.router.navigateByUrl(window.location.pathname);
+                    this.main.eventService.FinishYandex({paymentId: this.Verification})
+                        .subscribe(
+                            res => {
+                              YandexIds.pop();
+                              localStorage.setItem('yandexPaymentIds', JSON.stringify(YandexIds));
+
+                                let id = this.GetCurrentAccId();
+                                this.PaymentSuccess = true;
+                                this.Verification = res[0].code;
+                                this.dateOfpay = res[0].created_at;
+                                this.main.accService.GetMyAccount({extended:true}).subscribe((res)=>{
+                                    for(let u of res)
+                                    {
+                                      if(u.id == id)
+                                      {
+                                        this.accountForPrint = u;
+                                      }
+                                    }
+                                });
+
+
+                                this.data.storage = {
+                                    EventId: null,
+                                    Tickets:[]
+                                };
+                                this.data.SaveStorage();
+
+                            },
+                            (err) => {
+                                this.router.navigate(['../'], {relativeTo: this.activatedRoute});
+                                return;
+                            }
+                        )
+        }
     }
-    
-
-
 
     createRange(number){
         var items: number[] = [];
@@ -164,17 +205,17 @@ export class PaymentShowDetailComponent extends BaseComponent implements OnInit 
     {
         if(this.Event && this.Event.image_id)
         {
-            
+
             this.Image = this.main.imagesService.GetImagePreview(this.Event.image_id, {width:700, height:950});
             // this.ImageTw = this.main.imagesService.GetImagePreview(this.Event.image_id, {width:510, height:228});
             // setTimeout(()=>{
             //     this.SetMetaTagsImage();
             // },200);
-            
+
             // this.main.imagesService.GetImageById(this.Event.image_id)
             //     .subscribe(
             //         (res:Base64ImageModel) => {
-                        
+
             //             this.Image = (res && res.base64) ? res.base64 : BaseImages.Drake;
             //             this.SetMetaTagsImage();
             //         }
@@ -210,24 +251,41 @@ export class PaymentShowDetailComponent extends BaseComponent implements OnInit 
         const purchase = new PurchaseModel();
         purchase.tickets = TicketPurchaseModel.TicketPurchaseArrayFromObjectArray(this.Tickets);
 
-        purchase.redirect_url = window.location.href.split('?')[0];
 
         purchase.account_id = this.GetCurrentAccId();
+
+        purchase.platform = this.CurrentPlatform;
+
+        purchase.redirect_url = window.location.href.split('?')[0];
+
         // console.log(purchase);
         this.WaitBeforeLoading(
-            () => this.main.eventService.StartPurchaseTickets(purchase),
+            () =>
+            this.main.eventService.StartPurchaseTickets(purchase),
             (res:any) =>
             {
                 // console.log(res);
+                // window.open(res.url,'_blank');
+                this.addYandexPaymentId(res.transaction_id);
                 window.location.href = res.url;
             },
             (err) =>
             {
                 this.PaymentFail = true;
-                
+
                 // this.OpenErrorWindow(this.getResponseErrorMessage(err));
             }
         );
+    }
+    addYandexPaymentId(PaymentId: string){
+      const last_state = localStorage.getItem('yandexPaymentIds');
+      let storage: string[] = [];
+      if(last_state) {
+            storage = JSON.parse(last_state);
+      }
+      storage.push(PaymentId);
+      localStorage.setItem('yandexPaymentIds', JSON.stringify(storage));
+
     }
     // blockNone(){
     //     $('#print').addClass('blockImportant');
@@ -238,39 +296,39 @@ export class PaymentShowDetailComponent extends BaseComponent implements OnInit 
 
         // var originalContents = document.body.innerHTML;
         this.isPrint = true;
-        
+
         setTimeout(() => {
          var css = '@page { size: portrait; }',
         head = document.head || document.getElementsByTagName('head')[0],
         style = document.createElement('style');
-    
+
         style.type = 'text/css';
         style.media = 'print';
-    
+
         if (style['styleSheet']){
           style['styleSheet'].cssText = css;
         } else {
           style.appendChild(document.createTextNode(css));
         }
-    
+
         head.appendChild(style);
-    
-    
-    
+
+
+
         // var printContents = document.getElementById('print').innerHTML;
-        
+
         //  document.body.innerHTML = printContents;
-    
+
          window.print();
-    
+
           setTimeout(() => {
             this.isPrint = false;
           }, 100);
-         
-    
+
+
         //  document.body.innerHTML = originalContents;
         }, 200);
-        
-    
+
+
       }
 }

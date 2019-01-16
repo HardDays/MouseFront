@@ -32,13 +32,13 @@
                     <div class="method-route" *ngIf="!PaymentSuccess && !PaymentFail">
                         <h2 translate>Payment Method</h2>
                         <div class="info-payment">
-                            <ng-container *ngFor="let item of Tickets"> 
+                            <ng-container *ngFor="let item of Tickets">
                                 <p translate>
-                                    {{item.ticket.type == 'in_person'?'In person':'VR'}} 
+                                    {{item.ticket.type == 'in_person'?'In person':'VR'}}
                                         <span translate>
-                                            ({{item.ticket.is_promotional?'Promotional':'Regular'}}) 
+                                            ({{item.ticket.is_promotional?'Promotional':'Regular'}})
                                         </span>
-                                     {{'Ticket'|translate}}: {{item.count}} @ <span><span [innerHTML]="Currency"></span>{{item.ticket.price}}</span> 
+                                     {{'Ticket'|translate}}: {{item.count}} @ <span><span [innerHTML]="Currency"></span>{{item.ticket.price}}</span>
                                      {{'each'|translate}}
                                 </p>
                             </ng-container>
@@ -48,7 +48,8 @@
                             <div class="one-collapsed-block">
                                 <!-- <p class="head-collapsed-block">APPLE PAY</p> -->
                                 <div class="flex-top-cart" data-toggle="collapse" data-target="#cart-4">
-                                    <img src="assets/img/pay-pal.png" class="img-responsive" alt="">
+                                    <img src="assets/img/pay-pal.png" (click)="CurrentPlatform=AllPlatforms.PayPal" [ngClass]="{'active':CurrentPlatform==AllPlatforms.PayPal}" class="img-responsive" alt="">
+                                    <img src="assets/img/yandex.jpg" (click)="CurrentPlatform=AllPlatforms.Yandex" [ngClass]="{'active':CurrentPlatform==AllPlatforms.Yandex}" class="img-responsive" alt="">
                                     <div class="triangle"></div>
                                 </div>
 
@@ -68,18 +69,18 @@
 
                     <!--роут статуса оплаты ок-->
 
-        
+
                     <div class="complete-route"  *ngIf="PaymentSuccess && !PaymentFail">
-                        <p class="c-1">{{'Your payment is'|translate}} <span translate>PaymentComplete</span></p>  
+                        <p class="c-1">{{'Your payment is'|translate}} <span translate>PaymentComplete</span></p>
                         <p class="c-2">{{'TOTAL'|translate}}: <span><span [innerHTML]="Currency"></span>{{Total}}</span></p>
                         <div class="c-3-wrapp">
-                            <ng-container *ngFor="let item of Tickets"> 
+                            <ng-container *ngFor="let item of Tickets">
                                 <p class="c-3" translate>
-                                    {{item.ticket.type == 'in_person'?'In person':'VR'}} 
+                                    {{item.ticket.type == 'in_person'?'In person':'VR'}}
                                     <span translate>
-                                        ({{item.ticket.is_promotional?'Promotional':'Regular'}}) 
+                                        ({{item.ticket.is_promotional?'Promotional':'Regular'}})
                                     </span>
-                                    {{'Ticket'|translate}}: {{item.count}} @ <span><span [innerHTML]="Currency"></span>{{item.ticket.price}}</span> 
+                                    {{'Ticket'|translate}}: {{item.count}} @ <span><span [innerHTML]="Currency"></span>{{item.ticket.price}}</span>
                                     {{'each'|translate}}
                                 </p>
                             </ng-container>
@@ -93,22 +94,22 @@
                             </button>
                         </div>
                     </div>
-       
+
 
 
                     <!--роут статуса оплаты error-->
-        
+
                     <div class="complete-route"  *ngIf="!PaymentSuccess && PaymentFail">
-                        <p class="c-1" translate>failure</p>  
+                        <p class="c-1" translate>failure</p>
                         <img src="assets/img/smile.svg" class="img-responsive middle-image" alt="">
                         <div class="c-3-wrapp">
-                            <ng-container *ngFor="let item of Tickets"> 
+                            <ng-container *ngFor="let item of Tickets">
                                 <p class="c-3" translate>
-                                    {{item.ticket.type == 'in_person'?'In person':'VR'}} 
+                                    {{item.ticket.type == 'in_person'?'In person':'VR'}}
                                     <span translate>
-                                        ({{item.ticket.is_promotional?'Promotional':'Regular'}}) 
+                                        ({{item.ticket.is_promotional?'Promotional':'Regular'}})
                                     </span>
-                                    {{'Ticket'|translate}}: {{item.count}} @ <span><span [innerHTML]="Currency"></span>{{item.ticket.price}}</span> 
+                                    {{'Ticket'|translate}}: {{item.count}} @ <span><span [innerHTML]="Currency"></span>{{item.ticket.price}}</span>
                                     {{'each'|translate}}
                                 </p>
                             </ng-container>
@@ -119,13 +120,13 @@
                             </button>
                         </div>
                     </div>
-       
+
 
                 </div>
             </div>
         </div>
     </section>
-    
+
 </section>
 
 <section id="print" *ngIf="PaymentSuccess" class="for-print">
@@ -151,12 +152,12 @@
 
                     <p class="name-ticket" *ngIf="item.ticket.type == 'in_person'">{{currentElementIndex + 1}}. <span translate>Tickets.In person ticket</span> </p>
                     <p class="name-ticket" *ngIf="item.ticket.type == 'vr'">{{currentElementIndex + 1}}. <span translate>Tickets.Vr ticket</span></p>
-                    
+
                     <div class="flex-info-ticket">
                          <div class="col-info">
                             <p class="name-col" translate>Tickets.Verification code</p>
                             <p class="value">{{Verification}}</p>
-                        </div> 
+                        </div>
                         <div class="col-info">
                             <p class="name-col" translate>Tickets.Customer</p>
                             <p class="value">{{accountForPrint.first_name}} {{accountForPrint.last_name}}</p>
@@ -171,12 +172,12 @@
                             <p class="value"><i [innerHTML]="Currency"></i>{{item.ticket.price}}</p>
                          <!-- <p *ngIf="MyCurrency != OriginalCurrency" class="c c-original"></p> -->
                         </div>
-        
+
                     </div>
                     <div class="some-info-print">
                         <p class="head-tt" translate>Description</p>
                         <p class="some-text">{{item.ticket.description}}</p>
-                            
+
                     </div>
 
                 </ng-container>

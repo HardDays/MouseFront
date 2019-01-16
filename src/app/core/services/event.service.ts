@@ -306,6 +306,12 @@ export class EventService{
             () => this.http.GetData('/fan_tickets/finish_paypal.json', this.typeService.ParamsToUrlSearchParams(params))
         );
     }
+    FinishYandex(params:any)
+    {
+        return this.http.CommonRequest(
+            () => this.http.GetData('/fan_tickets/finish_yandex.json', this.typeService.ParamsToUrlSearchParams(params))
+        );
+    }
 
     public EventModelToCreateEventModel(input:EventGetModel){
         let result = new EventCreateModel();
