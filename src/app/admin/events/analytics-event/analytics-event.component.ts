@@ -117,7 +117,6 @@ graphInfo = {
       .subscribe(
         (res)=>{
           this.newStatus = res;
-          // console.log("STATUS", this.newStatus);
 
           let succes = this.GetPercent(this.newStatus.successful);
           let pending = this.GetPercent(this.newStatus.pending);
@@ -139,13 +138,11 @@ graphInfo = {
   }
 
   setGraphNewStatusBy(per:string){
-    // console.log(per);
     this.newStatusPer = per;
     this.GetInfo();
   }
 
   GetPercent(data:number){
-    // console.log(data);
     data = data/this.newStatus.all*100;
     return parseFloat(data.toFixed(1));
     
@@ -158,7 +155,6 @@ graphInfo = {
     {
         this.paramsIndividual.event_type.push(this.paramsIndividual.event_type_[t]);
     }
-    // console.log("PARAMIND", this.paramsIndividual);
     this.main.adminService.GetEventsIndividual(this.paramsIndividual)
     .subscribe(
       (res)=>{
@@ -175,7 +171,6 @@ graphInfo = {
       .subscribe(
         (res)=>{
           this.graphInfo = res;
-          // console.log("GRAPH", this.graphInfo);
          
           this.lineChartLabels.length = 0;
           this.lineChartLabels.push(...this.graphInfo.axis);
@@ -220,12 +215,10 @@ graphInfo = {
 
   // SetMaxY(){
   //   // let y = this.lineChartOptions.scales.yAxes[0].ticks.max;
-  //   console.log(this.lineChartData[0].data);
   //   let max = Math.max.apply(Math, this.lineChartData[0].data.map(function(obj){return obj.y;}));
     
 
   //   this.lineChartOptions.scales.yAxes[0].ticks.max = max + 1;
-  //   console.log(this.lineChartOptions.scales.yAxes[0].ticks);
   // }
 
   // SetMinY(){
@@ -325,11 +318,9 @@ graphInfo = {
  
   // events
   public chartClicked(e:any):void {
-    // console.log(e);
   }
  
   public chartHovered(e:any):void {
-    // console.log(e);
   }
 
  

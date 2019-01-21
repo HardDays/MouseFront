@@ -25,9 +25,7 @@ export class CustomerSupportAnswersComponent extends BaseComponent implements On
 
   ngOnInit() {
     this.isSuperUser = this.MyUser.is_superuser?true:false;
-    // console.log(`isSuperUser`,this.isSuperUser);
 
-    // console.log(this.isSuperUser);
 
 
     this.GetTemplates();
@@ -99,19 +97,16 @@ export class CustomerSupportAnswersComponent extends BaseComponent implements On
         this.clearTemplate();
         this.openTemplate.id = res['id'];
         this.approveTemplate();
-        // console.log(`ok`)
         // this.Templates.push(this.openTemplate);111
 
 
       },
       (err)=>{
-        // console.log(`err`,err)
       }
     )
   }
 
   PatchTemplate(){
-    // console.log(this.openTemplate.id,this.openTemplate.subject,this.openTemplate.message)
     this.main.adminService.PatchReplyTemplate(this.openTemplate.id,this.openTemplate.subject,this.openTemplate.message)
       .subscribe(
         (res)=>{
@@ -132,7 +127,6 @@ export class CustomerSupportAnswersComponent extends BaseComponent implements On
   }
 
   updateTemplate(){
-    // console.log(`111`)
     if(this.isEdit)
       this.PatchTemplate();
     else

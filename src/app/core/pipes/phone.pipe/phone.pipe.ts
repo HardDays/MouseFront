@@ -14,7 +14,6 @@ export class PhonePipe extends BaseComponent{
             val = val.substring(1);
 
         let phone = '';
-        // console.log(`val`,val);
 
         let codes = this.main.phoneService.GetAllPhoneCodesWithFormat();
 

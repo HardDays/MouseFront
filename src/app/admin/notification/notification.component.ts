@@ -27,7 +27,6 @@ export class NotificationComponent extends BaseComponent implements OnInit {
     this.main.adminService.GetFeed()
       .subscribe((res)=>{
         this.Feed = res;
-        // console.log(this.Feed);
       })
   }
 
@@ -60,7 +59,6 @@ export class NotificationComponent extends BaseComponent implements OnInit {
         (res)=>{
           $('#forward').modal('hide');
           this.ForwardMessage.topic = '';
-          // console.log(`ok`);
         }
       )
   }

@@ -130,7 +130,6 @@ isHaveDeclined = false;
       this.getGenres();
 
       // this.artistsList = this.Event.artist;
-      // //console.log(this.artistsList);
       // this.GetArtistsFromList();
     }
 
@@ -138,9 +137,7 @@ isHaveDeclined = false;
 
 
       // this.artistsList = this.Event.artist;
-      // //console.log(this.artistsList);
       // this.GetArtistsFromList();
-      // console.log(`ngOnChanges`,this.artistsList, this.Artists);
       this.updateEvent();
     }
     getSliderParametres(){
@@ -254,7 +251,6 @@ isHaveDeclined = false;
           if(acc.image_id){
             acc.image_base64_not_given = this.main.imagesService.GetImagePreview(acc.image_id,{width:240,height:240});
 
-            //console.log(acc.image_base64_not_given);
             // this.main.imagesService.GetImageById(acc.image_id).
             //   subscribe((img)=>{
             //     if(img.base64)
@@ -294,7 +290,6 @@ isHaveDeclined = false;
 
   this.main.accService.AccountsSearch(this.artistSearchParams).subscribe(
     (res)=>{
-       //console.log(this.artistSearchParams,` from back `, res);
       let temp = this.convertArrToCheckModel<AccountGetModel>(res);
       for(let art of copy){
         if(art.checked){
@@ -314,7 +309,6 @@ isHaveDeclined = false;
       this.artistsSearch = temp;
       this.isLoadingArtist = false;
       this.GetArtistsImages();
-     // console.log(this.artistsSearch);
     },(err)=>{ this.isLoadingArtist = false;})
 
     }
@@ -366,7 +360,6 @@ isHaveDeclined = false;
   }
 
   closeAddArtist(id:number){
-    // console.log(`click`);
     $('#modal-pick-artist').modal('toggle');
     setTimeout(() => {
       // this.router.navigate(['/system/profile',id]);
@@ -411,22 +404,17 @@ isHaveDeclined = false;
           }
           if(!isFind){
             this.addArtist.artist_id = item.object.id;
-           // console.log(this.addArtist);
             this.main.eventService.AddArtist(this.addArtist).
               subscribe((res)=>{
-                //  console.log(`add `,this.addArtist.artist_id);
                 itemCount++;
-                // console.log(itemCount,this.artistsSearch.length)
                 if(itemCount===this.artistsSearch.length){
                 setTimeout(() => {
-                          // console.log(`update`);
                           this.updateEvent();
                         }, 500);
                 }
 
               }, (err)=>{
                 this.onError.emit(this.getResponseErrorMessage(err, 'event'));
-               // console.log(`err`,err);
 
               });
 
@@ -439,7 +427,6 @@ isHaveDeclined = false;
         }
         if(itemCount===this.artistsSearch.length){
             setTimeout(() => {
-                    // console.log(`update`);
                     this.updateEvent();
                   }, 500);
         }
@@ -467,14 +454,11 @@ isHaveDeclined = false;
     for(let m of this.messagesList)
         if(m.id == msgId) msg = m;
 
-    // console.log(msg,this.messagesList,msgId);
     this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from?msg.message_info.preferred_date_from:new Date().toString();
     this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to?msg.message_info.preferred_date_to:new Date('+3').toString();
 
-    //  console.log(this.ownerAcceptDecline);
     this.main.eventService.ArtistAcceptOwner(this.ownerAcceptDecline).
         subscribe((res)=>{
-           // console.log(`ok accept artist`,res);
             this.onError.emit("Artist accepted!");
             this.updateEvent();
         },(err)=>{
@@ -505,11 +489,9 @@ isHaveDeclined = false;
     for(let m of this.messagesList)
         if(m.id == msgId) msg = m;
 
-    // console.log(msg,this.messagesList,msgId);
     this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from?msg.message_info.preferred_date_from:new Date().toString();
     this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to?msg.message_info.preferred_date_to:new Date('+3').toString();
 
-    //  console.log(this.ownerAcceptDecline);
     this.main.eventService.ArtistDeleteOwner
       (
         {
@@ -519,7 +501,6 @@ isHaveDeclined = false;
         }
       ).
         subscribe((res)=>{
-           // console.log(`ok accept artist`,res);
             this.onError.emit("Artist deleted!");
             this.updateEvent();
         },(err)=>{
@@ -561,7 +542,6 @@ declineArtist(){
             $('#modal-decline').modal('hide');
 
             this.main.accService.onMessagesChange$.next();
-           // console.log(`ok decline artist`,res);
             this.onError.emit("Artist declined!");
             this.updateEvent();
             this.isEmptyDeclinedArtists();
@@ -597,12 +577,10 @@ artistSendRequest(id:number){
     this.addArtist.account_id = this.Event.creator_id;
     this.addArtist.id = id;
     this.addArtist.currency = this.Event.currency;
-    // console.log(`request artist`,this.addArtist);
 
     this.main.eventService.ArtistSendRequest(this.addArtist)
     .subscribe((send)=>{
         $('#modal-send-request-artist').modal('hide');
-      // console.log(`send`);
       setTimeout(() => {
         this.onError.emit("Request was sent");
       }, 400);
@@ -622,16 +600,13 @@ artistSendRequest(id:number){
 
 updateEvent(){
 
-  // console.log(`updateEvent`);
   this.main.eventService.GetEventById(this.Event.id).
             subscribe((res:EventGetModel)=>{
               this.artistsList = [];
-              //  console.log(`updateEventThis`);
                 this.Event = this.main.eventService.EventModelToCreateEventModel(res);
                   this.artistsList = this.Event.artist;
                 setTimeout(() => {
 
-                  // console.log(`---`,this.Event,this.artistsList)
                   this.GetArtistsFromList();
                 }, 500);
 
@@ -650,10 +625,8 @@ getMessages(){
           this.main.accService.GetInboxMessageById(crId, m.id).
               subscribe((msg)=>{
                   this.messagesList.push(msg);
-                  // console.log(`msg`,this.messagesList);
           });
           },(err)=>{
-        //console.log(err)
       });
   }
 }
@@ -688,7 +661,6 @@ return '-';
 
 getIdAtMsg(sender:number){
   for(let m of this.messagesList){
-    // console.log(`m`,m,sender,this.Event.creator_id);
       if( m.sender_id == sender &&
           m.receiver_id == this.Event.creator_id &&
           m.message_info && m.message_info.event_info &&
@@ -814,12 +786,10 @@ dragMarker($event)
           }
         }
 
-        // console.log(this.ArtistInvite, this.InviteSocials);
         if(this.ArtistInvite.email||this.ArtistInvite.facebook||this.ArtistInvite.vk||this.ArtistInvite.twitter||this.ArtistInvite.email){
           this.main.inviteService.PostInviteArtist(this.ArtistInvite)
             .subscribe(
               (res)=>{
-                // console.log(`ok`);
                 $('#modal-send-unauth').modal('hide');
                 this.ArtistInvite = {
                   account_id: this.CurrentAccount.id,

@@ -165,7 +165,6 @@ super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,setti
             this.GetImage(res.image_id);
           },
           (err)=>{
-            // console.log(err);
           }
         );
     }
@@ -177,8 +176,7 @@ super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,setti
               .subscribe(
                   (res:Base64ImageModel) => {
                       this.Images.push((res && res.base64) ? res : {base64:BaseImages.Drake,event_id:res.event_id});
-                      // console.log(this.eventsThisMonth);
-                      // console.log(this.Images);
+                      
                 }
               );
         }
@@ -190,7 +188,6 @@ super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,setti
   generateCalendar(): void {
     
     const dates = this.fillDates(this.currentDate);
-    // console.log('ok');
     const weeks: CalendarDate[][] = [];
     while (dates.length > 0) {
       weeks.push(dates.splice(0, 7));

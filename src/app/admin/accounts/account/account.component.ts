@@ -26,7 +26,7 @@ export class AccountComponent extends BaseComponent implements OnInit {
 
     this.activatedRoute.params.subscribe(
       (params:Params) => {
-        this.accId = params['id']; // console.log(params["id"]);
+        this.accId = params['id']; 
         this.getThisAcc();
       }
     );
@@ -40,24 +40,20 @@ export class AccountComponent extends BaseComponent implements OnInit {
         this.Account = res;
         this.accType = this.Account.account_type;
          this.CurrencySymbol = CurrencyIcons[this.Account.currency];
-        // console.log(`Acc`,this.Account);
       },
       (err)=>{
-        // console.log(`err`,err)
       }
     )
   }
 
   isOnDelete = false;
   removeAcc(){
-    // console.log(`removeAcc`);
     if(!this.isOnDelete){
       this.isOnDelete = true;
       this.main.adminService.AccountDelete(this.accId)
         .subscribe(
           (res)=>{
             this.isOnDelete = false;
-            // console.log(`res`,res);
             this.router.navigate(['/admin','accounts','all'])
           },
           (err)=>{
@@ -68,40 +64,32 @@ export class AccountComponent extends BaseComponent implements OnInit {
                 this.errCmp.CloseWindow();
               this.isOnDelete = false;
             }, 3000);
-            // console.log(`err`,err)
           }
         )
     }
   }
 
   denyAcc(){
-    // console.log(`denyAcc`);
     this.main.adminService.AccountDeny(this.accId)
       .subscribe(
         (res)=>{
-          // console.log(`res`,res);
           this.errCmp.OpenWindow('Success');
-          // this.getThisAcc();
            this.Account.status = 'denied';
         },
         (err)=>{
-          // console.log(`err`,err)
         }
       )
   }
 
   approveAcc(){
-    // console.log(`approveAcc`);
     this.main.adminService.AccountApprove(this.accId)
       .subscribe(
         (res)=>{
-          // console.log(`res`,res);
           this.errCmp.OpenWindow('Success');
           // this.getThisAcc();
           this.Account.status = 'approved';
         },
         (err)=>{
-          // console.log(`err`,err)
         }
       )
   }

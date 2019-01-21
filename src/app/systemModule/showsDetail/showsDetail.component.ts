@@ -607,9 +607,17 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
 
         if(this.Event.venue)
         {
-            this.EventLocation += "<span>"+this.Event.venue.display_name+"</span><br>";
-            if(this.Event.venue.address)
+            if(this.Event.venue.display_name)
+                this.EventLocation += "<span>"+this.Event.venue.display_name+"</span><br>";
+            else if(this.Event.venue.venue_type == "private_residence")
+                this.EventLocation += "<span>"+this.GetTranslateString('Private residence')+"</span><br>";
+
+            if(!this.Event.venue.street)
                 this.EventLocation += this.Event.venue.address+"<br>";
+            else
+                this.EventLocation += this.Event.venue.street+"<br>";
+            
+                
 
             if(this.Event.venue.city)
                 this.EventLocation += this.Event.venue.city+", ";

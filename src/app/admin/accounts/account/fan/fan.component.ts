@@ -93,7 +93,6 @@ export class FanComponent extends BaseComponent implements OnInit {
                       this.isPreloadTickets = false;
                   },
                   (err) => {
-                  //   console.log(err);
                   }
               );
           }
@@ -120,7 +119,6 @@ export class FanComponent extends BaseComponent implements OnInit {
                       this.EventsMassChecked = this.EventsMass = res;
                   },
                   (err) => {
-                  //  console.log(err);
                   }
               );
           }
@@ -152,7 +150,6 @@ export class FanComponent extends BaseComponent implements OnInit {
                 this.Fans = res.followers;
             },
             (err) => {
-              //  console.log(err);
             
             }
         );

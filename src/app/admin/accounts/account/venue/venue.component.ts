@@ -141,7 +141,6 @@ export class VenueComponent extends BaseComponent implements OnInit {
       this.WaitBeforeLoading(
         () => this.main.imagesService.GetImageById(oneRes.id),
         (res:any) => {
-          // console.log(oneRes);
              let p = {
               id:res.id,
               base64:res.base64,
@@ -157,7 +156,6 @@ export class VenueComponent extends BaseComponent implements OnInit {
               (err) =>{
             });
             this.photos.push(p);
-            // console.log(this.photos);
           },
         (err) => {
         }

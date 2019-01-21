@@ -51,7 +51,6 @@ export class FeedbackAnalyticsComponent extends BaseComponent implements OnInit 
       .subscribe(
         (res)=>{
           this.graphInfo = res;
-          // console.log(this.graphInfo);
          
           this.lineChartLabels.length = 0;
           this.lineChartLabels.push(...this.graphInfo.axis);
@@ -184,11 +183,9 @@ export class FeedbackAnalyticsComponent extends BaseComponent implements OnInit 
  
   // events
   public chartClicked(e:any):void {
-    // console.log(e);
   }
  
   public chartHovered(e:any):void {
-    // console.log(e);
   }
 
 

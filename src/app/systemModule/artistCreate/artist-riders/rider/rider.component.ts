@@ -40,7 +40,6 @@ export class RiderComponent extends BaseComponent implements OnInit {
   }
   // ngOnChanges(changes: SimpleChanges): void {
   //   if(changes.Rider){
-  //     // console.log(`!!!`,this.Rider)
   //     if(this.Rider.id) this.isConfirmRider = true;
   //       else  this.isConfirmRider = false;
   //   }
@@ -71,12 +70,10 @@ export class RiderComponent extends BaseComponent implements OnInit {
    var reader = new FileReader();
    reader.readAsDataURL(file);
    reader.onload = (e)=>{
-    //  console.log(reader.result);
      this.Rider.uploaded_file_base64 = reader.result+'';
     //     this.isConfirmRider = false;
    };
    reader.onerror = function (error) {
-    //  console.log('Error: ', error);
    };
 }
 
@@ -149,7 +146,6 @@ export class RiderComponent extends BaseComponent implements OnInit {
     //   .subscribe((res)=>{
     if(this.Rider.uploaded_file_base64){
         let type = this.Rider.uploaded_file_base64.split(';base64,')[0].split('/')[1];
-        // console.log(this.Rider.uploaded_file_base64.split(';base64,')[0]);
         let file = this.Rider.uploaded_file_base64.split(';base64,')[1];
 
         var decoded = new Buffer(file, 'base64');
@@ -160,7 +156,6 @@ export class RiderComponent extends BaseComponent implements OnInit {
         saveAs(blob,'Rider.'+type);
 
       // }, (err)=>{
-      //   // console.log(err);
       // })
     }
   }

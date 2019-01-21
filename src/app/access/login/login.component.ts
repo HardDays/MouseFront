@@ -64,12 +64,10 @@ export class LoginComponent extends BaseComponent implements OnInit {
             this.main.MyAccountsChange.subscribe(
               (accs)=>{
                 if(this.main.MyAccounts.length>0){
-                  // console.log(`main.MyAccounts.length>0`);
                   this.router.navigate(['/system','shows']);
                 }
                 else
                 {
-                  // console.log(`create new acc`);
                   this.router.navigate(['/social']);
                 }
               }
@@ -78,19 +76,12 @@ export class LoginComponent extends BaseComponent implements OnInit {
             this.main.authService.onAuthChange$.next(true);
 
 
-            // setTimeout(() => {
-            //   // console.log(this.main.MyAccounts);
-
-            // }, 1000);
 
           }
         );
     }
-      // //console.log("tw_token", this.accessTwitterToken);
-      // console.log("secret", this.accessTwitterSecretToken);
       // if(this.accessTwitterToken.length>0) this.authService.UserLoginByTwitter(this.accessTwitterToken, this.accessTwitterSecretToken).
       //                                 subscribe((res)=>{
-      //                                   console.log(`twitter ok`,res);
       //                                   this.authService.BaseInitAfterLogin(res);
       //                                   // this.router.navigate(['/system','shows']);
       //                                   this.router.navigate(['/system','shows']);
@@ -123,10 +114,8 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
     // setTimeout(() => {
     //   VK.Auth.login((res)=>{
-    //     console.log(res);
     //     if(res.session.sid.length>0)
     //     {
-    //       console.log(res.session.sid);
     //       this.main.authService.UserLoginByVk(res.session.sid)
     //         .subscribe
     //         (
@@ -136,11 +125,9 @@ export class LoginComponent extends BaseComponent implements OnInit {
     //             this.main.authService.onAuthChange$.next(true);
 
     //             setTimeout(() => {
-    //               // console.log(this.main.MyAccounts);
     //               if(this.main.MyAccounts.length>0)
     //                 this.router.navigate(['/system','shows']);
     //               else {
-    //                 // console.log(`create new acc`);
     //                 this.router.navigate(['/social']);
     //               }
     //             }, 1000);
@@ -151,9 +138,6 @@ export class LoginComponent extends BaseComponent implements OnInit {
     //   });
     // }, 500);
 
-    // VK.Observer.subscribe('auth.logout',(res)=>{
-    //   console.log(`subscribe`,res);
-    // })
 
 
 
@@ -165,11 +149,9 @@ export class LoginComponent extends BaseComponent implements OnInit {
      VK.init({apiId: 6326995});
     setTimeout(() => {
       VK.Auth.logout((res)=>{
-        // console.log(res);
       });
     }, 500);
     VK.Observer.subscribe('auth.logout',(res)=>{
-      // console.log(`subscribe`,res);
     })
   }
 
@@ -178,8 +160,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
   //   //window.open("https://oauth.vk.com/authorize?client_id=6412516&redirect_uri=http://localhost:4200/login&display=page&response_type=token&v=5.73&state=123456");
   //   // window.open("https://api.twitter.com/oauth/authenticate?oauth_token=jH56gmOmhtodHnttk65J5Mo6f9pVJyIZkm7xvtYPmuEDG");
   //   this.authService.Twitter().subscribe((res)=>{
-  //     // console.log(`twitter`,res)
-  //   },(err)=>{//console.log(`tw err`,err)
+  //   },(err)=>{
   // });
 
   // }

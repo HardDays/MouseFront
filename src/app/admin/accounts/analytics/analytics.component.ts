@@ -26,7 +26,6 @@ graphInfo = {
     this.main.adminService.GetAccountsUserUsage()
       .subscribe(
         (res)=>{
-          // console.log(`Usage`,res);
           this.Usage = res;
         }
       )
@@ -34,7 +33,6 @@ graphInfo = {
       this.main.adminService.GetAccountsNew()
       .subscribe(
         (res)=>{
-          // console.log(`Usage`,res);
           this.New = res;
         }
       )
@@ -47,7 +45,6 @@ graphInfo = {
       .subscribe(
         (res)=>{
           this.graphInfo = res;
-          // console.log(this.graphInfo);
          
           this.lineChartLabels.length = 0;
           this.lineChartLabels.push(...this.graphInfo.axis);
@@ -184,11 +181,9 @@ graphInfo = {
  
   // events
   public chartClicked(e:any):void {
-    // console.log(e);
   }
  
   public chartHovered(e:any):void {
-    // console.log(e);
   }
 
 

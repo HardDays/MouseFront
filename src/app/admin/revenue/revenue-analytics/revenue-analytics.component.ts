@@ -163,7 +163,6 @@ export class RevenueAnalyticsComponent extends BaseComponent implements OnInit {
         res=>this.countsAdvertisingTotal = res;
       },
       (err)=>{
-        // console.log("No Advertising content" ,err);
 
       }
 
@@ -304,8 +303,6 @@ export class RevenueAnalyticsComponent extends BaseComponent implements OnInit {
   }
 
   GetPercentTotal(data:number){
-    // console.log("DATA", data);
-    // console.log("city", this.citiesTotal.total);
 
     data = data/this.citiesTotal.total*100;
     return parseFloat(data.toFixed(1));
@@ -313,8 +310,6 @@ export class RevenueAnalyticsComponent extends BaseComponent implements OnInit {
   }
 
   GetPercentSales(data:number){
-    // console.log("DATA", data);
-    // console.log("city", this.citiesSales.total);
 
     data = data/this.citiesSales.total*100;
     return parseFloat(data.toFixed(1));

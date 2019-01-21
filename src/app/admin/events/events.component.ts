@@ -18,7 +18,7 @@ export class EventsComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.subscribe(
       (params:Params) => {
-        this.status = params['id']; // console.log(params["id"]);
+        this.status = params['id']; 
         this.isShowTable = true;
         if(this.status === 'analytics'||this.status === 'invites'){
           this.isShowTable = false;
@@ -31,7 +31,6 @@ export class EventsComponent extends BaseComponent implements OnInit {
         }
       }
     );
-    // console.log(`---`,this.isApprovedBy);
 
     this.getEvents();
   }

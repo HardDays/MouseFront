@@ -19,6 +19,8 @@ export class ShowItemComponent extends BaseComponent implements OnChanges {
     Date:string = "";
     IsPromotional = false;
 
+    Address = '';
+
     ngOnChanges(changes: SimpleChanges): void 
     {
         this.GetExtendedEvent();
@@ -43,6 +45,8 @@ export class ShowItemComponent extends BaseComponent implements OnChanges {
                         {
                             this.IsPromotional = this.Show.tickets.filter(obj => obj.is_promotional).length > 0;
                         }
+
+                        this.Address = EventGetModel.GetEventLocation(this.Show);
                         this.SetDate();
                         this.GetImage();
                     },

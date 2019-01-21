@@ -74,7 +74,6 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
     this.main.adminService.GetQuestions()
     .subscribe(
       (res)=>{
-        // console.log(res);
         this.Questions = res;
         if(this.Questions&&this.Questions[0]&&this.Questions[0].id)
           this.openNewQuestion(this.Questions[0].id)
@@ -101,7 +100,6 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
 
     this.main.adminService.GetQuestionById(id)
       .subscribe((res)=>{
-        // console.log(res);
         this.openQuestion = res;
 
         // if(this.openQuestion.reply.length === 0){
@@ -128,7 +126,6 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
           }
         }
 
-        // console.log(`open message`,this.openQuestion)
 
 
         // if(this.openQuestion.reply){
@@ -156,7 +153,6 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
         (res:any[]) =>
         {
           this.AnswerOptions = res;
-          // console.log("answer", this.AnswerOptions);
 
         }
       )
@@ -167,7 +163,6 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
       .subscribe(
         (res)=>{
           this.Answer.message = '';
-          // console.log(res);
           // this.GetQuestions();
           this.openNewQuestion(this.openQuestion.id);
         }
@@ -187,7 +182,6 @@ export class CustomerSupportComponent extends BaseComponent implements OnInit {
     this.main.adminService.SolveQuestion(this.openQuestion.id,this.Answer.subject,'Solved!')
       .subscribe(
         (res)=>{
-          // console.log(`ok`);
           this.openQuestion.is_closed = true;
           this.GetQuestions();
         }

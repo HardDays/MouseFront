@@ -106,7 +106,6 @@ export class VenuesComponent extends BaseComponent implements OnInit {
 
         this.CurrencySymbol = CurrencyIcons[this.Event.currency];
 
-        // console.log(`0`,this.Event);
         this.CreateAutocompleteVenue();
         this.getSliderParametres();
         this.initSlider()
@@ -115,8 +114,6 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         this.GetLocation();
 
         this.venuesList = this.Event.venues;
-        // this.updateEvent();
-        // this.GetVenueFromList();
 
         this.main.eventService.GetEventById(this.Event.id).
         subscribe((res:EventGetModel)=>{
@@ -124,7 +121,6 @@ export class VenuesComponent extends BaseComponent implements OnInit {
            setTimeout(() => {
                 this.Event = this.main.eventService.EventModelToCreateEventModel(res);
                 this.venuesList = this.Event.venues;
-                // console.log(`get this Event`, this.Event);
                 // this.onSave.emit(this.Event);
                 this.GetVenueFromList();
                 this.venueSearch();
@@ -142,9 +138,7 @@ export class VenuesComponent extends BaseComponent implements OnInit {
 
     // ngOnChanges(change:SimpleChanges){
     //     // if(change.Event){
-    //     //     console.log(`1`,this.Event);
     //     //     this.Event = change.Event.currentValue;
-    //     //     console.log(`2`,this.Event);
     //     //     this.venuesList = this.Event.venues;
     //     //     this.GetVenueFromList();
     //     // }
@@ -217,7 +211,6 @@ export class VenuesComponent extends BaseComponent implements OnInit {
       }
 
     GetVenueFromList(){
-        // console.log(`getList`);
         this.requestVenues = [];
         if(this.venuesList&&this.venuesList.length>0)
         for(let i of this.venuesList){
@@ -391,10 +384,8 @@ export class VenuesComponent extends BaseComponent implements OnInit {
 
         this.venueSearchParams.exclude_event_id = this.Event.id;
 
-        // console.log(`Params`,this.venueSearchParams);
         this.main.accService.AccountsSearch(this.venueSearchParams).
              subscribe((res)=>{
-                // console.log(this.venueSearchParams,`res`,res);
                     let temp = this.convertArrToCheckModel<AccountGetModel>(res);
 
                     for(let art of this.venueList){
@@ -515,11 +506,9 @@ export class VenuesComponent extends BaseComponent implements OnInit {
             this.addVenue.is_personal = true;
             this.addVenue.currency = this.Event.currency;
 
-                  //  console.log(`ok add`);
                     $('#modal-send-request-venue').modal('toggle');
                     this.main.eventService.VenueSendRequest(this.addVenue)
                      .subscribe((send)=>{
-                      //  console.log(`ok send`);
                       this.main.accService.onMessagesChange$.next();
 
                         this.onError.emit("Request was sent");
@@ -531,7 +520,6 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         }
         else {
             this.onError.emit(this.getFormErrorMessage(this.requestVenueForm,'request'));
-            //console.log(`Invalid Request Form!`, this.aboutForm);
         }
     }
 
@@ -555,7 +543,6 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from;
         this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to;
 
-        // console.log(`INFO ABOUT ACCEPTED`,this.ownerAcceptDecline);
         this.main.eventService.VenueAcceptOwner(this.ownerAcceptDecline).
             subscribe((res)=>{
                 this.onError.emit("Venue accepted!");
@@ -569,7 +556,6 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                   this.onError.emit(this.GetTranslateString("Failed! This event has already confirmed a venue!"));
                 else
                   this.onError.emit("Venue NOT accepted! "+this.getResponseErrorMessage(err));
-                // console.log(`err`,err);
             });
     }
 
@@ -587,7 +573,6 @@ export class VenuesComponent extends BaseComponent implements OnInit {
         this.ownerAcceptDecline.datetime_from = msg.message_info.preferred_date_from;
         this.ownerAcceptDecline.datetime_to =  msg.message_info.preferred_date_to;
 
-        // console.log(`INFO ABOUT ACCEPTED`,this.ownerAcceptDecline);
         this.main.eventService.VenueDeleteOwner
         (
           {
@@ -608,7 +593,6 @@ export class VenuesComponent extends BaseComponent implements OnInit {
                   this.onError.emit(this.GetTranslateString("Failed! This event has already confirmed a venue!"));
                 else
                   this.onError.emit("Venue NOT deleted! "+this.getResponseErrorMessage(err));
-                // console.log(`err`,err);
             });
     }
 
@@ -649,20 +633,17 @@ export class VenuesComponent extends BaseComponent implements OnInit {
     }
 
     createPrivateRes(){
-        // console.log(`submitVenue`);
         this.onError.emit(BaseMessages.Success);
         this.updateEvent();
     }
 
     updateEvent(){
-        // console.log(`update Event`);
         this.main.eventService.GetEventById(this.Event.id).
         subscribe((res:EventGetModel)=>{
            this.venuesList = [];
            setTimeout(() => {
                 this.Event = this.main.eventService.EventModelToCreateEventModel(res);
                 this.venuesList = this.Event.venues;
-                // console.log(`get this Event`, this.Event);
                 this.onSave.emit(this.Event);
                 this.GetVenueFromList();
                 this.venueSearch();
@@ -769,14 +750,11 @@ export class VenuesComponent extends BaseComponent implements OnInit {
 
         this.main.imagesService.GetImagePreviewObservable(id,{width:20,height:20}).subscribe(
             (res)=>{
-                //console.log(res);
                 return {'background-image':"url('"+this.main.imagesService.GetImagePreview(id,{width:240,height:240})+"')"}
             },
             (err)=>{
-                // console.log(`err`,err);
             }
         )
-        // console.log(`img`,img);
         //{'background-image': item.object.image_base64_not_given?'url('+item.object.image_base64_not_given+')':''}
     }
 
@@ -819,12 +797,10 @@ export class VenuesComponent extends BaseComponent implements OnInit {
           }
         }
 
-        // console.log(this.VenueInvite, this.InviteSocials);
         if(this.VenueInvite.email||this.VenueInvite.facebook||this.VenueInvite.vk||this.VenueInvite.twitter||this.VenueInvite.email){
           this.main.inviteService.PostInviteVenue(this.VenueInvite)
             .subscribe(
               (res)=>{
-                // console.log(`ok`);
                 $('#modal-send-unauth').modal('hide');
                 this.VenueInvite = {
                   account_id: this.CurrentAccount.id,

@@ -148,22 +148,17 @@ export class AboutComponent extends BaseComponent implements OnInit {
     }
     // this.Event&&this.Event.date_from?this.datepickerExactModel = new Date(this.Event.date_from):null;
 
-    // console.log(this.Event);
     if(this.Event.image_id)
     {
-        // console.log(this.Event.image_id);
         this.main.imagesService.GetImageById(this.Event.image_id)
         .subscribe(
             (img)=>{
-                // console.log(`succes`);
                 this.Event.image_base64 = img.base64;
             },(err)=>{
-                // console.log(`err`,err)
             }
         )
     }
     else {
-        // console.log(`NO IMAGE`);
     }
 
     this.mapCoords.lat = (this.Event && this.Event.city_lat)?this.Event.city_lat:55.755826;
@@ -364,7 +359,6 @@ GetCurrentCurrency(){
         }
 
 
-        // console.log(`thisForm`,this.Event);
         this.onSaveEvent.emit(this.Event);
     }
 
@@ -384,14 +378,12 @@ GetCurrentCurrency(){
     }
     TimeChange($event){
       this.Time = $event;
-    //   console.log(this.Time)
     }
 
     SetExactDate(){
       let date = this.main.typeService.DateToUTCDateISOString(new Date(this.datepickerExactModel.getTime() - this.datepickerExactModel.getTimezoneOffset() * 60000));
-    //   console.log(date, this.Time);
+    
       // let exactDate = new Date(date+this.Time);
-      // console.log(exactDate.toString());
 
       this.main.eventService.SetEventDateById(this.Event.id, date+" "+this.Time, this.CurrentAccount.id)
         .subscribe(
@@ -399,10 +391,8 @@ GetCurrentCurrency(){
           {
             this.Event.exact_date_from = this.main.typeService.DateToUTCDateISOString(this.datepickerExactModel);
             this.onError.emit(BaseMessages.Success);
-            // console.log(res);
           },
           (err)=>{
-            // console.log(err);
             this.onError.emit(BaseMessages.Fail)
           }
         )

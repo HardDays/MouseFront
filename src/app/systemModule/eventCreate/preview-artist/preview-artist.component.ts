@@ -95,7 +95,6 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
         // this.CurrencySymbol = CurrencyIcons[this.Artist.currency];
         if(this.Artist.genres)
           this.Artist.genres = this.main.genreService.BackGenresToShowGenres(this.Artist.genres);
-        // console.log(`artist`,res);
         this.CurrencySymbol = CurrencyIcons[this.main.settings.GetCurrency()];
         this.GetDates();
         this.GetArtistImages();
@@ -262,7 +261,6 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
             });
             this.photos.push(p);
             this.positionScroller();
-            // console.log(`photos2`,this.photos);
           },
         (err) => {
         }
@@ -317,11 +315,9 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
       if(this.player&&  this.player.isPlaying())
         this.player.pause();
 
-      // console.log(s);
       this.audioDuration = 0;
       this.audioCurrentTime = 0;
       SC.resolve(s).then((res)=>{
-        // console.log(res);
         SC.stream('/tracks/'+res.id).then((player)=>{
           this.player = player;
           this.player.play();
@@ -342,7 +338,6 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
         });
 
       },(err)=>{
-        // console.log(`ERROR`)
       })
     }
 
@@ -388,13 +383,11 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
     }
 
   downloadFile(fileBase64: string){
-    // console.log(`download`,fileBase64);
     if(fileBase64){
       // this.main.accService.GetRiderById(id)
       // .subscribe((res)=>{
 
         let type = fileBase64.split(';base64,')[0].split('/')[1];
-        // console.log(fileBase64.split(';base64,')[0]);
         let file = fileBase64.split(';base64,')[1];
 
         var decoded = new Buffer(file, 'base64');
@@ -405,7 +398,6 @@ export class PreviewArtistComponent extends BaseComponent implements OnInit {
         saveAs(blob,'Rider.'+type);
 
       // }, (err)=>{
-      //   // console.log(err);
       // })
     }
   }

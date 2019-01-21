@@ -173,7 +173,6 @@ export class ArtistComponent extends BaseComponent implements OnInit {
               (err) =>{
             });
             this.photos.push(p);
-            // console.log(`photos2`,this.photos);
           },
         (err) => {
         }
@@ -229,18 +228,14 @@ export class ArtistComponent extends BaseComponent implements OnInit {
     if(this.player&&  this.player.isPlaying())
       this.player.pause();
 
-    // console.log(s);
     this.audioDuration = 0;
     this.audioCurrentTime = 0;
     SC.resolve(s).then((res)=>{
-      // console.log(res);
       SC.stream('/tracks/'+res.id).then((player)=>{
         this.player = player;
         this.player.play();
-        // console.log(`PLAYING`);
 
         player.on('play-start',()=>{
-          // console.log(`start play`);
           this.audioDuration = this.player.getDuration();
 
           setInterval(()=>{
@@ -249,11 +244,9 @@ export class ArtistComponent extends BaseComponent implements OnInit {
         },(err)=>{
           this.onError.emit(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
           // this.errorCmp.OpenWindow(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
-          // console.log(`not start play`);
         })
 
         player.on('no_streams',()=>{
-          // console.log(`audio_error`);
           // this.errorCmp.OpenWindow(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
           this.onError.emit(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
 
@@ -269,13 +262,11 @@ export class ArtistComponent extends BaseComponent implements OnInit {
       },(err)=>{
         // this.errorCmp.OpenWindow(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
         this.onError.emit(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
-        // console.log(`error streaming`,err)
       });
 
     },(err)=>{
       // this.errorCmp.OpenWindow(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
       this.onError.emit(`<b>Warning:</b> uploaded song is not free! It will be impossible to play it!`);
-      // console.log(`ERROR`)
     })
   }
 
@@ -334,10 +325,8 @@ export class ArtistComponent extends BaseComponent implements OnInit {
         window.open(url);
       }
       else {
-        // console.log(`No file`);
       }
     }, (err)=>{
-      // console.log(err);
     })
   }
 
@@ -347,13 +336,11 @@ export class ArtistComponent extends BaseComponent implements OnInit {
   }
 
   downloadFile(fileBase64: string){
-    // console.log(`download`,fileBase64);
     if(fileBase64){
       // this.main.accService.GetRiderById(id)
       // .subscribe((res)=>{
 
         let type = fileBase64.split(';base64,')[0].split('/')[1];
-        // console.log(fileBase64.split(';base64,')[0]);
         let file = fileBase64.split(';base64,')[1];
 
         var decoded = new Buffer(file, 'base64');
@@ -363,9 +350,6 @@ export class ArtistComponent extends BaseComponent implements OnInit {
 
         saveAs(blob,'Rider.'+type);
 
-      // }, (err)=>{
-      //   // console.log(err);
-      // })
     }
   }
 

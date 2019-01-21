@@ -174,14 +174,12 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     delete this.Event['date_from'];
     delete this.Event['date_to'];
 
-    // console.log(`TEST`,this.Event);
 
     this.Event.account_id = this.CurrentAccount.id;
     this.WaitBeforeLoading
     (
       () => this.EventId == 0 ? this.main.eventService.CreateEvent(this.Event) : this.main.eventService.UpdateEvent(this.EventId,this.Event),
       (res) => {
-        // console.log(`WHAT FROM BACK`, res);
         this.DisplayEventParams(res);
 
         this.errorCmp.OpenWindow(BaseMessages.Success);
@@ -196,7 +194,6 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
       },
       (err) => {
-        // console.log(`err`,err);
         this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'event'));
       }
     )
@@ -218,7 +215,6 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         () => this.EventId === 0 ? this.main.eventService.CreateEvent(this.Event) : this.main.eventService.UpdateEvent(this.EventId,this.Event),
         (res) => {
           this.DisplayEventParams(res);
-          // console.log(`SAVE SUCCESS`);
           // this.errorCmp.OpenWindow(BaseMessages.Success);
 
 
@@ -227,7 +223,6 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
         },
         (err) => {
-          // console.log(`err`,err);
           this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'event'));
         }
       )
@@ -263,14 +258,12 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
     delete this.Event['date_from'];
     delete this.Event['date_to'];
 
-    // console.log(`TEST`,this.Event);
 
     this.Event.account_id = this.CurrentAccount.id;
     this.WaitBeforeLoading
     (
       () => this.EventId == 0 ? this.main.eventService.CreateEvent(this.Event) : this.main.eventService.UpdateEvent(this.EventId,this.Event),
       (res) => {
-        // console.log(`WHAT FROM BACK`, res);
         this.DisplayEventParams(res);
 
         setTimeout(
@@ -280,7 +273,6 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
       },
       (err) => {
-        // console.log(`err`,err);
         this.errorCmp.OpenWindow(this.getResponseErrorMessage(err, 'event'));
       }
     )
@@ -392,10 +384,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         // this.isShowLaunch = false;
         this.isHasVenue = this.Event.venue?true:false;
         this.Event.status = EventStatus.Active;
-        // console.log(`ok`);
       },
       (err)=>{
-        // console.log(`err`,err);
         if(err.json().errors === 'NO_EXACT_DATE')
            this.OpenErrorWindow('Fail! No exact date!');
         else
@@ -413,10 +403,8 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
         // this.isShowLaunch = false;
         this.Event.status = EventStatus.Pending;
         this.isHasVenue = this.Event.venue?true:false;
-        // console.log(`ok`);
       },
       (err)=>{
-        // console.log(`err`,err);
         this.OpenErrorWindow(BaseMessages.Fail);
       }
     )
@@ -433,7 +421,6 @@ export class EventCreateComponent extends BaseComponent implements OnInit {
 
       },
       (err)=>{
-        // console.log(`err`,err);
         this.OpenErrorWindow(BaseMessages.Fail);
       }
     )

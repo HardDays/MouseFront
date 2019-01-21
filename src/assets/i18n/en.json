@@ -894,5 +894,6 @@
   "Fax": "Fax",
   "<b>_field</b> max length is _length": "<b>_field</b> max length is _length",
   "<b>_field</b> needs to be a valid number" : "<b>_field</b> needs to be a valid number",
-  "<b>_email</b> needs to be a valid email" : "<b>_email</b> needs to be a valid email"
+  "<b>_email</b> needs to be a valid email" : "<b>_email</b> needs to be a valid email",
+  "Private residence": "Private residence"
 }

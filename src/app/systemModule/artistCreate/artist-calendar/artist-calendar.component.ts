@@ -91,10 +91,8 @@ constructor(
     // this.onSave.emit(this.artist);
     this.main.accService.UpdateMyAccount(this.artistId,this.artist).subscribe(
         (res)=>{
-            // console.log(res);
         }
         ,(err)=>{
-            // console.log(err);
         }
     )
 

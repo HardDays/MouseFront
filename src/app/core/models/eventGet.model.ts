@@ -59,23 +59,23 @@ export class EventGetModel{
 
     public static GetEventLocation(event: any)
     {
-        if(!event.venue)
-            return event.address;
-        
         let arr = [];
 
-        if(event.venue.city)
-            arr.push(event.venue.city);
+        if(event.venue)
+        {
+            if(event.venue.city)
+                arr.push(event.venue.city);
 
-        if(event.venue.state)
-            arr.push(event.venue.state);
+            if(event.venue.state)
+                arr.push(event.venue.state);
 
-        if(event.venue.country)
-            arr.push(event.venue.country);
+            if(event.venue.country)
+                arr.push(event.venue.country);
 
-        if(arr.length > 0)
-            return arr.join(', ');
-
+            if(arr.length > 0)
+                return arr.join(', ');
+        }
+        
         if(event.city)
             arr.push(event.city);
 
@@ -85,7 +85,39 @@ export class EventGetModel{
         if(event.country)
             arr.push(event.country);
 
-        return arr.length > 0 ? arr.join(', ') : event.address;
+        if(arr.length > 0)
+            return arr.join(', ');
+
+        try { 
+            var tokens: string[] = event.address.split(','); 
+            for(const i in tokens)
+            {
+                tokens[i] = tokens[i].trim();
+            }
+            if(tokens.length == 6)
+            {
+                return tokens.slice(2,5).join(', ');
+            }
+            else if (tokens.length == 5) 
+            { 
+                return tokens[4].trim() + ',' + 
+                tokens[3].trim() + ', ' + tokens[2].trim() + ', ' + tokens[0].trim() + ',' + 
+                tokens[1].trim(); 
+            } 
+            else if (tokens.length == 4) 
+            { 
+                return tokens[3].trim() + ',' + 
+                tokens[2].trim() + ', ' + tokens[0].trim() + ',' + 
+                tokens[1].trim(); 
+            } 
+            else 
+            { 
+                return event.address; 
+            } 
+        } catch (ex)
+        { 
+            return event.address; 
+        } 
     }
 
     public static GetDaysToGo(event: EventGetModel)

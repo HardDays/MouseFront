@@ -54,7 +54,6 @@ export class AdminComponent extends BaseComponent implements OnInit {
       ){
       super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,settings);
 
-      // console.log(`AdminComponent`,this.main.authService.GetToken());
 
 
       this.ng2cable.subscribe('wss://mouse-back.herokuapp.com/cable', 'AdminMessagesChannel', { Authorization: this.main.authService.GetToken() });
@@ -62,7 +61,6 @@ export class AdminComponent extends BaseComponent implements OnInit {
 
       this.broadcaster.on<any>('AdminMessagesChannel').subscribe(
         message => {
-          // console.log(message);
           this.CountMessages = message['count'];
         }
       );
@@ -85,7 +83,6 @@ export class AdminComponent extends BaseComponent implements OnInit {
     });
 
 
-    // console.log(this.main.MyUser.id);
 
     if(this.main.MyUser.id && (this.main.MyUser.is_admin||this.main.MyUser.is_superuser)){
       this.main.adminService.GetMyAccByIdUser(this.main.MyUser.id)
@@ -128,16 +125,13 @@ export class AdminComponent extends BaseComponent implements OnInit {
     // if(this.User.image_id){
     //   this.main.imagesService.GetImageById(this.User.image_id)
     //     .subscribe((res)=>{
-    //       console.log(`res img`, res);
     //       this.User.image_base64 = res.base64;
     //     })
     // }
-    // console.log(this.User);
 
     // this.getNewCounts();
     this.main.adminService.NewCountChange.subscribe(
       ()=>{
-        // console.log(`get new count`);
 
         this.getNewCounts();
         // this.newAccCount =  this.newAccCount - 1;

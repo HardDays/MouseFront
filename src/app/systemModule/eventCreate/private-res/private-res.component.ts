@@ -129,12 +129,10 @@ export class PrivateResComponent extends BaseComponent implements OnInit {
 
                             this.main.eventService.AddVenue(this.addVenue).
                                 subscribe((res)=>{
-                                    // console.log(`create`);
                                     this.OnCreate.emit();
 
                             },
                             (err)=>{
-                            //   console.log(`err main.eventService.AddVenue`);
                               if(err.json()['errors']==='HAS_ACCEPTED_VENUE'){
                                 let curLang = this.translate.store.currentLang?this.translate.store.currentLang:this.translate.store.defaultLang;
                                 if(curLang==='en')
@@ -159,13 +157,11 @@ export class PrivateResComponent extends BaseComponent implements OnInit {
                     },
                     (err)=>{
                       this.OnError.emit(this.getResponseErrorMessage(err,'venue'));
-                        // console.log(`err`,err);
                     }
                 );
         }
         else {
           this.OnError.emit(this.getFormErrorMessage(this.privateVenueForm,'venue'));
-            //console.log(`Invalid About Form!`, this.privateVenueForm);
         }
     }
 

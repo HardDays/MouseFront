@@ -77,7 +77,6 @@ export class FundingComponent extends BaseComponent implements OnInit {
                             this.messagesList.push(msg);
                             if(this.messagesList.length===res.length)
                                 setTimeout(() => {
-                                    // console.log(this.messagesList)
                                     this.getActiveArtVen();
                                 }, 300);
 
@@ -116,7 +115,6 @@ export class FundingComponent extends BaseComponent implements OnInit {
                 account_id:this.Event.creator_id
             }).
                 subscribe((res)=>{
-                    //console.log(`active set ok`,res);
                     this.activeArtist[index].checked = true;
                     this.artistSum += this.activeArtist[index].object.approximate_price;
 
@@ -132,7 +130,6 @@ export class FundingComponent extends BaseComponent implements OnInit {
                 account_id:this.Event.creator_id
             }).
                 subscribe((res)=>{
-                    //console.log(`active remove ok`,res);
 
                     this.activeArtist[index].checked = false;
                     this.artistSum -= this.activeArtist[index].object.approximate_price;
@@ -152,7 +149,6 @@ export class FundingComponent extends BaseComponent implements OnInit {
                 account_id:this.Event.creator_id
             }).
                 subscribe((res)=>{
-                    //console.log(`active set ok`,res);
 
                     this.activeVenue[index].checked = true;
                     this.venueSum += this.activeVenue[index].object.approximate_price;
@@ -169,7 +165,6 @@ export class FundingComponent extends BaseComponent implements OnInit {
                 account_id:this.Event.creator_id
             }).
                 subscribe((res)=>{
-                    //console.log(`active remove ok`,res);
                     // this.updateEvent();
                     this.activeVenue[index].checked = false;
                     this.venueSum -= this.activeVenue[index].object.approximate_price;
@@ -191,7 +186,6 @@ export class FundingComponent extends BaseComponent implements OnInit {
                 account_id:this.Event.creator_id
             }).
                 subscribe((res)=>{
-                    //console.log(`active remove ok`,res);
                     // this.updateEvent();
                     this.activeVenue.find(obj=>obj.object.venue_id===item.object.venue_id).checked = false;
                     this.venueSum -= this.activeVenue.find(obj=>obj.object.venue_id===item.object.venue_id).object.approximate_price;
@@ -206,7 +200,6 @@ export class FundingComponent extends BaseComponent implements OnInit {
                 account_id:this.Event.creator_id
             }).
                 subscribe((res)=>{
-                    //console.log(`active set ok`,res);
 
                     this.activeVenue.find(obj=>obj.object.venue_id===venue.object.venue_id).checked = true;
                     this.venueSum += this.activeVenue.find(obj=>obj.object.venue_id===venue.object.venue_id).object.approximate_price;
@@ -362,7 +355,6 @@ export class FundingComponent extends BaseComponent implements OnInit {
 
     // saveTotal(){
     //   this.getFundingGoal();
-    //   console.log(`save`,this.Event);
     //   this.onSave.emit(this.Event);
     // }
 
@@ -379,7 +371,6 @@ export class FundingComponent extends BaseComponent implements OnInit {
     //                 m.receiver_id === this.Event.creator_id &&
     //                 m.message_info&&m.message_info.event_info&&
     //                 m.message_info.event_info.id === this.Event.id){
-    //                     // console.log(m);
     //                     return m.message_info.price||m.message_info.estimated_price;
     //             }
 
@@ -390,7 +381,6 @@ export class FundingComponent extends BaseComponent implements OnInit {
     //         //         m.receiver_id === senderId &&
     //         //         m.message_info&&m.message_info.event_info&&
     //         //         m.message_info.event_info.id === this.Event.id){
-    //         //             // console.log(m);
     //         //             return m.message_info.price||m.message_info.estimated_price;
     //         //     }
 

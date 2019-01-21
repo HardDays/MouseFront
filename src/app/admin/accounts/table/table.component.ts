@@ -44,20 +44,16 @@ export class TableComponent extends BaseComponent implements OnInit {
         this.status = 'unchecked';
       else
         this.status = changes.status.currentValue;
-      // this.status =
-      // console.log( changes.status);
       this.Accounts = [];
       this.onScrollArtist();
     }
     if(changes.Events){
       this.EventsChecked = this.Events = changes.Events.currentValue;
     }
-    // console.log(`ngOnChanges`,this.Accounts.length);
 
   }
 
   onScrollArtist(){
-    // console.log(`scroll`);
     this.ScrollArtistDisabled = true;
     let params = {status: this.status,text:this.SearchName,account_type: this.TypeAcc,limit:20,offset:this.Accounts&&this.Accounts.length?this.Accounts.length:0};
     // if(this.status === '') delete params['status'];
@@ -95,7 +91,6 @@ export class TableComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    // console.log(this.Accounts)
     // if(this.Accounts)this.onScrollArtist();
   }
 
@@ -128,7 +123,6 @@ export class TableComponent extends BaseComponent implements OnInit {
     else
       this.openIds.splice(index,1);
 
-      // console.log(this.openIds);
 
   }
 
@@ -150,11 +144,9 @@ export class TableComponent extends BaseComponent implements OnInit {
         this.main.adminService.AccountDelete(id)
           .subscribe(
             (res)=>{
-              // console.log(id,`ok`);
               this.Accounts.splice(this.Accounts.indexOf(this.Accounts.find((a)=>a.id===id)),1)
             },
             (err)=>{
-              // console.log(`err`,err);
             }
           )
       }
@@ -162,11 +154,9 @@ export class TableComponent extends BaseComponent implements OnInit {
         this.main.adminService.EventDelete(id)
           .subscribe(
             (res)=>{
-              // console.log(id,`ok`);
               this.Events.splice(this.Events.indexOf(this.Events.find((e)=>e.id===id)),1)
             },
             (err)=>{
-              // console.log(`err`,err);
             }
           )
       }

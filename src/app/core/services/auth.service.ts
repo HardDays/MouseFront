@@ -182,23 +182,19 @@ export class AuthMainService{
     }
 
     UpdateUser(user:UserCreateModel){
-        // console.log(user);
         return this.http.CommonRequest(
             ()=> this.http.PatchData('/users/me.json',user)
         );
     }
     UpdateUserWithoutPass(user:UserGetModel){
-        // console.log(user);
         let params={
             email:user.email,
         };
-        // console.log(params);
         return this.http.CommonRequest(
             ()=> this.http.PatchData('/users/me.json',params)
         );
     }
     UpdateUserPhone(register_phone:string){
-        // console.log(user);
         return this.http.CommonRequest(
             ()=> this.http.PatchData('/users/me.json',{register_phone})
         );

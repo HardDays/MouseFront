@@ -49,21 +49,16 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
   //   });
     this.codes = this.main.phoneService.GetAllPhoneCodesWithFormat();
     this.selectCode = this.codes.find((s)=>s.iso2==='us');
-    // console.log(this.selectCode);
   }
 
   changeCode(s){
-    // console.log(s);
     this.phoneCode = s;
-    // console.log(`phonecode`,this.phoneCode)
   }
 
   inputPhone($event){
-   // this.phone = $event.target.value;
   }
 
   sendCode(){
-    // console.log(this.phone)
     if(this.phone&&this.phone.search('_')<0){
         this.phoneArr = false;
 
@@ -71,7 +66,6 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
           phoneToSend = phoneToSend.replace(/\(/g,'');
           phoneToSend = phoneToSend.replace(/\)/g,'');
           phoneToSend = phoneToSend.replace(/-/g,'');
-      //  console.log(`phoneToSend`,phoneToSend);
 
         this.WaitBeforeLoading(
         ()=>this.main.phoneService.SendCodeToPhone(phoneToSend),
@@ -98,7 +92,6 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
             }
            
             // .replace('_', ' '):'').toLowerCase()
-            // console.log(`err`,err.json()['phone']);
             // if(err=="'phone': 'ALREADY_VALIDATED'"){
             //   this.isShowPhone.emit(true);
             //   this.phoneStatus.emit({status:true,phone:this.phone});
@@ -132,7 +125,6 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
           this.errorCmp.OpenWindow(BaseMessages.Success);
           },
           (err)=>{
-            // console.log(`err`,err);
 
             this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
             
@@ -183,7 +175,6 @@ export class RegisterPhoneComponent extends BaseComponent implements OnInit {
             this.phoneStatus.emit({status:true,phone:this.phone});
           },
           (err)=>{
-            // console.log(`err`,err);
             this.errorCmp.OpenWindow('Code is invalid');
             
           }

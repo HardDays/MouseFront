@@ -128,9 +128,7 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
   }
 
   initDateMin(){
-    // console.log(`INIT DATE`)
     if(this.Artist.min_time_to_book){
-      // console.log(`time`,this.Artist.min_time_to_book);
       if(this.Artist.min_time_to_book%30==0)
       {
         this.Artist.min_time_to_book = this.Artist.min_time_to_book/30;
@@ -175,7 +173,6 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
   }
 
   addBooking(){
-  // console.log(`booking save`);
   this.Artist.preferred_venues = [];
 
     for(let v of this.preferredVenues){
@@ -301,7 +298,6 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
 
 
   preferredVenueTextInput(s:string){
-    // console.log(this.preferredVenues);
     if(s.length>0){
       this.preferredVenues.find(c=>c.object.type==='other').checked = true;
     }
@@ -353,10 +349,8 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
         else if(this.type_min_time_to_free_cancel=='months')
           this.Artist.min_time_to_free_cancel = this.Artist.min_time_to_free_cancel*30;
 
-        // console.log(`to Save`,this.Artist);
         this.onSave.emit(this.Artist);
 
-      // console.log(`ok ok okd`);
       }
       else {
         this.onError.emit('Please fill OTHER preferred venue field!');
@@ -427,7 +421,6 @@ export class ArtistBookingComponent extends BaseComponent implements OnInit {
         else if(this.type_min_time_to_free_cancel=='months')
           this.Artist.min_time_to_free_cancel = this.Artist.min_time_to_free_cancel*30;
 
-        // console.log(`to Save`,this.Artist);
         return true;
       // this.onSave.emit(this.Artist);
       } else {

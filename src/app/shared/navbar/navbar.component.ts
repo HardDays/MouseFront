@@ -61,7 +61,6 @@ export class NavbarComponent extends BaseComponent implements OnInit
             this.curNav = this.getThisPage();
 
           }
-          //console.log(Val);
         }
       );
 
@@ -81,15 +80,12 @@ export class NavbarComponent extends BaseComponent implements OnInit
       this.main.MyAccountsChange.subscribe(
         ()=>{
           if(this.isLoggedIn&&this.MyUser.id){
-          //console.log(`my_accounts`,this.MyAccounts);
             if(this.MyAccounts.length===0){
-              // console.log('get user_'+this.MyUser.id)
               if(!localStorage.getItem('is_register')){
 
                 let type = localStorage.getItem('new_user_'+this.MyUser.id);
                 // localStorage.removeItem('new_user_'+this.MyUser.id);
                 localStorage.setItem('new_user','true');
-                // console.log(this.MyUser.id, type);
                 // if(type){
                   if(type=='venue')
                     this.router.navigate(['/system','venueCreate','new']);
@@ -101,7 +97,6 @@ export class NavbarComponent extends BaseComponent implements OnInit
               }
             }
             else {
-              // console.log('to delete: user_'+this.MyUser.id,' status');
               localStorage.removeItem('new_user_'+this.MyUser.id);
             }
           }
@@ -118,7 +113,6 @@ export class NavbarComponent extends BaseComponent implements OnInit
       this.main.accService.GetInboxMessagesUnreadCount(this.CurrentAccount.id)
         .subscribe(
           (res)=>{
-            // console.log(res);
             this.countMessages = res.count;
           }
         )
@@ -215,8 +209,6 @@ export class NavbarComponent extends BaseComponent implements OnInit
 
       CheckModalWindows(page:string)
       {
-        // console.log("new_page",page);
-        // console.log("current_page",this.getThisPage());
       }
 
       openCalendar()

@@ -57,7 +57,6 @@ export class AddTicketsComponent extends BaseComponent implements OnInit {
 
     this.getTickets();
 
-    // console.log(`INIT`);
 
 
 
@@ -103,7 +102,6 @@ onShowPicker(event) {
 }
 
   getTickets(){
-    //console.log(`getTickets`);
     this.tickets = [];
     let params:TicketGetParamsModel = new TicketGetParamsModel();
     params.account_id = this.CurrentAccount.id;
@@ -116,7 +114,6 @@ onShowPicker(event) {
         //         this.analitics = res;
         //     },
         //     (err)=>{
-        //         // console.log(`err`,err);
         //     }
         // )
 
@@ -176,14 +173,12 @@ updateTicket(){
         if(this.currentTicket.type==='vr'){
             if(this.currentTicket.count>this.maxCountVr){
                 this.onError.emit('<b>Failed!</b> VR Tickets limit expired');
-                // console.log(`front error`);
                 return;
             }
         }
         else{
             if(this.currentTicket.count>this.maxCountInPerson){
                 this.onError.emit('<b>Failed!</b> Tickets limit expired');
-                // console.log(`front error`);
                 return;
             }
         }
@@ -192,32 +187,25 @@ updateTicket(){
         for(let i in this.ticketsNew)
             if(this.ticketsNew[i].id == this.currentTicket.id)
                 index = +i;
-        //console.log(`index`,index);
 
         this.currentTicket.id = null;
-        // console.log(`new create`,this.currentTicket);
         this.main.eventService.AddTicket(this.currentTicket)
             .subscribe((res)=>{
-                //console.log(`create`,res);
                 this.isCurTicketNew = false;
 
                 this.ticketsNew.splice(index,1);
 
                 this.updateEventTickets();
             },(err)=>{
-                // console.log(`back error`);
                 this.onError.emit(this.getResponseErrorMessage(err));
             });
     }
     else {
         this.currentTicket.account_id = this.CurrentAccount.id;
-        //console.log(`update old`,this.currentTicket);
         this.main.eventService.UpdateTicket(this.currentTicket)
             .subscribe((res)=>{
-                //console.log(`update`,res);
                 this.updateEventTickets();
             },(err)=>{
-            //   console.log(err);
 
                 if(err.json()['tickets']==='ALREADY_BOUGHT'){
                   this.onError.emit('<b>Failed!</b> Tickets already bought!');
@@ -231,7 +219,6 @@ updateTicket(){
 updateEventTickets(){
     this.main.eventService.GetEventById(this.Event.id).
     subscribe((res:EventGetModel)=>{
-        //console.log(`updateEventThis`);
         this.Event = this.main.eventService.EventModelToCreateEventModel(res);
         this.onSave.emit(this.Event);
         this.getTickets();

@@ -51,7 +51,6 @@ export class EventComponent extends BaseComponent implements OnInit {
         this.eventId = params['id'];
 
         this.getThisEvent();
-        // console.log('4')
       }
     );
   }
@@ -82,29 +81,23 @@ export class EventComponent extends BaseComponent implements OnInit {
 
         this.getCreator();
         this.getArtists();
-        // console.log('3')
-        // console.log(`Event`,this.Event);
       }
     )
   }
 
   getCreator(){
-    // console.log(this.Event);
     if(this.Event.creator_id){
       this.main.accService.GetAccountById(this.Event.creator_id)
         .subscribe((acc)=>{
 
           this.Owner = acc;
-          // console.log(this.Owner);
         },(err)=>
         {
-          // console.log(`err`,err);
         })
     }
   }
 
   getArtists(){
-    // console.log('0')
     if(this.Event.artist.length>0){
       this.Artists = [];
       this.Videos = [];
@@ -114,13 +107,10 @@ export class EventComponent extends BaseComponent implements OnInit {
             .subscribe(
               (res)=>{
                 this.Artists.push(res);
-                // console.log('1')
                 if(res.videos.length>0){
                   for(let v of res.videos){
                     this.Videos.push(this.getLink(v.link));
-                    //  console.log(this.Videos)
                   }
-                  // console.log('2')
                 }
               }
             )
@@ -132,7 +122,6 @@ export class EventComponent extends BaseComponent implements OnInit {
   InitJs(){
     setTimeout(() => {
 
-      // console.log('5')
 
       // $('.photos-abs-wrapp').css({
       //   'max-height': $('.rel-wr-photoos').width()+'px'
@@ -157,52 +146,42 @@ export class EventComponent extends BaseComponent implements OnInit {
   }
 
   removeEvent(){
-    // console.log(`removeAcc`);
     this.main.adminService.EventDelete(this.eventId)
       .subscribe(
         (res)=>{
-          // console.log(`res`,res);
           this.router.navigate(['/admin','events','all'])
         },
         (err)=>{
-          // console.log(`err`,err)
         }
       )
   }
 
   denyEvent(){
-    // console.log(`denyAcc`);
     this.main.adminService.EventDeny(this.eventId)
       .subscribe(
         (res)=>{
-          // console.log(`res`,res);
           this.errCmp.OpenWindow(BaseMessages.Success);
           this.getThisEvent();
         },
         (err)=>{
-          // console.log(`err`,err)
         }
       )
   }
 
   approveEvent(){
-    // console.log(`approveAcc`);
     this.main.adminService.EventApprove(this.eventId)
       .subscribe(
         (res)=>{
-          // console.log(`res`,res);
           this.errCmp.OpenWindow(BaseMessages.Success);
           this.getThisEvent();
         },
         (err)=>{
-          // console.log(`err`,err)
         }
       )
   }
 
   getLink(link:string){
 
-    // console.log(`--------`);
     let url = 'http://www.youtube.com/embed/';
         url+= link.split('/').pop();
     return this._sanitizer.bypassSecurityTrustResourceUrl(url);

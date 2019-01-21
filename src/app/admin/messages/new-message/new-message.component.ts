@@ -64,16 +64,13 @@ export class NewMessageComponent extends BaseComponent implements OnInit {
     this.main.adminService.SendMessageToNewDialog(AdminsIDs,this.TextMessage,this.TextTopic)
       .subscribe(
         (res)=>{
-          // console.log(`send ok`);
           this.onCreate.emit(true);
         }
       )
   }
 
   addAdmin(admin){
-    // console.log(`add`);
     this.AdminsListAdded.push(admin);
-    // console.log(this.AdminsListAdded);
     this.hideList();
     // this.openAdminsList();
   }

@@ -106,7 +106,6 @@ export class MainService{
 
         // this.settings.SettingsChange.subscribe(
         //     (res) => {
-        //         console.log("settings", this.settings.GetSettings());
         //     }
         // );
 
@@ -253,7 +252,6 @@ export class MainService{
                         {
                             let acc = this.MyAccounts.find((acc) => acc.id === lastId);
                             this.CurrentAccount = acc ? acc: this.MyAccounts[0];
-                            // console.log(`this.CurrentAccount`,this.CurrentAccount)
                         }
                         else
                         {

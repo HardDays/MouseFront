@@ -128,7 +128,6 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
   // }
 
   // ConfirmRider(rider:Rider){
-  //   // console.log(rider,this.riders);
   //   if(rider.id){
   //     let index = this.riders.indexOf(this.riders.find(r=>r.id===rider.id));
   //     if(index>=0){
@@ -141,13 +140,11 @@ export class ArtistRidersComponent extends BaseComponent implements OnInit {
   // }
 
   saveArtist(){
-    // console.log(`to save`, this.Artist);
     this.OnSave.emit(this.Artist);
   }
 
   isSaveAllRiders(){
-    // console.log(this.STAGE.isConfirmRider,this.BACKSTAGE.isConfirmRider,this.HOSPITALITY.isConfirmRider,this.TECHNICAL.isConfirmRider);
-    return this.STAGE.isConfirmRider &&
+   return this.STAGE.isConfirmRider &&
     this.BACKSTAGE.isConfirmRider &&
     this.HOSPITALITY.isConfirmRider &&
     this.TECHNICAL.isConfirmRider;

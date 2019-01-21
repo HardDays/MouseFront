@@ -32,19 +32,16 @@ export class SocialNewAccComponent extends BaseComponent implements OnInit {
     // }
     
     this.user = this.main.MyUser;
-    // console.log(this.user);
     if(this.main.MyUser.email)
       this.router.navigate(['/system','shows']);
   }
 
   registerUser(){
     if(!this.userForm.invalid){
-      // console.log(`to back`, this.user);
       this.WaitBeforeLoading(       
         ()=>this.main.authService.UpdateUserWithoutPass(this.user),
         (res:UserGetModel) => {
           localStorage.setItem('new_user_'+this.MyUser.id,this.type);
-          // console.log(`res`,res);
             if(this.type=='venue')
               this.router.navigate(['/system','venueCreate','new']);
             else if(this.type=='artist')
@@ -53,7 +50,6 @@ export class SocialNewAccComponent extends BaseComponent implements OnInit {
               this.router.navigate(['/system','fanCreate','new']);
         },
         (err) => {
-            // console.log(`err`,err);
             // if(err._body.indexOf("password")==0)
             if(this.getResponseErrorMessage(err, 'base')==='Email already taken')
               this.errorCmp.OpenWindow('This email is already taken');

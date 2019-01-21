@@ -18,7 +18,6 @@ export class TicketPurchaseModel
 
     public static TicketPurchaseModelFromObject(obj:any): TicketPurchaseModel
     {
-        // console.log(obj);
         return new TicketPurchaseModel(obj.ticket.id, obj.count);
     }
 

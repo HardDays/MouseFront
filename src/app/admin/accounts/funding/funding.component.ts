@@ -22,7 +22,6 @@ export class FundingComponent extends BaseComponent implements OnInit {
         (res)=>{
           this.Accounts = res;
           this.CheckedAccounts = this.Accounts;
-          // console.log(this.Accounts);
         }
       )
   }
@@ -71,7 +70,6 @@ export class FundingComponent extends BaseComponent implements OnInit {
     else
       this.openIds.splice(index,1);
     
-      // console.log(this.openIds);
 
   }
 
@@ -89,11 +87,9 @@ export class FundingComponent extends BaseComponent implements OnInit {
         this.main.adminService.AccountDelete(id)
           .subscribe(
             (res)=>{
-              // console.log(id,`ok`);
               this.Accounts.splice(this.Accounts.indexOf(this.Accounts.find((a)=>a.id===id)),1)
             },
             (err)=>{
-              // console.log(`err`,err);
             }
           )
       }

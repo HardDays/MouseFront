@@ -113,7 +113,6 @@ export class HttpService
     // var header = 'NyrgI10oqxoONmcXukFfpLFuN' + ':' +'FUsXhlpmh62zHlnlrxGX1pnMOIrg2JNdrSU5XKqLnjATE6fC2q';
     // var encheader = new Buffer(header).toString('base64');
     // var finalheader = 'Basic ' + encheader;
-    // //console.log(finalheader);
     // var headers = new Headers();
 
     // headers.append('Content-Type','application/json');

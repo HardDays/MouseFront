@@ -37,7 +37,6 @@ export class DashboardComponent extends BaseComponent implements OnInit {
       .subscribe(
         (res)=>{
           this.graphInfo = res;
-          // console.log(this.graphInfo);
 
           this.lineChartLabels.length = 0;
           this.lineChartLabels.push(...this.graphInfo.axis);
@@ -102,7 +101,6 @@ export class DashboardComponent extends BaseComponent implements OnInit {
         .subscribe(
           (res)=>{
             this.Events = this.convertArrToCheckModel<any>(res);
-            //  console.log(res);
             setTimeout(() => {
               this.ScrollEventsDisabled = false;
             }, 200);
@@ -130,7 +128,6 @@ export class DashboardComponent extends BaseComponent implements OnInit {
       .subscribe(
         (res)=>{
           this.Events.push(...this.convertArrToCheckModel<any>(res));
-          //  console.log(res);
           setTimeout(() => {
             this.ScrollEventsDisabled = false;
           }, 200);
@@ -164,11 +161,9 @@ export class DashboardComponent extends BaseComponent implements OnInit {
         this.main.adminService.AccountDelete(acc.object.id)
           .subscribe(
             (res)=>{
-              // console.log(acc.object.id,`ok`);
               this.Accounts.splice(this.Accounts.indexOf(acc),1)
             },
             (err)=>{
-              // console.log(`err`,err)
             }
           )
       }
@@ -181,11 +176,9 @@ export class DashboardComponent extends BaseComponent implements OnInit {
         this.main.adminService.EventDelete(events.object.id)
           .subscribe(
             (res)=>{
-              // console.log(events.object.id,`ok`);
               this.Events.splice(this.Events.indexOf(events),1)
             },
             (err)=>{
-              // console.log(`err`,err)
             }
           )
       }

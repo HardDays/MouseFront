@@ -47,23 +47,24 @@ export class TicketsGetModel{
 
     public static GetTicketLocation(ticket: TicketsGetModel)
     {
-        if(!ticket.venue)
-            return ticket.address;
-        
         let arr = [];
 
-        if(ticket.venue.city)
-            arr.push(ticket.venue.city);
+        if(ticket.venue)
+        {
+            if(ticket.venue.city)
+                arr.push(ticket.venue.city);
 
-        if(ticket.venue.state)
-            arr.push(ticket.venue.state);
+            if(ticket.venue.state)
+                arr.push(ticket.venue.state);
 
-        if(ticket.venue.country)
-            arr.push(ticket.venue.country);
-
-        if(arr.length > 0)
-            return arr.join(', ');
-
+            if(ticket.venue.country)
+                arr.push(ticket.venue.country);
+                
+            if(arr.length > 0)
+                return arr.join(', ');
+            
+        }
+        
         if(ticket.city)
             arr.push(ticket.city);
 
@@ -73,7 +74,39 @@ export class TicketsGetModel{
         if(ticket.country)
             arr.push(ticket.country);
 
-        return arr.length > 0 ? arr.join(', ') : '';
+        if(arr.length > 0)
+            return arr.join(', ');
+
+        try { 
+            var tokens: string[] = ticket.address.split(','); 
+            for(const i in tokens)
+            {
+                tokens[i] = tokens[i].trim();
+            }
+            if(tokens.length == 6)
+            {
+                return tokens.slice(2,5).join(',');
+            }
+            else if (tokens.length == 5) 
+            { 
+                return tokens[4].trim() + ',' + 
+                tokens[3].trim() + ', ' + tokens[2].trim() + ', ' + tokens[0].trim() + ',' + 
+                tokens[1].trim(); 
+            } 
+            else if (tokens.length == 4) 
+            { 
+                return tokens[3].trim() + ',' + 
+                tokens[2].trim() + ', ' + tokens[0].trim() + ',' + 
+                tokens[1].trim(); 
+            } 
+            else 
+            { 
+                return ticket.address; 
+            } 
+        } catch (ex)
+        { 
+            return ticket.address; 
+        } 
     }
 }
 

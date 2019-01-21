@@ -40,7 +40,6 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
   type:string = 'fan';
 
   registerUser(){
-    // console.log(!this.isRegister);
     if(!this.isRegister){
 
       this.isRegister = true;
@@ -146,7 +145,6 @@ export class RegisterUserComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    // console.log(this.phone);
   }
 
   backPage(){
