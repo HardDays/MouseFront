@@ -84,7 +84,6 @@ export class ShowDetailGalleryComponent extends BaseComponent implements OnChang
         }
 
         // if($('.iframe-slider-wrapp').not('.slick-initialized').length){
-        //     console.log('проинитили слайдер');
         //     $('.iframe-slider-wrapp').slick({
         //         dots: false,
         //         arrows: true,

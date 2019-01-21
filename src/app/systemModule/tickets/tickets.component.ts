@@ -159,7 +159,6 @@ export class TicketsComponent extends BaseComponent implements OnInit,AfterViewC
 
             },
             (err) => {
-              //  console.log(err);
             }
         );
     }
@@ -197,7 +196,6 @@ export class TicketsComponent extends BaseComponent implements OnInit,AfterViewC
                 this.PastTickets = res;
             },
             (err) => {
-               // console.log(err);
             }
         );
     }
@@ -251,7 +249,6 @@ export class TicketsComponent extends BaseComponent implements OnInit,AfterViewC
                     "height": $('.for-flex-height').height()-150
                 }
             );
-            //console.log(`one`);
         }
         else
         {
@@ -260,7 +257,6 @@ export class TicketsComponent extends BaseComponent implements OnInit,AfterViewC
                     "height": '100%'
                 }
             );
-            //console.log(`two`);
         }
     }
 

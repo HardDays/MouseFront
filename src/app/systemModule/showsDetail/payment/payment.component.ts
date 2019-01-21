@@ -62,14 +62,11 @@ export class PaymentShowDetailComponent extends BaseComponent implements OnInit 
             if(this.EventId == this.data.storage.EventId && this.data.storage.Tickets.length > 0)
             {
                 this.Tickets = this.data.storage.Tickets;
-                // console.log(this.Tickets);
             }
             else{
                 this.router.navigate(['../'], {relativeTo: this.activatedRoute});
                 return;
             }
-            // console.log(this.EventId);
-            // console.log("scroll_position",window.scrollY);
             this.GetEventInfo();
             // this.GetComments();
         });
@@ -83,7 +80,6 @@ export class PaymentShowDetailComponent extends BaseComponent implements OnInit 
                     this.main.eventService.FinishPayPal({paymentId: this.Verification})
                         .subscribe(
                             res => {
-                                // console.log(res);
                                 let id = this.GetCurrentAccId();
                                 this.PaymentSuccess = true;
                                 this.Verification = res[0].code;
@@ -172,7 +168,6 @@ export class PaymentShowDetailComponent extends BaseComponent implements OnInit 
                 this.InitEvent(res);
             },
             (err:any) => {
-              //  console.log("Cant get event info",err);
             }
         );
     }
@@ -180,7 +175,6 @@ export class PaymentShowDetailComponent extends BaseComponent implements OnInit 
     InitEvent(event:EventGetModel)
     {
         this.Event = event;
-        // console.log(this.Event);
         // this.SetMetaTags();
         this.GetImage();
         this.SetTime();
@@ -258,13 +252,11 @@ export class PaymentShowDetailComponent extends BaseComponent implements OnInit 
 
         purchase.redirect_url = window.location.href.split('?')[0];
 
-        // console.log(purchase);
         this.WaitBeforeLoading(
             () =>
             this.main.eventService.StartPurchaseTickets(purchase),
             (res:any) =>
             {
-                // console.log(res);
                 if(purchase.platform === Platforms.Yandex){
                   this.addYandexPaymentId(res.transaction_id);
                 }

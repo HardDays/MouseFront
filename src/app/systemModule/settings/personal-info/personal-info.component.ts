@@ -51,20 +51,17 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
 
 
   ngOnInit() {
-    // console.log(`init!`);
 
     this.InitModals();
 
 
   }
   ngOnChanges(){
-    // console.log(`infooo`);
     this.phone = this.User.register_phone;
     this.phoneMask = this.phone;
     if(this.User.image_id){
       this.main.imagesService.GetImageById(this.User.image_id)
         .subscribe((res)=>{
-          // console.log(`res img`, res);
           this.User.image_base64 = res.base64;
         })
     }
@@ -90,7 +87,6 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
   }
 
   SaveUser(){
-    // console.log(`save user`,this.User);
     // this.User.register_phone = this.convertPhoneToSend(this.phone);
 
     if(this.User.password&&this.User.password.length<6){
@@ -112,17 +108,14 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
                 // if(this.User.image_id){
                 //   this.main.imagesService.GetImageById(this.User.image_id)
                 //     .subscribe((res)=>{
-                //       console.log(`res img`, res);
                 //       this.User.image_base64 = res.base64;
                 //     })
                 // }
                 this.errorCmp.OpenWindow(BaseMessages.Success);
-                // console.log(`res`,this.User);
                 this.main.GetMyUser();
 
             },
             (err)=>{
-                // console.log(`err`,err);
                 this.errorCmp.OpenWindow(this.getResponseErrorMessage(err));
             }
         );
@@ -149,7 +142,6 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
             //this.isRequestCodeSend = true;
             $('#modal_change_phone').modal('hide');
             $('#modal_change_phone_ver').modal('show');
-            // console.log(`sendCode`);
           },
           (err)=>{
             if(err.json()&&err.json()['phone']&&err.json()['phone']==='ALREADY_USED')
@@ -250,7 +242,6 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
         return '';
 
         let phone = '';
-        // console.log(`val`,val);
 
         let codes = this.main.phoneService.GetAllPhoneCodesWithFormat();
 
@@ -259,7 +250,6 @@ export class PersonalInfoComponent extends BaseComponent implements OnInit, OnCh
         if(!code)code = code_arr[0];
         let dial_code = code.dial_code;
         if(code['format']){
-            // console.log(`format`,code['format']);
             let index = 0;
             if(val[index]==='+')index++;
 

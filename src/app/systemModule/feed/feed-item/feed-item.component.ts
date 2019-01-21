@@ -59,7 +59,6 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
 
   ngOnInit(){
     this.curLang = this.translate.store.currentLang?this.translate.store.currentLang:this.translate.store.defaultLang;
-      // console.log(`in`,this.Feed);
     if(this.Feed&&this.Feed.account){
 
       if(this.Feed.account.image_id){
@@ -68,7 +67,6 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
       else{
         this.Feed.account.img_base64 = BaseImages.NoneFolowerImage;
       }
-      // console.log(this.replaceAll(this.Feed.action));
     }
 
     this.myLogo = this.main.MyLogo;
@@ -131,14 +129,11 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
     this.comment.event_id = this.Feed.event.id;
     this.main.commentService.PostComment(this.accId,this.Feed.id,this.comment.text)
       .subscribe((res)=>{
-        // console.log(res);
         this.Feed.comments++;
         this.comment.text = '';
         this.GetComments();
       },(err)=>{
-        // console.log(`err`,err);
       })
-    // console.log(this.comment);
   }
 
   GetComments(){
@@ -158,20 +153,16 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
           //   comm.account.image_base64 = img.base64;
           // });
         }
-        // console.log(this.comments);
       })
   }
 
   likePost(){
-    //  console.log(this.Feed.event.id,this.accId);
     if(!this.Feed.is_liked){
       this.main.likesService.PostLike(this.accId,this.Feed.id)
         .subscribe((res)=>{
           this.Feed.is_liked = true;
           this.Feed.likes++;
-          // console.log(res);
         },(err)=>{
-          // console.log(`err`,err)
         })
     } else {
       this.main.likesService.DeleteLike(this.accId,this.Feed.id)
@@ -179,7 +170,6 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
           this.Feed.is_liked = false;
           this.Feed.likes--;
       },(err)=>{
-        // console.log(`err`,err)
       })
     }
   }
@@ -209,7 +199,6 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
       if(this.curLang==='ru')
         field = 'описание';
     }
-    // console.log(this.translate,this.translate.currentLang);
     if(this.curLang==='en'){
       let an = this.isAEOIU(field[0])?'an':'a';
       if(this.Feed.type === 'event_update'){
@@ -244,7 +233,6 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
   }
 
   getFeedValue(){
-    // console.log(this.Feed);
 
     if(this.Feed.type === 'event_update'){
       switch(this.Feed.action){
@@ -393,7 +381,6 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
         .subscribe(
           (res)=>{
             this.Album = res;
-            // console.log(res);
           },
           (err)=>{
             this.Album = null;
@@ -405,10 +392,8 @@ export class FeedItemComponent extends BaseComponent implements OnInit, OnChange
   // getLikes(){
   //   this.main.likesService.GetLikesByEventId(this.Feed.event.id)
   //     .subscribe((res)=>{
-  //       console.log(res);
   //       this.likes = res;
   //     },(err)=>{
-  //       console.log(`err`,err)
   //     })
   // }
 }

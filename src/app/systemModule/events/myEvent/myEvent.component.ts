@@ -35,9 +35,7 @@ export class MyEventComponent extends BaseComponent implements OnChanges {
             .subscribe(
                 (res:EventGetModel) =>{
                     this.Event = res;
-                    // console.log(this.Event);
                     // if(this.Event.exact_date_from || this.Event.exact_date_to)
-                        // console.log(this.Event);
                     this.FoundedPercent = 100*this.Event.founded / this.Event.funding_goal;
                     this.EventCurrency = CurrencyIcons[this.Event.currency];
                     this.GetImage();
@@ -49,7 +47,6 @@ export class MyEventComponent extends BaseComponent implements OnChanges {
                     }
                 },
                 (err) => {
-                    // console.log(err);
                 }
             );
         }

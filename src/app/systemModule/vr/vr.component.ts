@@ -33,7 +33,6 @@ export class VrComponent implements OnInit {
       });
 
       OmniVirt.api.recieveMessage(window, 'collapsed', function(type, data, iframe) {
-        console.log(`Closed`);
       });
 
   }

@@ -148,14 +148,12 @@ export class MyTicketOpenedComponent extends BaseComponent implements OnInit,Aft
       {
         
         this.TicketsByEvent = res;
-        console.log(this.TicketsByEvent);
         this.GetImage();
         this.CountTotalPrice();
         this.Date = this.main.typeService.GetEventDateString(this.TicketsByEvent.event);
         this.EventLocation = TicketsGetModel.GetTicketLocation(this.TicketsByEvent.event);
       },
       (err) => {
-      //  console.log(err);
       }
     );
   }

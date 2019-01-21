@@ -101,10 +101,8 @@ export class FeedComponent extends BaseComponent implements OnInit, AfterViewChe
   }
 
    ngOnDestroy(){
-    //  console.log(`ng on destroy`);
      this.EnableScroll = false;
      window.removeEventListener('scroll',()=>{
-      //  console.log(`scroll remove`)
      });
     }
 
@@ -118,17 +116,14 @@ export class FeedComponent extends BaseComponent implements OnInit, AfterViewChe
   GetFeed(){
     this.accId = this.GetCurrentAccId();
     if (this.accId){    
-      // console.log(`acc ID`,this.accId);
       this.WaitBeforeLoading(
         ()=>this.main.feedService.GetFeedByAccId(this.accId,10,0),
         (res)=>
       {
-        // console.log(`res`,res);
         this.Feed = res;
       },
       (err)=>
       {
-        // console.log(`err`,err);
       }
     )}
 
@@ -141,13 +136,11 @@ export class FeedComponent extends BaseComponent implements OnInit, AfterViewChe
       .subscribe(
       (res)=>
       {
-        // console.log(`res`,res);
         this.Feed.push(...res);
         this.ScrollDisabled = false;
       },
       (err)=>
       {
-        // console.log(`err`,err);
       })
   }
 

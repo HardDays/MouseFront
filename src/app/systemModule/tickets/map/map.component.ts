@@ -46,7 +46,6 @@ export class SearchTicketsMapComponent extends BaseComponent implements OnInit {
 
     AboutOpenMapModal(searchParams:any)
     {
-       // console.log(searchParams);
         this.lat = 55.755826;
         this.lng = 37.6172999;
         this.isMarkerVisible = false;

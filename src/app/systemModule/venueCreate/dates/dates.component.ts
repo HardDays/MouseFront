@@ -143,7 +143,6 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
                 curr_date.date(curr_date.date() +1);
             }
         }
-        console.log(arr);
         this.main.accService.SaveVenueDatesAsArray(this.VenueId, {dates: arr})
             .subscribe(
                 (res: any) => {

@@ -49,7 +49,6 @@ export class SendQuestionComponent extends BaseComponent implements OnInit {
   sendQuestions(){
     if(!this.FormMessage.invalid){
       this.Message.account_id = this.main.CurrentAccount.id;
-      // console.log(this.FormMessage);
       this.main.questService.PostQuestions(this.Message.subject,this.Message.message, this.Message.account_id)
         .subscribe(
           (res)=>{
@@ -60,7 +59,6 @@ export class SendQuestionComponent extends BaseComponent implements OnInit {
         );
     }
     else {
-      // console.log(`empty`);
     }
   }
 

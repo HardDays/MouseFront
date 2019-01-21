@@ -52,7 +52,6 @@ export class FanProfileComponent extends BaseComponent implements OnInit,OnChang
             this.isPreloadFans = true;
             this.FansChecked = this.Fans = changes.Fans.currentValue;
             this.isPreloadFans = false;
-            // console.log('ok');
         }    
         this.InitByUser();
     }
@@ -87,7 +86,6 @@ export class FanProfileComponent extends BaseComponent implements OnInit,OnChang
                 .subscribe(
                 (res:TicketsGetModel[]) =>
                 {
-                    //console.log(res);
                     this.ticketsMassChecked = this.TicketMass = res;
                     
                     this.CountTickets();
@@ -123,7 +121,6 @@ export class FanProfileComponent extends BaseComponent implements OnInit,OnChang
             
                 this.main.eventService.GetEvents(this.Account.id).subscribe(
                 (res:EventGetModel[]) => {
-                    // console.log(res);
                     this.EventsMassChecked = this.EventsMass = res;
                     this.isPreloadEvents = false;
                 },

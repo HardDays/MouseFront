@@ -230,10 +230,8 @@ export class BigCalendarComponent implements OnInit, OnChanges {
     this.FormVals.date_range = this.FormVals.from.toISOString() != this.FormVals.to.toISOString();
     if(!this.FormVals.date_range)
     {
-      // console.log(this.FormVals);
-      // console.log(this.selectedDates);
       const disabled = this.selectedDates.find(obj => this.main.typeService.GetDateStringFormat(obj.mDate.toDate()) == this.main.typeService.GetDateStringFormat(this.FormVals.from));
-      // console.log(disabled);
+      
       this.FormVals.is_available = !(Boolean(disabled));
       
       if(this.FormVals.is_available)

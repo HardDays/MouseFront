@@ -42,10 +42,8 @@ export class MessageListComponent extends BaseComponent implements OnInit {
       (res:InboxMessageModel[])=>{
         this.messages = res;
 
-        // console.log(`messages`,this.messages);
 
         this.onGetMessages.emit(res.length);
-        // console.log(res);
         for(let m of this.messages){
           if(m.sender){
             if(m.sender.image_id){
@@ -63,12 +61,10 @@ export class MessageListComponent extends BaseComponent implements OnInit {
           }
         }
         // if(this.messages.length>0){
-        //   // console.log(`1111`);
         //   // if(this.messages[0].message_type ==='blank'){
         //     // this.openMessage = null;
         //     this.main.accService.GetInboxMessageById(this.accountId,this.messages[0].id)
         //       .subscribe((res)=>{
-        //         // console.log(res);
         //         this.openMessage = res;
 
 

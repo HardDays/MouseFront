@@ -13,8 +13,6 @@ export class SystemAccessGuard extends BaseComponent implements CanActivate{
     admin = false;
     canActivate(router:ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>|boolean{
 
-        // console.log(router.routeConfig.path, this.main.MyUser.id, localStorage.getItem('new_user_'+this.main.MyUser.id));
-
         //потом просто удалить
         // if(localStorage.getItem('access')!='true') this.router.navigate(['/access']);
         let login = this.main.authService.IsLogedIn();

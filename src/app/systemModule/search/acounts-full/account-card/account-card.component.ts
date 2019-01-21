@@ -36,7 +36,6 @@ import { GenreModel } from "../../../../core/models/genres.model";
     GetGenres()
     {
         this.Genres = this.main.genreService.StringArrayToGanreModelArray(this.Account.genres);
-        //console.log(this.Genres);
     }
 
     CheckFollowStatus()
@@ -55,7 +54,6 @@ import { GenreModel } from "../../../../core/models/genres.model";
             .subscribe(
                 (res) => 
                 {
-                    //console.log(res);
                     this.IsFollowed = !this.IsFollowed;
                 }
             );
@@ -67,7 +65,6 @@ import { GenreModel } from "../../../../core/models/genres.model";
         this.main.accService.UnFollowAccountById(this.GetCurrentAccId(), this.Account.id)
             .subscribe(
                 (res) => {
-                    //console.log(res);
                     this.IsFollowed = !this.IsFollowed;
                 }
             );

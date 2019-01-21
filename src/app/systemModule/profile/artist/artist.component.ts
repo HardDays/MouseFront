@@ -74,7 +74,6 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
         if(changes.AccStatus){
             this.AccStatus = changes.AccStatus.currentValue;
         }
-        // console.log(this.AccStatus);
         // if(changes.Image){
         //     this.Image = changes.Image.currentValue;
         // }
@@ -118,7 +117,6 @@ export class ArtistProfileComponent extends BaseComponent implements OnInit,OnCh
 
     GetGenres(){
         if(this.Account.genres){
-            // console.log(this.Account.genres);
             this.Genres = this.main.genreService.BackGenresToShowGenres(this.Account.genres);
         }
     }

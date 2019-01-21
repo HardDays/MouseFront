@@ -78,7 +78,6 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
 
     this.main.MyAccountsChange.subscribe(
       (acc)=>{
-        //console.log(acc);
         if(acc){
           this.accountId = this.main.CurrentAccount.id;
           this.type = this.main.CurrentAccount.account_type;
@@ -127,7 +126,6 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
   //     () => this.main.accService.GetInboxMessages(this.accountId),
   //     (res:InboxMessageModel[])=>{
   //       this.messages = res;
-  //       // console.log(res);
   //       for(let m of this.messages){
   //         if(m.sender){
   //           if(m.sender.image_id){
@@ -139,12 +137,10 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
   //         }
   //       }
   //       if(this.messages.length>0){
-  //         // console.log(`1111`);
   //         // if(this.messages[0].message_type ==='blank'){
   //           // this.openMessage = null;
   //           this.main.accService.GetInboxMessageById(this.accountId,this.messages[0].id)
   //             .subscribe((res)=>{
-  //               // console.log(res);
   //               this.openMessage = res;
 
 
@@ -404,7 +400,6 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
     this.request.id = this.accountId;
     this.request.message_id = this.openMessage.id;
 
-    // console.log(this.request);
 
     if(this.type=="artist"){
       this.WaitBeforeLoading(
@@ -436,7 +431,6 @@ export class MessagesComponent extends BaseComponent implements OnInit,AfterView
           this.main.accService.GetInboxMessageById(this.accountId,message.id)
         .subscribe((res)=>{
           this.openMessage = res;
-          // console.log(`open msg = `,this.openMessage);
 
           this.isEditPrice = false;
 

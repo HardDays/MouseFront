@@ -72,7 +72,6 @@ super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,setti
         this.onComment.emit();
         this.comment= "";
       },(err)=>{
-        // console.log(`err`,err);
       })
    
   }

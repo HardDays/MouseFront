@@ -234,7 +234,6 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     // getGoingHuman(id:number,limit:number,offset:number,text?:string){
     //     this.main.eventService.EventGoingAcc(id,limit,offset,text).subscribe((res:any)=>{
     //         this.Allbackers = res;
-    //         console.log(this.Allbackers);
     //     })
     // }
 
@@ -245,11 +244,9 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         (
             () => this.main.eventService.GetEventById(this.EventId),
             (res: any) => {
-                // console.log(res);
                 this.InitEvent(res);
             },
             (err:any) => {
-              //  console.log("Cant get event info",err);
             }
         );
     }
@@ -317,7 +314,6 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     InitEvent(event:EventGetModel)
     {
         this.Event = event;
-        console.log('event', this.Event);
         this.SetMetaTags();
         this.GetImage();
         this.GetCaledarFile();
@@ -355,7 +351,6 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         this.Featuring = [];
         let artistArr:string[] = [];
         this.Artists = [];
-        // console.log(this.Event.artist);
         let arr = this.Event.artist.filter( obj => obj.status == "active"|| obj.status == "owner_accepted");
         for(let i in arr)
         {
@@ -401,7 +396,6 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
                 },
                 (err:any) =>
                 {
-                 //   console.log("Cant get creator info", err);
                 }
             );
         }
@@ -409,7 +403,6 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
 
     GetTickets()
     {
-        // console.log("tickets", this.Event.tickets);
         if(this.Event.tickets && this.Event.tickets.length > 0){
             for(const item of this.Event.tickets)
             {
@@ -431,14 +424,12 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         if(this.Event.tickets.length>0)
             this.OriginalCurrency = CurrencyIcons[this.Event.tickets[0].currency];
         else this.OriginalCurrency = CurrencyIcons[this.main.settings.GetCurrency()];
-        // console.log(this.Tickets);
         // this.Currency = CurrencyIcons[this.Event.tickets[0].currency];
         this.CalculateCurrentPrice();
     }
 
     AddTicketsToPrice(object:BuyTicketModel)
     {
-        // console.log(this.Tickets);
         // const index = this.TicketsToBuy.findIndex(obj => obj.ticket.id == object.ticket.id);
         // if(index < 0)
         // {
@@ -573,7 +564,6 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         }
 
         // if($('.iframe-slider-wrapp').not('.slick-initialized').length){
-        //     console.log('проинитили слайдер');
         //     $('.iframe-slider-wrapp').slick({
         //         dots: false,
         //         arrows: true,

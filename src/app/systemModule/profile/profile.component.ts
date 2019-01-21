@@ -114,11 +114,9 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
                 //     this.InitByUser(acc);
                 //     this.MyAccountId = this.GetCurrentAccId();
                 //     this.isFolowed();
-                //     console.log(`acc acc acc acc acc`,acc)
 
                 // }
                 // else{
-                //      console.log(` no acc no acc no acc no acc no acc`)
                 //     this.getUserInfo();
                 // }
 
@@ -197,7 +195,6 @@ export class ProfileComponent extends BaseComponent implements OnInit,AfterViewC
         }
         else if(this.AccType == this.Roles.Artist)
         {
-            // console.log(`INIT`,usr);
             this.ArtistAcc = usr;
         }
 

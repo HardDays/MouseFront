@@ -21,7 +21,6 @@ export class UpdatesComponent implements OnInit {
   }
   initUpdate(){
     this.Updates = this.UpdatesEvent;
-    // console.log(this.Updates);
   }
 
   calculateTime(value: Date){
