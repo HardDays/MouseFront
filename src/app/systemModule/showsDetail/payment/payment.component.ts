@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Platforms } from './../../../core/models/purchase.model';
 import { Component, OnInit, Input, NgZone, ChangeDetectorRef } from "@angular/core";
 import { BaseComponent } from '../../../core/base/base.component';
@@ -73,83 +74,61 @@ export class PaymentShowDetailComponent extends BaseComponent implements OnInit 
 
         this.activatedRoute.queryParams.subscribe(
             params => {
-              if(params.paymentId)
+
+              // PayPal
+              if(params.paymentId && params.platform === 'paypal')
               {
                   this.Verification = params.paymentId;
                   this.router.navigateByUrl(window.location.pathname);
-                    this.main.eventService.FinishPayPal({paymentId: this.Verification})
-                        .subscribe(
-                            res => {
-                                let id = this.GetCurrentAccId();
-                                this.PaymentSuccess = true;
-                                this.Verification = res[0].code;
-                                this.dateOfpay = res[0].created_at;
-                                this.main.accService.GetMyAccount({extended:true}).subscribe((res)=>{
-                                    for(let u of res)
-                                    {
-                                      if(u.id == id)
-                                      {
-                                        this.accountForPrint = u;
-                                      }
-                                    }
-                                });
+                  this.FinishPayment(
+                    () => this.main.eventService.FinishPayPal({paymentId: this.Verification})
+                  );
+              }
 
-
-                                this.data.storage = {
-                                    EventId: null,
-                                    Tickets:[]
-                                };
-                                this.data.SaveStorage();
-                            },
-                            (err) => {
-                                this.router.navigate(['../'], {relativeTo: this.activatedRoute});
-                                return;
-                            }
-                        )
+              // YandexKassa
+              if(params.payment_id && params.platform === 'yandex')
+              {
+                  this.Verification = params.payment_id;
+                  this.router.navigateByUrl(window.location.pathname);
+                  this.FinishPayment(
+                    () => this.main.eventService.FinishYandex({paymentId: this.Verification})
+                  );
               }
             }
           );
+    }
 
-        const YandexPaymentIds = localStorage.getItem('yandexPaymentIds');
-        if(YandexPaymentIds && YandexPaymentIds.length > 0) {
-          let YandexIds: string[] = JSON.parse(YandexPaymentIds);
-
-          this.Verification = YandexIds[0];
-                  this.router.navigateByUrl(window.location.pathname);
-                    this.main.eventService.FinishYandex({paymentId: this.Verification})
-                        .subscribe(
-                            res => {
-                              YandexIds.pop();
-                              localStorage.setItem('yandexPaymentIds', JSON.stringify(YandexIds));
-
-                                let id = this.GetCurrentAccId();
-                                this.PaymentSuccess = true;
-                                this.Verification = res[0].code;
-                                this.dateOfpay = res[0].created_at;
-                                this.main.accService.GetMyAccount({extended:true}).subscribe((res)=>{
-                                    for(let u of res)
-                                    {
-                                      if(u.id == id)
-                                      {
-                                        this.accountForPrint = u;
-                                      }
-                                    }
-                                });
+    FinishPayment(fun:()=>Observable<any>)
+    {
+        fun()
+            .subscribe(
+              res => {
+                  let id = this.GetCurrentAccId();
+                  this.PaymentSuccess = true;
+                  this.Verification = res[0].code;
+                  this.dateOfpay = res[0].created_at;
+                  this.main.accService.GetMyAccount({extended:true}).subscribe((res)=>{
+                      for(let u of res)
+                      {
+                        if(u.id == id)
+                        {
+                          this.accountForPrint = u;
+                        }
+                      }
+                  });
 
 
-                                this.data.storage = {
-                                    EventId: null,
-                                    Tickets:[]
-                                };
-                                this.data.SaveStorage();
-
-                            },
-                            (err) => {
-                                this.router.navigate(['../'], {relativeTo: this.activatedRoute});
-                                return;
-                            }
-                        )
-        }
+                  this.data.storage = {
+                      EventId: null,
+                      Tickets:[]
+                  };
+                  this.data.SaveStorage();
+              },
+              (err) => {
+                  this.router.navigate(['../'], {relativeTo: this.activatedRoute});
+                  return;
+              }
+          )
     }
 
     createRange(number){
@@ -257,9 +236,6 @@ export class PaymentShowDetailComponent extends BaseComponent implements OnInit 
             this.main.eventService.StartPurchaseTickets(purchase),
             (res:any) =>
             {
-                if(purchase.platform === Platforms.Yandex){
-                  this.addYandexPaymentId(res.transaction_id);
-                }
                 window.location.href = res.url;
             },
             (err) =>
@@ -269,16 +245,6 @@ export class PaymentShowDetailComponent extends BaseComponent implements OnInit 
                 // this.OpenErrorWindow(this.getResponseErrorMessage(err));
             }
         );
-    }
-    addYandexPaymentId(PaymentId: string){
-      const last_state = localStorage.getItem('yandexPaymentIds');
-      let storage: string[] = [];
-      if(last_state) {
-            storage = JSON.parse(last_state);
-      }
-      storage.push(PaymentId);
-      localStorage.setItem('yandexPaymentIds', JSON.stringify(storage));
-
     }
     // blockNone(){
     //     $('#print').addClass('blockImportant');
