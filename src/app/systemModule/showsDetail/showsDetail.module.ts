@@ -23,6 +23,7 @@ import { OneAvaWhoGoingComponent } from './one-ava-who-going/one-ava-who-going.c
 import { OneHumanGoingModalComponent } from './one-human-going-modal/one-human-going-modal.component';
 import { PaymentShowDetailComponent } from './payment/payment.component';
 import { Data } from './showDetail.data';
+import { QRCodeModule } from 'angular2-qrcode';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { Data } from './showDetail.data';
             libraries: ["places"]
         }),
         SlideshowModule,
-        TranslateModule
+        TranslateModule,
+        QRCodeModule
     ],
     declarations: [ 
         ShowsDetailComponent,

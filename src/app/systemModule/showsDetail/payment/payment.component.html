@@ -179,6 +179,9 @@
                         <p class="some-text">{{item.ticket.description}}</p>
 
                     </div>
+                    <div>
+                        <qr-code [value]="item.ticket.id + '_' + GetCurrentAccId() + '_' + Verification" [size]="100"></qr-code>
+                    </div>
 
                 </ng-container>
             </div>

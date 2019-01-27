@@ -86,7 +86,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
 
     Status = AccountStatus;
 
-    Currency = CurrencyIcons[this.main.settings.GetCurrency()];
+    MyCurrency = CurrencyIcons[this.main.settings.GetCurrency()];
     OriginalCurrency = CurrencyIcons[Currency.USD];
     AllCommentsEvent:CommentEventModel[] = [];
     MyAcc = this.main.CurrentAccount;
@@ -328,7 +328,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         }
 
         this.Date = this.main.typeService.GetEventDateString(this.Event);
-        this.Currency = CurrencyIcons[this.Event.currency];
+        this.MyCurrency = CurrencyIcons[this.Event.currency];
         this.GetEventUpdates();
         this.GetGenres();
         this.GetCreatorInfo();
@@ -424,7 +424,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
         if(this.Event.tickets.length>0)
             this.OriginalCurrency = CurrencyIcons[this.Event.tickets[0].currency];
         else this.OriginalCurrency = CurrencyIcons[this.main.settings.GetCurrency()];
-        // this.Currency = CurrencyIcons[this.Event.tickets[0].currency];
+        this.MyCurrency = CurrencyIcons[this.Event.tickets[0].currency];
         this.CalculateCurrentPrice();
     }
 
