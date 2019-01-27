@@ -9,6 +9,7 @@ import { UserCreateModel } from '../../core/models/userCreate.model';
 import { ErrorComponent } from '../../shared/error/error.component';
 import { TranslateService } from '../../../../node_modules/@ngx-translate/core';
 import { SettingsService } from '../../core/services/settings.service';
+import { environment } from '../../../environments/environment';
 
 
 declare var $:any;
@@ -26,6 +27,8 @@ export class SettingsComponent extends BaseComponent implements OnInit {
   CustomerParts = CustomerPageParts;
   customerPage = CustomerPageParts.sendQuestion;
   IsShowCustomerSupport = false;
+
+  Version = '';
 
     User:UserGetModel = new UserGetModel();
 
@@ -51,7 +54,8 @@ export class SettingsComponent extends BaseComponent implements OnInit {
 
     this.initJS();
     this.GetUser();
-    
+    this.Version = environment.version;
+    // console.log(this.Version);
   }
 
   GetUser(){
