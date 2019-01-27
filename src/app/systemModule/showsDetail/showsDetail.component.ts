@@ -95,6 +95,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
     Allbackers:EventBackersModel[] = [];
     ShareTitle:string = "";
     baseFile:string = "";
+    EventCurrency = CurrencyIcons[Currency.USD];
 
     EventLocation = "";
 
@@ -329,6 +330,7 @@ export class ShowsDetailComponent extends BaseComponent implements OnInit,AfterV
 
         this.Date = this.main.typeService.GetEventDateString(this.Event);
         this.MyCurrency = CurrencyIcons[this.Event.currency];
+        this.EventCurrency = CurrencyIcons[this.Event.currency];
         this.GetEventUpdates();
         this.GetGenres();
         this.GetCreatorInfo();
