@@ -284,8 +284,8 @@
                                 </ng-container> -->
                             <div class="butt-buy" *ngIf="Tickets && Tickets.length &&MyAcc.status && MyAcc.status != Status.Denied && MyAcc.status != Status.Inactive">
                                 <button  class="butt-style-1"
-                                [disabled]="isPreview || TicketsCount == 0 || !(Event.status===Statuses.Active) || !CurrentAccount || CurrentAccount.account_type != 'fan' || !Event.tickets || !Event.tickets.length || !Tickets.length"
-                                (click)="BuyTickets()">
+                                    [disabled]="isPreview || TicketsCount == 0 || !(Event.status===Statuses.Active) || !CurrentAccount || CurrentAccount.account_type != 'fan' || !Event.tickets || !Event.tickets.length || !Tickets.length"
+                                    (click)="BuyTickets()">
                                     <span translate>Buy</span>
                                 </button>
                             </div>
@@ -325,15 +325,15 @@
                             </div> -->
                         </div>
                         <div class="price-and-buy">
-                                <p class="total" translate>Total price: <span><span [innerHTML]="Currency"></span>{{TotalPrice|number:'1.2-2'}}</span></p>
+                                <p class="total" translate>Total price: <span><span [innerHTML]="MyCurrency"></span>{{TotalPrice|number:'1.2-2'}}</span></p>
                                 <!-- <span [innerHTML]="Currency"></span>{{TotalPrice}}
                                     <ng-container *ngIf="Currency != OriginalCurrency">
                                             (<span [innerHTML]="OriginalCurrency"></span>{{TotalOriginalPrice}})
                                     </ng-container> -->
                                 <div class="butt-buy" *ngIf="Tickets && Tickets.length &&MyAcc.status && MyAcc.status != Status.Denied && MyAcc.status != Status.Inactive">
                                     <button  class="butt-style-1"
-                                    [disabled]="isPreview || TicketsCount == 0 || !(Event.status===Statuses.Active) || !CurrentAccount || CurrentAccount.account_type != 'fan' || !Event.tickets || !Event.tickets.length"
-                                    (click)="BuyTickets()">
+                                        [disabled]="isPreview || TicketsCount == 0 || !(Event.status===Statuses.Active) || !CurrentAccount || CurrentAccount.account_type != 'fan' || !Event.tickets || !Event.tickets.length"
+                                        (click)="BuyTickets()">
                                         <span translate>Buy</span>
                                     </button>
                                 </div>
