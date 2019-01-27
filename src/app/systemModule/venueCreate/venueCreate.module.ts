@@ -19,11 +19,11 @@ import {MatFormFieldModule} from '@angular/material';
 
 import { InputModule } from '../../shared/input/input.module';
 import { NoticeInputComponent } from './dates/notice/notice';
-import { BigCalendarComponent } from './big-calendar/big-calendar.component';
+import { CalendarModule } from './../../shared/calendar/calendar.module';
 import { TranslateModule } from '../../../../node_modules/@ngx-translate/core';
 
 @NgModule({
-    imports: [ 
+    imports: [
         RouterModule,
         CommonModule,
         FormsModule,
@@ -35,9 +35,10 @@ import { TranslateModule } from '../../../../node_modules/@ngx-translate/core';
         MatSelectModule,
         MatFormFieldModule,
         InputModule,
-        TranslateModule
+        TranslateModule,
+        CalendarModule
     ],
-    declarations: [ 
+    declarations: [
         VenueCreateComponent,
         VenueAboutComponent,
         VenueDatesComponent,
@@ -45,13 +46,11 @@ import { TranslateModule } from '../../../../node_modules/@ngx-translate/core';
         VenueListingComponent,
         VenueMediaComponent,
         VenueMediaPhotoComponent,
-        NoticeInputComponent,
-        BigCalendarComponent
+        NoticeInputComponent
     ],
-    exports: [ VenueCreateComponent, BigCalendarComponent],
+    exports: [ VenueCreateComponent, VenueDatesComponent, NoticeInputComponent],
     schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
 })
 export class VenueCreateModule {}
 
 
-  

@@ -2,7 +2,7 @@ import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { BaseComponent } from '../../../../core/base/base.component';
 import { AccountGetModel } from '../../../../core/models/accountGet.model';
 import { BaseImages } from '../../../../core/base/base.enum';
-import { CalendarDate } from '../../../../systemModule/venueCreate/big-calendar/big-calendar.component';
+import { CalendarDate } from './../../../../shared/calendar/big-calendar/big-calendar.component';
 import { VenueDatesModel } from '../../../../core/models/venueDatesModel';
 import * as moment from 'moment';
 
@@ -58,7 +58,7 @@ export class VenueComponent extends BaseComponent implements OnInit {
 
       if(this.Account.office_hours)
           this.OffHours = this.main.accService.ParseWorkingTimeModelArr(this.Account.office_hours);
-      
+
       if(this.Account.operating_hours)
           this.OpHours = this.main.accService.ParseWorkingTimeModelArr(this.Account.operating_hours);
   }

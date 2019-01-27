@@ -9,13 +9,12 @@ import { AgmCoreModule } from '@agm/core';
 
 import { ErrorModule } from '../../shared/error/error.module';
 import { PreloaderModule } from '../../shared/preloader/preloader.module';
-import {MatSelectModule} from '@angular/material/select';
-import {MatFormFieldModule} from '@angular/material';
+import { MatSelectModule} from '@angular/material/select';
+import { MatFormFieldModule} from '@angular/material';
 import { TranslateModule } from '@ngx-translate/core';
-import { TinyCalendarComponentPrewiev } from './tiny-calendar/tiny-calendar.component';
-import { BigCalendarComponentPreview } from './big-calendar/big-calendar.component';
+import { CalendarModule} from './../../shared/calendar/calendar.module';
 import { InputModule } from '../../shared/input/input.module';
-import { NoticeInputComponentPreview } from './big-calendar/notice/notice';
+import { VenueCreateModule } from './../venueCreate/venueCreate.module';
 
 @NgModule({
     imports: [
@@ -34,16 +33,15 @@ import { NoticeInputComponentPreview } from './big-calendar/notice/notice';
         ErrorModule,
         PreloaderModule,
         TranslateModule,
-        InputModule
+        InputModule,
+        CalendarModule,
+        VenueCreateModule
     ],
     declarations: [
-        CalendarComponent,
-        TinyCalendarComponentPrewiev,
-        BigCalendarComponentPreview,
-        NoticeInputComponentPreview
+        CalendarComponent
     ],
-    exports: [ CalendarComponent ]
+    exports: [ ]
 })
-export class CalendarModule {}
+export class CalendarAccountModule {}
 
 

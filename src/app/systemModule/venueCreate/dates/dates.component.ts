@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { MapsAPILoader } from '@agm/core';
 import { ContactModel } from '../../../core/models/contact.model';
 import {BaseMessages} from '../../../core/base/base.enum';
-import { BigCalendarComponent, CalendarDate } from '../big-calendar/big-calendar.component';
+import { BigCalendarComponent, CalendarDate } from './../../../shared/calendar/big-calendar/big-calendar.component';
 import * as moment from 'moment';
 import { VenueDatesModel } from '../../../core/models/venueDatesModel';
 import { AccountGetModel } from '../../../core/models/accountGet.model';
@@ -74,7 +74,7 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
     SaveVenue()
     {
         this.dateForm.updateValueAndValidity();
-        
+
         if(this.dateForm.invalid)
         {
             this.onError.emit(this.getFormErrorMessage(this.dateForm, 'venue'));
@@ -126,7 +126,7 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
         };
     }
 
-    
+
 
     SaveDates($event)
     {
@@ -138,7 +138,7 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
         if(form.date_range){
             curr_date.date(curr_date.date() +1);
             while(curr_date <= end_date){
-                
+
                 arr.push(this.CalendarFormToVenueDate(curr_date.toDate(),form));
                 curr_date.date(curr_date.date() +1);
             }
@@ -164,7 +164,7 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
             if(data.price_for_nighttime !== null)
                 model.price_for_nighttime = parseFloat(data.price_for_nighttime);
 
-            
+
             if(Number.isNaN(model.price_for_daytime) || Number.isNaN(model.price_for_nighttime))
             {
                 const index = this.changedPrice.findIndex((val)=> date.toDateString() == val.mDate.toDate().toDateString());
@@ -177,7 +177,7 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
                         model.price_for_nighttime = this.changedPrice[index].nightPrice;
                 }
             }
-            
+
             model.currency = this.MyCurrency;
         }
         return model;
@@ -202,11 +202,10 @@ export class VenueDatesComponent extends BaseComponent implements OnInit,OnChang
             while(date_iter.toDate().getTime() <= date.toDate().getTime())
             {
                 params.current_date = date_iter.toISOString();
-
                 this.main.accService.GetVenueDates(this.VenueId, params)
                     .subscribe(
                         (res) => {
-                            
+
                             this.SetChangedPrice(res.dates);
                             this.SetEventsDates(res.event_dates);
                         }

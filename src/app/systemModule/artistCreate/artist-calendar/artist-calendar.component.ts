@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Input, SimpleChanges, Output, EventEmitter, NgZone, ChangeDetectorRef } from '@angular/core';
-import { TinyCalendarComponent, CalendarDate } from '../tiny-calendar/tiny-calendar.component';
+import { TinyCalendarComponent, CalendarDate } from './../../../shared/calendar/tiny-calendar/tiny-calendar.component';
 import * as moment from 'moment';
 import { AccountCreateModel } from '../../../core/models/accountCreate.model';
 import { BaseComponent } from '../../../core/base/base.component';

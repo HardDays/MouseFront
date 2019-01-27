@@ -11,7 +11,7 @@
 
   <div class="calendar-add-artist">
       <div class="one-calendar-block">
-        <app-tiny-calendar-preview #calendar [selectedDates]='DisabledDates' [eventDates]="EventDates" (onSelectDate)="DisableDateArtist($event)" ></app-tiny-calendar-preview>
+        <app-tiny-calendar #calendar [selectedDates]='DisabledDates' [eventDates]="EventDates" (onSelectDate)="DisableDateArtist($event)" ></app-tiny-calendar>
       </div>
       <div class="bg-doted-cal"></div>
 
@@ -40,7 +40,7 @@
                                 <span class="head-type-inp" translate translate>Venue.Dates-folder.Advance Notice</span>
                                 <span class="head-type-inp grey" translate>Venue.Dates-folder.Minimum advance notice you prefer before booking an event date?</span>
                                 <!-- <div class="flex-day-weeks-month"> -->
-                                    <notice-input-preview *ngIf="Venue.minimum_notice" [Days]="Venue.minimum_notice" (OnDaysChange)="Venue.minimum_notice = $event"></notice-input-preview>
+                                    <notice-input *ngIf="Venue.minimum_notice" [Days]="Venue.minimum_notice" (OnDaysChange)="Venue.minimum_notice = $event"></notice-input>
                                     <!-- <input id="venue-dateform-1" [textMask]="GetMinimumNoticeMask()" [(ngModel)]="Venue.minimum_notice" formControlName="minimum_notice" name="" type="text"> -->
                                     <!-- <span class="days-span-label">Days</span> -->
                                     <!-- <div class="mat-w">
@@ -114,15 +114,15 @@
                         </div>
                     </div>
                    <div class="side width-66">
-                        <app-big-calendar-preview #calendar [allDaysPriceDay]="Venue.price_for_daytime"
+                        <app-big-calendar #calendar [allDaysPriceDay]="Venue.price_for_daytime"
                             [allDaysPriceNight]="Venue.price_for_nighttime"
                             [selectedDates]="disabledDays"
                             [eventDates]="eventsDates"
                             [changedPrice]="changedPrice"
                             [CurrencyIcon]="CurIcons[MyCurrency]"
                             (onSelectDate)="SaveDates($event)"
-                            (ChangeMonth)="ChangeDates($event)"
-                        ></app-big-calendar-preview>
+                            (ChangeMonth)="ChangeDates(Venue.id, $event)"
+                        ></app-big-calendar>
                     </div>
                 </div>
             </div>

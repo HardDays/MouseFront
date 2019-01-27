@@ -8,7 +8,7 @@ import { MapsAPILoader } from '@agm/core';
 import { BaseImages } from '../../../core/base/base.enum';
 import { VenueDatesModel } from '../../../core/models/venueDatesModel';
 import * as moment from 'moment';
-import { CalendarDate } from '../../venueCreate/big-calendar/big-calendar.component';
+import { CalendarDate } from './../../../shared/calendar/big-calendar/big-calendar.component';
 import { Currency } from '../../../core/models/preferences.model';
 import { TranslateService } from '../../../../../node_modules/@ngx-translate/core';
 import { SettingsService } from '../../../core/services/settings.service';

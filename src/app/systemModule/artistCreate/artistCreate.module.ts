@@ -14,13 +14,15 @@ import { ArtistMediaComponent } from './artist-media/artist-media.component';
 import { ArtistRidersComponent } from './artist-riders/artist-riders.component';
 import { ArtistCreateComponent } from './artistCreate.component';
 import { ProfileModule } from '../profile/profile.module';
-import { TinyCalendarComponent } from './tiny-calendar/tiny-calendar.component';
+// import { TinyCalendarComponent } from './../../shared/calendar/tiny-calendar/tiny-calendar.component';
 import { AudioComponent } from './artist-media/audio/audio.component';
 import { ArtistCalendarComponent } from './artist-calendar/artist-calendar.component';
 import { RiderComponent } from './artist-riders/rider/rider.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material';
 import { TranslateModule } from '../../../../node_modules/@ngx-translate/core';
+
+import {CalendarModule} from './../../shared/calendar/calendar.module';
 
 
 @NgModule({
@@ -40,7 +42,8 @@ import { TranslateModule } from '../../../../node_modules/@ngx-translate/core';
         ErrorModule,
         PreloaderModule,
         ProfileModule,
-        TranslateModule
+        TranslateModule,
+        CalendarModule
     ],
     declarations: [
         ArtistAboutComponent,
@@ -48,7 +51,7 @@ import { TranslateModule } from '../../../../node_modules/@ngx-translate/core';
         ArtistMediaComponent,
         ArtistRidersComponent,
         ArtistCreateComponent,
-        TinyCalendarComponent,
+        // TinyCalendarComponent,
         AudioComponent,
         ArtistCalendarComponent,
         RiderComponent

@@ -1,3 +1,4 @@
+import { CalendarModule } from './../shared/calendar/calendar.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -30,7 +31,6 @@ import { AnalyticsEventComponent } from './events/analytics-event/analytics-even
 import { EventComponent } from './events/event/event.component';
 import { ArtistComponent } from './accounts/account/artist/artist.component';
 import { VenueComponent } from './accounts/account/venue/venue.component';
-import { TinyCalendarComponent } from './accounts/account/artist/tiny-calendar/tiny-calendar.component';
 import { SlideshowModule } from 'ng-simple-slideshow';
 import { FanComponent } from './accounts/account/fan/fan.component';
 import { TicketComponent } from './accounts/account/fan/ticket/ticket.component';
@@ -78,7 +78,8 @@ import { TranslateModule } from '@ngx-translate/core';
         VenueCreateModule,
         InfiniteScrollModule,
         TimePipeModule,
-        TranslateModule
+        TranslateModule,
+        CalendarModule
     ],
     declarations: [
         AdminComponent,
@@ -101,7 +102,7 @@ import { TranslateModule } from '@ngx-translate/core';
         EventComponent,
         ArtistComponent,
         VenueComponent,
-        TinyCalendarComponent,
+        // TinyCalendarComponent,
         FanComponent,
         TicketComponent,
         OneFollowerComponent,

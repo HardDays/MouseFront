@@ -1,6 +1,6 @@
 import { BaseComponent } from './../../core/base/base.component';
 import { Component, OnInit, SimpleChanges } from '@angular/core';
-import { CalendarDate } from './tiny-calendar/tiny-calendar.component';
+import { CalendarDate } from './../../shared/calendar/big-calendar/big-calendar.component';
 import * as moment from 'moment';
 import { AccountGetModel } from '../../core/models/accountGet.model';
 import { Currency, CurrencyIcons } from '../../core/models/preferences.model';
@@ -195,7 +195,7 @@ export class CalendarComponent extends BaseComponent implements OnInit {
         this.main.accService.SaveVenueDatesAsArray(this.Venue.id, {dates: arr})
             .subscribe(
                 (res: any) => {
-                    this.ChangeDates($event.date);
+                    this.ChangeDates(this.Venue.id, $event.date);
                 }
             );
     }
@@ -252,7 +252,6 @@ export class CalendarComponent extends BaseComponent implements OnInit {
             while(date_iter.toDate().getTime() <= date.toDate().getTime())
             {
                 params.current_date = date_iter.toISOString();
-
                 this.main.accService.GetVenueDates(this.Venue.id, params)
                     .subscribe(
                         (res) => {

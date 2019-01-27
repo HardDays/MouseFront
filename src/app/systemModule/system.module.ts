@@ -61,8 +61,8 @@ import { MessageSupportComponent } from './messages/message-support/message-supp
 import { TranslateModule } from '../../../node_modules/@ngx-translate/core';
 import { GlobalSearchModule } from './search/search.module';
 import {SlideshowModule} from 'ng-simple-slideshow';
-import { CalendarComponent } from './calendar/calendar.component';
-import { CalendarModule } from './calendar/calendar.module';
+
+import { CalendarAccountModule } from './calendar/calendar-account.module';
 import { MessageListComponent } from './messages/message-list/message-list.component';
 import { VrComponent } from './vr/vr.component';
 import { QRCodeModule } from 'angular2-qrcode'
@@ -116,7 +116,7 @@ import { QRCodeModule } from 'angular2-qrcode'
       CommonModule,
       FormsModule,
       TranslateModule,
-      CalendarModule,
+      CalendarAccountModule,
       QRCodeModule
   ],
   providers: [ SystemAccessGuard]

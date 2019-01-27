@@ -5,23 +5,23 @@
               <h2 translate>Artist-create.Calendar</h2>
               <p translate>Please fill in all required fields<br translate>to proceed to the Next Step</p>
           </div>
-          
+
       </div>
-  
+
   </div>
-  
+
 
   <div class="calendar-add-artist">
       <div class="one-calendar-block">
-        <app-tiny-calendar #calendar [selectedDates]='DisabledDates' [eventDates]="EventDates" (onSelectDate)="DisableDate($event)" ></app-tiny-calendar> 
+        <app-tiny-calendar #calendar [selectedDates]='DisabledDates' [eventDates]="EventDates" (onSelectDate)="DisableDate($event)" ></app-tiny-calendar>
       </div>
       <div class="bg-doted-cal"></div>
-      
-  
+
+
   </div>
 
 
   <div class="scroll-wrapp">
       <div (click)="OpenNextPage()" class="circle-scroll"></div>
   </div>
-</div> 
+</div>

@@ -20,8 +20,11 @@ export interface CalendarDate {
   today?: boolean;
   event?:boolean;
   eventId?:any;
+  changed?:boolean;
+  dayPrice?:number;
+  nightPrice?:number;
+  currency?: string
 }
-
 @Component({
   selector: 'app-tiny-calendar',
   templateUrl: './tiny-calendar.component.html',
@@ -63,8 +66,8 @@ super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,setti
       this.generateCalendar();
       this.GetEventsInfo();
      },700);
-   
-   
+
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -73,9 +76,9 @@ super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,setti
         changes.selectedDates.currentValue.length  > 1) {
           this.sortedDates = _.sortBy(changes.selectedDates.currentValue, (m: CalendarDate) => m.mDate.valueOf());
           //this.generateCalendar();
-          
+
         }
-    
+
   }
   GetEventsInfo(){
     this.Images = [];
@@ -98,7 +101,7 @@ super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,setti
       return moment(date).isSame(selectedDate.mDate, 'day');
     }) > -1;
   }
-  
+
   isEvent(date: moment.Moment): boolean {
     return _.findIndex(this.eventDates, (eventDate) => {
       return moment(date).isSame(eventDate.mDate, 'day');
@@ -114,7 +117,7 @@ super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,setti
       }
     }
   }
-  
+
 
   isSelectedMonth(date: moment.Moment): boolean {
     return moment(date).isSame(this.currentDate, 'month');
@@ -176,17 +179,17 @@ super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,setti
               .subscribe(
                   (res:Base64ImageModel) => {
                       this.Images.push((res && res.base64) ? res : {base64:BaseImages.Drake,event_id:res.event_id});
-                      
+
                 }
               );
         }
     }
 
- 
+
 
   //генератор сетки
   generateCalendar(): void {
-    
+
     const dates = this.fillDates(this.currentDate);
     const weeks: CalendarDate[][] = [];
     while (dates.length > 0) {
@@ -195,18 +198,18 @@ super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,setti
     this.weeks = weeks;
     this.GetPrevMonth();
     this.GetNextMonth();
-   
+
 
   }
 
-  fillDates(currentMoment: moment.Moment): CalendarDate[] {  
+  fillDates(currentMoment: moment.Moment): CalendarDate[] {
     const firstOfMonth = moment(currentMoment).startOf('month').day();
     const firstDayOfGrid = moment(currentMoment).startOf('month').subtract(firstOfMonth, 'days');
     const start = firstDayOfGrid.date();
     return _.range(start, start + 42)
             .map((date: number): CalendarDate => {
               const d = moment(firstDayOfGrid).date(date);
-             
+
               return {
                 today: this.isToday(d),
                 selected: this.isSelected(d),

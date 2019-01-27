@@ -20,7 +20,6 @@ export interface CalendarDate {
   today?: boolean;
   event?:boolean;
   eventId?:any;
-
   changed?:boolean;
   dayPrice?:number;
   nightPrice?:number;
@@ -28,11 +27,11 @@ export interface CalendarDate {
 }
 
 @Component({
-  selector: 'app-tiny-calendar-preview',
+  selector: 'app-tiny-calendar',
   templateUrl: './tiny-calendar.component.html',
   styleUrls: ['./tiny-calendar.component.css']
 })
-export class TinyCalendarComponentPrewiev extends BaseComponent implements OnInit, OnChanges {
+export class TinyCalendarComponent extends BaseComponent implements OnInit, OnChanges {
 
   currentDate = moment();
 
@@ -72,7 +71,7 @@ super(main,_sanitizer,router,mapsAPILoader,ngZone,activatedRoute,translate,setti
         changes.selectedDates.currentValue &&
         changes.selectedDates.currentValue.length  > 1) {
           this.sortedDates = _.sortBy(changes.selectedDates.currentValue, (m: CalendarDate) => m.mDate.valueOf());
-          this.generateCalendar();
+          //this.generateCalendar();
         }
   }
   GetEventsInfo(){
