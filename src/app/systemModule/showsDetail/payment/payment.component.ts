@@ -18,11 +18,27 @@ import * as moment from 'moment';
 import { PurchaseModel, TicketPurchaseModel } from "../../../core/models/purchase.model";
 import { TransactionModel } from '../../../core/models/transaction.model';
 import { AccountGetModel } from "../../../core/models/accountGet.model";
+import { trigger, style, animate, transition } from '@angular/animations';
+
 declare var $:any;
 @Component({
     selector: 'payment-show-detail',
     templateUrl: './payment.component.html',
-    styleUrls: ['./payment.component.css']
+    styleUrls: ['./payment.component.css'],
+    animations: [
+    trigger(
+      'transitionAnimation', [
+        transition(':enter', [
+          style({opacity: 0}),
+          animate('300ms', style({opacity: 1}))
+        ]),
+        transition(':leave', [
+          style({ opacity: 1}),
+          animate('300ms', style({opacity: 0}))
+        ])
+      ]
+    )
+  ]
 })
 export class PaymentShowDetailComponent extends BaseComponent implements OnInit {
     EventId: number = 0;
@@ -39,7 +55,7 @@ export class PaymentShowDetailComponent extends BaseComponent implements OnInit 
     PaymentSuccess = false;
     PaymentFail = false;
     accountForPrint:AccountGetModel = new AccountGetModel();
-    CurrentPlatform = Platforms.PayPal;
+    CurrentPlatform = null;
     AllPlatforms = Platforms;
     constructor(
         protected main           : MainService,

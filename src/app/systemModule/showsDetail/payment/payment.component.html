@@ -44,9 +44,8 @@
                             </ng-container>
                             <p class="total">{{'TOTAL'|translate}}: <span><span [innerHTML]="Currency"></span>{{Total}}</span></p>
                         </div>
-                        <div class="for-flex-payment-blocks">
+                        <!-- <div class="for-flex-payment-blocks">
                             <div class="one-collapsed-block">
-                                <!-- <p class="head-collapsed-block">APPLE PAY</p> -->
                                 <div class="flex-top-cart" data-toggle="collapse" data-target="#cart-4">
                                     <img src="assets/img/pay-pal.png" (click)="CurrentPlatform=AllPlatforms.PayPal" [ngClass]="{'active':CurrentPlatform==AllPlatforms.PayPal}" class="img-responsive" alt="">
                                     <img src="assets/img/yandex.jpg" (click)="CurrentPlatform=AllPlatforms.Yandex" [ngClass]="{'active':CurrentPlatform==AllPlatforms.Yandex}" class="img-responsive" alt="">
@@ -61,6 +60,22 @@
                                         </button>
                                     </div>
                                 </form>
+                            </div>
+                        </div> -->
+
+                        <div class="for-flex-payment-blocks">
+                            <div class="one-collapsed-block">
+                                <!-- <p class="head-collapsed-block">APPLE PAY</p> -->
+                                <div class="flex-top-cart">
+                                    <img src="assets/img/pay-pal.png" (click)="CurrentPlatform=AllPlatforms.PayPal" [ngClass]="{'active':CurrentPlatform==AllPlatforms.PayPal}" class="img-responsive" alt="">
+                                    <img src="assets/img/yandex.jpg" (click)="CurrentPlatform=AllPlatforms.Yandex" [ngClass]="{'active':CurrentPlatform==AllPlatforms.Yandex}" class="img-responsive" alt="">
+                                    <div (click)="!CurrentPlatform?CurrentPlatform=AllPlatforms.PayPal:null" class="triangle"></div>
+                                </div>
+                                <div *ngIf="CurrentPlatform" [@transitionAnimation] class="flexed-buy">
+                                    <button class="butt-style-1" (click)="BuyTicket()">
+                                        <span translate>Buy</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
