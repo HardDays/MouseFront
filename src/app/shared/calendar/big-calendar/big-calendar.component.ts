@@ -19,7 +19,7 @@ import { EventGetModel } from '../../../core/models/eventGet.model';
 interface EventMouseInfo {
   event?: any;
   CalendarDate?: CalendarDate;
-  
+
 }
 export interface CalendarDate {
   mDate: moment.Moment;
@@ -133,7 +133,7 @@ export class BigCalendarComponent implements OnInit, OnChanges {
     if(this.FlagForRangePick){
       this.ToElement.event = event;
       this.ToElement.CalendarDate = day;
-      let fromDate = this.FromElement.CalendarDate.mDate; 
+      let fromDate = this.FromElement.CalendarDate.mDate;
       let toDate = this.ToElement.CalendarDate.mDate;
       let indexStartElement = [].indexOf.call(
         this.FromElement.event.target.offsetParent.children,(this.FromElement.event ? this.FromElement.event.target : this.FromElement.event.srcElement)
@@ -143,13 +143,13 @@ export class BigCalendarComponent implements OnInit, OnChanges {
 
 
       for(var i = 0; i < event.target.offsetParent.children.length; i++){
-        
+
         if(event.target.offsetParent.children[i].classList.contains(selectDayClass)){
           event.target.offsetParent.children[i].classList.remove(selectDayClass);
         }
       }
       this.FromElement.event.target.classList.add(selectDayClass);
-    
+
       if(parseInt(fromDate.format("YYYYMMDD")) < parseInt(toDate.format("YYYYMMDD"))){
         for(var i = 0; i <= event.target.offsetParent.children.length; i++){
           if( indexStartElement < indexHoverElement && (i - 1) < indexHoverElement && (i + 1) > indexStartElement){
@@ -165,7 +165,7 @@ export class BigCalendarComponent implements OnInit, OnChanges {
         }
       }
     }
-    
+
   }
 
 
@@ -191,7 +191,7 @@ export class BigCalendarComponent implements OnInit, OnChanges {
       if(parseInt(this.FromElement.CalendarDate.mDate.format("YYYYMMDD")) <= parseInt(this.ToElement.CalendarDate.mDate.format("YYYYMMDD"))){
         for(let week of this.weeks){
           for(let day of week){
-            if(parseInt(day.mDate.format("YYYYMMDD")) >= parseInt(this.FromElement.CalendarDate.mDate.format("YYYYMMDD")) 
+            if(parseInt(day.mDate.format("YYYYMMDD")) >= parseInt(this.FromElement.CalendarDate.mDate.format("YYYYMMDD"))
             && parseInt(day.mDate.format("YYYYMMDD")) <= parseInt(this.ToElement.CalendarDate.mDate.format("YYYYMMDD"))){
               this.newChangedDays.push(day);
             }
@@ -201,8 +201,8 @@ export class BigCalendarComponent implements OnInit, OnChanges {
       else{
         for(let week of this.weeks){
           for(let day of week){
-           
-            if(parseInt(day.mDate.format("YYYYMMDD")) <= parseInt(this.FromElement.CalendarDate.mDate.format("YYYYMMDD")) 
+
+            if(parseInt(day.mDate.format("YYYYMMDD")) <= parseInt(this.FromElement.CalendarDate.mDate.format("YYYYMMDD"))
             && parseInt(day.mDate.format("YYYYMMDD")) >= parseInt(this.ToElement.CalendarDate.mDate.format("YYYYMMDD"))){
               this.newChangedDays.push(day);
             }
@@ -221,7 +221,7 @@ export class BigCalendarComponent implements OnInit, OnChanges {
       }
 
       this.SetDefaultFormVals();
-      
+
       event.target.offsetParent.classList.add("set-date-popup");
     }
   }
@@ -231,12 +231,17 @@ export class BigCalendarComponent implements OnInit, OnChanges {
     if(!this.FormVals.date_range)
     {
       const disabled = this.selectedDates.find(obj => this.main.typeService.GetDateStringFormat(obj.mDate.toDate()) == this.main.typeService.GetDateStringFormat(this.FormVals.from));
-      
+
       this.FormVals.is_available = !(Boolean(disabled));
-      
+
       if(this.FormVals.is_available)
       {
-        const changed = this.changedPrice.find(obj => obj.mDate.toDate().toISOString() == this.FormVals.from.toISOString());
+
+
+// <<<<<<<<<<<<<<<<<<< -------------------------- FIX HERE obj.mDate.toDate() == this.FormVals.from.toISOString()  ------------------------------ >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+        const changed = this.changedPrice.find(obj => obj.mDate.format().split('T')[0] == this.FormVals.from.toISOString().split('T')[0]);
         this.FormVals.price_for_daytime = (changed && changed.dayPrice)? changed.dayPrice : (this.allDaysPriceDay ? this.allDaysPriceDay : 0);
         this.FormVals.price_for_nighttime = (changed && changed.nightPrice)? changed.nightPrice : (this.allDaysPriceNight ? this.allDaysPriceNight : 0);
       }
@@ -258,7 +263,7 @@ export class BigCalendarComponent implements OnInit, OnChanges {
     if(document.querySelector(".jsDays-wrapp").classList.contains("set-date-popup")){
       document.querySelector(".jsDays-wrapp").classList.remove("set-date-popup");
     }
-  
+
     for(var i = 0; i < document.querySelector(".jsDays-wrapp").children.length; i++){
       if(document.querySelector(".jsDays-wrapp").children[i].classList.contains("mouseSelectDay")){
         document.querySelector(".jsDays-wrapp").children[i].classList.remove("mouseSelectDay");
@@ -269,7 +274,7 @@ export class BigCalendarComponent implements OnInit, OnChanges {
 
   isSelected(date: moment.Moment): boolean {
     return _.findIndex(this.selectedDates, (selectedDate) => {
-      return moment(date).isSame(selectedDate.mDate, 'day');
+      return moment.utc(date).isSame(selectedDate.mDate, 'day');
     }) > -1;
   }
 
@@ -298,6 +303,7 @@ export class BigCalendarComponent implements OnInit, OnChanges {
     // const index = this.changedPrice.findIndex(changed => date.toDate().toDateString() == changed.mDate.toDate().toDateString());
     for(let changed of this.changedPrice)
     {
+      // if(moment(date).isSame(changed.mDate, 'day'))console.log(`+++++ `,date, moment(date), changed.mDate,  );
       if(moment(date).isSame(changed.mDate, 'day') && (changed.nightPrice || changed.dayPrice))
       {
         return true;
@@ -316,7 +322,7 @@ export class BigCalendarComponent implements OnInit, OnChanges {
     return (index < 0)? this.CurrencyIcon : CurrencyIcons[this.changedPrice[index].currency];
   }
 
-  
+
   isEvent(date: moment.Moment): boolean {
     return _.findIndex(this.eventDates, (eventDate) => {
       return moment(date).isSame(eventDate.mDate, 'day');
@@ -332,7 +338,7 @@ export class BigCalendarComponent implements OnInit, OnChanges {
       }
     }
   }
-  
+
 
   isSelectedMonth(date: moment.Moment): boolean {
     return moment(date).isSame(this.currentDate, 'month');
@@ -387,7 +393,7 @@ export class BigCalendarComponent implements OnInit, OnChanges {
               this.eventsThisMonth.push(res);
               this.GetImage(res.image_id);
             }
-            
+
           },
           (err)=>{
           }
@@ -415,31 +421,31 @@ export class BigCalendarComponent implements OnInit, OnChanges {
         }
     }
 
- 
+
 
   //генератор сетки
   generateCalendar(): void {
-    
+
     const dates = this.fillDates(this.currentDate);
     const weeks: CalendarDate[][] = [];
     while (dates.length > 0) {
       weeks.push(dates.splice(0, 7));
     }
     this.weeks = weeks;
+    console.log(weeks);
     this.GetPrevMonth();
     this.GetNextMonth();
-   
+
 
   }
 
-  fillDates(currentMoment: moment.Moment): CalendarDate[] {  
+  fillDates(currentMoment: moment.Moment): CalendarDate[] {
     const firstOfMonth = moment(currentMoment).startOf('month').day();
     const firstDayOfGrid = moment(currentMoment).startOf('month').subtract(firstOfMonth, 'days');
     const start = firstDayOfGrid.date();
     return _.range(start, start + 42)
             .map((date: number): CalendarDate => {
               const d = moment(firstDayOfGrid).date(date);
-             
               return {
                 today: this.isToday(d),
                 selected: this.isSelected(d),

@@ -37,12 +37,12 @@
                                 'changed-wr-night' : day.nightPrice
                             }
                         "
-                        
+
                         (mousedown)="!isPreview? StartRangeEvent($event,day):0"
                         (mouseup)="!isPreview? EndRangeEvent($event,day):0"
                         (mouseenter)="!isPreview? MoveForRange($event,day):0"
                     >
-                        <!--(click)="selectDate(day)"-->    
+                        <!--(click)="selectDate(day)"-->
                         <!--дата-->
                         <div class="one-day">
                             <p>{{ day.mDate.date() }}</p>
@@ -67,7 +67,7 @@
                             <!--/event pupup-->
                         </div>
                         <!--/дата-->
-                        
+
                         <ng-container *ngIf="!day.selected">
                             <div class="prices">
                                 <!--"changed-price-morning" добавляем класс блоку "morning" если была изменина цена утра-->
@@ -79,7 +79,7 @@
                                     "
                                 >
                                     <span innerHTML="{{day.currency}}{{ day.dayPrice != null? day.dayPrice : (allDaysPriceDay?allDaysPriceDay:0)}} "></span>
-                                
+
                                 </p>
                                 <!--"changed-price-night" добавляем класс блоку "night" если была изменина цена ночи-->
                                 <p class="night"
@@ -99,11 +99,11 @@
 
                 </ng-container>
             </ng-container>
-            
-            
+
+
 
             <!--попап с ценой на определенные даты-->
-            
+
             <div class="black-bg-dates" (click)="CloseModalPrice($event)"></div>
 
             <div class="popup-set-price-wr">
@@ -131,7 +131,7 @@
                         </div>
                     </div>
                     <date-input [Label]="FormVals.date_range?'From':'Date'" [DateInput]="FormVals.from" (OnDateChange)="FormVals.from = $event"></date-input>
-                    
+
                     <date-input *ngIf="FormVals.date_range" [Label]="'To'" [DateInput]="FormVals.to" (OnDateChange)="FormVals.to = $event"></date-input>
                     <div class="flex-price-inp" *ngIf="FormVals.is_available">
                         <p class="d-inp inp-desc" translate>Day</p>
@@ -153,9 +153,9 @@
                         </div>
                     </div>
                 </form>
-            </div> 
+            </div>
              <!--/попап с ценой на определенные даты-->
-            
+
         </div>
     </div>
 </div>
