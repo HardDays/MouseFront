@@ -45,8 +45,7 @@
         "assets/js/inputmask.js",
         "assets/js/photoswipe.min.js",
         "assets/js/photoswipe-ui-default.min.js",
-        "assets/js/audiojs/audio.min.js",
-        "./../node_modules/chart.js/dist/chart.js"
+        "assets/js/audiojs/audio.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
